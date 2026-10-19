@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block title %}{{ f.name }}, tug'ilgan kuning muborak! 🎂{% endblock %}
+{% block og_desc %}{{ f.sender }} sizga maxsus tabrik tayyorladi 🎁{% endblock %}
+{% block intro_eyebrow %}{{ t.get('intro_eyebrow', 'Sizga tabrik bor') }}{% endblock %}
+{% block intro_name %}{{ f.name }}{% endblock %}
+{% block intro_paper %}🎂{% endblock %}
+{% block seal %}🎁{% endblock %}
+
+{% block content %}
+<section class="hero">
+  <div>
+    <div class="eyebrow">{{ t.get('hero_eyebrow', 'Tug\'ilgan kuning muborak') }}</div>
+    <h1 class="script name">{{ f.name }}</h1>
+    {% if f.age %}
+      <div class="age-badge">{{ f.age }}<small>yosh</small></div>
+    {% endif %}
+    <p class="sub serif">{{ t.get('hero_sub', date_human) }}</p>
+  </div>
+  <div class="scroll-hint">pastga suring ↓</div>
+</section>
+
+{% if message_paragraphs %}
+<section>
+  <div class="wrap">
+    <div class="card letter reveal">
+      <div class="eyebrow" style="text-align:center">{{ t.get('message_eyebrow', 'Senga tilaklarim') }}</div>
+      <div class="divider">✦</div>
+      {% for p in message_paragraphs %}<p>{{ p }}</p>{% endfor %}
+      <div class="signature script">{{ f.sender }}</div>
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% if feat.cake %}
+<section style="text-align:center">
+  <div class="wrap reveal">
+    <div class="eyebrow">{{ t.get('cake_eyebrow', 'Orzu qil') }}</div>
+    <h2 class="serif" style="font-size:38px;margin-top:8px">{{ t.get('cake_title', 'Ko\'zingni yum, tilak tila va shamlarni o\'chir') }}</h2>
+    <div class="cake">
+      <div class="candles">{% for _ in range(3) %}<div class="candle" title="Puflash"></div>{% endfor %}</div>
+      <div class="layer"></div><div class="layer"></div><div class="layer"></div>
+    </div>
+    <p style="opacity:.7;font-size:14px">👆 shamlarga bosing</p>
+    <p id="wishDone" hidden class="script" style="font-size:40px;color:var(--primary)">{{ t.get('cake_done', 'Tilaging albatta ijobat bo\'lsin! ✨') }}</p>
+  </div>
+</section>
+{% endif %}
+
+{% if feat.countdown and target_iso %}
+<section style="text-align:center">
+  <div class="wrap reveal">
+    <div class="eyebrow">{{ t.get('countdown_eyebrow', 'Bayramgacha qoldi') }}</div>
+    <div class="countdown" data-countdown="{{ target_iso }}">
+      <div><b>0</b><span>kun</span></div><div><b>00</b><span>soat</span></div><div><b>00</b><span>daqiqa</span></div><div><b>00</b><span>soniya</span></div>
+    </div>
+  </div>
+</section>
+{% endif %}
+{% endblock %}

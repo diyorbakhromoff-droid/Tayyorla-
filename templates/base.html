@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>{% block title %}{% endblock %}</title>
+  <meta property="og:title" content="{{ self.title() }}">
+  <meta property="og:description" content="{% block og_desc %}Siz uchun maxsus tayyorlangan sahifa 💌{% endblock %}">
+  {% if cfg.photos %}<meta property="og:image" content="{{ base_url }}{{ cfg.photos[0] }}">{% endif %}
+  {% if preview %}<meta name="robots" content="noindex">{% endif %}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Great+Vibes&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/site.css">
+  <style>
+    :root {
+      --bg: {{ c.bg }}; --surface: {{ c.surface }}; --primary: {{ c.primary }};
+      --accent: {{ c.accent }}; --text: {{ c.text }}; --on-primary: {{ on_primary }};
+    }
+    {{ custom_css | safe }}
+  </style>
+</head>
+<body class="cat-{{ cfg.category }}">
+{% if preview %}
+  <div class="wm-bar">👀 Bu NAMUNA. To'liq versiya to'lovdan so'ng ochiladi — @TayyorlaBot</div>
+  <div class="wm">{% for _ in range(40) %}<span>NAMUNA • TAYYORLA</span>{% endfor %}</div>
+{% endif %}
+
+{% if feat.envelope %}
+<div id="intro">
+  <div>
+    <div class="eyebrow">{% block intro_eyebrow %}Sizga maktub bor{% endblock %}</div>
+    <div class="script" style="font-size:48px;color:var(--primary);margin-top:8px">{% block intro_name %}{% endblock %}</div>
+    <div class="envelope"><div class="back"></div><div class="paper"><span class="script">{% block intro_paper %}♥{% endblock %}</span></div><div class="pocket"></div><div class="flap"></div><div class="seal">{% block seal %}♥{% endblock %}</div></div>
+    <div class="tap">{{ t.get('tap', 'Ochish uchun bosing') }}</div>
+  </div>
+</div>
+{% endif %}
+
+<main>
+{% block content %}{% endblock %}
+
+{% if feat.gallery and cfg.photos %}
+<section>
+  <div class="wrap reveal">
+    <div style="text-align:center;margin-bottom:28px">
+      <div class="eyebrow">{{ t.get('gallery_eyebrow', 'Xotiralar') }}</div>
+      <h2 class="serif" style="font-size:40px;margin-top:8px">{{ t.get('gallery_title', 'Eng yorqin lahzalar') }}</h2>
+    </div>
+    <div class="gallery">{% for p in cfg.photos %}<img src="{{ p }}" alt="" loading="lazy">{% endfor %}</div>
+  </div>
+</section>
+<div class="lightbox"><img alt=""></div>
+{% endif %}
+</main>
+
+<footer>{% if not cfg.get('hide_brand') %}<a href="https://t.me/TayyorlaBot">Tayyorla</a> bilan mehr bilan yaratildi 🤍{% endif %}</footer>
+
+{% if cfg.music %}
+<audio id="bgMusic" src="{{ cfg.music }}" loop preload="auto"></audio>
+<button id="musicBtn" aria-label="Musiqa">♫</button>
+{% endif %}
+<canvas id="fx"></canvas>
+<script>window.SITE = {{ {"slug": slug, "f": feat} | tojson }};</script>
+<script src="/static/site.js"></script>
+</body>
+</html>

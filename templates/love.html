@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block title %}{{ f.name }}, senga maktub 💌{% endblock %}
+{% block og_desc %}Bu sahifa faqat sen uchun ❤️{% endblock %}
+{% block intro_eyebrow %}{{ t.get('intro_eyebrow', 'Faqat sen uchun') }}{% endblock %}
+{% block intro_name %}{{ f.name }}{% endblock %}
+{% block intro_paper %}♥{% endblock %}
+{% block seal %}♥{% endblock %}
+
+{% block content %}
+<section class="hero">
+  <div>
+    <div class="eyebrow">{{ t.get('hero_eyebrow', 'Mening sevgilim') }}</div>
+    <h1 class="script name">{{ f.name }}</h1>
+    <p class="sub serif" style="font-style:italic">{{ t.get('hero_sub', 'Bu sahifadagi har bir so\'z — senga') }}</p>
+  </div>
+  <div class="scroll-hint">pastga suring ↓</div>
+</section>
+
+{% if message_paragraphs %}
+<section>
+  <div class="wrap">
+    <div class="card letter reveal">
+      <div class="eyebrow" style="text-align:center">{{ t.get('message_eyebrow', 'Qalbimdan') }}</div>
+      <div class="divider">♥</div>
+      {% for p in message_paragraphs %}<p>{{ p }}</p>{% endfor %}
+      <div class="signature script">{{ f.sender }}</div>
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% if feat.together and target_iso %}
+<section style="text-align:center">
+  <div class="wrap reveal">
+    <div class="eyebrow">{{ t.get('together_eyebrow', 'Biz birgamiz') }}</div>
+    <h2 class="serif" style="font-size:34px;margin-top:8px">{{ date_human }} {{ t.get('together_title', 'dan beri') }}</h2>
+    <div class="countdown" data-since="{{ target_iso }}">
+      <div><b>0</b><span>kun</span></div><div><b>00</b><span>soat</span></div><div><b>00</b><span>daqiqa</span></div><div><b>00</b><span>soniya</span></div>
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% if feat.question %}
+<section style="text-align:center">
+  <div class="wrap reveal">
+    <h2 class="script" style="font-size:56px;color:var(--primary)">{{ t.get('question', 'Meni sevasanmi?') }}</h2>
+    <div class="question-buttons">
+      <button class="btn" id="yesBtn">{{ t.get('yes', 'Ha, albatta! 💖') }}</button>
+      <button class="btn ghost" id="noBtn">{{ t.get('no', 'Yo\'q') }}</button>
+    </div>
+    <p id="yesAnswer" hidden class="script" style="font-size:42px;color:var(--primary);margin-top:30px">{{ t.get('yes_answer', 'Bilardim! Men ham seni cheksiz sevaman ❤️') }}</p>
+  </div>
+</section>
+{% endif %}
+{% endblock %}

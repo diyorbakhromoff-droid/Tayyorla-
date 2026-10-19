@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>🔐 Maxfiy sahifa</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/site.css">
+  <style>:root { --bg: {{ c.bg }}; --surface: {{ c.surface }}; --primary: {{ c.primary }}; --accent: {{ c.accent }}; --text: {{ c.text }}; --on-primary: {{ on_primary }}; }</style>
+</head>
+<body>
+  <section class="hero">
+    <form method="post" action="/s/{{ slug }}/unlock" class="card" style="max-width:380px;width:100%">
+      <div style="font-size:48px">🔐</div>
+      <h1 class="script" style="font-size:44px;color:var(--primary)">{{ name }}, bu sen uchun</h1>
+      <p style="opacity:.8">{{ hint or "Sahifani ochish uchun faqat ikkimiz biladigan so'zni yoz" }}</p>
+      <input name="password" required autofocus placeholder="Maxfiy so'z"
+             style="width:100%;padding:14px 16px;border-radius:14px;border:1.5px solid var(--accent);font:16px Montserrat;margin:8px 0 14px;background:var(--bg);color:var(--text)">
+      {% if error %}<p style="color:#d33;margin:0 0 12px">Noto'g'ri 🙈 Yana o'ylab ko'r</p>{% endif %}
+      <button class="btn" style="width:100%">Ochish ♥</button>
+    </form>
+  </section>
+</body>
+</html>

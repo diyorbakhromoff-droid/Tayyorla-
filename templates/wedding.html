@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% block title %}{{ f.groom }} & {{ f.bride }} — to'y taklifnomasi{% endblock %}
+{% block og_desc %}Sizni to'yimizga taklif qilamiz • {{ date_human }}{% endblock %}
+{% block intro_eyebrow %}{{ t.get('intro_eyebrow', 'Taklifnoma') }}{% endblock %}
+{% block intro_name %}{{ f.groom }} & {{ f.bride }}{% endblock %}
+{% block intro_paper %}{{ f.groom[:1] }}&{{ f.bride[:1] }}{% endblock %}
+{% block seal %}❦{% endblock %}
+
+{% block content %}
+<section class="hero">
+  <div>
+    <div class="eyebrow">{{ t.get('hero_eyebrow', 'Nikoh to\'yi') }}</div>
+    <h1 class="script name" style="font-size:clamp(56px,14vw,110px)">{{ f.groom }}<br><span style="font-size:.5em">&</span><br>{{ f.bride }}</h1>
+    <div class="divider">❦</div>
+    <p class="sub serif" style="font-size:26px">{{ date_human }}{% if f.time %} • {{ f.time }}{% endif %}</p>
+  </div>
+  <div class="scroll-hint">pastga suring ↓</div>
+</section>
+
+{% if message_paragraphs %}
+<section>
+  <div class="wrap">
+    <div class="card letter reveal" style="text-align:center">
+      <div class="eyebrow">{{ t.get('message_eyebrow', 'Aziz mehmonlar') }}</div>
+      <div class="divider">❦</div>
+      {% for p in message_paragraphs %}<p>{{ p }}</p>{% endfor %}
+      {% if f.hosts %}<div class="signature script" style="text-align:center">{{ f.hosts }}</div>{% endif %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<section style="text-align:center">
+  <div class="wrap reveal">
+    <div class="eyebrow">{{ t.get('when_eyebrow', 'Qachon va qayerda') }}</div>
+    <div class="card" style="margin-top:22px">
+      <div class="serif" style="font-size:20px;opacity:.75">{{ weekday }}</div>
+      <div class="serif" style="font-size:44px;color:var(--primary);font-weight:700">{{ date_human }}</div>
+      {% if f.time %}<div style="font-size:20px;margin-top:4px">soat {{ f.time }}</div>{% endif %}
+      <div class="divider">❦</div>
+      <div class="serif" style="font-size:30px;font-weight:600">{{ f.venue }}</div>
+      {% if f.address %}<p style="margin:6px 0 0;opacity:.8">{{ f.address }}</p>{% endif %}
+      {% if feat.map %}<a class="btn" style="margin-top:22px" href="{{ map_url }}" target="_blank" rel="noopener">📍 Xaritada ko'rish</a>{% endif %}
+    </div>
+  </div>
+</section>
+
+{% if feat.countdown and target_iso %}
+<section style="text-align:center;padding-top:0">
+  <div class="wrap reveal">
+    <div class="eyebrow">{{ t.get('countdown_eyebrow', 'To\'ygacha qoldi') }}</div>
+    <div class="countdown" data-countdown="{{ target_iso }}">
+      <div><b>0</b><span>kun</span></div><div><b>00</b><span>soat</span></div><div><b>00</b><span>daqiqa</span></div><div><b>00</b><span>soniya</span></div>
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% if feat.rsvp %}
+<section class="rsvp">
+  <div class="wrap reveal">
+    <div class="card">
+      <div style="text-align:center">
+        <div class="eyebrow">{{ t.get('rsvp_eyebrow', 'Javobingizni kutamiz') }}</div>
+        <h2 class="serif" style="font-size:36px;margin:8px 0 22px">{{ t.get('rsvp_title', 'Tashrif buyura olasizmi?') }}</h2>
+      </div>
+      <form id="rsvpForm">
+        <input name="name" required maxlength="100" placeholder="Ismingiz">
+        <div class="choice">
+          <label><input type="radio" name="attending" value="yes" checked><span>✅ Albatta boraman</span></label>
+          <label><input type="radio" name="attending" value="no"><span>😔 Afsuski, yo'q</span></label>
+        </div>
+        <select name="guests">{% for n in range(1, 7) %}<option value="{{ n }}">{{ n }} kishi</option>{% endfor %}</select>
+        <textarea name="note" rows="2" maxlength="300" placeholder="Tilagingiz (ixtiyoriy)"></textarea>
+        <button class="btn" type="submit">Javob yuborish</button>
+      </form>
+    </div>
+  </div>
+</section>
+{% endif %}
+{% endblock %}
