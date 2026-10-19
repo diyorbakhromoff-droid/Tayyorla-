@@ -23,6 +23,7 @@ class Step:
     kind: str = "text"  # text | number | date | time | location | choice | message | photos | music | palette | features
     optional: bool = False
     options: dict[str, str] | None = None  # choice uchun: qiymat -> tugma nomi
+    label: str | None = None  # Mini App formasidagi qisqa nom (bo'lmasa prompt ishlatiladi)
 
 
 @dataclass
@@ -35,6 +36,7 @@ class Category:
     default_features: list[str]
     default_palette: str
     ai_brief: str  # AI ga matn turi haqida ko'rsatma
+    subtitle: str = ""  # Mini App dagi qisqa tavsif
     extra: dict = field(default_factory=dict)
 
 
@@ -56,7 +58,7 @@ CATEGORIES: dict[str, Category] = {
         intro="Ajoyib! Tug'ilgan kun tabrigini birga tayyorlaymiz 🎉",
         steps=[
             Step("name", "👤 Kimning tug'ilgan kuni? Ismini yozing:"),
-            Step("age", "🔢 Necha yoshga to'lyapti? (raqam yozing yoki o'tkazib yuboring)", "number", optional=True),
+            Step("age", "🔢 Necha yoshga to'lyapti? (raqam yozing yoki o'tkazib yuboring)", "number", optional=True, label="🔢 Necha yoshga to'lyapti?"),
             Step("date", "📅 Tug'ilgan kun sanasi (masalan: 25.12.2026):", "date"),
             Step("sender", "✍️ Tabrik kimdan? (masalan: «Sevimli o'g'ling Sardor» yoki «Do'stlaring»)"),
             Step("message", "💬 Tabrik matni:", "message"),
@@ -73,6 +75,7 @@ CATEGORIES: dict[str, Category] = {
         default_features=["envelope", "confetti", "balloons", "cake", "gallery"],
         default_palette="atirgul",
         ai_brief="tug'ilgan kun tabrigi",
+        subtitle="Konfetti, sharlar va shamli tort bilan",
     ),
     "wedding": Category(
         key="wedding",
@@ -84,7 +87,7 @@ CATEGORIES: dict[str, Category] = {
             Step("date", "📅 To'y sanasi (masalan: 12.06.2027):", "date"),
             Step("time", "🕖 To'y vaqti (masalan: 18:00):", "time"),
             Step("venue", "🏛 To'yxona nomi:"),
-            Step("address", "📍 Manzilni yozing yoki Telegram orqali 📎 → Joylashuv yuboring:", "location"),
+            Step("address", "📍 Manzilni yozing yoki Telegram orqali 📎 → Joylashuv yuboring:", "location", label="📍 Manzil (shahar, ko'cha, uy)"),
             Step("hosts", "👨‍👩‍👧 Taklif qiluvchilar (masalan: «Karimovlar oilasi»):", optional=True),
             Step("message", "💬 Taklif matni:", "message"),
             *COMMON_TAIL,
@@ -100,6 +103,7 @@ CATEGORIES: dict[str, Category] = {
         default_features=["envelope", "petals", "countdown", "map", "rsvp", "gallery"],
         default_palette="oltin",
         ai_brief="to'yga taklifnoma matni (rasmiy, samimiy, o'zbek an'analariga mos)",
+        subtitle="Mehmonlar javobi, xarita va taymer bilan",
     ),
     "love": Category(
         key="love",
@@ -108,9 +112,9 @@ CATEGORIES: dict[str, Category] = {
         steps=[
             Step("name", "💖 Xat kimga? Uning ismini (yoki erkalab chaqiradigan ismini) yozing:"),
             Step("sender", "✍️ Xat kimdan? Ismingiz:"),
-            Step("date", "📅 Birinchi tanishgan kuningiz (masalan: 14.02.2024) — «birga o'tgan kunlar» hisoblanadi:", "date", optional=True),
+            Step("date", "📅 Birinchi tanishgan kuningiz (masalan: 14.02.2024) — «birga o'tgan kunlar» hisoblanadi:", "date", optional=True, label="📅 Tanishgan kuningiz («birga o'tgan vaqt» uchun)"),
             Step("message", "💬 Sevgi maktubi:", "message"),
-            Step("password", "🔐 Saytni maxfiy parol bilan yopaylikmi? Parolni yozing (masalan, birinchi uchrashgan joyingiz) yoki o'tkazib yuboring.", optional=True),
+            Step("password", "🔐 Saytni maxfiy parol bilan yopaylikmi? Parolni yozing (masalan, birinchi uchrashgan joyingiz) yoki o'tkazib yuboring.", optional=True, label="🔐 Maxfiy parol (faqat ikkingiz biladigan so'z)"),
             *COMMON_TAIL,
         ],
         features={
@@ -123,6 +127,7 @@ CATEGORIES: dict[str, Category] = {
         default_features=["envelope", "hearts", "together", "question", "gallery"],
         default_palette="atirgul",
         ai_brief="sevgilisiga romantik maktub",
+        subtitle="Maxfiy parol va «Meni sevasanmi?» o'yini",
     ),
     "baby": Category(
         key="baby",
@@ -130,10 +135,10 @@ CATEGORIES: dict[str, Category] = {
         intro="Qanday quvonchli xabar! Chaqaloq tug'ilgani munosabati bilan tabrik tayyorlaymiz 👶",
         steps=[
             Step("gender", "👶 O'g'il yoki qiz?", "choice", options={"boy": "👦 O'g'il", "girl": "👧 Qiz"}),
-            Step("baby_name", "🍼 Chaqaloqning ismi (hali qo'yilmagan bo'lsa, o'tkazib yuboring):", optional=True),
+            Step("baby_name", "🍼 Chaqaloqning ismi (hali qo'yilmagan bo'lsa, o'tkazib yuboring):", optional=True, label="🍼 Chaqaloqning ismi"),
             Step("parents", "👨‍👩‍👧 Ota-onasi kimlar? (masalan: «Jasur va Nilufar» yoki «Karimovlar oilasi»)"),
             Step("date", "📅 Tug'ilgan sanasi (masalan: 19.10.2026):", "date"),
-            Step("stats", "⚖️ Vazni va bo'yi (masalan: «3.4 kg, 52 sm») yoki o'tkazib yuboring:", optional=True),
+            Step("stats", "⚖️ Vazni va bo'yi (masalan: «3.4 kg, 52 sm») yoki o'tkazib yuboring:", optional=True, label="⚖️ Vazni va bo'yi (masalan: 3.4 kg, 52 sm)"),
             Step("sender", "✍️ Tabrik kimdan? (masalan: «Buvi va bobosi», «Do'stlaringiz»)"),
             Step("message", "💬 Tabrik matni:", "message"),
             *COMMON_TAIL,
@@ -149,6 +154,7 @@ CATEGORIES: dict[str, Category] = {
         default_features=["envelope", "stars", "balloons", "since", "gallery"],
         default_palette="osmon",
         ai_brief="farzand (chaqaloq) tug'ilgani munosabati bilan ota-onaga tabrik, chaqaloqqa duo va ezgu tilaklar",
+        subtitle="Chaqaloq tug'ilgani bilan tabrik",
     ),
     "apology": Category(
         key="apology",
@@ -158,7 +164,7 @@ CATEGORIES: dict[str, Category] = {
             Step("name", "💌 Kimdan uzr so'rayapsiz? Uning ismini yozing:"),
             Step("sender", "✍️ Ismingiz:"),
             Step("message", "💬 Uzr matni:", "message"),
-            Step("promises", "🤞 Va'dalaringizni yozing — har birini yangi qatordan (masalan: «Endi kech qolmayman»). Yoki o'tkazib yuboring:", optional=True),
+            Step("promises", "🤞 Va'dalaringizni yozing — har birini yangi qatordan (masalan: «Endi kech qolmayman»). Yoki o'tkazib yuboring:", optional=True, label="🤞 Va'dalaringiz"),
             *COMMON_TAIL,
         ],
         features={
@@ -170,6 +176,7 @@ CATEGORIES: dict[str, Category] = {
         default_features=["envelope", "question", "hearts", "gallery"],
         default_palette="lavanda",
         ai_brief="samimiy uzrnoma (kechirim so'rash xati): aybni tan olish, afsus, qadrlash va yaxshi tomonga o'zgarish istagi, haddan tashqari dramasiz",
+        subtitle="Va'dalar va «Kechirasanmi?» o'yini",
     ),
 }
 

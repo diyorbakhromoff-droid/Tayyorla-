@@ -1,4 +1,4 @@
-from aiogram.types import InlineKeyboardMarkup
+from aiogram.types import InlineKeyboardMarkup, WebAppInfo
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 
 from ..config import settings
@@ -11,6 +11,8 @@ def money(n: int) -> str:
 
 def main_menu() -> InlineKeyboardMarkup:
     kb = InlineKeyboardBuilder()
+    if settings.base_url.startswith("https://"):
+        kb.button(text="✨ Ilovada yaratish (tavsiya)", web_app=WebAppInfo(url=f"{settings.base_url}/app"))
     for c in CATEGORIES.values():
         kb.button(text=c.title, callback_data=f"cat:{c.key}")
     kb.button(text="📂 Mening saytlarim", callback_data="my")

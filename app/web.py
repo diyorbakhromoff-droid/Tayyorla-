@@ -10,12 +10,14 @@ from pydantic import BaseModel, Field
 from .config import MEDIA_DIR, ROOT, settings
 from .db import Rsvp, Session, get_site
 from .render import env, on_color, render_site
+from .webapp import router as webapp_router
 
 log = logging.getLogger(__name__)
 
 app = FastAPI(docs_url=None, redoc_url=None)
 app.mount("/static", StaticFiles(directory=ROOT / "static"), name="static")
 app.mount("/media", StaticFiles(directory=MEDIA_DIR), name="media")
+app.include_router(webapp_router)
 
 # Bot ishga tushganda o'rnatiladi: RSVP va ko'rishlar haqida egasiga xabar berish uchun
 notify = None

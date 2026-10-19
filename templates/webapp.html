@@ -1,0 +1,398 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1">
+  <title>Tayyorla</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: var(--tg-theme-bg-color, #ffffff);
+      --bg2: var(--tg-theme-secondary-bg-color, #f2f3f7);
+      --text: var(--tg-theme-text-color, #1a1a1a);
+      --hint: var(--tg-theme-hint-color, #8a8f98);
+      --accent: var(--tg-theme-button-color, #d6336c);
+      --on-accent: var(--tg-theme-button-text-color, #ffffff);
+      --line: color-mix(in srgb, var(--hint) 25%, transparent);
+      --danger: #e5484d;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    html, body { margin: 0; background: var(--bg2); color: var(--text); font: 15px/1.5 "Montserrat", system-ui, sans-serif; }
+    body { padding-bottom: 96px; }
+    .top { position: sticky; top: 0; z-index: 5; background: var(--bg2); padding: 14px 16px 10px; }
+    .top h1 { margin: 0; font-size: 20px; font-weight: 700; }
+    .top p { margin: 2px 0 0; color: var(--hint); font-size: 13px; }
+    .bar { height: 4px; background: var(--line); border-radius: 4px; margin-top: 12px; overflow: hidden; }
+    .bar i { display: block; height: 100%; width: 0; background: var(--accent); transition: width .3s; }
+    main { padding: 4px 16px; }
+    .card { background: var(--bg); border-radius: 18px; padding: 16px; margin-bottom: 12px; }
+    .card h3 { margin: 0 0 4px; font-size: 15px; }
+    .card .hint { color: var(--hint); font-size: 13px; margin: 0 0 10px; }
+    label.field { display: block; margin-bottom: 14px; }
+    label.field span { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; }
+    label.field span em { color: var(--hint); font-style: normal; font-weight: 500; }
+    input, textarea, select {
+      width: 100%; padding: 12px 14px; border-radius: 12px; border: 1.5px solid var(--line);
+      background: var(--bg2); color: var(--text); font: 15px "Montserrat", sans-serif; outline: none;
+    }
+    input:focus, textarea:focus { border-color: var(--accent); }
+    textarea { resize: vertical; min-height: 90px; }
+    .invalid { border-color: var(--danger) !important; }
+    .cats { display: grid; gap: 10px; }
+    .cat { display: flex; align-items: center; gap: 14px; background: var(--bg); border-radius: 18px; padding: 16px; border: 0; color: var(--text); font: 600 16px "Montserrat"; text-align: left; cursor: pointer; }
+    .cat b { font-size: 30px; }
+    .cat small { display: block; color: var(--hint); font-weight: 500; font-size: 12px; margin-top: 2px; }
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .chip { padding: 10px 14px; border-radius: 999px; border: 1.5px solid var(--line); background: var(--bg2); color: var(--text); font: 500 14px "Montserrat"; cursor: pointer; }
+    .chip.on { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 14%, transparent); font-weight: 700; }
+    .palettes { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .pal { border-radius: 16px; padding: 14px 12px; border: 2.5px solid transparent; cursor: pointer; text-align: left; position: relative; }
+    .pal.on { border-color: var(--accent); }
+    .pal.on::after { content: "✓"; position: absolute; top: 8px; right: 10px; width: 22px; height: 22px; border-radius: 50%; background: var(--accent); color: var(--on-accent); display: grid; place-items: center; font-size: 12px; font-weight: 700; }
+    .pal .nm { font: 400 30px/1 "Great Vibes", cursive; }
+    .pal .dots { display: flex; gap: 5px; margin: 10px 0 6px; }
+    .pal .dots i { width: 18px; height: 18px; border-radius: 50%; display: block; border: 1px solid rgba(0,0,0,.08); }
+    .pal .lbl { font: 600 12px "Montserrat"; }
+    .photos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 10px; }
+    .photos div { position: relative; aspect-ratio: 1; border-radius: 12px; overflow: hidden; background: var(--bg2); }
+    .photos img { width: 100%; height: 100%; object-fit: cover; }
+    .photos button { position: absolute; top: 4px; right: 4px; width: 26px; height: 26px; border-radius: 50%; border: 0; background: rgba(0,0,0,.6); color: #fff; font-size: 14px; cursor: pointer; }
+    .photos .loading { display: grid; place-items: center; color: var(--hint); font-size: 12px; }
+    .btn { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 14px; border: 0; border-radius: 14px; background: var(--accent); color: var(--on-accent); font: 700 15px "Montserrat"; cursor: pointer; }
+    .btn.ghost { background: color-mix(in srgb, var(--accent) 12%, transparent); color: var(--accent); }
+    .btn:disabled { opacity: .55; }
+    .row { display: flex; gap: 10px; }
+    .bottom { position: fixed; left: 0; right: 0; bottom: 0; z-index: 6; padding: 12px 16px calc(12px + env(safe-area-inset-bottom)); background: var(--bg2); display: flex; gap: 10px; }
+    .bottom .btn.back { flex: 0 0 56px; }
+    .upload { position: relative; overflow: hidden; }
+    .upload input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+    .err { background: color-mix(in srgb, var(--danger) 12%, transparent); color: var(--danger); border-radius: 12px; padding: 10px 12px; font-size: 13px; margin-bottom: 12px; }
+    .summary div { display: flex; justify-content: space-between; gap: 12px; padding: 8px 0; border-bottom: 1px solid var(--line); font-size: 14px; }
+    .summary div:last-child { border: 0; }
+    .summary b { text-align: right; font-weight: 600; word-break: break-word; }
+    .modal { position: fixed; inset: 0; z-index: 20; background: #000; display: none; flex-direction: column; }
+    .modal.open { display: flex; }
+    .modal iframe { flex: 1; border: 0; background: #fff; width: 100%; }
+    .modal .close { padding: 12px 16px calc(12px + env(safe-area-inset-bottom)); background: #111; }
+    .done { text-align: center; padding: 40px 10px; }
+    .done .big { font-size: 64px; }
+    .spin { width: 18px; height: 18px; border: 2.5px solid currentColor; border-right-color: transparent; border-radius: 50%; animation: s .7s linear infinite; }
+    @keyframes s { to { transform: rotate(360deg); } }
+    [hidden] { display: none !important; }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="top">
+    <h1 id="title">✨ Tayyorla</h1>
+    <p id="subtitle">Yaqinlaringiz uchun unutilmas sayt</p>
+    <div class="bar"><i id="progress"></i></div>
+  </div>
+  <main id="main"></main>
+  <div class="bottom" id="bottom" hidden>
+    <button class="btn ghost back" id="backBtn" aria-label="Orqaga">←</button>
+    <button class="btn" id="nextBtn">Davom etish</button>
+  </div>
+  <div class="modal" id="modal">
+    <iframe id="frame" title="Ko'rish"></iframe>
+    <div class="close"><button class="btn" id="closePreview">✕ Yopish</button></div>
+  </div>
+
+<script>
+(() => {
+  const tg = window.Telegram && Telegram.WebApp;
+  if (tg) { tg.ready(); tg.expand(); }
+  const initData = tg ? tg.initData : "";
+  const $ = (s) => document.querySelector(s);
+  const main = $("#main"), nextBtn = $("#nextBtn"), backBtn = $("#backBtn");
+  const esc = (s) => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const haptic = (t = "light") => { try { tg.HapticFeedback.impactOccurred(t); } catch {} };
+
+  let META = null, cat = null, answers = {}, page = 0, pages = [];
+  const SPECIAL = ["message", "photos", "music", "palette", "features"];
+
+  async function api(path, body, raw) {
+    const opts = { method: body ? "POST" : "GET", headers: { "X-Init-Data": initData } };
+    if (body instanceof FormData) opts.body = body;
+    else if (body) { opts.body = JSON.stringify(body); opts.headers["Content-Type"] = "application/json"; }
+    const r = await fetch(path, opts);
+    if (!r.ok) {
+      let msg = "Xatolik yuz berdi";
+      try { msg = (await r.json()).detail || msg; } catch {}
+      throw new Error(msg);
+    }
+    return raw ? r.text() : r.json();
+  }
+
+  // ---------- qoralama (ilova yopilsa ham saqlanib turadi)
+  const draftKey = () => "tayyorla-draft-" + cat.key;
+  const saveDraft = () => { try { localStorage.setItem(draftKey(), JSON.stringify(answers)); } catch {} };
+  const loadDraft = () => { try { return JSON.parse(localStorage.getItem(draftKey()) || "null"); } catch { return null; } };
+  const clearDraft = () => { try { localStorage.removeItem(draftKey()); } catch {} };
+
+  // ---------- sana: input[type=date] <-> kk.oo.yyyy
+  const toUz = (iso) => { const [y, m, d] = (iso || "").split("-"); return y ? `${d}.${m}.${y}` : ""; };
+  const toIso = (uz) => { const m = (uz || "").match(/(\d{1,2})\.(\d{1,2})\.(\d{4})/); return m ? `${m[3]}-${m[2].padStart(2, "0")}-${m[1].padStart(2, "0")}` : ""; };
+
+  function header(title, sub) {
+    $("#title").textContent = title;
+    $("#subtitle").textContent = sub || "";
+    $("#progress").style.width = pages.length ? ((page + 1) / pages.length * 100) + "%" : "0";
+  }
+
+  // ---------- 1. kategoriya tanlash
+  function showCategories() {
+    cat = null; pages = [];
+    header("✨ Tayyorla", "Qaysi saytni tayyorlaymiz?");
+    $("#bottom").hidden = true;
+    main.innerHTML = `<div class="cats">${META.categories.map(c => {
+      const [emoji, ...rest] = c.title.split(" ");
+      return `<button class="cat" data-k="${c.key}"><b>${emoji}</b><div>${esc(rest.join(" "))}<small>${esc(c.subtitle)}</small></div></button>`;
+    }).join("")}</div>`;
+    main.querySelectorAll(".cat").forEach(b => b.onclick = () => startCategory(b.dataset.k));
+  }
+
+  function startCategory(key) {
+    haptic();
+    cat = META.categories.find(c => c.key === key);
+    const draft = loadDraft();
+    answers = draft || { palette: cat.default_palette, features: [...cat.default_features], photos: [] };
+    const infoSteps = cat.steps.filter(s => !SPECIAL.includes(s.kind));
+    pages = [
+      { title: "📝 Asosiy ma'lumotlar", render: () => renderInfo(infoSteps), validate: () => validateInfo(infoSteps) },
+      { title: "💬 Tabrik matni", render: renderMessage, validate: () => answers.message?.trim() ? null : "Matnni yozing yoki AI ga yozdiring" },
+      { title: "📸 Rasm va musiqa", render: renderMedia, validate: () => document.querySelector(".photos .loading") ? "Rasmlar yuklanmoqda, kuting..." : null },
+      { title: "🎨 Dizayn", render: renderDesign, validate: () => null },
+      { title: "🚀 Tayyor!", render: renderFinish, validate: () => null, last: true },
+    ];
+    page = 0;
+    renderPage();
+  }
+
+  function renderPage(error) {
+    const p = pages[page];
+    header(p.title, `${cat.title} • ${page + 1}/${pages.length}`);
+    $("#bottom").hidden = false;
+    nextBtn.textContent = p.last ? "🚀 Saytni yaratish" : "Davom etish →";
+    main.innerHTML = (error ? `<div class="err">${esc(error)}</div>` : "") + `<div id="pg"></div>`;
+    p.render($("#pg"));
+    window.scrollTo(0, 0);
+  }
+
+  backBtn.onclick = () => { haptic(); if (page === 0) showCategories(); else { page--; renderPage(); } };
+  nextBtn.onclick = async () => {
+    haptic();
+    const err = pages[page].validate();
+    if (err) { renderPage(err); try { tg.HapticFeedback.notificationOccurred("error"); } catch {} return; }
+    saveDraft();
+    if (pages[page].last) return createSite();
+    page++; renderPage();
+  };
+
+  // ---------- 2. asosiy ma'lumotlar
+  function inputFor(s) {
+    const v = answers[s.key] ?? "";
+    const opt = s.optional ? " <em>(ixtiyoriy)</em>" : "";
+    const lab = `<span>${esc(s.prompt.split("\n")[0])}${opt}</span>`;
+    if (s.kind === "choice") {
+      return `<div class="field" style="margin-bottom:14px">${lab}<div class="chips">${Object.entries(s.options).map(([val, t]) =>
+        `<button class="chip ${v === val ? "on" : ""}" data-choice="${s.key}" data-v="${val}">${esc(t)}</button>`).join("")}</div></div>`;
+    }
+    if (s.kind === "date") return `<label class="field">${lab}<input type="date" data-k="${s.key}" data-kind="date" value="${toIso(v)}"></label>`;
+    if (s.kind === "time") return `<label class="field">${lab}<input type="time" data-k="${s.key}" value="${esc(v)}"></label>`;
+    if (s.kind === "number") return `<label class="field">${lab}<input type="number" inputmode="numeric" min="1" max="149" data-k="${s.key}" value="${esc(v)}"></label>`;
+    if (s.key === "promises") return `<label class="field">${lab}<textarea data-k="${s.key}" rows="4" placeholder="Har bir va'dani yangi qatordan yozing">${esc(v)}</textarea></label>`;
+    return `<label class="field">${lab}<input data-k="${s.key}" value="${esc(v)}" maxlength="300"></label>`;
+  }
+
+  function renderInfo(steps, root = $("#pg")) {
+    root.innerHTML = `<div class="card">${steps.map(inputFor).join("")}</div>`;
+    root.querySelectorAll("[data-k]").forEach(el => el.oninput = () => {
+      answers[el.dataset.k] = el.dataset.kind === "date" ? toUz(el.value) : el.value;
+      el.classList.remove("invalid");
+    });
+    root.querySelectorAll("[data-choice]").forEach(b => b.onclick = () => {
+      haptic(); answers[b.dataset.choice] = b.dataset.v;
+      root.querySelectorAll(`[data-choice="${b.dataset.choice}"]`).forEach(x => x.classList.toggle("on", x === b));
+    });
+  }
+
+  function validateInfo(steps) {
+    for (const s of steps) {
+      if (!s.optional && !String(answers[s.key] ?? "").trim()) return `To'ldiring: ${s.prompt.split("\n")[0].replace(/[:?]$/, "")}`;
+    }
+    return null;
+  }
+
+  // ---------- 3. matn
+  function renderMessage(root) {
+    root.innerHTML = `
+      <div class="card">
+        <h3>✨ AI yozib bersin</h3>
+        <p class="hint">U qanday inson, qanday xotiralaringiz bor, qaysi uslubda bo'lsin — qisqacha yozing.</p>
+        <textarea id="brief" rows="3" placeholder="Masalan: onam, juda mehribon, shirin taomlar pishiradi, samimiy uslubda">${esc(answers._brief || "")}</textarea>
+        <div style="height:10px"></div>
+        <button class="btn ghost" id="aiBtn">${answers.message ? "🔄 Boshqa variant yozish" : "✨ Matn yozib ber"}</button>
+      </div>
+      <div class="card">
+        <h3>💬 Matn</h3>
+        <p class="hint">AI yozganini tahrirlashingiz yoki o'zingiz yozishingiz mumkin.</p>
+        <textarea id="msg" rows="9" maxlength="3000" placeholder="Tabrik matni...">${esc(answers.message || "")}</textarea>
+      </div>`;
+    $("#brief").oninput = (e) => answers._brief = e.target.value;
+    $("#msg").oninput = (e) => answers.message = e.target.value;
+    $("#aiBtn").onclick = async () => {
+      const btn = $("#aiBtn");
+      btn.disabled = true; btn.innerHTML = `<span class="spin"></span> Yozyapman...`;
+      try {
+        const res = await api("/api/ai/write", { category: cat.key, answers, brief: answers._brief || "", previous: answers.message || null });
+        answers.message = res.text; $("#msg").value = res.text; saveDraft();
+        try { tg.HapticFeedback.notificationOccurred("success"); } catch {}
+      } catch (e) { alert(e.message); }
+      btn.disabled = false; btn.textContent = answers.message ? "🔄 Boshqa variant yozish" : "✨ Matn yozib ber";
+    };
+  }
+
+  // ---------- 4. rasm va musiqa
+  function renderMedia(root) {
+    root.innerHTML = `
+      <div class="card">
+        <h3>📸 Rasmlar</h3>
+        <p class="hint">10 tagacha. Birinchisi havola ulashilganda ko'rinadi.</p>
+        <div class="btn ghost upload">➕ Rasm qo'shish<input type="file" id="photoIn" accept="image/*" multiple></div>
+        <div class="photos" id="photos"></div>
+      </div>
+      <div class="card">
+        <h3>🎵 Fon musiqasi <span style="color:var(--hint);font-weight:500">(ixtiyoriy)</span></h3>
+        <p class="hint">Sayt ochilganda chalinadi. mp3 fayl tanlang.</p>
+        <div id="music"></div>
+      </div>`;
+    drawPhotos(); drawMusic();
+    $("#photoIn").onchange = async (e) => {
+      const files = [...e.target.files].slice(0, 10 - answers.photos.length);
+      e.target.value = "";
+      for (const f of files) {
+        const ph = document.createElement("div"); ph.className = "loading"; ph.textContent = "⏳";
+        $("#photos").appendChild(ph);
+      }
+      for (const f of files) {
+        const fd = new FormData(); fd.append("file", f);
+        try { const { url } = await api("/api/upload?kind=photo", fd); answers.photos.push(url); saveDraft(); }
+        catch (err) { alert(err.message); }
+        drawPhotos(files.length - files.indexOf(f) - 1);
+      }
+    };
+  }
+  function drawPhotos(pending = 0) {
+    const box = $("#photos"); if (!box) return;
+    box.innerHTML = answers.photos.map((u, i) => `<div><img src="${esc(u)}" alt=""><button data-i="${i}">✕</button></div>`).join("")
+      + `<div class="loading">⏳</div>`.repeat(pending);
+    box.querySelectorAll("button").forEach(b => b.onclick = () => { answers.photos.splice(+b.dataset.i, 1); saveDraft(); drawPhotos(); });
+  }
+  function drawMusic() {
+    const box = $("#music");
+    if (answers.music) {
+      box.innerHTML = `<audio controls src="${esc(answers.music)}" style="width:100%"></audio><div style="height:8px"></div><button class="btn ghost" id="rmMusic">🗑 Olib tashlash</button>`;
+      $("#rmMusic").onclick = () => { answers.music = null; saveDraft(); drawMusic(); };
+    } else {
+      box.innerHTML = `<div class="btn ghost upload" id="musicUp">🎵 Musiqa tanlash<input type="file" id="musicIn" accept="audio/*"></div>`;
+      $("#musicIn").onchange = async (e) => {
+        const f = e.target.files[0]; if (!f) return;
+        $("#musicUp").innerHTML = `<span class="spin"></span> Yuklanmoqda...`;
+        const fd = new FormData(); fd.append("file", f);
+        try { answers.music = (await api("/api/upload?kind=music", fd)).url; saveDraft(); } catch (err) { alert(err.message); }
+        drawMusic();
+      };
+    }
+  }
+
+  // ---------- 5. dizayn
+  function renderDesign(root) {
+    root.innerHTML = `
+      <div class="card">
+        <h3>🎨 Ranglar</h3>
+        <p class="hint">Sayt qaysi ranglarda bo'lsin? Keyin o'zgartirish ham mumkin.</p>
+        <div class="palettes">${Object.entries(META.palettes).map(([k, p]) => `
+          <button class="pal ${answers.palette === k ? "on" : ""}" data-p="${k}" style="background:${p.bg};color:${p.text}">
+            <div class="nm" style="color:${p.primary}">Aziza</div>
+            <div class="dots"><i style="background:${p.primary}"></i><i style="background:${p.accent}"></i><i style="background:${p.surface}"></i></div>
+            <div class="lbl">${esc(p.title)}</div>
+          </button>`).join("")}</div>
+      </div>
+      <div class="card">
+        <h3>🪄 Elementlar</h3>
+        <p class="hint">Saytni jonli qiladigan effektlar. Bosib yoqing yoki o'chiring.</p>
+        <div class="chips">${Object.entries(cat.features).map(([k, t]) =>
+          `<button class="chip ${answers.features.includes(k) ? "on" : ""}" data-f="${k}">${esc(t)}</button>`).join("")}</div>
+      </div>`;
+    root.querySelectorAll("[data-p]").forEach(b => b.onclick = () => {
+      haptic(); answers.palette = b.dataset.p;
+      root.querySelectorAll("[data-p]").forEach(x => x.classList.toggle("on", x === b));
+    });
+    root.querySelectorAll("[data-f]").forEach(b => b.onclick = () => {
+      haptic(); const k = b.dataset.f, i = answers.features.indexOf(k);
+      if (i >= 0) answers.features.splice(i, 1); else answers.features.push(k);
+      b.classList.toggle("on", i < 0);
+    });
+  }
+
+  // ---------- 6. yakun
+  function renderFinish(root) {
+    const rows = cat.steps.filter(s => !SPECIAL.includes(s.kind) && answers[s.key]).map(s => {
+      let v = answers[s.key];
+      if (s.kind === "choice") v = s.options[v];
+      return `<div><span>${esc(s.prompt.split("\n")[0].replace(/^[^\wА-яʻ'«]+/u, "").replace(/[:?(].*$/, ""))}</span><b>${esc(String(v).split("\n")[0])}</b></div>`;
+    });
+    rows.push(`<div><span>Rasmlar</span><b>${answers.photos.length} ta</b></div>`);
+    rows.push(`<div><span>Musiqa</span><b>${answers.music ? "bor" : "yo'q"}</b></div>`);
+    rows.push(`<div><span>Ranglar</span><b>${esc(META.palettes[answers.palette].title)}</b></div>`);
+    root.innerHTML = `
+      <div class="card"><button class="btn ghost" id="previewBtn">👀 Saytni oldindan ko'rish</button></div>
+      <div class="card summary">${rows.join("")}</div>
+      <p class="hint" style="padding:0 6px">Sayt «NAMUNA» holatida yaratiladi. Botda uni ko'rib, tahrirlab, so'ng to'lov qilib toza linkni olasiz.</p>`;
+    $("#previewBtn").onclick = showPreview;
+  }
+
+  async function showPreview() {
+    const btn = $("#previewBtn");
+    btn.disabled = true; btn.innerHTML = `<span class="spin"></span> Tayyorlanmoqda...`;
+    try {
+      $("#frame").srcdoc = await api("/api/preview", { category: cat.key, answers }, true);
+      $("#modal").classList.add("open");
+    } catch (e) { alert(e.message); }
+    btn.disabled = false; btn.textContent = "👀 Saytni oldindan ko'rish";
+  }
+  $("#closePreview").onclick = () => { $("#modal").classList.remove("open"); $("#frame").srcdoc = ""; };
+
+  async function createSite() {
+    nextBtn.disabled = true; nextBtn.innerHTML = `<span class="spin"></span> Yaratilmoqda...`;
+    try {
+      const res = await api("/api/sites", { category: cat.key, answers });
+      clearDraft();
+      try { tg.HapticFeedback.notificationOccurred("success"); } catch {}
+      $("#bottom").hidden = true;
+      header("🎉 Tayyor!", "");
+      main.innerHTML = `<div class="card done">
+        <div class="big">🎉</div>
+        <h2 style="margin:8px 0">Saytingiz tayyor!</h2>
+        <p class="hint">Link va tugmalarni botga yubordik: ko'rish, tahrirlash va to'lov o'sha yerda.</p>
+        <div style="height:12px"></div>
+        <button class="btn" id="toBot">💬 Botga qaytish</button>
+      </div>`;
+      $("#toBot").onclick = () => tg ? tg.close() : (location.href = res.url);
+    } catch (e) { renderPage(e.message); }
+    nextBtn.disabled = false;
+  }
+
+  // ---------- ishga tushirish
+  if (!initData) {
+    main.innerHTML = `<div class="card done"><div class="big">📱</div><p>Bu ilova Telegram ichida ochiladi.</p></div>`;
+    return;
+  }
+  api("/api/categories").then(m => { META = m; showCategories(); }).catch(e => main.innerHTML = `<div class="err">${esc(e.message)}</div>`);
+})();
+</script>
+</body>
+</html>

@@ -15,6 +15,18 @@ Telegram bot orqali yaqinlar uchun tabrik saytlarini yaratish xizmati.
 - To'lov: Rahmat havolasi → chek skrinshoti → admin «✅ Tasdiqlash» → mijozga toza link
 - Sayt birinchi marta ochilganda egasiga xabar boradi
 
+## Telegram Mini App
+
+Bot ichida ochiladigan forma (`/app`): kategoriya → ma'lumotlar → AI matn → rasm/musiqa → ranglar (jonli namunalar bilan) → oldindan ko'rish → yaratish.
+Mini App faqat **HTTPS** da ishlaydi. Domen bo'lmasa, bepul `sslip.io` dan foydalaning:
+
+```
+BASE_URL=https://77-42-80-83.sslip.io
+SITE_ADDRESS=77-42-80-83.sslip.io
+```
+
+`BASE_URL` https bo'lsa, bot menyusiga «✨ Yaratish» tugmasi va /start ga «Ilovada yaratish» tugmasi avtomatik qo'shiladi.
+
 ## Tuzilishi
 
 ```
@@ -26,6 +38,7 @@ app/
   render.py        saytni shablondan yig'ish
   ai.py            Claude: matn yozish va tahrirlash
   web.py           saytlarni ko'rsatish, RSVP, parol
+  webapp.py        Mini App API (Telegram imzosini tekshirish, yuklash, AI, ko'rish)
   bot/handlers.py  bot ssenariysi, tahrir, to'lov, admin
   bot/keyboards.py tugmalar
 templates/         sayt shablonlari (HTML)
@@ -44,7 +57,7 @@ cp .env.example .env      # ichini to'ldiring
 
 Namuna saytlar: `.venv/bin/python -m scripts.demo`, so'ng `http://localhost:8000/s/demo-tugilgan`, `/s/demo-toy`, `/s/demo-sevgi`.
 
-Sinov: `.venv/bin/python -m tests.test_flow`
+Sinov: `.venv/bin/python -m tests.test_flow` va `.venv/bin/python -m tests.test_webapp`
 
 ## Serverga o'rnatish (VPS)
 

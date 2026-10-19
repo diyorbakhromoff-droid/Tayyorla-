@@ -118,12 +118,15 @@ async def finish(message: Message, state: FSMContext) -> None:
         site = Site(slug=new_slug(), owner_id=user.id, owner_name=user.full_name or "", category=data["category"], config=cfg)
         s.add(site)
         await s.commit()
-    await message.answer(
+    await message.answer(created_text(site), reply_markup=kb.site_actions(site))
+
+
+def created_text(site: Site) -> str:
+    return (
         "🎉 <b>Saytingiz tayyor!</b>\n\n"
         "Hozir u <b>namuna</b> holatida, ustida «NAMUNA» yozuvi bor. Ko'rib chiqing, "
         "biror joyini o'zgartirmoqchi bo'lsangiz «✏️ Tahrirlash» ni bosib, o'z so'zingiz bilan yozing.\n\n"
-        "Hammasi yoqsa, to'lov qilib toza linkni oling va yaqiningizga yuboring 💌\n\n" + site_card(site),
-        reply_markup=kb.site_actions(site),
+        "Hammasi yoqsa, to'lov qilib toza linkni oling va yaqiningizga yuboring 💌\n\n" + site_card(site)
     )
 
 

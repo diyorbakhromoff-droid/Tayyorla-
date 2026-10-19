@@ -7,10 +7,11 @@ import uvicorn
 from aiogram import Bot, Dispatcher
 from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
-from aiogram.types import BotCommand
+from aiogram.types import BotCommand, MenuButtonWebApp, WebAppInfo
 
-from . import web
-from .bot.handlers import router
+from . import web, webapp
+from .bot import keyboards as kb
+from .bot.handlers import created_text, router
 from .config import settings
 from .db import init_db
 
@@ -29,7 +30,17 @@ async def main() -> None:
         except Exception:
             logging.exception("Xabar yuborib bo'lmadi")
 
+    async def on_created(site) -> None:
+        try:
+            await bot.send_message(site.owner_id, created_text(site), reply_markup=kb.site_actions(site))
+        except Exception:
+            logging.exception("Sayt haqida xabar yuborib bo'lmadi")
+
     web.notify = notify
+    webapp.on_created = on_created
+    if settings.base_url.startswith("https://"):
+        # Mini App faqat HTTPS da ishlaydi
+        await bot.set_chat_menu_button(menu_button=MenuButtonWebApp(text="✨ Yaratish", web_app=WebAppInfo(url=f"{settings.base_url}/app")))
     await bot.set_my_commands([
         BotCommand(command="start", description="Bosh menyu"),
         BotCommand(command="mysites", description="Mening saytlarim"),
