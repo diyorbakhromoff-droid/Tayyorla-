@@ -40,7 +40,11 @@ class Category:
 COMMON_TAIL = [
     Step("photos", "📸 Rasmlarni yuboring (10 tagacha). Tugatgach «✅ Tayyor» ni bosing.\nRasmsiz davom etish ham mumkin.", "photos", optional=True),
     Step("music", "🎵 Fon musiqasi uchun audio fayl (mp3) yuboring yoki o'tkazib yuboring.", "music", optional=True),
-    Step("palette", "🎨 Rang uslubini tanlang:", "palette"),
+    Step("palette", "🎨 Sayt qaysi ranglarda bo'lsin?\n\n"
+         "🌸 Atirgul — oq-pushti, nozik\n✨ Oltin tun — qora fon, oltin yozuvlar (hashamatli)\n"
+         "🩵 Osmon — och havorang va ko'k\n🌿 Yalpiz — och yashil, tabiiy\n"
+         "💜 Lavanda — och binafsha, romantik\n🍑 Shaftoli — iliq sarg'ish-sabzirang\n\n"
+         "Keyinroq «Tahrirlash» orqali istalgan rangga o'zgartirish mumkin.", "palette"),
     Step("features", "🪄 Saytga qaysi elementlar qo'shilsin? Bosib yoqing/o'chiring, so'ng «✅ Tayyor».", "features"),
 ]
 
