@@ -1,4 +1,5 @@
-# tayyorla.uz o'rniga o'z domeningizni yozing. HTTPS sertifikat avtomatik olinadi.
-tayyorla.uz {
+# SITE_ADDRESS .env da beriladi. Domen bo'lmasa ":80" (IP orqali, HTTP).
+# Domen ulangach SITE_ADDRESS=tayyorla.uz qiling: HTTPS sertifikat avtomatik olinadi.
+{$SITE_ADDRESS::80} {
 	reverse_proxy app:8000
 }

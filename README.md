@@ -53,7 +53,7 @@ Sinov: `.venv/bin/python -m tests.test_flow`
 2. Domen sotib oling va uning **A yozuvini** server IP manziliga yo'naltiring.
 3. Kodni serverga oling: `git clone https://github.com/<siz>/tayyorla.git && cd tayyorla`
 4. `cp .env.example .env` va to'ldiring (`BASE_URL=https://domeningiz`).
-5. `Caddyfile` ichidagi `tayyorla.uz` ni o'z domeningizga almashtiring.
+5. Domen bo'lsa `.env` da `SITE_ADDRESS=domeningiz` va `BASE_URL=https://domeningiz` qiling (HTTPS avtomatik).
 6. `docker compose up -d --build`
 
 Yangilash: `git pull && docker compose up -d --build`
