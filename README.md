@@ -2,7 +2,7 @@
 
 Telegram bot orqali yaqinlar uchun tabrik saytlarini yaratish xizmati.
 
-**1-bosqich kategoriyalari:** 🎂 Tug'ilgan kun · 💍 To'y taklifnomasi · 💌 Sevgiliga xat
+**Kategoriyalar:** 🎂 Tug'ilgan kun · 💍 To'y taklifnomasi · 💌 Sevgiliga xat · 👶 Farzand muborak · 🙏 Uzrnoma
 
 ## Imkoniyatlar
 

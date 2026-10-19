@@ -38,6 +38,8 @@ def text_keys(category: str) -> dict[str, str]:
     keys = {}
     for name in ("base.html", f"{category}.html"):
         src = (ROOT / "templates" / name).read_text(encoding="utf-8")
+        for k in re.findall(r"t\.get\('(\w+)'", src):
+            keys.setdefault(k, "")
         for k, v in _TEXT_KEY_RE.findall(src):
             keys[k] = v.replace("\\'", "'")
     return keys

@@ -23,6 +23,18 @@ DEMOS = {
         "message": "Sen bilan tanishgan kunimdan beri har bir tongim boshqacha otadi.\nKulishing, gapirishing, hatto jim turishing ham men uchun dunyodagi eng go'zal manzara.\nSeni har kuni yanada ko'proq sevaman.",
         "palette": "lavanda",
     }),
+    "demo-chaqaloq": ("baby", {
+        "gender": "boy", "baby_name": "Muhammadali", "parents": "Jasur va Nilufar", "date": "15.10.2026",
+        "stats": "3.6 kg, 53 sm", "sender": "Buvi va bobosi",
+        "message": "Aziz farzandlarimiz! Oilangizga kelgan bu kichkina quvonch bilan chin dildan tabriklaymiz.\nMuhammadalijon sog'-salomat, aqlli va odobli bo'lib ulg'aysin. Uning kulgusi uyingizni doim nurga to'ldirsin.",
+        "palette": "osmon",
+    }),
+    "demo-uzr": ("apology", {
+        "name": "Malika", "sender": "Sardor",
+        "message": "Kecha aytgan so'zlarim uchun chin dildan uzr so'rayman. Seni xafa qilmoqchi emasdim, lekin baribir qildim — va bu meni tinch qo'ymayapti.\nSen men uchun juda qadrlisan. Xatoyimni tushundim.",
+        "promises": "Endi gapingni oxirigacha tinglayman\nJahl ustida gapirmayman\nHar kuni kamida bir marta seni kuldiraman",
+        "palette": "lavanda",
+    }),
 }
 
 async def main():

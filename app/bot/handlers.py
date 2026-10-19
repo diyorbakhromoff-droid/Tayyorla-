@@ -85,6 +85,8 @@ async def ask(message: Message, state: FSMContext) -> None:
     markup = None
     if step.kind == "message":
         markup = kb.message_mode()
+    elif step.kind == "choice":
+        markup = kb.choice(step.options)
     elif step.kind == "photos":
         markup = kb.done("✅ Tayyor" if data["answers"].get("photos") else "⏭ Rasmsiz davom etish")
     elif step.kind == "palette":
@@ -195,7 +197,7 @@ async def text_answer(message: Message, state: FSMContext):
             await message.answer("Avval tanlang: matnni AI yozsinmi yoki o'zingiz yozasizmi? 👇", reply_markup=kb.message_mode())
             return
         await answer_and_next(message, state, text[:3000])
-    elif step.kind in ("photos", "music", "palette", "features"):
+    elif step.kind in ("choice", "photos", "music", "palette", "features"):
         await message.answer("Iltimos, yuqoridagi tugmalardan foydalaning 👆")
     elif step.kind == "number":
         if not text.isdigit() or not 0 < int(text) < 150:
@@ -213,7 +215,7 @@ async def text_answer(message: Message, state: FSMContext):
             return
         await answer_and_next(message, state, text.replace(".", ":"))
     else:
-        await answer_and_next(message, state, text[:300])
+        await answer_and_next(message, state, text[:1000 if step.key == "promises" else 300])
 
 
 @router.message(Form.step, F.location)
@@ -334,6 +336,18 @@ async def step_done(cb: CallbackQuery, state: FSMContext):
     elif step.kind == "features":
         await cb.message.answer("⏳ Saytingizni yig'yapman...")
         await answer_and_next(cb.message, state, data["answers"]["features"])
+
+
+@router.callback_query(Form.step, F.data.startswith("choice:"))
+async def choice_answer(cb: CallbackQuery, state: FSMContext):
+    data = await state.get_data()
+    step = current_step(data)
+    value = cb.data.split(":", 1)[1]
+    if step.kind != "choice" or value not in step.options:
+        return await cb.answer()
+    await cb.answer()
+    await cb.message.edit_text(f"{step.prompt} {step.options[value]}")
+    await answer_and_next(cb.message, state, value)
 
 
 @router.callback_query(Form.step, F.data.startswith("pal:"))

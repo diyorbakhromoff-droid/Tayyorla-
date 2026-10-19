@@ -207,6 +207,44 @@ async def main():
     await click(f"guests:{wsite.id}")
     assert "jami 3 kishi" in last()
 
+    # --- farzand: tugma orqali tanlash
+    await click("cat:baby")
+    await send("O'zim yozaman")  # tugma kutilmoqda
+    assert "tugmalardan" in last()
+    await click("choice:girl")
+    await click("skip")  # ism
+    for a in ["Jasur va Nilufar", "19.10.2026"]:
+        await send(a)
+    await send("3.2 kg, 50 sm")
+    await send("Buvisi")
+    await click("msg:own")
+    await send("Farzand muborak!")
+    await click("done")
+    await click("skip")
+    await click("pal:atirgul")
+    await click("done")
+    async with Session() as s:
+        bsite = (await s.execute(select(Site).where(Site.category == "baby"))).scalars().first()
+    assert bsite.config["fields"]["gender"] == "girl" and bsite.config["fields"]["baby_name"] is None
+    html = await web.show(bsite.slug, type("R", (), {"cookies": {}, "query_params": {}})())
+    assert "Kichkina malika" in html and "Qiz farzand muborak" in html
+
+    # --- uzrnoma: va'dalar ro'yxati
+    await click("cat:apology")
+    for a in ["Malika", "Sardor"]:
+        await send(a)
+    await click("msg:own")
+    await send("Kechir meni")
+    await send("Kech qolmayman\nJahl qilmayman")
+    await click("done")
+    await click("skip")
+    await click("pal:lavanda")
+    await click("done")
+    async with Session() as s:
+        asite = (await s.execute(select(Site).where(Site.category == "apology"))).scalars().first()
+    html = await web.show(asite.slug, type("R", (), {"cookies": {}, "query_params": {}})())
+    assert html.count("<li>") == 2 and "Meni kechirasanmi?" in html
+
     print(f"✅ Barcha tekshiruvlar o'tdi ({len(session.sent)} ta xabar)")
 
 

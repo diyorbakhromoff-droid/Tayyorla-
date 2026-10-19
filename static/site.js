@@ -62,9 +62,12 @@
   const balloon = () => { const b = floater("", ""); b.innerHTML = `<div class="balloon" style="background:${colors[Math.floor(Math.random() * 3)]}"></div>`; };
   const heart = (big) => { const h = floater(["💖", "💕", "❤️", "💗"][Math.floor(Math.random() * 4)]); h.style.fontSize = (big ? 30 : 16) + Math.random() * 20 + "px"; };
 
+  const star = () => { const st = floater(["⭐", "✨", "🌟", "💫"][Math.floor(Math.random() * 4)]); st.style.fontSize = 14 + Math.random() * 22 + "px"; };
+
   function startAmbient() {
     if (S.f.balloons) { for (let i = 0; i < 8; i++) setTimeout(balloon, i * 350); setInterval(balloon, 3500); }
     if (S.f.hearts) { setInterval(() => heart(false), 900); }
+    if (S.f.stars) { setInterval(star, 700); }
     if (S.f.petals) { setInterval(petal, 380); }
     if (S.f.confetti) { confetti(220); }
   }

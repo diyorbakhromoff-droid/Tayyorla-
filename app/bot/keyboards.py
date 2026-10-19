@@ -50,6 +50,14 @@ def done(text: str = "✅ Tayyor", optional: bool = False) -> InlineKeyboardMark
     return kb.as_markup()
 
 
+def choice(options: dict[str, str]) -> InlineKeyboardMarkup:
+    kb = InlineKeyboardBuilder()
+    for value, title in options.items():
+        kb.button(text=title, callback_data=f"choice:{value}")
+    kb.adjust(2)
+    return kb.as_markup()
+
+
 def palettes() -> InlineKeyboardMarkup:
     kb = InlineKeyboardBuilder()
     for k, p in PALETTES.items():

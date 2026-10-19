@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% set boy = f.gender == 'boy' %}
+{% set baby = f.baby_name or ('Kichkina shahzoda' if boy else 'Kichkina malika') %}
+{% block title %}{{ baby }} dunyoga keldi! 👶{% endblock %}
+{% block og_desc %}{{ f.parents }} — farzandingiz muborak bo'lsin! 🍼{% endblock %}
+{% block intro_eyebrow %}{{ t.get('intro_eyebrow', 'Quvonchli xabar') }}{% endblock %}
+{% block intro_name %}{{ f.parents }}{% endblock %}
+{% block intro_paper %}🍼{% endblock %}
+{% block seal %}👶{% endblock %}
+
+{% block content %}
+<section class="hero">
+  <div>
+    <div class="eyebrow">{{ t.get('hero_eyebrow', 'O\'g\'il farzand muborak' if boy else 'Qiz farzand muborak') }}</div>
+    <div style="font-size:64px;margin:14px 0 0">{{ '👦' if boy else '👧' }}</div>
+    <h1 class="script name">{{ baby }}</h1>
+    <p class="sub serif">{{ t.get('hero_sub', 'dunyoga xush kelibsan!') }}</p>
+  </div>
+  <div class="scroll-hint">pastga suring ↓</div>
+</section>
+
+<section style="text-align:center;padding-top:0">
+  <div class="wrap reveal">
+    <div class="card">
+      <div class="eyebrow">{{ t.get('birth_eyebrow', 'Tug\'ilgan kun') }}</div>
+      <div class="serif" style="font-size:40px;color:var(--primary);font-weight:700;margin:6px 0">{{ date_human }}</div>
+      {% if weekday %}<div class="serif" style="font-size:20px;opacity:.75">{{ weekday }}</div>{% endif %}
+      {% if f.stats %}
+        <div class="divider">✦</div>
+        <div style="font-size:20px;font-weight:600">⚖️ {{ f.stats }}</div>
+      {% endif %}
+      <div class="divider">✦</div>
+      <div style="opacity:.8">{{ t.get('parents_label', 'Baxtli ota-ona') }}</div>
+      <div class="script" style="font-size:40px;color:var(--primary)">{{ f.parents }}</div>
+    </div>
+  </div>
+</section>
+
+{% if message_paragraphs %}
+<section>
+  <div class="wrap">
+    <div class="card letter reveal">
+      <div class="eyebrow" style="text-align:center">{{ t.get('message_eyebrow', 'Ezgu tilaklar') }}</div>
+      <div class="divider">✦</div>
+      {% for p in message_paragraphs %}<p>{{ p }}</p>{% endfor %}
+      <div class="signature script">{{ f.sender }}</div>
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% if feat.since and target_iso %}
+<section style="text-align:center">
+  <div class="wrap reveal">
+    <div class="eyebrow">{{ t.get('since_eyebrow', 'Dunyoga kelganiga') }}</div>
+    <div class="countdown" data-since="{{ target_iso }}">
+      <div><b>0</b><span>kun</span></div><div><b>00</b><span>soat</span></div><div><b>00</b><span>daqiqa</span></div><div><b>00</b><span>soniya</span></div>
+    </div>
+    <p class="serif" style="font-size:22px;margin-top:22px;font-style:italic">{{ t.get('since_note', 'Har bir soniyasi — oila uchun baxt') }}</p>
+  </div>
+</section>
+{% endif %}
+{% endblock %}

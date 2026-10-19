@@ -20,8 +20,9 @@ PALETTES: dict[str, dict] = {
 class Step:
     key: str
     prompt: str
-    kind: str = "text"  # text | number | date | time | location | message | photos | music | palette | features
+    kind: str = "text"  # text | number | date | time | location | choice | message | photos | music | palette | features
     optional: bool = False
+    options: dict[str, str] | None = None  # choice uchun: qiymat -> tugma nomi
 
 
 @dataclass
@@ -122,6 +123,53 @@ CATEGORIES: dict[str, Category] = {
         default_features=["envelope", "hearts", "together", "question", "gallery"],
         default_palette="atirgul",
         ai_brief="sevgilisiga romantik maktub",
+    ),
+    "baby": Category(
+        key="baby",
+        title="👶 Farzand muborak",
+        intro="Qanday quvonchli xabar! Chaqaloq tug'ilgani munosabati bilan tabrik tayyorlaymiz 👶",
+        steps=[
+            Step("gender", "👶 O'g'il yoki qiz?", "choice", options={"boy": "👦 O'g'il", "girl": "👧 Qiz"}),
+            Step("baby_name", "🍼 Chaqaloqning ismi (hali qo'yilmagan bo'lsa, o'tkazib yuboring):", optional=True),
+            Step("parents", "👨‍👩‍👧 Ota-onasi kimlar? (masalan: «Jasur va Nilufar» yoki «Karimovlar oilasi»)"),
+            Step("date", "📅 Tug'ilgan sanasi (masalan: 19.10.2026):", "date"),
+            Step("stats", "⚖️ Vazni va bo'yi (masalan: «3.4 kg, 52 sm») yoki o'tkazib yuboring:", optional=True),
+            Step("sender", "✍️ Tabrik kimdan? (masalan: «Buvi va bobosi», «Do'stlaringiz»)"),
+            Step("message", "💬 Tabrik matni:", "message"),
+            *COMMON_TAIL,
+        ],
+        features={
+            "envelope": "✉️ Konvertni ochish",
+            "stars": "⭐ Uchuvchi yulduzchalar",
+            "balloons": "🎈 Uchuvchi sharlar",
+            "confetti": "🎊 Konfetti",
+            "since": "⏱ Dunyoga kelganiga ... kun",
+            "gallery": "🖼 Rasm galereyasi",
+        },
+        default_features=["envelope", "stars", "balloons", "since", "gallery"],
+        default_palette="osmon",
+        ai_brief="farzand (chaqaloq) tug'ilgani munosabati bilan ota-onaga tabrik, chaqaloqqa duo va ezgu tilaklar",
+    ),
+    "apology": Category(
+        key="apology",
+        title="🙏 Uzrnoma",
+        intro="Kechirim so'rash — kuchli insonlarning ishi 🤍 Chiroyli uzrnoma tayyorlaymiz.",
+        steps=[
+            Step("name", "💌 Kimdan uzr so'rayapsiz? Uning ismini yozing:"),
+            Step("sender", "✍️ Ismingiz:"),
+            Step("message", "💬 Uzr matni:", "message"),
+            Step("promises", "🤞 Va'dalaringizni yozing — har birini yangi qatordan (masalan: «Endi kech qolmayman»). Yoki o'tkazib yuboring:", optional=True),
+            *COMMON_TAIL,
+        ],
+        features={
+            "envelope": "✉️ Konvertni ochish",
+            "question": "🥺 «Kechirasanmi?» o'yini",
+            "hearts": "💕 Uchuvchi yuraklar",
+            "gallery": "🖼 Rasm galereyasi",
+        },
+        default_features=["envelope", "question", "hearts", "gallery"],
+        default_palette="lavanda",
+        ai_brief="samimiy uzrnoma (kechirim so'rash xati): aybni tan olish, afsus, qadrlash va yaxshi tomonga o'zgarish istagi, haddan tashqari dramasiz",
     ),
 }
 
