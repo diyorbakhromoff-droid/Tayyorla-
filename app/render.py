@@ -89,5 +89,6 @@ def render_site(site, preview: bool) -> str:
         on_primary=on_color(cfg["colors"].get("primary")),
         preview=preview,
         base_url=settings.base_url,
+        bot_username=settings.bot_username,
         category=CATEGORIES[cfg["category"]],
     )

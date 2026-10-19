@@ -18,6 +18,7 @@ class Settings(BaseSettings):
     database_url: str = "sqlite+aiosqlite:///tayyorla.db"
     host: str = "0.0.0.0"
     port: int = 8000
+    bot_username: str = "tayyorla_aibot"
 
     # Premium sifat uchun eng kuchli Opus modeli
     ai_model: str = "claude-opus-5-5"

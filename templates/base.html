@@ -22,7 +22,7 @@
 </head>
 <body class="cat-{{ cfg.category }}">
 {% if preview %}
-  <div class="wm-bar">👀 Bu NAMUNA. To'liq versiya to'lovdan so'ng ochiladi — @TayyorlaBot</div>
+  <div class="wm-bar">👀 Bu NAMUNA. To'liq versiya to'lovdan so'ng ochiladi — @{{ bot_username }}</div>
   <div class="wm">{% for _ in range(40) %}<span>NAMUNA • TAYYORLA</span>{% endfor %}</div>
 {% endif %}
 
@@ -54,7 +54,7 @@
 {% endif %}
 </main>
 
-<footer>{% if not cfg.get('hide_brand') %}<a href="https://t.me/TayyorlaBot">Tayyorla</a> bilan mehr bilan yaratildi 🤍{% endif %}</footer>
+<footer>{% if not cfg.get('hide_brand') %}<a href="https://t.me/{{ bot_username }}">Tayyorla</a> bilan mehr bilan yaratildi 🤍{% endif %}</footer>
 
 {% if cfg.music %}
 <audio id="bgMusic" src="{{ cfg.music }}" loop preload="auto"></audio>

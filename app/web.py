@@ -31,7 +31,7 @@ def _unlock_token(slug: str, password: str) -> str:
 
 @app.get("/", response_class=HTMLResponse)
 async def home():
-    return '<meta charset="utf-8"><div style="font:18px sans-serif;text-align:center;padding:20vh 20px">💌 <b>Tayyorla</b> — yaqinlaringiz uchun tabrik saytlari.<br><a href="https://t.me/TayyorlaBot">Telegram bot orqali yarating</a></div>'
+    return f'<meta charset="utf-8"><div style="font:18px sans-serif;text-align:center;padding:20vh 20px">💌 <b>Tayyorla</b> — yaqinlaringiz uchun tabrik saytlari.<br><a href="https://t.me/{settings.bot_username}">Telegram bot orqali yarating</a></div>'
 
 
 @app.get("/s/{slug}", response_class=HTMLResponse)
