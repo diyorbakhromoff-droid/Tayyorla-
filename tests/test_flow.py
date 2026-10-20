@@ -20,6 +20,7 @@ from sqlalchemy import select  # noqa: E402
 
 from app import ai, web  # noqa: E402
 from app.bot import handlers  # noqa: E402
+from app.bot import keyboards as kb_mod  # noqa: E402
 from app.db import Rsvp, Session, Site, init_db  # noqa: E402
 
 USER = User(id=111, is_bot=False, first_name="Diyor")
@@ -272,6 +273,9 @@ async def main():
     async with Session() as s:
         r = (await s.execute(select(Rsvp).where(Rsvp.site_id == csite.id))).scalars().one()
     assert r.attending and r.guests == 3
+    async with Session() as s:
+        paid_site = await s.get(Site, csite.id)
+    assert any("Mehmonlar" in b.text for row in kb_mod.site_actions(paid_site).inline_keyboard for b in row)
     await click(f"guests:{csite.id}")
     assert "jami 3 kishi" in last()
 

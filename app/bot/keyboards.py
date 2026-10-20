@@ -94,7 +94,8 @@ def site_actions(site) -> InlineKeyboardMarkup:
     kb.button(text="✏️ Tahrirlash", callback_data=f"edit:{site.id}")
     if site.status == "draft":
         kb.button(text=f"💳 Linkni olish — {money(site_price(site.config))}", callback_data=f"buy:{site.id}")
-    if site.config.get("features", {}).get("rsvp") and site.paid:
+    has_rsvp = site.config.get("features", {}).get("rsvp") or site.config.get("template") == "toy-maktub"
+    if has_rsvp and site.paid:
         kb.button(text="📋 Mehmonlar ro'yxati", callback_data=f"guests:{site.id}")
     kb.button(text="🏠 Bosh menyu", callback_data="home")
     kb.adjust(1)
