@@ -14,6 +14,7 @@ from .bot import keyboards as kb
 from .bot.handlers import created_text, router
 from .config import settings
 from .db import init_db
+from .reminders import reminder_loop
 
 
 async def main() -> None:
@@ -43,12 +44,13 @@ async def main() -> None:
         await bot.set_chat_menu_button(menu_button=MenuButtonWebApp(text="✨ Yaratish", web_app=WebAppInfo(url=f"{settings.base_url}/app")))
     await bot.set_my_commands([
         BotCommand(command="start", description="Bosh menyu"),
+        BotCommand(command="yaqinlar", description="Yaqinlarim kalendari"),
         BotCommand(command="mysites", description="Mening saytlarim"),
         BotCommand(command="help", description="Yordam"),
     ])
 
     server = uvicorn.Server(uvicorn.Config(web.app, host=settings.host, port=settings.port, log_level="info"))
-    await asyncio.gather(server.serve(), dp.start_polling(bot))
+    await asyncio.gather(server.serve(), dp.start_polling(bot), reminder_loop(bot))
 
 
 if __name__ == "__main__":

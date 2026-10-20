@@ -30,6 +30,19 @@ Narxlar `.env` da: `PRICE_STANDART`, `PRICE_PREMIUM`, `PRICE_VIP`. VIP to'y anke
 keladi va egasiga Telegram'da yuboriladi. Mijoz saytida tarif/rangni havola (`?tarif=`, `#vip-2`) orqali
 o'zgartirib bo'lmaydi — bu faqat namunalarda ishlaydi.
 
+## 📅 Yaqinlarim kalendari
+
+Botdagi «📅 Yaqinlarim» (yoki /yaqinlar): foydalanuvchi yaqinlarining tug'ilgan kunlari, to'y yilligi va boshqa
+sanalarini kiritadi. Bot har kuni 9:00 dan keyin (Toshkent vaqti) tekshiradi va **7 kun**, **1 kun** oldin hamda
+**o'sha kuni** eslatadi (`app/reminders.py`). Eslatmadagi «✨ Tabrik tayyorlash» tugmasi Mini App'ni ism va sana
+to'ldirilgan holda ochadi. Har bir eslatma faqat bir marta yuboriladi (`reminder_log` jadvali).
+
+## ⏰ Syurpriz ochilish
+
+Mijoz xohlasa (Mini App'ning oxirgi qadamida yoki botda «⏰ Syurpriz» tugmasi orqali) sayt belgilangan vaqtgacha
+yopiq turadi: havolani ochgan odam sovg'a qutisi va orqaga sanoqni ko'radi, vaqt kelganda sahifa o'zi ochiladi.
+Sayt egasi botdagi «👀 Saytni ochish» tugmasidagi maxfiy havola (`?owner=<kalit>`) orqali istalgan payt ko'radi.
+
 ## Telegram Mini App
 
 Bot ichida ochiladigan ilova (`/app`): bo'lim → dizaynlar galereyasi → jonli namuna → tarif va rang → ma'lumotlar (AI matn bilan) → suratlar va musiqa → oldindan ko'rish → yaratish.
@@ -54,6 +67,8 @@ app/
   ai.py            Claude: matn yozish va tahrirlash
   catalog.py       tayyor shablonlar: maydonlar, tariflar, sahifani yig'ish
   web.py           saytlarni ko'rsatish, RSVP, parol
+  reminders.py     yaqinlar kalendari va eslatmalar
+  surprise.py      syurpriz ochilish, egasining maxfiy havolasi
   webapp.py        Mini App API (Telegram imzosini tekshirish, yuklash, AI, ko'rish)
   bot/handlers.py  bot ssenariysi, tahrir, to'lov, admin
   bot/keyboards.py tugmalar
@@ -74,7 +89,7 @@ cp .env.example .env      # ichini to'ldiring
 
 Namuna saytlar: `.venv/bin/python -m scripts.demo`, so'ng `http://localhost:8000/s/demo-tugilgan`, `/s/demo-toy`, `/s/demo-sevgi`.
 
-Sinov: `.venv/bin/python -m tests.test_flow` va `.venv/bin/python -m tests.test_webapp`
+Sinov: `.venv/bin/python -m tests.test_flow`, `.venv/bin/python -m tests.test_webapp` va `.venv/bin/python -m tests.test_reminders`
 
 ## Serverga o'rnatish (VPS)
 

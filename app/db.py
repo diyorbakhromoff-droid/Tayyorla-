@@ -51,6 +51,31 @@ class Rsvp(Base):
     created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
 
 
+class Person(Base):
+    """«Yaqinlarim» kalendaridagi muhim sana."""
+    __tablename__ = "people"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    owner_id: Mapped[int] = mapped_column(BigInteger, index=True)
+    name: Mapped[str] = mapped_column(String(100))
+    kind: Mapped[str] = mapped_column(String(16))  # birthday | anniversary | other
+    title: Mapped[str] = mapped_column(String(100), default="")  # «boshqa» sana uchun nomi
+    day: Mapped[int] = mapped_column(Integer)
+    month: Mapped[int] = mapped_column(Integer)
+    year: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
+
+
+class ReminderLog(Base):
+    """Bir eslatma ikki marta yuborilmasligi uchun."""
+    __tablename__ = "reminder_log"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    person_id: Mapped[int] = mapped_column(ForeignKey("people.id", ondelete="CASCADE"), index=True)
+    occurs_on: Mapped[str] = mapped_column(String(10))  # YYYY-MM-DD
+    days_before: Mapped[int] = mapped_column(Integer)
+
+
 async def init_db() -> None:
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)

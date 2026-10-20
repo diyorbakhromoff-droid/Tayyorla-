@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex">
+  <title>🎁 {% if name %}{{ name }}, s{% else %}S{% endif %}izga sovg'a bor!</title>
+  <meta property="og:title" content="🎁 {% if name %}{{ name }}, s{% else %}S{% endif %}izga sovg'a bor!">
+  <meta property="og:description" content="{{ when }} da ochiladi. Sabr qiling 🤫">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Unbounded:wght@600&family=Onest:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; min-height: 100%; }
+    body {
+      min-height: 100svh; display: grid; place-items: center; text-align: center; padding: 24px 16px;
+      font-family: "Onest", system-ui, sans-serif; color: #fff; overflow: hidden;
+      background: radial-gradient(circle at 30% 20%, #7B4DFF 0, transparent 45%), radial-gradient(circle at 75% 80%, #FF4D8D 0, transparent 50%), #1A1033;
+    }
+    .star { position: fixed; width: 3px; height: 3px; border-radius: 50%; background: #fff; opacity: .6; animation: tw 3s infinite ease-in-out; }
+    @keyframes tw { 50% { opacity: .1; transform: scale(.6); } }
+    .wrap { position: relative; z-index: 1; max-width: 420px; width: 100%; }
+    .gift { font-size: 96px; display: inline-block; animation: bob 2.4s infinite ease-in-out; filter: drop-shadow(0 18px 30px rgba(0,0,0,.35)); cursor: pointer; }
+    .gift.shake { animation: shake .5s; }
+    @keyframes bob { 50% { transform: translateY(-12px) rotate(-3deg); } }
+    @keyframes shake { 20%, 60% { transform: rotate(-12deg); } 40%, 80% { transform: rotate(12deg); } }
+    .eyebrow { text-transform: uppercase; letter-spacing: .3em; font-size: 12px; opacity: .75; margin-top: 18px; }
+    h1 { font-family: "Great Vibes", cursive; font-weight: 400; font-size: clamp(48px, 14vw, 72px); margin: 6px 0 4px; line-height: 1.1; }
+    p { margin: 0; opacity: .85; }
+    .clock { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 28px 0 18px; }
+    .clock div { background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.18); border-radius: 16px; padding: 14px 4px; backdrop-filter: blur(6px); }
+    .clock b { display: block; font: 600 30px/1 "Unbounded", sans-serif; }
+    .clock span { font-size: 11px; text-transform: uppercase; letter-spacing: .12em; opacity: .7; }
+    .hint { font-size: 13px; opacity: .6; }
+    .msg { min-height: 22px; margin-top: 10px; font-size: 14px; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="gift" id="gift">🎁</div>
+    <div class="eyebrow">Syurpriz</div>
+    <h1>{% if name %}{{ name }}, sizga{% else %}Sizga{% endif %} sovg'a bor!</h1>
+    <p>U <b>{{ when }}</b> da ochiladi</p>
+    <div class="clock" id="clock">
+      <div><b>0</b><span>kun</span></div><div><b>00</b><span>soat</span></div><div><b>00</b><span>daqiqa</span></div><div><b>00</b><span>soniya</span></div>
+    </div>
+    <p class="hint">Sahifani yopmang — vaqt kelganda o'zi ochiladi ✨</p>
+    <div class="msg" id="msg"></div>
+  </div>
+  <script>
+    (function () {
+      for (var i = 0; i < 40; i++) {
+        var s = document.createElement("i"); s.className = "star";
+        s.style.left = Math.random() * 100 + "vw"; s.style.top = Math.random() * 100 + "vh";
+        s.style.animationDelay = Math.random() * 3 + "s"; document.body.appendChild(s);
+      }
+      var target = new Date({{ target_iso | tojson }}).getTime();
+      var b = document.querySelectorAll("#clock b"), pad = function (n) { return String(n).padStart(2, "0"); };
+      function tick() {
+        var d = Math.max(0, target - Date.now()) / 1000;
+        b[0].textContent = Math.floor(d / 86400); b[1].textContent = pad(Math.floor(d % 86400 / 3600));
+        b[2].textContent = pad(Math.floor(d % 3600 / 60)); b[3].textContent = pad(Math.floor(d % 60));
+        if (d <= 0) { clearInterval(t); document.getElementById("msg").textContent = "Ochilmoqda... 🎉"; setTimeout(function () { location.reload(); }, 1500); }
+      }
+      var t = setInterval(tick, 1000); tick();
+      var tips = ["Hali emas 🤫", "Sabr qiling 😊", "Juda qiziq-a? 😄", "Biroz qoldi ✨"], n = 0;
+      document.getElementById("gift").onclick = function () {
+        var g = this; g.classList.remove("shake"); void g.offsetWidth; g.classList.add("shake");
+        document.getElementById("msg").textContent = tips[n++ % tips.length];
+      };
+    })();
+  </script>
+</body>
+</html>

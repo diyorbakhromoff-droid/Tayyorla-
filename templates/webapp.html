@@ -110,6 +110,11 @@
     .photos img { width: 100%; height: 100%; object-fit: cover; }
     .photos button { position: absolute; top: 4px; right: 4px; width: 26px; height: 26px; border-radius: 50%; border: 0; background: rgba(0,0,0,.6); color: #fff; cursor: pointer; }
     .err { background: color-mix(in srgb, var(--danger) 12%, transparent); color: var(--danger); border-radius: 12px; padding: 10px 12px; font-size: 13px; margin-bottom: 12px; font-weight: 600; }
+    .toggle { display: flex; gap: 12px; align-items: flex-start; cursor: pointer; }
+    .toggle input { width: 22px; height: 22px; flex: none; margin-top: 2px; accent-color: var(--accent); }
+    .toggle b { display: block; font-size: 15px; }
+    .toggle small { display: block; color: var(--muted); font-size: 12px; margin-top: 2px; }
+    .row2 { display: grid; grid-template-columns: 1.4fr 1fr; gap: 10px; margin-top: 12px; }
     .total { display: flex; justify-content: space-between; align-items: center; gap: 12px; font-weight: 600; font-size: 14px; }
     .total b { font: 700 19px var(--f-display); color: var(--accent); white-space: nowrap; }
 
@@ -152,6 +157,8 @@
   const haptic = (t = "light") => { try { tg.HapticFeedback.impactOccurred(t); } catch {} };
   const notify = (t) => { try { tg.HapticFeedback.notificationOccurred(t); } catch {} };
 
+  const Q = new URLSearchParams(location.search);
+  const PREFILL = Object.fromEntries(["kimga", "sana", "tugilgan_sana"].filter(k => Q.get(k)).map(k => [k, Q.get(k)]));
   let M = null;            // katalog
   let section = null;      // tanlangan bo'lim
   let order = null;        // {template, tarif, rang, data, photos, music}
@@ -186,7 +193,7 @@
     order = null; step = 0;
     header("Tayyorla", "Dizaynni tanlang — keyin ma'lumotlarni kiritasiz");
     bottom("", false); tgBack(false);
-    section = section || M.sections[0].key;
+    section = section || (M.sections.some(x => x.key === Q.get("s")) ? Q.get("s") : M.sections[0].key);
     const list = M.templates.filter(t => t.section === section).sort((a, b) => a.vip - b.vip);
     main.innerHTML = `
       <div class="tabs">${M.sections.map(s => `<button class="tab ${s.key === section ? "on" : ""}" data-s="${s.key}">${esc(s.title)}</button>`).join("")}</div>
@@ -201,7 +208,10 @@
       haptic();
       const t = M.templates.find(x => x.id === b.dataset.t);
       const prev = load();
-      order = prev && prev.template === t.id ? prev : { template: t.id, tarif: t.vip ? "vip" : "premium", rang: 1, data: {}, photos: [], music: null };
+      const keys = new Set(M.fields[t.section].map(f => f.key));
+      const pre = Object.fromEntries(Object.entries(PREFILL).filter(([k]) => keys.has(k)));
+      order = prev && prev.template === t.id && !Object.keys(pre).length ? prev
+        : { template: t.id, tarif: t.vip ? "vip" : "premium", rang: 1, data: pre, photos: [], music: null, unlock_at: null };
       if (t.vip) order.tarif = "vip";
       step = 0; render();
     });
@@ -442,8 +452,29 @@
       <div class="phone"><div class="loading"><span class="spin"></span></div><iframe id="pv" title="Ko'rish"></iframe></div>
       <p class="hint" style="text-align:center">Bu sizning saytingiz. To'lovdan so'ng «NAMUNA» yozuvi olib tashlanadi.</p>
       <div class="card fade">
+        <label class="toggle"><input type="checkbox" id="surpOn" ${order.unlock_at ? "checked" : ""}>
+          <span><b>⏰ Syurpriz ochilish</b><small>Havolani oldindan yuborasiz — sayt aynan shu vaqtda ochiladi. Ungacha sovg'a qutisi va taymer ko'rinadi.</small></span></label>
+        <div id="surpBox" class="row2" ${order.unlock_at ? "" : "hidden"}>
+          <input type="date" id="surpDate" value="${esc((order.unlock_at || "").slice(0, 10))}">
+          <input type="time" id="surpTime" value="${esc((order.unlock_at || "T00:00").slice(11, 16) || "00:00")}">
+        </div>
+      </div>
+      <div class="card">
         <div class="total"><span>${esc(t.name)} • ${esc(tier().title)}</span><b>${money(tier().price)}</b></div>
       </div>`;
+    const surp = () => {
+      const on = $("#surpOn").checked, d = $("#surpDate").value, tm = $("#surpTime").value || "00:00";
+      $("#surpBox").hidden = !on;
+      order.unlock_at = on && d ? `${d}T${tm}` : null; save();
+    };
+    $("#surpOn").onchange = () => {
+      if ($("#surpOn").checked && !$("#surpDate").value) {
+        const s = order.data.sana, today = new Date().toISOString().slice(0, 10);
+        if (s && s > today) $("#surpDate").value = s;
+      }
+      surp();
+    };
+    $("#surpDate").onchange = surp; $("#surpTime").onchange = surp;
     bottom("🚀 Saytni yaratish");
     try {
       const html = await api("/api/catalog/preview", order, true);

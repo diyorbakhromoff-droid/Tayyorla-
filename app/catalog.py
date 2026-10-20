@@ -235,8 +235,16 @@ def clean_order(body: dict, strict: bool) -> dict:
             raise HTTPException(400, f"To'ldirilmagan: {f.label}")
     photos = [p for p in (body.get("photos") or []) if _own_media(p)][: TIERS[tarif]["photos"]]
     music = body.get("music") if _own_media(body.get("music")) else None
-    return {"engine": "catalog", "category": SECTION_TO_CATEGORY[t["section"]], "template": tid,
-            "tarif": tarif, "rang": rang, "data": data, "photos": photos, "music": music}
+    out = {"engine": "catalog", "category": SECTION_TO_CATEGORY[t["section"]], "template": tid,
+           "tarif": tarif, "rang": rang, "data": data, "photos": photos, "music": music}
+    if body.get("unlock_at"):
+        from .surprise import clean_unlock
+        unlock = clean_unlock(body["unlock_at"])
+        if unlock:
+            out["unlock_at"] = unlock
+        elif strict:
+            raise HTTPException(400, "Syurpriz vaqti o'tib ketgan — boshqa vaqt tanlang")
+    return out
 
 
 # ---------------------------------------------------------------- sahifani yig'ish

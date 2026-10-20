@@ -208,6 +208,7 @@ class OrderIn(BaseModel):
     data: dict = Field(default_factory=dict)
     photos: list = Field(default_factory=list)
     music: str | None = None
+    unlock_at: str | None = None
 
 
 @router.get("/api/catalog")

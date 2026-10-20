@@ -284,6 +284,60 @@ async def main():
     await send(photo=[PhotoSize(file_id="p9", file_unique_id="u9", width=10, height=10)])
     assert "Rasm qo'shildi" in last()
 
+    # --- 📅 Yaqinlarim
+    from app.db import Person
+    await click("people")
+    assert "Hech qachon muhim kunni unutmaysiz" in last()
+    await click("p:add")
+    await send("Onam")
+    await click("p:kind:birthday")
+    await send("31.02")
+    assert "tushunmadim" in last()
+    await send("24.10.1971")
+    assert "Onam" in last() and "Yaqinlarim" in last()
+    await click("p:add")
+    await send("Biz")
+    await click("p:kind:other")
+    await send("Tanishgan kunimiz")
+    await send("14.02")
+    async with Session() as s:
+        people = (await s.execute(select(Person).where(Person.owner_id == 111))).scalars().all()
+    assert {(x.name, x.kind, x.day, x.month, x.year) for x in people} == {("Onam", "birthday", 24, 10, 1971), ("Biz", "other", 14, 2, None)}
+    other_id = next(x.id for x in people if x.name == "Biz")
+    await click(f"p:del:{other_id}", user=ADMIN)  # begona odam o'chira olmaydi
+    await click(f"p:del:{other_id}")
+    async with Session() as s:
+        assert len((await s.execute(select(Person).where(Person.owner_id == 111))).scalars().all()) == 1
+
+    # --- ⏰ Syurpriz ochilish
+    from datetime import datetime as _dt, timedelta as _td
+    from app.reminders import TZ
+    from app.surprise import owner_token
+    soon = (_dt.now(TZ) + _td(days=5)).date()
+    async with Session() as s:
+        ss = await s.get(Site, csite.id)
+        ss.config = {**ss.config, "data": {**ss.config["data"], "sana": soon.isoformat()}}
+        await s.commit()
+    await click(f"surprise:{csite.id}")
+    assert "Syurpriz ochilish" in last()
+    await click(f"surp:set:{csite.id}:{soon.isoformat()}")
+    assert any("Syurpriz yoqildi" in t for _, t, _ in session.sent[-3:])
+    req = lambda q: type("R", (), {"cookies": {}, "query_params": q})()  # noqa: E731
+    teaser = await web.show("vip-toy", req({}))
+    assert "sovg'a bor" in teaser and "Jasur" not in teaser and "Taklif qilamiz" not in teaser
+    assert "sovg'a bor" in await web.show("vip-toy", req({"owner": "1"}))  # eski ?owner=1 ishlamaydi
+    real = await web.show("vip-toy", req({"owner": owner_token("vip-toy")}))
+    assert "Jasur" in real and "sovg'a bor!" not in real.split("<body")[0]
+    await click(f"surp:ask:{csite.id}")
+    await send("01.01.2020")
+    assert "o'tib ketgan" in last()
+    await send(f"{soon.day:02d}.{soon.month:02d}.{soon.year} 18:30")
+    async with Session() as s:
+        assert (await s.get(Site, csite.id)).config["unlock_at"].endswith("T18:30")
+    await click(f"surp:off:{csite.id}")
+    assert "darhol ochiq" in last()
+    assert "Jasur" in await web.show("vip-toy", req({}))
+
     print(f"✅ Barcha tekshiruvlar o'tdi ({len(session.sent)} ta xabar)")
 
 

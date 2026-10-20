@@ -13,6 +13,7 @@ from .config import MEDIA_DIR, ROOT, settings
 from .db import Rsvp, Session, get_site
 from .catalog import CATALOG_DIR, render_catalog
 from .render import env, on_color, render_site
+from .surprise import human, is_owner, locked_until, recipient_name
 from .webapp import router as webapp_router
 
 log = logging.getLogger(__name__)
@@ -52,15 +53,19 @@ async def show(slug: str, request: Request):
         site = await get_site(s, slug)
         if not site:
             raise HTTPException(404)
+        owner = is_owner(slug, request.query_params.get("owner"))
+        lock = locked_until(site.config)
+        if lock and not owner:
+            return env.get_template("teaser.html").render(
+                name=recipient_name(site.config), when=human(lock), target_iso=lock.isoformat())
         password = site.config.get("fields", {}).get("password")
-        if password and request.cookies.get(f"u_{slug}") != _unlock_token(slug, password):
+        if password and not owner and request.cookies.get(f"u_{slug}") != _unlock_token(slug, password):
             c = site.config["colors"]
             return env.get_template("gate.html").render(
                 slug=slug, c=c, on_primary=on_color(c["primary"]), name=site.config["fields"].get("name", ""),
                 hint=site.config.get("texts", {}).get("password_hint"), error=request.query_params.get("e"),
             )
-        is_owner_preview = request.query_params.get("owner") == "1"
-        if site.paid and not is_owner_preview:
+        if site.paid and not owner:
             site.views += 1
             first_view = site.views == 1
             await s.commit()

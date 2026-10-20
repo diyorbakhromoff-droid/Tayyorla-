@@ -240,5 +240,6 @@ async def apply_catalog_edit(config: dict, request: str) -> tuple[dict, str]:
     if not isinstance(data, dict):
         data = config.get("data", {})
     new = clean_order({"template": tid, "tarif": tarif, "rang": out.get("rang"), "data": data,
-                       "photos": config.get("photos", []), "music": config.get("music")}, strict=False)
+                       "photos": config.get("photos", []), "music": config.get("music"),
+                       "unlock_at": config.get("unlock_at")}, strict=False)
     return new, out["reply"]

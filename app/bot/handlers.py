@@ -15,6 +15,7 @@ from sqlalchemy import select
 
 from .. import ai
 from ..catalog import photo_limit, site_price, site_title
+from ..surprise import human, locked_until
 from ..config import MEDIA_DIR, settings
 from ..db import Rsvp, Session, Site, new_slug
 from ..render import parse_date
@@ -61,8 +62,11 @@ async def load_site(site_id: int, user_id: int) -> Site | None:
 def site_card(site: Site) -> str:
     status = {"draft": "📝 Namuna (to'lanmagan)", "pending": "⏳ To'lov tekshirilmoqda", "paid": "✅ Faol"}[site.status]
     left = settings.max_edits - site.edits_used
+    lock = locked_until(site.config)
+    surprise = f"⏰ Syurpriz: {human(lock)} da ochiladi\n" if lock else ""
     return (
         f"<b>{site_title(site.config)}</b>\n"
+        f"{surprise}"
         f"Holati: {status}\n"
         f"🔗 {site.url}\n"
         f"✏️ Qolgan tahrirlar: {left}"
@@ -169,7 +173,7 @@ async def help_cmd(message: Message):
         "1. Sayt turini tanlang va savollarga javob bering.\n"
         "2. Namunani ko'ring, xohlasangiz o'z so'zingiz bilan tahrir qiling.\n"
         "3. Tarifga mos summani to'lab, toza linkni oling va ulashing.\n\n"
-        "/start — bosh menyu\n/mysites — mening saytlarim"
+        "/start — bosh menyu\n/mysites — mening saytlarim\n/yaqinlar — yaqinlarim kalendari"
     )
 
 
@@ -615,3 +619,11 @@ async def stats(message: Message):
         f"⏳ Kutilmoqda: {sum(x.status == 'pending' for x in sites)}\n"
         f"💵 Tushum: {kb.money(sum(site_price(x.config) for x in paid))}"
     )
+
+
+# «📅 Yaqinlarim» bo'limi alohida faylda
+from .people import router as people_router  # noqa: E402
+from .surprise import router as surprise_router  # noqa: E402
+
+router.include_router(people_router)
+router.include_router(surprise_router)
