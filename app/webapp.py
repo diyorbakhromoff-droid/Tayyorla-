@@ -17,6 +17,7 @@ from PIL import Image, ImageOps
 from pydantic import BaseModel, Field
 
 from . import ai
+from .catalog import TEMPLATES, catalog_meta, clean_order, render_catalog
 from .config import MEDIA_DIR, ROOT, settings
 from .db import Session, Site, new_slug
 from .render import parse_date, render_site
@@ -50,6 +51,16 @@ def check_init_data(init_data: str, max_age: int = 24 * 3600) -> dict:
     if time.time() - int(pairs.get("auth_date", 0)) > max_age:
         raise HTTPException(401, "Sessiya eskirgan, ilovani qayta oching")
     return json.loads(pairs.get("user", "{}"))
+
+
+def _rate_limit(user: dict) -> None:
+    calls = _ai_calls[user.get("id", 0)]
+    now = time.time()
+    while calls and now - calls[0] > 3600:
+        calls.popleft()
+    if len(calls) >= AI_LIMIT:
+        raise HTTPException(429, "Juda ko'p so'rov. Birozdan so'ng urinib ko'ring.")
+    calls.append(now)
 
 
 # ---------------------------------------------------------------- ma'lumotlarni tozalash
@@ -157,13 +168,7 @@ class WriteIn(SiteIn):
 @router.post("/api/ai/write")
 async def ai_write(body: WriteIn, x_init_data: str = Header("")):
     user = check_init_data(x_init_data)
-    calls = _ai_calls[user.get("id", 0)]
-    now = time.time()
-    while calls and now - calls[0] > 3600:
-        calls.popleft()
-    if len(calls) >= AI_LIMIT:
-        raise HTTPException(429, "Juda ko'p so'rov. Birozdan so'ng urinib ko'ring.")
-    calls.append(now)
+    _rate_limit(user)
     answers = clean_answers(body.category, body.answers, strict=False)
     try:
         text = await ai.write_message(body.category, answers, body.brief, body.previous)
@@ -187,6 +192,64 @@ async def create_site(body: SiteIn, x_init_data: str = Header("")):
     name = " ".join(filter(None, [user.get("first_name"), user.get("last_name")]))
     async with Session() as s:
         site = Site(slug=new_slug(), owner_id=int(user["id"]), owner_name=name, category=body.category, config=cfg)
+        s.add(site)
+        await s.commit()
+    if on_created:
+        await on_created(site)
+    return {"url": site.url, "id": site.id}
+
+
+# ---------------------------------------------------------------- tayyor shablonlar katalogi
+
+class OrderIn(BaseModel):
+    template: str
+    tarif: str = "premium"
+    rang: int = 1
+    data: dict = Field(default_factory=dict)
+    photos: list = Field(default_factory=list)
+    music: str | None = None
+
+
+@router.get("/api/catalog")
+async def catalog():
+    return catalog_meta()
+
+
+@router.post("/api/catalog/preview", response_class=HTMLResponse)
+async def catalog_preview(body: OrderIn, x_init_data: str = Header("")):
+    check_init_data(x_init_data)
+    return render_catalog(clean_order(body.model_dump(), strict=False), "preview", preview=True)
+
+
+class CatalogWriteIn(BaseModel):
+    template: str
+    data: dict = Field(default_factory=dict)
+    brief: str = Field(default="", max_length=1000)
+    previous: str | None = Field(default=None, max_length=3000)
+
+
+@router.post("/api/catalog/ai/write")
+async def catalog_ai_write(body: CatalogWriteIn, x_init_data: str = Header("")):
+    user = check_init_data(x_init_data)
+    if body.template not in TEMPLATES:
+        raise HTTPException(400, "Noma'lum shablon")
+    _rate_limit(user)
+    order = clean_order({"template": body.template, "tarif": "vip", "data": body.data}, strict=False)
+    try:
+        text = await ai.write_message(order["category"], order["data"], body.brief, body.previous)
+    except Exception:
+        log.exception("Mini App: AI matn yozishda xato")
+        raise HTTPException(502, "Hozir matn yozib bo'lmadi, qayta urinib ko'ring")
+    return {"text": text}
+
+
+@router.post("/api/catalog/sites")
+async def catalog_create(body: OrderIn, x_init_data: str = Header("")):
+    user = check_init_data(x_init_data)
+    cfg = clean_order(body.model_dump(), strict=True)
+    name = " ".join(filter(None, [user.get("first_name"), user.get("last_name")]))
+    async with Session() as s:
+        site = Site(slug=new_slug(), owner_id=int(user["id"]), owner_name=name, category=cfg["category"], config=cfg)
         s.add(site)
         await s.commit()
     if on_created:

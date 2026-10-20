@@ -15,9 +15,24 @@ Telegram bot orqali yaqinlar uchun tabrik saytlarini yaratish xizmati.
 - To'lov: Rahmat havolasi → chek skrinshoti → admin «✅ Tasdiqlash» → mijozga toza link
 - Sayt birinchi marta ochilganda egasiga xabar boradi
 
+## Tayyor shablonlar katalogi (asosiy)
+
+`catalog/` — 5 bo'limda 25 ta professional dizayn (20 oddiy + 5 ta VIP «Maktub»). Har bir shablon ma'lumotni
+`<script id="site-config">` JSON dan oladi; `app/catalog.py` uni to'ldiradi va tarif cheklovlarini qo'llaydi.
+
+| Tarif | Ranglar | Suratlar | Qo'shimcha |
+|---|---|---|---|
+| Standart | 3 | 6 | asosiy bo'limlar, "Siz ham yarating" yozuvi |
+| Premium | 10 | 40 | kirish animatsiyasi, hikoya, sirli xabar, test, video, to'y dasturi, reklamasiz |
+| VIP | 15 | 40 | + «Maktub» VIP shablonlari (muhrli konvert, anketa) |
+
+Narxlar `.env` da: `PRICE_STANDART`, `PRICE_PREMIUM`, `PRICE_VIP`. VIP to'y anketasi javoblari `/s/<slug>/anketa` ga
+keladi va egasiga Telegram'da yuboriladi. Mijoz saytida tarif/rangni havola (`?tarif=`, `#vip-2`) orqali
+o'zgartirib bo'lmaydi — bu faqat namunalarda ishlaydi.
+
 ## Telegram Mini App
 
-Bot ichida ochiladigan forma (`/app`): kategoriya → ma'lumotlar → AI matn → rasm/musiqa → ranglar (jonli namunalar bilan) → oldindan ko'rish → yaratish.
+Bot ichida ochiladigan ilova (`/app`): bo'lim → dizaynlar galereyasi → jonli namuna → tarif va rang → ma'lumotlar (AI matn bilan) → suratlar va musiqa → oldindan ko'rish → yaratish.
 Mini App faqat **HTTPS** da ishlaydi. Domen bo'lmasa, bepul `sslip.io` dan foydalaning:
 
 ```
@@ -37,11 +52,13 @@ app/
   sites.py         kategoriyalar, savollar, ranglar, elementlar
   render.py        saytni shablondan yig'ish
   ai.py            Claude: matn yozish va tahrirlash
+  catalog.py       tayyor shablonlar: maydonlar, tariflar, sahifani yig'ish
   web.py           saytlarni ko'rsatish, RSVP, parol
   webapp.py        Mini App API (Telegram imzosini tekshirish, yuklash, AI, ko'rish)
   bot/handlers.py  bot ssenariysi, tahrir, to'lov, admin
   bot/keyboards.py tugmalar
-templates/         sayt shablonlari (HTML)
+catalog/           25 ta tayyor dizayn, rasmlari va namuna suratlari
+templates/         oddiy shablonlar va Mini App (HTML)
 static/            dizayn (CSS) va animatsiyalar (JS)
 tests/test_flow.py botni Telegram'siz to'liq sinash
 ```

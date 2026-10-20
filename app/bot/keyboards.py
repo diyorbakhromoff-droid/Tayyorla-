@@ -1,6 +1,7 @@
 from aiogram.types import InlineKeyboardMarkup, WebAppInfo
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 
+from ..catalog import site_price
 from ..config import settings
 from ..sites import CATEGORIES, PALETTES
 
@@ -12,7 +13,17 @@ def money(n: int) -> str:
 def main_menu() -> InlineKeyboardMarkup:
     kb = InlineKeyboardBuilder()
     if settings.base_url.startswith("https://"):
-        kb.button(text="✨ Ilovada yaratish (tavsiya)", web_app=WebAppInfo(url=f"{settings.base_url}/app"))
+        kb.button(text="✨ Sayt yaratish — 25 ta dizayn", web_app=WebAppInfo(url=f"{settings.base_url}/app"))
+        kb.button(text="📂 Mening saytlarim", callback_data="my")
+        kb.button(text="⌨️ Oddiy shablonlar (tugmalar orqali)", callback_data="legacy")
+    else:
+        return legacy_menu()
+    kb.adjust(1)
+    return kb.as_markup()
+
+
+def legacy_menu() -> InlineKeyboardMarkup:
+    kb = InlineKeyboardBuilder()
     for c in CATEGORIES.values():
         kb.button(text=c.title, callback_data=f"cat:{c.key}")
     kb.button(text="📂 Mening saytlarim", callback_data="my")
@@ -82,7 +93,7 @@ def site_actions(site) -> InlineKeyboardMarkup:
     kb.button(text="👀 Saytni ochish", url=site.url + ("?owner=1" if site.paid else ""))
     kb.button(text="✏️ Tahrirlash", callback_data=f"edit:{site.id}")
     if site.status == "draft":
-        kb.button(text=f"💳 Linkni olish — {money(settings.price)}", callback_data=f"buy:{site.id}")
+        kb.button(text=f"💳 Linkni olish — {money(site_price(site.config))}", callback_data=f"buy:{site.id}")
     if site.config.get("features", {}).get("rsvp") and site.paid:
         kb.button(text="📋 Mehmonlar ro'yxati", callback_data=f"guests:{site.id}")
     kb.button(text="🏠 Bosh menyu", callback_data="home")
@@ -96,10 +107,11 @@ def edit_mode() -> InlineKeyboardMarkup:
     return kb.as_markup()
 
 
-def pay(site_id: int) -> InlineKeyboardMarkup:
+def pay(site) -> InlineKeyboardMarkup:
+    site_id = site.id
     kb = InlineKeyboardBuilder()
     if settings.rahmat_url:
-        kb.button(text=f"💳 To'lash — {money(settings.price)}", url=settings.rahmat_url)
+        kb.button(text=f"💳 To'lash — {money(site_price(site.config))}", url=settings.rahmat_url)
     kb.button(text="✅ To'ladim", callback_data=f"paid:{site_id}")
     kb.button(text="⬅️ Orqaga", callback_data=f"site:{site_id}")
     kb.adjust(1)

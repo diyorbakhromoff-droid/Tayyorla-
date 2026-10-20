@@ -14,6 +14,7 @@ from aiogram.types import CallbackQuery, Message
 from sqlalchemy import select
 
 from .. import ai
+from ..catalog import photo_limit, site_price, site_title
 from ..config import MEDIA_DIR, settings
 from ..db import Rsvp, Session, Site, new_slug
 from ..render import parse_date
@@ -58,11 +59,10 @@ async def load_site(site_id: int, user_id: int) -> Site | None:
 
 
 def site_card(site: Site) -> str:
-    cat = CATEGORIES[site.category]
     status = {"draft": "📝 Namuna (to'lanmagan)", "pending": "⏳ To'lov tekshirilmoqda", "paid": "✅ Faol"}[site.status]
     left = settings.max_edits - site.edits_used
     return (
-        f"<b>{cat.title}</b>\n"
+        f"<b>{site_title(site.config)}</b>\n"
         f"Holati: {status}\n"
         f"🔗 {site.url}\n"
         f"✏️ Qolgan tahrirlar: {left}"
@@ -135,9 +135,10 @@ def created_text(site: Site) -> str:
 WELCOME = (
     "Assalomu alaykum, {name}! 👋\n\n"
     "<b>Tayyorla</b> — yaqinlaringiz uchun unutilmas tabrik saytlarini bir necha daqiqada tayyorlaydi:\n"
-    "🎂 tug'ilgan kun tabriklari\n💍 to'y taklifnomalari\n💌 sevgi maktublari\n\n"
-    "Konvert ochilishi, konfetti, musiqa, rasmlar, taymerlar va boshqa ko'plab sehrli elementlar bilan ✨\n\n"
-    "Qaysi birini tayyorlaymiz?"
+    "🎂 tug'ilgan kun • 💍 to'y taklifnomasi • 💌 sevgi izhori • 👶 farzand muborak • 🙏 uzrnoma\n\n"
+    "✨ 25 ta professional dizayn, jonli namuna, shamlarni o'chirish, sharlarni yorish, muhrli konvertlar va boshqalar.\n"
+    "💳 Tariflar: <b>Standart</b>, <b>Premium</b> va <b>VIP</b>.\n\n"
+    "Boshlash uchun pastdagi tugmani bosing 👇"
 )
 
 
@@ -145,6 +146,13 @@ WELCOME = (
 async def start(message: Message, state: FSMContext):
     await state.clear()
     await message.answer(WELCOME.format(name=html.escape(message.from_user.first_name or "")), reply_markup=kb.main_menu())
+
+
+@router.callback_query(F.data == "legacy")
+async def legacy(cb: CallbackQuery, state: FSMContext):
+    await state.clear()
+    await cb.message.answer("Oddiy shablonlar — savol-javob orqali tayyorlanadi. Qaysi birini tanlaysiz?", reply_markup=kb.legacy_menu())
+    await cb.answer()
 
 
 @router.callback_query(F.data == "home")
@@ -160,7 +168,7 @@ async def help_cmd(message: Message):
         "ℹ️ <b>Qanday ishlaydi?</b>\n"
         "1. Sayt turini tanlang va savollarga javob bering.\n"
         "2. Namunani ko'ring, xohlasangiz o'z so'zingiz bilan tahrir qiling.\n"
-        f"3. {kb.money(settings.price)} to'lab, toza linkni oling va ulashing.\n\n"
+        "3. Tarifga mos summani to'lab, toza linkni oling va ulashing.\n\n"
         "/start — bosh menyu\n/mysites — mening saytlarim"
     )
 
@@ -456,7 +464,8 @@ async def edit_request(message: Message, state: FSMContext):
     wait = await message.answer("🪄 O'zgartiryapman, bir oz kuting...")
     await message.bot.send_chat_action(message.chat.id, ChatAction.TYPING)
     try:
-        new_config, reply = await ai.apply_edit(site.config, message.text[:1500])
+        edit = ai.apply_catalog_edit if site.config.get("engine") == "catalog" else ai.apply_edit
+        new_config, reply = await edit(site.config, message.text[:1500])
     except Exception:
         log.exception("AI tahrirda xato")
         return await wait.edit_text("😔 Hozir o'zgartirib bo'lmadi. Birozdan so'ng qayta urinib ko'ring.", reply_markup=kb.edit_mode())
@@ -482,11 +491,13 @@ async def edit_photo(message: Message, state: FSMContext):
             if not site or site.owner_id != message.from_user.id:
                 return
             photos = list(site.config.get("photos", []))
-            if len(photos) >= MAX_PHOTOS:
-                return await message.answer(f"Ko'pi bilan {MAX_PHOTOS} ta rasm bo'lishi mumkin.")
+            limit = photo_limit(site.config)
+            if len(photos) >= limit:
+                return await message.answer(f"Bu tarifda ko'pi bilan {limit} ta rasm bo'lishi mumkin.")
             photos.append(await save_media(message.bot, message.photo[-1].file_id, "jpg"))
             cfg = dict(site.config, photos=photos)
-            cfg["features"] = dict(cfg["features"], gallery=True)
+            if "features" in cfg:
+                cfg["features"] = dict(cfg["features"], gallery=True)
             site.config = cfg
             await s.commit()
     await message.answer(f"📸 Rasm qo'shildi (jami {len(photos)} ta). Bu tahrir hisobiga kirmaydi.", reply_markup=kb.edit_mode())
@@ -510,11 +521,11 @@ async def buy(cb: CallbackQuery):
     if not site:
         return await cb.answer()
     await cb.message.answer(
-        f"💳 <b>To'lov: {kb.money(settings.price)}</b>\n\n"
+        f"💳 <b>To'lov: {kb.money(site_price(site.config))}</b>\n{site_title(site.config)}\n\n"
         "1. «To'lash» tugmasini bosing va istalgan ilova (Click, Payme, Uzum va b.) orqali to'lang.\n"
         "2. To'lovdan so'ng «✅ To'ladim» ni bosing va chek skrinshotini yuboring.\n\n"
         "Tekshiruvdan so'ng toza link darhol sizga yuboriladi ✨",
-        reply_markup=kb.pay(site.id),
+        reply_markup=kb.pay(site),
     )
     await cb.answer()
 
@@ -542,7 +553,7 @@ async def receipt(message: Message, state: FSMContext):
     caption = (
         f"💰 <b>Yangi to'lov</b> #{site.id}\n"
         f"👤 {html.escape(user.full_name)} (@{user.username or '-'}, id {user.id})\n"
-        f"📦 {CATEGORIES[site.category].title}\n💵 {kb.money(settings.price)}\n🔗 {site.url}"
+        f"📦 {site_title(site.config)}\n💵 {kb.money(site_price(site.config))}\n🔗 {site.url}"
     )
     for admin in settings.admins:
         try:
@@ -602,5 +613,5 @@ async def stats(message: Message):
     await message.answer(
         f"📊 Jami saytlar: {len(sites)}\n✅ To'langan: {len(paid)}\n"
         f"⏳ Kutilmoqda: {sum(x.status == 'pending' for x in sites)}\n"
-        f"💵 Tushum: {kb.money(len(paid) * settings.price)}"
+        f"💵 Tushum: {kb.money(sum(site_price(x.config) for x in paid))}"
     )

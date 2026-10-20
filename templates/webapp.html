@@ -6,384 +6,464 @@
   <title>Tayyorla</title>
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;600;700&family=Onest:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: var(--tg-theme-bg-color, #ffffff);
-      --bg2: var(--tg-theme-secondary-bg-color, #f2f3f7);
-      --text: var(--tg-theme-text-color, #1a1a1a);
-      --hint: var(--tg-theme-hint-color, #8a8f98);
-      --accent: var(--tg-theme-button-color, #d6336c);
-      --on-accent: var(--tg-theme-button-text-color, #ffffff);
-      --line: color-mix(in srgb, var(--hint) 25%, transparent);
-      --danger: #e5484d;
+      --bg: #F3F2F7; --surface: #FFFFFF; --surface2: #EBE9F2; --ink: #18161F; --muted: #625E70; --line: #DEDBE7;
+      --accent: #5A3CF0; --accent-ink: #FFFFFF; --accent-soft: #E9E4FF; --gold: #B8860B; --gold-soft: #FFF3D6; --danger: #D93A4A;
+      --f-display: 'Unbounded', system-ui, sans-serif; --f-body: 'Onest', system-ui, -apple-system, sans-serif;
+      color-scheme: light;
+    }
+    :root[data-theme="dark"] {
+      --bg: #121118; --surface: #1B1924; --surface2: #24212F; --ink: #F2F0F8; --muted: #A6A1B6; --line: #2F2B3B;
+      --accent: #9784FF; --accent-ink: #130E2B; --accent-soft: #2A2448; --gold: #F0C14B; --gold-soft: #3A2F12; --danger: #FF6B78;
+      color-scheme: dark;
     }
     * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-    html, body { margin: 0; background: var(--bg2); color: var(--text); font: 15px/1.5 "Montserrat", system-ui, sans-serif; }
-    body { padding-bottom: 96px; }
-    .top { position: sticky; top: 0; z-index: 5; background: var(--bg2); padding: 14px 16px 10px; }
-    .top h1 { margin: 0; font-size: 20px; font-weight: 700; }
-    .top p { margin: 2px 0 0; color: var(--hint); font-size: 13px; }
-    .bar { height: 4px; background: var(--line); border-radius: 4px; margin-top: 12px; overflow: hidden; }
-    .bar i { display: block; height: 100%; width: 0; background: var(--accent); transition: width .3s; }
-    main { padding: 4px 16px; }
-    .card { background: var(--bg); border-radius: 18px; padding: 16px; margin-bottom: 12px; }
-    .card h3 { margin: 0 0 4px; font-size: 15px; }
-    .card .hint { color: var(--hint); font-size: 13px; margin: 0 0 10px; }
-    label.field { display: block; margin-bottom: 14px; }
-    label.field span { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; }
-    label.field span em { color: var(--hint); font-style: normal; font-weight: 500; }
-    input, textarea, select {
-      width: 100%; padding: 12px 14px; border-radius: 12px; border: 1.5px solid var(--line);
-      background: var(--bg2); color: var(--text); font: 15px "Montserrat", sans-serif; outline: none;
-    }
+    html, body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.5 var(--f-body); -webkit-font-smoothing: antialiased; }
+    body { padding-bottom: calc(92px + env(safe-area-inset-bottom)); }
+    h1, h2, h3 { font-family: var(--f-display); font-weight: 600; letter-spacing: -.01em; margin: 0; }
+    button { font: inherit; color: inherit; }
+    [hidden] { display: none !important; }
+
+    .top { position: sticky; top: 0; z-index: 5; background: color-mix(in srgb, var(--bg) 92%, transparent); backdrop-filter: blur(12px); padding: 14px 16px 10px; }
+    .brand { display: flex; align-items: center; gap: 10px; }
+    .logo { width: 34px; height: 34px; border-radius: 11px; display: grid; place-items: center; font-size: 18px;
+      background: linear-gradient(135deg, var(--accent), #C04BF0); color: #fff; box-shadow: 0 6px 18px -6px var(--accent); }
+    .brand h1 { font-size: 18px; }
+    .brand p { margin: 0; font-size: 12px; color: var(--muted); }
+    .steps { display: flex; gap: 5px; margin-top: 12px; }
+    .steps i { flex: 1; height: 4px; border-radius: 4px; background: var(--line); transition: background .3s; }
+    .steps i.on { background: var(--accent); }
+    main { padding: 4px 16px 0; }
+
+    .tabs { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; margin: 4px -16px 14px; padding: 0 16px; }
+    .tabs::-webkit-scrollbar { display: none; }
+    .tab { flex: none; padding: 10px 14px; border-radius: 999px; border: 0; background: var(--surface); font-weight: 600; font-size: 14px; cursor: pointer; white-space: nowrap; }
+    .tab.on { background: var(--ink); color: var(--bg); }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .tpl { position: relative; border: 0; padding: 0; background: var(--surface); border-radius: 18px; overflow: hidden; cursor: pointer; text-align: left;
+      box-shadow: 0 10px 30px -18px rgba(24, 22, 31, .35); transition: transform .2s; }
+    .tpl:active { transform: scale(.97); }
+    .tpl img { display: block; width: 100%; aspect-ratio: 300 / 520; object-fit: cover; object-position: top; background: var(--surface2); }
+    .tpl .meta { padding: 10px 12px 12px; }
+    .tpl b { display: block; font-size: 14px; }
+    .tpl small { display: block; color: var(--muted); font-size: 12px; line-height: 1.35; margin-top: 2px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    .vip { position: absolute; top: 10px; left: 10px; padding: 4px 9px; border-radius: 999px; font: 700 11px var(--f-display); letter-spacing: .04em;
+      background: linear-gradient(135deg, #F7D774, #C9971C); color: #3A2500; box-shadow: 0 4px 12px -4px rgba(0,0,0,.35); }
+
+    .phone { width: min(260px, 72vw); margin: 0 auto 16px; aspect-ratio: 9 / 18.5; border-radius: 34px; padding: 9px; background: #1E1B27;
+      box-shadow: 0 30px 60px -30px rgba(24, 22, 31, .7); position: relative; }
+    .phone iframe { width: 100%; height: 100%; border: 0; border-radius: 26px; background: #fff; }
+    .phone .loading { position: absolute; inset: 9px; border-radius: 26px; display: grid; place-items: center; background: var(--surface2); color: var(--muted); font-size: 13px; }
+    .tpl-head { text-align: center; margin-bottom: 14px; }
+    .tpl-head h2 { font-size: 20px; }
+    .tpl-head p { margin: 4px 0 0; color: var(--muted); font-size: 13px; }
+
+    .card { background: var(--surface); border-radius: 20px; padding: 16px; margin-bottom: 12px; }
+    .card h3 { font-size: 15px; margin-bottom: 4px; }
+    .hint { color: var(--muted); font-size: 13px; margin: 0 0 12px; }
+    .tiers { display: grid; gap: 10px; }
+    .tier { display: block; width: 100%; text-align: left; border: 2px solid var(--line); background: var(--surface); border-radius: 16px; padding: 12px 14px; cursor: pointer; position: relative; }
+    .tier.on { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 6%, var(--surface)); }
+    .tier[disabled] { opacity: .45; cursor: not-allowed; }
+    .tier .row1 { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
+    .tier .nm { font: 600 15px var(--f-display); }
+    .tier .pr { font-weight: 700; color: var(--accent); white-space: nowrap; }
+    .tier ul { margin: 6px 0 0; padding: 0; list-style: none; font-size: 13px; color: var(--muted); }
+    .tier li::before { content: "✓ "; color: var(--accent); font-weight: 700; }
+    .tier .badge { position: absolute; top: -9px; right: 12px; background: var(--accent); color: var(--accent-ink); font: 700 10px var(--f-display); padding: 3px 8px; border-radius: 999px; }
+    .swatches { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
+    .sw { border: 0; padding: 0; background: none; cursor: pointer; text-align: center; }
+    .sw i { display: block; aspect-ratio: 1; border-radius: 50%; border: 3px solid transparent; outline: 2px solid transparent; box-shadow: inset 0 0 0 1px rgba(0,0,0,.08); }
+    .sw.on i { outline-color: var(--accent); border-color: var(--surface); }
+    .sw span { display: block; font-size: 10px; color: var(--muted); margin-top: 4px; line-height: 1.2; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .more { font-size: 12px; color: var(--muted); margin-top: 10px; text-align: center; }
+
+    label.field, .field { display: block; margin-bottom: 14px; }
+    .field > span { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; }
+    .field > span em { color: var(--muted); font-style: normal; font-weight: 500; }
+    .field small { display: block; color: var(--muted); font-size: 12px; margin-top: 4px; }
+    .tierTag { display: inline-block; margin-left: 6px; padding: 1px 7px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); font-size: 10px; font-weight: 700; vertical-align: 1px; }
+    input, textarea, select { width: 100%; padding: 12px 14px; border-radius: 12px; border: 1.5px solid var(--line); background: var(--bg);
+      color: var(--ink); font: 15px var(--f-body); outline: none; }
     input:focus, textarea:focus { border-color: var(--accent); }
-    textarea { resize: vertical; min-height: 90px; }
-    .invalid { border-color: var(--danger) !important; }
-    .cats { display: grid; gap: 10px; }
-    .cat { display: flex; align-items: center; gap: 14px; background: var(--bg); border-radius: 18px; padding: 16px; border: 0; color: var(--text); font: 600 16px "Montserrat"; text-align: left; cursor: pointer; }
-    .cat b { font-size: 30px; }
-    .cat small { display: block; color: var(--hint); font-weight: 500; font-size: 12px; margin-top: 2px; }
+    textarea { resize: vertical; min-height: 84px; }
     .chips { display: flex; flex-wrap: wrap; gap: 8px; }
-    .chip { padding: 10px 14px; border-radius: 999px; border: 1.5px solid var(--line); background: var(--bg2); color: var(--text); font: 500 14px "Montserrat"; cursor: pointer; }
-    .chip.on { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 14%, transparent); font-weight: 700; }
-    .palettes { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-    .pal { border-radius: 16px; padding: 14px 12px; border: 2.5px solid transparent; cursor: pointer; text-align: left; position: relative; }
-    .pal.on { border-color: var(--accent); }
-    .pal.on::after { content: "✓"; position: absolute; top: 8px; right: 10px; width: 22px; height: 22px; border-radius: 50%; background: var(--accent); color: var(--on-accent); display: grid; place-items: center; font-size: 12px; font-weight: 700; }
-    .pal .nm { font: 400 30px/1 "Great Vibes", cursive; }
-    .pal .dots { display: flex; gap: 5px; margin: 10px 0 6px; }
-    .pal .dots i { width: 18px; height: 18px; border-radius: 50%; display: block; border: 1px solid rgba(0,0,0,.08); }
-    .pal .lbl { font: 600 12px "Montserrat"; }
-    .photos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 10px; }
-    .photos div { position: relative; aspect-ratio: 1; border-radius: 12px; overflow: hidden; background: var(--bg2); }
-    .photos img { width: 100%; height: 100%; object-fit: cover; }
-    .photos button { position: absolute; top: 4px; right: 4px; width: 26px; height: 26px; border-radius: 50%; border: 0; background: rgba(0,0,0,.6); color: #fff; font-size: 14px; cursor: pointer; }
-    .photos .loading { display: grid; place-items: center; color: var(--hint); font-size: 12px; }
-    .btn { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 14px; border: 0; border-radius: 14px; background: var(--accent); color: var(--on-accent); font: 700 15px "Montserrat"; cursor: pointer; }
-    .btn.ghost { background: color-mix(in srgb, var(--accent) 12%, transparent); color: var(--accent); }
+    .chip { padding: 10px 14px; border-radius: 999px; border: 1.5px solid var(--line); background: var(--bg); font-weight: 500; font-size: 14px; cursor: pointer; }
+    .chip.on { border-color: var(--accent); background: var(--accent-soft); color: var(--accent); font-weight: 700; }
+    .item { border: 1.5px dashed var(--line); border-radius: 14px; padding: 10px; margin-bottom: 8px; display: grid; gap: 8px; position: relative; }
+    .item .rm { position: absolute; top: -10px; right: -6px; width: 26px; height: 26px; border-radius: 50%; border: 0; background: var(--ink); color: var(--bg); font-size: 13px; cursor: pointer; }
+    .ai-box { background: linear-gradient(135deg, var(--accent-soft), color-mix(in srgb, #C04BF0 14%, var(--surface))); border-radius: 14px; padding: 12px; margin-bottom: 10px; }
+    .ai-box p { margin: 0 0 8px; font-size: 13px; font-weight: 600; }
+
+    .btn { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 14px; border: 0; border-radius: 14px;
+      background: var(--accent); color: var(--accent-ink); font: 600 15px var(--f-display); cursor: pointer; }
+    .btn.ghost { background: var(--accent-soft); color: var(--accent); font-family: var(--f-body); font-weight: 700; }
+    .btn.small { padding: 10px; font-size: 14px; }
     .btn:disabled { opacity: .55; }
-    .row { display: flex; gap: 10px; }
-    .bottom { position: fixed; left: 0; right: 0; bottom: 0; z-index: 6; padding: 12px 16px calc(12px + env(safe-area-inset-bottom)); background: var(--bg2); display: flex; gap: 10px; }
-    .bottom .btn.back { flex: 0 0 56px; }
     .upload { position: relative; overflow: hidden; }
     .upload input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
-    .err { background: color-mix(in srgb, var(--danger) 12%, transparent); color: var(--danger); border-radius: 12px; padding: 10px 12px; font-size: 13px; margin-bottom: 12px; }
-    .summary div { display: flex; justify-content: space-between; gap: 12px; padding: 8px 0; border-bottom: 1px solid var(--line); font-size: 14px; }
-    .summary div:last-child { border: 0; }
-    .summary b { text-align: right; font-weight: 600; word-break: break-word; }
-    .modal { position: fixed; inset: 0; z-index: 20; background: #000; display: none; flex-direction: column; }
-    .modal.open { display: flex; }
-    .modal iframe { flex: 1; border: 0; background: #fff; width: 100%; }
-    .modal .close { padding: 12px 16px calc(12px + env(safe-area-inset-bottom)); background: #111; }
-    .done { text-align: center; padding: 40px 10px; }
-    .done .big { font-size: 64px; }
+    .photos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 10px; }
+    .photos div { position: relative; aspect-ratio: 1; border-radius: 12px; overflow: hidden; background: var(--surface2); display: grid; place-items: center; color: var(--muted); }
+    .photos img { width: 100%; height: 100%; object-fit: cover; }
+    .photos button { position: absolute; top: 4px; right: 4px; width: 26px; height: 26px; border-radius: 50%; border: 0; background: rgba(0,0,0,.6); color: #fff; cursor: pointer; }
+    .err { background: color-mix(in srgb, var(--danger) 12%, transparent); color: var(--danger); border-radius: 12px; padding: 10px 12px; font-size: 13px; margin-bottom: 12px; font-weight: 600; }
+    .total { display: flex; justify-content: space-between; align-items: center; gap: 12px; font-weight: 600; font-size: 14px; }
+    .total b { font: 700 19px var(--f-display); color: var(--accent); white-space: nowrap; }
+
+    .bottom { position: fixed; left: 0; right: 0; bottom: 0; z-index: 6; padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
+      background: color-mix(in srgb, var(--bg) 92%, transparent); backdrop-filter: blur(12px); display: flex; gap: 10px; }
+    .bottom .back { flex: 0 0 54px; }
     .spin { width: 18px; height: 18px; border: 2.5px solid currentColor; border-right-color: transparent; border-radius: 50%; animation: s .7s linear infinite; }
     @keyframes s { to { transform: rotate(360deg); } }
-    [hidden] { display: none !important; }
+    .done { text-align: center; padding: 34px 12px; }
+    .done .big { font-size: 64px; }
+    .fade { animation: f .35s ease; }
+    @keyframes f { from { opacity: 0; transform: translateY(8px); } }
   </style>
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
 </head>
 <body>
   <div class="top">
-    <h1 id="title">✨ Tayyorla</h1>
-    <p id="subtitle">Yaqinlaringiz uchun unutilmas sayt</p>
-    <div class="bar"><i id="progress"></i></div>
+    <div class="brand">
+      <div class="logo">✨</div>
+      <div><h1 id="title">Tayyorla</h1><p id="subtitle">Yaqinlaringiz uchun unutilmas sayt</p></div>
+    </div>
+    <div class="steps" id="steps"></div>
   </div>
   <main id="main"></main>
   <div class="bottom" id="bottom" hidden>
     <button class="btn ghost back" id="backBtn" aria-label="Orqaga">←</button>
     <button class="btn" id="nextBtn">Davom etish</button>
   </div>
-  <div class="modal" id="modal">
-    <iframe id="frame" title="Ko'rish"></iframe>
-    <div class="close"><button class="btn" id="closePreview">✕ Yopish</button></div>
-  </div>
 
 <script>
 (() => {
   const tg = window.Telegram && Telegram.WebApp;
-  if (tg) { tg.ready(); tg.expand(); }
+  if (tg) { tg.ready(); tg.expand(); try { tg.setHeaderColor("secondary_bg_color"); } catch {} }
+  if (tg && tg.colorScheme === "dark") document.documentElement.dataset.theme = "dark";
   const initData = tg ? tg.initData : "";
-  const $ = (s) => document.querySelector(s);
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => [...r.querySelectorAll(s)];
   const main = $("#main"), nextBtn = $("#nextBtn"), backBtn = $("#backBtn");
   const esc = (s) => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const money = (n) => n.toLocaleString("ru-RU").replace(/,/g, " ") + " so'm";
   const haptic = (t = "light") => { try { tg.HapticFeedback.impactOccurred(t); } catch {} };
+  const notify = (t) => { try { tg.HapticFeedback.notificationOccurred(t); } catch {} };
 
-  let META = null, cat = null, answers = {}, page = 0, pages = [];
-  const SPECIAL = ["message", "photos", "music", "palette", "features"];
+  let M = null;            // katalog
+  let section = null;      // tanlangan bo'lim
+  let order = null;        // {template, tarif, rang, data, photos, music}
+  let step = 0;
+  const STEP_NAMES = ["Dizayn", "Tarif va rang", "Ma'lumotlar", "Suratlar", "Tayyor"];
 
   async function api(path, body, raw) {
     const opts = { method: body ? "POST" : "GET", headers: { "X-Init-Data": initData } };
     if (body instanceof FormData) opts.body = body;
     else if (body) { opts.body = JSON.stringify(body); opts.headers["Content-Type"] = "application/json"; }
     const r = await fetch(path, opts);
-    if (!r.ok) {
-      let msg = "Xatolik yuz berdi";
-      try { msg = (await r.json()).detail || msg; } catch {}
-      throw new Error(msg);
-    }
+    if (!r.ok) { let m = "Xatolik yuz berdi"; try { m = (await r.json()).detail || m; } catch {} throw new Error(m); }
     return raw ? r.text() : r.json();
   }
-
-  // ---------- qoralama (ilova yopilsa ham saqlanib turadi)
-  const draftKey = () => "tayyorla-draft-" + cat.key;
-  const saveDraft = () => { try { localStorage.setItem(draftKey(), JSON.stringify(answers)); } catch {} };
-  const loadDraft = () => { try { return JSON.parse(localStorage.getItem(draftKey()) || "null"); } catch { return null; } };
-  const clearDraft = () => { try { localStorage.removeItem(draftKey()); } catch {} };
-
-  // ---------- sana: input[type=date] <-> kk.oo.yyyy
-  const toUz = (iso) => { const [y, m, d] = (iso || "").split("-"); return y ? `${d}.${m}.${y}` : ""; };
-  const toIso = (uz) => { const m = (uz || "").match(/(\d{1,2})\.(\d{1,2})\.(\d{4})/); return m ? `${m[3]}-${m[2].padStart(2, "0")}-${m[1].padStart(2, "0")}` : ""; };
+  const save = () => { try { localStorage.setItem("tayyorla-order", JSON.stringify(order)); } catch {} };
+  const load = () => { try { return JSON.parse(localStorage.getItem("tayyorla-order") || "null"); } catch { return null; } };
+  const tpl = () => M.templates.find(t => t.id === order.template);
+  const tier = (k = order.tarif) => M.tiers.find(t => t.key === k);
+  const colorLimit = () => Math.min(tpl().colors.length, tier().colors);
+  const fields = () => M.fields[tpl().section].filter(f => f.tier <= tier().level && (!f.only.length || f.only.includes(order.template)));
 
   function header(title, sub) {
     $("#title").textContent = title;
-    $("#subtitle").textContent = sub || "";
-    $("#progress").style.width = pages.length ? ((page + 1) / pages.length * 100) + "%" : "0";
+    $("#subtitle").textContent = sub;
+    $("#steps").innerHTML = order ? STEP_NAMES.map((_, i) => `<i class="${i <= step ? "on" : ""}"></i>`).join("") : "";
+  }
+  function bottom(label, show = true) { $("#bottom").hidden = !show; nextBtn.textContent = label; nextBtn.disabled = false; }
+  function tgBack(on) { try { on ? tg.BackButton.show() : tg.BackButton.hide(); } catch {} }
+
+  // ---------- 0. galereya
+  function showGallery() {
+    order = null; step = 0;
+    header("Tayyorla", "Dizaynni tanlang — keyin ma'lumotlarni kiritasiz");
+    bottom("", false); tgBack(false);
+    section = section || M.sections[0].key;
+    const list = M.templates.filter(t => t.section === section).sort((a, b) => a.vip - b.vip);
+    main.innerHTML = `
+      <div class="tabs">${M.sections.map(s => `<button class="tab ${s.key === section ? "on" : ""}" data-s="${s.key}">${esc(s.title)}</button>`).join("")}</div>
+      <div class="grid fade">${list.map(t => `
+        <button class="tpl" data-t="${t.id}">
+          ${t.vip ? '<span class="vip">VIP</span>' : ""}
+          <img src="${t.thumb}" alt="" loading="lazy">
+          <div class="meta"><b>${esc(t.name)}</b><small>${esc(t.desc)}</small></div>
+        </button>`).join("")}</div>`;
+    $$(".tab").forEach(b => b.onclick = () => { haptic(); section = b.dataset.s; showGallery(); });
+    $$(".tpl").forEach(b => b.onclick = () => {
+      haptic();
+      const t = M.templates.find(x => x.id === b.dataset.t);
+      const prev = load();
+      order = prev && prev.template === t.id ? prev : { template: t.id, tarif: t.vip ? "vip" : "premium", rang: 1, data: {}, photos: [], music: null };
+      if (t.vip) order.tarif = "vip";
+      step = 0; render();
+    });
   }
 
-  // ---------- 1. kategoriya tanlash
-  function showCategories() {
-    cat = null; pages = [];
-    header("✨ Tayyorla", "Qaysi saytni tayyorlaymiz?");
-    $("#bottom").hidden = true;
-    main.innerHTML = `<div class="cats">${META.categories.map(c => {
-      const [emoji, ...rest] = c.title.split(" ");
-      return `<button class="cat" data-k="${c.key}"><b>${emoji}</b><div>${esc(rest.join(" "))}<small>${esc(c.subtitle)}</small></div></button>`;
-    }).join("")}</div>`;
-    main.querySelectorAll(".cat").forEach(b => b.onclick = () => startCategory(b.dataset.k));
-  }
-
-  function startCategory(key) {
-    haptic();
-    cat = META.categories.find(c => c.key === key);
-    const draft = loadDraft();
-    answers = draft || { palette: cat.default_palette, features: [...cat.default_features], photos: [] };
-    const infoSteps = cat.steps.filter(s => !SPECIAL.includes(s.kind));
-    pages = [
-      { title: "📝 Asosiy ma'lumotlar", render: () => renderInfo(infoSteps), validate: () => validateInfo(infoSteps) },
-      { title: "💬 Tabrik matni", render: renderMessage, validate: () => answers.message?.trim() ? null : "Matnni yozing yoki AI ga yozdiring" },
-      { title: "📸 Rasm va musiqa", render: renderMedia, validate: () => document.querySelector(".photos .loading") ? "Rasmlar yuklanmoqda, kuting..." : null },
-      { title: "🎨 Dizayn", render: renderDesign, validate: () => null },
-      { title: "🚀 Tayyor!", render: renderFinish, validate: () => null, last: true },
-    ];
-    page = 0;
-    renderPage();
-  }
-
-  function renderPage(error) {
-    const p = pages[page];
-    header(p.title, `${cat.title} • ${page + 1}/${pages.length}`);
-    $("#bottom").hidden = false;
-    nextBtn.textContent = p.last ? "🚀 Saytni yaratish" : "Davom etish →";
-    main.innerHTML = (error ? `<div class="err">${esc(error)}</div>` : "") + `<div id="pg"></div>`;
-    p.render($("#pg"));
+  // ---------- qadamlar
+  const STEPS = [renderDesign, renderTier, renderInfo, renderMedia, renderFinish];
+  function render(error) {
+    STEPS[step](error);
     window.scrollTo(0, 0);
+    tgBack(true);
   }
-
-  backBtn.onclick = () => { haptic(); if (page === 0) showCategories(); else { page--; renderPage(); } };
+  function back() { haptic(); if (step === 0) showGallery(); else { step--; render(); } }
+  backBtn.onclick = back;
+  try { tg.BackButton.onClick(back); } catch {}
   nextBtn.onclick = async () => {
     haptic();
-    const err = pages[page].validate();
-    if (err) { renderPage(err); try { tg.HapticFeedback.notificationOccurred("error"); } catch {} return; }
-    saveDraft();
-    if (pages[page].last) return createSite();
-    page++; renderPage();
+    const err = validate();
+    if (err) { notify("error"); render(err); return; }
+    save();
+    if (step === STEPS.length - 1) return create();
+    step++; render();
   };
-
-  // ---------- 2. asosiy ma'lumotlar
-  function inputFor(s) {
-    const v = answers[s.key] ?? "";
-    const opt = s.optional ? " <em>(ixtiyoriy)</em>" : "";
-    const lab = `<span>${esc(s.prompt.split("\n")[0])}${opt}</span>`;
-    if (s.kind === "choice") {
-      return `<div class="field" style="margin-bottom:14px">${lab}<div class="chips">${Object.entries(s.options).map(([val, t]) =>
-        `<button class="chip ${v === val ? "on" : ""}" data-choice="${s.key}" data-v="${val}">${esc(t)}</button>`).join("")}</div></div>`;
+  function validate() {
+    if (step === 2) {
+      for (const f of fields()) {
+        const v = order.data[f.key];
+        if (f.required && (v === undefined || v === null || String(v).trim() === "")) return `To'ldiring: ${f.label}`;
+      }
     }
-    if (s.kind === "date") return `<label class="field">${lab}<input type="date" data-k="${s.key}" data-kind="date" value="${toIso(v)}"></label>`;
-    if (s.kind === "time") return `<label class="field">${lab}<input type="time" data-k="${s.key}" value="${esc(v)}"></label>`;
-    if (s.kind === "number") return `<label class="field">${lab}<input type="number" inputmode="numeric" min="1" max="149" data-k="${s.key}" value="${esc(v)}"></label>`;
-    if (s.key === "promises") return `<label class="field">${lab}<textarea data-k="${s.key}" rows="4" placeholder="Har bir va'dani yangi qatordan yozing">${esc(v)}</textarea></label>`;
-    return `<label class="field">${lab}<input data-k="${s.key}" value="${esc(v)}" maxlength="300"></label>`;
-  }
-
-  function renderInfo(steps, root = $("#pg")) {
-    root.innerHTML = `<div class="card">${steps.map(inputFor).join("")}</div>`;
-    root.querySelectorAll("[data-k]").forEach(el => el.oninput = () => {
-      answers[el.dataset.k] = el.dataset.kind === "date" ? toUz(el.value) : el.value;
-      el.classList.remove("invalid");
-    });
-    root.querySelectorAll("[data-choice]").forEach(b => b.onclick = () => {
-      haptic(); answers[b.dataset.choice] = b.dataset.v;
-      root.querySelectorAll(`[data-choice="${b.dataset.choice}"]`).forEach(x => x.classList.toggle("on", x === b));
-    });
-  }
-
-  function validateInfo(steps) {
-    for (const s of steps) {
-      if (!s.optional && !String(answers[s.key] ?? "").trim()) return `To'ldiring: ${s.prompt.split("\n")[0].replace(/[:?]$/, "")}`;
-    }
+    if (step === 3 && $(".photos .wait")) return "Suratlar yuklanmoqda, biroz kuting...";
     return null;
   }
+  const errBox = (e) => e ? `<div class="err">${esc(e)}</div>` : "";
 
-  // ---------- 3. matn
-  function renderMessage(root) {
-    root.innerHTML = `
-      <div class="card">
-        <h3>✨ AI yozib bersin</h3>
-        <p class="hint">U qanday inson, qanday xotiralaringiz bor, qaysi uslubda bo'lsin — qisqacha yozing.</p>
-        <textarea id="brief" rows="3" placeholder="Masalan: onam, juda mehribon, shirin taomlar pishiradi, samimiy uslubda">${esc(answers._brief || "")}</textarea>
-        <div style="height:10px"></div>
-        <button class="btn ghost" id="aiBtn">${answers.message ? "🔄 Boshqa variant yozish" : "✨ Matn yozib ber"}</button>
-      </div>
-      <div class="card">
-        <h3>💬 Matn</h3>
-        <p class="hint">AI yozganini tahrirlashingiz yoki o'zingiz yozishingiz mumkin.</p>
-        <textarea id="msg" rows="9" maxlength="3000" placeholder="Tabrik matni...">${esc(answers.message || "")}</textarea>
-      </div>`;
-    $("#brief").oninput = (e) => answers._brief = e.target.value;
-    $("#msg").oninput = (e) => answers.message = e.target.value;
-    $("#aiBtn").onclick = async () => {
-      const btn = $("#aiBtn");
-      btn.disabled = true; btn.innerHTML = `<span class="spin"></span> Yozyapman...`;
-      try {
-        const res = await api("/api/ai/write", { category: cat.key, answers, brief: answers._brief || "", previous: answers.message || null });
-        answers.message = res.text; $("#msg").value = res.text; saveDraft();
-        try { tg.HapticFeedback.notificationOccurred("success"); } catch {}
-      } catch (e) { alert(e.message); }
-      btn.disabled = false; btn.textContent = answers.message ? "🔄 Boshqa variant yozish" : "✨ Matn yozib ber";
-    };
+  function demoUrl() { return `${tpl().demo}#${order.tarif}-${order.rang}`; }
+
+  // 1. Dizayn: jonli namuna
+  function renderDesign(error) {
+    const t = tpl();
+    header(t.name, `${M.sections.find(s => s.key === t.section).title} • namuna`);
+    main.innerHTML = errBox(error) + `
+      <div class="tpl-head fade"><h2>${esc(t.name)}</h2><p>${esc(t.desc)}</p></div>
+      <div class="phone"><div class="loading">Yuklanmoqda...</div><iframe id="demo" src="${demoUrl()}" title="Namuna"></iframe></div>
+      <p class="hint" style="text-align:center">Namunani barmoq bilan suring va interaktivlarini sinab ko'ring 👆</p>`;
+    $("#demo").onload = () => { const l = $(".phone .loading"); if (l) l.remove(); };
+    bottom("Shu dizaynni tanlash →");
   }
 
-  // ---------- 4. rasm va musiqa
-  function renderMedia(root) {
-    root.innerHTML = `
+  // 2. Tarif va rang
+  function renderTier(error) {
+    const t = tpl();
+    header("Tarif va rang", t.name);
+    if (order.rang > colorLimit()) order.rang = 1;
+    const lim = colorLimit();
+    main.innerHTML = errBox(error) + `
+      <div class="phone" style="width:min(200px,56vw)"><div class="loading">...</div><iframe id="demo" src="${demoUrl()}" title="Namuna"></iframe></div>
+      <div class="card fade">
+        <h3>Tarifni tanlang</h3>
+        ${t.vip ? '<p class="hint">Bu dizayn faqat VIP tarifda.</p>' : '<p class="hint">Yuqori tarifda saytga yangi bo\'limlar qo\'shiladi.</p>'}
+        <div class="tiers">${M.tiers.map(x => `
+          <button class="tier ${x.key === order.tarif ? "on" : ""}" data-k="${x.key}" ${t.vip && x.key !== "vip" ? "disabled" : ""}>
+            ${x.key === "premium" && !t.vip ? '<span class="badge">KO\'P TANLANADI</span>' : ""}
+            <div class="row1"><span class="nm">${esc(x.title)}</span><span class="pr">${money(x.price)}</span></div>
+            <ul>${x.features.map(f => `<li>${esc(f)}</li>`).join("")}</ul>
+          </button>`).join("")}</div>
+      </div>
       <div class="card">
-        <h3>📸 Rasmlar</h3>
-        <p class="hint">10 tagacha. Birinchisi havola ulashilganda ko'rinadi.</p>
-        <div class="btn ghost upload">➕ Rasm qo'shish<input type="file" id="photoIn" accept="image/*" multiple></div>
+        <h3>Rang</h3>
+        <p class="hint">${esc(tier().title)} tarifida ${lim} ta rang</p>
+        <div class="swatches">${t.swatch.slice(0, lim).map((c, i) => `
+          <button class="sw ${order.rang === i + 1 ? "on" : ""}" data-r="${i + 1}" title="${esc(t.colors[i])}">
+            <i style="background:conic-gradient(${c[1]} 0 50%, ${c[2]} 0 75%, ${c[0]} 0)"></i><span>${esc(t.colors[i])}</span>
+          </button>`).join("")}</div>
+        ${lim < t.colors.length ? `<p class="more">Yana ${t.colors.length - lim} ta rang yuqori tarifda 🔓</p>` : ""}
+      </div>`;
+    $("#demo").onload = () => { const l = $(".phone .loading"); if (l) l.remove(); };
+    const refresh = () => { $("#demo").src = demoUrl(); };
+    $$(".tier").forEach(b => b.onclick = () => { if (b.disabled) return; haptic(); order.tarif = b.dataset.k; save(); renderTier(); });
+    $$(".sw").forEach(b => b.onclick = () => {
+      haptic(); order.rang = +b.dataset.r; save();
+      $$(".sw").forEach(x => x.classList.toggle("on", x === b)); refresh();
+    });
+    bottom(`Davom etish • ${money(tier().price)}`);
+  }
+
+  // 3. Ma'lumotlar
+  function fieldHtml(f) {
+    const v = order.data[f.key];
+    const tag = f.tier > 1 ? `<span class="tierTag">${f.tier === 2 ? "PREMIUM" : "VIP"}</span>` : "";
+    const lab = `<span>${esc(f.label)}${f.required ? "" : " <em>(ixtiyoriy)</em>"}${tag}</span>`;
+    const hint = f.hint ? `<small>${esc(f.hint)}</small>` : "";
+    const k = esc(f.key);
+    switch (f.kind) {
+      case "choice":
+        return `<div class="field">${lab}<div class="chips">${Object.entries(f.options).map(([val, t]) =>
+          `<button class="chip ${v === val ? "on" : ""}" data-choice="${k}" data-v="${esc(val)}">${esc(t)}</button>`).join("")}</div>${hint}</div>`;
+      case "date": return `<label class="field">${lab}<input type="date" data-k="${k}" value="${esc(v || "")}">${hint}</label>`;
+      case "time": return `<label class="field">${lab}<input type="time" data-k="${k}" value="${esc(v || "")}">${hint}</label>`;
+      case "url": return `<label class="field">${lab}<input type="url" inputmode="url" placeholder="https://" data-k="${k}" value="${esc(v || "")}">${hint}</label>`;
+      case "tel": return `<label class="field">${lab}<input type="tel" placeholder="+998 90 123 45 67" data-k="${k}" value="${esc(v || "")}">${hint}</label>`;
+      case "lines": return `<label class="field">${lab}<textarea rows="4" data-k="${k}" data-lines="1">${esc((v || []).join("\n"))}</textarea>${hint}</label>`;
+      case "photo": return `<div class="field">${lab}<div class="photos" style="grid-template-columns:1fr 2fr">${v ? `<div><img src="${esc(v)}" alt=""><button data-rmphoto="${k}">✕</button></div>` : ""}</div>
+        <div class="btn ghost small upload" style="margin-top:8px">📷 Surat tanlash<input type="file" accept="image/*" data-photo="${k}"></div>${hint}</div>`;
+      case "items": return `<div class="field">${lab}${hint}<div data-items="${k}"></div><button class="btn ghost small" data-add="${k}">➕ Qo'shish</button></div>`;
+      case "textarea":
+        if (f.ai) return `<div class="field">${lab}
+          <div class="ai-box"><p>✨ AI yozib bersin</p>
+            <textarea rows="2" id="brief" placeholder="U qanday inson, qanday xotiralar bor, uslub qanday bo'lsin...">${esc(order._brief || "")}</textarea>
+            <div style="height:8px"></div><button class="btn small" id="aiBtn" data-ai="${k}">${v ? "🔄 Boshqa variant" : "✨ Matn yozib ber"}</button></div>
+          <textarea rows="8" data-k="${k}" maxlength="3000" placeholder="Matnni o'zingiz yozing yoki AI ga yozdiring">${esc(v || "")}</textarea>${hint}</div>`;
+        return `<label class="field">${lab}<textarea rows="3" data-k="${k}">${esc(v || "")}</textarea>${hint}</label>`;
+      default: return `<label class="field">${lab}<input data-k="${k}" maxlength="300" value="${esc(v || "")}">${hint}</label>`;
+    }
+  }
+
+  function drawItems(f, box) {
+    const rows = order.data[f.key] || [];
+    box.innerHTML = rows.map((row, i) => `<div class="item"><button class="rm" data-rm="${i}">✕</button>${f.sub.map(([sk, sl, kind]) => {
+      let val = row[sk];
+      if (kind === "csv") val = (val || []).join(", ");
+      if (kind === "index") val = (val ?? 0) + 1;
+      const type = kind === "time" ? "time" : kind === "index" ? "number" : "text";
+      return `<input type="${type}" placeholder="${esc(sl)}" data-i="${i}" data-sk="${esc(sk)}" data-kind="${kind}" value="${esc(val ?? "")}" ${kind === "index" ? 'min="1" max="6"' : ""}>`;
+    }).join("")}</div>`).join("");
+    $$("input", box).forEach(el => el.oninput = () => {
+      const row = order.data[f.key][+el.dataset.i];
+      if (el.dataset.kind === "csv") row[el.dataset.sk] = el.value.split(",").map(s => s.trim()).filter(Boolean);
+      else if (el.dataset.kind === "index") row[el.dataset.sk] = Math.max(0, (+el.value || 1) - 1);
+      else row[el.dataset.sk] = el.value;
+      save();
+    });
+    $$("[data-rm]", box).forEach(b => b.onclick = () => { order.data[f.key].splice(+b.dataset.rm, 1); save(); drawItems(f, box); });
+  }
+
+  function renderInfo(error) {
+    header("Ma'lumotlar", tpl().name);
+    const fs = fields();
+    const base = fs.filter(f => f.tier === 1), extra = fs.filter(f => f.tier > 1);
+    main.innerHTML = errBox(error) + `<div class="card fade">${base.map(fieldHtml).join("")}</div>` +
+      (extra.length ? `<div class="card"><h3>✨ ${esc(tier().title)} bo'limlari</h3><p class="hint">To'ldirilmagan bo'limlar saytda ko'rinmaydi.</p>${extra.map(fieldHtml).join("")}</div>` : "");
+    $$("[data-k]").forEach(el => el.oninput = () => {
+      order.data[el.dataset.k] = el.dataset.lines ? el.value.split("\n") : el.value;
+      save();
+    });
+    $$("[data-choice]").forEach(b => b.onclick = () => {
+      haptic(); order.data[b.dataset.choice] = b.dataset.v; save();
+      $$(`[data-choice="${b.dataset.choice}"]`).forEach(x => x.classList.toggle("on", x === b));
+    });
+    fs.filter(f => f.kind === "items").forEach(f => {
+      const box = $(`[data-items="${f.key}"]`);
+      drawItems(f, box);
+      $(`[data-add="${f.key}"]`).onclick = () => {
+        haptic(); (order.data[f.key] = order.data[f.key] || []).push(Object.fromEntries(f.sub.map(([sk, , kind]) => [sk, kind === "csv" ? [] : kind === "index" ? 0 : ""])));
+        save(); drawItems(f, box);
+      };
+    });
+    $$("[data-photo]").forEach(inp => inp.onchange = async () => {
+      const file = inp.files[0]; if (!file) return;
+      const fd = new FormData(); fd.append("file", file);
+      try { order.data[inp.dataset.photo] = (await api("/api/upload?kind=photo", fd)).url; save(); renderInfo(); } catch (e) { alert(e.message); }
+    });
+    $$("[data-rmphoto]").forEach(b => b.onclick = () => { delete order.data[b.dataset.rmphoto]; save(); renderInfo(); });
+    const brief = $("#brief"); if (brief) brief.oninput = () => { order._brief = brief.value; };
+    const aiBtn = $("#aiBtn");
+    if (aiBtn) aiBtn.onclick = async () => {
+      const key = aiBtn.dataset.ai, ta = $(`[data-k="${key}"]`);
+      aiBtn.disabled = true; aiBtn.innerHTML = `<span class="spin"></span> Yozyapman...`;
+      try {
+        const res = await api("/api/catalog/ai/write", { template: order.template, data: order.data, brief: order._brief || "", previous: order.data[key] || null });
+        order.data[key] = res.text; ta.value = res.text; save(); notify("success");
+      } catch (e) { alert(e.message); }
+      aiBtn.disabled = false; aiBtn.textContent = order.data[key] ? "🔄 Boshqa variant" : "✨ Matn yozib ber";
+    };
+    bottom("Davom etish →");
+  }
+
+  // 4. Suratlar va musiqa
+  function renderMedia(error) {
+    header("Suratlar va musiqa", tpl().name);
+    const lim = tier().photos;
+    main.innerHTML = errBox(error) + `
+      <div class="card fade">
+        <h3>📸 Suratlar</h3>
+        <p class="hint">${esc(tier().title)} tarifida ${lim} tagacha. Birinchisi asosiy surat bo'ladi.</p>
+        <div class="btn ghost upload" id="photoUp">➕ Surat qo'shish<input type="file" id="photoIn" accept="image/*" multiple></div>
         <div class="photos" id="photos"></div>
       </div>
       <div class="card">
-        <h3>🎵 Fon musiqasi <span style="color:var(--hint);font-weight:500">(ixtiyoriy)</span></h3>
-        <p class="hint">Sayt ochilganda chalinadi. mp3 fayl tanlang.</p>
+        <h3>🎵 Fon musiqasi <span style="color:var(--muted);font-weight:500;font-family:var(--f-body)">(ixtiyoriy)</span></h3>
+        <p class="hint">Yuklamasangiz, dizaynning o'z kuyi chalinadi.</p>
         <div id="music"></div>
       </div>`;
-    drawPhotos(); drawMusic();
+    drawPhotos(0);
+    drawMusic();
     $("#photoIn").onchange = async (e) => {
-      const files = [...e.target.files].slice(0, 10 - answers.photos.length);
+      const files = [...e.target.files].slice(0, lim - order.photos.length);
       e.target.value = "";
-      for (const f of files) {
-        const ph = document.createElement("div"); ph.className = "loading"; ph.textContent = "⏳";
-        $("#photos").appendChild(ph);
-      }
+      if (!files.length) { alert(`Ko'pi bilan ${lim} ta surat`); return; }
+      let pending = files.length; drawPhotos(pending);
       for (const f of files) {
         const fd = new FormData(); fd.append("file", f);
-        try { const { url } = await api("/api/upload?kind=photo", fd); answers.photos.push(url); saveDraft(); }
-        catch (err) { alert(err.message); }
-        drawPhotos(files.length - files.indexOf(f) - 1);
+        try { const { url } = await api("/api/upload?kind=photo", fd); order.photos.push(url); save(); } catch (err) { alert(err.message); }
+        drawPhotos(--pending);
       }
     };
   }
-  function drawPhotos(pending = 0) {
+  function drawPhotos(pending) {
     const box = $("#photos"); if (!box) return;
-    box.innerHTML = answers.photos.map((u, i) => `<div><img src="${esc(u)}" alt=""><button data-i="${i}">✕</button></div>`).join("")
-      + `<div class="loading">⏳</div>`.repeat(pending);
-    box.querySelectorAll("button").forEach(b => b.onclick = () => { answers.photos.splice(+b.dataset.i, 1); saveDraft(); drawPhotos(); });
+    box.innerHTML = order.photos.map((u, i) => `<div><img src="${esc(u)}" alt=""><button data-i="${i}">✕</button></div>`).join("")
+      + `<div class="wait"><span class="spin"></span></div>`.repeat(pending);
+    $$("button", box).forEach(b => b.onclick = () => { order.photos.splice(+b.dataset.i, 1); save(); drawPhotos(0); });
+    $("#photoUp").hidden = order.photos.length >= tier().photos;
   }
   function drawMusic() {
     const box = $("#music");
-    if (answers.music) {
-      box.innerHTML = `<audio controls src="${esc(answers.music)}" style="width:100%"></audio><div style="height:8px"></div><button class="btn ghost" id="rmMusic">🗑 Olib tashlash</button>`;
-      $("#rmMusic").onclick = () => { answers.music = null; saveDraft(); drawMusic(); };
+    if (order.music) {
+      box.innerHTML = `<audio controls src="${esc(order.music)}" style="width:100%"></audio><div style="height:8px"></div><button class="btn ghost small" id="rmMusic">🗑 Olib tashlash</button>`;
+      $("#rmMusic").onclick = () => { order.music = null; save(); drawMusic(); };
     } else {
-      box.innerHTML = `<div class="btn ghost upload" id="musicUp">🎵 Musiqa tanlash<input type="file" id="musicIn" accept="audio/*"></div>`;
+      box.innerHTML = `<div class="btn ghost upload" id="musicUp">🎵 Musiqa tanlash (mp3)<input type="file" id="musicIn" accept="audio/*"></div>`;
       $("#musicIn").onchange = async (e) => {
         const f = e.target.files[0]; if (!f) return;
         $("#musicUp").innerHTML = `<span class="spin"></span> Yuklanmoqda...`;
         const fd = new FormData(); fd.append("file", f);
-        try { answers.music = (await api("/api/upload?kind=music", fd)).url; saveDraft(); } catch (err) { alert(err.message); }
+        try { order.music = (await api("/api/upload?kind=music", fd)).url; save(); } catch (err) { alert(err.message); }
         drawMusic();
       };
     }
+    bottom("Ko'rish →");
   }
 
-  // ---------- 5. dizayn
-  function renderDesign(root) {
-    root.innerHTML = `
-      <div class="card">
-        <h3>🎨 Ranglar</h3>
-        <p class="hint">Sayt qaysi ranglarda bo'lsin? Keyin o'zgartirish ham mumkin.</p>
-        <div class="palettes">${Object.entries(META.palettes).map(([k, p]) => `
-          <button class="pal ${answers.palette === k ? "on" : ""}" data-p="${k}" style="background:${p.bg};color:${p.text}">
-            <div class="nm" style="color:${p.primary}">Aziza</div>
-            <div class="dots"><i style="background:${p.primary}"></i><i style="background:${p.accent}"></i><i style="background:${p.surface}"></i></div>
-            <div class="lbl">${esc(p.title)}</div>
-          </button>`).join("")}</div>
-      </div>
-      <div class="card">
-        <h3>🪄 Elementlar</h3>
-        <p class="hint">Saytni jonli qiladigan effektlar. Bosib yoqing yoki o'chiring.</p>
-        <div class="chips">${Object.entries(cat.features).map(([k, t]) =>
-          `<button class="chip ${answers.features.includes(k) ? "on" : ""}" data-f="${k}">${esc(t)}</button>`).join("")}</div>
+  // 5. Ko'rish va yaratish
+  async function renderFinish(error) {
+    const t = tpl();
+    header("Deyarli tayyor!", t.name);
+    main.innerHTML = errBox(error) + `
+      <div class="phone"><div class="loading"><span class="spin"></span></div><iframe id="pv" title="Ko'rish"></iframe></div>
+      <p class="hint" style="text-align:center">Bu sizning saytingiz. To'lovdan so'ng «NAMUNA» yozuvi olib tashlanadi.</p>
+      <div class="card fade">
+        <div class="total"><span>${esc(t.name)} • ${esc(tier().title)}</span><b>${money(tier().price)}</b></div>
       </div>`;
-    root.querySelectorAll("[data-p]").forEach(b => b.onclick = () => {
-      haptic(); answers.palette = b.dataset.p;
-      root.querySelectorAll("[data-p]").forEach(x => x.classList.toggle("on", x === b));
-    });
-    root.querySelectorAll("[data-f]").forEach(b => b.onclick = () => {
-      haptic(); const k = b.dataset.f, i = answers.features.indexOf(k);
-      if (i >= 0) answers.features.splice(i, 1); else answers.features.push(k);
-      b.classList.toggle("on", i < 0);
-    });
-  }
-
-  // ---------- 6. yakun
-  function renderFinish(root) {
-    const rows = cat.steps.filter(s => !SPECIAL.includes(s.kind) && answers[s.key]).map(s => {
-      let v = answers[s.key];
-      if (s.kind === "choice") v = s.options[v];
-      return `<div><span>${esc(s.prompt.split("\n")[0].replace(/^[^\wА-яʻ'«]+/u, "").replace(/[:?(].*$/, ""))}</span><b>${esc(String(v).split("\n")[0])}</b></div>`;
-    });
-    rows.push(`<div><span>Rasmlar</span><b>${answers.photos.length} ta</b></div>`);
-    rows.push(`<div><span>Musiqa</span><b>${answers.music ? "bor" : "yo'q"}</b></div>`);
-    rows.push(`<div><span>Ranglar</span><b>${esc(META.palettes[answers.palette].title)}</b></div>`);
-    root.innerHTML = `
-      <div class="card"><button class="btn ghost" id="previewBtn">👀 Saytni oldindan ko'rish</button></div>
-      <div class="card summary">${rows.join("")}</div>
-      <p class="hint" style="padding:0 6px">Sayt «NAMUNA» holatida yaratiladi. Botda uni ko'rib, tahrirlab, so'ng to'lov qilib toza linkni olasiz.</p>`;
-    $("#previewBtn").onclick = showPreview;
-  }
-
-  async function showPreview() {
-    const btn = $("#previewBtn");
-    btn.disabled = true; btn.innerHTML = `<span class="spin"></span> Tayyorlanmoqda...`;
+    bottom("🚀 Saytni yaratish");
     try {
-      $("#frame").srcdoc = await api("/api/preview", { category: cat.key, answers }, true);
-      $("#modal").classList.add("open");
-    } catch (e) { alert(e.message); }
-    btn.disabled = false; btn.textContent = "👀 Saytni oldindan ko'rish";
+      const html = await api("/api/catalog/preview", order, true);
+      const pv = $("#pv"); if (!pv) return;
+      pv.srcdoc = html; pv.onload = () => { const l = $(".phone .loading"); if (l) l.remove(); };
+    } catch (e) { const l = $(".phone .loading"); if (l) l.textContent = e.message; }
   }
-  $("#closePreview").onclick = () => { $("#modal").classList.remove("open"); $("#frame").srcdoc = ""; };
 
-  async function createSite() {
+  async function create() {
     nextBtn.disabled = true; nextBtn.innerHTML = `<span class="spin"></span> Yaratilmoqda...`;
     try {
-      const res = await api("/api/sites", { category: cat.key, answers });
-      clearDraft();
-      try { tg.HapticFeedback.notificationOccurred("success"); } catch {}
-      $("#bottom").hidden = true;
-      header("🎉 Tayyor!", "");
-      main.innerHTML = `<div class="card done">
-        <div class="big">🎉</div>
-        <h2 style="margin:8px 0">Saytingiz tayyor!</h2>
-        <p class="hint">Link va tugmalarni botga yubordik: ko'rish, tahrirlash va to'lov o'sha yerda.</p>
-        <div style="height:12px"></div>
-        <button class="btn" id="toBot">💬 Botga qaytish</button>
-      </div>`;
+      const res = await api("/api/catalog/sites", order);
+      try { localStorage.removeItem("tayyorla-order"); } catch {}
+      notify("success"); tgBack(false);
+      $("#bottom").hidden = true; order = null; header("Tayyor! 🎉", "");
+      main.innerHTML = `<div class="card done fade"><div class="big">🎉</div><h2>Saytingiz tayyor!</h2>
+        <p class="hint" style="margin-top:8px">Havola va tugmalarni botga yubordik: ko'rish, tahrirlash va to'lov o'sha yerda.</p>
+        <button class="btn" id="toBot">💬 Botga qaytish</button></div>`;
       $("#toBot").onclick = () => tg ? tg.close() : (location.href = res.url);
-    } catch (e) { renderPage(e.message); }
-    nextBtn.disabled = false;
+    } catch (e) { render(e.message); }
   }
 
   // ---------- ishga tushirish
@@ -391,7 +471,7 @@
     main.innerHTML = `<div class="card done"><div class="big">📱</div><p>Bu ilova Telegram ichida ochiladi.</p></div>`;
     return;
   }
-  api("/api/categories").then(m => { META = m; showCategories(); }).catch(e => main.innerHTML = `<div class="err">${esc(e.message)}</div>`);
+  api("/api/catalog").then(m => { M = m; showGallery(); }).catch(e => main.innerHTML = `<div class="err">${esc(e.message)}</div>`);
 })();
 </script>
 </body>

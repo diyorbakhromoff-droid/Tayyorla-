@@ -48,3 +48,39 @@ assert rejects(lambda: clean_answers("birthday", {"date": "32.13.2026"}, strict=
 assert rejects(lambda: clean_answers("nope", {}, strict=False))
 assert clean_answers("baby", {"gender": "alien"}, strict=False)["gender"] is None
 print("✅ Mini App tekshiruvlari o'tdi")
+
+# ---------------------------------------------------------------- katalog shablonlari
+import json as _json  # noqa: E402
+import re as _re  # noqa: E402
+
+from app.catalog import clean_order, render_catalog  # noqa: E402
+
+base = {"template": "tk-tort", "data": {"kimga": "Madina", "kimdan": "Ali", "sana": "2026-10-24", "matn": "Salom",
+        "savollar": [{"savol": "S?", "javoblar": ["a", "b"], "togri": 5}], "sirli_xabar": "sir"}}
+
+std = clean_order({**base, "tarif": "standart", "rang": 9}, strict=True)
+assert std["rang"] == 1, "standartda 9-rang bo'lmaydi"
+assert "savollar" not in std["data"] and "sirli_xabar" not in std["data"], "premium maydonlar standartda yo'q"
+prem = clean_order({**base, "tarif": "premium", "rang": 9}, strict=True)
+assert prem["rang"] == 9 and prem["data"]["savollar"][0]["togri"] == 1 and prem["data"]["sirli_xabar"] == "sir"
+assert rejects(lambda: clean_order({**base, "template": "tk-maktub", "tarif": "premium"}, strict=False))  # VIP shablon
+assert clean_order({**base, "template": "tk-maktub", "tarif": "vip"}, strict=False)["tarif"] == "vip"
+assert rejects(lambda: clean_order({**base, "data": {"kimga": "A"}, "tarif": "vip"}, strict=True))  # majburiy maydonlar
+assert rejects(lambda: clean_order({**base, "template": "../../etc"}, strict=False))
+assert rejects(lambda: clean_order({**base, "data": {"sana": "24.10"}}, strict=False))
+assert clean_order({**base, "data": {"video": "javascript:alert(1)"}}, strict=False)["data"].get("video") is None
+assert clean_order({**base, "photos": ["/media/../x", "https://evil/x.jpg"]}, strict=False)["photos"] == []
+
+# sahifa: ma'lumot joyiga tushadi, skriptdan chiqib ketolmaydi, tarifni havola orqali o'zgartirib bo'lmaydi
+evil = clean_order({**base, "tarif": "standart", "data": {**base["data"], "matn": "</script><script>alert(1)</script>"}}, strict=False)
+page = render_catalog(evil, "abc", preview=False)
+cfg_json = _re.search(r'<script id="site-config" type="application/json">(.*?)</script>', page, _re.S).group(1)
+cfg = _json.loads(cfg_json)
+assert cfg["kimga"] == "Madina" and cfg["tarif"] == "standart" and cfg["demo"] is False
+assert "</script><script>alert" not in page
+assert "new URLSearchParams(CFG.demo ? location.search : '')" in page and "NAMUNA" not in page
+assert "t.me/tayyorla_aibot" in page
+assert "NAMUNA • TAYYORLA" in render_catalog(evil, "abc", preview=True)
+vip_toy = clean_order({"template": "toy-maktub", "tarif": "vip", "data": {}}, strict=False)
+assert "/s/xyz/anketa" in render_catalog(vip_toy, "xyz", preview=False)
+print("✅ Katalog tekshiruvlari o'tdi")

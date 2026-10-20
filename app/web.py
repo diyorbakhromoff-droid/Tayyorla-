@@ -1,4 +1,6 @@
 import hashlib
+import html
+import re
 import hmac
 import logging
 
@@ -9,6 +11,7 @@ from pydantic import BaseModel, Field
 
 from .config import MEDIA_DIR, ROOT, settings
 from .db import Rsvp, Session, get_site
+from .catalog import CATALOG_DIR, render_catalog
 from .render import env, on_color, render_site
 from .webapp import router as webapp_router
 
@@ -17,7 +20,14 @@ log = logging.getLogger(__name__)
 app = FastAPI(docs_url=None, redoc_url=None)
 app.mount("/static", StaticFiles(directory=ROOT / "static"), name="static")
 app.mount("/media", StaticFiles(directory=MEDIA_DIR), name="media")
+app.mount("/katalog", StaticFiles(directory=CATALOG_DIR), name="katalog")
 app.include_router(webapp_router)
+
+
+def page_for(site, preview: bool) -> str:
+    if site.config.get("engine") == "catalog":
+        return render_catalog(site.config, site.slug, preview)
+    return render_site(site, preview)
 
 # Bot ishga tushganda o'rnatiladi: RSVP va ko'rishlar haqida egasiga xabar berish uchun
 notify = None
@@ -56,7 +66,7 @@ async def show(slug: str, request: Request):
             await s.commit()
             if first_view and notify:
                 await notify(site.owner_id, f"👀 Sahifangiz birinchi marta ochildi!\n{site.url}")
-        return render_site(site, preview=not site.paid)
+        return page_for(site, preview=not site.paid)
 
 
 @app.post("/s/{slug}/unlock")
@@ -96,5 +106,37 @@ async def rsvp(slug: str, data: RsvpIn):
         icon = "✅" if going else "❌"
         extra = f" ({data.guests} kishi)" if going else ""
         note = f"\n💬 {data.note}" if data.note else ""
-        await notify(site.owner_id, f"{icon} <b>{data.name}</b>{extra} — {'keladi' if going else 'kela olmaydi'}{note}")
+        await notify(site.owner_id, f"{icon} <b>{html.escape(data.name)}</b>{extra} — {'keladi' if going else 'kela olmaydi'}{html.escape(note)}")
+    return {"ok": True}
+
+
+@app.post("/s/{slug}/anketa")
+async def anketa(slug: str, request: Request):
+    """VIP to'y taklifnomasidagi anketa javoblari (ism, keladi va qo'shimcha savollar)."""
+    try:
+        data = await request.json()
+    except Exception:
+        raise HTTPException(400)
+    if not isinstance(data, dict):
+        raise HTTPException(400)
+    name = str(data.get("ism") or "").strip()[:100] or "Mehmon"
+    going = data.get("keladi") == "ha"
+    extra = {str(k)[:60]: str(v)[:200] for k, v in data.items() if k not in ("ism", "keladi")}
+    guests = 1
+    for v in extra.values():
+        if v[:1].isdigit():
+            guests = int(re.match(r"\d+", v).group())
+            break
+    async with Session() as s:
+        site = await get_site(s, slug)
+        if not site or site.config.get("engine") != "catalog":
+            raise HTTPException(404)
+        if not site.paid:
+            return {"ok": True}
+        note = "; ".join(f"{k}: {v}" for k, v in list(extra.items())[:10])
+        s.add(Rsvp(site_id=site.id, name=name, attending=going, guests=guests if going else 0, note=note[:500]))
+        await s.commit()
+    if notify:
+        icon = "✅" if going else "❌"
+        await notify(site.owner_id, f"{icon} <b>{html.escape(name)}</b> — {'keladi' if going else 'kela olmaydi'}" + (f"\n📋 {html.escape(note)}" if note else ""))
     return {"ok": True}

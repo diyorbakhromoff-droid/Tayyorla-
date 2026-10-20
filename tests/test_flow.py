@@ -245,6 +245,41 @@ async def main():
     html = await web.show(asite.slug, type("R", (), {"cookies": {}, "query_params": {}})())
     assert html.count("<li>") == 2 and "Meni kechirasanmi?" in html
 
+    # --- katalog (VIP) sayti: narx tarifga qarab, anketa javobi egasiga keladi
+    from app.catalog import clean_order
+    cat_cfg = clean_order({"template": "toy-maktub", "tarif": "vip", "rang": 12, "data": {
+        "kuyov": "Jasur", "kelin": "Malika", "sana": "2027-06-12", "vaqt": "18:00", "manzil_nomi": "Oqsaroy",
+        "manzil": "Toshkent", "matn": "Taklif qilamiz"}}, strict=True)
+    async with Session() as s:
+        csite = Site(slug="vip-toy", owner_id=111, category=cat_cfg["category"], config=cat_cfg)
+        s.add(csite)
+        await s.commit()
+    await click(f"site:{csite.id}")
+    assert "«Muhrlangan maktub»" in last() and "VIP" in last()
+    await click(f"buy:{csite.id}")
+    assert "79 000" in last()
+    await click(f"paid:{csite.id}")
+    await send(photo=[PhotoSize(file_id="chek2", file_unique_id="c2", width=10, height=10)])
+    await click(f"approve:{csite.id}", user=ADMIN)
+    page = await web.show("vip-toy", type("R", (), {"cookies": {}, "query_params": {}})())
+    assert "NAMUNA • TAYYORLA" not in page and '"rang": 12' in page
+
+    class Req:
+        def __init__(self, data): self.data = data
+        async def json(self): return self.data
+    await web.anketa("vip-toy", Req({"ism": "Aziz <b>aka</b>", "keladi": "ha", "Necha kishi bo'lasiz?": "3"}))
+    assert "Aziz &lt;b&gt;aka&lt;/b&gt;" in notified[-1][1]
+    async with Session() as s:
+        r = (await s.execute(select(Rsvp).where(Rsvp.site_id == csite.id))).scalars().one()
+    assert r.attending and r.guests == 3
+    await click(f"guests:{csite.id}")
+    assert "jami 3 kishi" in last()
+
+    # rasm qo'shish katalog saytida ham ishlaydi
+    await click(f"edit:{csite.id}")
+    await send(photo=[PhotoSize(file_id="p9", file_unique_id="u9", width=10, height=10)])
+    assert "Rasm qo'shildi" in last()
+
     print(f"✅ Barcha tekshiruvlar o'tdi ({len(session.sent)} ta xabar)")
 
 

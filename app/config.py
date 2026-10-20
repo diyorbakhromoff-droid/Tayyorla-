@@ -13,7 +13,10 @@ class Settings(BaseSettings):
     base_url: str = "http://localhost:8000"
     admin_ids: str = ""
     rahmat_url: str = ""
-    price: int = 25000
+    price: int = 25000  # eski (oddiy) shablonlar uchun
+    price_standart: int = 25000
+    price_premium: int = 49000
+    price_vip: int = 79000
     max_edits: int = 10
     database_url: str = "sqlite+aiosqlite:///tayyorla.db"
     host: str = "0.0.0.0"
