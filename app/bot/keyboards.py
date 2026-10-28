@@ -14,13 +14,13 @@ def money(n: int) -> str:
 def main_menu() -> InlineKeyboardMarkup:
     kb = InlineKeyboardBuilder()
     if settings.base_url.startswith("https://"):
-        kb.button(text="✨ Sayt yaratish — 25 ta dizayn", web_app=WebAppInfo(url=f"{settings.base_url}/app"))
-        kb.button(text="📅 Yaqinlarim — sanalarni eslatib turaman", callback_data="people")
-        kb.button(text="📂 Mening saytlarim", callback_data="my")
+        kb.button(text="✨ Boshlash", web_app=WebAppInfo(url=f"{settings.base_url}/app"))
+        kb.button(text="📅 Yaqinlarim", callback_data="people")
+        kb.button(text="📂 Saytlarim", callback_data="my")
         kb.button(text="⌨️ Oddiy shablonlar (tugmalar orqali)", callback_data="legacy")
     else:
         return legacy_menu()
-    kb.adjust(1)
+    kb.adjust(1, 2, 1)
     return kb.as_markup()
 
 

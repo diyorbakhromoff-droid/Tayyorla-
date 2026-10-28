@@ -7,77 +7,192 @@
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;600;700&family=Onest:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Onest:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
+    /* Atlas: tungi indigo, atlas pushti, za'faron, zumrad, sutdek lilac */
     :root {
-      --bg: #F3F2F7; --surface: #FFFFFF; --surface2: #EBE9F2; --ink: #18161F; --muted: #625E70; --line: #DEDBE7;
-      --accent: #5A3CF0; --accent-ink: #FFFFFF; --accent-soft: #E9E4FF; --gold: #B8860B; --gold-soft: #FFF3D6; --danger: #D93A4A;
-      --f-display: 'Unbounded', system-ui, sans-serif; --f-body: 'Onest', system-ui, -apple-system, sans-serif;
+      --night: #211C52; --atlas: #E0307A; --saffron: #F5B20A; --emerald: #13946C;
+      --bg: #F7F5FC; --surface: #FFFFFF; --surface2: #EFEBF8; --ink: #1C1830; --muted: #6B6585; --line: #E4DFF2;
+      --atlas-soft: #FCE7F1; --saffron-soft: #FFF4D6; --on-night: #F7F5FC; --night-muted: #B9B3E0;
+      --f-display: 'Fraunces', Georgia, serif; --f-body: 'Onest', system-ui, -apple-system, sans-serif;
+      --ikat: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='96'%3E%3Crect width='48' height='96' fill='%23E0307A'/%3E%3Cpath d='M24 4l6 12-3 2 9 14-3 2 9 14-9 14 3 2-9 14 3 2-6 12-6-12 3-2-9-14 3-2-9-14 9-14-3-2 9-14-3-2z' fill='%23F5B20A'/%3E%3Cpath d='M24 22l4 8-2 2 6 16-6 16 2 2-4 8-4-8 2-2-6-16 6-16-2-2z' fill='%23211C52'/%3E%3Cpath d='M24 38l3 10-3 10-3-10z' fill='%23F7F5FC'/%3E%3Cpath d='M0 0l5 10-5 10zM48 0l-5 10 5 10zM0 76l5 10-5 10zM48 76l-5 10 5 10z' fill='%23211C52'/%3E%3Cpath d='M0 36l3 12-3 12zM48 36l-3 12 3 12z' fill='%23F7F5FC'/%3E%3C/svg%3E");
       color-scheme: light;
     }
     :root[data-theme="dark"] {
-      --bg: #121118; --surface: #1B1924; --surface2: #24212F; --ink: #F2F0F8; --muted: #A6A1B6; --line: #2F2B3B;
-      --accent: #9784FF; --accent-ink: #130E2B; --accent-soft: #2A2448; --gold: #F0C14B; --gold-soft: #3A2F12; --danger: #FF6B78;
+      --bg: #14112E; --surface: #1E1946; --surface2: #29235A; --ink: #F4F1FF; --muted: #A9A3C8; --line: #312B66;
+      --atlas: #FF4F98; --atlas-soft: #3A1A3E; --saffron-soft: #3A2E10; --night: #2A2468;
       color-scheme: dark;
     }
     * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
     html, body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.5 var(--f-body); -webkit-font-smoothing: antialiased; }
-    body { padding-bottom: calc(92px + env(safe-area-inset-bottom)); }
-    h1, h2, h3 { font-family: var(--f-display); font-weight: 600; letter-spacing: -.01em; margin: 0; }
+    body { padding-bottom: calc(96px + env(safe-area-inset-bottom)); }
+    h1, h2, h3 { font-family: var(--f-display); font-weight: 600; margin: 0; font-variation-settings: "opsz" 72; letter-spacing: -.01em; }
     button { font: inherit; color: inherit; }
     [hidden] { display: none !important; }
+    :focus-visible { outline: 3px solid var(--saffron); outline-offset: 2px; }
 
+    /* ---------- kirish: atlas lenta sovg'ani o'raydi */
+    #splash { position: fixed; inset: 0; z-index: 50; background: radial-gradient(120% 80% at 50% 38%, #2E2775 0%, #211C52 55%, #17133D 100%);
+      display: grid; place-items: center; align-content: center; gap: 6px; color: var(--on-night); transition: opacity .5s ease, transform .5s ease; --k: 1; }
+    #splash.quick { --k: .55; }
+    #splash.out { opacity: 0; transform: scale(1.04); pointer-events: none; }
+    #splash svg { width: min(240px, 62vw); overflow: visible; }
+    #splash .box { animation: drop calc(var(--k) * .6s) cubic-bezier(.2, 1.4, .4, 1) both; transform-box: fill-box; transform-origin: 50% 100%; }
+    #splash .rv { animation: growY calc(var(--k) * .5s) cubic-bezier(.6, 0, .3, 1) calc(var(--k) * .45s) both; transform-box: fill-box; transform-origin: 50% 0; }
+    #splash .rh { animation: growX calc(var(--k) * .45s) cubic-bezier(.6, 0, .3, 1) calc(var(--k) * .8s) both; transform-box: fill-box; transform-origin: 50% 50%; }
+    #splash .bow { animation: bow calc(var(--k) * .6s) cubic-bezier(.2, 1.6, .4, 1) calc(var(--k) * 1.15s) both; transform-box: fill-box; transform-origin: 50% 90%; }
+    #splash .sparks circle { animation: spark calc(var(--k) * .9s) ease-out calc(var(--k) * 1.35s) both; transform-box: fill-box; transform-origin: center; }
+    #splash .word { font: 600 40px/1 var(--f-display); font-variation-settings: "opsz" 144; letter-spacing: -.02em; margin-top: 18px;
+      animation: rise calc(var(--k) * .6s) ease calc(var(--k) * 1.45s) both; }
+    #splash .tag { color: var(--night-muted); font-size: 15px; animation: rise calc(var(--k) * .6s) ease calc(var(--k) * 1.65s) both; }
+    @keyframes drop { from { transform: translateY(-40px) scale(.9); opacity: 0; } }
+    @keyframes growY { from { transform: scaleY(0); } }
+    @keyframes growX { from { transform: scaleX(0); } }
+    @keyframes bow { from { transform: scale(0) rotate(-12deg); } }
+    @keyframes spark { from { transform: scale(0); opacity: 1; } 60% { opacity: 1; } to { transform: scale(1.4) translate(var(--dx), var(--dy)); opacity: 0; } }
+    @keyframes rise { from { opacity: 0; transform: translateY(12px); } }
+
+    /* ---------- umumiy */
     .top { position: sticky; top: 0; z-index: 5; background: color-mix(in srgb, var(--bg) 92%, transparent); backdrop-filter: blur(12px); padding: 14px 16px 10px; }
-    .brand { display: flex; align-items: center; gap: 10px; }
-    .logo { width: 34px; height: 34px; border-radius: 11px; display: grid; place-items: center; font-size: 18px;
-      background: linear-gradient(135deg, var(--accent), #C04BF0); color: #fff; box-shadow: 0 6px 18px -6px var(--accent); }
-    .brand h1 { font-size: 18px; }
-    .brand p { margin: 0; font-size: 12px; color: var(--muted); }
+    .top h1 { font-size: 21px; }
+    .top p { margin: 2px 0 0; font-size: 13px; color: var(--muted); }
     .steps { display: flex; gap: 5px; margin-top: 12px; }
     .steps i { flex: 1; height: 4px; border-radius: 4px; background: var(--line); transition: background .3s; }
-    .steps i.on { background: var(--accent); }
+    .steps i.on { background: var(--atlas); }
     main { padding: 4px 16px 0; }
+    .sec { margin: 26px 0 12px; display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+    .sec h2 { font-size: 21px; }
+    .sec button { border: 0; background: none; color: var(--atlas); font-weight: 600; font-size: 14px; cursor: pointer; padding: 4px 0; }
+    .hint { color: var(--muted); font-size: 13px; margin: 0 0 12px; }
+    .card { background: var(--surface); border-radius: 22px; padding: 16px; margin-bottom: 12px; }
+    .card h3 { font-size: 17px; margin-bottom: 4px; }
+    .ribbon { height: 10px; background: var(--ikat); background-size: 24px 48px; }
 
+    .btn { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 15px; border: 0; border-radius: 16px;
+      background: var(--atlas); color: #fff; font: 600 16px var(--f-body); cursor: pointer; transition: transform .15s; }
+    .btn:active { transform: scale(.98); }
+    .btn.ghost { background: var(--surface2); color: var(--ink); }
+    .btn.light { background: var(--on-night); color: #211C52; }
+    .btn.small { padding: 11px; font-size: 14px; border-radius: 13px; }
+    .btn:disabled { opacity: .55; }
+    .spin { width: 18px; height: 18px; border: 2.5px solid currentColor; border-right-color: transparent; border-radius: 50%; animation: s .7s linear infinite; flex: none; }
+    @keyframes s { to { transform: rotate(360deg); } }
+    .err { background: color-mix(in srgb, var(--atlas) 12%, transparent); color: var(--atlas); border-radius: 12px; padding: 10px 12px; font-size: 13px; margin-bottom: 12px; font-weight: 600; }
+
+    /* ---------- bosh sahifa */
+    .hero { margin: 0 -16px; background: var(--night); color: var(--on-night); padding: calc(20px + env(safe-area-inset-top)) 20px 22px; position: relative; }
+    .hero .hi { color: var(--night-muted); font-size: 15px; margin: 0 0 6px; }
+    .hero h1 { font-size: 31px; line-height: 1.12; font-variation-settings: "opsz" 144; }
+    .hero .soon { display: flex; gap: 14px; align-items: center; margin: 4px 0 18px; }
+    .hero .days { flex: none; width: 74px; height: 86px; border-radius: 16px; background: var(--ikat); background-size: 24px 48px; display: grid; place-items: center; position: relative; }
+    .hero .days b { background: var(--night); color: var(--on-night); width: 54px; height: 54px; border-radius: 50%; display: grid; place-items: center;
+      font: 700 26px/1 var(--f-display); font-variation-settings: "opsz" 144; }
+    .hero .soon p { margin: 4px 0 0; color: var(--night-muted); font-size: 14px; }
+    .hero .btn { margin-top: 4px; }
+    .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 18px; padding-top: 16px; border-top: 1px solid rgba(255, 255, 255, .12); }
+    .stats div b { display: block; font: 600 24px/1.1 var(--f-display); color: var(--saffron); }
+    .stats div span { font-size: 12px; color: var(--night-muted); line-height: 1.25; display: block; margin-top: 2px; }
+    .hero + .ribbon { margin: 0 -16px; }
+
+    .strip { display: flex; gap: 10px; overflow-x: auto; scrollbar-width: none; margin: 0 -16px; padding: 2px 16px 6px; scroll-snap-type: x mandatory; scroll-padding-inline: 16px; }
+    .strip::-webkit-scrollbar { display: none; }
+    .person { flex: 0 0 148px; scroll-snap-align: start; text-align: left; border: 0; background: var(--surface); border-radius: 20px; padding: 14px; cursor: pointer; position: relative; }
+    .person .em { font-size: 26px; line-height: 1; }
+    .person b { display: block; margin-top: 10px; font-size: 15px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .person small { display: block; color: var(--muted); font-size: 12px; line-height: 1.35; }
+    .person .left { display: inline-block; margin-top: 10px; padding: 3px 9px; border-radius: 999px; background: var(--surface2); font-size: 12px; font-weight: 700; }
+    .person .left.hot { background: var(--atlas); color: #fff; }
+    .person.add { display: grid; place-items: center; text-align: center; color: var(--muted); border: 2px dashed var(--line); background: none; font-weight: 600; font-size: 14px; }
+    .person.add span { font-size: 26px; display: block; color: var(--atlas); }
+    .invite { display: flex; gap: 14px; align-items: center; text-align: left; width: 100%; border: 2px dashed var(--line); background: none; border-radius: 20px; padding: 14px; cursor: pointer; }
+    .invite span { font-size: 30px; }
+    .invite b { display: block; }
+    .invite small { color: var(--muted); font-size: 13px; }
+
+    .rels { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .rel { border: 0; background: var(--surface); border-radius: 20px; padding: 14px; text-align: left; cursor: pointer; min-height: 116px; display: flex; flex-direction: column; }
+    .rel .em { font-size: 28px; line-height: 1; }
+    .rel b { margin-top: auto; padding-top: 12px; font: 600 17px/1.2 var(--f-display); }
+    .rel small { color: var(--muted); font-size: 12px; line-height: 1.35; margin-top: 3px; }
+    .rel.mine { box-shadow: inset 0 0 0 2px var(--atlas-soft); }
+    .quote { background: var(--surface); border-radius: 20px; padding: 14px 16px; margin-bottom: 10px; border-left: 4px solid var(--atlas); }
+    .quote p { margin: 0; font: 500 17px/1.4 var(--f-display); }
+    .quote small { color: var(--muted); font-size: 12px; }
+    .mysite { display: flex; gap: 12px; align-items: center; background: var(--surface); border-radius: 18px; padding: 10px; margin-bottom: 8px; text-decoration: none; color: inherit; }
+    .mysite img { width: 46px; height: 62px; border-radius: 10px; object-fit: cover; object-position: top; background: var(--surface2); flex: none; }
+    .mysite div { flex: 1; min-width: 0; }
+    .mysite b { display: block; font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .mysite small { color: var(--muted); font-size: 12px; }
+    .pill { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 11px; font-weight: 700; background: var(--surface2); color: var(--muted); }
+    .pill.ok { background: color-mix(in srgb, var(--emerald) 16%, transparent); color: var(--emerald); }
+    .linkish { display: block; width: 100%; border: 0; background: none; color: var(--muted); text-decoration: underline; font-size: 13px; padding: 18px 0 4px; cursor: pointer; }
+
+    /* ---------- tanishuv */
+    .onb { min-height: calc(100vh - 120px); display: flex; flex-direction: column; padding-top: calc(18px + env(safe-area-inset-top)); }
+    .dots { display: flex; gap: 6px; margin-bottom: 22px; }
+    .dots i { width: 22px; height: 5px; border-radius: 5px; background: var(--line); }
+    .dots i.on { background: var(--atlas); }
+    .onb h1 { font-size: 30px; line-height: 1.15; font-variation-settings: "opsz" 144; }
+    .onb .lead { color: var(--muted); margin: 8px 0 20px; font-size: 15px; }
+    .rel.sel { min-height: 92px; position: relative; border: 2px solid transparent; }
+    .rel.sel[aria-pressed="true"] { border-color: var(--atlas); background: var(--atlas-soft); }
+    .rel.sel[aria-pressed="true"]::after { content: "✓"; position: absolute; top: 10px; right: 12px; width: 22px; height: 22px; border-radius: 50%;
+      background: var(--atlas); color: #fff; font-size: 13px; font-weight: 700; display: grid; place-items: center; }
+    .prow { background: var(--surface); border-radius: 18px; padding: 12px; margin-bottom: 10px; }
+    .prow > b { display: flex; gap: 8px; align-items: center; font-size: 14px; margin-bottom: 8px; }
+    .prow .two { display: grid; grid-template-columns: 1.2fr 1fr; gap: 8px; }
+    .summary { list-style: none; padding: 0; margin: 0 0 18px; }
+    .summary li { display: flex; gap: 12px; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--line); }
+    .summary li span { font-size: 22px; }
+
+    /* ---------- tavsiyalar */
+    .rechead { margin: 0 -16px; padding: calc(18px + env(safe-area-inset-top)) 20px 20px; background: var(--night); color: var(--on-night); }
+    .rechead .em { font-size: 34px; line-height: 1; }
+    .rechead h1 { font-size: 28px; margin-top: 10px; }
+    .rechead p { margin: 6px 0 0; color: var(--night-muted); font-size: 14px; }
+    .carousel { display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; margin: 0 -16px; padding: 18px 16px 8px; scrollbar-width: none; scroll-padding-inline: 16px; }
+    .carousel::-webkit-scrollbar { display: none; }
+    .pick { flex: 0 0 min(64vw, 250px); display: flex; flex-direction: column; justify-content: flex-start; scroll-snap-align: center; border: 0; padding: 0; background: var(--surface); border-radius: 22px; overflow: hidden; text-align: left; cursor: pointer; position: relative; }
+    .carousel .pick img { display: block; width: 100%; aspect-ratio: 300 / 480; object-fit: cover; object-position: top; background: var(--surface2); }
+    .carousel .pick .meta { padding: 12px 14px 14px; }
+    .carousel .pick b { display: block; font: 600 18px var(--f-display); }
+    .carousel .pick small { display: block; color: var(--muted); font-size: 12px; line-height: 1.35; margin-top: 2px; }
+    .vip { position: absolute; top: 10px; left: 10px; padding: 4px 10px; border-radius: 999px; font: 700 11px var(--f-body); background: var(--saffron); color: #3A2500; }
+
+    /* ---------- galereya va qadamlar */
     .tabs { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; margin: 4px -16px 14px; padding: 0 16px; }
     .tabs::-webkit-scrollbar { display: none; }
     .tab { flex: none; padding: 10px 14px; border-radius: 999px; border: 0; background: var(--surface); font-weight: 600; font-size: 14px; cursor: pointer; white-space: nowrap; }
-    .tab.on { background: var(--ink); color: var(--bg); }
+    .tab.on { background: var(--night); color: var(--on-night); }
     .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-    .tpl { position: relative; border: 0; padding: 0; background: var(--surface); border-radius: 18px; overflow: hidden; cursor: pointer; text-align: left;
-      box-shadow: 0 10px 30px -18px rgba(24, 22, 31, .35); transition: transform .2s; }
-    .tpl:active { transform: scale(.97); }
+    .tpl { position: relative; border: 0; padding: 0; background: var(--surface); border-radius: 20px; overflow: hidden; cursor: pointer; text-align: left; }
     .tpl img { display: block; width: 100%; aspect-ratio: 300 / 520; object-fit: cover; object-position: top; background: var(--surface2); }
     .tpl .meta { padding: 10px 12px 12px; }
-    .tpl b { display: block; font-size: 14px; }
-    .tpl small { display: block; color: var(--muted); font-size: 12px; line-height: 1.35; margin-top: 2px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-    .vip { position: absolute; top: 10px; left: 10px; padding: 4px 9px; border-radius: 999px; font: 700 11px var(--f-display); letter-spacing: .04em;
-      background: linear-gradient(135deg, #F7D774, #C9971C); color: #3A2500; box-shadow: 0 4px 12px -4px rgba(0,0,0,.35); }
+    .tpl b { display: block; font: 600 15px var(--f-display); }
+    .tpl small { color: var(--muted); font-size: 12px; line-height: 1.35; margin-top: 2px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 
-    .phone { width: min(260px, 72vw); margin: 0 auto 16px; aspect-ratio: 9 / 18.5; border-radius: 34px; padding: 9px; background: #1E1B27;
-      box-shadow: 0 30px 60px -30px rgba(24, 22, 31, .7); position: relative; }
-    .phone iframe { width: 100%; height: 100%; border: 0; border-radius: 26px; background: #fff; }
-    .phone .loading { position: absolute; inset: 9px; border-radius: 26px; display: grid; place-items: center; background: var(--surface2); color: var(--muted); font-size: 13px; }
+    .phone { width: min(260px, 72vw); margin: 0 auto 16px; aspect-ratio: 9 / 18.5; border-radius: 36px; padding: 9px; background: var(--night); position: relative;
+      box-shadow: 0 30px 60px -30px rgba(33, 28, 82, .7); }
+    .phone iframe { width: 100%; height: 100%; border: 0; border-radius: 28px; background: #fff; }
+    .phone .loading { position: absolute; inset: 9px; border-radius: 28px; display: grid; place-items: center; background: var(--surface2); color: var(--muted); font-size: 13px; }
     .tpl-head { text-align: center; margin-bottom: 14px; }
-    .tpl-head h2 { font-size: 20px; }
+    .tpl-head h2 { font-size: 24px; }
     .tpl-head p { margin: 4px 0 0; color: var(--muted); font-size: 13px; }
-
-    .card { background: var(--surface); border-radius: 20px; padding: 16px; margin-bottom: 12px; }
-    .card h3 { font-size: 15px; margin-bottom: 4px; }
-    .hint { color: var(--muted); font-size: 13px; margin: 0 0 12px; }
     .tiers { display: grid; gap: 10px; }
-    .tier { display: block; width: 100%; text-align: left; border: 2px solid var(--line); background: var(--surface); border-radius: 16px; padding: 12px 14px; cursor: pointer; position: relative; }
-    .tier.on { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 6%, var(--surface)); }
+    .tier { display: block; width: 100%; text-align: left; border: 2px solid var(--line); background: var(--surface); border-radius: 18px; padding: 13px 14px; cursor: pointer; position: relative; }
+    .tier.on { border-color: var(--atlas); background: color-mix(in srgb, var(--atlas) 5%, var(--surface)); }
     .tier[disabled] { opacity: .45; cursor: not-allowed; }
     .tier .row1 { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
-    .tier .nm { font: 600 15px var(--f-display); }
-    .tier .pr { font-weight: 700; color: var(--accent); white-space: nowrap; }
+    .tier .nm { font: 600 18px var(--f-display); }
+    .tier .pr { font-weight: 700; white-space: nowrap; }
+    .tier.on .pr { color: var(--atlas); }
     .tier ul { margin: 6px 0 0; padding: 0; list-style: none; font-size: 13px; color: var(--muted); }
-    .tier li::before { content: "✓ "; color: var(--accent); font-weight: 700; }
-    .tier .badge { position: absolute; top: -9px; right: 12px; background: var(--accent); color: var(--accent-ink); font: 700 10px var(--f-display); padding: 3px 8px; border-radius: 999px; }
+    .tier li::before { content: "✓ "; color: var(--emerald); font-weight: 700; }
+    .tier .badge { position: absolute; top: -10px; right: 12px; background: var(--saffron); color: #3A2500; font: 700 11px var(--f-body); padding: 3px 9px; border-radius: 999px; }
     .swatches { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
     .sw { border: 0; padding: 0; background: none; cursor: pointer; text-align: center; }
     .sw i { display: block; aspect-ratio: 1; border-radius: 50%; border: 3px solid transparent; outline: 2px solid transparent; box-shadow: inset 0 0 0 1px rgba(0,0,0,.08); }
-    .sw.on i { outline-color: var(--accent); border-color: var(--surface); }
+    .sw.on i { outline-color: var(--atlas); border-color: var(--surface); }
     .sw span { display: block; font-size: 10px; color: var(--muted); margin-top: 4px; line-height: 1.2; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
     .more { font-size: 12px; color: var(--muted); margin-top: 10px; text-align: center; }
 
@@ -85,69 +200,116 @@
     .field > span { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; }
     .field > span em { color: var(--muted); font-style: normal; font-weight: 500; }
     .field small { display: block; color: var(--muted); font-size: 12px; margin-top: 4px; }
-    .tierTag { display: inline-block; margin-left: 6px; padding: 1px 7px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); font-size: 10px; font-weight: 700; vertical-align: 1px; }
-    input, textarea, select { width: 100%; padding: 12px 14px; border-radius: 12px; border: 1.5px solid var(--line); background: var(--bg);
+    .tierTag { display: inline-block; margin-left: 6px; padding: 1px 7px; border-radius: 999px; background: var(--saffron-soft); color: #9A6A00; font-size: 10px; font-weight: 700; vertical-align: 1px; }
+    :root[data-theme="dark"] .tierTag { color: var(--saffron); }
+    input, textarea, select { width: 100%; padding: 12px 14px; border-radius: 13px; border: 1.5px solid var(--line); background: var(--bg);
       color: var(--ink); font: 15px var(--f-body); outline: none; }
-    input:focus, textarea:focus { border-color: var(--accent); }
+    input:focus, textarea:focus { border-color: var(--night); }
+    :root[data-theme="dark"] input:focus, :root[data-theme="dark"] textarea:focus { border-color: var(--atlas); }
     textarea { resize: vertical; min-height: 84px; }
     .chips { display: flex; flex-wrap: wrap; gap: 8px; }
     .chip { padding: 10px 14px; border-radius: 999px; border: 1.5px solid var(--line); background: var(--bg); font-weight: 500; font-size: 14px; cursor: pointer; }
-    .chip.on { border-color: var(--accent); background: var(--accent-soft); color: var(--accent); font-weight: 700; }
+    .chip.on { border-color: var(--atlas); background: var(--atlas-soft); color: var(--atlas); font-weight: 700; }
     .item { border: 1.5px dashed var(--line); border-radius: 14px; padding: 10px; margin-bottom: 8px; display: grid; gap: 8px; position: relative; }
     .item .rm { position: absolute; top: -10px; right: -6px; width: 26px; height: 26px; border-radius: 50%; border: 0; background: var(--ink); color: var(--bg); font-size: 13px; cursor: pointer; }
-    .ai-box { background: linear-gradient(135deg, var(--accent-soft), color-mix(in srgb, #C04BF0 14%, var(--surface))); border-radius: 14px; padding: 12px; margin-bottom: 10px; }
+    .ai-box { background: var(--night); color: var(--on-night); border-radius: 16px; padding: 12px; margin-bottom: 10px; }
     .ai-box p { margin: 0 0 8px; font-size: 13px; font-weight: 600; }
-
-    .btn { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 14px; border: 0; border-radius: 14px;
-      background: var(--accent); color: var(--accent-ink); font: 600 15px var(--f-display); cursor: pointer; }
-    .btn.ghost { background: var(--accent-soft); color: var(--accent); font-family: var(--f-body); font-weight: 700; }
-    .btn.small { padding: 10px; font-size: 14px; }
-    .btn:disabled { opacity: .55; }
+    .ai-box textarea { background: rgba(255, 255, 255, .08); border-color: rgba(255, 255, 255, .15); color: var(--on-night); min-height: 60px; }
+    .ai-box textarea::placeholder { color: var(--night-muted); }
     .upload { position: relative; overflow: hidden; }
     .upload input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
     .photos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 10px; }
     .photos div { position: relative; aspect-ratio: 1; border-radius: 12px; overflow: hidden; background: var(--surface2); display: grid; place-items: center; color: var(--muted); }
     .photos img { width: 100%; height: 100%; object-fit: cover; }
     .photos button { position: absolute; top: 4px; right: 4px; width: 26px; height: 26px; border-radius: 50%; border: 0; background: rgba(0,0,0,.6); color: #fff; cursor: pointer; }
-    .err { background: color-mix(in srgb, var(--danger) 12%, transparent); color: var(--danger); border-radius: 12px; padding: 10px 12px; font-size: 13px; margin-bottom: 12px; font-weight: 600; }
     .toggle { display: flex; gap: 12px; align-items: flex-start; cursor: pointer; }
-    .toggle input { width: 22px; height: 22px; flex: none; margin-top: 2px; accent-color: var(--accent); }
+    .toggle input { width: 22px; height: 22px; flex: none; margin-top: 2px; accent-color: var(--atlas); }
     .toggle b { display: block; font-size: 15px; }
     .toggle small { display: block; color: var(--muted); font-size: 12px; margin-top: 2px; }
     .row2 { display: grid; grid-template-columns: 1.4fr 1fr; gap: 10px; margin-top: 12px; }
     .total { display: flex; justify-content: space-between; align-items: center; gap: 12px; font-weight: 600; font-size: 14px; }
-    .total b { font: 700 19px var(--f-display); color: var(--accent); white-space: nowrap; }
+    .total b { font: 700 21px var(--f-display); white-space: nowrap; }
 
     .bottom { position: fixed; left: 0; right: 0; bottom: 0; z-index: 6; padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
       background: color-mix(in srgb, var(--bg) 92%, transparent); backdrop-filter: blur(12px); display: flex; gap: 10px; }
-    .bottom .back { flex: 0 0 54px; }
-    .spin { width: 18px; height: 18px; border: 2.5px solid currentColor; border-right-color: transparent; border-radius: 50%; animation: s .7s linear infinite; }
-    @keyframes s { to { transform: rotate(360deg); } }
-    .done { text-align: center; padding: 34px 12px; }
-    .done .big { font-size: 64px; }
+    .bottom .back { flex: 0 0 56px; font-size: 20px; }
+
+    /* ---------- pastdan chiquvchi oyna */
+    .sheet-bg { position: fixed; inset: 0; z-index: 20; background: rgba(20, 17, 46, .55); display: flex; align-items: flex-end; animation: fadeIn .2s ease; }
+    .sheet { width: 100%; background: var(--bg); border-radius: 26px 26px 0 0; padding: 10px 16px calc(18px + env(safe-area-inset-bottom)); max-height: 92vh; overflow: auto; animation: up .3s cubic-bezier(.2, 1, .4, 1); }
+    .sheet .grab { width: 40px; height: 5px; border-radius: 5px; background: var(--line); margin: 0 auto 14px; }
+    .sheet h2 { font-size: 23px; margin-bottom: 14px; }
+    @keyframes fadeIn { from { opacity: 0; } }
+    @keyframes up { from { transform: translateY(100%); } }
+
+    /* ---------- tayyor */
+    .done { text-align: center; padding: 30px 8px 10px; }
+    .done svg { width: 170px; overflow: visible; }
+    .done .lid { animation: lid 1s cubic-bezier(.3, 1.4, .5, 1) .25s both; transform-box: fill-box; transform-origin: 50% 100%; }
+    .done .burst rect { animation: burst 1.2s ease-out .45s both; transform-box: fill-box; transform-origin: center; }
+    @keyframes lid { to { transform: translateY(-34px) rotate(-14deg); } }
+    @keyframes burst { from { transform: translate(0, 30px) rotate(0) scale(.4); opacity: 0; } 20% { opacity: 1; } to { transform: translate(var(--dx), var(--dy)) rotate(var(--r)); opacity: 0; } }
+    .done h1 { font-size: 30px; margin-top: 8px; }
+    .done p { color: var(--muted); margin: 8px auto 20px; max-width: 32ch; }
     .fade { animation: f .35s ease; }
     @keyframes f { from { opacity: 0; transform: translateY(8px); } }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; animation-delay: 0s !important; transition: none !important; } }
   </style>
 </head>
 <body>
-  <div class="top">
-    <div class="brand">
-      <div class="logo">✨</div>
-      <div><h1 id="title">Tayyorla</h1><p id="subtitle">Yaqinlaringiz uchun unutilmas sayt</p></div>
-    </div>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+      <defs>
+        <pattern id="ik" width="24" height="48" patternUnits="userSpaceOnUse">
+          <rect width="24" height="48" fill="#E0307A"/>
+          <path d="M12 2l3 6-1.5 1 4.5 7-1.5 1 4.5 7-4.5 7 1.5 1-4.5 7 1.5 1-3 6-3-6 1.5-1-4.5-7 1.5-1-4.5-7 4.5-7-1.5-1 4.5-7-1.5-1z" fill="#F5B20A"/>
+          <path d="M12 11l2 4-1 1 3 8-3 8 1 1-2 4-2-4 1-1-3-8 3-8-1-1z" fill="#211C52"/>
+          <path d="M12 19l1.5 5-1.5 5-1.5-5z" fill="#F7F5FC"/>
+        </pattern>
+      </defs>
+  </svg>
+  <div id="splash" aria-hidden="true">
+    <svg viewBox="0 0 240 230">
+      <g class="box">
+        <rect x="58" y="112" width="124" height="96" rx="10" fill="#F7F5FC"/>
+        <rect x="58" y="112" width="124" height="14" fill="#E4DFF2"/>
+        <rect x="48" y="88" width="144" height="30" rx="8" fill="#FFFFFF"/>
+      </g>
+      <rect class="rv" x="108" y="88" width="24" height="120" fill="url(#ik)"/>
+      <rect class="rh" x="58" y="150" width="124" height="22" fill="url(#ik)"/>
+      <g class="bow">
+        <path d="M120 88 C 92 52, 62 66, 78 86 C 88 98, 108 94, 120 88 Z" fill="#E0307A"/>
+        <path d="M120 88 C 148 52, 178 66, 162 86 C 152 98, 132 94, 120 88 Z" fill="#E0307A"/>
+        <path d="M120 88 C 100 66, 84 72, 90 84 Z M120 88 C 140 66, 156 72, 150 84 Z" fill="#F5B20A" opacity=".9"/>
+        <circle cx="120" cy="88" r="9" fill="#F5B20A"/>
+      </g>
+      <g class="sparks">
+        <circle cx="120" cy="70" r="4" fill="#F5B20A" style="--dx:-70px;--dy:-30px"/>
+        <circle cx="120" cy="70" r="3" fill="#F7F5FC" style="--dx:64px;--dy:-44px"/>
+        <circle cx="120" cy="70" r="3.5" fill="#E0307A" style="--dx:-40px;--dy:-64px"/>
+        <circle cx="120" cy="70" r="2.5" fill="#F5B20A" style="--dx:40px;--dy:-70px"/>
+        <circle cx="120" cy="70" r="3" fill="#F7F5FC" style="--dx:84px;--dy:-6px"/>
+        <circle cx="120" cy="70" r="2.5" fill="#F7F5FC" style="--dx:-86px;--dy:4px"/>
+      </g>
+    </svg>
+    <div class="word">Tayyorla</div>
+    <div class="tag">Yaqinlaringizni quvontiring</div>
+  </div>
+
+  <div class="top" id="top" hidden>
+    <h1 id="title"></h1><p id="subtitle"></p>
     <div class="steps" id="steps"></div>
   </div>
   <main id="main"></main>
   <div class="bottom" id="bottom" hidden>
-    <button class="btn ghost back" id="backBtn" aria-label="Orqaga">←</button>
+    <button class="btn ghost back" id="backBtn" aria-label="Orqaga">‹</button>
     <button class="btn" id="nextBtn">Davom etish</button>
   </div>
 
 <script>
 (() => {
   const tg = window.Telegram && Telegram.WebApp;
-  if (tg) { tg.ready(); tg.expand(); try { tg.setHeaderColor("secondary_bg_color"); } catch {} }
-  if (tg && tg.colorScheme === "dark") document.documentElement.dataset.theme = "dark";
+  if (tg) { tg.ready(); tg.expand(); try { tg.setHeaderColor("#211C52"); tg.setBackgroundColor("#F7F5FC"); } catch {} }
+  if (tg && tg.colorScheme === "dark") { document.documentElement.dataset.theme = "dark"; try { tg.setBackgroundColor("#14112E"); } catch {} }
   const initData = tg ? tg.initData : "";
   const $ = (s, r = document) => r.querySelector(s);
   const $$ = (s, r = document) => [...r.querySelectorAll(s)];
@@ -156,43 +318,268 @@
   const money = (n) => n.toLocaleString("ru-RU").replace(/,/g, " ") + " so'm";
   const haptic = (t = "light") => { try { tg.HapticFeedback.impactOccurred(t); } catch {} };
   const notify = (t) => { try { tg.HapticFeedback.notificationOccurred(t); } catch {} };
+  const store = { get(k) { try { return localStorage.getItem(k); } catch { return null; } }, set(k, v) { try { localStorage.setItem(k, v); } catch {} } };
 
   const Q = new URLSearchParams(location.search);
   const PREFILL = Object.fromEntries(["kimga", "sana", "tugilgan_sana"].filter(k => Q.get(k)).map(k => [k, Q.get(k)]));
-  let M = null;            // katalog
-  let section = null;      // tanlangan bo'lim
-  let order = null;        // {template, tarif, rang, data, photos, music}
+  let M = null, ME = null;   // katalog va foydalanuvchi
+  let view = "home";
+  let origin = null;         // dizayn qadamidan orqaga qaytganda qayerga
+  let section = null;
+  let order = null;          // {template, tarif, rang, data, photos, music, unlock_at}
   let step = 0;
   const STEP_NAMES = ["Dizayn", "Tarif va rang", "Ma'lumotlar", "Suratlar", "Tayyor"];
 
-  async function api(path, body, raw) {
-    const opts = { method: body ? "POST" : "GET", headers: { "X-Init-Data": initData } };
+  async function api(path, body, raw, method) {
+    const opts = { method: method || (body ? "POST" : "GET"), headers: { "X-Init-Data": initData } };
     if (body instanceof FormData) opts.body = body;
     else if (body) { opts.body = JSON.stringify(body); opts.headers["Content-Type"] = "application/json"; }
     const r = await fetch(path, opts);
-    if (!r.ok) { let m = "Xatolik yuz berdi"; try { m = (await r.json()).detail || m; } catch {} throw new Error(m); }
+    if (!r.ok) { let m = "Xatolik yuz berdi"; try { const d = (await r.json()).detail; m = typeof d === "string" ? d : m; } catch {} throw new Error(m); }
     return raw ? r.text() : r.json();
   }
-  const save = () => { try { localStorage.setItem("tayyorla-order", JSON.stringify(order)); } catch {} };
-  const load = () => { try { return JSON.parse(localStorage.getItem("tayyorla-order") || "null"); } catch { return null; } };
+  const save = () => store.set("tayyorla-order", JSON.stringify(order));
+  const load = () => { try { return JSON.parse(store.get("tayyorla-order") || "null"); } catch { return null; } };
   const tpl = () => M.templates.find(t => t.id === order.template);
   const tier = (k = order.tarif) => M.tiers.find(t => t.key === k);
   const colorLimit = () => Math.min(tpl().colors.length, tier().colors);
   const fields = () => M.fields[tpl().section].filter(f => f.tier <= tier().level && (!f.only.length || f.only.includes(order.template)));
+  const relation = (k) => M.relations.find(r => r.key === k);
 
   function header(title, sub) {
+    $("#top").hidden = false;
     $("#title").textContent = title;
     $("#subtitle").textContent = sub;
-    $("#steps").innerHTML = order ? STEP_NAMES.map((_, i) => `<i class="${i <= step ? "on" : ""}"></i>`).join("") : "";
+    $("#steps").innerHTML = view === "step" ? STEP_NAMES.map((_, i) => `<i class="${i <= step ? "on" : ""}"></i>`).join("") : "";
   }
-  function bottom(label, show = true) { $("#bottom").hidden = !show; nextBtn.textContent = label; nextBtn.disabled = false; }
+  const noHeader = () => { $("#top").hidden = true; };
+  function bottom(label, show = true, back = true) { $("#bottom").hidden = !show; backBtn.hidden = !back; nextBtn.textContent = label; nextBtn.disabled = false; }
   function tgBack(on) { try { on ? tg.BackButton.show() : tg.BackButton.hide(); } catch {} }
+  const errBox = (e) => e ? `<div class="err">${esc(e)}</div>` : "";
+  const top0 = () => window.scrollTo(0, 0);
 
-  // ---------- 0. galereya
+  // ---------------------------------------------------------------- kirish
+  function splash() {
+    const el = $("#splash");
+    return new Promise(res => {
+      if (matchMedia("(prefers-reduced-motion: reduce)").matches) { el.remove(); return res(); }
+      const seen = store.get("tyr-seen");
+      if (seen) el.classList.add("quick");
+      store.set("tyr-seen", "1");
+      let ended = false;
+      const end = () => { if (ended) return; ended = true; el.classList.add("out"); setTimeout(() => el.remove(), 500); res(); };
+      setTimeout(end, seen ? 1500 : 2700);
+      el.onclick = end;
+    });
+  }
+
+  // ---------------------------------------------------------------- tanishuv
+  let onb = null;  // {step, relations:Set, people:{rel:{name,date}}}
+  const ONB_PEOPLE = ["ona", "ota", "jufti", "sevgili", "farzand", "qarindosh", "dost", "ustoz", "hamkasb"];
+
+  function onboarding(i = 0) {
+    view = "onb"; noHeader(); tgBack(i > 0 || !!ME.onboarded);
+    if (!onb) onb = { relations: new Set(ME.relations), people: {} };
+    const dots = `<div class="dots">${[0, 1, 2].map(n => `<i class="${n <= i ? "on" : ""}"></i>`).join("")}</div>`;
+    const name = esc(ME.name);
+    if (i === 0) {
+      main.innerHTML = `<div class="onb fade">${dots}
+        <h1>${name ? name + ", kimlarni" : "Kimlarni"} quvontirishni yaxshi ko'rasiz?</h1>
+        <p class="lead">Bir nechtasini belgilang. Har biriga mos dizayn va so'zlarni o'zim taklif qilaman.</p>
+        <div class="rels">${M.relations.map(r => `
+          <button class="rel sel" data-r="${r.key}" aria-pressed="${onb.relations.has(r.key)}"><span class="em">${r.emoji}</span><b>${esc(r.title)}</b></button>`).join("")}</div></div>`;
+      $$(".rel.sel").forEach(b => b.onclick = () => {
+        haptic();
+        const on = b.getAttribute("aria-pressed") !== "true";
+        b.setAttribute("aria-pressed", on);
+        on ? onb.relations.add(b.dataset.r) : onb.relations.delete(b.dataset.r);
+        nextBtn.disabled = !onb.relations.size;
+      });
+      bottom("Davom etish", true, false);
+      nextBtn.disabled = !onb.relations.size;
+      nextBtn.onclick = () => { haptic(); onboarding(1); };
+    } else if (i === 1) {
+      const rels = [...onb.relations].filter(k => ONB_PEOPLE.includes(k)).slice(0, 6);
+      if (!rels.length) return onboarding(2);
+      main.innerHTML = `<div class="onb fade">${dots}
+        <h1>Ularning muhim kunlari qachon?</h1>
+        <p class="lead">Kunidan 7 kun oldin eslatib, tayyor g'oyalar bilan yordam beraman. Bilmaganini bo'sh qoldiring.</p>
+        ${rels.map(k => { const r = relation(k), p = onb.people[k] || {}; return `
+          <div class="prow"><b><span>${r.emoji}</span>${esc(r.title)}</b>
+            <div class="two"><input placeholder="Ismi" maxlength="100" data-pn="${k}" value="${esc(p.name || "")}">
+            <input type="date" data-pd="${k}" value="${esc(p.date || "")}" aria-label="${esc(r.title)}: tug'ilgan kuni"></div></div>`; }).join("")}
+        <p class="hint">Sana — tug'ilgan kun. To'y yilligi va boshqa sanalarni keyin qo'shasiz.</p></div>`;
+      $$("[data-pn]").forEach(el => el.oninput = () => { (onb.people[el.dataset.pn] ||= {}).name = el.value; });
+      $$("[data-pd]").forEach(el => el.oninput = () => { (onb.people[el.dataset.pd] ||= {}).date = el.value; });
+      bottom("Davom etish");
+      nextBtn.onclick = () => { haptic(); onboarding(2); };
+    } else {
+      const people = Object.entries(onb.people).filter(([k, p]) => onb.relations.has(k) && p.name && p.name.trim() && p.date);
+      main.innerHTML = `<div class="onb fade">${dots}
+        <h1>Hammasi tayyor${name ? ", " + name : ""}!</h1>
+        <p class="lead">${people.length ? "Bu kunlarni eslab qolaman:" : "Muhim sanalarni istalgan vaqtda bosh sahifadan qo'shasiz."}</p>
+        ${people.length ? `<ul class="summary">${people.map(([k, p]) => `<li><span>${relation(k).emoji}</span><div><b>${esc(p.name)}</b><br><small class="hint">${esc(dateLabel(p.date))}, tug'ilgan kuni</small></div></li>`).join("")}</ul>` : ""}
+        <div class="card" style="background:var(--night);color:var(--on-night)"><h3>Qanday ishlaydi?</h3>
+          <p style="margin:6px 0 0;color:var(--night-muted);font-size:14px">Dizaynni tanlaysiz, ism va bir-ikki xotirani yozasiz — qolganini Tayyorla bezaydi. Havolani yuborganingizda yaqiningiz sahifani ochadi va sizga javob qaytaradi.</p></div></div>`;
+      bottom("Boshlash");
+      nextBtn.onclick = async () => {
+        nextBtn.disabled = true; nextBtn.innerHTML = `<span class="spin"></span>`;
+        try {
+          await api("/api/me/onboard", {
+            relations: [...onb.relations],
+            people: people.map(([k, p]) => { const [y, m, d] = p.date.split("-").map(Number); return { name: p.name.trim(), relation: k, kind: "birthday", day: d, month: m, year: y }; }),
+          });
+          ME = await api("/api/me"); onb = null; notify("success"); home();
+        } catch (e) { nextBtn.disabled = false; nextBtn.textContent = "Qayta urinish"; alert(e.message); }
+      };
+    }
+    backBtn.onclick = () => (i > 0 ? onboarding(i - 1) : home());
+    top0();
+  }
+  const MONTHS = ["yanvar", "fevral", "mart", "aprel", "may", "iyun", "iyul", "avgust", "sentabr", "oktabr", "noyabr", "dekabr"];
+  const dateLabel = (iso) => { const [, m, d] = iso.split("-").map(Number); return `${d}-${MONTHS[m - 1]}`; };
+
+  // ---------------------------------------------------------------- bosh sahifa
+  const leftText = (n) => n === 0 ? "Bugun!" : n === 1 ? "Ertaga" : `${n} kun qoldi`;
+
+  function home() {
+    view = "home"; order = null; noHeader(); tgBack(false); bottom("", false);
+    const name = esc(ME.name);
+    const soon = ME.people.find(p => p.days_left <= 30);
+    const st = ME.stats;
+    const mine = new Set(ME.relations);
+    const rels = [...M.relations].sort((a, b) => mine.has(b.key) - mine.has(a.key));
+    const thumb = (id) => (M.templates.find(t => t.id === id) || {}).thumb || "";
+
+    let hero;
+    if (soon) {
+      const what = soon.kind === "other" ? esc(soon.event) : `${esc(soon.event)}${soon.turns ? (soon.kind === "birthday" ? `, ${soon.turns} yosh` : `, ${soon.turns} yil`) : ""}`;
+      hero = `<p class="hi">Salom${name ? ", " + name : ""}</p>
+        <div class="soon"><div class="days"><b>${soon.days_left}</b></div>
+          <div><h1>${esc(soon.name)}</h1><p>${what} — ${esc(soon.date_label)}, ${leftText(soon.days_left).toLowerCase()}</p></div></div>
+        <button class="btn" data-person="${soon.id}">Tabrik tayyorlash</button>`;
+    } else {
+      hero = `<p class="hi">Salom${name ? ", " + name : ""}</p><h1>Bugun kimni quvontiramiz?</h1>`;
+    }
+    const stats = ME.sites.length ? `<div class="stats">
+        <div><b>${st.happy}</b><span>yaqiningiz quvontirildi</span></div>
+        <div><b>${st.views}</b><span>marta ochildi</span></div>
+        <div><b>${st.reactions}</b><span>javob keldi</span></div></div>` : "";
+
+    const people = ME.people.length
+      ? `<div class="strip">${ME.people.map(p => `
+          <button class="person" data-person="${p.id}"><span class="em">${p.emoji}</span><b>${esc(p.name)}</b>
+            <small>${esc(p.event)}<br>${esc(p.date_label)}</small><span class="left ${p.days_left <= 7 ? "hot" : ""}">${leftText(p.days_left)}</span></button>`).join("")}
+          <button class="person add" id="addP"><div><span>+</span>Qo'shish</div></button></div>`
+      : `<button class="invite" id="addP"><span>📅</span><div><b>Muhim sanalarni qo'shing</b><small>Tug'ilgan kun va yilliklarni 7 kun oldin eslataman</small></div></button>`;
+
+    const msgs = ME.messages.length ? `<div class="sec"><h2>Sizga kelgan javoblar</h2></div>
+      ${ME.messages.map(m => `<div class="quote"><p>${m.emoji} ${esc(m.text)}</p><small>${esc(m.title)}</small></div>`).join("")}` : "";
+
+    const sites = ME.sites.length ? `<div class="sec"><h2>Saytlaringiz</h2></div>
+      ${ME.sites.slice(0, 5).map(s => `<a class="mysite" href="${esc(s.url)}" target="_blank" rel="noopener">
+        <img src="${esc(thumb(s.template))}" alt="" loading="lazy">
+        <div><b>${esc(s.to || s.title)}</b><small>${s.views} marta ochildi${s.reactions ? `, ${s.reactions} javob` : ""}</small></div>
+        <span class="pill ${s.paid ? "ok" : ""}">${s.paid ? "Yuborildi" : "Namuna"}</span></a>`).join("")}` : "";
+
+    main.innerHTML = `<div class="hero">${hero}${stats}</div><div class="ribbon"></div>
+      <div class="fade">
+        <div class="sec"><h2>Muhim kunlar</h2>${ME.people.length ? '<button id="addP2">Qo\'shish</button>' : ""}</div>${people}
+        <div class="sec"><h2>Kim uchun tayyorlaymiz?</h2></div>
+        <div class="rels">${rels.map(r => `
+          <button class="rel ${mine.has(r.key) ? "mine" : ""}" data-rel="${r.key}"><span class="em">${r.emoji}</span><b>${esc(r.title)}</b><small>${esc(r.why)}</small></button>`).join("")}</div>
+        ${msgs}${sites}
+        <div style="height:20px"></div>
+        <button class="btn ghost" id="all">Barcha ${M.templates.length} ta dizaynni ko'rish</button>
+        <button class="linkish" id="reOnb">Yaqinlarim ro'yxatini o'zgartirish</button>
+      </div>`;
+    $$("[data-person]").forEach(b => b.onclick = () => { haptic(); const p = ME.people.find(x => x.id === +b.dataset.person); rec({ rel: p.relation, person: p }); });
+    $$("[data-rel]").forEach(b => b.onclick = () => { haptic(); rec({ rel: b.dataset.rel }); });
+    $$("#addP, #addP2").forEach(b => b.onclick = () => { haptic(); personSheet(); });
+    $("#all").onclick = () => { haptic(); section = null; showGallery(); };
+    $("#reOnb").onclick = () => { onb = null; onboarding(0); };
+    top0();
+  }
+
+  function personSheet() {
+    const bg = document.createElement("div");
+    bg.className = "sheet-bg";
+    const p = { relation: ME.relations[0] || "", kind: "birthday" };
+    bg.innerHTML = `<div class="sheet" role="dialog" aria-label="Muhim sana qo'shish"><div class="grab"></div><h2>Muhim sana qo'shish</h2>
+      <label class="field"><span>Ismi</span><input id="pName" maxlength="100" placeholder="Masalan: Gulnora"></label>
+      <div class="field"><span>Kim bo'ladi?</span><div class="chips">${M.relations.filter(r => r.key !== "mehmonlar").map(r =>
+        `<button class="chip ${r.key === p.relation ? "on" : ""}" data-pr="${r.key}">${r.emoji} ${esc(r.title)}</button>`).join("")}</div></div>
+      <div class="field"><span>Qanday kun?</span><div class="chips">
+        <button class="chip on" data-pk="birthday">🎂 Tug'ilgan kun</button><button class="chip" data-pk="anniversary">💍 To'y yilligi</button></div></div>
+      <label class="field"><span>Sana</span><input type="date" id="pDate"></label>
+      <div id="pErr"></div>
+      <button class="btn" id="pSave">Saqlash</button></div>`;
+    document.body.appendChild(bg);
+    const close = () => bg.remove();
+    bg.onclick = (e) => { if (e.target === bg) close(); };
+    $$("[data-pr]", bg).forEach(b => b.onclick = () => { haptic(); p.relation = b.dataset.pr; $$("[data-pr]", bg).forEach(x => x.classList.toggle("on", x === b)); });
+    $$("[data-pk]", bg).forEach(b => b.onclick = () => { haptic(); p.kind = b.dataset.pk; $$("[data-pk]", bg).forEach(x => x.classList.toggle("on", x === b)); });
+    $("#pName", bg).focus();
+    $("#pSave", bg).onclick = async () => {
+      const nm = $("#pName", bg).value.trim(), dt = $("#pDate", bg).value;
+      if (!nm || !dt) { $("#pErr", bg).innerHTML = errBox("Ism va sanani kiriting"); notify("error"); return; }
+      const [y, m, d] = dt.split("-").map(Number);
+      try {
+        await api("/api/people", { name: nm, relation: p.relation, kind: p.kind, day: d, month: m, year: y });
+        ME = await api("/api/me"); notify("success"); close(); home();
+      } catch (e) { $("#pErr", bg).innerHTML = errBox(e.message); }
+    };
+  }
+
+  // ---------------------------------------------------------------- «kim uchun» tavsiyalari
+  function rec(c) {
+    view = "rec"; noHeader(); tgBack(true); bottom("", false);
+    const r = c.rel ? relation(c.rel) : null;
+    let picks = r ? r.picks : M.templates.filter(t => t.section === (c.section || "tugilgan-kun")).map(t => t.id);
+    if (c.person && c.person.kind === "anniversary") picks = ["sv-hikoya", "sv-konvert", "sv-maktub", "tk-polaroid", "sv-yulduz"];
+    const list = picks.map(id => M.templates.find(t => t.id === id)).filter(Boolean);
+    const p = c.person;
+    const title = p ? `${p.name} uchun` : r ? `${r.title} uchun` : c.title;
+    const sub = p ? `${p.event}, ${p.date_label} — ${leftText(p.days_left).toLowerCase()}` : r ? r.why : "Sizga mos dizaynlar";
+    main.innerHTML = `<div class="rechead"><span class="em">${r ? r.emoji : p ? p.emoji : "🎁"}</span><h1>${esc(title)}</h1><p>${esc(sub)}</p></div><div class="ribbon" style="margin:0 -16px"></div>
+      <div class="carousel fade">${list.map(t => `
+        <button class="pick" data-t="${t.id}">${t.vip ? '<span class="vip">VIP</span>' : ""}
+          <img src="${t.thumb}" alt="" loading="lazy"><div class="meta"><b>${esc(t.name)}</b><small>${esc(t.desc)}</small></div></button>`).join("")}</div>
+      <p class="hint" style="text-align:center">Dizaynni bosing — jonli namunasini ko'rasiz</p>
+      ${p ? `<button class="linkish" id="rmP">Bu sanani o'chirish</button>` : ""}`;
+    $$(".pick").forEach(b => b.onclick = () => {
+      haptic();
+      const pre = {};
+      if (p) { pre.kimga = p.name; pre.sana = p.date; if (p.born) pre.tugilgan_sana = p.born; }
+      else if (r && r.kimga) pre.kimga = r.kimga;
+      else Object.assign(pre, c.prefill || {});
+      if (ME.name) pre.kimdan = ME.name;
+      startOrder(b.dataset.t, pre, r ? r.tone : "", () => rec(c));
+    });
+    const rm = $("#rmP");
+    if (rm) rm.onclick = async () => {
+      if (!confirm(`${p.name} — sanani o'chiramizmi?`)) return;
+      try { await api(`/api/people/${p.id}`, null, false, "DELETE"); ME = await api("/api/me"); home(); } catch (e) { alert(e.message); }
+    };
+    top0();
+  }
+
+  function startOrder(id, pre, tone, from) {
+    const t = M.templates.find(x => x.id === id);
+    const prev = load();
+    const keys = new Set(M.fields[t.section].map(f => f.key));
+    const data = Object.fromEntries(Object.entries(pre).filter(([k]) => keys.has(k)));
+    order = prev && prev.template === t.id && !Object.keys(pre).filter(k => k !== "kimdan").length ? prev
+      : { template: t.id, tarif: t.vip ? "vip" : "premium", rang: 1, data, photos: [], music: null, unlock_at: null, _brief: tone ? `Uslub: ${tone}. ` : "" };
+    if (t.vip) order.tarif = "vip";
+    origin = from; step = 0; view = "step"; render();
+  }
+
+  // ---------------------------------------------------------------- galereya
   function showGallery() {
-    order = null; step = 0;
-    header("Tayyorla", "Dizaynni tanlang — keyin ma'lumotlarni kiritasiz");
-    bottom("", false); tgBack(false);
+    view = "gallery"; order = null;
+    header("Barcha dizaynlar", "Yoqqanini tanlang — jonli namunasini ko'rasiz");
+    bottom("", false); tgBack(true);
     section = section || (M.sections.some(x => x.key === Q.get("s")) ? Q.get("s") : M.sections[0].key);
     const list = M.templates.filter(t => t.section === section).sort((a, b) => a.vip - b.vip);
     main.innerHTML = `
@@ -206,35 +593,39 @@
     $$(".tab").forEach(b => b.onclick = () => { haptic(); section = b.dataset.s; showGallery(); });
     $$(".tpl").forEach(b => b.onclick = () => {
       haptic();
-      const t = M.templates.find(x => x.id === b.dataset.t);
-      const prev = load();
-      const keys = new Set(M.fields[t.section].map(f => f.key));
-      const pre = Object.fromEntries(Object.entries(PREFILL).filter(([k]) => keys.has(k)));
-      order = prev && prev.template === t.id && !Object.keys(pre).length ? prev
-        : { template: t.id, tarif: t.vip ? "vip" : "premium", rang: 1, data: pre, photos: [], music: null, unlock_at: null };
-      if (t.vip) order.tarif = "vip";
-      step = 0; render();
+      const pre = { ...PREFILL };
+      if (ME.name) pre.kimdan = ME.name;
+      startOrder(b.dataset.t, pre, "", showGallery);
     });
   }
 
-  // ---------- qadamlar
+  // ---------------------------------------------------------------- qadamlar
   const STEPS = [renderDesign, renderTier, renderInfo, renderMedia, renderFinish];
   function render(error) {
+    view = "step";
     STEPS[step](error);
-    window.scrollTo(0, 0);
+    top0();
     tgBack(true);
   }
-  function back() { haptic(); if (step === 0) showGallery(); else { step--; render(); } }
-  backBtn.onclick = back;
-  try { tg.BackButton.onClick(back); } catch {}
-  nextBtn.onclick = async () => {
+  function back() {
     haptic();
-    const err = validate();
-    if (err) { notify("error"); render(err); return; }
-    save();
-    if (step === STEPS.length - 1) return create();
-    step++; render();
-  };
+    if ($(".sheet-bg")) return $(".sheet-bg").remove();
+    if (view === "step") { if (step === 0) (origin || home)(); else { step--; render(); } }
+    else if (view === "onb") backBtn.onclick();
+    else home();
+  }
+  try { tg.BackButton.onClick(back); } catch {}
+  function stepHandlers() {
+    backBtn.onclick = back;
+    nextBtn.onclick = async () => {
+      haptic();
+      const err = validate();
+      if (err) { notify("error"); render(err); return; }
+      save();
+      if (step === STEPS.length - 1) return create();
+      step++; render();
+    };
+  }
   function validate() {
     if (step === 2) {
       for (const f of fields()) {
@@ -245,20 +636,17 @@
     if (step === 3 && $(".photos .wait")) return "Suratlar yuklanmoqda, biroz kuting...";
     return null;
   }
-  const errBox = (e) => e ? `<div class="err">${esc(e)}</div>` : "";
-
   function demoUrl() { return `${tpl().demo}#${order.tarif}-${order.rang}`; }
 
   // 1. Dizayn: jonli namuna
   function renderDesign(error) {
     const t = tpl();
-    header(t.name, `${M.sections.find(s => s.key === t.section).title} • namuna`);
+    header(t.name, `${M.sections.find(s => s.key === t.section).title} • jonli namuna`);
     main.innerHTML = errBox(error) + `
-      <div class="tpl-head fade"><h2>${esc(t.name)}</h2><p>${esc(t.desc)}</p></div>
       <div class="phone"><div class="loading">Yuklanmoqda...</div><iframe id="demo" src="${demoUrl()}" title="Namuna"></iframe></div>
-      <p class="hint" style="text-align:center">Namunani barmoq bilan suring va interaktivlarini sinab ko'ring 👆</p>`;
+      <p class="hint" style="text-align:center">Namunani barmoq bilan suring va bosib ko'ring — yaqiningiz ham xuddi shunday ochadi</p>`;
     $("#demo").onload = () => { const l = $(".phone .loading"); if (l) l.remove(); };
-    bottom("Shu dizaynni tanlash →");
+    bottom("Shu dizaynni tanlash"); stepHandlers();
   }
 
   // 2. Tarif va rang
@@ -271,10 +659,10 @@
       <div class="phone" style="width:min(200px,56vw)"><div class="loading">...</div><iframe id="demo" src="${demoUrl()}" title="Namuna"></iframe></div>
       <div class="card fade">
         <h3>Tarifni tanlang</h3>
-        ${t.vip ? '<p class="hint">Bu dizayn faqat VIP tarifda.</p>' : '<p class="hint">Yuqori tarifda saytga yangi bo\'limlar qo\'shiladi.</p>'}
+        ${t.vip ? '<p class="hint">Bu dizayn faqat VIP tarifda.</p>' : '<p class="hint">Yuqori tarifda saytga yangi bo\'limlar va effektlar qo\'shiladi.</p>'}
         <div class="tiers">${M.tiers.map(x => `
           <button class="tier ${x.key === order.tarif ? "on" : ""}" data-k="${x.key}" ${t.vip && x.key !== "vip" ? "disabled" : ""}>
-            ${x.key === "premium" && !t.vip ? '<span class="badge">KO\'P TANLANADI</span>' : ""}
+            ${x.key === "premium" && !t.vip ? '<span class="badge">Ko\'p tanlanadi</span>' : ""}
             <div class="row1"><span class="nm">${esc(x.title)}</span><span class="pr">${money(x.price)}</span></div>
             <ul>${x.features.map(f => `<li>${esc(f)}</li>`).join("")}</ul>
           </button>`).join("")}</div>
@@ -286,7 +674,7 @@
           <button class="sw ${order.rang === i + 1 ? "on" : ""}" data-r="${i + 1}" title="${esc(t.colors[i])}">
             <i style="background:conic-gradient(${c[1]} 0 50%, ${c[2]} 0 75%, ${c[0]} 0)"></i><span>${esc(t.colors[i])}</span>
           </button>`).join("")}</div>
-        ${lim < t.colors.length ? `<p class="more">Yana ${t.colors.length - lim} ta rang yuqori tarifda 🔓</p>` : ""}
+        ${lim < t.colors.length ? `<p class="more">Yana ${t.colors.length - lim} ta rang yuqori tarifda</p>` : ""}
       </div>`;
     $("#demo").onload = () => { const l = $(".phone .loading"); if (l) l.remove(); };
     const refresh = () => { $("#demo").src = demoUrl(); };
@@ -295,13 +683,13 @@
       haptic(); order.rang = +b.dataset.r; save();
       $$(".sw").forEach(x => x.classList.toggle("on", x === b)); refresh();
     });
-    bottom(`Davom etish • ${money(tier().price)}`);
+    bottom(`Davom etish — ${money(tier().price)}`); stepHandlers();
   }
 
   // 3. Ma'lumotlar
   function fieldHtml(f) {
     const v = order.data[f.key];
-    const tag = f.tier > 1 ? `<span class="tierTag">${f.tier === 2 ? "PREMIUM" : "VIP"}</span>` : "";
+    const tag = f.tier > 1 ? `<span class="tierTag">${f.tier === 2 ? "Premium" : "VIP"}</span>` : "";
     const lab = `<span>${esc(f.label)}${f.required ? "" : " <em>(ixtiyoriy)</em>"}${tag}</span>`;
     const hint = f.hint ? `<small>${esc(f.hint)}</small>` : "";
     const k = esc(f.key);
@@ -316,13 +704,13 @@
       case "lines": return `<label class="field">${lab}<textarea rows="4" data-k="${k}" data-lines="1">${esc((v || []).join("\n"))}</textarea>${hint}</label>`;
       case "photo": return `<div class="field">${lab}<div class="photos" style="grid-template-columns:1fr 2fr">${v ? `<div><img src="${esc(v)}" alt=""><button data-rmphoto="${k}">✕</button></div>` : ""}</div>
         <div class="btn ghost small upload" style="margin-top:8px">📷 Surat tanlash<input type="file" accept="image/*" data-photo="${k}"></div>${hint}</div>`;
-      case "items": return `<div class="field">${lab}${hint}<div data-items="${k}"></div><button class="btn ghost small" data-add="${k}">➕ Qo'shish</button></div>`;
+      case "items": return `<div class="field">${lab}${hint}<div data-items="${k}"></div><button class="btn ghost small" data-add="${k}">+ Qo'shish</button></div>`;
       case "textarea":
         if (f.ai) return `<div class="field">${lab}
-          <div class="ai-box"><p>✨ AI yozib bersin</p>
-            <textarea rows="2" id="brief" placeholder="U qanday inson, qanday xotiralar bor, uslub qanday bo'lsin...">${esc(order._brief || "")}</textarea>
-            <div style="height:8px"></div><button class="btn small" id="aiBtn" data-ai="${k}">${v ? "🔄 Boshqa variant" : "✨ Matn yozib ber"}</button></div>
-          <textarea rows="8" data-k="${k}" maxlength="3000" placeholder="Matnni o'zingiz yozing yoki AI ga yozdiring">${esc(v || "")}</textarea>${hint}</div>`;
+          <div class="ai-box"><p>✨ So'zlarni men yozib beraman</p>
+            <textarea rows="2" id="brief" placeholder="U qanday inson? Qanday xotiralaringiz bor?">${esc(order._brief || "")}</textarea>
+            <div style="height:8px"></div><button class="btn small" id="aiBtn" data-ai="${k}">${v ? "Boshqa variant yozish" : "Matn yozib berish"}</button></div>
+          <textarea rows="8" data-k="${k}" maxlength="3000" placeholder="Matnni o'zingiz yozing yoki yuqoridagi tugmani bosing">${esc(v || "")}</textarea>${hint}</div>`;
         return `<label class="field">${lab}<textarea rows="3" data-k="${k}">${esc(v || "")}</textarea>${hint}</label>`;
       default: return `<label class="field">${lab}<input data-k="${k}" maxlength="300" value="${esc(v || "")}">${hint}</label>`;
     }
@@ -352,7 +740,7 @@
     const fs = fields();
     const base = fs.filter(f => f.tier === 1), extra = fs.filter(f => f.tier > 1);
     main.innerHTML = errBox(error) + `<div class="card fade">${base.map(fieldHtml).join("")}</div>` +
-      (extra.length ? `<div class="card"><h3>✨ ${esc(tier().title)} bo'limlari</h3><p class="hint">To'ldirilmagan bo'limlar saytda ko'rinmaydi.</p>${extra.map(fieldHtml).join("")}</div>` : "");
+      (extra.length ? `<div class="card"><h3>${esc(tier().title)} bo'limlari</h3><p class="hint">To'ldirilmagan bo'limlar saytda ko'rinmaydi.</p>${extra.map(fieldHtml).join("")}</div>` : "");
     $$("[data-k]").forEach(el => el.oninput = () => {
       order.data[el.dataset.k] = el.dataset.lines ? el.value.split("\n") : el.value;
       save();
@@ -375,7 +763,7 @@
       try { order.data[inp.dataset.photo] = (await api("/api/upload?kind=photo", fd)).url; save(); renderInfo(); } catch (e) { alert(e.message); }
     });
     $$("[data-rmphoto]").forEach(b => b.onclick = () => { delete order.data[b.dataset.rmphoto]; save(); renderInfo(); });
-    const brief = $("#brief"); if (brief) brief.oninput = () => { order._brief = brief.value; };
+    const brief = $("#brief"); if (brief) brief.oninput = () => { order._brief = brief.value; save(); };
     const aiBtn = $("#aiBtn");
     if (aiBtn) aiBtn.onclick = async () => {
       const key = aiBtn.dataset.ai, ta = $(`[data-k="${key}"]`);
@@ -384,9 +772,9 @@
         const res = await api("/api/catalog/ai/write", { template: order.template, data: order.data, brief: order._brief || "", previous: order.data[key] || null });
         order.data[key] = res.text; ta.value = res.text; save(); notify("success");
       } catch (e) { alert(e.message); }
-      aiBtn.disabled = false; aiBtn.textContent = order.data[key] ? "🔄 Boshqa variant" : "✨ Matn yozib ber";
+      aiBtn.disabled = false; aiBtn.textContent = order.data[key] ? "Boshqa variant yozish" : "Matn yozib berish";
     };
-    bottom("Davom etish →");
+    bottom("Davom etish"); stepHandlers();
   }
 
   // 4. Suratlar va musiqa
@@ -397,12 +785,12 @@
       <div class="card fade">
         <h3>📸 Suratlar</h3>
         <p class="hint">${esc(tier().title)} tarifida ${lim} tagacha. Birinchisi asosiy surat bo'ladi.</p>
-        <div class="btn ghost upload" id="photoUp">➕ Surat qo'shish<input type="file" id="photoIn" accept="image/*" multiple></div>
+        <div class="btn ghost upload" id="photoUp">+ Surat qo'shish<input type="file" id="photoIn" accept="image/*" multiple></div>
         <div class="photos" id="photos"></div>
       </div>
       <div class="card">
-        <h3>🎵 Fon musiqasi <span style="color:var(--muted);font-weight:500;font-family:var(--f-body)">(ixtiyoriy)</span></h3>
-        <p class="hint">Yuklamasangiz, dizaynning o'z kuyi chalinadi.</p>
+        <h3>🎵 Fon musiqasi</h3>
+        <p class="hint">Ixtiyoriy. Yuklamasangiz, dizaynning o'z kuyi chalinadi.</p>
         <div id="music"></div>
       </div>`;
     drawPhotos(0);
@@ -418,10 +806,11 @@
         drawPhotos(--pending);
       }
     };
+    bottom("Ko'rish"); stepHandlers();
   }
   function drawPhotos(pending) {
     const box = $("#photos"); if (!box) return;
-    box.innerHTML = order.photos.map((u, i) => `<div><img src="${esc(u)}" alt=""><button data-i="${i}">✕</button></div>`).join("")
+    box.innerHTML = order.photos.map((u, i) => `<div><img src="${esc(u)}" alt=""><button data-i="${i}" aria-label="O'chirish">✕</button></div>`).join("")
       + `<div class="wait"><span class="spin"></span></div>`.repeat(pending);
     $$("button", box).forEach(b => b.onclick = () => { order.photos.splice(+b.dataset.i, 1); save(); drawPhotos(0); });
     $("#photoUp").hidden = order.photos.length >= tier().photos;
@@ -429,7 +818,7 @@
   function drawMusic() {
     const box = $("#music");
     if (order.music) {
-      box.innerHTML = `<audio controls src="${esc(order.music)}" style="width:100%"></audio><div style="height:8px"></div><button class="btn ghost small" id="rmMusic">🗑 Olib tashlash</button>`;
+      box.innerHTML = `<audio controls src="${esc(order.music)}" style="width:100%"></audio><div style="height:8px"></div><button class="btn ghost small" id="rmMusic">Olib tashlash</button>`;
       $("#rmMusic").onclick = () => { order.music = null; save(); drawMusic(); };
     } else {
       box.innerHTML = `<div class="btn ghost upload" id="musicUp">🎵 Musiqa tanlash (mp3)<input type="file" id="musicIn" accept="audio/*"></div>`;
@@ -441,13 +830,12 @@
         drawMusic();
       };
     }
-    bottom("Ko'rish →");
   }
 
   // 5. Ko'rish va yaratish
   async function renderFinish(error) {
     const t = tpl();
-    header("Deyarli tayyor!", t.name);
+    header("Deyarli tayyor", t.name);
     main.innerHTML = errBox(error) + `
       <div class="phone"><div class="loading"><span class="spin"></span></div><iframe id="pv" title="Ko'rish"></iframe></div>
       <p class="hint" style="text-align:center">Bu sizning saytingiz. To'lovdan so'ng «NAMUNA» yozuvi olib tashlanadi.</p>
@@ -460,7 +848,7 @@
         </div>
       </div>
       <div class="card">
-        <div class="total"><span>${esc(t.name)} • ${esc(tier().title)}</span><b>${money(tier().price)}</b></div>
+        <div class="total"><span>${esc(t.name)}, ${esc(tier().title)}</span><b>${money(tier().price)}</b></div>
       </div>`;
     const surp = () => {
       const on = $("#surpOn").checked, d = $("#surpDate").value, tm = $("#surpTime").value || "00:00";
@@ -475,7 +863,7 @@
       surp();
     };
     $("#surpDate").onchange = surp; $("#surpTime").onchange = surp;
-    bottom("🚀 Saytni yaratish");
+    bottom("Saytni yaratish"); stepHandlers();
     try {
       const html = await api("/api/catalog/preview", order, true);
       const pv = $("#pv"); if (!pv) return;
@@ -488,21 +876,45 @@
     try {
       const res = await api("/api/catalog/sites", order);
       try { localStorage.removeItem("tayyorla-order"); } catch {}
-      notify("success"); tgBack(false);
-      $("#bottom").hidden = true; order = null; header("Tayyor! 🎉", "");
-      main.innerHTML = `<div class="card done fade"><div class="big">🎉</div><h2>Saytingiz tayyor!</h2>
-        <p class="hint" style="margin-top:8px">Havola va tugmalarni botga yubordik: ko'rish, tahrirlash va to'lov o'sha yerda.</p>
-        <button class="btn" id="toBot">💬 Botga qaytish</button></div>`;
+      const who = order.data.kimga || "";
+      notify("success"); tgBack(false); view = "done";
+      order = null; noHeader();
+      const conf = [["#E0307A", -80, -90, 200], ["#F5B20A", 70, -110, -160], ["#13946C", -30, -130, 120], ["#E0307A", 100, -50, 240], ["#F5B20A", -110, -30, -200], ["#211C52", 30, -150, 180]];
+      main.innerHTML = `<div class="done fade">
+        <svg viewBox="0 0 200 170" aria-hidden="true">
+          <g class="burst">${conf.map(([c, dx, dy, r]) => `<rect x="96" y="70" width="8" height="14" rx="2" fill="${c}" style="--dx:${dx}px;--dy:${dy}px;--r:${r}deg"/>`).join("")}</g>
+          <rect x="45" y="80" width="110" height="80" rx="10" fill="var(--surface)"/>
+          <rect x="88" y="80" width="24" height="80" fill="url(#ik)"/>
+          <g class="lid"><rect x="36" y="58" width="128" height="26" rx="8" fill="var(--surface2)"/><rect x="88" y="58" width="24" height="26" fill="url(#ik)"/></g>
+        </svg>
+        <h1>${who ? esc(who) + " uchun sayt tayyor!" : "Saytingiz tayyor!"}</h1>
+        <p>Havolani botga yubordik. To'lovdan keyin «NAMUNA» yozuvi olinadi — shunda yuborasiz va javobini kutasiz.</p>
+        <button class="btn" id="toBot">Botga qaytish</button>
+        <div style="height:10px"></div>
+        <button class="btn ghost" id="toHome">Bosh sahifa</button></div>`;
+      bottom("", false);
       $("#toBot").onclick = () => tg ? tg.close() : (location.href = res.url);
+      $("#toHome").onclick = async () => { try { ME = await api("/api/me"); } catch {} home(); };
     } catch (e) { render(e.message); }
   }
 
-  // ---------- ishga tushirish
+  // ---------------------------------------------------------------- ishga tushirish
   if (!initData) {
-    main.innerHTML = `<div class="card done"><div class="big">📱</div><p>Bu ilova Telegram ichida ochiladi.</p></div>`;
+    $("#splash").remove();
+    main.innerHTML = `<div class="done"><h1>Tayyorla</h1><p>Bu ilova Telegram ichida ochiladi.</p></div>`;
     return;
   }
-  api("/api/catalog").then(m => { M = m; showGallery(); }).catch(e => main.innerHTML = `<div class="err">${esc(e.message)}</div>`);
+  Promise.all([api("/api/catalog"), api("/api/me"), splash()]).then(([m, me]) => {
+    M = m; ME = me;
+    if (PREFILL.kimga) {
+      // eslatmadan kelgan: shu odam uchun tayyor tavsiyalar
+      const p = ME.people.find(x => x.name === PREFILL.kimga);
+      if (p) return rec({ rel: p.relation, person: p });
+      return rec({ section: Q.get("s") || "tugilgan-kun", title: `${PREFILL.kimga} uchun`, prefill: PREFILL });
+    }
+    if (!ME.onboarded) return onboarding(0);
+    home();
+  }).catch(e => { const s = $("#splash"); if (s) s.remove(); main.innerHTML = `<div class="err" style="margin-top:20px">${esc(e.message)}</div>`; });
 })();
 </script>
 </body>

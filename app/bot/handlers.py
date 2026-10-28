@@ -7,7 +7,7 @@ from collections import defaultdict
 
 from aiogram import Bot, F, Router
 from aiogram.enums import ChatAction
-from aiogram.filters import Command, CommandStart
+from aiogram.filters import Command, CommandObject, CommandStart
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import State, StatesGroup
 from aiogram.types import CallbackQuery, Message
@@ -138,18 +138,26 @@ def created_text(site: Site) -> str:
 
 WELCOME = (
     "Assalomu alaykum, {name}! 👋\n\n"
-    "<b>Tayyorla</b> — yaqinlaringiz uchun unutilmas tabrik saytlarini bir necha daqiqada tayyorlaydi:\n"
-    "🎂 tug'ilgan kun • 💍 to'y taklifnomasi • 💌 sevgi izhori • 👶 farzand muborak • 🙏 uzrnoma\n\n"
-    "✨ 25 ta professional dizayn, jonli namuna, shamlarni o'chirish, sharlarni yorish, muhrli konvertlar va boshqalar.\n"
-    "💳 Tariflar: <b>Standart</b>, <b>Premium</b> va <b>VIP</b>.\n\n"
+    "Yaqin odamingizni bugun qanday quvontiramiz?\n\n"
+    "<b>Tayyorla</b> bir necha daqiqada u uchun alohida sayt tayyorlaydi: "
+    "ochilganda sovg'a qutisi yechiladi, shamlar yonadi, sizning so'zlaringiz paydo bo'ladi. "
+    "Siz faqat linkni yuborasiz — qolgani uning tabassumi 💌\n\n"
+    "Kimni tabriklashingizni aytsangiz, mos g'oyalarni o'zim taklif qilaman 👇"
+)
+WELCOME_BACK_FROM_GIFT = (
+    "Assalomu alaykum, {name}! 🎁\n\n"
+    "Yaqinda sizni ham shunday sayt bilan tabriklashdi — yoqdimi? "
+    "Endi navbat sizda: onangiz, sevgilingiz yoki do'stingiz uchun xuddi shunday sovg'a tayyorlang.\n\n"
     "Boshlash uchun pastdagi tugmani bosing 👇"
 )
 
 
 @router.message(CommandStart())
-async def start(message: Message, state: FSMContext):
+async def start(message: Message, state: FSMContext, command: CommandObject | None = None):
     await state.clear()
-    await message.answer(WELCOME.format(name=html.escape(message.from_user.first_name or "")), reply_markup=kb.main_menu())
+    name = html.escape(message.from_user.first_name or "")
+    gift = bool(command and command.args and command.args.startswith("r_"))
+    await message.answer((WELCOME_BACK_FROM_GIFT if gift else WELCOME).format(name=name), reply_markup=kb.main_menu())
 
 
 @router.callback_query(F.data == "legacy")

@@ -1,7 +1,7 @@
 import secrets
 from datetime import datetime
 
-from sqlalchemy import JSON, BigInteger, DateTime, ForeignKey, Integer, String, Text, func, select
+from sqlalchemy import JSON, BigInteger, DateTime, ForeignKey, Integer, String, Text, func, inspect, select, text
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 
@@ -63,6 +63,7 @@ class Person(Base):
     day: Mapped[int] = mapped_column(Integer)
     month: Mapped[int] = mapped_column(Integer)
     year: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    relation: Mapped[str] = mapped_column(String(16), default="")  # ona, sevgili, dost... (catalog.RELATIONS)
     created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
 
 
@@ -76,9 +77,38 @@ class ReminderLog(Base):
     days_before: Mapped[int] = mapped_column(Integer)
 
 
+class UserProfile(Base):
+    """Mini App tanishuvi: foydalanuvchi kimlarni quvontiradi."""
+    __tablename__ = "user_profiles"
+
+    tg_id: Mapped[int] = mapped_column(BigInteger, primary_key=True)
+    first_name: Mapped[str] = mapped_column(String(100), default="")
+    relations: Mapped[list] = mapped_column(JSON, default=list)
+    created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
+
+
+class Reaction(Base):
+    """Tabriklangan odamning javobi: yurak va qisqa xabar."""
+    __tablename__ = "reactions"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    site_id: Mapped[int] = mapped_column(ForeignKey("sites.id"), index=True)
+    emoji: Mapped[str] = mapped_column(String(8))
+    message: Mapped[str] = mapped_column(Text, default="")
+    created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
+
+
 async def init_db() -> None:
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
+        await conn.run_sync(_add_missing_columns)
+
+
+def _add_missing_columns(conn) -> None:
+    """Oddiy migratsiya: create_all mavjud jadvalga yangi ustun qo'shmaydi."""
+    cols = {c["name"] for c in inspect(conn).get_columns("people")}
+    if "relation" not in cols:
+        conn.execute(text("ALTER TABLE people ADD COLUMN relation VARCHAR(16) DEFAULT '' NOT NULL"))
 
 
 def new_slug() -> str:

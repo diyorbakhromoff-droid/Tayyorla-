@@ -3,6 +3,8 @@ import html
 import re
 import hmac
 import logging
+import time
+from collections import defaultdict, deque
 
 from fastapi import FastAPI, Form, HTTPException, Request
 from fastapi.responses import HTMLResponse, RedirectResponse
@@ -10,7 +12,7 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
 from .config import MEDIA_DIR, ROOT, settings
-from .db import Rsvp, Session, get_site
+from .db import Reaction, Rsvp, Session, get_site
 from .catalog import CATALOG_DIR, render_catalog
 from .render import env, on_color, render_site
 from .surprise import human, is_owner, locked_until, recipient_name
@@ -71,7 +73,56 @@ async def show(slug: str, request: Request):
             await s.commit()
             if first_view and notify:
                 await notify(site.owner_id, f"👀 Sahifangiz birinchi marta ochildi!\n{site.url}")
-        return page_for(site, preview=not site.paid)
+        page = page_for(site, preview=not site.paid)
+        if site.paid and not owner:
+            page = with_react_widget(page, site)
+        return page
+
+
+REACT_EMOJI = ("❤️", "🥹", "🥰", "🤗", "🔥")
+_reacts: dict[str, deque] = defaultdict(deque)
+
+
+def with_react_widget(page: str, site) -> str:
+    """To'langan sahifaga «javob qaytarish» tugmasini qo'shadi."""
+    from_name = (site.owner_name or "").split(" ")[0] or "Yuboruvchi"
+    widget = env.get_template("react_widget.html").render(
+        slug=site.slug, from_name=from_name, bot=settings.bot_username, delay=25000)
+    i = page.rfind("</body>")
+    return page[:i] + widget + page[i:] if i != -1 else page + widget
+
+
+class ReactIn(BaseModel):
+    emoji: str
+    message: str = Field(default="", max_length=300)
+
+
+@app.post("/s/{slug}/react")
+async def react(slug: str, data: ReactIn, request: Request):
+    if data.emoji not in REACT_EMOJI:
+        raise HTTPException(400)
+    # Bitta qurilmadan bitta saytga soatiga 5 tagacha javob
+    calls = _reacts[f"{slug}:{request.client.host if request.client else ''}"]
+    now = time.time()
+    while calls and now - calls[0] > 3600:
+        calls.popleft()
+    if len(calls) >= 5:
+        raise HTTPException(429)
+    calls.append(now)
+    async with Session() as s:
+        site = await get_site(s, slug)
+        if not site or not site.paid:
+            raise HTTPException(404)
+        msg = " ".join(data.message.split())
+        s.add(Reaction(site_id=site.id, emoji=data.emoji, message=msg))
+        await s.commit()
+    if notify:
+        who = html.escape(recipient_name(site.config) or "Tabriklagan odamingiz")
+        text = f"{data.emoji} <b>{who}</b> sahifangizga javob qaytardi!"
+        if msg:
+            text += f"\n\n«{html.escape(msg)}»"
+        await notify(site.owner_id, text + "\n\nYana kimnidir quvontiramizmi? /start")
+    return {"ok": True}
 
 
 @app.post("/s/{slug}/unlock")

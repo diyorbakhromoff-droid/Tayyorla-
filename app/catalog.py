@@ -308,6 +308,7 @@ def catalog_meta() -> dict:
         ],
         "tiers": [{"key": k, **{kk: vv for kk, vv in v.items()}, "price": tier_price(k)} for k, v in TIERS.items()],
         "fields": {s: [fdict(f) for f in fs] for s, fs in FIELDS.items()},
+        "relations": [{"key": k, **v} for k, v in RELATIONS.items()],
     }
 
 
@@ -327,3 +328,31 @@ def site_title(config: dict) -> str:
 
 def photo_limit(config: dict) -> int:
     return TIERS[config["tarif"]]["photos"] if config.get("engine") == "catalog" else 10
+
+
+# ---------------------------------------------------------------- «Kim uchun?» tavsiyalari
+
+RELATIONS: dict[str, dict] = {
+    "ona": {"title": "Onam", "emoji": "🌷", "kimga": "Onajonim", "tone": "onasiga, chuqur minnatdorlik va mehr bilan",
+            "picks": ["tk-oltin", "tk-polaroid", "tk-tort", "tk-maktub"], "why": "Mehrini eslatadigan, iliq dizaynlar"},
+    "ota": {"title": "Otam", "emoji": "🕊️", "kimga": "Otajonim", "tone": "otasiga, hurmat va faxr bilan, ortiqcha his-tuyg'usiz",
+            "picks": ["tk-oltin", "tk-maktub", "tk-polaroid"], "why": "Salobatli va hurmatli uslub"},
+    "jufti": {"title": "Turmush o'rtog'im", "emoji": "💞", "kimga": "", "tone": "turmush o'rtog'iga, sevgi va birga o'tgan yillar haqida",
+              "picks": ["sv-hikoya", "sv-konvert", "sv-maktub", "tk-polaroid", "uz-kechir"], "why": "Birga bosib o'tgan yo'lingiz haqida"},
+    "sevgili": {"title": "Sevgilim", "emoji": "❤️", "kimga": "", "tone": "sevgilisiga, romantik va samimiy",
+                "picks": ["sv-yulduz", "sv-atirgul", "sv-konvert", "sv-maktub", "uz-ayiqcha"], "why": "Yuragini titratadigan izhorlar"},
+    "farzand": {"title": "Farzandim", "emoji": "🧸", "kimga": "", "tone": "farzandiga, quvnoq va g'ururli",
+                "picks": ["tk-sharlar", "tk-tort", "tk-polaroid", "fz-bulut"], "why": "Quvnoq, rang-barang va o'yinli"},
+    "qarindosh": {"title": "Aka-uka, opa-singil", "emoji": "🤝", "kimga": "", "tone": "aka-uka yoki opa-singilga, samimiy va biroz hazil bilan",
+                  "picks": ["tk-sharlar", "tk-polaroid", "tk-tort", "toy-gullar"], "why": "Bolalikdan beri birga — shunday tabrik ham"},
+    "dost": {"title": "Do'stim", "emoji": "🎈", "kimga": "", "tone": "do'stiga, quvnoq va hazilomuz",
+             "picks": ["tk-sharlar", "tk-polaroid", "uz-ayiqcha", "tk-tort"], "why": "Kuldiradigan va esda qoladigan"},
+    "hamkasb": {"title": "Hamkasbim", "emoji": "💼", "kimga": "", "tone": "hamkasbiga, hurmatli va iliq, rasmiyroq",
+                "picks": ["tk-oltin", "tk-sharlar", "toy-minimal"], "why": "Ishxonada ham chiroyli ko'rinadigan"},
+    "ustoz": {"title": "Ustozim", "emoji": "📚", "kimga": "Hurmatli ustozim", "tone": "ustoziga, chuqur hurmat va minnatdorlik bilan",
+              "picks": ["tk-oltin", "tk-maktub", "tk-polaroid"], "why": "Minnatdorlikni munosib ifodalaydigan"},
+    "mehmonlar": {"title": "To'yga mehmonlar", "emoji": "💍", "kimga": "", "tone": "to'yga taklif, rasmiy va samimiy",
+                  "picks": ["toy-maktub", "toy-milliy", "toy-klassik", "toy-gullar", "toy-minimal"], "why": "Taklifnoma, xarita va mehmonlar javobi bilan"},
+}
+for _r in RELATIONS.values():
+    assert all(t in TEMPLATES for t in _r["picks"]), _r

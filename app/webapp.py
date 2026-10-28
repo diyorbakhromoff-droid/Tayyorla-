@@ -1,5 +1,6 @@
 """Telegram Mini App: forma orqali sayt yaratish uchun API."""
 
+import calendar
 import hashlib
 import hmac
 import io
@@ -17,9 +18,13 @@ from PIL import Image, ImageOps
 from pydantic import BaseModel, Field
 
 from . import ai
-from .catalog import TEMPLATES, catalog_meta, clean_order, render_catalog
+from sqlalchemy import delete, func, select
+
+from . import reminders
+from .catalog import RELATIONS, TEMPLATES, catalog_meta, clean_order, render_catalog, site_title
 from .config import MEDIA_DIR, ROOT, settings
-from .db import Session, Site, new_slug
+from .db import Person, Reaction, ReminderLog, Session, Site, UserProfile, new_slug
+from .surprise import owner_url, recipient_name
 from .render import parse_date, render_site
 from .sites import CATEGORIES, PALETTES, build_config
 
@@ -256,3 +261,130 @@ async def catalog_create(body: OrderIn, x_init_data: str = Header("")):
     if on_created:
         await on_created(site)
     return {"url": site.url, "id": site.id}
+
+
+# ---------------------------------------------------------------- shaxsiy bosh sahifa: profil, yaqinlar, javoblar
+
+MAX_PEOPLE = 50
+
+
+def _person_out(p: Person, ref) -> dict:
+    nxt = reminders.next_occurrence(p, ref)
+    rel = RELATIONS.get(p.relation) or {}
+    section = reminders.KIND_SECTION.get(p.kind, "tugilgan-kun")
+    if p.kind == "birthday" and p.relation in ("sevgili", "jufti"):
+        section = "sevgi" if p.relation == "sevgili" else "tugilgan-kun"
+    return {
+        "id": p.id, "name": p.name, "kind": p.kind, "title": p.title, "relation": p.relation,
+        "emoji": rel.get("emoji") or reminders.KINDS[p.kind][0],
+        "event": p.title if p.kind == "other" else reminders.KINDS[p.kind][1],
+        "day": p.day, "month": p.month, "year": p.year,
+        "date": nxt.isoformat(), "date_label": reminders.human_day(nxt),
+        "days_left": (nxt - ref).days, "turns": reminders.years_on(p, nxt),
+        "section": section,
+        "born": reminders.occurrence(p.day, p.month, p.year).isoformat() if p.kind == "birthday" and p.year else None,
+    }
+
+
+@router.get("/api/me")
+async def me(x_init_data: str = Header("")):
+    user = check_init_data(x_init_data)
+    uid = int(user["id"])
+    ref = reminders.today()
+    async with Session() as s:
+        prof = await s.get(UserProfile, uid)
+        people = (await s.execute(select(Person).where(Person.owner_id == uid))).scalars().all()
+        sites = (await s.execute(select(Site).where(Site.owner_id == uid).order_by(Site.id.desc()))).scalars().all()
+        counts = dict((await s.execute(
+            select(Reaction.site_id, func.count()).join(Site, Site.id == Reaction.site_id)
+            .where(Site.owner_id == uid).group_by(Reaction.site_id))).all())
+        latest = (await s.execute(
+            select(Reaction, Site).join(Site, Site.id == Reaction.site_id)
+            .where(Site.owner_id == uid, Reaction.message != "").order_by(Reaction.id.desc()).limit(5))).all()
+    out_people = sorted((_person_out(p, ref) for p in people), key=lambda x: x["days_left"])
+    return {
+        "name": user.get("first_name", ""),
+        "onboarded": prof is not None,
+        "relations": prof.relations if prof else [],
+        "people": out_people,
+        "sites": [
+            {"slug": x.slug, "title": site_title(x.config), "url": owner_url(x), "paid": x.paid, "views": x.views,
+             "reactions": counts.get(x.id, 0), "template": x.config.get("template"),
+             "to": recipient_name(x.config)}
+            for x in sites[:20]
+        ],
+        "stats": {
+            "happy": sum(1 for x in sites if x.paid),
+            "views": sum(x.views for x in sites),
+            "reactions": sum(counts.values()),
+        },
+        "messages": [{"emoji": r.emoji, "text": r.message, "title": site_title(st.config)} for r, st in latest],
+    }
+
+
+class PersonIn(BaseModel):
+    name: str = Field(min_length=1, max_length=100)
+    relation: str = ""
+    kind: str = "birthday"
+    title: str = Field(default="", max_length=100)
+    day: int = Field(ge=1, le=31)
+    month: int = Field(ge=1, le=12)
+    year: int | None = Field(default=None, ge=1900, le=2100)
+
+
+def _new_person(uid: int, p: PersonIn) -> Person:
+    if p.kind not in reminders.KINDS:
+        raise HTTPException(400, "Noma'lum sana turi")
+    if p.day > calendar.monthrange(2024, p.month)[1]:  # 2024 kabisa yili: 29-fevral ham to'g'ri
+        raise HTTPException(400, "Sana noto'g'ri")
+    return Person(owner_id=uid, name=p.name.strip(), relation=p.relation if p.relation in RELATIONS else "",
+                  kind=p.kind, title=p.title.strip() if p.kind == "other" else "", day=p.day, month=p.month, year=p.year)
+
+
+class OnboardIn(BaseModel):
+    relations: list[str] = Field(default_factory=list, max_length=len(RELATIONS))
+    people: list[PersonIn] = Field(default_factory=list, max_length=10)
+
+
+@router.post("/api/me/onboard")
+async def onboard(body: OnboardIn, x_init_data: str = Header("")):
+    user = check_init_data(x_init_data)
+    uid = int(user["id"])
+    rels = [r for r in dict.fromkeys(body.relations) if r in RELATIONS]
+    new = [_new_person(uid, p) for p in body.people]
+    async with Session() as s:
+        prof = await s.get(UserProfile, uid)
+        if prof:
+            prof.relations = rels
+        else:
+            s.add(UserProfile(tg_id=uid, first_name=str(user.get("first_name", ""))[:100], relations=rels))
+        count = await s.scalar(select(func.count()).select_from(Person).where(Person.owner_id == uid))
+        s.add_all(new[: max(0, MAX_PEOPLE - count)])
+        await s.commit()
+    return {"ok": True}
+
+
+@router.post("/api/people")
+async def add_person(body: PersonIn, x_init_data: str = Header("")):
+    uid = int(check_init_data(x_init_data)["id"])
+    async with Session() as s:
+        count = await s.scalar(select(func.count()).select_from(Person).where(Person.owner_id == uid))
+        if count >= MAX_PEOPLE:
+            raise HTTPException(400, f"Ko'pi bilan {MAX_PEOPLE} ta sana qo'shish mumkin")
+        p = _new_person(uid, body)
+        s.add(p)
+        await s.commit()
+    return _person_out(p, reminders.today())
+
+
+@router.delete("/api/people/{pid}")
+async def delete_person(pid: int, x_init_data: str = Header("")):
+    uid = int(check_init_data(x_init_data)["id"])
+    async with Session() as s:
+        p = await s.get(Person, pid)
+        if not p or p.owner_id != uid:
+            raise HTTPException(404)
+        await s.execute(delete(ReminderLog).where(ReminderLog.person_id == pid))
+        await s.delete(p)
+        await s.commit()
+    return {"ok": True}
