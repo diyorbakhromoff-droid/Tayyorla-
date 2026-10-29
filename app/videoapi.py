@@ -86,6 +86,7 @@ class PayloadIn(BaseModel):
     palette: int = 0
     guest: str | None = Field(default=None, max_length=60)
     ui: str | None = None  # Mini App tili: «avto» tilni aniqlashda yordam beradi
+    probe: dict | None = None  # ko'rinishda namunaviy qiymatlar bo'lsa, til faqat foydalanuvchi yozgani bo'yicha aniqlanadi
 
 
 @router.post("/api/video/payload")
@@ -93,7 +94,8 @@ async def video_payload(body: PayloadIn, x_init_data: str = Header("")):
     check_init_data(x_init_data)
     d = video.design(body.design)
     data = video.clean_data(d["section"], body.data, strict=False)
-    return video.build_payload(body.design, data, video.resolve_lang(body.lang, data, body.ui), guest=body.guest or data.get("kimga"),
+    probe = video.clean_data(d["section"], body.probe, strict=False) if body.probe is not None else data
+    return video.build_payload(body.design, data, video.resolve_lang(body.lang, probe, body.ui), guest=body.guest or data.get("kimga"),
                                free=True, site_url=f"{settings.base_url}/s/preview", palette=body.palette)
 
 

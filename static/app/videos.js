@@ -273,7 +273,7 @@
     const refresh = App.debounce(async () => {
       const my = ++seq;
       try {
-        const pl = await api("/api/video/payload", { design: dz.id, data: previewData(), lang: d.lang, palette: d.palette, guest: d.data.kimga || null, ui: App.lang });
+        const pl = await api("/api/video/payload", { design: dz.id, data: previewData(), lang: d.lang, palette: d.palette, guest: d.data.kimga || null, ui: App.lang, probe: d.data });
         if (my !== seq || !ready) return;
         pl.f.free = willBeFree();
         post({ type: "tv:payload", payload: pl });
