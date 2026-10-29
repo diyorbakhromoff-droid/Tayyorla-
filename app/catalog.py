@@ -1,4 +1,4 @@
-"""Tayyor shablonlar katalogi (25 dizayn, Standart / Premium / VIP tariflar).
+"""Tayyor shablonlar katalogi (Standart / Premium / VIP tariflar).
 
 Har bir shablon HTML fayl bo'lib, ma'lumotni <script id="site-config"> ichidagi JSON dan oladi.
 Bu modul mijoz ma'lumotini tekshiradi, tarif cheklovlarini qo'llaydi va tayyor sahifani yig'adi.
@@ -220,6 +220,8 @@ def clean_order(body: dict, strict: bool) -> dict:
     tarif = body.get("tarif") if body.get("tarif") in TIERS else "premium"
     if t["vip"] and tarif != "vip":
         raise HTTPException(400, "Bu shablon faqat VIP tarifda")
+    if t.get("premium") and tarif == "standart":
+        raise HTTPException(400, "Bu dizayn Premium va VIP tarifda")
     try:
         rang = int(body.get("rang") or 1)
     except (TypeError, ValueError):
@@ -302,6 +304,7 @@ def catalog_meta() -> dict:
         "sections": [{"key": k, "title": v} for k, v in SECTIONS.items()],
         "templates": [
             {"id": t["id"], "section": t["section"], "name": t["name"], "desc": t["desc"], "vip": t["vip"],
+             "premium": t.get("premium", False), "new": t.get("new", False),
              "colors": t["colors"], "swatch": t["swatch"], "thumb": f"/katalog/thumb/{t['id']}.jpg",
              "demo": f"/katalog/namuna/{t['file']}"}
             for t in TEMPLATES.values()
@@ -334,25 +337,25 @@ def photo_limit(config: dict) -> int:
 
 RELATIONS: dict[str, dict] = {
     "ona": {"title": "Onam", "emoji": "🌷", "kimga": "Onajonim", "tone": "onasiga, chuqur minnatdorlik va mehr bilan",
-            "picks": ["tk-oltin", "tk-polaroid", "tk-tort", "tk-maktub"], "why": "Mehrini eslatadigan, iliq dizaynlar"},
+            "picks": ["tk-oltin", "tk-salyut", "tk-polaroid", "tk-tort", "tk-maktub"], "why": "Mehrini eslatadigan, iliq dizaynlar"},
     "ota": {"title": "Otam", "emoji": "🕊️", "kimga": "Otajonim", "tone": "otasiga, hurmat va faxr bilan, ortiqcha his-tuyg'usiz",
-            "picks": ["tk-oltin", "tk-maktub", "tk-polaroid"], "why": "Salobatli va hurmatli uslub"},
+            "picks": ["tk-oltin", "tk-salyut", "tk-maktub", "tk-polaroid"], "why": "Salobatli va hurmatli uslub"},
     "jufti": {"title": "Turmush o'rtog'im", "emoji": "💞", "kimga": "", "tone": "turmush o'rtog'iga, sevgi va birga o'tgan yillar haqida",
-              "picks": ["sv-hikoya", "sv-konvert", "sv-maktub", "tk-polaroid", "uz-kechir"], "why": "Birga bosib o'tgan yo'lingiz haqida"},
+              "picks": ["sv-yurak", "sv-hikoya", "sv-konvert", "sv-maktub", "tk-polaroid", "uz-kechir"], "why": "Birga bosib o'tgan yo'lingiz haqida"},
     "sevgili": {"title": "Sevgilim", "emoji": "❤️", "kimga": "", "tone": "sevgilisiga, romantik va samimiy",
-                "picks": ["sv-yulduz", "sv-atirgul", "sv-konvert", "sv-maktub", "uz-ayiqcha"], "why": "Yuragini titratadigan izhorlar"},
+                "picks": ["sv-yurak", "sv-yulduz", "sv-atirgul", "sv-konvert", "sv-maktub", "uz-ayiqcha"], "why": "Yuragini titratadigan izhorlar"},
     "farzand": {"title": "Farzandim", "emoji": "🧸", "kimga": "", "tone": "farzandiga, quvnoq va g'ururli",
-                "picks": ["tk-sharlar", "tk-tort", "tk-polaroid", "fz-bulut"], "why": "Quvnoq, rang-barang va o'yinli"},
+                "picks": ["tk-salyut", "tk-sharlar", "tk-tort", "tk-polaroid", "fz-bulut"], "why": "Quvnoq, rang-barang va o'yinli"},
     "qarindosh": {"title": "Aka-uka, opa-singil", "emoji": "🤝", "kimga": "", "tone": "aka-uka yoki opa-singilga, samimiy va biroz hazil bilan",
-                  "picks": ["tk-sharlar", "tk-polaroid", "tk-tort", "toy-gullar"], "why": "Bolalikdan beri birga — shunday tabrik ham"},
+                  "picks": ["tk-salyut", "tk-sharlar", "tk-polaroid", "tk-tort"], "why": "Bolalikdan beri birga — shunday tabrik ham"},
     "dost": {"title": "Do'stim", "emoji": "🎈", "kimga": "", "tone": "do'stiga, quvnoq va hazilomuz",
-             "picks": ["tk-sharlar", "tk-polaroid", "uz-ayiqcha", "tk-tort"], "why": "Kuldiradigan va esda qoladigan"},
+             "picks": ["tk-salyut", "tk-sharlar", "tk-polaroid", "uz-ayiqcha", "tk-tort"], "why": "Kuldiradigan va esda qoladigan"},
     "hamkasb": {"title": "Hamkasbim", "emoji": "💼", "kimga": "", "tone": "hamkasbiga, hurmatli va iliq, rasmiyroq",
-                "picks": ["tk-oltin", "tk-sharlar", "toy-minimal"], "why": "Ishxonada ham chiroyli ko'rinadigan"},
+                "picks": ["tk-oltin", "tk-salyut", "tk-sharlar"], "why": "Ishxonada ham chiroyli ko'rinadigan"},
     "ustoz": {"title": "Ustozim", "emoji": "📚", "kimga": "Hurmatli ustozim", "tone": "ustoziga, chuqur hurmat va minnatdorlik bilan",
               "picks": ["tk-oltin", "tk-maktub", "tk-polaroid"], "why": "Minnatdorlikni munosib ifodalaydigan"},
     "mehmonlar": {"title": "To'yga mehmonlar", "emoji": "💍", "kimga": "", "tone": "to'yga taklif, rasmiy va samimiy",
-                  "picks": ["toy-maktub", "toy-milliy", "toy-klassik", "toy-gullar", "toy-minimal"], "why": "Taklifnoma, xarita va mehmonlar javobi bilan"},
+                  "picks": ["toy-parda", "toy-maktub", "toy-milliy", "toy-klassik", "toy-gullar", "toy-minimal"], "why": "Taklifnoma, xarita va mehmonlar javobi bilan"},
 }
 for _r in RELATIONS.values():
     assert all(t in TEMPLATES for t in _r["picks"]), _r

@@ -158,6 +158,7 @@
     .carousel .pick b { display: block; font: 600 18px var(--f-display); }
     .carousel .pick small { display: block; color: var(--muted); font-size: 12px; line-height: 1.35; margin-top: 2px; }
     .vip { position: absolute; top: 10px; left: 10px; padding: 4px 10px; border-radius: 999px; font: 700 11px var(--f-body); background: var(--saffron); color: #3A2500; }
+    .vip.prem { background: var(--atlas); color: #fff; }
 
     /* ---------- galereya va qadamlar */
     .tabs { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; margin: 4px -16px 14px; padding: 0 16px; }
@@ -543,7 +544,7 @@
     const sub = p ? `${p.event}, ${p.date_label} — ${leftText(p.days_left).toLowerCase()}` : r ? r.why : "Sizga mos dizaynlar";
     main.innerHTML = `<div class="rechead"><span class="em">${r ? r.emoji : p ? p.emoji : "🎁"}</span><h1>${esc(title)}</h1><p>${esc(sub)}</p></div><div class="ribbon" style="margin:0 -16px"></div>
       <div class="carousel fade">${list.map(t => `
-        <button class="pick" data-t="${t.id}">${t.vip ? '<span class="vip">VIP</span>' : ""}
+        <button class="pick" data-t="${t.id}">${t.vip ? '<span class="vip">VIP</span>' : t.premium ? `<span class="vip prem">${t.new ? "Yangi • Premium" : "Premium"}</span>` : ""}
           <img src="${t.thumb}" alt="" loading="lazy"><div class="meta"><b>${esc(t.name)}</b><small>${esc(t.desc)}</small></div></button>`).join("")}</div>
       <p class="hint" style="text-align:center">Dizaynni bosing — jonli namunasini ko'rasiz</p>
       ${p ? `<button class="linkish" id="rmP">Bu sanani o'chirish</button>` : ""}`;
@@ -572,6 +573,7 @@
     order = prev && prev.template === t.id && !Object.keys(pre).filter(k => k !== "kimdan").length ? prev
       : { template: t.id, tarif: t.vip ? "vip" : "premium", rang: 1, data, photos: [], music: null, unlock_at: null, _brief: tone ? `Uslub: ${tone}. ` : "" };
     if (t.vip) order.tarif = "vip";
+    if (t.premium && order.tarif === "standart") order.tarif = "premium";
     origin = from; step = 0; view = "step"; render();
   }
 
@@ -581,12 +583,13 @@
     header("Barcha dizaynlar", "Yoqqanini tanlang — jonli namunasini ko'rasiz");
     bottom("", false); tgBack(true);
     section = section || (M.sections.some(x => x.key === Q.get("s")) ? Q.get("s") : M.sections[0].key);
-    const list = M.templates.filter(t => t.section === section).sort((a, b) => a.vip - b.vip);
+    const rank = (t) => t.new ? 0 : t.vip ? 2 : 1;
+    const list = M.templates.filter(t => t.section === section).sort((a, b) => rank(a) - rank(b));
     main.innerHTML = `
       <div class="tabs">${M.sections.map(s => `<button class="tab ${s.key === section ? "on" : ""}" data-s="${s.key}">${esc(s.title)}</button>`).join("")}</div>
       <div class="grid fade">${list.map(t => `
         <button class="tpl" data-t="${t.id}">
-          ${t.vip ? '<span class="vip">VIP</span>' : ""}
+          ${t.vip ? '<span class="vip">VIP</span>' : t.premium ? `<span class="vip prem">${t.new ? "Yangi • Premium" : "Premium"}</span>` : ""}
           <img src="${t.thumb}" alt="" loading="lazy">
           <div class="meta"><b>${esc(t.name)}</b><small>${esc(t.desc)}</small></div>
         </button>`).join("")}</div>`;
@@ -659,9 +662,9 @@
       <div class="phone" style="width:min(200px,56vw)"><div class="loading">...</div><iframe id="demo" src="${demoUrl()}" title="Namuna"></iframe></div>
       <div class="card fade">
         <h3>Tarifni tanlang</h3>
-        ${t.vip ? '<p class="hint">Bu dizayn faqat VIP tarifda.</p>' : '<p class="hint">Yuqori tarifda saytga yangi bo\'limlar va effektlar qo\'shiladi.</p>'}
+        ${t.vip ? '<p class="hint">Bu dizayn faqat VIP tarifda.</p>' : t.premium ? '<p class="hint">Bu dizayn Premium va VIP tarifda.</p>' : '<p class="hint">Yuqori tarifda saytga yangi bo\'limlar va effektlar qo\'shiladi.</p>'}
         <div class="tiers">${M.tiers.map(x => `
-          <button class="tier ${x.key === order.tarif ? "on" : ""}" data-k="${x.key}" ${t.vip && x.key !== "vip" ? "disabled" : ""}>
+          <button class="tier ${x.key === order.tarif ? "on" : ""}" data-k="${x.key}" ${(t.vip && x.key !== "vip") || (t.premium && x.key === "standart") ? "disabled" : ""}>
             ${x.key === "premium" && !t.vip ? '<span class="badge">Ko\'p tanlanadi</span>' : ""}
             <div class="row1"><span class="nm">${esc(x.title)}</span><span class="pr">${money(x.price)}</span></div>
             <ul>${x.features.map(f => `<li>${esc(f)}</li>`).join("")}</ul>

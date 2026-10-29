@@ -84,3 +84,25 @@ assert "NAMUNA • TAYYORLA" in render_catalog(evil, "abc", preview=True)
 vip_toy = clean_order({"template": "toy-maktub", "tarif": "vip", "data": {}}, strict=False)
 assert "/s/xyz/anketa" in render_catalog(vip_toy, "xyz", preview=False)
 print("✅ Katalog tekshiruvlari o'tdi")
+
+# yangi Premium dizaynlar: standart tarifda tanlanmaydi, dvigatelga to'g'ri ulangan
+from app.catalog import TEMPLATES, catalog_meta  # noqa: E402
+from app.config import ROOT as ROOT_DIR  # noqa: E402
+
+NEW = ["tk-salyut", "toy-parda", "sv-yurak", "fz-quti", "uz-muz"]
+assert len(TEMPLATES) == 30 and all(TEMPLATES[t].get("premium") for t in NEW)
+meta_ids = {t["id"]: t for t in catalog_meta()["templates"]}
+assert all(meta_ids[t]["premium"] and meta_ids[t]["new"] for t in NEW)
+for tid in NEW:
+    sec = TEMPLATES[tid]["section"]
+    data = {"kimga": "Madina", "kimdan": "Ali", "sana": "2026-10-24", "matn": "Salom", "kuyov": "Jasur", "kelin": "Malika",
+            "vaqt": "18:00", "manzil_nomi": "Navro'z", "manzil": "Toshkent", "jins": "qiz"}
+    assert rejects(lambda: clean_order({"template": tid, "tarif": "standart", "data": data}, strict=False)), tid
+    order = clean_order({"template": tid, "tarif": "premium", "rang": 15, "data": data}, strict=True)
+    assert order["rang"] == 1, "premiumda 15-rang bo'lmaydi"
+    page = render_catalog(order, "abc", preview=False)
+    cfg = _json.loads(_re.search(r'<script id="site-config" type="application/json">(.*?)</script>', page, _re.S).group(1))
+    assert cfg["demo"] is False and cfg["tarif"] == "premium" and cfg["kimdan"] == "Ali", tid
+    assert "META.minSel && SEL < META.minSel" in page and f"skin-{tid}" in page and page.count('data-block="hero"') == 1
+    assert (ROOT_DIR / "catalog" / "thumb" / f"{tid}.jpg").is_file()
+print("✅ Yangi Premium dizaynlar tekshiruvi o'tdi")

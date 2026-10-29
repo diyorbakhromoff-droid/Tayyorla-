@@ -17,7 +17,7 @@ Telegram bot orqali yaqinlar uchun tabrik saytlarini yaratish xizmati.
 
 ## Tayyor shablonlar katalogi (asosiy)
 
-`catalog/` — 5 bo'limda 25 ta professional dizayn (20 oddiy + 5 ta VIP «Maktub»). Har bir shablon ma'lumotni
+`catalog/` — 5 bo'limda 30 ta professional dizayn (20 oddiy, 5 ta yangi Premium va 5 ta VIP «Maktub»). Har bir shablon ma'lumotni
 `<script id="site-config">` JSON dan oladi; `app/catalog.py` uni to'ldiradi va tarif cheklovlarini qo'llaydi.
 
 | Tarif | Ranglar | Suratlar | Qo'shimcha |
@@ -72,7 +72,7 @@ app/
   webapp.py        Mini App API (Telegram imzosini tekshirish, yuklash, AI, ko'rish)
   bot/handlers.py  bot ssenariysi, tahrir, to'lov, admin
   bot/keyboards.py tugmalar
-catalog/           25 ta tayyor dizayn, rasmlari va namuna suratlari
+catalog/           30 ta tayyor dizayn, rasmlari va namuna suratlari (skins/ — yangi dizaynlar manbasi)
 templates/         oddiy shablonlar va Mini App (HTML)
 static/            dizayn (CSS) va animatsiyalar (JS)
 tests/test_flow.py botni Telegram'siz to'liq sinash
