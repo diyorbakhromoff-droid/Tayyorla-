@@ -40,9 +40,10 @@ yozadi va jonli ko'rinishda (360×640 sahifa) natijani darhol ko'radi; «Video y
   `python -m scripts.i18n_build` (kirill avtomatik) va `python -m scripts.i18n_build --check-only`.
 - **Musiqa:** admin Mini App → Profil → Admin panel orqali (yoki botga audio yuborib) kuy qo'shadi: mavzu
   (to'y, osh, …) va turi (qo'shiq/cholg'u). Foydalanuvchi o'z musiqasini ham yuklashi mumkin.
-- **Renderer** alohida konteyner (`Dockerfile.renderer`, `python -m app.renderer`): Playwright Chromium kadrlarni chizadi,
+- **Renderer** alohida konteyner (`Dockerfile.renderer`, `python -m app.renderer`, past ustuvorlikda): Playwright Chromium kadrlarni chizadi,
   ffmpeg yig'adi. Navbat ma'lumotlar bazasida; mehmon videolarida umumiy 5–20 s qismi bir marta chiziladi.
   Sifat: `VIDEO_SCALE=2` — 720×1280 (4 yadroda ~40 s), `VIDEO_SCALE=3` — 1080×1920 (~1 daqiqa, server kattalashtirilganda).
+  Renderer ~1 GB operativ xotira ishlatadi.
 - **Admin:** `/stats` — foydalanuvchilar, videolar, tushum; `/broadcast` — hammaga xabar.
 
 Bot kanal obunasini tekshira olishi uchun uni `CHANNEL_ID` kanaliga **admin** qilib qo'shing. Inline ulashish

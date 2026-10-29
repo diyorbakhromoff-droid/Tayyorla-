@@ -10,4 +10,5 @@ RUN pip install --no-cache-dir -r requirements.txt playwright==1.64.0 \
  && playwright install --with-deps chromium \
  && rm -rf /var/lib/apt/lists/*
 COPY . .
-CMD ["python", "-m", "app.renderer"]
+# past ustuvorlik: video chizilayotganda ham bot va sayt tez javob beradi
+CMD ["nice", "-n", "10", "python", "-m", "app.renderer"]

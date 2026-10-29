@@ -7,7 +7,6 @@ import json
 import logging
 import re
 from datetime import date
-from functools import lru_cache
 
 from .config import ROOT
 
@@ -39,14 +38,23 @@ def from_telegram(code: str | None) -> str:
 
 # ---------------------------------------------------------------- interfeys matnlari
 
-@lru_cache(maxsize=None)
+_UI_CACHE: dict[str, tuple[float, dict]] = {}
+
+
 def ui(lang: str) -> dict:
+    """Interfeys lug'ati (o'zbekcha bilan to'ldirilgan). Fayl o'zgarmaguncha xotiradan olinadi."""
     lang = norm_lang(lang)
     path = UI_DIR / f"{lang}.json"
+    base_path = UI_DIR / "uz.json"
+    stamp = (path.stat().st_mtime if path.exists() else 0.0) + (base_path.stat().st_mtime if base_path.exists() else 0.0)
+    hit = _UI_CACHE.get(lang)
+    if hit and hit[0] == stamp:
+        return hit[1]
     data = json.loads(path.read_text(encoding="utf-8")) if path.exists() else {}
     if lang != "uz":
         base = ui("uz")
         data = {**base, **{k: v for k, v in data.items() if v}}
+    _UI_CACHE[lang] = (stamp, data)
     return data
 
 

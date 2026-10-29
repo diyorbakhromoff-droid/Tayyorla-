@@ -47,6 +47,16 @@ assert rejects(lambda: clean_answers("birthday", {"name": "A"}, strict=True))  #
 assert rejects(lambda: clean_answers("birthday", {"date": "32.13.2026"}, strict=False))
 assert rejects(lambda: clean_answers("nope", {}, strict=False))
 assert clean_answers("baby", {"gender": "alien"}, strict=False)["gender"] is None
+# Mini App sahifasi: skriptlar versiya bilan (Telegram keshi yangilanishi uchun), barcha bo'limlar ulanadi
+import asyncio as _asyncio  # noqa: E402
+import re as _re0  # noqa: E402
+from app.webapp import app_page  # noqa: E402
+
+_html = _asyncio.run(app_page()).body.decode()
+assert "__V__" not in _html and _re0.search(r"core\.js\?v=\d+", _html)
+for _m in ("core", "home", "videos", "sites", "events", "profile"):
+    assert f"/static/app/{_m}.js?v=" in _html, _m
+
 print("✅ Mini App tekshiruvlari o'tdi")
 
 # ---------------------------------------------------------------- katalog shablonlari

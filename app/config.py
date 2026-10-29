@@ -28,7 +28,7 @@ class Settings(BaseSettings):
 
     # ---- video taklifnoma
     # Bepul videoni olish uchun obuna bo'linadigan kanal (@username). Bo'sh bo'lsa obuna so'ralmaydi.
-    channel_id: str = ""
+    channel_id: str = "@tayyorlaai"  # bepul videolar uchun obuna kanali (bot unda admin bo'lishi kerak)
     free_videos_per_day: int = 2
     video_price: int = 9900
     # Balansni to'ldirish summalari (so'm)

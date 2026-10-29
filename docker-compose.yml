@@ -20,7 +20,6 @@ services:
     volumes:
       - ./media:/app/media
     depends_on: [db]
-    cpus: ${RENDER_CPUS:-1.5}
     restart: unless-stopped
 
   db:
