@@ -9,6 +9,20 @@ services:
     depends_on: [db]
     restart: unless-stopped
 
+  # Video taklifnomalarni chizadigan alohida xizmat (Chromium + ffmpeg). Navbat ma'lumotlar bazasida.
+  renderer:
+    build:
+      context: .
+      dockerfile: Dockerfile.renderer
+    env_file: .env
+    environment:
+      DATABASE_URL: postgresql+asyncpg://tayyorla:tayyorla@db/tayyorla
+    volumes:
+      - ./media:/app/media
+    depends_on: [db]
+    cpus: ${RENDER_CPUS:-1.5}
+    restart: unless-stopped
+
   db:
     image: postgres:16-alpine
     environment:

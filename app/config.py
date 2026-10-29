@@ -36,7 +36,7 @@ class Settings(BaseSettings):
     # Har bir mehmonga shaxsiy video paketlari: «mehmonlar soni:narx»
     guest_packages: str = "15:39000,40:69000,100:119000,300:199000"
     video_fps: int = 30
-    video_scale: int = 3  # 3 => 1080x1920, 2 => 720x1280
+    video_scale: int = 2  # 2 => 720x1280 (~40 s), 3 => 1080x1920 (~1 daqiqa, kuchliroq server kerak)
     video_seconds: int = 20
     video_max_per_hour: int = 10
     video_keep_days: int = 7

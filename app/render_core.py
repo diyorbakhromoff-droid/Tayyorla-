@@ -29,6 +29,11 @@ def _local_file(path: str) -> Path | None:
     return None
 
 
+def _clip(scale: float) -> dict:
+    """CDP ekran surati CSS pikselda qaytadi; to'liq aniqlik (1080x1920) uchun masshtab clip orqali beriladi."""
+    return {"x": 0, "y": 0, "width": 360, "height": 640, "scale": scale}
+
+
 class Renderer:
     """Bitta Chromium jarayoni; har bir video uchun yangi sahifa ochiladi."""
 
@@ -81,7 +86,8 @@ class Renderer:
             last = round(end_ms * fps / 1000)
             for i in range(first, last):
                 await page.evaluate("t => window.__seek(t)", i * 1000 / fps)
-                shot = await cdp.send("Page.captureScreenshot", {"format": "jpeg", "quality": quality, "optimizeForSpeed": True})
+                shot = await cdp.send("Page.captureScreenshot", {"format": "jpeg", "quality": quality, "optimizeForSpeed": True,
+                                                                  "clip": _clip(scale)})
                 await sink(base64.b64decode(shot["data"]), i)
                 if on_frame:
                     await on_frame(i - first + 1, last - first)
@@ -92,7 +98,7 @@ class Renderer:
         ctx, page, cdp = await self._page(html, scale)
         try:
             await page.evaluate("t => window.__seek(t)", t_ms)
-            shot = await cdp.send("Page.captureScreenshot", {"format": "jpeg", "quality": quality})
+            shot = await cdp.send("Page.captureScreenshot", {"format": "jpeg", "quality": quality, "clip": _clip(scale)})
             return base64.b64decode(shot["data"])
         finally:
             await ctx.close()

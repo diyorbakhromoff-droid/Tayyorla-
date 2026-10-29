@@ -333,6 +333,13 @@ async def main():
     # --- hamyon
     w = await videoapi.wallet(U)
     assert w["balance"] == 1100 and any(t["kind"] == "package" for t in w["history"])
+    # --- «avto» kartochka tili: matn yozuvi va interfeys tili
+    assert video.resolve_lang("auto", {}, "ru") == "ru"
+    assert video.resolve_lang("auto", {"kuyov": "Жасур", "kelin": "Малика"}, "cy") == "cy"
+    assert video.resolve_lang("auto", {"kuyov": "Jasur"}, "ru") == "uz"
+    assert video.resolve_lang("auto", {"kuyov": "Jasur"}, "en") == "en"
+    assert video.resolve_lang("auto", {"matn": "Тӯйи мо"}, "uz") == "tg"
+    assert video.resolve_lang("kk", {"kuyov": "Jasur"}, "ru") == "kk"
     print("✅ Video, balans va tadbir tekshiruvlari o'tdi")
 
 

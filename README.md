@@ -15,6 +15,39 @@ Telegram bot orqali yaqinlar uchun tabrik saytlarini yaratish xizmati.
 - To'lov: Rahmat havolasi → chek skrinshoti → admin «✅ Tasdiqlash» → mijozga toza link
 - Sayt birinchi marta ochilganda egasiga xabar boradi
 
+## 🎬 Video taklifnomalar (Tayyorla 2.0)
+
+Mini App'da 5 bo'lim: **Asosiy, Videolar, Saytlar, Taklifnomalar, Profil**. Foydalanuvchi dizayn tanlaydi, ma'lumotlarni
+yozadi va jonli ko'rinishda (360×640 sahifa) natijani darhol ko'radi; «Video yaratish» bosilgach 20 soniyalik 9:16 MP4
+(720×1280 yoki 1080×1920, 30 kadr) bot chatiga keladi.
+
+- **5 marosim, 20 dizayn:** to'y, osh, gap, choyxona, tug'ilgan kun — har birida 3–4 rang. Dizaynlar `catalog/video/<id>.html`
+  (bo'lak) va `catalog/video/designs.json` (nom, shrift, ranglar); umumiy dvigatel `static/video/engine.{css,js}`.
+  4 sahna: Konvert (mehmon ismi) · Kartochka · Tafsilotlar (QR, to'yona) · Final. Galereya rasmlari:
+  `python -m scripts.video_thumbs`.
+- **Narx:** kuniga `FREE_VIDEOS_PER_DAY` ta bepul (Toshkent vaqti bilan), keyingisi `VIDEO_PRICE` so'm balansdan.
+  Bepul videoda `CHANNEL_ID` kanaliga obuna shart va oxirida «Siz ham yarating» yozuvi bor; pullik videoda ikkalasi ham yo'q.
+  Do'st taklif qilinsa (`?start=ref_<id>`) +1 bepul video.
+- **Balans:** foydalanuvchi oldindan to'ldiradi (`TOPUP_AMOUNTS`): Rahmat orqali to'lab chekni botga yuboradi, admin
+  «✅» bosadi — summa balansga tushadi va to'lovni kutayotgan videolar o'zi navbatga qo'yiladi. Video, sayt va mehmon
+  paketlari balansdan to'lanadi. Payme/Click keyin shu balansga ulanadi.
+- **Mehmonlar:** Taklifnomalar bo'limida ro'yxat (har qatorda bitta ism, 300 tagacha). Har bir mehmon shaxsiy havola oladi
+  (`/s/<slug>?g=<token>`), javobi ismi bilan belgilanadi. «Hammasiga video» — konvertida mehmon ismi yozilgan video;
+  narx paket bilan (`GUEST_PACKAGES`, kattaroq paketga o'tilsa faqat farqi). Tadbir sahifasi: javob, xarita, kalendar (.ics),
+  to'yona kartasini nusxalash, QR-kod.
+- **7 til:** o'zbek (lotin va kirill), rus, ingliz, qoraqalpoq, tojik, qozoq — ilova, bot va taklifnoma matni.
+  Lug'atlar `static/i18n/<til>.json`; o'zbekcha manba `scripts/i18n_app_uz.py`, yig'ish va tekshirish:
+  `python -m scripts.i18n_build` (kirill avtomatik) va `python -m scripts.i18n_build --check-only`.
+- **Musiqa:** admin Mini App → Profil → Admin panel orqali (yoki botga audio yuborib) kuy qo'shadi: mavzu
+  (to'y, osh, …) va turi (qo'shiq/cholg'u). Foydalanuvchi o'z musiqasini ham yuklashi mumkin.
+- **Renderer** alohida konteyner (`Dockerfile.renderer`, `python -m app.renderer`): Playwright Chromium kadrlarni chizadi,
+  ffmpeg yig'adi. Navbat ma'lumotlar bazasida; mehmon videolarida umumiy 5–20 s qismi bir marta chiziladi.
+  Sifat: `VIDEO_SCALE=2` — 720×1280 (4 yadroda ~40 s), `VIDEO_SCALE=3` — 1080×1920 (~1 daqiqa, server kattalashtirilganda).
+- **Admin:** `/stats` — foydalanuvchilar, videolar, tushum; `/broadcast` — hammaga xabar.
+
+Bot kanal obunasini tekshira olishi uchun uni `CHANNEL_ID` kanaliga **admin** qilib qo'shing. Inline ulashish
+(«Ulashish» tugmasi) uchun BotFather'da `/setinline` ni yoqing.
+
 ## Tayyor shablonlar katalogi (asosiy)
 
 `catalog/` — 5 bo'limda 30 ta professional dizayn (20 oddiy, 5 ta yangi Premium va 5 ta VIP «Maktub»). Har bir shablon ma'lumotni
@@ -70,10 +103,19 @@ app/
   reminders.py     yaqinlar kalendari va eslatmalar
   surprise.py      syurpriz ochilish, egasining maxfiy havolasi
   webapp.py        Mini App API (Telegram imzosini tekshirish, yuklash, AI, ko'rish)
+  video.py         video taklifnoma: maydonlar, sahifa ma'lumotlari, izoh
+  videoapi.py      video, musiqa, hamyon va admin API
+  events.py        tadbirlar, mehmonlar, paketlar, tadbir sahifasi
+  billing.py       bepul limit, balans, paketlar
+  renderer.py      video navbati (alohida konteyner), render_core.py — Chromium + ffmpeg
+  i18n.py          7 til, kirill/lotin o'girish, sanalar
   bot/handlers.py  bot ssenariysi, tahrir, to'lov, admin
   bot/keyboards.py tugmalar
 catalog/           30 ta tayyor dizayn, rasmlari va namuna suratlari (skins/ — yangi dizaynlar manbasi)
-templates/         oddiy shablonlar va Mini App (HTML)
+templates/         oddiy shablonlar, Mini App qobig'i va tadbir sahifasi (HTML)
+static/app/        Mini App (5 bo'lim: core/home/videos/sites/events/profile .js + app.css)
+static/video/      video dvigateli; catalog/video/ — 20 ta video dizayn
+static/i18n/       7 tildagi lug'atlar
 static/            dizayn (CSS) va animatsiyalar (JS)
 tests/test_flow.py botni Telegram'siz to'liq sinash
 ```
@@ -89,7 +131,8 @@ cp .env.example .env      # ichini to'ldiring
 
 Namuna saytlar: `.venv/bin/python -m scripts.demo`, so'ng `http://localhost:8000/s/demo-tugilgan`, `/s/demo-toy`, `/s/demo-sevgi`.
 
-Sinov: `.venv/bin/python -m tests.test_flow`, `.venv/bin/python -m tests.test_webapp` va `.venv/bin/python -m tests.test_reminders`
+Sinov: `.venv/bin/python -m tests.test_flow`, `tests.test_webapp`, `tests.test_reminders`, `tests.test_home` va `tests.test_video`.
+Videoni kompyuterda chizish uchun Chromium kerak: `pip install playwright==1.64.0 && playwright install chromium`, ffmpeg o'rnatilgan bo'lsin.
 
 ## Serverga o'rnatish (VPS)
 

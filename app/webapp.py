@@ -112,9 +112,18 @@ def _own_media(path: str) -> bool:
 
 # ---------------------------------------------------------------- sahifalar va API
 
+APP_FILES = [ROOT / "templates" / "webapp.html", *sorted((ROOT / "static" / "app").glob("*")), *sorted((ROOT / "static" / "i18n").glob("*.json"))]
+
+
+def app_version() -> str:
+    """Mini App fayllari o'zgarsa Telegram keshidagi eski JS/CSS yangilanadi."""
+    return str(int(max((f.stat().st_mtime for f in APP_FILES if f.exists()), default=0)))
+
+
 @router.get("/app", response_class=HTMLResponse)
 async def app_page():
-    return (ROOT / "templates" / "webapp.html").read_text(encoding="utf-8")
+    html = (ROOT / "templates" / "webapp.html").read_text(encoding="utf-8")
+    return HTMLResponse(html.replace("__V__", app_version()), headers={"Cache-Control": "no-cache"})
 
 
 @router.get("/api/categories")

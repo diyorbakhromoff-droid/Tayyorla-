@@ -150,6 +150,8 @@ async def event_detail(slug: str, x_init_data: str = Header("")):
         "videos": [{"id": j.id, "status": j.status, "delivered": j.delivered, "charge": j.charge}
                    for j in jobs.values() if not j.guest_id],
         "stats": stats, "plain_dear": bool(cfg.get("plain_dear")),
+        "edit": {"design": cfg.get("design"), "palette": cfg.get("palette", 0), "lang": cfg.get("lang"),
+                 "data": cfg.get("data", {}), "music": cfg.get("music")} if site.kind == "video" else None,
     }
 
 

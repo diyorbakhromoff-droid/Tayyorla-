@@ -6,8 +6,8 @@ import uuid
 from datetime import timedelta
 
 from aiogram.types import InlineQueryResultCachedVideo
-from fastapi import APIRouter, File, Form, Header, HTTPException, UploadFile
-from fastapi.responses import HTMLResponse
+from fastapi import APIRouter, File, Form, Header, HTTPException, Query, UploadFile
+from fastapi.responses import HTMLResponse, Response
 from pydantic import BaseModel, Field
 from sqlalchemy import func, select
 
@@ -75,7 +75,7 @@ async def video_meta(lang: str = "uz"):
         "price": settings.video_price, "free_per_day": settings.free_videos_per_day, "topups": settings.topups,
         "packages": [{"size": n, "price": p} for n, p in settings.packages],
         "channel": settings.channel_link, "channel_name": settings.channel_username, "bot": settings.bot_username,
-        "seconds": settings.video_seconds,
+        "seconds": settings.video_seconds, "event_names": i18n.card(lang)["events"],
     }
 
 
@@ -85,6 +85,7 @@ class PayloadIn(BaseModel):
     lang: str = "auto"
     palette: int = 0
     guest: str | None = Field(default=None, max_length=60)
+    ui: str | None = None  # Mini App tili: «avto» tilni aniqlashda yordam beradi
 
 
 @router.post("/api/video/payload")
@@ -92,8 +93,8 @@ async def video_payload(body: PayloadIn, x_init_data: str = Header("")):
     check_init_data(x_init_data)
     d = video.design(body.design)
     data = video.clean_data(d["section"], body.data, strict=False)
-    return video.build_payload(body.design, data, body.lang, guest=body.guest or data.get("kimga"), free=True,
-                               site_url=f"{settings.base_url}/s/preview", palette=body.palette)
+    return video.build_payload(body.design, data, video.resolve_lang(body.lang, data, body.ui), guest=body.guest or data.get("kimga"),
+                               free=True, site_url=f"{settings.base_url}/s/preview", palette=body.palette)
 
 
 # ---------------------------------------------------------------- video yaratish
@@ -109,6 +110,7 @@ class VideoIn(PayloadIn):
     music: MusicIn | None = None
     site: str | None = None  # mavjud tadbirni yangilash
     pay: str = "auto"  # auto | wait (bepul tugagan bo'lsa to'lovni kutib turadi)
+    topup: int | None = Field(default=None, ge=0, le=10_000_000)  # wait: balansga shu summa tushadi, video narxi undan yechiladi
 
 
 async def resolve_music(s, m: MusicIn | None) -> dict | None:
@@ -156,10 +158,10 @@ async def create_video(body: VideoIn, x_init_data: str = Header("")):
     uid, tg = _uid(x_init_data)
     d = video.design(body.design)
     data = video.clean_data(d["section"], body.data, strict=True)
-    lang = video.resolve_lang(body.lang, data)
     name = " ".join(filter(None, [tg.get("first_name"), tg.get("last_name")]))
     async with Session() as s:
         user, _ = await billing.touch_user(s, uid, tg.get("first_name", ""), tg.get("username", ""), tg.get("language_code", ""))
+        lang = video.resolve_lang(body.lang, data, body.ui or user.lang)
         recent = await s.scalar(select(func.count()).select_from(RenderJob).where(
             RenderJob.owner_id == uid, RenderJob.guest_id.is_(None), RenderJob.created_at >= utcnow() - timedelta(hours=1)))
         if recent >= settings.video_max_per_hour:
@@ -214,7 +216,8 @@ async def create_video(body: VideoIn, x_init_data: str = Header("")):
         await s.flush()
         payment = None
         if status == "awaiting_payment":
-            payment = Payment(user_id=uid, amount=settings.video_price, job_id=job.id)
+            amount = body.topup if body.topup and body.topup >= settings.video_price else settings.video_price
+            payment = Payment(user_id=uid, amount=amount, job_id=job.id)
             s.add(payment)
         await s.commit()
         q = await billing.quota(s, user)
@@ -249,7 +252,9 @@ async def video_status(job_id: int, x_init_data: str = Header("")):
     uid, _ = _uid(x_init_data)
     async with Session() as s:
         job = await _own_job(s, job_id, uid)
+        site = await s.get(Site, job.site_id) if job.site_id else None
     out = _job_out(job)
+    out["site"] = site.slug if site else None
     out["position"] = await videobot.queue_position(job.id) if job.status == "queued" else 0
     need_sub = job.free and not job.guest_id and bool(settings.channel_username)
     out["need_sub"] = need_sub
@@ -363,6 +368,14 @@ async def video_translate(body: TranslateIn, x_init_data: str = Header("")):
         log.exception("Tarjima qilib bo'lmadi")
         raise HTTPException(502, "ai_failed")
     return {"data": {**data, **out}}
+
+
+# ---------------------------------------------------------------- QR (tadbir vositalari)
+
+@router.get("/api/qr")
+async def qr_image(text: str = Query(..., max_length=400)):
+    from .qr import qr_svg
+    return Response(qr_svg(text, size=320), media_type="image/svg+xml", headers={"Cache-Control": "public, max-age=86400"})
 
 
 # ---------------------------------------------------------------- musiqa

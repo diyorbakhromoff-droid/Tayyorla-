@@ -204,11 +204,24 @@ def card_number(digits: str) -> str:
     return " ".join(digits[i:i + 4] for i in range(0, len(digits), 4))
 
 
-def resolve_lang(lang: str | None, data: dict) -> str:
+LATIN_LANGS, CYR_LANGS = {"uz", "en", "kaa"}, {"cy", "ru", "tg", "kk"}
+
+
+def resolve_lang(lang: str | None, data: dict, ui: str | None = None) -> str:
+    """«Avto»: matn yozuviga qarab. Yozuv interfeys tili bilan bir xil bo'lsa — interfeys tili
+    (rus interfeysida kirillcha matn — rus, ingliz interfeysida lotincha — ingliz); matn bo'lmasa ham interfeys tili."""
     if lang in i18n.LANGS:
         return lang
     sample = " ".join(str(data.get(k) or "") for k in ("kuyov", "kelin", "ism", "joy", "matn", "imzo", "guruh", "navbat"))
-    return i18n.detect(sample)
+    ui = ui if ui in i18n.LANGS else None
+    if not sample.strip():
+        return ui or "uz"
+    found = i18n.detect(sample)
+    if ui in LATIN_LANGS and found == "uz":
+        return ui
+    if ui in CYR_LANGS and found == "ru":
+        return ui
+    return found
 
 
 def event_title(section: str, data: dict, lang: str) -> str:

@@ -1,0 +1,13 @@
+# Video renderer: Chromium (Playwright) kadrlarni chizadi, ffmpeg MP4 ga yig'adi.
+FROM python:3.13-slim-bookworm
+ENV PYTHONUNBUFFERED=1 PLAYWRIGHT_BROWSERS_PATH=/ms-playwright
+WORKDIR /app
+RUN apt-get update \
+ && apt-get install -y --no-install-recommends ffmpeg fonts-noto-color-emoji fonts-dejavu-core \
+ && rm -rf /var/lib/apt/lists/*
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt playwright==1.64.0 \
+ && playwright install --with-deps chromium \
+ && rm -rf /var/lib/apt/lists/*
+COPY . .
+CMD ["python", "-m", "app.renderer"]
