@@ -243,3 +243,75 @@ async def apply_catalog_edit(config: dict, request: str) -> tuple[dict, str]:
                        "photos": config.get("photos", []), "music": config.get("music"),
                        "unlock_at": config.get("unlock_at")}, strict=False)
     return new, out["reply"]
+
+
+# ---------------------------------------------------------------- video taklifnoma: qisqa matn va tarjima
+
+LANG_NAMES_AI = {
+    "uz": "o'zbek tili, lotin yozuvi", "cy": "o'zbek tili, kirill yozuvi", "ru": "rus tili", "en": "ingliz tili",
+    "kaa": "qoraqalpoq tili, lotin yozuvi", "tg": "tojik tili, kirill yozuvi", "kk": "qozoq tili, kirill yozuvi",
+}
+VIDEO_KIND = {
+    "toy": "to'y taklifnomasi", "osh": "osh (nahorgi osh, osh to'yi) taklifnomasi", "gap": "dugonalar yoki qo'shnilar gapiga taklif",
+    "choy": "choyxona gurungiga taklif", "tk": "tug'ilgan kun bazmiga taklif",
+}
+
+VIDEO_WRITER_SYSTEM = """Sen video taklifnoma uchun qisqa va samimiy taklif matnini yozasan.
+Qoidalar:
+- 200 belgidan oshmasin, 1-2 gap. Sana, vaqt va manzilni yozma — ular kartochkada alohida chiqadi.
+- Faqat so'ralgan tilda va yozuvda yoz. Imzo, sarlavha, emoji va qo'shtirnoq qo'shma — faqat matnning o'zini qaytar.
+- Ohang: to'y va osh uchun hurmatli va iliq; gap, choyxona va tug'ilgan kun uchun samimiy va quvnoq."""
+
+
+async def write_video_message(section: str, data: dict, lang: str, brief: str = "", previous: str | None = None) -> str:
+    facts = {k: v for k, v in data.items() if isinstance(v, str) and k not in ("karta", "karta_egasi", "xarita", "rasm")}
+    prompt = (
+        f"Taklifnoma turi: {VIDEO_KIND.get(section, 'taklifnoma')}.\n"
+        f"Til: {LANG_NAMES_AI.get(lang, LANG_NAMES_AI['uz'])}.\n"
+        f"Ma'lumotlar: {json.dumps(facts, ensure_ascii=False)}\n"
+        f"Foydalanuvchi istagi: {brief or 'maxsus istak yoq'}"
+    )
+    if previous:
+        prompt += f"\n\nOldingi variant yoqmadi, boshqacha yoz:\n{previous}"
+    resp = await client.beta.messages.create(
+        **COMMON_ARGS,
+        max_tokens=4000,
+        output_config={"effort": "medium"},
+        system=VIDEO_WRITER_SYSTEM,
+        messages=[{"role": "user", "content": prompt}],
+    )
+    return " ".join(_text(resp).split())[:200]
+
+
+TRANSLATE_SYSTEM = """Sen o'zbekistonlik foydalanuvchilarning taklifnoma matnlarini boshqa tilga o'girasan.
+Qoidalar:
+- Odam ismlarini tarjima qilma, faqat kerakli yozuvga o'gir (Jasur -> Жасур). «aka», «opa» kabi murojaatlarni saqla.
+- Joy nomlari «...» qo'shtirnoqda bo'lsa, nomni o'gir va qo'shtirnoqni saqla.
+- «Karimovlar oilasi» kabi imzolarni tilning tabiiy shakliga keltir (ruscha: «Семья Каримовых»).
+- Matn qisqa va tabiiy bo'lsin, ma'nosini o'zgartirma, yangi gap qo'shma.
+- Bo'sh qiymat bo'sh qoladi. Hamma kalitlarni aynan qaytar."""
+
+
+async def translate_fields(fields: dict[str, str], lang: str) -> dict[str, str]:
+    """Taklifnoma matnlarini kartochka tiliga o'giradi: {kalit: matn} -> {kalit: tarjima}."""
+    keys = [k for k, v in fields.items() if isinstance(v, str) and v.strip()]
+    if not keys:
+        return {}
+    schema = {
+        "type": "object",
+        "properties": {k: {"type": "string"} for k in keys},
+        "required": keys,
+        "additionalProperties": False,
+    }
+    resp = await client.beta.messages.create(
+        **COMMON_ARGS,
+        max_tokens=4000,
+        output_config={"effort": "low", "format": {"type": "json_schema", "schema": schema}},
+        system=TRANSLATE_SYSTEM,
+        messages=[{
+            "role": "user",
+            "content": f"Til: {LANG_NAMES_AI.get(lang, lang)}\nMatnlar (JSON):\n{json.dumps({k: fields[k] for k in keys}, ensure_ascii=False)}",
+        }],
+    )
+    out = json.loads(_text(resp))
+    return {k: str(out.get(k, fields[k]))[:300] for k in keys}

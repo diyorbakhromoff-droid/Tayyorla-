@@ -268,11 +268,13 @@ async def main():
     class Req:
         def __init__(self, data): self.data = data
         async def json(self): return self.data
-    await web.anketa("vip-toy", Req({"ism": "Aziz <b>aka</b>", "keladi": "ha", "Necha kishi bo'lasiz?": "3"}))
+    # shablon yuboradigan haqiqiy format: savollar javobi «javoblar» ichida (toy-maktub.html)
+    await web.anketa("vip-toy", Req({"sayt": "", "ism": "Aziz <b>aka</b>", "keladi": "ha",
+                                      "javoblar": {"Transport kerakmi?": "Ha, kerak", "Necha kishi bo'lasiz?": "3"}}))
     assert "Aziz &lt;b&gt;aka&lt;/b&gt;" in notified[-1][1]
     async with Session() as s:
         r = (await s.execute(select(Rsvp).where(Rsvp.site_id == csite.id))).scalars().one()
-    assert r.attending and r.guests == 3
+    assert r.attending and r.guests == 3 and "Transport kerakmi?: Ha, kerak" in r.note and "javoblar" not in r.note
     async with Session() as s:
         paid_site = await s.get(Site, csite.id)
     assert any("Mehmonlar" in b.text for row in kb_mod.site_actions(paid_site).inline_keyboard for b in row)

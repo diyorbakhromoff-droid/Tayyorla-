@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="{{ lang }}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>{{ title }}</title>
+<meta name="robots" content="noindex">
+<meta property="og:title" content="{{ title }}">
+<meta property="og:description" content="{{ t.date }}, {{ t.wt }}{% if t.venue %} — {{ t.venue }}{% endif %}">
+<link rel="stylesheet" href="/static/fonts/fonts.css">
+<style>
+:root {
+{% for k, v in vars.items() %}  {{ k }}: {{ v }};
+{% endfor %}  --f-display: '{{ fonts.display }}', Georgia, serif; --f-body: '{{ fonts.body }}', system-ui, sans-serif;
+  --st: var(--strong, var(--accent2));
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.5 var(--f-body); -webkit-font-smoothing: antialiased; }
+main { max-width: 480px; margin: 0 auto; padding-bottom: 40px; }
+p { margin: 0; }
+.band { height: 12px; background: linear-gradient(90deg, var(--accent), var(--gold), var(--accent)); }
+.band.ikat { background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='40'%3E%3Crect width='20' height='40' fill='%23D02670'/%3E%3Cpath d='M10 1 16 10 13 12 18 20 13 28 16 30 10 39 4 30 7 28 2 20 7 12 4 10z' fill='%23F5B20A'/%3E%3Cpath d='M10 9 13 15 12 16 15 20 12 24 13 25 10 31 7 25 8 24 5 20 8 16 7 15z' fill='%23211C52'/%3E%3C/svg%3E") 0 -14px / 20px 40px; }
+.hero { padding: 44px 24px 28px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 6px; }
+.dear { font-family: var(--f-display); font-style: {{ 'italic' if fonts.italic else 'normal' }}; font-weight: 600; font-size: clamp(28px, 8vw, 36px); line-height: 1.12; }
+.event { margin-top: 10px; font-size: 13px; font-weight: 600; letter-spacing: .14em; color: var(--accent); }
+.name { font-family: var(--f-display); font-style: {{ 'italic' if fonts.italic else 'normal' }}; font-weight: 600; font-size: clamp(44px, 14vw, 60px); line-height: 1; overflow-wrap: anywhere; }
+.amp { font-family: var(--f-display); font-style: italic; font-size: 30px; color: var(--accent); line-height: 1; }
+.age { font-family: var(--f-display); font-size: 22px; color: var(--accent); }
+.date { margin-top: 16px; font-family: var(--f-display); font-weight: 600; font-size: 26px; line-height: 1.2; }
+.muted { color: var(--muted); font-size: 15px; }
+.msg { margin: 14px 8px 0; font-family: var(--f-display); font-style: {{ 'italic' if fonts.italic else 'normal' }}; font-size: 20px; line-height: 1.4; }
+.count { margin: 0 16px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; text-align: center; }
+.count span { padding: 12px 2px; border-radius: 14px; background: var(--card); border: 1px solid color-mix(in srgb, var(--accent) 25%, transparent); }
+.count b { display: block; font-family: var(--f-display); font-size: 30px; line-height: 1; color: var(--accent); font-variant-numeric: tabular-nums; }
+.count small { font-size: 12px; color: var(--muted); }
+.started { margin: 0 16px; text-align: center; font-weight: 600; color: var(--accent); }
+.card { margin: 14px 16px 0; padding: 20px; border-radius: 20px; background: var(--card); border: 1px solid color-mix(in srgb, var(--accent) 25%, transparent); }
+.card h2 { margin: 0; font-family: var(--f-display); font-weight: 600; font-size: 24px; line-height: 1.2; text-align: center; }
+.place p { text-align: center; }
+.row2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin-top: 14px; }
+.btn { display: flex; align-items: center; justify-content: center; gap: 6px; min-height: 48px; padding: 0 12px; border-radius: 14px; border: 0;
+  background: var(--st); color: #FFFFFF; font: 600 14.5px var(--f-body); text-decoration: none; cursor: pointer; text-align: center; }
+.btn.line { background: transparent; color: var(--st); border: 1.5px solid var(--st); }
+.btn:focus-visible, input:focus-visible, summary:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+details.cal { margin-top: 8px; }
+details.cal summary { list-style: none; }
+details.cal summary::-webkit-details-marker { display: none; }
+details.cal .menu { margin-top: 8px; border-radius: 14px; border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent); overflow: hidden; }
+details.cal .menu a { display: flex; align-items: center; min-height: 48px; padding: 0 14px; color: var(--ink); text-decoration: none; font-weight: 600; font-size: 14.5px; }
+details.cal .menu a + a { border-top: 1px solid color-mix(in srgb, var(--accent) 20%, transparent); }
+.extra { margin-top: 10px; display: grid; gap: 4px; text-align: center; font-weight: 600; }
+.rsvp { background: var(--st); color: #FFFFFF; border: 0; text-align: center; }
+.rsvp h2 { color: #FFFFFF; }
+.opt { min-height: 50px; border-radius: 14px; border: 1.5px solid rgba(255, 255, 255, .55); background: transparent; color: #FFFFFF; font: 600 14.5px var(--f-body); cursor: pointer; }
+.opt[aria-pressed="true"] { background: #FFFFFF; color: var(--st); border-color: #FFFFFF; }
+.rsvp input { width: 100%; margin-top: 12px; min-height: 48px; padding: 0 14px; border-radius: 12px; border: 0; font: 16px var(--f-body); }
+.step { margin-top: 12px; display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 8px 8px 8px 14px; border-radius: 14px; background: rgba(255, 255, 255, .12); }
+.step button { width: 44px; height: 44px; border-radius: 12px; border: 0; background: #FFFFFF; color: var(--st); font: 700 20px var(--f-body); cursor: pointer; }
+.step b { width: 32px; text-align: center; font-size: 20px; }
+.send { margin-top: 12px; width: 100%; min-height: 50px; border-radius: 14px; border: 0; background: var(--gold); color: #2A1D00; font: 700 15px var(--f-body); cursor: pointer; }
+.send:disabled { opacity: .6; }
+.err { margin-top: 10px; font-size: 14px; font-weight: 600; color: #FFE1E1; }
+.thanks { font-family: var(--f-display); font-style: italic; font-size: 26px; line-height: 1.25; }
+.bank { display: flex; align-items: center; gap: 10px; margin-top: 12px; padding: 12px 12px 12px 16px; border-radius: 14px; background: var(--bg); }
+.bank div { flex: 1; min-width: 0; }
+.bank b { display: block; font-size: 17px; letter-spacing: .04em; font-variant-numeric: tabular-nums; }
+.bank small { color: var(--muted); font-size: 13px; }
+.bank .btn { flex: none; min-height: 44px; }
+footer { padding: 30px 16px 0; text-align: center; }
+.sign { font-family: var(--f-display); font-style: {{ 'italic' if fonts.italic else 'normal' }}; font-weight: 600; font-size: 22px; }
+.made { display: inline-flex; margin-top: 16px; padding: 9px 16px; border-radius: 999px; background: var(--card); color: var(--muted); font-size: 13px; text-decoration: none; border: 1px solid color-mix(in srgb, var(--accent) 25%, transparent); }
+[hidden] { display: none !important; }
+@media (prefers-reduced-motion: no-preference) { .hero > * { animation: rise .7s cubic-bezier(.2, .8, .2, 1) both; } .hero > *:nth-child(2) { animation-delay: .1s; } .hero > *:nth-child(3) { animation-delay: .2s; } }
+@keyframes rise { from { opacity: 0; transform: translateY(12px); } }
+</style>
+</head>
+<body>
+<main>
+  <div class="band {{ 'ikat' if site.config.get('design') == 'v-atlas' else '' }}"></div>
+  <section class="hero">
+    {% if guest %}<p class="dear">{{ t.dear }}</p>{% else %}<p class="muted">{{ t.invite }}</p>{% endif %}
+    <p class="event">{{ t.event }}</p>
+    {% if section == 'toy' and f.names2 %}
+      <p class="name">{{ t.name1 }}</p><p class="amp">&amp;</p><p class="name">{{ t.name2 }}</p>
+    {% elif section == 'tk' %}
+      <p class="name">{{ t.name }}</p>{% if f.age %}<p class="age">{{ t.age }}</p>{% endif %}
+    {% else %}
+      <p class="name" style="font-size:clamp(34px,10vw,46px)">{{ t.title }}</p>
+    {% endif %}
+    <p class="date">{{ t.date }}</p>
+    <p class="muted">{{ t.wt }}</p>
+    {% if f.message %}<p class="msg">{{ t.message }}</p>{% endif %}
+  </section>
+
+  {% if cal %}
+  <div class="count" id="count" data-target="{{ cal.target }}">
+    <span><b data-k="d">0</b><small>{{ P.days }}</small></span><span><b data-k="h">0</b><small>{{ P.hours }}</small></span>
+    <span><b data-k="m">0</b><small>{{ P.minutes }}</small></span><span><b data-k="s">0</b><small>{{ P.seconds }}</small></span>
+  </div>
+  <p class="started" id="started" hidden>{{ P.started }}</p>
+  {% endif %}
+
+  {% if f.venue %}
+  <section class="card place">
+    <h2>{{ t.venue }}</h2>
+    {% if f.address %}<p class="muted" style="margin-top:6px">{{ t.address }}</p>{% endif %}
+    {% if f.extra %}<div class="extra">{% if f.reason %}<p>{{ t.reason }}</p>{% endif %}{% if f.turn %}<p>{{ t.turn }}</p>{% endif %}{% if f.kassa %}<p>{{ t.kassa }}</p>{% endif %}</div>{% endif %}
+    <div class="row2">
+      {% if map %}<a class="btn" href="{{ map }}" target="_blank" rel="noopener">{{ P.open_map }}</a>{% endif %}
+      {% if cal %}<details class="cal" style="margin:0{% if not map %};grid-column:1/-1{% endif %}"><summary class="btn line">{{ P.add_cal }}</summary>
+        <div class="menu"><a href="{{ cal.google }}" target="_blank" rel="noopener">{{ P.gcal }}</a><a href="{{ cal.ics }}">{{ P.ics }}</a></div></details>{% endif %}
+    </div>
+  </section>
+  {% endif %}
+
+  <section class="card rsvp" id="rsvp">
+    <div id="ask">
+      <h2>{{ P.rsvp_q_name.format(name=t.guest) if guest else P.rsvp_q }}</h2>
+      <div class="row2">
+        <button type="button" class="opt" data-a="yes" aria-pressed="false">{{ P.yes }}</button>
+        <button type="button" class="opt" data-a="no" aria-pressed="false">{{ P.no }}</button>
+      </div>
+      {% if not guest %}<input id="nm" maxlength="100" autocomplete="name" placeholder="{{ P.your_name }}" aria-label="{{ P.your_name }}">{% endif %}
+      <div class="step" id="step" hidden><span>{{ P.people }}</span>
+        <span style="display:flex;align-items:center;gap:6px"><button type="button" data-d="-1" aria-label="−">−</button><b id="ppl">1</b><button type="button" data-d="1" aria-label="+">+</button></span></div>
+      <button type="button" class="send" id="send" hidden>{{ P.send }}</button>
+      <p class="err" id="err" hidden></p>
+    </div>
+    <div id="done" hidden><p class="thanks" id="thx"></p></div>
+  </section>
+
+  {% if f.toyona %}
+  <section class="card">
+    <h2>{{ t.card_title }}</h2>
+    <div class="bank"><div><b id="cardnum">{{ t.card_number }}</b>{% if t.card_owner %}<small>{{ t.card_owner }}</small>{% endif %}</div>
+      <button type="button" class="btn" id="copy">{{ P.copy }}</button></div>
+  </section>
+  {% endif %}
+
+  <footer>
+    {% if f.signature %}<p class="sign">{{ t.respect }}, {{ t.signature }}</p>{% endif %}
+    <a class="made" href="https://t.me/{{ bot }}">{{ P.made_with }}</a>
+  </footer>
+</main>
+<script>
+(function () {
+  var count = document.getElementById('count');
+  if (count) {
+    var target = new Date(count.dataset.target).getTime();
+    var tick = function () {
+      var left = Math.max(0, target - Date.now());
+      if (!left) { count.hidden = true; document.getElementById('started').hidden = false; return; }
+      var s = Math.floor(left / 1000);
+      var v = { d: Math.floor(s / 86400), h: Math.floor(s % 86400 / 3600), m: Math.floor(s % 3600 / 60), s: s % 60 };
+      count.querySelectorAll('[data-k]').forEach(function (el) { var n = v[el.dataset.k]; el.textContent = el.dataset.k === 'd' ? n : String(n).padStart(2, '0'); });
+      setTimeout(tick, 1000);
+    };
+    tick();
+  }
+  var answer = null, people = 1;
+  var opts = document.querySelectorAll('.opt'), step = document.getElementById('step'), send = document.getElementById('send');
+  var err = document.getElementById('err'), nm = document.getElementById('nm');
+  opts.forEach(function (b) {
+    b.onclick = function () {
+      answer = b.dataset.a;
+      opts.forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+      step.hidden = answer !== 'yes'; send.hidden = false;
+    };
+  });
+  document.querySelectorAll('[data-d]').forEach(function (b) {
+    b.onclick = function () { people = Math.min(20, Math.max(1, people + (+b.dataset.d))); document.getElementById('ppl').textContent = people; };
+  });
+  var guest = {{ (guest.token if guest else '')|tojson }};
+  var texts = {{ {'yes': P.thanks_yes, 'no': P.thanks_no, 'name': P.need_name}|tojson }};
+  send.onclick = function () {
+    var name = nm ? nm.value.trim() : '';
+    if (nm && !name) { err.textContent = texts.name; err.hidden = false; nm.focus(); return; }
+    send.disabled = true; err.hidden = true;
+    fetch({{ rsvp_url|tojson }}, { method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name: name, attending: answer, guests: answer === 'yes' ? people : 1, g: guest || null }) })
+      .then(function (r) { if (!r.ok) throw new Error(); return r.json(); })
+      .then(function () {
+        document.getElementById('ask').hidden = true; document.getElementById('done').hidden = false;
+        document.getElementById('thx').textContent = texts[answer];
+      })
+      .catch(function () { send.disabled = false; err.textContent = '⚠'; err.hidden = false; });
+  };
+  var copy = document.getElementById('copy');
+  if (copy) copy.onclick = function () {
+    var num = document.getElementById('cardnum').textContent.replace(/\s/g, '');
+    var ok = function () { copy.textContent = {{ P.copied|tojson }}; };
+    if (navigator.clipboard) navigator.clipboard.writeText(num).then(ok, ok);
+    else { var ta = document.createElement('textarea'); ta.value = num; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); } catch (e) {} ta.remove(); ok(); }
+  };
+})();
+</script>
+</body>
+</html>

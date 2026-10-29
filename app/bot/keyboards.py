@@ -3,6 +3,7 @@ from aiogram.utils.keyboard import InlineKeyboardBuilder
 
 from ..catalog import site_price
 from ..config import settings
+from ..i18n import tr
 from ..surprise import locked_until, owner_url
 from ..sites import CATEGORIES, PALETTES
 
@@ -11,16 +12,17 @@ def money(n: int) -> str:
     return f"{n:,}".replace(",", " ") + " so'm"
 
 
-def main_menu() -> InlineKeyboardMarkup:
+def main_menu(lang: str = "uz") -> InlineKeyboardMarkup:
     kb = InlineKeyboardBuilder()
     if settings.base_url.startswith("https://"):
-        kb.button(text="✨ Boshlash", web_app=WebAppInfo(url=f"{settings.base_url}/app"))
-        kb.button(text="📅 Yaqinlarim", callback_data="people")
-        kb.button(text="📂 Saytlarim", callback_data="my")
-        kb.button(text="⌨️ Oddiy shablonlar (tugmalar orqali)", callback_data="legacy")
+        kb.button(text=tr(lang, "bot.btn_video"), web_app=WebAppInfo(url=f"{settings.base_url}/app?tab=videos"))
+        kb.button(text=tr(lang, "bot.btn_open"), web_app=WebAppInfo(url=f"{settings.base_url}/app"))
+        kb.button(text=tr(lang, "bot.btn_people"), callback_data="people")
+        kb.button(text=tr(lang, "bot.btn_sites"), callback_data="my")
+        kb.button(text=tr(lang, "bot.btn_legacy"), callback_data="legacy")
     else:
         return legacy_menu()
-    kb.adjust(1, 2, 1)
+    kb.adjust(1, 1, 2, 1)
     return kb.as_markup()
 
 
@@ -112,9 +114,11 @@ def edit_mode() -> InlineKeyboardMarkup:
     return kb.as_markup()
 
 
-def pay(site) -> InlineKeyboardMarkup:
+def pay(site, balance: int = 0) -> InlineKeyboardMarkup:
     site_id = site.id
     kb = InlineKeyboardBuilder()
+    if balance >= site_price(site.config):
+        kb.button(text=f"💰 Balansdan to'lash ({money(balance)})", callback_data=f"sbal:{site_id}")
     if settings.rahmat_url:
         kb.button(text=f"💳 To'lash — {money(site_price(site.config))}", url=settings.rahmat_url)
     kb.button(text="✅ To'ladim", callback_data=f"paid:{site_id}")

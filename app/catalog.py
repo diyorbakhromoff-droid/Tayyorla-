@@ -270,10 +270,31 @@ def _safe_json(obj) -> str:
     return json.dumps(obj, ensure_ascii=False).replace("</", "<\\/").replace("<!--", "<\\!--")
 
 
-def render_catalog(config: dict, slug: str, preview: bool) -> str:
+# Katalog dizaynlaridagi «Albatta boraman / Afsuski, bora olmayman» tugmalari javobni serverga yuborishi uchun.
+# Shablon o'zi «Rahmat» xabarini ko'rsatadi; bu skript uning ostiga ism va kishilar sonini so'rab, /rsvp ga yuboradi.
+RSVP_SCRIPT = """<script>(function(){var U=__URL__,G=__GUEST__;
+function send(box,going,name,n){var b=box.querySelector('.tyr-send');if(b){b.disabled=true;}
+fetch(U,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:name,attending:going?'yes':'no',guests:n,g:G&&G.t})})
+.then(function(r){if(!r.ok)throw 0;box.innerHTML='<p class="tyr-ok" style="margin:10px 0 0;font-weight:600">✓ Javobingiz yetkazildi</p>';})
+.catch(function(){if(b){b.disabled=false;}var e=box.querySelector('.tyr-err');if(e)e.hidden=false;});}
+document.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('.rsvp [data-a]');if(!b)return;
+var going=b.getAttribute('data-a')==='ha',root=b.closest('.rsvp');setTimeout(function(){var done=root.querySelector('.rsvp-done');if(!done||done.querySelector('.tyr-rsvp'))return;
+var box=document.createElement('form');box.className='tyr-rsvp';box.style.cssText='margin-top:12px;display:grid;gap:8px;text-align:left';
+var st='width:100%;min-height:46px;padding:0 12px;border-radius:12px;border:1.5px solid currentColor;background:transparent;color:inherit;font:inherit;opacity:.95';
+box.innerHTML=(G?'':'<input name="n" maxlength="100" placeholder="Ismingiz" aria-label="Ismingiz" style="'+st+'">')+
+(going?'<label style="display:flex;align-items:center;justify-content:space-between;gap:8px">Necha kishi bo‘lasiz?<input name="p" type="number" min="1" max="20" value="1" style="'+st+';width:84px"></label>':'')+
+'<button type="submit" class="tyr-send" style="min-height:46px;border-radius:12px;border:0;font:inherit;font-weight:700;cursor:pointer;background:var(--accent,#D02670);color:var(--on-accent,#fff)">Javobni yuborish</button>'+
+'<p class="tyr-err" hidden style="margin:0;font-size:14px">Yuborilmadi, qayta urinib ko‘ring.</p>';
+box.onsubmit=function(ev){ev.preventDefault();var nm=G?G.n:(box.n.value||'').trim();if(!nm){box.n.focus();return;}send(box,going,nm,going?Math.max(1,Math.min(20,+(box.p&&box.p.value)||1)):1);};
+done.appendChild(box);},0);},true);})();</script>"""
+
+
+def render_catalog(config: dict, slug: str, preview: bool, guest=None) -> str:
     t = TEMPLATES[config["template"]]
     html = (CATALOG_DIR / "namuna" / t["file"]).read_text(encoding="utf-8")
     cfg = dict(config.get("data", {}))
+    if guest is not None:
+        cfg["kimga"] = guest.name
     cfg.update({
         "tarif": config["tarif"],
         "rang": config["rang"],
@@ -284,8 +305,12 @@ def render_catalog(config: dict, slug: str, preview: bool) -> str:
     if config.get("music"):
         cfg["musiqa"] = config["music"]
     if t["vip"] and t["section"] == "toy":
-        cfg["anketa_url"] = f"{settings.base_url}/s/{slug}/anketa"
+        cfg["anketa_url"] = f"{settings.base_url}/s/{slug}/anketa" + (f"?g={guest.token}" if guest is not None else "")
     html = _CONFIG_RE.sub(lambda m: m.group(1) + _safe_json(cfg) + m.group(3), html, count=1)
+    if not preview and "rsvp-done" in html:
+        script = RSVP_SCRIPT.replace("__URL__", _safe_json(f"/s/{slug}/rsvp")).replace(
+            "__GUEST__", _safe_json({"t": guest.token, "n": guest.name} if guest is not None else None))
+        html = html.replace("</body>", script + "</body>", 1)
     if preview:
         html = html.replace("<head>", '<head><meta name="robots" content="noindex">', 1)
         mark = WATERMARK.replace("{bot}", settings.bot_username).replace("{marks}", "<span>NAMUNA • TAYYORLA</span>" * 40)
@@ -318,10 +343,17 @@ def catalog_meta() -> dict:
 # ---------------------------------------------------------------- bot uchun yordamchilar
 
 def site_price(config: dict) -> int:
+    if config.get("engine") == "video":
+        return settings.video_price
     return tier_price(config["tarif"]) if config.get("engine") == "catalog" else settings.price
 
 
 def site_title(config: dict) -> str:
+    if config.get("engine") == "video":
+        from .video import SECTION_EMOJI, event_title
+        sec, data = config.get("section", "toy"), config.get("data", {})
+        who = " & ".join(x for x in (data.get("kuyov"), data.get("kelin")) if x) or data.get("ism") or ""
+        return f"{SECTION_EMOJI.get(sec, '✨')} {event_title(sec, data, 'uz')}" + (f" • {who}" if who else "")
     if config.get("engine") == "catalog":
         t = TEMPLATES[config["template"]]
         return f"{SECTIONS[t['section']]} • «{t['name']}» • {TIERS[config['tarif']]['title']}"
@@ -330,6 +362,8 @@ def site_title(config: dict) -> str:
 
 
 def photo_limit(config: dict) -> int:
+    if config.get("engine") == "video":
+        return 1
     return TIERS[config["tarif"]]["photos"] if config.get("engine") == "catalog" else 10
 
 

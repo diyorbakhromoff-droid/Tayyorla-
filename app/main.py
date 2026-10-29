@@ -1,6 +1,7 @@
 """Bot va veb-serverni birga ishga tushiradi: python -m app.main"""
 
 import asyncio
+import html
 import logging
 
 import uvicorn
@@ -9,11 +10,13 @@ from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
 from aiogram.types import BotCommand, MenuButtonWebApp, WebAppInfo
 
-from . import web, webapp
+from . import videobot, web, webapp
 from .bot import keyboards as kb
 from .bot.handlers import created_text, router
+from .bot.middleware import TouchUser
 from .config import settings
 from .db import init_db
+from .i18n import tr
 from .reminders import reminder_loop
 
 
@@ -23,7 +26,10 @@ async def main() -> None:
 
     bot = Bot(settings.bot_token, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
     dp = Dispatcher()
+    dp.message.outer_middleware(TouchUser())
+    dp.callback_query.outer_middleware(TouchUser())
     dp.include_router(router)
+    videobot.BOT = bot
 
     async def notify(chat_id: int, text: str) -> None:
         try:
@@ -37,8 +43,13 @@ async def main() -> None:
         except Exception:
             logging.exception("Sayt haqida xabar yuborib bo'lmadi")
 
+    async def on_referral(inviter: int, name: str) -> None:
+        lang = await videobot.user_lang(inviter)
+        await notify(inviter, tr(lang, "bot.ref_joined", name=html.escape(name or "")))
+
     web.notify = notify
     webapp.on_created = on_created
+    webapp.on_referral = on_referral
     if settings.base_url.startswith("https://"):
         # Mini App faqat HTTPS da ishlaydi
         await bot.set_chat_menu_button(menu_button=MenuButtonWebApp(text="✨ Yaratish", web_app=WebAppInfo(url=f"{settings.base_url}/app")))

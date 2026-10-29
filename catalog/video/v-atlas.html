@@ -1,0 +1,94 @@
+<style>
+:root { --f-display: 'Cormorant Garamond', Georgia, serif; --f-body: 'Onest', system-ui, sans-serif; }
+#tv { background: radial-gradient(120% 80% at 50% 40%, var(--card) 0%, var(--bg) 70%); }
+.at-corner { position: absolute; width: 74px; height: 74px; border: 1.5px solid var(--accent); opacity: .55; }
+.at-corner.tl { left: 14px; top: 14px; border-right: 0; border-bottom: 0; }
+.at-corner.tr { right: 14px; top: 14px; border-left: 0; border-bottom: 0; }
+.at-corner.bl { left: 14px; bottom: 14px; border-right: 0; border-top: 0; }
+.at-corner.br { right: 14px; bottom: 14px; border-left: 0; border-top: 0; }
+
+/* 1. Konvert */
+.at-head { position: absolute; left: 22px; right: 22px; top: 104px; display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center; }
+.at-invite { font-size: 16px; font-weight: 500; color: var(--muted); }
+.at-dear { width: 100%; overflow: hidden; white-space: nowrap; font-family: var(--f-display); font-style: italic; font-weight: 600; font-size: 36px; line-height: 1.2; }
+.at-envwrap { position: absolute; left: 45px; top: 282px; }
+.at-env { position: relative; width: 270px; height: 180px; perspective: 900px; }
+.at-env .back { position: absolute; inset: 0; border-radius: 8px; background: var(--env); }
+.at-env .letter { position: absolute; left: 16px; right: 16px; top: 12px; height: 150px; z-index: 1; border-radius: 4px; background: var(--card); color: var(--ink);
+  display: flex; justify-content: center; padding: 20px 12px 0; animation: at-peek 1s cubic-bezier(.3, .7, .3, 1) 3.3s both; }
+.at-env .letter span { display: block; width: 100%; overflow: hidden; white-space: nowrap; text-align: center; font-family: var(--f-display); font-style: italic; font-weight: 600; font-size: 25px; }
+.at-env .front { position: absolute; inset: 0; z-index: 2; border-radius: 8px; background: var(--env); clip-path: polygon(0 0, 50% 60%, 100% 0, 100% 100%, 0 100%); }
+.at-env .band { position: absolute; left: 0; top: 118px; z-index: 3; }
+.at-env .flap { position: absolute; left: 0; right: 0; top: 0; height: 112px; z-index: 4; background: var(--env2); clip-path: polygon(0 0, 100% 0, 50% 100%);
+  transform-origin: 50% 0; animation: at-flap .8s ease-in-out 2.7s both; }
+.at-env .seal { position: absolute; left: 104px; top: 80px; z-index: 5; width: 62px; height: 62px; border-radius: 50%; background: var(--seal); border: 3px solid var(--gold);
+  display: flex; align-items: center; justify-content: center; font-family: var(--f-display); font-style: italic; font-weight: 700; font-size: 20px; color: #F3DFA8;
+  animation: at-seal .9s ease-in 2.1s both; }
+.at-from { position: absolute; left: 22px; right: 22px; top: 492px; text-align: center; font-family: var(--f-display); font-style: italic; font-weight: 600; font-size: 24px; color: var(--accent); }
+@keyframes at-flap { 0% { transform: rotateX(0); z-index: 4; } 100% { transform: rotateX(180deg); z-index: 0; } }
+@keyframes at-peek { from { transform: translateY(0); } to { transform: translateY(-66px); } }
+@keyframes at-seal { 0% { transform: scale(1); opacity: 1; } 40% { transform: scale(1.14); opacity: 1; } 100% { transform: scale(.2) rotate(40deg); opacity: 0; } }
+
+/* 2. Kartochka */
+.at-card { position: absolute; left: 30px; right: 30px; top: 50px; bottom: 50px; border: 1.5px solid var(--accent); display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 6px; text-align: center; padding: 34px 18px 20px; }
+.at-card::before { content: ""; position: absolute; inset: 6px; border: 1px solid var(--accent); opacity: .45; }
+.at-card .band { position: absolute; left: -1px; top: -1px; }
+.at-event { margin-bottom: 10px; font-size: 13px; font-weight: 600; letter-spacing: .16em; color: var(--accent); }
+.at-name { width: 100%; overflow: hidden; white-space: nowrap; font-family: var(--f-display); font-style: italic; font-weight: 600; font-size: 66px; line-height: 1.02; }
+.at-amp { font-family: var(--f-display); font-style: italic; font-weight: 600; font-size: 34px; line-height: 1; color: var(--accent); }
+.at-rule { display: flex; align-items: center; gap: 10px; width: 170px; margin: 18px 0 10px; }
+.at-rule span { flex: 1; height: 1px; background: var(--accent); }
+.at-rule i { width: 7px; height: 7px; transform: rotate(45deg); background: var(--accent); }
+.at-date { width: 100%; overflow: hidden; white-space: nowrap; font-family: var(--f-display); font-weight: 600; font-size: 28px; line-height: 1.15; }
+.at-wt { font-size: 15px; font-weight: 500; color: var(--muted); }
+
+/* 3-4 */
+.s3 .tv-details { padding-top: 58px; padding-bottom: 50px; }
+.s4 .band.bottom { position: absolute; left: 0; bottom: 0; }
+.s4 .tv-final { padding-bottom: 110px; }
+</style>
+<svg width="0" height="0" aria-hidden="true" style="position:absolute"><defs><pattern id="ik-at" width="20" height="40" patternUnits="userSpaceOnUse"><rect width="20" height="40" fill="#D02670"/><path d="M10 1 16 10 13 12 18 20 13 28 16 30 10 39 4 30 7 28 2 20 7 12 4 10z" fill="#F5B20A"/><path d="M10 9 13 15 12 16 15 20 12 24 13 25 10 31 7 25 8 24 5 20 8 16 7 15z" fill="#211C52"/><path d="M10 16 11.6 20 10 24 8.4 20z" fill="#F7F5FC"/></pattern></defs></svg>
+<div class="bgk"><span class="at-corner tl"></span><span class="at-corner tr"></span><span class="at-corner bl"></span><span class="at-corner br"></span></div>
+
+<section class="sc s1">
+  <div class="at-head">
+    <p class="at-invite a-rise" style="--d:.1s" data-t="invite"></p>
+    <p class="at-dear a-rise" style="--d:.3s" data-t="dear" data-if="guest" data-fit="36,18"></p>
+  </div>
+  <div class="at-envwrap"><div class="at-env a-drop" style="--d:.4s">
+    <div class="back"></div>
+    <div class="letter"><span data-t="names_line" data-fit="25,14"></span></div>
+    <div class="front"></div>
+    <svg class="band" width="270" height="22" aria-hidden="true"><rect width="270" height="22" fill="url(#ik-at)"/></svg>
+    <div class="flap"></div>
+    <div class="seal" data-t="initials"></div>
+  </div></div>
+  <p class="at-from a-rise" style="--d:.6s" data-t="from"></p>
+</section>
+
+<section class="sc s2">
+  <div class="at-card a-fade">
+    <svg class="band" width="300" height="16" aria-hidden="true"><rect width="300" height="16" fill="url(#ik-at)"/></svg>
+    <p class="at-event a-fade" style="--d:.2s" data-t="event"></p>
+    <p class="at-name a-blur" style="--d:.3s" data-t="name1" data-fit="66,30"></p>
+    <p class="at-amp a-fade" style="--d:.9s">&amp;</p>
+    <p class="at-name a-blur" style="--d:.7s" data-t="name2" data-fit="66,30"></p>
+    <div class="at-rule a-fade" style="--d:1.2s"><span></span><i></i><span></span></div>
+    <p class="at-date a-rise" style="--d:1.3s" data-t="date" data-fit="28,16"></p>
+    <p class="at-wt a-rise" style="--d:1.5s" data-t="wt"></p>
+  </div>
+</section>
+
+<section class="sc s3">
+  <svg width="360" height="12" aria-hidden="true" style="position:absolute;left:0;top:0"><rect width="360" height="12" fill="url(#ik-at)"/></svg>
+  <div class="tv-details" data-std="details"></div>
+</section>
+
+<section class="sc s4">
+  <div class="ptc" data-particles="spark" data-n="26" data-colors="var(--gold),var(--accent)"></div>
+  <div class="tv-final" data-std="final"></div>
+  <div class="ptc" data-particles="confetti" data-n="46" data-at="15.2" data-colors="#D02670,#F5B20A,var(--accent2),var(--gold)"></div>
+  <svg class="band bottom" width="360" height="12" aria-hidden="true"><rect width="360" height="12" fill="url(#ik-at)"/></svg>
+  <div class="tv-brand" data-std="brand" data-if="free"></div>
+</section>

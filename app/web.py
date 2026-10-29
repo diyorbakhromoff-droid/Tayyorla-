@@ -11,11 +11,13 @@ from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
+from . import events
 from .config import MEDIA_DIR, ROOT, settings
-from .db import Reaction, Rsvp, Session, get_site
+from .db import Guest, Reaction, Rsvp, Session, Site, get_site, utcnow
 from .catalog import CATALOG_DIR, render_catalog
 from .render import env, on_color, render_site
 from .surprise import human, is_owner, locked_until, recipient_name
+from .videoapi import router as video_router
 from .webapp import router as webapp_router
 
 log = logging.getLogger(__name__)
@@ -25,11 +27,13 @@ app.mount("/static", StaticFiles(directory=ROOT / "static"), name="static")
 app.mount("/media", StaticFiles(directory=MEDIA_DIR), name="media")
 app.mount("/katalog", StaticFiles(directory=CATALOG_DIR), name="katalog")
 app.include_router(webapp_router)
+app.include_router(video_router)
+app.include_router(events.router)
 
 
-def page_for(site, preview: bool) -> str:
+def page_for(site, preview: bool, guest: Guest | None = None) -> str:
     if site.config.get("engine") == "catalog":
-        return render_catalog(site.config, site.slug, preview)
+        return render_catalog(site.config, site.slug, preview, guest=guest)
     return render_site(site, preview)
 
 # Bot ishga tushganda o'rnatiladi: RSVP va ko'rishlar haqida egasiga xabar berish uchun
@@ -55,6 +59,18 @@ async def show(slug: str, request: Request):
         site = await get_site(s, slug)
         if not site:
             raise HTTPException(404)
+        guest = await events.find_guest(s, site, request.query_params.get("g"))
+        await events.mark_opened(s, guest)
+        if site.kind == "video":
+            linked = site.config.get("site_slug")
+            if linked:  # tadbirdan interaktiv sayt yaratilgan va to'langan bo'lsa — mehmon o'sha saytni ko'radi
+                other = await get_site(s, linked)
+                if other and other.paid:
+                    return RedirectResponse(f"/s/{linked}" + (f"?g={guest.token}" if guest else ""), status_code=302)
+            if not is_owner(slug, request.query_params.get("owner")):
+                site.views += 1
+                await s.commit()
+            return events.render_event_page(site, guest)
         owner = is_owner(slug, request.query_params.get("owner"))
         lock = locked_until(site.config)
         if lock and not owner:
@@ -73,7 +89,7 @@ async def show(slug: str, request: Request):
             await s.commit()
             if first_view and notify:
                 await notify(site.owner_id, f"👀 Sahifangiz birinchi marta ochildi!\n{site.url}")
-        page = page_for(site, preview=not site.paid)
+        page = page_for(site, preview=not site.paid, guest=guest)
         if site.paid and not owner:
             page = with_react_widget(page, site)
         return page
@@ -140,30 +156,70 @@ async def unlock(slug: str, password: str = Form(...)):
 
 
 class RsvpIn(BaseModel):
-    name: str = Field(min_length=1, max_length=100)
+    name: str = Field(default="", max_length=100)
     attending: str
     guests: int = Field(default=1, ge=1, le=20)
     note: str = Field(default="", max_length=300)
+    g: str | None = Field(default=None, max_length=40)  # shaxsiy havola tokeni
+
+
+def accepts_rsvp(site) -> bool:
+    """Javob qabul qiladigan sahifalar: video tadbir, katalog sayti (RSVP bloki bor) va eski «rsvp» bo'limi."""
+    return site.kind == "video" or site.config.get("engine") == "catalog" or bool(site.config.get("features", {}).get("rsvp"))
+
+
+async def save_rsvp(site, name: str, going: bool, guests: int, note: str, token: str | None) -> None:
+    async with Session() as s:
+        db_site = await s.get(Site, site.id)
+        guest = await events.find_guest(s, db_site, token)
+        if guest:
+            name = guest.name
+        r = Rsvp(site_id=site.id, name=name, attending=going, guests=guests if going else 0, note=note, guest_id=guest.id if guest else None)
+        s.add(r)
+        await s.flush()
+        if guest:
+            guest.rsvp_id = r.id
+            guest.opened_at = guest.opened_at or utcnow()
+        await s.commit()
+    if notify:
+        icon = "✅" if going else "❌"
+        extra = f" ({guests} kishi)" if going else ""
+        tail = f"\n💬 {html.escape(note)}" if note else ""
+        await notify(site.owner_id, f"{icon} <b>{html.escape(name)}</b>{extra} — {'keladi' if going else 'kela olmaydi'}{tail}")
 
 
 @app.post("/s/{slug}/rsvp")
 async def rsvp(slug: str, data: RsvpIn):
     async with Session() as s:
         site = await get_site(s, slug)
-        if not site or not site.config.get("features", {}).get("rsvp"):
-            raise HTTPException(404)
-        if not site.paid:
-            # Namunada mehmon javoblari saqlanmaydi
-            return {"ok": True}
-        going = data.attending == "yes"
-        s.add(Rsvp(site_id=site.id, name=data.name.strip(), attending=going, guests=data.guests if going else 0, note=data.note.strip()))
-        await s.commit()
-    if notify:
-        icon = "✅" if going else "❌"
-        extra = f" ({data.guests} kishi)" if going else ""
-        note = f"\n💬 {data.note}" if data.note else ""
-        await notify(site.owner_id, f"{icon} <b>{html.escape(data.name)}</b>{extra} — {'keladi' if going else 'kela olmaydi'}{html.escape(note)}")
+    if not site or not accepts_rsvp(site):
+        raise HTTPException(404)
+    if site.kind != "video" and not site.paid:
+        return {"ok": True}  # namunada mehmon javoblari saqlanmaydi
+    name = " ".join(data.name.split())
+    if not name and not data.g:
+        raise HTTPException(400, "name_required")
+    going = data.attending in ("yes", "ha")
+    await save_rsvp(site, name or "Mehmon", going, data.guests, data.note.strip(), data.g)
     return {"ok": True}
+
+
+GUESTS_Q = re.compile(r"necha|kishi|nafar|сколько|человек|неча|киши|how many", re.I)
+
+
+def anketa_answers(data: dict) -> tuple[dict, int]:
+    """VIP anketa: shablon savollar javobini «javoblar» obyektida yuboradi (eski tekis format ham qabul qilinadi)."""
+    nested = data.get("javoblar")
+    raw = nested if isinstance(nested, dict) else {k: v for k, v in data.items() if k not in ("ism", "keladi", "sayt", "g")}
+    answers = {str(k)[:80]: str(v)[:200] for k, v in raw.items() if v not in (None, "")}
+    guests = 1
+    ordered = sorted(answers.items(), key=lambda kv: not GUESTS_Q.search(kv[0]))
+    for q, v in ordered:
+        m = re.match(r"\s*(\d+)", v)
+        if m and (GUESTS_Q.search(q) or not nested):
+            guests = max(1, min(20, int(m.group(1))))
+            break
+    return answers, guests
 
 
 @app.post("/s/{slug}/anketa")
@@ -175,24 +231,16 @@ async def anketa(slug: str, request: Request):
         raise HTTPException(400)
     if not isinstance(data, dict):
         raise HTTPException(400)
-    name = str(data.get("ism") or "").strip()[:100] or "Mehmon"
-    going = data.get("keladi") == "ha"
-    extra = {str(k)[:60]: str(v)[:200] for k, v in data.items() if k not in ("ism", "keladi")}
-    guests = 1
-    for v in extra.values():
-        if v[:1].isdigit():
-            guests = int(re.match(r"\d+", v).group())
-            break
     async with Session() as s:
         site = await get_site(s, slug)
-        if not site or site.config.get("engine") != "catalog":
-            raise HTTPException(404)
-        if not site.paid:
-            return {"ok": True}
-        note = "; ".join(f"{k}: {v}" for k, v in list(extra.items())[:10])
-        s.add(Rsvp(site_id=site.id, name=name, attending=going, guests=guests if going else 0, note=note[:500]))
-        await s.commit()
-    if notify:
-        icon = "✅" if going else "❌"
-        await notify(site.owner_id, f"{icon} <b>{html.escape(name)}</b> — {'keladi' if going else 'kela olmaydi'}" + (f"\n📋 {html.escape(note)}" if note else ""))
+    if not site or site.config.get("engine") != "catalog":
+        raise HTTPException(404)
+    if not site.paid:
+        return {"ok": True}
+    name = " ".join(str(data.get("ism") or "").split())[:100] or "Mehmon"
+    going = data.get("keladi") == "ha"
+    answers, guests = anketa_answers(data)
+    note = "; ".join(f"{k}: {v}" for k, v in list(answers.items())[:10])[:500]
+    token = request.query_params.get("g") if hasattr(request, "query_params") else None
+    await save_rsvp(site, name, going, guests, note, token)
     return {"ok": True}

@@ -1,0 +1,112 @@
+/* Tayyorla video dvigateli: 360x640 sahna (render x3 = 1080x1920), 20 soniya, 4 sahna.
+ * Har bir sahna o'z vaqt oynasida ko'rinadi: .s1 0-5s, .s2 5-10s, .s3 10-15s, .s4 15-20s.
+ * Hamma animatsiya global vaqtga bog'langan: element kechikishi = sahna boshi (--s) + o'z kechikishi (--d).
+ * Faqat transform/opacity/filter animatsiya qilinadi — matn o'lchamini moslash vaqtga bog'liq bo'lmasin.
+ */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; width: 360px; height: 640px; overflow: hidden; background: var(--bg, #fff); }
+body { font-family: var(--f-body), system-ui, sans-serif; color: var(--ink, #222); -webkit-font-smoothing: antialiased; text-rendering: geometricPrecision; }
+p { margin: 0; }
+#tv { position: relative; width: 360px; height: 640px; overflow: hidden; background: var(--bg); isolation: isolate; }
+.bgk { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+
+.sc { position: absolute; inset: 0; z-index: 1; opacity: 0; animation: tv-scene 5s linear var(--s) both; }
+.s1 { --s: 0s; animation-name: tv-first; }
+.s2 { --s: 5s; }
+.s3 { --s: 10s; }
+.s4 { --s: 15s; animation-name: tv-last; }
+@keyframes tv-scene { 0% { opacity: 0; } 8% { opacity: 1; } 92% { opacity: 1; } 100% { opacity: 0; } }
+@keyframes tv-first { 0% { opacity: 1; } 92% { opacity: 1; } 100% { opacity: 0; } }
+@keyframes tv-last { 0% { opacity: 0; } 8% { opacity: 1; } 100% { opacity: 1; } }
+
+.center { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+
+/* kirish effektlari */
+.a-rise { animation: tv-rise .9s cubic-bezier(.2, .8, .2, 1) calc(var(--s) + var(--d, 0s)) both; }
+.a-fade { animation: tv-fade 1s ease calc(var(--s) + var(--d, 0s)) both; }
+.a-blur { animation: tv-blur 1.3s cubic-bezier(.2, .8, .2, 1) calc(var(--s) + var(--d, 0s)) both; }
+.a-pop { animation: tv-pop .8s cubic-bezier(.2, 1.5, .4, 1) calc(var(--s) + var(--d, 0s)) both; }
+.a-drop { animation: tv-drop 1s cubic-bezier(.2, 1.2, .4, 1) calc(var(--s) + var(--d, 0s)) both; }
+.a-left { animation: tv-left .9s cubic-bezier(.2, .8, .2, 1) calc(var(--s) + var(--d, 0s)) both; }
+.a-right { animation: tv-right .9s cubic-bezier(.2, .8, .2, 1) calc(var(--s) + var(--d, 0s)) both; }
+.a-zoom { animation: tv-zoom 5.4s linear var(--s) both; }
+.a-wipe { animation: tv-wipe 1.1s cubic-bezier(.6, 0, .2, 1) calc(var(--s) + var(--d, 0s)) both; }
+@keyframes tv-rise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+@keyframes tv-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes tv-blur { from { opacity: 0; filter: blur(10px); transform: scale(1.06); } to { opacity: 1; filter: blur(0); transform: none; } }
+@keyframes tv-pop { from { opacity: 0; transform: scale(.55); } to { opacity: 1; transform: none; } }
+@keyframes tv-drop { from { opacity: 0; transform: translateY(-46px) scale(.94); } to { opacity: 1; transform: none; } }
+@keyframes tv-left { from { opacity: 0; transform: translateX(-30px); } to { opacity: 1; transform: none; } }
+@keyframes tv-right { from { opacity: 0; transform: translateX(30px); } to { opacity: 1; transform: none; } }
+@keyframes tv-zoom { from { transform: scale(1); } to { transform: scale(1.07); } }
+@keyframes tv-wipe { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+
+/* zarrachalar (engine.js yaratadi, tasodif urug'li — har gal bir xil) */
+.ptc { position: absolute; inset: 0; pointer-events: none; overflow: hidden; z-index: 3; }
+.ptc i { position: absolute; display: block; }
+.p-confetti { top: -24px; width: 7px; height: 13px; border-radius: 2px; animation: tv-fall 3.4s cubic-bezier(.3, .2, .6, 1) both; }
+.p-petal { top: -30px; width: 12px; height: 16px; border-radius: 80% 0 80% 0; animation: tv-petal 6s linear both; }
+.p-spark { width: 6px; height: 6px; transform: rotate(45deg); animation: tv-twinkle 2.4s ease-in-out infinite both; }
+.p-star { width: 3px; height: 3px; border-radius: 50%; animation: tv-twinkle 3s ease-in-out infinite both; }
+.p-bokeh { border-radius: 50%; filter: blur(2px); animation: tv-float 9s ease-in-out infinite alternate both; }
+.p-steam { bottom: 0; width: 26px; height: 60px; border-radius: 50%; filter: blur(8px); animation: tv-steam 3.6s ease-out infinite both; }
+.p-dust { width: 3px; height: 3px; border-radius: 50%; animation: tv-dust 7s linear infinite both; }
+@keyframes tv-fall { 0% { opacity: 0; transform: translate(0, 0) rotate(0); } 8% { opacity: 1; } 100% { opacity: 1; transform: translate(var(--x), 700px) rotate(var(--r)); } }
+@keyframes tv-petal { 0% { opacity: 0; transform: translate(0, 0) rotate(0); } 10% { opacity: .95; } 50% { transform: translate(calc(var(--x) * -1), 340px) rotate(calc(var(--r) / 2)); } 100% { opacity: .9; transform: translate(var(--x), 700px) rotate(var(--r)); } }
+@keyframes tv-twinkle { 0%, 100% { opacity: .1; transform: scale(.4) rotate(45deg); } 50% { opacity: 1; transform: scale(1) rotate(45deg); } }
+@keyframes tv-float { from { transform: translate(0, 0); } to { transform: translate(var(--x), -60px); } }
+@keyframes tv-steam { 0% { opacity: 0; transform: translateY(0) scale(.6); } 25% { opacity: .55; } 100% { opacity: 0; transform: translate(var(--x), -150px) scale(1.6); } }
+@keyframes tv-dust { 0% { opacity: 0; transform: translateY(0); } 20% { opacity: .8; } 100% { opacity: 0; transform: translate(var(--x), -220px); } }
+
+/* standart qismlar: tafsilotlar (3-sahna) */
+.tv-details { position: absolute; inset: 0; padding: 46px 30px 40px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; text-align: center; }
+.d-msg { width: 100%; max-height: 112px; overflow: hidden; font-family: var(--f-display); font-style: var(--msg-style, italic); font-size: 21px; line-height: 1.32; color: var(--ink); }
+.d-date { display: flex; align-items: center; justify-content: center; gap: 14px; max-width: 100%; }
+.d-day { display: block; max-width: 170px; overflow: hidden; white-space: nowrap; font-family: var(--f-display); font-weight: 600; font-size: 84px; line-height: .9; color: var(--accent); }
+.d-meta { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; text-align: left; }
+.d-month { font-family: var(--f-display); font-weight: 600; font-size: 24px; line-height: 1.05; }
+.d-wd { font-size: 14px; color: var(--muted); }
+.d-time { font-size: 21px; font-weight: 600; }
+.d-place { width: 100%; }
+.d-venue { width: 100%; overflow: hidden; white-space: nowrap; font-family: var(--f-display); font-weight: 600; font-size: 24px; line-height: 1.2; }
+.d-addr { margin-top: 4px; font-size: 14px; line-height: 1.35; color: var(--muted); }
+.d-extra { display: flex; flex-direction: column; gap: 4px; font-size: 15px; font-weight: 600; color: var(--ink); }
+.d-extra p:first-child:not(:only-child) { font-weight: 500; color: var(--muted); }
+.d-qr { display: flex; align-items: center; gap: 12px; text-align: left; }
+.d-qrbox { display: block; width: 82px; height: 82px; padding: 6px; border-radius: 10px; background: #FFFFFF; }
+.d-qrbox svg { display: block; width: 100%; height: 100%; }
+.d-qrbox path { fill: #1C1830; }
+.d-scan { max-width: 140px; font-size: 13px; line-height: 1.35; color: var(--muted); }
+.d-sign { font-family: var(--f-display); font-style: italic; font-size: 19px; line-height: 1.3; }
+.d-sign b { font-weight: 600; }
+
+/* standart qismlar: final (4-sahna) */
+.tv-final { position: absolute; inset: 0; padding: 40px 28px 96px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; text-align: center; }
+.f-photo { width: 116px; height: 116px; border-radius: 50%; background: var(--card) center / cover no-repeat; border: 3px solid var(--accent); box-shadow: 0 0 0 6px color-mix(in srgb, var(--accent) 22%, transparent); margin-bottom: 6px; }
+.f-event { font-size: 13px; font-weight: 600; letter-spacing: .16em; color: var(--accent); }
+.f-names { width: 100%; overflow: hidden; white-space: nowrap; font-family: var(--f-display); font-weight: 600; font-size: 40px; line-height: 1.1; }
+.f-date { font-family: var(--f-display); font-size: 21px; font-weight: 600; }
+.f-wait { font-size: 15px; color: var(--muted); }
+
+/* to'yona / kassa kartasi */
+.tv-bank { display: flex; flex-direction: column; align-items: center; gap: 8px; margin-top: 8px; }
+.b-title { font-size: 13px; font-weight: 600; color: var(--muted); }
+.b-card { position: relative; width: 270px; height: 156px; border-radius: 16px; padding: 18px 18px 16px; text-align: left; color: #FFFFFF; overflow: hidden;
+  background: linear-gradient(135deg, var(--bank1, #2A2468) 0%, var(--bank2, #4B3FA8) 100%); box-shadow: 0 14px 30px -12px rgba(0, 0, 0, .45); }
+.b-card::after { content: ""; position: absolute; right: -40px; top: -60px; width: 190px; height: 190px; border-radius: 50%; background: rgba(255, 255, 255, .08); }
+.b-chip { position: absolute; left: 18px; top: 44px; width: 38px; height: 28px; border-radius: 6px; background: linear-gradient(135deg, #F6E3A1, #C9A24B); }
+.b-num { position: absolute; left: 18px; right: 18px; bottom: 44px; font-size: 19px; font-weight: 600; letter-spacing: .06em; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.b-owner { position: absolute; left: 18px; right: 18px; bottom: 16px; font-size: 12px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; opacity: .85; white-space: nowrap; overflow: hidden; }
+.b-logo { position: absolute; right: 16px; top: 16px; width: 34px; height: 22px; }
+.b-logo::before, .b-logo::after { content: ""; position: absolute; top: 0; width: 22px; height: 22px; border-radius: 50%; }
+.b-logo::before { left: 0; background: rgba(255, 255, 255, .55); }
+.b-logo::after { right: 0; background: rgba(255, 255, 255, .3); }
+
+/* bepul videodagi reklama yozuvi */
+.tv-brand { position: absolute; left: 18px; right: 18px; bottom: 22px; z-index: 5; display: flex; align-items: center; gap: 10px; padding: 10px 14px;
+  border-radius: 14px; background: var(--brand-bg, rgba(255, 255, 255, .92)); color: var(--brand-ink, #1C1830); text-align: left;
+  animation: tv-rise .8s cubic-bezier(.2, .8, .2, 1) calc(var(--s) + 1.2s) both; }
+.br-logo { flex: none; width: 34px; height: 34px; border-radius: 10px; background: #D02670; color: #FFFFFF; display: flex; align-items: center; justify-content: center;
+  font: 800 19px/1 'Alegreya', Georgia, serif; }
+.tv-brand b { display: block; font-size: 12.5px; font-weight: 600; line-height: 1.25; }
+.tv-brand small { display: block; font-size: 12px; color: #D02670; font-weight: 700; }

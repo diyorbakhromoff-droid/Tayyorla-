@@ -13,11 +13,12 @@ from aiogram.fsm.state import State, StatesGroup
 from aiogram.types import CallbackQuery, Message
 from sqlalchemy import select
 
-from .. import ai
+from .. import ai, billing
 from ..catalog import photo_limit, site_price, site_title
+from ..i18n import from_telegram, tr
 from ..surprise import human, locked_until
 from ..config import MEDIA_DIR, settings
-from ..db import Rsvp, Session, Site, new_slug
+from ..db import Rsvp, Session, Site, User, new_slug
 from ..render import parse_date
 from ..sites import CATEGORIES, PALETTES, build_config
 from . import keyboards as kb
@@ -136,28 +137,39 @@ def created_text(site: Site) -> str:
 
 # ---------------------------------------------------------------- start / menyu
 
-WELCOME = (
-    "Assalomu alaykum, {name}! 👋\n\n"
-    "Yaqin odamingizni bugun qanday quvontiramiz?\n\n"
-    "<b>Tayyorla</b> bir necha daqiqada u uchun alohida sayt tayyorlaydi: "
-    "ochilganda sovg'a qutisi yechiladi, shamlar yonadi, sizning so'zlaringiz paydo bo'ladi. "
-    "Siz faqat linkni yuborasiz — qolgani uning tabassumi 💌\n\n"
-    "Kimni tabriklashingizni aytsangiz, mos g'oyalarni o'zim taklif qilaman 👇"
-)
-WELCOME_BACK_FROM_GIFT = (
-    "Assalomu alaykum, {name}! 🎁\n\n"
-    "Yaqinda sizni ham shunday sayt bilan tabriklashdi — yoqdimi? "
-    "Endi navbat sizda: onangiz, sevgilingiz yoki do'stingiz uchun xuddi shunday sovg'a tayyorlang.\n\n"
-    "Boshlash uchun pastdagi tugmani bosing 👇"
-)
+async def remember_user(user, args: str = "") -> tuple[str, int | None]:
+    """Foydalanuvchini yozadi; yangi bo'lsa tilini Telegramdan oladi va referalni hisoblaydi."""
+    async with Session() as s:
+        u, new = await billing.touch_user(s, user.id, user.first_name or "", user.username or "", user.language_code or "",
+                                          ref=args if args and not args.startswith("ref_") else "")
+        inviter = None
+        if new:
+            u.lang = from_telegram(user.language_code)
+            inviter = await billing.apply_referral(s, u, args)
+        await s.commit()
+        return u.lang or "uz", inviter
+
+
+async def user_lang(uid: int) -> str:
+    async with Session() as s:
+        u = await s.get(User, uid)
+    return (u.lang if u else "") or "uz"
 
 
 @router.message(CommandStart())
 async def start(message: Message, state: FSMContext, command: CommandObject | None = None):
     await state.clear()
+    args = (command.args or "") if command else ""
+    lang, inviter = await remember_user(message.from_user, args)
     name = html.escape(message.from_user.first_name or "")
-    gift = bool(command and command.args and command.args.startswith("r_"))
-    await message.answer((WELCOME_BACK_FROM_GIFT if gift else WELCOME).format(name=name), reply_markup=kb.main_menu())
+    if inviter:
+        try:
+            ilang = await user_lang(inviter)
+            await message.bot.send_message(inviter, tr(ilang, "bot.ref_joined", name=name or "Do'stingiz"))
+        except Exception:
+            log.exception("Referal xabarini yuborib bo'lmadi")
+    key = "bot.welcome_gift" if args.startswith("r_") else "bot.welcome"
+    await message.answer(tr(lang, key, name=name, free=settings.free_videos_per_day), reply_markup=kb.main_menu(lang))
 
 
 @router.callback_query(F.data == "legacy")
@@ -170,19 +182,15 @@ async def legacy(cb: CallbackQuery, state: FSMContext):
 @router.callback_query(F.data == "home")
 async def home(cb: CallbackQuery, state: FSMContext):
     await state.clear()
-    await cb.message.answer("Qaysi saytni tayyorlaymiz?", reply_markup=kb.main_menu())
+    lang = await user_lang(cb.from_user.id)
+    await cb.message.answer(tr(lang, "bot.home"), reply_markup=kb.main_menu(lang))
     await cb.answer()
 
 
 @router.message(Command("help"))
 async def help_cmd(message: Message):
-    await message.answer(
-        "ℹ️ <b>Qanday ishlaydi?</b>\n"
-        "1. Sayt turini tanlang va savollarga javob bering.\n"
-        "2. Namunani ko'ring, xohlasangiz o'z so'zingiz bilan tahrir qiling.\n"
-        "3. Tarifga mos summani to'lab, toza linkni oling va ulashing.\n\n"
-        "/start — bosh menyu\n/mysites — mening saytlarim\n/yaqinlar — yaqinlarim kalendari"
-    )
+    lang = await user_lang(message.from_user.id)
+    await message.answer(tr(lang, "bot.help", free=settings.free_videos_per_day, price=kb.money(settings.video_price)))
 
 
 @router.callback_query(F.data.startswith("cat:"))
@@ -403,7 +411,8 @@ async def my_sites(event: Message | CallbackQuery, state: FSMContext):
     message = event.message if isinstance(event, CallbackQuery) else event
     await state.clear()
     async with Session() as s:
-        sites = (await s.execute(select(Site).where(Site.owner_id == event.from_user.id).order_by(Site.id.desc()).limit(10))).scalars().all()
+        sites = (await s.execute(select(Site).where(Site.owner_id == event.from_user.id, Site.kind == "site")
+                                 .order_by(Site.id.desc()).limit(10))).scalars().all()
     if not sites:
         await message.answer("Sizda hali sayt yo'q. Keling, birinchisini yaratamiz! 👇", reply_markup=kb.main_menu())
     for site in sites:
@@ -532,12 +541,16 @@ async def buy(cb: CallbackQuery):
     site = await load_site(int(cb.data.split(":")[1]), cb.from_user.id)
     if not site:
         return await cb.answer()
+    async with Session() as s:
+        u = await s.get(User, cb.from_user.id)
+    balance = u.balance if u else 0
     await cb.message.answer(
         f"💳 <b>To'lov: {kb.money(site_price(site.config))}</b>\n{site_title(site.config)}\n\n"
         "1. «To'lash» tugmasini bosing va istalgan ilova (Click, Payme, Uzum va b.) orqali to'lang.\n"
         "2. To'lovdan so'ng «✅ To'ladim» ni bosing va chek skrinshotini yuboring.\n\n"
-        "Tekshiruvdan so'ng toza link darhol sizga yuboriladi ✨",
-        reply_markup=kb.pay(site),
+        "Tekshiruvdan so'ng toza link darhol sizga yuboriladi ✨"
+        + (f"\n\n💰 Balansingiz: {kb.money(balance)}" if balance else ""),
+        reply_markup=kb.pay(site, balance),
     )
     await cb.answer()
 
@@ -613,25 +626,15 @@ async def admin_decision(cb: CallbackQuery):
     await cb.answer()
 
 
-# ---------------------------------------------------------------- admin
-
-@router.message(Command("stats"))
-async def stats(message: Message):
-    if message.from_user.id not in settings.admins:
-        return
-    async with Session() as s:
-        sites = (await s.execute(select(Site))).scalars().all()
-    paid = [x for x in sites if x.paid]
-    await message.answer(
-        f"📊 Jami saytlar: {len(sites)}\n✅ To'langan: {len(paid)}\n"
-        f"⏳ Kutilmoqda: {sum(x.status == 'pending' for x in sites)}\n"
-        f"💵 Tushum: {kb.money(sum(site_price(x.config) for x in paid))}"
-    )
-
-
 # «📅 Yaqinlarim» bo'limi alohida faylda
+from .admin import router as admin_router  # noqa: E402
+from .money import router as money_router  # noqa: E402
 from .people import router as people_router  # noqa: E402
 from .surprise import router as surprise_router  # noqa: E402
+from .videos import router as videos_router  # noqa: E402
 
 router.include_router(people_router)
 router.include_router(surprise_router)
+router.include_router(money_router)
+router.include_router(videos_router)
+router.include_router(admin_router)

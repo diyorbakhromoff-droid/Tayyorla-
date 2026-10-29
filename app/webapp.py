@@ -20,10 +20,10 @@ from pydantic import BaseModel, Field
 from . import ai
 from sqlalchemy import delete, func, select
 
-from . import reminders
-from .catalog import RELATIONS, TEMPLATES, catalog_meta, clean_order, render_catalog, site_title
+from . import billing, i18n, reminders
+from .catalog import RELATIONS, TEMPLATES, catalog_meta, clean_order, render_catalog, site_price, site_title
 from .config import MEDIA_DIR, ROOT, settings
-from .db import Person, Reaction, ReminderLog, Session, Site, UserProfile, new_slug
+from .db import Person, Reaction, ReminderLog, RenderJob, Session, Site, UserProfile, new_slug
 from .surprise import owner_url, recipient_name
 from .render import parse_date, render_site
 from .sites import CATEGORIES, PALETTES, build_config
@@ -33,6 +33,7 @@ router = APIRouter()
 
 # main.py da o'rnatiladi: sayt yaratilganda egasiga botda xabar yuborish uchun
 on_created = None
+on_referral = None  # (taklif qilgan odam id, yangi do'st ismi)
 
 MAX_PHOTO = 15 * 1024 * 1024
 MAX_AUDIO = 20 * 1024 * 1024
@@ -214,6 +215,7 @@ class OrderIn(BaseModel):
     photos: list = Field(default_factory=list)
     music: str | None = None
     unlock_at: str | None = None
+    event: str | None = None  # video tadbirdan yaratilayotgan sayt
 
 
 @router.get("/api/catalog")
@@ -255,12 +257,22 @@ async def catalog_create(body: OrderIn, x_init_data: str = Header("")):
     cfg = clean_order(body.model_dump(), strict=True)
     name = " ".join(filter(None, [user.get("first_name"), user.get("last_name")]))
     async with Session() as s:
+        event = None
+        if body.event:
+            event = (await s.execute(select(Site).where(Site.slug == body.event))).scalar_one_or_none()
+            if not event or event.owner_id != int(user["id"]) or event.kind != "video":
+                event = None
+        if event:
+            cfg["event_slug"] = event.slug
         site = Site(slug=new_slug(), owner_id=int(user["id"]), owner_name=name, category=cfg["category"], config=cfg)
         s.add(site)
+        await s.flush()
+        if event:
+            event.config = {**event.config, "site_slug": site.slug}
         await s.commit()
     if on_created:
         await on_created(site)
-    return {"url": site.url, "id": site.id}
+    return {"url": site.url, "id": site.id, "slug": site.slug}
 
 
 # ---------------------------------------------------------------- shaxsiy bosh sahifa: profil, yaqinlar, javoblar
@@ -286,12 +298,25 @@ def _person_out(p: Person, ref) -> dict:
     }
 
 
+def start_param(init_data: str) -> str:
+    return dict(parse_qsl(init_data or "", keep_blank_values=True)).get("start_param", "")
+
+
 @router.get("/api/me")
 async def me(x_init_data: str = Header("")):
     user = check_init_data(x_init_data)
     uid = int(user["id"])
     ref = reminders.today()
     async with Session() as s:
+        u, new = await billing.touch_user(s, uid, user.get("first_name", ""), user.get("username", ""), user.get("language_code", ""))
+        inviter = None
+        if new:
+            u.lang = i18n.from_telegram(user.get("language_code"))
+            inviter = await billing.apply_referral(s, u, start_param(x_init_data))
+        await s.commit()
+        quota = await billing.quota(s, u)
+        n_videos = await s.scalar(select(func.count()).select_from(RenderJob).where(
+            RenderJob.owner_id == uid, RenderJob.guest_id.is_(None), RenderJob.status.in_(("queued", "rendering", "done"))))
         prof = await s.get(UserProfile, uid)
         people = (await s.execute(select(Person).where(Person.owner_id == uid))).scalars().all()
         sites = (await s.execute(select(Site).where(Site.owner_id == uid).order_by(Site.id.desc()))).scalars().all()
@@ -301,20 +326,30 @@ async def me(x_init_data: str = Header("")):
         latest = (await s.execute(
             select(Reaction, Site).join(Site, Site.id == Reaction.site_id)
             .where(Site.owner_id == uid, Reaction.message != "").order_by(Reaction.id.desc()).limit(5))).all()
+    if inviter and on_referral:
+        await on_referral(inviter, user.get("first_name", ""))
     out_people = sorted((_person_out(p, ref) for p in people), key=lambda x: x["days_left"])
+    real_sites = [x for x in sites if x.kind == "site"]
     return {
+        "id": uid,
         "name": user.get("first_name", ""),
+        "lang": u.lang or i18n.from_telegram(user.get("language_code")),
+        "admin": uid in settings.admins,
+        "balance": u.balance, "bonus": u.bonus_videos, "quota": quota, "videos": n_videos,
+        "ref_link": f"https://t.me/{settings.bot_username}?start=ref_{uid}",
+        "channel": settings.channel_link,
         "onboarded": prof is not None,
         "relations": prof.relations if prof else [],
         "people": out_people,
         "sites": [
             {"slug": x.slug, "title": site_title(x.config), "url": owner_url(x), "paid": x.paid, "views": x.views,
-             "reactions": counts.get(x.id, 0), "template": x.config.get("template"),
-             "to": recipient_name(x.config)}
-            for x in sites[:20]
+             "reactions": counts.get(x.id, 0), "template": x.config.get("template"), "status": x.status,
+             "tarif": x.config.get("tarif"), "price": site_price(x.config), "event": x.config.get("event_slug"),
+             "to": recipient_name(x.config), "public": x.url}
+            for x in real_sites[:30]
         ],
         "stats": {
-            "happy": sum(1 for x in sites if x.paid),
+            "happy": sum(1 for x in real_sites if x.paid) + (n_videos or 0),
             "views": sum(x.views for x in sites),
             "reactions": sum(counts.values()),
         },
