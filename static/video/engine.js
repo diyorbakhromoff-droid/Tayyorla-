@@ -38,7 +38,7 @@
       '<p class="d-sign a-rise" style="--d:1.25s" data-if="signature"><span data-t="respect"></span>, <b data-t="signature"></b></p>',
     final:
       '<div class="f-photo a-pop" style="--d:.1s" data-if="photo" data-photo></div>' +
-      '<p class="f-event a-fade" style="--d:.2s" data-t="event"></p>' +
+      '<p class="f-event a-fade" style="--d:.2s" data-t="event" data-if="event_head"></p>' +
       '<p class="f-names a-blur" style="--d:.3s" data-t="names_line" data-fit="40,20"></p>' +
       '<p class="f-date a-rise" style="--d:.6s" data-t="date"></p>' +
       '<div class="tv-bank a-rise" style="--d:.9s" data-if="toyona"><p class="b-title" data-t="card_title"></p>' +
@@ -65,7 +65,7 @@
     spark: function (r) { return { left: (r() * 92 + 4) + '%', top: (r() * 92 + 4) + '%', delay: -r() * 2.4, dur: 1.8 + r() * 1.4, size: 4 + r() * 6 }; },
     star: function (r) { return { left: (r() * 100) + '%', top: (r() * 70) + '%', delay: -r() * 3, dur: 2 + r() * 2.5, size: 1.5 + r() * 2.5 }; },
     bokeh: function (r) { return { left: (r() * 100 - 10) + '%', top: (r() * 100) + '%', delay: -r() * 9, dur: 7 + r() * 6, size: 18 + r() * 46, x: (r() - .5) * 60 }; },
-    steam: function (r) { return { left: (r() * 60 + 20) + '%', delay: -r() * 3.6, dur: 3 + r() * 1.6, x: (r() - .5) * 40 }; },
+    steam: function (r) { return { left: (r() * 60 + 20) + '%', delay: r() * 1.8, dur: 3 + r() * 1.6, x: (r() - .5) * 40 }; },
     dust: function (r) { return { left: (r() * 100) + '%', top: (60 + r() * 40) + '%', delay: -r() * 7, dur: 5 + r() * 4, x: (r() - .5) * 50 }; }
   };
 

@@ -1,0 +1,60 @@
+<style>
+:root { --f-display: 'Yeseva One', Georgia, serif; --f-body: 'Onest', system-ui, sans-serif; }
+#tv { background: radial-gradient(90% 50% at 50% 62%, color-mix(in srgb, var(--accent2) 26%, var(--bg)) 0%, var(--bg) 70%); }
+.qz-glow { fill: var(--accent2); opacity: .35; filter: blur(14px); animation: qz-pulse 1.6s ease-in-out infinite alternate both; transform-origin: 130px 200px; }
+@keyframes qz-pulse { from { opacity: .22; } to { opacity: .45; } }
+.qz-log { fill: #5A3A22; }
+.qz-fire path { transform-box: fill-box; transform-origin: 50% 100%; animation: qz-flick .7s ease-in-out infinite alternate both; }
+.qz-f1 { fill: var(--fire2); } .qz-f2 { fill: var(--fire1); animation-duration: .55s !important; } .qz-f2.b { animation-delay: -.3s !important; }
+.qz-f3 { fill: #FFE08A; animation-duration: .45s !important; }
+@keyframes qz-flick { from { transform: scaleY(.86) scaleX(1.04); } to { transform: scaleY(1.08) scaleX(.95); } }
+.qz-body { fill: #1B1B1D; }
+.qz-shine { fill: none; stroke: rgba(255, 255, 255, .16); stroke-width: 6; stroke-linecap: round; }
+.qz-handle { fill: none; stroke: #2E2E31; stroke-width: 7; stroke-linecap: round; }
+.qz-rim { fill: #2C2C2F; stroke: #48484C; stroke-width: 3; }
+.qz-plov { fill: #E0A53A; }
+.qz-rice { fill: #FFF3D6; }
+.qz-carrot { stroke: #E8762B; stroke-width: 2.4; stroke-linecap: round; }
+.qz-pot { position: absolute; left: 30px; top: 196px; width: 300px; height: 288px; overflow: visible; animation: tv-rise 1s cubic-bezier(.2, .8, .2, 1) .2s both; }
+.qz-steam { position: absolute; left: 90px; top: 150px; width: 180px; height: 150px; }
+.qz-steam .p-steam { background: rgba(255, 255, 255, .5) !important; }
+.qz-head { position: absolute; left: 24px; right: 24px; top: 74px; display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center; }
+.qz-inv { font-size: 16px; font-weight: 500; color: var(--muted); }
+.qz-dear { width: 100%; overflow: hidden; white-space: nowrap; font-family: var(--f-display); font-size: 34px; line-height: 1.2; }
+.qz-from { position: absolute; left: 24px; right: 24px; top: 520px; text-align: center; font-family: var(--f-display); font-size: 22px; color: var(--accent); }
+.qz-board { position: absolute; left: 26px; right: 26px; top: 96px; bottom: 96px; border-radius: 22px; padding: 30px 22px;
+  background: repeating-linear-gradient(176deg, rgba(0, 0, 0, .05) 0 3px, transparent 3px 18px), linear-gradient(160deg, var(--wood1), var(--wood2));
+  box-shadow: 0 22px 40px -20px rgba(0, 0, 0, .6), inset 0 0 0 2px rgba(255, 255, 255, .06);
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; text-align: center; color: var(--wood-ink); }
+.qz-title { width: 100%; overflow: hidden; white-space: nowrap; font-family: var(--f-display); font-size: 50px; line-height: 1.1; color: var(--accent); }
+.qz-reason { max-height: 56px; overflow: hidden; font-size: 17px; line-height: 1.4; opacity: .9; }
+.qz-date { margin-top: 12px; width: 100%; overflow: hidden; white-space: nowrap; font-family: var(--f-display); font-size: 28px; }
+.qz-wt { font-size: 15px; opacity: .8; }
+.qz-host { margin-top: 8px; font-size: 15px; font-weight: 600; color: var(--accent); }
+.s3 .tv-details { padding-top: 64px; }
+</style>
+<section class="sc s1">
+  <div class="qz-head">
+    <p class="qz-inv a-rise" style="--d:.1s" data-t="invite"></p>
+    <p class="qz-dear a-rise" style="--d:.3s" data-t="dear" data-if="guest" data-fit="34,18"></p>
+  </div>
+  <div class="ptc qz-steam" data-particles="steam" data-n="10"></div>
+  <svg class="qz-pot" viewBox="0 0 260 250" aria-hidden="true"><ellipse class="qz-glow" cx="130" cy="214" rx="120" ry="46"/><rect class="qz-log" x="56" y="228" width="148" height="14" rx="7" transform="rotate(-7 130 235)"/><rect class="qz-log" x="56" y="228" width="148" height="14" rx="7" transform="rotate(7 130 235)"/><g class="qz-fire"><path class="qz-f1" d="M130 236C78 226 74 176 100 150C100 172 114 178 120 166C126 186 140 188 146 172C162 192 186 222 130 236Z"/><path class="qz-f2" d="M86 234C58 224 60 196 76 180C78 196 88 198 92 190C102 204 108 224 86 234Z"/><path class="qz-f2 b" d="M176 234C154 226 156 198 172 182C174 198 184 200 188 192C198 206 202 226 176 234Z"/><path class="qz-f3" d="M130 236C106 228 108 202 120 188C122 202 132 204 136 194C146 208 152 226 130 236Z"/></g><path class="qz-body" d="M36 92Q36 198 130 198Q224 198 224 92Z"/><path class="qz-shine" d="M60 110Q66 168 118 184"/><path class="qz-handle" d="M30 98q-18 6-10 22"/><path class="qz-handle" d="M230 98q18 6 10 22"/><ellipse class="qz-rim" cx="130" cy="92" rx="96" ry="17"/><ellipse class="qz-plov" cx="130" cy="92" rx="84" ry="11"/><circle class="qz-rice" cx="151.0" cy="92.0" r="1.6"/><circle class="qz-rice" cx="154.1" cy="94.6" r="1.6"/><circle class="qz-rice" cx="137.1" cy="97.3" r="1.6"/><circle class="qz-rice" cx="103.5" cy="97.8" r="1.6"/><circle class="qz-rice" cx="70.6" cy="94.7" r="1.6"/><circle class="qz-rice" cx="110.3" cy="91.1" r="1.6"/><circle class="qz-rice" cx="114.6" cy="88.5" r="1.6"/><circle class="qz-rice" cx="137.8" cy="86.7" r="1.6"/><circle class="qz-rice" cx="170.7" cy="87.7" r="1.6"/><circle class="qz-rice" cx="193.0" cy="92.1" r="1.6"/><circle class="qz-rice" cx="145.8" cy="93.8" r="1.6"/><circle class="qz-rice" cx="134.8" cy="96.0" r="1.6"/><circle class="qz-rice" cx="108.2" cy="96.6" r="1.6"/><circle class="qz-rice" cx="80.2" cy="94.2" r="1.6"/><circle class="qz-rice" cx="71.4" cy="89.0" r="1.6"/><circle class="qz-rice" cx="120.0" cy="89.6" r="1.6"/><circle class="qz-rice" cx="136.4" cy="88.0" r="1.6"/><circle class="qz-rice" cx="163.0" cy="88.7" r="1.6"/><circle class="qz-rice" cx="182.5" cy="92.2" r="1.6"/><circle class="qz-rice" cx="176.8" cy="97.4" r="1.6"/><circle class="qz-rice" cx="132.9" cy="94.7" r="1.6"/><circle class="qz-rice" cx="113.2" cy="95.4" r="1.6"/><circle class="qz-rice" cx="90.0" cy="93.6" r="1.6"/><circle class="qz-rice" cx="81.5" cy="89.4" r="1.6"/><circle class="qz-rice" cx="101.0" cy="84.8" r="1.6"/><circle class="qz-rice" cx="134.6" cy="89.4" r="1.6"/><circle class="qz-rice" cx="155.1" cy="89.6" r="1.6"/><circle class="qz-rice" cx="171.9" cy="92.3" r="1.6"/><circle class="qz-rice" cx="168.4" cy="96.6" r="1.6"/><circle class="qz-rice" cx="137.6" cy="100.0" r="1.6"/><circle class="qz-rice" cx="118.5" cy="94.3" r="1.6"/><circle class="qz-rice" cx="99.8" cy="93.2" r="1.6"/><circle class="qz-rice" cx="91.5" cy="89.9" r="1.6"/><circle class="qz-rice" cx="106.6" cy="86.0" r="1.6"/><circle class="qz-rice" cx="144.9" cy="84.1" r="1.6"/><circle class="qz-rice" cx="146.9" cy="90.4" r="1.6"/><path class="qz-carrot" d="M100 88l8 -2"/><path class="qz-carrot" d="M112 91l8 -2"/><path class="qz-carrot" d="M124 94l8 -2"/><path class="qz-carrot" d="M136 88l8 -2"/><path class="qz-carrot" d="M148 91l8 -2"/><path class="qz-carrot" d="M160 94l8 -2"/></svg>
+  <p class="qz-from a-rise" style="--d:1.2s" data-t="from"></p>
+</section>
+<section class="sc s2">
+  <div class="qz-board a-pop" style="--d:.1s">
+    <p class="qz-title a-blur" style="--d:.3s" data-t="title" data-fit="50,24"></p>
+    <p class="qz-reason a-rise" style="--d:.7s" data-t="reason" data-if="reason" data-fit="17,13"></p>
+    <p class="qz-date a-rise" style="--d:1s" data-t="date" data-fit="28,15"></p>
+    <p class="qz-wt a-rise" style="--d:1.2s" data-t="wt"></p>
+    <p class="qz-host a-rise" style="--d:1.4s" data-t="from"></p>
+  </div>
+</section>
+<section class="sc s3"><div class="tv-details" data-std="details"></div></section>
+<section class="sc s4">
+  <div class="ptc" data-particles="dust" data-n="26" data-colors="var(--fire1),var(--gold)"></div>
+  <div class="tv-final" data-std="final"></div>
+  <div class="ptc" data-particles="confetti" data-n="36" data-at="15.2" data-colors="var(--fire1),var(--fire2),var(--gold)"></div>
+  <div class="tv-brand" data-std="brand" data-if="free"></div>
+</section>

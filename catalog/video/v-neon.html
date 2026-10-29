@@ -1,0 +1,49 @@
+<style>
+:root { --f-display: 'Unbounded', system-ui, sans-serif; --f-body: 'Onest', system-ui, sans-serif; }
+#tv { background: radial-gradient(90% 60% at 50% 45%, var(--card) 0%, var(--bg) 75%); }
+.nn-wall { position: absolute; inset: 0; opacity: .5;
+  background: repeating-linear-gradient(0deg, transparent 0 28px, rgba(255, 255, 255, .03) 28px 30px), repeating-linear-gradient(90deg, transparent 0 58px, rgba(255, 255, 255, .025) 58px 60px); }
+.nn-glow { overflow: visible !important; color: var(--neon); text-shadow: 0 0 4px #FFFFFF, 0 0 10px var(--neon), 0 0 22px var(--neon), 0 0 46px var(--neon2); }
+.nn-on { animation: nn-flick 1.6s linear calc(var(--s) + var(--d, 0s)) both; }
+@keyframes nn-flick { 0% { opacity: 0; } 8% { opacity: 1; } 10% { opacity: .2; } 13% { opacity: 1; } 34% { opacity: 1; } 36% { opacity: .35; } 39% { opacity: 1; } 100% { opacity: 1; } }
+.nn-frame { position: absolute; left: 26px; right: 26px; top: 110px; bottom: 110px; border-radius: 30px; border: 3px solid var(--neon2);
+  box-shadow: 0 0 10px var(--neon2), 0 0 26px var(--neon2), inset 0 0 14px color-mix(in srgb, var(--neon2) 60%, transparent); animation: nn-flick 1.8s linear .2s both; }
+.nn-in { position: absolute; left: 40px; right: 40px; top: 130px; bottom: 130px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; text-align: center; }
+.nn-inv { font-size: 15px; font-weight: 600; letter-spacing: .1em; color: var(--muted); }
+.nn-dear { width: 100%; overflow: hidden; white-space: nowrap; font-family: var(--f-display); font-weight: 700; font-size: 24px; line-height: 1.25; color: var(--ink); }
+.nn-event { width: 100%; overflow: hidden; white-space: nowrap; font-family: var(--f-display); font-weight: 800; font-size: 30px; }
+.nn-name { width: 100%; overflow: hidden; white-space: nowrap; font-family: var(--f-display); font-weight: 800; font-size: 44px; line-height: 1.1; }
+.nn-age { font-family: var(--f-display); font-weight: 800; font-size: 140px; line-height: .9; }
+.nn-agel { font-size: 18px; font-weight: 600; color: var(--muted); }
+.nn-date { margin-top: 8px; width: 100%; overflow: hidden; white-space: nowrap; font-family: var(--f-display); font-weight: 700; font-size: 22px; color: var(--ink); }
+.nn-wt { font-size: 15px; color: var(--muted); }
+.s3 .d-msg, .s3 .d-sign { font-family: var(--f-body); font-style: normal; }
+.s3 .d-msg { font-size: 19px; }
+.s3 .d-day { font-weight: 800; color: var(--neon); text-shadow: 0 0 14px var(--neon); }
+.s4 .f-names { font-weight: 800; color: var(--neon); text-shadow: 0 0 6px #fff, 0 0 18px var(--neon); }
+</style>
+<div class="bgk"><div class="nn-wall"></div><div class="ptc" data-particles="star" data-n="24" data-colors="var(--neon),var(--neon2)"></div></div>
+<section class="sc s1">
+  <div class="nn-frame"></div>
+  <div class="nn-in">
+    <p class="nn-inv a-fade" style="--d:.6s" data-t="invite"></p>
+    <p class="nn-dear a-rise" style="--d:.8s" data-t="dear" data-if="guest" data-fit="24,14"></p>
+    <p class="nn-event nn-glow nn-on" style="--d:1.2s" data-t="event" data-fit="30,16"></p>
+    <p class="nn-name nn-glow nn-on" style="--d:1.6s;--neon:var(--neon2)" data-t="name" data-fit="44,18"></p>
+  </div>
+</section>
+<section class="sc s2">
+  <div class="nn-in" style="top:90px;bottom:90px">
+    <p class="nn-age nn-glow nn-on" style="--d:.2s" data-t="age_n" data-if="age"></p>
+    <p class="nn-agel a-fade" style="--d:.9s" data-t="age" data-if="age"></p>
+    <p class="nn-name nn-glow nn-on" style="--d:.6s;--neon:var(--neon2)" data-t="name" data-fit="44,18"></p>
+    <p class="nn-date a-rise" style="--d:1.1s" data-t="date" data-fit="22,13"></p>
+    <p class="nn-wt a-rise" style="--d:1.3s" data-t="wt"></p>
+  </div>
+</section>
+<section class="sc s3"><div class="tv-details" data-std="details"></div></section>
+<section class="sc s4">
+  <div class="tv-final" data-std="final"></div>
+  <div class="ptc" data-particles="confetti" data-n="44" data-at="15.2" data-colors="var(--neon),var(--neon2),#FFFFFF"></div>
+  <div class="tv-brand" data-std="brand" data-if="free"></div>
+</section>

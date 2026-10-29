@@ -1,0 +1,54 @@
+<style>
+:root { --f-display: 'Yeseva One', Georgia, serif; --f-body: 'Onest', system-ui, sans-serif; }
+#tv { background: radial-gradient(100% 60% at 50% 55%, var(--card) 0%, var(--bg) 72%); }
+.tt-plate { fill: color-mix(in srgb, var(--ink) 12%, #fff); }
+.tt-tier1 { fill: var(--cake1); } .tt-tier2 { fill: var(--cake2); }
+.tt-icing { fill: var(--icing); } .tt-icing.b { fill: var(--icing2); }
+.tt-candle { fill: #FFFFFF; } .tt-stripe { stroke: var(--accent); stroke-width: 2; }
+.tt-flame { fill: #FFC447; transform-box: fill-box; transform-origin: 50% 100%; filter: drop-shadow(0 0 6px #FFB020);
+  animation: tt-light .4s ease-out both, tt-flick .35s ease-in-out infinite alternate; }
+@keyframes tt-light { from { transform: scale(0); } to { transform: none; } }
+@keyframes tt-flick { from { transform: scale(.92, 1.06) rotate(-3deg); } to { transform: scale(1.06, .92) rotate(3deg); } }
+.tt-cake { position: absolute; left: 52px; top: 170px; width: 256px; height: 300px; overflow: visible; animation: tv-rise 1s cubic-bezier(.2, .8, .2, 1) .2s both; }
+.tt-head { position: absolute; left: 24px; right: 24px; top: 64px; display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center; }
+.tt-inv { font-size: 16px; font-weight: 500; color: var(--muted); }
+.tt-dear { width: 100%; overflow: hidden; white-space: nowrap; font-family: var(--f-display); font-size: 32px; line-height: 1.2; }
+.tt-ev { position: absolute; left: 24px; right: 24px; top: 486px; text-align: center; font-size: 14px; font-weight: 600; letter-spacing: .12em; color: var(--muted); }
+.tt-name { position: absolute; left: 24px; right: 24px; top: 508px; text-align: center; overflow: hidden; white-space: nowrap; font-family: var(--f-display); font-size: 40px; color: var(--accent); }
+.tt-card { position: absolute; left: 30px; right: 30px; top: 80px; bottom: 80px; border-radius: 30px; background: var(--card); border: 2px dashed color-mix(in srgb, var(--accent) 45%, transparent);
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; padding: 24px; text-align: center; }
+.tt-event { font-size: 14px; font-weight: 600; letter-spacing: .12em; color: var(--accent); }
+.tt-cname { width: 100%; overflow: hidden; white-space: nowrap; font-family: var(--f-display); font-size: 52px; line-height: 1.1; }
+.tt-age { margin-top: 6px; width: 104px; height: 104px; border-radius: 50%; background: var(--accent); color: #FFFFFF; display: flex; align-items: center; justify-content: center;
+  font-family: var(--f-display); font-size: 54px; box-shadow: 0 0 0 8px color-mix(in srgb, var(--accent) 20%, transparent); }
+.tt-agel { font-size: 16px; font-weight: 600; color: var(--muted); }
+.tt-date { margin-top: 10px; width: 100%; overflow: hidden; white-space: nowrap; font-family: var(--f-display); font-size: 26px; }
+.tt-wt { font-size: 15px; color: var(--muted); }
+.s3 .d-msg, .s3 .d-sign { font-style: normal; }
+</style>
+<div class="bgk"><div class="ptc" data-particles="spark" data-n="16" data-colors="var(--gold),var(--accent)"></div></div>
+<section class="sc s1">
+  <div class="tt-head">
+    <p class="tt-inv a-rise" style="--d:.2s" data-t="invite"></p>
+    <p class="tt-dear a-rise" style="--d:.4s" data-t="dear" data-if="guest" data-fit="32,17"></p>
+  </div>
+  <svg class="tt-cake" viewBox="0 0 256 300" aria-hidden="true"><ellipse class="tt-plate" cx="128" cy="276" rx="118" ry="16"/><rect class="tt-tier1" x="30" y="168" width="196" height="100" rx="14"/><path class="tt-icing" d="M30 182q0-14 14-14h168q14 0 14 14v8c-10 0-10 14-20 14s-10-14-20-14-10 18-20 18-10-18-20-18-10 12-20 12-10-12-20-12-10 16-20 16-10-16-20-16-10 12-20 12-10-12-16-12z"/><rect class="tt-tier2" x="60" y="108" width="136" height="68" rx="12"/><path class="tt-icing b" d="M60 120q0-12 12-12h112q12 0 12 12v6c-8 0-8 12-16 12s-8-12-16-12-8 14-16 14-8-14-16-14-8 10-16 10-8-10-16-10-8 12-16 12-8-12-12-12z"/><rect class="tt-spr" x="60" y="211" width="7" height="2.6" rx="1.3" style="fill:var(--s2)" transform="rotate(29 63.5 212.3)"/><rect class="tt-spr" x="69" y="225" width="7" height="2.6" rx="1.3" style="fill:var(--s1)" transform="rotate(75 72.5 226.3)"/><rect class="tt-spr" x="146" y="204" width="7" height="2.6" rx="1.3" style="fill:var(--s1)" transform="rotate(107 149.5 205.3)"/><rect class="tt-spr" x="154" y="149" width="7" height="2.6" rx="1.3" style="fill:var(--s3)" transform="rotate(97 157.5 150.3)"/><rect class="tt-spr" x="110" y="128" width="7" height="2.6" rx="1.3" style="fill:var(--s2)" transform="rotate(169 113.5 129.3)"/><rect class="tt-spr" x="157" y="126" width="7" height="2.6" rx="1.3" style="fill:var(--s2)" transform="rotate(161 160.5 127.3)"/><rect class="tt-spr" x="169" y="200" width="7" height="2.6" rx="1.3" style="fill:var(--s2)" transform="rotate(122 172.5 201.3)"/><rect class="tt-spr" x="158" y="224" width="7" height="2.6" rx="1.3" style="fill:var(--s3)" transform="rotate(77 161.5 225.3)"/><rect class="tt-spr" x="124" y="187" width="7" height="2.6" rx="1.3" style="fill:var(--s2)" transform="rotate(125 127.5 188.3)"/><rect class="tt-spr" x="96" y="150" width="7" height="2.6" rx="1.3" style="fill:var(--s3)" transform="rotate(159 99.5 151.3)"/><rect class="tt-spr" x="122" y="138" width="7" height="2.6" rx="1.3" style="fill:var(--s2)" transform="rotate(3 125.5 139.3)"/><rect class="tt-spr" x="196" y="155" width="7" height="2.6" rx="1.3" style="fill:var(--s2)" transform="rotate(9 199.5 156.3)"/><rect class="tt-spr" x="185" y="195" width="7" height="2.6" rx="1.3" style="fill:var(--s2)" transform="rotate(126 188.5 196.3)"/><rect class="tt-spr" x="192" y="158" width="7" height="2.6" rx="1.3" style="fill:var(--s1)" transform="rotate(32 195.5 159.3)"/><rect class="tt-spr" x="132" y="231" width="7" height="2.6" rx="1.3" style="fill:var(--s3)" transform="rotate(75 135.5 232.3)"/><rect class="tt-spr" x="66" y="208" width="7" height="2.6" rx="1.3" style="fill:var(--s3)" transform="rotate(151 69.5 209.3)"/><rect class="tt-spr" x="69" y="202" width="7" height="2.6" rx="1.3" style="fill:var(--s3)" transform="rotate(27 72.5 203.3)"/><rect class="tt-spr" x="63" y="235" width="7" height="2.6" rx="1.3" style="fill:var(--s3)" transform="rotate(147 66.5 236.3)"/><rect class="tt-spr" x="158" y="150" width="7" height="2.6" rx="1.3" style="fill:var(--s2)" transform="rotate(119 161.5 151.3)"/><rect class="tt-spr" x="137" y="230" width="7" height="2.6" rx="1.3" style="fill:var(--s3)" transform="rotate(73 140.5 231.3)"/><rect class="tt-spr" x="139" y="196" width="7" height="2.6" rx="1.3" style="fill:var(--s3)" transform="rotate(140 142.5 197.3)"/><rect class="tt-spr" x="144" y="195" width="7" height="2.6" rx="1.3" style="fill:var(--s3)" transform="rotate(138 147.5 196.3)"/><rect class="tt-spr" x="77" y="134" width="7" height="2.6" rx="1.3" style="fill:var(--s1)" transform="rotate(169 80.5 135.3)"/><rect class="tt-spr" x="145" y="190" width="7" height="2.6" rx="1.3" style="fill:var(--s3)" transform="rotate(124 148.5 191.3)"/><rect class="tt-spr" x="91" y="127" width="7" height="2.6" rx="1.3" style="fill:var(--s3)" transform="rotate(34 94.5 128.3)"/><rect class="tt-spr" x="172" y="129" width="7" height="2.6" rx="1.3" style="fill:var(--s2)" transform="rotate(41 175.5 130.3)"/><g transform="translate(104 0)"><rect class="tt-candle" x="-4" y="68" width="8" height="40" rx="2"/><path class="tt-stripe" d="M-4 76l8-6M-4 88l8-6M-4 100l8-6"/><path class="tt-flame" style="animation-delay:1.40s,2.00s" d="M0 46c-7 9-8 16-1 20c7-4 6-11 1-20z"/></g><g transform="translate(128 0)"><rect class="tt-candle" x="-4" y="68" width="8" height="40" rx="2"/><path class="tt-stripe" d="M-4 76l8-6M-4 88l8-6M-4 100l8-6"/><path class="tt-flame" style="animation-delay:1.55s,2.10s" d="M0 46c-7 9-8 16-1 20c7-4 6-11 1-20z"/></g><g transform="translate(152 0)"><rect class="tt-candle" x="-4" y="68" width="8" height="40" rx="2"/><path class="tt-stripe" d="M-4 76l8-6M-4 88l8-6M-4 100l8-6"/><path class="tt-flame" style="animation-delay:1.70s,2.20s" d="M0 46c-7 9-8 16-1 20c7-4 6-11 1-20z"/></g></svg>
+  <p class="tt-ev a-fade" style="--d:1.8s" data-t="event"></p>
+  <p class="tt-name a-pop" style="--d:2s" data-t="name" data-fit="40,18"></p>
+</section>
+<section class="sc s2">
+  <div class="tt-card a-pop" style="--d:.1s">
+    <p class="tt-event a-fade" style="--d:.3s" data-t="event"></p>
+    <p class="tt-cname a-blur" style="--d:.4s" data-t="name" data-fit="52,22"></p>
+    <p class="tt-age a-pop" style="--d:.8s" data-t="age_n" data-if="age"></p>
+    <p class="tt-agel a-fade" style="--d:1s" data-t="age" data-if="age"></p>
+    <p class="tt-date a-rise" style="--d:1.2s" data-t="date" data-fit="26,15"></p>
+    <p class="tt-wt a-rise" style="--d:1.4s" data-t="wt"></p>
+  </div>
+</section>
+<section class="sc s3"><div class="tv-details" data-std="details"></div></section>
+<section class="sc s4">
+  <div class="tv-final" data-std="final"></div>
+  <div class="ptc" data-particles="confetti" data-n="46" data-at="15.2" data-colors="var(--s1),var(--s2),var(--s3),var(--gold)"></div>
+  <div class="tv-brand" data-std="brand" data-if="free"></div>
+</section>

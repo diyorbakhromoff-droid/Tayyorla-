@@ -1,0 +1,56 @@
+<style>
+:root { --f-display: 'Lora', Georgia, serif; --f-body: 'Onest', system-ui, sans-serif; }
+#tv { background: radial-gradient(110% 60% at 50% 30%, var(--card) 0%, var(--bg) 70%); }
+.lg-rim { fill: var(--plate); stroke: var(--accent); stroke-width: 8; }
+.lg-dash { fill: none; stroke: var(--accent2); stroke-width: 3; stroke-dasharray: 2 7; stroke-linecap: round; }
+.lg-a { fill: var(--accent); } .lg-b { fill: var(--accent2); }
+.lg-mid { fill: var(--bg); stroke: var(--accent); stroke-width: 4; }
+.lg-star { fill: var(--gold); }
+.lg-plate { position: absolute; left: 55px; top: 104px; width: 250px; height: 250px; overflow: visible;
+  animation: lg-spin 1.5s cubic-bezier(.2, .8, .2, 1) .1s both; filter: drop-shadow(0 16px 22px rgba(0, 0, 0, .18)); }
+.lg-turn { transform-origin: 120px 120px; animation: lg-turn 26s linear 1.6s infinite both; }
+@keyframes lg-spin { from { opacity: 0; transform: rotate(-160deg) scale(.5); } to { opacity: 1; transform: none; } }
+@keyframes lg-turn { from { transform: rotate(0); } to { transform: rotate(360deg); } }
+.lg-steam { position: absolute; left: 120px; top: 60px; width: 120px; height: 90px; }
+.lg-steam .p-steam { background: color-mix(in srgb, var(--muted) 22%, #FFFFFF) !important; opacity: .7; }
+.lg-text { position: absolute; left: 24px; right: 24px; top: 388px; display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center; }
+.lg-inv { font-size: 16px; font-weight: 500; color: var(--muted); }
+.lg-dear { width: 100%; overflow: hidden; white-space: nowrap; font-family: var(--f-display); font-weight: 700; font-size: 32px; line-height: 1.2; }
+.lg-from { margin-top: 8px; font-family: var(--f-display); font-style: italic; font-size: 20px; color: var(--accent); }
+.lg-arc { position: absolute; left: 40px; width: 280px; height: 280px; border-radius: 50%; border: 3px dotted var(--accent2); opacity: .55; }
+.lg-arc.t { top: -210px; } .lg-arc.b { bottom: -210px; }
+.lg-card { position: absolute; left: 28px; right: 28px; top: 90px; bottom: 90px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; text-align: center; }
+.lg-title { width: 100%; overflow: hidden; white-space: nowrap; font-family: var(--f-display); font-weight: 700; font-size: 54px; line-height: 1.08; color: var(--accent); }
+.lg-reason { max-width: 100%; max-height: 56px; overflow: hidden; font-family: var(--f-display); font-style: italic; font-size: 20px; line-height: 1.35; }
+.lg-rule { width: 64px; height: 64px; margin: 8px 0; }
+.lg-date { width: 100%; overflow: hidden; white-space: nowrap; font-family: var(--f-display); font-weight: 600; font-size: 28px; }
+.lg-wt { font-size: 15px; color: var(--muted); }
+.lg-host { margin-top: 6px; font-size: 15px; font-weight: 600; color: var(--accent2); }
+.s3 .tv-details { padding-top: 84px; }
+</style>
+<section class="sc s1">
+  <div class="ptc lg-steam" data-particles="steam" data-n="9"></div>
+  <svg class="lg-plate" viewBox="0 0 240 240" aria-hidden="true"><g class="lg-turn"><circle class="lg-rim" cx="120" cy="120" r="114"/><circle class="lg-dash" cx="120" cy="120" r="98"/><ellipse class="lg-a" cx="120" cy="46" rx="12" ry="24" transform="rotate(0 120 120)"/><ellipse class="lg-a" cx="120" cy="46" rx="12" ry="24" transform="rotate(45 120 120)"/><ellipse class="lg-a" cx="120" cy="46" rx="12" ry="24" transform="rotate(90 120 120)"/><ellipse class="lg-a" cx="120" cy="46" rx="12" ry="24" transform="rotate(135 120 120)"/><ellipse class="lg-a" cx="120" cy="46" rx="12" ry="24" transform="rotate(180 120 120)"/><ellipse class="lg-a" cx="120" cy="46" rx="12" ry="24" transform="rotate(225 120 120)"/><ellipse class="lg-a" cx="120" cy="46" rx="12" ry="24" transform="rotate(270 120 120)"/><ellipse class="lg-a" cx="120" cy="46" rx="12" ry="24" transform="rotate(315 120 120)"/><circle class="lg-b" cx="120" cy="40" r="5" transform="rotate(22.5 120 120)"/><circle class="lg-b" cx="120" cy="40" r="5" transform="rotate(67.5 120 120)"/><circle class="lg-b" cx="120" cy="40" r="5" transform="rotate(112.5 120 120)"/><circle class="lg-b" cx="120" cy="40" r="5" transform="rotate(157.5 120 120)"/><circle class="lg-b" cx="120" cy="40" r="5" transform="rotate(202.5 120 120)"/><circle class="lg-b" cx="120" cy="40" r="5" transform="rotate(247.5 120 120)"/><circle class="lg-b" cx="120" cy="40" r="5" transform="rotate(292.5 120 120)"/><circle class="lg-b" cx="120" cy="40" r="5" transform="rotate(337.5 120 120)"/><circle class="lg-mid" cx="120" cy="120" r="44"/><path class="lg-star" d="M120 86 128 108 150 100 140 120 150 140 128 132 120 154 112 132 90 140 100 120 90 100 112 108Z"/></g></svg>
+  <div class="lg-text">
+    <p class="lg-inv a-rise" style="--d:.9s" data-t="invite"></p>
+    <p class="lg-dear a-rise" style="--d:1.1s" data-t="dear" data-if="guest" data-fit="32,17"></p>
+    <p class="lg-from a-rise" style="--d:1.4s" data-t="from"></p>
+  </div>
+</section>
+<section class="sc s2">
+  <span class="lg-arc t a-fade"></span><span class="lg-arc b a-fade"></span>
+  <div class="lg-card">
+    <p class="lg-title a-blur" style="--d:.2s" data-t="title" data-fit="54,26"></p>
+    <p class="lg-reason a-rise" style="--d:.6s" data-t="reason" data-if="reason" data-fit="20,14"></p>
+    <svg class="lg-rule a-pop" style="--d:.9s" viewBox="0 0 240 240" aria-hidden="true"><circle class="lg-rim" cx="120" cy="120" r="100"/><path class="lg-star" d="M120 70 132 104 166 92 150 120 166 148 132 136 120 170 108 136 74 148 90 120 74 92 108 104Z"/></svg>
+    <p class="lg-date a-rise" style="--d:1.1s" data-t="date" data-fit="28,15"></p>
+    <p class="lg-wt a-rise" style="--d:1.3s" data-t="wt"></p>
+    <p class="lg-host a-rise" style="--d:1.5s" data-t="from"></p>
+  </div>
+</section>
+<section class="sc s3"><span class="lg-arc t"></span><div class="tv-details" data-std="details"></div></section>
+<section class="sc s4">
+  <div class="tv-final" data-std="final"></div>
+  <div class="ptc" data-particles="confetti" data-n="40" data-at="15.2" data-colors="var(--accent),var(--accent2),var(--gold)"></div>
+  <div class="tv-brand" data-std="brand" data-if="free"></div>
+</section>

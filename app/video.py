@@ -320,6 +320,7 @@ def build_payload(design_id: str, data: dict, lang: str | None = "uz", *, guest:
         "age": bool(yosh),
         "signature": bool(signature),
         "names2": bool(n1 and n2),
+        "event_head": section in ("toy", "tk"),
     }
     palettes = d.get("palettes") or [{"vars": {}}]
     pal = palettes[palette if 0 <= palette < len(palettes) else 0]

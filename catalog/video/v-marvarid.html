@@ -1,0 +1,57 @@
+<style>
+:root { --f-display: 'Cormorant Garamond', Georgia, serif; --f-body: 'Onest', system-ui, sans-serif; }
+#tv { background: radial-gradient(110% 70% at 50% 40%, var(--card) 0%, var(--bg) 75%); }
+.mv-pearl { fill: url(#mv-g); filter: drop-shadow(0 3px 3px rgba(0, 0, 0, .18)); transform-box: fill-box; transform-origin: center;
+  animation: tv-pop .5s cubic-bezier(.2, 1.5, .4, 1) calc(var(--s, 0s) + var(--d, 0s)) both; }
+.mv-thread { fill: none; stroke: var(--gold); stroke-width: 1.2; opacity: .6; stroke-dasharray: 1; stroke-dashoffset: 1; animation: og-draw 1.4s ease .2s both; }
+@keyframes og-draw { to { stroke-dashoffset: 0; } }
+.mv-drop { fill: url(#mv-g); stroke: var(--gold); stroke-width: 1.4; transform-box: fill-box; transform-origin: 50% 0; animation: mv-swing 2.6s ease-in-out 1.7s infinite alternate both, tv-pop .6s ease 1.6s both; }
+@keyframes mv-swing { from { transform: rotate(-4deg); } to { transform: rotate(4deg); } }
+.mv-neck { position: absolute; left: 0; top: 70px; width: 360px; height: 360px; overflow: visible; }
+.mv-inv { position: absolute; left: 30px; right: 30px; top: 64px; text-align: center; font-size: 15px; font-weight: 500; letter-spacing: .04em; color: var(--muted); }
+.mv-dear { position: absolute; left: 30px; right: 30px; top: 92px; text-align: center; overflow: hidden; white-space: nowrap; font-family: var(--f-display); font-style: italic; font-weight: 600; font-size: 34px; }
+.mv-foot { position: absolute; left: 24px; right: 24px; top: 446px; display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center; }
+.mv-title { width: 100%; overflow: hidden; white-space: nowrap; font-family: var(--f-display); font-weight: 700; font-size: 40px; color: var(--accent); }
+.mv-from { font-size: 15px; color: var(--muted); }
+.mv-card { position: absolute; left: 30px; right: 30px; top: 70px; bottom: 70px; border: 1.5px solid var(--gold); border-radius: 8px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; padding: 40px 22px; text-align: center; }
+.mv-card::before { content: ""; position: absolute; inset: 6px; border: 1px solid var(--gold); border-radius: 4px; opacity: .5; }
+.mv-strand { position: absolute; left: 0; top: -24px; width: 300px; height: 44px; overflow: visible; }
+.mv-ctitle { width: 100%; overflow: hidden; white-space: nowrap; font-family: var(--f-display); font-style: italic; font-weight: 600; font-size: 52px; line-height: 1.05; }
+.mv-turn { font-size: 16px; font-weight: 600; color: var(--accent); }
+.mv-kassa { padding: 6px 14px; border-radius: 999px; border: 1px solid var(--gold); font-size: 15px; font-weight: 600; }
+.mv-date { margin-top: 12px; width: 100%; overflow: hidden; white-space: nowrap; font-family: var(--f-display); font-weight: 600; font-size: 28px; }
+.mv-wt { font-size: 15px; color: var(--muted); }
+.mv-host { font-size: 15px; color: var(--muted); }
+.s3 .tv-details { padding-top: 70px; }
+</style>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><radialGradient id="mv-g" cx=".35" cy=".3" r=".75">
+  <stop offset="0" stop-color="#FFFFFF"/><stop offset=".55" style="stop-color:var(--pearl)"/><stop offset="1" style="stop-color:var(--pearl2)"/></radialGradient></defs></svg>
+<div class="bgk"><div class="ptc" data-particles="spark" data-n="18" data-colors="var(--gold)"></div></div>
+<section class="sc s1">
+  <p class="mv-inv a-fade" style="--d:.2s" data-t="invite"></p>
+  <svg class="mv-neck" viewBox="0 0 360 360" aria-hidden="true"><path class="mv-thread" pathLength="1" d="M36 120Q180 460 324 120"/><circle class="mv-pearl" cx="36.0" cy="120.0" r="7.5" style="--d:0.30s"/><circle class="mv-pearl" cx="48.0" cy="147.2" r="7.8" style="--d:0.35s"/><circle class="mv-pearl" cx="60.0" cy="171.9" r="8.1" style="--d:0.40s"/><circle class="mv-pearl" cx="72.0" cy="194.4" r="8.4" style="--d:0.45s"/><circle class="mv-pearl" cx="84.0" cy="214.4" r="8.7" style="--d:0.50s"/><circle class="mv-pearl" cx="96.0" cy="232.2" r="9.0" style="--d:0.55s"/><circle class="mv-pearl" cx="108.0" cy="247.5" r="9.2" style="--d:0.60s"/><circle class="mv-pearl" cx="120.0" cy="260.5" r="9.5" style="--d:0.65s"/><circle class="mv-pearl" cx="132.0" cy="271.1" r="9.8" style="--d:0.70s"/><circle class="mv-pearl" cx="144.0" cy="279.4" r="10.1" style="--d:0.75s"/><circle class="mv-pearl" cx="156.0" cy="285.3" r="10.4" style="--d:0.80s"/><circle class="mv-pearl" cx="168.0" cy="288.8" r="10.7" style="--d:0.85s"/><circle class="mv-pearl" cx="180.0" cy="290.0" r="11.0" style="--d:0.90s"/><circle class="mv-pearl" cx="192.0" cy="288.8" r="10.7" style="--d:0.95s"/><circle class="mv-pearl" cx="204.0" cy="285.3" r="10.4" style="--d:1.00s"/><circle class="mv-pearl" cx="216.0" cy="279.4" r="10.1" style="--d:1.05s"/><circle class="mv-pearl" cx="228.0" cy="271.1" r="9.8" style="--d:1.10s"/><circle class="mv-pearl" cx="240.0" cy="260.5" r="9.5" style="--d:1.15s"/><circle class="mv-pearl" cx="252.0" cy="247.5" r="9.2" style="--d:1.20s"/><circle class="mv-pearl" cx="264.0" cy="232.2" r="9.0" style="--d:1.25s"/><circle class="mv-pearl" cx="276.0" cy="214.4" r="8.7" style="--d:1.30s"/><circle class="mv-pearl" cx="288.0" cy="194.4" r="8.4" style="--d:1.35s"/><circle class="mv-pearl" cx="300.0" cy="171.9" r="8.1" style="--d:1.40s"/><circle class="mv-pearl" cx="312.0" cy="147.2" r="7.8" style="--d:1.45s"/><circle class="mv-pearl" cx="324.0" cy="120.0" r="7.5" style="--d:1.50s"/>
+    <path class="mv-drop" d="M180 298c-10 14-16 24-16 32a16 16 0 0 0 32 0c0-8-6-18-16-32z"/></svg>
+  <p class="mv-dear a-blur" style="--d:1.4s" data-t="dear" data-if="guest" data-fit="34,16"></p>
+  <div class="mv-foot">
+    <p class="mv-title a-blur" style="--d:1.8s" data-t="title" data-fit="40,18"></p>
+    <p class="mv-from a-rise" style="--d:2.1s" data-t="from"></p>
+  </div>
+</section>
+<section class="sc s2">
+  <div class="mv-card a-fade">
+    <svg class="mv-strand" viewBox="0 0 300 44" aria-hidden="true"><circle class="mv-pearl" cx="30" cy="22" r="8" style="--d:0.10s"/><circle class="mv-pearl" cx="55" cy="22" r="8" style="--d:0.14s"/><circle class="mv-pearl" cx="80" cy="22" r="8" style="--d:0.18s"/><circle class="mv-pearl" cx="105" cy="22" r="8" style="--d:0.22s"/><circle class="mv-pearl" cx="130" cy="22" r="8" style="--d:0.26s"/><circle class="mv-pearl" cx="155" cy="22" r="8" style="--d:0.30s"/><circle class="mv-pearl" cx="180" cy="22" r="8" style="--d:0.34s"/><circle class="mv-pearl" cx="205" cy="22" r="8" style="--d:0.38s"/><circle class="mv-pearl" cx="230" cy="22" r="8" style="--d:0.42s"/><circle class="mv-pearl" cx="255" cy="22" r="8" style="--d:0.46s"/><circle class="mv-pearl" cx="280" cy="22" r="8" style="--d:0.50s"/><circle class="mv-pearl" cx="305" cy="22" r="8" style="--d:0.54s"/><circle class="mv-pearl" cx="330" cy="22" r="8" style="--d:0.58s"/></svg>
+    <p class="mv-ctitle a-blur" style="--d:.4s" data-t="title" data-fit="52,22"></p>
+    <p class="mv-turn a-rise" style="--d:.8s" data-t="turn" data-if="turn"></p>
+    <p class="mv-kassa a-pop" style="--d:1s" data-t="kassa" data-if="kassa"></p>
+    <p class="mv-date a-rise" style="--d:1.2s" data-t="date" data-fit="28,15"></p>
+    <p class="mv-wt a-rise" style="--d:1.4s" data-t="wt"></p>
+    <p class="mv-host a-rise" style="--d:1.6s" data-t="from"></p>
+  </div>
+</section>
+<section class="sc s3"><svg viewBox="0 0 360 44" style="position:absolute;left:0;top:14px;width:360px;height:44px" aria-hidden="true"><circle class="mv-pearl" cx="18" cy="22" r="8" style="--d:0.10s"/><circle class="mv-pearl" cx="45" cy="22" r="8" style="--d:0.13s"/><circle class="mv-pearl" cx="72" cy="22" r="8" style="--d:0.16s"/><circle class="mv-pearl" cx="99" cy="22" r="8" style="--d:0.19s"/><circle class="mv-pearl" cx="126" cy="22" r="8" style="--d:0.22s"/><circle class="mv-pearl" cx="153" cy="22" r="8" style="--d:0.25s"/><circle class="mv-pearl" cx="180" cy="22" r="8" style="--d:0.28s"/><circle class="mv-pearl" cx="207" cy="22" r="8" style="--d:0.31s"/><circle class="mv-pearl" cx="234" cy="22" r="8" style="--d:0.34s"/><circle class="mv-pearl" cx="261" cy="22" r="8" style="--d:0.37s"/><circle class="mv-pearl" cx="288" cy="22" r="8" style="--d:0.40s"/><circle class="mv-pearl" cx="315" cy="22" r="8" style="--d:0.43s"/><circle class="mv-pearl" cx="342" cy="22" r="8" style="--d:0.46s"/></svg><div class="tv-details" data-std="details"></div></section>
+<section class="sc s4">
+  <div class="tv-final" data-std="final"></div>
+  <div class="ptc" data-particles="confetti" data-n="36" data-at="15.2" data-colors="var(--gold),var(--pearl),var(--accent)"></div>
+  <div class="tv-brand" data-std="brand" data-if="free"></div>
+</section>

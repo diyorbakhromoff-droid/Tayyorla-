@@ -1,0 +1,62 @@
+<style>
+:root { --f-display: 'Caveat', cursive; --f-body: 'Rubik', system-ui, sans-serif; }
+#tv { background: radial-gradient(100% 60% at 50% 45%, var(--card) 0%, var(--bg) 70%); }
+.qc-cup { fill: var(--cup); } .qc-band { stroke: var(--accent); stroke-width: 4; } .qc-rim { fill: var(--cup); stroke: color-mix(in srgb, var(--cup) 70%, #000); stroke-width: 2; }
+.qc-tea { fill: var(--tea); } .qc-foot { fill: color-mix(in srgb, var(--cup) 80%, #000); } .qc-shadow { fill: rgba(0, 0, 0, .25); }
+.qc-ripple { fill: none; stroke: color-mix(in srgb, var(--tea) 50%, #fff); stroke-width: 1.4; transform-box: fill-box; transform-origin: center; opacity: 0;
+  animation: qc-ripple 2.2s ease-out 1.9s infinite both; }
+.qc-ripple.b { animation-delay: 2.9s; }
+@keyframes qc-ripple { 0% { opacity: .9; transform: scale(.2); } 100% { opacity: 0; transform: scale(3.6); } }
+.qc-bowl { position: absolute; left: 60px; top: 250px; width: 240px; height: 164px; overflow: visible; animation: tv-rise 1s ease .2s both; }
+.qc-leaf { position: absolute; left: 168px; top: 120px; width: 26px; height: 14px; border-radius: 0 100% 0 100%; background: var(--leaf); animation: qc-fall 1.6s cubic-bezier(.5, 0, .7, .4) .4s both; }
+@keyframes qc-fall { 0% { opacity: 0; transform: translate(-40px, -60px) rotate(-60deg); } 15% { opacity: 1; } 90% { opacity: 1; transform: translate(0, 158px) rotate(200deg); } 100% { opacity: 0; transform: translate(0, 166px) rotate(220deg); } }
+.qc-steam { position: absolute; left: 120px; top: 170px; width: 120px; height: 110px; }
+.qc-steam .p-steam { background: color-mix(in srgb, var(--ink) 30%, transparent) !important; }
+.qc-head { position: absolute; left: 24px; right: 24px; top: 70px; display: flex; flex-direction: column; align-items: center; gap: 4px; text-align: center; }
+.qc-inv { font-size: 15px; color: var(--muted); }
+.qc-dear { width: 100%; overflow: hidden; white-space: nowrap; font-family: var(--f-display); font-weight: 700; font-size: 44px; line-height: 1.1; }
+.qc-foot { position: absolute; left: 24px; right: 24px; top: 448px; display: flex; flex-direction: column; align-items: center; gap: 4px; text-align: center; }
+.qc-title { width: 100%; overflow: hidden; white-space: nowrap; font-family: var(--f-display); font-weight: 700; font-size: 40px; color: var(--accent); }
+.qc-from { font-size: 15px; color: var(--muted); }
+.qc-board { position: absolute; left: 28px; right: 28px; top: 80px; bottom: 80px; border-radius: 16px; padding: 28px 22px; background: var(--board);
+  border: 10px solid var(--frame); box-shadow: 0 24px 40px -22px rgba(0, 0, 0, .6);
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; text-align: center; color: var(--board-ink); }
+.qc-ctitle { width: 100%; overflow: hidden; white-space: nowrap; font-family: var(--f-display); font-weight: 700; font-size: 54px; line-height: 1; color: var(--accent); }
+.qc-turn { font-family: var(--f-display); font-weight: 700; font-size: 30px; }
+.qc-kassa { font-family: var(--f-display); font-size: 26px; opacity: .9; }
+.qc-line { width: 140px; height: 2px; background: currentColor; opacity: .3; border-radius: 2px; }
+.qc-date { width: 100%; overflow: hidden; white-space: nowrap; font-family: var(--f-display); font-weight: 700; font-size: 34px; }
+.qc-wt { font-size: 15px; opacity: .8; }
+.s3 .d-msg, .s3 .d-sign { font-family: var(--f-display); font-style: normal; }
+.s3 .d-msg { font-size: 26px; }
+.s3 .d-day, .s3 .d-month, .s3 .d-venue, .s4 .f-names, .s4 .f-date { font-family: var(--f-display); font-weight: 700; }
+</style>
+<section class="sc s1">
+  <div class="qc-head">
+    <p class="qc-inv a-rise" style="--d:.2s" data-t="invite"></p>
+    <p class="qc-dear a-rise" style="--d:.4s" data-t="dear" data-if="guest" data-fit="44,22"></p>
+  </div>
+  <div class="ptc qc-steam" data-particles="steam" data-n="8" data-at="1.2"></div>
+  <svg class="qc-bowl" viewBox="0 0 220 150" aria-hidden="true"><ellipse class="qc-shadow" cx="110" cy="140" rx="80" ry="8"/><path class="qc-cup" d="M14 40h192c-4 58-44 92-96 92S18 98 14 40z"/><path class="qc-band" d="M24 64h172"/><ellipse class="qc-rim" cx="110" cy="40" rx="96" ry="16"/><ellipse class="qc-tea" cx="110" cy="42" rx="86" ry="12"/><ellipse class="qc-ripple" cx="110" cy="42" rx="20" ry="3"/><ellipse class="qc-ripple b" cx="110" cy="42" rx="20" ry="3"/><ellipse class="qc-foot" cx="110" cy="132" rx="30" ry="6"/></svg>
+  <span class="qc-leaf"></span>
+  <div class="qc-foot">
+    <p class="qc-title a-blur" style="--d:1.8s" data-t="title" data-fit="40,20"></p>
+    <p class="qc-from a-rise" style="--d:2.1s" data-t="from"></p>
+  </div>
+</section>
+<section class="sc s2">
+  <div class="qc-board a-pop" style="--d:.1s">
+    <p class="qc-ctitle a-rise" style="--d:.3s" data-t="title" data-fit="54,24"></p>
+    <p class="qc-turn a-rise" style="--d:.6s" data-t="turn" data-if="turn" data-fit="30,18"></p>
+    <p class="qc-kassa a-rise" style="--d:.8s" data-t="kassa" data-if="kassa"></p>
+    <span class="qc-line a-fade" style="--d:1s"></span>
+    <p class="qc-date a-rise" style="--d:1.1s" data-t="date" data-fit="34,18"></p>
+    <p class="qc-wt a-rise" style="--d:1.3s" data-t="wt"></p>
+  </div>
+</section>
+<section class="sc s3"><div class="tv-details" data-std="details"></div></section>
+<section class="sc s4">
+  <div class="tv-final" data-std="final"></div>
+  <div class="ptc" data-particles="confetti" data-n="34" data-at="15.2" data-colors="var(--accent),var(--leaf),var(--tea)"></div>
+  <div class="tv-brand" data-std="brand" data-if="free"></div>
+</section>
