@@ -262,8 +262,7 @@ body{margin:0;background:var(--q-1C2648, #1C2648)}
     </div>
   </div>
 
-  <sc-if value="{{ showIntro }}" hint-placeholder-val="{{ true }}">
-  <div data-intro class="{{ introCls }}" aria-hidden="{{ introHidden }}" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; z-index: 30; overflow: hidden; background: radial-gradient(ellipse 85% 60% at 50% 33%, var(--q-4A5C98, #4A5C98) 0%, var(--q-2B3A67, #2B3A67) 50%, var(--q-19223F, #19223F) 100%)">
+    <div data-intro class="{{ introCls }}" aria-hidden="{{ introHidden }}" style="display: {{ introDisp }}; position: absolute; left: 0; top: 0; width: 390px; height: 844px; z-index: 30; overflow: hidden; background: radial-gradient(ellipse 85% 60% at 50% 33%, var(--q-4A5C98, #4A5C98) 0%, var(--q-2B3A67, #2B3A67) 50%, var(--q-19223F, #19223F) 100%)">
     <div class="fzv-drift" aria-hidden="true" style="position: absolute; left: -110px; top: 60px; width: 320px; height: 320px; border-radius: 50%; background: radial-gradient(circle, rgba(var(--q-rgb-B9A7E0, 185, 167, 224), 0.4) 0%, rgba(var(--q-rgb-B9A7E0, 185, 167, 224), 0) 65%)"></div>
     <div class="fzv-drift2" aria-hidden="true" style="position: absolute; left: 200px; top: 20px; width: 300px; height: 300px; border-radius: 50%; background: radial-gradient(circle, rgba(159, 211, 230, 0.28) 0%, rgba(159, 211, 230, 0) 65%)"></div>
     <div class="fzv-drift" aria-hidden="true" style="position: absolute; left: 60px; top: 420px; width: 320px; height: 240px; border-radius: 50%; background: radial-gradient(ellipse, rgba(242, 184, 210, 0.2) 0%, rgba(242, 184, 210, 0) 65%)"></div>
@@ -472,7 +471,7 @@ body{margin:0;background:var(--q-1C2648, #1C2648)}
       </sc-if>
     </div>
   </div>
-  </sc-if>
+
 
   <div style="position: relative; z-index: 1; min-height: var(--vh, 100vh); display: flex; flex-direction: column">
 
@@ -799,7 +798,7 @@ class Component extends DCLogic {
     const family = (d.bobo_buvi || []).map((line, i, all) => { const ps = String(line).split(/\s+(?:va|ва|&)\s+|\s*[,&+]\s*/i).map(x => x.trim()).filter(Boolean); return { names: ps.join('\n'), a: ini(ps[0]), b: ps[1] ? ini(ps[1]) : '', two: ps.length > 1, label: all.length === 1 ? 'Bobo va buvisi' : i === 0 ? 'Dadasi tomondan' : i === 1 ? 'Oyisi tomondan' : 'Yaqinlari' }; });
     const famLine = d.ota_ona ? d.ota_ona + ' oilasi' : '';
     const parentsTo = d.ota_ona ? SITE.ga(d.ota_ona) : 'ota-onasiga';
-    const nasab = par[0] ? name + ' ' + par[0] + (qiz ? ' qizi' : ' o’g’li') : name;
+    const nasab = par.length > 1 ? name + ' ' + par[0] + (qiz ? ' qizi' : ' o’g’li') : name;
 
     const playing = SITE.music.playing;
     const n = SITE.has.photos, P = SITE.p;
@@ -837,7 +836,7 @@ class Component extends DCLogic {
       w: w,
       dotDate: dotDate,
       dateTime: dateTime,
-      showIntro: !s.gone,
+      introDisp: s.gone ? 'none' : 'block',
       introCls: s.opened ? 'fzv-intro is-open' : 'fzv-intro',
       introHidden: s.opened ? 'true' : 'false',
       openNews: () => {

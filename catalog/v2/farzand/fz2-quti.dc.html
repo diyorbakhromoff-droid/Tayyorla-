@@ -113,8 +113,7 @@ body{margin:0;background:var(--q-DCEBFA, #DCEBFA)}
     <span class="fzp-star fzp-tw3" style="left: 360px; top: 3010px; width: 14px; height: 14px"></span>
   </div>
 
-  <sc-if value="{{ showIntro }}" hint-placeholder-val="{{ true }}">
-  <div data-intro class="{{ introCls }}" aria-hidden="{{ introHidden }}" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; z-index: 30; overflow: hidden; background: linear-gradient(172deg, var(--q-DCEBFA, #DCEBFA) 0%, #EADFF2 44%, #FBE3EA 70%, #DFF3EA 100%)">
+    <div data-intro class="{{ introCls }}" aria-hidden="{{ introHidden }}" style="display: {{ introDisp }}; position: absolute; left: 0; top: 0; width: 390px; height: 844px; z-index: 30; overflow: hidden; background: linear-gradient(172deg, var(--q-DCEBFA, #DCEBFA) 0%, #EADFF2 44%, #FBE3EA 70%, #DFF3EA 100%)">
     <div class="fzp-halo" style="position: absolute; left: -15px; top: 228px; width: 420px; height: 420px; border-radius: 50%; background: radial-gradient(circle, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.55) 38%, rgba(255, 255, 255, 0) 66%)"></div>
 
     <svg class="fzp-float" aria-hidden="true" viewBox="0 0 120 64" width="170" height="91" style="position: absolute; left: -40px; top: 52px"><path class="fzp-cloud" d="M22 60 C10 60 4 52 6 44 C8 36 16 32 24 34 C24 22 34 14 46 16 C52 6 66 2 78 8 C88 12 92 20 92 26 C102 24 112 30 114 40 C116 52 108 60 98 60 Z"></path></svg>
@@ -192,7 +191,7 @@ body{margin:0;background:var(--q-DCEBFA, #DCEBFA)}
       <span style="font-size: 14px; font-weight: 700; color: #4E5882">Ichida kichkina sir bor</span>
     </div>
   </div>
-  </sc-if>
+
 
   <div style="position: relative; z-index: 1; min-height: var(--vh, 100vh); display: flex; flex-direction: column">
 
@@ -435,7 +434,7 @@ class Component extends DCLogic {
     const family = (d.bobo_buvi || []).map((line, i, all) => { const ps = String(line).split(/\s+(?:va|ва|&)\s+|\s*[,&+]\s*/i).map(x => x.trim()).filter(Boolean); return { names: ps.join('\n'), a: ini(ps[0]), b: ps[1] ? ini(ps[1]) : '', two: ps.length > 1, label: all.length === 1 ? 'Bobo va buvisi' : i === 0 ? 'Dadasi tomondan' : i === 1 ? 'Oyisi tomondan' : 'Yaqinlari' }; });
     const famLine = d.ota_ona ? d.ota_ona + ' oilasi' : '';
     const parentsTo = d.ota_ona ? SITE.ga(d.ota_ona) : 'ota-onasiga';
-    const nasab = par[0] ? name + ' ' + par[0] + (qiz ? ' qizi' : ' o’g’li') : name;
+    const nasab = par.length > 1 ? name + ' ' + par[0] + (qiz ? ' qizi' : ' o’g’li') : name;
 
     const n = SITE.has.photos, P = SITE.p;
     const caps = ['Jajji oyoqlar', 'Yo’rgakda', 'Mitti izlar'];
@@ -449,7 +448,7 @@ class Component extends DCLogic {
     return {
       rootCls: qiz ? 'is-qiz' : 'is-ogil',
       w: w,
-      showIntro: !s.gone,
+      introDisp: s.gone ? 'none' : 'block',
       introCls: s.opened ? 'fzp-intro is-open' : 'fzp-intro',
       introHidden: s.opened ? 'true' : 'false',
       openBox: () => {
