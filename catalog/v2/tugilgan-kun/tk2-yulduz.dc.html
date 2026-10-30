@@ -1,0 +1,948 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<title>Tug’ilgan kun: Yulduzli yil xronikasi</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&amp;family=Tenor+Sans&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#E3B34C}a:hover{color:#F3D27A}
+.ys-serif{font-family:'Playfair Display',Georgia,'Times New Roman',serif}
+.ys-foil{background:linear-gradient(100deg,#B8862E 0%,#F3D27A 22%,#FFF1C9 36%,#E3B34C 52%,#A87A28 70%,#F3D27A 86%,#C99A3A 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.ys-input{width:100%;height:50px;box-sizing:border-box;border-radius:25px;border:1px solid rgba(227,179,76,0.55);background:rgba(243,227,195,0.05);color:#F3E3C3;padding:0 18px;font-family:'Tenor Sans',system-ui,sans-serif;font-size:14px;outline:none;text-align:center}
+.ys-input::placeholder{color:rgba(216,203,174,0.6)}
+.ys-input:focus{border-color:#E3B34C}
+.ys-err{position:relative;margin:12px 0 0;font-size:12.5px;color:#F3D27A}
+.ys-label{font-family:'Tenor Sans',system-ui,sans-serif;font-size:11px;letter-spacing:.34em;text-transform:uppercase;color:#E3B34C}
+.ys-g1{stop-color:#A87A28}.ys-g2{stop-color:#E3B34C}.ys-g3{stop-color:#FFF1C9}.ys-g4{stop-color:#C99A3A}
+.ys-line{fill:none;stroke:#E3B34C;stroke-width:1}
+.ys-ring{fill:none;stroke:#E3B34C;stroke-width:1}
+.ys-ringF{fill:none;stroke:#E3B34C;stroke-width:1.2;opacity:.75}
+.ys-ringB{fill:none;stroke:#E3B34C;stroke-width:1;opacity:.35}
+.ys-cline{fill:none;stroke:#E3B34C;stroke-width:1.1;opacity:.6}
+.ys-chart{fill:none;stroke:#E3B34C;stroke-width:1;opacity:.12}
+.ys-leg{fill:none;stroke:#C99A3A;stroke-width:2.5;stroke-linecap:round}
+.ys-ico{fill:none;stroke:#E3B34C;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.ys-icoInk{fill:none;stroke:#14123A;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.ys-smoke{fill:none;stroke:#D8CBAE;stroke-width:1.6;stroke-linecap:round;opacity:0}
+.is-hidden{display:none}
+.ys-row{display:flex;align-items:center;gap:8px}
+
+/* ambient */
+.ys-star{position:absolute;display:block;border-radius:50%;background:#F3E3C3;animation:ys-tw 4s ease-in-out infinite}
+.ys-spark{position:absolute;display:block;clip-path:polygon(50% 0,60% 40%,100% 50%,60% 60%,50% 100%,40% 60%,0 50%,40% 40%);animation:ys-sp 3.4s ease-in-out infinite}
+.ys-shoot{position:absolute;display:block;width:130px;height:2px;border-radius:2px;background:linear-gradient(90deg,rgba(243,227,195,0),#FFF6E0);transform-origin:100% 50%;opacity:0;animation:ys-shoot 9s ease-in infinite}
+.ys-shoot::after{content:"";position:absolute;right:-3px;top:-3px;width:8px;height:8px;border-radius:50%;background:#FFF6E0;box-shadow:0 0 10px 3px rgba(243,210,122,0.8)}
+@keyframes ys-tw{0%,100%{opacity:.2}50%{opacity:.95}}
+@keyframes ys-sp{0%,100%{opacity:.15;transform:scale(.5) rotate(0)}50%{opacity:1;transform:scale(1) rotate(45deg)}}
+@keyframes ys-shoot{0%{opacity:0;transform:rotate(150deg) translateX(0)}2%{opacity:1}13%{opacity:0;transform:rotate(150deg) translateX(330px)}100%{opacity:0;transform:rotate(150deg) translateX(330px)}}
+.ys-float{animation:ys-float 7s ease-in-out infinite}
+.ys-floatB{animation:ys-float 5s ease-in-out -2s infinite}
+@keyframes ys-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.ys-glowP{animation:ys-glowP 4s ease-in-out infinite}
+@keyframes ys-glowP{0%,100%{opacity:.55}50%{opacity:1}}
+.ys-spin{animation:ys-spin 40s linear infinite}
+.ys-spinR{animation:ys-spin 60s linear infinite reverse}
+@keyframes ys-spin{to{transform:rotate(360deg)}}
+.ys-chev{animation:ys-chev 2s ease-in-out infinite}
+@keyframes ys-chev{0%,100%{transform:translateY(0);opacity:.55}50%{transform:translateY(7px);opacity:1}}
+@keyframes ys-out{from{opacity:1}to{opacity:0}}
+@keyframes ys-in{from{opacity:0}to{opacity:1}}
+
+/* 4-point stars */
+.ys-st{position:absolute;display:block}
+.ys-stGlow{position:absolute;left:-100%;top:-100%;width:300%;height:300%;border-radius:50%;background:radial-gradient(circle,rgba(243,210,122,0.55),rgba(243,210,122,0) 60%)}
+.ys-stCore{position:absolute;left:0;top:0;width:100%;height:100%;background:linear-gradient(135deg,#FFF6E0,#F3D27A 50%,#E3B34C);clip-path:polygon(50% 0,61% 39%,100% 50%,61% 61%,50% 100%,39% 61%,0 50%,39% 39%)}
+.ys-twk{animation:ys-twk 3s ease-in-out infinite}
+@keyframes ys-twk{0%,100%{opacity:.7;transform:scale(.85)}50%{opacity:1;transform:scale(1.08)}}
+
+/* buttons */
+.ys-gold{background:linear-gradient(100deg,#C99A3A 0%,#F3D27A 35%,#FFF1C9 50%,#E3B34C 70%,#C99A3A 100%);color:#14123A}
+.ys-shine{position:relative;overflow:hidden}
+.ys-shine::after{content:"";position:absolute;top:0;left:-50%;width:35%;height:100%;background:linear-gradient(100deg,rgba(255,255,255,0),rgba(255,255,255,0.6),rgba(255,255,255,0));transform:skewX(-20deg);animation:ys-shine 3.8s ease-in-out infinite;pointer-events:none}
+@keyframes ys-shine{0%{transform:translateX(0) skewX(-20deg)}55%,100%{transform:translateX(480%) skewX(-20deg)}}
+.ys-cta{min-width:290px;min-height:56px;padding:0 26px;border:0;border-radius:28px;font-family:'Tenor Sans',system-ui,sans-serif;font-size:13px;letter-spacing:.22em;text-transform:uppercase;display:inline-flex;align-items:center;justify-content:center;gap:10px;cursor:pointer;box-shadow:0 0 0 1px rgba(255,241,201,0.4),0 14px 36px rgba(227,179,76,0.35)}
+.ys-btn{width:100%;min-height:54px;border:0;border-radius:27px;font-family:'Tenor Sans',system-ui,sans-serif;font-size:13px;letter-spacing:.18em;text-transform:uppercase;display:flex;align-items:center;justify-content:center;gap:10px;cursor:pointer;padding:0 16px}
+.ys-go{flex:1 1 0;min-width:0;min-height:52px;border:0;border-radius:26px;font-family:'Tenor Sans',system-ui,sans-serif;font-size:14px;letter-spacing:.04em;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;padding:0 10px}
+.ys-go--on{background:transparent;color:#F3E3C3;box-shadow:inset 0 0 0 1.5px #E3B34C}
+.ys-map{flex:1.4 1 0;min-width:0;min-height:52px;border-radius:26px;border:1px solid rgba(227,179,76,0.7);color:#F3E3C3;font-size:14px;letter-spacing:.04em;display:flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;padding:0 10px;box-sizing:border-box}
+.ys-map:hover{color:#FFFFFF;border-color:#E3B34C}
+.ys-send--done{background:transparent;color:#F3E3C3;box-shadow:inset 0 0 0 1.5px rgba(227,179,76,0.7);cursor:default;letter-spacing:.06em;text-transform:none;font-size:14px}
+.ys-music{position:absolute;right:18px;top:18px;z-index:5;width:44px;height:44px;border-radius:50%;border:1px solid rgba(227,179,76,0.6);background:rgba(11,16,48,0.6);display:flex;align-items:center;justify-content:center;gap:3px;cursor:pointer;padding:0}
+.ys-eq{display:none;align-items:flex-end;gap:2px;height:12px}
+.ys-music--on{background:rgba(227,179,76,0.16)}
+.ys-music--on .ys-eq{display:flex}
+.ys-bar{display:block;width:2px;height:12px;background:#E3B34C;transform-origin:50% 100%;animation:ys-eq .8s ease-in-out infinite alternate}
+.ys-bar + .ys-bar{animation-delay:-.3s}
+.ys-bar + .ys-bar + .ys-bar{animation-delay:-.55s}
+@keyframes ys-eq{0%{transform:scaleY(.25)}100%{transform:scaleY(1)}}
+.ys-arrow{width:44px;height:44px;border-radius:50%;border:1px solid rgba(227,179,76,0.6);background:rgba(11,16,48,0.5);display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0}
+.ys-arrow:hover{background:rgba(227,179,76,0.14)}
+
+/* flip calendar, champagne tiles */
+.ys-flip{position:relative;width:70px;height:88px;perspective:300px}
+.ys-half{position:absolute;left:0;width:70px;height:44px;overflow:hidden;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.ys-top{top:0;border-radius:8px 8px 0 0;background:linear-gradient(180deg,#FBF2DE,#F1DFBA)}
+.ys-bot{top:44px;border-radius:0 0 8px 8px;background:linear-gradient(180deg,#EBD6AA,#DFC48F)}
+.ys-half span{display:block;width:70px;height:88px;line-height:88px;text-align:center;font-family:'Playfair Display',Georgia,serif;font-size:46px;font-weight:600;color:#14123A;font-variant-numeric:lining-nums}
+.ys-bot span{transform:translateY(-44px)}
+.ys-flap1{z-index:2;transform-origin:50% 100%;transform:rotateX(-90deg)}
+.ys-flap2{z-index:2;transform-origin:50% 0;transform:rotateX(0)}
+.ys-flip--a .ys-flap1{animation:ys-fTopA .3s ease-in both}
+.ys-flip--a .ys-flap2{animation:ys-fBotA .3s ease-out .3s both}
+.ys-flip--b .ys-flap1{animation:ys-fTopB .3s ease-in both}
+.ys-flip--b .ys-flap2{animation:ys-fBotB .3s ease-out .3s both}
+@keyframes ys-fTopA{from{transform:rotateX(0)}to{transform:rotateX(-90deg)}}
+@keyframes ys-fBotA{from{transform:rotateX(90deg)}to{transform:rotateX(0)}}
+@keyframes ys-fTopB{from{transform:rotateX(0)}to{transform:rotateX(-90deg)}}
+@keyframes ys-fBotB{from{transform:rotateX(90deg)}to{transform:rotateX(0)}}
+.ys-hinge{position:absolute;left:0;top:43.5px;width:70px;height:1px;background:rgba(20,18,58,0.4);z-index:3}
+.ys-flipFrame{position:absolute;left:0;top:0;width:70px;height:88px;box-sizing:border-box;border-radius:8px;border:1px solid rgba(227,179,76,0.8);box-shadow:0 12px 26px rgba(0,0,0,0.45);z-index:4;pointer-events:none}
+.ys-unit{font-family:'Tenor Sans',system-ui,sans-serif;font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:#D8CBAE}
+
+/* gold dust */
+.ys-dust{position:absolute;left:0;top:0;display:block;border-radius:50%;opacity:0;box-shadow:0 0 6px rgba(243,210,122,0.9)}
+.ys-dustGo .ys-dust{animation:ys-d1 1.8s cubic-bezier(.1,.7,.3,1) both}
+.ys-dustGo .ys-d2{animation-name:ys-d2}
+.ys-dustGo .ys-d3{animation-name:ys-d3}
+@keyframes ys-d1{0%{opacity:1;transform:translateY(0) scale(1)}70%{opacity:.95}100%{opacity:0;transform:translateY(-200px) scale(.4)}}
+@keyframes ys-d2{0%{opacity:1;transform:translateY(0) scale(1)}70%{opacity:.95}100%{opacity:0;transform:translateY(-140px) scale(.4)}}
+@keyframes ys-d3{0%{opacity:1;transform:translateY(0) scale(1)}70%{opacity:.95}100%{opacity:0;transform:translateY(-260px) scale(.3)}}
+
+/* intro: constellation 25 */
+.ys-intro--go{opacity:0;pointer-events:none;animation:ys-out .8s ease 2.9s both}
+.ys-intro--go .ys-introHead{animation:ys-upOut .45s ease both}
+.ys-intro--go .ys-ctaWrap{animation:ys-downOut .4s ease both}
+.ys-intro--go .ys-constel{animation:ys-warp .9s ease-in 2.8s both}
+@keyframes ys-upOut{to{opacity:0;transform:translateY(-18px)}}
+@keyframes ys-downOut{to{opacity:0;transform:translateY(20px)}}
+@keyframes ys-warp{from{transform:none}to{transform:scale(1.35);opacity:0}}
+.ys-cstar{position:absolute;display:block;opacity:.3;transform:scale(.55);animation:ys-dim 3.2s ease-in-out infinite}
+@keyframes ys-dim{0%,100%{opacity:.22}50%{opacity:.5}}
+.ys-intro--go .ys-cstar{animation:ys-light .6s ease-out both}
+@keyframes ys-light{0%{opacity:.3;transform:scale(.55);filter:brightness(1)}40%{opacity:1;transform:scale(1.8);filter:brightness(2)}100%{opacity:1;transform:scale(1);filter:brightness(1.15)}}
+.ys-seg{display:block;width:100%;height:1.5px;margin-top:.25px;background:linear-gradient(90deg,rgba(243,210,122,0.95),rgba(243,227,195,0.75));box-shadow:0 0 6px rgba(243,210,122,0.75);transform-origin:0 50%;transform:scaleX(0)}
+.ys-intro--go .ys-seg{animation:ys-draw .32s ease-out both}
+@keyframes ys-draw{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.ys-25glow{opacity:0}
+.ys-intro--go .ys-25glow{animation:ys-in 1s ease 1.55s both}
+.ys-introName{opacity:0}
+.ys-intro--go .ys-introName{animation:ys-blurIn 1s ease-out 1.75s both}
+@keyframes ys-blurIn{from{opacity:0;transform:translateY(14px);filter:blur(8px)}to{opacity:1;transform:none;filter:none}}
+
+/* page reveal */
+.ys-page--in .ys-rv1{animation:ys-rise 1s ease-out 3s both}
+.ys-page--in .ys-rv2{animation:ys-rise 1s ease-out 3.2s both}
+.ys-page--in .ys-rv3{animation:ys-rise 1.1s ease-out 3.4s both}
+@keyframes ys-rise{from{opacity:0;transform:translateY(24px);filter:blur(4px)}to{opacity:1;transform:none;filter:none}}
+
+/* cake */
+.ys-flame{transform-box:fill-box;transform-origin:50% 100%;animation:ys-flicker .9s ease-in-out infinite alternate}
+.ys-halo{transform-box:fill-box;transform-origin:50% 50%;opacity:.3;animation:ys-halo 1.8s ease-in-out infinite}
+@keyframes ys-flicker{0%{transform:scale(1,1) rotate(-3deg)}50%{transform:scale(.9,1.1) rotate(2deg)}100%{transform:scale(1.05,.94) rotate(-1deg)}}
+@keyframes ys-halo{0%,100%{opacity:.2;transform:scale(.9)}50%{opacity:.45;transform:scale(1.15)}}
+.ys-cake--out .ys-flame{opacity:0;animation:ys-flameOut .35s ease-in both}
+.ys-cake--out .ys-halo{opacity:0;animation:ys-out .3s ease both}
+.ys-cake--out .ys-smoke{animation:ys-smoke 2s ease-out .25s both}
+@keyframes ys-flameOut{from{opacity:1;transform:scale(1)}to{opacity:0;transform:scale(.3,.1)}}
+@keyframes ys-smoke{0%{opacity:0;transform:translateY(0)}20%{opacity:.8}100%{opacity:0;transform:translateY(-30px)}}
+.ys-cakeGlow{transition:opacity .7s ease}
+.ys-cake--out .ys-cakeGlow{opacity:.12}
+.ys-shootOnce{position:absolute;display:block;width:150px;height:2px;border-radius:2px;background:linear-gradient(90deg,rgba(243,227,195,0),#FFF6E0);transform-origin:100% 50%;opacity:0}
+.ys-shootOnce::after{content:"";position:absolute;right:-4px;top:-4px;width:10px;height:10px;border-radius:50%;background:#FFF6E0;box-shadow:0 0 12px 4px rgba(243,210,122,0.85)}
+.ys-cakePanel--out .ys-shootOnce{animation:ys-shoot1 1.3s ease-in .2s both}
+@keyframes ys-shoot1{0%{opacity:0;transform:rotate(155deg) translateX(0)}10%{opacity:1}100%{opacity:0;transform:rotate(155deg) translateX(380px)}}
+.ys-wish{opacity:0;transform:translateY(10px);transition:opacity .7s ease .5s,transform .7s ease .5s}
+.ys-wish--on{opacity:1;transform:none}
+
+/* telescope */
+.ys-scope{position:relative;flex:none;width:112px;height:128px;padding:0;border:0;background:none;cursor:pointer}
+.ys-tStar{transition:transform .6s cubic-bezier(.3,1.6,.5,1),opacity .4s ease;opacity:.55;transform:scale(.7)}
+.ys-scope--on .ys-tStar{opacity:1;transform:scale(1.6) rotate(45deg)}
+.ys-beam{opacity:0;transition:opacity .5s ease .1s}
+.ys-scope--on .ys-beam{opacity:1}
+.ys-tSpark{opacity:0;transform:scale(.2);transition:opacity .3s ease .25s,transform .5s cubic-bezier(.3,1.8,.5,1) .25s}
+.ys-scope--on .ys-tSpark{opacity:1;transform:scale(1)}
+.ys-txtA,.ys-txtB{grid-area:1/1;transition:opacity .45s ease,transform .45s ease}
+.ys-txt--off{opacity:0;transform:translateY(8px)}
+
+/* guest quotes */
+.ys-qa{animation:ys-qIn .6s ease-out both}
+.ys-qb{animation:ys-qIn2 .6s ease-out both}
+@keyframes ys-qIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes ys-qIn2{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation:none !important;transition:none !important}
+}
+</style>
+</helmet>
+<div style="width: 390px; min-height: var(--vh, 100vh); position: relative; overflow: hidden; background: linear-gradient(180deg, #070B22 0%, #0B1030 8%, #111640 26%, #14123A 46%, #101540 66%, #0C1033 86%, #070B22 100%); color: #F3E3C3; font-family: 'Tenor Sans', system-ui, -apple-system, 'Segoe UI', sans-serif">
+
+  <svg width="0" height="0" aria-hidden="true" style="position: absolute">
+    <defs>
+      <linearGradient id="ys-gGold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" class="ys-g1"></stop><stop offset="0.35" class="ys-g2"></stop><stop offset="0.55" class="ys-g3"></stop><stop offset="0.8" class="ys-g2"></stop><stop offset="1" class="ys-g4"></stop></linearGradient>
+    </defs>
+  </svg>
+
+  <div aria-hidden="true" style="position: absolute; left: 0; top: 0; bottom: 0; width: 390px; pointer-events: none; z-index: 0; overflow: hidden">
+    <div style="position: absolute; left: -170px; top: 980px; width: 500px; height: 500px; border-radius: 50%; background: radial-gradient(circle, rgba(98,110,230,0.16), rgba(98,110,230,0) 70%)"></div>
+    <div style="position: absolute; left: 140px; top: 1700px; width: 480px; height: 480px; border-radius: 50%; background: radial-gradient(circle, rgba(227,179,76,0.11), rgba(227,179,76,0) 70%)"></div>
+    <div style="position: absolute; left: -160px; top: 2500px; width: 500px; height: 500px; border-radius: 50%; background: radial-gradient(circle, rgba(140,110,230,0.15), rgba(140,110,230,0) 70%)"></div>
+    <div style="position: absolute; left: 130px; top: 3300px; width: 500px; height: 500px; border-radius: 50%; background: radial-gradient(circle, rgba(98,110,230,0.15), rgba(98,110,230,0) 70%)"></div>
+    <div style="position: absolute; left: -150px; top: 4200px; width: 500px; height: 500px; border-radius: 50%; background: radial-gradient(circle, rgba(227,179,76,0.10), rgba(227,179,76,0) 70%)"></div>
+    <div style="position: absolute; left: -55px; top: 5180px; width: 500px; height: 500px; border-radius: 50%; background: radial-gradient(circle, rgba(227,179,76,0.18), rgba(227,179,76,0) 70%)"></div>
+    <sc-for list="{{ stars }}" as="p" hint-placeholder-count="110"><span class="ys-star" style="{{ p.st }}"></span></sc-for>
+    <sc-for list="{{ sparks }}" as="p" hint-placeholder-count="18"><span class="ys-spark" style="{{ p.st }}"></span></sc-for>
+    <sc-for list="{{ shoots }}" as="p" hint-placeholder-count="4"><span class="ys-shoot" style="{{ p.st }}"></span></sc-for>
+  </div>
+
+  <div class="{{ pageCls }}" style="position: relative; z-index: 1; min-height: var(--vh, 100vh); display: flex; flex-direction: column">
+
+    <section style="position: relative; height: 844px; flex: none; box-sizing: border-box; padding-top: 54px; display: flex; flex-direction: column; align-items: center; text-align: center">
+      <div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; background: radial-gradient(70% 30% at 50% 22%, rgba(98,110,230,0.18), rgba(98,110,230,0) 70%), radial-gradient(80% 34% at 50% 66%, rgba(227,179,76,0.16), rgba(227,179,76,0) 70%)"></div>
+      <div aria-hidden="true" class="ys-spinR" style="position: absolute; left: -85px; top: 268px; width: 560px; height: 560px">
+        <svg width="560" height="560" viewBox="0 0 560 560" style="display: block"><circle class="ys-chart" cx="280" cy="280" r="276"></circle><circle class="ys-chart" cx="280" cy="280" r="214"></circle><path class="ys-chart" d="M280 4V556M4 280H556M85 85L475 475M475 85L85 475"></path></svg>
+      </div>
+
+      <sc-if value="{{ has.music }}" hint-placeholder-val="{{ false }}"><button type="button" class="{{ musicCls }}" onClick="{{ toggleMusic }}" aria-label="Musiqa" aria-pressed="{{ musicOn }}">
+        <svg aria-hidden="true" width="20" height="20" viewBox="0 0 20 20"><path class="ys-ico" d="M7.5 15V4.5l9-2V13"></path><circle class="ys-ico" cx="5.3" cy="15" r="2.2"></circle><circle class="ys-ico" cx="14.3" cy="13" r="2.2"></circle></svg>
+        <span class="ys-eq" aria-hidden="true"><span class="ys-bar"></span><span class="ys-bar"></span><span class="ys-bar"></span></span>
+      </button></sc-if>
+
+      <div class="ys-rv1" aria-hidden="true" style="position: relative; width: 96px; height: 96px">
+        <svg width="96" height="96" viewBox="0 0 96 96" style="position: absolute; left: 0; top: 0; overflow: visible">
+          <circle class="ys-ring" cx="48" cy="48" r="40"></circle>
+          <circle class="ys-ringB" cx="48" cy="48" r="45"></circle>
+          <ellipse class="ys-ringF" cx="48" cy="48" rx="52" ry="13" transform="rotate(-24 48 48)"></ellipse>
+          <circle cx="95.5" cy="26.9" r="3.5" fill="url(#ys-gGold)"></circle>
+          <path d="M48 4.5l1.2 2.3 2.3 1.2 -2.3 1.2 -1.2 2.3 -1.2 -2.3 -2.3 -1.2 2.3 -1.2z" fill="#F3D27A"></path>
+          <path d="M88 44.5l1.2 2.3 2.3 1.2 -2.3 1.2 -1.2 2.3 -1.2 -2.3 -2.3 -1.2 2.3 -1.2z" fill="#F3D27A"></path>
+          <path d="M48 84.5l1.2 2.3 2.3 1.2 -2.3 1.2 -1.2 2.3 -1.2 -2.3 -2.3 -1.2 2.3 -1.2z" fill="#F3D27A"></path>
+          <path d="M8 44.5l1.2 2.3 2.3 1.2 -2.3 1.2 -1.2 2.3 -1.2 -2.3 -2.3 -1.2 2.3 -1.2z" fill="#F3D27A"></path>
+          <circle cx="76.3" cy="19.7" r="1.2" fill="#F3E3C3"></circle>
+          <circle cx="76.3" cy="76.3" r="1.2" fill="#F3E3C3"></circle>
+          <circle cx="19.7" cy="76.3" r="1.2" fill="#F3E3C3"></circle>
+          <circle cx="19.7" cy="19.7" r="1.2" fill="#F3E3C3"></circle>
+        </svg>
+        <span class="ys-serif ys-foil" style="position: absolute; left: 0; top: 18px; width: 96px; text-align: center; font-size: 50px; font-style: italic; font-weight: 500; line-height: 1">{{ initial }}</span>
+      </div>
+      <p class="ys-label ys-rv1" style="position: relative; margin: 18px 0 0">Tug’ilgan kun</p>
+      <h1 class="ys-serif ys-foil ys-rv2" style="position: relative; margin: 6px 0 0; max-width: 366px; box-sizing: border-box; padding: 0 12px; font-size: {{ nameFs }}px; font-style: italic; font-weight: 500; line-height: 1.1; white-space: nowrap">{{ d.kimga }}</h1>
+      <div class="ys-rv2" style="{{ ageRowSt }}">
+        <svg aria-hidden="true" width="44" height="10" viewBox="0 0 44 10"><path class="ys-line" d="M0 5H34"></path><path d="M40 1l1 3 3 1 -3 1 -1 3 -1 -3 -3 -1 3 -1z" fill="#E3B34C"></path></svg>
+        <span class="ys-serif" style="font-size: 25px; font-weight: 500; line-height: 1.2; color: #F3E3C3">{{ d.yosh }} yosh</span>
+        <svg aria-hidden="true" width="44" height="10" viewBox="0 0 44 10"><path d="M4 1l1 3 3 1 -3 1 -1 3 -1 -3 -3 -1 3 -1z" fill="#E3B34C"></path><path class="ys-line" d="M10 5H44"></path></svg>
+      </div>
+      <p class="ys-rv2" style="position: relative; margin: 10px 0 0; font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase; color: #D8CBAE">{{ heroDate }}</p>
+
+      <div class="ys-rv3" style="position: absolute; left: 0; top: 400px; width: 390px; height: 300px">
+        <svg aria-hidden="true" width="390" height="300" viewBox="0 400 390 300" style="position: absolute; left: 0; top: 0; overflow: visible">
+          <path class="ys-ringB" d="M17 586A182 46 -12 0 1 373 510"></path>
+        </svg>
+        <div aria-hidden="true" class="ys-glowP" style="position: absolute; left: 25px; top: -22px; width: 340px; height: 340px; border-radius: 50%; background: radial-gradient(circle, rgba(243,210,122,0.28), rgba(243,210,122,0.06) 50%, rgba(243,210,122,0) 68%)"></div>
+        <div style="position: absolute; left: 70px; top: 23px; width: 250px; height: 250px; box-sizing: border-box; padding: 3px; border-radius: 50%; background: linear-gradient(160deg, #FFF1C9, #C99A3A 45%, #F3D27A 70%, #A87A28); box-shadow: 0 0 0 8px rgba(227,179,76,0.08), 0 30px 60px rgba(0,0,0,0.55)">
+          <sc-if value="{{ has.photo }}" hint-placeholder-val="{{ true }}"><img src="{{ p.0 }}" alt="" style="display: block; width: 100%; height: 100%; object-fit: cover; border-radius: 50%"></sc-if>
+          <sc-if value="{{ noPhoto }}" hint-placeholder-val="{{ false }}"><div aria-hidden="true" style="width: 100%; height: 100%; border-radius: 50%; background: radial-gradient(circle at 50% 40%, #1F2766, #0B1030 72%); display: flex; align-items: center; justify-content: center"><span class="ys-serif ys-foil" style="padding: 0 8px; font-size: 150px; font-style: italic; font-weight: 500; line-height: 1">{{ initial }}</span></div></sc-if>
+        </div>
+        <svg aria-hidden="true" width="390" height="300" viewBox="0 400 390 300" style="position: absolute; left: 0; top: 0; overflow: visible">
+          <path class="ys-ringF" d="M17 586A182 46 -12 0 0 373 510"></path>
+        </svg>
+<sc-if value="{{ has.photo }}" hint-placeholder-val="{{ true }}">
+        <div class="ys-float" style="position: absolute; left: 8px; top: 165px; width: 76px; height: 76px">
+          <div style="width: 76px; height: 76px; box-sizing: border-box; padding: 2px; border-radius: 50%; background: linear-gradient(160deg, #F3D27A, #A87A28 50%, #E3B34C); box-shadow: 0 16px 30px rgba(0,0,0,0.5)">
+            <img src="{{ p.1 }}" alt="" style="display: block; width: 100%; height: 100%; object-fit: cover; border-radius: 50%">
+          </div>
+        </div>
+        <div class="ys-floatB" style="position: absolute; left: 306px; top: 117px; width: 62px; height: 62px">
+          <div style="width: 62px; height: 62px; box-sizing: border-box; padding: 2px; border-radius: 50%; background: linear-gradient(160deg, #F3D27A, #A87A28 50%, #E3B34C); box-shadow: 0 16px 30px rgba(0,0,0,0.5)">
+            <img src="{{ p.2 }}" alt="" style="display: block; width: 100%; height: 100%; object-fit: cover; border-radius: 50%">
+          </div>
+        </div>
+</sc-if>
+        <span class="ys-st ys-twk" aria-hidden="true" style="left: 168px; top: 191px; width: 12px; height: 12px"><span class="ys-stGlow"></span><span class="ys-stCore"></span></span>
+        <span class="ys-st ys-twk" aria-hidden="true" style="left: 330px; top: 20px; width: 16px; height: 16px; animation-delay: -1.2s"><span class="ys-stGlow"></span><span class="ys-stCore"></span></span>
+        <span class="ys-st ys-twk" aria-hidden="true" style="left: 40px; top: 40px; width: 10px; height: 10px; animation-delay: -2s"><span class="ys-stGlow"></span><span class="ys-stCore"></span></span>
+      </div>
+      <sc-if value="{{ anyBlock }}" hint-placeholder-val="{{ true }}"><svg aria-hidden="true" width="26" height="16" viewBox="0 0 26 16" class="ys-chev" style="position: absolute; left: 182px; top: 798px"><path class="ys-ico" d="M3 3l10 9 10-9"></path></svg></sc-if>
+    </section>
+
+<sc-if value="{{ b.tabrik }}" hint-placeholder-val="{{ true }}">
+    <section style="padding: 36px 20px 28px">
+      <div style="position: relative; padding: 34px 26px 32px; border-radius: 8px; border: 1px solid rgba(227,179,76,0.45); background: linear-gradient(170deg, #1A1F55, #0E1236); text-align: center; box-shadow: 0 30px 60px rgba(0,0,0,0.45)">
+        <div aria-hidden="true" style="position: absolute; left: 8px; top: 8px; right: 8px; bottom: 8px; border: 1px solid rgba(227,179,76,0.55); border-radius: 4px; pointer-events: none"></div>
+        <svg aria-hidden="true" width="44" height="44" viewBox="0 0 44 44" style="position: absolute; left: 14px; top: 14px"><path class="ys-line" d="M6 6L20 12L14 26" opacity="0.7"></path><circle cx="6" cy="6" r="2.4" fill="#F3D27A"></circle><circle cx="20" cy="12" r="1.6" fill="#E3B34C"></circle><circle cx="14" cy="26" r="1.8" fill="#F3D27A"></circle></svg>
+        <svg aria-hidden="true" width="44" height="44" viewBox="0 0 44 44" style="position: absolute; right: 14px; top: 14px; transform: scaleX(-1)"><path class="ys-line" d="M6 6L20 12L14 26" opacity="0.7"></path><circle cx="6" cy="6" r="2.4" fill="#F3D27A"></circle><circle cx="20" cy="12" r="1.6" fill="#E3B34C"></circle><circle cx="14" cy="26" r="1.8" fill="#F3D27A"></circle></svg>
+        <svg aria-hidden="true" width="44" height="44" viewBox="0 0 44 44" style="position: absolute; left: 14px; bottom: 14px; transform: scaleY(-1)"><path class="ys-line" d="M6 6L20 12L14 26" opacity="0.7"></path><circle cx="6" cy="6" r="2.4" fill="#F3D27A"></circle><circle cx="20" cy="12" r="1.6" fill="#E3B34C"></circle><circle cx="14" cy="26" r="1.8" fill="#F3D27A"></circle></svg>
+        <svg aria-hidden="true" width="44" height="44" viewBox="0 0 44 44" style="position: absolute; right: 14px; bottom: 14px; transform: scale(-1, -1)"><path class="ys-line" d="M6 6L20 12L14 26" opacity="0.7"></path><circle cx="6" cy="6" r="2.4" fill="#F3D27A"></circle><circle cx="20" cy="12" r="1.6" fill="#E3B34C"></circle><circle cx="14" cy="26" r="1.8" fill="#F3D27A"></circle></svg>
+        <div style="position: relative; display: flex; flex-direction: column; align-items: center; gap: 10px">
+          <svg aria-hidden="true" width="132" height="14" viewBox="0 0 132 14"><path class="ys-line" d="M0 7H54M78 7H132"></path><path d="M66 0l1.6 5.4L73 7l-5.4 1.6L66 14l-1.6-5.4L59 7l5.4-1.6z" fill="#E3B34C"></path></svg>
+          <h2 class="ys-serif ys-foil" style="margin: 0; padding: 0 6px; font-size: 36px; font-style: italic; font-weight: 500; line-height: 1.15">Tabrigimiz</h2>
+        </div>
+        <p class="ys-serif" style="position: relative; margin: 18px 0 0; font-size: 18px; font-weight: 400; line-height: 1.6; color: #F3E3C3; white-space: pre-line; overflow-wrap: anywhere">{{ d.matn }}</p>
+        <sc-if value="{{ d.kimdan }}" hint-placeholder-val="{{ true }}">
+        <sc-if value="{{ from.label }}" hint-placeholder-val="{{ true }}"><p class="ys-label" style="position: relative; margin: 24px 0 0; overflow-wrap: anywhere">{{ from.label }}</p></sc-if>
+        <p class="ys-serif" style="position: relative; margin: {{ fromMt }}; font-size: 26px; font-style: italic; font-weight: 500; line-height: 1.2; color: #F3E3C3; overflow-wrap: anywhere">{{ from.names }}</p>
+        </sc-if>
+      </div>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.tilaklar }}" hint-placeholder-val="{{ true }}">
+    <section style="padding: 20px 20px 28px">
+      <div style="display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center">
+        <svg aria-hidden="true" width="132" height="14" viewBox="0 0 132 14"><path class="ys-line" d="M0 7H54M78 7H132"></path><path d="M66 0l1.6 5.4L73 7l-5.4 1.6L66 14l-1.6-5.4L59 7l5.4-1.6z" fill="#E3B34C"></path></svg>
+        <h2 class="ys-serif" style="margin: 0; font-size: 34px; font-style: italic; font-weight: 500; line-height: 1.15; color: #F3E3C3">Tilaklarimiz</h2>
+        <p style="margin: 0; font-size: 13px; letter-spacing: 0.04em; color: #CFC4A8">Har bir tilak — o’z orbitasida</p>
+      </div>
+      <div style="position: relative; width: 350px; height: {{ wishH }}px; margin-top: 16px">
+        <div aria-hidden="true" style="position: absolute; left: 117px; top: 92px; width: 116px; height: 116px; box-sizing: border-box; border-radius: 50%; border: 1px solid rgba(227,179,76,0.4)">
+          <div class="ys-spin" style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; animation-duration: 18s"><span style="position: absolute; left: 50%; top: -4px; width: 7px; height: 7px; margin-left: -3.5px; border-radius: 50%; background: #F3D27A; box-shadow: 0 0 10px rgba(243,210,122,0.9)"></span></div>
+        </div>
+        <div aria-hidden="true" style="position: absolute; left: 79px; top: 54px; width: 192px; height: 192px; box-sizing: border-box; border-radius: 50%; border: 1px dashed rgba(227,179,76,0.38)">
+          <div class="ys-spinR" style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; animation-duration: 30s"><span style="position: absolute; left: 50%; top: -4px; width: 8px; height: 8px; margin-left: -4px; border-radius: 50%; background: #A9B4FF; box-shadow: 0 0 10px rgba(169,180,255,0.9)"></span></div>
+        </div>
+        <div aria-hidden="true" style="position: absolute; left: 41px; top: 16px; width: 268px; height: 268px; box-sizing: border-box; border-radius: 50%; border: 1px solid rgba(227,179,76,0.3)">
+          <div class="ys-spin" style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; animation-duration: 46s"><span style="position: absolute; left: 50%; top: -5px; width: 10px; height: 10px; margin-left: -5px; border-radius: 50%; background: linear-gradient(135deg, #FFF1C9, #E3B34C); box-shadow: 0 0 12px rgba(243,210,122,0.9)"></span></div>
+        </div>
+        <div aria-hidden="true" class="ys-glowP" style="position: absolute; left: 115px; top: 90px; width: 120px; height: 120px; border-radius: 50%; background: radial-gradient(circle, rgba(243,210,122,0.5), rgba(243,210,122,0) 65%)"></div>
+        <div aria-hidden="true" style="position: absolute; left: 146px; top: 121px; width: 58px; height: 58px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #FFF6E0, #F3D27A 35%, #C99A3A 75%, #8E6420); box-shadow: 0 0 30px rgba(243,210,122,0.6); display: flex; align-items: center; justify-content: center">
+          <span class="ys-serif" style="font-size: {{ planetFs }}px; font-weight: 600; color: #14123A">{{ planet }}</span>
+        </div>
+        <sc-for list="{{ wishes }}" as="t" hint-placeholder-count="5"><span class="ys-serif" style="{{ t.st }}">{{ t.text }}</span></sc-for>
+      </div>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.taymer }}" hint-placeholder-val="{{ true }}">
+    <section style="padding: 20px 20px 28px">
+      <div style="position: relative; border-radius: 18px; border: 1px solid rgba(227,179,76,0.35); background: linear-gradient(180deg, rgba(243,227,195,0.06), rgba(243,227,195,0.015)); padding: 24px 12px 22px; display: flex; flex-direction: column; align-items: center; gap: 18px">
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center">
+          <svg aria-hidden="true" width="132" height="14" viewBox="0 0 132 14"><path class="ys-line" d="M0 7H54M78 7H132"></path><path d="M66 0l1.6 5.4L73 7l-5.4 1.6L66 14l-1.6-5.4L59 7l5.4-1.6z" fill="#E3B34C"></path></svg>
+          <h2 class="ys-serif" style="margin: 0; font-size: 30px; font-style: italic; font-weight: 500; line-height: 1.15; color: #F3E3C3">{{ cdTitle }}</h2>
+        </div>
+        <div style="display: flex; gap: 12px">
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 10px">
+            <div class="{{ f0.cls }}">
+              <div class="ys-half ys-top"><span>{{ f0.cur }}</span></div>
+              <div class="ys-half ys-bot"><span>{{ f0.prev }}</span></div>
+              <div class="ys-half ys-top ys-flap1"><span>{{ f0.prev }}</span></div>
+              <div class="ys-half ys-bot ys-flap2"><span>{{ f0.cur }}</span></div>
+              <span class="ys-hinge"></span><span class="ys-flipFrame"></span>
+            </div>
+            <span class="ys-unit">kun</span>
+          </div>
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 10px">
+            <div class="{{ f1.cls }}">
+              <div class="ys-half ys-top"><span>{{ f1.cur }}</span></div>
+              <div class="ys-half ys-bot"><span>{{ f1.prev }}</span></div>
+              <div class="ys-half ys-top ys-flap1"><span>{{ f1.prev }}</span></div>
+              <div class="ys-half ys-bot ys-flap2"><span>{{ f1.cur }}</span></div>
+              <span class="ys-hinge"></span><span class="ys-flipFrame"></span>
+            </div>
+            <span class="ys-unit">soat</span>
+          </div>
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 10px">
+            <div class="{{ f2.cls }}">
+              <div class="ys-half ys-top"><span>{{ f2.cur }}</span></div>
+              <div class="ys-half ys-bot"><span>{{ f2.prev }}</span></div>
+              <div class="ys-half ys-top ys-flap1"><span>{{ f2.prev }}</span></div>
+              <div class="ys-half ys-bot ys-flap2"><span>{{ f2.cur }}</span></div>
+              <span class="ys-hinge"></span><span class="ys-flipFrame"></span>
+            </div>
+            <span class="ys-unit">daqiqa</span>
+          </div>
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 10px">
+            <div class="{{ f3.cls }}">
+              <div class="ys-half ys-top"><span>{{ f3.cur }}</span></div>
+              <div class="ys-half ys-bot"><span>{{ f3.prev }}</span></div>
+              <div class="ys-half ys-top ys-flap1"><span>{{ f3.prev }}</span></div>
+              <div class="ys-half ys-bot ys-flap2"><span>{{ f3.cur }}</span></div>
+              <span class="ys-hinge"></span><span class="ys-flipFrame"></span>
+            </div>
+            <span class="ys-unit">soniya</span>
+          </div>
+        </div>
+      </div>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.sham }}" hint-placeholder-val="{{ true }}">
+    <section style="padding: 20px 20px 28px">
+      <div class="{{ cakePanelCls }}" style="position: relative; overflow: hidden; border-radius: 20px; border: 1px solid rgba(227,179,76,0.4); background: radial-gradient(90% 60% at 80% 0%, rgba(98,110,230,0.28), rgba(98,110,230,0) 70%), radial-gradient(80% 50% at 10% 100%, rgba(140,110,230,0.22), rgba(140,110,230,0) 70%), linear-gradient(170deg, #121848, #0A0D2C); padding: 26px 20px 24px; display: flex; flex-direction: column; align-items: center; text-align: center">
+        <sc-for list="{{ panelStars }}" as="p" hint-placeholder-count="22"><span class="ys-star" style="{{ p.st }}"></span></sc-for>
+        <span class="ys-shootOnce" aria-hidden="true" style="left: 210px; top: 40px"></span>
+        <div style="position: relative; display: flex; flex-direction: column; align-items: center; gap: 10px">
+          <svg aria-hidden="true" width="132" height="14" viewBox="0 0 132 14"><path class="ys-line" d="M0 7H54M78 7H132"></path><path d="M66 0l1.6 5.4L73 7l-5.4 1.6L66 14l-1.6-5.4L59 7l5.4-1.6z" fill="#E3B34C"></path></svg>
+          <h2 class="ys-serif" style="margin: 0; font-size: 34px; font-style: italic; font-weight: 500; line-height: 1.15; color: #F3E3C3">Shamni o’chiring</h2>
+        </div>
+        <p style="position: relative; margin: 8px 0 0; font-size: 13px; line-height: 1.4; color: #D8CBAE">Ko’zingni yum, niyat qil va pufla</p>
+        <div class="{{ cakeCls }}" style="position: relative; width: 220px; height: 214px; margin-top: 14px">
+          <div aria-hidden="true" class="ys-cakeGlow" style="position: absolute; left: -60px; top: -70px; width: 340px; height: 260px; border-radius: 50%; background: radial-gradient(circle, rgba(243,210,122,0.36), rgba(227,179,76,0.1) 45%, rgba(227,179,76,0) 70%)"></div>
+          <svg aria-hidden="true" width="220" height="214" viewBox="0 0 220 214" style="position: relative; display: block">
+            <ellipse cx="110" cy="206" rx="46" ry="5" fill="#8E6420"></ellipse>
+            <rect x="98" y="196" width="24" height="10" fill="#C99A3A"></rect>
+            <ellipse cx="110" cy="196" rx="102" ry="8" fill="url(#ys-gGold)"></ellipse>
+            <rect x="26" y="124" width="168" height="70" rx="6" fill="#0C1033"></rect>
+            <rect x="26" y="180" width="168" height="5" fill="url(#ys-gGold)"></rect>
+            <path class="ys-line" d="M44 162L66 150L88 160L110 146L132 158L154 148L176 160" opacity="0.65"></path>
+            <circle cx="44" cy="162" r="2.2" fill="#F3D27A"></circle><circle cx="66" cy="150" r="1.6" fill="#E3B34C"></circle><circle cx="88" cy="160" r="2.2" fill="#F3D27A"></circle><circle cx="110" cy="146" r="2.6" fill="#FFF1C9"></circle><circle cx="132" cy="158" r="1.6" fill="#E3B34C"></circle><circle cx="154" cy="148" r="2.2" fill="#F3D27A"></circle><circle cx="176" cy="160" r="1.6" fill="#E3B34C"></circle>
+            <path d="M26 130Q26 124 32 124H188Q194 124 194 130V136Q182 146 170 136Q158 148 146 136Q134 146 122 136Q110 148 98 136Q86 146 74 136Q62 148 50 136Q38 146 26 136Z" fill="#F3E3C3"></path>
+            <rect x="56" y="78" width="108" height="50" rx="6" fill="#1C2260"></rect>
+            <rect x="56" y="116" width="108" height="4" fill="url(#ys-gGold)"></rect>
+            <path d="M56 84Q56 78 62 78H158Q164 78 164 84V89Q155 98 146 89Q137 98 128 89Q119 98 110 89Q101 98 92 89Q83 98 74 89Q65 98 56 89Z" fill="#F3E3C3"></path>
+            <path d="M110 100l1.6 5 5 1.6 -5 1.6 -1.6 5 -1.6 -5 -5 -1.6 5 -1.6z" fill="#F3D27A"></path>
+            <rect x="82" y="30" width="5" height="50" rx="2" fill="url(#ys-gGold)"></rect>
+            <rect x="107.5" y="24" width="5" height="56" rx="2" fill="url(#ys-gGold)"></rect>
+            <rect x="133" y="30" width="5" height="50" rx="2" fill="url(#ys-gGold)"></rect>
+            <rect x="83.8" y="23" width="1.4" height="8" fill="#05081A"></rect>
+            <rect x="109.3" y="17" width="1.4" height="8" fill="#05081A"></rect>
+            <rect x="134.8" y="23" width="1.4" height="8" fill="#05081A"></rect>
+            <g transform="translate(84.5 25)"><circle class="ys-halo" cx="0" cy="-9" r="14" fill="#E3B34C"></circle><g class="ys-flame" style="animation-delay: 0s"><path d="M0 -20C6 -11 7 -5 0 0C-7 -5 -6 -11 0 -20Z" fill="#F3D27A"></path><path d="M0 -11C3.5 -7 3.5 -3 0 0C-3.5 -3 -3.5 -7 0 -11Z" fill="#FFF6DD"></path></g><path class="ys-smoke" d="M0 -2C-5 -8 5 -13 0 -19C-5 -25 5 -30 0 -36"></path></g>
+            <g transform="translate(110 19)"><circle class="ys-halo" cx="0" cy="-9" r="14" fill="#E3B34C"></circle><g class="ys-flame" style="animation-delay: 0.12s"><path d="M0 -20C6 -11 7 -5 0 0C-7 -5 -6 -11 0 -20Z" fill="#F3D27A"></path><path d="M0 -11C3.5 -7 3.5 -3 0 0C-3.5 -3 -3.5 -7 0 -11Z" fill="#FFF6DD"></path></g><path class="ys-smoke" d="M0 -2C-5 -8 5 -13 0 -19C-5 -25 5 -30 0 -36"></path></g>
+            <g transform="translate(135.5 25)"><circle class="ys-halo" cx="0" cy="-9" r="14" fill="#E3B34C"></circle><g class="ys-flame" style="animation-delay: 0.24s"><path d="M0 -20C6 -11 7 -5 0 0C-7 -5 -6 -11 0 -20Z" fill="#F3D27A"></path><path d="M0 -11C3.5 -7 3.5 -3 0 0C-3.5 -3 -3.5 -7 0 -11Z" fill="#FFF6DD"></path></g><path class="ys-smoke" d="M0 -2C-5 -8 5 -13 0 -19C-5 -25 5 -30 0 -36"></path></g>
+          </svg>
+          <div class="{{ cakeDustCls }}" aria-hidden="true" style="position: absolute; left: 110px; top: 14px; width: 0; height: 0; z-index: 3; pointer-events: none">
+            <sc-for list="{{ dust }}" as="c" hint-placeholder-count="30"><span style="{{ c.w }}"><span class="{{ c.k }}" style="{{ c.p }}"></span></span></sc-for>
+          </div>
+        </div>
+        <p class="{{ wishCls }}" style="position: relative; margin: 10px 0 0; font-family: 'Playfair Display', Georgia, serif; font-size: 28px; font-style: italic; font-weight: 500; line-height: 1.25; color: #F3D27A">Niyating ijobat bo’lsin!</p>
+        <div style="position: relative; width: 100%; margin-top: 16px">
+          <button type="button" class="ys-btn ys-gold ys-shine" onClick="{{ blow }}">
+            <span class="{{ blowIdle }}">Shamni o’chiring</span>
+            <span class="{{ blowDone }}">Shamlarni qayta yoqish</span>
+          </button>
+        </div>
+      </div>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.sirli }}" hint-placeholder-val="{{ true }}">
+    <section style="padding: 20px 20px 28px">
+      <div style="border-radius: 18px; border: 1px solid rgba(227,179,76,0.5); background: linear-gradient(160deg, #1D2360, #0D1036); padding: 18px 18px 18px 12px; display: flex; align-items: center; gap: 12px; box-shadow: 0 20px 40px rgba(0,0,0,0.35)">
+        <button type="button" class="{{ scopeCls }}" onClick="{{ toggleScope }}" aria-label="Teleskopga qarash">
+          <svg aria-hidden="true" width="112" height="128" viewBox="0 0 112 128" style="position: absolute; left: 0; top: 0; overflow: visible">
+            <path class="ys-beam" d="M83 42L99 9L108 15Z" fill="#FFF1C9"></path>
+            <path class="ys-leg" d="M52 70L30 124M52 70L76 124M52 70L54 124"></path>
+            <g transform="rotate(-34 52 64)">
+              <rect x="14" y="56" width="70" height="16" rx="4" fill="url(#ys-gGold)"></rect>
+              <rect x="80" y="52" width="12" height="24" rx="3" fill="#F3D27A"></rect>
+              <rect x="6" y="59" width="10" height="10" rx="2" fill="#A87A28"></rect>
+              <rect x="38" y="56" width="3" height="16" fill="#8E6420"></rect>
+              <rect x="58" y="56" width="3" height="16" fill="#8E6420"></rect>
+            </g>
+            <circle cx="52" cy="66" r="5" fill="#C99A3A"></circle>
+          </svg>
+          <span aria-hidden="true" class="ys-st" style="left: 92px; top: 0; width: 22px; height: 22px">
+            <span class="ys-tStar" style="position: absolute; left: 0; top: 0; width: 22px; height: 22px; display: block">
+              <span class="ys-stGlow"></span><span class="ys-stCore"></span>
+            </span>
+          </span>
+          <span aria-hidden="true" class="ys-tSpark" style="position: absolute; left: 70px; top: -6px; width: 9px; height: 9px; clip-path: polygon(50% 0,60% 40%,100% 50%,60% 60%,50% 100%,40% 60%,0 50%,40% 40%); background: #FFF1C9"></span>
+          <span aria-hidden="true" class="ys-tSpark" style="position: absolute; left: 112px; top: 28px; width: 8px; height: 8px; clip-path: polygon(50% 0,60% 40%,100% 50%,60% 60%,50% 100%,40% 60%,0 50%,40% 40%); background: #F3D27A"></span>
+          <span aria-hidden="true" class="ys-tSpark" style="position: absolute; left: 84px; top: 30px; width: 6px; height: 6px; clip-path: polygon(50% 0,60% 40%,100% 50%,60% 60%,50% 100%,40% 60%,0 50%,40% 40%); background: #E3B34C"></span>
+        </button>
+        <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 6px; text-align: left">
+          <h2 class="ys-serif ys-foil" style="margin: 0; align-self: flex-start; padding-right: 6px; font-size: 30px; font-style: italic; font-weight: 500; line-height: 1.15">Sirli tilak</h2>
+          <div style="display: grid">
+            <p class="{{ scopeTxtA }}" style="margin: 0; font-size: 13.5px; line-height: 1.55; color: #D8CBAE">Teleskopga qarang — yulduzlar orasida sen uchun yashirin tilagimiz bor.</p>
+            <p class="{{ scopeTxtB }}" style="margin: 0; font-size: 13.5px; line-height: 1.55; color: #F3E3C3; white-space: pre-line; overflow-wrap: anywhere">{{ d.sirli_tilak }}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.galereya }}" hint-placeholder-val="{{ true }}">
+    <section style="padding: 20px 20px 28px">
+      <div style="display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center">
+        <svg aria-hidden="true" width="132" height="14" viewBox="0 0 132 14"><path class="ys-line" d="M0 7H54M78 7H132"></path><path d="M66 0l1.6 5.4L73 7l-5.4 1.6L66 14l-1.6-5.4L59 7l5.4-1.6z" fill="#E3B34C"></path></svg>
+        <h2 class="ys-serif" style="margin: 0; font-size: 34px; font-style: italic; font-weight: 500; line-height: 1.15; color: #F3E3C3">Xotiralar</h2>
+      </div>
+      <div style="position: relative; height: {{ galH }}px; margin-top: 22px">
+        <div aria-hidden="true" style="position: absolute; left: 12px; top: 42px; width: 190px; height: 268px; box-sizing: border-box; border: 1px solid rgba(227,179,76,0.55)"></div>
+        <img src="{{ p.3 }}" alt="" style="position: absolute; left: 0; top: 30px; width: 190px; height: 268px; object-fit: cover; box-shadow: 0 24px 44px rgba(0,0,0,0.55)">
+        <div class="ys-floatB" style="position: absolute; left: 214px; top: 0; width: 132px; height: 132px">
+          <div aria-hidden="true" style="position: absolute; left: -8px; top: -8px; width: 148px; height: 148px; box-sizing: border-box; border-radius: 50%; border: 1px dashed rgba(227,179,76,0.45)"></div>
+          <div style="width: 132px; height: 132px; box-sizing: border-box; padding: 2px; border-radius: 50%; background: linear-gradient(160deg, #F3D27A, #A87A28 50%, #E3B34C); box-shadow: 0 18px 36px rgba(0,0,0,0.5)">
+            <img src="{{ p.2 }}" alt="" style="display: block; width: 100%; height: 100%; object-fit: cover; border-radius: 50%">
+          </div>
+        </div>
+<sc-if value="{{ gal3 }}" hint-placeholder-val="{{ true }}">
+        <div class="ys-float" style="position: absolute; left: 170px; top: 150px; width: 176px; height: 118px">
+          <div style="width: 176px; height: 118px; box-sizing: border-box; padding: 5px; background: #F3E3C3; box-shadow: 0 20px 40px rgba(0,0,0,0.5)">
+            <img src="{{ p.4 }}" alt="" style="display: block; width: 100%; height: 100%; object-fit: cover">
+          </div>
+        </div>
+</sc-if>
+<sc-if value="{{ gal5 }}" hint-placeholder-val="{{ true }}">
+        <div class="ys-floatB" style="position: absolute; left: 30px; top: 282px; width: 200px; height: 122px">
+          <div style="width: 200px; height: 122px; box-sizing: border-box; padding: 2px; background: linear-gradient(160deg, #F3D27A, #A87A28 50%, #E3B34C); box-shadow: 0 20px 40px rgba(0,0,0,0.55)">
+            <img src="{{ p.5 }}" alt="" style="display: block; width: 100%; height: 100%; object-fit: cover">
+          </div>
+        </div>
+        <div class="ys-float" style="position: absolute; left: 246px; top: 278px; width: 100px; height: 128px; animation-delay: -3s">
+          <div style="width: 100px; height: 128px; box-sizing: border-box; padding: 4px; background: #F3E3C3; transform: rotate(3deg); box-shadow: 0 20px 40px rgba(0,0,0,0.55)">
+            <img src="{{ p.1 }}" alt="" style="display: block; width: 100%; height: 100%; object-fit: cover">
+          </div>
+        </div>
+</sc-if>
+        <span class="ys-st ys-twk" aria-hidden="true" style="left: 196px; top: 128px; width: 14px; height: 14px"><span class="ys-stGlow"></span><span class="ys-stCore"></span></span>
+        <span class="ys-st ys-twk" aria-hidden="true" style="left: 4px; top: 8px; width: 10px; height: 10px; animation-delay: -1.4s"><span class="ys-stGlow"></span><span class="ys-stCore"></span></span>
+      </div>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.xronika }}" hint-placeholder-val="{{ true }}">
+    <section style="padding: 20px 20px 28px">
+      <div style="display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center">
+        <svg aria-hidden="true" width="132" height="14" viewBox="0 0 132 14"><path class="ys-line" d="M0 7H54M78 7H132"></path><path d="M66 0l1.6 5.4L73 7l-5.4 1.6L66 14l-1.6-5.4L59 7l5.4-1.6z" fill="#E3B34C"></path></svg>
+        <h2 class="ys-serif" style="margin: 0; font-size: 34px; font-style: italic; font-weight: 500; line-height: 1.15; color: #F3E3C3">Yil xronikasi</h2>
+        <p style="margin: 0; font-size: 13px; letter-spacing: 0.04em; color: #CFC4A8">Hayoting yulduzlar xaritasida</p>
+      </div>
+      <div style="position: relative; width: 350px; height: {{ xronH }}px; margin-top: 20px">
+        <svg aria-hidden="true" width="350" height="{{ xronH }}" viewBox="{{ xronVB }}" style="position: absolute; left: 0; top: 0">
+          <circle class="ys-chart" cx="175" cy="{{ xronCY }}" r="130"></circle>
+          <circle class="ys-chart" cx="175" cy="{{ xronCY }}" r="214"></circle>
+          <circle class="ys-chart" cx="175" cy="{{ xronCY }}" r="296"></circle>
+          <path class="ys-chart" d="{{ xronAxis }}"></path>
+          <polyline class="ys-cline" points="{{ xronLine }}"></polyline>
+        </svg>
+        <sc-for list="{{ chartStars }}" as="p" hint-placeholder-count="26"><span class="ys-star" style="{{ p.st }}"></span></sc-for>
+        <sc-for list="{{ xronMinor }}" as="p" hint-placeholder-count="8"><span class="ys-st ys-twk" style="{{ p.st }}"><span class="ys-stCore"></span></span></sc-for>
+        <sc-for list="{{ xron }}" as="x" hint-placeholder-count="4">
+        <sc-if value="{{ has.photo }}" hint-placeholder-val="{{ true }}">
+        <div style="{{ x.box }}">
+          <sc-if value="{{ x.last }}" hint-placeholder-val="{{ false }}"><div aria-hidden="true" class="ys-glowP" style="position: absolute; left: -30px; top: -30px; width: 180px; height: 180px; border-radius: 50%; background: radial-gradient(circle, rgba(243,210,122,0.35), rgba(243,210,122,0) 65%)"></div></sc-if>
+          <div aria-hidden="true" style="{{ x.ring }}"></div>
+          <div style="{{ x.frame }}"><img src="{{ x.src }}" alt="" style="display: block; width: 100%; height: 100%; object-fit: cover; border-radius: 50%"></div>
+        </div>
+        </sc-if>
+        <span class="ys-st ys-twk" aria-hidden="true" style="{{ x.star }}"><span class="ys-stGlow"></span><span class="ys-stCore"></span></span>
+        <div style="{{ x.tx }}">
+          <p class="ys-serif" style="margin: 0; line-height: 1"><span class="ys-foil" style="{{ x.numSt }}">{{ x.yosh }}</span><sc-if value="{{ x.unit }}" hint-placeholder-val="{{ true }}"><span style="{{ x.unitSt }}">yosh</span></sc-if></p>
+          <p style="margin: 6px 0 0; font-size: 12.5px; line-height: 1.45; color: #CFC4A8; overflow-wrap: anywhere">{{ x.matn }}</p>
+        </div>
+        </sc-for>
+      </div>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.mehmonlar }}" hint-placeholder-val="{{ true }}">
+    <section style="padding: 20px 20px 28px">
+      <div style="display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center">
+        <svg aria-hidden="true" width="132" height="14" viewBox="0 0 132 14"><path class="ys-line" d="M0 7H54M78 7H132"></path><path d="M66 0l1.6 5.4L73 7l-5.4 1.6L66 14l-1.6-5.4L59 7l5.4-1.6z" fill="#E3B34C"></path></svg>
+        <h2 class="ys-serif" style="margin: 0; font-size: 34px; font-style: italic; font-weight: 500; line-height: 1.15; color: #F3E3C3">Mehmonlar tilaklari</h2>
+      </div>
+      <div style="position: relative; margin-top: 20px; border-radius: 18px; border: 1px solid rgba(227,179,76,0.35); background: linear-gradient(160deg, rgba(243,227,195,0.08), rgba(243,227,195,0.02)); padding: 22px 24px 24px; text-align: center">
+        <span aria-hidden="true" class="ys-serif" style="display: block; height: 34px; font-size: 64px; line-height: 0.95; color: #E3B34C">“</span>
+        <div style="display: grid; min-height: 132px; align-items: center">
+          <sc-for list="{{ quotes }}" as="q" hint-placeholder-count="4">
+          <figure class="{{ q.cls }}" style="grid-area: 1 / 1; margin: 0">
+            <blockquote class="ys-serif" style="margin: 0; font-size: 21px; font-style: italic; font-weight: 400; line-height: 1.42; color: #F3E3C3; overflow-wrap: anywhere">{{ q.matn }}</blockquote>
+            <sc-if value="{{ q.ism }}" hint-placeholder-val="{{ true }}"><figcaption class="ys-label" style="margin-top: 14px; overflow-wrap: anywhere">{{ q.ism }}</figcaption></sc-if>
+          </figure>
+          </sc-for>
+        </div>
+        <sc-if value="{{ multiQ }}" hint-placeholder-val="{{ true }}">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 18px">
+          <button type="button" class="ys-arrow" onClick="{{ prevQ }}" aria-label="Oldingi tilak"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 18 18"><path class="ys-ico" d="M11 3L5 9l6 6"></path></svg></button>
+          <div aria-hidden="true" style="display: flex; align-items: center; gap: 12px">
+            <sc-for list="{{ quotes }}" as="q" hint-placeholder-count="4"><span style="{{ q.dot }}"></span></sc-for>
+          </div>
+          <button type="button" class="ys-arrow" onClick="{{ nextQ }}" aria-label="Keyingi tilak"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 18 18"><path class="ys-ico" d="M7 3l6 6-6 6"></path></svg></button>
+        </div>
+        </sc-if>
+      </div>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.bazm }}" hint-placeholder-val="{{ true }}">
+    <section style="padding: 20px 20px 28px">
+      <div style="position: relative; border-radius: 16px; border: 1px solid rgba(227,179,76,0.3); background: linear-gradient(170deg, #1A1F55, #0D1135); padding: 34px 22px 26px; text-align: center; box-shadow: 0 30px 60px rgba(0,0,0,0.45)">
+        <div aria-hidden="true" style="position: absolute; left: 8px; top: 8px; right: 8px; bottom: 8px; border: 1px solid rgba(227,179,76,0.55); border-radius: 10px; pointer-events: none"></div>
+        <svg aria-hidden="true" width="120" height="34" viewBox="0 0 120 34" style="position: relative; display: block; margin: 0 auto"><path class="ys-line" d="M10 26L34 12L60 6L86 12L110 26" opacity="0.7"></path><circle cx="10" cy="26" r="2" fill="#E3B34C"></circle><circle cx="34" cy="12" r="2.4" fill="#F3D27A"></circle><path d="M60 0l1.8 4.2 4.2 1.8 -4.2 1.8 -1.8 4.2 -1.8 -4.2 -4.2 -1.8 4.2 -1.8z" fill="#FFF1C9"></path><circle cx="86" cy="12" r="2.4" fill="#F3D27A"></circle><circle cx="110" cy="26" r="2" fill="#E3B34C"></circle></svg>
+        <h2 class="ys-serif ys-foil" style="position: relative; display: inline-block; margin: 10px 0 0; padding: 0 6px; font-size: 36px; font-style: italic; font-weight: 500; line-height: 1.15">Bazmga taklif</h2>
+        <p style="position: relative; margin: 10px 0 0; font-size: 14px; line-height: 1.55; color: #D8CBAE">Shu quvonchli kunni birga nishonlaylik! Sizni kechamizga taklif qilamiz.</p>
+        <p class="ys-serif ys-foil" style="position: relative; display: inline-block; margin: 18px 0 0; padding: 0 6px; font-size: 34px; font-weight: 500; line-height: 1.15">{{ bw.date }}</p>
+        <p style="position: relative; margin: 6px 0 0; font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase; color: #F3E3C3">{{ bazmSub }}</p>
+        <svg aria-hidden="true" width="132" height="14" viewBox="0 0 132 14" style="position: relative; display: block; margin: 18px auto 0"><path class="ys-line" d="M0 7H54M78 7H132"></path><path d="M66 0l1.6 5.4L73 7l-5.4 1.6L66 14l-1.6-5.4L59 7l5.4-1.6z" fill="#E3B34C"></path></svg>
+        <p class="ys-serif" style="position: relative; margin: 14px 0 0; font-size: 28px; font-style: italic; font-weight: 500; line-height: 1.15; color: #F3E3C3; overflow-wrap: anywhere">{{ d.bazm_joy }}</p>
+        <sc-if value="{{ d.bazm_manzil }}" hint-placeholder-val="{{ true }}"><p style="position: relative; margin: 6px 0 0; font-size: 13px; line-height: 1.45; color: #D8CBAE; overflow-wrap: anywhere">{{ d.bazm_manzil }}</p></sc-if>
+<sc-if value="{{ d.dress_kod }}" hint-placeholder-val="{{ true }}">
+        <div style="position: relative; margin: 18px auto 0; max-width: 100%; box-sizing: border-box; display: inline-flex; align-items: center; gap: 12px; padding: 10px 16px; border-radius: 30px; border: 1px solid rgba(227,179,76,0.35); background: rgba(243,227,195,0.04)">
+          <span style="font-size: 10.5px; letter-spacing: 0.26em; text-transform: uppercase; color: #E3B34C">Dress-kod</span>
+          <sc-if value="{{ swatches.length }}" hint-placeholder-val="{{ true }}"><span aria-hidden="true" style="display: flex; flex: none">
+            <sc-for list="{{ swatches }}" as="c" hint-placeholder-count="2"><span style="{{ c }}"></span></sc-for>
+          </span></sc-if>
+          <span class="ys-serif" style="min-width: 0; font-size: 19px; font-style: italic; font-weight: 500; line-height: 1.1; color: #F3E3C3; overflow-wrap: anywhere">{{ d.dress_kod }}</span>
+        </div>
+</sc-if>
+        <sc-if value="{{ askGuest }}" hint-placeholder-val="{{ false }}">
+          <input class="ys-input" type="text" maxlength="100" placeholder="Ismingiz" aria-label="Ismingiz" onInput="{{ setName }}" style="position: relative; margin-top: 22px">
+        </sc-if>
+        <div style="position: relative; display: flex; gap: 10px; margin-top: 22px">
+          <button type="button" class="{{ goCls }}" onClick="{{ go }}">
+            <span class="{{ goIdle }}">Boraman</span>
+            <span class="{{ goDone }}"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 20 20"><path class="ys-ico" d="M4 10.5l4 4 8-9"></path></svg>Kutamiz!</span>
+          </button>
+          <sc-if value="{{ d.xarita }}" hint-placeholder-val="{{ true }}"><a class="ys-map" href="{{ d.xarita }}" target="_blank" rel="noopener"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 20 20"><path class="ys-ico" d="M10 18s-5.5-5.2-5.5-9.3a5.5 5.5 0 0 1 11 0C15.5 12.8 10 18 10 18z"></path><circle class="ys-ico" cx="10" cy="8.7" r="2"></circle></svg>Xaritada ochish</a></sc-if>
+        </div>
+        <sc-if value="{{ goErr }}" hint-placeholder-val="{{ false }}"><p class="ys-err" role="alert">{{ goErr }}</p></sc-if>
+      </div>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.javob }}" hint-placeholder-val="{{ true }}">
+    <section style="padding: 12px 20px 20px; display: flex; flex-direction: column; align-items: center; text-align: center">
+      <h2 class="ys-serif" style="margin: 0; font-size: 26px; font-style: italic; font-weight: 500; line-height: 1.2; color: #F3E3C3; overflow-wrap: anywhere">{{ askName }}</h2>
+      <p style="margin: 8px 0 16px; font-size: 13px; line-height: 1.45; color: #D8CBAE">Bir bosishda tabrigingizni yetkazing</p>
+      <div style="position: relative; width: 100%">
+        <div class="{{ sendDustCls }}" aria-hidden="true" style="position: absolute; left: 175px; top: 27px; width: 0; height: 0; z-index: 3; pointer-events: none">
+          <sc-for list="{{ dust }}" as="c" hint-placeholder-count="30"><span style="{{ c.w }}"><span class="{{ c.k }}" style="{{ c.p }}"></span></span></sc-for>
+        </div>
+        <button type="button" class="{{ sendCls }}" onClick="{{ send }}">
+          <span class="{{ sendIdle }}">Tabrikladim</span>
+          <span class="{{ sendDone }}"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 20 20"><path class="ys-ico" d="M4 10.5l4 4 8-9"></path></svg>Rahmat! Tabrigingiz yetkazildi</span>
+        </button>
+      </div>
+    </section>
+</sc-if>
+
+    <footer style="position: relative; flex: 1; min-height: 330px; padding: 0 20px 44px; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; text-align: center">
+      <div aria-hidden="true" style="position: absolute; left: 246px; top: 26px; width: 110px; height: 110px">
+        <div class="ys-glowP" style="position: absolute; left: -30px; top: -30px; width: 170px; height: 170px; border-radius: 50%; background: radial-gradient(circle, rgba(243,210,122,0.3), rgba(243,210,122,0) 65%)"></div>
+        <svg width="110" height="110" viewBox="0 0 110 110" style="position: absolute; left: 0; top: 0; overflow: visible">
+          <path class="ys-ringB" d="M2 64A54 14 -18 0 1 108 30"></path>
+          <circle cx="55" cy="55" r="30" fill="url(#ys-gGold)"></circle>
+          <path d="M30 44Q55 36 80 46" fill="none" stroke="#A87A28" opacity="0.5"></path>
+          <path d="M28 60Q55 52 82 62" fill="none" stroke="#A87A28" opacity="0.4"></path>
+          <path class="ys-ringF" d="M2 64A54 14 -18 0 0 108 30"></path>
+        </svg>
+      </div>
+      <span class="ys-shoot" aria-hidden="true" style="left: 120px; top: 30px; animation-delay: -2s"></span>
+      <span class="ys-shoot" aria-hidden="true" style="left: 300px; top: 140px; animation-delay: -6s"></span>
+      <svg aria-hidden="true" width="140" height="60" viewBox="0 0 140 60" style="position: absolute; left: 22px; top: 60px"><path class="ys-line" d="M6 48L40 30L72 38L104 14L132 22" opacity="0.6"></path><circle cx="6" cy="48" r="2" fill="#E3B34C"></circle><circle cx="40" cy="30" r="2.6" fill="#F3D27A"></circle><circle cx="72" cy="38" r="1.8" fill="#E3B34C"></circle><circle cx="104" cy="14" r="3" fill="#FFF1C9"></circle><circle cx="132" cy="22" r="2" fill="#F3D27A"></circle></svg>
+      <p class="ys-serif ys-foil" style="position: relative; display: inline-block; margin: 0; padding: 0 10px; max-width: 350px; font-size: 42px; font-style: italic; font-weight: 500; line-height: 1.12; overflow-wrap: anywhere">Tug’ilgan kuning muborak, {{ d.kimga }}!</p>
+      <svg aria-hidden="true" width="132" height="14" viewBox="0 0 132 14" style="position: relative; display: block; margin: 18px auto 0"><path class="ys-line" d="M0 7H54M78 7H132"></path><path d="M66 0l1.6 5.4L73 7l-5.4 1.6L66 14l-1.6-5.4L59 7l5.4-1.6z" fill="#E3B34C"></path></svg>
+      <sc-if value="{{ d.kimdan }}" hint-placeholder-val="{{ true }}">
+      <sc-if value="{{ from.label }}" hint-placeholder-val="{{ true }}"><p class="ys-label" style="position: relative; margin: 14px 0 0; color: #D8CBAE; overflow-wrap: anywhere">{{ from.label }}</p></sc-if>
+      <p class="ys-serif" style="position: relative; margin: {{ fromMt2 }}; font-size: 24px; font-style: italic; font-weight: 500; line-height: 1.2; color: #F3E3C3; overflow-wrap: anywhere">{{ from.names }}</p>
+      </sc-if>
+    </footer>
+  </div>
+
+  <div data-intro class="{{ introCls }}" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; z-index: 20; overflow: hidden; background: radial-gradient(80% 50% at 50% 40%, #1A2058 0%, #0B1030 55%, #05081A 100%), #05081A">
+    <div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px">
+      <div style="position: absolute; left: -120px; top: 120px; width: 420px; height: 420px; border-radius: 50%; background: radial-gradient(circle, rgba(120,110,230,0.22), rgba(120,110,230,0) 70%)"></div>
+      <div style="position: absolute; left: 160px; top: 380px; width: 380px; height: 380px; border-radius: 50%; background: radial-gradient(circle, rgba(90,140,230,0.16), rgba(90,140,230,0) 70%)"></div>
+      <div style="position: absolute; left: 0; top: 640px; width: 390px; height: 204px; background: radial-gradient(70% 70% at 50% 100%, rgba(227,179,76,0.22), rgba(227,179,76,0) 70%)"></div>
+      <sc-for list="{{ introStars }}" as="p" hint-placeholder-count="70"><span class="ys-star" style="{{ p.st }}"></span></sc-for>
+      <span class="ys-shoot" style="left: 300px; top: 110px; animation-delay: -1s"></span>
+      <span class="ys-shoot" style="left: 120px; top: 560px; animation-delay: -5s"></span>
+    </div>
+
+    <sc-if value="{{ has.music }}" hint-placeholder-val="{{ false }}"><button type="button" class="{{ musicCls }}" onClick="{{ toggleMusic }}" aria-label="Musiqa" aria-pressed="{{ musicOn }}">
+      <svg aria-hidden="true" width="20" height="20" viewBox="0 0 20 20"><path class="ys-ico" d="M7.5 15V4.5l9-2V13"></path><circle class="ys-ico" cx="5.3" cy="15" r="2.2"></circle><circle class="ys-ico" cx="14.3" cy="13" r="2.2"></circle></svg>
+      <span class="ys-eq" aria-hidden="true"><span class="ys-bar"></span><span class="ys-bar"></span><span class="ys-bar"></span></span>
+    </button></sc-if>
+
+    <div class="ys-introHead" style="position: absolute; left: 20px; top: 74px; width: 350px; text-align: center">
+      <div style="display: flex; align-items: center; justify-content: center; gap: 12px">
+        <span aria-hidden="true" style="width: 36px; height: 1px; background: linear-gradient(90deg, rgba(227,179,76,0), #E3B34C)"></span>
+        <p class="ys-label" style="margin: 0">{{ introDate }}</p>
+        <span aria-hidden="true" style="width: 36px; height: 1px; background: linear-gradient(90deg, #E3B34C, rgba(227,179,76,0))"></span>
+      </div>
+      <p class="ys-serif" style="margin: 14px 0 0; font-size: 27px; font-style: italic; font-weight: 400; line-height: 1.3; color: #F3E3C3">Bu kecha yulduzlar faqat<br>sen uchun yonadi</p>
+    </div>
+
+    <div class="ys-constel" aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; transform-origin: 195px 305px">
+      <div class="ys-25glow" style="position: absolute; left: 15px; top: 125px; width: 360px; height: 360px; border-radius: 50%; background: radial-gradient(circle, rgba(243,210,122,0.30), rgba(243,210,122,0.08) 45%, rgba(243,210,122,0) 68%)"></div>
+      <sc-for list="{{ cLines }}" as="l" hint-placeholder-count="21"><span style="{{ l.box }}"><span class="ys-seg" style="{{ l.seg }}"></span></span></sc-for>
+      <sc-for list="{{ cStars }}" as="c" hint-placeholder-count="23"><span class="ys-cstar" style="{{ c.st }}"><span class="ys-stGlow"></span><span class="ys-stCore"></span></span></sc-for>
+    </div>
+
+    <div class="ys-introName" style="position: absolute; left: 0; top: 446px; width: 390px; text-align: center">
+      <p class="ys-serif ys-foil" style="display: inline-block; margin: 0; max-width: 370px; box-sizing: border-box; padding: 0 10px; font-size: {{ introFs }}px; font-style: italic; font-weight: 500; line-height: 1.1; white-space: nowrap">{{ d.kimga }}</p>
+      <p class="ys-label" style="margin: 8px 0 0; color: #D8CBAE">{{ introSub }}</p>
+    </div>
+
+    <div class="ys-ctaWrap" style="position: absolute; left: 0; top: 640px; width: 390px; display: flex; flex-direction: column; align-items: center; gap: 16px">
+      <button type="button" class="ys-cta ys-gold ys-shine" onClick="{{ open }}">
+        <svg aria-hidden="true" width="16" height="16" viewBox="0 0 16 16"><path d="M8 0l2 6 6 2 -6 2 -2 6 -2 -6 -6 -2 6 -2z" fill="#14123A"></path></svg>
+        Yulduzlarni yoqish
+      </button>
+      <sc-if value="{{ from.line }}" hint-placeholder-val="{{ true }}"><p style="margin: 0; max-width: 340px; font-size: 13px; line-height: 1.4; color: #D8CBAE; text-align: center; overflow-wrap: anywhere">{{ from.line }}</p></sc-if>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":5760}}'>
+const tkName = (d) => String(d.kimga || '').trim();
+const tkFrom = (d) => {
+  const kd = String(d.kimdan || '').trim(), ci = kd.indexOf(':');
+  const label = ci > 0 ? kd.slice(0, ci).trim() : '';
+  const names = ci > 0 ? kd.slice(ci + 1).trim() : kd;
+  const people = names.split(/\s*,\s*|\s+va\s+|\s+and\s+|\s*&\s*/).map((x) => x.trim()).filter(Boolean);
+  return { label: label, names: names, people: people,
+    line: !kd ? '' : (label ? label + 'dan: ' + names : names + 'dan'),
+    initials: people.slice(0, 4).map((p) => p.charAt(0).toUpperCase()) };
+};
+const tkFit = (text, max, min, width, k) => {
+  const longest = Math.max(1, ...String(text || '').split(/\s+/).map((x) => x.length));
+  return Math.max(min, Math.min(max, Math.floor(width / (longest * k))));
+};
+const tkMapUrl = (d) => String(d.xarita || '').trim();
+// Kiyinish uslubidagi rang so'zlaridan namunalar (topilmasa — ko'rsatilmaydi)
+const TK_COLORS = [
+  [/oltin|tilla|gold/i, 'linear-gradient(135deg, #F3D27A, #B8862E 55%, #E3B34C)'], [/qora|black/i, '#07060F'], [/kumush|silver/i, 'linear-gradient(135deg, #F2F2F2, #A9A9B3)'],
+  [/(^|[^a-z’'])oq([^a-z’']|$)|white/i, '#FFFFFF'], [/qizil|red/i, '#C0392B'], [/bordo/i, '#7B1E2B'], [/pushti|pink/i, '#F4A6C0'], [/shampan/i, '#F1DDBF'],
+  [/zumrad/i, '#1F8A70'], [/yashil|green/i, '#2E8B57'], [/moviy|havorang/i, '#6EC1E4'], [/ko[’'`]?k|blue/i, '#3B6FD8'], [/binafsha|siyohrang|purple/i, '#7B4FE0'],
+  [/sariq|yellow/i, '#F3D27A'], [/jigarrang|qahva|brown/i, '#7B4A2A'], [/kulrang|grey|gray/i, '#8A8A8A'], [/bej|beige|krem/i, '#E8D8BC']
+];
+const tkSwatches = (text) => {
+  const t = String(text || ''), found = [];
+  TK_COLORS.forEach((c) => { const m = t.match(c[0]); if (m) found.push([m.index, c[1]]); });
+  return found.sort((a, b) => a[0] - b[0]).slice(0, 3).map((f) => f[1]);
+};
+
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { opened: false, blown: false, scope: false, quote: 0, qTick: 0, going: false, sent: false, goErr: '' };
+    this.guestName = '';
+    this.tick = 0;
+    const H = 5760;
+    const rnd = (i, k) => { const x = Math.sin(i * 127.1 + k * 311.7) * 43758.5453; return x - Math.floor(x); };
+    const stars = (n, top, h, left, w, seed) => Array.from({ length: n }, (_, i) => {
+      const s = rnd(i, seed) < 0.75 ? 2 : 3;
+      return { st: 'left: ' + Math.round(left + rnd(i, seed + 1) * w) + 'px; top: ' + Math.round(top + rnd(i, seed + 2) * h) + 'px; width: ' + s + 'px; height: ' + s + 'px; animation-duration: ' + (3 + rnd(i, seed + 3) * 3).toFixed(2) + 's; animation-delay: -' + (rnd(i, seed + 4) * 4).toFixed(2) + 's' };
+    });
+    const sparkCols = ['#E3B34C', '#F3D27A', '#FFF1C9'];
+    const sparks = Array.from({ length: 18 }, (_, i) => {
+      const s = 8 + Math.round(rnd(i, 11) * 8);
+      return { st: 'left: ' + Math.round(6 + rnd(i, 12) * 372) + 'px; top: ' + Math.round(900 + rnd(i, 13) * (H - 1000)) + 'px; width: ' + s + 'px; height: ' + s + 'px; background: ' + sparkCols[i % 3] + '; animation-duration: ' + (2.6 + rnd(i, 14) * 2.4).toFixed(2) + 's; animation-delay: -' + (rnd(i, 15) * 3).toFixed(2) + 's' };
+    });
+    const shoots = [[330, 120, -1], [360, 1500, -4], [340, 2900, -7], [360, 4300, -2.5]].map((p) => ({ st: 'left: ' + p[0] + 'px; top: ' + p[1] + 'px; animation-delay: ' + p[2] + 's' }));
+    // yulduz turkumi: yoshdagi raqamlar (yo'q bo'lsa — besh burchakli yulduz)
+    const DIG = {
+      '0': [[0.5, 0], [0.85, 0.12], [1, 0.4], [0.95, 0.75], [0.7, 0.97], [0.3, 0.97], [0.05, 0.75], [0, 0.4], [0.15, 0.12], [0.5, 0]],
+      '1': [[0.15, 0.22], [0.55, 0], [0.55, 0.35], [0.55, 0.68], [0.55, 1], [0.15, 1], [0.95, 1]],
+      '2': [[0.02, 0.25], [0.16, 0.08], [0.48, 0], [0.8, 0.06], [0.96, 0.23], [0.88, 0.42], [0.61, 0.59], [0.3, 0.77], [0, 0.99], [0.5, 1], [1, 1]],
+      '3': [[0.05, 0.12], [0.4, 0], [0.85, 0.08], [0.95, 0.25], [0.75, 0.45], [0.4, 0.48], [0.75, 0.52], [1, 0.72], [0.9, 0.92], [0.5, 1], [0.05, 0.9]],
+      '4': [[0.7, 1], [0.7, 0.68], [0.7, 0.34], [0.7, 0], [0.35, 0.35], [0, 0.68], [0.5, 0.68], [1, 0.68]],
+      '5': [[0.96, 0.02], [0.5, 0.02], [0.09, 0.04], [0.05, 0.25], [0.02, 0.46], [0.375, 0.39], [0.77, 0.43], [1, 0.61], [0.98, 0.81], [0.71, 0.96], [0.34, 1], [0, 0.92]],
+      '6': [[0.85, 0.05], [0.5, 0], [0.2, 0.15], [0.03, 0.45], [0.05, 0.75], [0.3, 0.98], [0.7, 0.98], [0.95, 0.75], [0.9, 0.52], [0.6, 0.42], [0.25, 0.48], [0.05, 0.65]],
+      '7': [[0, 0.02], [0.5, 0.02], [1, 0.02], [0.75, 0.35], [0.52, 0.68], [0.36, 1]],
+      '8': [[0.5, 0.48], [0.15, 0.35], [0.12, 0.12], [0.5, 0], [0.88, 0.12], [0.85, 0.35], [0.5, 0.48], [0.1, 0.65], [0.08, 0.88], [0.5, 1], [0.92, 0.88], [0.9, 0.65], [0.5, 0.48]],
+      '9': [[0.95, 0.35], [0.75, 0.52], [0.4, 0.58], [0.08, 0.4], [0.12, 0.12], [0.5, 0], [0.85, 0.08], [0.97, 0.35], [0.92, 0.7], [0.65, 0.95], [0.2, 1]],
+      '*': [[0.5, 0], [0.62, 0.36], [1, 0.38], [0.69, 0.6], [0.8, 0.98], [0.5, 0.75], [0.2, 0.98], [0.31, 0.6], [0, 0.38], [0.38, 0.36], [0.5, 0]]
+    };
+    const age = String((SITE.d && SITE.d.yosh) || '').replace(/\D/g, '').slice(0, 3);
+    const chars = age ? age.split('') : ['*'];
+    const dw = chars.length === 3 ? 84 : (chars.length === 1 && age ? 120 : 112), gap = chars.length === 3 ? 16 : 40;
+    const total = chars.length * dw + (chars.length - 1) * gap, x0 = 195 - total / 2, dh = chars[0] === '*' ? 200 : 216, y0 = 197 + (216 - dh) / 2;
+    const shapes = chars.map((ch, k) => (DIG[ch] || DIG['*']).map((p) => [Math.round(x0 + k * (dw + gap) + p[0] * dw), Math.round(y0 + p[1] * dh)]));
+    const cStars = [];
+    const cLines = [];
+    let idx = 0;
+    shapes.forEach((L) => {
+      L.forEach((p, i) => {
+        const big = i === 0 || i === L.length - 1 || i % 3 === 2;
+        const s = big ? 16 : 11;
+        const delay = 0.25 + idx * Math.min(0.062, 1.4 / Math.max(1, shapes.reduce((a, x) => a + x.length, 0)));
+        cStars.push({ st: 'left: ' + (p[0] - s / 2) + 'px; top: ' + (p[1] - s / 2) + 'px; width: ' + s + 'px; height: ' + s + 'px; animation-delay: ' + delay.toFixed(3) + 's' });
+        if (i < L.length - 1) {
+          const q = L[i + 1];
+          const dx = q[0] - p[0];
+          const dy = q[1] - p[1];
+          const len = Math.sqrt(dx * dx + dy * dy);
+          const ang = Math.atan2(dy, dx) * 180 / Math.PI;
+          cLines.push({ box: 'position: absolute; left: ' + p[0] + 'px; top: ' + (p[1] - 1) + 'px; width: ' + len.toFixed(1) + 'px; height: 2px; transform: rotate(' + ang.toFixed(1) + 'deg); transform-origin: 0 50%', seg: 'animation-delay: ' + (delay + 0.05).toFixed(3) + 's' });
+        }
+        idx += 1;
+      });
+    });
+    const minorPts = [[112, 16, 8], [194, 126, 9], [186, 286, 9], [166, 438, 8], [252, 584, 9], [244, 104, 6], [130, 268, 6], [118, 470, 6]];
+    const minor = minorPts.map((p, i) => ({ st: 'left: ' + (p[0] - p[2] / 2) + 'px; top: ' + (p[1] - p[2] / 2) + 'px; width: ' + p[2] + 'px; height: ' + p[2] + 'px; animation-delay: -' + (rnd(i, 61) * 3).toFixed(2) + 's' }));
+    const dust = Array.from({ length: 30 }, (_, i) => {
+      const ang = (360 * i) / 30 + (rnd(i, 71) - 0.5) * 14;
+      const s = 3 + Math.round(rnd(i, 72) * 4);
+      return {
+        w: 'position: absolute; left: 0; top: 0; width: 0; height: 0; transform: rotate(' + ang.toFixed(1) + 'deg)',
+        k: 'ys-dust ys-d' + (1 + ((i * 5) % 3)),
+        p: 'width: ' + s + 'px; height: ' + s + 'px; margin: -' + (s / 2) + 'px 0 0 -' + (s / 2) + 'px; background: ' + (i % 4 === 0 ? '#FFF1C9' : (i % 2 ? '#E3B34C' : '#F3D27A')) + '; animation-delay: ' + (rnd(i, 73) * 0.2).toFixed(2) + 's'
+      };
+    });
+    this.deco = {
+      stars: stars(110, 0, H - 100, 4, 382, 1),
+      sparks: sparks,
+      shoots: shoots,
+      introStars: stars(70, 0, 844, 4, 382, 31),
+      panelStars: stars(22, 10, 560, 10, 330, 41),
+      chartStars: stars(26, 0, 600, 0, 350, 51),
+      cStars: cStars,
+      cLines: cLines,
+      minor: minor,
+      dust: dust
+    };
+  }
+  componentDidMount() {
+    this.timer = setInterval(() => { this.prevCd = this.lastCd; this.tick += 1; this.forceUpdate(); }, 1000);
+  }
+  componentWillUnmount() {
+    clearInterval(this.timer);
+  }
+  renderVals() {
+    const s = this.state;
+    const D = SITE.d, B = SITE.b;
+    const name = tkName(D), from = tkFrom(D);
+    const w = SITE.when(D.sana), bw = SITE.when(D.bazm_sana);
+    const c = SITE.countdown(D.sana);
+    const cur = [c.dd, c.hh, c.mm, c.ss];
+    const prev = this.prevCd || cur;
+    this.lastCd = cur;
+    const flip = (i) => ({ cur: cur[i], prev: prev[i], cls: cur[i] !== prev[i] ? (this.tick % 2 ? 'ys-flip ys-flip--a' : 'ys-flip ys-flip--b') : 'ys-flip' });
+    const dc = this.deco;
+    const n = SITE.has.photos;
+    const yosh = String(D.yosh || '').trim();
+    // tilaklar orbitalarda
+    const OP = [[175, 92], [85, 117], [265, 183], [98, 260], [272, 64], [262, 268], [70, 34], [300, 128], [56, 192]];
+    const list = D.tilaklar || [];
+    const wishes = list.map((t, i) => {
+      const p = i < OP.length ? OP[i] : [i % 2 ? 265 : 85, 330 + Math.floor((i - OP.length) / 2) * 46];
+      const hw = Math.min(168, String(t).length * 8.5 + 30) / 2, px = Math.max(hw, Math.min(350 - hw, p[0]));
+      return { text: t, st: 'position: absolute; left: ' + px + 'px; top: ' + p[1] + 'px; transform: translate(-50%, -50%); max-width: 168px; width: max-content; box-sizing: border-box; text-align: center; padding: 5px 14px; border-radius: 16px; background: rgba(11,16,48,0.92); border: 1px solid rgba(227,179,76,0.6); font-size: 17px; font-style: italic; line-height: 1.25; overflow-wrap: anywhere; color: #F3E3C3' };
+    });
+    const extraRows = Math.max(0, Math.ceil((list.length - OP.length) / 2));
+    // yil xronikasi — yulduzlar xaritasi
+    const xl = D.xronika || [];
+    const step = 150, xH = Math.max(160, (xl.length - 1) * step + 150);
+    const xron = xl.map((x, i) => {
+      const left = i % 2 === 0, last = i === xl.length - 1, top = 4 + i * step;
+      const size = last ? 120 : 112;
+      const px = left ? 8 : 236 - (last ? 8 : 0);
+      const starS = last ? 32 : 22;
+      const sx = left ? 139 : 203, sy = top + (last ? 40 : 43);
+      const yy = String(x.yosh || '').trim();
+      return {
+        last: last, yosh: yy, unit: /^\d+$/.test(yy), matn: x.matn || '',
+        src: last ? SITE.p[0] : SITE.p[(i + 1) % SITE.p.length],
+        box: 'position: absolute; left: ' + px + 'px; top: ' + top + 'px; width: ' + size + 'px; height: ' + size + 'px',
+        ring: last ? 'position: absolute; left: -8px; top: -8px; width: 136px; height: 136px; box-sizing: border-box; border-radius: 50%; border: 1px solid rgba(227,179,76,0.6)'
+                   : 'position: absolute; left: -7px; top: -7px; width: 126px; height: 126px; box-sizing: border-box; border-radius: 50%; border: 1px dashed rgba(227,179,76,0.4)',
+        frame: last ? 'position: relative; width: 120px; height: 120px; box-sizing: border-box; padding: 3px; border-radius: 50%; background: linear-gradient(160deg, #FFF1C9, #C99A3A 45%, #F3D27A 70%, #A87A28); box-shadow: 0 18px 34px rgba(0,0,0,0.5)'
+                    : 'width: 112px; height: 112px; box-sizing: border-box; padding: 2.5px; border-radius: 50%; background: linear-gradient(160deg, #F3D27A, #A87A28 50%, #E3B34C); box-shadow: 0 16px 30px rgba(0,0,0,0.45)',
+        star: 'left: ' + sx + 'px; top: ' + sy + 'px; width: ' + starS + 'px; height: ' + starS + 'px; animation-delay: -' + (i * 0.8 % 2.4).toFixed(1) + 's',
+        cx: sx + starS / 2, cy: sy + starS / 2,
+        tx: left ? 'position: absolute; left: ' + (SITE.has.photo ? 190 : 175) + 'px; top: ' + (top + 18) + 'px; width: 160px; text-align: left'
+                 : 'position: absolute; left: 0; top: ' + (top + 20) + 'px; width: ' + (last ? 186 : 190) + 'px; text-align: right',
+        numSt: 'font-size: ' + (last ? 50 : 46) + 'px; font-weight: 600; padding-right: 6px',
+        unitSt: 'font-size: ' + (last ? 21 : 20) + 'px; font-style: italic; color: #F3E3C3'
+      };
+    });
+    const pts = [];
+    const minorS = [];
+    xron.forEach((x, i) => {
+      pts.push(Math.round(x.cx) + ',' + Math.round(x.cy));
+      if (i < xron.length - 1) {
+        const nx = xron[i + 1], mx = Math.round((x.cx + nx.cx) / 2 + (i % 2 ? -18 : 18)), my = Math.round((x.cy + nx.cy) / 2);
+        pts.push(mx + ',' + my);
+        minorS.push({ st: 'left: ' + (mx - 4.5) + 'px; top: ' + (my - 4.5) + 'px; width: 9px; height: 9px; animation-delay: -' + (i * 0.7 % 3).toFixed(1) + 's' });
+      }
+    });
+    const cy = Math.round(xH / 2);
+    // mehmonlar tilaklari — karusel
+    const gl = (D.mehmon_tilaklari || []).filter((g) => g && g.matn);
+    const qi = gl.length ? s.quote % gl.length : 0;
+    const quotes = gl.map((g, i) => ({ matn: g.matn, ism: g.ism || '',
+      cls: qi === i ? (s.qTick % 2 ? 'ys-qa' : 'ys-qb') : 'is-hidden',
+      dot: qi === i ? 'display: block; width: 12px; height: 12px; background: #F3D27A; clip-path: polygon(50% 0,61% 39%,100% 50%,61% 61%,50% 100%,39% 61%,0 50%,39% 39%)'
+                    : 'display: block; width: 6px; height: 6px; border-radius: 50%; background: rgba(227,179,76,0.45)' }));
+    const sw = tkSwatches(D.dress_kod);
+    const L = Math.max(1, gl.length);
+    return {
+      stars: dc.stars, sparks: dc.sparks, shoots: dc.shoots, introStars: dc.introStars, panelStars: dc.panelStars,
+      chartStars: dc.chartStars.filter((p, i) => i < Math.round(26 * Math.min(1, xH / 604))), cStars: dc.cStars, cLines: dc.cLines, dust: dc.dust,
+      from: from,
+      anyBlock: Object.keys(B).some((k) => B[k]),
+      initial: name.charAt(0).toUpperCase(),
+      noPhoto: !SITE.has.photo,
+      nameFs: Math.max(18, Math.min(70, Math.floor(330 / (Math.max(3, name.length) * 0.56)))),
+      introFs: Math.max(18, Math.min(64, Math.floor(340 / (Math.max(3, name.length) * 0.56)))),
+      ageRowSt: 'position: relative; display: ' + (yosh ? 'flex' : 'none') + '; align-items: center; gap: 12px; margin-top: 4px',
+      heroDate: [w.date, w.weekday].filter(Boolean).join(', '),
+      introDate: w.dm ? w.dm + ' · tug’ilgan kun' : 'Tug’ilgan kun',
+      introSub: [yosh ? yosh + ' yosh' : '', w.date].filter(Boolean).join(' · '),
+      fromMt: from.label ? '6px 0 0' : '24px 0 0',
+      fromMt2: from.label ? '6px 0 0' : '14px 0 0',
+      wishes: wishes,
+      wishH: 300 + extraRows * 46,
+      planet: yosh || name.charAt(0).toUpperCase(),
+      planetFs: yosh.length > 2 ? 17 : 21,
+      cdTitle: c.done ? 'Bayram boshlandi!' : 'Tug’ilgan kungacha',
+      f0: flip(0), f1: flip(1), f2: flip(2), f3: flip(3),
+      gal3: n >= 3, gal5: n >= 5,
+      galH: n >= 5 ? 410 : (n >= 3 ? 300 : 300),
+      xron: xron,
+      xronH: xH,
+      xronVB: '0 0 350 ' + xH,
+      xronCY: cy,
+      xronAxis: 'M175 0V' + xH + 'M0 ' + cy + 'H350',
+      xronLine: pts.join(' '),
+      xronMinor: minorS,
+      quotes: quotes,
+      multiQ: gl.length > 1,
+      prevQ: () => this.setState({ quote: (this.state.quote + L - 1) % L, qTick: this.state.qTick + 1 }),
+      nextQ: () => this.setState({ quote: (this.state.quote + 1) % L, qTick: this.state.qTick + 1 }),
+      bw: bw,
+      bazmSub: [bw.Weekday, D.bazm_vaqt ? 'soat ' + D.bazm_vaqt : ''].filter(Boolean).join(' · '),
+      swatches: sw.map((bg, i) => 'width: 22px; height: 22px; border-radius: 50%; background: ' + bg + (i ? '; margin-left: -6px' : '') + '; box-shadow: 0 0 0 1.5px #E3B34C'),
+      askGuest: !SITE.has.guest && !s.going,
+      setName: (e) => { this.guestName = e.target.value; },
+      goErr: s.goErr,
+      askName: name + 'ni tabrikladingizmi?',
+      introCls: s.opened ? 'ys-intro ys-intro--go' : 'ys-intro',
+      pageCls: s.opened ? 'ys-page ys-page--in' : 'ys-page',
+      open: () => { if (this.state.opened) return; this.setState({ opened: true }); SITE.opened(); },
+      musicCls: SITE.music.playing ? 'ys-music ys-music--on' : 'ys-music',
+      musicOn: SITE.music.playing ? 'true' : 'false',
+      toggleMusic: () => { SITE.music.toggle(); },
+      cakePanelCls: s.blown ? 'ys-cakePanel ys-cakePanel--out' : 'ys-cakePanel',
+      cakeCls: s.blown ? 'ys-cake ys-cake--out' : 'ys-cake',
+      cakeDustCls: s.blown ? 'ys-dustGo' : '',
+      wishCls: s.blown ? 'ys-wish ys-wish--on' : 'ys-wish',
+      blowIdle: s.blown ? 'is-hidden' : '',
+      blowDone: s.blown ? '' : 'is-hidden',
+      blow: () => this.setState({ blown: !this.state.blown }),
+      scopeCls: s.scope ? 'ys-scope ys-scope--on' : 'ys-scope',
+      scopeTxtA: s.scope ? 'ys-txtA ys-txt--off' : 'ys-txtA',
+      scopeTxtB: s.scope ? 'ys-txtB' : 'ys-txtB ys-txt--off',
+      toggleScope: () => this.setState({ scope: !this.state.scope }),
+      goCls: s.going ? 'ys-go ys-go--on' : 'ys-go ys-gold',
+      goIdle: s.going ? 'is-hidden' : '',
+      goDone: s.going ? 'ys-row' : 'is-hidden',
+      go: () => {
+        if (this.state.going || this.busy) return;
+        const nm = this.guestName.trim();
+        if (!SITE.has.guest && !nm) { this.setState({ goErr: 'Ismingizni yozing' }); return; }
+        this.busy = true;
+        SITE.rsvp(true, 1, nm).then(() => { this.busy = false; this.setState({ going: true, goErr: '' }); })
+          .catch(() => { this.busy = false; this.setState({ goErr: 'Yuborilmadi, qayta urinib ko’ring' }); });
+      },
+      sendCls: s.sent ? 'ys-btn ys-send--done' : 'ys-btn ys-gold ys-shine',
+      sendIdle: s.sent ? 'is-hidden' : '',
+      sendDone: s.sent ? 'ys-row' : 'is-hidden',
+      sendDustCls: s.sent ? 'ys-dustGo' : '',
+      send: () => { if (this.state.sent) return; this.setState({ sent: true }); SITE.reply('Tabrikladim', '🥰'); }
+    };
+  }
+}
+</script>
+</body>
+</html>

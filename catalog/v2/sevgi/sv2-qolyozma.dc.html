@@ -705,6 +705,16 @@ button:disabled{opacity:.75;cursor:default}
   </section>
   </sc-if>
 
+  <sc-if value="{{ noSavol }}">
+    <div style="padding: 36px 24px 40px; display: flex; flex-direction: column; align-items: center">
+      <div style="margin-top: 22px; display: flex; align-items: center; justify-content: center; gap: 14px">
+        <span style="width: 56px; height: 1px; background: linear-gradient(90deg, rgba(232, 180, 160, 0), #E8B4A0)"></span>
+        <span class="mk v-foil" style="font-size: 24px; line-height: 1.2">{{ monoAmp }}</span>
+        <span style="width: 56px; height: 1px; background: linear-gradient(90deg, #E8B4A0, rgba(232, 180, 160, 0))"></span>
+      </div>
+      <p style="margin: 8px 0 0; font-size: 17px; font-style: italic; color: #CDAFA6">{{ pair }}</p>
+    </div>
+  </sc-if>
   <div aria-hidden="true" style="flex: 1; background: #1A0A14"></div>
 
 </div>
@@ -847,6 +857,7 @@ class Component extends DCLogic {
       musicOff: !SITE.music.playing,
       toggleMusic: () => SITE.music.toggle(),
       hasCard: !!(b.maktub || b.sirli),
+      noSavol: !b.savol,
       hw: lt.lines,
       psSt: b.maktub ? 'margin-top: 14px; padding-top: 12px; border-top: 1px solid rgba(232, 180, 160, 0.22);' : '',
       secretCls: s.secret ? 'v-secret is-shown' : 'v-secret',
