@@ -23,13 +23,48 @@
       <span class="img"><img src="${esc(t.thumb)}" alt="" loading="lazy">${t.vip ? '<span class="badge gold">VIP</span>' : t.premium ? `<span class="badge solid">${esc(t.new ? T("new") + " · Premium" : "Premium")}</span>` : t.new ? `<span class="badge gold">${esc(T("new"))}</span>` : ""}</span>
       <b>${esc(tplName(t))}</b><small>${esc(tplDesc(t))}</small></button>`;
 
+  // ---------------------------------------------------------------- tarifli katalog (Saytlar va Taklifnomalar bo'limlari)
+  /** Bo'lim shablonlari tarif bo'yicha: Standart → Premium → VIP. Tarif kartochkasini bosish — faqat o'sha tarif. */
+  App.siteCatalog = (box, sec, p) => {
+    const tiers = S.cm.tiers;
+    const list = S.cm.templates.filter((t) => t.section === sec);
+    const only = tiers.some((x) => x.key === p.tier) ? p.tier : "";
+    const groups = ["standart", "premium", "vip"].map((k) => ({
+      tier: tiers.find((x) => x.key === k),
+      items: list.filter((t) => tierOf(t) === k).sort((a, b) => (a.order || 50) - (b.order || 50)),
+    })).filter((g) => g.items.length && g.tier && (!only || g.tier.key === only));
+    box.innerHTML = `
+      <div class="wrap" style="padding-top:18px"><div class="tiers3" role="group" aria-label="${esc(T("ord.tier"))}">${["standart", "premium", "vip"].map((k, i) => {
+        const x = tiers.find((y) => y.key === k);
+        return `<button type="button" data-tier="${k}" aria-pressed="${only === k}" class="${k === "premium" ? "pop" : k === "vip" ? "vip" : ""}${only === k ? " on" : ""}">
+          ${k === "premium" ? `<span class="flag">${esc(T("sites.popular"))}</span>` : ""}
+          <b>${esc(tierTitle(x))}</b><span>${esc(App.fmtNum(x.price))}</span><small>${esc(T("sites.tier_" + (i + 1)))}</small></button>`;
+      }).join("")}</div>
+        ${only ? `<button type="button" class="linkbtn" id="allTiers">${esc(App.tx("sites.all_tiers", "Hamma tariflarni ko‘rsatish"))}</button>` : ""}</div>
+      ${groups.map((g) => `<div class="wrap tgroup ${g.tier.key}" style="padding-top:18px">
+        <div class="tg-head"><h2>${esc(tierTitle(g.tier))}</h2>${g.tier.key === "premium" ? `<span class="badge solid">${esc(T("sites.popular"))}</span>` : ""}
+          <span class="tg-price">${esc(money(g.tier.price))}</span></div>
+        <p class="hint">${esc(App.tx("sites.tg_" + g.tier.key, ""))}</p>
+        <div class="tgrid">${g.items.map(App.tcard).join("")}</div></div>`).join("")}`;
+    $$("[data-tier]", box).forEach((b) => (b.onclick = () => { haptic(); p.tier = p.tier === b.dataset.tier ? "" : b.dataset.tier; App.render(); }));
+    const all = $("#allTiers", box); if (all) all.onclick = () => { haptic(); p.tier = ""; App.render(); };
+    $$("[data-tpl]", box).forEach((b) => (b.onclick = () => {
+      haptic();
+      const pre = {};
+      if (S.me.name) pre.kimdan = S.me.name;
+      startOrder(b.dataset.tpl, pre, "");
+    }));
+  };
+
   // ---------------------------------------------------------------- Saytlar bo'limi
+  // To'y taklifnomalari «Taklifnomalar» bo'limida (video va sayt bir joyda)
   App.views.sites = (p, el) => {
+    if (p.section === "toy" && !p.fromEvent && !p.mine) { App.tab("events", { kind: "site", tier: p.tier || "" }); return; }
     App.chrome({ tabs: true });
     const sites = S.me.sites || [];
     const tab = p.mine ? "mine" : "designs";
-    const secs = S.cm.sections;
-    const sec = secs.some((s) => s.key === p.section) ? p.section : { toy: "toy" }[p.section] || secs[0].key;
+    const secs = S.cm.sections.filter((s) => s.key !== "toy");
+    const sec = secs.some((s) => s.key === p.section) ? p.section : secs[0].key;
     el.innerHTML = `
       <header class="page-head"><h1>${esc(T("sites.title"))}</h1><p>${esc(T("sites.sub"))}</p>
         <div class="seg" role="tablist" style="margin-top:8px">
@@ -40,32 +75,12 @@
     const body = $("#sbody");
     if (p.fromEvent) { const slug = p.fromEvent; delete p.fromEvent; fromEvent(slug); }
     if (tab === "designs") {
-      const list = S.cm.templates.filter((t) => t.section === sec);
-      const tiers = S.cm.tiers;
-      // Premium birinchi (eng ko'p tanlanadi), keyin VIP, oxirida Standart
-      const groups = ["premium", "vip", "standart"].map((k) => ({
-        tier: tiers.find((x) => x.key === k),
-        items: list.filter((t) => tierOf(t) === k).sort((a, b) => (a.order || 50) - (b.order || 50)),
-      })).filter((g) => g.items.length && g.tier);
-      body.innerHTML = `
-        <div class="wrap" style="padding-top:14px"><div class="tiers3">${tiers.map((x, i) => `
-          <div class="${x.key === "premium" ? "pop" : x.key === "vip" ? "vip" : ""}">${x.key === "premium" ? `<span class="flag">${esc(T("sites.popular"))}</span>` : ""}
-            <b>${esc(tierTitle(x))}</b><span>${esc(App.fmtNum(x.price))}</span><small>${esc(T("sites.tier_" + (i + 1)))}</small></div>`).join("")}</div></div>
-        <div class="wrap" style="padding-top:12px"><button type="button" class="banner" id="fromVideo">${icon("video")}<span><b>${esc(T("sites.from_video_t"))}</b>${esc(T("sites.from_video_s"))}</span>${icon("chev")}</button></div>
-        <div class="wrap" style="padding-top:16px"><div class="chips scroll">${secs.map((s) => `<button type="button" class="chip" data-s="${s.key}" aria-pressed="${s.key === sec}">${esc(secTitle(s))}</button>`).join("")}</div></div>
-        ${groups.map((g) => `<div class="wrap tgroup ${g.tier.key}" style="padding-top:18px">
-          <div class="tg-head"><h2>${esc(tierTitle(g.tier))}</h2>${g.tier.key === "premium" ? `<span class="badge solid">${esc(T("sites.popular"))}</span>` : ""}
-            <span class="tg-price">${esc(money(g.tier.price))}</span></div>
-          <p class="hint">${esc(App.tx("sites.tg_" + g.tier.key, ""))}</p>
-          <div class="tgrid">${g.items.map(App.tcard).join("")}</div></div>`).join("")}`;
+      body.innerHTML = `<div class="wrap" style="padding-top:14px"><div class="chips scroll">${secs.map((s) => `<button type="button" class="chip" data-s="${s.key}" aria-pressed="${s.key === sec}">${esc(secTitle(s))}</button>`).join("")}</div></div>
+        <div id="scat"></div>
+        <div class="wrap" style="padding-top:18px"><button type="button" class="banner" id="toInv">${icon("mail")}<span><b>${esc(App.tx("sites.inv_t", "To‘y taklifnomasi kerakmi?"))}</b>${esc(App.tx("sites.inv_s", "Taklifnoma sayt va videolari «Taklifnomalar» bo‘limida"))}</span>${icon("chev")}</button></div>`;
       $$("[data-s]", body).forEach((b) => (b.onclick = () => { haptic(); p.section = b.dataset.s; App.render(); }));
-      $$("[data-tpl]", body).forEach((b) => (b.onclick = () => {
-        haptic();
-        const pre = {};
-        if (S.me.name) pre.kimdan = S.me.name;
-        startOrder(b.dataset.tpl, pre, "");
-      }));
-      $("#fromVideo").onclick = () => { haptic(); pickEvent(); };
+      App.siteCatalog($("#scat", body), sec, p);
+      $("#toInv").onclick = () => { haptic(); App.tab("events", { kind: "site" }); };
       return;
     }
     if (!sites.length) {
@@ -131,13 +146,14 @@
     } catch (e) { toast(e.message); }
   }
   App.siteFromEvent = fromEvent;
+  App.pickEventForSite = () => pickEvent();
   async function pickEvent() {
     let list = [];
     try { list = (await api("/api/events")).events.filter((e) => e.kind === "video" && e.section === "toy" && !e.site_slug); } catch { /* bo'sh */ }
     if (!list.length) {
       const s = App.sheet(`<div class="sh-head"><div><h1>${esc(T("sites.from_video_t"))}</h1><p>${esc(T("sites.no_video"))}</p></div></div>
         <button type="button" class="btn" id="mkV">${esc(T("sites.make_video"))}</button>`);
-      $("#mkV", s.el).onclick = () => { s.close(); App.tab("videos", { section: "toy" }); };
+      $("#mkV", s.el).onclick = () => { s.close(); App.tab("events", { kind: "video" }); };
       return;
     }
     const s = App.sheet(`<div class="sh-head"><div><h1>${esc(T("sites.which_event"))}</h1></div></div>

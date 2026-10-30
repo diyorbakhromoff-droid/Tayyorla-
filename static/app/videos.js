@@ -2,14 +2,23 @@
 (() => {
   "use strict";
   const { $, $$, esc, T, icon, S, api, haptic, notify, toast, store, money } = App;
-  const SECTIONS = ["toy", "osh", "gap", "choy", "tk"];
+  // to'y videolari «Taklifnomalar» bo'limida
+  const SECTIONS = ["osh", "gap", "choy", "tk"];
   const DKEY = "tyr-vdraft";
   const design = (id) => S.vm.designs.find((d) => d.id === id);
   const dname = (d) => App.tx("d." + d.id, d.name);
   const thumbOf = (id) => `/katalog/video/thumb/${id}.jpg`;
 
+  /** Video dizaynlar to'ri (Videolar va Taklifnomalar bo'limlari); bosilganda muharrir ochiladi. */
+  App.videoGrid = (list) => `<div class="dgrid">${list.map((d) => `
+    <button type="button" class="dcard" data-design="${esc(d.id)}">
+      <span class="img"><img src="${esc(d.thumb)}" alt="" loading="lazy">${d.new ? `<span class="badge gold tag">${esc(T("new"))}</span>` : ""}</span>
+      <span class="meta"><b>${esc(dname(d))}</b><span>${icon("play", "xs")}0:20</span></span>
+      <small>${esc(T("sec." + d.section))}</small></button>`).join("")}</div>`;
+
   // ---------------------------------------------------------------- Videolar bo'limi
   App.views.videos = (p, el) => {
+    if (p.section === "toy" && !p.mine) { App.tab("events", { kind: "video" }); return; }
     App.chrome({ tabs: true });
     const q = S.me.quota || {};
     const tab = p.mine ? "mine" : "designs";
@@ -27,18 +36,14 @@
     $$("[data-t]", el).forEach((b) => (b.onclick = () => { haptic(); p.mine = b.dataset.t === "mine"; App.render(); }));
     const body = $("#vbody");
     if (tab === "designs") {
-      const list = S.vm.designs.filter((d) => !sec || d.section === sec);
+      const list = S.vm.designs.filter((d) => (sec ? d.section === sec : SECTIONS.includes(d.section)));
       body.innerHTML = `
         <div class="wrap" style="padding-top:14px"><div class="chips scroll">
           <button type="button" class="chip" data-s="" aria-pressed="${!sec}">${esc(T("all"))}</button>
           ${SECTIONS.map((k) => `<button type="button" class="chip" data-s="${k}" aria-pressed="${sec === k}">${esc(T("sec." + k))}</button>`).join("")}</div></div>
         <div class="wrap" style="padding-top:14px"><ol class="steps3">
           <li><span>1</span>${esc(T("videos.step1"))}</li><li><span>2</span>${esc(T("videos.step2"))}</li><li><span>3</span>${esc(T("videos.step3"))}</li></ol></div>
-        <div class="wrap" style="padding-top:16px"><div class="dgrid">${list.map((d) => `
-          <button type="button" class="dcard" data-design="${esc(d.id)}">
-            <span class="img"><img src="${esc(d.thumb)}" alt="" loading="lazy">${d.new ? `<span class="badge gold tag">${esc(T("new"))}</span>` : ""}</span>
-            <span class="meta"><b>${esc(dname(d))}</b><span>${icon("play", "xs")}0:20</span></span>
-            <small>${esc(T("sec." + d.section))}</small></button>`).join("")}</div></div>`;
+        <div class="wrap" style="padding-top:16px">${App.videoGrid(list)}</div>`;
       $$("[data-s]", body).forEach((b) => (b.onclick = () => { haptic(); p.section = b.dataset.s; App.render(); }));
       $$("[data-design]", body).forEach((b) => (b.onclick = () => { haptic(); App.go("editor", { design: b.dataset.design }); }));
       return;

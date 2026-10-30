@@ -21,26 +21,30 @@
   // ---------------------------------------------------------------- Taklifnomalar bo'limi
   App.views.events = (p, el) => {
     App.chrome({ tabs: true });
-    const fmt = p.fmt || "video";
-    const minSite = Math.min(...S.cm.tiers.map((t) => t.price));
+    const kind = p.kind === "video" ? "video" : "site";
     el.innerHTML = `
-      <header class="page-head"><h1>${esc(T("ev.title"))}</h1><p>${esc(T("ev.sub"))}</p></header>
-      <div class="wrap fade" style="padding-top:12px"><section class="new-inv"><h2>${esc(T("ev.new"))}</h2><p>${esc(T("ev.new_sub"))}</p>
-        <div class="fmt" role="radiogroup">${[["video", "ev.f_video", T("home.video_free", { n: S.vm.free_per_day })], ["site", "ev.f_site", T("home.site_from", { sum: App.money(minSite) })], ["both", "ev.f_both", T("ev.f_both_n")]]
-          .map(([k, l, n]) => `<button type="button" role="radio" data-f="${k}" aria-checked="${fmt === k}"><b>${esc(T(l))}</b><small>${esc(n)}</small></button>`).join("")}</div>
-        <button type="button" class="btn" id="startNew">${esc(T("ev.start"))}</button></section></div>
+      <header class="page-head"><h1>${esc(T("ev.title"))}</h1><p>${esc(T("ev.sub"))}</p>
+        <div class="seg" role="tablist" style="margin-top:8px">
+          <button type="button" role="tab" data-k="site" aria-selected="${kind === "site"}">${esc(App.tx("ev.k_site", "Sayt taklifnoma"))}</button>
+          <button type="button" role="tab" data-k="video" aria-selected="${kind === "video"}">${esc(App.tx("ev.k_video", "Video taklifnoma"))}</button></div></header>
+      <div id="invCat" class="fade"></div>
       <section class="sec"><div class="sec-h"><h2>${esc(T("ev.mine"))}</h2></div><div class="stack" id="evList"><div class="empty"><span class="spin"></span></div></div></section>
       <section class="sec"><div class="sec-h"><h2>${esc(T("ev.can"))}</h2></div><div class="stack">
         <div class="feat"><span class="ic">${icon("video")}</span><span><b>${esc(T("ev.can1_t"))}</b>${esc(T("ev.can1_s"))}</span></div>
         <div class="feat"><span class="ic g">${icon("check")}</span><span><b>${esc(T("ev.can2_t"))}</b>${esc(T("ev.can2_s"))}</span></div>
         <div class="feat"><span class="ic y">${icon("qr")}</span><span><b>${esc(T("ev.can3_t"))}</b>${esc(T("ev.can3_s"))}</span></div></div></section>`;
-    $$("[data-f]", el).forEach((b) => (b.onclick = () => { haptic(); p.fmt = b.dataset.f; $$("[data-f]", el).forEach((x) => x.setAttribute("aria-checked", x === b)); }));
-    $("#startNew").onclick = () => {
-      haptic();
-      const f = p.fmt || "video";
-      if (f === "site") App.tab("sites", { section: "toy" });
-      else { App.Draft.set(null); App.tab("videos", { section: "toy" }); if (f === "both") toast(T("ev.both_hint"), 4000); }
-    };
+    $$("[data-k]", el).forEach((b) => (b.onclick = () => { haptic(); p.kind = b.dataset.k; App.render(); }));
+    const cat = $("#invCat");
+    if (kind === "site") {
+      App.siteCatalog(cat, "toy", p);
+      cat.insertAdjacentHTML("beforeend", `<div class="wrap" style="padding-top:16px"><button type="button" class="banner" id="fromVideo">${icon("video")}<span><b>${esc(T("sites.from_video_t"))}</b>${esc(T("sites.from_video_s"))}</span>${icon("chev")}</button></div>`);
+      $("#fromVideo").onclick = () => { haptic(); App.pickEventForSite(); };
+    } else {
+      cat.innerHTML = `<div class="wrap" style="padding-top:16px"><ol class="steps3">
+          <li><span>1</span>${esc(T("videos.step1"))}</li><li><span>2</span>${esc(T("videos.step2"))}</li><li><span>3</span>${esc(T("videos.step3"))}</li></ol></div>
+        <div class="wrap" style="padding-top:16px">${App.videoGrid(S.vm.designs.filter((d) => d.section === "toy"))}</div>`;
+      $$("[data-design]", cat).forEach((b) => (b.onclick = () => { haptic(); App.Draft.set(null); App.go("editor", { design: b.dataset.design }); }));
+    }
     const box = $("#evList");
     api("/api/events").then(({ events }) => {
       if (!box.isConnected) return;

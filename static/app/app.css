@@ -413,9 +413,16 @@ input[type="range"] { min-height: 0; padding: 0; border: 0; background: none; ac
 
 /* ---------------------------------------------------------------- saytlar */
 .tiers3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
-.tiers3 > div { position: relative; display: flex; flex-direction: column; gap: 3px; padding: 12px 10px; border-radius: 16px; background: var(--surface); border: 1px solid var(--line); }
-.tiers3 > div.pop { border: 2px solid var(--atlas); padding: 11px 9px; }
-.tiers3 > div.vip { background: var(--night); color: var(--on-night); border-color: transparent; }
+.tiers3 > * { position: relative; display: flex; flex-direction: column; align-items: flex-start; gap: 3px; padding: 12px 10px; border-radius: 16px;
+  background: var(--surface); border: 1px solid var(--line); color: var(--ink); font: inherit; text-align: left; cursor: pointer; min-height: 44px;
+  transition: transform .15s ease, box-shadow .2s ease, opacity .2s ease; }
+.tiers3 > *:active { transform: scale(.97); }
+.tiers3 > .pop { border: 2px solid var(--atlas); padding: 11px 9px; }
+.tiers3 > .vip { background: var(--night); color: var(--on-night); border-color: transparent; }
+.tiers3 > .on { box-shadow: 0 0 0 3px var(--saffron); }
+.tiers3:has(.on) > :not(.on) { opacity: .55; }
+.tiers3 > :focus-visible { outline: 3px solid var(--atlas); outline-offset: 2px; }
+.linkbtn { display: block; margin: 10px auto 0; min-height: 44px; padding: 0 12px; border: 0; background: none; color: var(--atlas-d); font: inherit; font-weight: 600; cursor: pointer; }
 .tiers3 b { font: 800 16px var(--f-display); }
 .tiers3 .vip b { color: var(--saffron); }
 .tiers3 span { font-weight: 700; font-size: 13.5px; }
