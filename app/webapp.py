@@ -225,6 +225,7 @@ class OrderIn(BaseModel):
     music: str | None = None
     unlock_at: str | None = None
     event: str | None = None  # video tadbirdan yaratilayotgan sayt
+    hidden: list = Field(default_factory=list)  # olib tashlangan bloklar (tarifli shablonlar)
 
 
 @router.get("/api/catalog")

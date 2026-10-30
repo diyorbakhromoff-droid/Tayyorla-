@@ -258,7 +258,7 @@ async def main():
     await click(f"site:{csite.id}")
     assert "«Muhrlangan maktub»" in last() and "VIP" in last()
     await click(f"buy:{csite.id}")
-    assert "79 000" in last()
+    assert "99 000" in last()
     await click(f"paid:{csite.id}")
     await send(photo=[PhotoSize(file_id="chek2", file_unique_id="c2", width=10, height=10)])
     await click(f"approve:{csite.id}", user=ADMIN)

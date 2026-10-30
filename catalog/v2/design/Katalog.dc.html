@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<title>Mini App katalog</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alegreya:wght@500;700&amp;family=Onest:wght@400;500;600&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#D02670}a:hover{color:#A81D5A}
+.kt-scroll{overflow-y:auto;scrollbar-width:none}
+.kt-ic{stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.kt-scroll::-webkit-scrollbar{display:none}
+.kt-row{display:flex;gap:14px;overflow-x:auto;padding:0 16px 4px;scroll-snap-type:x mandatory;scrollbar-width:none}
+.kt-row::-webkit-scrollbar{display:none}
+.kt-row > *{scroll-snap-align:start;flex:0 0 auto}
+.kt-chip{height:44px;padding:0 16px;border-radius:999px;border:1px solid #D9D2EC;background:#FFFFFF;color:#3B3560;font:500 15px 'Onest',system-ui,sans-serif;cursor:pointer}
+.kt-chip--on{background:#211C52;border-color:#211C52;color:#F7F5FC}
+.kt-live{animation:kt-pulse 1.8s ease-in-out infinite}
+@keyframes kt-pulse{0%,100%{opacity:1}50%{opacity:.35}}
+.kt-shine{position:absolute;inset:0;background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.28) 45%,transparent 60%);transform:translateX(-120%);animation:kt-shine 3.6s ease-in-out infinite}
+@keyframes kt-shine{0%{transform:translateX(-120%)}55%,100%{transform:translateX(120%)}}
+@media (prefers-reduced-motion: reduce){.kt-live,.kt-shine{animation:none}.kt-shine{display:none}}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; position: relative; overflow: hidden; background: #F7F5FC; color: #1C1830; font-family: 'Onest', system-ui, sans-serif">
+  <div class="kt-scroll" style="position: absolute; inset: 0; display: flex; flex-direction: column; gap: 24px; padding-bottom: 32px">
+
+    <div style="display: flex; align-items: center; gap: 8px; padding: 16px 16px 0">
+      <button aria-label="Orqaga" style="width: 44px; height: 44px; border-radius: 14px; border: 1px solid #E4DFF2; background: #FFFFFF; display: flex; align-items: center; justify-content: center; cursor: pointer">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1C1830" aria-hidden="true" class="kt-ic"><path d="M15 5l-7 7 7 7"></path></svg>
+      </button>
+      <div style="display: flex; flex-direction: column">
+        <h1 style="margin: 0; font-family: 'Alegreya', Georgia, serif; font-size: 26px; font-weight: 700; line-height: 1.1">To’y taklifnomasi</h1>
+        <span style="font-size: 14px; color: #6B6585">7 ta shablon, uchta tarif</span>
+      </div>
+    </div>
+
+    <div style="display: flex; gap: 8px; padding: 0 16px; overflow-x: auto">
+      <sc-for list="{{ chips }}" as="c" hint-placeholder-count="4">
+        <button class="{{ c.cls }}" aria-pressed="{{ c.on }}" onClick="{{ c.pick }}">{{ c.label }}</button>
+      </sc-for>
+    </div>
+
+    <sc-if value="{{ showPrem }}" hint-placeholder-val="{{ true }}">
+      <div style="display: flex; flex-direction: column; gap: 12px">
+        <div style="display: flex; align-items: center; justify-content: space-between; padding: 0 16px; gap: 8px">
+          <div style="display: flex; align-items: center; gap: 10px">
+            <h2 style="margin: 0; font-family: 'Alegreya', Georgia, serif; font-size: 22px; font-weight: 700">Premium</h2>
+            <span style="background: #F5B20A; color: #2A1C00; font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 999px">Eng ko’p tanlanadi</span>
+          </div>
+          <span style="font-weight: 600; font-variant-numeric: lining-nums">59 000 so’m</span>
+        </div>
+        <div class="kt-row">
+          <sc-for list="{{ premium }}" as="t" hint-placeholder-count="3">
+            <div style="width: 268px; background: #FFFFFF; border-radius: 22px; overflow: hidden; box-shadow: 0 18px 36px -22px rgba(33, 28, 82, 0.5); display: flex; flex-direction: column">
+              <div style="position: relative; height: 250px; overflow: hidden">
+                <img src="{{ t.img }}" alt="{{ t.name }} shabloni" style="width: 100%; height: 100%; object-fit: cover; display: block">
+                <div class="kt-shine"></div>
+                <span style="position: absolute; left: 12px; top: 12px; display: flex; align-items: center; gap: 6px; background: rgba(33, 28, 82, 0.82); color: #F7F5FC; font-size: 12px; font-weight: 500; padding: 6px 10px; border-radius: 999px">
+                  <span class="kt-live" style="width: 8px; height: 8px; border-radius: 50%; background: #FF4F98"></span>Jonli ochilish
+                </span>
+              </div>
+              <div style="padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 6px">
+                <span style="font-family: 'Alegreya', Georgia, serif; font-size: 20px; font-weight: 700">{{ t.name }}</span>
+                <span style="font-size: 14px; line-height: 1.4; color: #3B3560">{{ t.what }}</span>
+                <button style="margin-top: 8px; height: 44px; border-radius: 14px; border: 0; background: #D02670; color: #FFFFFF; font: 600 15px 'Onest', system-ui, sans-serif; cursor: pointer">Ko’rish</button>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ showVip }}" hint-placeholder-val="{{ true }}">
+      <div style="display: flex; flex-direction: column; gap: 12px">
+        <div style="display: flex; align-items: center; justify-content: space-between; padding: 0 16px">
+          <h2 style="margin: 0; font-family: 'Alegreya', Georgia, serif; font-size: 22px; font-weight: 700">VIP</h2>
+          <span style="font-weight: 600; font-variant-numeric: lining-nums">99 000 so’m</span>
+        </div>
+        <div class="kt-row">
+          <sc-for list="{{ vip }}" as="t" hint-placeholder-count="2">
+            <div style="width: 268px; border-radius: 22px; overflow: hidden; background: #10223A; border: 1px solid #8A6A24; display: flex; flex-direction: column">
+              <div style="position: relative; height: 220px; overflow: hidden">
+                <img src="{{ t.img }}" alt="{{ t.name }} shabloni" style="width: 100%; height: 100%; object-fit: cover; display: block; opacity: 0.85">
+                <div class="kt-shine"></div>
+                <span style="position: absolute; left: 12px; top: 12px; background: linear-gradient(120deg, #A9822F, #F1D9A0 50%, #C9A24A); color: #2A1C00; font-size: 12px; font-weight: 600; padding: 6px 10px; border-radius: 999px">Kinematik kirish</span>
+              </div>
+              <div style="padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 6px; color: #F3E3C3">
+                <span style="font-family: 'Alegreya', Georgia, serif; font-size: 20px; font-weight: 700; color: #F6E7C4">{{ t.name }}</span>
+                <span style="font-size: 14px; line-height: 1.4; color: #D9C9A3">{{ t.what }}</span>
+                <button style="margin-top: 8px; height: 44px; border-radius: 14px; border: 1px solid #C9A24A; background: transparent; color: #F1D9A0; font: 600 15px 'Onest', system-ui, sans-serif; cursor: pointer">Ko’rish</button>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ showStd }}" hint-placeholder-val="{{ true }}">
+      <div style="display: flex; flex-direction: column; gap: 12px; padding: 0 16px">
+        <div style="display: flex; align-items: center; justify-content: space-between">
+          <h2 style="margin: 0; font-family: 'Alegreya', Georgia, serif; font-size: 22px; font-weight: 700">Standart</h2>
+          <span style="font-weight: 600; font-variant-numeric: lining-nums">39 000 so’m</span>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px">
+          <sc-for list="{{ standart }}" as="t" hint-placeholder-count="2">
+            <div style="background: #FFFFFF; border: 1px solid #E4DFF2; border-radius: 16px; overflow: hidden; display: flex; flex-direction: column">
+              <img src="{{ t.img }}" alt="{{ t.name }} shabloni" style="width: 100%; height: 130px; object-fit: cover; display: block">
+              <div style="padding: 10px 12px 12px; display: flex; flex-direction: column; gap: 8px">
+                <span style="font-weight: 600; font-size: 15px">{{ t.name }}</span>
+                <button style="height: 44px; border-radius: 12px; border: 1px solid #D9D2EC; background: #FFFFFF; color: #3B3560; font: 500 14px 'Onest', system-ui, sans-serif; cursor: pointer">Ko’rish</button>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </sc-if>
+
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { filter: 'all' };
+  }
+  renderVals() {
+    const f = this.state.filter;
+    const chips = [
+      { id: 'all', label: 'Hammasi' },
+      { id: 'standart', label: 'Standart' },
+      { id: 'premium', label: 'Premium' },
+      { id: 'vip', label: 'VIP' }
+    ].map((c) => ({
+      label: c.label,
+      on: c.id === f ? 'true' : 'false',
+      cls: c.id === f ? 'kt-chip kt-chip--on' : 'kt-chip',
+      pick: () => this.setState({ filter: c.id })
+    }));
+    return {
+      chips,
+      showPrem: f === 'all' || f === 'premium',
+      showVip: f === 'all' || f === 'vip',
+      showStd: f === 'all' || f === 'standart',
+      premium: [
+        { name: 'Atlas parda', what: 'Atlas pardalar ochilib, ortidan taklifnoma chiqadi', img: '/_blob/f297639d8df275bf66bed26b5a5b304e' },
+        { name: 'Milliy naqsh', what: 'Ganch naqshlari oltin chiziq bo’lib chiziladi', img: '/_blob/2f7103e7696901f07b646cfd863c7df3' },
+        { name: 'Gul arkasi', what: 'Gullar arkasi ochilib, ismlar paydo bo’ladi', img: '/_blob/616bfc26db1bc411ab4e089f9b1cbffb' }
+      ],
+      vip: [
+        { name: 'Saroy', what: 'Saroy eshiklari mehmon ismi bilan ochiladi', img: '/_blob/3b1f637415f1db8b4dcb62d0240eaaf0' },
+        { name: 'Muhrlangan maktub', what: 'Oltin muhr sinadi, maktub o’zi yozila boshlaydi', img: '/_blob/b4b3ffc414cd0a56d55ef13988a73b6a' }
+      ],
+      standart: [
+        { name: 'Klassik', img: '/_blob/7a39f4a7b637db4e9613e2cfce78d201' },
+        { name: 'Minimal', img: '/_blob/86aba1f1535c1f71ea89fdaab1b0080a' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

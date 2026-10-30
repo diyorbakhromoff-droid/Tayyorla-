@@ -89,7 +89,7 @@ cfg = _json.loads(cfg_json)
 assert cfg["kimga"] == "Madina" and cfg["tarif"] == "standart" and cfg["demo"] is False
 assert "</script><script>alert" not in page
 assert "new URLSearchParams(CFG.demo ? location.search : '')" in page and "NAMUNA" not in page
-assert "t.me/tayyorla_aibot" in page
+assert "Siz ham shunday sayt yarating" not in page  # reklama hech bir tarifda yo'q
 assert "NAMUNA • TAYYORLA" in render_catalog(evil, "abc", preview=True)
 vip_toy = clean_order({"template": "toy-maktub", "tarif": "vip", "data": {}}, strict=False)
 assert "/s/xyz/anketa" in render_catalog(vip_toy, "xyz", preview=False)
@@ -100,9 +100,10 @@ from app.catalog import TEMPLATES, catalog_meta  # noqa: E402
 from app.config import ROOT as ROOT_DIR  # noqa: E402
 
 NEW = ["tk-salyut", "toy-parda", "sv-yurak", "fz-quti", "uz-muz"]
-assert len(TEMPLATES) == 30 and all(TEMPLATES[t].get("premium") for t in NEW)
+# eski shablonlar katalogdan yashirilgan, lekin to'langan saytlar uchun ishlayveradi
+assert len([t for t in TEMPLATES.values() if not t.get("v2")]) == 30 and all(TEMPLATES[t].get("premium") for t in NEW)
 meta_ids = {t["id"]: t for t in catalog_meta()["templates"]}
-assert all(meta_ids[t]["premium"] and meta_ids[t]["new"] for t in NEW)
+assert not any(t in meta_ids for t in NEW)
 for tid in NEW:
     sec = TEMPLATES[tid]["section"]
     data = {"kimga": "Madina", "kimdan": "Ali", "sana": "2026-10-24", "matn": "Salom", "kuyov": "Jasur", "kelin": "Malika",

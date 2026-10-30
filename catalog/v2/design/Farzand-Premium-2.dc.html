@@ -1,0 +1,691 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<title>Farzand Premium: Oy va yulduzlar</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&amp;family=Unbounded:wght@500;600;700&amp;display=swap">
+<style>
+body{margin:0;background:#FFF3D9}
+.fzm-d{font-family:'Unbounded','Trebuchet MS',system-ui,sans-serif}
+.fzm-ic{fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.fzm-str{fill:none;stroke:#B9AFC9;stroke-width:1.4}
+.fzm-str2{fill:none;stroke:#B9AFC9;stroke-width:1.6}
+.fzm-moon{fill:#FFD98A}
+.fzm-moonst{fill:none;stroke:#E2AE4E;stroke-width:2.2;stroke-dasharray:4 4;stroke-linecap:round}
+.fzm-eye{fill:none;stroke:#36325E;stroke-width:2.6;stroke-linecap:round}
+.fzm-cheek{fill:#FFB4A2}
+.fzm-starS{fill:url(#fzmSilver);stroke:#C9D3E0;stroke-width:6;stroke-linejoin:round}
+.fzm-starSst{fill:none;stroke:#94A0B6;stroke-width:2;stroke-dasharray:4 4;stroke-linecap:round;stroke-linejoin:round}
+.fzm-starP{fill:#FFC4A8;stroke:#FFC4A8;stroke-width:7;stroke-linejoin:round}
+.fzm-starPst{fill:none;stroke:#E8937A;stroke-width:2;stroke-dasharray:4 4;stroke-linecap:round;stroke-linejoin:round}
+.fzm-cloudW{fill:#FFFFFF}
+.fzm-cloudB{fill:#CFE4F8}
+.fzm-cloudWst{fill:none;stroke:#C9D3E0;stroke-width:2;stroke-dasharray:4 4;stroke-linecap:round}
+.fzm-cloudBst{fill:none;stroke:#8FB8E2;stroke-width:2;stroke-dasharray:4 4;stroke-linecap:round}
+.fzm-dropL{fill:#CDBDF0}
+.fzm-dropP{fill:#FFC4A8}
+.fzm-orn{fill:#FFD98A;stroke:#E2AE4E;stroke-width:1.2;stroke-linejoin:round}
+.fzm-g1{stop-color:#F8FAFD}.fzm-g2{stop-color:#D5DDE8}.fzm-g3{stop-color:#A9B4C7}
+.fzm-r1{stop-color:#C8E2F9}.fzm-r2{stop-color:#97C3EE}.fzm-r3{stop-color:#B9D9F6}
+.fzm-rib{fill:url(#fzmRibbon)}
+.fzm-ribt{fill:#86B5E6}
+.fzm-ribf{fill:#6595CE}
+.fzm-ribhl{fill:none;stroke:#FFFFFF;stroke-width:1.5;opacity:.55;stroke-linecap:round}
+.fzm-wood{fill:#FFF9F1;stroke:#EBCFAE;stroke-width:1.5}
+.fzm-hoopl{fill:none;stroke:#E2BE8A;stroke-width:3}
+.fzm-scal{fill:#FFFFFF}
+.fzm-stitch{fill:none;stroke:#CDBDF0;stroke-width:2;stroke-dasharray:5 5;stroke-linecap:round}
+.fzm-dots{background-color:#E9DFF8;background-image:radial-gradient(circle,#FFFFFF 0 3px,rgba(255,255,255,0) 3.5px);background-size:20px 20px}
+
+.fzm-stage{perspective:900px;perspective-origin:50% 70%}
+.fzm-ring,.fzm-arm{transform-style:preserve-3d}
+.fzm-sw1,.fzm-sw2,.fzm-sw3,.fzm-sw4,.fzm-sw5,.fzm-swS{transform-origin:50% 0}
+.fzm-sw1{animation:fzmSwing 3.4s ease-in-out infinite}
+.fzm-sw2{animation:fzmSwing 4.1s ease-in-out -1.2s infinite}
+.fzm-sw3{animation:fzmSwing 3.7s ease-in-out -2.1s infinite}
+.fzm-sw4{animation:fzmSwing 4.6s ease-in-out -.6s infinite}
+.fzm-sw5{animation:fzmSwing 3.1s ease-in-out -1.6s infinite}
+.fzm-swS{animation:fzmSwingS 5.2s ease-in-out -1s infinite}
+@keyframes fzmSwing{0%,100%{transform:rotate(-3.5deg)}50%{transform:rotate(3.5deg)}}
+@keyframes fzmSwingS{0%,100%{transform:rotate(-1.4deg)}50%{transform:rotate(1.4deg)}}
+.fzm-rock{animation:fzmRock 6s ease-in-out infinite}
+@keyframes fzmRock{0%,100%{transform:rotate(-1.1deg)}50%{transform:rotate(1.1deg)}}
+.fzm-idle .fzm-ring{animation:fzmSpin 72s linear infinite}
+.fzm-idle .fzm-face{animation:fzmSpinBack 72s linear infinite}
+@keyframes fzmSpin{from{transform:rotateY(0deg)}to{transform:rotateY(720deg)}}
+@keyframes fzmSpinBack{from{transform:rotateY(0deg)}to{transform:rotateY(-720deg)}}
+.fzm-float{animation:fzmFloat 9s ease-in-out infinite}
+.fzm-float2{animation:fzmFloat2 12s ease-in-out infinite}
+@keyframes fzmFloat{0%,100%{transform:translate(0,0)}50%{transform:translate(12px,-8px)}}
+@keyframes fzmFloat2{0%,100%{transform:translate(0,0)}50%{transform:translate(-14px,6px)}}
+.fzm-tw{animation:fzmTw 3.4s ease-in-out infinite}
+.fzm-tw2{animation:fzmTw 4.3s ease-in-out 1s infinite}
+@keyframes fzmTw{0%,100%{opacity:1;transform:scale(1) rotate(0deg)}50%{opacity:.5;transform:scale(.75) rotate(18deg)}}
+.fzm-glow{animation:fzmGlow 6s ease-in-out infinite}
+@keyframes fzmGlow{0%,100%{opacity:.75;transform:scale(1)}50%{opacity:1;transform:scale(1.08)}}
+.fzm-beam{animation:fzmBeam 7s ease-in-out infinite}
+.fzm-beam2{animation:fzmBeam 9s ease-in-out -3s infinite}
+@keyframes fzmBeam{0%,100%{opacity:.45}50%{opacity:.95}}
+.fzm-fleck{opacity:0;animation:fzmFleck 8s linear infinite}
+@keyframes fzmFleck{0%{opacity:0;transform:translateY(0) rotate(0deg)}20%{opacity:.9}100%{opacity:0;transform:translateY(-220px) rotate(160deg)}}
+.fzm-shine{animation:fzmShine 3.8s ease-in-out infinite}
+@keyframes fzmShine{0%,55%{transform:translateX(-120px) skewX(-20deg)}100%{transform:translateX(330px) skewX(-20deg)}}
+
+.fzm-eq span{transform-origin:50% 100%}
+.fzm-eq span:nth-child(1){transform:scaleY(.45)}
+.fzm-eq span:nth-child(2){transform:scaleY(.8)}
+.fzm-eq span:nth-child(3){transform:scaleY(.55)}
+.fzm-chip.is-playing .fzm-eq span{animation:fzmEq .8s ease-in-out infinite alternate}
+.fzm-chip.is-playing .fzm-eq span:nth-child(2){animation-delay:-.3s}
+.fzm-chip.is-playing .fzm-eq span:nth-child(3){animation-delay:-.55s}
+@keyframes fzmEq{from{transform:scaleY(.25)}to{transform:scaleY(1)}}
+.fzm-note{opacity:0}
+.fzm-chip.is-playing .fzm-note{animation:fzmNote 2.8s ease-out infinite}
+.fzm-chip.is-playing .fzm-n2{animation-delay:.9s}
+.fzm-chip.is-playing .fzm-n3{animation-delay:1.8s}
+@keyframes fzmNote{0%{opacity:0;transform:translate(0,0) rotate(0deg) scale(.6)}18%{opacity:1}100%{opacity:0;transform:translate(-78px,34px) rotate(-18deg) scale(1.05)}}
+
+.fzm-intro.is-open{pointer-events:none;animation:fzmOut .8s ease 3.6s forwards}
+@keyframes fzmOut{to{opacity:0}}
+.is-open .fzm-pre{animation:fzmHide .4s ease forwards}
+@keyframes fzmHide{to{opacity:0;transform:translateY(10px)}}
+.is-open .fzm-ring{animation:fzmSpin 2.8s cubic-bezier(.45,0,.2,1) forwards}
+.is-open .fzm-face{animation:fzmSpinBack 2.8s cubic-bezier(.45,0,.2,1) forwards}
+.fzm-drop{opacity:0;transform-origin:50% 0}
+.is-open .fzm-drop{animation:fzmDrop 1.5s cubic-bezier(.25,.7,.3,1) 1.1s forwards}
+@keyframes fzmDrop{0%{opacity:0;transform:translateY(-250px)}12%{opacity:1}55%{transform:translateY(12px) rotate(-3deg)}72%{transform:translateY(-5px) rotate(2deg)}86%{transform:translateY(2px) rotate(-1deg)}100%{opacity:1;transform:translateY(0) rotate(0deg)}}
+.fzm-cthread{transform-origin:50% 0;transform:scaleY(0)}
+.is-open .fzm-cthread{animation:fzmThread 1.5s cubic-bezier(.25,.7,.3,1) 1.1s forwards}
+@keyframes fzmThread{0%{transform:scaleY(0)}55%{transform:scaleY(1.04)}100%{transform:scaleY(1)}}
+.fzm-after{opacity:0}
+.is-open .fzm-after{animation:fzmIn .7s ease 2.2s forwards}
+@keyframes fzmIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+.fzm-btn{cursor:pointer;transition:transform .15s ease}
+.fzm-btn:active{transform:scale(.97)}
+.fzm-btn:focus-visible{outline:3px solid #36325E;outline-offset:3px}
+.fzm-heart{opacity:0;animation:fzmHeart 1.8s ease-out forwards}
+.fzm-h2{animation-delay:.2s}
+.fzm-h3{animation-delay:.4s}
+@keyframes fzmHeart{0%{opacity:0;transform:translateY(0) scale(.5)}20%{opacity:1}100%{opacity:0;transform:translateY(-84px) scale(1.15)}}
+
+@media (prefers-reduced-motion: reduce){
+.fzm-sw1,.fzm-sw2,.fzm-sw3,.fzm-sw4,.fzm-sw5,.fzm-swS,.fzm-rock,.fzm-float,.fzm-float2,.fzm-tw,.fzm-tw2,.fzm-glow,.fzm-beam,.fzm-beam2,.fzm-fleck,.fzm-shine,.fzm-idle .fzm-ring,.fzm-idle .fzm-face,.fzm-chip.is-playing .fzm-eq span,.fzm-chip.is-playing .fzm-note,.fzm-heart{animation:none}
+.fzm-fleck,.fzm-note,.fzm-heart{opacity:0}
+.fzm-intro.is-open{animation:none;opacity:0}
+.is-open .fzm-pre,.is-open .fzm-ring,.is-open .fzm-face,.is-open .fzm-drop,.is-open .fzm-cthread,.is-open .fzm-after{animation:none}
+.fzm-btn{transition:none}
+}
+</style>
+</helmet>
+<div style="width: 390px; height: 3600px; position: relative; overflow: hidden; background: linear-gradient(180deg, #FFF3D9 0%, #FFE8DC 12%, #F1E6F8 24%, #E1EEFA 40%, #FFF3D9 56%, #FFE8DC 70%, #F1E6F8 84%, #E1EEFA 100%); color: #36325E; font-family: 'Onest', 'Trebuchet MS', system-ui, sans-serif">
+
+  <svg aria-hidden="true" width="0" height="0" style="position: absolute; left: 0; top: 0">
+    <defs>
+      <linearGradient id="fzmSilver" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" class="fzm-g1"></stop>
+        <stop offset="0.5" class="fzm-g2"></stop>
+        <stop offset="1" class="fzm-g3"></stop>
+      </linearGradient>
+      <linearGradient id="fzmRibbon" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" class="fzm-r1"></stop>
+        <stop offset="0.55" class="fzm-r2"></stop>
+        <stop offset="1" class="fzm-r3"></stop>
+      </linearGradient>
+    </defs>
+  </svg>
+
+  <div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 390px; height: 3600px; pointer-events: none; z-index: 0">
+    <svg class="fzm-float" viewBox="0 0 120 72" width="96" height="58" style="position: absolute; left: -34px; top: 1330px"><path class="fzm-cloudW" d="M22 60 C10 60 3 51 6 42 C9 33 19 30 27 34 C29 21 42 13 55 18 C63 6 85 8 90 23 C103 21 115 31 112 44 C110 54 102 60 94 60 Z"></path></svg>
+    <svg class="fzm-float2" viewBox="0 0 120 72" width="88" height="53" style="position: absolute; left: 336px; top: 1720px"><path class="fzm-cloudB" d="M22 60 C10 60 3 51 6 42 C9 33 19 30 27 34 C29 21 42 13 55 18 C63 6 85 8 90 23 C103 21 115 31 112 44 C110 54 102 60 94 60 Z"></path></svg>
+    <svg class="fzm-float" viewBox="0 0 120 72" width="92" height="55" style="position: absolute; left: -38px; top: 2690px"><path class="fzm-cloudW" d="M22 60 C10 60 3 51 6 42 C9 33 19 30 27 34 C29 21 42 13 55 18 C63 6 85 8 90 23 C103 21 115 31 112 44 C110 54 102 60 94 60 Z"></path></svg>
+    <svg class="fzm-float2" viewBox="0 0 120 72" width="96" height="58" style="position: absolute; left: 330px; top: 3140px"><path class="fzm-cloudB" d="M22 60 C10 60 3 51 6 42 C9 33 19 30 27 34 C29 21 42 13 55 18 C63 6 85 8 90 23 C103 21 115 31 112 44 C110 54 102 60 94 60 Z"></path></svg>
+    <svg class="fzm-tw" viewBox="0 0 24 24" width="18" height="18" style="position: absolute; left: 12px; top: 1010px"><polygon class="fzm-orn" points="12.0,2.0 14.7,8.8 22.0,9.3 16.4,13.9 18.2,21.0 12.0,17.1 5.8,21.0 7.6,13.9 2.0,9.3 9.3,8.8"></polygon></svg>
+    <svg class="fzm-tw2" viewBox="0 0 24 24" width="16" height="16" style="position: absolute; left: 362px; top: 1480px"><polygon class="fzm-starS" points="12.0,2.0 14.7,8.8 22.0,9.3 16.4,13.9 18.2,21.0 12.0,17.1 5.8,21.0 7.6,13.9 2.0,9.3 9.3,8.8"></polygon></svg>
+    <svg class="fzm-tw" viewBox="0 0 24 24" width="16" height="16" style="position: absolute; left: 8px; top: 2050px"><polygon class="fzm-starP" points="12.0,2.0 14.7,8.8 22.0,9.3 16.4,13.9 18.2,21.0 12.0,17.1 5.8,21.0 7.6,13.9 2.0,9.3 9.3,8.8"></polygon></svg>
+    <svg class="fzm-tw2" viewBox="0 0 24 24" width="18" height="18" style="position: absolute; left: 360px; top: 2420px"><polygon class="fzm-orn" points="12.0,2.0 14.7,8.8 22.0,9.3 16.4,13.9 18.2,21.0 12.0,17.1 5.8,21.0 7.6,13.9 2.0,9.3 9.3,8.8"></polygon></svg>
+    <svg class="fzm-tw" viewBox="0 0 24 24" width="16" height="16" style="position: absolute; left: 14px; top: 3010px"><polygon class="fzm-starS" points="12.0,2.0 14.7,8.8 22.0,9.3 16.4,13.9 18.2,21.0 12.0,17.1 5.8,21.0 7.6,13.9 2.0,9.3 9.3,8.8"></polygon></svg>
+  </div>
+
+  <sc-if value="{{ showIntro }}" hint-placeholder-val="{{ true }}">
+  <div class="{{ introCls }}" aria-hidden="{{ introHidden }}" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; z-index: 30; overflow: hidden; background: linear-gradient(180deg, #FFF3D9 0%, #FFE8DC 51%, #F1E6F8 100%)">
+    <div class="fzm-glow" aria-hidden="true" style="position: absolute; left: -150px; top: -170px; width: 420px; height: 420px; border-radius: 50%; background: radial-gradient(circle, rgba(255, 232, 160, 0.95) 0%, rgba(255, 232, 160, 0.4) 38%, rgba(255, 232, 160, 0) 68%)"></div>
+    <div class="fzm-beam" aria-hidden="true" style="position: absolute; left: -10px; top: -60px; width: 70px; height: 700px; transform: rotate(-34deg); transform-origin: 0 0; background: linear-gradient(180deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0))"></div>
+    <div class="fzm-beam2" aria-hidden="true" style="position: absolute; left: 70px; top: -60px; width: 44px; height: 640px; transform: rotate(-34deg); transform-origin: 0 0; background: linear-gradient(180deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0))"></div>
+
+    <span class="fzm-fleck" aria-hidden="true" style="position: absolute; left: 40px; top: 560px; width: 7px; height: 7px; border-radius: 50%; background: #FFD98A"></span>
+    <span class="fzm-fleck" aria-hidden="true" style="position: absolute; left: 92px; top: 620px; width: 5px; height: 5px; border-radius: 50%; background: #CDBDF0; animation-delay: 1.6s"></span>
+    <span class="fzm-fleck" aria-hidden="true" style="position: absolute; left: 312px; top: 590px; width: 6px; height: 6px; border-radius: 50%; background: #9CC8EF; animation-delay: 3.1s"></span>
+    <span class="fzm-fleck" aria-hidden="true" style="position: absolute; left: 352px; top: 660px; width: 5px; height: 5px; border-radius: 50%; background: #FFC4A8; animation-delay: .7s"></span>
+    <span class="fzm-fleck" aria-hidden="true" style="position: absolute; left: 22px; top: 700px; width: 5px; height: 5px; border-radius: 50%; background: #9CC8EF; animation-delay: 4.4s"></span>
+    <span class="fzm-fleck" aria-hidden="true" style="position: absolute; left: 270px; top: 700px; width: 6px; height: 6px; border-radius: 50%; background: #FFD98A; animation-delay: 5.6s"></span>
+
+    <div style="position: absolute; left: 20px; top: 31px; font-size: 12px; font-weight: 700; letter-spacing: 0.2em; color: #5A5680">18 · 10 · 2026</div>
+
+    <div class="fzm-stage" aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 390px; height: 440px">
+      <svg viewBox="0 0 390 180" width="390" height="180" style="position: absolute; left: 0; top: 0">
+        <path class="fzm-str" d="M195 0 V52"></path>
+        <path class="fzm-str" d="M195 64 L80 150 M195 64 L310 150 M195 64 L195 127"></path>
+        <circle cx="195" cy="58" r="7.5" fill="#E2BE8A"></circle>
+        <circle cx="192.5" cy="55.5" r="2.4" fill="#F6E2C2"></circle>
+      </svg>
+      <div class="fzm-ring" style="position: absolute; left: 195px; top: 150px; width: 0; height: 0; transform-style: preserve-3d">
+        <div class="fzm-arm" style="position: absolute; left: 0; top: 0; width: 0; height: 0; transform-style: preserve-3d; transform: rotateY(144deg) translateZ(115px) rotateY(-144deg)">
+          <div class="fzm-face" style="position: absolute; left: 0; top: 0; width: 0; height: 0">
+            <div class="fzm-sw3" style="position: absolute; left: -50px; top: 0; width: 100px; height: 166px">
+              <span style="position: absolute; left: 49.25px; top: 0; width: 1.5px; height: 98px; background: #B9AFC9"></span>
+              <span style="position: absolute; left: 46px; top: 26px; width: 8px; height: 8px; border-radius: 50%; background: #F2D3A6"></span>
+              <svg viewBox="0 0 120 92" width="100" height="77" style="position: absolute; left: 0; top: 86px"><path class="fzm-cloudW" d="M22 60 C10 60 3 51 6 42 C9 33 19 30 27 34 C29 21 42 13 55 18 C63 6 85 8 90 23 C103 21 115 31 112 44 C110 54 102 60 94 60 Z"></path><path class="fzm-cloudWst" transform="translate(60 40) scale(0.86) translate(-60 -40)" d="M22 60 C10 60 3 51 6 42 C9 33 19 30 27 34 C29 21 42 13 55 18 C63 6 85 8 90 23 C103 21 115 31 112 44 C110 54 102 60 94 60 Z"></path><path class="fzm-str" d="M60 60 V73"></path><path class="fzm-dropP" d="M60 73 C64 79 66 82 66 85 A6 6 0 0 1 54 85 C54 82 56 79 60 73 Z"></path></svg>
+            </div>
+          </div>
+        </div>
+        <div class="fzm-arm" style="position: absolute; left: 0; top: 0; width: 0; height: 0; transform-style: preserve-3d; transform: rotateY(216deg) translateZ(115px) rotateY(-216deg)">
+          <div class="fzm-face" style="position: absolute; left: 0; top: 0; width: 0; height: 0">
+            <div class="fzm-sw4" style="position: absolute; left: -27px; top: 0; width: 54px; height: 172px">
+              <span style="position: absolute; left: 26.25px; top: 0; width: 1.5px; height: 122px; background: #B9AFC9"></span>
+              <span style="position: absolute; left: 23px; top: 36px; width: 8px; height: 8px; border-radius: 50%; background: #F2D3A6"></span>
+              <svg viewBox="0 0 100 100" width="54" height="54" style="position: absolute; left: 0; top: 116px"><polygon class="fzm-starP" points="50.0,8.0 61.8,35.8 91.8,38.4 69.0,58.2 75.9,87.6 50.0,72.0 24.1,87.6 31.0,58.2 8.2,38.4 38.2,35.8"></polygon><polygon class="fzm-starPst" points="50.0,19.0 58.8,39.9 81.4,41.8 64.3,56.6 69.4,78.7 50.0,67.0 30.6,78.7 35.7,56.6 18.6,41.8 41.2,39.9"></polygon></svg>
+            </div>
+          </div>
+        </div>
+        <div aria-hidden="true" style="position: absolute; left: -115px; top: -115px; width: 230px; height: 230px; box-sizing: border-box; border-radius: 50%; border: 6px solid #D9B27C; transform: translateY(2px) rotateX(90deg)"></div>
+        <div aria-hidden="true" style="position: absolute; left: -115px; top: -115px; width: 230px; height: 230px; box-sizing: border-box; border-radius: 50%; border: 6px solid #E2BE8A; transform: rotateX(90deg)"></div>
+        <div aria-hidden="true" style="position: absolute; left: -115px; top: -115px; width: 230px; height: 230px; box-sizing: border-box; border-radius: 50%; border: 6px solid #F0D3A6; transform: translateY(-2px) rotateX(90deg)"></div>
+        <div class="fzm-arm" style="position: absolute; left: 0; top: 0; width: 0; height: 0; transform-style: preserve-3d">
+          <div class="fzm-face" style="position: absolute; left: 0; top: 0; width: 0; height: 0">
+            <span class="fzm-cthread" style="position: absolute; left: -0.75px; top: 0; width: 1.5px; height: 242px; background: #B9AFC9"></span>
+          </div>
+        </div>
+        <div class="fzm-arm" style="position: absolute; left: 0; top: 0; width: 0; height: 0; transform-style: preserve-3d; transform: rotateY(72deg) translateZ(115px) rotateY(-72deg)">
+          <div class="fzm-face" style="position: absolute; left: 0; top: 0; width: 0; height: 0">
+            <div class="fzm-sw2" style="position: absolute; left: -29px; top: 0; width: 58px; height: 124px">
+              <span style="position: absolute; left: 28.25px; top: 0; width: 1.5px; height: 68px; background: #B9AFC9"></span>
+              <span style="position: absolute; left: 25px; top: 22px; width: 8px; height: 8px; border-radius: 50%; background: #F2D3A6"></span>
+              <svg viewBox="0 0 100 100" width="58" height="58" style="position: absolute; left: 0; top: 62px"><polygon class="fzm-starS" points="50.0,8.0 61.8,35.8 91.8,38.4 69.0,58.2 75.9,87.6 50.0,72.0 24.1,87.6 31.0,58.2 8.2,38.4 38.2,35.8"></polygon><polygon class="fzm-starSst" points="50.0,19.0 58.8,39.9 81.4,41.8 64.3,56.6 69.4,78.7 50.0,67.0 30.6,78.7 35.7,56.6 18.6,41.8 41.2,39.9"></polygon></svg>
+            </div>
+          </div>
+        </div>
+        <div class="fzm-arm" style="position: absolute; left: 0; top: 0; width: 0; height: 0; transform-style: preserve-3d; transform: rotateY(288deg) translateZ(115px) rotateY(-288deg)">
+          <div class="fzm-face" style="position: absolute; left: 0; top: 0; width: 0; height: 0">
+            <div class="fzm-sw5" style="position: absolute; left: -50px; top: 0; width: 100px; height: 126px">
+              <span style="position: absolute; left: 49.25px; top: 0; width: 1.5px; height: 58px; background: #B9AFC9"></span>
+              <span style="position: absolute; left: 46px; top: 18px; width: 8px; height: 8px; border-radius: 50%; background: #F2D3A6"></span>
+              <svg viewBox="0 0 120 92" width="100" height="77" style="position: absolute; left: 0; top: 46px"><path class="fzm-cloudB" d="M22 60 C10 60 3 51 6 42 C9 33 19 30 27 34 C29 21 42 13 55 18 C63 6 85 8 90 23 C103 21 115 31 112 44 C110 54 102 60 94 60 Z"></path><path class="fzm-cloudBst" transform="translate(60 40) scale(0.86) translate(-60 -40)" d="M22 60 C10 60 3 51 6 42 C9 33 19 30 27 34 C29 21 42 13 55 18 C63 6 85 8 90 23 C103 21 115 31 112 44 C110 54 102 60 94 60 Z"></path><path class="fzm-str" d="M60 60 V73"></path><path class="fzm-dropL" d="M60 73 C64 79 66 82 66 85 A6 6 0 0 1 54 85 C54 82 56 79 60 73 Z"></path></svg>
+            </div>
+          </div>
+        </div>
+        <div class="fzm-arm" style="position: absolute; left: 0; top: 0; width: 0; height: 0; transform-style: preserve-3d; transform: translateZ(115px)">
+          <div class="fzm-face" style="position: absolute; left: 0; top: 0; width: 0; height: 0">
+            <div class="fzm-sw1" style="position: absolute; left: -48px; top: 0; width: 96px; height: 200px">
+              <span style="position: absolute; left: 47.25px; top: 0; width: 1.5px; height: 112px; background: #B9AFC9"></span>
+              <span style="position: absolute; left: 44px; top: 40px; width: 8px; height: 8px; border-radius: 50%; background: #F2D3A6"></span>
+              <svg viewBox="0 0 100 100" width="96" height="96" style="position: absolute; left: 0; top: 100px"><path class="fzm-moon" d="M50 10 A42 42 0 1 0 90.3 63.8 A34 34 0 1 1 50 10 Z"></path><path class="fzm-moonst" transform="translate(40 58) scale(0.84) translate(-40 -58)" d="M50 10 A42 42 0 1 0 90.3 63.8 A34 34 0 1 1 50 10 Z"></path><path class="fzm-eye" d="M19 60 Q24.5 66 30 61"></path><circle class="fzm-cheek" cx="31" cy="73" r="4.6"></circle></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button type="button" class="{{ chipCls }}" onClick="{{ toggleMusic }}" aria-label="{{ musicLabel }}" style="position: absolute; right: 16px; top: 16px; z-index: 3; height: 44px; padding: 0 14px 0 12px; display: inline-flex; align-items: center; gap: 8px; border-radius: 22px; border: 1.5px solid #FFFFFF; background: rgba(255, 255, 255, 0.72); color: #36325E; font-family: 'Onest', 'Trebuchet MS', system-ui, sans-serif; font-size: 13px; font-weight: 700; box-shadow: 0 10px 22px -14px rgba(54, 50, 94, 0.5)">
+      <span aria-hidden="true" style="position: absolute; left: 6px; top: 30px; width: 0; height: 0">
+        <svg class="fzm-note" viewBox="0 0 24 24" width="16" height="16" style="position: absolute; left: 0; top: 0; color: #8F7BD6"><path fill="currentColor" d="M10 3v10.3A3.2 3.2 0 1 0 12 16V7h5V3z"></path></svg>
+        <svg class="fzm-note fzm-n2" viewBox="0 0 24 24" width="13" height="13" style="position: absolute; left: 12px; top: 6px; color: #E8937A"><path fill="currentColor" d="M10 3v10.3A3.2 3.2 0 1 0 12 16V7h5V3z"></path></svg>
+        <svg class="fzm-note fzm-n3" viewBox="0 0 24 24" width="15" height="15" style="position: absolute; left: -4px; top: 10px; color: #6FA6DD"><path fill="currentColor" d="M10 3v10.3A3.2 3.2 0 1 0 12 16V7h5V3z"></path></svg>
+      </span>
+      <svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20" class="fzm-ic"><rect x="2.5" y="10" width="15" height="10" rx="1.6"></rect><path d="M2.5 13.5h15M5 10l1.5-3.5h8L16 10"></path><path d="M17.5 15h3.2v-3.4"></path><circle cx="20.7" cy="10.4" r="1.3"></circle></svg>
+      Musiqa qutisi
+      <span class="fzm-eq" aria-hidden="true" style="display: flex; align-items: flex-end; gap: 2px; height: 14px">
+        <span style="display: block; width: 2.5px; height: 14px; border-radius: 1px; background: #8F7BD6"></span>
+        <span style="display: block; width: 2.5px; height: 14px; border-radius: 1px; background: #E8937A"></span>
+        <span style="display: block; width: 2.5px; height: 14px; border-radius: 1px; background: #6FA6DD"></span>
+      </span>
+    </button>
+
+    <div class="fzm-drop" aria-hidden="true" style="position: absolute; left: 45px; top: 392px; width: 300px; height: 66px">
+      <svg viewBox="0 0 300 66" width="300" height="66" style="position: absolute; left: 0; top: 0">
+        <path class="fzm-ribt" d="M0 16 H48 V62 H0 L14 39 Z"></path>
+        <path class="fzm-ribt" d="M300 16 H252 V62 H300 L286 39 Z"></path>
+        <path class="fzm-ribf" d="M34 50 L48 62 L48 50 Z"></path>
+        <path class="fzm-ribf" d="M266 50 L252 62 L252 50 Z"></path>
+        <rect class="fzm-rib" x="34" y="4" width="232" height="46" rx="3"></rect>
+        <path class="fzm-ribhl" d="M42 10 H258"></path>
+        <circle cx="150" cy="4" r="4.5" fill="#E2BE8A"></circle>
+      </svg>
+      <p class="fzm-d" style="position: absolute; left: 34px; top: 4px; width: 232px; height: 46px; margin: 0; display: flex; align-items: center; justify-content: center; font-size: 21px; font-weight: 600; color: #2A3360">Muhammadali</p>
+    </div>
+    <div class="fzm-after" style="position: absolute; left: 0; top: 468px; width: 390px; display: flex; flex-direction: column; align-items: center; gap: 14px">
+      <p style="margin: 0; font-size: 18px; font-weight: 700; color: #36325E">o’g’ilchamiz dunyoga keldi!</p>
+      <div style="display: inline-flex; align-items: center; gap: 12px; height: 44px; padding: 0 18px; border-radius: 22px; background: rgba(255, 255, 255, 0.8); border: 1.5px solid #FFFFFF; font-size: 15px; font-weight: 700; color: #36325E">
+        <span style="display: inline-flex; align-items: center; gap: 7px"><svg aria-hidden="true" viewBox="0 0 24 24" width="17" height="17" class="fzm-ic" style="color: #6F8FD0"><rect x="3.5" y="5" width="17" height="15.5" rx="3"></rect><path d="M3.5 10h17M8 3v4M16 3v4"></path></svg>18-oktabr 2026</span>
+        <span aria-hidden="true" style="width: 1.5px; height: 20px; background: #D8CFE8"></span>
+        <span style="display: inline-flex; align-items: center; gap: 7px"><svg aria-hidden="true" viewBox="0 0 24 24" width="17" height="17" class="fzm-ic" style="color: #D9826A"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 7.5V12l3 2"></path></svg>04:20</span>
+      </div>
+    </div>
+
+    <div class="fzm-pre" style="position: absolute; left: 24px; top: 404px; width: 342px; display: flex; flex-direction: column; align-items: center; text-align: center">
+      <p style="margin: 0; font-size: 12px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: #5A5680">Bekzod va Zarina oilasidan</p>
+      <h2 class="fzm-d" style="margin: 10px 0 0; font-size: 29px; line-height: 1.18; font-weight: 600; color: #36325E">Beshik ustida<br>kichkina osmon</h2>
+      <p style="margin: 12px 0 0; max-width: 290px; font-size: 15px; line-height: 1.5; font-weight: 500; color: #5A5680">Osmachani aylantiring — u sizga kichkina bir sirni aytadi</p>
+    </div>
+
+    <div aria-hidden="true" class="fzm-dots" style="position: absolute; left: 0; top: 792px; width: 390px; height: 52px"></div>
+    <svg aria-hidden="true" viewBox="0 0 390 96" width="390" height="96" style="position: absolute; left: 0; top: 748px">
+      <rect class="fzm-wood" x="10" y="14" width="12" height="90" rx="6"></rect>
+      <rect class="fzm-wood" x="46" y="14" width="12" height="90" rx="6"></rect>
+      <rect class="fzm-wood" x="82" y="14" width="12" height="90" rx="6"></rect>
+      <rect class="fzm-wood" x="118" y="14" width="12" height="90" rx="6"></rect>
+      <rect class="fzm-wood" x="154" y="14" width="12" height="90" rx="6"></rect>
+      <rect class="fzm-wood" x="190" y="14" width="12" height="90" rx="6"></rect>
+      <rect class="fzm-wood" x="226" y="14" width="12" height="90" rx="6"></rect>
+      <rect class="fzm-wood" x="262" y="14" width="12" height="90" rx="6"></rect>
+      <rect class="fzm-wood" x="298" y="14" width="12" height="90" rx="6"></rect>
+      <rect class="fzm-wood" x="334" y="14" width="12" height="90" rx="6"></rect>
+      <rect class="fzm-wood" x="370" y="14" width="12" height="90" rx="6"></rect>
+      <rect class="fzm-wood" x="-12" y="2" width="414" height="18" rx="9"></rect>
+    </svg>
+
+    <div class="fzm-pre" style="position: absolute; left: 0; top: 636px; width: 390px; display: flex; flex-direction: column; align-items: center; gap: 12px">
+      <button type="button" class="fzm-btn" onClick="{{ spin }}" style="position: relative; overflow: hidden; display: inline-flex; align-items: center; justify-content: center; gap: 10px; width: 276px; height: 58px; border: 0; border-radius: 29px; background: #36325E; color: #FFFFFF; font-family: 'Onest', 'Trebuchet MS', system-ui, sans-serif; font-size: 17px; font-weight: 700; box-shadow: 0 16px 30px -14px rgba(54, 50, 94, 0.75), 0 0 0 6px rgba(255, 255, 255, 0.6)">
+        <span class="fzm-shine" aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 56px; height: 58px; background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.28), rgba(255, 255, 255, 0))"></span>
+        <svg aria-hidden="true" viewBox="0 0 24 24" width="22" height="22" class="fzm-ic" style="position: relative"><path d="M12 2v4"></path><ellipse cx="12" cy="7.5" rx="8" ry="2"></ellipse><path d="M5 9v5M12 9.5v7M19 9v4"></path><circle cx="5" cy="15.5" r="1.6"></circle><path d="M12 16.5l1 2 2 .3-1.5 1.4.4 2-1.9-1-1.9 1 .4-2-1.5-1.4 2-.3z"></path><circle cx="19" cy="14.5" r="1.6"></circle></svg>
+        <span style="position: relative">Osmachani aylantirish</span>
+      </button>
+      <span style="display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: #5A5680">
+        <svg aria-hidden="true" viewBox="0 0 24 24" width="14" height="14" class="fzm-ic"><path d="M9 18V6l10-2v12"></path><circle cx="6.5" cy="18" r="2.5"></circle><circle cx="16.5" cy="16" r="2.5"></circle></svg>
+        Musiqa qutisi ohangi bilan
+      </span>
+    </div>
+  </div>
+  </sc-if>
+
+  <div style="position: relative; z-index: 1; min-height: 3600px; display: flex; flex-direction: column">
+
+    <header style="position: relative; height: 844px; flex: none">
+      <div style="position: absolute; left: 20px; top: 31px; font-size: 12px; font-weight: 700; letter-spacing: 0.2em; color: #5A5680">18 · 10 · 2026</div>
+
+      <div class="fzm-stage fzm-idle" aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 390px; height: 440px">
+        <svg viewBox="0 0 390 180" width="390" height="180" style="position: absolute; left: 0; top: 0">
+          <path class="fzm-str" d="M195 0 V52"></path>
+          <path class="fzm-str" d="M195 64 L80 150 M195 64 L310 150 M195 64 L195 127"></path>
+          <circle cx="195" cy="58" r="7.5" fill="#E2BE8A"></circle>
+          <circle cx="192.5" cy="55.5" r="2.4" fill="#F6E2C2"></circle>
+        </svg>
+        <div class="fzm-ring" style="position: absolute; left: 195px; top: 150px; width: 0; height: 0; transform-style: preserve-3d">
+          <div class="fzm-arm" style="position: absolute; left: 0; top: 0; width: 0; height: 0; transform-style: preserve-3d; transform: rotateY(144deg) translateZ(115px) rotateY(-144deg)">
+            <div class="fzm-face" style="position: absolute; left: 0; top: 0; width: 0; height: 0">
+              <div class="fzm-sw3" style="position: absolute; left: -50px; top: 0; width: 100px; height: 166px">
+                <span style="position: absolute; left: 49.25px; top: 0; width: 1.5px; height: 98px; background: #B9AFC9"></span>
+                <span style="position: absolute; left: 46px; top: 26px; width: 8px; height: 8px; border-radius: 50%; background: #F2D3A6"></span>
+                <svg viewBox="0 0 120 92" width="100" height="77" style="position: absolute; left: 0; top: 86px"><path class="fzm-cloudW" d="M22 60 C10 60 3 51 6 42 C9 33 19 30 27 34 C29 21 42 13 55 18 C63 6 85 8 90 23 C103 21 115 31 112 44 C110 54 102 60 94 60 Z"></path><path class="fzm-cloudWst" transform="translate(60 40) scale(0.86) translate(-60 -40)" d="M22 60 C10 60 3 51 6 42 C9 33 19 30 27 34 C29 21 42 13 55 18 C63 6 85 8 90 23 C103 21 115 31 112 44 C110 54 102 60 94 60 Z"></path><path class="fzm-str" d="M60 60 V73"></path><path class="fzm-dropP" d="M60 73 C64 79 66 82 66 85 A6 6 0 0 1 54 85 C54 82 56 79 60 73 Z"></path></svg>
+              </div>
+            </div>
+          </div>
+          <div class="fzm-arm" style="position: absolute; left: 0; top: 0; width: 0; height: 0; transform-style: preserve-3d; transform: rotateY(216deg) translateZ(115px) rotateY(-216deg)">
+            <div class="fzm-face" style="position: absolute; left: 0; top: 0; width: 0; height: 0">
+              <div class="fzm-sw4" style="position: absolute; left: -27px; top: 0; width: 54px; height: 172px">
+                <span style="position: absolute; left: 26.25px; top: 0; width: 1.5px; height: 122px; background: #B9AFC9"></span>
+                <span style="position: absolute; left: 23px; top: 36px; width: 8px; height: 8px; border-radius: 50%; background: #F2D3A6"></span>
+                <svg viewBox="0 0 100 100" width="54" height="54" style="position: absolute; left: 0; top: 116px"><polygon class="fzm-starP" points="50.0,8.0 61.8,35.8 91.8,38.4 69.0,58.2 75.9,87.6 50.0,72.0 24.1,87.6 31.0,58.2 8.2,38.4 38.2,35.8"></polygon><polygon class="fzm-starPst" points="50.0,19.0 58.8,39.9 81.4,41.8 64.3,56.6 69.4,78.7 50.0,67.0 30.6,78.7 35.7,56.6 18.6,41.8 41.2,39.9"></polygon></svg>
+              </div>
+            </div>
+          </div>
+          <div aria-hidden="true" style="position: absolute; left: -115px; top: -115px; width: 230px; height: 230px; box-sizing: border-box; border-radius: 50%; border: 6px solid #D9B27C; transform: translateY(2px) rotateX(90deg)"></div>
+          <div aria-hidden="true" style="position: absolute; left: -115px; top: -115px; width: 230px; height: 230px; box-sizing: border-box; border-radius: 50%; border: 6px solid #E2BE8A; transform: rotateX(90deg)"></div>
+          <div aria-hidden="true" style="position: absolute; left: -115px; top: -115px; width: 230px; height: 230px; box-sizing: border-box; border-radius: 50%; border: 6px solid #F0D3A6; transform: translateY(-2px) rotateX(90deg)"></div>
+          <div class="fzm-arm" style="position: absolute; left: 0; top: 0; width: 0; height: 0; transform-style: preserve-3d">
+            <div class="fzm-face" style="position: absolute; left: 0; top: 0; width: 0; height: 0">
+              <span style="position: absolute; left: -0.75px; top: 0; width: 1.5px; height: 242px; background: #B9AFC9"></span>
+            </div>
+          </div>
+          <div class="fzm-arm" style="position: absolute; left: 0; top: 0; width: 0; height: 0; transform-style: preserve-3d; transform: rotateY(72deg) translateZ(115px) rotateY(-72deg)">
+            <div class="fzm-face" style="position: absolute; left: 0; top: 0; width: 0; height: 0">
+              <div class="fzm-sw2" style="position: absolute; left: -29px; top: 0; width: 58px; height: 124px">
+                <span style="position: absolute; left: 28.25px; top: 0; width: 1.5px; height: 68px; background: #B9AFC9"></span>
+                <span style="position: absolute; left: 25px; top: 22px; width: 8px; height: 8px; border-radius: 50%; background: #F2D3A6"></span>
+                <svg viewBox="0 0 100 100" width="58" height="58" style="position: absolute; left: 0; top: 62px"><polygon class="fzm-starS" points="50.0,8.0 61.8,35.8 91.8,38.4 69.0,58.2 75.9,87.6 50.0,72.0 24.1,87.6 31.0,58.2 8.2,38.4 38.2,35.8"></polygon><polygon class="fzm-starSst" points="50.0,19.0 58.8,39.9 81.4,41.8 64.3,56.6 69.4,78.7 50.0,67.0 30.6,78.7 35.7,56.6 18.6,41.8 41.2,39.9"></polygon></svg>
+              </div>
+            </div>
+          </div>
+          <div class="fzm-arm" style="position: absolute; left: 0; top: 0; width: 0; height: 0; transform-style: preserve-3d; transform: rotateY(288deg) translateZ(115px) rotateY(-288deg)">
+            <div class="fzm-face" style="position: absolute; left: 0; top: 0; width: 0; height: 0">
+              <div class="fzm-sw5" style="position: absolute; left: -50px; top: 0; width: 100px; height: 126px">
+                <span style="position: absolute; left: 49.25px; top: 0; width: 1.5px; height: 58px; background: #B9AFC9"></span>
+                <span style="position: absolute; left: 46px; top: 18px; width: 8px; height: 8px; border-radius: 50%; background: #F2D3A6"></span>
+                <svg viewBox="0 0 120 92" width="100" height="77" style="position: absolute; left: 0; top: 46px"><path class="fzm-cloudB" d="M22 60 C10 60 3 51 6 42 C9 33 19 30 27 34 C29 21 42 13 55 18 C63 6 85 8 90 23 C103 21 115 31 112 44 C110 54 102 60 94 60 Z"></path><path class="fzm-cloudBst" transform="translate(60 40) scale(0.86) translate(-60 -40)" d="M22 60 C10 60 3 51 6 42 C9 33 19 30 27 34 C29 21 42 13 55 18 C63 6 85 8 90 23 C103 21 115 31 112 44 C110 54 102 60 94 60 Z"></path><path class="fzm-str" d="M60 60 V73"></path><path class="fzm-dropL" d="M60 73 C64 79 66 82 66 85 A6 6 0 0 1 54 85 C54 82 56 79 60 73 Z"></path></svg>
+              </div>
+            </div>
+          </div>
+          <div class="fzm-arm" style="position: absolute; left: 0; top: 0; width: 0; height: 0; transform-style: preserve-3d; transform: translateZ(115px)">
+            <div class="fzm-face" style="position: absolute; left: 0; top: 0; width: 0; height: 0">
+              <div class="fzm-sw1" style="position: absolute; left: -48px; top: 0; width: 96px; height: 200px">
+                <span style="position: absolute; left: 47.25px; top: 0; width: 1.5px; height: 112px; background: #B9AFC9"></span>
+                <span style="position: absolute; left: 44px; top: 40px; width: 8px; height: 8px; border-radius: 50%; background: #F2D3A6"></span>
+                <svg viewBox="0 0 100 100" width="96" height="96" style="position: absolute; left: 0; top: 100px"><path class="fzm-moon" d="M50 10 A42 42 0 1 0 90.3 63.8 A34 34 0 1 1 50 10 Z"></path><path class="fzm-moonst" transform="translate(40 58) scale(0.84) translate(-40 -58)" d="M50 10 A42 42 0 1 0 90.3 63.8 A34 34 0 1 1 50 10 Z"></path><path class="fzm-eye" d="M19 60 Q24.5 66 30 61"></path><circle class="fzm-cheek" cx="31" cy="73" r="4.6"></circle></svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button type="button" class="{{ chipCls }}" onClick="{{ toggleMusic }}" aria-label="{{ musicLabel }}" style="position: absolute; right: 16px; top: 16px; z-index: 3; height: 44px; padding: 0 14px 0 12px; display: inline-flex; align-items: center; gap: 8px; border-radius: 22px; border: 1.5px solid #FFFFFF; background: rgba(255, 255, 255, 0.72); color: #36325E; font-family: 'Onest', 'Trebuchet MS', system-ui, sans-serif; font-size: 13px; font-weight: 700; box-shadow: 0 10px 22px -14px rgba(54, 50, 94, 0.5)">
+        <span aria-hidden="true" style="position: absolute; left: 6px; top: 30px; width: 0; height: 0">
+          <svg class="fzm-note" viewBox="0 0 24 24" width="16" height="16" style="position: absolute; left: 0; top: 0; color: #8F7BD6"><path fill="currentColor" d="M10 3v10.3A3.2 3.2 0 1 0 12 16V7h5V3z"></path></svg>
+          <svg class="fzm-note fzm-n2" viewBox="0 0 24 24" width="13" height="13" style="position: absolute; left: 12px; top: 6px; color: #E8937A"><path fill="currentColor" d="M10 3v10.3A3.2 3.2 0 1 0 12 16V7h5V3z"></path></svg>
+          <svg class="fzm-note fzm-n3" viewBox="0 0 24 24" width="15" height="15" style="position: absolute; left: -4px; top: 10px; color: #6FA6DD"><path fill="currentColor" d="M10 3v10.3A3.2 3.2 0 1 0 12 16V7h5V3z"></path></svg>
+        </span>
+        <svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20" class="fzm-ic"><rect x="2.5" y="10" width="15" height="10" rx="1.6"></rect><path d="M2.5 13.5h15M5 10l1.5-3.5h8L16 10"></path><path d="M17.5 15h3.2v-3.4"></path><circle cx="20.7" cy="10.4" r="1.3"></circle></svg>
+        Musiqa qutisi
+        <span class="fzm-eq" aria-hidden="true" style="display: flex; align-items: flex-end; gap: 2px; height: 14px">
+          <span style="display: block; width: 2.5px; height: 14px; border-radius: 1px; background: #8F7BD6"></span>
+          <span style="display: block; width: 2.5px; height: 14px; border-radius: 1px; background: #E8937A"></span>
+          <span style="display: block; width: 2.5px; height: 14px; border-radius: 1px; background: #6FA6DD"></span>
+        </span>
+      </button>
+
+      <div style="position: absolute; left: 45px; top: 392px; width: 300px; height: 66px">
+        <svg aria-hidden="true" viewBox="0 0 300 66" width="300" height="66" style="position: absolute; left: 0; top: 0">
+          <path class="fzm-ribt" d="M0 16 H48 V62 H0 L14 39 Z"></path>
+          <path class="fzm-ribt" d="M300 16 H252 V62 H300 L286 39 Z"></path>
+          <path class="fzm-ribf" d="M34 50 L48 62 L48 50 Z"></path>
+          <path class="fzm-ribf" d="M266 50 L252 62 L252 50 Z"></path>
+          <rect class="fzm-rib" x="34" y="4" width="232" height="46" rx="3"></rect>
+          <path class="fzm-ribhl" d="M42 10 H258"></path>
+          <circle cx="150" cy="4" r="4.5" fill="#E2BE8A"></circle>
+        </svg>
+        <h1 class="fzm-d" style="position: absolute; left: 34px; top: 4px; width: 232px; height: 46px; margin: 0; display: flex; align-items: center; justify-content: center; font-size: 21px; font-weight: 600; color: #2A3360">Muhammadali</h1>
+      </div>
+      <div style="position: absolute; left: 0; top: 468px; width: 390px; display: flex; flex-direction: column; align-items: center; gap: 14px">
+        <p style="margin: 0; font-size: 18px; font-weight: 700; color: #36325E">o’g’ilchamiz dunyoga keldi!</p>
+        <div style="display: inline-flex; align-items: center; gap: 12px; height: 44px; padding: 0 18px; border-radius: 22px; background: rgba(255, 255, 255, 0.8); border: 1.5px solid #FFFFFF; font-size: 15px; font-weight: 700; color: #36325E">
+          <span style="display: inline-flex; align-items: center; gap: 7px"><svg aria-hidden="true" viewBox="0 0 24 24" width="17" height="17" class="fzm-ic" style="color: #6F8FD0"><rect x="3.5" y="5" width="17" height="15.5" rx="3"></rect><path d="M3.5 10h17M8 3v4M16 3v4"></path></svg>18-oktabr 2026</span>
+          <span aria-hidden="true" style="width: 1.5px; height: 20px; background: #D8CFE8"></span>
+          <span style="display: inline-flex; align-items: center; gap: 7px"><svg aria-hidden="true" viewBox="0 0 24 24" width="17" height="17" class="fzm-ic" style="color: #D9826A"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 7.5V12l3 2"></path></svg>04:20</span>
+        </div>
+      </div>
+
+      <div style="position: absolute; left: 75px; top: 580px; width: 240px; height: 240px; filter: drop-shadow(0 18px 26px rgba(54, 50, 94, 0.18))">
+        <svg aria-hidden="true" viewBox="0 0 240 240" width="240" height="240" style="position: absolute; left: 0; top: 0"><path class="fzm-scal" d="M120.0 12.0 A17 17 0 0 1 150.4 16.4 A17 17 0 0 1 178.4 29.1 A17 17 0 0 1 201.6 49.3 A17 17 0 0 1 218.2 75.1 A17 17 0 0 1 226.9 104.6 A17 17 0 0 1 226.9 135.4 A17 17 0 0 1 218.2 164.9 A17 17 0 0 1 201.6 190.7 A17 17 0 0 1 178.4 210.9 A17 17 0 0 1 150.4 223.6 A17 17 0 0 1 120.0 228.0 A17 17 0 0 1 89.6 223.6 A17 17 0 0 1 61.6 210.9 A17 17 0 0 1 38.4 190.7 A17 17 0 0 1 21.8 164.9 A17 17 0 0 1 13.1 135.4 A17 17 0 0 1 13.1 104.6 A17 17 0 0 1 21.8 75.1 A17 17 0 0 1 38.4 49.3 A17 17 0 0 1 61.6 29.1 A17 17 0 0 1 89.6 16.4 A17 17 0 0 1 120.0 12.0 Z"></path><circle class="fzm-stitch" cx="120" cy="120" r="103"></circle></svg>
+        <img src="/_blob/93c16cc2b4f2e1645b2912480269defb" alt="Bekzod va Zarina chaqaloq Muhammadalini quchoqlab turibdi" style="position: absolute; left: 24px; top: 24px; display: block; width: 192px; height: 192px; object-fit: cover; object-position: 50% 32%; border-radius: 50%">
+      </div>
+      <svg class="fzm-tw" aria-hidden="true" viewBox="0 0 100 100" width="50" height="50" style="position: absolute; left: 282px; top: 584px"><polygon class="fzm-starP" points="50.0,8.0 61.8,35.8 91.8,38.4 69.0,58.2 75.9,87.6 50.0,72.0 24.1,87.6 31.0,58.2 8.2,38.4 38.2,35.8"></polygon><polygon class="fzm-starPst" points="50.0,19.0 58.8,39.9 81.4,41.8 64.3,56.6 69.4,78.7 50.0,67.0 30.6,78.7 35.7,56.6 18.6,41.8 41.2,39.9"></polygon></svg>
+      <svg class="fzm-float" aria-hidden="true" viewBox="0 0 120 72" width="104" height="62" style="position: absolute; left: 28px; top: 758px"><path class="fzm-cloudB" d="M22 60 C10 60 3 51 6 42 C9 33 19 30 27 34 C29 21 42 13 55 18 C63 6 85 8 90 23 C103 21 115 31 112 44 C110 54 102 60 94 60 Z"></path><path class="fzm-cloudBst" transform="translate(60 40) scale(0.86) translate(-60 -40)" d="M22 60 C10 60 3 51 6 42 C9 33 19 30 27 34 C29 21 42 13 55 18 C63 6 85 8 90 23 C103 21 115 31 112 44 C110 54 102 60 94 60 Z"></path></svg>
+    </header>
+
+    <section style="position: relative; margin: 26px 24px 0">
+      <div style="display: flex; flex-direction: column; align-items: center; text-align: center">
+        <svg aria-hidden="true" viewBox="0 0 24 30" width="20" height="25"><path class="fzm-str" d="M12 0 V12"></path><polygon class="fzm-orn" transform="translate(2.4 10.4) scale(0.8)" points="12.0,2.0 14.7,8.8 22.0,9.3 16.4,13.9 18.2,21.0 12.0,17.1 5.8,21.0 7.6,13.9 2.0,9.3 9.3,8.8"></polygon></svg>
+        <h2 class="fzm-d" style="margin: 4px 0 0; font-size: 24px; line-height: 1.2; font-weight: 600; color: #36325E">Tug’ilish kartochkasi</h2>
+        <p style="margin: 6px 0 0; font-size: 14px; font-weight: 600; color: #5A5680">Muhammadali Bekzod o’g’li</p>
+      </div>
+      <div style="position: relative; height: 340px; margin-top: 14px">
+        <div aria-hidden="true" style="position: absolute; left: 14px; top: 0; width: 314px; height: 10px; border-radius: 5px; background: linear-gradient(180deg, #F3D9B0, #D6AB70)"></div>
+        <div class="fzm-sw1" style="position: absolute; left: 4px; top: 5px; width: 160px; height: 150px">
+          <span aria-hidden="true" style="position: absolute; left: 79.25px; top: 0; width: 1.5px; height: 36px; background: #B9AFC9"></span>
+          <div style="position: absolute; left: 0; top: 28px; width: 160px; height: 120px; box-sizing: border-box; padding: 28px 14px 12px; border-radius: 22px; background: #DDEBFA; display: flex; flex-direction: column; gap: 4px; box-shadow: 0 14px 24px -16px rgba(54, 50, 94, 0.45)">
+            <span aria-hidden="true" style="position: absolute; left: 6px; top: 6px; right: 6px; bottom: 6px; border: 1.5px dashed rgba(54, 50, 94, 0.2); border-radius: 17px"></span>
+            <span aria-hidden="true" style="position: absolute; left: 73px; top: 7px; width: 14px; height: 14px; box-sizing: border-box; border-radius: 50%; background: #FFF6E6; border: 2.5px solid #E2BE8A"></span>
+            <span style="display: flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #4F4B78"><svg aria-hidden="true" viewBox="0 0 24 24" width="15" height="15" class="fzm-ic"><rect x="3.5" y="5" width="17" height="15.5" rx="3"></rect><path d="M3.5 10h17M8 3v4M16 3v4"></path></svg>Sana</span>
+            <span class="fzm-d" style="font-size: 19px; line-height: 1.25; font-weight: 600; color: #36325E">18-oktabr</span>
+            <span style="font-size: 13px; font-weight: 600; color: #4F4B78">2026, yakshanba</span>
+          </div>
+        </div>
+        <div class="fzm-sw3" style="position: absolute; left: 178px; top: 5px; width: 160px; height: 164px">
+          <span aria-hidden="true" style="position: absolute; left: 79.25px; top: 0; width: 1.5px; height: 50px; background: #B9AFC9"></span>
+          <div style="position: absolute; left: 0; top: 42px; width: 160px; height: 120px; box-sizing: border-box; padding: 28px 14px 12px; border-radius: 22px; background: #FFE3D6; display: flex; flex-direction: column; gap: 4px; box-shadow: 0 14px 24px -16px rgba(54, 50, 94, 0.45)">
+            <span aria-hidden="true" style="position: absolute; left: 6px; top: 6px; right: 6px; bottom: 6px; border: 1.5px dashed rgba(54, 50, 94, 0.2); border-radius: 17px"></span>
+            <span aria-hidden="true" style="position: absolute; left: 73px; top: 7px; width: 14px; height: 14px; box-sizing: border-box; border-radius: 50%; background: #FFF6E6; border: 2.5px solid #E2BE8A"></span>
+            <span style="display: flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #4F4B78"><svg aria-hidden="true" viewBox="0 0 24 24" width="15" height="15" class="fzm-ic"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 7.5V12l3 2"></path></svg>Vaqt</span>
+            <span class="fzm-d" style="font-size: 19px; line-height: 1.25; font-weight: 600; color: #36325E">04:20</span>
+            <span style="font-size: 13px; font-weight: 600; color: #4F4B78">tong saharda</span>
+          </div>
+        </div>
+        <div aria-hidden="true" style="position: absolute; left: 14px; top: 184px; width: 314px; height: 10px; border-radius: 5px; background: linear-gradient(180deg, #F3D9B0, #D6AB70)"></div>
+        <div class="fzm-sw4" style="position: absolute; left: 4px; top: 189px; width: 160px; height: 150px">
+          <span aria-hidden="true" style="position: absolute; left: 79.25px; top: 0; width: 1.5px; height: 36px; background: #B9AFC9"></span>
+          <div style="position: absolute; left: 0; top: 28px; width: 160px; height: 120px; box-sizing: border-box; padding: 28px 14px 12px; border-radius: 22px; background: #ECE3FA; display: flex; flex-direction: column; gap: 4px; box-shadow: 0 14px 24px -16px rgba(54, 50, 94, 0.45)">
+            <span aria-hidden="true" style="position: absolute; left: 6px; top: 6px; right: 6px; bottom: 6px; border: 1.5px dashed rgba(54, 50, 94, 0.2); border-radius: 17px"></span>
+            <span aria-hidden="true" style="position: absolute; left: 73px; top: 7px; width: 14px; height: 14px; box-sizing: border-box; border-radius: 50%; background: #FFF6E6; border: 2.5px solid #E2BE8A"></span>
+            <span style="display: flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #4F4B78"><svg aria-hidden="true" viewBox="0 0 24 24" width="15" height="15" class="fzm-ic"><path d="M8.5 9.5a3.5 3.5 0 1 1 7 0"></path><path d="M6.5 9.5h11l1.8 10.5H4.7z"></path></svg>Vazn</span>
+            <span class="fzm-d" style="font-size: 19px; line-height: 1.25; font-weight: 600; color: #36325E">3,4 kg</span>
+            <span style="font-size: 13px; font-weight: 600; color: #4F4B78">3 400 gramm</span>
+          </div>
+        </div>
+        <div class="fzm-sw2" style="position: absolute; left: 178px; top: 189px; width: 160px; height: 138px">
+          <span aria-hidden="true" style="position: absolute; left: 79.25px; top: 0; width: 1.5px; height: 24px; background: #B9AFC9"></span>
+          <div style="position: absolute; left: 0; top: 16px; width: 160px; height: 120px; box-sizing: border-box; padding: 28px 14px 12px; border-radius: 22px; background: #FFF0C7; display: flex; flex-direction: column; gap: 4px; box-shadow: 0 14px 24px -16px rgba(54, 50, 94, 0.45)">
+            <span aria-hidden="true" style="position: absolute; left: 6px; top: 6px; right: 6px; bottom: 6px; border: 1.5px dashed rgba(54, 50, 94, 0.2); border-radius: 17px"></span>
+            <span aria-hidden="true" style="position: absolute; left: 73px; top: 7px; width: 14px; height: 14px; box-sizing: border-box; border-radius: 50%; background: #FFF6E6; border: 2.5px solid #E2BE8A"></span>
+            <span style="display: flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #4F4B78"><svg aria-hidden="true" viewBox="0 0 24 24" width="15" height="15" class="fzm-ic"><rect x="3" y="8" width="18" height="8" rx="1.5"></rect><path d="M7 8v3M10.5 8v4M14 8v3M17.5 8v4"></path></svg>Bo’y</span>
+            <span class="fzm-d" style="font-size: 19px; line-height: 1.25; font-weight: 600; color: #36325E">52 sm</span>
+            <span style="font-size: 13px; font-weight: 600; color: #4F4B78">52 santimetr</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section style="position: relative; margin: 40px 24px 0; padding-top: 46px; filter: drop-shadow(0 20px 28px rgba(54, 50, 94, 0.14))">
+      <div aria-hidden="true" style="position: absolute; left: 38px; top: 20px; width: 98px; height: 98px; border-radius: 50%; background: #FFFFFF"></div>
+      <div aria-hidden="true" style="position: absolute; left: 112px; top: 0; width: 124px; height: 124px; border-radius: 50%; background: #FFFFFF"></div>
+      <div aria-hidden="true" style="position: absolute; left: 212px; top: 24px; width: 90px; height: 90px; border-radius: 50%; background: #FFFFFF"></div>
+      <div style="position: relative; border-radius: 30px; background: #FFFFFF; padding: 10px 24px 26px">
+        <svg class="fzm-swS" aria-hidden="true" viewBox="0 0 100 100" width="58" height="58" style="position: absolute; right: 14px; top: -26px"><path class="fzm-moon" d="M50 10 A42 42 0 1 0 90.3 63.8 A34 34 0 1 1 50 10 Z"></path><path class="fzm-moonst" transform="translate(40 58) scale(0.84) translate(-40 -58)" d="M50 10 A42 42 0 1 0 90.3 63.8 A34 34 0 1 1 50 10 Z"></path><path class="fzm-eye" d="M19 60 Q24.5 66 30 61"></path><circle class="fzm-cheek" cx="31" cy="73" r="4.6"></circle></svg>
+        <h2 class="fzm-d" style="margin: 0; text-align: center; font-size: 22px; line-height: 1.25; font-weight: 600; color: #36325E">Aziz yaqinlarimiz</h2>
+        <p style="margin: 12px 0 0; font-size: 16px; line-height: 1.65; font-weight: 500; color: #47436F">Alhamdulillah, 18-oktabr tongida xonadonimizga eng katta quvonch — o’g’ilchamiz Muhammadali dunyoga keldi. Uning sog’-salomat, baxtli va solih inson bo’lib ulg’ayishi uchun duolaringizni ayamang.</p>
+        <p class="fzm-d" style="margin: 14px 0 0; text-align: right; font-size: 15px; line-height: 1.4; font-weight: 600; color: #6F5FC0">Bekzod va Zarina</p>
+      </div>
+    </section>
+
+    <section style="position: relative; margin: 40px 24px 0">
+      <div style="display: flex; flex-direction: column; align-items: center; text-align: center">
+        <svg aria-hidden="true" viewBox="0 0 24 30" width="20" height="25"><path class="fzm-str" d="M12 0 V12"></path><polygon class="fzm-starS" transform="translate(2.4 10.4) scale(0.8)" points="12.0,2.0 14.7,8.8 22.0,9.3 16.4,13.9 18.2,21.0 12.0,17.1 5.8,21.0 7.6,13.9 2.0,9.3 9.3,8.8"></polygon></svg>
+        <h2 class="fzm-d" style="margin: 4px 0 0; font-size: 24px; line-height: 1.2; font-weight: 600; color: #36325E">Oila daraxti</h2>
+        <p style="margin: 6px 0 0; font-size: 14px; font-weight: 600; color: #5A5680">Hammamiz bir osmon ostida</p>
+      </div>
+      <div class="fzm-rock" style="position: relative; height: 360px; margin-top: 14px; transform-origin: 171px 0">
+        <span aria-hidden="true" style="position: absolute; left: 170.25px; top: 0; width: 1.5px; height: 28px; background: #B9AFC9"></span>
+        <div aria-hidden="true" style="position: absolute; left: 16px; top: 26px; width: 310px; height: 9px; border-radius: 5px; background: linear-gradient(180deg, #F3D9B0, #D6AB70)"></div>
+        <span aria-hidden="true" style="position: absolute; left: 165px; top: 24px; width: 12px; height: 12px; border-radius: 50%; background: #E2BE8A"></span>
+        <div class="fzm-sw2" style="position: absolute; left: 6px; top: 30px; width: 152px; height: 142px">
+          <span aria-hidden="true" style="position: absolute; left: 75.25px; top: 0; width: 1.5px; height: 26px; background: #B9AFC9"></span>
+          <div style="position: absolute; left: 0; top: 20px; width: 152px; height: 120px; box-sizing: border-box; padding: 12px 8px; border-radius: 26px; background: #DDEBFA; display: flex; flex-direction: column; align-items: center; text-align: center; box-shadow: 0 14px 24px -16px rgba(54, 50, 94, 0.45)">
+            <span style="display: flex">
+              <span style="width: 34px; height: 34px; box-sizing: border-box; border-radius: 50%; border: 2.5px solid #FFFFFF; background: #B9D5F3; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; color: #36325E">K</span>
+              <span style="width: 34px; height: 34px; margin-left: -9px; box-sizing: border-box; border-radius: 50%; border: 2.5px solid #FFFFFF; background: #FFD0BE; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; color: #36325E">M</span>
+            </span>
+            <span style="margin-top: 6px; font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #4F4B78">Dadasi tomondan</span>
+            <span style="margin-top: 3px; font-size: 14px; line-height: 1.28; font-weight: 700; color: #36325E">Karim buva<br>Mohira buvi</span>
+          </div>
+        </div>
+        <div class="fzm-sw4" style="position: absolute; left: 184px; top: 30px; width: 152px; height: 154px">
+          <span aria-hidden="true" style="position: absolute; left: 75.25px; top: 0; width: 1.5px; height: 38px; background: #B9AFC9"></span>
+          <div style="position: absolute; left: 0; top: 32px; width: 152px; height: 120px; box-sizing: border-box; padding: 12px 8px; border-radius: 26px; background: #FFE3D6; display: flex; flex-direction: column; align-items: center; text-align: center; box-shadow: 0 14px 24px -16px rgba(54, 50, 94, 0.45)">
+            <span style="display: flex">
+              <span style="width: 34px; height: 34px; box-sizing: border-box; border-radius: 50%; border: 2.5px solid #FFFFFF; background: #CDEBDD; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; color: #36325E">R</span>
+              <span style="width: 34px; height: 34px; margin-left: -9px; box-sizing: border-box; border-radius: 50%; border: 2.5px solid #FFFFFF; background: #DCCFF5; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; color: #36325E">D</span>
+            </span>
+            <span style="margin-top: 6px; font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #4F4B78">Oyisi tomondan</span>
+            <span style="margin-top: 3px; font-size: 14px; line-height: 1.28; font-weight: 700; color: #36325E">Rustam buva<br>Dilorom buvi</span>
+          </div>
+        </div>
+        <div class="fzm-swS" style="position: absolute; left: 46px; top: 30px; width: 250px; height: 322px">
+          <span aria-hidden="true" style="position: absolute; left: 124.25px; top: 0; width: 1.5px; height: 166px; background: #B9AFC9"></span>
+          <div style="position: absolute; left: 0; top: 160px; width: 250px; height: 74px; box-sizing: border-box; padding: 0 16px; border-radius: 37px; background: #FFFFFF; display: flex; align-items: center; gap: 12px; box-shadow: 0 14px 26px -16px rgba(54, 50, 94, 0.5)">
+            <span style="flex: none; display: flex">
+              <span style="width: 38px; height: 38px; box-sizing: border-box; border-radius: 50%; border: 2.5px solid #FFFFFF; background: #B9D5F3; display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 700; color: #36325E">B</span>
+              <span style="width: 38px; height: 38px; margin-left: -9px; box-sizing: border-box; border-radius: 50%; border: 2.5px solid #FFFFFF; background: #FFD0BE; display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 700; color: #36325E">Z</span>
+            </span>
+            <span style="display: flex; flex-direction: column; gap: 2px; text-align: left">
+              <span style="font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #4F4B78">Dadasi va oyisi</span>
+              <span style="font-size: 16px; line-height: 1.25; font-weight: 700; color: #36325E">Bekzod va Zarina</span>
+            </span>
+          </div>
+          <span aria-hidden="true" style="position: absolute; left: 124.25px; top: 234px; width: 1.5px; height: 24px; background: #B9AFC9"></span>
+          <div style="position: absolute; left: 0; top: 256px; width: 250px; height: 64px; box-sizing: border-box; border-radius: 32px; background: #FFF0C7; display: flex; align-items: center; justify-content: center; gap: 10px; box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.75), 0 14px 26px -14px rgba(226, 174, 78, 0.7)">
+            <span aria-hidden="true" style="position: absolute; left: 5px; top: 5px; right: 5px; bottom: 5px; border: 1.5px dashed rgba(226, 174, 78, 0.8); border-radius: 27px"></span>
+            <svg aria-hidden="true" viewBox="0 0 100 100" width="30" height="30" style="position: relative"><path class="fzm-moon" d="M50 10 A42 42 0 1 0 90.3 63.8 A34 34 0 1 1 50 10 Z"></path><path class="fzm-eye" d="M19 60 Q24.5 66 30 61"></path></svg>
+            <span class="fzm-d" style="position: relative; font-size: 19px; line-height: 1; font-weight: 600; color: #36325E">Muhammadali</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section style="position: relative; margin: 40px 24px 0">
+      <div style="display: flex; flex-direction: column; align-items: center; text-align: center">
+        <svg aria-hidden="true" viewBox="0 0 24 30" width="20" height="25"><path class="fzm-str" d="M12 0 V12"></path><polygon class="fzm-starP" transform="translate(2.4 10.4) scale(0.8)" points="12.0,2.0 14.7,8.8 22.0,9.3 16.4,13.9 18.2,21.0 12.0,17.1 5.8,21.0 7.6,13.9 2.0,9.3 9.3,8.8"></polygon></svg>
+        <h2 class="fzm-d" style="margin: 4px 0 0; font-size: 24px; line-height: 1.2; font-weight: 600; color: #36325E">Ilk suratlar</h2>
+        <p style="margin: 6px 0 0; font-size: 14px; font-weight: 600; color: #5A5680">Ipga ilingan birinchi xotiralar</p>
+      </div>
+      <div style="position: relative; height: 410px; margin-top: 14px">
+        <svg aria-hidden="true" viewBox="0 0 342 410" width="342" height="410" style="position: absolute; left: 0; top: 0; overflow: visible">
+          <path class="fzm-str2" d="M-30 4 Q171 68 372 4"></path>
+          <path class="fzm-str2" d="M-30 246 Q171 296 372 246"></path>
+        </svg>
+        <div class="fzm-swS" style="position: absolute; left: 8px; top: 24px; width: 160px; height: 222px">
+          <figure style="position: absolute; left: 0; top: 10px; width: 160px; margin: 0; box-sizing: border-box; padding: 8px 8px 0; border-radius: 14px; background: #FFF0C7; transform: rotate(-3deg); box-shadow: 0 16px 28px -16px rgba(54, 50, 94, 0.5)">
+            <img src="/_blob/93c16cc2b4f2e1645b2912480269defb" alt="Ota-onasining bag’rida" style="display: block; width: 144px; height: 160px; object-fit: cover; object-position: 50% 35%; border-radius: 9px">
+            <figcaption style="height: 32px; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; color: #4F4B78">Bag’rimizda</figcaption>
+          </figure>
+          <span aria-hidden="true" style="position: absolute; left: 75px; top: 0; width: 10px; height: 26px; border-radius: 3px; background: linear-gradient(90deg, #DDB27A, #F6DDB6 50%, #D6AB70); box-shadow: 0 2px 3px rgba(54, 50, 94, 0.25)"></span>
+        </div>
+        <div class="fzm-sw2" style="position: absolute; left: 190px; top: 24px; width: 144px; height: 196px">
+          <figure style="position: absolute; left: 0; top: 10px; width: 144px; margin: 0; box-sizing: border-box; padding: 8px 8px 0; border-radius: 14px; background: #ECE3FA; transform: rotate(3deg); box-shadow: 0 16px 28px -16px rgba(54, 50, 94, 0.5)">
+            <img src="/_blob/10a128f13192d03fea7536fb28b7a998" alt="Shirin uyqudagi Muhammadali" style="display: block; width: 128px; height: 132px; object-fit: cover; border-radius: 9px">
+            <figcaption style="height: 32px; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; color: #4F4B78">Shirin uyqu</figcaption>
+          </figure>
+          <span aria-hidden="true" style="position: absolute; left: 67px; top: 0; width: 10px; height: 26px; border-radius: 3px; background: linear-gradient(90deg, #DDB27A, #F6DDB6 50%, #D6AB70); box-shadow: 0 2px 3px rgba(54, 50, 94, 0.25)"></span>
+        </div>
+        <div class="fzm-sw3" style="position: absolute; left: 5px; top: 252px; width: 104px; height: 150px">
+          <figure style="position: absolute; left: 0; top: 10px; width: 104px; margin: 0; box-sizing: border-box; padding: 6px 6px 0; border-radius: 12px; background: #DDEBFA; transform: rotate(-2deg); box-shadow: 0 14px 24px -14px rgba(54, 50, 94, 0.5)">
+            <img src="/_blob/81b133eff48eb22ef6342fdc4b164bae" alt="Ota-ona kaftidagi oyoqchalar" style="display: block; width: 92px; height: 90px; object-fit: cover; border-radius: 8px">
+            <figcaption style="height: 28px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: #4F4B78">Kaftimizda</figcaption>
+          </figure>
+          <span aria-hidden="true" style="position: absolute; left: 47px; top: 0; width: 10px; height: 24px; border-radius: 3px; background: linear-gradient(90deg, #DDB27A, #F6DDB6 50%, #D6AB70); box-shadow: 0 2px 3px rgba(54, 50, 94, 0.25)"></span>
+        </div>
+        <div class="fzm-sw1" style="position: absolute; left: 119px; top: 260px; width: 104px; height: 150px">
+          <figure style="position: absolute; left: 0; top: 10px; width: 104px; margin: 0; box-sizing: border-box; padding: 6px 6px 0; border-radius: 12px; background: #FFE3D6; transform: rotate(2deg); box-shadow: 0 14px 24px -14px rgba(54, 50, 94, 0.5)">
+            <img src="/_blob/43814fe5bf9dcecbb9da4e39130d4bf0" alt="Yo’rgakdagi oyoqchalar" style="display: block; width: 92px; height: 90px; object-fit: cover; border-radius: 8px">
+            <figcaption style="height: 28px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: #4F4B78">Yo’rgakda</figcaption>
+          </figure>
+          <span aria-hidden="true" style="position: absolute; left: 47px; top: 0; width: 10px; height: 24px; border-radius: 3px; background: linear-gradient(90deg, #DDB27A, #F6DDB6 50%, #D6AB70); box-shadow: 0 2px 3px rgba(54, 50, 94, 0.25)"></span>
+        </div>
+        <div class="fzm-sw4" style="position: absolute; left: 233px; top: 252px; width: 104px; height: 150px">
+          <figure style="position: absolute; left: 0; top: 10px; width: 104px; margin: 0; box-sizing: border-box; padding: 6px 6px 0; border-radius: 12px; background: #FFF0C7; transform: rotate(-2deg); box-shadow: 0 14px 24px -14px rgba(54, 50, 94, 0.5)">
+            <img src="/_blob/5b7a3b06e4d0b75dc46b9958951b4c06" alt="Oq-qora suratdagi oyoqchalar" style="display: block; width: 92px; height: 90px; object-fit: cover; border-radius: 8px">
+            <figcaption style="height: 28px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: #4F4B78">Mitti izlar</figcaption>
+          </figure>
+          <span aria-hidden="true" style="position: absolute; left: 47px; top: 0; width: 10px; height: 24px; border-radius: 3px; background: linear-gradient(90deg, #DDB27A, #F6DDB6 50%, #D6AB70); box-shadow: 0 2px 3px rgba(54, 50, 94, 0.25)"></span>
+        </div>
+      </div>
+    </section>
+
+    <section style="position: relative; margin: 40px 24px 0">
+      <div style="display: flex; flex-direction: column; align-items: center; text-align: center">
+        <svg aria-hidden="true" viewBox="0 0 24 30" width="20" height="25"><path class="fzm-str" d="M12 0 V12"></path><polygon class="fzm-orn" transform="translate(2.4 10.4) scale(0.8)" points="12.0,2.0 14.7,8.8 22.0,9.3 16.4,13.9 18.2,21.0 12.0,17.1 5.8,21.0 7.6,13.9 2.0,9.3 9.3,8.8"></polygon></svg>
+        <h2 class="fzm-d" style="margin: 4px 0 0; font-size: 24px; line-height: 1.2; font-weight: 600; color: #36325E">Tilaklarimiz</h2>
+      </div>
+      <div style="position: relative; height: 282px; margin-top: 14px">
+        <span aria-hidden="true" style="position: absolute; left: 170.25px; top: 0; width: 1.5px; height: 276px; background: #B9AFC9"></span>
+        <span aria-hidden="true" style="position: absolute; left: 166px; top: 70px; width: 10px; height: 10px; border-radius: 50%; background: #E2BE8A"></span>
+        <span aria-hidden="true" style="position: absolute; left: 166px; top: 140px; width: 10px; height: 10px; border-radius: 50%; background: #CDBDF0"></span>
+        <span aria-hidden="true" style="position: absolute; left: 166px; top: 210px; width: 10px; height: 10px; border-radius: 50%; background: #9CC8EF"></span>
+        <span aria-hidden="true" style="position: absolute; left: 165px; top: 268px; width: 12px; height: 12px; border-radius: 50%; background: #FFC4A8"></span>
+        <div style="position: absolute; left: 0; top: 10px; width: 342px; display: flex; justify-content: center">
+          <div class="fzm-sw1" style="display: inline-flex; align-items: center; gap: 12px; height: 54px; box-sizing: border-box; padding: 0 22px 0 8px; border-radius: 27px; background: #DDEBFA; position: relative; left: -14px; box-shadow: 0 12px 22px -14px rgba(54, 50, 94, 0.5)">
+            <span style="flex: none; width: 38px; height: 38px; border-radius: 50%; background: #FFFFFF; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20"><path fill="#F29A9A" d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"></path></svg></span>
+            <span style="font-size: 16px; font-weight: 700; color: #36325E">Sog’-salomat bo’lsin</span>
+          </div>
+        </div>
+        <div style="position: absolute; left: 0; top: 80px; width: 342px; display: flex; justify-content: center">
+          <div class="fzm-sw3" style="display: inline-flex; align-items: center; gap: 12px; height: 54px; box-sizing: border-box; padding: 0 22px 0 8px; border-radius: 27px; background: #FFE3D6; position: relative; left: 18px; box-shadow: 0 12px 22px -14px rgba(54, 50, 94, 0.5)">
+            <span style="flex: none; width: 38px; height: 38px; border-radius: 50%; background: #FFFFFF; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" viewBox="0 0 100 100" width="22" height="22"><polygon class="fzm-orn" points="50.0,8.0 61.8,35.8 91.8,38.4 69.0,58.2 75.9,87.6 50.0,72.0 24.1,87.6 31.0,58.2 8.2,38.4 38.2,35.8"></polygon></svg></span>
+            <span style="font-size: 16px; font-weight: 700; color: #36325E">Baxtli bo’lsin</span>
+          </div>
+        </div>
+        <div style="position: absolute; left: 0; top: 150px; width: 342px; display: flex; justify-content: center">
+          <div class="fzm-sw4" style="display: inline-flex; align-items: center; gap: 12px; height: 54px; box-sizing: border-box; padding: 0 22px 0 8px; border-radius: 27px; background: #ECE3FA; position: relative; left: -6px; box-shadow: 0 12px 22px -14px rgba(54, 50, 94, 0.5)">
+            <span style="flex: none; width: 38px; height: 38px; border-radius: 50%; background: #FFFFFF; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" viewBox="0 0 120 72" width="26" height="16"><path class="fzm-cloudB" d="M22 60 C10 60 3 51 6 42 C9 33 19 30 27 34 C29 21 42 13 55 18 C63 6 85 8 90 23 C103 21 115 31 112 44 C110 54 102 60 94 60 Z"></path></svg></span>
+            <span style="font-size: 16px; font-weight: 700; color: #36325E">Ota-onasiga suyanch bo’lsin</span>
+          </div>
+        </div>
+        <div style="position: absolute; left: 0; top: 220px; width: 342px; display: flex; justify-content: center">
+          <div class="fzm-sw2" style="display: inline-flex; align-items: center; gap: 12px; height: 54px; box-sizing: border-box; padding: 0 22px 0 8px; border-radius: 27px; background: #FFF0C7; position: relative; left: 14px; box-shadow: 0 12px 22px -14px rgba(54, 50, 94, 0.5)">
+            <span style="flex: none; width: 38px; height: 38px; border-radius: 50%; background: #FFFFFF; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" viewBox="0 0 100 100" width="22" height="22"><path class="fzm-moon" d="M50 10 A42 42 0 1 0 90.3 63.8 A34 34 0 1 1 50 10 Z"></path><path class="fzm-eye" d="M19 60 Q24.5 66 30 61"></path></svg></span>
+            <span style="font-size: 16px; font-weight: 700; color: #36325E">Ilmli bo’lsin</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section style="position: relative; margin: 40px 24px 0; padding: 28px 22px 24px; border-radius: 30px; background: linear-gradient(160deg, #FFF4D4 0%, #FFE6D8 100%); border: 2px dashed rgba(226, 174, 78, 0.5); text-align: center">
+      <svg class="fzm-tw" aria-hidden="true" viewBox="0 0 100 100" width="40" height="40" style="position: absolute; left: -10px; top: -18px"><polygon class="fzm-starS" points="50.0,8.0 61.8,35.8 91.8,38.4 69.0,58.2 75.9,87.6 50.0,72.0 24.1,87.6 31.0,58.2 8.2,38.4 38.2,35.8"></polygon></svg>
+      <h2 class="fzm-d" style="margin: 0; font-size: 21px; line-height: 1.3; font-weight: 600; color: #36325E">Tabriklaringizni kutamiz</h2>
+      <p style="margin: 10px 0 20px; font-size: 15px; line-height: 1.55; font-weight: 500; color: #4F4B78">Muhammadali va ota-onasiga bir og’iz iliq so’z — eng shirin sovg’a.</p>
+      <div style="position: relative">
+        <sc-if value="{{ sent }}" hint-placeholder-val="{{ false }}">
+          <span aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 100%; height: 0">
+            <svg class="fzm-heart" viewBox="0 0 24 24" width="22" height="22" style="position: absolute; left: 30%; top: -6px; color: #E8937A"><path fill="currentColor" d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"></path></svg>
+            <svg class="fzm-heart fzm-h2" viewBox="0 0 100 100" width="26" height="26" style="position: absolute; left: 48%; top: -10px"><polygon class="fzm-orn" points="50.0,8.0 61.8,35.8 91.8,38.4 69.0,58.2 75.9,87.6 50.0,72.0 24.1,87.6 31.0,58.2 8.2,38.4 38.2,35.8"></polygon></svg>
+            <svg class="fzm-heart fzm-h3" viewBox="0 0 24 24" width="20" height="20" style="position: absolute; left: 64%; top: -4px; color: #8F7BD6"><path fill="currentColor" d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"></path></svg>
+          </span>
+        </sc-if>
+        <button type="button" class="fzm-btn" onClick="{{ congratulate }}" style="position: relative; overflow: hidden; width: 100%; height: 58px; border: 0; border-radius: 29px; background: #36325E; color: #FFFFFF; font-family: 'Onest', 'Trebuchet MS', system-ui, sans-serif; font-size: 17px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 10px; box-shadow: 0 16px 30px -14px rgba(54, 50, 94, 0.7)">
+          <span class="fzm-shine" aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 56px; height: 58px; background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0))"></span>
+          <svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20" class="fzm-ic" style="position: relative"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"></path></svg>
+          <span style="position: relative">{{ btnLabel }}</span>
+        </button>
+      </div>
+      <sc-if value="{{ sent }}" hint-placeholder-val="{{ false }}">
+        <p role="status" style="margin: 14px 0 0; font-size: 15px; font-weight: 700; color: #4F4B78">Rahmat! Tabrigingiz Bekzod va Zarinaga yetkazildi.</p>
+      </sc-if>
+    </section>
+
+    <footer style="position: relative; flex: 1 0 150px; box-sizing: border-box; padding: 34px 24px 40px; display: flex; flex-direction: column; align-items: center; text-align: center">
+      <svg aria-hidden="true" viewBox="0 0 80 60" width="72" height="54">
+        <path class="fzm-str" d="M40 0 V10 M40 10 L12 22 M40 10 L68 22"></path>
+        <ellipse class="fzm-hoopl" cx="40" cy="22" rx="28" ry="5"></ellipse>
+        <path class="fzm-str" d="M14 25 V36 M40 27 V44 M66 25 V34"></path>
+        <polygon class="fzm-orn" transform="translate(6 34) scale(0.65)" points="12.0,2.0 14.7,8.8 22.0,9.3 16.4,13.9 18.2,21.0 12.0,17.1 5.8,21.0 7.6,13.9 2.0,9.3 9.3,8.8"></polygon>
+        <path class="fzm-moon" transform="translate(30 42) scale(0.18)" d="M50 10 A42 42 0 1 0 90.3 63.8 A34 34 0 1 1 50 10 Z"></path>
+        <polygon class="fzm-starS" transform="translate(58 32) scale(0.65)" points="12.0,2.0 14.7,8.8 22.0,9.3 16.4,13.9 18.2,21.0 12.0,17.1 5.8,21.0 7.6,13.9 2.0,9.3 9.3,8.8"></polygon>
+      </svg>
+      <p class="fzm-d" style="margin: 12px 0 0; font-size: 18px; line-height: 1.3; font-weight: 600; color: #36325E">Bekzod va Zarina</p>
+      <p style="margin: 4px 0 0; font-size: 12px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: #5A5680">oilasi</p>
+    </footer>
+
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":3600}}'>
+class Component extends DCLogic {
+  componentWillUnmount() {
+    if (this.introTimer) clearTimeout(this.introTimer);
+  }
+  renderVals() {
+    const s = this.state || {};
+    const playing = !!s.playing;
+    return {
+      showIntro: !s.gone,
+      introCls: s.opened ? 'fzm-intro is-open' : 'fzm-intro',
+      introHidden: s.opened ? 'true' : 'false',
+      spin: () => {
+        if (this.state && this.state.opened) return;
+        this.setState({ opened: true, playing: true });
+        this.introTimer = setTimeout(() => this.setState({ gone: true }), 4500);
+      },
+      chipCls: playing ? 'fzm-btn fzm-chip is-playing' : 'fzm-btn fzm-chip',
+      musicLabel: playing ? 'Musiqa qutisini to’xtatish' : 'Musiqa qutisini yoqish',
+      toggleMusic: () => this.setState({ playing: !(this.state && this.state.playing) }),
+      sent: !!s.sent,
+      btnLabel: s.sent ? 'Tabriklandi' : 'Tabriklash',
+      congratulate: () => this.setState({ sent: true })
+    };
+  }
+}
+</script>
+</body>
+</html>

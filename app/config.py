@@ -14,9 +14,9 @@ class Settings(BaseSettings):
     admin_ids: str = ""
     rahmat_url: str = ""
     price: int = 25000  # eski (oddiy) shablonlar uchun
-    price_standart: int = 25000
-    price_premium: int = 49000
-    price_vip: int = 79000
+    price_standart: int = 39000
+    price_premium: int = 59000
+    price_vip: int = 99000
     max_edits: int = 10
     database_url: str = "sqlite+aiosqlite:///tayyorla.db"
     host: str = "0.0.0.0"

@@ -48,8 +48,19 @@ def catalog_keys() -> dict:
                 out.setdefault(f"cfo.{f['key']}.{val}", txt)
             for sk, sl, _ in f.get("sub") or []:
                 out.setdefault(f"cfs.{f['key']}.{sk}", sl)
+    for sec, fs in m.get("fields2", {}).items():
+        for f in fs:
+            out[f"cf2.{sec}.{f['key']}"] = f["label"]
+            if f.get("hint"):
+                out[f"cfh2.{sec}.{f['key']}"] = f["hint"]
+            for val, txt in (f.get("options") or {}).items():
+                out.setdefault(f"cfo.{f['key']}.{val}", txt)
+            for sk, sl, _ in f.get("sub") or []:
+                out.setdefault(f"cfs.{f['key']}.{sk}", sl)
     for t in m["templates"]:
         out[f"tpld.{t['id']}"] = t["desc"]
+        for b in t.get("blocks") or []:
+            out[f"cb.{t['section']}.{b['key']}"] = b["title"]
     for k, r in RELATIONS.items():
         out[f"rel.{k}"] = r["title"]
         if r.get("why"):

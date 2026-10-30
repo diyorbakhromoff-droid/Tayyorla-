@@ -1,0 +1,533 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<title>Sevgi maktubi: Yurak urishi</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&amp;family=Yeseva+One&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#C8102E}a:hover{color:#8E0D25}
+.yv{font-family:'Yeseva One',Georgia,'Times New Roman',serif;font-weight:400}
+.ico{fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.ico-f{fill:currentColor}
+button:focus-visible{outline:2px solid #F4A6B6;outline-offset:3px}
+.h-g1{stop-color:#FF7088}.h-g2{stop-color:#E01E3E}.h-g3{stop-color:#A00C27}.h-g4{stop-color:#6E0B1E}
+.h-l1{stop-color:#FFFFFF}.h-l2{stop-color:#FFD3DC}.h-l3{stop-color:#F4A6B6}
+.h-hl{fill:#FFFFFF;opacity:.3}
+.h-rim{fill:none;stroke:#FF9CAE;stroke-width:1.5;opacity:.5}
+.h-echo{fill:none;stroke:#F4A6B6;stroke-width:2.2}
+.h-tr{fill:none;stroke:#FFE3E8;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.h-tr-i{fill:none;stroke:#F4A6B6;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.h-tr-s{fill:none;stroke:#E8566E;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.h-tr-w{fill:none;stroke:#FFE3E8;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;opacity:.8}
+.h-node{fill:#FFD3DC}
+.h-node-r{fill:#FF4D6A}
+.hp-a{fill:#F4A6B6}.hp-b{fill:#FF7088}.hp-c{fill:#FFD3DC}
+.h-grid{background-image:linear-gradient(rgba(255,211,220,.07) 1px,rgba(255,211,220,0) 1px),linear-gradient(90deg,rgba(255,211,220,.07) 1px,rgba(255,211,220,0) 1px);background-size:22px 22px}
+.h-glowtr{filter:drop-shadow(0 0 4px rgba(255,77,106,.95)) drop-shadow(0 0 14px rgba(255,77,106,.5))}
+
+/* heartbeat: lub-dub */
+.h-beat{transform-origin:50% 55%;animation:hBeat 1.15s ease-in-out infinite}
+@keyframes hBeat{0%,52%,100%{transform:scale(1)}12%{transform:scale(1.09)}22%{transform:scale(.98)}34%{transform:scale(1.06)}}
+.h-glow{animation:hGlow 1.15s ease-in-out infinite}
+@keyframes hGlow{0%,52%,100%{opacity:.55;transform:scale(1)}14%{opacity:1;transform:scale(1.08)}34%{opacity:.85;transform:scale(1.04)}}
+.h-echo-a{transform-origin:50% 50%;animation:hEcho 2.3s ease-out infinite}
+.h-echo-b{animation-delay:1.15s}
+@keyframes hEcho{0%{transform:scale(.9);opacity:.7}100%{transform:scale(1.6);opacity:0}}
+.h-sweep{animation:hSweep 2.8s linear infinite}
+@keyframes hSweep{0%{transform:translateX(-90px)}100%{transform:translateX(410px)}}
+.h-rise{position:absolute;animation:hRise 9s ease-in-out infinite}
+.h-rise2{animation-duration:11s;animation-delay:-4s}.h-rise3{animation-duration:13s;animation-delay:-7s}.h-rise4{animation-duration:10s;animation-delay:-2s}
+@keyframes hRise{0%{transform:translateY(30px) scale(.8);opacity:0}20%{opacity:.85}80%{opacity:.55}100%{transform:translateY(-150px) scale(1.05);opacity:0}}
+.h-blip{animation:hBlip 3.4s linear infinite}
+@keyframes hBlip{0%{transform:translateY(0);opacity:0}8%{opacity:1}92%{opacity:1}100%{transform:translateY(350px);opacity:0}}
+.h-ring{animation:hRing 2.3s ease-out infinite}
+@keyframes hRing{0%{transform:scale(.8);opacity:.9}100%{transform:scale(2.1);opacity:0}}
+.h-shine{position:relative;overflow:hidden}
+.h-shine::after{content:"";position:absolute;top:0;left:0;width:40%;height:100%;background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,.6),rgba(255,255,255,0));transform:translateX(-120%) skewX(-20deg);animation:hShine 3.6s ease-in-out 1s infinite;pointer-events:none}
+@keyframes hShine{0%{transform:translateX(-120%) skewX(-20deg)}55%,100%{transform:translateX(320%) skewX(-20deg)}}
+
+/* intro: beat quickens, the ECG line writes the name, the layer clears */
+.h-intro{transition:opacity .55s ease 2.75s,visibility 0s linear 3.3s}
+.h-intro.is-open{opacity:0;visibility:hidden;pointer-events:none}
+.h-fade{transition:opacity .35s ease,transform .35s ease}
+.h-intro.is-open .h-fade{opacity:0;transform:translateY(10px)}
+.h-intro.is-open .h-beat{animation:hBeatF .46s ease-in-out infinite}
+@keyframes hBeatF{0%,100%{transform:scale(1.02)}28%{transform:scale(1.15)}55%{transform:scale(1)}}
+.h-intro.is-open .h-glow{animation:hGlowF .46s ease-in-out infinite}
+@keyframes hGlowF{0%,100%{opacity:.8;transform:scale(1.05)}28%{opacity:1;transform:scale(1.18)}}
+.h-intro.is-open .h-echo-a{animation-duration:.92s}
+.h-intro.is-open .h-echo-b{animation-delay:.46s}
+.h-idle{transition:opacity .3s ease}
+.h-intro.is-open .h-idle{opacity:0}
+.h-intro.is-open .h-sweep{animation:none;opacity:0}
+.h-name{clip-path:inset(-20% 100% -20% 0)}
+.h-intro.is-open .h-name{animation:hDraw 2s linear .35s forwards}
+@keyframes hDraw{from{clip-path:inset(-20% 100% -20% 0)}to{clip-path:inset(-20% 0 -20% 0)}}
+.h-head{opacity:0}
+.h-intro.is-open .h-head{animation:hHead 2s linear .35s forwards}
+@keyframes hHead{0%{transform:translateX(0);opacity:1}94%{opacity:1}100%{transform:translateX(390px);opacity:0}}
+.h-intro.is-open .h-burst{animation:hBurst .6s cubic-bezier(.3,.7,.4,1) 2.35s forwards}
+@keyframes hBurst{0%{transform:scale(1)}40%{transform:scale(1.24)}100%{transform:scale(1.12)}}
+
+/* hidden word */
+.h-secret{filter:blur(7px);opacity:.85;user-select:none;transition:filter .9s ease,opacity .9s ease}
+.h-secret.is-shown{filter:none;opacity:1;user-select:auto}
+.h-thump{transform-origin:50% 50%}
+.h-thump.is-on{animation:hThump .9s cubic-bezier(.3,.7,.4,1) both}
+@keyframes hThump{0%{transform:scale(1)}30%{transform:scale(1.2)}60%{transform:scale(.97)}100%{transform:scale(1.05)}}
+
+/* gallery deck */
+.dk{position:absolute;left:45px;top:6px;width:260px;transition:transform .55s cubic-bezier(.2,.8,.2,1),opacity .45s ease}
+.dk-0{z-index:5;transform:none;opacity:1}
+.dk-1{z-index:4;transform:translate(16px,8px) rotate(5deg) scale(.96);opacity:1}
+.dk-2{z-index:3;transform:translate(-16px,12px) rotate(-5deg) scale(.92);opacity:1}
+.dk-h{z-index:1;transform:translate(0,16px) scale(.88);opacity:0}
+.dk-out{z-index:6;transform:translate(-150%,-10px) rotate(-16deg);opacity:0}
+.h-dot{display:block;width:7px;height:7px;border-radius:50%;background:#F4A6B6;opacity:.55;transition:opacity .2s ease,transform .2s ease}
+.h-dot.is-on{background:#C8102E;opacity:1;transform:scale(1.3)}
+
+/* reply */
+.h-chip{transition:background-color .2s ease,color .2s ease,border-color .2s ease}
+.h-pop{animation:hPop .6s cubic-bezier(.2,1.4,.4,1) both}
+@keyframes hPop{from{transform:scale(.2);opacity:0}to{transform:scale(1);opacity:1}}
+.h-in{animation:hIn .5s ease-out both}
+@keyframes hIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.h-draw2{clip-path:inset(-40% 100% -40% 0);animation:hDraw 1.1s linear .15s forwards}
+
+@media (prefers-reduced-motion: reduce){
+.h-beat,.h-glow,.h-echo-a,.h-sweep,.h-rise,.h-blip,.h-ring,.h-shine::after,.h-pop,.h-in,.h-thump.is-on{animation:none}
+.h-rise,.h-blip,.h-echo-a{opacity:0}
+.h-intro,.h-fade,.h-idle,.h-secret,.dk,.h-dot,.h-chip{transition:none}
+.h-intro.is-open .h-beat,.h-intro.is-open .h-glow,.h-intro.is-open .h-echo-a,.h-intro.is-open .h-name,.h-intro.is-open .h-head,.h-intro.is-open .h-burst{animation:none}
+.h-name,.h-draw2{clip-path:none;animation:none}
+}
+</style>
+</helmet>
+<div style="width: 390px; height: 3860px; position: relative; overflow: hidden; background: #FFF1F3; color: #3D0A16; font-family: 'Onest', system-ui, -apple-system, 'Segoe UI', sans-serif; display: flex; flex-direction: column">
+
+  <svg aria-hidden="true" width="0" height="0" style="position: absolute; left: 0; top: 0">
+    <defs>
+      <radialGradient id="hHeart" cx="0.36" cy="0.3" r="0.82"><stop offset="0" class="h-g1"></stop><stop offset="0.38" class="h-g2"></stop><stop offset="0.76" class="h-g3"></stop><stop offset="1" class="h-g4"></stop></radialGradient>
+      <radialGradient id="hHeartL" cx="0.36" cy="0.3" r="0.82"><stop offset="0" class="h-l1"></stop><stop offset="0.5" class="h-l2"></stop><stop offset="1" class="h-l3"></stop></radialGradient>
+    </defs>
+  </svg>
+
+  <div class="{{ introCls }}" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; z-index: 20; overflow: hidden; background: radial-gradient(110% 70% at 50% 42%, #C8102E 0%, #940C26 38%, #6E0B1E 62%, #3E0613 100%); display: flex; flex-direction: column; align-items: center">
+    <div aria-hidden="true" class="h-grid" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px"></div>
+    <div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px">
+      <svg class="h-rise" style="left: 36px; top: 300px" width="16" height="16" viewBox="0 0 24 24"><path class="hp-a" d="M12 20.5s-7.5-4.6-7.5-10.1A4.4 4.4 0 0 1 12 7.6a4.4 4.4 0 0 1 7.5 2.8c0 5.5-7.5 10.1-7.5 10.1z"></path></svg>
+      <svg class="h-rise h-rise2" style="left: 330px; top: 250px" width="22" height="22" viewBox="0 0 24 24"><path class="hp-b" d="M12 20.5s-7.5-4.6-7.5-10.1A4.4 4.4 0 0 1 12 7.6a4.4 4.4 0 0 1 7.5 2.8c0 5.5-7.5 10.1-7.5 10.1z"></path></svg>
+      <svg class="h-rise h-rise3" style="left: 60px; top: 690px" width="12" height="12" viewBox="0 0 24 24"><path class="hp-c" d="M12 20.5s-7.5-4.6-7.5-10.1A4.4 4.4 0 0 1 12 7.6a4.4 4.4 0 0 1 7.5 2.8c0 5.5-7.5 10.1-7.5 10.1z"></path></svg>
+      <svg class="h-rise h-rise4" style="left: 312px; top: 640px" width="18" height="18" viewBox="0 0 24 24"><path class="hp-a" d="M12 20.5s-7.5-4.6-7.5-10.1A4.4 4.4 0 0 1 12 7.6a4.4 4.4 0 0 1 7.5 2.8c0 5.5-7.5 10.1-7.5 10.1z"></path></svg>
+      <svg class="h-rise h-rise2" style="left: 186px; top: 790px" width="14" height="14" viewBox="0 0 24 24"><path class="hp-c" d="M12 20.5s-7.5-4.6-7.5-10.1A4.4 4.4 0 0 1 12 7.6a4.4 4.4 0 0 1 7.5 2.8c0 5.5-7.5 10.1-7.5 10.1z"></path></svg>
+      <svg class="h-rise h-rise3" style="left: 18px; top: 470px" width="20" height="20" viewBox="0 0 24 24"><path class="hp-b" d="M12 20.5s-7.5-4.6-7.5-10.1A4.4 4.4 0 0 1 12 7.6a4.4 4.4 0 0 1 7.5 2.8c0 5.5-7.5 10.1-7.5 10.1z"></path></svg>
+      <svg class="h-rise" style="left: 352px; top: 470px" width="12" height="12" viewBox="0 0 24 24"><path class="hp-c" d="M12 20.5s-7.5-4.6-7.5-10.1A4.4 4.4 0 0 1 12 7.6a4.4 4.4 0 0 1 7.5 2.8c0 5.5-7.5 10.1-7.5 10.1z"></path></svg>
+    </div>
+
+    <div style="position: relative; z-index: 2; padding-top: 88px; display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center">
+      <p style="margin: 0; font-size: 12px; font-weight: 700; letter-spacing: 0.24em; text-transform: uppercase; color: #FFE3E8">Sardordan Nilufarga</p>
+      <p class="yv" style="margin: 0; font-size: 44px; line-height: 1.1; color: #FFF3EE">Nilufar uchun</p>
+      <p class="h-fade" style="margin: 0; font-size: 15px; font-weight: 500; color: #FFE3E8">Yuragim faqat sen uchun shunday uradi</p>
+    </div>
+
+    <div aria-hidden="true" style="position: relative; z-index: 2; margin-top: 30px; width: 220px; height: 200px">
+      <div class="h-glow" style="position: absolute; left: -60px; top: -60px; width: 340px; height: 320px; border-radius: 50%; background: radial-gradient(circle, rgba(255, 90, 117, 0.55) 0%, rgba(255, 90, 117, 0) 62%)"></div>
+      <svg class="h-echo-a" width="220" height="198" viewBox="0 0 200 180" style="position: absolute; left: 0; top: 0"><path class="h-echo" d="M100 172 C60 140 8 108 8 58 C8 26 32 6 60 6 C78 6 92 16 100 30 C108 16 122 6 140 6 C168 6 192 26 192 58 C192 108 140 140 100 172 Z"></path></svg>
+      <svg class="h-echo-a h-echo-b" width="220" height="198" viewBox="0 0 200 180" style="position: absolute; left: 0; top: 0"><path class="h-echo" d="M100 172 C60 140 8 108 8 58 C8 26 32 6 60 6 C78 6 92 16 100 30 C108 16 122 6 140 6 C168 6 192 26 192 58 C192 108 140 140 100 172 Z"></path></svg>
+      <div class="h-burst" style="position: absolute; left: 20px; top: 18px; width: 180px; height: 162px">
+        <svg class="h-beat" width="180" height="162" viewBox="0 0 200 180">
+          <path fill="url(#hHeart)" d="M100 172 C60 140 8 108 8 58 C8 26 32 6 60 6 C78 6 92 16 100 30 C108 16 122 6 140 6 C168 6 192 26 192 58 C192 108 140 140 100 172 Z"></path>
+          <path class="h-rim" d="M100 172 C60 140 8 108 8 58 C8 26 32 6 60 6 C78 6 92 16 100 30 C108 16 122 6 140 6 C168 6 192 26 192 58 C192 108 140 140 100 172 Z"></path>
+          <ellipse class="h-hl" cx="58" cy="44" rx="25" ry="12" transform="rotate(-32 58 44)"></ellipse>
+          <ellipse class="h-hl" cx="34" cy="72" rx="5" ry="3.2" transform="rotate(-60 34 72)"></ellipse>
+        </svg>
+      </div>
+    </div>
+
+    <div aria-hidden="true" style="position: relative; z-index: 2; margin-top: 18px; width: 390px; height: 150px">
+      <svg class="h-idle" width="390" height="150" viewBox="0 0 390 150" style="position: absolute; left: 0; top: 0"><path class="h-tr-i" d="M0 96 H30 C33 96 35 90 38 90 C41 90 43 96 46 96 H52 L56 102 L62 52 L68 110 L72 96 H80 C84 96 86 88 92 88 C97 88 99 96 102 96 H160 C163 96 165 90 168 90 C171 90 173 96 176 96 H182 L186 102 L192 52 L198 110 L202 96 H210 C214 96 216 88 222 88 C227 88 229 96 232 96 H290 C293 96 295 90 298 90 C301 90 303 96 306 96 H312 L316 102 L322 52 L328 110 L332 96 H340 C344 96 346 88 352 88 C357 88 359 96 362 96 H390"></path></svg>
+      <div class="h-sweep" style="position: absolute; left: 0; top: 30px; width: 90px; height: 96px; background: linear-gradient(90deg, rgba(255, 211, 220, 0) 0%, rgba(255, 211, 220, 0.1) 70%, rgba(255, 240, 244, 0.45) 100%); mix-blend-mode: screen"></div>
+      <svg class="h-name h-glowtr" width="390" height="150" viewBox="0 0 390 150" style="position: absolute; left: 0; top: 0"><path class="h-tr" d="M0 96 H30 C33 96 35 89 39 89 C43 89 45 96 48 96 H54 L58 103 L64 50 L70 112 L74 96 H80 C84 96 86 88 92 88 C97 88 99 96 102 96 C106 96 107 70 111 44 C115 60 125 84 131 96 C133 80 136 58 140 44 C141 40 144 37 148 38 M131 96 C138 97 145 97 149 92 C152 86 153 80 154 74 C154 84 154 93 158 97 C162 99 165 93 167 87 C171 72 180 48 177 41 C174 35 167 41 167 55 C167 72 167 90 171 96 C174 99 178 96 181 90 C182 85 183 79 184 74 C184 86 185 95 191 97 C196 97 199 87 200 74 C200 86 200 94 204 97 C207 98 210 94 212 88 C216 71 227 46 223 40 C220 36 214 42 215 56 C216 80 217 108 217 127 C217 134 211 134 211 127 C211 118 220 104 229 96 C235 91 240 80 248 76 C242 72 233 76 231 86 C230 94 235 98 241 96 C246 94 248 84 249 76 C249 86 249 94 253 97 C256 98 259 94 261 88 C262 82 263 77 264 74 C266 77 269 77 272 74 C272 82 272 92 275 97 C279 99 285 96 292 96 H300 L304 101 L309 68 L314 106 L318 96 H326 C322 88 326 78 334 78 C339 78 342 83 342 87 C342 83 345 78 350 78 C358 78 362 88 356 96 C352 101 346 105 342 110 C338 105 332 101 328 97 Z M358 94 C360 95 361 96 364 96 H390 M154 62 a1.6 1.6 0 1 0 0.1 0 Z"></path></svg>
+      <div class="h-head" style="position: absolute; left: -14px; top: 12px; width: 28px; height: 128px; background: radial-gradient(50% 50% at 50% 50%, rgba(255, 255, 255, 0.95) 0%, rgba(255, 120, 140, 0.55) 36%, rgba(255, 90, 117, 0) 70%)"></div>
+    </div>
+
+    <div style="position: relative; z-index: 2; width: 334px; margin-top: 4px; display: flex; justify-content: space-between; align-items: center">
+      <span style="font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: #FFE3E8">Sardorning yuragi</span>
+      <span style="display: flex; align-items: center; gap: 6px; color: #FFF3EE">
+        <svg class="h-beat" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true" style="color: #FF7088"><path class="ico-f" d="M12 20.5s-7.5-4.6-7.5-10.1A4.4 4.4 0 0 1 12 7.6a4.4 4.4 0 0 1 7.5 2.8c0 5.5-7.5 10.1-7.5 10.1z"></path></svg>
+        <span class="yv" style="font-size: 28px; line-height: 1; font-variant-numeric: tabular-nums">{{ bpm }}</span>
+        <span style="font-size: 11px; font-weight: 600; color: #FFE3E8">zarba/daq</span>
+      </span>
+    </div>
+
+    <div class="h-fade" style="position: relative; z-index: 2; margin-top: 34px; display: flex; flex-direction: column; align-items: center; gap: 12px">
+      <button type="button" class="h-shine" onClick="{{ open }}" style="min-height: 56px; padding: 0 30px; border: 0; border-radius: 999px; background: linear-gradient(135deg, #FFF3EE 0%, #FFD3DC 45%, #F4A6B6 100%); color: #6E0B1E; font-family: 'Onest', system-ui, sans-serif; font-size: 16px; font-weight: 700; cursor: pointer; box-shadow: 0 16px 34px -12px rgba(20, 0, 6, 0.75), 0 0 0 6px rgba(244, 166, 182, 0.18); display: flex; align-items: center; gap: 10px">
+        <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path class="ico" d="M5 3v5a4 4 0 0 0 8 0V3"></path><path class="ico" d="M9 12v3a5 5 0 0 0 10 0v-2"></path><path class="ico" d="M19 13a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"></path></svg>
+        Yuragimni eshit
+      </button>
+      <p style="margin: 0; font-size: 13px; font-weight: 500; color: #FFE3E8">Bosing — u sen uchun tezroq ura boshlaydi</p>
+    </div>
+    <p class="yv h-fade" style="position: absolute; left: 0; right: 0; bottom: 40px; margin: 0; text-align: center; font-size: 15px; color: #F4A6B6">12 · 05 · 2021</p>
+  </div>
+
+  <section style="position: relative; overflow: hidden; padding: 58px 0 34px; background: radial-gradient(100% 70% at 50% 40%, #C8102E 0%, #9A0C26 42%, #6E0B1E 74%, #4C0716 100%); display: flex; flex-direction: column; align-items: center; text-align: center">
+    <div aria-hidden="true" class="h-grid" style="position: absolute; left: 0; top: 0; width: 390px; height: 100%"></div>
+    <div aria-hidden="true" class="h-glow" style="position: absolute; left: 45px; top: 0; width: 300px; height: 300px; border-radius: 50%; background: radial-gradient(circle, rgba(255, 112, 136, 0.35) 0%, rgba(255, 112, 136, 0) 65%)"></div>
+    <svg aria-hidden="true" class="h-rise" style="left: 34px; top: 230px" width="16" height="16" viewBox="0 0 24 24"><path class="hp-a" d="M12 20.5s-7.5-4.6-7.5-10.1A4.4 4.4 0 0 1 12 7.6a4.4 4.4 0 0 1 7.5 2.8c0 5.5-7.5 10.1-7.5 10.1z"></path></svg>
+    <svg aria-hidden="true" class="h-rise h-rise3" style="left: 334px; top: 160px" width="20" height="20" viewBox="0 0 24 24"><path class="hp-b" d="M12 20.5s-7.5-4.6-7.5-10.1A4.4 4.4 0 0 1 12 7.6a4.4 4.4 0 0 1 7.5 2.8c0 5.5-7.5 10.1-7.5 10.1z"></path></svg>
+    <svg aria-hidden="true" class="h-rise h-rise2" style="left: 300px; top: 380px" width="12" height="12" viewBox="0 0 24 24"><path class="hp-c" d="M12 20.5s-7.5-4.6-7.5-10.1A4.4 4.4 0 0 1 12 7.6a4.4 4.4 0 0 1 7.5 2.8c0 5.5-7.5 10.1-7.5 10.1z"></path></svg>
+    <svg aria-hidden="true" class="h-beat" width="48" height="44" viewBox="0 0 200 180" style="position: relative; filter: drop-shadow(0 0 12px rgba(255, 112, 136, 0.8))"><path fill="url(#hHeart)" d="M100 172 C60 140 8 108 8 58 C8 26 32 6 60 6 C78 6 92 16 100 30 C108 16 122 6 140 6 C168 6 192 26 192 58 C192 108 140 140 100 172 Z"></path><path class="h-rim" d="M100 172 C60 140 8 108 8 58 C8 26 32 6 60 6 C78 6 92 16 100 30 C108 16 122 6 140 6 C168 6 192 26 192 58 C192 108 140 140 100 172 Z"></path></svg>
+    <p style="position: relative; margin: 14px 0 0; font-size: 12px; font-weight: 700; letter-spacing: 0.24em; text-transform: uppercase; color: #FFE3E8">Sardordan</p>
+    <h1 class="yv" style="position: relative; margin: 8px 0 0; padding: 0 20px; font-size: 46px; line-height: 1.08; color: #FFF3EE">Nilufar uchun</h1>
+    <p style="position: relative; margin: 8px 0 0; font-size: 14px; font-weight: 500; color: #FFE3E8">12-may 2021 · Toshkent</p>
+    <div aria-hidden="true" style="position: relative; margin-top: 12px; width: 390px; height: 150px; overflow: hidden">
+      <svg class="h-glowtr" width="390" height="150" viewBox="0 0 390 150" style="position: absolute; left: 0; top: 0"><path class="h-tr" d="M0 96 H30 C33 96 35 89 39 89 C43 89 45 96 48 96 H54 L58 103 L64 50 L70 112 L74 96 H80 C84 96 86 88 92 88 C97 88 99 96 102 96 C106 96 107 70 111 44 C115 60 125 84 131 96 C133 80 136 58 140 44 C141 40 144 37 148 38 M131 96 C138 97 145 97 149 92 C152 86 153 80 154 74 C154 84 154 93 158 97 C162 99 165 93 167 87 C171 72 180 48 177 41 C174 35 167 41 167 55 C167 72 167 90 171 96 C174 99 178 96 181 90 C182 85 183 79 184 74 C184 86 185 95 191 97 C196 97 199 87 200 74 C200 86 200 94 204 97 C207 98 210 94 212 88 C216 71 227 46 223 40 C220 36 214 42 215 56 C216 80 217 108 217 127 C217 134 211 134 211 127 C211 118 220 104 229 96 C235 91 240 80 248 76 C242 72 233 76 231 86 C230 94 235 98 241 96 C246 94 248 84 249 76 C249 86 249 94 253 97 C256 98 259 94 261 88 C262 82 263 77 264 74 C266 77 269 77 272 74 C272 82 272 92 275 97 C279 99 285 96 292 96 H300 L304 101 L309 68 L314 106 L318 96 H326 C322 88 326 78 334 78 C339 78 342 83 342 87 C342 83 345 78 350 78 C358 78 362 88 356 96 C352 101 346 105 342 110 C338 105 332 101 328 97 Z M358 94 C360 95 361 96 364 96 H390 M154 62 a1.6 1.6 0 1 0 0.1 0 Z"></path></svg>
+      <div class="h-sweep" style="position: absolute; left: 0; top: 30px; width: 90px; height: 110px; background: linear-gradient(90deg, rgba(255, 211, 220, 0) 0%, rgba(255, 211, 220, 0.1) 70%, rgba(255, 240, 244, 0.5) 100%); mix-blend-mode: screen"></div>
+    </div>
+    <p style="position: relative; margin: 4px 0 0; font-size: 14px; font-weight: 500; color: #FFE3E8">Har bir zarbam — sening isming</p>
+  </section>
+
+  <section style="padding: 36px 20px 36px; background: linear-gradient(180deg, #FFE1E7 0%, #FFF1F3 140px)">
+    <article style="position: relative; background: #FFFFFF; border-radius: 24px; padding: 22px 22px 24px; box-shadow: 0 26px 50px -30px rgba(110, 11, 30, 0.5), 0 0 0 1px rgba(244, 166, 182, 0.35); display: flex; flex-direction: column; gap: 12px">
+      <div style="height: 22px; display: flex; align-items: center; justify-content: space-between; gap: 10px">
+        <p style="flex: none; margin: 0; font-size: 12px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: #C8102E">Yurakdan maktub</p>
+        <svg aria-hidden="true" width="120" height="22" viewBox="186 0 120 22" style="flex: none"><path class="h-tr-s" d="M0 14 H196 L200 17 L205 2 L210 21 L214 14 H222 C225 14 227 9 231 9 C235 9 237 14 240 14 H306"></path></svg>
+      </div>
+      <h2 class="yv" style="margin: 2px 0 0; font-size: 24px; line-height: 1.25; color: #C8102E">Azizim Nilufar,</h2>
+      <p style="margin: 0; font-size: 16px; line-height: 1.7">2021-yil 12-may kuni kutubxona zinasida sochilgan kitoblaringni terishga yordamlashganimda, hayotim aynan o’sha daqiqada o’zgarayotganini bilmagan edim.</p>
+      <p style="margin: 0; font-size: 16px; line-height: 1.7">O’shandan beri har tongim «Xayrli tong, choyingni ichdingmi?» degan xabaring bilan boshlanadi, og’ir kunlarim esa «Hammasi yaxshi bo’ladi» degan ovozing bilan tugaydi. Sen meni hech qachon o’zgartirishga urinmading — shunchaki yonimda bo’lding, men esa o’zim yaxshiroq odam bo’lgim keldi.</p>
+      <p style="margin: 0; font-size: 16px; line-height: 1.7">Shuning uchun bugun eng oddiy, lekin eng to’g’ri gapni aytaman: hayotimda borliging uchun rahmat.</p>
+      <div style="margin-top: 4px; display: flex; justify-content: flex-end; align-items: center; gap: 10px; color: #C8102E">
+        <svg class="h-beat" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path class="ico-f" d="M12 20.5s-7.5-4.6-7.5-10.1A4.4 4.4 0 0 1 12 7.6a4.4 4.4 0 0 1 7.5 2.8c0 5.5-7.5 10.1-7.5 10.1z"></path></svg>
+        <p class="yv" style="margin: 0; font-size: 22px">Sening Sardoring</p>
+      </div>
+    </article>
+  </section>
+
+  <section style="position: relative; overflow: hidden; padding: 36px 20px 36px; background: radial-gradient(70% 40% at 100% 0%, rgba(244, 166, 182, 0.45), rgba(244, 166, 182, 0) 70%), #FFF1F3">
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center">
+      <p style="margin: 0; font-size: 12px; font-weight: 700; letter-spacing: 0.24em; text-transform: uppercase; color: #C8102E">Yuragim nega tez uradi</p>
+      <h2 class="yv" style="margin: 0; font-size: 30px; line-height: 1.15; color: #6E0B1E">Seni sevishimning sabablari</h2>
+    </div>
+    <ol style="list-style: none; margin: 22px 0 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px">
+      <li style="background: #FFFFFF; border-radius: 20px; padding: 16px; box-shadow: 0 14px 30px -20px rgba(110, 11, 30, 0.55); display: flex; flex-direction: column; gap: 10px">
+        <span style="position: relative; width: 40px; height: 36px; display: flex; align-items: center; justify-content: center">
+          <svg width="40" height="36" viewBox="0 0 200 180" aria-hidden="true" style="position: absolute; left: 0; top: 0"><path fill="url(#hHeart)" d="M100 172 C60 140 8 108 8 58 C8 26 32 6 60 6 C78 6 92 16 100 30 C108 16 122 6 140 6 C168 6 192 26 192 58 C192 108 140 140 100 172 Z"></path></svg>
+          <span class="yv" style="position: relative; padding-bottom: 4px; font-size: 17px; color: #FFFFFF; text-shadow: 0 1px 2px rgba(90, 8, 24, 0.7)">1</span>
+        </span>
+        <span style="font-size: 16px; font-weight: 600; line-height: 1.35">Kulishing</span>
+      </li>
+      <li style="background: #FFFFFF; border-radius: 20px; padding: 16px; box-shadow: 0 14px 30px -20px rgba(110, 11, 30, 0.55); display: flex; flex-direction: column; gap: 10px">
+        <span style="position: relative; width: 40px; height: 36px; display: flex; align-items: center; justify-content: center">
+          <svg width="40" height="36" viewBox="0 0 200 180" aria-hidden="true" style="position: absolute; left: 0; top: 0"><path fill="url(#hHeart)" d="M100 172 C60 140 8 108 8 58 C8 26 32 6 60 6 C78 6 92 16 100 30 C108 16 122 6 140 6 C168 6 192 26 192 58 C192 108 140 140 100 172 Z"></path></svg>
+          <span class="yv" style="position: relative; padding-bottom: 4px; font-size: 17px; color: #FFFFFF; text-shadow: 0 1px 2px rgba(90, 8, 24, 0.7)">2</span>
+        </span>
+        <span style="font-size: 16px; font-weight: 600; line-height: 1.35">Meni so’zsiz tushunishing</span>
+      </li>
+      <li style="background: #FFFFFF; border-radius: 20px; padding: 16px; box-shadow: 0 14px 30px -20px rgba(110, 11, 30, 0.55); display: flex; flex-direction: column; gap: 10px">
+        <span style="position: relative; width: 40px; height: 36px; display: flex; align-items: center; justify-content: center">
+          <svg width="40" height="36" viewBox="0 0 200 180" aria-hidden="true" style="position: absolute; left: 0; top: 0"><path fill="url(#hHeart)" d="M100 172 C60 140 8 108 8 58 C8 26 32 6 60 6 C78 6 92 16 100 30 C108 16 122 6 140 6 C168 6 192 26 192 58 C192 108 140 140 100 172 Z"></path></svg>
+          <span class="yv" style="position: relative; padding-bottom: 4px; font-size: 17px; color: #FFFFFF; text-shadow: 0 1px 2px rgba(90, 8, 24, 0.7)">3</span>
+        </span>
+        <span style="font-size: 16px; font-weight: 600; line-height: 1.35">Ertalabki choying</span>
+      </li>
+      <li style="background: #FFFFFF; border-radius: 20px; padding: 16px; box-shadow: 0 14px 30px -20px rgba(110, 11, 30, 0.55); display: flex; flex-direction: column; gap: 10px">
+        <span style="position: relative; width: 40px; height: 36px; display: flex; align-items: center; justify-content: center">
+          <svg width="40" height="36" viewBox="0 0 200 180" aria-hidden="true" style="position: absolute; left: 0; top: 0"><path fill="url(#hHeart)" d="M100 172 C60 140 8 108 8 58 C8 26 32 6 60 6 C78 6 92 16 100 30 C108 16 122 6 140 6 C168 6 192 26 192 58 C192 108 140 140 100 172 Z"></path></svg>
+          <span class="yv" style="position: relative; padding-bottom: 4px; font-size: 17px; color: #FFFFFF; text-shadow: 0 1px 2px rgba(90, 8, 24, 0.7)">4</span>
+        </span>
+        <span style="font-size: 16px; font-weight: 600; line-height: 1.35">Orzularimga ishonishing</span>
+      </li>
+      <li style="grid-column: 1 / -1; border-radius: 20px; padding: 14px 16px; background: linear-gradient(135deg, #C8102E 0%, #8E0D25 60%, #6E0B1E 100%); box-shadow: 0 16px 32px -18px rgba(110, 11, 30, 0.8); display: flex; align-items: center; gap: 14px; color: #FFF3EE">
+        <span style="flex: none; position: relative; width: 40px; height: 36px; display: flex; align-items: center; justify-content: center">
+          <svg width="40" height="36" viewBox="0 0 200 180" aria-hidden="true" style="position: absolute; left: 0; top: 0"><path fill="url(#hHeartL)" d="M100 172 C60 140 8 108 8 58 C8 26 32 6 60 6 C78 6 92 16 100 30 C108 16 122 6 140 6 C168 6 192 26 192 58 C192 108 140 140 100 172 Z"></path></svg>
+          <span class="yv" style="position: relative; padding-bottom: 4px; font-size: 16px; color: #6E0B1E">5</span>
+        </span>
+        <span style="flex: 1; font-size: 16px; font-weight: 600; line-height: 1.35">Qiyin kunda yonimda bo’lganing</span>
+        <svg aria-hidden="true" width="44" height="22" viewBox="186 0 44 22" style="flex: none"><path class="h-tr-w" d="M0 14 H196 L200 17 L205 2 L210 21 L214 14 H222 C225 14 227 9 231 9 C235 9 237 14 240 14 H306"></path></svg>
+      </li>
+    </ol>
+  </section>
+
+  <section style="position: relative; overflow: hidden; padding: 40px 20px 40px; background: linear-gradient(180deg, #6E0B1E 0%, #560919 55%, #3E0613 100%)">
+    <div aria-hidden="true" class="h-grid" style="position: absolute; left: 0; top: 0; width: 390px; height: 100%"></div>
+    <div style="position: relative; display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center">
+      <p style="margin: 0; font-size: 12px; font-weight: 700; letter-spacing: 0.24em; text-transform: uppercase; color: #FFE3E8">Har yil — bir zarba</p>
+      <h2 class="yv" style="margin: 0; font-size: 30px; line-height: 1.15; color: #FFF3EE">Bizning yo’limiz</h2>
+    </div>
+    <div style="position: relative; margin-top: 24px; height: 360px">
+      <svg aria-hidden="true" width="64" height="360" viewBox="0 0 64 360" style="position: absolute; left: 0; top: 0">
+        <path class="h-tr-i" d="M26 0 V16 L22 21 L48 28 L12 36 L26 42 V90 L22 95 L48 102 L12 110 L26 116 V164 L22 169 L48 176 L12 184 L26 190 V238 L22 243 L48 250 L12 258 L26 264 V312 L22 317 L48 324 L12 332 L26 338 V360"></path>
+        <circle class="h-node" cx="48" cy="28" r="4"></circle>
+        <circle class="h-node" cx="48" cy="102" r="4"></circle>
+        <circle class="h-node" cx="48" cy="176" r="4"></circle>
+        <circle class="h-node" cx="48" cy="250" r="4"></circle>
+        <circle class="h-node-r" cx="48" cy="324" r="5"></circle>
+      </svg>
+      <span aria-hidden="true" class="h-ring" style="position: absolute; left: 37px; top: 313px; width: 22px; height: 22px; box-sizing: border-box; border-radius: 50%; border: 2px solid #FF4D6A"></span>
+      <span aria-hidden="true" class="h-blip" style="position: absolute; left: 21px; top: 0; width: 10px; height: 10px; border-radius: 50%; background: #FFF3EE; box-shadow: 0 0 10px 3px rgba(255, 77, 106, 0.85)"></span>
+      <ol style="position: relative; list-style: none; margin: 0; padding: 0 0 0 76px; display: flex; flex-direction: column; gap: 10px">
+        <li style="height: 64px; display: flex; flex-direction: column; justify-content: center; gap: 2px">
+          <p style="margin: 0; display: flex; align-items: baseline; gap: 10px"><span class="yv" style="font-size: 22px; color: #F4A6B6">2021</span><span style="font-size: 17px; font-weight: 600; color: #FFF3EE">Tanishuv</span></p>
+          <p style="margin: 0; font-size: 14px; line-height: 1.4; color: #FFE3E8">12-may, kutubxona zinasida</p>
+        </li>
+        <li style="height: 64px; display: flex; flex-direction: column; justify-content: center; gap: 2px">
+          <p style="margin: 0; display: flex; align-items: baseline; gap: 10px"><span class="yv" style="font-size: 22px; color: #F4A6B6">2022</span><span style="font-size: 17px; font-weight: 600; color: #FFF3EE">Birinchi sayohat</span></p>
+          <p style="margin: 0; font-size: 14px; line-height: 1.4; color: #FFE3E8">Samarqand — Registonda tun kirguncha</p>
+        </li>
+        <li style="height: 64px; display: flex; flex-direction: column; justify-content: center; gap: 2px">
+          <p style="margin: 0; display: flex; align-items: baseline; gap: 10px"><span class="yv" style="font-size: 22px; color: #F4A6B6">2023</span><span style="font-size: 17px; font-weight: 600; color: #FFF3EE">Oilalarimiz tanishdi</span></p>
+          <p style="margin: 0; font-size: 14px; line-height: 1.4; color: #FFE3E8">Ikki oila, bitta dasturxon</p>
+        </li>
+        <li style="height: 64px; display: flex; flex-direction: column; justify-content: center; gap: 2px">
+          <p style="margin: 0; display: flex; align-items: baseline; gap: 10px"><span class="yv" style="font-size: 22px; color: #F4A6B6">2024</span><span style="font-size: 17px; font-weight: 600; color: #FFF3EE">Birga yangi uy</span></p>
+          <p style="margin: 0; font-size: 14px; line-height: 1.4; color: #FFE3E8">Kelajagimiz uchun birinchi kalit</p>
+        </li>
+        <li style="height: 64px; display: flex; flex-direction: column; justify-content: center; gap: 2px">
+          <p style="margin: 0; display: flex; align-items: baseline; gap: 10px"><span class="yv" style="font-size: 22px; color: #FF7088">2026</span><span style="font-size: 17px; font-weight: 600; color: #FFF3EE">Shu maktub</span></p>
+          <p style="margin: 0; font-size: 14px; line-height: 1.4; color: #FFE3E8">Davomini birga yozamiz</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section style="padding: 36px 20px 36px; background: #FFF1F3">
+    <div style="position: relative; overflow: hidden; border-radius: 28px; padding: 30px 24px 28px; background: radial-gradient(85% 70% at 50% 38%, #C8102E 0%, #8E0D25 55%, #5A0919 100%); box-shadow: 0 26px 50px -26px rgba(110, 11, 30, 0.85); display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center">
+      <div aria-hidden="true" class="{{ thumpCls }}" style="position: absolute; left: 50%; top: 50%; width: 260px; height: 234px; margin: -122px 0 0 -130px">
+        <svg class="h-beat" width="260" height="234" viewBox="0 0 200 180" style="animation-duration: 1.6s; opacity: 0.4"><path class="h-echo" d="M100 172 C60 140 8 108 8 58 C8 26 32 6 60 6 C78 6 92 16 100 30 C108 16 122 6 140 6 C168 6 192 26 192 58 C192 108 140 140 100 172 Z"></path></svg>
+      </div>
+      <p style="position: relative; margin: 0; font-size: 12px; font-weight: 700; letter-spacing: 0.24em; text-transform: uppercase; color: #FFE3E8">Faqat sen uchun</p>
+      <h2 class="yv" style="position: relative; margin: 0; font-size: 26px; line-height: 1.2; color: #FFF3EE">Aytmagan bir gapim</h2>
+      <p class="{{ secretCls }}" style="position: relative; margin: 4px 0 0; font-size: 19px; line-height: 1.5; color: #FFF3EE">O’sha kuni kutubxonaga kitob uchun emas, seni yana bir ko’rish uchun qaytib borgandim.</p>
+      <div style="position: relative; min-height: 48px; display: flex; align-items: center; justify-content: center">
+        <sc-if value="{{ secretHidden }}" hint-placeholder-val="{{ true }}">
+          <button type="button" onClick="{{ reveal }}" style="min-height: 48px; padding: 0 22px; border-radius: 999px; border: 1px solid rgba(255, 211, 220, 0.6); background: rgba(255, 243, 238, 0.12); color: #FFF3EE; font-family: 'Onest', system-ui, sans-serif; font-size: 15px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px">
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path class="ico" d="M5 3v5a4 4 0 0 0 8 0V3"></path><path class="ico" d="M9 12v3a5 5 0 0 0 10 0v-2"></path><path class="ico" d="M19 13a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"></path></svg>
+            Yuragimga quloq sol
+          </button>
+        </sc-if>
+        <sc-if value="{{ secretShown }}" hint-placeholder-val="{{ false }}">
+          <p class="h-in" style="margin: 0; font-size: 14px; font-weight: 600; letter-spacing: 0.04em; color: #FFE3E8">Endi bu sir faqat ikkimizniki</p>
+        </sc-if>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding: 36px 20px 36px; background: linear-gradient(180deg, #FFF1F3 0%, #FCE1E8 100%)">
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center">
+      <p style="margin: 0; font-size: 12px; font-weight: 700; letter-spacing: 0.24em; text-transform: uppercase; color: #C8102E">Olti lahza</p>
+      <h2 class="yv" style="margin: 0; font-size: 30px; line-height: 1.15; color: #6E0B1E">Bizning suratlar</h2>
+    </div>
+    <div style="position: relative; margin-top: 20px; height: 322px">
+      <div class="{{ d0 }}" style="box-sizing: border-box; padding: 10px 10px 0; background: #FFFFFF; border-radius: 8px; box-shadow: 0 22px 40px -22px rgba(110, 11, 30, 0.6)">
+        <img src="/_blob/e03ceab92d48e73f129039e72f928594" alt="Sardor va Nilufar yonma-yon" style="display: block; width: 100%; height: 250px; object-fit: cover; border-radius: 4px">
+        <div style="height: 42px; padding: 0 4px; display: flex; align-items: center; justify-content: space-between"><span class="yv" style="font-size: 15px; color: #C8102E">01</span><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" style="color: #F4A6B6"><path class="ico-f" d="M12 20.5s-7.5-4.6-7.5-10.1A4.4 4.4 0 0 1 12 7.6a4.4 4.4 0 0 1 7.5 2.8c0 5.5-7.5 10.1-7.5 10.1z"></path></svg></div>
+      </div>
+      <div class="{{ d1 }}" style="box-sizing: border-box; padding: 10px 10px 0; background: #FFFFFF; border-radius: 8px; box-shadow: 0 22px 40px -22px rgba(110, 11, 30, 0.6)">
+        <img src="/_blob/3b825a45887c9c8f59d935c22b0c2b91" alt="O’rmonda raqs" style="display: block; width: 100%; height: 250px; object-fit: cover; border-radius: 4px">
+        <div style="height: 42px; padding: 0 4px; display: flex; align-items: center; justify-content: space-between"><span class="yv" style="font-size: 15px; color: #C8102E">02</span><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" style="color: #F4A6B6"><path class="ico-f" d="M12 20.5s-7.5-4.6-7.5-10.1A4.4 4.4 0 0 1 12 7.6a4.4 4.4 0 0 1 7.5 2.8c0 5.5-7.5 10.1-7.5 10.1z"></path></svg></div>
+      </div>
+      <div class="{{ d2 }}" style="box-sizing: border-box; padding: 10px 10px 0; background: #FFFFFF; border-radius: 8px; box-shadow: 0 22px 40px -22px rgba(110, 11, 30, 0.6)">
+        <img src="/_blob/7accb1b9ef1bf8067e010a469744f0fc" alt="Quyosh botayotganda" style="display: block; width: 100%; height: 250px; object-fit: cover; border-radius: 4px">
+        <div style="height: 42px; padding: 0 4px; display: flex; align-items: center; justify-content: space-between"><span class="yv" style="font-size: 15px; color: #C8102E">03</span><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" style="color: #F4A6B6"><path class="ico-f" d="M12 20.5s-7.5-4.6-7.5-10.1A4.4 4.4 0 0 1 12 7.6a4.4 4.4 0 0 1 7.5 2.8c0 5.5-7.5 10.1-7.5 10.1z"></path></svg></div>
+      </div>
+      <div class="{{ d3 }}" style="box-sizing: border-box; padding: 10px 10px 0; background: #FFFFFF; border-radius: 8px; box-shadow: 0 22px 40px -22px rgba(110, 11, 30, 0.6)">
+        <img src="/_blob/d7b26e34acd3e8fffd4202554434437f" alt="Osmon ostida quchoqlashib" style="display: block; width: 100%; height: 250px; object-fit: cover; border-radius: 4px">
+        <div style="height: 42px; padding: 0 4px; display: flex; align-items: center; justify-content: space-between"><span class="yv" style="font-size: 15px; color: #C8102E">04</span><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" style="color: #F4A6B6"><path class="ico-f" d="M12 20.5s-7.5-4.6-7.5-10.1A4.4 4.4 0 0 1 12 7.6a4.4 4.4 0 0 1 7.5 2.8c0 5.5-7.5 10.1-7.5 10.1z"></path></svg></div>
+      </div>
+      <div class="{{ d4 }}" style="box-sizing: border-box; padding: 10px 10px 0; background: #FFFFFF; border-radius: 8px; box-shadow: 0 22px 40px -22px rgba(110, 11, 30, 0.6)">
+        <img src="/_blob/4b842ad80b3f568e3ded710566139102" alt="Shamlar yonida kechki payt" style="display: block; width: 100%; height: 250px; object-fit: cover; border-radius: 4px">
+        <div style="height: 42px; padding: 0 4px; display: flex; align-items: center; justify-content: space-between"><span class="yv" style="font-size: 15px; color: #C8102E">05</span><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" style="color: #F4A6B6"><path class="ico-f" d="M12 20.5s-7.5-4.6-7.5-10.1A4.4 4.4 0 0 1 12 7.6a4.4 4.4 0 0 1 7.5 2.8c0 5.5-7.5 10.1-7.5 10.1z"></path></svg></div>
+      </div>
+      <div class="{{ d5 }}" style="box-sizing: border-box; padding: 10px 10px 0; background: #FFFFFF; border-radius: 8px; box-shadow: 0 22px 40px -22px rgba(110, 11, 30, 0.6)">
+        <img src="/_blob/6f10565ccaf6c115e7ea2bb7eacdc76f" alt="Nilufar chiroqlar orasida" style="display: block; width: 100%; height: 250px; object-fit: cover; border-radius: 4px">
+        <div style="height: 42px; padding: 0 4px; display: flex; align-items: center; justify-content: space-between"><span class="yv" style="font-size: 15px; color: #C8102E">06</span><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" style="color: #F4A6B6"><path class="ico-f" d="M12 20.5s-7.5-4.6-7.5-10.1A4.4 4.4 0 0 1 12 7.6a4.4 4.4 0 0 1 7.5 2.8c0 5.5-7.5 10.1-7.5 10.1z"></path></svg></div>
+      </div>
+    </div>
+    <div style="margin-top: 14px; display: flex; align-items: center; justify-content: space-between">
+      <button type="button" aria-label="Oldingi surat" onClick="{{ prev }}" style="width: 48px; height: 48px; padding: 0; border-radius: 50%; border: 1.5px solid #F4A6B6; background: #FFFFFF; color: #6E0B1E; cursor: pointer; display: flex; align-items: center; justify-content: center">
+        <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path class="ico" d="M15 5l-7 7 7 7"></path></svg>
+      </button>
+      <div style="display: flex; flex-direction: column; align-items: center; gap: 8px">
+        <p class="yv" style="margin: 0; font-size: 17px; color: #6E0B1E">{{ phNum }} / 6</p>
+        <div aria-hidden="true" style="display: flex; gap: 8px">
+          <span class="{{ o0 }}"></span><span class="{{ o1 }}"></span><span class="{{ o2 }}"></span><span class="{{ o3 }}"></span><span class="{{ o4 }}"></span><span class="{{ o5 }}"></span>
+        </div>
+      </div>
+      <button type="button" aria-label="Keyingi surat" onClick="{{ next }}" style="width: 48px; height: 48px; padding: 0; border-radius: 50%; border: 0; background: linear-gradient(135deg, #C8102E, #8E0D25); color: #FFF3EE; cursor: pointer; box-shadow: 0 10px 20px -10px rgba(110, 11, 30, 0.8); display: flex; align-items: center; justify-content: center">
+        <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path class="ico" d="M9 5l7 7-7 7"></path></svg>
+      </button>
+    </div>
+  </section>
+
+  <section ref="{{ cRef }}" style="position: relative; overflow: hidden; padding: 40px 22px 40px; background: radial-gradient(80% 60% at 50% 38%, #A30E2A 0%, #6E0B1E 58%, #3E0613 100%); display: flex; flex-direction: column; align-items: center; text-align: center">
+    <div aria-hidden="true" class="h-grid" style="position: absolute; left: 0; top: 0; width: 390px; height: 100%"></div>
+    <div aria-hidden="true" class="h-glow" style="position: absolute; left: 45px; top: 10px; width: 300px; height: 300px; border-radius: 50%; background: radial-gradient(circle, rgba(244, 166, 182, 0.3) 0%, rgba(244, 166, 182, 0) 70%)"></div>
+    <h2 class="yv" style="position: relative; margin: 0; font-size: 26px; line-height: 1.2; color: #FFF3EE">Tanishganimizga</h2>
+    <p class="yv" style="position: relative; margin: 6px 0 0; font-size: 80px; line-height: 1; color: #FFF3EE; text-shadow: 0 0 34px rgba(255, 112, 136, 0.6); font-variant-numeric: lining-nums tabular-nums">{{ countText }}</p>
+    <p style="position: relative; margin: 8px 0 0; font-size: 18px; font-weight: 600; color: #F4A6B6">kun bo’ldi</p>
+    <div style="position: relative; margin-top: 22px; width: 100%; box-sizing: border-box; padding: 16px 18px; border-radius: 20px; border: 1px solid rgba(244, 166, 182, 0.4); background: rgba(255, 243, 238, 0.06); display: flex; align-items: center; gap: 14px; text-align: left">
+      <span style="flex: none; position: relative; width: 46px; height: 46px; border-radius: 50%; background: rgba(255, 77, 106, 0.18); color: #FF7088; display: flex; align-items: center; justify-content: center">
+        <span aria-hidden="true" class="h-ring" style="position: absolute; left: 0; top: 0; width: 46px; height: 46px; box-sizing: border-box; border-radius: 50%; border: 1.5px solid #FF4D6A"></span>
+        <svg class="h-beat" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path class="ico-f" d="M12 20.5s-7.5-4.6-7.5-10.1A4.4 4.4 0 0 1 12 7.6a4.4 4.4 0 0 1 7.5 2.8c0 5.5-7.5 10.1-7.5 10.1z"></path></svg>
+      </span>
+      <div style="min-width: 0; display: flex; flex-direction: column; gap: 2px">
+        <p style="margin: 0; font-size: 13px; font-weight: 500; color: #FFE3E8">Shu kunlar ichida yuragim sen uchun</p>
+        <p style="margin: 0; font-size: 24px; font-weight: 700; color: #FFF3EE; font-variant-numeric: tabular-nums">{{ beatsText }}</p>
+        <p style="margin: 0; font-size: 13px; font-weight: 500; color: #FFE3E8">marta urdi — va hamon sanayapti</p>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding: 36px 20px 24px; background: #FFF1F3; display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center">
+    <h2 class="yv" style="margin: 0; font-size: 30px; line-height: 1.15; color: #6E0B1E">Sardorga javob</h2>
+    <p style="margin: 0; font-size: 15px; color: #7B3A4A">Bir so’z tanla — yuragi darhol sezadi.</p>
+    <div style="width: 100%; min-height: 140px; margin-top: 12px">
+      <sc-if value="{{ notSent }}" hint-placeholder-val="{{ true }}">
+        <div style="display: flex; flex-direction: column; gap: 12px">
+          <div style="display: flex; gap: 8px; justify-content: center">
+            <button type="button" class="h-chip" aria-pressed="{{ pressA }}" onClick="{{ pickA }}" style="{{ chipA }}">Men ham seni sevaman</button>
+            <button type="button" class="h-chip" aria-pressed="{{ pressB }}" onClick="{{ pickB }}" style="{{ chipB }}">Rahmat, Sardor</button>
+          </div>
+          <button type="button" class="h-shine" onClick="{{ send }}" style="min-height: 54px; border: 0; border-radius: 999px; background: linear-gradient(135deg, #C8102E 0%, #8E0D25 100%); color: #FFF3EE; font-family: 'Onest', system-ui, sans-serif; font-size: 16px; font-weight: 700; cursor: pointer; box-shadow: 0 14px 28px -14px rgba(110, 11, 30, 0.9); display: flex; align-items: center; justify-content: center; gap: 10px">
+            <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path class="ico" d="M12 20.5s-7.5-4.6-7.5-10.1A4.4 4.4 0 0 1 12 7.6a4.4 4.4 0 0 1 7.5 2.8c0 5.5-7.5 10.1-7.5 10.1z"></path></svg>
+            Javob yuborish
+          </button>
+        </div>
+      </sc-if>
+      <sc-if value="{{ isSent }}" hint-placeholder-val="{{ false }}">
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 6px">
+          <svg class="h-pop" width="54" height="50" viewBox="0 0 200 180" aria-hidden="true"><path fill="url(#hHeart)" d="M100 172 C60 140 8 108 8 58 C8 26 32 6 60 6 C78 6 92 16 100 30 C108 16 122 6 140 6 C168 6 192 26 192 58 C192 108 140 140 100 172 Z"></path><path class="h-rim" d="M100 172 C60 140 8 108 8 58 C8 26 32 6 60 6 C78 6 92 16 100 30 C108 16 122 6 140 6 C168 6 192 26 192 58 C192 108 140 140 100 172 Z"></path></svg>
+          <svg class="h-draw2" width="160" height="30" viewBox="0 0 160 30" aria-hidden="true"><path class="h-tr-s" d="M0 18 H44 L48 22 L53 4 L58 26 L62 18 H70 C66 12 70 5 76 5 C80 5 83 8 83 11 C83 8 86 5 90 5 C96 5 99 12 95 18 C92 22 87 25 83 28 C79 25 75 22 72 19 M96 17 C98 18 99 18 101 18 H116 L120 22 L125 8 L130 24 L134 18 H160"></path></svg>
+          <p class="yv h-in" style="margin: 0; font-size: 22px; color: #6E0B1E">«{{ chosen }}»</p>
+          <p class="h-in" style="margin: 0; font-size: 14px; font-weight: 600; color: #7B3A4A">Javobing Sardorga yuborildi</p>
+        </div>
+      </sc-if>
+    </div>
+  </section>
+
+  <footer style="flex: 1; background: #FFF1F3; display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 8px 24px 32px">
+    <svg width="160" height="30" viewBox="0 0 160 30" aria-hidden="true"><path class="h-tr-s" d="M0 18 H44 L48 22 L53 4 L58 26 L62 18 H70 C66 12 70 5 76 5 C80 5 83 8 83 11 C83 8 86 5 90 5 C96 5 99 12 95 18 C92 22 87 25 83 28 C79 25 75 22 72 19 M96 17 C98 18 99 18 101 18 H116 L120 22 L125 8 L130 24 L134 18 H160"></path></svg>
+    <p class="yv" style="margin: 0; font-size: 16px; color: #7B3A4A">Sardor va Nilufar</p>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":3860}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { opened: false, bpm: 72, count: null, secret: false, ph: 0, pick: 0, sent: false, now: Date.now() };
+    this.cRef = (el) => { this.cEl = el; };
+  }
+  componentDidMount() {
+    this.clock = setInterval(() => this.setState({ now: Date.now() }), 1000);
+    try {
+      if (this.cEl && typeof IntersectionObserver !== 'undefined') {
+        this.io = new IntersectionObserver((list) => {
+          list.forEach((en) => {
+            this.cVisible = en.isIntersecting;
+            if (en.isIntersecting && this.state.opened) this.runCount();
+          });
+        }, { threshold: 0.35 });
+        this.io.observe(this.cEl);
+      }
+    } catch (e) {
+      this.io = null;
+    }
+  }
+  componentWillUnmount() {
+    if (this.io) this.io.disconnect();
+    clearInterval(this.clock);
+    clearInterval(this.tick);
+    clearInterval(this.pulse);
+    clearTimeout(this.wait);
+    clearTimeout(this.backup);
+  }
+  // 12-may 2021, 00:00 Toshkent vaqti (UTC+5)
+  met() { return Date.UTC(2021, 4, 11, 19, 0, 0); }
+  totalDays() { return Math.max(0, Math.floor((Date.now() - this.met()) / 86400000)); }
+  reduced() {
+    try { return window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) { return false; }
+  }
+  runCount() {
+    if (this.counted) return;
+    this.counted = true;
+    if (this.reduced()) { this.setState({ count: null }); return; }
+    const N = this.totalDays();
+    const t0 = Date.now();
+    clearInterval(this.tick);
+    this.tick = setInterval(() => {
+      const k = Math.min(1, (Date.now() - t0) / 2400);
+      const e = 1 - Math.pow(1 - k, 3);
+      this.setState({ count: k >= 1 ? null : Math.round(N * e) });
+      if (k >= 1) { clearInterval(this.tick); this.tick = null; }
+    }, 40);
+  }
+  open() {
+    if (this.state.opened) return;
+    this.setState({ opened: true, count: 0 });
+    if (this.reduced()) {
+      this.setState({ bpm: 128 });
+    } else {
+      const t0 = Date.now();
+      this.pulse = setInterval(() => {
+        const k = Math.min(1, (Date.now() - t0) / 1800);
+        this.setState({ bpm: Math.round(72 + 56 * (1 - Math.pow(1 - k, 2))) });
+        if (k >= 1) { clearInterval(this.pulse); this.pulse = null; }
+      }, 60);
+    }
+    this.wait = setTimeout(() => { if (!this.io || this.cVisible) this.runCount(); }, 3300);
+    this.backup = setTimeout(() => this.runCount(), 12000);
+  }
+  renderVals() {
+    const s = this.state;
+    const fmt = (n) => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+    // taxminiy: daqiqasiga 72 zarba
+    const beats = Math.floor(Math.max(0, s.now - this.met()) / 60000 * 72);
+    const total = 6;
+    const replies = ['Men ham seni sevaman', 'Rahmat, Sardor'];
+    const chip = (on) => 'min-height: 44px; padding: 0 16px; border-radius: 999px; cursor: pointer; font-family: Onest, system-ui, sans-serif; font-size: 14px; font-weight: 600; ' + (on ? 'border: 1.5px solid #C8102E; background: #C8102E; color: #FFFFFF; box-shadow: 0 8px 18px -8px rgba(200, 16, 46, 0.7)' : 'border: 1.5px solid #F4A6B6; background: #FFFFFF; color: #6E0B1E');
+    const vals = {
+      introCls: s.opened ? 'h-intro is-open' : 'h-intro',
+      open: () => this.open(),
+      bpm: s.bpm,
+      cRef: this.cRef,
+      countText: fmt(s.count == null ? this.totalDays() : s.count),
+      beatsText: fmt(beats),
+      secretCls: s.secret ? 'yv h-secret is-shown' : 'yv h-secret',
+      thumpCls: s.secret ? 'h-thump is-on' : 'h-thump',
+      secretHidden: !s.secret,
+      secretShown: s.secret,
+      reveal: () => this.setState({ secret: true }),
+      phNum: s.ph + 1,
+      prev: () => this.setState({ ph: (this.state.ph + total - 1) % total }),
+      next: () => this.setState({ ph: (this.state.ph + 1) % total }),
+      chipA: chip(s.pick === 0),
+      chipB: chip(s.pick === 1),
+      pressA: s.pick === 0,
+      pressB: s.pick === 1,
+      pickA: () => this.setState({ pick: 0 }),
+      pickB: () => this.setState({ pick: 1 }),
+      chosen: replies[s.pick],
+      notSent: !s.sent,
+      isSent: s.sent,
+      send: () => this.setState({ sent: true })
+    };
+    for (let i = 0; i < total; i++) {
+      const rel = (i - s.ph + total) % total;
+      vals['d' + i] = 'dk ' + (rel === 0 ? 'dk-0' : rel === 1 ? 'dk-1' : rel === 2 ? 'dk-2' : rel === total - 1 ? 'dk-out' : 'dk-h');
+      vals['o' + i] = i === s.ph ? 'h-dot is-on' : 'h-dot';
+    }
+    return vals;
+  }
+}
+</script>
+</body>
+</html>

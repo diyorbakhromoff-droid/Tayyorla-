@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<title>Mini App muharrir: bloklar</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alegreya:wght@500;700&amp;family=Onest:wght@400;500;600&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#D02670}a:hover{color:#A81D5A}
+.mh-ic{stroke-width:2;stroke-linecap:round;stroke-linejoin:round;fill:none}
+.mh-scroll{overflow-y:auto;scrollbar-width:none}
+.mh-scroll::-webkit-scrollbar{display:none}
+.mh-tab{flex:1;height:44px;border:0;border-radius:12px;background:transparent;color:#6B6585;font:500 15px 'Onest',system-ui,sans-serif;cursor:pointer}
+.mh-tab--on{background:#FFFFFF;color:#1C1830;box-shadow:0 2px 8px -4px rgba(33,28,82,.35)}
+.mh-st{font-size:13px;color:#6B6585}
+.mh-st--warn{color:#8A5A00}
+.mh-row{animation:mh-in .28s ease-out}
+@keyframes mh-in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.mh-toast{animation:mh-toast .3s ease-out}
+@keyframes mh-toast{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion: reduce){.mh-row,.mh-toast{animation:none}}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; position: relative; overflow: hidden; background: #F7F5FC; color: #1C1830; font-family: 'Onest', system-ui, sans-serif">
+
+  <div class="mh-scroll" style="position: absolute; top: 0; left: 0; right: 0; bottom: 92px; display: flex; flex-direction: column; gap: 18px; padding: 16px 16px 24px">
+
+    <div style="display: flex; align-items: center; gap: 10px">
+      <button aria-label="Orqaga" style="width: 44px; height: 44px; flex: 0 0 auto; border-radius: 14px; border: 1px solid #E4DFF2; background: #FFFFFF; display: flex; align-items: center; justify-content: center; cursor: pointer">
+        <svg width="20" height="20" viewBox="0 0 24 24" stroke="#1C1830" class="mh-ic" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg>
+      </button>
+      <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px">
+        <span style="font-family: 'Alegreya', Georgia, serif; font-size: 22px; font-weight: 700; line-height: 1.1">Sovg’a qutisi</span>
+        <span style="align-self: flex-start; background: #211C52; color: #F7F5FC; font-size: 12px; font-weight: 600; padding: 3px 9px; border-radius: 999px">Premium</span>
+      </div>
+      <button style="height: 44px; flex: 0 0 auto; padding: 0 14px; border-radius: 14px; border: 1px solid #E4DFF2; background: #FFFFFF; color: #1C1830; display: flex; align-items: center; gap: 6px; font: 500 14px 'Onest', system-ui, sans-serif; cursor: pointer">
+        <svg width="18" height="18" viewBox="0 0 24 24" stroke="#1C1830" class="mh-ic" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+        Ko’rish
+      </button>
+    </div>
+
+    <div style="display: flex; gap: 4px; padding: 4px; background: #EFEBF8; border-radius: 16px">
+      <button class="mh-tab">Ma’lumotlar</button>
+      <button class="mh-tab mh-tab--on" aria-pressed="true">Bloklar</button>
+      <button class="mh-tab">Ko’rinish</button>
+    </div>
+
+    <div style="display: flex; gap: 12px; align-items: flex-start; background: #FFF4D6; border-radius: 16px; padding: 14px 16px">
+      <svg width="22" height="22" viewBox="0 0 24 24" stroke="#7A5200" class="mh-ic" aria-hidden="true" style="flex: 0 0 auto; margin-top: 1px"><circle cx="12" cy="12" r="9"></circle><path d="M12 11v5"></path><path d="M12 7.5v.5"></path></svg>
+      <p style="margin: 0; font-size: 14px; line-height: 1.45; color: #5C3D00">Ma’lumot topa olmasangiz, blokni olib tashlang. Sayt baribir chiroyli qoladi, xohlasangiz keyin qaytarasiz.</p>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 10px">
+      <div style="display: flex; align-items: baseline; justify-content: space-between">
+        <h2 style="margin: 0; font-size: 16px; font-weight: 600">Saytdagi bloklar</h2>
+        <span style="font-size: 14px; color: #6B6585; font-variant-numeric: lining-nums">{{ activeCount }} ta</span>
+      </div>
+
+      <div style="display: flex; align-items: center; gap: 12px; background: #FFFFFF; border: 1px solid #E4DFF2; border-radius: 16px; padding: 10px 12px 10px 14px; min-height: 64px; box-sizing: border-box">
+        <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px">
+          <span style="font-size: 15px; font-weight: 600">Bosh qism</span>
+          <span class="mh-st">Ism, yosh va asosiy surat</span>
+        </div>
+        <span style="display: flex; align-items: center; gap: 6px; font-size: 13px; color: #6B6585">
+          <svg width="16" height="16" viewBox="0 0 24 24" stroke="#6B6585" class="mh-ic" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"></rect><path d="M8 11V8a4 4 0 0 1 8 0v3"></path></svg>
+          Majburiy
+        </span>
+      </div>
+
+      <sc-for list="{{ active }}" as="b" hint-placeholder-count="6">
+        <div class="mh-row" style="display: flex; align-items: center; gap: 12px; background: #FFFFFF; border: 1px solid #E4DFF2; border-radius: 16px; padding: 10px 10px 10px 14px; min-height: 64px; box-sizing: border-box">
+          <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px">
+            <span style="font-size: 15px; font-weight: 600">{{ b.name }}</span>
+            <span class="{{ b.stCls }}">{{ b.status }}</span>
+          </div>
+          <button onClick="{{ b.remove }}" aria-label="{{ b.removeLabel }}" style="height: 44px; flex: 0 0 auto; padding: 0 12px; border-radius: 12px; border: 1px solid #F2C9D9; background: #FCE7F1; color: #A81D5A; display: flex; align-items: center; gap: 6px; font: 500 14px 'Onest', system-ui, sans-serif; cursor: pointer">
+            <svg width="16" height="16" viewBox="0 0 24 24" stroke="#A81D5A" class="mh-ic" aria-hidden="true"><path d="M6 6l12 12"></path><path d="M18 6L6 18"></path></svg>
+            Olib tashlash
+          </button>
+        </div>
+      </sc-for>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 10px">
+      <div style="display: flex; align-items: baseline; justify-content: space-between">
+        <h2 style="margin: 0; font-size: 16px; font-weight: 600">Olib tashlanganlar</h2>
+        <span style="font-size: 14px; color: #6B6585; font-variant-numeric: lining-nums">{{ removedCount }} ta</span>
+      </div>
+      <sc-if value="{{ noneRemoved }}" hint-placeholder-val="{{ false }}">
+        <p style="margin: 0; font-size: 14px; color: #6B6585">Hozircha yo’q. Olib tashlangan bloklar shu yerda turadi.</p>
+      </sc-if>
+      <sc-for list="{{ removed }}" as="b" hint-placeholder-count="1">
+        <div class="mh-row" style="display: flex; align-items: center; gap: 12px; background: transparent; border: 1px dashed #D9D2EC; border-radius: 16px; padding: 10px 10px 10px 14px; min-height: 64px; box-sizing: border-box">
+          <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px">
+            <span style="font-size: 15px; font-weight: 600; color: #6B6585">{{ b.name }}</span>
+            <span class="mh-st">Saytda ko’rinmaydi</span>
+          </div>
+          <button onClick="{{ b.restore }}" aria-label="{{ b.restoreLabel }}" style="height: 44px; flex: 0 0 auto; padding: 0 12px; border-radius: 12px; border: 1px solid #BFE3D2; background: #E3F4EC; color: #0B6B4D; display: flex; align-items: center; gap: 6px; font: 500 14px 'Onest', system-ui, sans-serif; cursor: pointer">
+            <svg width="16" height="16" viewBox="0 0 24 24" stroke="#0B6B4D" class="mh-ic" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.3-5.7"></path><path d="M4 4v4h4"></path></svg>
+            Qaytarish
+          </button>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+
+  <sc-if value="{{ hasToast }}" hint-placeholder-val="{{ false }}">
+    <div class="mh-toast" role="status" style="position: absolute; left: 16px; right: 16px; bottom: 104px; display: flex; align-items: center; gap: 12px; background: #211C52; color: #F7F5FC; border-radius: 14px; padding: 8px 8px 8px 16px">
+      <span style="flex: 1; font-size: 14px; line-height: 1.35">{{ toast }}</span>
+      <button onClick="{{ undo }}" style="height: 40px; padding: 0 12px; border-radius: 10px; border: 0; background: #3D3678; color: #F7F5FC; font: 600 14px 'Onest', system-ui, sans-serif; cursor: pointer">Qaytarish</button>
+    </div>
+  </sc-if>
+
+  <div style="position: absolute; left: 0; right: 0; bottom: 0; height: 92px; box-sizing: border-box; padding: 12px 16px 20px; background: #FFFFFF; border-top: 1px solid #E4DFF2; display: flex; align-items: center; gap: 12px">
+    <div style="display: flex; flex-direction: column">
+      <span style="font-size: 13px; color: #6B6585">Narx</span>
+      <span style="font-size: 18px; font-weight: 600; font-variant-numeric: lining-nums">59 000 so’m</span>
+    </div>
+    <button style="flex: 1; height: 52px; border-radius: 16px; border: 0; background: #D02670; color: #FFFFFF; font: 600 16px 'Onest', system-ui, sans-serif; cursor: pointer">To’lovga o’tish</button>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { removed: ['bazm'], toast: null };
+  }
+  componentWillUnmount() {
+    clearTimeout(this.timer);
+  }
+  renderVals() {
+    const blocks = [
+      { id: 'tabrik', name: 'Tabrik matni', status: 'To’ldirilgan' },
+      { id: 'taymer', name: 'Taymer', status: '14-noyabrgacha' },
+      { id: 'tilak', name: 'Tilaklar sharlarda', status: '5 ta tilak' },
+      { id: 'sham', name: 'Shamni o’chiring', status: 'Tayyor, ma’lumot kerak emas' },
+      { id: 'lenta', name: 'Xotiralar lentasi', status: 'Surat yuklanmagan', warn: true },
+      { id: 'sirli', name: 'Sirli tilak', status: 'To’ldirilgan' },
+      { id: 'bazm', name: 'Bazmga taklif', status: 'Manzil kiritilmagan', warn: true },
+      { id: 'tabrikladim', name: '«Tabrikladim» tugmasi', status: 'Tayyor' }
+    ];
+    const removed = this.state.removed;
+    const flash = (text, undo) => {
+      clearTimeout(this.timer);
+      this.setState({ toast: { text, undo } });
+      this.timer = setTimeout(() => this.setState({ toast: null }), 4000);
+    };
+    const remove = (b) => {
+      this.setState({ removed: removed.concat(b.id) });
+      flash('«' + b.name + '» olib tashlandi', b.id);
+    };
+    const restore = (b) => this.setState({ removed: removed.filter((x) => x !== b.id), toast: null });
+    const active = blocks.filter((b) => removed.indexOf(b.id) < 0).map((b) => ({
+      name: b.name,
+      status: b.status,
+      stCls: b.warn ? 'mh-st mh-st--warn' : 'mh-st',
+      removeLabel: b.name + ' blokini olib tashlash',
+      remove: () => remove(b)
+    }));
+    const gone = blocks.filter((b) => removed.indexOf(b.id) >= 0).map((b) => ({
+      name: b.name,
+      restoreLabel: b.name + ' blokini qaytarish',
+      restore: () => restore(b)
+    }));
+    const t = this.state.toast;
+    return {
+      active,
+      removed: gone,
+      activeCount: active.length + 1,
+      removedCount: gone.length,
+      noneRemoved: gone.length === 0,
+      hasToast: !!t,
+      toast: t ? t.text : '',
+      undo: () => this.setState({ removed: this.state.removed.filter((x) => !t || x !== t.undo), toast: null })
+    };
+  }
+}
+</script>
+</body>
+</html>

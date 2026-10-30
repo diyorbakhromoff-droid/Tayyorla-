@@ -11,7 +11,7 @@ from aiogram.utils.keyboard import InlineKeyboardBuilder
 from sqlalchemy import select
 
 from .config import settings
-from .db import Person, ReminderLog, Session
+from .db import Person, ReminderLog, Session, Site
 
 log = logging.getLogger(__name__)
 
@@ -129,6 +129,42 @@ async def send_due(bot, ref: date) -> int:
     return sent
 
 
+UPSELL_AFTER = timedelta(hours=24)
+
+
+def upsell_text(site: Site) -> str:
+    seen = f"Saytingiz {site.views} marta ochildi 👀\n\n" if site.views else ""
+    return (f"{seen}Shu ma'lumotlar bilan saytingiz <b>Premium</b> dizaynda qanday ko'rinishini ko'ring: "
+            "u konvert, parda yoki quti bo'lib ochiladi va mehmonni birinchi soniyadayoq hayratda qoldiradi ✨")
+
+
+async def send_upsells(bot) -> int:
+    """To'langan Standart saytlar egasiga bir martalik «Premium'da ko'ring» taklifi (yaratilganidan 24 soat o'tib)."""
+    from .catalog import TEMPLATES
+
+    sent = 0
+    cutoff = datetime.now(timezone.utc).replace(tzinfo=None) - UPSELL_AFTER
+    async with Session() as s:
+        sites = (await s.execute(select(Site).where(Site.status == "paid", Site.created_at < cutoff))).scalars().all()
+        for site in sites:
+            cfg = site.config or {}
+            t = TEMPLATES.get(cfg.get("template"))
+            if not t or not t.get("v2") or t["tier"] != "standart" or cfg.get("upsell_sent"):
+                continue
+            kb = InlineKeyboardBuilder()
+            url = f"{settings.base_url}/app?{urlencode({'tab': 'sites', 's': t['section']})}"
+            if settings.base_url.startswith("https://"):
+                kb.button(text="✨ Premium'da ko'rish", web_app=WebAppInfo(url=url))
+            try:
+                await bot.send_message(site.owner_id, upsell_text(site), reply_markup=kb.as_markup())
+                sent += 1
+            except Exception:
+                log.exception("Premium taklifi yuborilmadi: site %s", site.id)
+            site.config = {**cfg, "upsell_sent": True}  # xato bo'lsa ham qayta urinmaymiz
+        await s.commit()
+    return sent
+
+
 async def reminder_loop(bot, interval: int = 600) -> None:
     while True:
         try:
@@ -137,6 +173,9 @@ async def reminder_loop(bot, interval: int = 600) -> None:
                 n = await send_due(bot, now.date())
                 if n:
                     log.info("Eslatmalar yuborildi: %s", n)
+                n = await send_upsells(bot)
+                if n:
+                    log.info("Premium takliflari yuborildi: %s", n)
         except Exception:
             log.exception("Eslatmalar tsiklida xato")
         await asyncio.sleep(interval)

@@ -1,0 +1,901 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<title>Tug’ilgan kun: Oltin kecha</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&amp;family=Montserrat:wght@400;500;600&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#E3B34C}a:hover{color:#F3D27A}
+.tkv-serif{font-family:'Cormorant Garamond','Cormorant',Georgia,'Times New Roman',serif}
+.tkv-foil{background:linear-gradient(100deg,#B8862E 0%,#F3D27A 22%,#FFF1C9 36%,#E3B34C 52%,#A87A28 70%,#F3D27A 86%,#C99A3A 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.tkv-label{font-family:'Montserrat',system-ui,sans-serif;font-size:11px;font-weight:600;letter-spacing:.34em;text-transform:uppercase;color:#E3B34C}
+.tkv-g1{stop-color:#A87A28}.tkv-g2{stop-color:#E3B34C}.tkv-g3{stop-color:#FFF1C9}.tkv-g4{stop-color:#C99A3A}
+.tkv-v1{stop-color:#F6DE95}.tkv-v2{stop-color:#C99A3A}.tkv-v3{stop-color:#8E6420}
+.tkv-line{fill:none;stroke:#E3B34C;stroke-width:1}
+.tkv-lineB{fill:none;stroke:#B8862E;stroke-width:1.2}
+.tkv-ring{fill:none;stroke:#E3B34C;stroke-width:1}
+.tkv-stem{fill:none;stroke:url(#tkv-gGold);stroke-width:2;stroke-linecap:round}
+.tkv-fwRay{fill:none;stroke:#E3B34C;stroke-width:2;stroke-linecap:round}
+.tkv-fwRay2{fill:none;stroke:#F3E3C3;stroke-width:1.4;stroke-linecap:round}
+.tkv-fwC .tkv-fwRay{stroke:#F3E3C3}
+.tkv-fwC .tkv-fwRay2{stroke:#E3B34C}
+.tkv-string{fill:none;stroke:rgba(243,227,195,0.45);stroke-width:1}
+.tkv-ico{fill:none;stroke:#E3B34C;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.tkv-icoInk{fill:none;stroke:#14123A;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.tkv-cakeLine{fill:none;stroke:#E3B34C;stroke-width:1}
+.tkv-smoke{fill:none;stroke:#D8CBAE;stroke-width:1.6;stroke-linecap:round;opacity:0}
+.is-hidden{display:none}
+
+/* ambient decor */
+.tkv-star{position:absolute;display:block;border-radius:50%;background:#F3E3C3;animation:tkv-tw 4s ease-in-out infinite}
+.tkv-spark{position:absolute;display:block;clip-path:polygon(50% 0,60% 40%,100% 50%,60% 60%,50% 100%,40% 60%,0 50%,40% 40%);animation:tkv-sp 3.2s ease-in-out infinite}
+.tkv-mote{position:absolute;display:block;border-radius:50%;background:#F3D27A;box-shadow:0 0 6px rgba(227,179,76,0.85);opacity:.6;animation:tkv-mote 12s linear infinite}
+@keyframes tkv-tw{0%,100%{opacity:.2}50%{opacity:.95}}
+@keyframes tkv-sp{0%,100%{opacity:.15;transform:scale(.5) rotate(0)}50%{opacity:1;transform:scale(1) rotate(45deg)}}
+@keyframes tkv-mote{0%{transform:translateY(0);opacity:0}15%{opacity:.9}85%{opacity:.9}100%{transform:translateY(-170px);opacity:0}}
+.tkv-fw{transform-origin:50% 50%;opacity:0;animation:tkv-fw 3.6s ease-out infinite}
+.tkv-fwGlow{opacity:0;animation:tkv-fwGlow 3.6s ease-out infinite}
+@keyframes tkv-fw{0%{transform:scale(.1);opacity:0}8%{opacity:1}55%{transform:scale(1);opacity:.95}100%{transform:scale(1.12);opacity:0}}
+@keyframes tkv-fwGlow{0%{opacity:0}10%{opacity:.8}100%{opacity:0}}
+.tkv-riseB{animation:tkv-riseB 19s linear infinite}
+@keyframes tkv-riseB{0%{transform:translateY(520px)}100%{transform:translateY(-780px)}}
+.tkv-swayB{transform-origin:50% 0;animation:tkv-swayB 3.8s ease-in-out infinite alternate}
+@keyframes tkv-swayB{0%{transform:rotate(-5deg)}100%{transform:rotate(5deg)}}
+.tkv-float{animation:tkv-float 7s ease-in-out infinite}
+.tkv-floatB{animation:tkv-float 4.6s ease-in-out -2s infinite}
+@keyframes tkv-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+.tkv-glowP{animation:tkv-glowP 4s ease-in-out infinite}
+@keyframes tkv-glowP{0%,100%{opacity:.55}50%{opacity:1}}
+.tkv-beam{transform-origin:50% 0;animation:tkv-beam 9s ease-in-out infinite alternate}
+@keyframes tkv-beam{0%{transform:rotate(-8deg)}100%{transform:rotate(8deg)}}
+.tkv-chev{animation:tkv-chev 2s ease-in-out infinite}
+@keyframes tkv-chev{0%,100%{transform:translateY(0);opacity:.55}50%{transform:translateY(7px);opacity:1}}
+
+/* buttons */
+.tkv-gold{background:linear-gradient(100deg,#C99A3A 0%,#F3D27A 35%,#FFF1C9 50%,#E3B34C 70%,#C99A3A 100%);color:#14123A}
+.tkv-shine{position:relative;overflow:hidden}
+.tkv-shine::after{content:"";position:absolute;top:0;left:-50%;width:35%;height:100%;background:linear-gradient(100deg,rgba(255,255,255,0),rgba(255,255,255,0.6),rgba(255,255,255,0));transform:skewX(-20deg);animation:tkv-shine 3.8s ease-in-out infinite;pointer-events:none}
+@keyframes tkv-shine{0%{transform:translateX(0) skewX(-20deg)}55%,100%{transform:translateX(480%) skewX(-20deg)}}
+.tkv-cta{width:290px;min-height:56px;border:0;border-radius:28px;font-family:'Montserrat',system-ui,sans-serif;font-size:13px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;cursor:pointer;box-shadow:0 0 0 1px rgba(255,241,201,0.4),0 14px 36px rgba(227,179,76,0.35)}
+.tkv-btn{width:100%;min-height:54px;border:0;border-radius:27px;font-family:'Montserrat',system-ui,sans-serif;font-size:13px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;display:flex;align-items:center;justify-content:center;gap:10px;cursor:pointer;padding:0 16px}
+.tkv-go{flex:1 1 0;min-width:0;min-height:52px;border:0;border-radius:26px;font-family:'Montserrat',system-ui,sans-serif;font-size:14px;font-weight:600;letter-spacing:.02em;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;padding:0 10px}
+.tkv-go--on{background:transparent;color:#F3E3C3;box-shadow:inset 0 0 0 1.5px #E3B34C}
+.tkv-map{flex:1.4 1 0;min-width:0;min-height:52px;border-radius:26px;border:1px solid rgba(227,179,76,0.7);color:#F3E3C3;font-size:14px;font-weight:600;letter-spacing:.02em;display:flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;padding:0 10px;box-sizing:border-box}
+.tkv-map:hover{color:#FFFFFF;border-color:#E3B34C}
+.tkv-send--done{background:transparent;color:#F3E3C3;box-shadow:inset 0 0 0 1.5px rgba(227,179,76,0.7);cursor:default;letter-spacing:.08em;text-transform:none;font-size:14px}
+.tkv-row{display:flex;align-items:center;gap:8px}
+.tkv-music{position:absolute;right:18px;top:18px;z-index:5;width:44px;height:44px;border-radius:50%;border:1px solid rgba(227,179,76,0.6);background:rgba(20,18,58,0.6);display:flex;align-items:center;justify-content:center;gap:3px;cursor:pointer;padding:0}
+.tkv-eq{display:none;align-items:flex-end;gap:2px;height:12px}
+.tkv-music--on{background:rgba(227,179,76,0.16)}
+.tkv-music--on .tkv-eq{display:flex}
+.tkv-bar{display:block;width:2px;height:12px;background:#E3B34C;transform-origin:50% 100%;animation:tkv-eq .8s ease-in-out infinite alternate}
+.tkv-bar + .tkv-bar{animation-delay:-.3s}
+.tkv-bar + .tkv-bar + .tkv-bar{animation-delay:-.55s}
+@keyframes tkv-eq{0%{transform:scaleY(.25)}100%{transform:scaleY(1)}}
+
+/* flip calendar */
+.tkv-flip{position:relative;width:72px;height:88px;perspective:300px}
+.tkv-half{position:absolute;left:0;width:72px;height:44px;overflow:hidden;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.tkv-top{top:0;border-radius:8px 8px 0 0;background:linear-gradient(180deg,#2C2868,#211E57)}
+.tkv-bot{top:44px;border-radius:0 0 8px 8px;background:linear-gradient(180deg,#1D1A50,#141240)}
+.tkv-half span{display:block;width:72px;height:88px;line-height:88px;text-align:center;font-family:'Cormorant Garamond',Georgia,serif;font-size:52px;font-weight:600;font-variant-numeric:lining-nums;background:linear-gradient(180deg,#FFF1C9 28%,#E3B34C 72%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.tkv-bot span{transform:translateY(-44px)}
+.tkv-flap1{z-index:2;transform-origin:50% 100%;transform:rotateX(-90deg)}
+.tkv-flap2{z-index:2;transform-origin:50% 0;transform:rotateX(0)}
+.tkv-flip--a .tkv-flap1{animation:tkv-fTopA .3s ease-in both}
+.tkv-flip--a .tkv-flap2{animation:tkv-fBotA .3s ease-out .3s both}
+.tkv-flip--b .tkv-flap1{animation:tkv-fTopB .3s ease-in both}
+.tkv-flip--b .tkv-flap2{animation:tkv-fBotB .3s ease-out .3s both}
+@keyframes tkv-fTopA{from{transform:rotateX(0)}to{transform:rotateX(-90deg)}}
+@keyframes tkv-fBotA{from{transform:rotateX(90deg)}to{transform:rotateX(0)}}
+@keyframes tkv-fTopB{from{transform:rotateX(0)}to{transform:rotateX(-90deg)}}
+@keyframes tkv-fBotB{from{transform:rotateX(90deg)}to{transform:rotateX(0)}}
+.tkv-hinge{position:absolute;left:0;top:43.5px;width:72px;height:1px;background:rgba(5,4,20,0.9);z-index:3}
+.tkv-flipFrame{position:absolute;left:0;top:0;width:72px;height:88px;box-sizing:border-box;border-radius:8px;border:1px solid rgba(227,179,76,0.45);z-index:4;pointer-events:none}
+.tkv-unit{font-size:10px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:#D8CBAE}
+
+/* gold dust bursts */
+.tkv-dust{position:absolute;left:0;top:0;display:block;border-radius:50%;opacity:0;box-shadow:0 0 6px rgba(243,210,122,0.9)}
+.tkv-dustGo .tkv-dust{animation:tkv-d1 1.8s cubic-bezier(.1,.7,.3,1) both}
+.tkv-dustGo .tkv-d2{animation-name:tkv-d2}
+.tkv-dustGo .tkv-d3{animation-name:tkv-d3}
+@keyframes tkv-d1{0%{opacity:1;transform:translateY(0) scale(1)}70%{opacity:.95}100%{opacity:0;transform:translateY(-230px) scale(.4)}}
+@keyframes tkv-d2{0%{opacity:1;transform:translateY(0) scale(1)}70%{opacity:.95}100%{opacity:0;transform:translateY(-150px) scale(.4)}}
+@keyframes tkv-d3{0%{opacity:1;transform:translateY(0) scale(1)}70%{opacity:.95}100%{opacity:0;transform:translateY(-310px) scale(.3)}}
+
+/* intro: night stage */
+.tkv-intro--open{opacity:0;pointer-events:none;animation:tkv-out .5s ease 1.3s both}
+.tkv-intro--open .tkv-ctaWrap{animation:tkv-downOut .35s ease both}
+.tkv-intro--open .tkv-introName{animation:tkv-downOut .45s ease .05s both}
+.tkv-intro--open .tkv-introLabel{animation:tkv-upOut .45s ease both}
+.tkv-intro--open .tkv-mono{animation:tkv-monoGo 1.4s cubic-bezier(.5,0,.7,.4) .1s both}
+.tkv-flash{opacity:0;transform:scaleX(0)}
+.tkv-intro--open .tkv-flash{animation:tkv-flash 1.1s ease-out .45s both}
+.tkv-intro--open .tkv-introBg{animation:tkv-out .7s ease .85s both}
+@keyframes tkv-out{from{opacity:1}to{opacity:0}}
+@keyframes tkv-downOut{to{opacity:0;transform:translateY(20px)}}
+@keyframes tkv-upOut{to{opacity:0;transform:translateY(-16px)}}
+@keyframes tkv-monoGo{0%{transform:none;filter:none}30%{transform:scale(1.12);filter:brightness(1.6) drop-shadow(0 0 18px rgba(243,210,122,0.9))}100%{transform:scale(3.4);opacity:0;filter:brightness(2) drop-shadow(0 0 30px rgba(243,210,122,0.9))}}
+@keyframes tkv-flash{0%{opacity:0;transform:scaleX(0)}25%{opacity:1;transform:scaleX(1) scaleY(1)}100%{opacity:0;transform:scaleX(1) scaleY(110)}}
+.tkv-page--in .tkv-rv1{animation:tkv-rise 1s ease-out 1.25s both}
+.tkv-page--in .tkv-rv2{animation:tkv-rise 1s ease-out 1.45s both}
+.tkv-page--in .tkv-rv3{animation:tkv-rise 1.1s ease-out 1.65s both}
+@keyframes tkv-rise{from{opacity:0;transform:translateY(24px);filter:blur(4px)}to{opacity:1;transform:none;filter:none}}
+
+/* candles */
+.tkv-flame{transform-box:fill-box;transform-origin:50% 100%;animation:tkv-flicker .9s ease-in-out infinite alternate}
+.tkv-halo{transform-box:fill-box;transform-origin:50% 50%;opacity:.3;animation:tkv-halo 1.8s ease-in-out infinite}
+@keyframes tkv-flicker{0%{transform:scale(1,1) rotate(-3deg)}50%{transform:scale(.9,1.1) rotate(2deg)}100%{transform:scale(1.05,.94) rotate(-1deg)}}
+@keyframes tkv-halo{0%,100%{opacity:.2;transform:scale(.9)}50%{opacity:.45;transform:scale(1.15)}}
+.tkv-cake--out .tkv-flame{opacity:0;animation:tkv-flameOut .35s ease-in both}
+.tkv-cake--out .tkv-halo{opacity:0;animation:tkv-out .3s ease both}
+.tkv-cake--out .tkv-smoke{animation:tkv-smoke 2s ease-out .25s both}
+@keyframes tkv-flameOut{from{opacity:1;transform:scale(1)}to{opacity:0;transform:scale(.3,.1)}}
+@keyframes tkv-smoke{0%{opacity:0;transform:translateY(0)}20%{opacity:.8}100%{opacity:0;transform:translateY(-30px)}}
+.tkv-cakeGlow{transition:opacity .7s ease}
+.tkv-cake--out .tkv-cakeGlow{opacity:.12}
+.tkv-wish{opacity:0;transform:translateY(10px);transition:opacity .7s ease .4s,transform .7s ease .4s}
+.tkv-wish--on{opacity:1;transform:none}
+.tkv-cakeBg{background-color:#14123A;background-size:cover;background-position:center}
+.tkv-input{width:100%;height:50px;box-sizing:border-box;border-radius:25px;border:1px solid rgba(227,179,76,0.55);background:rgba(243,227,195,0.05);color:#F3E3C3;padding:0 18px;font-family:'Montserrat',system-ui,sans-serif;font-size:14px;font-weight:500;outline:none;text-align:center}
+.tkv-input::placeholder{color:rgba(216,203,174,0.6)}
+.tkv-input:focus{border-color:#E3B34C}
+.tkv-err{position:relative;margin:12px 0 0;font-size:12.5px;font-weight:600;color:#F3D27A}
+
+/* jewelry box */
+.tkv-gift{position:relative;flex:none;width:104px;height:110px;padding:0;border:0;background:none;cursor:pointer;animation:tkv-wiggle 3.4s ease-in-out infinite}
+.tkv-gift--open{animation:none}
+@keyframes tkv-wiggle{0%,70%,100%{transform:rotate(0)}76%{transform:rotate(-5deg)}82%{transform:rotate(5deg)}88%{transform:rotate(-3deg)}94%{transform:rotate(1deg)}}
+.tkv-gLid{transition:transform .6s cubic-bezier(.3,1.5,.5,1)}
+.tkv-gift--open .tkv-gLid{transform:translate(10px,-30px) rotate(16deg)}
+.tkv-gNote{opacity:0;transition:opacity .4s ease .15s,transform .7s cubic-bezier(.3,1.4,.5,1) .15s}
+.tkv-gift--open .tkv-gNote{opacity:1;transform:translateY(-44px) rotate(-6deg)}
+.tkv-gGlow{opacity:0;transition:opacity .5s ease}
+.tkv-gift--open .tkv-gGlow{opacity:1}
+.tkv-gSpark{opacity:0;transform:scale(.2);transition:opacity .3s ease .2s,transform .5s cubic-bezier(.3,1.8,.5,1) .2s}
+.tkv-gift--open .tkv-gSpark{opacity:1;transform:scale(1)}
+.tkv-txtA,.tkv-txtB{grid-area:1/1;transition:opacity .45s ease,transform .45s ease}
+.tkv-txt--off{opacity:0;transform:translateY(8px)}
+
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation:none !important;transition:none !important}
+}
+</style>
+</helmet>
+<div style="width: 390px; min-height: var(--vh, 100vh); position: relative; overflow: hidden; background: linear-gradient(180deg, #0E0C2A 0%, #14123A 9%, #1A1748 28%, #14123A 47%, #1A1748 70%, #110F31 100%); color: #F3E3C3; font-family: 'Montserrat', system-ui, -apple-system, 'Segoe UI', sans-serif">
+
+  <svg width="0" height="0" aria-hidden="true" style="position: absolute">
+    <defs>
+      <linearGradient id="tkv-gGold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" class="tkv-g1"></stop><stop offset="0.35" class="tkv-g2"></stop><stop offset="0.55" class="tkv-g3"></stop><stop offset="0.8" class="tkv-g2"></stop><stop offset="1" class="tkv-g4"></stop></linearGradient>
+      <linearGradient id="tkv-gGoldV" x1="0" y1="0" x2="1" y2="0"><stop offset="0" class="tkv-v3"></stop><stop offset="0.45" class="tkv-v1"></stop><stop offset="1" class="tkv-v2"></stop></linearGradient>
+    </defs>
+  </svg>
+
+  <div aria-hidden="true" style="position: absolute; left: 0; top: 0; bottom: 0; width: 390px; pointer-events: none; z-index: 0; overflow: hidden">
+    <div style="position: absolute; left: -160px; top: 1050px; width: 480px; height: 480px; border-radius: 50%; background: radial-gradient(circle, rgba(227,179,76,0.13), rgba(227,179,76,0) 70%)"></div>
+    <div style="position: absolute; left: 150px; top: 1900px; width: 460px; height: 460px; border-radius: 50%; background: radial-gradient(circle, rgba(120,110,230,0.16), rgba(120,110,230,0) 70%)"></div>
+    <div style="position: absolute; left: -150px; top: 2700px; width: 480px; height: 480px; border-radius: 50%; background: radial-gradient(circle, rgba(227,179,76,0.12), rgba(227,179,76,0) 70%)"></div>
+    <div style="position: absolute; left: 140px; top: 3500px; width: 480px; height: 480px; border-radius: 50%; background: radial-gradient(circle, rgba(120,110,230,0.15), rgba(120,110,230,0) 70%)"></div>
+    <div style="position: absolute; left: -45px; top: 4330px; width: 480px; height: 480px; border-radius: 50%; background: radial-gradient(circle, rgba(227,179,76,0.2), rgba(227,179,76,0) 70%)"></div>
+    <sc-for list="{{ stars }}" as="p" hint-placeholder-count="70"><span class="tkv-star" style="{{ p.st }}"></span></sc-for>
+    <sc-for list="{{ sparks }}" as="p" hint-placeholder-count="18"><span class="tkv-spark" style="{{ p.st }}"></span></sc-for>
+    <sc-for list="{{ motes }}" as="p" hint-placeholder-count="24"><span class="tkv-mote" style="{{ p.st }}"></span></sc-for>
+  </div>
+
+  <div class="{{ pageCls }}" style="position: relative; z-index: 1; min-height: var(--vh, 100vh); display: flex; flex-direction: column">
+
+    <section style="position: relative; height: 844px; flex: none; box-sizing: border-box; padding-top: 40px; display: flex; flex-direction: column; align-items: center; text-align: center">
+      <div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; background: radial-gradient(70% 34% at 50% 18%, rgba(227,179,76,0.16), rgba(227,179,76,0) 70%), radial-gradient(90% 24% at 50% 100%, rgba(227,179,76,0.22), rgba(227,179,76,0) 70%)"></div>
+      <div aria-hidden="true" class="tkv-float" style="position: absolute; left: 22px; top: 236px; width: 46px; height: 115px">
+        <svg width="46" height="115" viewBox="0 0 60 150"><path d="M30 4C48 4 58 20 58 38C58 60 42 76 32 80H28C18 76 2 60 2 38C2 20 12 4 30 4Z" fill="url(#tkv-gGold)"></path><path d="M26 80H34L36 86H24Z" fill="#A87A28"></path><ellipse cx="19" cy="24" rx="6" ry="11" fill="#FFF8E6" opacity="0.55" transform="rotate(-25 19 24)"></ellipse><path class="tkv-string" d="M30 86C22 100 38 112 30 126C24 136 34 142 30 150"></path></svg>
+      </div>
+      <div aria-hidden="true" class="tkv-floatB" style="position: absolute; left: 330px; top: 352px; width: 40px; height: 100px">
+        <svg width="40" height="100" viewBox="0 0 60 150"><path d="M30 4C48 4 58 20 58 38C58 60 42 76 32 80H28C18 76 2 60 2 38C2 20 12 4 30 4Z" fill="url(#tkv-gGold)"></path><path d="M26 80H34L36 86H24Z" fill="#A87A28"></path><ellipse cx="19" cy="24" rx="6" ry="11" fill="#FFF8E6" opacity="0.55" transform="rotate(-25 19 24)"></ellipse><path class="tkv-string" d="M30 86C22 100 38 112 30 126C24 136 34 142 30 150"></path></svg>
+      </div>
+
+      <sc-if value="{{ has.music }}" hint-placeholder-val="{{ false }}"><button type="button" class="{{ musicCls }}" onClick="{{ toggleMusic }}" aria-label="Musiqa" aria-pressed="{{ musicOn }}">
+        <svg aria-hidden="true" width="20" height="20" viewBox="0 0 20 20"><path class="tkv-ico" d="M7.5 15V4.5l9-2V13"></path><circle class="tkv-ico" cx="5.3" cy="15" r="2.2"></circle><circle class="tkv-ico" cx="14.3" cy="13" r="2.2"></circle></svg>
+        <span class="tkv-eq" aria-hidden="true"><span class="tkv-bar"></span><span class="tkv-bar"></span><span class="tkv-bar"></span></span>
+      </button></sc-if>
+
+      <div class="tkv-rv1" aria-hidden="true" style="position: relative; width: 92px; height: 92px">
+        <svg width="92" height="92" viewBox="0 0 200 200" style="position: absolute; left: 0; top: 0">
+          <circle class="tkv-ring" cx="100" cy="100" r="62"></circle>
+          <g>
+            <path class="tkv-stem" d="M79.3 177.3A80 80 0 0 1 54.1 34.5"></path>
+            <path d="M0 0C5 -5 13 -6 18 0C13 6 5 5 0 0Z" fill="url(#tkv-gGold)" transform="translate(66.2 172.5) rotate(165)"></path>
+            <path d="M0 0C5 -5 13 -6 18 0C13 6 5 5 0 0Z" fill="url(#tkv-gGold)" transform="translate(66.2 172.5) rotate(245)"></path>
+            <path d="M0 0C5 -5 13 -6 18 0C13 6 5 5 0 0Z" fill="url(#tkv-gGold)" transform="translate(48.6 161.3) rotate(180)"></path>
+            <path d="M0 0C5 -5 13 -6 18 0C13 6 5 5 0 0Z" fill="url(#tkv-gGold)" transform="translate(48.6 161.3) rotate(260)"></path>
+            <path d="M0 0C5 -5 13 -6 18 0C13 6 5 5 0 0Z" fill="url(#tkv-gGold)" transform="translate(34.5 145.9) rotate(195)"></path>
+            <path d="M0 0C5 -5 13 -6 18 0C13 6 5 5 0 0Z" fill="url(#tkv-gGold)" transform="translate(34.5 145.9) rotate(275)"></path>
+            <path d="M0 0C5 -5 13 -6 18 0C13 6 5 5 0 0Z" fill="url(#tkv-gGold)" transform="translate(24.8 127.4) rotate(210)"></path>
+            <path d="M0 0C5 -5 13 -6 18 0C13 6 5 5 0 0Z" fill="url(#tkv-gGold)" transform="translate(24.8 127.4) rotate(290)"></path>
+            <path d="M0 0C5 -5 13 -6 18 0C13 6 5 5 0 0Z" fill="url(#tkv-gGold)" transform="translate(20.3 107) rotate(225)"></path>
+            <path d="M0 0C5 -5 13 -6 18 0C13 6 5 5 0 0Z" fill="url(#tkv-gGold)" transform="translate(20.3 107) rotate(305)"></path>
+            <path d="M0 0C5 -5 13 -6 18 0C13 6 5 5 0 0Z" fill="url(#tkv-gGold)" transform="translate(21.2 86.1) rotate(240)"></path>
+            <path d="M0 0C5 -5 13 -6 18 0C13 6 5 5 0 0Z" fill="url(#tkv-gGold)" transform="translate(21.2 86.1) rotate(320)"></path>
+            <path d="M0 0C5 -5 13 -6 18 0C13 6 5 5 0 0Z" fill="url(#tkv-gGold)" transform="translate(27.5 66.2) rotate(255)"></path>
+            <path d="M0 0C5 -5 13 -6 18 0C13 6 5 5 0 0Z" fill="url(#tkv-gGold)" transform="translate(27.5 66.2) rotate(335)"></path>
+            <path d="M0 0C5 -5 13 -6 18 0C13 6 5 5 0 0Z" fill="url(#tkv-gGold)" transform="translate(38.7 48.6) rotate(270)"></path>
+            <path d="M0 0C5 -5 13 -6 18 0C13 6 5 5 0 0Z" fill="url(#tkv-gGold)" transform="translate(38.7 48.6) rotate(350)"></path>
+            <path d="M0 0C5 -5 13 -6 18 0C13 6 5 5 0 0Z" fill="url(#tkv-gGold)" transform="translate(54.1 34.5) rotate(325)"></path>
+          </g>
+          <g transform="translate(200 0) scale(-1 1)">
+            <path class="tkv-stem" d="M79.3 177.3A80 80 0 0 1 54.1 34.5"></path>
+            <path d="M0 0C5 -5 13 -6 18 0C13 6 5 5 0 0Z" fill="url(#tkv-gGold)" transform="translate(66.2 172.5) rotate(165)"></path>
+            <path d="M0 0C5 -5 13 -6 18 0C13 6 5 5 0 0Z" fill="url(#tkv-gGold)" transform="translate(66.2 172.5) rotate(245)"></path>
+            <path d="M0 0C5 -5 13 -6 18 0C13 6 5 5 0 0Z" fill="url(#tkv-gGold)" transform="translate(48.6 161.3) rotate(180)"></path>
+            <path d="M0 0C5 -5 13 -6 18 0C13 6 5 5 0 0Z" fill="url(#tkv-gGold)" transform="translate(48.6 161.3) rotate(260)"></path>
+            <path d="M0 0C5 -5 13 -6 18 0C13 6 5 5 0 0Z" fill="url(#tkv-gGold)" transform="translate(34.5 145.9) rotate(195)"></path>
+            <path d="M0 0C5 -5 13 -6 18 0C13 6 5 5 0 0Z" fill="url(#tkv-gGold)" transform="translate(34.5 145.9) rotate(275)"></path>
+            <path d="M0 0C5 -5 13 -6 18 0C13 6 5 5 0 0Z" fill="url(#tkv-gGold)" transform="translate(24.8 127.4) rotate(210)"></path>
+            <path d="M0 0C5 -5 13 -6 18 0C13 6 5 5 0 0Z" fill="url(#tkv-gGold)" transform="translate(24.8 127.4) rotate(290)"></path>
+            <path d="M0 0C5 -5 13 -6 18 0C13 6 5 5 0 0Z" fill="url(#tkv-gGold)" transform="translate(20.3 107) rotate(225)"></path>
+            <path d="M0 0C5 -5 13 -6 18 0C13 6 5 5 0 0Z" fill="url(#tkv-gGold)" transform="translate(20.3 107) rotate(305)"></path>
+            <path d="M0 0C5 -5 13 -6 18 0C13 6 5 5 0 0Z" fill="url(#tkv-gGold)" transform="translate(21.2 86.1) rotate(240)"></path>
+            <path d="M0 0C5 -5 13 -6 18 0C13 6 5 5 0 0Z" fill="url(#tkv-gGold)" transform="translate(21.2 86.1) rotate(320)"></path>
+            <path d="M0 0C5 -5 13 -6 18 0C13 6 5 5 0 0Z" fill="url(#tkv-gGold)" transform="translate(27.5 66.2) rotate(255)"></path>
+            <path d="M0 0C5 -5 13 -6 18 0C13 6 5 5 0 0Z" fill="url(#tkv-gGold)" transform="translate(27.5 66.2) rotate(335)"></path>
+            <path d="M0 0C5 -5 13 -6 18 0C13 6 5 5 0 0Z" fill="url(#tkv-gGold)" transform="translate(38.7 48.6) rotate(270)"></path>
+            <path d="M0 0C5 -5 13 -6 18 0C13 6 5 5 0 0Z" fill="url(#tkv-gGold)" transform="translate(38.7 48.6) rotate(350)"></path>
+            <path d="M0 0C5 -5 13 -6 18 0C13 6 5 5 0 0Z" fill="url(#tkv-gGold)" transform="translate(54.1 34.5) rotate(325)"></path>
+          </g>
+        </svg>
+        <span class="tkv-serif tkv-foil" style="position: absolute; left: 0; top: 20px; width: 92px; text-align: center; font-size: 46px; font-style: italic; font-weight: 600; line-height: 1">{{ initial }}</span>
+      </div>
+      <p class="tkv-label tkv-rv1" style="position: relative; margin: 14px 0 0">Tug’ilgan kun</p>
+      <h1 class="tkv-serif tkv-foil tkv-rv2" style="position: relative; margin: 6px 0 0; max-width: 366px; box-sizing: border-box; padding: 0 12px; font-size: {{ nameFs }}px; font-style: italic; font-weight: 600; line-height: 1.04; white-space: nowrap">{{ d.kimga }}</h1>
+      <div class="tkv-rv2" style="{{ ageRowSt }}">
+        <span style="width: 46px; height: 1px; background: linear-gradient(90deg, rgba(227,179,76,0), #E3B34C)"></span>
+        <span class="tkv-serif" style="font-size: 27px; font-weight: 600; line-height: 1.2; color: #F3E3C3">{{ d.yosh }} yosh</span>
+        <span style="width: 46px; height: 1px; background: linear-gradient(90deg, #E3B34C, rgba(227,179,76,0))"></span>
+      </div>
+      <p class="tkv-rv2" style="position: relative; margin: 8px 0 0; font-size: 12px; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: #D8CBAE">{{ heroDate }}</p>
+
+      <div class="tkv-rv3" style="position: relative; width: 390px; height: 370px; margin-top: 26px">
+        <div aria-hidden="true" style="position: absolute; left: 84px; top: 0; width: 222px; height: 316px; box-sizing: border-box; border: 1px solid rgba(227,179,76,0.55); border-radius: 111px 111px 4px 4px"></div>
+        <div style="position: absolute; left: 94px; top: 10px; width: 202px; height: 296px; box-sizing: border-box; padding: 3px; border-radius: 101px 101px 4px 4px; background: linear-gradient(160deg, #F3D27A, #A87A28 50%, #E3B34C); box-shadow: 0 30px 60px rgba(0,0,0,0.55)">
+          <sc-if value="{{ has.photo }}" hint-placeholder-val="{{ true }}"><img src="{{ p.0 }}" alt="" style="display: block; width: 100%; height: 100%; object-fit: cover; border-radius: 98px 98px 2px 2px"></sc-if>
+          <sc-if value="{{ noPhoto }}" hint-placeholder-val="{{ false }}"><div aria-hidden="true" style="width: 100%; height: 100%; border-radius: 98px 98px 2px 2px; background: radial-gradient(circle at 50% 38%, #2B2768, #0E0C2A 75%); display: flex; align-items: center; justify-content: center"><span class="tkv-serif tkv-foil" style="padding: 0 8px; font-size: 140px; font-style: italic; font-weight: 600; line-height: 1">{{ initial }}</span></div></sc-if>
+        </div>
+<sc-if value="{{ has.photo }}" hint-placeholder-val="{{ true }}">
+        <div class="tkv-float" style="position: absolute; left: 18px; top: 190px; width: 116px; height: 150px">
+          <div style="width: 116px; height: 150px; box-sizing: border-box; padding: 5px; background: #F3E3C3; transform: rotate(-6deg); box-shadow: 0 18px 36px rgba(0,0,0,0.5)">
+            <img src="{{ p.1 }}" alt="" style="display: block; width: 100%; height: 100%; object-fit: cover">
+          </div>
+        </div>
+        <div class="tkv-floatB" style="position: absolute; left: 262px; top: 226px; width: 104px; height: 104px">
+          <div style="width: 104px; height: 104px; box-sizing: border-box; padding: 3px; border-radius: 50%; background: linear-gradient(160deg, #F3D27A, #A87A28 50%, #E3B34C); box-shadow: 0 0 0 6px rgba(227,179,76,0.12), 0 18px 36px rgba(0,0,0,0.5)">
+            <img src="{{ p.2 }}" alt="" style="display: block; width: 100%; height: 100%; object-fit: cover; border-radius: 50%">
+          </div>
+        </div>
+</sc-if>
+      </div>
+      <sc-if value="{{ anyBlock }}" hint-placeholder-val="{{ true }}"><svg aria-hidden="true" width="26" height="16" viewBox="0 0 26 16" class="tkv-chev" style="position: absolute; left: 182px; top: 790px"><path class="tkv-ico" d="M3 3l10 9 10-9"></path></svg></sc-if>
+    </section>
+
+<sc-if value="{{ cardOn }}" hint-placeholder-val="{{ true }}">
+    <section style="padding: 30px 20px 26px">
+      <div style="position: relative; padding: 38px 28px 34px; border-radius: 6px; background: linear-gradient(160deg, #F8EDD5 0%, #F3E3C3 50%, #EAD6AE 100%); color: #1E1A3F; text-align: center; box-shadow: 0 30px 60px rgba(0,0,0,0.5)">
+        <div aria-hidden="true" style="position: absolute; left: 10px; top: 10px; right: 10px; bottom: 10px; border: 1px solid rgba(184,134,46,0.55); border-radius: 3px"></div>
+        <svg aria-hidden="true" width="36" height="36" viewBox="0 0 36 36" style="position: absolute; left: 14px; top: 14px"><path class="tkv-lineB" d="M2 34V12Q2 2 12 2H34"></path><path class="tkv-lineB" d="M8 34V16Q8 8 16 8H34"></path><path d="M14 11L17 14L14 17L11 14Z" fill="#B8862E"></path></svg>
+        <svg aria-hidden="true" width="36" height="36" viewBox="0 0 36 36" style="position: absolute; right: 14px; top: 14px; transform: scaleX(-1)"><path class="tkv-lineB" d="M2 34V12Q2 2 12 2H34"></path><path class="tkv-lineB" d="M8 34V16Q8 8 16 8H34"></path><path d="M14 11L17 14L14 17L11 14Z" fill="#B8862E"></path></svg>
+        <svg aria-hidden="true" width="36" height="36" viewBox="0 0 36 36" style="position: absolute; left: 14px; bottom: 14px; transform: scaleY(-1)"><path class="tkv-lineB" d="M2 34V12Q2 2 12 2H34"></path><path class="tkv-lineB" d="M8 34V16Q8 8 16 8H34"></path><path d="M14 11L17 14L14 17L11 14Z" fill="#B8862E"></path></svg>
+        <svg aria-hidden="true" width="36" height="36" viewBox="0 0 36 36" style="position: absolute; right: 14px; bottom: 14px; transform: scale(-1, -1)"><path class="tkv-lineB" d="M2 34V12Q2 2 12 2H34"></path><path class="tkv-lineB" d="M8 34V16Q8 8 16 8H34"></path><path d="M14 11L17 14L14 17L11 14Z" fill="#B8862E"></path></svg>
+        <h2 class="tkv-serif" style="position: relative; margin: 0; font-size: 38px; font-style: italic; font-weight: 600; line-height: 1.05; color: #1E1A3F">{{ cardTitle }}</h2>
+        <svg aria-hidden="true" width="120" height="12" viewBox="0 0 120 12" style="position: relative; display: block; margin: 12px auto 0"><path class="tkv-lineB" d="M0 6H50M70 6H120"></path><path d="M60 1L65 6L60 11L55 6Z" fill="#B8862E"></path></svg>
+        <sc-if value="{{ b.tabrik }}" hint-placeholder-val="{{ true }}"><p class="tkv-serif" style="position: relative; margin: 14px 0 0; font-size: 19.5px; font-weight: 500; line-height: 1.48; color: #1E1A3F; white-space: pre-line; overflow-wrap: anywhere">{{ d.matn }}</p></sc-if>
+        <sc-if value="{{ b.tilaklar }}" hint-placeholder-val="{{ true }}">
+        <sc-if value="{{ b.tabrik }}" hint-placeholder-val="{{ true }}"><p style="position: relative; margin: 22px 0 0; font-size: 10.5px; font-weight: 600; letter-spacing: 0.34em; text-transform: uppercase; color: #7A5518">Tilaklarimiz</p></sc-if>
+        <p class="tkv-serif" style="{{ wishPSt }}">
+          <sc-for list="{{ wishes }}" as="t" hint-placeholder-count="5"><span style="white-space: nowrap">{{ t.text }}<sc-if value="{{ t.sep }}" hint-placeholder-val="{{ true }}"><svg aria-hidden="true" width="9" height="9" viewBox="0 0 10 10" style="margin: 0 9px; vertical-align: middle"><path d="M5 0L10 5L5 10L0 5Z" fill="#B8862E"></path></svg></sc-if></span> </sc-for>
+        </p>
+        </sc-if>
+        <sc-if value="{{ showFrom }}" hint-placeholder-val="{{ true }}">
+        <sc-if value="{{ from.label }}" hint-placeholder-val="{{ true }}"><p style="position: relative; margin: 22px 0 0; font-size: 10.5px; font-weight: 600; letter-spacing: 0.34em; text-transform: uppercase; color: #7A5518; overflow-wrap: anywhere">{{ from.label }}</p></sc-if>
+        <p class="tkv-serif" style="position: relative; margin: {{ fromMt }}; font-size: 27px; font-style: italic; font-weight: 600; line-height: 1.2; color: #1E1A3F; overflow-wrap: anywhere">{{ from.names }}</p>
+        </sc-if>
+      </div>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.taymer }}" hint-placeholder-val="{{ true }}">
+    <section style="padding: 4px 20px 26px">
+      <div style="position: relative; border-radius: 18px; border: 1px solid rgba(227,179,76,0.35); background: linear-gradient(180deg, rgba(243,227,195,0.06), rgba(243,227,195,0.015)); padding: 22px 12px 20px; display: flex; flex-direction: column; align-items: center; gap: 18px">
+        <p class="tkv-label" style="margin: 0">{{ cdTitle }}</p>
+        <div style="display: flex; gap: 12px">
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 10px">
+            <div class="{{ f0.cls }}">
+              <div class="tkv-half tkv-top"><span>{{ f0.cur }}</span></div>
+              <div class="tkv-half tkv-bot"><span>{{ f0.prev }}</span></div>
+              <div class="tkv-half tkv-top tkv-flap1"><span>{{ f0.prev }}</span></div>
+              <div class="tkv-half tkv-bot tkv-flap2"><span>{{ f0.cur }}</span></div>
+              <span class="tkv-hinge"></span><span class="tkv-flipFrame"></span>
+            </div>
+            <span class="tkv-unit">kun</span>
+          </div>
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 10px">
+            <div class="{{ f1.cls }}">
+              <div class="tkv-half tkv-top"><span>{{ f1.cur }}</span></div>
+              <div class="tkv-half tkv-bot"><span>{{ f1.prev }}</span></div>
+              <div class="tkv-half tkv-top tkv-flap1"><span>{{ f1.prev }}</span></div>
+              <div class="tkv-half tkv-bot tkv-flap2"><span>{{ f1.cur }}</span></div>
+              <span class="tkv-hinge"></span><span class="tkv-flipFrame"></span>
+            </div>
+            <span class="tkv-unit">soat</span>
+          </div>
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 10px">
+            <div class="{{ f2.cls }}">
+              <div class="tkv-half tkv-top"><span>{{ f2.cur }}</span></div>
+              <div class="tkv-half tkv-bot"><span>{{ f2.prev }}</span></div>
+              <div class="tkv-half tkv-top tkv-flap1"><span>{{ f2.prev }}</span></div>
+              <div class="tkv-half tkv-bot tkv-flap2"><span>{{ f2.cur }}</span></div>
+              <span class="tkv-hinge"></span><span class="tkv-flipFrame"></span>
+            </div>
+            <span class="tkv-unit">daqiqa</span>
+          </div>
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 10px">
+            <div class="{{ f3.cls }}">
+              <div class="tkv-half tkv-top"><span>{{ f3.cur }}</span></div>
+              <div class="tkv-half tkv-bot"><span>{{ f3.prev }}</span></div>
+              <div class="tkv-half tkv-top tkv-flap1"><span>{{ f3.prev }}</span></div>
+              <div class="tkv-half tkv-bot tkv-flap2"><span>{{ f3.cur }}</span></div>
+              <span class="tkv-hinge"></span><span class="tkv-flipFrame"></span>
+            </div>
+            <span class="tkv-unit">soniya</span>
+          </div>
+        </div>
+      </div>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.sham }}" hint-placeholder-val="{{ true }}">
+    <section style="padding: 4px 20px 26px">
+      <div class="tkv-cakeBg" style="{{ cakeBgSt }}; position: relative; border-radius: 20px; border: 1px solid rgba(227,179,76,0.4); padding: 26px 20px 24px; display: flex; flex-direction: column; align-items: center; text-align: center; overflow: hidden">
+        <h2 class="tkv-serif" style="margin: 0; font-size: 34px; font-style: italic; font-weight: 500; line-height: 1.1; color: #F3E3C3">Shamni o’chiring</h2>
+        <p style="margin: 6px 0 0; font-size: 13px; line-height: 1.4; color: #D8CBAE">Ko’zingni yum, niyat qil va pufla</p>
+        <div class="{{ cakeCls }}" style="position: relative; width: 220px; height: 211px; margin-top: 12px">
+          <div aria-hidden="true" class="tkv-cakeGlow" style="position: absolute; left: -60px; top: -70px; width: 340px; height: 260px; border-radius: 50%; background: radial-gradient(circle, rgba(243,210,122,0.38), rgba(227,179,76,0.1) 45%, rgba(227,179,76,0) 70%)"></div>
+          <svg aria-hidden="true" width="220" height="211" viewBox="0 0 240 230" style="position: relative; display: block">
+            <path d="M14 206H226L214 214H26Z" fill="url(#tkv-gGold)"></path>
+            <path d="M108 214H132L138 228H102Z" fill="#A87A28"></path>
+            <rect x="30" y="134" width="180" height="72" rx="6" fill="#0C0A24"></rect>
+            <rect x="30" y="186" width="180" height="6" fill="url(#tkv-gGold)"></rect>
+            <path d="M30 140Q30 134 36 134H204Q210 134 210 140V146Q195 160 180 146Q165 160 150 146Q135 160 120 146Q105 160 90 146Q75 160 60 146Q45 160 30 146Z" fill="#F3E3C3"></path>
+            <circle cx="60" cy="147" r="2.6" fill="#E3B34C"></circle>
+            <circle cx="90" cy="147" r="2.6" fill="#E3B34C"></circle>
+            <circle cx="120" cy="147" r="2.6" fill="#E3B34C"></circle>
+            <circle cx="150" cy="147" r="2.6" fill="#E3B34C"></circle>
+            <circle cx="180" cy="147" r="2.6" fill="#E3B34C"></circle>
+            <path class="tkv-cakeLine" d="M45 172l5 -5 5 5 -5 5zM75 172l5 -5 5 5 -5 5zM105 172l5 -5 5 5 -5 5zM135 172l5 -5 5 5 -5 5zM165 172l5 -5 5 5 -5 5zM195 172l5 -5 5 5 -5 5z"></path>
+            <rect x="62" y="84" width="116" height="54" rx="6" fill="#1E1B4E"></rect>
+            <rect x="62" y="126" width="116" height="4" fill="url(#tkv-gGold)"></rect>
+            <path d="M62 90Q62 84 68 84H172Q178 84 178 90V95Q166.4 106 154.8 95Q143.2 106 131.6 95Q120 106 108.4 95Q96.8 106 85.2 95Q73.6 106 62 95Z" fill="#F3E3C3"></path>
+            <path class="tkv-cakeLine" d="M80 112h80"></path>
+            <rect x="81" y="30" width="6" height="56" rx="2" fill="url(#tkv-gGoldV)"></rect>
+            <rect x="99" y="30" width="6" height="56" rx="2" fill="url(#tkv-gGoldV)"></rect>
+            <rect x="117" y="30" width="6" height="56" rx="2" fill="url(#tkv-gGoldV)"></rect>
+            <rect x="135" y="30" width="6" height="56" rx="2" fill="url(#tkv-gGoldV)"></rect>
+            <rect x="153" y="30" width="6" height="56" rx="2" fill="url(#tkv-gGoldV)"></rect>
+            <rect x="83.2" y="23" width="1.6" height="8" fill="#0C0A24"></rect>
+            <rect x="101.2" y="23" width="1.6" height="8" fill="#0C0A24"></rect>
+            <rect x="119.2" y="23" width="1.6" height="8" fill="#0C0A24"></rect>
+            <rect x="137.2" y="23" width="1.6" height="8" fill="#0C0A24"></rect>
+            <rect x="155.2" y="23" width="1.6" height="8" fill="#0C0A24"></rect>
+            <g transform="translate(84 25)"><circle class="tkv-halo" cx="0" cy="-9" r="14" fill="#E3B34C"></circle><g class="tkv-flame" style="animation-delay: 0s"><path d="M0 -20C6 -11 7 -5 0 0C-7 -5 -6 -11 0 -20Z" fill="#F3D27A"></path><path d="M0 -11C3.5 -7 3.5 -3 0 0C-3.5 -3 -3.5 -7 0 -11Z" fill="#FFF6DD"></path></g><path class="tkv-smoke" d="M0 -2C-5 -8 5 -13 0 -19C-5 -25 5 -30 0 -36"></path></g>
+            <g transform="translate(102 25)"><circle class="tkv-halo" cx="0" cy="-9" r="14" fill="#E3B34C"></circle><g class="tkv-flame" style="animation-delay: 0.08s"><path d="M0 -20C6 -11 7 -5 0 0C-7 -5 -6 -11 0 -20Z" fill="#F3D27A"></path><path d="M0 -11C3.5 -7 3.5 -3 0 0C-3.5 -3 -3.5 -7 0 -11Z" fill="#FFF6DD"></path></g><path class="tkv-smoke" d="M0 -2C-5 -8 5 -13 0 -19C-5 -25 5 -30 0 -36"></path></g>
+            <g transform="translate(120 25)"><circle class="tkv-halo" cx="0" cy="-9" r="14" fill="#E3B34C"></circle><g class="tkv-flame" style="animation-delay: 0.16s"><path d="M0 -20C6 -11 7 -5 0 0C-7 -5 -6 -11 0 -20Z" fill="#F3D27A"></path><path d="M0 -11C3.5 -7 3.5 -3 0 0C-3.5 -3 -3.5 -7 0 -11Z" fill="#FFF6DD"></path></g><path class="tkv-smoke" d="M0 -2C-5 -8 5 -13 0 -19C-5 -25 5 -30 0 -36"></path></g>
+            <g transform="translate(138 25)"><circle class="tkv-halo" cx="0" cy="-9" r="14" fill="#E3B34C"></circle><g class="tkv-flame" style="animation-delay: 0.24s"><path d="M0 -20C6 -11 7 -5 0 0C-7 -5 -6 -11 0 -20Z" fill="#F3D27A"></path><path d="M0 -11C3.5 -7 3.5 -3 0 0C-3.5 -3 -3.5 -7 0 -11Z" fill="#FFF6DD"></path></g><path class="tkv-smoke" d="M0 -2C-5 -8 5 -13 0 -19C-5 -25 5 -30 0 -36"></path></g>
+            <g transform="translate(156 25)"><circle class="tkv-halo" cx="0" cy="-9" r="14" fill="#E3B34C"></circle><g class="tkv-flame" style="animation-delay: 0.32s"><path d="M0 -20C6 -11 7 -5 0 0C-7 -5 -6 -11 0 -20Z" fill="#F3D27A"></path><path d="M0 -11C3.5 -7 3.5 -3 0 0C-3.5 -3 -3.5 -7 0 -11Z" fill="#FFF6DD"></path></g><path class="tkv-smoke" d="M0 -2C-5 -8 5 -13 0 -19C-5 -25 5 -30 0 -36"></path></g>
+          </svg>
+          <div class="{{ cakeDustCls }}" aria-hidden="true" style="position: absolute; left: 110px; top: 18px; width: 0; height: 0; z-index: 3">
+            <sc-for list="{{ dustFast }}" as="c" hint-placeholder-count="34"><span style="{{ c.w }}"><span class="{{ c.k }}" style="{{ c.p }}"></span></span></sc-for>
+          </div>
+        </div>
+        <p class="{{ wishCls }}" style="margin: 8px 0 0; font-family: 'Cormorant Garamond', Georgia, serif; font-size: 28px; font-style: italic; font-weight: 600; line-height: 1.25; color: #F3D27A">Niyating ijobat bo’lsin!</p>
+        <div style="width: 100%; margin-top: 14px">
+          <button type="button" class="tkv-btn tkv-gold tkv-shine" onClick="{{ blow }}">
+            <span class="{{ blowIdle }}">Shamni o’chiring</span>
+            <span class="{{ blowDone }}">Shamlarni qayta yoqish</span>
+          </button>
+        </div>
+      </div>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.sirli }}" hint-placeholder-val="{{ true }}">
+    <section style="padding: 0 20px 26px">
+      <div style="border-radius: 18px; border: 1px solid rgba(227,179,76,0.5); background: linear-gradient(160deg, #221F5C, #12103A); padding: 18px 18px 18px 14px; display: flex; align-items: center; gap: 14px; box-shadow: 0 20px 40px rgba(0,0,0,0.35)">
+        <button type="button" class="{{ giftCls }}" onClick="{{ toggleGift }}" aria-label="Qutichani ochish">
+          <span aria-hidden="true" class="tkv-gGlow" style="position: absolute; left: -10px; top: -14px; width: 124px; height: 112px; border-radius: 50%; background: radial-gradient(circle, rgba(243,210,122,0.55), rgba(243,210,122,0) 66%)"></span>
+          <span aria-hidden="true" class="tkv-gNote" style="position: absolute; left: 29px; top: 50px; width: 46px; height: 38px; box-sizing: border-box; padding: 0 8px; border-radius: 3px; background: #F3E3C3; box-shadow: 0 6px 12px rgba(0,0,0,0.4); display: flex; flex-direction: column; justify-content: center; gap: 5px">
+            <span style="display: block; height: 2px; background: #B8862E"></span>
+            <span style="display: block; height: 2px; width: 70%; background: #B8862E"></span>
+            <span style="display: block; height: 2px; width: 85%; background: #B8862E"></span>
+          </span>
+          <span aria-hidden="true" style="position: absolute; left: 10px; top: 52px; width: 84px; height: 54px; box-sizing: border-box; border: 1.5px solid #E3B34C; border-radius: 4px 4px 8px 8px; background: linear-gradient(160deg, #2A2666, #0E0C24); box-shadow: 0 14px 22px rgba(0,0,0,0.45)">
+            <span style="position: absolute; left: 34px; top: 0; width: 13px; height: 51px; background: linear-gradient(90deg, #A87A28, #F3D27A 45%, #E3B34C)"></span>
+            <span style="position: absolute; left: 6px; right: 6px; bottom: 6px; height: 1px; background: rgba(227,179,76,0.55)"></span>
+          </span>
+          <span aria-hidden="true" class="tkv-gLid" style="position: absolute; left: 4px; top: 36px; width: 96px; height: 20px; box-sizing: border-box; border: 1.5px solid #E3B34C; border-radius: 5px; background: linear-gradient(180deg, #2E2A6E, #1A1748)">
+            <span style="position: absolute; left: 40px; top: 0; width: 13px; height: 17px; background: linear-gradient(90deg, #A87A28, #F3D27A 45%, #E3B34C)"></span>
+            <svg width="46" height="32" viewBox="0 0 140 96" style="position: absolute; left: 23px; top: -26px"><path d="M64 54L44 88L55 84L60 92L70 58Z" fill="#A87A28"></path><path d="M76 54L96 88L85 84L80 92L70 58Z" fill="#A87A28"></path><path d="M70 52C50 18 12 12 10 34C8 54 40 60 70 52Z" fill="url(#tkv-gGold)"></path><path d="M70 52C90 18 128 12 130 34C132 54 100 60 70 52Z" fill="url(#tkv-gGold)"></path><rect x="59" y="42" width="22" height="20" rx="7" fill="#F3D27A"></rect></svg>
+          </span>
+          <span aria-hidden="true" class="tkv-gSpark" style="position: absolute; left: 2px; top: 18px; width: 14px; height: 14px; clip-path: polygon(50% 0,60% 40%,100% 50%,60% 60%,50% 100%,40% 60%,0 50%,40% 40%); background: #F3D27A"></span>
+          <span aria-hidden="true" class="tkv-gSpark" style="position: absolute; left: 86px; top: 6px; width: 12px; height: 12px; clip-path: polygon(50% 0,60% 40%,100% 50%,60% 60%,50% 100%,40% 60%,0 50%,40% 40%); background: #FFF1C9"></span>
+          <span aria-hidden="true" class="tkv-gSpark" style="position: absolute; left: 92px; top: 46px; width: 9px; height: 9px; clip-path: polygon(50% 0,60% 40%,100% 50%,60% 60%,50% 100%,40% 60%,0 50%,40% 40%); background: #E3B34C"></span>
+        </button>
+        <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 6px; text-align: left">
+          <h2 class="tkv-serif tkv-foil" style="margin: 0; align-self: flex-start; padding-right: 6px; font-size: 28px; font-style: italic; font-weight: 600; line-height: 1.1">Sirli tilak</h2>
+          <div style="display: grid">
+            <p class="{{ giftTxtA }}" style="margin: 0; font-size: 13.5px; line-height: 1.55; color: #D8CBAE">Qutichani oching — ichida sen uchun yashirin tilagimiz bor.</p>
+            <p class="{{ giftTxtB }}" style="margin: 0; font-size: 13.5px; font-weight: 600; line-height: 1.55; color: #F3E3C3; white-space: pre-line; overflow-wrap: anywhere">{{ d.sirli_tilak }}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.galereya }}" hint-placeholder-val="{{ true }}">
+    <section style="padding: 4px 20px 26px">
+      <div style="display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center">
+        <svg aria-hidden="true" width="120" height="12" viewBox="0 0 120 12"><path class="tkv-line" d="M0 6H50M70 6H120"></path><path d="M60 1L65 6L60 11L55 6Z" fill="#E3B34C"></path></svg>
+        <h2 class="tkv-serif" style="margin: 0; font-size: 34px; font-style: italic; font-weight: 500; line-height: 1.1; color: #F3E3C3">Xotiralar</h2>
+      </div>
+      <div style="position: relative; height: {{ galH }}px; margin-top: 20px">
+        <div aria-hidden="true" style="position: absolute; left: 12px; top: 36px; width: 180px; height: 240px; box-sizing: border-box; border: 1px solid rgba(227,179,76,0.55)"></div>
+        <img src="{{ p.3 }}" alt="" style="position: absolute; left: 0; top: 24px; width: 180px; height: 240px; object-fit: cover; box-shadow: 0 24px 44px rgba(0,0,0,0.55)">
+        <div class="tkv-float" style="position: absolute; left: 168px; top: 0; width: 182px; height: 124px">
+          <div style="width: 182px; height: 124px; box-sizing: border-box; padding: 4px; background: #F3E3C3; box-shadow: 0 20px 40px rgba(0,0,0,0.5)">
+            <img src="{{ p.4 }}" alt="" style="display: block; width: 100%; height: 100%; object-fit: cover">
+          </div>
+        </div>
+<sc-if value="{{ gal3 }}" hint-placeholder-val="{{ true }}">
+        <div class="tkv-floatB" style="position: absolute; left: 184px; top: 138px; width: 166px; height: 118px">
+          <div style="width: 166px; height: 118px; box-sizing: border-box; padding: 2px; background: linear-gradient(160deg, #F3D27A, #A87A28 50%, #E3B34C); box-shadow: 0 20px 40px rgba(0,0,0,0.5)">
+            <img src="{{ p.5 }}" alt="" style="display: block; width: 100%; height: 100%; object-fit: cover">
+          </div>
+        </div>
+</sc-if>
+<sc-if value="{{ gal4 }}" hint-placeholder-val="{{ true }}">
+        <div class="tkv-float" style="position: absolute; left: 104px; top: 236px; width: 150px; height: 112px; animation-delay: -3s">
+          <div style="width: 150px; height: 112px; box-sizing: border-box; padding: 4px; background: #F3E3C3; transform: rotate(3deg); box-shadow: 0 20px 40px rgba(0,0,0,0.55)">
+            <img src="{{ p.2 }}" alt="" style="display: block; width: 100%; height: 100%; object-fit: cover">
+          </div>
+        </div>
+</sc-if>
+        <sc-if value="{{ gal4 }}" hint-placeholder-val="{{ true }}">
+<svg aria-hidden="true" width="18" height="18" viewBox="0 0 12 12" class="tkv-glowP" style="position: absolute; left: 290px; top: 290px"><path d="M6 0l1.2 4.8L12 6l-4.8 1.2L6 12l-1.2-4.8L0 6l4.8-1.2z" fill="#E3B34C"></path></svg>
+</sc-if>
+      </div>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.xronika }}" hint-placeholder-val="{{ true }}">
+    <section style="padding: 4px 20px 26px">
+      <div style="display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center">
+        <svg aria-hidden="true" width="120" height="12" viewBox="0 0 120 12"><path class="tkv-line" d="M0 6H50M70 6H120"></path><path d="M60 1L65 6L60 11L55 6Z" fill="#E3B34C"></path></svg>
+        <h2 class="tkv-serif" style="margin: 0; font-size: 34px; font-style: italic; font-weight: 500; line-height: 1.1; color: #F3E3C3">Yil xronikasi</h2>
+      </div>
+      <div style="position: relative; height: {{ xronH }}px; margin-top: 22px">
+        <div aria-hidden="true" style="position: absolute; left: 174px; top: 0; width: 1px; height: {{ xronH }}px; background: linear-gradient(180deg, rgba(227,179,76,0), #E3B34C 12%, #E3B34C 88%, rgba(227,179,76,0))"></div>
+        <sc-for list="{{ xron }}" as="x" hint-placeholder-count="4">
+        <sc-if value="{{ has.photo }}" hint-placeholder-val="{{ true }}">
+        <div style="{{ x.ph }}">
+          <img src="{{ x.src }}" alt="" style="display: block; width: 100%; height: 100%; object-fit: cover">
+        </div>
+        </sc-if>
+        <span aria-hidden="true" style="{{ x.dot }}"></span>
+        <div style="{{ x.tx }}">
+          <p class="tkv-serif" style="margin: 0; line-height: 1"><span class="tkv-foil" style="font-size: 46px; font-weight: 600; padding-right: 4px">{{ x.yosh }}</span><sc-if value="{{ x.unit }}" hint-placeholder-val="{{ true }}"><span style="font-size: 20px; font-style: italic; color: #F3E3C3">yosh</span></sc-if></p>
+          <p style="margin: 6px 0 0; font-size: 12.5px; line-height: 1.45; color: #D8CBAE; overflow-wrap: anywhere">{{ x.matn }}</p>
+        </div>
+        </sc-for>
+      </div>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.mehmonlar }}" hint-placeholder-val="{{ true }}">
+    <section style="padding: 4px 20px 26px">
+      <div style="display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center">
+        <svg aria-hidden="true" width="120" height="12" viewBox="0 0 120 12"><path class="tkv-line" d="M0 6H50M70 6H120"></path><path d="M60 1L65 6L60 11L55 6Z" fill="#E3B34C"></path></svg>
+        <h2 class="tkv-serif" style="margin: 0; font-size: 34px; font-style: italic; font-weight: 500; line-height: 1.1; color: #F3E3C3">Mehmonlar tilaklari</h2>
+      </div>
+      <div style="{{ guestGrid }}">
+        <div style="display: flex; flex-direction: column; gap: 12px">
+          <sc-for list="{{ guestsA }}" as="g" hint-placeholder-count="2">
+          <figure style="margin: 0; padding: 14px 14px 14px; border-radius: 14px; border: 1px solid rgba(227,179,76,0.3); background: linear-gradient(160deg, rgba(243,227,195,0.08), rgba(243,227,195,0.02))">
+            <span aria-hidden="true" class="tkv-serif" style="display: block; height: 24px; font-size: 48px; line-height: 0.9; color: #E3B34C">“</span>
+            <blockquote class="tkv-serif" style="margin: 4px 0 0; font-size: 17.5px; font-style: italic; font-weight: 500; line-height: 1.35; color: #F3E3C3; overflow-wrap: anywhere">{{ g.matn }}</blockquote>
+            <sc-if value="{{ g.ism }}" hint-placeholder-val="{{ true }}"><figcaption style="margin: 10px 0 0; font-size: 12px; font-weight: 600; color: #E3B34C; overflow-wrap: anywhere">{{ g.ism }}</figcaption></sc-if>
+          </figure>
+          </sc-for>
+        </div>
+        <sc-if value="{{ guestsB.length }}" hint-placeholder-val="{{ true }}">
+        <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 26px">
+          <sc-for list="{{ guestsB }}" as="g" hint-placeholder-count="2">
+          <figure style="margin: 0; padding: 14px 14px 14px; border-radius: 14px; border: 1px solid rgba(227,179,76,0.3); background: linear-gradient(160deg, rgba(243,227,195,0.08), rgba(243,227,195,0.02))">
+            <span aria-hidden="true" class="tkv-serif" style="display: block; height: 24px; font-size: 48px; line-height: 0.9; color: #E3B34C">“</span>
+            <blockquote class="tkv-serif" style="margin: 4px 0 0; font-size: 17.5px; font-style: italic; font-weight: 500; line-height: 1.35; color: #F3E3C3; overflow-wrap: anywhere">{{ g.matn }}</blockquote>
+            <sc-if value="{{ g.ism }}" hint-placeholder-val="{{ true }}"><figcaption style="margin: 10px 0 0; font-size: 12px; font-weight: 600; color: #E3B34C; overflow-wrap: anywhere">{{ g.ism }}</figcaption></sc-if>
+          </figure>
+          </sc-for>
+        </div>
+        </sc-if>
+      </div>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.bazm }}" hint-placeholder-val="{{ true }}">
+    <section style="padding: 4px 20px 26px">
+      <div style="position: relative; border-radius: 18px; border: 1px solid rgba(227,179,76,0.28); background: linear-gradient(170deg, #201D52, #110F33); padding: 34px 22px 24px; text-align: center; box-shadow: 0 30px 60px rgba(0,0,0,0.45)">
+        <div aria-hidden="true" style="position: absolute; left: 8px; top: 8px; right: 8px; bottom: 8px; border: 1px solid rgba(227,179,76,0.55); border-radius: 12px; pointer-events: none"></div>
+        <svg aria-hidden="true" width="92" height="30" viewBox="0 0 92 30" style="position: relative; display: block; margin: 0 auto"><path class="tkv-line" d="M46 28L22 4M46 28L34 2M46 28V0M46 28L58 2M46 28L70 4M0 28H34M58 28H92"></path><path d="M46 21L50 25L46 29L42 25Z" fill="#E3B34C"></path></svg>
+        <p class="tkv-label" style="position: relative; margin: 12px 0 0">Bazmga taklif</p>
+        <p style="position: relative; margin: 10px 0 0; font-size: 13.5px; line-height: 1.55; color: #D8CBAE">Shu quvonchli kunni birga nishonlaylik! Sizni kechamizga taklif qilamiz.</p>
+        <p class="tkv-serif tkv-foil" style="position: relative; display: inline-block; margin: 16px 0 0; padding: 0 6px; font-size: 36px; font-weight: 600; line-height: 1.1">{{ bw.date }}</p>
+        <p style="position: relative; margin: 4px 0 0; font-size: 11.5px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: #F3E3C3">{{ bazmSub }}</p>
+        <svg aria-hidden="true" width="120" height="12" viewBox="0 0 120 12" style="position: relative; display: block; margin: 16px auto 0"><path class="tkv-line" d="M0 6H50M70 6H120"></path><path d="M60 1L65 6L60 11L55 6Z" fill="#E3B34C"></path></svg>
+        <p class="tkv-serif" style="position: relative; margin: 14px 0 0; font-size: 28px; font-style: italic; font-weight: 600; line-height: 1.15; color: #F3E3C3; overflow-wrap: anywhere">{{ d.bazm_joy }}</p>
+        <sc-if value="{{ d.bazm_manzil }}" hint-placeholder-val="{{ true }}"><p style="position: relative; margin: 4px 0 0; font-size: 13px; line-height: 1.45; color: #D8CBAE; overflow-wrap: anywhere">{{ d.bazm_manzil }}</p></sc-if>
+<sc-if value="{{ d.dress_kod }}" hint-placeholder-val="{{ true }}">
+        <div style="position: relative; margin: 18px auto 0; max-width: 100%; box-sizing: border-box; display: inline-flex; align-items: center; gap: 12px; padding: 10px 16px; border-radius: 30px; border: 1px solid rgba(227,179,76,0.35); background: rgba(243,227,195,0.04)">
+          <span style="font-size: 10.5px; font-weight: 600; letter-spacing: 0.26em; text-transform: uppercase; color: #E3B34C">Dress-kod</span>
+          <sc-if value="{{ swatches.length }}" hint-placeholder-val="{{ true }}"><span aria-hidden="true" style="display: flex; flex: none">
+            <sc-for list="{{ swatches }}" as="c" hint-placeholder-count="2"><span style="{{ c }}"></span></sc-for>
+          </span></sc-if>
+          <span class="tkv-serif" style="min-width: 0; font-size: 21px; font-style: italic; font-weight: 600; line-height: 1.1; color: #F3E3C3; overflow-wrap: anywhere">{{ d.dress_kod }}</span>
+        </div>
+</sc-if>
+        <sc-if value="{{ askGuest }}" hint-placeholder-val="{{ false }}">
+          <input class="tkv-input" type="text" maxlength="100" placeholder="Ismingiz" aria-label="Ismingiz" onInput="{{ setName }}" style="position: relative; margin-top: 22px">
+        </sc-if>
+        <div style="position: relative; display: flex; gap: 10px; margin-top: 22px">
+          <button type="button" class="{{ goCls }}" onClick="{{ go }}">
+            <span class="{{ goIdle }}">Boraman</span>
+            <span class="{{ goDone }}"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 20 20"><path class="tkv-ico" d="M4 10.5l4 4 8-9"></path></svg>Kutamiz!</span>
+          </button>
+          <sc-if value="{{ d.xarita }}" hint-placeholder-val="{{ true }}"><a class="tkv-map" href="{{ d.xarita }}" target="_blank" rel="noopener"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 20 20"><path class="tkv-ico" d="M10 18s-5.5-5.2-5.5-9.3a5.5 5.5 0 0 1 11 0C15.5 12.8 10 18 10 18z"></path><circle class="tkv-ico" cx="10" cy="8.7" r="2"></circle></svg>Xaritada ochish</a></sc-if>
+        </div>
+        <sc-if value="{{ goErr }}" hint-placeholder-val="{{ false }}"><p class="tkv-err" role="alert">{{ goErr }}</p></sc-if>
+      </div>
+    </section>
+</sc-if>
+
+    <section style="position: relative; flex: 1; padding: 6px 24px 44px; display: flex; flex-direction: column; align-items: center; text-align: center">
+<sc-if value="{{ b.javob }}" hint-placeholder-val="{{ true }}">
+      <h2 class="tkv-serif" style="margin: 0; font-size: 28px; font-style: italic; font-weight: 500; line-height: 1.15; color: #F3E3C3; overflow-wrap: anywhere">{{ askName }}</h2>
+      <p style="margin: 6px 0 16px; font-size: 13px; line-height: 1.45; color: #D8CBAE">Bir bosishda tabrigingizni yetkazing</p>
+      <div style="position: relative; width: 100%">
+        <div class="{{ sendDustCls }}" aria-hidden="true" style="position: absolute; left: 171px; top: 27px; width: 0; height: 0; z-index: 3; pointer-events: none">
+          <sc-for list="{{ dustFast }}" as="c" hint-placeholder-count="34"><span style="{{ c.w }}"><span class="{{ c.k }}" style="{{ c.p }}"></span></span></sc-for>
+        </div>
+        <button type="button" class="{{ sendCls }}" onClick="{{ send }}">
+          <span class="{{ sendIdle }}">Tabrikladim</span>
+          <span class="{{ sendDone }}"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 20 20"><path class="tkv-ico" d="M4 10.5l4 4 8-9"></path></svg>Rahmat! Tabrigingiz yetkazildi</span>
+        </button>
+      </div>
+</sc-if>
+
+      <div style="position: relative; width: 390px; margin: 22px -24px 0; padding-top: 48px">
+        <sc-for list="{{ finaleFw }}" as="f" hint-placeholder-count="3">
+          <div aria-hidden="true" style="{{ f.box }}">
+            <div class="tkv-fwGlow" style="{{ f.glow }}"></div>
+            <svg class="{{ f.cls }}" width="{{ f.size }}" height="{{ f.size }}" viewBox="0 0 120 120" style="{{ f.svg }}"><path class="tkv-fwRay" d="M74 60L104 60M72.1 67L98.1 82M67 72.1L82 98.1M60 74L60 104M53 72.1L38 98.1M47.9 67L21.9 82M46 60L16 60M47.9 53L21.9 38M53 47.9L38 21.9M60 46L60 16M67 47.9L82 21.9M72.1 53L98.1 38"></path><path class="tkv-fwRay2" d="M79.3 65.2L92.8 68.8M74.1 74.1L84 84M65.2 79.3L68.8 92.8M54.8 79.3L51.2 92.8M45.9 74.1L36 84M40.7 65.2L27.2 68.8M40.7 54.8L27.2 51.2M45.9 45.9L36 36M54.8 40.7L51.2 27.2M65.2 40.7L68.8 27.2M74.1 45.9L84 36M79.3 54.8L92.8 51.2"></path><path d="M110 60a2 2 0 1 0 4 0a2 2 0 1 0 -4 0M103 86a2 2 0 1 0 4 0a2 2 0 1 0 -4 0M84 105a2 2 0 1 0 4 0a2 2 0 1 0 -4 0M58 112a2 2 0 1 0 4 0a2 2 0 1 0 -4 0M32 105a2 2 0 1 0 4 0a2 2 0 1 0 -4 0M13 86a2 2 0 1 0 4 0a2 2 0 1 0 -4 0M6 60a2 2 0 1 0 4 0a2 2 0 1 0 -4 0M13 34a2 2 0 1 0 4 0a2 2 0 1 0 -4 0M32 15a2 2 0 1 0 4 0a2 2 0 1 0 -4 0M58 8a2 2 0 1 0 4 0a2 2 0 1 0 -4 0M84 15a2 2 0 1 0 4 0a2 2 0 1 0 -4 0M103 34a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" fill="#F3D27A"></path></svg>
+          </div>
+        </sc-for>
+        <p class="tkv-serif tkv-foil" style="position: relative; display: inline-block; margin: 0; padding: 0 10px; max-width: 350px; font-size: 46px; font-style: italic; font-weight: 600; line-height: 1.08; overflow-wrap: anywhere">Tug’ilgan kuning muborak, {{ d.kimga }}!</p>
+        <svg aria-hidden="true" width="120" height="12" viewBox="0 0 120 12" style="position: relative; display: block; margin: 18px auto 0"><path class="tkv-line" d="M0 6H50M70 6H120"></path><path d="M60 1L65 6L60 11L55 6Z" fill="#E3B34C"></path></svg>
+        <sc-if value="{{ d.kimdan }}" hint-placeholder-val="{{ true }}">
+        <sc-if value="{{ from.label }}" hint-placeholder-val="{{ true }}"><p style="position: relative; margin: 14px 0 0; font-size: 11px; font-weight: 600; letter-spacing: 0.26em; text-transform: uppercase; color: #D8CBAE; overflow-wrap: anywhere">{{ from.label }}</p></sc-if>
+        <p class="tkv-serif" style="position: relative; margin: {{ fromMt2 }}; font-size: 24px; font-style: italic; font-weight: 600; line-height: 1.2; color: #F3E3C3; overflow-wrap: anywhere">{{ from.names }}</p>
+        </sc-if>
+      </div>
+    </section>
+  </div>
+
+  <div data-intro class="{{ introCls }}" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; z-index: 20; overflow: hidden">
+    <div class="tkv-introBg" aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; background: radial-gradient(75% 46% at 50% 36%, #2B2768 0%, #14123A 55%, #09081E 100%), #09081E">
+      <div class="tkv-beam" style="position: absolute; left: -10px; top: -60px; width: 200px; height: 760px; background: linear-gradient(180deg, rgba(243,227,195,0.20), rgba(243,227,195,0) 85%); clip-path: polygon(46% 0, 54% 0, 100% 100%, 0 100%)"></div>
+      <div class="tkv-beam" style="position: absolute; left: 200px; top: -60px; width: 200px; height: 760px; background: linear-gradient(180deg, rgba(243,227,195,0.18), rgba(243,227,195,0) 85%); clip-path: polygon(46% 0, 54% 0, 100% 100%, 0 100%); animation-delay: -4.5s"></div>
+      <div style="position: absolute; left: 0; top: 600px; width: 390px; height: 244px; background: radial-gradient(70% 70% at 50% 100%, rgba(227,179,76,0.32), rgba(227,179,76,0) 70%)"></div>
+      <sc-for list="{{ introStars }}" as="p" hint-placeholder-count="46"><span class="tkv-star" style="{{ p.st }}"></span></sc-for>
+      <sc-for list="{{ introFw }}" as="f" hint-placeholder-count="5">
+        <div style="{{ f.box }}">
+          <div class="tkv-fwGlow" style="{{ f.glow }}"></div>
+          <svg class="{{ f.cls }}" width="{{ f.size }}" height="{{ f.size }}" viewBox="0 0 120 120" style="{{ f.svg }}"><path class="tkv-fwRay" d="M74 60L104 60M72.1 67L98.1 82M67 72.1L82 98.1M60 74L60 104M53 72.1L38 98.1M47.9 67L21.9 82M46 60L16 60M47.9 53L21.9 38M53 47.9L38 21.9M60 46L60 16M67 47.9L82 21.9M72.1 53L98.1 38"></path><path class="tkv-fwRay2" d="M79.3 65.2L92.8 68.8M74.1 74.1L84 84M65.2 79.3L68.8 92.8M54.8 79.3L51.2 92.8M45.9 74.1L36 84M40.7 65.2L27.2 68.8M40.7 54.8L27.2 51.2M45.9 45.9L36 36M54.8 40.7L51.2 27.2M65.2 40.7L68.8 27.2M74.1 45.9L84 36M79.3 54.8L92.8 51.2"></path><path d="M110 60a2 2 0 1 0 4 0a2 2 0 1 0 -4 0M103 86a2 2 0 1 0 4 0a2 2 0 1 0 -4 0M84 105a2 2 0 1 0 4 0a2 2 0 1 0 -4 0M58 112a2 2 0 1 0 4 0a2 2 0 1 0 -4 0M32 105a2 2 0 1 0 4 0a2 2 0 1 0 -4 0M13 86a2 2 0 1 0 4 0a2 2 0 1 0 -4 0M6 60a2 2 0 1 0 4 0a2 2 0 1 0 -4 0M13 34a2 2 0 1 0 4 0a2 2 0 1 0 -4 0M32 15a2 2 0 1 0 4 0a2 2 0 1 0 -4 0M58 8a2 2 0 1 0 4 0a2 2 0 1 0 -4 0M84 15a2 2 0 1 0 4 0a2 2 0 1 0 -4 0M103 34a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" fill="#F3D27A"></path></svg>
+        </div>
+      </sc-for>
+      <sc-for list="{{ introBalloons }}" as="b" hint-placeholder-count="5">
+        <div class="tkv-riseB" style="{{ b.box }}">
+          <div class="tkv-swayB">
+            <svg width="{{ b.w }}" height="{{ b.h }}" viewBox="0 0 60 150"><path d="M30 4C48 4 58 20 58 38C58 60 42 76 32 80H28C18 76 2 60 2 38C2 20 12 4 30 4Z" fill="url(#tkv-gGold)"></path><path d="M26 80H34L36 86H24Z" fill="#A87A28"></path><ellipse cx="19" cy="24" rx="6" ry="11" fill="#FFF8E6" opacity="0.55" transform="rotate(-25 19 24)"></ellipse><path class="tkv-string" d="M30 86C22 100 38 112 30 126C24 136 34 142 30 150"></path></svg>
+          </div>
+        </div>
+      </sc-for>
+      <sc-for list="{{ introSparks }}" as="p" hint-placeholder-count="14"><span class="tkv-spark" style="{{ p.st }}"></span></sc-for>
+    </div>
+
+    <sc-if value="{{ has.music }}" hint-placeholder-val="{{ false }}"><button type="button" class="{{ musicCls }}" onClick="{{ toggleMusic }}" aria-label="Musiqa" aria-pressed="{{ musicOn }}">
+      <svg aria-hidden="true" width="20" height="20" viewBox="0 0 20 20"><path class="tkv-ico" d="M7.5 15V4.5l9-2V13"></path><circle class="tkv-ico" cx="5.3" cy="15" r="2.2"></circle><circle class="tkv-ico" cx="14.3" cy="13" r="2.2"></circle></svg>
+      <span class="tkv-eq" aria-hidden="true"><span class="tkv-bar"></span><span class="tkv-bar"></span><span class="tkv-bar"></span></span>
+    </button></sc-if>
+
+    <div class="tkv-introLabel" style="position: absolute; left: 0; top: 104px; width: 390px; display: flex; align-items: center; justify-content: center; gap: 12px">
+      <span aria-hidden="true" style="width: 40px; height: 1px; background: linear-gradient(90deg, rgba(227,179,76,0), #E3B34C)"></span>
+      <p class="tkv-label" style="margin: 0; letter-spacing: 0.44em">Oltin kecha</p>
+      <span aria-hidden="true" style="width: 40px; height: 1px; background: linear-gradient(90deg, #E3B34C, rgba(227,179,76,0))"></span>
+    </div>
+
+    <div aria-hidden="true" class="tkv-flash" style="position: absolute; left: 0; top: 258px; width: 390px; height: 8px; background: linear-gradient(90deg, rgba(255,241,201,0), #FFF1C9 50%, rgba(255,241,201,0))"></div>
+
+    <div class="tkv-mono" aria-hidden="true" style="position: absolute; left: 80px; top: 146px; width: 230px; height: 230px">
+      <div class="tkv-glowP" style="position: absolute; left: -50px; top: -50px; width: 330px; height: 330px; border-radius: 50%; background: radial-gradient(circle, rgba(227,179,76,0.36), rgba(227,179,76,0) 62%)"></div>
+      <svg width="230" height="230" viewBox="0 0 200 200" style="position: absolute; left: 0; top: 0">
+        <circle class="tkv-ring" cx="100" cy="100" r="62"></circle>
+        <circle class="tkv-ring" cx="100" cy="100" r="67" opacity="0.4"></circle>
+        <g>
+          <path class="tkv-stem" d="M79.3 177.3A80 80 0 0 1 54.1 34.5"></path>
+          <path d="M0 0C5 -5 13 -6 18 0C13 6 5 5 0 0Z" fill="url(#tkv-gGold)" transform="translate(66.2 172.5) rotate(165)"></path>
+          <path d="M0 0C5 -5 13 -6 18 0C13 6 5 5 0 0Z" fill="url(#tkv-gGold)" transform="translate(66.2 172.5) rotate(245)"></path>
+          <path d="M0 0C5 -5 13 -6 18 0C13 6 5 5 0 0Z" fill="url(#tkv-gGold)" transform="translate(48.6 161.3) rotate(180)"></path>
+          <path d="M0 0C5 -5 13 -6 18 0C13 6 5 5 0 0Z" fill="url(#tkv-gGold)" transform="translate(48.6 161.3) rotate(260)"></path>
+          <path d="M0 0C5 -5 13 -6 18 0C13 6 5 5 0 0Z" fill="url(#tkv-gGold)" transform="translate(34.5 145.9) rotate(195)"></path>
+          <path d="M0 0C5 -5 13 -6 18 0C13 6 5 5 0 0Z" fill="url(#tkv-gGold)" transform="translate(34.5 145.9) rotate(275)"></path>
+          <path d="M0 0C5 -5 13 -6 18 0C13 6 5 5 0 0Z" fill="url(#tkv-gGold)" transform="translate(24.8 127.4) rotate(210)"></path>
+          <path d="M0 0C5 -5 13 -6 18 0C13 6 5 5 0 0Z" fill="url(#tkv-gGold)" transform="translate(24.8 127.4) rotate(290)"></path>
+          <path d="M0 0C5 -5 13 -6 18 0C13 6 5 5 0 0Z" fill="url(#tkv-gGold)" transform="translate(20.3 107) rotate(225)"></path>
+          <path d="M0 0C5 -5 13 -6 18 0C13 6 5 5 0 0Z" fill="url(#tkv-gGold)" transform="translate(20.3 107) rotate(305)"></path>
+          <path d="M0 0C5 -5 13 -6 18 0C13 6 5 5 0 0Z" fill="url(#tkv-gGold)" transform="translate(21.2 86.1) rotate(240)"></path>
+          <path d="M0 0C5 -5 13 -6 18 0C13 6 5 5 0 0Z" fill="url(#tkv-gGold)" transform="translate(21.2 86.1) rotate(320)"></path>
+          <path d="M0 0C5 -5 13 -6 18 0C13 6 5 5 0 0Z" fill="url(#tkv-gGold)" transform="translate(27.5 66.2) rotate(255)"></path>
+          <path d="M0 0C5 -5 13 -6 18 0C13 6 5 5 0 0Z" fill="url(#tkv-gGold)" transform="translate(27.5 66.2) rotate(335)"></path>
+          <path d="M0 0C5 -5 13 -6 18 0C13 6 5 5 0 0Z" fill="url(#tkv-gGold)" transform="translate(38.7 48.6) rotate(270)"></path>
+          <path d="M0 0C5 -5 13 -6 18 0C13 6 5 5 0 0Z" fill="url(#tkv-gGold)" transform="translate(38.7 48.6) rotate(350)"></path>
+          <path d="M0 0C5 -5 13 -6 18 0C13 6 5 5 0 0Z" fill="url(#tkv-gGold)" transform="translate(54.1 34.5) rotate(325)"></path>
+        </g>
+        <g transform="translate(200 0) scale(-1 1)">
+          <path class="tkv-stem" d="M79.3 177.3A80 80 0 0 1 54.1 34.5"></path>
+          <path d="M0 0C5 -5 13 -6 18 0C13 6 5 5 0 0Z" fill="url(#tkv-gGold)" transform="translate(66.2 172.5) rotate(165)"></path>
+          <path d="M0 0C5 -5 13 -6 18 0C13 6 5 5 0 0Z" fill="url(#tkv-gGold)" transform="translate(66.2 172.5) rotate(245)"></path>
+          <path d="M0 0C5 -5 13 -6 18 0C13 6 5 5 0 0Z" fill="url(#tkv-gGold)" transform="translate(48.6 161.3) rotate(180)"></path>
+          <path d="M0 0C5 -5 13 -6 18 0C13 6 5 5 0 0Z" fill="url(#tkv-gGold)" transform="translate(48.6 161.3) rotate(260)"></path>
+          <path d="M0 0C5 -5 13 -6 18 0C13 6 5 5 0 0Z" fill="url(#tkv-gGold)" transform="translate(34.5 145.9) rotate(195)"></path>
+          <path d="M0 0C5 -5 13 -6 18 0C13 6 5 5 0 0Z" fill="url(#tkv-gGold)" transform="translate(34.5 145.9) rotate(275)"></path>
+          <path d="M0 0C5 -5 13 -6 18 0C13 6 5 5 0 0Z" fill="url(#tkv-gGold)" transform="translate(24.8 127.4) rotate(210)"></path>
+          <path d="M0 0C5 -5 13 -6 18 0C13 6 5 5 0 0Z" fill="url(#tkv-gGold)" transform="translate(24.8 127.4) rotate(290)"></path>
+          <path d="M0 0C5 -5 13 -6 18 0C13 6 5 5 0 0Z" fill="url(#tkv-gGold)" transform="translate(20.3 107) rotate(225)"></path>
+          <path d="M0 0C5 -5 13 -6 18 0C13 6 5 5 0 0Z" fill="url(#tkv-gGold)" transform="translate(20.3 107) rotate(305)"></path>
+          <path d="M0 0C5 -5 13 -6 18 0C13 6 5 5 0 0Z" fill="url(#tkv-gGold)" transform="translate(21.2 86.1) rotate(240)"></path>
+          <path d="M0 0C5 -5 13 -6 18 0C13 6 5 5 0 0Z" fill="url(#tkv-gGold)" transform="translate(21.2 86.1) rotate(320)"></path>
+          <path d="M0 0C5 -5 13 -6 18 0C13 6 5 5 0 0Z" fill="url(#tkv-gGold)" transform="translate(27.5 66.2) rotate(255)"></path>
+          <path d="M0 0C5 -5 13 -6 18 0C13 6 5 5 0 0Z" fill="url(#tkv-gGold)" transform="translate(27.5 66.2) rotate(335)"></path>
+          <path d="M0 0C5 -5 13 -6 18 0C13 6 5 5 0 0Z" fill="url(#tkv-gGold)" transform="translate(38.7 48.6) rotate(270)"></path>
+          <path d="M0 0C5 -5 13 -6 18 0C13 6 5 5 0 0Z" fill="url(#tkv-gGold)" transform="translate(38.7 48.6) rotate(350)"></path>
+          <path d="M0 0C5 -5 13 -6 18 0C13 6 5 5 0 0Z" fill="url(#tkv-gGold)" transform="translate(54.1 34.5) rotate(325)"></path>
+        </g>
+        <path d="M100 178C94 172 84 172 84 178C84 184 94 184 100 180C106 184 116 184 116 178C116 172 106 172 100 178Z" fill="url(#tkv-gGold)"></path>
+        <path d="M98 180L90 194L95 192L97 197L100 182ZM102 180L110 194L105 192L103 197L100 182Z" fill="#C99A3A"></path>
+      </svg>
+      <span class="tkv-serif tkv-foil" style="position: absolute; left: 0; top: 50px; width: 230px; text-align: center; font-size: 114px; font-style: italic; font-weight: 600; line-height: 1">{{ initial }}</span>
+    </div>
+
+    <div class="tkv-introName" style="position: absolute; left: 0; top: 394px; width: 390px; text-align: center">
+      <p class="tkv-serif" style="margin: 0 auto; max-width: 370px; font-size: {{ introFs }}px; font-style: italic; font-weight: 500; line-height: 1.1; color: #F3E3C3; white-space: nowrap">{{ d.kimga }}</p>
+      <p style="margin: 10px 0 0; font-size: 11.5px; font-weight: 500; letter-spacing: 0.26em; text-transform: uppercase; color: #D8CBAE">{{ introSub }}</p>
+    </div>
+
+    <div class="tkv-ctaWrap" style="position: absolute; left: 0; top: 628px; width: 390px; display: flex; flex-direction: column; align-items: center; gap: 16px">
+      <button type="button" class="tkv-cta tkv-gold tkv-shine" onClick="{{ open }}">Kechani boshlash</button>
+      <sc-if value="{{ from.line }}" hint-placeholder-val="{{ true }}"><p style="margin: 0; max-width: 340px; font-size: 13px; line-height: 1.4; color: #D8CBAE; text-align: center; overflow-wrap: anywhere">{{ from.line }}</p></sc-if>
+    </div>
+  </div>
+
+  <div class="{{ introDustCls }}" aria-hidden="true" style="position: absolute; left: 195px; top: 261px; width: 0; height: 0; z-index: 21; pointer-events: none">
+    <sc-for list="{{ dustIntro }}" as="c" hint-placeholder-count="44"><span style="{{ c.w }}"><span class="{{ c.k }}" style="{{ c.p }}"></span></span></sc-for>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":4800}}'>
+const tkName = (d) => String(d.kimga || '').trim();
+const tkFrom = (d) => {
+  const kd = String(d.kimdan || '').trim(), ci = kd.indexOf(':');
+  const label = ci > 0 ? kd.slice(0, ci).trim() : '';
+  const names = ci > 0 ? kd.slice(ci + 1).trim() : kd;
+  const people = names.split(/\s*,\s*|\s+va\s+|\s+and\s+|\s*&\s*/).map((x) => x.trim()).filter(Boolean);
+  return { label: label, names: names, people: people,
+    line: !kd ? '' : (label ? label + 'dan: ' + names : names + 'dan'),
+    initials: people.slice(0, 4).map((p) => p.charAt(0).toUpperCase()) };
+};
+const tkFit = (text, max, min, width, k) => {
+  const longest = Math.max(1, ...String(text || '').split(/\s+/).map((x) => x.length));
+  return Math.max(min, Math.min(max, Math.floor(width / (longest * k))));
+};
+const tkMapUrl = (d) => String(d.xarita || '').trim();
+// Kiyinish uslubidagi rang so'zlaridan namunalar (topilmasa — ko'rsatilmaydi)
+const TK_COLORS = [
+  [/oltin|tilla|gold/i, 'linear-gradient(135deg, #F3D27A, #B8862E 55%, #E3B34C)'], [/qora|black/i, '#07060F'], [/kumush|silver/i, 'linear-gradient(135deg, #F2F2F2, #A9A9B3)'],
+  [/(^|[^a-z’'])oq([^a-z’']|$)|white/i, '#FFFFFF'], [/qizil|red/i, '#C0392B'], [/bordo/i, '#7B1E2B'], [/pushti|pink/i, '#F4A6C0'], [/shampan/i, '#F1DDBF'],
+  [/zumrad/i, '#1F8A70'], [/yashil|green/i, '#2E8B57'], [/moviy|havorang/i, '#6EC1E4'], [/ko[’'`]?k|blue/i, '#3B6FD8'], [/binafsha|siyohrang|purple/i, '#7B4FE0'],
+  [/sariq|yellow/i, '#F3D27A'], [/jigarrang|qahva|brown/i, '#7B4A2A'], [/kulrang|grey|gray/i, '#8A8A8A'], [/bej|beige|krem/i, '#E8D8BC']
+];
+const tkSwatches = (text) => {
+  const t = String(text || ''), found = [];
+  TK_COLORS.forEach((c) => { const m = t.match(c[0]); if (m) found.push([m.index, c[1]]); });
+  return found.sort((a, b) => a[0] - b[0]).slice(0, 3).map((f) => f[1]);
+};
+
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { opened: false, blown: false, gift: false, going: false, sent: false, goErr: '' };
+    this.guestName = '';
+    this.tick = 0;
+    const H = 4800;
+    const rnd = (i, k) => { const x = Math.sin(i * 127.1 + k * 311.7) * 43758.5453; return x - Math.floor(x); };
+    const stars = (n, h, seed) => Array.from({ length: n }, (_, i) => {
+      const s = rnd(i, seed) < 0.75 ? 2 : 3;
+      return { st: 'left: ' + Math.round(4 + rnd(i, seed + 1) * 382) + 'px; top: ' + Math.round(rnd(i, seed + 2) * h) + 'px; width: ' + s + 'px; height: ' + s + 'px; animation-duration: ' + (3 + rnd(i, seed + 3) * 3).toFixed(2) + 's; animation-delay: -' + (rnd(i, seed + 4) * 4).toFixed(2) + 's' };
+    });
+    const sparkCols = ['#E3B34C', '#F3D27A', '#FFF1C9'];
+    const sparks = (n, h, seed) => Array.from({ length: n }, (_, i) => {
+      const s = 8 + Math.round(rnd(i, seed) * 9);
+      return { st: 'left: ' + Math.round(6 + rnd(i, seed + 1) * 372) + 'px; top: ' + Math.round(rnd(i, seed + 2) * h) + 'px; width: ' + s + 'px; height: ' + s + 'px; background: ' + sparkCols[i % 3] + '; animation-duration: ' + (2.6 + rnd(i, seed + 3) * 2.4).toFixed(2) + 's; animation-delay: -' + (rnd(i, seed + 4) * 3).toFixed(2) + 's' };
+    });
+    const motes = (n, h, seed) => Array.from({ length: n }, (_, i) => {
+      const s = rnd(i, seed) < 0.6 ? 3 : 4;
+      return { st: 'left: ' + Math.round(6 + rnd(i, seed + 1) * 376) + 'px; top: ' + Math.round(140 + rnd(i, seed + 2) * (h - 140)) + 'px; width: ' + s + 'px; height: ' + s + 'px; animation-duration: ' + (10 + rnd(i, seed + 3) * 7).toFixed(2) + 's; animation-delay: -' + (rnd(i, seed + 4) * 12).toFixed(2) + 's' };
+    });
+    const dust = (n, base, seed) => Array.from({ length: n }, (_, i) => {
+      const ang = (360 * i) / n + (rnd(i, seed) - 0.5) * 14;
+      const s = 3 + Math.round(rnd(i, seed + 1) * 4);
+      return {
+        w: 'position: absolute; left: 0; top: 0; width: 0; height: 0; transform: rotate(' + ang.toFixed(1) + 'deg)',
+        k: 'tkv-dust tkv-d' + (1 + ((i * 5) % 3)),
+        p: 'width: ' + s + 'px; height: ' + s + 'px; margin: -' + (s / 2) + 'px 0 0 -' + (s / 2) + 'px; background: ' + (i % 4 === 0 ? '#FFF1C9' : (i % 2 ? '#E3B34C' : '#F3D27A')) + '; animation-delay: ' + (base + rnd(i, seed + 2) * 0.25).toFixed(2) + 's'
+      };
+    });
+    const fw = (list) => list.map((f) => ({
+      box: 'position: absolute; left: ' + f[0] + 'px; top: ' + f[1] + 'px; width: ' + f[2] + 'px; height: ' + f[2] + 'px',
+      glow: 'position: absolute; left: 0; top: 0; width: ' + f[2] + 'px; height: ' + f[2] + 'px; border-radius: 50%; background: radial-gradient(circle, rgba(243,210,122,0.42), rgba(243,210,122,0) 60%); animation-delay: ' + f[3] + 's',
+      cls: f[4] ? 'tkv-fw tkv-fwC' : 'tkv-fw',
+      size: f[2],
+      svg: 'position: absolute; left: 0; top: 0; animation-delay: ' + f[3] + 's'
+    }));
+    const balloons = [[18, 430, 50, 19, -3], [64, 610, 38, 23, -11], [298, 380, 56, 17, -7], [338, 560, 44, 21, -15], [250, 690, 34, 25, -1]];
+    this.deco = {
+      stars: stars(70, H, 1),
+      sparks: sparks(18, H, 11),
+      motes: motes(24, H, 21),
+      introStars: stars(46, 844, 31),
+      introSparks: sparks(14, 820, 41),
+      dustIntro: dust(44, 0.35, 51),
+      dustFast: dust(34, 0.05, 61),
+      introFw: fw([[6, 64, 150, 0, false], [232, 34, 132, -1.2, true], [256, 300, 112, -2.3, false], [-4, 330, 104, -0.6, true], [150, -6, 92, -2.9, false]]),
+      finaleFw: fw([[10, 0, 130, -0.4, false], [236, 20, 120, -1.7, true], [140, -40, 100, -2.8, false]]),
+      introBalloons: balloons.map((b) => ({
+        box: 'position: absolute; left: ' + b[0] + 'px; top: ' + b[1] + 'px; width: ' + b[2] + 'px; animation-duration: ' + b[3] + 's; animation-delay: ' + b[4] + 's',
+        w: b[2],
+        h: Math.round(b[2] * 2.5)
+      }))
+    };
+  }
+  componentDidMount() {
+    this.timer = setInterval(() => { this.prevCd = this.lastCd; this.tick += 1; this.forceUpdate(); }, 1000);
+  }
+  componentWillUnmount() {
+    clearInterval(this.timer);
+  }
+  renderVals() {
+    const s = this.state;
+    const D = SITE.d, B = SITE.b;
+    const name = tkName(D), from = tkFrom(D);
+    const w = SITE.when(D.sana), bw = SITE.when(D.bazm_sana);
+    const c = SITE.countdown(D.sana);
+    const cur = [c.dd, c.hh, c.mm, c.ss];
+    const prev = this.prevCd || cur;
+    this.lastCd = cur;
+    const flip = (i) => ({ cur: cur[i], prev: prev[i], cls: cur[i] !== prev[i] ? (this.tick % 2 ? 'tkv-flip tkv-flip--a' : 'tkv-flip tkv-flip--b') : 'tkv-flip' });
+    const dc = this.deco;
+    const n = SITE.has.photos;
+    const yosh = String(D.yosh || '').trim();
+    const list = D.tilaklar || [];
+    // yil xronikasi: chap-o'ng navbat bilan, oxirgisi — bugun (asosiy surat)
+    const xl = D.xronika || [];
+    const xron = xl.map((x, i) => {
+      const left = i % 2 === 0, top = i * 96, last = i === xl.length - 1;
+      const src = last ? SITE.p[0] : SITE.p[(i + 1) % SITE.p.length];
+      const yy = String(x.yosh || '').trim();
+      return {
+        yosh: yy, unit: /^\d+$/.test(yy), matn: x.matn || '', src: src,
+        ph: 'position: absolute; left: ' + (left ? 36 : 202) + 'px; top: ' + top + 'px; width: 112px; height: 120px; box-sizing: border-box; padding: 3px; background: linear-gradient(160deg, #F3D27A, #A87A28 50%, #E3B34C); box-shadow: 0 16px 30px rgba(0,0,0,0.45)',
+        dot: last ? 'position: absolute; left: 166px; top: ' + (top + 52) + 'px; width: 17px; height: 17px; border-radius: 50%; background: #F3D27A; box-shadow: 0 0 0 5px rgba(227,179,76,0.25), 0 0 20px rgba(243,210,122,0.95)'
+                  : 'position: absolute; left: 168px; top: ' + (top + 54) + 'px; width: 13px; height: 13px; border-radius: 50%; background: #E3B34C; box-shadow: 0 0 0 4px rgba(227,179,76,0.2), 0 0 14px rgba(243,210,122,0.8)',
+        tx: left ? 'position: absolute; left: 198px; top: ' + (top + 4) + 'px; width: 152px; text-align: left'
+                 : 'position: absolute; left: 0; top: ' + (top + 4) + 'px; width: 150px; text-align: right'
+      };
+    });
+    const gl = (D.mehmon_tilaklari || []).filter((g) => g && g.matn), half = Math.ceil(gl.length / 2);
+    const sw = tkSwatches(D.dress_kod);
+    return {
+      stars: dc.stars, sparks: dc.sparks, motes: dc.motes,
+      introStars: dc.introStars, introSparks: dc.introSparks, introFw: dc.introFw, introBalloons: dc.introBalloons,
+      finaleFw: dc.finaleFw, dustIntro: dc.dustIntro, dustFast: dc.dustFast,
+      from: from,
+      anyBlock: Object.keys(B).some((k) => B[k]),
+      initial: name.charAt(0).toUpperCase(),
+      noPhoto: !SITE.has.photo,
+      nameFs: Math.max(30, Math.min(76, Math.floor(330 / (Math.max(3, name.length) * 0.47)))),
+      introFs: Math.max(26, Math.min(52, Math.floor(360 / (Math.max(3, name.length) * 0.42)))),
+      ageRowSt: 'position: relative; display: ' + (yosh ? 'flex' : 'none') + '; align-items: center; gap: 14px; margin-top: 6px',
+      heroDate: [w.date, w.weekday].filter(Boolean).join(', '),
+      introSub: [yosh ? yosh + ' yosh' : '', w.date].filter(Boolean).join(' · '),
+      cardOn: B.tabrik || B.tilaklar,
+      cardTitle: B.tabrik ? 'Tabrigimiz' : 'Tilaklarimiz',
+      wishes: list.map((t, i) => ({ text: t, sep: i < list.length - 1 })),
+      wishPSt: 'position: relative; margin: ' + (B.tabrik ? '6px' : '14px') + ' 0 0; font-size: 24px; font-style: italic; font-weight: 600; line-height: 1.45; color: #1E1A3F; overflow-wrap: anywhere',
+      showFrom: B.tabrik && !!D.kimdan,
+      fromMt: from.label ? '4px 0 0' : '22px 0 0',
+      fromMt2: from.label ? '4px 0 0' : '14px 0 0',
+      cdTitle: c.done ? 'Bayram boshlandi!' : 'Tug’ilgan kungacha',
+      f0: flip(0), f1: flip(1), f2: flip(2), f3: flip(3),
+      cakeBgSt: 'background-image: linear-gradient(180deg, rgba(14,12,42,0.80), rgba(14,12,42,0.93))' + (SITE.has.photo ? ', url(\'' + SITE.p[2] + '\')' : ''),
+      gal3: n >= 3, gal4: n >= 4,
+      galH: n >= 4 ? 360 : (n >= 3 ? 280 : 270),
+      xron: xron,
+      xronH: Math.max(130, (xl.length - 1) * 96 + 120),
+      guestsA: gl.slice(0, half), guestsB: gl.slice(half),
+      guestGrid: 'display: grid; grid-template-columns: ' + (gl.length > 1 ? 'repeat(2, minmax(0, 1fr))' : 'minmax(0, 1fr)') + '; gap: 12px; margin-top: 20px; align-items: start',
+      bw: bw,
+      bazmSub: [bw.Weekday, D.bazm_vaqt ? 'soat ' + D.bazm_vaqt : ''].filter(Boolean).join(' · '),
+      swatches: sw.map((bg, i) => 'width: 22px; height: 22px; border-radius: 50%; background: ' + bg + (i ? '; margin-left: -6px' : '') + '; box-shadow: 0 0 0 1.5px #E3B34C'),
+      askGuest: !SITE.has.guest && !s.going,
+      setName: (e) => { this.guestName = e.target.value; },
+      goErr: s.goErr,
+      askName: name + 'ni tabrikladingizmi?',
+      introCls: s.opened ? 'tkv-intro tkv-intro--open' : 'tkv-intro',
+      introDustCls: s.opened ? 'tkv-dustGo' : '',
+      pageCls: s.opened ? 'tkv-page tkv-page--in' : 'tkv-page',
+      open: () => { if (this.state.opened) return; this.setState({ opened: true }); SITE.opened(); },
+      musicCls: SITE.music.playing ? 'tkv-music tkv-music--on' : 'tkv-music',
+      musicOn: SITE.music.playing ? 'true' : 'false',
+      toggleMusic: () => { SITE.music.toggle(); },
+      cakeCls: s.blown ? 'tkv-cake tkv-cake--out' : 'tkv-cake',
+      cakeDustCls: s.blown ? 'tkv-dustGo' : '',
+      wishCls: s.blown ? 'tkv-wish tkv-wish--on' : 'tkv-wish',
+      blowIdle: s.blown ? 'is-hidden' : '',
+      blowDone: s.blown ? '' : 'is-hidden',
+      blow: () => this.setState({ blown: !this.state.blown }),
+      giftCls: s.gift ? 'tkv-gift tkv-gift--open' : 'tkv-gift',
+      giftTxtA: s.gift ? 'tkv-txtA tkv-txt--off' : 'tkv-txtA',
+      giftTxtB: s.gift ? 'tkv-txtB' : 'tkv-txtB tkv-txt--off',
+      toggleGift: () => this.setState({ gift: !this.state.gift }),
+      goCls: s.going ? 'tkv-go tkv-go--on' : 'tkv-go tkv-gold',
+      goIdle: s.going ? 'is-hidden' : '',
+      goDone: s.going ? 'tkv-row' : 'is-hidden',
+      go: () => {
+        if (this.state.going || this.busy) return;
+        const nm = this.guestName.trim();
+        if (!SITE.has.guest && !nm) { this.setState({ goErr: 'Ismingizni yozing' }); return; }
+        this.busy = true;
+        SITE.rsvp(true, 1, nm).then(() => { this.busy = false; this.setState({ going: true, goErr: '' }); })
+          .catch(() => { this.busy = false; this.setState({ goErr: 'Yuborilmadi, qayta urinib ko’ring' }); });
+      },
+      sendCls: s.sent ? 'tkv-btn tkv-send--done' : 'tkv-btn tkv-gold tkv-shine',
+      sendIdle: s.sent ? 'is-hidden' : '',
+      sendDone: s.sent ? 'tkv-row' : 'is-hidden',
+      sendDustCls: s.sent ? 'tkv-dustGo' : '',
+      send: () => { if (this.state.sent) return; this.setState({ sent: true }); SITE.reply('Tabrikladim', '🥰'); }
+    };
+  }
+}
+</script>
+</body>
+</html>

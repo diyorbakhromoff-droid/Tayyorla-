@@ -10,8 +10,13 @@
   const tierFeat = (x, i, f) => App.tx(`tierf.${x.key}.${i}`, f);
   const tierShort = (x) => App.tx("tiers." + x.key, x.features[0]);
   // ba'zi maydonlar bo'limga qarab boshqacha nomlanadi (to'yda «kimga» — mehmon, tug'ilgan kunda — tabriklanuvchi)
-  const fLabel = (f) => App.tx(`cf.${tpl().section}.${f.key}`, App.tx("cf." + f.key, f.label));
-  const fHint = (f) => (f.hint ? App.tx(`cfh.${tpl().section}.${f.key}`, App.tx("cfh." + f.key, f.hint)) : "");
+  // tarifli (v2) shablonlarning maydonlari alohida kalitlarda tarjima qilinadi
+  const fLabel = (f) => (tpl().v2 ? App.tx(`cf2.${tpl().section}.${f.key}`, f.label)
+    : App.tx(`cf.${tpl().section}.${f.key}`, App.tx("cf." + f.key, f.label)));
+  const fHint = (f) => (!f.hint ? "" : tpl().v2 ? App.tx(`cfh2.${tpl().section}.${f.key}`, f.hint)
+    : App.tx(`cfh.${tpl().section}.${f.key}`, App.tx("cfh." + f.key, f.hint)));
+  const tierOf = (t) => t.tier || (t.vip ? "vip" : t.premium ? "premium" : "standart");
+  const blockTitle = (sec, b) => App.tx(`cb.${sec}.${b.key}`, b.title);
 
   /** Katalog kartochkasi (galereya va tavsiyalar). */
   App.tcard = (t) => `<button type="button" class="tcard" data-tpl="${esc(t.id)}">
@@ -35,15 +40,24 @@
     const body = $("#sbody");
     if (p.fromEvent) { const slug = p.fromEvent; delete p.fromEvent; fromEvent(slug); }
     if (tab === "designs") {
-      const list = S.cm.templates.filter((t) => t.section === sec).sort((a, b) => (b.new ? 1 : 0) - (a.new ? 1 : 0));
+      const list = S.cm.templates.filter((t) => t.section === sec);
       const tiers = S.cm.tiers;
+      // Premium birinchi (eng ko'p tanlanadi), keyin VIP, oxirida Standart
+      const groups = ["premium", "vip", "standart"].map((k) => ({
+        tier: tiers.find((x) => x.key === k),
+        items: list.filter((t) => tierOf(t) === k).sort((a, b) => (a.order || 50) - (b.order || 50)),
+      })).filter((g) => g.items.length && g.tier);
       body.innerHTML = `
         <div class="wrap" style="padding-top:14px"><div class="tiers3">${tiers.map((x, i) => `
           <div class="${x.key === "premium" ? "pop" : x.key === "vip" ? "vip" : ""}">${x.key === "premium" ? `<span class="flag">${esc(T("sites.popular"))}</span>` : ""}
             <b>${esc(tierTitle(x))}</b><span>${esc(App.fmtNum(x.price))}</span><small>${esc(T("sites.tier_" + (i + 1)))}</small></div>`).join("")}</div></div>
         <div class="wrap" style="padding-top:12px"><button type="button" class="banner" id="fromVideo">${icon("video")}<span><b>${esc(T("sites.from_video_t"))}</b>${esc(T("sites.from_video_s"))}</span>${icon("chev")}</button></div>
         <div class="wrap" style="padding-top:16px"><div class="chips scroll">${secs.map((s) => `<button type="button" class="chip" data-s="${s.key}" aria-pressed="${s.key === sec}">${esc(secTitle(s))}</button>`).join("")}</div></div>
-        <div class="wrap" style="padding-top:14px"><div class="tgrid">${list.map(App.tcard).join("")}</div></div>`;
+        ${groups.map((g) => `<div class="wrap tgroup ${g.tier.key}" style="padding-top:18px">
+          <div class="tg-head"><h2>${esc(tierTitle(g.tier))}</h2>${g.tier.key === "premium" ? `<span class="badge solid">${esc(T("sites.popular"))}</span>` : ""}
+            <span class="tg-price">${esc(money(g.tier.price))}</span></div>
+          <p class="hint">${esc(App.tx("sites.tg_" + g.tier.key, ""))}</p>
+          <div class="tgrid">${g.items.map(App.tcard).join("")}</div></div>`).join("")}`;
       $$("[data-s]", body).forEach((b) => (b.onclick = () => { haptic(); p.section = b.dataset.s; App.render(); }));
       $$("[data-tpl]", body).forEach((b) => (b.onclick = () => {
         haptic();
@@ -144,27 +158,32 @@
     const t = S.cm.templates.find((x) => x.id === id);
     if (!t) return;
     const prev = store.json(OKEY);
-    const keys = new Set(S.cm.fields[t.section].map((f) => f.key));
+    const keys = new Set(t.v2 ? t.fields : S.cm.fields[t.section].map((f) => f.key));
     const data = Object.fromEntries(Object.entries(pre || {}).filter(([k]) => keys.has(k)));
     const reuse = prev && prev.template === t.id && !eventSlug && !Object.keys(pre || {}).filter((k) => k !== "kimdan").length;
     order = reuse ? prev : { template: t.id, tarif: t.vip ? "vip" : "premium", rang: 1, data, photos: [], music: null, unlock_at: null, _brief: tone ? `Uslub: ${tone}. ` : "", event: eventSlug || null };
     if (t.vip) order.tarif = "vip";
     if (t.premium && order.tarif === "standart") order.tarif = "premium";
+    if (t.v2) { order.tarif = t.tier; order.hidden = order.hidden || []; }
     save();
     App.go("order", { step: 0 });
   }
   App.startOrder = startOrder;
 
   const STEP_KEYS = ["ord.s1", "ord.s2", "ord.s3", "ord.s4", "ord.s5"];
+  // tarifli shablonda tarif tanlanmaydi: dizayn → ma'lumot va bloklar → suratlar → tayyor
+  const STEP_KEYS2 = ["ord.s1", "ord.s3", "ord.s4", "ord.s5"];
+  const KINDS = ["design", "tier", "data", "photos", "final"], KINDS2 = ["design", "data2", "photos", "final"];
   App.views.order = (p, el) => {
     if (!order) order = store.json(OKEY);
     if (!order || !tpl()) return App.back();
     App.chrome({ cta: true });
     const step = p.step || 0;
     const t = tpl();
+    const kind = (t.v2 ? KINDS2 : KINDS)[step] || "final";
     const head = (title, sub) => `<div class="bar light"><button type="button" class="icon-btn" id="bk" aria-label="${esc(T("back"))}">${icon("back")}</button>
         <div class="ttl"><b>${esc(title)}</b><span>${esc(sub)}</span></div></div>
-      <div class="wrap" style="padding-bottom:12px"><div class="dots">${STEP_KEYS.map((_, i) => `<i class="${i <= step ? "on" : ""}"></i>`).join("")}</div></div>`;
+      <div class="wrap" style="padding-bottom:12px"><div class="dots">${(t.v2 ? STEP_KEYS2 : STEP_KEYS).map((_, i) => `<i class="${i <= step ? "on" : ""}"></i>`).join("")}</div></div>`;
     const cta = (label) => `<div class="cta"><div class="two"><button type="button" class="btn ghost back" id="prev" aria-label="${esc(T("back"))}">${icon("back")}</button>
       <button type="button" class="btn" id="next">${esc(label)}</button></div></div>`;
     const go = (n) => App.replace("order", { step: n });
@@ -175,15 +194,18 @@
       $("#next").onclick = (e) => { haptic(); onNext(e.currentTarget); };
     };
 
-    if (step === 0) {
+    if (kind === "design") {
+      const tierCard = t.v2 ? `<section class="card" style="margin-top:14px"><div class="total"><span>${esc(tierTitle(tier()))}</span><b>${esc(money(tier().price))}</b></div>
+          <ul class="tfeat">${tier().features.map((f, i) => `<li>${esc(tierFeat(tier(), i, f))}</li>`).join("")}</ul></section>` : "";
       el.innerHTML = head(tplName(t), T("ord.live")) + `
-        <div class="wrap fade"><div class="phone"><div class="loading">${esc(T("loading"))}</div><iframe id="demo" src="${esc(demoUrl())}" title="${esc(T("ord.live"))}"></iframe></div>
-          <p class="hint" style="text-align:center;margin-top:12px">${esc(T("ord.try"))}</p></div>` + cta(T("ord.choose"));
+        <div class="wrap fade"><div class="phone"><div class="loading">${esc(T("loading"))}</div><iframe id="demo" src="${esc(t.v2 ? t.demo : demoUrl())}" title="${esc(T("ord.live"))}"></iframe></div>
+          <p class="hint" style="text-align:center;margin-top:12px">${esc(T("ord.try"))}</p>${tierCard}</div>` + cta(T("ord.choose"));
       $("#demo").onload = () => { const l = $(".phone .loading"); if (l) l.remove(); };
       bindNav(0, () => go(1));
       return;
     }
-    if (step === 1) {
+    if (kind === "data2") return dataStep2(el, t, head, cta, bindNav, go);
+    if (kind === "tier") {
       if (order.rang > colorLimit()) order.rang = 1;
       const lim = colorLimit();
       el.innerHTML = head(T("ord.s2"), tplName(t)) + `
@@ -211,7 +233,7 @@
       bindNav(1, () => go(2));
       return;
     }
-    if (step === 2) {
+    if (kind === "data") {
       const fs = fields();
       const base = fs.filter((f) => f.tier === 1), extra = fs.filter((f) => f.tier > 1);
       el.innerHTML = head(T("ord.s3"), tplName(t)) + `<div class="wrap stack fade">
@@ -226,8 +248,8 @@
       });
       return;
     }
-    if (step === 3) {
-      const lim = tier().photos;
+    if (kind === "photos") {
+      const lim = t.v2 ? Math.min(tier().photos, Math.max(t.slots || 1, 6)) : tier().photos;
       el.innerHTML = head(T("ord.s4"), tplName(t)) + `<div class="wrap stack fade">
         <section class="card"><h2>${esc(T("ord.photos"))}</h2><p class="hint">${esc(T("ord.photos_hint", { tier: tierTitle(tier()), n: lim }))}</p>
           <span class="btn ghost upload" id="photoUp" style="margin-top:10px">${icon("plus", "s")}${esc(T("ord.add_photo"))}<input type="file" id="photoIn" accept="image/*" multiple></span>
@@ -270,7 +292,7 @@
           pending--; if ($("#photos")) drawPhotos();
         }
       };
-      bindNav(3, () => { if (pending) { toast(T("ord.wait_photos")); return; } go(4); });
+      bindNav(step, () => { if (pending) { toast(T("ord.wait_photos")); return; } go(step + 1); });
       return;
     }
     // 5. ko'rish va yaratish
@@ -294,12 +316,65 @@
       surp();
     });
     $("#surpDate").onchange = surp; $("#surpTime").onchange = surp;
-    bindNav(4, (btn) => create(btn));
+    bindNav(step, (btn) => create(btn));
     api("/api/catalog/preview", order, { raw: true }).then((html) => {
       const pv = $("#pv"); if (!pv) return;
       pv.srcdoc = html; pv.onload = () => { const l = $(".phone .loading"); if (l) l.remove(); };
     }).catch((e) => { const l = $(".phone .loading"); if (l) l.textContent = e.message; });
   };
+
+  // ---------------------------------------------------------------- tarifli shablon: ma'lumot va bloklar
+  function dataStep2(el, t, head, cta, bindNav, go) {
+    const sec = t.section;
+    const byKey = Object.fromEntries(S.cm.fields2[sec].filter((f) => t.fields.includes(f.key)).map((f) => [f.key, f]));
+    order.hidden = (order.hidden || []).filter((k) => t.blocks.some((b) => b.key === k));
+    const hero = t.hero.map((k) => byKey[k]).filter(Boolean);
+    const shown = t.blocks.filter((b) => !order.hidden.includes(b.key));
+    const gone = t.blocks.filter((b) => order.hidden.includes(b.key));
+    const bFields = (b) => b.fields.map((k) => byKey[k]).filter(Boolean);
+    const note = (b) => b.needs.includes("@photos") ? App.tx("ord.b_photos", "Suratlar keyingi qadamda qo'shiladi.")
+      : b.needs.includes("@music") ? App.tx("ord.b_music", "Musiqa keyingi qadamda qo'shiladi.")
+      : App.tx("ord.b_ready", "Ma'lumot kerak emas — saytda tayyor holda chiqadi.");
+    const upsell = t.tier === "standart" && S.cm.templates.some((x) => x.section === sec && tierOf(x) === "premium")
+      ? `<button type="button" class="banner" id="tryPrem">${icon("sparkle")}<span><b>${esc(App.tx("ord.try_prem", "Premium'da ko'ring"))}</b>${esc(App.tx("ord.try_prem_s", "Shu ma'lumotlar bilan saytingiz Premium dizaynda qanday ko'rinadi"))}</span>${icon("chev")}</button>` : "";
+    el.innerHTML = head(T("ord.s3"), tplName(t)) + `<div class="wrap stack fade">${upsell}
+      <section class="card stack"><h2>${esc(App.tx("ord.main", "Asosiy"))}</h2>${hero.map(fieldHtml).join("")}</section>
+      <p class="hint">${esc(App.tx("ord.b_hint", "Ma'lumot topa olmasangiz, blokni olib tashlang — sayt baribir chiroyli qoladi. Keyin qaytarish mumkin."))}</p>
+      ${shown.map((b) => `<section class="card stack blk"><div class="blk-head"><h2>${esc(blockTitle(sec, b))}</h2>
+          <button type="button" class="btn ghost sm" data-rmblk="${esc(b.key)}" aria-label="${esc(App.tx("ord.b_remove", "Olib tashlash") + ": " + blockTitle(sec, b))}">✕ ${esc(App.tx("ord.b_remove", "Olib tashlash"))}</button></div>
+          ${bFields(b).map(fieldHtml).join("") || `<p class="hint">${esc(note(b))}</p>`}</section>`).join("")}
+      ${gone.length ? `<section class="card"><h2>${esc(App.tx("ord.b_gone", "Olib tashlanganlar"))}</h2><ul class="gone">${gone.map((b) =>
+        `<li><span>${esc(blockTitle(sec, b))}</span><button type="button" class="btn ghost sm" data-backblk="${esc(b.key)}">${esc(App.tx("ord.b_back", "Qaytarish"))}</button></li>`).join("")}</ul></section>` : ""}
+      </div>` + cta(T("continue"));
+    const fs = hero.concat(...shown.map(bFields));
+    bindInfo(el, fs);
+    $$("[data-rmblk]", el).forEach((b) => (b.onclick = () => {
+      haptic(); order.hidden.push(b.dataset.rmblk); save();
+      toast(App.tx("ord.b_removed", "Blok olib tashlandi")); App.render();
+    }));
+    $$("[data-backblk]", el).forEach((b) => (b.onclick = () => {
+      haptic(); order.hidden = order.hidden.filter((k) => k !== b.dataset.backblk); save(); App.render();
+    }));
+    const tp = $("#tryPrem");
+    if (tp) tp.onclick = () => {
+      haptic();
+      const list = S.cm.templates.filter((x) => x.section === sec && tierOf(x) === "premium").sort((a, b) => (a.order || 50) - (b.order || 50));
+      const sh = App.sheet(`<div class="sh-head"><div><h1>${esc(App.tx("ord.try_prem", "Premium'da ko'ring"))}</h1>
+          <p>${esc(App.tx("ord.try_prem_p", "Tanlang — kiritgan ma'lumotlaringiz saqlanadi"))}</p></div></div>
+        <div class="carousel" style="margin:0 -18px">${list.map(App.tcard).join("")}</div>`);
+      $$("[data-tpl]", sh.el).forEach((x) => (x.onclick = () => {
+        const nt = S.cm.templates.find((y) => y.id === x.dataset.tpl);
+        sh.close(); haptic();
+        order.template = nt.id; order.tarif = nt.tier; order.hidden = []; save();
+        App.replace("order", { step: 0 });
+      }));
+    };
+    bindNav(1, () => {
+      const miss = hero.find((f) => f.required && (order.data[f.key] == null || String(order.data[f.key]).trim() === ""));
+      if (miss) { notify("error"); toast(T("err.required", { f: fLabel(miss) })); const x = $(`[data-k="${miss.key}"]`, el); if (x) { x.classList.add("bad"); x.scrollIntoView({ block: "center", behavior: "smooth" }); } return; }
+      go(2);
+    });
+  }
 
   function fieldHtml(f) {
     const v = order.data[f.key];

@@ -14,7 +14,8 @@ from pydantic import BaseModel, Field
 from . import events
 from .config import MEDIA_DIR, ROOT, settings
 from .db import Guest, Reaction, Rsvp, Session, Site, get_site, utcnow
-from .catalog import CATALOG_DIR, render_catalog
+from . import catalog2
+from .catalog import CATALOG_DIR, TEMPLATES, render_catalog
 from .render import env, on_color, render_site
 from .surprise import human, is_owner, locked_until, recipient_name
 from .videoapi import router as video_router
@@ -51,6 +52,15 @@ def _unlock_token(slug: str, password: str) -> str:
 @app.get("/", response_class=HTMLResponse)
 async def home():
     return f'<meta charset="utf-8"><div style="font:18px sans-serif;text-align:center;padding:20vh 20px">💌 <b>Tayyorla</b> — yaqinlaringiz uchun tabrik saytlari.<br><a href="https://t.me/{settings.bot_username}">Telegram bot orqali yarating</a></div>'
+
+
+@app.get("/namuna/{tid}", response_class=HTMLResponse)
+async def namuna(tid: str):
+    """Katalogdagi tarifli shablonning namunasi (namuna ma'lumotlari bilan, javoblar saqlanmaydi)."""
+    t = TEMPLATES.get(tid)
+    if not t or not t.get("v2"):
+        raise HTTPException(404)
+    return catalog2.render(t, catalog2.demo_config(t), "namuna", preview=False, demo=True)
 
 
 @app.get("/s/{slug}", response_class=HTMLResponse)
@@ -90,7 +100,7 @@ async def show(slug: str, request: Request):
             if first_view and notify:
                 await notify(site.owner_id, f"👀 Sahifangiz birinchi marta ochildi!\n{site.url}")
         page = page_for(site, preview=not site.paid, guest=guest)
-        if site.paid and not owner:
+        if site.paid and not owner and not TEMPLATES.get(site.config.get("template"), {}).get("v2"):
             page = with_react_widget(page, site)
         return page
 

@@ -1,0 +1,414 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<title>To’y taklifnomasi: Saroy</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&amp;family=Forum&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#E2C47E}a:hover{color:#F7F1E6}
+.tv-vs-g1{stop-color:#A9822F}.tv-vs-g2{stop-color:#F3DDA4}.tv-vs-g3{stop-color:#C9A24A}.tv-vs-g4{stop-color:#8A6A24}
+.tv-vs-w1{stop-color:#14503F}.tv-vs-w2{stop-color:#0C372D}
+.tv-vs-d1{stop-color:#2A7A66}.tv-vs-d2{stop-color:#145244}.tv-vs-d3{stop-color:#0B3A30}
+.tv-vs-r1{stop-color:#0C3329}.tv-vs-r2{stop-color:#061E18}
+.tv-vs-s1{stop-color:#000000;stop-opacity:.3}.tv-vs-s2{stop-color:#2E7360;stop-opacity:.22}.tv-vs-s3{stop-color:#000000;stop-opacity:.4}
+.tv-vl-g{fill:none;stroke:#C9A24A;stroke-width:1.5}
+.tv-vl-gt{fill:none;stroke:#C9A24A;stroke-width:.8}
+.tv-vl-gl{fill:none;stroke:#E2C47E;stroke-width:1}
+.tv-vl-dot{fill:none;stroke:#E2C47E;stroke-width:1.6;stroke-dasharray:.1 5;stroke-linecap:round}
+.tv-vl-ns{vector-effect:non-scaling-stroke}
+.tv-vg-l{fill:none;stroke:#C9A24A;stroke-width:.8}
+.tv-vg-d{fill:#C9A24A}
+.tv-v-icon{fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.tv-v-num{font-variant-numeric:lining-nums tabular-nums}
+.tv-v-foil{background:linear-gradient(105deg,#B8913F 0%,#F3DDA4 30%,#D4AF5E 50%,#B8913F 66%,#F0D592 86%,#C29B4C 100%);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent}
+
+/* ---------- intro: palace doors ---------- */
+.tv-vi{position:absolute;left:0;top:0;width:390px;height:844px;z-index:40;overflow:hidden;background:radial-gradient(90% 60% at 50% 32%,#1B5A4B 0%,#0F3D33 45%,#061D17 100%)}
+.tv-vi--open{pointer-events:none;animation:tv-viOut .7s ease 1.75s forwards}
+@keyframes tv-viOut{to{opacity:0;visibility:hidden}}
+.tv-vi-ray{position:absolute;top:-80px;width:110px;height:760px;transform-origin:50% 0;background:linear-gradient(180deg,rgba(241,217,160,.22),rgba(241,217,160,0) 75%);filter:blur(8px);animation:tv-ray 6s ease-in-out infinite alternate}
+@keyframes tv-ray{from{opacity:.3}to{opacity:.85}}
+.tv-vi-stage{position:absolute;left:0;top:0;width:390px;height:844px;transform-origin:195px 470px}
+.tv-vi--open .tv-vi-stage{animation:tv-viZoom 1.9s cubic-bezier(.6,0,.6,1) .3s forwards}
+@keyframes tv-viZoom{to{transform:scale(1.35)}}
+.tv-vi-inner{position:absolute;left:88px;top:192px;width:214px;height:530px;clip-path:path('M0 530V150C0 84 60 34 107 0C154 34 214 84 214 150V530Z');background:radial-gradient(70% 52% at 50% 58%,#FFFBEF 0%,#F8E3AE 30%,#D7AE5C 58%,#6B4C17 86%,#2A1D08 100%);opacity:0}
+.tv-vi--open .tv-vi-inner{animation:tv-fadeIn .7s ease .25s forwards}
+@keyframes tv-fadeIn{to{opacity:1}}
+@keyframes tv-fadeOut{to{opacity:0}}
+.tv-vi-doors{position:absolute;left:88px;top:192px;width:214px;height:530px;perspective:760px}
+.tv-vi-dl,.tv-vi-dr{position:absolute;top:0;width:107px;height:530px;backface-visibility:hidden}
+.tv-vi-dl{left:0;transform-origin:0 50%}
+.tv-vi-dr{left:107px;transform-origin:100% 50%}
+.tv-vi--open .tv-vi-dl{animation:tv-doorL 1.5s cubic-bezier(.55,.02,.25,1) .2s forwards}
+.tv-vi--open .tv-vi-dr{animation:tv-doorR 1.5s cubic-bezier(.55,.02,.25,1) .2s forwards}
+@keyframes tv-doorL{0%{transform:rotateY(0);filter:brightness(1)}12%{transform:rotateY(-4deg)}100%{transform:rotateY(98deg);filter:brightness(.5)}}
+@keyframes tv-doorR{0%{transform:rotateY(0);filter:brightness(1)}12%{transform:rotateY(4deg)}100%{transform:rotateY(-98deg);filter:brightness(.5)}}
+.tv-vi-crack{position:absolute;left:194px;top:204px;width:2px;height:516px;background:linear-gradient(180deg,rgba(255,226,160,0),#FFE3A6 16%,#FFE3A6 84%,rgba(255,226,160,0));box-shadow:0 0 10px 2px rgba(255,214,140,.7),0 0 28px 7px rgba(255,200,120,.25);animation:tv-glowPulse 2.8s ease-in-out infinite alternate}
+.tv-vi-spill{position:absolute;left:105px;top:712px;width:180px;height:38px;border-radius:50%;background:radial-gradient(closest-side,rgba(255,214,140,.6),rgba(255,214,140,0));animation:tv-glowPulse 2.8s ease-in-out infinite alternate}
+@keyframes tv-glowPulse{from{opacity:.5}to{opacity:1}}
+.tv-vi--open .tv-vi-crack,.tv-vi--open .tv-vi-spill{animation:tv-fadeOut .25s ease forwards}
+.tv-vi-flood{position:absolute;left:45px;top:320px;width:300px;height:300px;border-radius:50%;background:radial-gradient(closest-side,rgba(255,251,238,1),rgba(250,226,165,.92) 42%,rgba(201,162,74,.4) 72%,rgba(201,162,74,0));opacity:0;transform:scale(.2)}
+.tv-vi--open .tv-vi-flood{animation:tv-flood 1.4s cubic-bezier(.4,0,.2,1) .6s forwards}
+@keyframes tv-flood{0%{opacity:0;transform:scale(.2)}55%{opacity:1;transform:scale(2.4)}100%{opacity:1;transform:scale(4.4)}}
+.tv-vi-burst{position:absolute;left:195px;top:470px;width:0;height:0}
+.tv-vi-burst span{position:absolute;left:0;top:0;width:0;height:0}
+.tv-vi-burst i{position:absolute;left:-3px;top:-3px;width:6px;height:6px;border-radius:50%;background:radial-gradient(circle,#FFF7DC 0,#F1D9A0 45%,rgba(201,162,74,0) 72%);opacity:0}
+.tv-vi--open .tv-vi-burst i{animation:tv-burstA 1.3s cubic-bezier(.2,.7,.3,1) forwards}
+.tv-vi--open .tv-vi-burst i.tv-vb-b{animation-name:tv-burstB}
+@keyframes tv-burstA{0%{opacity:0;transform:translateY(0) scale(.4)}15%{opacity:1}100%{opacity:0;transform:translateY(-170px) scale(1.3)}}
+@keyframes tv-burstB{0%{opacity:0;transform:translateY(0) scale(.4)}15%{opacity:1}100%{opacity:0;transform:translateY(-260px) scale(1)}}
+.tv-v-dust{position:absolute;width:3px;height:3px;border-radius:50%;background:#F1D9A0;box-shadow:0 0 6px 1px rgba(241,217,160,.75);opacity:0;animation:tv-dust 7s linear infinite;pointer-events:none}
+@keyframes tv-dust{0%{opacity:0;transform:translate(0,0)}20%{opacity:.95}80%{opacity:.55}100%{opacity:0;transform:translate(12px,-90px)}}
+.tv-vi--open .tv-vi-ui{animation:tv-fadeOut .4s ease forwards}
+.tv-vi-frieze{position:absolute;left:58px;top:122px;width:274px;height:36px;margin:0;display:flex;align-items:center;justify-content:center;font-family:'Forum',Georgia,serif;font-size:15px;letter-spacing:.3em;color:#E2C47E}
+.tv-vi-plaque{position:absolute;left:98px;top:466px;width:194px;height:104px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;filter:drop-shadow(0 10px 18px rgba(0,0,0,.5))}
+.tv-vi-cta{position:absolute;left:0;right:0;top:778px;display:flex;justify-content:center}
+.tv-vi-cta::before{content:"";position:absolute;left:95px;top:-14px;width:200px;height:82px;border-radius:50%;background:radial-gradient(closest-side,rgba(241,217,160,.45),rgba(241,217,160,0));animation:tv-glowPulse 2.2s ease-in-out infinite alternate}
+.tv-v-btnfoil{position:relative;overflow:hidden;border:0;border-radius:999px;background:linear-gradient(120deg,#A9822F,#F1D9A0 42%,#C9A24A 62%,#8A6A24);color:#0B2E26;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;box-shadow:0 14px 34px -12px rgba(0,0,0,.75),inset 0 0 0 1px rgba(255,244,210,.45);text-decoration:none;box-sizing:border-box}
+.tv-v-btnfoil::after{content:"";position:absolute;top:-30%;left:0;width:28%;height:160%;background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,253,240,.7),rgba(255,255,255,0));transform:translateX(-220%) rotate(18deg);animation:tv-shine 5s ease-in-out 1.2s infinite}
+@keyframes tv-shine{0%{transform:translateX(-220%) rotate(18deg)}36%,100%{transform:translateX(480%) rotate(18deg)}}
+.tv-v-btnfoil:hover{background:linear-gradient(120deg,#B38C38,#F6E2B0 42%,#D2AC55 62%,#957328)}
+.tv-vi-btn{width:236px;height:54px;font-family:'Forum',Georgia,serif;font-size:17px;letter-spacing:.14em;text-transform:uppercase}
+
+.tv-v-music{position:absolute;top:14px;right:14px;z-index:60;width:44px;height:44px;border-radius:50%;border:1px solid #C9A24A;background:rgba(6,32,26,.78);color:#E2C47E;display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0}
+.tv-v-music--on{box-shadow:0 0 0 4px rgba(201,162,74,.18),0 0 18px rgba(241,217,160,.45)}
+.tv-v-eq{display:flex;align-items:flex-end;gap:2.5px;height:16px}
+.tv-v-eq i{display:block;width:3px;height:16px;border-radius:2px;background:#E2C47E;transform-origin:50% 100%;animation:tv-eq .9s ease-in-out infinite alternate}
+.tv-v-eq i:nth-child(2){animation-delay:-.3s}.tv-v-eq i:nth-child(3){animation-delay:-.6s}.tv-v-eq i:nth-child(4){animation-delay:-.15s}
+@keyframes tv-eq{from{transform:scaleY(.25)}to{transform:scaleY(1)}}
+
+/* ---------- page ---------- */
+.tv-v-rays{transform-origin:50% 50%;animation:tv-spin 80s linear infinite}
+@keyframes tv-spin{to{transform:rotate(360deg)}}
+.tv-v-glint{position:absolute;pointer-events:none;animation:tv-glint 3.6s ease-in-out infinite;opacity:0}
+@keyframes tv-glint{0%,70%,100%{opacity:0;transform:scale(.3) rotate(0)}82%{opacity:1;transform:scale(1) rotate(45deg)}}
+.tv-v-ini{float:left;width:46px;height:46px;margin:5px 10px 0 0;box-sizing:border-box;display:flex;align-items:center;justify-content:center;border:1px solid #C9A24A;border-radius:3px;background:radial-gradient(circle at 50% 40%,#1A5A4A,#0A2E26 75%);box-shadow:inset 0 0 0 3px #0A2E26,inset 0 0 0 4px rgba(226,196,126,.55);font-family:'Forum',Georgia,serif;font-style:normal;font-size:34px;line-height:1}
+.tv-v-head{display:flex;align-items:center;justify-content:center;gap:14px}
+.tv-v-hl{position:relative;flex:0 0 38px;height:1px;background:linear-gradient(90deg,rgba(201,162,74,0),#C9A24A)}
+.tv-v-hl::before,.tv-v-hl::after{content:"";position:absolute;right:-4px;top:-3.5px;width:7px;height:7px;background:#C9A24A}
+.tv-v-hl::after{transform:rotate(45deg)}
+.tv-v-hl--r{background:linear-gradient(270deg,rgba(201,162,74,0),#C9A24A)}
+.tv-v-hl--r::before,.tv-v-hl--r::after{right:auto;left:-4px}
+.tv-v-h2{margin:0;font-family:'Forum',Georgia,serif;font-weight:400;font-size:24px;line-height:30px;letter-spacing:.14em}
+.tv-v-band{display:block;flex:none}
+.tv-v-flip{position:relative;width:72px;height:84px;perspective:300px;border-radius:10px;box-shadow:0 16px 26px -14px rgba(0,0,0,.8),0 0 0 1px rgba(201,162,74,.55)}
+.tv-v-fh{position:absolute;left:0;width:72px;height:42px;overflow:hidden;background:linear-gradient(180deg,#15493C,#0D3329);backface-visibility:hidden}
+.tv-v-fh--t{top:0;border-radius:10px 10px 0 0;transform-origin:50% 100%}
+.tv-v-fh--b{top:42px;border-radius:0 0 10px 10px;transform-origin:50% 0;background:linear-gradient(180deg,#0B3027,#08261F)}
+.tv-v-fd{display:block;width:72px;height:84px;line-height:84px;text-align:center;font-family:'Forum',Georgia,serif;font-size:42px}
+.tv-v-fh--b .tv-v-fd{margin-top:-42px}
+.tv-v-ftop,.tv-v-fbot{z-index:2}
+.tv-v-fbot{transform:rotateX(90deg)}
+.tv-v-flip--a .tv-v-ftop{animation:tv-ftA .3s ease-in forwards}
+.tv-v-flip--b .tv-v-ftop{animation:tv-ftB .3s ease-in forwards}
+.tv-v-flip--a .tv-v-fbot{animation:tv-fbA .3s ease-out .3s forwards}
+.tv-v-flip--b .tv-v-fbot{animation:tv-fbB .3s ease-out .3s forwards}
+@keyframes tv-ftA{from{transform:rotateX(0)}to{transform:rotateX(-90deg)}}
+@keyframes tv-ftB{from{transform:rotateX(0)}to{transform:rotateX(-90deg)}}
+@keyframes tv-fbA{from{transform:rotateX(90deg)}to{transform:rotateX(0)}}
+@keyframes tv-fbB{from{transform:rotateX(90deg)}to{transform:rotateX(0)}}
+.tv-v-hinge{position:absolute;left:0;right:0;top:41.5px;height:1px;z-index:3;background:rgba(0,0,0,.6);box-shadow:0 1px 0 rgba(201,162,74,.25)}
+.tv-v-hinge::before,.tv-v-hinge::after{content:"";position:absolute;top:-3px;width:4px;height:7px;border-radius:2px;background:#C9A24A}
+.tv-v-hinge::before{left:-2px}.tv-v-hinge::after{right:-2px}
+.tv-v-btnline{display:flex;align-items:center;justify-content:center;gap:10px;height:50px;border-radius:999px;border:1px solid #C9A24A;background:rgba(6,32,26,.55);color:#E2C47E;font-family:inherit;font-size:18px;font-weight:600;text-decoration:none;box-sizing:border-box;cursor:pointer}
+.tv-v-btnline:hover{background:rgba(201,162,74,.14);color:#F7F1E6}
+.tv-v-venue{position:relative;width:342px;height:164px}
+.tv-v-clip{clip-path:path('M0 164V62C0 34 96 11 171 0C246 11 342 34 342 62V164Z')}
+.tv-v-tl{display:grid;grid-template-columns:70px 30px minmax(0,1fr);align-items:center;height:52px}
+.tv-v-node{justify-self:center;position:relative;width:9px;height:9px;z-index:1}
+.tv-v-node::before,.tv-v-node::after{content:"";position:absolute;left:0;top:0;width:9px;height:9px;background:#E2C47E;box-shadow:0 0 8px rgba(241,217,160,.6)}
+.tv-v-node::after{transform:rotate(45deg)}
+.tv-v-niche{position:relative;height:190px;box-sizing:border-box;padding:44px 7px 0;display:flex;flex-direction:column;align-items:center;text-align:center}
+.tv-v-ph{position:absolute;box-sizing:border-box;padding:5px;background:#0A2E26;border:1px solid #C9A24A;box-shadow:0 22px 34px -18px rgba(0,0,0,.85)}
+.tv-v-ph::before{content:"";position:absolute;left:-7px;top:-7px;right:-7px;bottom:-7px;border:1px solid rgba(201,162,74,.38);pointer-events:none}
+.tv-v-ph img{display:block;width:100%;height:100%;object-fit:cover}
+.tv-v-float1{animation:tv-float1 7s ease-in-out infinite alternate}
+.tv-v-float2{animation:tv-float2 8s ease-in-out infinite alternate}
+@keyframes tv-float1{from{transform:translateY(-5px)}to{transform:translateY(6px)}}
+@keyframes tv-float2{from{transform:translateY(6px)}to{transform:translateY(-6px)}}
+.tv-v-sw{display:flex;flex-direction:column;align-items:center;gap:8px}
+.tv-v-dotc{width:48px;height:48px;border-radius:50%;box-shadow:0 0 0 1px #C9A24A,0 0 0 4px rgba(15,61,51,1),0 0 0 5px rgba(201,162,74,.45)}
+.tv-v-card{position:relative;box-sizing:border-box;border:1px solid rgba(201,162,74,.55);border-radius:18px;background:linear-gradient(180deg,rgba(6,32,26,.75),rgba(6,32,26,.45));box-shadow:inset 0 0 0 4px rgba(15,61,51,.6),inset 0 0 0 5px rgba(201,162,74,.22)}
+.tv-v-opt{flex:1 1 0;min-width:0;height:50px;box-sizing:border-box;border-radius:12px;border:1px solid rgba(201,162,74,.45);background:rgba(6,32,26,.5);display:flex;align-items:center;gap:8px;padding:0 10px;cursor:pointer;font-size:16px;font-weight:600;color:#F7F1E6;white-space:nowrap;transition:background-color .25s,border-color .25s}
+.tv-v-opt--on{border-color:#E2C47E;background:rgba(201,162,74,.16);box-shadow:inset 0 0 0 1px #E2C47E}
+.tv-v-radio{appearance:none;-webkit-appearance:none;flex:none;width:20px;height:20px;margin:0;border-radius:50%;border:1.5px solid #C9A24A;background:transparent;cursor:pointer}
+.tv-v-radio:checked{background:radial-gradient(circle,#F1D9A0 0 36%,rgba(0,0,0,0) 42%);border-color:#E2C47E}
+.tv-v-radio:focus-visible,.tv-v-step:focus-visible,.tv-v-ta:focus-visible{outline:2px solid #F1D9A0;outline-offset:2px}
+.tv-v-step{width:44px;height:44px;border-radius:50%;border:1px solid #C9A24A;background:rgba(6,32,26,.6);color:#E2C47E;display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0}
+.tv-v-step:disabled{opacity:.38;cursor:default}
+.tv-v-stepper{display:flex;align-items:center;gap:14px;transition:opacity .25s}
+.tv-v-stepper--off{opacity:.4}
+.tv-v-ta{display:block;width:100%;height:60px;box-sizing:border-box;resize:none;border-radius:12px;border:1px solid rgba(201,162,74,.45);background:rgba(6,32,26,.6);color:#F7F1E6;font-family:inherit;font-size:17px;font-style:italic;line-height:1.35;padding:9px 12px}
+.tv-v-ta::placeholder{color:#9DB3A9}
+@media (prefers-reduced-motion: reduce){
+  .tv-vi *,.tv-vi-cta::before,.tv-v-dust,.tv-v-glint,.tv-v-rays,.tv-v-float1,.tv-v-float2,.tv-v-btnfoil::after,.tv-v-eq i{animation:none !important}
+  .tv-vi--open{animation:none;opacity:0;visibility:hidden}
+  .tv-v-ftop{display:none}
+  .tv-v-fbot{animation:none !important;transform:none}
+  .tv-v-opt,.tv-v-stepper{transition:none}
+}
+</style>
+</helmet>
+<div style="width: 390px; height: 3600px; position: relative; overflow: hidden; background: #0F3D33; color: #F7F1E6; font-family: 'Cormorant Garamond', Georgia, 'Times New Roman', serif; display: flex; flex-direction: column">
+
+  <svg width="0" height="0" aria-hidden="true" style="position: absolute; left: 0; top: 0">
+    <defs><linearGradient id="toyV-vGold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" class="tv-vs-g1"></stop><stop offset="0.38" class="tv-vs-g2"></stop><stop offset="0.62" class="tv-vs-g3"></stop><stop offset="1" class="tv-vs-g4"></stop></linearGradient><linearGradient id="toyV-vGoldH" x1="0" y1="0" x2="1" y2="0"><stop offset="0" class="tv-vs-g4"></stop><stop offset="0.5" class="tv-vs-g2"></stop><stop offset="1" class="tv-vs-g4"></stop></linearGradient><linearGradient id="toyV-vWall" x1="0" y1="0" x2="0" y2="1"><stop offset="0" class="tv-vs-w1"></stop><stop offset="1" class="tv-vs-w2"></stop></linearGradient><radialGradient id="toyV-vDome" cx="0.38" cy="0.3" r="0.8"><stop offset="0" class="tv-vs-d1"></stop><stop offset="0.6" class="tv-vs-d2"></stop><stop offset="1" class="tv-vs-d3"></stop></radialGradient><linearGradient id="toyV-vDoor" x1="0" y1="0" x2="0" y2="1"><stop offset="0" class="tv-vs-r1"></stop><stop offset="1" class="tv-vs-r2"></stop></linearGradient><linearGradient id="toyV-vSheen" x1="0" y1="0" x2="1" y2="0"><stop offset="0" class="tv-vs-s1"></stop><stop offset="0.55" class="tv-vs-s2"></stop><stop offset="1" class="tv-vs-s3"></stop></linearGradient><pattern id="toyV-vGirih" width="44" height="44" patternUnits="userSpaceOnUse"><polygon class="tv-vg-l" points="22,0 27.4,9 37.6,6.4 35,16.6 44,22 35,27.4 37.6,37.6 27.4,35 22,44 16.6,35 6.4,37.6 9,27.4 0,22 9,16.6 6.4,6.4 16.6,9"></polygon><polygon class="tv-vg-l" points="22,12.8 24.9,15 28.5,15.5 29,19.1 31.2,22 29,24.9 28.5,28.5 24.9,29 22,31.2 19.1,29 15.5,28.5 15,24.9 12.8,22 15,19.1 15.5,15.5 19.1,15"></polygon><circle class="tv-vg-d" cx="22" cy="22" r="1.4"></circle><circle class="tv-vg-d" cx="0" cy="0" r="1.2"></circle><circle class="tv-vg-d" cx="44" cy="0" r="1.2"></circle><circle class="tv-vg-d" cx="0" cy="44" r="1.2"></circle><circle class="tv-vg-d" cx="44" cy="44" r="1.2"></circle></pattern><pattern id="toyV-vBand" width="12" height="12" patternUnits="userSpaceOnUse"><rect width="12" height="12" fill="#0B3229"></rect><path d="M6 1.5L10.5 6L6 10.5L1.5 6Z" fill="none" stroke="#B8923F"></path><circle cx="6" cy="6" r="1.3" fill="#E2C47E"></circle><circle cx="0" cy="0" r="1" fill="#C9A24A"></circle><circle cx="12" cy="0" r="1" fill="#C9A24A"></circle><circle cx="0" cy="12" r="1" fill="#C9A24A"></circle><circle cx="12" cy="12" r="1" fill="#C9A24A"></circle></pattern></defs>
+  </svg>
+  <svg width="390" height="3600" viewBox="0 0 390 3600" aria-hidden="true" style="position: absolute; left: 0; top: 0; opacity: 0.075; pointer-events: none"><rect width="390" height="3600" fill="url(#toyV-vGirih) #0F3D33"></rect></svg>
+
+  <button type="button" class="{{ musicCls }}" aria-label="{{ musicLabel }}" aria-pressed="{{ musicOn }}" onClick="{{ toggleMusic }}">
+    <sc-if value="{{ musicOn }}" hint-placeholder-val="{{ false }}"><span class="tv-v-eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span></sc-if>
+    <sc-if value="{{ musicOff }}" hint-placeholder-val="{{ true }}"><svg class="tv-v-icon" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V5.5l11-2.2v12.5"></path><circle cx="6.2" cy="18" r="2.8"></circle><circle cx="17.2" cy="15.8" r="2.8"></circle></svg></sc-if>
+  </button>
+  <div class="{{ introCls }}" aria-hidden="{{ introHidden }}">
+    <svg width="390" height="844" viewBox="0 0 390 844" aria-hidden="true" style="position: absolute; left: 0; top: 0; opacity: 0.1"><rect width="390" height="844" fill="url(#toyV-vGirih) #0F3D33"></rect></svg>
+    <div class="tv-vi-ray" style="left: 6px; transform: rotate(18deg)"></div>
+    <div class="tv-vi-ray" style="left: 274px; transform: rotate(-18deg); animation-delay: -3s"></div>
+    <div class="tv-vi-stage">
+      <svg width="390" height="844" viewBox="0 0 390 844" aria-hidden="true" style="position: absolute; left: 0; top: 0"><rect x="138" y="78" width="114" height="30" fill="#0C3A30"></rect><path class="tv-vl-gt" opacity="0.6" d="M150 82V108M164 82V108M178 82V108M192 82V108M206 82V108M220 82V108M234 82V108"></path><path d="M130 86C120 46 158 20 195 14C232 20 270 46 260 86Z" fill="url(#toyV-vDome) #155446"></path><path class="tv-vl-gt" opacity="0.75" d="M133 86Q119 38 195 14M148.5 86Q138 38 195 14M164 86Q157 38 195 14M179.5 86Q176 38 195 14M195 86Q195 38 195 14M210.5 86Q214 38 195 14M226 86Q233 38 195 14M241.5 86Q252 38 195 14M257 86Q271 38 195 14"></path><path class="tv-vl-g" d="M130 86C120 46 158 20 195 14C232 20 270 46 260 86"></path><rect x="128" y="82" width="134" height="6" fill="url(#toyV-vGold) #C9A24A"></rect><path class="tv-vl-g" d="M195 14V3"></path><circle cx="195" cy="7" r="3" fill="url(#toyV-vGold) #C9A24A"></circle><rect x="26" y="74" width="20" height="648" fill="url(#toyV-vWall) #0E4136"></rect><rect x="26.5" y="74.5" width="19" height="647" class="tv-vl-gt"></rect><path class="tv-vl-gt" opacity="0.55" d="M31 84V712M36 84V712M41 84V712"></path><rect x="24" y="74" width="24" height="6" fill="url(#toyV-vGold) #C9A24A"></rect><rect x="24" y="296" width="24" height="6" fill="url(#toyV-vGold) #C9A24A"></rect><rect x="24" y="520" width="24" height="6" fill="url(#toyV-vGold) #C9A24A"></rect><rect x="24" y="712" width="24" height="6" fill="url(#toyV-vGold) #C9A24A"></rect><path d="M24 74C24 60 32 52 36 44C40 52 48 60 48 74Z" fill="url(#toyV-vDome) #155446"></path><path class="tv-vl-gt" d="M24 74C24 60 32 52 36 44C40 52 48 60 48 74"></path><path class="tv-vl-gt" d="M36 44V34"></path><circle cx="36" cy="33" r="2" fill="#E2C47E"></circle><rect x="344" y="74" width="20" height="648" fill="url(#toyV-vWall) #0E4136"></rect><rect x="344.5" y="74.5" width="19" height="647" class="tv-vl-gt"></rect><path class="tv-vl-gt" opacity="0.55" d="M349 84V712M354 84V712M359 84V712"></path><rect x="342" y="74" width="24" height="6" fill="url(#toyV-vGold) #C9A24A"></rect><rect x="342" y="296" width="24" height="6" fill="url(#toyV-vGold) #C9A24A"></rect><rect x="342" y="520" width="24" height="6" fill="url(#toyV-vGold) #C9A24A"></rect><rect x="342" y="712" width="24" height="6" fill="url(#toyV-vGold) #C9A24A"></rect><path d="M342 74C342 60 350 52 354 44C358 52 366 60 366 74Z" fill="url(#toyV-vDome) #155446"></path><path class="tv-vl-gt" d="M342 74C342 60 350 52 354 44C358 52 366 60 366 74"></path><path class="tv-vl-gt" d="M354 44V34"></path><circle cx="354" cy="33" r="2" fill="#E2C47E"></circle><rect x="40" y="104" width="310" height="618" fill="url(#toyV-vWall) #0E4136"></rect><rect x="46" y="110" width="298" height="612" fill="url(#toyV-vBand) #0B3229"></rect><rect x="58" y="122" width="274" height="600" fill="url(#toyV-vWall) #0E4136"></rect><rect x="40.75" y="104.75" width="308.5" height="617" class="tv-vl-g"></rect><rect x="57.5" y="121.5" width="275" height="601" class="tv-vl-gt"></rect><rect x="58" y="122" width="274" height="36" fill="#0A2C25"></rect><path class="tv-vl-g" d="M58 158.5H332"></path><path class="tv-vl-gt" d="M58 126.5H332M58 154H332"></path><polygon points="104,188 110.2,199.1 122.4,195.6 118.9,207.8 130,214 118.9,220.2 122.4,232.4 110.2,228.9 104,240 97.8,228.9 85.6,232.4 89.1,220.2 78,214 89.1,207.8 85.6,195.6 97.8,199.1" fill="#0A2C25" class="tv-vl-g"></polygon><polygon points="109,202 110.4,207.6 116,209 113.1,214 116,219 110.4,220.4 109,226 104,223.1 99,226 97.6,220.4 92,219 94.9,214 92,209 97.6,207.6 99,202 104,204.9" class="tv-vl-gt"></polygon><circle cx="104" cy="214" r="3.4" fill="url(#toyV-vGold) #C9A24A"></circle><circle cx="138" cy="214" r="1.1" fill="#E2C47E"></circle><circle cx="135.4" cy="227" r="1.1" fill="#E2C47E"></circle><circle cx="128" cy="238" r="1.1" fill="#E2C47E"></circle><circle cx="117" cy="245.4" r="1.1" fill="#E2C47E"></circle><circle cx="104" cy="248" r="1.1" fill="#E2C47E"></circle><circle cx="91" cy="245.4" r="1.1" fill="#E2C47E"></circle><circle cx="80" cy="238" r="1.1" fill="#E2C47E"></circle><circle cx="72.6" cy="227" r="1.1" fill="#E2C47E"></circle><circle cx="70" cy="214" r="1.1" fill="#E2C47E"></circle><circle cx="72.6" cy="201" r="1.1" fill="#E2C47E"></circle><circle cx="80" cy="190" r="1.1" fill="#E2C47E"></circle><circle cx="91" cy="182.6" r="1.1" fill="#E2C47E"></circle><circle cx="104" cy="180" r="1.1" fill="#E2C47E"></circle><circle cx="117" cy="182.6" r="1.1" fill="#E2C47E"></circle><circle cx="128" cy="190" r="1.1" fill="#E2C47E"></circle><circle cx="135.4" cy="201" r="1.1" fill="#E2C47E"></circle><polygon points="286,188 292.2,199.1 304.4,195.6 300.9,207.8 312,214 300.9,220.2 304.4,232.4 292.2,228.9 286,240 279.8,228.9 267.6,232.4 271.1,220.2 260,214 271.1,207.8 267.6,195.6 279.8,199.1" fill="#0A2C25" class="tv-vl-g"></polygon><polygon points="291,202 292.4,207.6 298,209 295.1,214 298,219 292.4,220.4 291,226 286,223.1 281,226 279.6,220.4 274,219 276.9,214 274,209 279.6,207.6 281,202 286,204.9" class="tv-vl-gt"></polygon><circle cx="286" cy="214" r="3.4" fill="url(#toyV-vGold) #C9A24A"></circle><circle cx="320" cy="214" r="1.1" fill="#E2C47E"></circle><circle cx="317.4" cy="227" r="1.1" fill="#E2C47E"></circle><circle cx="310" cy="238" r="1.1" fill="#E2C47E"></circle><circle cx="299" cy="245.4" r="1.1" fill="#E2C47E"></circle><circle cx="286" cy="248" r="1.1" fill="#E2C47E"></circle><circle cx="273" cy="245.4" r="1.1" fill="#E2C47E"></circle><circle cx="262" cy="238" r="1.1" fill="#E2C47E"></circle><circle cx="254.6" cy="227" r="1.1" fill="#E2C47E"></circle><circle cx="252" cy="214" r="1.1" fill="#E2C47E"></circle><circle cx="254.6" cy="201" r="1.1" fill="#E2C47E"></circle><circle cx="262" cy="190" r="1.1" fill="#E2C47E"></circle><circle cx="273" cy="182.6" r="1.1" fill="#E2C47E"></circle><circle cx="286" cy="180" r="1.1" fill="#E2C47E"></circle><circle cx="299" cy="182.6" r="1.1" fill="#E2C47E"></circle><circle cx="310" cy="190" r="1.1" fill="#E2C47E"></circle><circle cx="317.4" cy="201" r="1.1" fill="#E2C47E"></circle><path d="M74 722V340C74 268 140 212 195 176C250 212 316 268 316 340V722Z" fill="url(#toyV-vBand) #0B3229"></path><path class="tv-vl-g" d="M74 722V340C74 268 140 212 195 176C250 212 316 268 316 340V722Z"></path><path d="M88 722V342C88 276 148 226 195 192C242 226 302 276 302 342V722Z" fill="#03120E"></path><path class="tv-vl-gl" d="M88 722V342C88 276 148 226 195 192C242 226 302 276 302 342V722Z"></path><polygon points="195,167 197.1,170.9 201.4,169.6 200.1,173.9 204,176 200.1,178.1 201.4,182.4 197.1,181.1 195,185 192.9,181.1 188.6,182.4 189.9,178.1 186,176 189.9,173.9 188.6,169.6 192.9,170.9" fill="url(#toyV-vGold) #C9A24A"></polygon><rect x="62" y="342" width="10" height="370" fill="#0E4136"></rect><rect x="62.4" y="342" width="9.2" height="370" class="tv-vl-gt"></rect><path class="tv-vl-gt" opacity="0.7" d="M62 342L72 349M62 351L72 358M62 360L72 367M62 369L72 376M62 378L72 385M62 387L72 394M62 396L72 403M62 405L72 412M62 414L72 421M62 423L72 430M62 432L72 439M62 441L72 448M62 450L72 457M62 459L72 466M62 468L72 475M62 477L72 484M62 486L72 493M62 495L72 502M62 504L72 511M62 513L72 520M62 522L72 529M62 531L72 538M62 540L72 547M62 549L72 556M62 558L72 565M62 567L72 574M62 576L72 583M62 585L72 592M62 594L72 601M62 603L72 610M62 612L72 619M62 621L72 628M62 630L72 637M62 639L72 646M62 648L72 655M62 657L72 664M62 666L72 673M62 675L72 682M62 684L72 691M62 693L72 700M62 702L72 709M62 711L72 718"></path><rect x="59" y="330" width="16" height="12" fill="url(#toyV-vGold) #C9A24A"></rect><rect x="59" y="710" width="16" height="12" fill="url(#toyV-vGold) #C9A24A"></rect><rect x="318" y="342" width="10" height="370" fill="#0E4136"></rect><rect x="318.4" y="342" width="9.2" height="370" class="tv-vl-gt"></rect><path class="tv-vl-gt" opacity="0.7" d="M318 342L328 349M318 351L328 358M318 360L328 367M318 369L328 376M318 378L328 385M318 387L328 394M318 396L328 403M318 405L328 412M318 414L328 421M318 423L328 430M318 432L328 439M318 441L328 448M318 450L328 457M318 459L328 466M318 468L328 475M318 477L328 484M318 486L328 493M318 495L328 502M318 504L328 511M318 513L328 520M318 522L328 529M318 531L328 538M318 540L328 547M318 549L328 556M318 558L328 565M318 567L328 574M318 576L328 583M318 585L328 592M318 594L328 601M318 603L328 610M318 612L328 619M318 621L328 628M318 630L328 637M318 639L328 646M318 648L328 655M318 657L328 664M318 666L328 673M318 675L328 682M318 684L328 691M318 693L328 700M318 702L328 709M318 711L328 718"></path><rect x="315" y="330" width="16" height="12" fill="url(#toyV-vGold) #C9A24A"></rect><rect x="315" y="710" width="16" height="12" fill="url(#toyV-vGold) #C9A24A"></rect><rect x="18" y="722" width="354" height="10" fill="#0A2C25"></rect><path class="tv-vl-g" d="M18 722.5H372"></path><polygon points="22,732 368,732 380,756 10,756" fill="#124537"></polygon><path class="tv-vl-gt" d="M22 732.5H368"></path><polygon points="10,756 380,756 390,782 0,782" fill="#0E3B31"></polygon><path class="tv-vl-gt" d="M10 756.5H380"></path><rect x="0" y="782" width="390" height="62" fill="#0A2C25"></rect><path class="tv-vl-gt" opacity="0.7" d="M0 782.5H390"></path></svg>
+      <div class="tv-vi-inner"></div>
+      <div class="tv-vi-doors">
+        <div class="tv-vi-dl"><svg width="107" height="530" viewBox="0 0 107 530" aria-hidden="true" style="display: block"><path d="M0 530V150C0 84 60 34 107 0V530Z" fill="url(#toyV-vDoor) #0C3329"></path><path d="M0 530V150C0 84 60 34 107 0V530Z" fill="url(#toyV-vSheen) #0C3329" opacity="0.9"></path><path class="tv-vl-gt" d="M7 523V152C7 92 58 48 100 16V523Z"></path><path class="tv-vl-gt" d="M18 152C18 112 52 84 92 62V152Z"></path><polygon points="62,105 65.6,111.2 72.6,109.4 70.8,116.4 77,120 70.8,123.6 72.6,130.6 65.6,128.8 62,135 58.4,128.8 51.4,130.6 53.2,123.6 47,120 53.2,116.4 51.4,109.4 58.4,111.2" class="tv-vl-g"></polygon><circle cx="62" cy="120" r="2.4" fill="#E2C47E"></circle><rect x="16.5" y="172.5" width="77" height="92" class="tv-vl-gl"></rect><rect x="21.5" y="177.5" width="67" height="82" class="tv-vl-gt"></rect><polygon points="55,188.5 62.1,201.3 76.2,197.3 72.2,211.4 85,218.5 72.2,225.6 76.2,239.7 62.1,235.7 55,248.5 47.9,235.7 33.8,239.7 37.8,225.6 25,218.5 37.8,211.4 33.8,197.3 47.9,201.3" class="tv-vl-g"></polygon><polygon points="60,206.5 61.4,212.1 67,213.5 64,218.5 67,223.5 61.4,224.9 60,230.5 55,227.5 50,230.5 48.6,224.9 43,223.5 46,218.5 43,213.5 48.6,212.1 50,206.5 55,209.5" class="tv-vl-gt"></polygon><circle cx="55" cy="218.5" r="3" fill="url(#toyV-vGold) #C9A24A"></circle><rect x="16.5" y="282.5" width="77" height="96" class="tv-vl-gl"></rect><rect x="16.5" y="396.5" width="77" height="110" class="tv-vl-gl"></rect><rect x="21.5" y="401.5" width="67" height="100" class="tv-vl-gt"></rect><path class="tv-vl-gt" opacity="0.5" d="M22 475.3L35 501M22 447.5L49 501M22 419.8L63 501M27 402L77 501M27 402L22 411.9M41 402L88 495.1M41 402L22 439.6M55 402L88 467.3M55 402L22 467.3M69 402L88 439.6M69 402L22 495.1M83 402L88 411.9M83 402L33 501M88 419.8L47 501M88 447.5L61 501M88 475.3L75 501"></path><circle cx="11" cy="176" r="1.5" fill="#E2C47E"></circle><circle cx="11" cy="198" r="1.5" fill="#E2C47E"></circle><circle cx="11" cy="220" r="1.5" fill="#E2C47E"></circle><circle cx="11" cy="242" r="1.5" fill="#E2C47E"></circle><circle cx="11" cy="264" r="1.5" fill="#E2C47E"></circle><circle cx="11" cy="286" r="1.5" fill="#E2C47E"></circle><circle cx="11" cy="308" r="1.5" fill="#E2C47E"></circle><circle cx="11" cy="330" r="1.5" fill="#E2C47E"></circle><circle cx="11" cy="352" r="1.5" fill="#E2C47E"></circle><circle cx="11" cy="374" r="1.5" fill="#E2C47E"></circle><circle cx="11" cy="396" r="1.5" fill="#E2C47E"></circle><circle cx="11" cy="418" r="1.5" fill="#E2C47E"></circle><circle cx="11" cy="440" r="1.5" fill="#E2C47E"></circle><circle cx="11" cy="462" r="1.5" fill="#E2C47E"></circle><circle cx="11" cy="484" r="1.5" fill="#E2C47E"></circle><circle cx="11" cy="506" r="1.5" fill="#E2C47E"></circle><circle cx="92" cy="386" r="4.5" fill="url(#toyV-vGold) #C9A24A"></circle><circle cx="92" cy="397" r="9.5" class="tv-vl-g"></circle><path class="tv-vl-gt" d="M106.5 0V530"></path></svg></div>
+        <div class="tv-vi-dr"><svg width="107" height="530" viewBox="0 0 107 530" aria-hidden="true" style="display: block"><g transform="translate(107 0) scale(-1 1)"><path d="M0 530V150C0 84 60 34 107 0V530Z" fill="url(#toyV-vDoor) #0C3329"></path><path d="M0 530V150C0 84 60 34 107 0V530Z" fill="url(#toyV-vSheen) #0C3329" opacity="0.9"></path><path class="tv-vl-gt" d="M7 523V152C7 92 58 48 100 16V523Z"></path><path class="tv-vl-gt" d="M18 152C18 112 52 84 92 62V152Z"></path><polygon points="62,105 65.6,111.2 72.6,109.4 70.8,116.4 77,120 70.8,123.6 72.6,130.6 65.6,128.8 62,135 58.4,128.8 51.4,130.6 53.2,123.6 47,120 53.2,116.4 51.4,109.4 58.4,111.2" class="tv-vl-g"></polygon><circle cx="62" cy="120" r="2.4" fill="#E2C47E"></circle><rect x="16.5" y="172.5" width="77" height="92" class="tv-vl-gl"></rect><rect x="21.5" y="177.5" width="67" height="82" class="tv-vl-gt"></rect><polygon points="55,188.5 62.1,201.3 76.2,197.3 72.2,211.4 85,218.5 72.2,225.6 76.2,239.7 62.1,235.7 55,248.5 47.9,235.7 33.8,239.7 37.8,225.6 25,218.5 37.8,211.4 33.8,197.3 47.9,201.3" class="tv-vl-g"></polygon><polygon points="60,206.5 61.4,212.1 67,213.5 64,218.5 67,223.5 61.4,224.9 60,230.5 55,227.5 50,230.5 48.6,224.9 43,223.5 46,218.5 43,213.5 48.6,212.1 50,206.5 55,209.5" class="tv-vl-gt"></polygon><circle cx="55" cy="218.5" r="3" fill="url(#toyV-vGold) #C9A24A"></circle><rect x="16.5" y="282.5" width="77" height="96" class="tv-vl-gl"></rect><rect x="16.5" y="396.5" width="77" height="110" class="tv-vl-gl"></rect><rect x="21.5" y="401.5" width="67" height="100" class="tv-vl-gt"></rect><path class="tv-vl-gt" opacity="0.5" d="M22 475.3L35 501M22 447.5L49 501M22 419.8L63 501M27 402L77 501M27 402L22 411.9M41 402L88 495.1M41 402L22 439.6M55 402L88 467.3M55 402L22 467.3M69 402L88 439.6M69 402L22 495.1M83 402L88 411.9M83 402L33 501M88 419.8L47 501M88 447.5L61 501M88 475.3L75 501"></path><circle cx="11" cy="176" r="1.5" fill="#E2C47E"></circle><circle cx="11" cy="198" r="1.5" fill="#E2C47E"></circle><circle cx="11" cy="220" r="1.5" fill="#E2C47E"></circle><circle cx="11" cy="242" r="1.5" fill="#E2C47E"></circle><circle cx="11" cy="264" r="1.5" fill="#E2C47E"></circle><circle cx="11" cy="286" r="1.5" fill="#E2C47E"></circle><circle cx="11" cy="308" r="1.5" fill="#E2C47E"></circle><circle cx="11" cy="330" r="1.5" fill="#E2C47E"></circle><circle cx="11" cy="352" r="1.5" fill="#E2C47E"></circle><circle cx="11" cy="374" r="1.5" fill="#E2C47E"></circle><circle cx="11" cy="396" r="1.5" fill="#E2C47E"></circle><circle cx="11" cy="418" r="1.5" fill="#E2C47E"></circle><circle cx="11" cy="440" r="1.5" fill="#E2C47E"></circle><circle cx="11" cy="462" r="1.5" fill="#E2C47E"></circle><circle cx="11" cy="484" r="1.5" fill="#E2C47E"></circle><circle cx="11" cy="506" r="1.5" fill="#E2C47E"></circle><circle cx="92" cy="386" r="4.5" fill="url(#toyV-vGold) #C9A24A"></circle><circle cx="92" cy="397" r="9.5" class="tv-vl-g"></circle><path class="tv-vl-gt" d="M106.5 0V530"></path></g></svg></div>
+      </div>
+      <div class="tv-vi-crack"></div>
+      <div class="tv-vi-spill"></div>
+    </div>
+    <i class="tv-v-dust" style="left: 179px; top: 214px; animation-duration: 7.1s; animation-delay: -0.4s"></i><i class="tv-v-dust" style="left: 288px; top: 156px; animation-duration: 7.0s; animation-delay: -0.5s"></i><i class="tv-v-dust" style="left: 273px; top: 279px; animation-duration: 5.6s; animation-delay: -3.5s"></i><i class="tv-v-dust" style="left: 49px; top: 306px; animation-duration: 5.9s; animation-delay: -3.4s"></i><i class="tv-v-dust" style="left: 303px; top: 186px; animation-duration: 9.3s; animation-delay: -5.0s"></i><i class="tv-v-dust" style="left: 312px; top: 123px; animation-duration: 7.8s; animation-delay: -3.2s"></i><i class="tv-v-dust" style="left: 127px; top: 107px; animation-duration: 7.7s; animation-delay: -1.1s"></i><i class="tv-v-dust" style="left: 228px; top: 207px; animation-duration: 7.7s; animation-delay: -4.6s"></i><i class="tv-v-dust" style="left: 300px; top: 758px; animation-duration: 6.2s; animation-delay: -4.7s"></i><i class="tv-v-dust" style="left: 341px; top: 252px; animation-duration: 7.0s; animation-delay: -4.4s"></i><i class="tv-v-dust" style="left: 46px; top: 637px; animation-duration: 5.7s; animation-delay: -1.6s"></i><i class="tv-v-dust" style="left: 362px; top: 604px; animation-duration: 7.2s; animation-delay: -2.5s"></i><i class="tv-v-dust" style="left: 313px; top: 524px; animation-duration: 6.9s; animation-delay: -2.0s"></i><i class="tv-v-dust" style="left: 106px; top: 775px; animation-duration: 8.6s; animation-delay: -0.7s"></i><i class="tv-v-dust" style="left: 167px; top: 597px; animation-duration: 7.5s; animation-delay: -2.7s"></i><i class="tv-v-dust" style="left: 243px; top: 354px; animation-duration: 7.9s; animation-delay: -0.6s"></i><i class="tv-v-dust" style="left: 276px; top: 488px; animation-duration: 6.2s; animation-delay: -2.7s"></i><i class="tv-v-dust" style="left: 264px; top: 491px; animation-duration: 5.7s; animation-delay: -5.3s"></i>
+    <div class="tv-vi-flood"></div>
+    <div class="tv-vi-burst"><span style="transform: rotate(-5deg)"><i class="tv-vb-b" style="animation-delay: 0.35s"></i></span><span style="transform: rotate(27deg)"><i class="tv-vb-a" style="animation-delay: 0.41s"></i></span><span style="transform: rotate(35deg)"><i class="tv-vb-a" style="animation-delay: 0.47s"></i></span><span style="transform: rotate(67deg)"><i class="tv-vb-b" style="animation-delay: 0.53s"></i></span><span style="transform: rotate(75deg)"><i class="tv-vb-a" style="animation-delay: 0.59s"></i></span><span style="transform: rotate(107deg)"><i class="tv-vb-a" style="animation-delay: 0.35s"></i></span><span style="transform: rotate(115deg)"><i class="tv-vb-b" style="animation-delay: 0.41s"></i></span><span style="transform: rotate(147deg)"><i class="tv-vb-a" style="animation-delay: 0.47s"></i></span><span style="transform: rotate(155deg)"><i class="tv-vb-a" style="animation-delay: 0.53s"></i></span><span style="transform: rotate(187deg)"><i class="tv-vb-b" style="animation-delay: 0.59s"></i></span><span style="transform: rotate(195deg)"><i class="tv-vb-a" style="animation-delay: 0.35s"></i></span><span style="transform: rotate(227deg)"><i class="tv-vb-a" style="animation-delay: 0.41s"></i></span><span style="transform: rotate(235deg)"><i class="tv-vb-b" style="animation-delay: 0.47s"></i></span><span style="transform: rotate(267deg)"><i class="tv-vb-a" style="animation-delay: 0.53s"></i></span><span style="transform: rotate(275deg)"><i class="tv-vb-a" style="animation-delay: 0.59s"></i></span><span style="transform: rotate(307deg)"><i class="tv-vb-b" style="animation-delay: 0.35s"></i></span><span style="transform: rotate(315deg)"><i class="tv-vb-a" style="animation-delay: 0.41s"></i></span><span style="transform: rotate(347deg)"><i class="tv-vb-a" style="animation-delay: 0.47s"></i></span></div>
+    <div class="tv-vi-ui">
+      <p class="tv-vi-frieze">JASUR · MALIKA</p>
+      <div class="tv-vi-plaque">
+        <svg width="194" height="104" viewBox="0 0 194 104" aria-hidden="true" style="position: absolute; left: 0; top: 0"><path d="M12 .75H182L193.25 12V92L182 103.25H12L.75 92V12Z" fill="#06201A" class="tv-vl-g"></path><path d="M15 5.5H179L188.5 15V89L179 98.5H15L5.5 89V15Z" class="tv-vl-gt"></path><path d="M97 0L101 4L97 8L93 4Z" fill="#E2C47E"></path><path d="M97 96L101 100L97 104L93 100Z" fill="#E2C47E"></path></svg>
+        <span style="position: relative; font-size: 17px; line-height: 20px; font-style: italic; color: #F7F1E6">Hurmatli</span>
+        <span class="tv-v-foil" style="position: relative; font-family: 'Forum', Georgia, serif; font-size: 28px; line-height: 34px">Akmal aka</span>
+        <span style="position: relative; font-size: 17px; line-height: 20px; font-style: italic; color: #F7F1E6">va oilangiz</span>
+      </div>
+      <div class="tv-vi-cta">
+        <button type="button" class="tv-v-btnfoil tv-vi-btn" onClick="{{ openDoors }}">
+          <svg class="tv-v-icon" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><circle cx="7.5" cy="12" r="4"></circle><path d="M11.5 12H21M17.5 12v3.5M20.5 12v2.5"></path></svg>
+          Eshikni ochish
+        </button>
+      </div>
+    </div>
+  </div>
+  <header style="position: relative; height: 844px; flex: none; box-sizing: border-box; padding-top: 104px; display: flex; flex-direction: column; align-items: center; text-align: center; background: radial-gradient(90% 46% at 50% 20%, rgba(46, 122, 102, 0.55), rgba(15, 61, 51, 0) 70%)">
+    <svg width="390" height="844" viewBox="0 0 390 844" aria-hidden="true" style="position: absolute; left: 0; top: 0"><path class="tv-vl-g" d="M18 844V262C18 168 116 84 195 36C274 84 372 168 372 262V844"></path><path class="tv-vl-dot" d="M23.5 844V263.5C23.5 171 119 89.5 195 43C271 89.5 366.5 171 366.5 263.5V844"></path><path class="tv-vl-gt" d="M29 844V265C29 174 122 95 195 50C268 95 361 174 361 265V844"></path><polygon points="195,18 197.3,22.5 202.1,20.9 200.5,25.7 205,28 200.5,30.3 202.1,35.1 197.3,33.5 195,38 192.7,33.5 187.9,35.1 189.5,30.3 185,28 189.5,25.7 187.9,20.9 192.7,22.5" fill="url(#toyV-vGold) #C9A24A"></polygon><polygon points="18,255 19.7,257.9 22.9,257.1 22.1,260.3 25,262 22.1,263.7 22.9,266.9 19.7,266.1 18,269 16.3,266.1 13.1,266.9 13.9,263.7 11,262 13.9,260.3 13.1,257.1 16.3,257.9" fill="#0F3D33" class="tv-vl-g"></polygon><polygon points="372,255 373.7,257.9 376.9,257.1 376.1,260.3 379,262 376.1,263.7 376.9,266.9 373.7,266.1 372,269 370.3,266.1 367.1,266.9 367.9,263.7 365,262 367.9,260.3 367.1,257.1 370.3,257.9" fill="#0F3D33" class="tv-vl-g"></polygon><g opacity="0.55"><polygon points="46,101 50,108.3 58,106 55.7,114 63,118 55.7,122 58,130 50,127.7 46,135 42,127.7 34,130 36.3,122 29,118 36.3,114 34,106 42,108.3" class="tv-vl-gt"></polygon><polygon points="48.7,111.5 49.4,114.6 52.5,115.3 50.8,118 52.5,120.7 49.4,121.4 48.7,124.5 46,122.8 43.3,124.5 42.6,121.4 39.5,120.7 41.2,118 39.5,115.3 42.6,114.6 43.3,111.5 46,113.2" class="tv-vl-gt"></polygon></g><g opacity="0.55"><polygon points="344,101 348,108.3 356,106 353.7,114 361,118 353.7,122 356,130 348,127.7 344,135 340,127.7 332,130 334.3,122 327,118 334.3,114 332,106 340,108.3" class="tv-vl-gt"></polygon><polygon points="346.7,111.5 347.4,114.6 350.5,115.3 348.8,118 350.5,120.7 347.4,121.4 346.7,124.5 344,122.8 341.3,124.5 340.6,121.4 337.5,120.7 339.2,118 337.5,115.3 340.6,114.6 341.3,111.5 344,113.2" class="tv-vl-gt"></polygon></g></svg>
+    <i class="tv-v-dust" style="left: 52px; top: 330px; animation-duration: 7.5s; animation-delay: -1s"></i><i class="tv-v-dust" style="left: 338px; top: 300px; animation-duration: 8.5s; animation-delay: -4s"></i><i class="tv-v-dust" style="left: 70px; top: 560px; animation-duration: 6.5s; animation-delay: -2.5s"></i><i class="tv-v-dust" style="left: 322px; top: 610px; animation-duration: 9s; animation-delay: -6s"></i><i class="tv-v-dust" style="left: 48px; top: 760px; animation-duration: 7s; animation-delay: -3.5s"></i><i class="tv-v-dust" style="left: 344px; top: 790px; animation-duration: 8s; animation-delay: -0.5s"></i><i class="tv-v-dust" style="left: 110px; top: 220px; animation-duration: 9s; animation-delay: -5s"></i><i class="tv-v-dust" style="left: 282px; top: 236px; animation-duration: 7s; animation-delay: -2s"></i><i class="tv-v-dust" style="left: 40px; top: 450px; animation-duration: 8s; animation-delay: -7s"></i><i class="tv-v-dust" style="left: 350px; top: 470px; animation-duration: 6.8s; animation-delay: -3s"></i>
+    <svg class="tv-v-glint" width="14" height="14" viewBox="-7 -7 14 14" aria-hidden="true" style="left: 11px; top: 392px; animation-delay: -0.4s"><path d="M0 -7L1.4 -1.4L7 0L1.4 1.4L0 7L-1.4 1.4L-7 0L-1.4 -1.4Z" fill="#F6E4AA"></path></svg><svg class="tv-v-glint" width="14" height="14" viewBox="-7 -7 14 14" aria-hidden="true" style="left: 365px; top: 330px; animation-delay: -1.6s"><path d="M0 -7L1.4 -1.4L7 0L1.4 1.4L0 7L-1.4 1.4L-7 0L-1.4 -1.4Z" fill="#F6E4AA"></path></svg><svg class="tv-v-glint" width="14" height="14" viewBox="-7 -7 14 14" aria-hidden="true" style="left: 52px; top: 152px; animation-delay: -2.6s"><path d="M0 -7L1.4 -1.4L7 0L1.4 1.4L0 7L-1.4 1.4L-7 0L-1.4 -1.4Z" fill="#F6E4AA"></path></svg><svg class="tv-v-glint" width="14" height="14" viewBox="-7 -7 14 14" aria-hidden="true" style="left: 324px; top: 168px; animation-delay: -3.2s"><path d="M0 -7L1.4 -1.4L7 0L1.4 1.4L0 7L-1.4 1.4L-7 0L-1.4 -1.4Z" fill="#F6E4AA"></path></svg><svg class="tv-v-glint" width="14" height="14" viewBox="-7 -7 14 14" aria-hidden="true" style="left: 11px; top: 640px; animation-delay: -1.1s"><path d="M0 -7L1.4 -1.4L7 0L1.4 1.4L0 7L-1.4 1.4L-7 0L-1.4 -1.4Z" fill="#F6E4AA"></path></svg><svg class="tv-v-glint" width="14" height="14" viewBox="-7 -7 14 14" aria-hidden="true" style="left: 365px; top: 700px; animation-delay: -2.2s"><path d="M0 -7L1.4 -1.4L7 0L1.4 1.4L0 7L-1.4 1.4L-7 0L-1.4 -1.4Z" fill="#F6E4AA"></path></svg>
+    <p style="position: relative; margin: 0; font-family: 'Forum', Georgia, serif; font-size: 13px; line-height: 16px; letter-spacing: 0.34em; color: #E2C47E">NIKOH TO’YI</p>
+    <div style="position: relative; width: 164px; height: 164px; margin-top: 14px; flex: none">
+      <svg class="tv-v-rays" width="164" height="164" viewBox="-82 -82 164 164" aria-hidden="true" style="position: absolute; left: 0; top: 0"><path d="M-4.2 -56.8L0 -80L4.2 -56.8ZM17.9 -54.1L30.6 -73.9L25.6 -50.9ZM37.2 -43.1L56.6 -56.6L43.1 -37.2ZM50.9 -25.6L73.9 -30.6L54.1 -17.9ZM56.8 -4.2L80 0L56.8 4.2ZM54.1 17.9L73.9 30.6L50.9 25.6ZM43.1 37.2L56.6 56.6L37.2 43.1ZM25.6 50.9L30.6 73.9L17.9 54.1ZM4.2 56.8L0 80L-4.2 56.8ZM-17.9 54.1L-30.6 73.9L-25.6 50.9ZM-37.2 43.1L-56.6 56.6L-43.1 37.2ZM-50.9 25.6L-73.9 30.6L-54.1 17.9ZM-56.8 4.2L-80 0L-56.8 -4.2ZM-54.1 -17.9L-73.9 -30.6L-50.9 -25.6ZM-43.1 -37.2L-56.6 -56.6L-37.2 -43.1ZM-25.6 -50.9L-30.6 -73.9L-17.9 -54.1Z" fill="url(#toyV-vGold) #C9A24A"></path><path d="M7.8 -56.5L13.7 -68.7L14.4 -55.1ZM28.8 -49.2L38.9 -58.2L34.4 -45.4ZM45.4 -34.4L58.2 -38.9L49.2 -28.8ZM55.1 -14.4L68.7 -13.7L56.5 -7.8ZM56.5 7.8L68.7 13.7L55.1 14.4ZM49.2 28.8L58.2 38.9L45.4 34.4ZM34.4 45.4L38.9 58.2L28.8 49.2ZM14.4 55.1L13.7 68.7L7.8 56.5ZM-7.8 56.5L-13.7 68.7L-14.4 55.1ZM-28.8 49.2L-38.9 58.2L-34.4 45.4ZM-45.4 34.4L-58.2 38.9L-49.2 28.8ZM-55.1 14.4L-68.7 13.7L-56.5 7.8ZM-56.5 -7.8L-68.7 -13.7L-55.1 -14.4ZM-49.2 -28.8L-58.2 -38.9L-45.4 -34.4ZM-34.4 -45.4L-38.9 -58.2L-28.8 -49.2ZM-14.4 -55.1L-13.7 -68.7L-7.8 -56.5Z" fill="#E2C47E" opacity="0.75"></path></svg>
+      <svg width="164" height="164" viewBox="-82 -82 164 164" aria-hidden="true" style="position: absolute; left: 0; top: 0"><circle r="58" fill="#0A2E26"></circle><circle r="58" class="tv-vl-g"></circle><circle r="52" class="tv-vl-dot"></circle><polygon points="0,-47 13,-31.3 33.2,-33.2 31.3,-13 47,0 31.3,13 33.2,33.2 13,31.3 0,47 -13,31.3 -33.2,33.2 -31.3,13 -47,0 -31.3,-13 -33.2,-33.2 -13,-31.3" class="tv-vl-gt" opacity="0.55"></polygon><circle r="40" class="tv-vl-gt" opacity="0.6"></circle></svg>
+      <div style="position: absolute; left: 0; top: 0; width: 164px; height: 164px; display: flex; align-items: center; justify-content: center; gap: 4px">
+        <span class="tv-v-foil" style="font-family: 'Forum', Georgia, serif; font-size: 50px; line-height: 50px">J</span>
+        <span style="font-size: 24px; line-height: 24px; font-style: italic; color: #E2C47E; margin-top: 8px">&amp;</span>
+        <span class="tv-v-foil" style="font-family: 'Forum', Georgia, serif; font-size: 50px; line-height: 50px">M</span>
+      </div>
+    </div>
+    <h1 style="position: relative; margin: 14px 0 0; font-weight: 400; display: flex; flex-direction: column; align-items: center">
+      <span class="tv-v-foil" style="font-family: 'Forum', Georgia, serif; font-size: 50px; line-height: 52px">Jasur</span>
+      <span style="font-size: 22px; line-height: 26px; font-style: italic; color: #F7F1E6">va</span>
+      <span class="tv-v-foil" style="font-family: 'Forum', Georgia, serif; font-size: 50px; line-height: 52px">Malika</span>
+    </h1>
+    <p style="position: relative; margin: 14px 0 0; font-family: 'Forum', Georgia, serif; font-size: 17px; line-height: 22px; letter-spacing: 0.2em; color: #F7F1E6">21 · NOYABR · 2026</p>
+    <p style="position: relative; margin: 6px 0 0; font-family: 'Forum', Georgia, serif; font-size: 13px; line-height: 18px; letter-spacing: 0.24em; color: #E2C47E">SHANBA · SOAT 18:00</p>
+    <svg width="160" height="14" viewBox="0 0 160 14" aria-hidden="true" style="position: relative; display: block; margin-top: 16px"><path class="tv-vl-gt" d="M0 7H62M98 7H160"></path><polygon points="80,0 81.6,3 84.9,2.1 84,5.4 87,7 84,8.6 84.9,11.9 81.6,11 80,14 78.4,11 75.1,11.9 76,8.6 73,7 76,5.4 75.1,2.1 78.4,3" fill="url(#toyV-vGold) #C9A24A"></polygon><path d="M68 4.5L70.5 7L68 9.5L65.5 7ZM92 4.5L94.5 7L92 9.5L89.5 7Z" fill="#E2C47E"></path></svg>
+    <p class="tv-v-foil" style="position: relative; margin: 16px 0 0; max-width: 290px; font-family: 'Forum', Georgia, serif; font-size: 24px; line-height: 30px; text-wrap: balance">Hurmatli Akmal aka va oilangiz!</p>
+    <p style="position: relative; margin: 12px 0 0; width: 300px; text-align: left; font-size: 18.5px; line-height: 28px; font-style: italic; color: #E9E2D0"><span class="tv-v-ini" aria-hidden="true"><span class="tv-v-foil">H</span></span>ayotimizning eng baxtli kunida yonimizda bo’lishingizni so’raymiz. Sizni nikoh to’yimizga lutfan taklif etamiz.</p>
+    <p style="position: relative; margin: 12px 0 0; font-size: 15px; line-height: 18px; font-style: italic; color: #BFD3C9">Hurmat bilan,</p>
+    <p style="position: relative; margin: 2px 0 0; font-size: 17px; line-height: 22px; font-weight: 600; color: #E2C47E">Karimovlar va Rahimovlar oilasi</p>
+  </header>
+
+  <svg class="tv-v-band" width="390" height="14" viewBox="0 0 390 14" aria-hidden="true"><rect width="390" height="14" fill="url(#toyV-vBand) #0B3229"></rect><path class="tv-vl-gt" d="M0 .5H390M0 13.5H390"></path></svg>
+  <section style="position: relative; padding: 26px 24px 28px; display: flex; flex-direction: column; align-items: center; text-align: center">
+    <div class="tv-v-head"><span class="tv-v-hl"></span><h2 class="tv-v-h2 tv-v-foil">TO’Y KUNI</h2><span class="tv-v-hl tv-v-hl--r"></span></div>
+    <p style="margin: 14px 0 0; font-size: 19px; line-height: 24px; font-weight: 600; color: #F7F1E6">Shanba<span aria-hidden="true" style="display: inline-block; width: 6px; height: 6px; margin: 0 10px 3px; background: #C9A24A; transform: rotate(45deg)"></span>21-noyabr 2026<span aria-hidden="true" style="display: inline-block; width: 6px; height: 6px; margin: 0 10px 3px; background: #C9A24A; transform: rotate(45deg)"></span>18:00</p>
+    <div style="margin-top: 18px; width: 318px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; justify-items: center">
+      <div style="display: flex; flex-direction: column; align-items: center; gap: 8px"><div class="{{ fD.cls }}" aria-hidden="true"><div class="tv-v-fh tv-v-fh--t"><span class="tv-v-fd tv-v-foil tv-v-num">{{ fD.n }}</span></div><div class="tv-v-fh tv-v-fh--b"><span class="tv-v-fd tv-v-foil tv-v-num">{{ fD.o }}</span></div><div class="tv-v-fh tv-v-fh--t tv-v-ftop"><span class="tv-v-fd tv-v-foil tv-v-num">{{ fD.o }}</span></div><div class="tv-v-fh tv-v-fh--b tv-v-fbot"><span class="tv-v-fd tv-v-foil tv-v-num">{{ fD.n }}</span></div><span class="tv-v-hinge"></span></div><span style="font-family: 'Forum', Georgia, serif; font-size: 11px; line-height: 14px; letter-spacing: 0.18em; color: #E2C47E">KUN</span></div><div style="display: flex; flex-direction: column; align-items: center; gap: 8px"><div class="{{ fH.cls }}" aria-hidden="true"><div class="tv-v-fh tv-v-fh--t"><span class="tv-v-fd tv-v-foil tv-v-num">{{ fH.n }}</span></div><div class="tv-v-fh tv-v-fh--b"><span class="tv-v-fd tv-v-foil tv-v-num">{{ fH.o }}</span></div><div class="tv-v-fh tv-v-fh--t tv-v-ftop"><span class="tv-v-fd tv-v-foil tv-v-num">{{ fH.o }}</span></div><div class="tv-v-fh tv-v-fh--b tv-v-fbot"><span class="tv-v-fd tv-v-foil tv-v-num">{{ fH.n }}</span></div><span class="tv-v-hinge"></span></div><span style="font-family: 'Forum', Georgia, serif; font-size: 11px; line-height: 14px; letter-spacing: 0.18em; color: #E2C47E">SOAT</span></div><div style="display: flex; flex-direction: column; align-items: center; gap: 8px"><div class="{{ fM.cls }}" aria-hidden="true"><div class="tv-v-fh tv-v-fh--t"><span class="tv-v-fd tv-v-foil tv-v-num">{{ fM.n }}</span></div><div class="tv-v-fh tv-v-fh--b"><span class="tv-v-fd tv-v-foil tv-v-num">{{ fM.o }}</span></div><div class="tv-v-fh tv-v-fh--t tv-v-ftop"><span class="tv-v-fd tv-v-foil tv-v-num">{{ fM.o }}</span></div><div class="tv-v-fh tv-v-fh--b tv-v-fbot"><span class="tv-v-fd tv-v-foil tv-v-num">{{ fM.n }}</span></div><span class="tv-v-hinge"></span></div><span style="font-family: 'Forum', Georgia, serif; font-size: 11px; line-height: 14px; letter-spacing: 0.18em; color: #E2C47E">DAQIQA</span></div><div style="display: flex; flex-direction: column; align-items: center; gap: 8px"><div class="{{ fS.cls }}" aria-hidden="true"><div class="tv-v-fh tv-v-fh--t"><span class="tv-v-fd tv-v-foil tv-v-num">{{ fS.n }}</span></div><div class="tv-v-fh tv-v-fh--b"><span class="tv-v-fd tv-v-foil tv-v-num">{{ fS.o }}</span></div><div class="tv-v-fh tv-v-fh--t tv-v-ftop"><span class="tv-v-fd tv-v-foil tv-v-num">{{ fS.o }}</span></div><div class="tv-v-fh tv-v-fh--b tv-v-fbot"><span class="tv-v-fd tv-v-foil tv-v-num">{{ fS.n }}</span></div><span class="tv-v-hinge"></span></div><span style="font-family: 'Forum', Georgia, serif; font-size: 11px; line-height: 14px; letter-spacing: 0.18em; color: #E2C47E">SONIYA</span></div>
+    </div>
+    <a class="tv-v-btnline" href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Jasur%20va%20Malika%20nikoh%20to%E2%80%99yi&amp;dates=20261121T130000Z/20261121T190000Z&amp;location=Navro%E2%80%99z%20to%E2%80%99yxonasi%2C%20Toshkent" style="margin-top: 18px; width: 260px">
+      <svg class="tv-v-icon" width="19" height="19" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"></rect><path d="M3.5 10h17M8 3v4M16 3v4M12 13v5M9.5 15.5h5"></path></svg>
+      Kalendarga qo’shish
+    </a>
+  </section>
+  <section style="position: relative; padding: 26px 24px 28px; display: flex; flex-direction: column; align-items: center; text-align: center; background: linear-gradient(180deg, rgba(6, 32, 26, 0), rgba(6, 32, 26, 0.55) 14%, rgba(6, 32, 26, 0.55) 86%, rgba(6, 32, 26, 0))">
+    <div class="tv-v-head"><span class="tv-v-hl"></span><h2 class="tv-v-h2 tv-v-foil">TO’YXONA</h2><span class="tv-v-hl tv-v-hl--r"></span></div>
+    <div class="tv-v-venue" style="margin-top: 16px">
+      <img class="tv-v-clip" src="/_blob/2f7103e7696901f07b646cfd863c7df3" alt="Gullar bilan bezatilgan to’y zali" style="display: block; width: 342px; height: 164px; object-fit: cover">
+      <div class="tv-v-clip" style="position: absolute; left: 0; top: 0; width: 342px; height: 164px; background: linear-gradient(180deg, rgba(6, 30, 25, 0) 30%, rgba(6, 30, 25, 0.9) 100%)"></div>
+      <svg width="342" height="164" viewBox="0 0 342 164" aria-hidden="true" style="position: absolute; left: 0; top: 0; overflow: visible"><path class="tv-vl-g" d="M.75 164V62C.75 34.5 96 11.5 171 .8C246 11.5 341.25 34.5 341.25 62V164"></path><path class="tv-vl-dot" d="M7 164V64C7 39 99 17.5 171 7.6C243 17.5 335 39 335 64V164"></path><path d="M171 -6L175 -2L171 2L167 -2Z" fill="#E2C47E"></path></svg>
+      <h3 style="position: absolute; left: 0; right: 0; bottom: 14px; margin: 0; font-family: 'Forum', Georgia, serif; font-weight: 400; font-size: 26px; line-height: 32px; color: #F7F1E6; text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6)">“Navro’z” to’yxonasi</h3>
+    </div>
+    <p style="margin: 14px 0 0; max-width: 300px; font-size: 17px; line-height: 24px; font-weight: 500; color: #BFD3C9; text-wrap: balance">Toshkent sh., Yunusobod tumani, Amir Temur ko’chasi, 108-uy</p>
+    <a class="tv-v-btnfoil" href="https://yandex.uz/maps/?text=Navro%E2%80%99z%20to%E2%80%99yxonasi%2C%20Amir%20Temur%20ko%E2%80%99chasi%20108%2C%20Toshkent" style="margin-top: 16px; width: 260px; height: 50px; font-family: inherit; font-size: 18px; font-weight: 600">
+      <svg class="tv-v-icon" width="19" height="19" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.5s-7-6.1-7-11.6a7 7 0 0 1 14 0c0 5.5-7 11.6-7 11.6Z"></path><circle cx="12" cy="9.8" r="2.6"></circle></svg>
+      Xaritada ochish
+    </a>
+  </section>
+  <section style="position: relative; padding: 26px 32px 28px">
+    <div class="tv-v-head"><span class="tv-v-hl"></span><h2 class="tv-v-h2 tv-v-foil">KUN TARTIBI</h2><span class="tv-v-hl tv-v-hl--r"></span></div>
+    <div style="position: relative; margin-top: 12px">
+      <div style="position: absolute; left: 84px; top: 26px; bottom: 26px; width: 1px; background: repeating-linear-gradient(180deg, #C9A24A 0 3px, rgba(201, 162, 74, 0) 3px 7px)"></div>
+      <div class="tv-v-tl"><span class="tv-v-foil tv-v-num" style="text-align: right; font-family: 'Forum', Georgia, serif; font-size: 24px; line-height: 30px">17:30</span><span class="tv-v-node"></span><span style="font-size: 19px; line-height: 24px; font-weight: 500">Mehmonlarni kutib olish</span></div>
+      <div class="tv-v-tl"><span class="tv-v-foil tv-v-num" style="text-align: right; font-family: 'Forum', Georgia, serif; font-size: 24px; line-height: 30px">18:00</span><span class="tv-v-node"></span><span style="font-size: 19px; line-height: 24px; font-weight: 600; color: #E2C47E">Kelin-kuyovning kirib kelishi</span></div>
+      <div class="tv-v-tl"><span class="tv-v-foil tv-v-num" style="text-align: right; font-family: 'Forum', Georgia, serif; font-size: 24px; line-height: 30px">19:00</span><span class="tv-v-node"></span><span style="font-size: 19px; line-height: 24px; font-weight: 500">Bayram dasturxoni</span></div>
+      <div class="tv-v-tl"><span class="tv-v-foil tv-v-num" style="text-align: right; font-family: 'Forum', Georgia, serif; font-size: 24px; line-height: 30px">21:00</span><span class="tv-v-node"></span><span style="font-size: 19px; line-height: 24px; font-weight: 500">Raqs va tabriklar</span></div>
+    </div>
+  </section>
+  <section style="position: relative; padding: 26px 24px 28px; background: linear-gradient(180deg, rgba(6, 32, 26, 0), rgba(6, 32, 26, 0.55) 14%, rgba(6, 32, 26, 0.55) 86%, rgba(6, 32, 26, 0))">
+    <div class="tv-v-head"><span class="tv-v-hl"></span><h2 class="tv-v-h2 tv-v-foil">BIZNING HIKOYAMIZ</h2><span class="tv-v-hl tv-v-hl--r"></span></div>
+    <div style="margin-top: 16px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px">
+      <div class="tv-v-niche">
+        <svg width="108" height="190" viewBox="0 0 108 190" preserveAspectRatio="none" aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 100%; height: 190px"><path d="M.75 189.25V52C.75 32 28 13 54 1C80 13 107.25 32 107.25 52V189.25Z" fill="#0A2C24" class="tv-vl-g tv-vl-ns"></path><path d="M6 189.25V54C6 37 31 20 54 9C77 20 102 37 102 54V189.25" class="tv-vl-gt tv-vl-ns" opacity="0.55"></path><path d="M54 22L58 28L54 34L50 28Z" fill="#E2C47E"></path></svg>
+        <span class="tv-v-foil tv-v-num" style="position: relative; font-family: 'Forum', Georgia, serif; font-size: 26px; line-height: 28px">2023</span>
+        <span style="position: relative; margin-top: 2px; font-family: 'Forum', Georgia, serif; font-size: 12px; line-height: 16px; letter-spacing: 0.14em; color: #E2C47E">TANISHUV</span>
+        <span style="position: relative; margin-top: 6px; font-size: 15px; line-height: 19px; font-style: italic; color: #E9E2D0">Do’stlarimizning to’yida birinchi marta ko’rishdik.</span>
+      </div>
+      <div class="tv-v-niche">
+        <svg width="108" height="190" viewBox="0 0 108 190" preserveAspectRatio="none" aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 100%; height: 190px"><path d="M.75 189.25V52C.75 32 28 13 54 1C80 13 107.25 32 107.25 52V189.25Z" fill="#0A2C24" class="tv-vl-g tv-vl-ns"></path><path d="M6 189.25V54C6 37 31 20 54 9C77 20 102 37 102 54V189.25" class="tv-vl-gt tv-vl-ns" opacity="0.55"></path><path d="M54 22L58 28L54 34L50 28Z" fill="#E2C47E"></path></svg>
+        <span class="tv-v-foil tv-v-num" style="position: relative; font-family: 'Forum', Georgia, serif; font-size: 26px; line-height: 28px">2025</span>
+        <span style="position: relative; margin-top: 2px; font-family: 'Forum', Georgia, serif; font-size: 12px; line-height: 16px; letter-spacing: 0.14em; color: #E2C47E">UNASHTIRUV</span>
+        <span style="position: relative; margin-top: 6px; font-size: 15px; line-height: 19px; font-style: italic; color: #E9E2D0">Ikki oila bir dasturxon atrofida jamlandi.</span>
+      </div>
+      <div class="tv-v-niche">
+        <svg width="108" height="190" viewBox="0 0 108 190" preserveAspectRatio="none" aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 100%; height: 190px"><path d="M.75 189.25V52C.75 32 28 13 54 1C80 13 107.25 32 107.25 52V189.25Z" fill="#0A2C24" class="tv-vl-g tv-vl-ns"></path><path d="M6 189.25V54C6 37 31 20 54 9C77 20 102 37 102 54V189.25" class="tv-vl-gt tv-vl-ns" opacity="0.55"></path><path d="M54 22L58 28L54 34L50 28Z" fill="#E2C47E"></path></svg>
+        <span class="tv-v-foil tv-v-num" style="position: relative; font-family: 'Forum', Georgia, serif; font-size: 26px; line-height: 28px">2026</span>
+        <span style="position: relative; margin-top: 2px; font-family: 'Forum', Georgia, serif; font-size: 12px; line-height: 16px; letter-spacing: 0.14em; color: #E2C47E">NIKOH</span>
+        <span style="position: relative; margin-top: 6px; font-size: 15px; line-height: 19px; font-style: italic; color: #E9E2D0">Va mana, eng muhim kun.</span>
+      </div>
+    </div>
+  </section>
+  <section style="position: relative; padding: 26px 24px 28px">
+    <div class="tv-v-head"><span class="tv-v-hl"></span><h2 class="tv-v-h2 tv-v-foil">LAHZALAR</h2><span class="tv-v-hl tv-v-hl--r"></span></div>
+    <div style="position: relative; margin-top: 18px; width: 342px; height: 276px">
+      <div class="tv-v-ph" style="left: 0; top: 0; width: 196px; height: 262px"><img src="/_blob/3b1f637415f1db8b4dcb62d0240eaaf0" alt="Kelin-kuyov mehmonlar davrasida"></div>
+      <div class="tv-v-ph tv-v-float1" style="left: 214px; top: 6px; width: 128px; height: 150px"><img src="/_blob/b4b3ffc414cd0a56d55ef13988a73b6a" alt="Oltin nikoh uzuklari"></div>
+      <div class="tv-v-ph tv-v-float2" style="left: 136px; top: 168px; width: 206px; height: 108px"><img src="/_blob/86aba1f1535c1f71ea89fdaab1b0080a" alt="Tepaliklarda birga sayr"></div>
+      <svg width="20" height="20" viewBox="-10 -10 20 20" aria-hidden="true" style="position: absolute; left: 260px; top: 150px"><polygon points="0,-9 2.1,-5.1 6.4,-6.4 5.1,-2.1 9,0 5.1,2.1 6.4,6.4 2.1,5.1 0,9 -2.1,5.1 -6.4,6.4 -5.1,2.1 -9,0 -5.1,-2.1 -6.4,-6.4 -2.1,-5.1" fill="url(#toyV-vGold) #C9A24A"></polygon></svg>
+    </div>
+  </section>
+  <section style="position: relative; padding: 26px 24px 28px; display: flex; flex-direction: column; align-items: center; text-align: center; background: linear-gradient(180deg, rgba(6, 32, 26, 0), rgba(6, 32, 26, 0.55) 14%, rgba(6, 32, 26, 0.55) 86%, rgba(6, 32, 26, 0))">
+    <div class="tv-v-head"><span class="tv-v-hl"></span><h2 class="tv-v-h2 tv-v-foil">LIBOS USLUBI</h2><span class="tv-v-hl tv-v-hl--r"></span></div>
+    <p style="margin: 12px 0 0; max-width: 320px; font-size: 17px; line-height: 24px; font-weight: 500; color: #E9E2D0; text-wrap: balance">Kechki uslub: ayollar uchun uzun ko’ylak, erkaklar uchun klassik kostyum.</p>
+    <div style="margin-top: 16px; width: 100%; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px">
+      <div class="tv-v-sw"><span class="tv-v-dotc" style="background: radial-gradient(circle at 35% 30%, #1E6B57, #0B3229 70%)"></span><span style="font-size: 14px; line-height: 16px; font-weight: 600; color: #F7F1E6">Zumrad</span></div>
+      <div class="tv-v-sw"><span class="tv-v-dotc" style="background: radial-gradient(circle at 35% 30%, #FFF6E4, #E6D2A8 70%)"></span><span style="font-size: 14px; line-height: 16px; font-weight: 600; color: #F7F1E6">Shampan</span></div>
+      <div class="tv-v-sw"><span class="tv-v-dotc" style="background: linear-gradient(130deg, #A9822F, #F1D9A0 45%, #C9A24A 62%, #8A6A24)"></span><span style="font-size: 14px; line-height: 16px; font-weight: 600; color: #F7F1E6">Oltin</span></div>
+      <div class="tv-v-sw"><span class="tv-v-dotc" style="background: radial-gradient(circle at 35% 30%, #FFFFFF, #F1E8D6 70%)"></span><span style="font-size: 14px; line-height: 16px; font-weight: 600; color: #F7F1E6">Fil suyagi</span></div>
+    </div>
+  </section>
+  <section style="position: relative; padding: 26px 24px 28px; display: flex; flex-direction: column; align-items: center; text-align: center">
+    <div class="tv-v-head"><span class="tv-v-hl"></span><h2 class="tv-v-h2 tv-v-foil">ANKETA</h2><span class="tv-v-hl tv-v-hl--r"></span></div>
+    <p style="margin: 6px 0 0; font-size: 15px; line-height: 20px; font-style: italic; color: #BFD3C9">Iltimos, 14-noyabrgacha to’ldiring</p>
+    <div class="tv-v-card" style="margin-top: 16px; width: 100%; padding: 18px 16px 16px; text-align: left">
+      <p id="toyV-v-q" style="margin: 0 0 10px; font-family: 'Forum', Georgia, serif; font-size: 14px; line-height: 18px; letter-spacing: 0.16em; color: #E2C47E">KELASIZMI?</p>
+      <div role="radiogroup" aria-labelledby="toyV-v-q" style="display: flex; gap: 10px">
+        <label class="{{ optYesCls }}"><input type="radio" name="v-kelish" class="tv-v-radio" checked="{{ isYes }}" onChange="{{ sayYes }}">Ha, albatta</label>
+        <label class="{{ optNoCls }}"><input type="radio" name="v-kelish" class="tv-v-radio" checked="{{ isNo }}" onChange="{{ sayNo }}">Kela olmayman</label>
+      </div>
+      <div style="margin-top: 18px; display: flex; align-items: center; justify-content: space-between; gap: 12px; height: 46px">
+        <span style="font-size: 18px; line-height: 22px; font-weight: 600">Kishi soni</span>
+        <div class="{{ stepperCls }}">
+          <button type="button" class="tv-v-step" aria-label="Kamaytirish" disabled="{{ minusOff }}" onClick="{{ dec }}"><svg class="tv-v-icon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12"></path></svg></button>
+          <span class="tv-v-foil tv-v-num" aria-live="polite" style="min-width: 30px; text-align: center; font-family: 'Forum', Georgia, serif; font-size: 28px; line-height: 32px">{{ guests }}</span>
+          <button type="button" class="tv-v-step" aria-label="Ko’paytirish" disabled="{{ plusOff }}" onClick="{{ inc }}"><svg class="tv-v-icon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12M12 6v12"></path></svg></button>
+        </div>
+      </div>
+      <label for="toyV-v-wish" style="display: block; margin-top: 18px; font-size: 18px; line-height: 22px; font-weight: 600">Tilaklaringiz</label>
+      <textarea id="toyV-v-wish" class="tv-v-ta" rows="2" placeholder="Kelin-kuyovga ezgu tilaklaringizni yozing…" style="margin-top: 8px"></textarea>
+      <button type="button" class="tv-v-btnfoil" style="margin-top: 18px; width: 100%; height: 52px; font-family: 'Forum', Georgia, serif; font-size: 17px; letter-spacing: 0.14em; text-transform: uppercase" onClick="{{ send }}">
+        <sc-if value="{{ sent }}" hint-placeholder-val="{{ false }}"><svg class="tv-v-icon" width="19" height="19" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"></path></svg></sc-if>
+        {{ sendLabel }}
+      </button>
+      <p aria-live="polite" style="margin: 10px 0 0; min-height: 22px; text-align: center; font-size: 16px; line-height: 22px; font-style: italic; color: #E2C47E">{{ rsvpNote }}</p>
+    </div>
+  </section>
+  <footer style="position: relative; margin-top: auto; padding: 8px 24px 0; display: flex; flex-direction: column; align-items: center; text-align: center">
+    <a class="tv-v-btnline" href="https://t.me/" style="width: 100%; height: 54px">
+      <svg class="tv-v-icon" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M21.5 3.5L2.8 10.8l6.4 2.3 2.4 7.4 3.4-4.4 4.9 3.6Z"></path><path d="M9.2 13.1l9.3-6.6-6.9 8.1"></path></svg>
+      Mehmonlar guruhiga qo’shilish
+    </a>
+    <div class="tv-v-card" style="margin-top: 12px; width: 100%; padding: 12px 12px 12px 20px; display: flex; align-items: center; justify-content: space-between; gap: 12px; text-align: left">
+      <div style="display: flex; flex-direction: column">
+        <span style="font-size: 15px; line-height: 20px; font-style: italic; color: #BFD3C9">Savollar uchun</span>
+        <span class="tv-v-num" style="font-size: 22px; line-height: 28px; font-weight: 600">+998 90 123 45 67</span>
+      </div>
+      <a class="tv-v-btnfoil" href="tel:+998901234567" aria-label="Qo’ng’iroq qilish" style="width: 48px; height: 48px; flex: none"><svg class="tv-v-icon" width="21" height="21" viewBox="0 0 24 24" aria-hidden="true"><path d="M5.2 3.5h3.1l1.6 4.2-2.1 1.5a12.2 12.2 0 0 0 7 7l1.5-2.1 4.2 1.6v3.1a1.9 1.9 0 0 1-2.1 1.9A16.6 16.6 0 0 1 3.3 5.6a1.9 1.9 0 0 1 1.9-2.1Z"></path></svg></a>
+    </div>
+    <p class="tv-v-foil" style="margin: 22px 0 0; font-family: 'Forum', Georgia, serif; font-size: 24px; line-height: 30px; letter-spacing: 0.06em">Jasur &amp; Malika</p>
+    <p style="margin: 4px 0 20px; font-family: 'Forum', Georgia, serif; font-size: 13px; line-height: 18px; letter-spacing: 0.3em; color: #E2C47E">21 · XI · 2026</p>
+    <svg class="tv-v-band" width="390" height="14" viewBox="0 0 390 14" aria-hidden="true"><rect width="390" height="14" fill="url(#toyV-vBand) #0B3229"></rect><path class="tv-vl-gt" d="M0 .5H390M0 13.5H390"></path></svg>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":3600}}'>
+const TARGET = Date.UTC(2026, 10, 21, 13, 0, 0); // 21-noyabr 2026, 18:00 Toshkent (UTC+5)
+function pad2(n) { return n < 10 ? '0' + n : String(n); }
+class Component extends DCLogic {
+  constructor(...args) {
+    super(...args);
+    this.state = { now: Date.now(), opened: false, music: false, rsvp: '', guests: 2, sent: false, warn: false };
+  }
+  componentDidMount() {
+    this.timer = setInterval(() => this.setState({ now: Date.now() }), 1000);
+  }
+  componentWillUnmount() {
+    clearInterval(this.timer);
+  }
+  renderVals() {
+    const s = this.state || {};
+    let left = Math.max(0, TARGET - (s.now || Date.now()));
+    const days = Math.floor(left / 86400000); left -= days * 86400000;
+    const hours = Math.floor(left / 3600000); left -= hours * 3600000;
+    const mins = Math.floor(left / 60000); left -= mins * 60000;
+    const secs = Math.floor(left / 1000);
+    const unit = (v, prev) => ({ n: pad2(v), o: pad2(prev), cls: 'tv-v-flip ' + (v % 2 ? 'tv-v-flip--a' : 'tv-v-flip--b') });
+    const isYes = s.rsvp === 'yes';
+    const isNo = s.rsvp === 'no';
+    const guests = s.guests || 1;
+    let note = '';
+    if (s.sent && isYes) note = 'Rahmat, Akmal aka! Sizni ' + guests + ' kishi bilan kutamiz.';
+    else if (s.sent && isNo) note = 'Rahmat, Akmal aka! Javobingiz yetkazildi.';
+    else if (s.warn) note = 'Iltimos, kelish-kelmasligingizni belgilang.';
+    return {
+      introCls: s.opened ? 'tv-vi tv-vi--open' : 'tv-vi',
+      introHidden: !!s.opened,
+      openDoors: () => this.setState({ opened: true }),
+      musicOn: !!s.music,
+      musicOff: !s.music,
+      musicCls: s.music ? 'tv-v-music tv-v-music--on' : 'tv-v-music',
+      musicLabel: s.music ? 'Musiqani o’chirish' : 'Musiqani yoqish',
+      toggleMusic: () => this.setState({ music: !s.music }),
+      fD: unit(days, days + 1),
+      fH: unit(hours, (hours + 1) % 24),
+      fM: unit(mins, (mins + 1) % 60),
+      fS: unit(secs, (secs + 1) % 60),
+      isYes, isNo,
+      optYesCls: isYes ? 'tv-v-opt tv-v-opt--on' : 'tv-v-opt',
+      optNoCls: isNo ? 'tv-v-opt tv-v-opt--on' : 'tv-v-opt',
+      sayYes: () => this.setState({ rsvp: 'yes', sent: false, warn: false }),
+      sayNo: () => this.setState({ rsvp: 'no', sent: false, warn: false }),
+      guests,
+      stepperCls: isNo ? 'tv-v-stepper tv-v-stepper--off' : 'tv-v-stepper',
+      minusOff: isNo || guests <= 1,
+      plusOff: isNo || guests >= 10,
+      dec: () => this.setState({ guests: Math.max(1, guests - 1), sent: false }),
+      inc: () => this.setState({ guests: Math.min(10, guests + 1), sent: false }),
+      send: () => (s.rsvp ? this.setState({ sent: true, warn: false }) : this.setState({ warn: true })),
+      sent: !!s.sent,
+      sendLabel: s.sent ? 'Yuborildi' : 'Yuborish',
+      rsvpNote: note
+    };
+  }
+}
+</script>
+</body>
+</html>

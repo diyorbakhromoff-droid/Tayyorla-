@@ -28,14 +28,14 @@ SECTION_TO_CATEGORY = {"tugilgan-kun": "birthday", "toy": "wedding", "sevgi": "l
 
 TIERS = {
     "standart": {"level": 1, "title": "Standart", "colors": 3, "photos": 6,
-                 "features": ["3 ta rang", "Ism, sana, tabrik matni va dizayn interaktivi",
-                              "Fon musiqasi, jonli taymer va 6 tagacha surat", "Tilaklar ro'yxati va uchib yuruvchi effektlar"]},
+                 "features": ["Sodda va toza dizayn, sahifa darhol ochiladi", "6 tagacha surat va musiqa",
+                              "Bo'limga xos asosiy bloklar", "Keraksiz blokni olib tashlash mumkin"]},
     "premium": {"level": 2, "title": "Premium", "colors": 10, "photos": 40,
-                "features": ["10 ta rang", "Kirish animatsiyasi (konvert, sovg'a, muhr yoki eshik)",
-                             "Hikoya, sirli xabar, test va video", "Reklama yozuvisiz, 40 tagacha surat"]},
+                "features": ["Saytni ochishning o'zi tomosha: konvert, parda yoki quti ochiladi", "Harakatli bezak va boy ranglar",
+                             "Qo'shimcha interaktiv bloklar", "40 tagacha surat"]},
     "vip": {"level": 3, "title": "VIP", "colors": 15, "photos": 40,
-            "features": ["15 ta rang", "Premiumdagi hamma narsa", "«Maktub» to'plamidagi VIP shablonlar",
-                         "Muhrli konvert, kalendar, anketa, sirpanuvchi yurak"]},
+            "features": ["Kinematik kirish sahnasi", "Oltin bezak, zarrachalar va noyob interaktiv",
+                         "Barcha bloklar va VIP bloklar", "40 tagacha surat va o'z musiqangiz"]},
 }
 
 
@@ -135,6 +135,8 @@ FIELDS: dict[str, list[Field]] = {
 
 def fields_for(template_id: str, tarif: str) -> list[Field]:
     t = TEMPLATES[template_id]
+    if t.get("v2"):
+        return catalog2.fields_for(t)
     level = TIERS[tarif]["level"]
     return [f for f in FIELDS[t["section"]] if f.tier <= level and (not f.only or template_id in f.only)]
 
@@ -218,6 +220,10 @@ def clean_order(body: dict, strict: bool) -> dict:
         raise HTTPException(400, "Noma'lum shablon")
     t = TEMPLATES[tid]
     tarif = body.get("tarif") if body.get("tarif") in TIERS else "premium"
+    if t.get("v2"):
+        if tarif != t["tier"] and strict:
+            raise HTTPException(400, "Bu shablon boshqa tarifda")
+        tarif = t["tier"]
     if t["vip"] and tarif != "vip":
         raise HTTPException(400, "Bu shablon faqat VIP tarifda")
     if t.get("premium") and tarif == "standart":
@@ -239,6 +245,8 @@ def clean_order(body: dict, strict: bool) -> dict:
     music = body.get("music") if _own_media(body.get("music")) else None
     out = {"engine": "catalog", "category": SECTION_TO_CATEGORY[t["section"]], "template": tid,
            "tarif": tarif, "rang": rang, "data": data, "photos": photos, "music": music}
+    if t.get("v2"):
+        out["hidden"] = catalog2.clean_hidden(t, body.get("hidden"))
     if body.get("unlock_at"):
         from .surprise import clean_unlock
         unlock = clean_unlock(body["unlock_at"])
@@ -289,8 +297,14 @@ box.onsubmit=function(ev){ev.preventDefault();var nm=G?G.n:(box.n.value||'').tri
 done.appendChild(box);},0);},true);})();</script>"""
 
 
+def _watermark() -> str:
+    return WATERMARK.replace("{bot}", settings.bot_username).replace("{marks}", "<span>NAMUNA • TAYYORLA</span>" * 40)
+
+
 def render_catalog(config: dict, slug: str, preview: bool, guest=None) -> str:
     t = TEMPLATES[config["template"]]
+    if t.get("v2"):
+        return catalog2.render(t, config, slug, preview, guest=guest, watermark=_watermark() if preview else "")
     html = (CATALOG_DIR / "namuna" / t["file"]).read_text(encoding="utf-8")
     cfg = dict(config.get("data", {}))
     if guest is not None:
@@ -300,7 +314,7 @@ def render_catalog(config: dict, slug: str, preview: bool, guest=None) -> str:
         "rang": config["rang"],
         "demo": False,
         "rasmlar": config.get("photos", []),
-        "brend": {"matn": "Siz ham shunday sayt yarating", "havola": f"https://t.me/{settings.bot_username}"},
+        "brend": None,  # «Siz ham yarating» reklamasi hech bir tarifda ko'rsatilmaydi
     })
     if config.get("music"):
         cfg["musiqa"] = config["music"]
@@ -313,8 +327,7 @@ def render_catalog(config: dict, slug: str, preview: bool, guest=None) -> str:
         html = html.replace("</body>", script + "</body>", 1)
     if preview:
         html = html.replace("<head>", '<head><meta name="robots" content="noindex">', 1)
-        mark = WATERMARK.replace("{bot}", settings.bot_username).replace("{marks}", "<span>NAMUNA • TAYYORLA</span>" * 40)
-        html = html.replace("</body>", mark + "</body>", 1)
+        html = html.replace("</body>", _watermark() + "</body>", 1)
     return html
 
 
@@ -325,18 +338,26 @@ def catalog_meta() -> dict:
         return {"key": f.key, "label": f.label, "kind": f.kind, "required": f.required, "tier": f.tier,
                 "only": list(f.only), "options": f.options, "sub": f.sub, "hint": f.hint, "ai": f.ai}
 
+    def tdict(t: dict) -> dict:
+        out = {"id": t["id"], "section": t["section"], "name": t["name"], "desc": t["desc"], "vip": t["vip"],
+               "premium": t.get("premium", False), "new": t.get("new", False),
+               "colors": t["colors"], "swatch": t["swatch"], "thumb": f"/katalog/thumb/{t['id']}.jpg",
+               "demo": f"/katalog/namuna/{t['file']}"}
+        if t.get("v2"):
+            out.update(v2=True, tier=t["tier"], demo=f"/namuna/{t['id']}", order=t["order"], intro=t["intro"], slots=t["slots"],
+                       blocks=catalog2.block_meta(t), hero=catalog2.hero_fields(t),
+                       fields=[f.key for f in catalog2.fields_for(t)])
+        return out
+
     return {
         "sections": [{"key": k, "title": v} for k, v in SECTIONS.items()],
-        "templates": [
-            {"id": t["id"], "section": t["section"], "name": t["name"], "desc": t["desc"], "vip": t["vip"],
-             "premium": t.get("premium", False), "new": t.get("new", False),
-             "colors": t["colors"], "swatch": t["swatch"], "thumb": f"/katalog/thumb/{t['id']}.jpg",
-             "demo": f"/katalog/namuna/{t['file']}"}
-            for t in TEMPLATES.values()
-        ],
+        # eski shablonlar katalogda ko'rinmaydi (to'langan saytlar ishlayveradi)
+        "templates": [tdict(t) for t in TEMPLATES.values() if not t.get("legacy")],
         "tiers": [{"key": k, **{kk: vv for kk, vv in v.items()}, "price": tier_price(k)} for k, v in TIERS.items()],
         "fields": {s: [fdict(f) for f in fs] for s, fs in FIELDS.items()},
-        "relations": [{"key": k, **v} for k, v in RELATIONS.items()],
+        "fields2": {s: [fdict(f) for f in fs] for s, fs in catalog2.FIELDS2.items()},
+        "relations": [{"key": k, **v, "picks": [x for x in v["picks"] if x in TEMPLATES and not TEMPLATES[x].get("legacy")]}
+                      for k, v in RELATIONS.items()],
     }
 
 
@@ -393,3 +414,9 @@ RELATIONS: dict[str, dict] = {
 }
 for _r in RELATIONS.values():
     assert all(t in TEMPLATES for t in _r["picks"]), _r
+
+
+# ---------------------------------------------------------------- tarifli (v2) shablonlar
+
+# catalog2 bu moduldagi Field va yordamchilardan foydalanadi va o'z shablonlarini TEMPLATES ga qo'shadi
+from . import catalog2  # noqa: E402

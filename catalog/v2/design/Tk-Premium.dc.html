@@ -1,0 +1,610 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<title>Tug’ilgan kun: Sovg’a qutisi</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;700;800&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#FFC93C}a:hover{color:#FFE38A}
+.tkp-d{font-family:'Unbounded','Arial Black',system-ui,sans-serif}
+.tkp-s1{stop-color:#FFE9A6}.tkp-s2{stop-color:#FFC93C}.tkp-s3{stop-color:#E8A91F}
+.tkp-p1{stop-color:#FF9CC8}.tkp-p2{stop-color:#E04A90}
+.tkp-v1{stop-color:#9A6CF0}.tkp-v2{stop-color:#5A33B4}
+.tkp-r1{stop-color:#FF5FA2}.tkp-r2{stop-color:#FFC93C}
+.tkp-b1{stop-color:#FFB8D8}.tkp-b2{stop-color:#FF5FA2}.tkp-b3{stop-color:#E64C93}
+.tkp-y1{stop-color:#FFEDB0}.tkp-y2{stop-color:#FFC93C}.tkp-y3{stop-color:#EBAA1E}
+.tkp-l1{stop-color:#C2A4FF}.tkp-l2{stop-color:#7444D6}
+.tkp-string{fill:none;stroke:rgba(255,236,250,0.55);stroke-width:1.2}
+.tkp-stripe{fill:none;stroke:#FF5FA2;stroke-width:2.2;stroke-linecap:round}
+.tkp-ico{fill:none;stroke:#FF9CC8;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.tkp-icoD{fill:none;stroke:#2A1252;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.tkp-icoY{fill:none;stroke:#FFC93C;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.tkp-tagline{fill:none;stroke:#FFF6EC;stroke-width:1.4}
+.tkp-ringBg{fill:none;stroke:rgba(255,255,255,0.12);stroke-width:5}
+.tkp-ringFg{fill:none;stroke:url(#tkp-gRing);stroke-width:5;stroke-linecap:round;stroke-dasharray:201.06}
+.tkp-smoke{fill:none;stroke:#EADFFB;stroke-width:2;stroke-linecap:round;opacity:0}
+.is-hidden{display:none}
+.tkp-outline{-webkit-text-stroke:2px rgba(255,201,60,0.55)}
+
+/* moving decor */
+.tkp-spark{position:absolute;display:block;clip-path:polygon(50% 0,61% 39%,100% 50%,61% 61%,50% 100%,39% 61%,0 50%,39% 39%);animation:tkp-twinkle 3s ease-in-out infinite}
+.tkp-drift{position:absolute;display:block;animation:tkp-drift 8s ease-in-out infinite}
+.tkp-float{animation:tkp-float 5.5s ease-in-out infinite}
+.tkp-sway{transform-origin:50% 100%;animation:tkp-sway 4.4s ease-in-out infinite alternate}
+.tkp-spin{animation:tkp-spin 14s linear infinite}
+.tkp-rays{background:repeating-conic-gradient(from 0deg,rgba(255,201,60,0.16) 0deg 7deg,rgba(255,201,60,0) 7deg 20deg);-webkit-mask-image:radial-gradient(circle,#000 18%,rgba(0,0,0,0) 66%);mask-image:radial-gradient(circle,#000 18%,rgba(0,0,0,0) 66%);animation:tkp-spin 60s linear infinite}
+.tkp-bob{animation:tkp-bob 3.6s ease-in-out infinite}
+.tkp-pulse{animation:tkp-pulse 2.4s ease-in-out infinite}
+@keyframes tkp-twinkle{0%,100%{opacity:.25;transform:scale(.6) rotate(0)}50%{opacity:1;transform:scale(1) rotate(45deg)}}
+@keyframes tkp-drift{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-16px) rotate(170deg)}}
+@keyframes tkp-float{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-14px) rotate(2deg)}}
+@keyframes tkp-sway{0%{transform:rotate(-4deg) translateY(0)}100%{transform:rotate(4deg) translateY(-6px)}}
+@keyframes tkp-spin{to{transform:rotate(360deg)}}
+@keyframes tkp-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+@keyframes tkp-pulse{0%,100%{opacity:.55}50%{opacity:1}}
+@keyframes tkp-chev{0%,100%{transform:translateY(0);opacity:.6}50%{transform:translateY(7px);opacity:1}}
+
+/* buttons */
+.tkp-cta{position:relative;width:300px;min-height:58px;border:0;border-radius:29px;background:linear-gradient(90deg,#FFC93C,#FFE38A 50%,#FFC93C);color:#2A1252;font-family:'Unbounded','Arial Black',system-ui,sans-serif;font-size:16px;font-weight:700;cursor:pointer;box-shadow:0 12px 30px rgba(255,201,60,0.35)}
+.tkp-cta::after{content:"";position:absolute;inset:-6px;border-radius:35px;border:2px solid rgba(255,201,60,0.7);animation:tkp-ring 1.8s ease-out infinite;pointer-events:none}
+@keyframes tkp-ring{0%{transform:scale(.94);opacity:.9}100%{transform:scale(1.12);opacity:0}}
+.tkp-btnY{width:100%;min-height:54px;border:0;border-radius:27px;background:#FFC93C;color:#2A1252;font-family:'Manrope',system-ui,sans-serif;font-size:16px;font-weight:800;display:flex;align-items:center;justify-content:center;gap:10px;cursor:pointer;padding:0 18px;box-shadow:0 10px 24px rgba(255,201,60,0.28)}
+.tkp-btnY:hover{background:#FFD45F}
+.tkp-go{flex:1 1 0;min-width:0;min-height:52px;border:0;border-radius:26px;background:#FFC93C;color:#2A1252;font-family:'Manrope',system-ui,sans-serif;font-size:15px;font-weight:800;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;padding:0 12px}
+.tkp-go--on{background:#FF5FA2;color:#2A1252}
+.tkp-map{flex:1.5 1 0;min-width:0;min-height:52px;border-radius:26px;border:1.5px solid rgba(255,156,200,0.7);color:#FFE3F0;font-size:14px;font-weight:800;display:flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;padding:0 12px;box-sizing:border-box}
+.tkp-map:hover{color:#FFFFFF;border-color:#FF9CC8}
+.tkp-send{width:100%;min-height:58px;border:0;border-radius:29px;background:linear-gradient(90deg,#FF5FA2,#FF8FB8 45%,#FFC93C);color:#2A1252;font-family:'Unbounded','Arial Black',system-ui,sans-serif;font-size:16px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:10px;cursor:pointer;padding:0 18px;box-shadow:0 14px 30px rgba(255,95,162,0.35)}
+.tkp-send--done{background:rgba(255,255,255,0.08);color:#FFC93C;box-shadow:none;border:1.5px solid rgba(255,201,60,0.5);cursor:default;font-family:'Manrope',system-ui,sans-serif;font-weight:800}
+.tkp-row{display:flex;align-items:center;gap:8px}
+
+/* countdown */
+.tkp-num{display:block;font-family:'Unbounded','Arial Black',system-ui,sans-serif;font-size:22px;font-weight:700;color:#FFFFFF;line-height:1}
+.tkp-pa{animation:tkp-popA .55s cubic-bezier(.2,1.5,.4,1)}
+.tkp-pb{animation:tkp-popB .55s cubic-bezier(.2,1.5,.4,1)}
+@keyframes tkp-popA{from{transform:translateY(-10px) scale(.6);opacity:0}to{transform:none;opacity:1}}
+@keyframes tkp-popB{from{transform:translateY(-10px) scale(.6);opacity:0}to{transform:none;opacity:1}}
+.tkp-orbit{position:absolute;inset:0;animation:tkp-spin 6s linear infinite}
+
+/* confetti bursts */
+.tkp-cf{position:absolute;left:0;top:0;display:block;opacity:0}
+.tkp-burst--go .tkp-cf{animation:tkp-k1 1.6s cubic-bezier(.12,.75,.3,1) both}
+.tkp-burst--go .tkp-k2{animation-name:tkp-k2}
+.tkp-burst--go .tkp-k3{animation-name:tkp-k3}
+@keyframes tkp-k1{0%{opacity:1;transform:translateY(0) rotate(0)}70%{opacity:1;transform:translateY(-250px) rotate(420deg)}100%{opacity:0;transform:translateY(-215px) rotate(600deg)}}
+@keyframes tkp-k2{0%{opacity:1;transform:translateY(0) rotate(0)}70%{opacity:1;transform:translateY(-330px) rotate(-380deg)}100%{opacity:0;transform:translateY(-290px) rotate(-560deg)}}
+@keyframes tkp-k3{0%{opacity:1;transform:translateY(0) rotate(0)}70%{opacity:1;transform:translateY(-170px) rotate(300deg)}100%{opacity:0;transform:translateY(-140px) rotate(480deg)}}
+
+/* intro: gift box */
+.tkp-intro--open{opacity:0;pointer-events:none;animation:tkp-out .45s ease 1.25s both}
+.tkp-intro--open .tkp-ctaWrap{animation:tkp-out .3s ease both}
+.tkp-intro--open .tkp-introTitle{animation:tkp-upOut .5s ease both}
+.tkp-intro--open .tkp-bow{animation:tkp-untie .55s ease-in both}
+.tkp-ribV,.tkp-lidRib{transform-origin:50% 0}
+.tkp-intro--open .tkp-ribV,.tkp-intro--open .tkp-lidRib{animation:tkp-ribOff .45s ease-in .15s both}
+.tkp-intro--open .tkp-tag{animation:tkp-tagFall .6s ease-in .1s both}
+.tkp-intro--open .tkp-lid{animation:tkp-lidFly .8s cubic-bezier(.55,-0.25,.75,.5) .45s both}
+.tkp-beam{opacity:0;transform-origin:50% 100%}
+.tkp-intro--open .tkp-beam{animation:tkp-beam 1.1s ease-out .55s both}
+.tkp-intro--open .tkp-body{animation:tkp-bodyOut .6s ease-in 1s both}
+.tkp-intro--open .tkp-introBg{animation:tkp-out .6s ease 1s both}
+@keyframes tkp-out{from{opacity:1}to{opacity:0}}
+@keyframes tkp-upOut{to{opacity:0;transform:translateY(-24px)}}
+@keyframes tkp-untie{0%{transform:none;opacity:1}35%{transform:rotate(-10deg) scale(1.18);opacity:1}100%{transform:translateY(-40px) rotate(50deg) scale(.1);opacity:0}}
+@keyframes tkp-ribOff{to{transform:scaleY(0)}}
+@keyframes tkp-tagFall{to{transform:translateY(300px) rotate(70deg);opacity:0}}
+@keyframes tkp-lidFly{0%{transform:none}20%{transform:translateY(8px)}100%{transform:translate(90px,-660px) rotate(38deg)}}
+@keyframes tkp-beam{0%{opacity:0;transform:scaleY(.2)}35%{opacity:1;transform:scaleY(1)}100%{opacity:0;transform:scaleY(1.15)}}
+@keyframes tkp-bodyOut{to{opacity:0;transform:translateY(90px) scale(.9)}}
+
+/* page reveal after opening */
+.tkp-page--in .tkp-rv1{animation:tkp-rise .9s ease-out 1.15s both}
+.tkp-page--in .tkp-rv2{animation:tkp-rise .9s ease-out 1.3s both}
+.tkp-page--in .tkp-rv3{animation:tkp-pop 1s cubic-bezier(.2,1.3,.4,1) 1.45s both}
+@keyframes tkp-rise{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+@keyframes tkp-pop{from{opacity:0;transform:translateY(30px) scale(.9)}to{opacity:1;transform:none}}
+
+/* blow the candles */
+.tkp-flame{transform-box:fill-box;transform-origin:50% 100%;animation:tkp-flicker .9s ease-in-out infinite alternate}
+.tkp-halo{transform-box:fill-box;transform-origin:50% 50%;opacity:.35;animation:tkp-halo 1.6s ease-in-out infinite}
+@keyframes tkp-flicker{0%{transform:scale(1,1) rotate(-3deg)}50%{transform:scale(.9,1.1) rotate(2deg)}100%{transform:scale(1.05,.94) rotate(-1deg)}}
+@keyframes tkp-halo{0%,100%{opacity:.25;transform:scale(.9)}50%{opacity:.5;transform:scale(1.15)}}
+.tkp-cake--out .tkp-flame{opacity:0;animation:tkp-flameOut .35s ease-in both}
+.tkp-cake--out .tkp-halo{opacity:0;animation:tkp-out .3s ease both}
+.tkp-cake--out .tkp-smoke{animation:tkp-smoke 1.9s ease-out .25s both}
+@keyframes tkp-flameOut{from{opacity:1;transform:scale(1)}to{opacity:0;transform:scale(.3,.1)}}
+@keyframes tkp-smoke{0%{opacity:0;transform:translateY(0)}20%{opacity:.85}100%{opacity:0;transform:translateY(-30px)}}
+.tkp-cakeGlow{transition:opacity .7s ease}
+.tkp-cake--out .tkp-cakeGlow{opacity:.15}
+.tkp-wish{opacity:0;transform:translateY(10px);transition:opacity .6s ease .35s,transform .6s ease .35s}
+.tkp-wish--on{opacity:1;transform:none}
+
+/* small gift */
+.tkp-gift{position:relative;flex:none;width:108px;height:120px;padding:0;border:0;background:none;cursor:pointer;animation:tkp-wiggle 3s ease-in-out infinite}
+.tkp-gift--open{animation:none}
+@keyframes tkp-wiggle{0%,68%,100%{transform:rotate(0)}74%{transform:rotate(-7deg)}80%{transform:rotate(6deg)}86%{transform:rotate(-4deg)}92%{transform:rotate(2deg)}}
+.tkp-gLid{transition:transform .55s cubic-bezier(.3,1.6,.5,1)}
+.tkp-gift--open .tkp-gLid{transform:translate(14px,-30px) rotate(20deg)}
+.tkp-gNote{opacity:0;transition:opacity .4s ease .15s,transform .6s cubic-bezier(.3,1.5,.5,1) .15s}
+.tkp-gift--open .tkp-gNote{opacity:1;transform:translateY(-44px) rotate(-6deg)}
+.tkp-gGlow{opacity:0;transition:opacity .5s ease}
+.tkp-gift--open .tkp-gGlow{opacity:1}
+.tkp-gSpark{opacity:0;transform:scale(.2);transition:opacity .3s ease .2s,transform .5s cubic-bezier(.3,1.8,.5,1) .2s}
+.tkp-gift--open .tkp-gSpark{opacity:1;transform:scale(1)}
+.tkp-txtA,.tkp-txtB{grid-area:1/1;transition:opacity .45s ease,transform .45s ease}
+.tkp-txt--off{opacity:0;transform:translateY(8px)}
+
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation:none !important;transition:none !important}
+}
+</style>
+</helmet>
+<div style="width: 390px; height: 3600px; position: relative; overflow: hidden; background: linear-gradient(180deg, #2A1252 0%, #3B1E6E 22%, #45217D 46%, #3B1E6E 70%, #2C1356 100%); color: #FFFFFF; font-family: 'Manrope', system-ui, -apple-system, 'Segoe UI', sans-serif">
+
+  <svg width="0" height="0" aria-hidden="true" style="position: absolute">
+    <defs>
+      <linearGradient id="tkp-gGold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" class="tkp-s1"></stop><stop offset="0.5" class="tkp-s2"></stop><stop offset="1" class="tkp-s3"></stop></linearGradient>
+      <linearGradient id="tkp-gTier1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" class="tkp-p1"></stop><stop offset="1" class="tkp-p2"></stop></linearGradient>
+      <linearGradient id="tkp-gTier2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" class="tkp-v1"></stop><stop offset="1" class="tkp-v2"></stop></linearGradient>
+      <linearGradient id="tkp-gRing" x1="0" y1="0" x2="1" y2="1"><stop offset="0" class="tkp-r1"></stop><stop offset="1" class="tkp-r2"></stop></linearGradient>
+      <linearGradient id="tkp-gBalP" x1="0.15" y1="0" x2="0.85" y2="1"><stop offset="0" class="tkp-b1"></stop><stop offset="0.55" class="tkp-b2"></stop><stop offset="1" class="tkp-b3"></stop></linearGradient>
+      <linearGradient id="tkp-gBalY" x1="0.15" y1="0" x2="0.85" y2="1"><stop offset="0" class="tkp-y1"></stop><stop offset="0.55" class="tkp-y2"></stop><stop offset="1" class="tkp-y3"></stop></linearGradient>
+      <linearGradient id="tkp-gBalV" x1="0.15" y1="0" x2="0.85" y2="1"><stop offset="0" class="tkp-l1"></stop><stop offset="1" class="tkp-l2"></stop></linearGradient>
+    </defs>
+  </svg>
+
+  <div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 390px; height: 3600px; pointer-events: none; z-index: 0">
+    <div style="position: absolute; left: -120px; top: 1180px; width: 420px; height: 420px; border-radius: 50%; background: radial-gradient(circle, rgba(255,95,162,0.28), rgba(255,95,162,0) 70%)"></div>
+    <div style="position: absolute; left: 140px; top: 1720px; width: 420px; height: 420px; border-radius: 50%; background: radial-gradient(circle, rgba(255,201,60,0.18), rgba(255,201,60,0) 70%)"></div>
+    <div style="position: absolute; left: -140px; top: 2380px; width: 460px; height: 460px; border-radius: 50%; background: radial-gradient(circle, rgba(164,123,255,0.30), rgba(164,123,255,0) 70%)"></div>
+    <div style="position: absolute; left: 120px; top: 3020px; width: 440px; height: 440px; border-radius: 50%; background: radial-gradient(circle, rgba(255,95,162,0.26), rgba(255,95,162,0) 70%)"></div>
+    <sc-for list="{{ pageSparks }}" as="p" hint-placeholder-count="30"><span class="tkp-spark" style="{{ p.st }}"></span></sc-for>
+    <sc-for list="{{ pageDrift }}" as="p" hint-placeholder-count="18"><span class="tkp-drift" style="{{ p.st }}"></span></sc-for>
+  </div>
+
+  <div class="{{ pageCls }}" style="position: relative; z-index: 1; height: 3600px; display: flex; flex-direction: column">
+
+    <section style="position: relative; height: 844px; flex: none; box-sizing: border-box; padding-top: 58px; display: flex; flex-direction: column; align-items: center; text-align: center">
+      <div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; background: radial-gradient(85% 38% at 50% 94%, rgba(255,95,162,0.55), rgba(255,95,162,0) 72%), radial-gradient(70% 30% at 50% 0%, rgba(150,100,240,0.45), rgba(150,100,240,0) 70%)"></div>
+
+      <span class="tkp-rv1" style="position: relative; display: inline-flex; align-items: center; gap: 8px; height: 32px; padding: 0 14px; border-radius: 16px; background: rgba(255,201,60,0.12); border: 1px solid rgba(255,201,60,0.42); color: #FFC93C; font-size: 13px; font-weight: 800; letter-spacing: 0.06em">
+        <svg aria-hidden="true" width="12" height="12" viewBox="0 0 12 12"><path d="M6 0l1.4 4.6L12 6l-4.6 1.4L6 12l-1.4-4.6L0 6l4.6-1.4z" fill="#FFC93C"></path></svg>
+        14-noyabr · shanba
+      </span>
+      <p class="tkp-rv1" style="position: relative; margin: 18px 0 0; font-size: 18px; font-weight: 600; line-height: 1.35; color: #F4ECFF">Tug’ilgan kuning muborak,</p>
+      <h1 class="tkp-rv2 tkp-d" style="position: relative; margin: 4px 0 0; max-width: 350px; font-size: 52px; font-weight: 800; line-height: 1.08; letter-spacing: -0.01em; color: #FFFFFF; text-shadow: 0 0 30px rgba(255,95,162,0.75)">Madina!</h1>
+
+      <div class="tkp-rv3" style="position: relative; width: 390px; height: 470px; margin-top: 20px">
+        <div aria-hidden="true" class="tkp-d" style="position: absolute; left: 0; top: 60px; width: 390px; text-align: center; font-size: 236px; font-weight: 800; line-height: 1; letter-spacing: -0.05em; color: rgba(255,201,60,0.10)"><span class="tkp-outline">25</span></div>
+        <div aria-hidden="true" style="position: absolute; left: 80px; top: 64px; width: 250px; height: 340px; border-radius: 130px 130px 28px 28px; background: linear-gradient(160deg, #FF5FA2, #A47BFF); transform: rotate(7deg); opacity: 0.85"></div>
+        <div style="position: absolute; left: 60px; top: 46px; width: 270px; height: 362px; box-sizing: border-box; padding: 5px; border-radius: 140px 140px 30px 30px; background: linear-gradient(160deg, #FFC93C, #FF5FA2 55%, #A47BFF); transform: rotate(-3deg); box-shadow: 0 26px 50px rgba(18,0,40,0.55)">
+          <img src="/_blob/afb82d352c2e2564d84171b0b8ac5928" alt="Madina tort bilan" style="display: block; width: 100%; height: 100%; object-fit: cover; border-radius: 135px 135px 25px 25px">
+        </div>
+        <div style="position: absolute; left: 252px; top: 334px; width: 100px; height: 100px">
+          <div aria-hidden="true" class="tkp-spin" style="position: absolute; left: -7px; top: -7px; width: 110px; height: 110px; box-sizing: border-box; border-radius: 50%; border: 2px dashed rgba(255,201,60,0.85)"></div>
+          <div style="position: absolute; left: 0; top: 0; width: 100px; height: 100px; border-radius: 50%; background: linear-gradient(150deg, #FFE38A, #FFC93C 55%, #F2B12A); transform: rotate(10deg); display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 12px 24px rgba(30,0,40,0.4)">
+            <span class="tkp-d" style="font-size: 34px; font-weight: 800; line-height: 1; color: #2A1252">25</span>
+            <span style="font-size: 12px; font-weight: 800; line-height: 1.3; color: #2A1252">yosh</span>
+          </div>
+        </div>
+        <svg aria-hidden="true" width="26" height="26" viewBox="0 0 12 12" class="tkp-pulse" style="position: absolute; left: 50px; top: 40px"><path d="M6 0l1.4 4.6L12 6l-4.6 1.4L6 12l-1.4-4.6L0 6l4.6-1.4z" fill="#FFC93C"></path></svg>
+        <svg aria-hidden="true" width="16" height="16" viewBox="0 0 12 12" class="tkp-pulse" style="position: absolute; left: 326px; top: 30px; animation-delay: -1.2s"><path d="M6 0l1.4 4.6L12 6l-4.6 1.4L6 12l-1.4-4.6L0 6l4.6-1.4z" fill="#FFFFFF"></path></svg>
+      </div>
+
+      <div aria-hidden="true" class="tkp-float" style="position: absolute; left: 16px; top: 92px; width: 44px; height: 110px">
+        <svg width="44" height="110" viewBox="0 0 60 150"><path d="M30 4C48 4 58 20 58 38C58 60 42 76 32 80H28C18 76 2 60 2 38C2 20 12 4 30 4Z" fill="url(#tkp-gBalY)"></path><path d="M26 80H34L36 86H24Z" fill="#EBAA1E"></path><ellipse cx="19" cy="24" rx="6" ry="11" fill="#FFFFFF" opacity="0.5" transform="rotate(-25 19 24)"></ellipse><path class="tkp-string" d="M30 86C22 100 38 112 30 126C24 136 34 142 30 150"></path></svg>
+      </div>
+      <div aria-hidden="true" class="tkp-float" style="position: absolute; left: 318px; top: 268px; width: 64px; height: 160px; animation-delay: -2s">
+        <svg width="64" height="160" viewBox="0 0 60 150"><path d="M30 4C48 4 58 20 58 38C58 60 42 76 32 80H28C18 76 2 60 2 38C2 20 12 4 30 4Z" fill="url(#tkp-gBalP)"></path><path d="M26 80H34L36 86H24Z" fill="#E64C93"></path><ellipse cx="19" cy="24" rx="6" ry="11" fill="#FFFFFF" opacity="0.5" transform="rotate(-25 19 24)"></ellipse><path class="tkp-string" d="M30 86C22 100 38 112 30 126C24 136 34 142 30 150"></path></svg>
+      </div>
+      <div aria-hidden="true" class="tkp-float" style="position: absolute; left: -12px; top: 500px; width: 70px; height: 175px; animation-delay: -3.4s">
+        <svg width="70" height="175" viewBox="0 0 60 150"><path d="M30 4C48 4 58 20 58 38C58 60 42 76 32 80H28C18 76 2 60 2 38C2 20 12 4 30 4Z" fill="url(#tkp-gBalV)"></path><path d="M26 80H34L36 86H24Z" fill="#7444D6"></path><ellipse cx="19" cy="24" rx="6" ry="11" fill="#FFFFFF" opacity="0.45" transform="rotate(-25 19 24)"></ellipse><path class="tkp-string" d="M30 86C22 100 38 112 30 126C24 136 34 142 30 150"></path></svg>
+      </div>
+      <svg aria-hidden="true" width="26" height="16" viewBox="0 0 26 16" style="position: absolute; left: 182px; top: 782px; animation: tkp-chev 1.8s ease-in-out infinite"><path class="tkp-icoY" d="M3 3l10 9 10-9"></path></svg>
+    </section>
+
+    <section style="padding: 22px 20px 22px">
+      <div style="position: relative; border-radius: 28px; padding: 26px 24px 22px; background: linear-gradient(160deg, rgba(255,255,255,0.11), rgba(255,255,255,0.04)); border: 1px solid rgba(255,255,255,0.16); box-shadow: 0 24px 48px rgba(16,0,36,0.35)">
+        <div aria-hidden="true" style="position: absolute; right: 20px; top: -18px; width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(150deg, #FF8CC0, #FF5FA2); display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 18px rgba(255,95,162,0.45)">
+          <svg width="20" height="20" viewBox="0 0 20 20"><path d="M10 17s-6.5-4.1-6.5-8.6A3.6 3.6 0 0 1 10 6.3a3.6 3.6 0 0 1 6.5 2.1C16.5 12.9 10 17 10 17z" fill="#2A1252"></path></svg>
+        </div>
+        <h2 class="tkp-d" style="margin: 0; font-size: 20px; font-weight: 700; line-height: 1.3; color: #FFC93C">Tabrigimiz</h2>
+        <p style="margin: 12px 0 0; font-size: 15.5px; line-height: 1.65; color: #F4ECFF">Qadrdon dugonamiz Madina! Sen 25 yoshga to’lyapsan, biz esa hayotimizda sendek inson borligidan yana bir bor quvonamiz. Kulging hech qachon so’nmasin, har bir yangi kuning avvalgisidan yorug’roq bo’lsin — sen bilan o’tgan har bir yil biz uchun eng qimmatli sovg’a!</p>
+        <div style="height: 1px; margin: 16px 0 14px; background: linear-gradient(90deg, rgba(255,201,60,0.6), rgba(255,95,162,0.2))"></div>
+        <div style="display: flex; align-items: center; gap: 12px">
+          <div aria-hidden="true" style="display: flex; flex: none">
+            <span style="width: 36px; height: 36px; border-radius: 50%; background: #FF5FA2; color: #2A1252; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 800; border: 2px solid #3B1E6E">L</span>
+            <span style="width: 36px; height: 36px; margin-left: -10px; border-radius: 50%; background: #FFC93C; color: #2A1252; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 800; border: 2px solid #3B1E6E">S</span>
+            <span style="width: 36px; height: 36px; margin-left: -10px; border-radius: 50%; background: #C2A4FF; color: #2A1252; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 800; border: 2px solid #3B1E6E">N</span>
+          </div>
+          <p style="margin: 0; font-size: 14px; line-height: 1.4; color: #E4D6FA"><span style="display: block; font-weight: 600">Dugonalaring:</span><span style="display: block; font-weight: 800; color: #FFFFFF">Laylo, Sevara va Nigora</span></p>
+        </div>
+      </div>
+    </section>
+
+    <section style="padding: 8px 20px 26px">
+      <div style="border-radius: 24px; padding: 20px 8px 18px; background: linear-gradient(135deg, rgba(255,95,162,0.22), rgba(123,79,208,0.24)); border: 1px solid rgba(255,255,255,0.14); text-align: center">
+        <h2 class="tkp-d" style="margin: 0; font-size: 17px; font-weight: 700; line-height: 1.3">Tug’ilgan kungacha</h2>
+        <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 4px; margin-top: 14px; justify-items: center">
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 6px">
+            <div style="position: relative; width: 76px; height: 76px; display: flex; align-items: center; justify-content: center">
+              <svg aria-hidden="true" width="76" height="76" viewBox="0 0 76 76" style="position: absolute; left: 0; top: 0"><circle class="tkp-ringBg" cx="38" cy="38" r="32"></circle><circle class="tkp-ringFg" cx="38" cy="38" r="32" transform="rotate(-90 38 38)" style="{{ offD }}"></circle></svg>
+              <span class="{{ popD }}">{{ dd }}</span>
+            </div>
+            <span style="font-size: 12px; font-weight: 700; color: #E4D6FA">kun</span>
+          </div>
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 6px">
+            <div style="position: relative; width: 76px; height: 76px; display: flex; align-items: center; justify-content: center">
+              <svg aria-hidden="true" width="76" height="76" viewBox="0 0 76 76" style="position: absolute; left: 0; top: 0"><circle class="tkp-ringBg" cx="38" cy="38" r="32"></circle><circle class="tkp-ringFg" cx="38" cy="38" r="32" transform="rotate(-90 38 38)" style="{{ offH }}"></circle></svg>
+              <span class="{{ popH }}">{{ hh }}</span>
+            </div>
+            <span style="font-size: 12px; font-weight: 700; color: #E4D6FA">soat</span>
+          </div>
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 6px">
+            <div style="position: relative; width: 76px; height: 76px; display: flex; align-items: center; justify-content: center">
+              <svg aria-hidden="true" width="76" height="76" viewBox="0 0 76 76" style="position: absolute; left: 0; top: 0"><circle class="tkp-ringBg" cx="38" cy="38" r="32"></circle><circle class="tkp-ringFg" cx="38" cy="38" r="32" transform="rotate(-90 38 38)" style="{{ offM }}"></circle></svg>
+              <span class="{{ popM }}">{{ mm }}</span>
+            </div>
+            <span style="font-size: 12px; font-weight: 700; color: #E4D6FA">daqiqa</span>
+          </div>
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 6px">
+            <div style="position: relative; width: 76px; height: 76px; display: flex; align-items: center; justify-content: center">
+              <svg aria-hidden="true" width="76" height="76" viewBox="0 0 76 76" style="position: absolute; left: 0; top: 0"><circle class="tkp-ringBg" cx="38" cy="38" r="32"></circle><circle class="tkp-ringFg" cx="38" cy="38" r="32" transform="rotate(-90 38 38)" style="{{ offS }}"></circle></svg>
+              <div aria-hidden="true" class="tkp-orbit"><span style="position: absolute; left: 35px; top: 3px; width: 6px; height: 6px; border-radius: 50%; background: #FFE38A; box-shadow: 0 0 8px #FFC93C"></span></div>
+              <span class="{{ popS }}">{{ ss }}</span>
+            </div>
+            <span style="font-size: 12px; font-weight: 700; color: #E4D6FA">soniya</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section style="padding: 14px 20px 16px">
+      <h2 class="tkp-d" style="margin: 0; text-align: center; font-size: 22px; font-weight: 800; line-height: 1.3">Tilaklarimiz</h2>
+      <div style="position: relative; height: 262px; margin-top: 18px">
+        <div class="tkp-sway" style="position: absolute; left: 6px; top: 0; width: 100px; height: 162px; animation-delay: -0.4s">
+          <div style="position: absolute; left: 0; top: 0; width: 100px; height: 118px; box-sizing: border-box; padding: 0 10px; border-radius: 50% 50% 50% 50% / 45% 45% 55% 55%; background: linear-gradient(150deg, #FFB8D8 0%, #FF5FA2 50%, #EE5299 100%); box-shadow: inset -8px -10px 18px rgba(140,20,80,0.22); display: flex; align-items: center; justify-content: center; text-align: center">
+            <span class="tkp-d" style="font-size: 14px; font-weight: 700; line-height: 1.2; color: #2A1252">Baxt</span>
+          </div>
+          <span aria-hidden="true" style="position: absolute; left: 20px; top: 16px; width: 13px; height: 26px; border-radius: 50%; background: rgba(255,255,255,0.5); transform: rotate(25deg)"></span>
+          <span aria-hidden="true" style="position: absolute; left: 44px; top: 114px; width: 12px; height: 9px; background: #EE5299; clip-path: polygon(50% 0, 100% 100%, 0 100%)"></span>
+          <svg aria-hidden="true" width="20" height="40" viewBox="0 0 20 40" style="position: absolute; left: 40px; top: 122px"><path class="tkp-string" d="M10 0C4 10 16 18 10 28C6 34 12 38 10 40"></path></svg>
+        </div>
+        <div class="tkp-sway" style="position: absolute; left: 125px; top: 0; width: 100px; height: 162px; animation-delay: -2.1s">
+          <div style="position: absolute; left: 0; top: 0; width: 100px; height: 118px; box-sizing: border-box; padding: 0 10px; border-radius: 50% 50% 50% 50% / 45% 45% 55% 55%; background: linear-gradient(150deg, #FFEDB0 0%, #FFC93C 50%, #F0B126 100%); box-shadow: inset -8px -10px 18px rgba(150,90,0,0.2); display: flex; align-items: center; justify-content: center; text-align: center">
+            <span class="tkp-d" style="font-size: 14px; font-weight: 700; line-height: 1.2; color: #2A1252">Sog’liq</span>
+          </div>
+          <span aria-hidden="true" style="position: absolute; left: 20px; top: 16px; width: 13px; height: 26px; border-radius: 50%; background: rgba(255,255,255,0.55); transform: rotate(25deg)"></span>
+          <span aria-hidden="true" style="position: absolute; left: 44px; top: 114px; width: 12px; height: 9px; background: #F0B126; clip-path: polygon(50% 0, 100% 100%, 0 100%)"></span>
+          <svg aria-hidden="true" width="20" height="40" viewBox="0 0 20 40" style="position: absolute; left: 40px; top: 122px"><path class="tkp-string" d="M10 0C4 10 16 18 10 28C6 34 12 38 10 40"></path></svg>
+        </div>
+        <div class="tkp-sway" style="position: absolute; left: 244px; top: 0; width: 100px; height: 162px; animation-delay: -3.3s">
+          <div style="position: absolute; left: 0; top: 0; width: 100px; height: 118px; box-sizing: border-box; padding: 0 10px; border-radius: 50% 50% 50% 50% / 45% 45% 55% 55%; background: linear-gradient(150deg, #A27CF0 0%, #7444D6 50%, #6136C4 100%); box-shadow: inset -8px -10px 18px rgba(30,0,70,0.3); display: flex; align-items: center; justify-content: center; text-align: center">
+            <span class="tkp-d" style="font-size: 14px; font-weight: 700; line-height: 1.2; color: #FFFFFF">Omad</span>
+          </div>
+          <span aria-hidden="true" style="position: absolute; left: 20px; top: 16px; width: 13px; height: 26px; border-radius: 50%; background: rgba(255,255,255,0.38); transform: rotate(25deg)"></span>
+          <span aria-hidden="true" style="position: absolute; left: 44px; top: 114px; width: 12px; height: 9px; background: #6136C4; clip-path: polygon(50% 0, 100% 100%, 0 100%)"></span>
+          <svg aria-hidden="true" width="20" height="40" viewBox="0 0 20 40" style="position: absolute; left: 40px; top: 122px"><path class="tkp-string" d="M10 0C4 10 16 18 10 28C6 34 12 38 10 40"></path></svg>
+        </div>
+        <div class="tkp-sway" style="position: absolute; left: 66px; top: 100px; width: 100px; height: 162px; animation-delay: -1.3s">
+          <div style="position: absolute; left: 0; top: 0; width: 100px; height: 118px; box-sizing: border-box; padding: 0 8px; border-radius: 50% 50% 50% 50% / 45% 45% 55% 55%; background: linear-gradient(150deg, #FFD0E4 0%, #FF8CC0 50%, #F470AE 100%); box-shadow: inset -8px -10px 18px rgba(140,20,80,0.2); display: flex; align-items: center; justify-content: center; text-align: center">
+            <span class="tkp-d" style="font-size: 13px; font-weight: 700; line-height: 1.2; color: #2A1252">Muhabbat</span>
+          </div>
+          <span aria-hidden="true" style="position: absolute; left: 20px; top: 16px; width: 13px; height: 26px; border-radius: 50%; background: rgba(255,255,255,0.55); transform: rotate(25deg)"></span>
+          <span aria-hidden="true" style="position: absolute; left: 44px; top: 114px; width: 12px; height: 9px; background: #F470AE; clip-path: polygon(50% 0, 100% 100%, 0 100%)"></span>
+          <svg aria-hidden="true" width="20" height="40" viewBox="0 0 20 40" style="position: absolute; left: 40px; top: 122px"><path class="tkp-string" d="M10 0C4 10 16 18 10 28C6 34 12 38 10 40"></path></svg>
+        </div>
+        <div class="tkp-sway" style="position: absolute; left: 185px; top: 100px; width: 100px; height: 162px; animation-delay: -2.7s">
+          <div style="position: absolute; left: 0; top: 0; width: 100px; height: 118px; box-sizing: border-box; padding: 0 8px; border-radius: 50% 50% 50% 50% / 45% 45% 55% 55%; background: linear-gradient(150deg, #FFEDB0 0%, #FFC93C 50%, #F0B126 100%); box-shadow: inset -8px -10px 18px rgba(150,90,0,0.2); display: flex; align-items: center; justify-content: center; text-align: center">
+            <span class="tkp-d" style="font-size: 13px; font-weight: 700; line-height: 1.2; color: #2A1252">Orzular ro’yobi</span>
+          </div>
+          <span aria-hidden="true" style="position: absolute; left: 20px; top: 16px; width: 13px; height: 26px; border-radius: 50%; background: rgba(255,255,255,0.55); transform: rotate(25deg)"></span>
+          <span aria-hidden="true" style="position: absolute; left: 44px; top: 114px; width: 12px; height: 9px; background: #F0B126; clip-path: polygon(50% 0, 100% 100%, 0 100%)"></span>
+          <svg aria-hidden="true" width="20" height="40" viewBox="0 0 20 40" style="position: absolute; left: 40px; top: 122px"><path class="tkp-string" d="M10 0C4 10 16 18 10 28C6 34 12 38 10 40"></path></svg>
+        </div>
+      </div>
+    </section>
+
+    <section style="padding: 16px 20px 26px; display: flex; flex-direction: column; align-items: center; text-align: center">
+      <h2 class="tkp-d" style="margin: 0; font-size: 22px; font-weight: 800; line-height: 1.3">Shamni o’chiring</h2>
+      <p style="margin: 6px 0 0; font-size: 15px; line-height: 1.4; color: #E4D6FA">Ko’zingni yum, niyat qil va pufla</p>
+      <div class="{{ cakeCls }}" style="position: relative; width: 250px; height: 227px; margin-top: 10px">
+        <div aria-hidden="true" class="tkp-cakeGlow" style="position: absolute; left: -45px; top: -80px; width: 340px; height: 300px; border-radius: 50%; background: radial-gradient(circle, rgba(255,201,60,0.42), rgba(255,95,162,0.16) 42%, rgba(255,95,162,0) 70%)"></div>
+        <svg aria-hidden="true" width="250" height="227" viewBox="0 0 260 236" style="position: relative; display: block">
+          <path d="M8 214H252A6 6 0 0 1 246 222H14A6 6 0 0 1 8 214Z" fill="url(#tkp-gGold)"></path>
+          <rect x="108" y="222" width="44" height="10" rx="3" fill="#E8A91F"></rect>
+          <rect x="34" y="140" width="192" height="76" rx="12" fill="url(#tkp-gTier1)"></rect>
+          <path d="M34 154Q34 140 48 140H212Q226 140 226 154V161Q218 171 210 161Q202 151 194 163Q186 177 178 163Q170 151 162 161Q154 171 146 161Q138 151 130 165Q122 179 114 165Q106 151 98 161Q90 171 82 161Q74 151 66 163Q58 177 50 163Q42 151 34 161Z" fill="#FBEAFF"></path>
+          <circle cx="58" cy="196" r="4.5" fill="#FFC93C"></circle>
+          <circle cx="94" cy="196" r="4.5" fill="#FFC93C"></circle>
+          <circle cx="130" cy="196" r="4.5" fill="#FFC93C"></circle>
+          <circle cx="166" cy="196" r="4.5" fill="#FFC93C"></circle>
+          <circle cx="202" cy="196" r="4.5" fill="#FFC93C"></circle>
+          <rect x="66" y="92" width="128" height="54" rx="10" fill="url(#tkp-gTier2)"></rect>
+          <path d="M66 104Q66 92 78 92H182Q194 92 194 104V110Q188 118 182 110Q176 102 170 112Q164 122 158 112Q152 104 146 110Q140 118 134 110Q128 102 122 112Q116 122 110 112Q104 104 98 110Q92 118 86 110Q80 102 74 112Q70 118 66 110Z" fill="#FF8CC0"></path>
+          <rect x="82" y="126" width="9" height="3" rx="1.5" fill="#FFC93C" transform="rotate(-30 86 127)"></rect>
+          <rect x="104" y="132" width="9" height="3" rx="1.5" fill="#FFFFFF" transform="rotate(25 108 133)"></rect>
+          <rect x="128" y="124" width="9" height="3" rx="1.5" fill="#FF8CC0" transform="rotate(-15 132 125)"></rect>
+          <rect x="150" y="132" width="9" height="3" rx="1.5" fill="#FFC93C" transform="rotate(35 154 133)"></rect>
+          <rect x="170" y="125" width="9" height="3" rx="1.5" fill="#FFFFFF" transform="rotate(-25 174 126)"></rect>
+          <rect x="86" y="58" width="8" height="38" rx="2" fill="#FFF3D6"></rect>
+          <rect x="106" y="58" width="8" height="38" rx="2" fill="#FFF3D6"></rect>
+          <rect x="126" y="58" width="8" height="38" rx="2" fill="#FFF3D6"></rect>
+          <rect x="146" y="58" width="8" height="38" rx="2" fill="#FFF3D6"></rect>
+          <rect x="166" y="58" width="8" height="38" rx="2" fill="#FFF3D6"></rect>
+          <path class="tkp-stripe" d="M87 67l6 -4M87 76l6 -4M87 85l6 -4M107 67l6 -4M107 76l6 -4M107 85l6 -4M127 67l6 -4M127 76l6 -4M127 85l6 -4M147 67l6 -4M147 76l6 -4M147 85l6 -4M167 67l6 -4M167 76l6 -4M167 85l6 -4"></path>
+          <rect x="89" y="51" width="2" height="8" fill="#3B1E6E"></rect>
+          <rect x="109" y="51" width="2" height="8" fill="#3B1E6E"></rect>
+          <rect x="129" y="51" width="2" height="8" fill="#3B1E6E"></rect>
+          <rect x="149" y="51" width="2" height="8" fill="#3B1E6E"></rect>
+          <rect x="169" y="51" width="2" height="8" fill="#3B1E6E"></rect>
+          <g transform="translate(90 52)"><circle class="tkp-halo" cx="0" cy="-10" r="13" fill="#FFC93C"></circle><g class="tkp-flame" style="animation-delay: 0s"><path d="M0 -22C7 -12 8 -6 0 0C-8 -6 -7 -12 0 -22Z" fill="#FFC93C"></path><path d="M0 -12C4 -8 4 -3 0 0C-4 -3 -4 -8 0 -12Z" fill="#FFF6D8"></path></g><path class="tkp-smoke" d="M0 -2C-5 -8 5 -13 0 -19C-5 -25 5 -30 0 -36"></path></g>
+          <g transform="translate(110 52)"><circle class="tkp-halo" cx="0" cy="-10" r="13" fill="#FFC93C"></circle><g class="tkp-flame" style="animation-delay: 0.08s"><path d="M0 -22C7 -12 8 -6 0 0C-8 -6 -7 -12 0 -22Z" fill="#FFC93C"></path><path d="M0 -12C4 -8 4 -3 0 0C-4 -3 -4 -8 0 -12Z" fill="#FFF6D8"></path></g><path class="tkp-smoke" d="M0 -2C-5 -8 5 -13 0 -19C-5 -25 5 -30 0 -36"></path></g>
+          <g transform="translate(130 52)"><circle class="tkp-halo" cx="0" cy="-10" r="13" fill="#FFC93C"></circle><g class="tkp-flame" style="animation-delay: 0.16s"><path d="M0 -22C7 -12 8 -6 0 0C-8 -6 -7 -12 0 -22Z" fill="#FFC93C"></path><path d="M0 -12C4 -8 4 -3 0 0C-4 -3 -4 -8 0 -12Z" fill="#FFF6D8"></path></g><path class="tkp-smoke" d="M0 -2C-5 -8 5 -13 0 -19C-5 -25 5 -30 0 -36"></path></g>
+          <g transform="translate(150 52)"><circle class="tkp-halo" cx="0" cy="-10" r="13" fill="#FFC93C"></circle><g class="tkp-flame" style="animation-delay: 0.24s"><path d="M0 -22C7 -12 8 -6 0 0C-8 -6 -7 -12 0 -22Z" fill="#FFC93C"></path><path d="M0 -12C4 -8 4 -3 0 0C-4 -3 -4 -8 0 -12Z" fill="#FFF6D8"></path></g><path class="tkp-smoke" d="M0 -2C-5 -8 5 -13 0 -19C-5 -25 5 -30 0 -36"></path></g>
+          <g transform="translate(170 52)"><circle class="tkp-halo" cx="0" cy="-10" r="13" fill="#FFC93C"></circle><g class="tkp-flame" style="animation-delay: 0.32s"><path d="M0 -22C7 -12 8 -6 0 0C-8 -6 -7 -12 0 -22Z" fill="#FFC93C"></path><path d="M0 -12C4 -8 4 -3 0 0C-4 -3 -4 -8 0 -12Z" fill="#FFF6D8"></path></g><path class="tkp-smoke" d="M0 -2C-5 -8 5 -13 0 -19C-5 -25 5 -30 0 -36"></path></g>
+        </svg>
+        <div class="{{ cakeBurstCls }}" aria-hidden="true" style="position: absolute; left: 125px; top: 40px; width: 0; height: 0; z-index: 3">
+          <sc-for list="{{ cfFast }}" as="c" hint-placeholder-count="24"><span style="{{ c.w }}"><span class="{{ c.k }}" style="{{ c.p }}"></span></span></sc-for>
+        </div>
+      </div>
+      <p class="{{ wishCls }}" style="margin: 10px 0 0; min-height: 46px; max-width: 320px; font-family: 'Unbounded', 'Arial Black', system-ui, sans-serif; font-size: 16px; font-weight: 700; line-height: 1.4; color: #FFC93C">Niyating albatta ushalsin, Madina!</p>
+      <div style="width: 100%; margin-top: 10px">
+        <button type="button" class="tkp-btnY" onClick="{{ blow }}">
+          <svg aria-hidden="true" width="22" height="22" viewBox="0 0 22 22"><path class="tkp-icoD" d="M3 8h9.5a2.6 2.6 0 1 0 -2.6 -2.6M3 12h12.5a2.6 2.6 0 1 1 -2.6 2.6M3 16h6"></path></svg>
+          <span class="{{ blowIdle }}">Shamni o’chiring</span>
+          <span class="{{ blowDone }}">Shamlarni qayta yoqish</span>
+        </button>
+      </div>
+    </section>
+
+    <section style="padding: 14px 20px 18px">
+      <h2 class="tkp-d" style="margin: 0; text-align: center; font-size: 22px; font-weight: 800; line-height: 1.3">Xotiralar lentasi</h2>
+      <div style="position: relative; height: 452px; margin-top: 14px">
+        <div style="position: absolute; left: 22px; top: 8px; width: 154px; box-sizing: border-box; padding: 8px 8px 0; background: #FFF6EC; border-radius: 6px; box-shadow: 0 18px 36px rgba(15,0,30,0.5); transform: rotate(-5deg); display: flex; flex-direction: column; gap: 6px">
+          <span aria-hidden="true" style="position: absolute; left: 46px; top: -12px; width: 60px; height: 22px; background: rgba(255,201,60,0.8); transform: rotate(-4deg)"></span>
+          <img src="/_blob/f2e37d950f553f1a4947d19bfccc246a" alt="Shamlarni puflayapti" style="display: block; width: 138px; height: 110px; object-fit: cover; border-radius: 3px">
+          <img src="/_blob/48103b20e11a12fc1413921a1856f5b1" alt="Sharlar bilan" style="display: block; width: 138px; height: 110px; object-fit: cover; border-radius: 3px">
+          <img src="/_blob/987cbd4fbae5993130c748b7302ed0ee" alt="Bayram shamlari" style="display: block; width: 138px; height: 110px; object-fit: cover; border-radius: 3px">
+          <span class="tkp-d" style="height: 30px; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; letter-spacing: 0.06em; color: #3B1E6E">Madina · 25</span>
+        </div>
+        <div style="position: absolute; left: 196px; top: 46px; width: 154px; box-sizing: border-box; padding: 8px 8px 0; background: #FFF6EC; border-radius: 6px; box-shadow: 0 18px 36px rgba(15,0,30,0.5); transform: rotate(4deg); display: flex; flex-direction: column; gap: 6px">
+          <span aria-hidden="true" style="position: absolute; left: 46px; top: -12px; width: 60px; height: 22px; background: rgba(255,95,162,0.75); transform: rotate(5deg)"></span>
+          <img src="/_blob/9ed5de64f8a48f83bb248e2c229f0c2e" alt="Shamli tort" style="display: block; width: 138px; height: 110px; object-fit: cover; border-radius: 3px">
+          <img src="/_blob/afb82d352c2e2564d84171b0b8ac5928" alt="Madina tort bilan" style="display: block; width: 138px; height: 110px; object-fit: cover; border-radius: 3px">
+          <img src="/_blob/2ea33e1d19fd211da7ea6c0ff2191650" alt="Yonayotgan shamlar" style="display: block; width: 138px; height: 110px; object-fit: cover; border-radius: 3px">
+          <span class="tkp-d" style="height: 30px; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; letter-spacing: 0.06em; color: #3B1E6E">14.11.2026</span>
+        </div>
+        <svg aria-hidden="true" width="22" height="22" viewBox="0 0 12 12" class="tkp-pulse" style="position: absolute; left: 172px; top: 0"><path d="M6 0l1.4 4.6L12 6l-4.6 1.4L6 12l-1.4-4.6L0 6l4.6-1.4z" fill="#FFC93C"></path></svg>
+        <svg aria-hidden="true" width="24" height="24" viewBox="0 0 20 20" class="tkp-float" style="position: absolute; left: 4px; top: 412px"><path d="M10 17s-6.5-4.1-6.5-8.6A3.6 3.6 0 0 1 10 6.3a3.6 3.6 0 0 1 6.5 2.1C16.5 12.9 10 17 10 17z" fill="#FF5FA2"></path></svg>
+      </div>
+    </section>
+
+    <section style="padding: 6px 20px 24px">
+      <div style="border-radius: 24px; padding: 1.5px; background: linear-gradient(120deg, #FF5FA2, #FFC93C)">
+        <div style="border-radius: 22.5px; padding: 18px 18px 18px 14px; background: linear-gradient(160deg, #4A2280, #33195F); display: flex; align-items: center; gap: 14px">
+          <button type="button" class="{{ giftCls }}" onClick="{{ toggleGift }}" aria-label="Sovg’ani ochish">
+            <span aria-hidden="true" class="tkp-gGlow" style="position: absolute; left: -6px; top: -14px; width: 120px; height: 110px; border-radius: 50%; background: radial-gradient(circle, rgba(255,201,60,0.55), rgba(255,201,60,0) 68%)"></span>
+            <span aria-hidden="true" class="tkp-gNote" style="position: absolute; left: 30px; top: 50px; width: 48px; height: 40px; border-radius: 6px; background: #FFF6EC; box-shadow: 0 6px 12px rgba(20,0,40,0.35); display: flex; flex-direction: column; justify-content: center; gap: 5px; padding: 0 9px; box-sizing: border-box">
+              <span style="display: block; height: 3px; border-radius: 2px; background: #FF5FA2"></span>
+              <span style="display: block; height: 3px; width: 70%; border-radius: 2px; background: #C2A4FF"></span>
+              <span style="display: block; height: 3px; width: 85%; border-radius: 2px; background: #FFC93C"></span>
+            </span>
+            <span aria-hidden="true" style="position: absolute; left: 12px; top: 54px; width: 84px; height: 62px; border-radius: 4px 4px 10px 10px; background: radial-gradient(circle at 30% 30%, rgba(255,201,60,0.9) 0 2.5px, rgba(255,201,60,0) 3px) 0 0 / 20px 20px, linear-gradient(160deg, #FF7DB5, #E2468F); box-shadow: inset -10px 0 16px rgba(90,10,60,0.25)">
+              <span style="position: absolute; left: 34px; top: 0; width: 16px; height: 62px; background: linear-gradient(90deg, #E8A91F, #FFE38A 45%, #FFC93C)"></span>
+            </span>
+            <span aria-hidden="true" class="tkp-gLid" style="position: absolute; left: 6px; top: 36px; width: 96px; height: 22px; border-radius: 6px; background: linear-gradient(180deg, #FF9CC8, #FF5FA2); box-shadow: 0 5px 8px rgba(60,0,40,0.3)">
+              <span style="position: absolute; left: 40px; top: 0; width: 16px; height: 22px; background: linear-gradient(90deg, #E8A91F, #FFE38A 45%, #FFC93C)"></span>
+              <svg width="52" height="36" viewBox="0 0 140 96" style="position: absolute; left: 22px; top: -28px"><path d="M64 54L44 88L55 84L60 92L70 58Z" fill="#E8A91F"></path><path d="M76 54L96 88L85 84L80 92L70 58Z" fill="#E8A91F"></path><path d="M70 52C50 18 12 12 10 34C8 54 40 60 70 52Z" fill="url(#tkp-gGold)"></path><path d="M70 52C50 34 26 30 22 38C28 47 48 53 70 52Z" fill="#E0A21E"></path><path d="M70 52C90 18 128 12 130 34C132 54 100 60 70 52Z" fill="url(#tkp-gGold)"></path><path d="M70 52C90 34 114 30 118 38C112 47 92 53 70 52Z" fill="#E0A21E"></path><rect x="59" y="42" width="22" height="20" rx="7" fill="#FFD966"></rect></svg>
+            </span>
+            <span aria-hidden="true" class="tkp-gSpark" style="position: absolute; left: 4px; top: 20px; width: 14px; height: 14px; clip-path: polygon(50% 0,61% 39%,100% 50%,61% 61%,50% 100%,39% 61%,0 50%,39% 39%); background: #FFC93C"></span>
+            <span aria-hidden="true" class="tkp-gSpark" style="position: absolute; left: 88px; top: 8px; width: 12px; height: 12px; clip-path: polygon(50% 0,61% 39%,100% 50%,61% 61%,50% 100%,39% 61%,0 50%,39% 39%); background: #FFFFFF"></span>
+            <span aria-hidden="true" class="tkp-gSpark" style="position: absolute; left: 94px; top: 48px; width: 10px; height: 10px; clip-path: polygon(50% 0,61% 39%,100% 50%,61% 61%,50% 100%,39% 61%,0 50%,39% 39%); background: #FF8CC0"></span>
+          </button>
+          <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 8px; text-align: left">
+            <h2 class="tkp-d" style="margin: 0; font-size: 17px; font-weight: 700; line-height: 1.3; color: #FFC93C">Sirli tilak</h2>
+            <div style="display: grid">
+              <p class="{{ giftTxtA }}" style="margin: 0; font-size: 15px; line-height: 1.5; color: #E4D6FA">Qutichani bosing — ichida sen uchun yashirin tilagimiz bor.</p>
+              <p class="{{ giftTxtB }}" style="margin: 0; font-size: 15px; font-weight: 700; line-height: 1.5; color: #FFFFFF">Bu yil sen kutgan eng quvonchli xabar keladi — uni birinchi bo’lib biz nishonlaymiz!</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section style="padding: 8px 20px 24px">
+      <div style="position: relative; border-radius: 26px; overflow: hidden; background: linear-gradient(180deg, #4C2386, #3A1B6C); box-shadow: 0 24px 50px rgba(14,0,32,0.45)">
+        <div style="position: relative; padding: 22px 22px 20px; background: linear-gradient(120deg, #FFC93C, #FFDF7E 55%, #FFB8D8); color: #2A1252">
+          <svg aria-hidden="true" width="120" height="70" viewBox="0 0 120 70" style="position: absolute; right: 8px; top: 8px"><rect x="20" y="10" width="10" height="4" rx="2" fill="#FF5FA2" transform="rotate(30 25 12)"></rect><rect x="80" y="44" width="10" height="4" rx="2" fill="#7444D6" transform="rotate(-25 85 46)"></rect><circle cx="100" cy="14" r="4" fill="#FF5FA2"></circle><circle cx="58" cy="30" r="3" fill="#7444D6"></circle><path d="M100 50l1.6 5.1 5.4 1.6-5.4 1.6L100 63.4l-1.6-5.1-5.4-1.6 5.4-1.6z" fill="#FFFFFF"></path></svg>
+          <h2 class="tkp-d" style="position: relative; margin: 0; font-size: 22px; font-weight: 800; line-height: 1.25">Bazmga taklif</h2>
+          <p style="position: relative; margin: 8px 0 0; font-size: 15px; font-weight: 600; line-height: 1.5">Shu quvonchni birga nishonlaymiz! Sizni kichik bazmimizga kutamiz.</p>
+        </div>
+        <div aria-hidden="true" style="position: relative; height: 18px">
+          <span style="position: absolute; left: 20px; right: 20px; top: 8px; border-top: 2px dashed rgba(255,255,255,0.22)"></span>
+        </div>
+        <div style="padding: 8px 18px 20px; display: flex; flex-direction: column; gap: 12px">
+          <div style="display: flex; align-items: center; gap: 12px">
+            <span style="flex: none; width: 40px; height: 40px; border-radius: 12px; background: rgba(255,95,162,0.16); display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 20 20"><rect class="tkp-ico" x="3" y="4.5" width="14" height="12.5" rx="2.5"></rect><path class="tkp-ico" d="M3 8.5h14M7 2.5v4M13 2.5v4"></path></svg></span>
+            <p style="margin: 0; font-size: 15px; line-height: 1.4"><span style="display: block; font-weight: 800">15-noyabr 2026, yakshanba</span><span style="display: block; color: #E4D6FA">soat 19:00 da</span></p>
+          </div>
+          <div style="display: flex; align-items: center; gap: 12px">
+            <span style="flex: none; width: 40px; height: 40px; border-radius: 12px; background: rgba(255,95,162,0.16); display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 20 20"><path class="tkp-ico" d="M10 18s-5.5-5.2-5.5-9.3a5.5 5.5 0 0 1 11 0C15.5 12.8 10 18 10 18z"></path><circle class="tkp-ico" cx="10" cy="8.7" r="2"></circle></svg></span>
+            <p style="margin: 0; font-size: 15px; line-height: 1.4"><span style="display: block; font-weight: 800">“Bahor” kafesi</span><span style="display: block; color: #E4D6FA">Toshkent, Chilonzor 7-mavze</span></p>
+          </div>
+          <div style="display: flex; gap: 10px; margin-top: 6px">
+            <button type="button" class="{{ goCls }}" onClick="{{ go }}">
+              <span class="{{ goIdle }}">Boraman</span>
+              <span class="{{ goDone }}"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 20 20"><path class="tkp-icoD" d="M4 10.5l4 4 8-9"></path></svg>Kutamiz!</span>
+            </button>
+            <a class="tkp-map" href="https://yandex.uz/maps/?text=Toshkent%2C%20Chilonzor%207-mavze%2C%20Bahor%20kafesi" target="_blank" rel="noopener"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 20 20"><path class="tkp-ico" d="M10 18s-5.5-5.2-5.5-9.3a5.5 5.5 0 0 1 11 0C15.5 12.8 10 18 10 18z"></path><circle class="tkp-ico" cx="10" cy="8.7" r="2"></circle></svg>Xaritada ochish</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section style="position: relative; flex: 1; padding: 4px 20px 30px; display: flex; flex-direction: column; align-items: center; text-align: center">
+      <h2 class="tkp-d" style="margin: 0; font-size: 18px; font-weight: 700; line-height: 1.35">Madinani tabrikladingizmi?</h2>
+      <p style="margin: 6px 0 16px; font-size: 15px; line-height: 1.45; color: #E4D6FA">Bir bosishda tabrigingizni yetkazing</p>
+      <div style="position: relative; width: 100%">
+        <div class="{{ sendBurstCls }}" aria-hidden="true" style="position: absolute; left: 175px; top: 10px; width: 0; height: 0; z-index: 3">
+          <sc-for list="{{ cfFast }}" as="c" hint-placeholder-count="24"><span style="{{ c.w }}"><span class="{{ c.k }}" style="{{ c.p }}"></span></span></sc-for>
+        </div>
+        <button type="button" class="{{ sendCls }}" onClick="{{ send }}">
+          <span class="{{ sendIdle }}" style="align-items: center; gap: 10px"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 20 20"><path d="M10 17s-6.5-4.1-6.5-8.6A3.6 3.6 0 0 1 10 6.3a3.6 3.6 0 0 1 6.5 2.1C16.5 12.9 10 17 10 17z" fill="#2A1252"></path></svg>Tabrikladim</span>
+          <span class="{{ sendDone }}" style="align-items: center; gap: 10px"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 20 20"><path class="tkp-icoY" d="M4 10.5l4 4 8-9"></path></svg>Rahmat! Tabrigingiz yetkazildi</span>
+        </button>
+      </div>
+    </section>
+  </div>
+
+  <div class="{{ introCls }}" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; z-index: 20; overflow: hidden">
+    <div class="tkp-introBg" aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; background: radial-gradient(80% 48% at 50% 50%, #8A3CA8 0%, #4A2280 46%, #2A1252 82%), #2A1252">
+      <div style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; background: radial-gradient(90% 28% at 50% 100%, rgba(255,95,162,0.6), rgba(255,95,162,0) 70%)"></div>
+      <div class="tkp-rays" style="position: absolute; left: -105px; top: 120px; width: 600px; height: 600px; border-radius: 50%"></div>
+      <sc-for list="{{ introSparks }}" as="p" hint-placeholder-count="22"><span class="tkp-spark" style="{{ p.st }}"></span></sc-for>
+      <sc-for list="{{ introDrift }}" as="p" hint-placeholder-count="14"><span class="tkp-drift" style="{{ p.st }}"></span></sc-for>
+    </div>
+
+    <div class="tkp-introTitle" style="position: absolute; left: 24px; top: 82px; width: 342px; text-align: center">
+      <p style="margin: 0; font-size: 12px; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; color: #FFC93C">14-noyabr · tug’ilgan kun</p>
+      <h2 class="tkp-d" style="margin: 12px 0 0; font-size: 25px; font-weight: 800; line-height: 1.24; color: #FFFFFF; text-shadow: 0 0 24px rgba(255,95,162,0.6)">Madina, bu sovg’a<br>sen uchun!</h2>
+    </div>
+
+    <div class="tkp-bob" style="position: absolute; left: 40px; top: 252px; width: 310px; height: 340px">
+      <div class="tkp-beam" aria-hidden="true" style="position: absolute; left: 40px; top: -190px; width: 230px; height: 310px; border-radius: 50% 50% 0 0; background: linear-gradient(0deg, rgba(255,236,170,0.95), rgba(255,201,60,0.35) 45%, rgba(255,201,60,0) 100%)"></div>
+      <div class="tkp-body" aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 310px; height: 340px">
+        <div style="position: absolute; left: 40px; top: 318px; width: 230px; height: 22px; border-radius: 50%; background: radial-gradient(closest-side, rgba(10,0,30,0.55), rgba(10,0,30,0))"></div>
+        <div style="position: absolute; left: 30px; top: 112px; width: 250px; height: 214px; border-radius: 6px 6px 16px 16px; overflow: hidden; background: radial-gradient(circle at 25% 25%, rgba(255,201,60,0.95) 0 3px, rgba(255,201,60,0) 3.5px) 0 0 / 34px 34px, radial-gradient(circle at 75% 75%, rgba(255,255,255,0.6) 0 2px, rgba(255,255,255,0) 2.5px) 0 0 / 34px 34px, linear-gradient(160deg, #FF7DB5 0%, #FF5FA2 45%, #D93F8C 100%); box-shadow: inset -24px 0 34px rgba(90,10,60,0.28), 0 26px 40px rgba(20,0,40,0.4)">
+          <div class="tkp-ribV" style="position: absolute; left: 105px; top: 0; width: 40px; height: 214px; background: linear-gradient(90deg, #E0A21E, #FFE38A 35%, #FFC93C 65%, #E0A21E)"></div>
+          <div style="position: absolute; left: 0; top: 0; width: 250px; height: 14px; background: linear-gradient(180deg, rgba(60,0,40,0.35), rgba(60,0,40,0))"></div>
+        </div>
+      </div>
+      <div class="tkp-lid" aria-hidden="true" style="position: absolute; left: 15px; top: 64px; width: 280px; height: 58px">
+        <div style="position: absolute; left: 0; top: 0; width: 280px; height: 58px; border-radius: 10px; background: radial-gradient(circle at 25% 25%, rgba(255,201,60,0.95) 0 3px, rgba(255,201,60,0) 3.5px) 0 0 / 34px 34px, linear-gradient(180deg, #FF9CC8, #FF5FA2 70%, #E2488F); box-shadow: 0 12px 20px rgba(60,0,50,0.4)">
+          <div class="tkp-lidRib" style="position: absolute; left: 120px; top: 0; width: 40px; height: 58px; background: linear-gradient(90deg, #E0A21E, #FFE38A 35%, #FFC93C 65%, #E0A21E)"></div>
+        </div>
+        <svg width="90" height="46" viewBox="0 0 90 46" style="position: absolute; left: 136px; top: -16px"><path class="tkp-tagline" d="M4 4C30 8 58 20 80 40"></path></svg>
+        <div class="tkp-tag" style="position: absolute; left: 204px; top: 14px; width: 76px; height: 40px">
+          <div style="width: 76px; height: 38px; border-radius: 6px 16px 16px 6px; background: #FFF6EC; transform: rotate(14deg); display: flex; align-items: center; justify-content: center; gap: 6px; box-shadow: 0 6px 12px rgba(30,0,40,0.35)">
+            <span style="width: 6px; height: 6px; border-radius: 50%; background: #3B1E6E"></span>
+            <span class="tkp-d" style="font-size: 10px; font-weight: 700; color: #3B1E6E">Madinaga</span>
+          </div>
+        </div>
+        <div class="tkp-bow" style="position: absolute; left: 70px; top: -66px; width: 140px; height: 96px; transform-origin: 50% 60%">
+          <svg width="140" height="96" viewBox="0 0 140 96"><path d="M64 54L44 88L55 84L60 92L70 58Z" fill="#E8A91F"></path><path d="M76 54L96 88L85 84L80 92L70 58Z" fill="#E8A91F"></path><path d="M70 52C50 18 12 12 10 34C8 54 40 60 70 52Z" fill="url(#tkp-gGold)"></path><path d="M70 52C50 34 26 30 22 38C28 47 48 53 70 52Z" fill="#E0A21E"></path><path d="M70 52C90 18 128 12 130 34C132 54 100 60 70 52Z" fill="url(#tkp-gGold)"></path><path d="M70 52C90 34 114 30 118 38C112 47 92 53 70 52Z" fill="#E0A21E"></path><rect x="59" y="42" width="22" height="20" rx="7" fill="#FFD966"></rect></svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="tkp-ctaWrap" style="position: absolute; left: 24px; top: 664px; width: 342px; display: flex; flex-direction: column; align-items: center; gap: 16px">
+      <button type="button" class="tkp-cta" onClick="{{ open }}">Sovg’ani oching</button>
+      <p style="margin: 0; font-size: 14px; font-weight: 600; line-height: 1.4; color: #F4ECFF">Dugonalaringdan: Laylo, Sevara va Nigora</p>
+    </div>
+  </div>
+
+  <div class="{{ introBurstCls }}" aria-hidden="true" style="position: absolute; left: 195px; top: 370px; width: 0; height: 0; z-index: 21; pointer-events: none">
+    <sc-for list="{{ cfIntro }}" as="c" hint-placeholder-count="30"><span style="{{ c.w }}"><span class="{{ c.k }}" style="{{ c.p }}"></span></span></sc-for>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":3600}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { now: Date.now(), opened: false, blown: false, gift: false, going: false, sent: false };
+    const rnd = (i, k) => { const x = Math.sin(i * 127.1 + k * 311.7) * 43758.5453; return x - Math.floor(x); };
+    const sparkCols = ['#FFC93C', '#FFFFFF', '#FF8CC0', '#FFE38A'];
+    const sparks = (n, h, seed, extra) => Array.from({ length: n }, (_, i) => {
+      const s = 6 + Math.round(rnd(i, seed) * extra);
+      return { st: 'left: ' + Math.round(6 + rnd(i, seed + 1) * 370) + 'px; top: ' + Math.round(rnd(i, seed + 2) * h) + 'px; width: ' + s + 'px; height: ' + s + 'px; background: ' + sparkCols[i % 4] + '; animation-duration: ' + (2.2 + rnd(i, seed + 3) * 2.6).toFixed(2) + 's; animation-delay: -' + (rnd(i, seed + 4) * 3).toFixed(2) + 's' };
+    });
+    const driftCols = ['#FFC93C', '#FF5FA2', '#A47BFF', '#FF8CC0'];
+    const drift = (n, h, seed) => Array.from({ length: n }, (_, i) => {
+      const round = i % 3 === 0;
+      return { st: 'left: ' + Math.round(6 + rnd(i, seed) * 372) + 'px; top: ' + Math.round(rnd(i, seed + 1) * h) + 'px; width: ' + (round ? 7 : 5) + 'px; height: ' + (round ? 7 : 12) + 'px; border-radius: ' + (round ? '50%' : '2px') + '; background: ' + driftCols[i % 4] + '; opacity: 0.75; animation-duration: ' + (6 + rnd(i, seed + 2) * 5).toFixed(2) + 's; animation-delay: -' + (rnd(i, seed + 3) * 6).toFixed(2) + 's' };
+    });
+    const cfCols = ['#FFC93C', '#FF5FA2', '#FFFFFF', '#A47BFF', '#FF8CC0', '#FFE38A'];
+    const burst = (n, base, seed) => Array.from({ length: n }, (_, i) => {
+      const ang = -84 + (168 * i) / (n - 1) + (rnd(i, seed) - 0.5) * 10;
+      const t = i % 3;
+      const w = t === 0 ? 8 : 6;
+      const h = t === 0 ? 8 : (t === 1 ? 14 : 10);
+      return {
+        w: 'position: absolute; left: 0; top: 0; width: 0; height: 0; transform: rotate(' + ang.toFixed(1) + 'deg)',
+        k: 'tkp-cf tkp-k' + (1 + ((i * 7) % 3)),
+        p: 'width: ' + w + 'px; height: ' + h + 'px; margin: -' + (h / 2) + 'px 0 0 -' + (w / 2) + 'px; border-radius: ' + (t === 0 ? '50%' : '2px') + '; background: ' + cfCols[i % 6] + '; animation-delay: ' + (base + rnd(i, seed + 1) * 0.18).toFixed(2) + 's'
+      };
+    });
+    this.deco = {
+      pageSparks: sparks(30, 3560, 1, 9),
+      pageDrift: drift(18, 3560, 11),
+      introSparks: sparks(22, 820, 21, 10),
+      introDrift: drift(14, 820, 31),
+      cfIntro: burst(32, 0.55, 41),
+      cfFast: burst(26, 0.05, 51)
+    };
+  }
+  componentDidMount() {
+    this.timer = setInterval(() => this.setState({ now: Date.now() }), 1000);
+  }
+  componentWillUnmount() {
+    clearInterval(this.timer);
+  }
+  renderVals() {
+    const s = this.state;
+    // 14-noyabr 2026, 00:00 Toshkent vaqti (UTC+5)
+    const target = Date.UTC(2026, 10, 13, 19, 0, 0);
+    const left = Math.max(0, Math.floor((target - s.now) / 1000));
+    const d = Math.floor(left / 86400);
+    const h = Math.floor((left % 86400) / 3600);
+    const m = Math.floor((left % 3600) / 60);
+    const sec = left % 60;
+    const pad = (n) => (n < 10 ? '0' : '') + n;
+    const C = 201.06;
+    const off = (f) => 'stroke-dashoffset: ' + (C * (1 - Math.min(1, f))).toFixed(2) + 'px';
+    const pop = (n) => (n % 2 ? 'tkp-num tkp-pa' : 'tkp-num tkp-pb');
+    return {
+      pageSparks: this.deco.pageSparks,
+      pageDrift: this.deco.pageDrift,
+      introSparks: this.deco.introSparks,
+      introDrift: this.deco.introDrift,
+      cfIntro: this.deco.cfIntro,
+      cfFast: this.deco.cfFast,
+      dd: pad(d), hh: pad(h), mm: pad(m), ss: pad(sec),
+      offD: off(d / 30), offH: off(h / 24), offM: off(m / 60), offS: off(sec / 60),
+      popD: pop(d), popH: pop(h), popM: pop(m), popS: pop(sec),
+      introCls: s.opened ? 'tkp-intro tkp-intro--open' : 'tkp-intro',
+      introBurstCls: s.opened ? 'tkp-burst tkp-burst--go' : 'tkp-burst',
+      pageCls: s.opened ? 'tkp-page tkp-page--in' : 'tkp-page',
+      open: () => this.setState({ opened: true }),
+      cakeCls: s.blown ? 'tkp-cake tkp-cake--out' : 'tkp-cake',
+      cakeBurstCls: s.blown ? 'tkp-burst tkp-burst--go' : 'tkp-burst',
+      wishCls: s.blown ? 'tkp-wish tkp-wish--on' : 'tkp-wish',
+      blowIdle: s.blown ? 'is-hidden' : '',
+      blowDone: s.blown ? '' : 'is-hidden',
+      blow: () => this.setState({ blown: !this.state.blown }),
+      giftCls: s.gift ? 'tkp-gift tkp-gift--open' : 'tkp-gift',
+      giftTxtA: s.gift ? 'tkp-txtA tkp-txt--off' : 'tkp-txtA',
+      giftTxtB: s.gift ? 'tkp-txtB' : 'tkp-txtB tkp-txt--off',
+      toggleGift: () => this.setState({ gift: !this.state.gift }),
+      goCls: s.going ? 'tkp-go tkp-go--on' : 'tkp-go',
+      goIdle: s.going ? 'is-hidden' : '',
+      goDone: s.going ? 'tkp-row' : 'is-hidden',
+      go: () => this.setState({ going: !this.state.going }),
+      sendCls: s.sent ? 'tkp-send tkp-send--done' : 'tkp-send',
+      sendIdle: s.sent ? 'is-hidden' : 'tkp-row',
+      sendDone: s.sent ? 'tkp-row' : 'is-hidden',
+      sendBurstCls: s.sent ? 'tkp-burst tkp-burst--go' : 'tkp-burst',
+      send: () => this.setState({ sent: true })
+    };
+  }
+}
+</script>
+</body>
+</html>

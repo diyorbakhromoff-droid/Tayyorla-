@@ -1,0 +1,441 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<title>Uzr Premium: Muz yurak</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Prata&amp;family=Onest:wght@400;500;600;700;800&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#22667A}a:hover{color:#174E5E}
+.m-pr{font-family:'Prata',Georgia,'Times New Roman',serif;font-weight:400}
+.m-i1{stop-color:#F7FDFF}.m-i2{stop-color:#CDEFF6}.m-i3{stop-color:#86CBDD}
+.m-w1{stop-color:#FFF0E2}.m-w2{stop-color:#FFBE96}.m-w3{stop-color:#F2896A}
+.m-c1{stop-color:#E4F6FA}.m-c2{stop-color:#A9DCE9}
+.m-clip{clip-path:url(#mHeartClip)}
+.m-rim{fill:none;stroke-width:2}
+.m-cr{fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.m-crs{fill:none;stroke-width:4.5;stroke-linecap:round;stroke-linejoin:round}
+.m-ic{fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.m-ic2{fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.m-fr{fill:none;stroke-width:1.3;stroke-linecap:round}
+
+.m-intro{transition:opacity .7s ease 2s,visibility 0s linear 2.7s}
+.m-intro--melt{opacity:0;visibility:hidden;pointer-events:none}
+.m-crack{opacity:0;transition:opacity .2s ease}
+.m-s1 .m-crack1,.m-s2 .m-crack2,.m-s3 .m-crack3{opacity:1}
+.m-s1 .m-shake{animation:mShake1 .5s ease}
+.m-s2 .m-shake{animation:mShake2 .55s ease}
+.m-s3 .m-shake{animation:mShake3 .7s ease}
+@keyframes mShake1{0%,100%{transform:none}20%{transform:translateX(-6px) rotate(-2deg)}45%{transform:translateX(5px) rotate(1.5deg)}70%{transform:translateX(-3px)}}
+@keyframes mShake2{0%,100%{transform:none}15%{transform:translateX(-9px) rotate(-3deg)}35%{transform:translateX(8px) rotate(2.5deg)}55%{transform:translateX(-6px) rotate(-1.5deg)}75%{transform:translateX(3px)}}
+@keyframes mShake3{0%{transform:none}25%{transform:scale(1.05)}55%{transform:scale(.97)}100%{transform:none}}
+.m-icefx{filter:drop-shadow(0 12px 22px rgba(43,116,137,.28)) drop-shadow(0 0 9px rgba(255,255,255,.9))}
+.m-ice{transition:opacity .9s ease .35s,transform 1.1s ease .35s,filter .9s ease .35s}
+.m-s3 .m-ice{opacity:0;transform:scale(1.04) translateY(8px);filter:blur(4px)}
+.m-warm{opacity:0;transform:scale(.88);transition:opacity 1s ease .55s,transform 1.2s cubic-bezier(.2,.8,.3,1.25) .55s}
+.m-s3 .m-warm{opacity:1;transform:none}
+.m-glow{opacity:0;transform:scale(.4);transition:opacity 1.2s ease .6s,transform 1.4s ease .6s}
+.m-s3 .m-glow{opacity:1;transform:none}
+.m-drip{opacity:0}
+.m-s3 .m-drip{animation:mDrip 1.2s ease-in .5s both}
+@keyframes mDrip{0%{opacity:0;transform:translateY(0) scale(.5)}15%{opacity:1;transform:translateY(4px) scale(1)}100%{opacity:0;transform:translateY(150px) scale(.9)}}
+.m-chip{opacity:0}
+.m-s1 .m-chA1,.m-s2 .m-chB1,.m-s3 .m-chC1{animation:mChipL .7s ease-out both}
+.m-s1 .m-chA2,.m-s2 .m-chB2,.m-s3 .m-chC2{animation:mChipR .7s ease-out both}
+.m-s1 .m-chA3,.m-s2 .m-chB3,.m-s3 .m-chC3{animation:mChipU .7s ease-out both}
+@keyframes mChipL{0%{opacity:1;transform:none}100%{opacity:0;transform:translate(-34px,-26px) rotate(-80deg)}}
+@keyframes mChipR{0%{opacity:1;transform:none}100%{opacity:0;transform:translate(36px,-18px) rotate(90deg)}}
+@keyframes mChipU{0%{opacity:1;transform:none}100%{opacity:0;transform:translate(6px,-40px) rotate(60deg)}}
+.m-sky{opacity:0;transition:opacity 1.3s ease .45s}
+.m-s3 .m-sky{opacity:1}
+.m-frost{transition:opacity 1.2s ease .3s}
+.m-s3 .m-frost{opacity:0}
+.m-snowwrap{transition:opacity .8s ease}
+.m-s3 .m-snowwrap{opacity:0}
+.m-icopy{transition:opacity .45s ease,transform .45s ease}
+.m-s3 .m-icopy{opacity:0;transform:translateY(10px)}
+.m-pipf{opacity:0;transform:scale(.4);transition:opacity .3s ease,transform .35s cubic-bezier(.3,1.5,.5,1)}
+.m-s1 .m-pip1,.m-s2 .m-pip2,.m-s3 .m-pip3{opacity:1;transform:none}
+
+.m-snow{animation:mSnow 10s linear infinite}
+@keyframes mSnow{0%{opacity:0;transform:translateY(-20px) rotate(0deg)}12%{opacity:.95}85%{opacity:.8}100%{opacity:0;transform:translateY(260px) rotate(140deg)}}
+.m-melt{animation:mMelt 12s linear infinite}
+@keyframes mMelt{0%{opacity:0;transform:translateY(-10px) scale(1)}15%{opacity:.85}70%{opacity:.5;transform:translateY(90px) scale(.8)}100%{opacity:0;transform:translateY(130px) scale(.3)}}
+.m-pulse{animation:mPulse 4.5s ease-in-out infinite}
+@keyframes mPulse{0%,100%{opacity:.75;transform:scale(1)}50%{opacity:1;transform:scale(1.07)}}
+.m-beat{animation:mBeat 3s ease-in-out infinite}
+@keyframes mBeat{0%,100%{transform:scale(1)}12%{transform:scale(1.04)}24%{transform:scale(1)}36%{transform:scale(1.025)}}
+.m-rise{animation:mRise 6s ease-out infinite}
+@keyframes mRise{0%{opacity:0;transform:translateY(20px) scale(.5)}25%{opacity:1}100%{opacity:0;transform:translateY(-130px) scale(1)}}
+.m-dropfall{animation:mDropFall 3.4s ease-in infinite}
+@keyframes mDropFall{0%,40%{opacity:0;transform:translateY(-4px) scale(.4)}55%{opacity:1;transform:translateY(0) scale(1)}100%{opacity:0;transform:translateY(46px) scale(.9)}}
+.m-shim{animation:mShim 3.6s ease-in-out infinite}
+@keyframes mShim{0%,100%{opacity:.55}50%{opacity:1}}
+.m-float{animation:mFloat 6s ease-in-out infinite}
+@keyframes mFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.m-spin{animation:mSpin 26s linear infinite}
+@keyframes mSpin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+.m-bob{animation:mBob 2.2s ease-in-out infinite}
+@keyframes mBob{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+.m-drift{animation:mDrift 15s ease-in-out infinite alternate}
+@keyframes mDrift{from{transform:translateX(-14px)}to{transform:translateX(16px)}}
+
+.m-btn{transition:transform .15s ease,box-shadow .2s ease}
+.m-btn:active{transform:scale(.97)}
+.m-btn:focus-visible,.m-no:focus-visible{outline:3px solid #173647;outline-offset:3px}
+.m-no{transition:transform .4s cubic-bezier(.3,1.45,.5,1)}
+.m-no--0{transform:none}
+.m-no--1{transform:translate(-160px,80px) rotate(-6deg)}
+.m-no--2{transform:translate(8px,86px) rotate(5deg)}
+.m-no--3{transform:translate(-200px,70px) rotate(-3deg)}
+.m-no--4{transform:translate(-80px,90px) rotate(7deg)}
+.m-no--5{transform:translate(14px,40px) rotate(-5deg)}
+.m-hint{opacity:0;transform:translateY(4px);transition:opacity .3s ease,transform .3s ease}
+.m-hint--on{opacity:1;transform:none}
+.m-pop{animation:mPop .6s cubic-bezier(.2,1.3,.4,1) both}
+@keyframes mPop{from{opacity:0;transform:scale(.92) translateY(8px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion: reduce){*{animation:none !important;transition:none !important}}
+</style>
+</helmet>
+<div style="width: 390px; height: 3600px; position: relative; overflow: hidden; background: linear-gradient(180deg, #F3F7F6 0%, #F3F7F6 25%, #FFF2EA 55%, #FFE3D0 100%); color: #173647; font-family: 'Onest', 'Segoe UI', system-ui, sans-serif; display: flex; flex-direction: column">
+
+  <div class="{{ introCls }}" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; z-index: 20; overflow: hidden; background: linear-gradient(180deg, #B7E2EC 0%, #CFEBF2 40%, #E6F5F8 75%, #F3F7F6 100%)">
+    <div class="m-sky" style="position: absolute; inset: 0; background: linear-gradient(180deg, #CFEBF2 0%, #E3F3F6 28%, #FCEBE1 52%, #F8EFEA 72%, #F3F7F6 100%)"></div>
+
+    <div class="m-frost" aria-hidden="true" style="position: absolute; inset: 0">
+      <div style="position: absolute; inset: 0; background: radial-gradient(120% 85% at 50% 42%, rgba(255, 255, 255, 0) 52%, rgba(255, 255, 255, 0.8) 100%)"></div>
+      <svg width="180" height="180" viewBox="0 0 180 180" style="position: absolute; left: 0; top: 0">
+        <path d="M0 26 C38 34 70 54 104 96 M18 30 l6 -12 M36 36 l8 -12 M54 46 l9 -10 M72 60 l10 -8 M86 74 l10 -6 M24 32 l-4 12 M44 40 l-3 13 M62 52 l-1 13 M78 66 l1 12" stroke="#FFFFFF" class="m-fr"></path>
+        <path d="M26 0 C36 30 52 56 78 80 M30 16 l-11 5 M36 32 l-12 4 M46 48 l-12 3 M58 62 l-11 2 M34 14 l11 -3 M42 30 l12 -2 M52 46 l12 -1" stroke="#FFFFFF" class="m-fr"></path>
+        <path d="M0 74 C24 76 44 86 58 102 M14 76 l3 -10 M28 80 l5 -10 M42 88 l6 -8 M16 78 l-2 10 M30 84 l-1 11" stroke="#FFFFFF" class="m-fr"></path>
+      </svg>
+      <svg width="180" height="180" viewBox="0 0 180 180" style="position: absolute; right: 0; bottom: 0; transform: rotate(180deg)">
+        <path d="M0 26 C38 34 70 54 104 96 M18 30 l6 -12 M36 36 l8 -12 M54 46 l9 -10 M72 60 l10 -8 M86 74 l10 -6 M24 32 l-4 12 M44 40 l-3 13 M62 52 l-1 13 M78 66 l1 12" stroke="#FFFFFF" class="m-fr"></path>
+        <path d="M26 0 C36 30 52 56 78 80 M30 16 l-11 5 M36 32 l-12 4 M46 48 l-12 3 M58 62 l-11 2 M34 14 l11 -3 M42 30 l12 -2 M52 46 l12 -1" stroke="#FFFFFF" class="m-fr"></path>
+      </svg>
+      <svg width="150" height="150" viewBox="0 0 180 180" style="position: absolute; right: 0; top: 0; transform: scaleX(-1)">
+        <path d="M0 26 C38 34 70 54 104 96 M18 30 l6 -12 M36 36 l8 -12 M54 46 l9 -10 M72 60 l10 -8 M24 32 l-4 12 M44 40 l-3 13 M62 52 l-1 13" stroke="#FFFFFF" class="m-fr"></path>
+      </svg>
+    </div>
+
+    <div class="m-snowwrap" aria-hidden="true">
+      <span class="m-snow" style="position: absolute; left: 34px; top: 120px; animation-duration: 11s"><svg width="18" height="18" viewBox="0 0 24 24"><path d="M12 2v20 M3.4 7l17.2 10 M3.4 17l17.2-10 M9.5 3.8L12 6.2l2.5-2.4 M9.5 20.2L12 17.8l2.5 2.4" stroke="#FFFFFF" class="m-ic"></path></svg></span>
+      <span class="m-snow" style="position: absolute; left: 330px; top: 180px; animation-delay: -4s"><svg width="14" height="14" viewBox="0 0 24 24"><path d="M12 2v20 M3.4 7l17.2 10 M3.4 17l17.2-10" stroke="#FFFFFF" class="m-ic"></path></svg></span>
+      <span class="m-snow" style="position: absolute; left: 66px; top: 380px; animation-delay: -7s; animation-duration: 12s"><svg width="12" height="12" viewBox="0 0 24 24"><path d="M12 2v20 M3.4 7l17.2 10 M3.4 17l17.2-10" stroke="#FFFFFF" class="m-ic"></path></svg></span>
+      <span class="m-snow" style="position: absolute; left: 300px; top: 420px; animation-delay: -2s; animation-duration: 9s"><svg width="20" height="20" viewBox="0 0 24 24"><path d="M12 2v20 M3.4 7l17.2 10 M3.4 17l17.2-10 M9.5 3.8L12 6.2l2.5-2.4 M9.5 20.2L12 17.8l2.5 2.4" stroke="#FFFFFF" class="m-ic"></path></svg></span>
+      <span class="m-snow" style="position: absolute; left: 188px; top: 40px; animation-delay: -5.5s; animation-duration: 13s"><svg width="10" height="10" viewBox="0 0 24 24"><path d="M12 2v20 M3.4 7l17.2 10 M3.4 17l17.2-10" stroke="#FFFFFF" class="m-ic"></path></svg></span>
+      <span class="m-snow" style="position: absolute; left: 24px; top: 560px; animation-delay: -1s; animation-duration: 10s"><svg width="14" height="14" viewBox="0 0 24 24"><path d="M12 2v20 M3.4 7l17.2 10 M3.4 17l17.2-10" stroke="#FFFFFF" class="m-ic"></path></svg></span>
+      <span class="m-snow" style="position: absolute; left: 350px; top: 600px; animation-delay: -8s; animation-duration: 11s"><svg width="12" height="12" viewBox="0 0 24 24"><path d="M12 2v20 M3.4 7l17.2 10 M3.4 17l17.2-10" stroke="#FFFFFF" class="m-ic"></path></svg></span>
+    </div>
+
+    <div class="m-shake" style="position: absolute; left: 75px; top: 170px; width: 240px; height: 220px">
+      <div class="m-glow" style="position: absolute; left: -90px; top: -95px; width: 420px; height: 420px; border-radius: 50%; background: radial-gradient(closest-side, rgba(255, 190, 150, 0.75), rgba(255, 214, 190, 0.35) 55%, rgba(255, 214, 190, 0))"></div>
+      <svg class="m-warm" width="240" height="220" viewBox="0 0 240 220" aria-hidden="true" style="position: absolute; left: 0; top: 0">
+        <defs><linearGradient id="mWarmG" x1="40" y1="20" x2="200" y2="200" gradientUnits="userSpaceOnUse"><stop offset="0" class="m-w1"></stop><stop offset=".5" class="m-w2"></stop><stop offset="1" class="m-w3"></stop></linearGradient></defs>
+        <path d="M120 200 C60 160 20 120 20 76 C20 44 44 22 74 22 C96 22 112 34 120 52 C128 34 144 22 166 22 C196 22 220 44 220 76 C220 120 180 160 120 200 Z" fill="url(#mWarmG)"></path>
+        <path d="M40 74 C42 54 54 42 72 40" stroke="#FFFFFF" class="m-ic2" opacity="0.8"></path>
+        <ellipse cx="62" cy="58" rx="9" ry="5" fill="#FFFFFF" opacity="0.55" transform="rotate(-35 62 58)"></ellipse>
+      </svg>
+      <div class="m-icefx" style="position: absolute; left: 0; top: 0; width: 240px; height: 220px">
+        <svg class="m-ice" width="240" height="220" viewBox="0 0 240 220" aria-hidden="true" style="display: block">
+          <defs>
+            <linearGradient id="mIceG" x1="30" y1="20" x2="210" y2="200" gradientUnits="userSpaceOnUse"><stop offset="0" class="m-i1"></stop><stop offset=".5" class="m-i2"></stop><stop offset="1" class="m-i3"></stop></linearGradient>
+            <clipPath id="mHeartClip"><path d="M120 200 C60 160 20 120 20 76 C20 44 44 22 74 22 C96 22 112 34 120 52 C128 34 144 22 166 22 C196 22 220 44 220 76 C220 120 180 160 120 200 Z"></path></clipPath>
+          </defs>
+          <path d="M120 200 C60 160 20 120 20 76 C20 44 44 22 74 22 C96 22 112 34 120 52 C128 34 144 22 166 22 C196 22 220 44 220 76 C220 120 180 160 120 200 Z" fill="url(#mIceG)"></path>
+          <g class="m-clip">
+            <polygon points="20,76 74,22 95,90" fill="#FFFFFF" opacity="0.38"></polygon>
+            <polygon points="74,22 120,52 95,90" fill="#FFFFFF" opacity="0.16"></polygon>
+            <polygon points="95,90 120,52 150,95" fill="#FFFFFF" opacity="0.42"></polygon>
+            <polygon points="120,52 166,22 150,95" fill="#FFFFFF" opacity="0.26"></polygon>
+            <polygon points="166,22 220,76 150,95" fill="#FFFFFF" opacity="0.08"></polygon>
+            <polygon points="20,76 95,90 60,150" fill="#4FA6BF" opacity="0.12"></polygon>
+            <polygon points="95,90 150,95 120,140" fill="#FFFFFF" opacity="0.22"></polygon>
+            <polygon points="150,95 220,76 185,145" fill="#4FA6BF" opacity="0.16"></polygon>
+            <polygon points="60,150 95,90 120,140 120,200" fill="#FFFFFF" opacity="0.1"></polygon>
+            <polygon points="120,140 185,145 120,200" fill="#4FA6BF" opacity="0.24"></polygon>
+            <circle cx="52" cy="60" r="1.6" fill="#FFFFFF"></circle>
+            <circle cx="70" cy="110" r="1.2" fill="#FFFFFF"></circle>
+            <circle cx="176" cy="60" r="1.4" fill="#FFFFFF"></circle>
+            <circle cx="160" cy="130" r="1.1" fill="#FFFFFF"></circle>
+            <circle cx="100" cy="160" r="1.3" fill="#FFFFFF"></circle>
+          </g>
+          <path d="M36 70 C38 50 52 36 72 34" stroke="#FFFFFF" class="m-cr" opacity="0.9"></path>
+          <path d="M120 200 C60 160 20 120 20 76 C20 44 44 22 74 22 C96 22 112 34 120 52 C128 34 144 22 166 22 C196 22 220 44 220 76 C220 120 180 160 120 200 Z" stroke="#FFFFFF" class="m-rim" opacity="0.85"></path>
+          <g class="m-crack m-crack1">
+            <path d="M120 54 L114 78 L126 96 L117 118 M114 78 L100 84" stroke="#5AAFC6" class="m-crs" opacity="0.35"></path>
+            <path d="M120 54 L114 78 L126 96 L117 118 M114 78 L100 84" stroke="#FFFFFF" class="m-cr"></path>
+          </g>
+          <g class="m-crack m-crack2">
+            <path d="M117 118 L128 140 L119 160 M126 96 L148 104 L160 98 M100 84 L84 76 M128 140 L146 150" stroke="#5AAFC6" class="m-crs" opacity="0.35"></path>
+            <path d="M117 118 L128 140 L119 160 M126 96 L148 104 L160 98 M100 84 L84 76 M128 140 L146 150" stroke="#FFFFFF" class="m-cr"></path>
+          </g>
+          <g class="m-crack m-crack3">
+            <path d="M119 160 L121 196 M148 104 L170 120 L192 114 M84 76 L60 92 L42 86 M146 150 L162 168 M117 118 L94 128 L76 124 M160 98 L178 70" stroke="#5AAFC6" class="m-crs" opacity="0.35"></path>
+            <path d="M119 160 L121 196 M148 104 L170 120 L192 114 M84 76 L60 92 L42 86 M146 150 L162 168 M117 118 L94 128 L76 124 M160 98 L178 70" stroke="#FFFFFF" class="m-cr"></path>
+          </g>
+        </svg>
+      </div>
+      <svg class="m-chip m-chA1" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true" style="position: absolute; left: 104px; top: 70px"><polygon points="0,4 12,0 7,12" fill="#E9F8FB"></polygon></svg>
+      <svg class="m-chip m-chA2" width="10" height="10" viewBox="0 0 12 12" aria-hidden="true" style="position: absolute; left: 122px; top: 84px"><polygon points="0,0 12,5 3,12" fill="#BFE6EF"></polygon></svg>
+      <svg class="m-chip m-chA3" width="9" height="9" viewBox="0 0 12 12" aria-hidden="true" style="position: absolute; left: 114px; top: 50px"><polygon points="2,0 12,8 0,12" fill="#FFFFFF"></polygon></svg>
+      <svg class="m-chip m-chB1" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true" style="position: absolute; left: 82px; top: 74px"><polygon points="0,4 12,0 7,12" fill="#E9F8FB"></polygon></svg>
+      <svg class="m-chip m-chB2" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true" style="position: absolute; left: 150px; top: 96px"><polygon points="0,0 12,5 3,12" fill="#BFE6EF"></polygon></svg>
+      <svg class="m-chip m-chB3" width="10" height="10" viewBox="0 0 12 12" aria-hidden="true" style="position: absolute; left: 124px; top: 134px"><polygon points="2,0 12,8 0,12" fill="#FFFFFF"></polygon></svg>
+      <svg class="m-chip m-chC1" width="14" height="14" viewBox="0 0 12 12" aria-hidden="true" style="position: absolute; left: 50px; top: 86px"><polygon points="0,4 12,0 7,12" fill="#E9F8FB"></polygon></svg>
+      <svg class="m-chip m-chC2" width="14" height="14" viewBox="0 0 12 12" aria-hidden="true" style="position: absolute; left: 180px; top: 108px"><polygon points="0,0 12,5 3,12" fill="#BFE6EF"></polygon></svg>
+      <svg class="m-chip m-chC3" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true" style="position: absolute; left: 112px; top: 30px"><polygon points="2,0 12,8 0,12" fill="#FFFFFF"></polygon></svg>
+      <svg class="m-drip" width="12" height="18" viewBox="0 0 12 18" aria-hidden="true" style="position: absolute; left: 114px; top: 196px"><path d="M6 0 C6 0 0 8 0 12 A6 6 0 0 0 12 12 C12 8 6 0 6 0 Z" fill="#9AD6E6"></path></svg>
+      <svg class="m-drip" width="9" height="14" viewBox="0 0 12 18" aria-hidden="true" style="position: absolute; left: 70px; top: 150px; animation-delay: .8s"><path d="M6 0 C6 0 0 8 0 12 A6 6 0 0 0 12 12 C12 8 6 0 6 0 Z" fill="#B5E2EC"></path></svg>
+      <svg class="m-drip" width="10" height="15" viewBox="0 0 12 18" aria-hidden="true" style="position: absolute; left: 164px; top: 156px; animation-delay: .65s"><path d="M6 0 C6 0 0 8 0 12 A6 6 0 0 0 12 12 C12 8 6 0 6 0 Z" fill="#9AD6E6"></path></svg>
+      <svg class="m-drip" width="8" height="12" viewBox="0 0 12 18" aria-hidden="true" style="position: absolute; left: 34px; top: 112px; animation-delay: .95s"><path d="M6 0 C6 0 0 8 0 12 A6 6 0 0 0 12 12 C12 8 6 0 6 0 Z" fill="#B5E2EC"></path></svg>
+      <svg class="m-drip" width="8" height="12" viewBox="0 0 12 18" aria-hidden="true" style="position: absolute; left: 200px; top: 116px; animation-delay: 1.05s"><path d="M6 0 C6 0 0 8 0 12 A6 6 0 0 0 12 12 C12 8 6 0 6 0 Z" fill="#B5E2EC"></path></svg>
+    </div>
+
+    <div class="m-icopy" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px">
+      <p style="position: absolute; left: 0; right: 0; top: 62px; margin: 0; text-align: center; font-size: 12.5px; font-weight: 800; letter-spacing: 0.22em; text-transform: uppercase; color: #1F5F73">Azizdan Dilnozaga</p>
+      <p class="m-pr" style="position: absolute; left: 20px; right: 20px; top: 86px; margin: 0; text-align: center; font-size: 50px; line-height: 1.15; color: #173647">Muz yurak</p>
+      <div style="position: absolute; left: 24px; right: 24px; top: 438px; display: flex; flex-direction: column; align-items: center; gap: 22px; text-align: center">
+        <p style="margin: 0; max-width: 310px; font-size: 16px; line-height: 1.6; color: #24485A">Kechagi so’zlarim oramizni muzlatib qo’ydi. Bu muzni faqat sen erita olasan.</p>
+        <button type="button" class="m-btn" onClick="{{ melt }}" style="height: 58px; padding: 0 30px 0 22px; border: 0; border-radius: 29px; background: linear-gradient(135deg, #FFE1CC 0%, #FFB892 100%); color: #173647; font-family: inherit; font-size: 17px; font-weight: 800; display: inline-flex; align-items: center; gap: 10px; cursor: pointer; box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.55), 0 16px 30px -14px rgba(214, 120, 80, 0.75)">
+          <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21c-4 0-6.5-2.7-6.5-6.2 0-3.7 3.2-5.6 3.6-9.8 2.4 1.6 3.4 3.6 3.6 5.6 1-.8 1.6-2 1.8-3.4 2 1.7 4 4.4 4 7.6 0 3.5-2.5 6.2-6.5 6.2z" fill="#F7A582"></path><path d="M12 21c-1.8 0-3-1.2-3-2.9 0-1.9 1.6-2.8 2.2-4.6 1.6 1 3.8 2.6 3.8 4.6 0 1.7-1.2 2.9-3 2.9z" fill="#FFE7D4"></path></svg>
+          <span>Muzni eritish</span>
+        </button>
+        <div role="status" style="display: flex; flex-direction: column; align-items: center; gap: 10px">
+          <div aria-hidden="true" style="display: flex; gap: 10px">
+            <span style="position: relative; width: 12px; height: 12px; box-sizing: border-box; border-radius: 50%; border: 1.5px solid #2B7489"><span class="m-pipf m-pip1" style="position: absolute; left: 1px; top: 1px; width: 7px; height: 7px; border-radius: 50%; background: #F2896A"></span></span>
+            <span style="position: relative; width: 12px; height: 12px; box-sizing: border-box; border-radius: 50%; border: 1.5px solid #2B7489"><span class="m-pipf m-pip2" style="position: absolute; left: 1px; top: 1px; width: 7px; height: 7px; border-radius: 50%; background: #F2896A"></span></span>
+            <span style="position: relative; width: 12px; height: 12px; box-sizing: border-box; border-radius: 50%; border: 1.5px solid #2B7489"><span class="m-pipf m-pip3" style="position: absolute; left: 1px; top: 1px; width: 7px; height: 7px; border-radius: 50%; background: #F2896A"></span></span>
+          </div>
+          <sc-if value="{{ stage0 }}" hint-placeholder-val="{{ true }}">
+            <p style="margin: 0; font-size: 14px; font-weight: 600; color: #24485A">Uch marta bosing</p>
+          </sc-if>
+          <sc-if value="{{ stage1 }}" hint-placeholder-val="{{ false }}">
+            <p style="margin: 0; font-size: 14px; font-weight: 600; color: #24485A">Muz yorildi. Yana ikki marta</p>
+          </sc-if>
+          <sc-if value="{{ stage2 }}" hint-placeholder-val="{{ false }}">
+            <p style="margin: 0; font-size: 14px; font-weight: 600; color: #24485A">Yana bir marta, oxirgisi</p>
+          </sc-if>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <header style="flex: none; position: relative; height: 844px; overflow: hidden; background: linear-gradient(180deg, #CFEBF2 0%, #E3F3F6 28%, #FCEBE1 52%, #F8EFEA 72%, #F3F7F6 100%)">
+    <span class="m-melt" aria-hidden="true" style="position: absolute; left: 40px; top: 70px"><svg width="16" height="16" viewBox="0 0 24 24"><path d="M12 2v20 M3.4 7l17.2 10 M3.4 17l17.2-10 M9.5 3.8L12 6.2l2.5-2.4 M9.5 20.2L12 17.8l2.5 2.4" stroke="#FFFFFF" class="m-ic"></path></svg></span>
+    <span class="m-melt" aria-hidden="true" style="position: absolute; left: 326px; top: 120px; animation-delay: -5s"><svg width="12" height="12" viewBox="0 0 24 24"><path d="M12 2v20 M3.4 7l17.2 10 M3.4 17l17.2-10" stroke="#FFFFFF" class="m-ic"></path></svg></span>
+    <span class="m-melt" aria-hidden="true" style="position: absolute; left: 300px; top: 30px; animation-delay: -8s"><svg width="10" height="10" viewBox="0 0 24 24"><path d="M12 2v20 M3.4 7l17.2 10 M3.4 17l17.2-10" stroke="#FFFFFF" class="m-ic"></path></svg></span>
+
+    <p style="position: absolute; left: 0; right: 0; top: 62px; margin: 0; text-align: center; font-size: 12.5px; font-weight: 800; letter-spacing: 0.22em; text-transform: uppercase; color: #1F5F73">Azizdan Dilnozaga</p>
+
+    <div style="position: absolute; left: 75px; top: 170px; width: 240px; height: 220px">
+      <div class="m-pulse" style="position: absolute; left: -90px; top: -95px; width: 420px; height: 420px; border-radius: 50%; background: radial-gradient(closest-side, rgba(255, 190, 150, 0.75), rgba(255, 214, 190, 0.35) 55%, rgba(255, 214, 190, 0))"></div>
+      <svg class="m-beat" width="240" height="220" viewBox="0 0 240 220" aria-hidden="true" style="position: absolute; left: 0; top: 0">
+        <defs><linearGradient id="mWarmH" x1="40" y1="20" x2="200" y2="200" gradientUnits="userSpaceOnUse"><stop offset="0" class="m-w1"></stop><stop offset=".5" class="m-w2"></stop><stop offset="1" class="m-w3"></stop></linearGradient></defs>
+        <path d="M120 200 C60 160 20 120 20 76 C20 44 44 22 74 22 C96 22 112 34 120 52 C128 34 144 22 166 22 C196 22 220 44 220 76 C220 120 180 160 120 200 Z" fill="url(#mWarmH)"></path>
+        <path d="M40 74 C42 54 54 42 72 40" stroke="#FFFFFF" class="m-ic2" opacity="0.8"></path>
+        <ellipse cx="62" cy="58" rx="9" ry="5" fill="#FFFFFF" opacity="0.55" transform="rotate(-35 62 58)"></ellipse>
+      </svg>
+      <svg class="m-dropfall" width="10" height="15" viewBox="0 0 12 18" aria-hidden="true" style="position: absolute; left: 115px; top: 202px"><path d="M6 0 C6 0 0 8 0 12 A6 6 0 0 0 12 12 C12 8 6 0 6 0 Z" fill="#9AD6E6"></path></svg>
+      <svg class="m-rise" width="14" height="14" viewBox="0 0 20 20" aria-hidden="true" style="position: absolute; left: 10px; top: 120px"><path d="M10 0 C11 6 14 9 20 10 C14 11 11 14 10 20 C9 14 6 11 0 10 C6 9 9 6 10 0 Z" fill="#FFFFFF"></path></svg>
+      <svg class="m-rise" width="12" height="12" viewBox="0 0 20 20" aria-hidden="true" style="position: absolute; left: 214px; top: 100px; animation-delay: -2s"><path d="M10 0 C11 6 14 9 20 10 C14 11 11 14 10 20 C9 14 6 11 0 10 C6 9 9 6 10 0 Z" fill="#FFD3B5"></path></svg>
+      <svg class="m-rise" width="10" height="10" viewBox="0 0 20 20" aria-hidden="true" style="position: absolute; left: 60px; top: 170px; animation-delay: -4s"><path d="M10 0 C11 6 14 9 20 10 C14 11 11 14 10 20 C9 14 6 11 0 10 C6 9 9 6 10 0 Z" fill="#FFFFFF"></path></svg>
+      <svg class="m-rise" width="12" height="12" viewBox="0 0 20 20" aria-hidden="true" style="position: absolute; left: 176px; top: 176px; animation-delay: -3s"><path d="M10 0 C11 6 14 9 20 10 C14 11 11 14 10 20 C9 14 6 11 0 10 C6 9 9 6 10 0 Z" fill="#FFC9A8"></path></svg>
+    </div>
+
+    <svg class="m-shim" width="34" height="22" viewBox="0 0 34 22" aria-hidden="true" style="position: absolute; left: 62px; top: 384px"><polygon points="0,22 9,4 18,0 26,9 34,22" fill="#CDEFF6"></polygon><polygon points="9,4 18,0 26,9 16,22" fill="#FFFFFF" opacity="0.6"></polygon></svg>
+    <svg class="m-shim" width="24" height="16" viewBox="0 0 34 22" aria-hidden="true" style="position: absolute; left: 300px; top: 376px; animation-delay: -1.5s"><polygon points="0,22 9,4 18,0 26,9 34,22" fill="#BFE6EF"></polygon><polygon points="9,4 18,0 26,9 16,22" fill="#FFFFFF" opacity="0.6"></polygon></svg>
+
+    <div style="position: absolute; left: 24px; right: 24px; top: 428px; display: flex; flex-direction: column; align-items: center; gap: 16px; text-align: center">
+      <h1 class="m-pr" style="margin: 0; font-size: 44px; line-height: 1.12; color: #173647">Dilnoza, kechirasanmi?</h1>
+      <p style="margin: 0; max-width: 320px; font-size: 17px; line-height: 1.55; color: #2C4A5A">Muz eridi. Endi yuragimdagi gaplarni aytsam bo’ladimi?</p>
+    </div>
+
+    <svg class="m-bob" width="28" height="28" viewBox="0 0 24 24" aria-hidden="true" style="position: absolute; left: 181px; top: 690px"><path d="M6 9.5 L12 15.5 L18 9.5" stroke="#2C4A5A" class="m-ic2"></path></svg>
+  </header>
+
+  <section style="flex: none; padding: 34px 20px">
+    <article style="position: relative; overflow: hidden; border-radius: 26px; padding: 44px 24px 26px; background: linear-gradient(180deg, #E6F6F9 0px, #FFFFFF 120px); box-shadow: 0 26px 50px -28px rgba(23, 54, 71, 0.4), 0 0 0 1px rgba(143, 211, 224, 0.4); display: flex; flex-direction: column; gap: 14px">
+      <svg width="342" height="34" viewBox="0 0 342 34" aria-hidden="true" style="position: absolute; left: 0; top: 0">
+        <defs><linearGradient id="mIcicle" x1="0" y1="0" x2="0" y2="32" gradientUnits="userSpaceOnUse"><stop offset="0" class="m-c1"></stop><stop offset="1" class="m-c2"></stop></linearGradient></defs>
+        <path d="M0 0 H342 V7 L338 7 L331 16 L324 7 L316 7 L308 31 L300 7 L294 7 L288 16 L282 7 L278 7 L271 22 L264 7 L258 7 L250 15 L242 7 L236 7 L228 17 L220 7 L216 7 L211 14 L206 7 L204 7 L198 31 L192 7 L190 7 L183 19 L176 7 L174 7 L166 19 L158 7 L152 7 L147 19 L142 7 L138 7 L130 14 L122 7 L120 7 L115 22 L110 7 L108 7 L103 17 L98 7 L94 7 L86 16 L78 7 L70 7 L65 16 L60 7 L56 7 L49 14 L42 7 L40 7 L35 16 L30 7 L22 7 L15 19 L8 7 L0 7 Z" fill="url(#mIcicle)"></path>
+      </svg>
+      <svg class="m-dropfall" width="8" height="12" viewBox="0 0 12 18" aria-hidden="true" style="position: absolute; left: 194px; top: 32px"><path d="M6 0 C6 0 0 8 0 12 A6 6 0 0 0 12 12 C12 8 6 0 6 0 Z" fill="#8FD3E0"></path></svg>
+      <svg class="m-dropfall" width="8" height="12" viewBox="0 0 12 18" aria-hidden="true" style="position: absolute; left: 304px; top: 32px; animation-delay: -1.7s"><path d="M6 0 C6 0 0 8 0 12 A6 6 0 0 0 12 12 C12 8 6 0 6 0 Z" fill="#8FD3E0"></path></svg>
+      <p style="margin: 0; font-size: 12.5px; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: #2B7489">Chin dildan</p>
+      <h2 class="m-pr" style="margin: 0; font-size: 30px; line-height: 1.15; color: #173647">Kechagi kun haqida</h2>
+      <p style="margin: 0; font-size: 16px; line-height: 1.72; color: #2C4553">Dilnoza, kecha do’stlaring oldida gapingni bo’lib, ovozimni ko’targanim uchun chin dildan uzr so’rayman. O’sha lahzada seni tinglash o’rniga faqat o’zimni o’yladim — bunga charchoq ham, kayfiyat ham bahona bo’lolmaydi.</p>
+      <p style="margin: 0; font-size: 16px; line-height: 1.72; color: #2C4553">Xijolat bo’lganingni ko’rdim va bu meni hali ham tinch qo’ymayapti. Xatoyimni tushundim: uni so’z bilan emas, ishim bilan tuzatmoqchiman. Sen men uchun juda qadrlisan.</p>
+      <div style="display: flex; justify-content: flex-end; align-items: center; gap: 12px">
+        <span aria-hidden="true" style="width: 56px; height: 1px; background: linear-gradient(90deg, rgba(242, 137, 106, 0), #F2896A)"></span>
+        <span class="m-pr" style="font-size: 30px; line-height: 1; color: #B2532F">Aziz</span>
+      </div>
+    </article>
+  </section>
+
+  <section style="flex: none; padding: 34px 20px; display: flex; flex-direction: column; gap: 20px">
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center">
+      <p style="margin: 0; font-size: 12.5px; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: #22667A">To’rt va’da</p>
+      <h2 class="m-pr" style="margin: 0; font-size: 34px; line-height: 1.12; color: #173647">Bundan buyon</h2>
+      <p style="margin: 2px 0 0; font-size: 14.5px; line-height: 1.5; color: #3B5868">Har bir va’da — bir daraja iliqroq.</p>
+    </div>
+    <div style="position: relative; padding: 22px 20px; border-radius: 26px; background: #FFFFFF; box-shadow: 0 22px 44px -28px rgba(23, 54, 71, 0.4), 0 0 0 1px rgba(143, 211, 224, 0.35)">
+      <div aria-hidden="true" style="position: absolute; left: 40px; top: 46px; bottom: 46px; width: 6px; border-radius: 3px; background: linear-gradient(180deg, #8FD3E0 0%, #CFE3DD 40%, #FFC9A8 72%, #F2896A 100%)"></div>
+      <ol style="position: relative; list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 16px">
+        <li style="display: flex; align-items: center; gap: 16px">
+          <span style="flex: none; width: 46px; height: 46px; border-radius: 50%; background: #DDF3F8; box-shadow: 0 0 0 4px #FFFFFF; display: flex; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v20 M3.4 7l17.2 10 M3.4 17l17.2-10 M9.5 3.8L12 6.2l2.5-2.4 M9.5 20.2L12 17.8l2.5 2.4" stroke="#2B7489" class="m-ic"></path></svg></span>
+          <span style="font-size: 16.5px; font-weight: 600; line-height: 1.4; color: #173647">Gapingni oxirigacha tinglayman</span>
+        </li>
+        <li style="display: flex; align-items: center; gap: 16px">
+          <span style="flex: none; width: 46px; height: 46px; border-radius: 50%; background: #E4F2EF; box-shadow: 0 0 0 4px #FFFFFF; display: flex; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 C12 3 6 10 6 14.5 a6 6 0 0 0 12 0 C18 10 12 3 12 3 Z M9.5 15 a2.6 2.6 0 0 0 2.5 2.4" stroke="#2B7489" class="m-ic"></path></svg></span>
+          <span style="font-size: 16.5px; font-weight: 600; line-height: 1.4; color: #173647">Kech qolsam, oldindan aytaman</span>
+        </li>
+        <li style="display: flex; align-items: center; gap: 16px">
+          <span style="flex: none; width: 46px; height: 46px; border-radius: 50%; background: #FFE9DC; box-shadow: 0 0 0 4px #FFFFFF; display: flex; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.8" stroke="#B2532F" class="m-ic"></circle><path d="M12 3.5v2 M12 18.5v2 M3.5 12h2 M18.5 12h2 M6 6l1.4 1.4 M16.6 16.6L18 18 M6 18l1.4-1.4 M16.6 7.4L18 6" stroke="#B2532F" class="m-ic"></path></svg></span>
+          <span style="font-size: 16.5px; font-weight: 600; line-height: 1.4; color: #173647">Arzimas narsaga xafa qilmayman</span>
+        </li>
+        <li style="display: flex; align-items: center; gap: 16px">
+          <span style="flex: none; width: 46px; height: 46px; border-radius: 50%; background: #FFD9C2; box-shadow: 0 0 0 4px #FFFFFF; display: flex; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20 C5.5 15.6 3.5 12.4 3.5 9.4 C3.5 6.8 5.5 5 7.8 5 C9.6 5 11.1 6 12 7.6 C12.9 6 14.4 5 16.2 5 C18.5 5 20.5 6.8 20.5 9.4 C20.5 12.4 18.5 15.6 12 20 Z" fill="#F2896A"></path></svg></span>
+          <span style="font-size: 16.5px; font-weight: 600; line-height: 1.4; color: #173647">Har kuni bitta iliq so’z aytaman</span>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section style="flex: none; position: relative; padding: 34px 20px; display: flex; flex-direction: column; align-items: center; gap: 20px">
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center">
+      <p style="margin: 0; font-size: 12.5px; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: #22667A">Xotira</p>
+      <h2 class="m-pr" style="margin: 0; font-size: 34px; line-height: 1.12; color: #173647">Eng iliq kunimiz</h2>
+    </div>
+    <figure class="m-float" style="position: relative; margin: 0; width: 300px; display: flex; flex-direction: column; align-items: center; gap: 16px">
+      <div style="width: 300px; box-sizing: border-box; padding: 10px; border-radius: 150px 150px 22px 22px; background: #FFFFFF; box-shadow: 0 30px 50px -30px rgba(23, 54, 71, 0.55), 0 0 0 1px rgba(143, 211, 224, 0.45)">
+        <img src="/_blob/7accb1b9ef1bf8067e010a469744f0fc" alt="Aziz va Dilnoza quyosh botayotganda" style="width: 280px; height: 300px; object-fit: cover; border-radius: 140px 140px 14px 14px; display: block">
+      </div>
+      <svg width="64" height="48" viewBox="0 0 64 48" aria-hidden="true" style="position: absolute; left: -20px; top: 64px">
+        <polygon points="6,40 18,10 30,4 40,18 34,44" fill="#CDEFF6"></polygon>
+        <polygon points="18,10 30,4 40,18 26,30" fill="#FFFFFF" opacity="0.7"></polygon>
+        <polygon points="40,30 50,20 60,28 56,44 44,46" fill="#BFE6EF"></polygon>
+        <polygon points="50,20 60,28 52,34" fill="#FFFFFF" opacity="0.6"></polygon>
+      </svg>
+      <svg class="m-shim" width="20" height="20" viewBox="0 0 20 20" aria-hidden="true" style="position: absolute; right: -8px; top: 250px"><path d="M10 0 C11 6 14 9 20 10 C14 11 11 14 10 20 C9 14 6 11 0 10 C6 9 9 6 10 0 Z" fill="#F7A582"></path></svg>
+      <svg class="m-shim" width="12" height="12" viewBox="0 0 20 20" aria-hidden="true" style="position: absolute; right: 10px; top: 290px; animation-delay: -1.8s"><path d="M10 0 C11 6 14 9 20 10 C14 11 11 14 10 20 C9 14 6 11 0 10 C6 9 9 6 10 0 Z" fill="#F7A582"></path></svg>
+      <figcaption class="m-pr" style="max-width: 280px; font-size: 22px; line-height: 1.25; color: #173647; text-align: center">Biz. Eng baxtli kunlarimizdan biri.</figcaption>
+    </figure>
+  </section>
+
+  <section style="flex: none; padding: 34px 20px">
+    <div style="border-radius: 26px; padding: 26px 22px 24px; background: radial-gradient(circle at 100% 0%, rgba(255, 201, 168, 0.55) 0, rgba(255, 201, 168, 0) 170px), radial-gradient(circle at 0% 100%, rgba(143, 211, 224, 0.3) 0, rgba(143, 211, 224, 0) 150px), #FFFFFF; box-shadow: 0 26px 50px -28px rgba(23, 54, 71, 0.45), 0 0 0 1px rgba(255, 201, 168, 0.55); display: flex; flex-direction: column; gap: 18px">
+      <div style="display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center">
+        <p style="margin: 0; font-size: 12.5px; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: #2B7489">Yarashish taklifi</p>
+        <h2 class="m-pr" style="margin: 0; font-size: 28px; line-height: 1.15; color: #173647">Bir piyola issiq choy</h2>
+      </div>
+      <div style="display: flex; align-items: center; gap: 16px">
+        <div style="flex: none; position: relative; width: 104px; height: 104px">
+          <div class="m-spin" aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 104px; height: 104px; border-radius: 50%; background: conic-gradient(from 200deg, #8FD3E0, #DDF3F8, #FFC9A8, #F2896A, #FFC9A8, #8FD3E0)"></div>
+          <div style="position: absolute; left: 7px; top: 7px; width: 90px; height: 90px; border-radius: 50%; background: #FFFFFF; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px">
+            <span style="font-size: 11px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: #2B7489">Shanba</span>
+            <span class="m-pr" style="font-size: 27px; line-height: 1.1; color: #173647">17:00</span>
+          </div>
+        </div>
+        <p style="margin: 0; font-size: 17px; font-weight: 600; line-height: 1.45; color: #173647">Shanba, soat 17:00 da sevimli kafemizda bir piyola choyga?</p>
+      </div>
+      <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 8px">
+        <span style="height: 36px; padding: 0 14px 0 10px; box-sizing: border-box; border-radius: 18px; background: #F1F9FA; border: 1px solid rgba(43, 116, 137, 0.25); display: inline-flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 600; color: #173647">
+          <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6.5-6.2-6.5-11A6.5 6.5 0 0 1 18.5 10c0 4.8-6.5 11-6.5 11z" stroke="#2B7489" class="m-ic"></path><circle cx="12" cy="10" r="2.3" stroke="#2B7489" class="m-ic"></circle></svg>
+          <span>Sevimli kafemiz</span>
+        </span>
+        <span style="height: 36px; padding: 0 14px 0 10px; box-sizing: border-box; border-radius: 18px; background: #FFF2EA; border: 1px solid rgba(178, 83, 47, 0.25); display: inline-flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 600; color: #173647">
+          <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9h11v4a5.5 5.5 0 0 1-11 0z M16 10.5h1.5a2.3 2.3 0 0 1 0 4.6H15.5 M8.5 3.5c-.8 1 .8 2-.1 3 M12 3.5c-.8 1 .8 2-.1 3" stroke="#B2532F" class="m-ic"></path></svg>
+          <span>Choy mendan</span>
+        </span>
+      </div>
+      <sc-if value="{{ notAgreed }}" hint-placeholder-val="{{ true }}">
+        <button type="button" class="m-btn" onClick="{{ agree }}" style="width: 100%; height: 54px; border: 0; border-radius: 27px; background: linear-gradient(135deg, #FFE1CC 0%, #FFB892 100%); color: #173647; font-family: inherit; font-size: 17px; font-weight: 800; cursor: pointer; box-shadow: 0 14px 26px -14px rgba(214, 120, 80, 0.8)">Roziman</button>
+      </sc-if>
+      <sc-if value="{{ agreed }}" hint-placeholder-val="{{ false }}">
+        <div class="m-pop" role="status" style="display: flex; align-items: center; gap: 12px; padding: 14px 16px; border-radius: 18px; background: #EAF6F8">
+          <svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true" style="flex: none"><circle cx="12" cy="12" r="10.5" fill="#2B7489"></circle><path d="M7.6 12.4 L10.6 15.4 L16.4 9" stroke="#FFFFFF" class="m-ic2"></path></svg>
+          <p style="margin: 0; font-size: 15.5px; font-weight: 700; line-height: 1.4; color: #173647">Kelishdik! Shanba, 17:00 da kutaman. Choy mendan.</p>
+        </div>
+      </sc-if>
+    </div>
+  </section>
+
+  <section style="flex: none; padding: 34px 24px; display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center">
+    <p style="margin: 0; font-size: 12.5px; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: #22667A">Javobing</p>
+    <h2 class="m-pr" style="margin: 0; font-size: 38px; line-height: 1.08; color: #173647">Xo’sh, kechirasanmi?</h2>
+    <p style="margin: 2px 0 0; font-size: 16px; line-height: 1.55; color: #3B5868">Javobing men uchun juda muhim.</p>
+    <sc-if value="{{ waiting }}" hint-placeholder-val="{{ true }}">
+      <div style="margin-top: 14px; display: flex; flex-direction: column; align-items: center; gap: 8px">
+        <div style="position: relative; width: 342px; height: 150px">
+          <button type="button" class="m-btn" onClick="{{ forgive }}" style="position: absolute; left: 8px; top: 0; width: 186px; height: 56px; border: 0; border-radius: 28px; background: linear-gradient(135deg, #FFE1CC 0%, #FFB892 100%); color: #173647; font-family: inherit; font-size: 18px; font-weight: 800; cursor: pointer; box-shadow: 0 14px 26px -14px rgba(214, 120, 80, 0.8)">Kechirdim</button>
+          <button type="button" class="{{ noCls }}" onClick="{{ dodge }}" style="position: absolute; left: 206px; top: 0; width: 120px; height: 56px; border: 1.5px solid #8FC6D4; border-radius: 28px; background: #F1F9FA; color: #1F5F73; font-family: inherit; font-size: 17px; font-weight: 700; cursor: pointer">Yo’q</button>
+        </div>
+        <p class="{{ hintCls }}" style="margin: 0; max-width: 290px; font-size: 14.5px; line-height: 1.5; color: #3B5868">Bu tugma muzday sirpanib ketyapti. Balki «Kechirdim»ni bosarsan?</p>
+      </div>
+    </sc-if>
+    <sc-if value="{{ forgiven }}" hint-placeholder-val="{{ false }}">
+      <div class="m-pop" role="status" style="margin-top: 14px; width: 342px; box-sizing: border-box; padding: 24px 22px; border-radius: 26px; background: radial-gradient(circle at 50% 0%, rgba(255, 201, 168, 0.6) 0, rgba(255, 201, 168, 0) 160px), #FFFFFF; box-shadow: 0 24px 44px -26px rgba(23, 54, 71, 0.45), 0 0 0 1px rgba(255, 201, 168, 0.6); display: flex; flex-direction: column; align-items: center; gap: 10px">
+        <svg width="54" height="50" viewBox="0 0 240 220" aria-hidden="true">
+          <defs><linearGradient id="mWarmS" x1="40" y1="20" x2="200" y2="200" gradientUnits="userSpaceOnUse"><stop offset="0" class="m-w1"></stop><stop offset=".5" class="m-w2"></stop><stop offset="1" class="m-w3"></stop></linearGradient></defs>
+          <path d="M120 200 C60 160 20 120 20 76 C20 44 44 22 74 22 C96 22 112 34 120 52 C128 34 144 22 166 22 C196 22 220 44 220 76 C220 120 180 160 120 200 Z" fill="url(#mWarmS)"></path>
+        </svg>
+        <p class="m-pr" style="margin: 0; font-size: 28px; line-height: 1.15; color: #173647">Rahmat, Dilnoza.</p>
+        <p style="margin: 0; font-size: 15.5px; line-height: 1.55; color: #3B5868">Muz butunlay eridi. Va’dalarimni har kuni eslab yuraman.</p>
+      </div>
+    </sc-if>
+  </section>
+
+  <footer style="flex: 1 1 0; min-height: 200px; box-sizing: border-box; position: relative; overflow: hidden; padding: 26px 24px 36px; background: radial-gradient(70% 90% at 50% 100%, rgba(255, 184, 146, 0.6), rgba(255, 184, 146, 0)); display: flex; flex-direction: column; align-items: center; justify-content: flex-end; gap: 8px; text-align: center">
+    <div class="m-drift" aria-hidden="true" style="position: absolute; left: -30px; top: 40px; width: 200px; height: 50px; border-radius: 50%; background: radial-gradient(closest-side, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0))"></div>
+    <svg width="70" height="44" viewBox="0 0 70 44" aria-hidden="true" style="position: relative">
+      <path d="M35 40 C24 33 18 27 18 20 C18 15.5 21.5 12 26 12 C29.5 12 32 14 35 17.6 C38 14 40.5 12 44 12 C48.5 12 52 15.5 52 20 C52 27 46 33 35 40 Z" fill="#F7A582"></path>
+      <path d="M35 2v5 M12 10l4 3.5 M58 10l-4 3.5 M4 26h6 M60 26h6" stroke="#B2532F" class="m-ic"></path>
+    </svg>
+    <p class="m-pr" style="position: relative; margin: 0; max-width: 300px; font-size: 26px; line-height: 1.2; color: #173647">Har qanday muz iliqlikdan eriydi.</p>
+    <p class="m-pr" style="position: relative; margin: 4px 0 0; font-size: 30px; line-height: 1; color: #A54C2A">Aziz</p>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":3600}}'>
+class Component extends DCLogic {
+  constructor(...args) {
+    super(...args);
+    this.state = { taps: 0, forgiven: false, agreed: false, noTaps: 0 };
+  }
+  renderVals() {
+    const s = this.state || {};
+    const t = s.taps || 0;
+    let introCls = 'm-intro';
+    if (t >= 1) introCls += ' m-s1';
+    if (t >= 2) introCls += ' m-s2';
+    if (t >= 3) introCls += ' m-s3 m-intro--melt';
+    const taps = s.noTaps || 0;
+    const pos = taps === 0 ? 0 : ((taps - 1) % 5) + 1;
+    return {
+      introCls: introCls,
+      melt: () => this.setState((p) => ({ taps: Math.min(3, (p.taps || 0) + 1) })),
+      stage0: t === 0,
+      stage1: t === 1,
+      stage2: t === 2,
+      waiting: !s.forgiven,
+      forgiven: !!s.forgiven,
+      forgive: () => this.setState({ forgiven: true }),
+      noCls: 'm-no m-no--' + pos,
+      dodge: () => this.setState((p) => ({ noTaps: (p.noTaps || 0) + 1 })),
+      hintCls: taps > 0 ? 'm-hint m-hint--on' : 'm-hint',
+      notAgreed: !s.agreed,
+      agreed: !!s.agreed,
+      agree: () => this.setState({ agreed: true })
+    };
+  }
+}
+</script>
+</body>
+</html>

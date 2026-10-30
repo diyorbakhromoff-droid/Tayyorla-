@@ -1,0 +1,451 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<title>To’y taklifnomasi: Milliy naqsh</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&amp;family=Yeseva+One&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#1F4E8C}a:hover{color:#102C54}
+.mn-g1{stop-color:#F3DE9F}.mn-g2{stop-color:#C9A24A}.mn-g3{stop-color:#A47F2E}.mn-g4{stop-color:#E6C878}
+.mn-iv1{stop-color:#FBF6EC}.mn-iv2{stop-color:#F5ECDC}.mn-iv3{stop-color:#ECDFC6}
+.mn-vg1{stop-color:#2D63A8;stop-opacity:0}.mn-vg2{stop-color:#163A6B;stop-opacity:.25}.mn-vg3{stop-color:#0A1A33;stop-opacity:.8}
+.mn-pat-l{stroke-width:1}
+.mn-pat-t{stroke-width:.8}
+.mn-pat-g{stroke-width:.9}
+.mn-pat-b{stroke-width:1}
+.mn-eo{fill-rule:evenodd}
+.mn-l-gold{fill:none;stroke:#C9A24A;stroke-width:1.4}
+.mn-l-gold2{stroke:#C9A24A;stroke-width:2}
+.mn-l-hair{fill:none;stroke:#C9A24A;stroke-width:.8;opacity:.8}
+.mn-l-bead{fill:none;stroke:#C8B48C;stroke-width:2.6;stroke-linecap:round;stroke-dasharray:.1 6}
+.mn-l-bead2{fill:none;stroke:#C9A24A;stroke-width:2.4;stroke-linecap:round;stroke-dasharray:.1 6.5}
+.mn-r-sh{fill:none;stroke:#D2C29F;stroke-width:7;stroke-linejoin:round;stroke-linecap:round}
+.mn-r-hi{fill:none;stroke:#FFFCF4;stroke-width:5.4;stroke-linejoin:round;stroke-linecap:round}
+.mn-r-thin{stroke-width:4.4}
+.mn-icon{fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.mn-num{font-variant-numeric:lining-nums tabular-nums}
+
+/* ---------- intro: ganch medallion ---------- */
+.mn-i{position:absolute;left:0;top:0;width:390px;height:844px;z-index:40;overflow:hidden;background:#163A6B}
+.mn-i--open{pointer-events:none;background:transparent;animation:mn-iOut .45s ease 1.5s forwards}
+@keyframes mn-iOut{to{opacity:0;visibility:hidden}}
+.mn-i-half{position:absolute;top:0;width:195px;height:844px;overflow:hidden}
+.mn-i-l{left:0}
+.mn-i-r{left:195px}
+.mn-i-art{position:absolute;top:0;width:390px;height:844px}
+.mn-i--open .mn-i-l{animation:mn-splitL 1.15s cubic-bezier(.62,0,.28,1) .48s forwards}
+.mn-i--open .mn-i-r{animation:mn-splitR 1.15s cubic-bezier(.62,0,.28,1) .48s forwards}
+@keyframes mn-splitL{0%{transform:none}14%{transform:translateX(-6px)}100%{transform:perspective(900px) translateX(-104%) rotateY(16deg)}}
+@keyframes mn-splitR{0%{transform:none}14%{transform:translateX(6px)}100%{transform:perspective(900px) translateX(104%) rotateY(-16deg)}}
+.mn-draw{fill:none;stroke:#C29A3F;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:1;animation:mn-draw 2.4s cubic-bezier(.45,.05,.35,1) forwards}
+@keyframes mn-draw{to{stroke-dashoffset:0}}
+.mn-d1{stroke-width:1.2;animation-duration:2.6s;animation-delay:.15s}
+.mn-d2{animation-duration:1.7s;animation-delay:.35s}
+.mn-d3{stroke-width:1.6;animation-duration:2.8s;animation-delay:.75s}
+.mn-d4{animation-duration:1.3s;animation-delay:1s}
+.mn-d5{animation-duration:2s;animation-delay:1.5s}
+.mn-d6{stroke-width:1.2;animation-duration:2.2s;animation-delay:1.7s}
+.mn-i-lock{position:absolute;left:163px;top:340px;width:64px;height:64px;z-index:3;opacity:0;animation:mn-lockIn .7s cubic-bezier(.3,1.5,.5,1) 2.5s forwards}
+@keyframes mn-lockIn{from{opacity:0;transform:scale(.4) rotate(-60deg)}to{opacity:1;transform:none}}
+.mn-i-lock::after{content:"";position:absolute;left:-14px;top:-14px;width:92px;height:92px;border-radius:50%;background:radial-gradient(closest-side,rgba(255,232,170,.55),rgba(255,232,170,0));animation:mn-pulse 2.6s ease-in-out 3.2s infinite alternate;opacity:0}
+@keyframes mn-pulse{from{opacity:0;transform:scale(.8)}to{opacity:1;transform:scale(1.1)}}
+.mn-i--open .mn-i-lock{opacity:1;animation:mn-lockOpen .75s cubic-bezier(.5,0,.4,1) forwards}
+@keyframes mn-lockOpen{0%{opacity:1;transform:none}55%{opacity:1;transform:rotate(135deg) scale(1.28)}100%{opacity:0;transform:rotate(180deg) scale(1.6)}}
+.mn-i-glow{position:absolute;left:45px;top:222px;width:300px;height:300px;border-radius:50%;z-index:2;pointer-events:none;background:radial-gradient(closest-side,rgba(255,250,232,.95),rgba(248,224,158,.7) 40%,rgba(201,162,74,0));opacity:0}
+.mn-i--open .mn-i-glow{animation:mn-glow 1.3s ease-out .15s forwards}
+@keyframes mn-glow{0%{opacity:0;transform:scale(.3)}35%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(2.4)}}
+.mn-i-seam{position:absolute;left:193px;top:80px;width:4px;height:704px;z-index:2;border-radius:2px;background:linear-gradient(180deg,rgba(255,240,200,0),#FFF1C8 20%,#FFF1C8 80%,rgba(255,240,200,0));box-shadow:0 0 18px 6px rgba(255,226,150,.6);opacity:0}
+.mn-i--open .mn-i-seam{animation:mn-seam .9s ease .3s forwards}
+@keyframes mn-seam{0%{opacity:0;transform:scaleY(.2)}40%{opacity:1;transform:scaleY(1)}100%{opacity:0;transform:scaleY(1) scaleX(8)}}
+.mn-i-ui{position:absolute;left:0;top:0;width:390px;height:844px;z-index:4}
+.mn-i--open .mn-i-ui{animation:mn-fade .32s ease forwards}
+@keyframes mn-fade{to{opacity:0}}
+.mn-i-txt{opacity:0;animation:mn-up .9s cubic-bezier(.2,.7,.2,1) forwards}
+@keyframes mn-up{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.mn-i-btn{position:relative;overflow:hidden;width:264px;height:56px;border:0;border-radius:999px;background:linear-gradient(180deg,#285CA0,#1F4E8C 55%,#173E73);color:#FBF6EC;font-family:'Alegreya',Georgia,serif;font-size:19px;font-weight:700;letter-spacing:.02em;display:flex;align-items:center;justify-content:center;gap:10px;cursor:pointer;box-shadow:0 14px 26px -12px rgba(16,40,84,.75),inset 0 0 0 2px #1F4E8C,inset 0 0 0 3px #C9A24A}
+.mn-i-btn:hover{background:linear-gradient(180deg,#2F66AE,#22549A 55%,#1A447E)}
+.mn-i-btn::after,.mn-btn--gold::after,.mn-insc::after{content:"";position:absolute;top:-30%;left:0;width:26%;height:160%;background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,248,226,.55),rgba(255,255,255,0));transform:translateX(-260%) rotate(18deg);animation:mn-shine 5s ease-in-out 3.4s infinite}
+@keyframes mn-shine{0%{transform:translateX(-260%) rotate(18deg)}40%,100%{transform:translateX(520%) rotate(18deg)}}
+
+/* ---------- page ---------- */
+.mn-spin{animation:mn-spin 48s linear infinite}
+.mn-spin--r{animation-direction:reverse}
+@keyframes mn-spin{to{transform:rotate(360deg)}}
+.mn-tw{position:absolute;pointer-events:none;animation:mn-tw 3.8s ease-in-out infinite;opacity:0}
+@keyframes mn-tw{0%,62%,100%{opacity:0;transform:scale(.3) rotate(0)}80%{opacity:1;transform:scale(1) rotate(45deg)}}
+.mn-bob{animation:mn-bob 1.9s ease-in-out infinite alternate}
+@keyframes mn-bob{from{transform:translateY(0)}to{transform:translateY(6px)}}
+.mn-insc{position:absolute;left:34px;top:44px;width:322px;height:42px;overflow:hidden;display:flex;align-items:center;justify-content:center;margin:0;font-family:'Yeseva One',Georgia,serif;font-size:17px;letter-spacing:.32em;color:#F5ECDC}
+.mn-insc::after{animation-delay:1.2s;animation-duration:6s}
+.mn-head{display:flex;align-items:center;justify-content:center;gap:16px;height:36px;max-width:100%}
+.mn-hl{position:relative;flex:0 1 40px;min-width:12px;height:3px;border-top:1px solid #C9A24A;border-bottom:1px solid #C9A24A}
+.mn-hl::before,.mn-hl::after{content:"";position:absolute;right:-10px;top:-4px;width:9px;height:9px;background:#C9A24A}
+.mn-hl::after{transform:rotate(45deg)}
+.mn-hl--r::before,.mn-hl--r::after{right:auto;left:-10px}
+.mn-h2{margin:0;font-family:'Yeseva One',Georgia,serif;font-weight:400;font-size:26px;line-height:36px;color:#1F4E8C;white-space:nowrap}
+.mn-lbl{margin:0;font-size:12px;line-height:16px;letter-spacing:.24em;font-weight:700;color:#846419}
+.mn-oct{clip-path:polygon(29% 0,71% 0,100% 29%,100% 71%,71% 100%,29% 100%,0 71%,0 29%)}
+.mn-cut{clip-path:polygon(12px 0,calc(100% - 12px) 0,100% 12px,100% calc(100% - 12px),calc(100% - 12px) 100%,12px 100%,0 calc(100% - 12px),0 12px)}
+.mn-cut2{clip-path:polygon(11px 0,calc(100% - 11px) 0,100% 11px,100% calc(100% - 11px),calc(100% - 11px) 100%,11px 100%,0 calc(100% - 11px),0 11px)}
+.mn-tile{position:relative;height:88px;padding:1.5px;box-sizing:border-box;background:linear-gradient(135deg,#F3DE9F,#C9A24A 45%,#A47F2E 70%,#E6C878)}
+.mn-tile-in{height:85px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;background:radial-gradient(120% 90% at 50% 0%,#2E64AA,#1F4E8C 55%,#173E73)}
+.mn-tile--pulse{animation:mn-tpulse 1s ease-in-out infinite alternate}
+@keyframes mn-tpulse{from{filter:brightness(1)}to{filter:brightness(1.18)}}
+.mn-cd{display:block}
+.mn-cd--a{animation:mn-cdA .55s cubic-bezier(.2,.8,.2,1)}
+.mn-cd--b{animation:mn-cdB .55s cubic-bezier(.2,.8,.2,1)}
+@keyframes mn-cdA{from{opacity:0;transform:translateY(-70%)}to{opacity:1;transform:none}}
+@keyframes mn-cdB{from{opacity:0;transform:translateY(-70%)}to{opacity:1;transform:none}}
+.mn-btn{position:relative;overflow:hidden;display:inline-flex;align-items:center;justify-content:center;gap:9px;height:48px;padding:0 20px;border-radius:999px;font-family:inherit;font-size:17px;font-weight:700;text-decoration:none;box-sizing:border-box;cursor:pointer;white-space:nowrap}
+.mn-btn--line{border:1px solid #1F4E8C;color:#1F4E8C;background:#FFFCF5}
+.mn-btn--line:hover{background:#EAF0F8;color:#102C54}
+.mn-btn--gold{border:1px solid #A47F2E;color:#13284A;background:linear-gradient(135deg,#F0D78F,#C9A24A 55%,#B08A33)}
+.mn-btn--gold:hover{color:#0B1C38;background:linear-gradient(135deg,#F4DE9C,#D1AB55 55%,#B8923A)}
+.mn-tl{display:grid;grid-template-columns:84px minmax(0,1fr);align-items:center;column-gap:16px;height:50px}
+.mn-tbadge{position:relative;z-index:1;width:84px;height:40px;padding:1.5px;box-sizing:border-box;background:linear-gradient(135deg,#F3DE9F,#C9A24A 50%,#A47F2E)}
+.mn-tbadge span{display:flex;align-items:center;justify-content:center;height:37px;background:#1F4E8C;color:#FBF6EC;font-family:'Yeseva One',Georgia,serif;font-size:18px;line-height:37px}
+.mn-ph{flex:none;width:88px;height:88px;padding:2px;box-sizing:border-box;background:linear-gradient(135deg,#F3DE9F,#C9A24A 45%,#A47F2E 70%,#E6C878)}
+.mn-ph img{display:block;width:84px;height:84px;object-fit:cover}
+.mn-ar1{clip-path:path('M0 164V40C0 22 30 8 53 0C76 8 106 22 106 40V164Z')}
+.mn-ar2{clip-path:path('M0 160V39C0 21 29 8 51 0C73 8 102 21 102 39V160Z')}
+.mn-ar3{clip-path:path('M0 152V37C0 20 27 7 47 0C67 7 94 20 94 37V152Z')}
+.mn-venue{clip-path:path('M0 250V50C0 28 116 9 171 0C226 9 342 28 342 50V250Z')}
+.mn-seg{flex:1 1 0;min-width:0;height:50px;border-radius:12px;font-family:inherit;font-size:18px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;border:1px solid #A9BAD6;background:#FFFCF5;color:#1F4E8C;transition:background-color .25s,color .25s,box-shadow .25s}
+.mn-seg--on{background:#1F4E8C;border-color:#1F4E8C;color:#FBF6EC;box-shadow:inset 0 0 0 2px #1F4E8C,inset 0 0 0 3px #C9A24A,0 10px 20px -12px rgba(16,40,84,.8)}
+.mn-step{width:46px;height:46px;border-radius:50%;border:1px solid #1F4E8C;background:#FFFCF5;color:#1F4E8C;display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0}
+.mn-step:disabled{opacity:.4;cursor:default}
+.mn-stepper{display:flex;align-items:center;justify-content:center;gap:18px;transition:opacity .25s}
+.mn-stepper--off{opacity:.42}
+.mn-in{display:block;width:100%;height:50px;box-sizing:border-box;margin:16px 0 0;padding:0 16px;border-radius:12px;border:1px solid #A9BAD6;background:#FFFCF5;color:#24324A;font-family:inherit;font-size:18px;text-align:center;outline:none}
+.mn-in:focus{border-color:#1F4E8C}
+.mn-in::placeholder{color:#8A93A5;font-style:italic}
+.mn-btn:disabled{opacity:.7;cursor:default}
+@media (prefers-reduced-motion: reduce){
+  .mn-i,.mn-i *,.mn-i-lock::after,.mn-i-btn::after,.mn-btn--gold::after,.mn-insc::after,.mn-spin,.mn-tw,.mn-bob,.mn-tile--pulse,.mn-cd--a,.mn-cd--b{animation:none !important}
+  .mn-draw{stroke-dashoffset:0}
+  .mn-i-lock,.mn-i-txt{opacity:1}
+  .mn-i--open{opacity:0;visibility:hidden}
+  .mn-seg,.mn-stepper{transition:none}
+}
+</style>
+</helmet>
+<div style="width: 390px; min-height: var(--vh, 100vh); position: relative; overflow: hidden; background: #F7F1E6; color: #24324A; font-family: 'Alegreya', Georgia, 'Times New Roman', serif; display: flex; flex-direction: column">
+
+  <svg width="0" height="0" aria-hidden="true" style="position: absolute; left: 0; top: 0"><defs><linearGradient id="mn-gold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" class="mn-g1"></stop><stop offset="0.42" class="mn-g2"></stop><stop offset="0.7" class="mn-g3"></stop><stop offset="1" class="mn-g4"></stop></linearGradient><linearGradient id="mn-goldS" x1="0" y1="0" x2="1" y2="0"><stop offset="0" class="mn-g3"></stop><stop offset="0.5" class="mn-g2"></stop><stop offset="1" class="mn-g3"></stop></linearGradient><linearGradient id="mn-ivory" x1="0" y1="0" x2="0" y2="1"><stop offset="0" class="mn-iv1"></stop><stop offset="0.55" class="mn-iv2"></stop><stop offset="1" class="mn-iv3"></stop></linearGradient><radialGradient id="mn-vig" cx="0.5" cy="0.45" r="0.75"><stop offset="0" class="mn-vg1"></stop><stop offset="0.6" class="mn-vg2"></stop><stop offset="1" class="mn-vg3"></stop></radialGradient><pattern id="mn-wall" width="60" height="60" patternUnits="userSpaceOnUse"><rect width="60" height="60" fill="#1D4A86"></rect><path d="M0 -30L8.8 -21.2L21.2 -21.2L21.2 -8.8L30 0L21.2 8.8L21.2 21.2L8.8 21.2L0 30L-8.8 21.2L-21.2 21.2L-21.2 8.8L-30 0L-21.2 -8.8L-21.2 -21.2L-8.8 -21.2Z" fill="#24589A" stroke="#4A7BBE" class="mn-pat-l"></path><path d="M0 -16.5L4.8 -11.7L11.7 -11.7L11.7 -4.8L16.5 0L11.7 4.8L11.7 11.7L4.8 11.7L0 16.5L-4.8 11.7L-11.7 11.7L-11.7 4.8L-16.5 0L-11.7 -4.8L-11.7 -11.7L-4.8 -11.7Z" fill="none" stroke="#3566A8" class="mn-pat-l"></path><circle cx="0" cy="0" r="2.6" fill="#C9A24A"></circle><path d="M60 -30L68.8 -21.2L81.2 -21.2L81.2 -8.8L90 0L81.2 8.8L81.2 21.2L68.8 21.2L60 30L51.2 21.2L38.8 21.2L38.8 8.8L30 0L38.8 -8.8L38.8 -21.2L51.2 -21.2Z" fill="#24589A" stroke="#4A7BBE" class="mn-pat-l"></path><path d="M60 -16.5L64.8 -11.7L71.7 -11.7L71.7 -4.8L76.5 0L71.7 4.8L71.7 11.7L64.8 11.7L60 16.5L55.2 11.7L48.3 11.7L48.3 4.8L43.5 0L48.3 -4.8L48.3 -11.7L55.2 -11.7Z" fill="none" stroke="#3566A8" class="mn-pat-l"></path><circle cx="60" cy="0" r="2.6" fill="#C9A24A"></circle><path d="M0 30L8.8 38.8L21.2 38.8L21.2 51.2L30 60L21.2 68.8L21.2 81.2L8.8 81.2L0 90L-8.8 81.2L-21.2 81.2L-21.2 68.8L-30 60L-21.2 51.2L-21.2 38.8L-8.8 38.8Z" fill="#24589A" stroke="#4A7BBE" class="mn-pat-l"></path><path d="M0 43.5L4.8 48.3L11.7 48.3L11.7 55.2L16.5 60L11.7 64.8L11.7 71.7L4.8 71.7L0 76.5L-4.8 71.7L-11.7 71.7L-11.7 64.8L-16.5 60L-11.7 55.2L-11.7 48.3L-4.8 48.3Z" fill="none" stroke="#3566A8" class="mn-pat-l"></path><circle cx="0" cy="60" r="2.6" fill="#C9A24A"></circle><path d="M60 30L68.8 38.8L81.2 38.8L81.2 51.2L90 60L81.2 68.8L81.2 81.2L68.8 81.2L60 90L51.2 81.2L38.8 81.2L38.8 68.8L30 60L38.8 51.2L38.8 38.8L51.2 38.8Z" fill="#24589A" stroke="#4A7BBE" class="mn-pat-l"></path><path d="M60 43.5L64.8 48.3L71.7 48.3L71.7 55.2L76.5 60L71.7 64.8L71.7 71.7L64.8 71.7L60 76.5L55.2 71.7L48.3 71.7L48.3 64.8L43.5 60L48.3 55.2L48.3 48.3L55.2 48.3Z" fill="none" stroke="#3566A8" class="mn-pat-l"></path><circle cx="60" cy="60" r="2.6" fill="#C9A24A"></circle><circle cx="30" cy="30" r="1.8" fill="#E8CC7E"></circle></pattern><pattern id="mn-tileS" width="28" height="28" patternUnits="userSpaceOnUse"><rect width="28" height="28" fill="#1F4E8C"></rect><path d="M0 -14L4.1 -9.9L9.9 -9.9L9.9 -4.1L14 0L9.9 4.1L9.9 9.9L4.1 9.9L0 14L-4.1 9.9L-9.9 9.9L-9.9 4.1L-14 0L-9.9 -4.1L-9.9 -9.9L-4.1 -9.9Z" fill="#285894" stroke="#5585C6" class="mn-pat-t"></path><circle cx="0" cy="0" r="1.5" fill="#C9A24A"></circle><path d="M28 -14L32.1 -9.9L37.9 -9.9L37.9 -4.1L42 0L37.9 4.1L37.9 9.9L32.1 9.9L28 14L23.9 9.9L18.1 9.9L18.1 4.1L14 0L18.1 -4.1L18.1 -9.9L23.9 -9.9Z" fill="#285894" stroke="#5585C6" class="mn-pat-t"></path><circle cx="28" cy="0" r="1.5" fill="#C9A24A"></circle><path d="M0 14L4.1 18.1L9.9 18.1L9.9 23.9L14 28L9.9 32.1L9.9 37.9L4.1 37.9L0 42L-4.1 37.9L-9.9 37.9L-9.9 32.1L-14 28L-9.9 23.9L-9.9 18.1L-4.1 18.1Z" fill="#285894" stroke="#5585C6" class="mn-pat-t"></path><circle cx="0" cy="28" r="1.5" fill="#C9A24A"></circle><path d="M28 14L32.1 18.1L37.9 18.1L37.9 23.9L42 28L37.9 32.1L37.9 37.9L32.1 37.9L28 42L23.9 37.9L18.1 37.9L18.1 32.1L14 28L18.1 23.9L18.1 18.1L23.9 18.1Z" fill="#285894" stroke="#5585C6" class="mn-pat-t"></path><circle cx="28" cy="28" r="1.5" fill="#C9A24A"></circle><circle cx="14" cy="14" r="1" fill="#E8CC7E"></circle></pattern><pattern id="mn-gpat" width="72" height="72" patternUnits="userSpaceOnUse"><path d="M0 -17L5 -12L12 -12L12 -5L17 0L12 5L12 12L5 12L0 17L-5 12L-12 12L-12 5L-17 0L-12 -5L-12 -12L-5 -12Z" fill="none" stroke="#B08A33" class="mn-pat-g"></path><path d="M72 -17L77 -12L84 -12L84 -5L89 0L84 5L84 12L77 12L72 17L67 12L60 12L60 5L55 0L60 -5L60 -12L67 -12Z" fill="none" stroke="#B08A33" class="mn-pat-g"></path><path d="M0 55L5 60L12 60L12 67L17 72L12 77L12 84L5 84L0 89L-5 84L-12 84L-12 77L-17 72L-12 67L-12 60L-5 60Z" fill="none" stroke="#B08A33" class="mn-pat-g"></path><path d="M72 55L77 60L84 60L84 67L89 72L84 77L84 84L77 84L72 89L67 84L60 84L60 77L55 72L60 67L60 60L67 60Z" fill="none" stroke="#B08A33" class="mn-pat-g"></path><path d="M36 19L41 24L48 24L48 31L53 36L48 41L48 48L41 48L36 53L31 48L24 48L24 41L19 36L24 31L24 24L31 24Z" fill="none" stroke="#B08A33" class="mn-pat-g"></path></pattern><pattern id="mn-band" width="18" height="18" patternUnits="userSpaceOnUse"><rect width="18" height="18" fill="#1F4E8C"></rect><path d="M0 9L9 3.5L18 9L9 14.5Z" fill="#163A6B" stroke="#C9A24A" class="mn-pat-b"></path><circle cx="9" cy="9" r="1.6" fill="#F5ECDC"></circle><circle cx="0" cy="0" r="1.2" fill="#E8CC7E"></circle><circle cx="18" cy="0" r="1.2" fill="#E8CC7E"></circle><circle cx="0" cy="18" r="1.2" fill="#E8CC7E"></circle><circle cx="18" cy="18" r="1.2" fill="#E8CC7E"></circle></pattern><pattern id="mn-bandV" width="18" height="18" patternUnits="userSpaceOnUse" patternTransform="rotate(90)"><rect width="18" height="18" fill="#1F4E8C"></rect><path d="M0 9L9 3.5L18 9L9 14.5Z" fill="#163A6B" stroke="#C9A24A" class="mn-pat-b"></path><circle cx="9" cy="9" r="1.6" fill="#F5ECDC"></circle></pattern></defs></svg>
+  <svg width="390" height="100%" aria-hidden="true" style="position: absolute; left: 0; top: 0; height: 100%; opacity: 0.07; pointer-events: none"><rect width="390" height="100%" fill="url(#mn-gpat) #F7F1E6"></rect></svg>
+
+  <div data-intro class="{{ introCls }}" aria-hidden="{{ introHidden }}">
+    <div class="mn-i-half mn-i-l"><div class="mn-i-art" style="left: 0"><svg width="390" height="844" viewBox="0 0 390 844" aria-hidden="true" style="position: absolute; left: 0; top: 0; display: block"><rect width="390" height="844" fill="url(#mn-wall) #1F4E8C"></rect><rect width="390" height="844" fill="url(#mn-vig) #0E2346"></rect><path d="M30 784V200C30 150 119.9 108 195 84C270.1 108 360 150 360 200V784Z" fill="#0B1C38" opacity="0.45" transform="translate(0 14)"></path><path d="M30 784V200C30 150 119.9 108 195 84C270.1 108 360 150 360 200V784Z" fill="url(#mn-ivory) #F5ECDC" class="mn-l-gold2"></path><path d="M42 772V200C42 150 125.4 123 195 99C264.6 123 348 150 348 200V772Z" class="mn-l-bead"></path><path d="M46 768V200C46 150 127.2 128 195 104C262.8 128 344 150 344 200V768Z" class="mn-l-hair"></path><path d="M195 239A133 133 0 1 1 195 505A133 133 0 1 1 195 239Z" fill="#EEE3CC"></path><path d="M195 241A131 131 0 1 1 195 503A131 131 0 1 1 195 241ZM195 246A126 126 0 1 1 195 498A126 126 0 1 1 195 246ZM195 270A102 102 0 1 1 195 474A102 102 0 1 1 195 270ZM195 272L245 458.6L108.4 322L295 372L108.4 422L245 285.4L195 472L145 285.4L281.6 422L95 372L281.6 322L145 458.6ZM200.3 270.1C202.7 262.3 217.5 256.2 226.1 256.1C233.4 260.4 243.2 273.1 241.3 281.1M250.6 286.5C256.5 280.8 272.4 282.9 279.9 287.1C284.1 294.6 286.2 310.5 280.5 316.4M285.9 325.7C293.9 323.8 306.6 333.6 310.9 340.9C310.8 349.5 304.7 364.3 296.9 366.7M296.9 377.3C304.7 379.7 310.8 394.5 310.9 403.1C306.6 410.4 293.9 420.2 285.9 418.3M280.5 427.6C286.2 433.5 284.1 449.4 279.9 456.9C272.4 461.1 256.5 463.2 250.6 457.5M241.3 462.9C243.2 470.9 233.4 483.6 226.1 487.9C217.5 487.8 202.7 481.7 200.3 473.9M189.7 473.9C187.3 481.7 172.5 487.8 163.9 487.9C156.6 483.6 146.8 470.9 148.7 462.9M139.4 457.5C133.5 463.2 117.6 461.1 110.1 456.9C105.9 449.4 103.8 433.5 109.5 427.6M104.1 418.3C96.1 420.2 83.4 410.4 79.1 403.1C79.2 394.5 85.3 379.7 93.1 377.3M93.1 366.7C85.3 364.3 79.2 349.5 79.1 340.9C83.4 333.6 96.1 323.8 104.1 325.7M109.5 316.4C103.8 310.5 105.9 294.6 110.1 287.1C117.6 282.9 133.5 280.8 139.4 286.5M148.7 281.1C146.8 273.1 156.6 260.4 163.9 256.1C172.5 256.2 187.3 262.3 189.7 270.1" class="mn-r-sh" transform="translate(1.4 1.8)"></path><path d="M195 241A131 131 0 1 1 195 503A131 131 0 1 1 195 241ZM195 246A126 126 0 1 1 195 498A126 126 0 1 1 195 246ZM195 270A102 102 0 1 1 195 474A102 102 0 1 1 195 270ZM195 272L245 458.6L108.4 322L295 372L108.4 422L245 285.4L195 472L145 285.4L281.6 422L95 372L281.6 322L145 458.6ZM200.3 270.1C202.7 262.3 217.5 256.2 226.1 256.1C233.4 260.4 243.2 273.1 241.3 281.1M250.6 286.5C256.5 280.8 272.4 282.9 279.9 287.1C284.1 294.6 286.2 310.5 280.5 316.4M285.9 325.7C293.9 323.8 306.6 333.6 310.9 340.9C310.8 349.5 304.7 364.3 296.9 366.7M296.9 377.3C304.7 379.7 310.8 394.5 310.9 403.1C306.6 410.4 293.9 420.2 285.9 418.3M280.5 427.6C286.2 433.5 284.1 449.4 279.9 456.9C272.4 461.1 256.5 463.2 250.6 457.5M241.3 462.9C243.2 470.9 233.4 483.6 226.1 487.9C217.5 487.8 202.7 481.7 200.3 473.9M189.7 473.9C187.3 481.7 172.5 487.8 163.9 487.9C156.6 483.6 146.8 470.9 148.7 462.9M139.4 457.5C133.5 463.2 117.6 461.1 110.1 456.9C105.9 449.4 103.8 433.5 109.5 427.6M104.1 418.3C96.1 420.2 83.4 410.4 79.1 403.1C79.2 394.5 85.3 379.7 93.1 377.3M93.1 366.7C85.3 364.3 79.2 349.5 79.1 340.9C83.4 333.6 96.1 323.8 104.1 325.7M109.5 316.4C103.8 310.5 105.9 294.6 110.1 287.1C117.6 282.9 133.5 280.8 139.4 286.5M148.7 281.1C146.8 273.1 156.6 260.4 163.9 256.1C172.5 256.2 187.3 262.3 189.7 270.1" class="mn-r-hi"></path><path d="M69 725L72.8 728.8L78.2 728.8L78.2 734.2L82 738L78.2 741.8L78.2 747.2L72.8 747.2L69 751L65.2 747.2L59.8 747.2L59.8 741.8L56 738L59.8 734.2L59.8 728.8L65.2 728.8ZM111 725L114.8 728.8L120.2 728.8L120.2 734.2L124 738L120.2 741.8L120.2 747.2L114.8 747.2L111 751L107.2 747.2L101.8 747.2L101.8 741.8L98 738L101.8 734.2L101.8 728.8L107.2 728.8ZM153 725L156.8 728.8L162.2 728.8L162.2 734.2L166 738L162.2 741.8L162.2 747.2L156.8 747.2L153 751L149.2 747.2L143.8 747.2L143.8 741.8L140 738L143.8 734.2L143.8 728.8L149.2 728.8ZM195 725L198.8 728.8L204.2 728.8L204.2 734.2L208 738L204.2 741.8L204.2 747.2L198.8 747.2L195 751L191.2 747.2L185.8 747.2L185.8 741.8L182 738L185.8 734.2L185.8 728.8L191.2 728.8ZM237 725L240.8 728.8L246.2 728.8L246.2 734.2L250 738L246.2 741.8L246.2 747.2L240.8 747.2L237 751L233.2 747.2L227.8 747.2L227.8 741.8L224 738L227.8 734.2L227.8 728.8L233.2 728.8ZM279 725L282.8 728.8L288.2 728.8L288.2 734.2L292 738L288.2 741.8L288.2 747.2L282.8 747.2L279 751L275.2 747.2L269.8 747.2L269.8 741.8L266 738L269.8 734.2L269.8 728.8L275.2 728.8ZM321 725L324.8 728.8L330.2 728.8L330.2 734.2L334 738L330.2 741.8L330.2 747.2L324.8 747.2L321 751L317.2 747.2L311.8 747.2L311.8 741.8L308 738L311.8 734.2L311.8 728.8L317.2 728.8ZM46 716H344M46 760H344" class="mn-r-sh" transform="translate(1.2 1.5)"></path><path d="M69 725L72.8 728.8L78.2 728.8L78.2 734.2L82 738L78.2 741.8L78.2 747.2L72.8 747.2L69 751L65.2 747.2L59.8 747.2L59.8 741.8L56 738L59.8 734.2L59.8 728.8L65.2 728.8ZM111 725L114.8 728.8L120.2 728.8L120.2 734.2L124 738L120.2 741.8L120.2 747.2L114.8 747.2L111 751L107.2 747.2L101.8 747.2L101.8 741.8L98 738L101.8 734.2L101.8 728.8L107.2 728.8ZM153 725L156.8 728.8L162.2 728.8L162.2 734.2L166 738L162.2 741.8L162.2 747.2L156.8 747.2L153 751L149.2 747.2L143.8 747.2L143.8 741.8L140 738L143.8 734.2L143.8 728.8L149.2 728.8ZM195 725L198.8 728.8L204.2 728.8L204.2 734.2L208 738L204.2 741.8L204.2 747.2L198.8 747.2L195 751L191.2 747.2L185.8 747.2L185.8 741.8L182 738L185.8 734.2L185.8 728.8L191.2 728.8ZM237 725L240.8 728.8L246.2 728.8L246.2 734.2L250 738L246.2 741.8L246.2 747.2L240.8 747.2L237 751L233.2 747.2L227.8 747.2L227.8 741.8L224 738L227.8 734.2L227.8 728.8L233.2 728.8ZM279 725L282.8 728.8L288.2 728.8L288.2 734.2L292 738L288.2 741.8L288.2 747.2L282.8 747.2L279 751L275.2 747.2L269.8 747.2L269.8 741.8L266 738L269.8 734.2L269.8 728.8L275.2 728.8ZM321 725L324.8 728.8L330.2 728.8L330.2 734.2L334 738L330.2 741.8L330.2 747.2L324.8 747.2L321 751L317.2 747.2L311.8 747.2L311.8 741.8L308 738L311.8 734.2L311.8 728.8L317.2 728.8ZM46 716H344M46 760H344" class="mn-r-hi mn-r-thin"></path><path d="M38 776V200C38 150 123.6 118 195 94C266.4 118 352 150 352 200V776Z" pathLength="1" class="mn-draw mn-d1"></path><path d="M195 241A131 131 0 1 1 195 503A131 131 0 1 1 195 241Z" pathLength="1" class="mn-draw mn-d2"></path><path d="M195 246A126 126 0 1 1 195 498A126 126 0 1 1 195 246Z" pathLength="1" class="mn-draw mn-d2"></path><path d="M195 272L245 458.6L108.4 322L295 372L108.4 422L245 285.4L195 472L145 285.4L281.6 422L95 372L281.6 322L145 458.6Z" pathLength="1" class="mn-draw mn-d3"></path><path d="M195 270A102 102 0 1 1 195 474A102 102 0 1 1 195 270Z" pathLength="1" class="mn-draw mn-d4"></path><path d="M200.3 270.1C202.7 262.3 217.5 256.2 226.1 256.1C233.4 260.4 243.2 273.1 241.3 281.1" pathLength="1" class="mn-draw mn-d5"></path><path d="M250.6 286.5C256.5 280.8 272.4 282.9 279.9 287.1C284.1 294.6 286.2 310.5 280.5 316.4" pathLength="1" class="mn-draw mn-d5"></path><path d="M285.9 325.7C293.9 323.8 306.6 333.6 310.9 340.9C310.8 349.5 304.7 364.3 296.9 366.7" pathLength="1" class="mn-draw mn-d5"></path><path d="M296.9 377.3C304.7 379.7 310.8 394.5 310.9 403.1C306.6 410.4 293.9 420.2 285.9 418.3" pathLength="1" class="mn-draw mn-d5"></path><path d="M280.5 427.6C286.2 433.5 284.1 449.4 279.9 456.9C272.4 461.1 256.5 463.2 250.6 457.5" pathLength="1" class="mn-draw mn-d5"></path><path d="M241.3 462.9C243.2 470.9 233.4 483.6 226.1 487.9C217.5 487.8 202.7 481.7 200.3 473.9" pathLength="1" class="mn-draw mn-d5"></path><path d="M189.7 473.9C187.3 481.7 172.5 487.8 163.9 487.9C156.6 483.6 146.8 470.9 148.7 462.9" pathLength="1" class="mn-draw mn-d5"></path><path d="M139.4 457.5C133.5 463.2 117.6 461.1 110.1 456.9C105.9 449.4 103.8 433.5 109.5 427.6" pathLength="1" class="mn-draw mn-d5"></path><path d="M104.1 418.3C96.1 420.2 83.4 410.4 79.1 403.1C79.2 394.5 85.3 379.7 93.1 377.3" pathLength="1" class="mn-draw mn-d5"></path><path d="M93.1 366.7C85.3 364.3 79.2 349.5 79.1 340.9C83.4 333.6 96.1 323.8 104.1 325.7" pathLength="1" class="mn-draw mn-d5"></path><path d="M109.5 316.4C103.8 310.5 105.9 294.6 110.1 287.1C117.6 282.9 133.5 280.8 139.4 286.5" pathLength="1" class="mn-draw mn-d5"></path><path d="M148.7 281.1C146.8 273.1 156.6 260.4 163.9 256.1C172.5 256.2 187.3 262.3 189.7 270.1" pathLength="1" class="mn-draw mn-d5"></path><path d="M69 725L72.8 728.8L78.2 728.8L78.2 734.2L82 738L78.2 741.8L78.2 747.2L72.8 747.2L69 751L65.2 747.2L59.8 747.2L59.8 741.8L56 738L59.8 734.2L59.8 728.8L65.2 728.8Z" pathLength="1" class="mn-draw mn-d6"></path><path d="M111 725L114.8 728.8L120.2 728.8L120.2 734.2L124 738L120.2 741.8L120.2 747.2L114.8 747.2L111 751L107.2 747.2L101.8 747.2L101.8 741.8L98 738L101.8 734.2L101.8 728.8L107.2 728.8Z" pathLength="1" class="mn-draw mn-d6"></path><path d="M153 725L156.8 728.8L162.2 728.8L162.2 734.2L166 738L162.2 741.8L162.2 747.2L156.8 747.2L153 751L149.2 747.2L143.8 747.2L143.8 741.8L140 738L143.8 734.2L143.8 728.8L149.2 728.8Z" pathLength="1" class="mn-draw mn-d6"></path><path d="M195 725L198.8 728.8L204.2 728.8L204.2 734.2L208 738L204.2 741.8L204.2 747.2L198.8 747.2L195 751L191.2 747.2L185.8 747.2L185.8 741.8L182 738L185.8 734.2L185.8 728.8L191.2 728.8Z" pathLength="1" class="mn-draw mn-d6"></path><path d="M237 725L240.8 728.8L246.2 728.8L246.2 734.2L250 738L246.2 741.8L246.2 747.2L240.8 747.2L237 751L233.2 747.2L227.8 747.2L227.8 741.8L224 738L227.8 734.2L227.8 728.8L233.2 728.8Z" pathLength="1" class="mn-draw mn-d6"></path><path d="M279 725L282.8 728.8L288.2 728.8L288.2 734.2L292 738L288.2 741.8L288.2 747.2L282.8 747.2L279 751L275.2 747.2L269.8 747.2L269.8 741.8L266 738L269.8 734.2L269.8 728.8L275.2 728.8Z" pathLength="1" class="mn-draw mn-d6"></path><path d="M321 725L324.8 728.8L330.2 728.8L330.2 734.2L334 738L330.2 741.8L330.2 747.2L324.8 747.2L321 751L317.2 747.2L311.8 747.2L311.8 741.8L308 738L311.8 734.2L311.8 728.8L317.2 728.8Z" pathLength="1" class="mn-draw mn-d6"></path><path d="M46 716H344" pathLength="1" class="mn-draw mn-d6"></path><path d="M46 760H344" pathLength="1" class="mn-draw mn-d6"></path><path d="M195 114L197.9 116.9L202.1 116.9L202.1 121.1L205 124L202.1 126.9L202.1 131.1L197.9 131.1L195 134L192.1 131.1L187.9 131.1L187.9 126.9L185 124L187.9 121.1L187.9 116.9L192.1 116.9Z" fill="url(#mn-gold) #C9A24A"></path></svg></div></div>
+    <div class="mn-i-half mn-i-r"><div class="mn-i-art" style="left: -195px"><svg width="390" height="844" viewBox="0 0 390 844" aria-hidden="true" style="position: absolute; left: 0; top: 0; display: block"><rect width="390" height="844" fill="url(#mn-wall) #1F4E8C"></rect><rect width="390" height="844" fill="url(#mn-vig) #0E2346"></rect><path d="M30 784V200C30 150 119.9 108 195 84C270.1 108 360 150 360 200V784Z" fill="#0B1C38" opacity="0.45" transform="translate(0 14)"></path><path d="M30 784V200C30 150 119.9 108 195 84C270.1 108 360 150 360 200V784Z" fill="url(#mn-ivory) #F5ECDC" class="mn-l-gold2"></path><path d="M42 772V200C42 150 125.4 123 195 99C264.6 123 348 150 348 200V772Z" class="mn-l-bead"></path><path d="M46 768V200C46 150 127.2 128 195 104C262.8 128 344 150 344 200V768Z" class="mn-l-hair"></path><path d="M195 239A133 133 0 1 1 195 505A133 133 0 1 1 195 239Z" fill="#EEE3CC"></path><path d="M195 241A131 131 0 1 1 195 503A131 131 0 1 1 195 241ZM195 246A126 126 0 1 1 195 498A126 126 0 1 1 195 246ZM195 270A102 102 0 1 1 195 474A102 102 0 1 1 195 270ZM195 272L245 458.6L108.4 322L295 372L108.4 422L245 285.4L195 472L145 285.4L281.6 422L95 372L281.6 322L145 458.6ZM200.3 270.1C202.7 262.3 217.5 256.2 226.1 256.1C233.4 260.4 243.2 273.1 241.3 281.1M250.6 286.5C256.5 280.8 272.4 282.9 279.9 287.1C284.1 294.6 286.2 310.5 280.5 316.4M285.9 325.7C293.9 323.8 306.6 333.6 310.9 340.9C310.8 349.5 304.7 364.3 296.9 366.7M296.9 377.3C304.7 379.7 310.8 394.5 310.9 403.1C306.6 410.4 293.9 420.2 285.9 418.3M280.5 427.6C286.2 433.5 284.1 449.4 279.9 456.9C272.4 461.1 256.5 463.2 250.6 457.5M241.3 462.9C243.2 470.9 233.4 483.6 226.1 487.9C217.5 487.8 202.7 481.7 200.3 473.9M189.7 473.9C187.3 481.7 172.5 487.8 163.9 487.9C156.6 483.6 146.8 470.9 148.7 462.9M139.4 457.5C133.5 463.2 117.6 461.1 110.1 456.9C105.9 449.4 103.8 433.5 109.5 427.6M104.1 418.3C96.1 420.2 83.4 410.4 79.1 403.1C79.2 394.5 85.3 379.7 93.1 377.3M93.1 366.7C85.3 364.3 79.2 349.5 79.1 340.9C83.4 333.6 96.1 323.8 104.1 325.7M109.5 316.4C103.8 310.5 105.9 294.6 110.1 287.1C117.6 282.9 133.5 280.8 139.4 286.5M148.7 281.1C146.8 273.1 156.6 260.4 163.9 256.1C172.5 256.2 187.3 262.3 189.7 270.1" class="mn-r-sh" transform="translate(1.4 1.8)"></path><path d="M195 241A131 131 0 1 1 195 503A131 131 0 1 1 195 241ZM195 246A126 126 0 1 1 195 498A126 126 0 1 1 195 246ZM195 270A102 102 0 1 1 195 474A102 102 0 1 1 195 270ZM195 272L245 458.6L108.4 322L295 372L108.4 422L245 285.4L195 472L145 285.4L281.6 422L95 372L281.6 322L145 458.6ZM200.3 270.1C202.7 262.3 217.5 256.2 226.1 256.1C233.4 260.4 243.2 273.1 241.3 281.1M250.6 286.5C256.5 280.8 272.4 282.9 279.9 287.1C284.1 294.6 286.2 310.5 280.5 316.4M285.9 325.7C293.9 323.8 306.6 333.6 310.9 340.9C310.8 349.5 304.7 364.3 296.9 366.7M296.9 377.3C304.7 379.7 310.8 394.5 310.9 403.1C306.6 410.4 293.9 420.2 285.9 418.3M280.5 427.6C286.2 433.5 284.1 449.4 279.9 456.9C272.4 461.1 256.5 463.2 250.6 457.5M241.3 462.9C243.2 470.9 233.4 483.6 226.1 487.9C217.5 487.8 202.7 481.7 200.3 473.9M189.7 473.9C187.3 481.7 172.5 487.8 163.9 487.9C156.6 483.6 146.8 470.9 148.7 462.9M139.4 457.5C133.5 463.2 117.6 461.1 110.1 456.9C105.9 449.4 103.8 433.5 109.5 427.6M104.1 418.3C96.1 420.2 83.4 410.4 79.1 403.1C79.2 394.5 85.3 379.7 93.1 377.3M93.1 366.7C85.3 364.3 79.2 349.5 79.1 340.9C83.4 333.6 96.1 323.8 104.1 325.7M109.5 316.4C103.8 310.5 105.9 294.6 110.1 287.1C117.6 282.9 133.5 280.8 139.4 286.5M148.7 281.1C146.8 273.1 156.6 260.4 163.9 256.1C172.5 256.2 187.3 262.3 189.7 270.1" class="mn-r-hi"></path><path d="M69 725L72.8 728.8L78.2 728.8L78.2 734.2L82 738L78.2 741.8L78.2 747.2L72.8 747.2L69 751L65.2 747.2L59.8 747.2L59.8 741.8L56 738L59.8 734.2L59.8 728.8L65.2 728.8ZM111 725L114.8 728.8L120.2 728.8L120.2 734.2L124 738L120.2 741.8L120.2 747.2L114.8 747.2L111 751L107.2 747.2L101.8 747.2L101.8 741.8L98 738L101.8 734.2L101.8 728.8L107.2 728.8ZM153 725L156.8 728.8L162.2 728.8L162.2 734.2L166 738L162.2 741.8L162.2 747.2L156.8 747.2L153 751L149.2 747.2L143.8 747.2L143.8 741.8L140 738L143.8 734.2L143.8 728.8L149.2 728.8ZM195 725L198.8 728.8L204.2 728.8L204.2 734.2L208 738L204.2 741.8L204.2 747.2L198.8 747.2L195 751L191.2 747.2L185.8 747.2L185.8 741.8L182 738L185.8 734.2L185.8 728.8L191.2 728.8ZM237 725L240.8 728.8L246.2 728.8L246.2 734.2L250 738L246.2 741.8L246.2 747.2L240.8 747.2L237 751L233.2 747.2L227.8 747.2L227.8 741.8L224 738L227.8 734.2L227.8 728.8L233.2 728.8ZM279 725L282.8 728.8L288.2 728.8L288.2 734.2L292 738L288.2 741.8L288.2 747.2L282.8 747.2L279 751L275.2 747.2L269.8 747.2L269.8 741.8L266 738L269.8 734.2L269.8 728.8L275.2 728.8ZM321 725L324.8 728.8L330.2 728.8L330.2 734.2L334 738L330.2 741.8L330.2 747.2L324.8 747.2L321 751L317.2 747.2L311.8 747.2L311.8 741.8L308 738L311.8 734.2L311.8 728.8L317.2 728.8ZM46 716H344M46 760H344" class="mn-r-sh" transform="translate(1.2 1.5)"></path><path d="M69 725L72.8 728.8L78.2 728.8L78.2 734.2L82 738L78.2 741.8L78.2 747.2L72.8 747.2L69 751L65.2 747.2L59.8 747.2L59.8 741.8L56 738L59.8 734.2L59.8 728.8L65.2 728.8ZM111 725L114.8 728.8L120.2 728.8L120.2 734.2L124 738L120.2 741.8L120.2 747.2L114.8 747.2L111 751L107.2 747.2L101.8 747.2L101.8 741.8L98 738L101.8 734.2L101.8 728.8L107.2 728.8ZM153 725L156.8 728.8L162.2 728.8L162.2 734.2L166 738L162.2 741.8L162.2 747.2L156.8 747.2L153 751L149.2 747.2L143.8 747.2L143.8 741.8L140 738L143.8 734.2L143.8 728.8L149.2 728.8ZM195 725L198.8 728.8L204.2 728.8L204.2 734.2L208 738L204.2 741.8L204.2 747.2L198.8 747.2L195 751L191.2 747.2L185.8 747.2L185.8 741.8L182 738L185.8 734.2L185.8 728.8L191.2 728.8ZM237 725L240.8 728.8L246.2 728.8L246.2 734.2L250 738L246.2 741.8L246.2 747.2L240.8 747.2L237 751L233.2 747.2L227.8 747.2L227.8 741.8L224 738L227.8 734.2L227.8 728.8L233.2 728.8ZM279 725L282.8 728.8L288.2 728.8L288.2 734.2L292 738L288.2 741.8L288.2 747.2L282.8 747.2L279 751L275.2 747.2L269.8 747.2L269.8 741.8L266 738L269.8 734.2L269.8 728.8L275.2 728.8ZM321 725L324.8 728.8L330.2 728.8L330.2 734.2L334 738L330.2 741.8L330.2 747.2L324.8 747.2L321 751L317.2 747.2L311.8 747.2L311.8 741.8L308 738L311.8 734.2L311.8 728.8L317.2 728.8ZM46 716H344M46 760H344" class="mn-r-hi mn-r-thin"></path><path d="M38 776V200C38 150 123.6 118 195 94C266.4 118 352 150 352 200V776Z" pathLength="1" class="mn-draw mn-d1"></path><path d="M195 241A131 131 0 1 1 195 503A131 131 0 1 1 195 241Z" pathLength="1" class="mn-draw mn-d2"></path><path d="M195 246A126 126 0 1 1 195 498A126 126 0 1 1 195 246Z" pathLength="1" class="mn-draw mn-d2"></path><path d="M195 272L245 458.6L108.4 322L295 372L108.4 422L245 285.4L195 472L145 285.4L281.6 422L95 372L281.6 322L145 458.6Z" pathLength="1" class="mn-draw mn-d3"></path><path d="M195 270A102 102 0 1 1 195 474A102 102 0 1 1 195 270Z" pathLength="1" class="mn-draw mn-d4"></path><path d="M200.3 270.1C202.7 262.3 217.5 256.2 226.1 256.1C233.4 260.4 243.2 273.1 241.3 281.1" pathLength="1" class="mn-draw mn-d5"></path><path d="M250.6 286.5C256.5 280.8 272.4 282.9 279.9 287.1C284.1 294.6 286.2 310.5 280.5 316.4" pathLength="1" class="mn-draw mn-d5"></path><path d="M285.9 325.7C293.9 323.8 306.6 333.6 310.9 340.9C310.8 349.5 304.7 364.3 296.9 366.7" pathLength="1" class="mn-draw mn-d5"></path><path d="M296.9 377.3C304.7 379.7 310.8 394.5 310.9 403.1C306.6 410.4 293.9 420.2 285.9 418.3" pathLength="1" class="mn-draw mn-d5"></path><path d="M280.5 427.6C286.2 433.5 284.1 449.4 279.9 456.9C272.4 461.1 256.5 463.2 250.6 457.5" pathLength="1" class="mn-draw mn-d5"></path><path d="M241.3 462.9C243.2 470.9 233.4 483.6 226.1 487.9C217.5 487.8 202.7 481.7 200.3 473.9" pathLength="1" class="mn-draw mn-d5"></path><path d="M189.7 473.9C187.3 481.7 172.5 487.8 163.9 487.9C156.6 483.6 146.8 470.9 148.7 462.9" pathLength="1" class="mn-draw mn-d5"></path><path d="M139.4 457.5C133.5 463.2 117.6 461.1 110.1 456.9C105.9 449.4 103.8 433.5 109.5 427.6" pathLength="1" class="mn-draw mn-d5"></path><path d="M104.1 418.3C96.1 420.2 83.4 410.4 79.1 403.1C79.2 394.5 85.3 379.7 93.1 377.3" pathLength="1" class="mn-draw mn-d5"></path><path d="M93.1 366.7C85.3 364.3 79.2 349.5 79.1 340.9C83.4 333.6 96.1 323.8 104.1 325.7" pathLength="1" class="mn-draw mn-d5"></path><path d="M109.5 316.4C103.8 310.5 105.9 294.6 110.1 287.1C117.6 282.9 133.5 280.8 139.4 286.5" pathLength="1" class="mn-draw mn-d5"></path><path d="M148.7 281.1C146.8 273.1 156.6 260.4 163.9 256.1C172.5 256.2 187.3 262.3 189.7 270.1" pathLength="1" class="mn-draw mn-d5"></path><path d="M69 725L72.8 728.8L78.2 728.8L78.2 734.2L82 738L78.2 741.8L78.2 747.2L72.8 747.2L69 751L65.2 747.2L59.8 747.2L59.8 741.8L56 738L59.8 734.2L59.8 728.8L65.2 728.8Z" pathLength="1" class="mn-draw mn-d6"></path><path d="M111 725L114.8 728.8L120.2 728.8L120.2 734.2L124 738L120.2 741.8L120.2 747.2L114.8 747.2L111 751L107.2 747.2L101.8 747.2L101.8 741.8L98 738L101.8 734.2L101.8 728.8L107.2 728.8Z" pathLength="1" class="mn-draw mn-d6"></path><path d="M153 725L156.8 728.8L162.2 728.8L162.2 734.2L166 738L162.2 741.8L162.2 747.2L156.8 747.2L153 751L149.2 747.2L143.8 747.2L143.8 741.8L140 738L143.8 734.2L143.8 728.8L149.2 728.8Z" pathLength="1" class="mn-draw mn-d6"></path><path d="M195 725L198.8 728.8L204.2 728.8L204.2 734.2L208 738L204.2 741.8L204.2 747.2L198.8 747.2L195 751L191.2 747.2L185.8 747.2L185.8 741.8L182 738L185.8 734.2L185.8 728.8L191.2 728.8Z" pathLength="1" class="mn-draw mn-d6"></path><path d="M237 725L240.8 728.8L246.2 728.8L246.2 734.2L250 738L246.2 741.8L246.2 747.2L240.8 747.2L237 751L233.2 747.2L227.8 747.2L227.8 741.8L224 738L227.8 734.2L227.8 728.8L233.2 728.8Z" pathLength="1" class="mn-draw mn-d6"></path><path d="M279 725L282.8 728.8L288.2 728.8L288.2 734.2L292 738L288.2 741.8L288.2 747.2L282.8 747.2L279 751L275.2 747.2L269.8 747.2L269.8 741.8L266 738L269.8 734.2L269.8 728.8L275.2 728.8Z" pathLength="1" class="mn-draw mn-d6"></path><path d="M321 725L324.8 728.8L330.2 728.8L330.2 734.2L334 738L330.2 741.8L330.2 747.2L324.8 747.2L321 751L317.2 747.2L311.8 747.2L311.8 741.8L308 738L311.8 734.2L311.8 728.8L317.2 728.8Z" pathLength="1" class="mn-draw mn-d6"></path><path d="M46 716H344" pathLength="1" class="mn-draw mn-d6"></path><path d="M46 760H344" pathLength="1" class="mn-draw mn-d6"></path><path d="M195 114L197.9 116.9L202.1 116.9L202.1 121.1L205 124L202.1 126.9L202.1 131.1L197.9 131.1L195 134L192.1 131.1L187.9 131.1L187.9 126.9L185 124L187.9 121.1L187.9 116.9L192.1 116.9Z" fill="url(#mn-gold) #C9A24A"></path></svg></div></div>
+    <div class="mn-i-seam"></div>
+    <div class="mn-i-glow"></div>
+    <div class="mn-i-lock"><svg width="64" height="64" viewBox="-32 -32 64 64" aria-hidden="true" style="display: block; overflow: visible"><circle r="27" fill="#EEE3CC"></circle><path d="M0 -24L3.8 -14L12 -20.8L10.3 -10.3L20.8 -12L14 -3.8L24 0L14 3.8L20.8 12L10.3 10.3L12 20.8L3.8 14L0 24L-3.8 14L-12 20.8L-10.3 10.3L-20.8 12L-14 3.8L-24 0L-14 -3.8L-20.8 -12L-10.3 -10.3L-12 -20.8L-3.8 -14Z" fill="url(#mn-gold) #C9A24A" class="mn-l-gold"></path><circle r="10.5" fill="#1F4E8C" class="mn-l-gold"></circle><path d="M0 -6.5L1.9 -4.6L4.6 -4.6L4.6 -1.9L6.5 0L4.6 1.9L4.6 4.6L1.9 4.6L0 6.5L-1.9 4.6L-4.6 4.6L-4.6 1.9L-6.5 0L-4.6 -1.9L-4.6 -4.6L-1.9 -4.6Z" fill="#F5ECDC"></path></svg></div>
+    <div class="mn-i-ui">
+      <p class="mn-i-txt" style="position: absolute; left: 0; right: 0; top: 150px; margin: 0; text-align: center; font-size: 11px; line-height: 16px; letter-spacing: 0.26em; font-weight: 700; color: #1F4E8C; animation-delay: .2s">NIKOH TO’YIGA TAKLIFNOMA</p>
+      <p class="mn-i-txt" style="position: absolute; left: 40px; right: 40px; top: 516px; margin: 0; text-align: center; font-family: 'Yeseva One', Georgia, serif; font-size: {{ fsIntro }}px; line-height: 36px; color: #1F4E8C; animation-delay: 1.9s; white-space: nowrap">{{ d.kuyov }} <span style="font-family: 'Alegreya', Georgia, serif; font-style: italic; font-size: 22px; color: #846419">va</span> {{ d.kelin }}</p>
+      <p class="mn-i-txt mn-num" style="position: absolute; left: 0; right: 0; top: 560px; margin: 0; text-align: center; font-size: 17px; line-height: 24px; letter-spacing: 0.18em; font-weight: 600; color: #24324A; animation-delay: 2.1s">{{ dotsSp }}</p>
+      <svg class="mn-i-txt" width="124" height="14" viewBox="0 0 124 14" aria-hidden="true" style="position: absolute; left: 133px; top: 596px; animation-delay: 2.2s"><path d="M0 7H48M76 7H124" class="mn-l-gold"></path><g transform="translate(62 7)"><path d="M0 -7L2.1 -4.9L4.9 -4.9L4.9 -2.1L7 0L4.9 2.1L4.9 4.9L2.1 4.9L0 7L-2.1 4.9L-4.9 4.9L-4.9 2.1L-7 0L-4.9 -2.1L-4.9 -4.9L-2.1 -4.9Z" fill="url(#mn-gold) #C9A24A"></path></g></svg>
+      <div class="mn-i-txt" style="position: absolute; left: 0; right: 0; top: 630px; display: flex; justify-content: center; animation-delay: 2.4s">
+        <button type="button" class="mn-i-btn" onClick="{{ open }}">
+          <svg class="mn-icon" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v18M8 7l-4 5 4 5M16 7l4 5-4 5"></path></svg>
+          Taklifnomani ochish
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <header style="position: relative; height: 844px; flex: none; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; text-align: center; background: radial-gradient(90% 34% at 50% 82%, rgba(201, 162, 74, 0.16), rgba(201, 162, 74, 0) 70%)">
+    <sc-if value="{{ has.photo }}"><img src="{{ p.0 }}" alt="" style="position: absolute; left: 56px; top: 106px; width: 278px; height: 434px; object-fit: cover"></sc-if>
+    <sc-if value="{{ noPhoto }}"><div aria-hidden="true" style="position: absolute; left: 56px; top: 150px; width: 278px; height: 390px; display: flex; align-items: center; justify-content: center; gap: 6px; font-family: 'Yeseva One', Georgia, serif; color: #1F4E8C"><span style="font-size: 92px; line-height: 1">{{ iniA }}</span><span style="font-family: 'Alegreya', Georgia, serif; font-style: italic; font-size: 34px; color: #846419">va</span><span style="font-size: 92px; line-height: 1">{{ iniB }}</span></div></sc-if>
+    <svg width="354" height="528" viewBox="0 0 354 528" aria-hidden="true" style="position: absolute; left: 18px; top: 28px; filter: drop-shadow(0 22px 26px rgba(20, 40, 80, 0.28))"><path d="M16 58H338V512H16ZM38 512V200C38 150 113.8 102 177 78C240.2 102 316 150 316 200V512Z" fill="url(#mn-tileS) #1F4E8C" class="mn-eo"></path><path d="M29 512V200C29 150 109.7 93 177 69C244.3 93 325 150 325 200V512ZM38 512V200C38 150 113.8 102 177 78C240.2 102 316 150 316 200V512Z" fill="#F4EBDA" class="mn-eo"></path><path d="M29 512V200C29 150 109.7 93 177 69C244.3 93 325 150 325 200V512Z" class="mn-l-gold"></path><path d="M38 512V200C38 150 113.8 102 177 78C240.2 102 316 150 316 200V512Z" class="mn-l-gold"></path><path d="M33.5 512V200C33.5 150 111.7 97.5 177 73.5C242.3 97.5 320.5 150 320.5 200V512Z" class="mn-l-bead2"></path><rect x="16" y="16" width="322" height="42" fill="#163A6B"></rect><path d="M16 19.5H338M16 54.5H338" class="mn-l-gold"></path><rect x="0" y="0" width="354" height="16" fill="url(#mn-band) #1F4E8C"></rect><rect x="0" y="512" width="354" height="16" fill="url(#mn-band) #1F4E8C"></rect><rect x="0" y="16" width="16" height="496" fill="url(#mn-bandV) #1F4E8C"></rect><rect x="338" y="16" width="16" height="496" fill="url(#mn-bandV) #1F4E8C"></rect><path d="M.6 .6H353.4V527.4H.6Z" class="mn-l-gold"></path><path d="M15.5 15.5H338.5V512.5H15.5Z" class="mn-l-gold"></path><path d="M168 30L171 37L177 40L171 43L168 50L165 43L159 40L165 37Z" fill="url(#mn-gold) #C9A24A" transform="translate(-112 -3)"></path><path d="M168 30L171 37L177 40L171 43L168 50L165 43L159 40L165 37Z" fill="url(#mn-gold) #C9A24A" transform="translate(130 -3)"></path></svg>
+    <p class="mn-insc">NIKOH TO’YI</p>
+    <svg class="mn-spin" width="44" height="44" viewBox="-22 -22 44 44" aria-hidden="true" style="position: absolute; left: 48px; top: 102px"><path d="M0 -21L6.2 -14.8L14.8 -14.8L14.8 -6.2L21 0L14.8 6.2L14.8 14.8L6.2 14.8L0 21L-6.2 14.8L-14.8 14.8L-14.8 6.2L-21 0L-14.8 -6.2L-14.8 -14.8L-6.2 -14.8ZM5 -12L7 -7L12 -5L10 0L12 5L7 7L5 12L0 10L-5 12L-7 7L-12 5L-10 0L-12 -5L-7 -7L-5 -12L0 -10ZM0 -5.9A5.9 5.9 0 1 1 0 5.9A5.9 5.9 0 1 1 0 -5.9Z" fill="none" class="mn-l-gold"></path><circle r="3" fill="#E8CC7E"></circle></svg>
+    <svg class="mn-spin mn-spin--r" width="44" height="44" viewBox="-22 -22 44 44" aria-hidden="true" style="position: absolute; left: 298px; top: 102px"><path d="M0 -21L6.2 -14.8L14.8 -14.8L14.8 -6.2L21 0L14.8 6.2L14.8 14.8L6.2 14.8L0 21L-6.2 14.8L-14.8 14.8L-14.8 6.2L-21 0L-14.8 -6.2L-14.8 -14.8L-6.2 -14.8ZM5 -12L7 -7L12 -5L10 0L12 5L7 7L5 12L0 10L-5 12L-7 7L-12 5L-10 0L-12 -5L-7 -7L-5 -12L0 -10ZM0 -5.9A5.9 5.9 0 1 1 0 5.9A5.9 5.9 0 1 1 0 -5.9Z" fill="none" class="mn-l-gold"></path><circle r="3" fill="#E8CC7E"></circle></svg>
+    <svg class="mn-tw" width="14" height="14" viewBox="-8 -8 16 16" aria-hidden="true" style="left: 10px; top: 300px; animation-delay: -0.6s; animation-duration: 3.8s"><path d="M0 -8L1.6 -1.6L8 0L1.6 1.6L0 8L-1.6 1.6L-8 0L-1.6 -1.6Z" fill="#C9A24A"></path></svg><svg class="mn-tw" width="12" height="12" viewBox="-8 -8 16 16" aria-hidden="true" style="left: 364px; top: 250px; animation-delay: -2.2s; animation-duration: 4.4s"><path d="M0 -8L1.6 -1.6L8 0L1.6 1.6L0 8L-1.6 1.6L-8 0L-1.6 -1.6Z" fill="#C9A24A"></path></svg><svg class="mn-tw" width="12" height="12" viewBox="-8 -8 16 16" aria-hidden="true" style="left: 22px; top: 620px; animation-delay: -1.4s; animation-duration: 4.0s"><path d="M0 -8L1.6 -1.6L8 0L1.6 1.6L0 8L-1.6 1.6L-8 0L-1.6 -1.6Z" fill="#C9A24A"></path></svg><svg class="mn-tw" width="14" height="14" viewBox="-8 -8 16 16" aria-hidden="true" style="left: 350px; top: 660px; animation-delay: -3.0s; animation-duration: 3.8s"><path d="M0 -8L1.6 -1.6L8 0L1.6 1.6L0 8L-1.6 1.6L-8 0L-1.6 -1.6Z" fill="#C9A24A"></path></svg><svg class="mn-tw" width="10" height="10" viewBox="-8 -8 16 16" aria-hidden="true" style="left: 96px; top: 770px; animation-delay: -2.6s; animation-duration: 4.6s"><path d="M0 -8L1.6 -1.6L8 0L1.6 1.6L0 8L-1.6 1.6L-8 0L-1.6 -1.6Z" fill="#C9A24A"></path></svg><svg class="mn-tw" width="12" height="12" viewBox="-8 -8 16 16" aria-hidden="true" style="left: 290px; top: 790px; animation-delay: -0.2s; animation-duration: 4.2s"><path d="M0 -8L1.6 -1.6L8 0L1.6 1.6L0 8L-1.6 1.6L-8 0L-1.6 -1.6Z" fill="#C9A24A"></path></svg>
+    <h1 style="position: relative; margin: 582px 0 0; font-weight: 400; display: flex; flex-direction: column; align-items: center">
+      <span style="font-family: 'Yeseva One', Georgia, serif; font-size: {{ fsA }}px; line-height: 54px; color: #1F4E8C; white-space: nowrap">{{ d.kuyov }}</span>
+      <span style="font-size: 24px; line-height: 26px; font-style: italic; color: #846419">va</span>
+      <span style="font-family: 'Yeseva One', Georgia, serif; font-size: {{ fsB }}px; line-height: 54px; color: #1F4E8C; white-space: nowrap">{{ d.kelin }}</span>
+    </h1>
+    <p class="mn-num" style="position: relative; margin: 12px 0 0; font-size: 20px; line-height: 26px; letter-spacing: 0.16em; font-weight: 600">{{ dotsSp }}</p>
+    <p style="position: relative; margin: 2px 0 0; font-size: 17px; line-height: 24px; font-style: italic; color: #5A6478">{{ wkTime }}</p>
+    <svg class="mn-icon mn-bob" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" style="position: relative; margin-top: 14px; color: #C9A24A"><path d="M6 9l6 6 6-6"></path></svg>
+  </header>
+
+  <sc-if value="{{ b.taklif }}">
+  <section style="position: relative; padding: 32px 24px 0; display: flex; flex-direction: column; align-items: center; text-align: center">
+    <div class="mn-head"><span class="mn-hl"></span><h2 class="mn-h2">Aziz mehmonlar!</h2><span class="mn-hl mn-hl--r"></span></div>
+    <p style="margin: 12px 0 0; max-width: 322px; font-size: 19px; line-height: 29px; font-style: italic; text-wrap: pretty; white-space: pre-line; overflow-wrap: anywhere">{{ d.matn }}</p>
+    <sc-if value="{{ d.taklif_qiluvchilar }}">
+    <svg width="140" height="14" viewBox="0 0 140 14" aria-hidden="true" style="display: block; margin: 16px 0"><path d="M0 7H52M88 7H140" class="mn-l-gold"></path><path d="M40 7L44 4L48 7L44 10ZM92 7L96 4L100 7L96 10Z" fill="#1F4E8C"></path><g transform="translate(70 7)"><path d="M0 -7L2.1 -4.9L4.9 -4.9L4.9 -2.1L7 0L4.9 2.1L4.9 4.9L2.1 4.9L0 7L-2.1 4.9L-4.9 4.9L-4.9 2.1L-7 0L-4.9 -2.1L-4.9 -4.9L-2.1 -4.9Z" fill="url(#mn-gold) #C9A24A"></path></g></svg>
+    <p class="mn-lbl">TAKLIF QILUVCHILAR</p>
+    <p style="margin: 6px 0 0; max-width: 300px; font-family: 'Yeseva One', Georgia, serif; font-size: 21px; line-height: 28px; color: #1F4E8C; text-wrap: balance; overflow-wrap: anywhere">{{ d.taklif_qiluvchilar }}</p>
+    </sc-if>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.taymer }}">
+  <section style="position: relative; padding: 32px 24px 0; display: flex; flex-direction: column; align-items: center">
+    <div class="mn-head"><span class="mn-hl"></span><h2 class="mn-h2">To’yga qadar</h2><span class="mn-hl mn-hl--r"></span></div>
+    <div class="mn-num" style="margin-top: 16px; width: 342px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px">
+      <div class="mn-tile mn-cut"><div class="mn-tile-in mn-cut2"><span style="display: block; height: 40px; overflow: hidden; font-family: 'Yeseva One', Georgia, serif; font-size: 34px; line-height: 40px; color: #FBF6EC"><span class="{{ dCls }}">{{ cdDays }}</span></span><span style="font-size: 10px; line-height: 14px; letter-spacing: 0.16em; font-weight: 700; color: #E8CC7E">KUN</span></div></div>
+      <div class="mn-tile mn-cut"><div class="mn-tile-in mn-cut2"><span style="display: block; height: 40px; overflow: hidden; font-family: 'Yeseva One', Georgia, serif; font-size: 34px; line-height: 40px; color: #FBF6EC"><span class="{{ hCls }}">{{ cdHours }}</span></span><span style="font-size: 10px; line-height: 14px; letter-spacing: 0.16em; font-weight: 700; color: #E8CC7E">SOAT</span></div></div>
+      <div class="mn-tile mn-cut"><div class="mn-tile-in mn-cut2"><span style="display: block; height: 40px; overflow: hidden; font-family: 'Yeseva One', Georgia, serif; font-size: 34px; line-height: 40px; color: #FBF6EC"><span class="{{ mCls }}">{{ cdMins }}</span></span><span style="font-size: 10px; line-height: 14px; letter-spacing: 0.16em; font-weight: 700; color: #E8CC7E">DAQIQA</span></div></div>
+      <div class="mn-tile mn-cut mn-tile--pulse"><div class="mn-tile-in mn-cut2"><span style="display: block; height: 40px; overflow: hidden; font-family: 'Yeseva One', Georgia, serif; font-size: 34px; line-height: 40px; color: #F3DE9F"><span class="{{ sCls }}">{{ cdSecs }}</span></span><span style="font-size: 10px; line-height: 14px; letter-spacing: 0.16em; font-weight: 700; color: #E8CC7E">SONIYA</span></div></div>
+    </div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.kun }}">
+  <section style="position: relative; padding: 32px 24px 0; display: flex; flex-direction: column; align-items: center">
+    <div class="mn-head"><span class="mn-hl"></span><h2 class="mn-h2">To’y kuni</h2><span class="mn-hl mn-hl--r"></span></div>
+    <div style="margin-top: 16px; width: 342px; display: flex; align-items: center; gap: 16px">
+      <div style="position: relative; flex: none; width: 120px; height: 120px">
+        <svg class="mn-spin" width="120" height="120" viewBox="-60 -60 120 120" aria-hidden="true" style="position: absolute; left: 0; top: 0; animation-duration: 90s"><path d="M0 -58L17 -41L41 -41L41 -17L58 0L41 17L41 41L17 41L0 58L-17 41L-41 41L-41 17L-58 0L-41 -17L-41 -41L-17 -41Z" fill="#FFFCF5" class="mn-l-gold"></path><path d="M19.1 -46.2L27.1 -27.1L46.2 -19.1L38.3 0L46.2 19.1L27.1 27.1L19.1 46.2L0 38.3L-19.1 46.2L-27.1 27.1L-46.2 19.1L-38.3 0L-46.2 -19.1L-27.1 -27.1L-19.1 -46.2L0 -38.3Z" fill="none" class="mn-l-hair"></path></svg>
+        <div style="position: absolute; left: 0; top: 0; width: 120px; height: 120px; display: flex; flex-direction: column; align-items: center; justify-content: center">
+          <span class="mn-num" style="font-family: 'Yeseva One', Georgia, serif; font-size: 50px; line-height: 50px; color: #1F4E8C">{{ w.day }}</span>
+          <span style="margin-top: 2px; font-size: 10px; line-height: 12px; letter-spacing: 0.2em; font-weight: 700; color: #846419">{{ monUp }}</span>
+        </div>
+      </div>
+      <div style="flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; align-items: flex-start; text-align: left">
+        <span style="font-family: 'Yeseva One', Georgia, serif; font-size: 22px; line-height: 28px; color: #1F4E8C">{{ monCap }}, {{ w.year }}</span>
+        <span style="font-size: 18px; line-height: 24px; font-weight: 700">{{ w.Weekday }}</span>
+        <sc-if value="{{ d.vaqt }}"><span class="mn-num" style="font-size: 18px; line-height: 24px; font-style: italic; color: #5A6478">soat {{ d.vaqt }} da</span></sc-if>
+        <a class="mn-btn mn-btn--line" href="{{ cal }}" target="_blank" rel="noopener" style="margin-top: 12px; height: 46px; padding: 0 14px; font-size: 15px">
+          <svg class="mn-icon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"></rect><path d="M3.5 10h17M8 3v4M16 3v4M12 13v5M9.5 15.5h5"></path></svg>
+          Kalendarga qo’shish
+        </a>
+      </div>
+    </div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.manzil }}">
+  <section style="position: relative; padding: 32px 24px 0; display: flex; flex-direction: column; align-items: center">
+    <div class="mn-head"><span class="mn-hl"></span><h2 class="mn-h2">To’yxona</h2><span class="mn-hl mn-hl--r"></span></div>
+    <div class="mn-venue" style="position: relative; margin-top: 14px; width: 342px; height: 250px; box-sizing: border-box; padding: 40px 22px 18px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center">
+      <svg width="342" height="250" viewBox="0 0 342 250" aria-hidden="true" style="position: absolute; left: 0; top: 0"><rect width="342" height="250" fill="url(#mn-tileS) #1F4E8C"></rect><rect width="342" height="250" fill="#163A6B" opacity="0.55"></rect><path d="M8 242V54C8 34 118 17 171 9C224 17 334 34 334 54V242Z" class="mn-l-gold"></path><path d="M14 236V57C14 39 120 23 171 15C222 23 328 39 328 57V236Z" class="mn-l-hair"></path><g transform="translate(171 36)"><path d="M0 -7L2.1 -4.9L4.9 -4.9L4.9 -2.1L7 0L4.9 2.1L4.9 4.9L2.1 4.9L0 7L-2.1 4.9L-4.9 4.9L-4.9 2.1L-7 0L-4.9 -2.1L-4.9 -4.9L-2.1 -4.9Z" fill="url(#mn-gold) #C9A24A"></path></g></svg>
+      <h3 style="position: relative; margin: 0; font-family: 'Yeseva One', Georgia, serif; font-weight: 400; font-size: 24px; line-height: 30px; color: #FBF6EC; text-wrap: balance; overflow-wrap: anywhere; max-width: 290px">{{ d.manzil_nomi }}</h3>
+      <sc-if value="{{ d.manzil }}"><p style="position: relative; margin: 8px 0 0; max-width: 270px; font-size: 17px; line-height: 24px; color: #DCE6F5; text-wrap: balance; overflow-wrap: anywhere">{{ d.manzil }}</p></sc-if>
+      <sc-if value="{{ d.xarita }}">
+      <a class="mn-btn mn-btn--gold" href="{{ d.xarita }}" target="_blank" rel="noopener" style="position: relative; margin-top: 16px">
+        <svg class="mn-icon" width="19" height="19" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.5s-7-6.1-7-11.6a7 7 0 0 1 14 0c0 5.5-7 11.6-7 11.6Z"></path><circle cx="12" cy="9.8" r="2.6"></circle></svg>
+        Xaritada ochish
+      </a>
+      </sc-if>
+    </div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.dastur }}">
+  <section style="position: relative; padding: 32px 24px 0; display: flex; flex-direction: column; align-items: center">
+    <div class="mn-head"><span class="mn-hl"></span><h2 class="mn-h2">To’y dasturi</h2><span class="mn-hl mn-hl--r"></span></div>
+    <div style="position: relative; margin-top: 14px; width: 330px; display: flex; flex-direction: column; gap: 8px">
+      <div aria-hidden="true" style="position: absolute; left: 41px; top: 25px; bottom: 25px; width: 2px; background: repeating-linear-gradient(180deg, #C9A24A 0 4px, rgba(201, 162, 74, 0) 4px 8px)"></div>
+      <sc-for list="{{ prog }}" as="x"><div class="mn-tl" style="min-height: 50px; height: auto"><span class="mn-tbadge mn-cut"><span class="mn-cut2 mn-num" style="{{ x.badge }}">{{ x.vaqt }}</span></span><span style="padding: 4px 0; font-size: 19px; line-height: 24px; overflow-wrap: anywhere; {{ x.txt }}">{{ x.nomi }}</span></div></sc-for>
+    </div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.hikoya }}">
+  <section style="position: relative; padding: 32px 24px 0; display: flex; flex-direction: column; align-items: center">
+    <div class="mn-head"><span class="mn-hl"></span><h2 class="mn-h2">Bizning hikoyamiz</h2><span class="mn-hl mn-hl--r"></span></div>
+    <div style="margin-top: 14px; width: 342px; display: flex; flex-direction: column; gap: 12px">
+      <sc-for list="{{ story }}" as="h">
+      <div style="{{ h.row }}">
+        <sc-if value="{{ has.photo }}"><div class="mn-ph mn-oct"><img class="mn-oct" src="{{ h.img }}" alt=""></div></sc-if>
+        <div style="{{ h.col }}">
+          <span class="mn-num" style="font-family: 'Yeseva One', Georgia, serif; font-size: 22px; line-height: 26px; color: #846419">{{ h.yil }}</span>
+          <span style="font-size: 19px; line-height: 24px; font-weight: 700; color: #1F4E8C; overflow-wrap: anywhere">{{ h.sarlavha }}</span>
+          <span style="font-size: 16.5px; line-height: 21px; font-style: italic; color: #5A6478; overflow-wrap: anywhere">{{ h.matn }}</span>
+        </div>
+      </div>
+      </sc-for>
+    </div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.galereya }}">
+  <section style="position: relative; padding: 32px 24px 0; display: flex; flex-direction: column; align-items: center">
+    <div class="mn-head"><span class="mn-hl"></span><h2 class="mn-h2">Lahzalar</h2><span class="mn-hl mn-hl--r"></span></div>
+    <div style="margin-top: 16px; width: 342px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px">
+      <div class="mn-ar1" style="width: 106px; height: 164px; padding: 2px; box-sizing: border-box; background: linear-gradient(160deg, #F3DE9F, #C9A24A 45%, #A47F2E)"><div class="mn-ar2" style="width: 102px; height: 160px; padding: 4px; box-sizing: border-box; background: #1F4E8C"><img class="mn-ar3" src="{{ p.4 }}" alt="" style="display: block; width: 94px; height: 152px; object-fit: cover"></div></div>
+      <div class="mn-ar1" style="width: 106px; height: 164px; padding: 2px; box-sizing: border-box; background: linear-gradient(160deg, #F3DE9F, #C9A24A 45%, #A47F2E)"><div class="mn-ar2" style="width: 102px; height: 160px; padding: 4px; box-sizing: border-box; background: #1F4E8C"><img class="mn-ar3" src="{{ p.5 }}" alt="" style="display: block; width: 94px; height: 152px; object-fit: cover"></div></div>
+      <div class="mn-ar1" style="width: 106px; height: 164px; padding: 2px; box-sizing: border-box; background: linear-gradient(160deg, #F3DE9F, #C9A24A 45%, #A47F2E)"><div class="mn-ar2" style="width: 102px; height: 160px; padding: 4px; box-sizing: border-box; background: #1F4E8C"><img class="mn-ar3" src="{{ p.6 }}" alt="" style="display: block; width: 94px; height: 152px; object-fit: cover"></div></div>
+    </div>
+    <div style="margin-top: 10px; width: 342px; height: 128px; padding: 4px; box-sizing: border-box; background: #1F4E8C; border-radius: 4px">
+      <div style="height: 120px; padding: 1.5px; box-sizing: border-box; background: linear-gradient(135deg, #F3DE9F, #C9A24A 45%, #A47F2E)"><img src="{{ p.7 }}" alt="" style="display: block; width: 100%; height: 117px; object-fit: cover"></div>
+    </div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.rsvp }}">
+  <section style="position: relative; padding: 32px 24px 0">
+    <div style="position: relative; overflow: hidden; border-radius: 20px; border: 1px solid #D9C38F; background: #FFFCF5; box-shadow: 0 24px 44px -32px rgba(16, 40, 84, 0.55); padding: 0 18px 20px; display: flex; flex-direction: column; align-items: center; text-align: center">
+      <svg width="342" height="12" viewBox="0 0 342 12" aria-hidden="true" style="display: block; margin: 0 -18px; flex: none"><rect width="342" height="12" fill="url(#mn-band) #1F4E8C"></rect></svg>
+      <div class="mn-head" style="margin-top: 20px"><span class="mn-hl"></span><h2 class="mn-h2">Kelasizmi?</h2><span class="mn-hl mn-hl--r"></span></div>
+      <p style="margin: 4px 0 0; font-size: 17px; line-height: 22px; font-style: italic; color: #5A6478">{{ deadline }}</p>
+      <sc-if value="{{ askName }}"><input class="mn-in" type="text" maxlength="100" autocomplete="name" placeholder="Ismingiz" aria-label="Ismingiz" onInput="{{ onName }}"></sc-if>
+      <div style="margin-top: 16px; width: 100%; display: flex; gap: 10px">
+        <button type="button" class="{{ yesCls }}" aria-pressed="{{ isYes }}" onClick="{{ sayYes }}">Boraman</button>
+        <button type="button" class="{{ noCls }}" aria-pressed="{{ isNo }}" onClick="{{ sayNo }}">Bora olmayman</button>
+      </div>
+      <p style="margin: 18px 0 8px; font-size: 18px; line-height: 22px; font-weight: 600">Necha kishi bo’lasiz?</p>
+      <div class="{{ stepperCls }}">
+        <button type="button" class="mn-step" aria-label="Kamaytirish" disabled="{{ minusOff }}" onClick="{{ dec }}"><svg class="mn-icon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12"></path></svg></button>
+        <span class="mn-num" aria-live="polite" style="min-width: 86px; font-family: 'Yeseva One', Georgia, serif; font-size: 26px; line-height: 30px; color: #1F4E8C">{{ guests }} <span style="font-family: 'Alegreya', Georgia, serif; font-size: 17px; color: #5A6478">kishi</span></span>
+        <button type="button" class="mn-step" aria-label="Ko’paytirish" disabled="{{ plusOff }}" onClick="{{ inc }}"><svg class="mn-icon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12M12 6v12"></path></svg></button>
+      </div>
+      <button type="button" class="mn-btn mn-btn--gold" style="width: 100%; height: 52px; margin-top: 18px; font-size: 19px" disabled="{{ busy }}" onClick="{{ send }}">
+        <sc-if value="{{ sent }}" hint-placeholder-val="{{ false }}"><svg class="mn-icon" width="19" height="19" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"></path></svg></sc-if>
+        {{ sendLabel }}
+      </button>
+      <p aria-live="polite" style="margin: 8px 0 0; min-height: 24px; font-size: 17px; line-height: 24px; font-style: italic; color: #1F4E8C">{{ rsvpNote }}</p>
+    </div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.telefon }}">
+  <section style="position: relative; padding: 32px 24px 0">
+    <div style="box-sizing: border-box; height: 84px; padding: 0 14px 0 20px; border-radius: 20px; border: 1px solid #D9C38F; background: #FFFCF5; display: flex; align-items: center; justify-content: space-between; gap: 12px">
+      <div style="display: flex; flex-direction: column">
+        <span style="font-size: 16px; line-height: 20px; font-style: italic; color: #5A6478">Savollar bo’lsa, qo’ng’iroq qiling</span>
+        <span class="mn-num" style="font-size: 23px; line-height: 30px; font-weight: 700; color: #1F4E8C">{{ d.telefon }}</span>
+      </div>
+      <a href="{{ tel }}" aria-label="Qo’ng’iroq qilish" style="flex: none; width: 54px; height: 54px; border-radius: 50%; background: #1F4E8C; color: #F3DE9F; display: flex; align-items: center; justify-content: center; box-shadow: inset 0 0 0 2px #1F4E8C, inset 0 0 0 3px #C9A24A"><svg class="mn-icon" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M5.2 3.5h3.1l1.6 4.2-2.1 1.5a12.2 12.2 0 0 0 7 7l1.5-2.1 4.2 1.6v3.1a1.9 1.9 0 0 1-2.1 1.9A16.6 16.6 0 0 1 3.3 5.6a1.9 1.9 0 0 1 1.9-2.1Z"></path></svg></a>
+    </div>
+  </section>
+  </sc-if>
+
+  <footer style="position: relative; margin-top: auto; padding-top: 36px; display: flex; flex-direction: column; align-items: center; text-align: center">
+    <p style="margin: 0; font-family: 'Yeseva One', Georgia, serif; font-size: 34px; line-height: 42px; color: #1F4E8C">Sizni kutamiz!</p>
+    <p class="mn-num" style="margin: 6px 0 24px; font-size: 13px; line-height: 18px; letter-spacing: 0.2em; font-weight: 700; color: #846419; max-width: 342px; overflow-wrap: anywhere">{{ namesUp }} · {{ w.dots }}</p>
+    <svg width="390" height="22" viewBox="0 0 390 22" aria-hidden="true" style="display: block"><rect width="390" height="1.5" fill="#C9A24A"></rect><rect y="4" width="390" height="18" fill="url(#mn-band) #1F4E8C"></rect></svg>
+  </footer>
+
+  <svg class="mn-tw" width="12" height="12" viewBox="-8 -8 16 16" aria-hidden="true" style="left: 14px; top: 1140px; animation-delay: -1.0s; animation-duration: 3.8s"><path d="M0 -8L1.6 -1.6L8 0L1.6 1.6L0 8L-1.6 1.6L-8 0L-1.6 -1.6Z" fill="#C9A24A"></path></svg><svg class="mn-tw" width="12" height="12" viewBox="-8 -8 16 16" aria-hidden="true" style="left: 360px; top: 1500px; animation-delay: -2.4s; animation-duration: 4.4s"><path d="M0 -8L1.6 -1.6L8 0L1.6 1.6L0 8L-1.6 1.6L-8 0L-1.6 -1.6Z" fill="#C9A24A"></path></svg><svg class="mn-tw" width="12" height="12" viewBox="-8 -8 16 16" aria-hidden="true" style="left: 18px; top: 2080px; animation-delay: -3.1s; animation-duration: 4.0s"><path d="M0 -8L1.6 -1.6L8 0L1.6 1.6L0 8L-1.6 1.6L-8 0L-1.6 -1.6Z" fill="#C9A24A"></path></svg><svg class="mn-tw" width="14" height="14" viewBox="-8 -8 16 16" aria-hidden="true" style="left: 356px; top: 2520px; animation-delay: -0.5s; animation-duration: 3.8s"><path d="M0 -8L1.6 -1.6L8 0L1.6 1.6L0 8L-1.6 1.6L-8 0L-1.6 -1.6Z" fill="#C9A24A"></path></svg><svg class="mn-tw" width="12" height="12" viewBox="-8 -8 16 16" aria-hidden="true" style="left: 16px; top: 3020px; animation-delay: -1.8s; animation-duration: 4.6s"><path d="M0 -8L1.6 -1.6L8 0L1.6 1.6L0 8L-1.6 1.6L-8 0L-1.6 -1.6Z" fill="#C9A24A"></path></svg><svg class="mn-tw" width="12" height="12" viewBox="-8 -8 16 16" aria-hidden="true" style="left: 360px; top: 3400px; animation-delay: -2.9s; animation-duration: 4.2s"><path d="M0 -8L1.6 -1.6L8 0L1.6 1.6L0 8L-1.6 1.6L-8 0L-1.6 -1.6Z" fill="#C9A24A"></path></svg>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":3680}}'>
+const D = SITE.d;
+const ROMAN = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII'];
+const WK2 = ['Du', 'Se', 'Ch', 'Pa', 'Ju', 'Sh', 'Ya'];
+function hhmm(t) { t = String(t || ''); return /^\d:\d\d$/.test(t) ? '0' + t : t; }
+function stamp(iso, time) { const t = Date.parse(String(iso || '').slice(0, 10) + 'T' + (hhmm(time) || '12:00') + ':00+05:00'); return isNaN(t) ? null : t; }
+function ini(n) {
+  n = String(n || '').trim(); if (!n) return '';
+  if (/^(sh|ch)/i.test(n)) return n.charAt(0).toUpperCase() + n.charAt(1).toLowerCase();
+  if (/^[og][’'‘`ʻʼ]/i.test(n)) return n.charAt(0).toUpperCase() + '’';
+  return n.charAt(0).toUpperCase();
+}
+function fitPx(text, max, width, em) { const n = String(text || '').length || 1; return Math.max(Math.round(max * 0.45), Math.min(max, Math.floor(width / (n * em)))); }
+function telHref(t) { return 'tel:' + String(t || '').replace(/[^\d+]/g, ''); }
+function cityOf(a) { return String(a || '').split(',')[0].replace(/\s*(sh\.|shahri|shahar)\s*$/i, '').trim(); }
+function calUrl() {
+  const t = stamp(D.sana, D.vaqt); if (t == null) return '';
+  const f = (ms) => new Date(ms).toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
+  const title = [D.kuyov, D.kelin].filter(Boolean).join(' va ') + ' nikoh to’yi';
+  const loc = [D.manzil_nomi, D.manzil].filter(Boolean).join(', ');
+  return 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + encodeURIComponent(title) + '&dates=' + f(t) + '/' + f(t + 6 * 3600e3) + (loc ? '&location=' + encodeURIComponent(loc) : '');
+}
+function deadlineText(tail) {
+  const t = stamp(D.sana, '12:00'); if (t == null) return 'Iltimos, ' + tail + '.';
+  const dl = t - 7 * 864e5;
+  if (dl < Date.now()) return 'Iltimos, imkon qadar tezroq ' + tail + '.';
+  return 'Iltimos, ' + SITE.when(new Date(dl + 5 * 3600e3).toISOString().slice(0, 10)).dm + 'gacha ' + tail + '.';
+}
+
+class Component extends DCLogic {
+
+  constructor(...args) {
+    super(...args);
+    this.state = { opened: false, rsvp: '', guests: 2, sent: false, busy: false, warn: '' };
+    this.nm = ''; this.wish = '';
+  }
+  componentDidMount() { this.timer = setInterval(() => this.forceUpdate(), 1000); }
+  componentWillUnmount() { clearInterval(this.timer); }
+  open() { if (this.state.opened) return; this.setState({ opened: true }); SITE.opened(); }
+  send() {
+    const s = this.state;
+    if (!s.rsvp) { this.setState({ warn: 'Iltimos, avval javobingizni tanlang.' }); return; }
+    const name = this.nm.trim();
+    if (!SITE.has.guest && !name) { this.setState({ warn: 'Iltimos, ismingizni yozing.' }); return; }
+    if (s.busy) return;
+    this.setState({ busy: true, warn: '' });
+    SITE.rsvp(s.rsvp === 'yes', s.rsvp === 'yes' ? s.guests : 1, name, this.wish.trim())
+      .then(() => this.setState({ sent: true, busy: false }))
+      .catch(() => this.setState({ busy: false, warn: 'Javob yuborilmadi. Iltimos, qayta urinib ko’ring.' }));
+  }
+  rsvpVals(P, thanksYes, thanksNo) {
+    const s = this.state || {};
+    const isYes = s.rsvp === 'yes', isNo = s.rsvp === 'no', guests = s.guests || 1;
+    let note = '';
+    if (s.sent && isYes) note = thanksYes(guests);
+    else if (s.sent && isNo) note = thanksNo();
+    else if (s.warn) note = s.warn;
+    return {
+      isYes, isNo, guests,
+      askName: !SITE.has.guest,
+      onName: (e) => { this.nm = e.target.value; },
+      onWish: (e) => { this.wish = e.target.value; },
+      sayYes: () => this.setState({ rsvp: 'yes', sent: false, warn: '' }),
+      sayNo: () => this.setState({ rsvp: 'no', sent: false, warn: '' }),
+      stepperCls: isNo ? P + 'stepper ' + P + 'stepper--off' : P + 'stepper',
+      minusOff: isNo || guests <= 1,
+      plusOff: isNo || guests >= 10,
+      dec: () => this.setState({ guests: Math.max(1, guests - 1), sent: false }),
+      inc: () => this.setState({ guests: Math.min(10, guests + 1), sent: false }),
+      send: () => this.send(),
+      sent: !!s.sent,
+      rsvpNote: note
+    };
+  }
+
+  renderVals() {
+    const s = this.state || {};
+    const cd = SITE.countdown(D.sana, D.vaqt);
+    const w = SITE.when(D.sana, D.vaqt);
+    const b = SITE.b, P = SITE.p, n = P.length;
+    const roll = (v) => (v % 2 ? 'mn-cd mn-cd--a' : 'mn-cd mn-cd--b');
+    const r = this.rsvpVals('mn-', (g) => 'Rahmat! ' + g + ' kishilik joy siz uchun tayyorlanadi.', () => 'Rahmat! Javobingiz kelin-kuyovga yetkazildi.');
+    return Object.assign(r, {
+      introCls: s.opened ? 'mn-i mn-i--open' : 'mn-i',
+      introHidden: !!s.opened,
+      open: () => this.open(),
+      w, iniA: ini(D.kuyov), iniB: ini(D.kelin), noPhoto: !SITE.has.photo,
+      fsA: fitPx(D.kuyov, 52, 340, 0.62), fsB: fitPx(D.kelin, 52, 340, 0.62),
+      fsIntro: fitPx((D.kuyov || '') + ' va ' + (D.kelin || ''), 30, 310, 0.58),
+      dotsSp: w.day ? SITE.pad(+w.day) + ' · ' + w.monthNum + ' · ' + w.year : '',
+      wkTime: w.Weekday + (D.vaqt ? ', soat ' + D.vaqt : ''),
+      monUp: w.month.toUpperCase(), monCap: SITE.cap(w.month),
+      cdDays: cd.dd, cdHours: cd.hh, cdMins: cd.mm, cdSecs: cd.ss,
+      dCls: roll(cd.d), hCls: roll(cd.h), mCls: roll(cd.m), sCls: roll(cd.s),
+      cal: calUrl(),
+      prog: (D.dastur || []).map((x) => {
+        const hi = !!D.vaqt && hhmm(x.vaqt) === hhmm(D.vaqt);
+        return { vaqt: x.vaqt, nomi: x.nomi, badge: hi ? 'background: #846419' : '', txt: hi ? 'font-weight: 700; color: #1F4E8C' : 'font-weight: 500' };
+      }),
+      story: (D.hikoya || []).map((h, i) => ({
+        yil: h.yil, sarlavha: h.sarlavha, matn: h.matn, img: P[(1 + i) % n],
+        row: 'display: flex; align-items: center; gap: 16px; min-height: 92px' + (i % 2 ? '; flex-direction: row-reverse' : ''),
+        col: 'flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column' + (i % 2 ? '; align-items: flex-end; text-align: right' : '')
+      })),
+      deadline: deadlineText('javob bering'),
+      yesCls: r.isYes ? 'mn-seg mn-seg--on' : 'mn-seg',
+      noCls: r.isNo ? 'mn-seg mn-seg--on' : 'mn-seg',
+      busy: !!s.busy,
+      sendLabel: s.busy ? 'Yuborilmoqda…' : (s.sent ? 'Javob yuborildi' : 'Javobni yuborish'),
+      tel: telHref(D.telefon),
+      namesUp: [D.kuyov, D.kelin].filter(Boolean).join(' va ').toUpperCase()
+    });
+  }
+}
+</script>
+</body>
+</html>
