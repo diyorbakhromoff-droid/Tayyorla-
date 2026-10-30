@@ -114,7 +114,8 @@ class User(Base):
     first_name: Mapped[str] = mapped_column(String(100), default="")
     username: Mapped[str] = mapped_column(String(64), default="")
     language_code: Mapped[str] = mapped_column(String(16), default="")
-    lang: Mapped[str] = mapped_column(String(8), default="")  # tanlangan interfeys tili
+    lang: Mapped[str] = mapped_column(String(8), default="uz")  # interfeys tili (boshida o'zbekcha)
+    lang_set: Mapped[bool] = mapped_column(Boolean, default=False)  # foydalanuvchi tilni o'zi tanlagan
     ref: Mapped[str] = mapped_column(String(32), default="")  # kim taklif qilgan yoki qayerdan kelgan
     balance: Mapped[int] = mapped_column(Integer, default=0)  # so'm
     bonus_videos: Mapped[int] = mapped_column(Integer, default=0)  # do'st taklif qilgani uchun
@@ -220,19 +221,24 @@ async def init_db() -> None:
         await conn.run_sync(_add_missing_columns)
 
 
-# Oddiy migratsiya: create_all mavjud jadvalga yangi ustun qo'shmaydi
+# Oddiy migratsiya: create_all mavjud jadvalga yangi ustun qo'shmaydi.
+# To'rtinchi qism (bo'lsa) — ustun birinchi marta qo'shilganda bir marta bajariladigan SQL.
 _NEW_COLUMNS = [
     ("people", "relation", "VARCHAR(16) DEFAULT '' NOT NULL"),
     ("sites", "kind", "VARCHAR(8) DEFAULT 'site' NOT NULL"),
     ("rsvps", "guest_id", "INTEGER"),
+    # til endi Telegram'dan olinmaydi: avval avtomatik qo'yilgan tillar o'zbekchaga qaytariladi
+    ("users", "lang_set", "BOOLEAN DEFAULT FALSE NOT NULL", "UPDATE users SET lang = 'uz'"),
 ]
 
 
 def _add_missing_columns(conn) -> None:
     insp = inspect(conn)
-    for table, col, ddl in _NEW_COLUMNS:
+    for table, col, ddl, *after in _NEW_COLUMNS:
         if col not in {c["name"] for c in insp.get_columns(table)}:
             conn.execute(text(f"ALTER TABLE {table} ADD COLUMN {col} {ddl}"))
+            for sql in after:
+                conn.execute(text(sql))
 
 
 def new_slug() -> str:

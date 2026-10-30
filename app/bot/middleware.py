@@ -20,10 +20,7 @@ class TouchUser(BaseMiddleware):
             _SEEN[user.id] = time.time()
             try:
                 async with Session() as s:
-                    u, new = await billing.touch_user(s, user.id, user.first_name or "", user.username or "", user.language_code or "")
-                    if new:
-                        from ..i18n import from_telegram
-                        u.lang = from_telegram(user.language_code)
+                    await billing.touch_user(s, user.id, user.first_name or "", user.username or "", user.language_code or "")
                     await s.commit()
             except Exception:
                 pass

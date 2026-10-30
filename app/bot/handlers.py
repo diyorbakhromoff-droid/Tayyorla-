@@ -15,7 +15,7 @@ from sqlalchemy import select
 
 from .. import ai, billing
 from ..catalog import photo_limit, site_price, site_title
-from ..i18n import from_telegram, tr
+from ..i18n import tr
 from ..surprise import human, locked_until
 from ..config import MEDIA_DIR, settings
 from ..db import Rsvp, Session, Site, User, new_slug
@@ -138,13 +138,13 @@ def created_text(site: Site) -> str:
 # ---------------------------------------------------------------- start / menyu
 
 async def remember_user(user, args: str = "") -> tuple[str, int | None]:
-    """Foydalanuvchini yozadi; yangi bo'lsa tilini Telegramdan oladi va referalni hisoblaydi."""
+    """Foydalanuvchini yozadi; yangi bo'lsa referalni hisoblaydi. Til boshida o'zbekcha (ilovada almashtiriladi)."""
     async with Session() as s:
         u, new = await billing.touch_user(s, user.id, user.first_name or "", user.username or "", user.language_code or "",
                                           ref=args if args and not args.startswith("ref_") else "")
         inviter = None
         if new:
-            u.lang = from_telegram(user.language_code)
+            u.lang = "uz"
             inviter = await billing.apply_referral(s, u, args)
         await s.commit()
         return u.lang or "uz", inviter

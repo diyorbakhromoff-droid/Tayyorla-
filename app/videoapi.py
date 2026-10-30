@@ -425,6 +425,7 @@ async def set_lang(body: LangIn, x_init_data: str = Header("")):
     async with Session() as s:
         user, _ = await billing.touch_user(s, uid, tg.get("first_name", ""), tg.get("username", ""), tg.get("language_code", ""))
         user.lang = body.lang
+        user.lang_set = True
         await s.commit()
     return {"ok": True}
 

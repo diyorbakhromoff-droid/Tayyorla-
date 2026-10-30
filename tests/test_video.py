@@ -296,7 +296,7 @@ async def main():
     async with Session() as s:
         inviter = await s.get(DbUser, 501)
         friend = await s.get(DbUser, 601)
-    assert inviter.bonus_videos == 1 and friend.ref == "ref_501" and friend.lang == "ru"
+    assert inviter.bonus_videos == 1 and friend.ref == "ref_501" and friend.lang == "uz"  # Telegram ruscha bo'lsa ham boshida o'zbekcha
     assert any("+1" in t for t in session.texts())
 
     # --- kirill tarjimasi AI siz

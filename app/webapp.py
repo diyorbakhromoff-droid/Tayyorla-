@@ -20,7 +20,7 @@ from pydantic import BaseModel, Field
 from . import ai
 from sqlalchemy import delete, func, select
 
-from . import billing, i18n, reminders
+from . import billing, reminders
 from .catalog import RELATIONS, TEMPLATES, catalog_meta, clean_order, render_catalog, site_price, site_title
 from .config import MEDIA_DIR, ROOT, settings
 from .db import Person, Reaction, ReminderLog, RenderJob, Session, Site, UserProfile, new_slug
@@ -320,7 +320,7 @@ async def me(x_init_data: str = Header("")):
         u, new = await billing.touch_user(s, uid, user.get("first_name", ""), user.get("username", ""), user.get("language_code", ""))
         inviter = None
         if new:
-            u.lang = i18n.from_telegram(user.get("language_code"))
+            u.lang = "uz"
             inviter = await billing.apply_referral(s, u, start_param(x_init_data))
         await s.commit()
         quota = await billing.quota(s, u)
@@ -342,7 +342,7 @@ async def me(x_init_data: str = Header("")):
     return {
         "id": uid,
         "name": user.get("first_name", ""),
-        "lang": u.lang or i18n.from_telegram(user.get("language_code")),
+        "lang": u.lang or "uz",
         "admin": uid in settings.admins,
         "balance": u.balance, "bonus": u.bonus_videos, "quota": quota, "videos": n_videos,
         "ref_link": f"https://t.me/{settings.bot_username}?start=ref_{uid}",
