@@ -611,7 +611,7 @@ class Component extends DCLogic {
       fromTo: v.from ? v.from + 'dan ' + SITE.ga(v.to) : SITE.ga(v.to),
       iniFrom: this.ini(v.from), iniTo: this.ini(v.to),
       monoPx: v.monoAmp.length > 3 ? 58 : 76,
-      introPx: this.fit(v.to, 50, 350, 0.5),
+      introPx: Math.min(this.fit(v.to, 50, 350, 0.5), v.to.length > 16 ? 38 : 50),
       h1px: this.fit(v.to, 52, 350, 0.5),
       introCls: s.opened ? 'v-intro is-open' : 'v-intro',
       open: () => { if (!this.state.opened) { this.setState({ opened: true }); SITE.opened(); } },

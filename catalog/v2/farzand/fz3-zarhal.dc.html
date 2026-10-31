@@ -52,6 +52,8 @@ body{margin:0;background:#F7EFE3}
 
 .zg-intro.is-open{pointer-events:none;animation:zgOut .9s ease 2.1s forwards}
 @keyframes zgOut{to{opacity:0}}
+.is-open .zg-bg{animation:zgFade2 .7s ease .7s forwards}
+@keyframes zgFade2{to{opacity:0}}
 .is-open .zg-pre{animation:zgFade .45s ease forwards}
 @keyframes zgFade{to{opacity:0;transform:translateY(-8px)}}
 .is-open .zg-med{animation:zgMed 1s cubic-bezier(.5,0,.4,1) forwards}
@@ -60,8 +62,8 @@ body{margin:0;background:#F7EFE3}
 .zd-r{transform-origin:100% 50%}
 .is-open .zd-l{animation:zdL 1.4s cubic-bezier(.6,0,.3,1) .55s forwards}
 .is-open .zd-r{animation:zdR 1.4s cubic-bezier(.6,0,.3,1) .55s forwards}
-@keyframes zdL{to{transform:rotateY(-100deg);opacity:.2}}
-@keyframes zdR{to{transform:rotateY(100deg);opacity:.2}}
+@keyframes zdL{to{transform:rotateY(-96deg);opacity:.5}}
+@keyframes zdR{to{transform:rotateY(96deg);opacity:.5}}
 .zg-flare{opacity:0;transform:scale(0)}
 .is-open .zg-flare{animation:zgFlare 1.5s ease-out .45s forwards}
 @keyframes zgFlare{0%{opacity:0;transform:scale(0)}35%{opacity:1}100%{opacity:0;transform:scale(16)}}
@@ -79,7 +81,7 @@ body{margin:0;background:#F7EFE3}
 .zg-sheen::after{display:none}
 .zg-dust{animation:none;opacity:0}
 .zg-intro.is-open{animation:none;opacity:0}
-.is-open .zg-pre,.is-open .zg-med,.is-open .zd-l,.is-open .zd-r,.is-open .zg-flare{animation:none}
+.is-open .zg-bg,.is-open .zg-pre,.is-open .zg-med,.is-open .zd-l,.is-open .zd-r,.is-open .zg-flare{animation:none}
 .zg-btn{transition:none}
 }
 </style>
@@ -92,7 +94,8 @@ body{margin:0;background:#F7EFE3}
     </defs>
   </svg>
 
-  <div data-intro class="{{ introCls }}" aria-hidden="{{ introHidden }}" style="display: {{ introDisp }}; position: absolute; left: 0; top: 0; width: 390px; height: 844px; z-index: 30; overflow: hidden; background: radial-gradient(circle at 50% 46%, #FFFBF3 0%, #F7EFE3 48%, #EADBC4 100%)">
+  <div data-intro class="{{ introCls }}" aria-hidden="{{ introHidden }}" style="display: {{ introDisp }}; position: absolute; left: 0; top: 0; width: 390px; height: 844px; z-index: 30; overflow: hidden">
+    <div class="zg-bg" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; background: radial-gradient(circle at 50% 46%, #FFFBF3 0%, #F7EFE3 48%, #EADBC4 100%)"></div>
     <div style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; perspective: 1400px">
       <div class="zd-l" style="position: absolute; left: 0; top: 0; width: 195px; height: 844px; background: linear-gradient(90deg, #EFE2CC 0%, #FBF6EE 55%, #F3E8D6 100%)">
         <svg aria-hidden="true" viewBox="0 0 195 844" width="195" height="844" style="position: absolute; left: 0; top: 0">
