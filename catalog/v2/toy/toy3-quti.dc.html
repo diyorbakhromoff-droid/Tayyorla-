@@ -1,0 +1,490 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<title>To’y taklifnomasi: Uzuk qutisi</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oranienbaum&amp;family=Tenor+Sans&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#E9D7B0}a:hover{color:#F7F3EC}
+.q-num{font-variant-numeric:lining-nums tabular-nums}
+.q-disp{font-family:'Oranienbaum','Didot','Bodoni 72',Georgia,serif;font-weight:400}
+.q-foil{background:linear-gradient(100deg,#C9B183 0%,#F6EBD0 32%,#D9C08E 52%,#B79C68 72%,#EFE0BE 100%);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent}
+.q-lbl{margin:0;font-size:11px;line-height:16px;letter-spacing:.32em;color:#C9B183}
+.q-h2{margin:0;font-size:38px;line-height:44px;text-align:center}
+.q-icon{fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.q-ring{fill:none;stroke:url(#q-gold);stroke-width:3}
+.q-ringb{fill:none;stroke:#C9B183;stroke-width:1.4}
+.q-hair{fill:none;stroke:#C9B183;stroke-width:1;opacity:.7}
+.q-pearlline{fill:none;stroke:#F7F3EC;stroke-width:7;stroke-linecap:round;stroke-dasharray:0 11}
+.q-pearlsh{fill:none;stroke:#C9CEDA;stroke-width:7;stroke-linecap:round;stroke-dasharray:0 11;opacity:.55}
+.q-pearlhi{fill:none;stroke:#FFFFFF;stroke-width:2.4;stroke-linecap:round;stroke-dasharray:0 11}
+.q-g1{stop-color:#F6EBD0}.q-g2{stop-color:#C9B183}.q-g3{stop-color:#8F7748}.q-g4{stop-color:#EFE0BE}
+.q-tr{fill:none;stroke:rgba(233,215,176,.16);stroke-width:3}
+.q-tp{fill:none;stroke:#E9D7B0;stroke-width:3;stroke-linecap:round;transition:stroke-dashoffset .6s ease}
+.q-ground{background:radial-gradient(60% 34% at 50% 18%,rgba(233,215,176,.13),rgba(233,215,176,0) 70%),radial-gradient(90% 50% at 50% 100%,rgba(70,96,150,.35),rgba(70,96,150,0) 70%),#1B2A4A}
+
+/* pearls and shimmer */
+.q-pearl{position:absolute;border-radius:50%;background:radial-gradient(circle at 34% 30%,#FFFFFF 0,#F7F3EC 28%,#D9D6D2 62%,#A9AEB9 100%);box-shadow:0 6px 12px -4px rgba(0,0,0,.5);pointer-events:none;animation:q-float 7s ease-in-out infinite alternate}
+@keyframes q-float{from{transform:translateY(-8px)}to{transform:translateY(9px)}}
+.q-spark{position:absolute;pointer-events:none;opacity:0;animation:q-spark 3.6s ease-in-out infinite}
+@keyframes q-spark{0%,65%,100%{opacity:0;transform:scale(.3) rotate(0)}80%{opacity:1;transform:scale(1) rotate(45deg)}}
+.q-sheen{position:absolute;left:-160px;top:-60px;width:260px;height:980px;background:linear-gradient(100deg,rgba(233,215,176,0),rgba(233,215,176,.07) 50%,rgba(233,215,176,0));transform:rotate(12deg);animation:q-sheen 10s ease-in-out infinite alternate;pointer-events:none}
+@keyframes q-sheen{from{transform:translateX(0) rotate(12deg)}to{transform:translateX(420px) rotate(12deg)}}
+
+/* ---------- intro: ring box ---------- */
+.q-i{position:absolute;left:0;top:0;width:390px;height:844px;z-index:40;overflow:hidden;background:radial-gradient(48% 30% at 50% 52%,rgba(233,215,176,.2),rgba(233,215,176,0) 72%),radial-gradient(120% 70% at 50% 40%,#22345C 0%,#1B2A4A 45%,#121D35 100%)}
+.q-i--open{pointer-events:none;animation:q-out .8s ease 2.5s forwards}
+@keyframes q-out{to{opacity:0;visibility:hidden;transform:scale(1.06)}}
+.q-i-ui{transition:opacity .35s}
+.q-i--open .q-i-ui{opacity:0}
+.q-cta{position:absolute;left:0;right:0;top:716px;display:flex;justify-content:center}
+.q-btn{position:relative;overflow:hidden;border:0;border-radius:999px;background:linear-gradient(120deg,#B79C68,#F6EBD0 44%,#D9C08E 62%,#A88D5A);color:#1B2A4A;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;font-family:'Tenor Sans','Helvetica Neue',Arial,sans-serif;box-shadow:0 14px 30px -12px rgba(0,0,0,.7),inset 0 0 0 1px rgba(255,250,235,.55);text-decoration:none;box-sizing:border-box}
+.q-btn::after{content:"";position:absolute;top:-30%;left:0;width:26%;height:160%;background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,.7),rgba(255,255,255,0));transform:translateX(-240%) rotate(18deg);animation:q-shine 5s ease-in-out 1s infinite}
+@keyframes q-shine{0%{transform:translateX(-240%) rotate(18deg)}36%,100%{transform:translateX(480%) rotate(18deg)}}
+.q-btn:disabled{opacity:.7;cursor:default}
+.q-i-btn{width:236px;height:56px;font-size:16px;letter-spacing:.08em}
+.q-tap{position:absolute;left:50%;top:50%;width:236px;height:56px;margin:-28px 0 0 -118px;border-radius:999px;box-shadow:0 0 0 0 rgba(233,215,176,.5);animation:q-tap 2.4s ease-out infinite;pointer-events:none}
+@keyframes q-tap{0%{box-shadow:0 0 0 0 rgba(233,215,176,.45)}100%{box-shadow:0 0 0 18px rgba(233,215,176,0)}}
+
+.q-box{position:absolute;left:75px;top:356px;width:240px;height:262px;perspective:900px}
+.q-i--open .q-box{animation:q-hop .4s cubic-bezier(.3,1.4,.5,1) forwards}
+@keyframes q-hop{0%{transform:none}40%{transform:translateY(-6px) scale(1.02)}100%{transform:none}}
+.q-shadow{position:absolute;left:10px;top:244px;width:220px;height:34px;border-radius:50%;background:radial-gradient(closest-side,rgba(5,10,25,.7),rgba(5,10,25,0))}
+.q-inside{position:absolute;z-index:1;left:12px;top:40px;width:216px;height:86px;border-radius:14px 14px 0 0;background:radial-gradient(80% 90% at 50% 100%,#2E4371,#16223F 75%);box-shadow:inset 0 10px 18px rgba(0,0,0,.55)}
+.q-cush{position:absolute;left:18px;top:30px;width:180px;height:50px;border-radius:24px;background:radial-gradient(70% 80% at 50% 30%,#3A5285,#1E2E54 80%);box-shadow:inset 0 -6px 10px rgba(0,0,0,.4),0 -1px 0 rgba(233,215,176,.25)}
+.q-slit{position:absolute;left:44px;top:24px;width:92px;height:4px;border-radius:2px;background:#0E1730;box-shadow:0 1px 0 rgba(233,215,176,.2)}
+.q-rings{position:absolute;z-index:3;left:58px;top:6px;width:124px;height:96px;transform:translateY(40px) scale(.9);opacity:0}
+.q-i--open .q-rings{animation:q-rise 1s cubic-bezier(.2,.8,.3,1) .95s forwards}
+@keyframes q-rise{0%{transform:translateY(40px) scale(.9);opacity:0}25%{opacity:1}100%{transform:translateY(-42px) scale(1.14);opacity:1}}
+.q-burst{position:absolute;z-index:3;left:20px;top:-40px;width:200px;height:200px;border-radius:50%;background:radial-gradient(closest-side,rgba(255,246,220,.75),rgba(233,215,176,.25) 45%,rgba(233,215,176,0));opacity:0;transform:scale(.4)}
+.q-i--open .q-burst{animation:q-burst 1.4s ease-out 1.05s forwards}
+@keyframes q-burst{0%{opacity:0;transform:scale(.4)}35%{opacity:1;transform:scale(1.1)}100%{opacity:.55;transform:scale(1.3)}}
+.q-base{position:absolute;z-index:4;left:0;top:122px;width:240px;height:132px;border-radius:8px 8px 26px 26px;background:linear-gradient(180deg,#2A3E68 0%,#1E2E52 35%,#15213D 100%);box-shadow:inset 0 2px 0 #C9B183,inset 0 -10px 22px rgba(0,0,0,.35),0 22px 40px -18px rgba(0,0,0,.8)}
+.q-base::before{content:"";position:absolute;left:0;top:0;width:100%;height:100%;border-radius:inherit;background:repeating-linear-gradient(115deg,rgba(255,255,255,.025) 0 1px,rgba(0,0,0,0) 1px 3px)}
+.q-clasp{position:absolute;left:105px;top:-7px;width:30px;height:16px;border-radius:4px;background:linear-gradient(180deg,#F6EBD0,#C9B183 50%,#8F7748);box-shadow:0 2px 4px rgba(0,0,0,.45)}
+.q-lid{position:absolute;z-index:2;left:0;top:38px;width:240px;height:84px;transform-origin:50% 0;transform-style:preserve-3d}
+.q-i--open .q-lid{animation:q-lid 1s cubic-bezier(.5,0,.25,1) .32s forwards}
+@keyframes q-lid{0%{transform:rotateX(0)}100%{transform:rotateX(-128deg)}}
+.q-lidf,.q-lidb{position:absolute;left:0;top:0;width:240px;height:84px;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.q-lidf{border-radius:30px 30px 6px 6px;background:radial-gradient(70% 90% at 40% 20%,#34497A,#22345C 55%,#17243F 100%);box-shadow:inset 0 -2px 0 #C9B183,inset 0 8px 14px rgba(255,255,255,.05)}
+.q-lidf::before{content:"";position:absolute;left:0;top:0;width:100%;height:100%;border-radius:inherit;background:repeating-linear-gradient(115deg,rgba(255,255,255,.03) 0 1px,rgba(0,0,0,0) 1px 3px)}
+.q-lidb{transform:rotateX(180deg);border-radius:6px 6px 30px 30px;background:radial-gradient(80% 90% at 50% 40%,#FBF6EA,#E9D7B0 70%,#C9B183);box-shadow:inset 0 0 0 4px #1E2E52,inset 0 0 0 5px rgba(201,177,131,.8)}
+.q-mono{position:absolute;left:84px;top:18px;width:72px;height:50px;display:flex;align-items:center;justify-content:center;border-radius:50%;border:1px solid rgba(233,215,176,.7);box-shadow:inset 0 0 0 3px rgba(23,36,63,.9),inset 0 0 0 4px rgba(233,215,176,.35)}
+
+/* ---------- music ---------- */
+.q-music{position:absolute;top:14px;right:14px;z-index:60;width:44px;height:44px;border-radius:50%;border:1px solid #C9B183;background:rgba(18,29,53,.75);color:#E9D7B0;display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0}
+.q-music--on{box-shadow:0 0 0 4px rgba(233,215,176,.16),0 0 18px rgba(233,215,176,.4)}
+.q-eq{display:flex;align-items:flex-end;gap:2.5px;height:16px}
+.q-eq i{display:block;width:3px;height:16px;border-radius:2px;background:#E9D7B0;transform-origin:50% 100%;animation:q-eq .9s ease-in-out infinite alternate}
+.q-eq i:nth-child(2){animation-delay:-.3s}.q-eq i:nth-child(3){animation-delay:-.6s}
+@keyframes q-eq{from{transform:scaleY(.25)}to{transform:scaleY(1)}}
+
+/* ---------- page ---------- */
+.q-bob{animation:q-bob 2.2s ease-in-out infinite}
+@keyframes q-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+.q-card{position:relative;box-sizing:border-box;border-radius:20px;background:#F7F3EC;color:#1B2A4A;box-shadow:0 26px 50px -28px rgba(0,0,0,.85),inset 0 0 0 1px rgba(201,177,131,.6)}
+.q-glass{position:relative;box-sizing:border-box;border-radius:20px;border:1px solid rgba(201,177,131,.45);background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02))}
+.q-circ{position:relative;width:76px;height:76px}
+.q-circ svg{position:absolute;left:0;top:0}
+.q-dg{position:absolute;left:0;top:0;width:76px;height:76px;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.q-pop-a{animation:q-popA .45s ease}
+.q-pop-b{animation:q-popB .45s ease}
+@keyframes q-popA{from{opacity:.2;transform:translateY(-6px)}to{opacity:1;transform:none}}
+@keyframes q-popB{from{opacity:.2;transform:translateY(-6px)}to{opacity:1;transform:none}}
+.q-bead{position:absolute;left:-28px;top:6px;width:16px;height:16px;border-radius:50%;background:radial-gradient(circle at 34% 30%,#FFFFFF 0,#F7F3EC 30%,#CFCBC4 70%,#9EA3AE 100%);box-shadow:0 0 0 3px #1B2A4A,0 0 12px rgba(247,243,236,.35)}
+.q-ph{position:relative;box-sizing:border-box;padding:6px;border-radius:20px;border:1px solid rgba(201,177,131,.7);background:rgba(255,255,255,.03)}
+.q-ph img{display:block;width:100%;height:100%;object-fit:cover;border-radius:14px}
+.q-fl1{animation:q-fl 8s ease-in-out infinite alternate}
+.q-fl2{animation:q-fl 9s ease-in-out -3s infinite alternate}
+@keyframes q-fl{from{transform:translateY(-4px)}to{transform:translateY(5px)}}
+.q-opt{flex:1 1 0;min-width:0;height:52px;box-sizing:border-box;border-radius:999px;border:1px solid rgba(27,42,74,.35);background:#FFFFFF;color:#1B2A4A;font-family:inherit;font-size:15px;display:flex;align-items:center;justify-content:center;gap:6px;cursor:pointer;padding:0 6px;white-space:nowrap;transition:background-color .25s,color .25s,border-color .25s}
+.q-opt--on{background:#1B2A4A;border-color:#1B2A4A;color:#F7F3EC}
+.q-step{width:44px;height:44px;border-radius:50%;border:1px solid rgba(27,42,74,.45);background:#FFFFFF;color:#1B2A4A;display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0}
+.q-step:disabled{opacity:.35;cursor:default}
+.q-inp{display:block;width:100%;height:50px;box-sizing:border-box;margin:0 0 14px;padding:0 18px;border-radius:999px;border:1px solid rgba(27,42,74,.3);background:#FFFFFF;color:#1B2A4A;font-family:inherit;font-size:15px;outline:none}
+.q-inp:focus{border-color:#1B2A4A}
+.q-inp::placeholder{color:#6B7488}
+.q-send{width:100%;height:54px;border:0;border-radius:999px;background:#1B2A4A;color:#F7F3EC;font-family:inherit;font-size:16px;letter-spacing:.04em;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;box-shadow:inset 0 0 0 1px rgba(233,215,176,.5)}
+.q-send:disabled{opacity:.7;cursor:default}
+.q-line{display:inline-flex;align-items:center;justify-content:center;gap:10px;height:50px;padding:0 22px;border-radius:999px;border:1px solid #C9B183;color:#E9D7B0;text-decoration:none;font-size:15px;box-sizing:border-box}
+.q-line:hover{background:rgba(233,215,176,.1);color:#F7F3EC}
+@media (prefers-reduced-motion: reduce){
+  .q-i *,.q-pearl,.q-spark,.q-sheen,.q-btn::after,.q-eq i,.q-bob,.q-fl1,.q-fl2,.q-pop-a,.q-pop-b{animation:none !important}
+  .q-i--open{animation:none;opacity:0;visibility:hidden}
+  .q-tp,.q-opt,.q-i-ui{transition:none}
+}
+</style>
+</helmet>
+<div class="q-ground" style="width: 390px; min-height: var(--vh, 100vh); position: relative; overflow: hidden; color: #F7F3EC; font-family: 'Tenor Sans', 'Helvetica Neue', Arial, sans-serif; display: flex; flex-direction: column">
+
+  <svg width="0" height="0" aria-hidden="true" style="position: absolute; left: 0; top: 0"><defs><linearGradient id="q-gold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" class="q-g1"></stop><stop offset="0.4" class="q-g2"></stop><stop offset="0.7" class="q-g3"></stop><stop offset="1" class="q-g4"></stop></linearGradient></defs></svg>
+
+  <sc-if value="{{ has.music }}">
+  <button type="button" class="{{ musicCls }}" aria-label="{{ musicLabel }}" aria-pressed="{{ musicOn }}" onClick="{{ toggleMusic }}">
+    <sc-if value="{{ musicOn }}"><span class="q-eq" aria-hidden="true"><i></i><i></i><i></i></span></sc-if>
+    <sc-if value="{{ musicOff }}"><svg class="q-icon" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V5.5l11-2.2v12.5"></path><circle cx="6.2" cy="18" r="2.8"></circle><circle cx="17.2" cy="15.8" r="2.8"></circle></svg></sc-if>
+  </button>
+  </sc-if>
+
+  <div data-intro class="{{ introCls }}" aria-hidden="{{ introHidden }}">
+    <div class="q-sheen"></div>
+    <i class="q-pearl" style="left: 38px; top: 150px; width: 14px; height: 14px; animation-duration: 6.5s"></i>
+    <i class="q-pearl" style="left: 330px; top: 214px; width: 18px; height: 18px; animation-delay: -2s"></i>
+    <i class="q-pearl" style="left: 62px; top: 560px; width: 10px; height: 10px; animation-delay: -4s"></i>
+    <i class="q-pearl" style="left: 316px; top: 600px; width: 12px; height: 12px; animation-duration: 8s"></i>
+    <i class="q-pearl" style="left: 22px; top: 380px; width: 8px; height: 8px; animation-delay: -1s"></i>
+    <i class="q-pearl" style="left: 352px; top: 420px; width: 9px; height: 9px; animation-delay: -5s"></i>
+    <i class="q-pearl" style="left: 180px; top: 660px; width: 7px; height: 7px; animation-delay: -3s"></i>
+    <svg class="q-spark" width="16" height="16" viewBox="-8 -8 16 16" aria-hidden="true" style="left: 96px; top: 300px"><path d="M0 -8L1.4 -1.4L8 0L1.4 1.4L0 8L-1.4 1.4L-8 0L-1.4 -1.4Z" fill="#F6EBD0"></path></svg>
+    <svg class="q-spark" width="12" height="12" viewBox="-8 -8 16 16" aria-hidden="true" style="left: 290px; top: 330px; animation-delay: -1.6s"><path d="M0 -8L1.4 -1.4L8 0L1.4 1.4L0 8L-1.4 1.4L-8 0L-1.4 -1.4Z" fill="#F6EBD0"></path></svg>
+    <svg class="q-spark" width="14" height="14" viewBox="-8 -8 16 16" aria-hidden="true" style="left: 270px; top: 640px; animation-delay: -2.6s"><path d="M0 -8L1.4 -1.4L8 0L1.4 1.4L0 8L-1.4 1.4L-8 0L-1.4 -1.4Z" fill="#F6EBD0"></path></svg>
+
+    <div class="q-i-ui">
+      <p class="q-lbl" style="position: absolute; left: 0; right: 0; top: 96px; text-align: center">{{ introTop }}</p>
+      <p class="q-disp q-foil" style="position: absolute; left: 24px; right: 24px; top: 124px; margin: 0; text-align: center; font-size: {{ fsIntro }}px; line-height: 1.1; overflow-wrap: anywhere">{{ d.kuyov }} &amp; {{ d.kelin }}</p>
+      <p style="position: absolute; left: 30px; right: 30px; top: 214px; margin: 0; text-align: center; font-size: 15px; line-height: 22px; color: #B9C2D3">Bu qutida siz uchun eng muhim<br>kunimizning taklifi saqlanmoqda</p>
+    </div>
+
+    <div class="q-box">
+      <div class="q-shadow"></div>
+      <div class="q-burst"></div>
+      <div class="q-inside">
+        <div class="q-cush"><div class="q-slit"></div></div>
+      </div>
+      <div class="q-rings">
+        <svg width="124" height="96" viewBox="0 0 124 96" aria-hidden="true" style="display: block; overflow: visible">
+          <ellipse cx="46" cy="58" rx="30" ry="30" class="q-ring"></ellipse>
+          <ellipse cx="78" cy="58" rx="30" ry="30" class="q-ring"></ellipse>
+          <path d="M78 22l-7-7 3-6h8l3 6Z" fill="#F7F3EC" stroke="#C9B183" stroke-width="1"></path>
+          <path d="M71 15h14M74 9l4 13 4-13" fill="none" stroke="#C9CEDA" stroke-width=".8"></path>
+          <path d="M78 22v6" stroke="#C9B183" stroke-width="2"></path>
+        </svg>
+      </div>
+      <div class="q-base"><div class="q-clasp"></div><div style="position: absolute; left: 14px; right: 14px; bottom: 16px; height: 1px; background: rgba(201, 177, 131, 0.55)"></div><div style="position: absolute; left: 10px; right: 10px; top: 10px; height: 30px; border-radius: 6px; background: linear-gradient(180deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0))"></div></div>
+      <div class="q-lid">
+        <div class="q-lidf"><div class="q-mono"><span class="q-disp q-foil" style="font-size: 22px; line-height: 26px; white-space: nowrap">{{ mono }}</span></div></div>
+        <div class="q-lidb"></div>
+      </div>
+    </div>
+
+    <div class="q-i-ui">
+      <div class="q-cta">
+        <div class="q-tap"></div>
+        <button type="button" class="q-btn q-i-btn" onClick="{{ open }}">
+          <svg class="q-icon" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="14" r="5.5"></circle><circle cx="15" cy="14" r="5.5"></circle><path d="M15 8.5l-2-2 1-2h2l1 2Z"></path></svg>
+          Qutini ochish
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <header style="position: relative; min-height: 844px; box-sizing: border-box; padding: 64px 24px 40px; display: flex; flex-direction: column; align-items: center; text-align: center">
+    <div class="q-sheen"></div>
+    <i class="q-pearl" style="left: 30px; top: 110px; width: 12px; height: 12px"></i>
+    <i class="q-pearl" style="left: 344px; top: 180px; width: 15px; height: 15px; animation-delay: -3s"></i>
+    <i class="q-pearl" style="left: 24px; top: 470px; width: 9px; height: 9px; animation-delay: -5s"></i>
+    <i class="q-pearl" style="left: 350px; top: 520px; width: 8px; height: 8px; animation-delay: -2s"></i>
+    <p class="q-lbl" style="position: relative">NIKOH TO’YIGA TAKLIFNOMA</p>
+    <div style="position: relative; margin-top: 26px; width: 290px; height: 360px; flex: none">
+      <sc-if value="{{ has.photo }}">
+        <img src="{{ p.0 }}" alt="" style="position: absolute; left: 25px; top: 25px; width: 240px; height: 310px; border-radius: 50%; object-fit: cover; box-shadow: 0 30px 50px -24px rgba(0, 0, 0, 0.9)">
+      </sc-if>
+      <sc-if value="{{ noPhoto }}">
+        <div style="position: absolute; left: 25px; top: 25px; width: 240px; height: 310px; border-radius: 50%; background: radial-gradient(70% 60% at 50% 40%, #2E4371, #17243F); display: flex; align-items: center; justify-content: center">
+          <svg width="150" height="110" viewBox="0 0 124 96" aria-hidden="true" style="display: block; overflow: visible"><ellipse cx="46" cy="58" rx="30" ry="30" class="q-ring"></ellipse><ellipse cx="78" cy="58" rx="30" ry="30" class="q-ring"></ellipse><path d="M78 22l-7-7 3-6h8l3 6Z" fill="#F7F3EC" stroke="#C9B183" stroke-width="1"></path><path d="M78 22v6" stroke="#C9B183" stroke-width="2"></path></svg>
+        </div>
+      </sc-if>
+      <svg width="290" height="360" viewBox="0 0 290 360" aria-hidden="true" style="position: absolute; left: 0; top: 0; overflow: visible">
+        <ellipse cx="145" cy="180" rx="136" ry="171" class="q-hair"></ellipse>
+        <ellipse cx="146" cy="181.5" rx="128" ry="163" class="q-pearlsh"></ellipse>
+        <ellipse cx="145" cy="180" rx="128" ry="163" class="q-pearlline"></ellipse>
+        <ellipse cx="143.8" cy="178.6" rx="128" ry="163" class="q-pearlhi"></ellipse>
+      </svg>
+      <svg class="q-spark" width="18" height="18" viewBox="-8 -8 16 16" aria-hidden="true" style="left: 238px; top: 34px"><path d="M0 -8L1.4 -1.4L8 0L1.4 1.4L0 8L-1.4 1.4L-8 0L-1.4 -1.4Z" fill="#F6EBD0"></path></svg>
+      <svg class="q-spark" width="14" height="14" viewBox="-8 -8 16 16" aria-hidden="true" style="left: 30px; top: 300px; animation-delay: -1.8s"><path d="M0 -8L1.4 -1.4L8 0L1.4 1.4L0 8L-1.4 1.4L-8 0L-1.4 -1.4Z" fill="#F6EBD0"></path></svg>
+    </div>
+    <h1 class="q-disp" style="position: relative; margin: 26px 0 0; max-width: 342px; font-size: {{ fsName }}px; line-height: 1.05; overflow-wrap: anywhere"><span class="q-foil">{{ d.kuyov }}</span><span class="q-foil" style="display: block; font-size: 30px; line-height: 1.3">&amp;</span><span class="q-foil">{{ d.kelin }}</span></h1>
+    <p class="q-num" style="position: relative; margin: 18px 0 0; font-size: 16px; line-height: 22px; letter-spacing: 0.3em">{{ w.dots }}</p>
+    <p style="position: relative; margin: 6px 0 0; font-size: 15px; line-height: 22px; color: #B9C2D3">{{ wkTime }}</p>
+    <svg class="q-bob q-icon" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" style="position: relative; margin-top: 22px; color: #C9B183"><path d="M6 9l6 6 6-6"></path></svg>
+  </header>
+
+  <sc-if value="{{ b.taklif }}">
+  <section style="position: relative; padding: 24px 24px 0">
+    <div class="q-card" style="padding: 34px 26px 30px; display: flex; flex-direction: column; align-items: center; text-align: center">
+      <svg width="56" height="30" viewBox="0 0 56 30" aria-hidden="true" style="display: block"><circle cx="21" cy="17" r="11" fill="none" stroke="#B79C68" stroke-width="1.6"></circle><circle cx="35" cy="17" r="11" fill="none" stroke="#B79C68" stroke-width="1.6"></circle><path d="M35 6l-3-3 1-2h4l1 2Z" fill="#B79C68"></path></svg>
+      <h2 class="q-disp" style="margin: 12px 0 0; font-size: 34px; line-height: 40px; color: #1B2A4A">Aziz mehmonlar!</h2>
+      <p style="margin: 14px 0 0; font-size: 16px; line-height: 1.75; color: #2A3550; white-space: pre-line; overflow-wrap: anywhere; text-wrap: pretty">{{ d.matn }}</p>
+      <sc-if value="{{ d.taklif_qiluvchilar }}">
+        <div style="width: 60px; height: 1px; margin: 22px 0 16px; background: #C9B183"></div>
+        <p style="margin: 0; font-size: 11px; line-height: 16px; letter-spacing: 0.3em; color: #6B5A38">HURMAT BILAN</p>
+        <p class="q-disp" style="margin: 8px 0 0; max-width: 290px; font-size: 25px; line-height: 1.25; color: #1B2A4A; text-wrap: balance; overflow-wrap: anywhere">{{ d.taklif_qiluvchilar }}</p>
+      </sc-if>
+    </div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.taymer }}">
+  <section style="position: relative; padding: 64px 24px 0; display: flex; flex-direction: column; align-items: center">
+    <p class="q-lbl">BAXTLI KUNGACHA</p>
+    <h2 class="q-disp q-h2 q-foil" style="margin-top: 6px">Qolgan vaqt</h2>
+    <div style="margin-top: 22px; width: 342px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); justify-items: center">
+      <sc-for list="{{ units }}" as="u">
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 8px">
+          <div class="q-circ">
+            <svg width="76" height="76" viewBox="0 0 76 76" aria-hidden="true"><circle cx="38" cy="38" r="33" class="q-tr"></circle><circle cx="38" cy="38" r="33" class="q-tp" stroke-dasharray="207.3" stroke-dashoffset="{{ u.off }}" transform="rotate(-90 38 38)"></circle></svg>
+            <div class="q-dg"><span class="{{ u.cls }}" style="font-size: 28px; line-height: 32px">{{ u.n }}</span></div>
+          </div>
+          <span style="font-size: 12px; line-height: 16px; letter-spacing: 0.14em; color: #B9C2D3">{{ u.l }}</span>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.kun }}">
+  <section style="position: relative; padding: 64px 24px 0; display: flex; flex-direction: column; align-items: center; text-align: center">
+    <p class="q-lbl">SANA VA VAQT</p>
+    <h2 class="q-disp q-h2 q-foil" style="margin-top: 6px">To’y kuni</h2>
+    <div style="position: relative; margin-top: 22px; width: 270px; height: 160px">
+      <svg width="270" height="160" viewBox="0 0 270 160" aria-hidden="true" style="position: absolute; left: 0; top: 0"><circle cx="85" cy="80" r="74" class="q-ring"></circle><circle cx="185" cy="80" r="74" class="q-ring"></circle><circle cx="85" cy="80" r="66" class="q-hair"></circle><circle cx="185" cy="80" r="66" class="q-hair"></circle></svg>
+      <div style="position: absolute; left: 25px; top: 20px; width: 110px; height: 120px; display: flex; flex-direction: column; align-items: center; justify-content: center">
+        <span class="q-disp q-num q-foil" style="font-size: 66px; line-height: 66px">{{ w.day }}</span>
+      </div>
+      <div style="position: absolute; left: 146px; top: 20px; width: 100px; height: 120px; display: flex; flex-direction: column; align-items: center; justify-content: center">
+        <span class="q-disp" style="font-size: 25px; line-height: 30px; color: #E9D7B0">{{ monthCap }}</span>
+        <span class="q-num" style="margin-top: 2px; font-size: 14px; line-height: 20px; letter-spacing: 0.24em; color: #B9C2D3">{{ w.year }}</span>
+      </div>
+    </div>
+    <p style="margin: 20px 0 0; font-size: 18px; line-height: 26px">{{ w.Weekday }}</p>
+    <sc-if value="{{ d.vaqt }}"><p class="q-num" style="margin: 2px 0 0; font-size: 15px; line-height: 22px; color: #B9C2D3">Boshlanishi soat {{ d.vaqt }} da</p></sc-if>
+    <sc-if value="{{ cal }}">
+    <a class="q-line" href="{{ cal }}" target="_blank" rel="noopener" style="margin-top: 20px">
+      <svg class="q-icon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"></rect><path d="M3.5 10h17M8 3v4M16 3v4M12 13v5M9.5 15.5h5"></path></svg>
+      Kalendarga qo’shish
+    </a>
+    </sc-if>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.manzil }}">
+  <section style="position: relative; padding: 64px 24px 0; display: flex; flex-direction: column; align-items: center">
+    <p class="q-lbl">MANZIL</p>
+    <h2 class="q-disp q-h2 q-foil" style="margin-top: 6px">To’yxona</h2>
+    <div class="q-card" style="margin-top: 22px; width: 342px; padding: 28px 24px 26px; display: flex; flex-direction: column; align-items: center; text-align: center">
+      <span style="width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: #1B2A4A; color: #E9D7B0; box-shadow: 0 0 0 4px rgba(201, 177, 131, 0.35)"><svg class="q-icon" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.5s-7-6.1-7-11.6a7 7 0 0 1 14 0c0 5.5-7 11.6-7 11.6Z"></path><circle cx="12" cy="9.8" r="2.6"></circle></svg></span>
+      <h3 class="q-disp" style="margin: 16px 0 0; font-size: 27px; line-height: 1.2; color: #1B2A4A; text-wrap: balance; overflow-wrap: anywhere">{{ d.manzil_nomi }}</h3>
+      <sc-if value="{{ d.manzil }}"><p style="margin: 8px 0 0; max-width: 290px; font-size: 15px; line-height: 1.6; color: #4A5470; text-wrap: balance; overflow-wrap: anywhere">{{ d.manzil }}</p></sc-if>
+      <sc-if value="{{ d.xarita }}">
+      <a class="q-send" href="{{ d.xarita }}" target="_blank" rel="noopener" style="margin-top: 20px; text-decoration: none; width: 240px; height: 50px; font-size: 15px">
+        <svg class="q-icon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4.5 3.5 6.6v13l5.5-2.1 6 2.1 5.5-2.1v-13L15 6.6Z"></path><path d="M9 4.5v13M15 6.6v13"></path></svg>
+        Xaritada ochish
+      </a>
+      </sc-if>
+    </div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.dastur }}">
+  <section style="position: relative; padding: 64px 24px 0; display: flex; flex-direction: column; align-items: center">
+    <p class="q-lbl">KECHA TARTIBI</p>
+    <h2 class="q-disp q-h2 q-foil" style="margin-top: 6px">To’y dasturi</h2>
+    <div style="position: relative; margin-top: 24px; width: 300px; padding-left: 40px; box-sizing: border-box">
+      <div style="position: absolute; left: 19px; top: 14px; bottom: 40px; width: 2px; background: repeating-linear-gradient(180deg, rgba(247, 243, 236, 0.75) 0 3px, rgba(0, 0, 0, 0) 3px 7px)"></div>
+      <sc-for list="{{ d.dastur }}" as="x">
+        <div style="position: relative; padding: 0 0 24px">
+          <span class="q-bead"></span>
+          <span class="q-disp q-num" style="display: block; font-size: 26px; line-height: 28px; color: #E9D7B0">{{ x.vaqt }}</span>
+          <span style="display: block; margin-top: 4px; font-size: 16px; line-height: 22px; overflow-wrap: anywhere">{{ x.nomi }}</span>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.hikoya }}">
+  <section style="position: relative; padding: 40px 24px 0; display: flex; flex-direction: column; align-items: center">
+    <p class="q-lbl">BIZNING YO’LIMIZ</p>
+    <h2 class="q-disp q-h2 q-foil" style="margin-top: 6px">Sevgi tarixi</h2>
+    <div style="margin-top: 22px; width: 342px; display: flex; flex-direction: column; gap: 14px">
+      <sc-for list="{{ story }}" as="h">
+        <div class="q-glass" style="{{ h.st }}">
+          <div style="display: flex; align-items: baseline; gap: 12px">
+            <span class="q-disp q-num q-foil" style="flex: none; font-size: 34px; line-height: 36px">{{ h.yil }}</span>
+            <span style="min-width: 0; font-size: 12px; line-height: 16px; letter-spacing: 0.22em; color: #E9D7B0; text-transform: uppercase; overflow-wrap: anywhere">{{ h.sarlavha }}</span>
+          </div>
+          <p style="margin: 6px 0 0; font-size: 15px; line-height: 22px; color: #D9DEE8; overflow-wrap: anywhere">{{ h.matn }}</p>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.galereya }}">
+  <section style="position: relative; padding: 64px 24px 0; display: flex; flex-direction: column; align-items: center">
+    <p class="q-lbl">LAHZALAR</p>
+    <h2 class="q-disp q-h2 q-foil" style="margin-top: 6px">Suratlar</h2>
+    <div style="margin-top: 22px; width: 342px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px">
+      <div class="q-ph" style="grid-column: 1 / span 2; height: 240px"><img src="{{ p.1 }}" alt=""></div>
+      <div class="q-ph q-fl1" style="height: 210px"><img src="{{ p.2 }}" alt=""></div>
+      <div class="q-ph q-fl2" style="height: 210px; margin-top: 22px"><img src="{{ p.3 }}" alt=""></div>
+      <div class="q-ph" style="grid-column: 1 / span 2; height: 200px"><img src="{{ p.4 }}" alt=""></div>
+    </div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.rsvp }}">
+  <section style="position: relative; padding: 64px 24px 0; display: flex; flex-direction: column; align-items: center">
+    <p class="q-lbl">JAVOBINGIZ</p>
+    <h2 class="q-disp q-h2 q-foil" style="margin-top: 6px">Kelasizmi?</h2>
+    <p style="margin: 8px 0 0; max-width: 320px; text-align: center; font-size: 14px; line-height: 20px; color: #B9C2D3">{{ deadline }}</p>
+    <div class="q-card" style="margin-top: 20px; width: 342px; padding: 24px 20px 20px">
+      <sc-if value="{{ askName }}"><input class="q-inp" type="text" maxlength="100" autocomplete="name" placeholder="Ismingiz" aria-label="Ismingiz" onInput="{{ onName }}"></sc-if>
+      <div style="display: flex; gap: 10px">
+        <button type="button" class="{{ optYesCls }}" aria-pressed="{{ isYes }}" onClick="{{ sayYes }}">Ha, boraman</button>
+        <button type="button" class="{{ optNoCls }}" aria-pressed="{{ isNo }}" onClick="{{ sayNo }}">Bora olmayman</button>
+      </div>
+      <sc-if value="{{ isYes }}">
+      <div style="margin-top: 16px; display: flex; align-items: center; justify-content: space-between; height: 46px">
+        <span style="font-size: 15px; line-height: 22px">Necha kishi bo’lasiz?</span>
+        <div style="display: flex; align-items: center; gap: 12px">
+          <button type="button" class="q-step" aria-label="Kamaytirish" disabled="{{ minusOff }}" onClick="{{ dec }}"><svg class="q-icon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12"></path></svg></button>
+          <span class="q-num q-disp" aria-live="polite" style="min-width: 26px; text-align: center; font-size: 28px; line-height: 32px">{{ guests }}</span>
+          <button type="button" class="q-step" aria-label="Ko’paytirish" disabled="{{ plusOff }}" onClick="{{ inc }}"><svg class="q-icon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12M12 6v12"></path></svg></button>
+        </div>
+      </div>
+      </sc-if>
+      <button type="button" class="q-send" style="margin-top: 18px" disabled="{{ busy }}" onClick="{{ send }}">
+        <sc-if value="{{ sent }}"><svg class="q-icon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"></path></svg></sc-if>
+        {{ sendLabel }}
+      </button>
+      <p aria-live="polite" style="margin: 10px 0 0; min-height: 22px; text-align: center; font-size: 14px; line-height: 22px; color: #1B2A4A">{{ rsvpNote }}</p>
+    </div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.telefon }}">
+  <section style="position: relative; padding: 40px 24px 0">
+    <div class="q-glass" style="height: 86px; padding: 0 16px 0 22px; display: flex; align-items: center; justify-content: space-between; gap: 12px">
+      <div style="display: flex; flex-direction: column; min-width: 0">
+        <span style="font-size: 13px; line-height: 18px; color: #B9C2D3">Savollar bo’lsa, qo’ng’iroq qiling</span>
+        <span class="q-num" style="font-size: 20px; line-height: 30px">{{ d.telefon }}</span>
+      </div>
+      <a class="q-btn" href="{{ tel }}" aria-label="Qo’ng’iroq qilish" style="width: 52px; height: 52px; flex: none"><svg class="q-icon" width="21" height="21" viewBox="0 0 24 24" aria-hidden="true"><path d="M5.2 3.5h3.1l1.6 4.2-2.1 1.5a12.2 12.2 0 0 0 7 7l1.5-2.1 4.2 1.6v3.1a1.9 1.9 0 0 1-2.1 1.9A16.6 16.6 0 0 1 3.3 5.6a1.9 1.9 0 0 1 1.9-2.1Z"></path></svg></a>
+    </div>
+  </section>
+  </sc-if>
+
+  <footer style="position: relative; margin-top: auto; padding: 64px 24px 56px; display: flex; flex-direction: column; align-items: center; text-align: center">
+    <svg width="84" height="50" viewBox="0 0 124 76" aria-hidden="true" style="display: block; overflow: visible"><ellipse cx="46" cy="44" rx="28" ry="28" class="q-ring"></ellipse><ellipse cx="78" cy="44" rx="28" ry="28" class="q-ring"></ellipse><path d="M78 10l-6-6 3-4h6l3 4Z" fill="#F7F3EC"></path></svg>
+    <p class="q-disp q-foil" style="margin: 16px 0 0; max-width: 342px; font-size: 32px; line-height: 1.2; overflow-wrap: anywhere">{{ d.kuyov }} &amp; {{ d.kelin }}</p>
+    <p class="q-num" style="margin: 8px 0 0; font-size: 13px; line-height: 20px; letter-spacing: 0.3em; color: #B9C2D3">{{ w.dots }}</p>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":4300}}'>
+const D = SITE.d;
+function hhmm(t) { t = String(t || ''); return /^\d:\d\d$/.test(t) ? '0' + t : t; }
+function stamp(iso, time) { const t = Date.parse(String(iso || '').slice(0, 10) + 'T' + (hhmm(time) || '12:00') + ':00+05:00'); return isNaN(t) ? null : t; }
+function ini(n) {
+  n = String(n || '').trim(); if (!n) return '';
+  if (/^(sh|ch)/i.test(n)) return n.charAt(0).toUpperCase() + n.charAt(1).toLowerCase();
+  if (/^[og][’'‘`ʻʼ]/i.test(n)) return n.charAt(0).toUpperCase() + '’';
+  return n.charAt(0).toUpperCase();
+}
+function fitPx(text, max, width, em) { const n = String(text || '').length || 1; return Math.max(Math.round(max * 0.45), Math.min(max, Math.floor(width / (n * em)))); }
+function telHref(t) { return 'tel:' + String(t || '').replace(/[^\d+]/g, ''); }
+function calUrl() {
+  const t = stamp(D.sana, D.vaqt); if (t == null) return '';
+  const f = (ms) => new Date(ms).toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
+  const title = [D.kuyov, D.kelin].filter(Boolean).join(' va ') + ' nikoh to’yi';
+  const loc = [D.manzil_nomi, D.manzil].filter(Boolean).join(', ');
+  return 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + encodeURIComponent(title) + '&dates=' + f(t) + '/' + f(t + 6 * 3600e3) + (loc ? '&location=' + encodeURIComponent(loc) : '');
+}
+function deadlineText(tail) {
+  const t = stamp(D.sana, '12:00'); if (t == null) return 'Iltimos, ' + tail + '.';
+  const dl = t - 7 * 864e5;
+  if (dl < Date.now()) return 'Iltimos, imkon qadar tezroq ' + tail + '.';
+  return 'Iltimos, ' + SITE.when(new Date(dl + 5 * 3600e3).toISOString().slice(0, 10)).dm + 'gacha ' + tail + '.';
+}
+const C = 207.3;
+
+class Component extends DCLogic {
+  constructor(...args) {
+    super(...args);
+    this.state = { opened: false, rsvp: '', guests: 2, sent: false, busy: false, warn: '' };
+    this.nm = '';
+  }
+  componentDidMount() { this.timer = setInterval(() => this.forceUpdate(), 1000); }
+  componentWillUnmount() { clearInterval(this.timer); }
+  open() { if (this.state.opened) return; this.setState({ opened: true }); SITE.opened(); }
+  send() {
+    const s = this.state;
+    if (!s.rsvp) { this.setState({ warn: 'Iltimos, avval javobingizni tanlang.' }); return; }
+    const name = this.nm.trim();
+    if (!SITE.has.guest && !name) { this.setState({ warn: 'Iltimos, ismingizni yozing.' }); return; }
+    if (s.busy) return;
+    this.setState({ busy: true, warn: '' });
+    SITE.rsvp(s.rsvp === 'yes', s.rsvp === 'yes' ? s.guests : 1, name, '')
+      .then(() => this.setState({ sent: true, busy: false }))
+      .catch(() => this.setState({ busy: false, warn: 'Javob yuborilmadi. Iltimos, qayta urinib ko’ring.' }));
+  }
+  renderVals() {
+    const s = this.state || {};
+    const w = SITE.when(D.sana, D.vaqt);
+    const cd = SITE.countdown(D.sana, D.vaqt);
+    const unit = (v, frac, l) => ({ n: SITE.pad(v), l, off: (C * (1 - Math.max(0, Math.min(1, frac)))).toFixed(1), cls: 'q-disp q-num ' + (v % 2 ? 'q-pop-a' : 'q-pop-b') });
+    const isYes = s.rsvp === 'yes', isNo = s.rsvp === 'no', guests = s.guests || 1;
+    const music = SITE.music.playing;
+    const longer = String(D.kuyov || '').length > String(D.kelin || '').length ? D.kuyov : D.kelin;
+    const both = (D.kuyov || '') + ' & ' + (D.kelin || '');
+    let note = '';
+    if (s.sent && isYes) note = 'Rahmat! Sizni ' + guests + ' kishi bilan kutamiz.';
+    else if (s.sent && isNo) note = 'Rahmat! Javobingiz yetkazildi.';
+    else if (s.warn) note = s.warn;
+    return {
+      introCls: s.opened ? 'q-i q-i--open' : 'q-i',
+      introHidden: !!s.opened,
+      open: () => this.open(),
+      introTop: 'SIZGA TAKLIFNOMA',
+      fsIntro: fitPx(both, 40, 330, 0.44),
+      musicOn: music, musicOff: !music,
+      musicCls: music ? 'q-music q-music--on' : 'q-music',
+      musicLabel: music ? 'Musiqani o’chirish' : 'Musiqani yoqish',
+      toggleMusic: () => { SITE.music.toggle(); },
+      w, mono: ini(D.kuyov) + '&' + ini(D.kelin),
+      noPhoto: !SITE.has.photo,
+      fsName: fitPx(longer, 58, 320, 0.56),
+      wkTime: w.Weekday + (D.vaqt ? ', soat ' + D.vaqt : ''),
+      monthCap: SITE.cap(w.month || ''),
+      cal: calUrl(),
+      units: [unit(cd.d, cd.d / 100, 'KUN'), unit(cd.h, cd.h / 24, 'SOAT'), unit(cd.m, cd.m / 60, 'DAQIQA'), unit(cd.s, cd.s / 60, 'SONIYA')],
+      story: (D.hikoya || []).map((h, i) => ({ yil: h.yil, sarlavha: h.sarlavha, matn: h.matn, st: 'padding: 16px 18px; ' + (i % 2 ? 'margin-left: 28px' : 'margin-right: 28px') })),
+      deadline: deadlineText('javob bering'),
+      askName: !SITE.has.guest,
+      onName: (e) => { this.nm = e.target.value; },
+      isYes, isNo, guests,
+      optYesCls: isYes ? 'q-opt q-opt--on' : 'q-opt',
+      optNoCls: isNo ? 'q-opt q-opt--on' : 'q-opt',
+      sayYes: () => this.setState({ rsvp: 'yes', sent: false, warn: '' }),
+      sayNo: () => this.setState({ rsvp: 'no', sent: false, warn: '' }),
+      minusOff: guests <= 1, plusOff: guests >= 10,
+      dec: () => this.setState({ guests: Math.max(1, guests - 1), sent: false }),
+      inc: () => this.setState({ guests: Math.min(10, guests + 1), sent: false }),
+      send: () => this.send(),
+      busy: !!s.busy, sent: !!s.sent,
+      sendLabel: s.busy ? 'Yuborilmoqda…' : (s.sent ? 'Javob yuborildi' : 'Javobni yuborish'),
+      rsvpNote: note,
+      tel: telHref(D.telefon)
+    };
+  }
+}
+</script>
+</body>
+</html>

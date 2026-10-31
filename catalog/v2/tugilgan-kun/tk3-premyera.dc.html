@@ -1,0 +1,698 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<title>Tug’ilgan kun: Premyera kechasi</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Yeseva+One&amp;family=Alegreya+Sans:ital,wght@0,400;0,500;0,700;0,800;1,400;1,500&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#F3CDBB}a:hover{color:#FFE6D9}
+.pm-d{font-family:'Yeseva One','Georgia',serif;font-weight:400}
+.pm-foil{background:linear-gradient(120deg,#F9DCCD 0%,#E8B4A0 28%,#C98B78 50%,#F6D2C0 70%,#D39A86 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.pm-foilBg{background:linear-gradient(120deg,#F9DCCD 0%,#E8B4A0 28%,#C98B78 50%,#F6D2C0 70%,#D39A86 100%)}
+.pm-cap{font-size:12px;font-weight:800;letter-spacing:0.26em;text-transform:uppercase;color:#E8B4A0}
+.pm-h2{margin:6px 0 0;font-size:32px;line-height:1.15}
+.is-hidden{display:none}
+.pm-ico{fill:none;stroke:#E8B4A0;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.pm-icoD{fill:none;stroke:#3A0F1E;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.pm-line{fill:none;stroke:#E8B4A0;stroke-width:1.2}
+.pm-smoke{fill:none;stroke:#F7E7CE;stroke-width:2;stroke-linecap:round;opacity:0}
+
+/* velvet */
+.pm-velvet{background:linear-gradient(180deg,rgba(255,200,180,0.08),rgba(0,0,0,0) 30%,rgba(10,0,4,0.45)),repeating-linear-gradient(90deg,#4A1027 0px,#7A2342 11px,#5C1832 21px,#8E2D4E 31px,#4A1027 44px)}
+.pm-fringe{background:repeating-linear-gradient(90deg,#E8B4A0 0 2px,rgba(232,180,160,0) 2px 5px)}
+.pm-swag{position:absolute;top:44px;width:62px;height:34px;border-radius:0 0 50% 50%;border-bottom:3px solid #E8B4A0;box-sizing:border-box}
+
+/* particles */
+.pm-bub{position:absolute;display:block;border-radius:50%;border:1px solid rgba(247,231,206,0.7);background:radial-gradient(circle at 35% 35%,rgba(255,255,255,0.7) 0 18%,rgba(247,231,206,0.08) 30%);animation:pm-rise 12s linear infinite}
+.pm-dust{position:absolute;display:block;border-radius:50%;background:#F7E7CE;box-shadow:0 0 6px rgba(243,205,187,0.9);animation:pm-tw 3.2s ease-in-out infinite}
+.pm-star{position:absolute;display:block;clip-path:polygon(50% 0,61% 39%,100% 50%,61% 61%,50% 100%,39% 61%,0 50%,39% 39%);animation:pm-tw 3s ease-in-out infinite}
+@keyframes pm-rise{0%{transform:translateY(0);opacity:0}10%{opacity:.9}90%{opacity:.7}100%{transform:translateY(-420px);opacity:0}}
+@keyframes pm-tw{0%,100%{opacity:.2;transform:scale(.6)}50%{opacity:1;transform:scale(1)}}
+@keyframes pm-out{from{opacity:1}to{opacity:0}}
+@keyframes pm-chev{0%,100%{transform:translateY(0);opacity:.6}50%{transform:translateY(7px);opacity:1}}
+.pm-bulb{position:absolute;display:block;width:9px;height:9px;border-radius:50%;background:#FFF1DE;box-shadow:0 0 8px #F7D9B0,0 0 16px rgba(247,217,176,0.6);animation:pm-blink 1.2s steps(1) infinite}
+.pm-bulb--b{animation-delay:-.6s}
+@keyframes pm-blink{0%{opacity:1}50%{opacity:.35}}
+.pm-spot{position:absolute;clip-path:polygon(42% 0,58% 0,100% 100%,0 100%);background:linear-gradient(180deg,rgba(255,236,214,0.55),rgba(255,236,214,0.10) 70%,rgba(255,236,214,0));animation:pm-spotP 5s ease-in-out infinite}
+@keyframes pm-spotP{0%,100%{opacity:.75}50%{opacity:1}}
+.pm-foot{position:absolute;bottom:0;width:30px;height:14px;border-radius:15px 15px 0 0;background:radial-gradient(circle at 50% 100%,#FFF6E6,#F3CDBB 60%,#C98B78)}
+.pm-footGlow{position:absolute;bottom:0;width:90px;height:70px;border-radius:50%;background:radial-gradient(closest-side,rgba(255,226,196,0.45),rgba(255,226,196,0));animation:pm-spotP 3.4s ease-in-out infinite}
+.pm-sway{animation:pm-sway 5s ease-in-out infinite alternate;transform-origin:50% 0}
+@keyframes pm-sway{from{transform:rotate(-2.5deg)}to{transform:rotate(2.5deg)}}
+.pm-float{animation:pm-float 6s ease-in-out infinite}
+@keyframes pm-float{0%,100%{transform:translateY(0) rotate(4deg)}50%{transform:translateY(-10px) rotate(1deg)}}
+.pm-music{position:absolute;right:16px;top:16px;z-index:6;width:46px;height:46px;border-radius:50%;border:1px solid rgba(232,180,160,0.7);background:rgba(37,8,18,0.6);display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0}
+.pm-music--on{background:rgba(232,180,160,0.22)}
+
+/* flip calendar */
+.pm-flip{position:relative;width:72px;height:90px;perspective:300px}
+.pm-half{position:absolute;left:0;width:72px;height:45px;overflow:hidden;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.pm-top{top:0;border-radius:8px 8px 0 0;background:linear-gradient(180deg,#FCEFE0,#F2DCC4)}
+.pm-bot{top:45px;border-radius:0 0 8px 8px;background:linear-gradient(180deg,#EBCFB4,#DDB898)}
+.pm-half span{display:block;width:72px;height:90px;line-height:90px;text-align:center;font-family:'Yeseva One',Georgia,serif;font-size:44px;color:#3A0F1E;font-variant-numeric:lining-nums}
+.pm-bot span{transform:translateY(-45px)}
+.pm-flap1{z-index:2;transform-origin:50% 100%;transform:rotateX(-90deg)}
+.pm-flap2{z-index:2;transform-origin:50% 0;transform:rotateX(0)}
+.pm-flip--a .pm-flap1{animation:pm-fTopA .3s ease-in both}
+.pm-flip--a .pm-flap2{animation:pm-fBotA .3s ease-out .3s both}
+.pm-flip--b .pm-flap1{animation:pm-fTopB .3s ease-in both}
+.pm-flip--b .pm-flap2{animation:pm-fBotB .3s ease-out .3s both}
+@keyframes pm-fTopA{from{transform:rotateX(0)}to{transform:rotateX(-90deg)}}
+@keyframes pm-fBotA{from{transform:rotateX(90deg)}to{transform:rotateX(0)}}
+@keyframes pm-fTopB{from{transform:rotateX(0)}to{transform:rotateX(-90deg)}}
+@keyframes pm-fBotB{from{transform:rotateX(90deg)}to{transform:rotateX(0)}}
+.pm-hinge{position:absolute;left:0;top:44.5px;width:72px;height:1px;background:rgba(58,15,30,0.45);z-index:3}
+.pm-flipFrame{position:absolute;left:0;top:0;width:72px;height:90px;box-sizing:border-box;border-radius:8px;border:1px solid rgba(232,180,160,0.9);box-shadow:0 12px 26px rgba(0,0,0,0.45);z-index:4;pointer-events:none}
+.pm-unit{font-size:11px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#E6C9C0}
+
+/* program leaders */
+.pm-act{display:flex;align-items:baseline;gap:10px;padding:10px 0;border-bottom:1px solid rgba(232,180,160,0.16)}
+.pm-dots{flex:1;min-width:18px;height:1px;border-bottom:2px dotted rgba(232,180,160,0.55);transform:translateY(-5px)}
+
+/* candelabra */
+.pm-flame{transform-box:fill-box;transform-origin:50% 100%;animation:pm-flicker .9s ease-in-out infinite alternate}
+.pm-halo{transform-box:fill-box;transform-origin:50% 50%;animation:pm-halo 1.6s ease-in-out infinite}
+@keyframes pm-flicker{0%{transform:scale(1,1) rotate(-3deg)}50%{transform:scale(.9,1.1) rotate(2deg)}100%{transform:scale(1.05,.94) rotate(-1deg)}}
+@keyframes pm-halo{0%,100%{opacity:.25;transform:scale(.9)}50%{opacity:.55;transform:scale(1.15)}}
+.pm-cake--out .pm-flame{opacity:0;animation:pm-flameOut .35s ease-in both}
+.pm-cake--out .pm-halo{opacity:0;animation:pm-out .3s ease both}
+.pm-cake--out .pm-smoke{animation:pm-smoke 1.9s ease-out .25s both}
+@keyframes pm-flameOut{from{opacity:1;transform:scale(1)}to{opacity:0;transform:scale(.3,.1)}}
+@keyframes pm-smoke{0%{opacity:0;transform:translateY(0)}20%{opacity:.85}100%{opacity:0;transform:translateY(-30px)}}
+.pm-wish{opacity:0;transform:translateY(10px);transition:opacity .6s ease .35s,transform .6s ease .35s}
+.pm-wish--on{opacity:1;transform:none}
+
+/* backstage secret */
+.pm-bs{position:relative;display:block;width:100%;padding:0;border:0;background:none;cursor:pointer;color:inherit;font:inherit;text-align:center}
+.pm-mini{position:absolute;top:0;bottom:0;width:52%;z-index:2;transition:transform 1s cubic-bezier(.6,0,.3,1)}
+.pm-miniL{left:0;transform-origin:0 50%;border-radius:20px 0 0 20px}
+.pm-miniR{right:0;transform-origin:100% 50%;border-radius:0 20px 20px 0}
+.pm-bs--on .pm-miniL{transform:scaleX(.08)}
+.pm-bs--on .pm-miniR{transform:scaleX(.08)}
+.pm-bsHint{transition:opacity .4s ease}
+.pm-bs--on .pm-bsHint{opacity:0}
+
+/* buttons */
+.pm-cta{position:relative;width:300px;min-height:58px;border:0;border-radius:29px;color:#3A0F1E;font-family:'Alegreya Sans',system-ui,sans-serif;font-size:18px;font-weight:800;letter-spacing:.04em;cursor:pointer;box-shadow:0 12px 30px rgba(232,180,160,0.35)}
+.pm-cta::after{content:"";position:absolute;inset:-6px;border-radius:35px;border:1.5px solid rgba(243,205,187,0.75);animation:pm-ring 2s ease-out infinite;pointer-events:none}
+@keyframes pm-ring{0%{transform:scale(.95);opacity:.9}100%{transform:scale(1.12);opacity:0}}
+.pm-pill{min-height:50px;border:1.5px solid #E8B4A0;border-radius:25px;background:rgba(232,180,160,0.08);color:#F7E7CE;font-family:'Alegreya Sans',system-ui,sans-serif;font-size:17px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;padding:0 26px}
+.pm-pill:hover{background:rgba(232,180,160,0.18)}
+.pm-go{flex:1 1 0;min-width:0;min-height:52px;border:0;border-radius:26px;background:#3A0F1E;color:#F7E7CE;font-family:'Alegreya Sans',system-ui,sans-serif;font-size:16px;font-weight:800;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;padding:0 12px}
+.pm-go--on{background:#6B1A38}
+.pm-map{flex:1.4 1 0;min-width:0;min-height:52px;border-radius:26px;border:1.5px solid #3A0F1E;color:#3A0F1E;font-size:15px;font-weight:800;display:flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;padding:0 12px;box-sizing:border-box}
+.pm-map:hover{background:rgba(58,15,30,0.08);color:#250812}
+.pm-input{width:100%;height:50px;box-sizing:border-box;border-radius:25px;border:1.5px solid rgba(58,15,30,0.35);background:rgba(255,248,240,0.65);color:#3A0F1E;padding:0 18px;font-family:'Alegreya Sans',system-ui,sans-serif;font-size:16px;font-weight:600;outline:none}
+.pm-input::placeholder{color:#7A4A52}
+.pm-input:focus{border-color:#3A0F1E}
+.pm-err{margin:0;font-size:14px;font-weight:800;color:#6B1A38}
+.pm-send{width:100%;min-height:58px;border:0;border-radius:29px;color:#3A0F1E;font-family:'Alegreya Sans',system-ui,sans-serif;font-size:18px;font-weight:800;display:flex;align-items:center;justify-content:center;gap:10px;cursor:pointer;padding:0 18px;box-shadow:0 14px 30px rgba(232,180,160,0.3)}
+.pm-send--done{background:rgba(232,180,160,0.08);color:#F3CDBB;box-shadow:none;border:1.5px solid rgba(232,180,160,0.6);cursor:default}
+.pm-row{display:flex;align-items:center;gap:8px}
+.pm-p{position:absolute;left:0;top:0;display:block;opacity:0}
+.pm-burst--go .pm-p{animation:pm-k1 1.6s cubic-bezier(.12,.75,.3,1) both}
+.pm-burst--go .pm-k2{animation-name:pm-k2}
+.pm-burst--go .pm-k3{animation-name:pm-k3}
+@keyframes pm-k1{0%{opacity:1;transform:translateY(0) rotate(0)}70%{opacity:1;transform:translateY(-230px) rotate(320deg)}100%{opacity:0;transform:translateY(-200px) rotate(420deg)}}
+@keyframes pm-k2{0%{opacity:1;transform:translateY(0) rotate(0)}70%{opacity:1;transform:translateY(-300px) rotate(-300deg)}100%{opacity:0;transform:translateY(-270px) rotate(-420deg)}}
+@keyframes pm-k3{0%{opacity:1;transform:translateY(0) rotate(0)}70%{opacity:1;transform:translateY(-160px) rotate(240deg)}100%{opacity:0;transform:translateY(-130px) rotate(330deg)}}
+
+/* intro: theatre curtains */
+.pm-curL{transform-origin:0 50%;transition:transform 1.25s cubic-bezier(.65,0,.3,1) .35s}
+.pm-curR{transform-origin:100% 50%;transition:transform 1.25s cubic-bezier(.65,0,.3,1) .35s}
+.pm-intro--open{pointer-events:none;animation:pm-out .55s ease 1.4s both}
+.pm-intro--open .pm-curL,.pm-intro--open .pm-curR{transform:scaleX(.16)}
+.pm-intro--open .pm-ctaWrap{animation:pm-out .3s ease both}
+.pm-intro--open .pm-tag{animation:pm-tagFall .7s ease-in .05s both}
+.pm-intro--open .pm-marq{animation:pm-marqUp .7s ease-in .7s both}
+.pm-intro--open .pm-valance{animation:pm-valUp .7s ease-in .9s both}
+.pm-reveal{opacity:0;transform:scale(.9)}
+.pm-intro--open .pm-reveal{animation:pm-revealIn .8s ease-out .6s both}
+@keyframes pm-tagFall{to{transform:translateY(360px) rotate(30deg);opacity:0}}
+@keyframes pm-marqUp{to{transform:translateY(-300px);opacity:0}}
+@keyframes pm-valUp{to{transform:translateY(-140px)}}
+@keyframes pm-revealIn{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:none}}
+
+/* page reveal */
+.pm-page--in .pm-rv1{animation:pm-rise .9s ease-out 1.3s both}
+.pm-page--in .pm-rv2{animation:pm-rise .9s ease-out 1.45s both}
+.pm-page--in .pm-rv3{animation:pm-pop 1s cubic-bezier(.2,1.2,.4,1) 1.6s both}
+@keyframes pm-rise{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+@keyframes pm-pop{from{opacity:0;transform:translateY(30px) scale(.94)}to{opacity:1;transform:none}}
+
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation:none !important;transition:none !important}
+}
+</style>
+</helmet>
+<div style="width: 390px; min-height: var(--vh, 100vh); position: relative; overflow: hidden; background: linear-gradient(180deg, #250812 0%, #3A0F1E 14%, #43122A 40%, #3A0F1E 70%, #250812 100%); color: #F7E7CE; font-family: 'Alegreya Sans', system-ui, -apple-system, 'Segoe UI', sans-serif">
+
+  <div aria-hidden="true" style="position: absolute; left: 0; top: 0; bottom: 0; width: 390px; pointer-events: none; z-index: 0; overflow: hidden">
+    <sc-for list="{{ glows }}" as="g" hint-placeholder-count="6"><span style="{{ g.st }}"></span></sc-for>
+    <sc-for list="{{ pageBubbles }}" as="p" hint-placeholder-count="26"><span class="pm-bub" style="{{ p.st }}"></span></sc-for>
+    <sc-for list="{{ pageDust }}" as="p" hint-placeholder-count="34"><span class="pm-dust" style="{{ p.st }}"></span></sc-for>
+  </div>
+
+  <div class="{{ pageCls }}" style="position: relative; z-index: 1; min-height: var(--vh, 100vh); display: flex; flex-direction: column">
+
+    <section style="position: relative; height: 844px; flex: none; box-sizing: border-box; padding-top: 92px; display: flex; flex-direction: column; align-items: center; text-align: center">
+      <div aria-hidden="true" class="pm-spot" style="left: 15px; top: 0; width: 360px; height: 760px"></div>
+      <div aria-hidden="true" class="pm-velvet" style="position: absolute; left: 0; top: 0; width: 46px; height: 844px; border-radius: 0 0 46px 0"></div>
+      <div aria-hidden="true" class="pm-velvet" style="position: absolute; right: 0; top: 0; width: 46px; height: 844px; border-radius: 0 0 0 46px"></div>
+      <div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 390px; height: 80px">
+        <div class="pm-velvet" style="position: absolute; left: 0; top: 0; width: 390px; height: 48px"></div>
+        <sc-for list="{{ swags }}" as="s" hint-placeholder-count="7"><span class="pm-swag pm-velvet" style="{{ s }}"></span></sc-for>
+        <span class="pm-fringe" style="position: absolute; left: 0; top: 44px; width: 390px; height: 5px"></span>
+      </div>
+      <sc-if value="{{ has.music }}" hint-placeholder-val="{{ false }}"><button type="button" class="{{ musicCls }}" onClick="{{ toggleMusic }}" aria-label="Musiqa" aria-pressed="{{ musicOn }}" style="top: 92px; right: 56px"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 22 26"><path d="M8 3L20 0V17.5A3.5 3 0 1 1 17 14.6V5.2L10 7V20.5A3.5 3 0 1 1 7 17.6V3Z" fill="#E8B4A0"></path></svg></button></sc-if>
+
+      <div class="pm-rv1" style="position: relative; width: 84px; height: 84px; flex: none">
+        <div class="pm-foilBg" style="position: absolute; inset: 0; border-radius: 50%; box-shadow: 0 0 30px rgba(232,180,160,0.4)"></div>
+        <div style="position: absolute; inset: 4px; border-radius: 50%; background: radial-gradient(circle at 50% 35%, #5A1630, #2A0914)"></div>
+        <div style="position: absolute; inset: 9px; border-radius: 50%; border: 1px solid rgba(232,180,160,0.7)"></div>
+        <span class="pm-d pm-foil" style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 42px; line-height: 1">{{ initial }}</span>
+      </div>
+      <p class="pm-rv1 pm-cap" style="position: relative; margin: 16px 0 0">{{ heroCap }}</p>
+      <p class="pm-rv1" style="position: relative; margin: 8px 0 0; font-size: 18px; font-style: italic; color: #F7E7CE">Bugun bosh rolda</p>
+      <h1 class="pm-rv2 pm-d pm-foil" style="position: relative; margin: 2px 0 0; max-width: 290px; line-height: 1.08; font-size: {{ nameFs }}px; overflow-wrap: anywhere; padding: 0 4px">{{ d.kimga }}</h1>
+
+      <div class="pm-rv3" style="position: relative; width: 390px; height: 380px; margin-top: 18px; flex: none">
+        <sc-if value="{{ has.photo }}" hint-placeholder-val="{{ true }}">
+          <div class="pm-foilBg" style="position: absolute; left: 85px; top: 0; width: 220px; height: 300px; box-sizing: border-box; padding: 4px; border-radius: 110px 110px 10px 10px; box-shadow: 0 26px 50px rgba(10,0,4,0.6)">
+            <div style="width: 100%; height: 100%; box-sizing: border-box; padding: 6px; border-radius: 106px 106px 7px 7px; background: #2A0914">
+              <img src="{{ p.0 }}" alt="" style="display: block; width: 100%; height: 100%; object-fit: cover; border-radius: 100px 100px 4px 4px">
+            </div>
+          </div>
+          <sc-for list="{{ archBulbs }}" as="u" hint-placeholder-count="13"><span class="{{ u.cls }}" style="{{ u.st }}"></span></sc-for>
+          <sc-if value="{{ twoPhotos }}" hint-placeholder-val="{{ true }}">
+            <div class="pm-float" style="position: absolute; left: 38px; top: 214px; width: 112px; height: 138px; box-sizing: border-box; padding: 6px 6px 22px; background: #F7E7CE; border-radius: 4px; box-shadow: 0 18px 30px rgba(10,0,4,0.55)">
+              <img src="{{ p.1 }}" alt="" style="display: block; width: 100%; height: 100%; object-fit: cover">
+              <span class="pm-d" style="position: absolute; left: 0; right: 0; bottom: 3px; font-size: 10px; color: #6B1A38">{{ dots }}</span>
+            </div>
+          </sc-if>
+        </sc-if>
+        <sc-if value="{{ noPhoto }}" hint-placeholder-val="{{ false }}">
+          <div aria-hidden="true" style="position: absolute; left: 85px; top: 20px; width: 220px; height: 280px; border-radius: 110px 110px 10px 10px; border: 1px solid rgba(232,180,160,0.6); background: radial-gradient(70% 50% at 50% 40%, rgba(232,180,160,0.25), rgba(232,180,160,0) 70%); display: flex; align-items: center; justify-content: center"><span class="pm-d pm-foil" style="font-size: 150px; line-height: 1">{{ initial }}</span></div>
+        </sc-if>
+        <sc-if value="{{ d.yosh }}" hint-placeholder-val="{{ true }}">
+          <div style="position: absolute; left: 248px; top: 230px; width: 104px; height: 104px; transform: rotate(-8deg)">
+            <div class="pm-foilBg" style="position: absolute; inset: 0; border-radius: 50%; box-shadow: 0 14px 26px rgba(10,0,4,0.55)"></div>
+            <div style="position: absolute; inset: 6px; border-radius: 50%; border: 1px dashed rgba(58,15,30,0.55)"></div>
+            <div style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #3A0F1E">
+              <span class="pm-d" style="font-size: {{ ageFs }}px; line-height: 1">{{ d.yosh }}</span>
+              <span style="font-size: 11px; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase">yosh</span>
+            </div>
+          </div>
+        </sc-if>
+      </div>
+
+      <div aria-hidden="true" style="position: absolute; left: 0; bottom: 0; width: 390px; height: 70px">
+        <sc-for list="{{ footlights }}" as="f" hint-placeholder-count="6"><span class="pm-footGlow" style="{{ f.g }}"></span><span class="pm-foot" style="{{ f.l }}"></span></sc-for>
+        <span style="position: absolute; left: 0; bottom: 0; width: 390px; height: 2px; background: linear-gradient(90deg, rgba(232,180,160,0), #E8B4A0, rgba(232,180,160,0))"></span>
+      </div>
+      <sc-if value="{{ anyBlock }}" hint-placeholder-val="{{ true }}"><svg aria-hidden="true" width="26" height="16" viewBox="0 0 26 16" style="position: absolute; left: 182px; top: 742px; animation: pm-chev 1.8s ease-in-out infinite"><path class="pm-ico" d="M3 3l10 9 10-9"></path></svg></sc-if>
+    </section>
+
+<sc-if value="{{ b.tabrik }}" hint-placeholder-val="{{ true }}">
+    <section style="padding: 40px 20px 28px">
+      <div style="position: relative; padding: 6px; border: 1px solid rgba(232,180,160,0.7); border-radius: 6px">
+        <div style="position: relative; padding: 28px 22px 24px; border: 1px solid rgba(232,180,160,0.35); border-radius: 3px; background: linear-gradient(180deg, rgba(90,22,48,0.55), rgba(42,9,20,0.55))">
+          <div style="text-align: center">
+            <p class="pm-cap" style="margin: 0">Tabrik so’zi</p>
+            <svg aria-hidden="true" width="140" height="14" viewBox="0 0 140 14" style="display: block; margin: 10px auto 0"><path class="pm-line" d="M0 7H58M82 7H140"></path><path d="M70 0l2 5 5 2-5 2-2 5-2-5-5-2 5-2z" fill="#E8B4A0"></path></svg>
+          </div>
+          <p style="margin: 18px 0 0; font-size: 18px; line-height: 1.6; color: #F7E7CE; white-space: pre-line; overflow-wrap: anywhere"><span class="pm-d" style="float: left; margin: 4px 10px 0 0; font-size: 58px; line-height: 0.9; color: #E8B4A0">{{ dropCap }}</span>{{ restText }}</p>
+          <sc-if value="{{ d.kimdan }}" hint-placeholder-val="{{ true }}">
+            <p style="clear: both; margin: 0; padding-top: 18px; text-align: right; font-size: 16px; font-style: italic; line-height: 1.4; color: #E6C9C0; overflow-wrap: anywhere"><sc-if value="{{ from.label }}" hint-placeholder-val="{{ true }}">{{ from.label }}:<br></sc-if><span class="pm-d" style="font-style: normal; font-size: 19px; color: #F3CDBB">{{ from.names }}</span></p>
+          </sc-if>
+        </div>
+      </div>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.taymer }}" hint-placeholder-val="{{ true }}">
+    <section style="padding: 22px 20px 30px; display: flex; flex-direction: column; align-items: center; text-align: center">
+      <p class="pm-cap" style="margin: 0">Parda ochilishiga</p>
+      <h2 class="pm-d pm-foil pm-h2">{{ cdTitle }}</h2>
+      <div style="display: flex; gap: 12px; margin-top: 20px">
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 10px">
+          <div class="{{ f0.cls }}"><div class="pm-half pm-top"><span>{{ f0.cur }}</span></div><div class="pm-half pm-bot"><span>{{ f0.prev }}</span></div><div class="pm-half pm-top pm-flap1"><span>{{ f0.prev }}</span></div><div class="pm-half pm-bot pm-flap2"><span>{{ f0.cur }}</span></div><span class="pm-hinge"></span><span class="pm-flipFrame"></span></div>
+          <span class="pm-unit">kun</span>
+        </div>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 10px">
+          <div class="{{ f1.cls }}"><div class="pm-half pm-top"><span>{{ f1.cur }}</span></div><div class="pm-half pm-bot"><span>{{ f1.prev }}</span></div><div class="pm-half pm-top pm-flap1"><span>{{ f1.prev }}</span></div><div class="pm-half pm-bot pm-flap2"><span>{{ f1.cur }}</span></div><span class="pm-hinge"></span><span class="pm-flipFrame"></span></div>
+          <span class="pm-unit">soat</span>
+        </div>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 10px">
+          <div class="{{ f2.cls }}"><div class="pm-half pm-top"><span>{{ f2.cur }}</span></div><div class="pm-half pm-bot"><span>{{ f2.prev }}</span></div><div class="pm-half pm-top pm-flap1"><span>{{ f2.prev }}</span></div><div class="pm-half pm-bot pm-flap2"><span>{{ f2.cur }}</span></div><span class="pm-hinge"></span><span class="pm-flipFrame"></span></div>
+          <span class="pm-unit">daqiqa</span>
+        </div>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 10px">
+          <div class="{{ f3.cls }}"><div class="pm-half pm-top"><span>{{ f3.cur }}</span></div><div class="pm-half pm-bot"><span>{{ f3.prev }}</span></div><div class="pm-half pm-top pm-flap1"><span>{{ f3.prev }}</span></div><div class="pm-half pm-bot pm-flap2"><span>{{ f3.cur }}</span></div><span class="pm-hinge"></span><span class="pm-flipFrame"></span></div>
+          <span class="pm-unit">soniya</span>
+        </div>
+      </div>
+      <p style="margin: 16px 0 0; font-size: 16px; font-style: italic; color: #E6C9C0">{{ cdDate }}</p>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.tilaklar }}" hint-placeholder-val="{{ true }}">
+    <section style="padding: 22px 20px 30px">
+      <div style="text-align: center">
+        <p class="pm-cap" style="margin: 0">Kechaning dasturi</p>
+        <h2 class="pm-d pm-foil pm-h2">Tilaklarimiz</h2>
+      </div>
+      <ol style="list-style: none; margin: 18px 0 0; padding: 0 6px">
+        <sc-for list="{{ wishes }}" as="t" hint-placeholder-count="5">
+          <li class="pm-act">
+            <span class="pm-d" style="flex: none; width: 34px; font-size: 16px; color: #C98B78">{{ t.n }}</span>
+            <span class="pm-d" style="flex: 0 1 auto; min-width: 0; font-size: 22px; line-height: 1.25; color: #F7E7CE; overflow-wrap: anywhere">{{ t.text }}</span>
+            <span class="pm-dots" aria-hidden="true"></span>
+            <svg aria-hidden="true" width="16" height="16" viewBox="0 0 14 14" style="flex: none"><path d="M7 0l2 5 5 2-5 2-2 5-2-5-5-2 5-2z" fill="#E8B4A0"></path></svg>
+          </li>
+        </sc-for>
+      </ol>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.sham }}" hint-placeholder-val="{{ true }}">
+    <section style="padding: 22px 20px 30px; display: flex; flex-direction: column; align-items: center; text-align: center">
+      <p class="pm-cap" style="margin: 0">Niyat lahzasi</p>
+      <h2 class="pm-d pm-foil pm-h2">Shamni o’chiring</h2>
+      <p style="margin: 6px 0 0; font-size: 17px; font-style: italic; color: #E6C9C0">Ko’zingni yum, niyat qil va pufla</p>
+      <div class="{{ cakeCls }}" style="position: relative; width: 260px; height: 250px; margin-top: 12px">
+        <div aria-hidden="true" style="position: absolute; left: -40px; top: -30px; width: 340px; height: 260px; border-radius: 50%; background: radial-gradient(circle, rgba(255,226,196,0.30), rgba(232,180,160,0.10) 45%, rgba(232,180,160,0) 70%)"></div>
+        <svg aria-hidden="true" width="260" height="250" viewBox="0 0 260 250" style="position: relative; display: block">
+          <defs><linearGradient id="pm-gRG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F9DCCD"></stop><stop offset="0.45" stop-color="#C98B78"></stop><stop offset="1" stop-color="#F3CDBB"></stop></linearGradient></defs>
+          <ellipse class="pm-halo" cx="130" cy="34" rx="24" ry="28" fill="#FFE2C4" opacity="0.45"></ellipse>
+          <ellipse class="pm-halo" cx="58" cy="64" rx="22" ry="26" fill="#FFE2C4" opacity="0.45"></ellipse>
+          <ellipse class="pm-halo" cx="202" cy="64" rx="22" ry="26" fill="#FFE2C4" opacity="0.45"></ellipse>
+          <path class="pm-flame" d="M130 14C136 25 139 33 136 41C134 46 126 46 124 41C121 33 124 25 130 14Z" fill="#FFD9A0"></path>
+          <path class="pm-flame" d="M58 46C63 55 66 62 63 69C61 73 55 73 53 69C50 62 53 55 58 46Z" fill="#FFD9A0"></path>
+          <path class="pm-flame" d="M202 46C207 55 210 62 207 69C205 73 199 73 197 69C194 62 197 55 202 46Z" fill="#FFD9A0"></path>
+          <path class="pm-smoke" d="M130 44C124 36 136 30 130 20C125 12 133 6 130 0"></path>
+          <path class="pm-smoke" d="M58 72C52 64 64 58 58 48C53 40 61 34 58 28"></path>
+          <path class="pm-smoke" d="M202 72C196 64 208 58 202 48C197 40 205 34 202 28"></path>
+          <rect x="123" y="44" width="14" height="74" rx="3" fill="#F7E7CE"></rect>
+          <rect x="51" y="74" width="14" height="58" rx="3" fill="#F7E7CE"></rect>
+          <rect x="195" y="74" width="14" height="58" rx="3" fill="#F7E7CE"></rect>
+          <path d="M44 132H72L68 140H48Z M188 132H216L212 140H192Z M116 118H144L140 126H120Z" fill="url(#pm-gRG)"></path>
+          <path d="M58 140C58 176 92 180 130 180C168 180 202 176 202 140" fill="none" stroke="url(#pm-gRG)" stroke-width="7" stroke-linecap="round"></path>
+          <rect x="125" y="126" width="10" height="92" fill="url(#pm-gRG)"></rect>
+          <circle cx="130" cy="180" r="11" fill="url(#pm-gRG)"></circle>
+          <path d="M96 238C96 222 112 214 130 214C148 214 164 222 164 238Z" fill="url(#pm-gRG)"></path>
+          <rect x="88" y="236" width="84" height="8" rx="4" fill="#C98B78"></rect>
+        </svg>
+      </div>
+      <p class="{{ wishCls }}" style="margin: 8px 0 0; min-height: 26px; font-size: 19px; line-height: 1.4; color: #F3CDBB; overflow-wrap: anywhere"><span class="pm-d">{{ wishLine }}</span></p>
+      <button type="button" class="pm-pill" onClick="{{ blow }}" style="margin-top: 14px">
+        <span class="{{ blowIdle }}">Shamlarni puflash</span><span class="{{ blowDone }}">Qayta yoqish</span>
+      </button>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.sirli }}" hint-placeholder-val="{{ true }}">
+    <section style="padding: 22px 20px 30px">
+      <div style="text-align: center">
+        <p class="pm-cap" style="margin: 0">Sahna ortida</p>
+        <h2 class="pm-d pm-foil pm-h2">Sirli tilak</h2>
+      </div>
+      <button type="button" class="{{ bsCls }}" onClick="{{ toggleBs }}" aria-label="Pardani surib, sirli tilakni ochish" style="margin-top: 18px">
+        <div style="position: relative; min-height: 190px; border-radius: 20px; overflow: hidden; border: 1px solid rgba(232,180,160,0.7); background: radial-gradient(80% 70% at 50% 30%, rgba(255,226,196,0.22), rgba(255,226,196,0) 70%), #2A0914; display: flex; align-items: center; justify-content: center; padding: 30px 30px; box-sizing: border-box">
+          <p class="pm-d" style="margin: 0; font-size: 21px; line-height: 1.45; color: #F7E7CE; white-space: pre-line; overflow-wrap: anywhere">{{ d.sirli_tilak }}</p>
+          <span class="pm-mini pm-miniL pm-velvet" aria-hidden="true"></span>
+          <span class="pm-mini pm-miniR pm-velvet" aria-hidden="true"></span>
+          <span class="pm-bsHint" style="position: absolute; left: 50%; top: 50%; z-index: 3; transform: translate(-50%, -50%); display: inline-flex; align-items: center; gap: 8px; min-height: 46px; padding: 0 20px; border-radius: 23px; background: rgba(37,8,18,0.82); border: 1px solid #E8B4A0; color: #F7E7CE; font-size: 16px; font-weight: 700; white-space: nowrap">Pardani suring</span>
+        </div>
+      </button>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.galereya }}" hint-placeholder-val="{{ true }}">
+    <section style="padding: 22px 20px 30px">
+      <div style="text-align: center">
+        <p class="pm-cap" style="margin: 0">Kadrlar ortidan</p>
+        <h2 class="pm-d pm-foil pm-h2">Unutilmas lahzalar</h2>
+      </div>
+      <div class="pm-foilBg" style="margin-top: 20px; padding: 3px; border-radius: 6px; box-shadow: 0 24px 46px rgba(10,0,4,0.55)">
+        <img src="{{ g0 }}" alt="" style="display: block; width: 100%; height: 250px; object-fit: cover; border-radius: 4px">
+      </div>
+      <sc-if value="{{ gPair }}" hint-placeholder-val="{{ true }}">
+        <div style="position: relative; height: 290px; margin-top: -26px">
+          <div style="position: absolute; left: 0; top: 0; width: 190px; height: 240px; box-sizing: border-box; padding: 6px; background: #F7E7CE; border-radius: 4px; transform: rotate(-3deg); box-shadow: 0 20px 36px rgba(10,0,4,0.6)"><img src="{{ g1 }}" alt="" style="display: block; width: 100%; height: 100%; object-fit: cover"></div>
+          <sc-if value="{{ g2 }}" hint-placeholder-val="{{ true }}"><div class="pm-foilBg" style="position: absolute; left: 168px; top: 56px; width: 182px; height: 220px; box-sizing: border-box; padding: 3px; border-radius: 4px; transform: rotate(2.5deg); box-shadow: 0 20px 36px rgba(10,0,4,0.6)"><img src="{{ g2 }}" alt="" style="display: block; width: 100%; height: 100%; object-fit: cover; border-radius: 2px"></div></sc-if>
+        </div>
+      </sc-if>
+      <sc-if value="{{ gStripOn }}" hint-placeholder-val="{{ true }}">
+        <div style="margin: 14px -20px 0; padding: 14px 20px; background: radial-gradient(circle, #3A0F1E 0 3px, rgba(0,0,0,0) 3.5px) 0 5px / 14px 100% repeat-x, radial-gradient(circle, #3A0F1E 0 3px, rgba(0,0,0,0) 3.5px) 0 calc(100% - 5px) / 14px 100% repeat-x, #140409">
+          <div style="display: flex; gap: 8px; justify-content: center">
+            <sc-for list="{{ gStrip }}" as="g" hint-placeholder-count="3"><img src="{{ g }}" alt="" style="display: block; width: 110px; height: 84px; object-fit: cover; border-radius: 2px"></sc-for>
+          </div>
+        </div>
+      </sc-if>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.xronika }}" hint-placeholder-val="{{ true }}">
+    <section style="padding: 22px 20px 30px">
+      <div style="text-align: center">
+        <p class="pm-cap" style="margin: 0">Hayot sahnalari</p>
+        <h2 class="pm-d pm-foil pm-h2">Yillar xronikasi</h2>
+      </div>
+      <div style="position: relative; margin-top: 22px">
+        <span aria-hidden="true" style="position: absolute; left: 41px; top: 10px; bottom: 10px; width: 1px; background: linear-gradient(180deg, rgba(232,180,160,0), #E8B4A0 12%, #E8B4A0 88%, rgba(232,180,160,0))"></span>
+        <sc-for list="{{ chron }}" as="c" hint-placeholder-count="4">
+          <div style="position: relative; display: flex; align-items: center; gap: 14px; padding: 10px 0">
+            <div style="position: relative; flex: none; width: 84px; height: 84px">
+              <div class="pm-foilBg" style="position: absolute; inset: 0; border-radius: 50%"></div>
+              <div style="position: absolute; inset: 3px; border-radius: 50%; background: #2A0914; display: flex; flex-direction: column; align-items: center; justify-content: center">
+                <span class="pm-d pm-foil" style="font-size: {{ c.fs }}px; line-height: 1">{{ c.yosh }}</span>
+                <span style="font-size: 10px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; color: #E6C9C0">yosh</span>
+              </div>
+            </div>
+            <div style="flex: 1; min-width: 0; display: flex; align-items: center; gap: 12px; padding: 10px; border-radius: 14px; background: linear-gradient(120deg, rgba(90,22,48,0.7), rgba(42,9,20,0.6)); border: 1px solid rgba(232,180,160,0.3)">
+              <sc-if value="{{ has.photo }}" hint-placeholder-val="{{ true }}"><img src="{{ c.src }}" alt="" style="flex: none; display: block; width: 64px; height: 64px; object-fit: cover; border-radius: 10px"></sc-if>
+              <p style="margin: 0; min-width: 0; font-size: 17px; font-weight: 500; line-height: 1.35; color: #F7E7CE; overflow-wrap: anywhere">{{ c.matn }}</p>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.mehmonlar }}" hint-placeholder-val="{{ true }}">
+    <section style="padding: 22px 20px 30px">
+      <div style="text-align: center">
+        <p class="pm-cap" style="margin: 0">Tomoshabinlar fikri</p>
+        <h2 class="pm-d pm-foil pm-h2">Yaqinlar tilaklari</h2>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 14px; margin-top: 20px">
+        <sc-for list="{{ reviews }}" as="r" hint-placeholder-count="4">
+          <figure style="{{ r.st }}">
+            <div aria-hidden="true" style="display: flex; gap: 3px"><sc-for list="{{ stars }}" as="s" hint-placeholder-count="5"><svg width="14" height="14" viewBox="0 0 14 14"><path d="M7 .5l1.9 4.1 4.5.5-3.3 3 .9 4.4L7 10.3 3 12.5l.9-4.4-3.3-3 4.5-.5z" fill="#E8B4A0"></path></svg></sc-for></div>
+            <blockquote style="margin: 10px 0 0; font-size: 17px; font-style: italic; line-height: 1.5; color: #F7E7CE; overflow-wrap: anywhere">«{{ r.matn }}»</blockquote>
+            <figcaption class="pm-d" style="margin-top: 10px; font-size: 16px; color: #F3CDBB; overflow-wrap: anywhere">— {{ r.ism }}</figcaption>
+          </figure>
+        </sc-for>
+      </div>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.bazm }}" hint-placeholder-val="{{ true }}">
+    <section style="padding: 22px 20px 30px">
+      <div class="pm-foilBg" style="position: relative; border-radius: 14px; padding: 3px; box-shadow: 0 26px 50px rgba(10,0,4,0.6)">
+        <div style="position: relative; border-radius: 11px; padding: 24px 20px 20px; border: 1px solid rgba(58,15,30,0.4); color: #3A0F1E">
+          <div style="text-align: center">
+            <p style="margin: 0; font-size: 12px; font-weight: 800; letter-spacing: 0.26em; text-transform: uppercase; color: #5A1630">Taklifnoma · Kirish</p>
+            <h2 class="pm-d" style="margin: 6px 0 0; font-size: 34px; line-height: 1.1; color: #3A0F1E">Bazmga taklif</h2>
+            <p style="margin: 8px 0 0; font-size: 17px; font-style: italic; line-height: 1.45; color: #4A1027">Premyeradan so’ng — kechki ziyofat. Sizning o’rningiz tayyor!</p>
+          </div>
+          <div aria-hidden="true" style="height: 0; margin: 18px -20px 16px; border-top: 2px dashed rgba(58,15,30,0.4)"></div>
+          <div style="display: flex; flex-direction: column; gap: 12px">
+            <div style="display: flex; align-items: center; gap: 12px">
+              <span style="flex: none; width: 40px; height: 40px; border-radius: 50%; border: 1.5px solid rgba(58,15,30,0.45); display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 20 20"><rect class="pm-icoD" x="3" y="4.5" width="14" height="12.5" rx="2.5"></rect><path class="pm-icoD" d="M3 8.5h14M7 2.5v4M13 2.5v4"></path></svg></span>
+              <p style="margin: 0; font-size: 17px; line-height: 1.35"><span style="display: block; font-weight: 800">{{ bazmDate }}</span><sc-if value="{{ d.bazm_vaqt }}" hint-placeholder-val="{{ true }}"><span style="display: block; color: #4A1027">soat {{ d.bazm_vaqt }} da</span></sc-if></p>
+            </div>
+            <div style="display: flex; align-items: center; gap: 12px">
+              <span style="flex: none; width: 40px; height: 40px; border-radius: 50%; border: 1.5px solid rgba(58,15,30,0.45); display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 20 20"><path class="pm-icoD" d="M10 18s-5.5-5.2-5.5-9.3a5.5 5.5 0 0 1 11 0C15.5 12.8 10 18 10 18z"></path><circle class="pm-icoD" cx="10" cy="8.7" r="2"></circle></svg></span>
+              <p style="margin: 0; min-width: 0; font-size: 17px; line-height: 1.35; overflow-wrap: anywhere"><span style="display: block; font-weight: 800">{{ d.bazm_joy }}</span><sc-if value="{{ d.bazm_manzil }}" hint-placeholder-val="{{ true }}"><span style="display: block; color: #4A1027">{{ d.bazm_manzil }}</span></sc-if></p>
+            </div>
+            <sc-if value="{{ d.dress_kod }}" hint-placeholder-val="{{ true }}">
+            <div style="display: flex; align-items: center; gap: 12px">
+              <span style="flex: none; width: 40px; height: 40px; border-radius: 50%; border: 1.5px solid rgba(58,15,30,0.45); display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 20 20"><path class="pm-icoD" d="M7 2.5L3 5l1.5 4L6 8.3V17.5h8V8.3l1.5.7L17 5l-4-2.5c-.5 1.5-1.6 2.2-3 2.2s-2.5-.7-3-2.2z"></path></svg></span>
+              <p style="margin: 0; min-width: 0; font-size: 17px; line-height: 1.35; overflow-wrap: anywhere"><span style="display: block; color: #4A1027">Kiyinish uslubi</span><span style="display: block; font-weight: 800">{{ d.dress_kod }}</span></p>
+            </div>
+            </sc-if>
+            <sc-if value="{{ askGuest }}" hint-placeholder-val="{{ false }}">
+              <input class="pm-input" type="text" maxlength="100" placeholder="Ismingiz" aria-label="Ismingiz" onInput="{{ setName }}" style="margin-top: 4px">
+            </sc-if>
+            <div style="display: flex; gap: 10px; margin-top: 4px">
+              <button type="button" class="{{ goCls }}" onClick="{{ go }}">
+                <span class="{{ goIdle }}">Boraman</span>
+                <span class="{{ goDone }}"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 20 20"><path class="pm-ico" d="M4 10.5l4 4 8-9"></path></svg>Kutamiz!</span>
+              </button>
+              <sc-if value="{{ d.xarita }}" hint-placeholder-val="{{ true }}"><a class="pm-map" href="{{ d.xarita }}" target="_blank" rel="noopener"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 20 20"><path class="pm-icoD" d="M10 18s-5.5-5.2-5.5-9.3a5.5 5.5 0 0 1 11 0C15.5 12.8 10 18 10 18z"></path><circle class="pm-icoD" cx="10" cy="8.7" r="2"></circle></svg>Xaritada ochish</a></sc-if>
+            </div>
+            <sc-if value="{{ goErr }}" hint-placeholder-val="{{ false }}"><p class="pm-err" role="alert">{{ goErr }}</p></sc-if>
+            <p style="margin: 6px 0 0; text-align: center; font-size: 12px; font-weight: 800; letter-spacing: 0.22em; text-transform: uppercase; color: #5A1630">Qator: faxriy · O’rin: siz uchun</p>
+          </div>
+        </div>
+      </div>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.javob }}" hint-placeholder-val="{{ true }}">
+    <section style="position: relative; padding: 22px 20px 26px; display: flex; flex-direction: column; align-items: center; text-align: center">
+      <p class="pm-cap" style="margin: 0">Olqishlar!</p>
+      <h2 class="pm-d pm-foil" style="margin: 6px 0 0; font-size: 28px; line-height: 1.2; overflow-wrap: anywhere">{{ askName }}</h2>
+      <p style="margin: 6px 0 18px; font-size: 17px; font-style: italic; line-height: 1.45; color: #E6C9C0">Bir bosishda tabrigingizni yetkazing</p>
+      <div style="position: relative; width: 100%">
+        <div class="{{ sendBurstCls }}" aria-hidden="true" style="position: absolute; left: 175px; top: 10px; width: 0; height: 0; z-index: 3; pointer-events: none">
+          <sc-for list="{{ petals }}" as="c" hint-placeholder-count="24"><span style="{{ c.w }}"><span class="{{ c.k }}" style="{{ c.p }}"></span></span></sc-for>
+        </div>
+        <button type="button" class="{{ sendCls }}" onClick="{{ send }}">
+          <span class="{{ sendIdle }}"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 20 20"><path d="M10 17s-6.5-4.1-6.5-8.6A3.6 3.6 0 0 1 10 6.3a3.6 3.6 0 0 1 6.5 2.1C16.5 12.9 10 17 10 17z" fill="#3A0F1E"></path></svg>Tabrikladim</span>
+          <span class="{{ sendDone }}"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 20 20"><path class="pm-ico" d="M4 10.5l4 4 8-9"></path></svg>Bravo! Tabrigingiz yetkazildi</span>
+        </button>
+      </div>
+    </section>
+</sc-if>
+
+    <footer aria-hidden="true" style="position: relative; flex: 1; min-height: 130px; display: flex; flex-direction: column; justify-content: flex-end">
+      <p class="pm-d pm-foil" style="position: relative; margin: 0 0 40px; text-align: center; font-size: 20px">Davomi bor…</p>
+      <sc-if value="{{ anyBlock }}" hint-placeholder-val="{{ true }}"><div style="position: relative; height: 40px">
+        <sc-for list="{{ footlights }}" as="f" hint-placeholder-count="6"><span class="pm-footGlow" style="{{ f.g }}"></span><span class="pm-foot" style="{{ f.l }}"></span></sc-for>
+        <span style="position: absolute; left: 0; bottom: 0; width: 390px; height: 2px; background: linear-gradient(90deg, rgba(232,180,160,0), #E8B4A0, rgba(232,180,160,0))"></span>
+      </div></sc-if>
+    </footer>
+  </div>
+
+  <div data-intro class="{{ introCls }}" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; z-index: 20; overflow: hidden; background: radial-gradient(70% 50% at 50% 45%, #5A1630 0%, #3A0F1E 50%, #1C060E 100%), #1C060E">
+    <div class="pm-reveal" aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px">
+      <div class="pm-spot" style="left: 15px; top: 0; width: 360px; height: 844px"></div>
+      <div style="position: absolute; left: 0; top: 330px; width: 390px; text-align: center">
+        <p class="pm-cap" style="margin: 0">Bugun bosh rolda</p>
+        <p class="pm-d pm-foil" style="margin: 8px 0 0; padding: 0 30px; font-size: {{ nameFs }}px; line-height: 1.1; overflow-wrap: anywhere">{{ d.kimga }}</p>
+      </div>
+    </div>
+
+    <div class="pm-curL pm-velvet" aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 205px; height: 844px; box-shadow: 10px 0 30px rgba(10,0,4,0.5)">
+      <span class="pm-fringe" style="position: absolute; left: 0; bottom: 0; width: 205px; height: 10px"></span>
+    </div>
+    <div class="pm-curR pm-velvet" aria-hidden="true" style="position: absolute; left: 185px; top: 0; width: 205px; height: 844px; box-shadow: -10px 0 30px rgba(10,0,4,0.5)">
+      <span class="pm-fringe" style="position: absolute; left: 0; bottom: 0; width: 205px; height: 10px"></span>
+    </div>
+
+    <div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; pointer-events: none">
+      <sc-for list="{{ introBubbles }}" as="p" hint-placeholder-count="16"><span class="pm-bub" style="{{ p.st }}"></span></sc-for>
+      <sc-for list="{{ introDust }}" as="p" hint-placeholder-count="22"><span class="pm-dust" style="{{ p.st }}"></span></sc-for>
+    </div>
+
+    <div class="pm-valance" aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 390px; height: 84px">
+      <div class="pm-velvet" style="position: absolute; left: 0; top: 0; width: 390px; height: 48px"></div>
+      <sc-for list="{{ swags }}" as="s" hint-placeholder-count="7"><span class="pm-swag pm-velvet" style="{{ s }}"></span></sc-for>
+      <span class="pm-fringe" style="position: absolute; left: 0; top: 44px; width: 390px; height: 5px"></span>
+    </div>
+
+    <div class="pm-marq" style="position: absolute; left: 40px; top: 106px; width: 310px">
+      <div class="pm-foilBg" style="position: relative; border-radius: 16px; padding: 3px; box-shadow: 0 20px 40px rgba(10,0,4,0.6)">
+        <div style="position: relative; border-radius: 13px; background: radial-gradient(90% 80% at 50% 30%, #4A1027, #1C060E); padding: 26px 18px 24px; text-align: center">
+          <sc-for list="{{ marqBulbs }}" as="u" hint-placeholder-count="20"><span class="{{ u.cls }}" style="{{ u.st }}"></span></sc-for>
+          <p class="pm-cap" style="margin: 0">{{ introDate }}</p>
+          <p class="pm-d pm-foil" style="margin: 6px 0 0; font-size: 44px; line-height: 1.05; letter-spacing: 0.04em">Premyera</p>
+          <p style="margin: 6px 0 0; font-size: 16px; font-style: italic; color: #F7E7CE">bir kishilik tantanali kecha</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="pm-tag" aria-hidden="true" style="position: absolute; left: 105px; top: 270px; width: 180px; height: 270px">
+      <div class="pm-sway" style="position: absolute; left: 0; top: 0; width: 180px; height: 270px">
+        <span style="position: absolute; left: 89px; top: 0; width: 2px; height: 80px; background: linear-gradient(180deg, rgba(232,180,160,0.2), #E8B4A0)"></span>
+        <div class="pm-foilBg" style="position: absolute; left: 0; top: 78px; width: 180px; height: 180px; border-radius: 50%; box-shadow: 0 24px 40px rgba(10,0,4,0.65)">
+          <div style="position: absolute; inset: 5px; border-radius: 50%; background: radial-gradient(circle at 50% 35%, #5A1630, #2A0914); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center">
+            <div style="position: absolute; inset: 7px; border-radius: 50%; border: 1px solid rgba(232,180,160,0.6)"></div>
+            <span class="pm-d pm-foil" style="font-size: 74px; line-height: 1">{{ initial }}</span>
+            <span style="margin-top: 2px; max-width: 120px; font-size: 13px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: #F3CDBB; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{ tagLine }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div aria-hidden="true" style="position: absolute; left: 0; top: 774px; width: 390px; height: 70px">
+      <sc-for list="{{ footlights }}" as="f" hint-placeholder-count="6"><span class="pm-footGlow" style="{{ f.g }}"></span><span class="pm-foot" style="{{ f.l }}"></span></sc-for>
+    </div>
+
+    <div class="pm-ctaWrap" style="position: absolute; left: 24px; top: 600px; width: 342px; display: flex; flex-direction: column; align-items: center; gap: 14px">
+      <sc-if value="{{ has.music }}" hint-placeholder-val="{{ false }}"><p style="margin: 0; display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-style: italic; color: #E6C9C0"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 22 26"><path d="M8 3L20 0V17.5A3.5 3 0 1 1 17 14.6V5.2L10 7V20.5A3.5 3 0 1 1 7 17.6V3Z" fill="#E8B4A0"></path></svg>Parda ochilganda musiqa yangraydi</p></sc-if>
+      <button type="button" class="pm-cta pm-foilBg" onClick="{{ open }}">Pardani oching</button>
+      <sc-if value="{{ from.line }}" hint-placeholder-val="{{ true }}"><p style="margin: 0; padding: 4px 12px; border-radius: 10px; background: rgba(28,6,14,0.55); font-size: 15px; font-weight: 500; line-height: 1.4; color: #F7E7CE; overflow-wrap: anywhere">{{ from.line }}</p></sc-if>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":5600}}'>
+const tkName = (d) => String(d.kimga || '').trim();
+const tkFrom = (d) => {
+  const kd = String(d.kimdan || '').trim(), ci = kd.indexOf(':');
+  const label = ci > 0 ? kd.slice(0, ci).trim() : '';
+  const names = ci > 0 ? kd.slice(ci + 1).trim() : kd;
+  return { label: label, names: names, line: !kd ? '' : (label ? label + 'dan: ' + names : names + 'dan') };
+};
+const tkFit = (text, max, min, width, k) => {
+  const longest = Math.max(1, ...String(text || '').split(/\s+/).map((x) => x.length));
+  return Math.max(min, Math.min(max, Math.floor(width / (longest * k))));
+};
+const ROMAN = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII'];
+
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { opened: false, blown: false, bs: false, going: false, sent: false, goErr: '' };
+    this.guestName = '';
+    this.tick = 0;
+    const rnd = (i, k) => { const x = Math.sin(i * 127.1 + k * 311.7) * 43758.5453; return x - Math.floor(x); };
+    const bubbles = (n, h, seed, pct) => Array.from({ length: n }, (_, i) => {
+      const s = 4 + Math.round(rnd(i, seed) * 9);
+      const top = pct ? (4 + rnd(i, seed + 2) * 96).toFixed(1) + '%' : Math.round(200 + rnd(i, seed + 2) * h) + 'px';
+      return { st: 'left: ' + Math.round(8 + rnd(i, seed + 1) * 372) + 'px; top: ' + top + '; width: ' + s + 'px; height: ' + s + 'px; animation-duration: ' + (8 + rnd(i, seed + 3) * 8).toFixed(1) + 's; animation-delay: -' + (rnd(i, seed + 4) * 12).toFixed(1) + 's' };
+    });
+    const dust = (n, h, seed, pct) => Array.from({ length: n }, (_, i) => {
+      const s = 2 + Math.round(rnd(i, seed) * 3);
+      const top = pct ? (rnd(i, seed + 2) * 99).toFixed(1) + '%' : Math.round(rnd(i, seed + 2) * h) + 'px';
+      return { st: 'left: ' + Math.round(4 + rnd(i, seed + 1) * 380) + 'px; top: ' + top + '; width: ' + s + 'px; height: ' + s + 'px; animation-duration: ' + (2.4 + rnd(i, seed + 3) * 2.4).toFixed(2) + 's; animation-delay: -' + (rnd(i, seed + 4) * 3).toFixed(2) + 's' };
+    });
+    // marquee bulbs around a 304 x ~150 box
+    const mb = [];
+    for (let i = 0; i < 9; i++) { const x = 14 + i * 34; mb.push({ x: x, y: 8 }); mb.push({ x: x, y: -1 }); }
+    const marq = [];
+    for (let i = 0; i < 9; i++) marq.push({ cls: i % 2 ? 'pm-bulb pm-bulb--b' : 'pm-bulb', st: 'left: ' + (16 + i * 33) + 'px; top: 8px' });
+    for (let i = 0; i < 9; i++) marq.push({ cls: i % 2 ? 'pm-bulb' : 'pm-bulb pm-bulb--b', st: 'left: ' + (16 + i * 33) + 'px; bottom: 8px' });
+    // arch bulbs around hero poster (center 195,110 radius 120)
+    const arch = Array.from({ length: 13 }, (_, i) => {
+      const a = Math.PI * (i / 12);
+      const x = 195 - Math.cos(a) * 124, y = 112 - Math.sin(a) * 124;
+      return { cls: i % 2 ? 'pm-bulb pm-bulb--b' : 'pm-bulb', st: 'left: ' + (x - 4.5).toFixed(1) + 'px; top: ' + (y - 4.5).toFixed(1) + 'px' };
+    });
+    const pcols = ['#E8B4A0', '#F7E7CE', '#C98B78', '#F3CDBB', '#B04466'];
+    const burst = (n, base, seed) => Array.from({ length: n }, (_, i) => {
+      const ang = -84 + (168 * i) / (n - 1) + (rnd(i, seed) - 0.5) * 10;
+      const petal = i % 3 !== 0;
+      return {
+        w: 'position: absolute; left: 0; top: 0; width: 0; height: 0; transform: rotate(' + ang.toFixed(1) + 'deg)',
+        k: 'pm-p pm-k' + (1 + ((i * 7) % 3)),
+        p: 'width: ' + (petal ? 10 : 7) + 'px; height: ' + (petal ? 14 : 7) + 'px; margin: -7px 0 0 -5px; border-radius: ' + (petal ? '50% 0 50% 50%' : '50%') + '; background: ' + pcols[i % 5] + '; animation-delay: ' + (base + rnd(i, seed + 1) * 0.18).toFixed(2) + 's'
+      };
+    });
+    this.deco = {
+      glows: [[-140, 1000, 'rgba(232,180,160,0.16)'], [150, 1700, 'rgba(176,68,102,0.22)'], [-160, 2500, 'rgba(232,180,160,0.14)'], [140, 3300, 'rgba(176,68,102,0.2)'], [-120, 4100, 'rgba(232,180,160,0.14)'], [130, 4800, 'rgba(176,68,102,0.18)']].map((g) => 'position: absolute; left: ' + g[0] + 'px; top: ' + g[1] + 'px; width: 440px; height: 440px; border-radius: 50%; background: radial-gradient(circle, ' + g[2] + ', rgba(0,0,0,0) 70%)'),
+      pageBubbles: bubbles(26, 0, 3, true),
+      pageDust: dust(34, 0, 7, true),
+      introBubbles: bubbles(16, 640, 13, false),
+      introDust: dust(22, 844, 17, false),
+      swags: Array.from({ length: 7 }, (_, i) => 'left: ' + (-12 + i * 59) + 'px'),
+      marqBulbs: marq,
+      archBulbs: arch,
+      footlights: Array.from({ length: 6 }, (_, i) => ({ l: 'left: ' + (22 + i * 66) + 'px', g: 'left: ' + (-8 + i * 66) + 'px; animation-delay: -' + (i * 0.6).toFixed(1) + 's' })),
+      petals: burst(24, 0.05, 51),
+      stars: [1, 2, 3, 4, 5]
+    };
+  }
+  componentDidMount() {
+    this.timer = setInterval(() => { this.prevCd = this.lastCd; this.tick += 1; this.forceUpdate(); }, 1000);
+  }
+  componentWillUnmount() {
+    clearInterval(this.timer);
+  }
+  renderVals() {
+    const s = this.state;
+    const D = SITE.d;
+    const name = tkName(D), from = tkFrom(D);
+    const w = SITE.when(D.sana), bw = SITE.when(D.bazm_sana);
+    const c = SITE.countdown(D.sana);
+    const cur = [c.dd, c.hh, c.mm, c.ss];
+    const prev = this.prevCd || cur;
+    this.lastCd = cur;
+    const flip = (i) => ({ cur: cur[i], prev: prev[i], cls: cur[i] !== prev[i] ? (this.tick % 2 ? 'pm-flip pm-flip--a' : 'pm-flip pm-flip--b') : 'pm-flip' });
+    const yosh = String(D.yosh || '').trim();
+    const matn = String(D.matn || '').trim();
+    const n = Math.min(6, SITE.has.photos);
+    const order = n > 1 ? SITE.p.slice(1, n).concat([SITE.p[0]]) : SITE.p.slice(0, 1);
+    const chron = (D.xronika || []).map((x, i) => {
+      const y = String(x.yosh || '').trim();
+      return { yosh: y, matn: x.matn || '', fs: y.length > 2 ? 24 : 34, src: SITE.p[i % SITE.p.length] };
+    });
+    const reviews = (D.mehmon_tilaklari || []).map((r, i) => ({
+      ism: r.ism || '', matn: r.matn || '',
+      st: 'margin: 0 ' + (i % 2 ? '0 0 26px' : '26px 0 0') + '; padding: 18px 18px 16px; border-radius: 16px; background: linear-gradient(140deg, rgba(90,22,48,0.75), rgba(42,9,20,0.65)); border: 1px solid rgba(232,180,160,0.35); box-shadow: 0 16px 30px rgba(10,0,4,0.35)'
+    }));
+    return Object.assign({}, this.deco, {
+      from: from,
+      anyBlock: Object.keys(SITE.b).some((k) => SITE.b[k]),
+      heroCap: w.dm ? 'Premyera · ' + w.dm : 'Premyera',
+      introDate: [w.dm, w.weekday].filter(Boolean).join(' · ') || 'Bugun kechqurun',
+      tagLine: yosh ? yosh + ' yosh' : 'tug’ilgan kun',
+      initial: name.charAt(0).toUpperCase(),
+      nameFs: tkFit(name, 58, 24, 290, 0.8),
+      noPhoto: !SITE.has.photo,
+      twoPhotos: SITE.has.photos >= 2,
+      dots: w.dots,
+      ageFs: yosh.length > 2 ? 30 : 42,
+      musicCls: SITE.music.playing ? 'pm-music pm-music--on' : 'pm-music',
+      musicOn: SITE.music.playing ? 'true' : 'false',
+      toggleMusic: () => { SITE.music.toggle(); },
+      dropCap: matn.charAt(0),
+      restText: matn.slice(1),
+      cdTitle: c.done ? 'Bayram boshlandi!' : 'Tug’ilgan kungacha',
+      cdDate: [w.date, w.weekday].filter(Boolean).join(', '),
+      f0: flip(0), f1: flip(1), f2: flip(2), f3: flip(3),
+      wishes: (D.tilaklar || []).map((t, i) => ({ text: t, n: ROMAN[i] || String(i + 1) })),
+      cakeCls: s.blown ? 'pm-cake pm-cake--out' : 'pm-cake',
+      wishCls: s.blown ? 'pm-wish pm-wish--on' : 'pm-wish',
+      wishLine: 'Niyating ushalsin, ' + name + '!',
+      blowIdle: s.blown ? 'is-hidden' : '',
+      blowDone: s.blown ? '' : 'is-hidden',
+      blow: () => this.setState({ blown: !this.state.blown }),
+      bsCls: s.bs ? 'pm-bs pm-bs--on' : 'pm-bs',
+      toggleBs: () => this.setState({ bs: !this.state.bs }),
+      g0: order[0], g1: order[1] || '', g2: order[2] || '',
+      gPair: order.length > 1,
+      gStrip: order.slice(3),
+      gStripOn: order.length > 3,
+      chron: chron,
+      reviews: reviews,
+      bazmDate: [bw.date, bw.weekday].filter(Boolean).join(', '),
+      askGuest: !SITE.has.guest && !s.going,
+      setName: (e) => { this.guestName = e.target.value; },
+      goErr: s.goErr,
+      goCls: s.going ? 'pm-go pm-go--on' : 'pm-go',
+      goIdle: s.going ? 'is-hidden' : '',
+      goDone: s.going ? 'pm-row' : 'is-hidden',
+      go: () => {
+        if (this.state.going || this.busy) return;
+        const nm = this.guestName.trim();
+        if (!SITE.has.guest && !nm) { this.setState({ goErr: 'Ismingizni yozing' }); return; }
+        this.busy = true;
+        SITE.rsvp(true, 1, nm).then(() => { this.busy = false; this.setState({ going: true, goErr: '' }); })
+          .catch(() => { this.busy = false; this.setState({ goErr: 'Yuborilmadi, qayta urinib ko’ring' }); });
+      },
+      askName: name + 'ni tabrikladingizmi?',
+      sendCls: s.sent ? 'pm-send pm-send--done' : 'pm-send pm-foilBg',
+      sendIdle: s.sent ? 'is-hidden' : 'pm-row',
+      sendDone: s.sent ? 'pm-row' : 'is-hidden',
+      sendBurstCls: s.sent ? 'pm-burst pm-burst--go' : 'pm-burst',
+      send: () => { if (this.state.sent) return; this.setState({ sent: true }); SITE.reply('Tabrikladim', '🥰'); },
+      introCls: s.opened ? 'pm-intro pm-intro--open' : 'pm-intro',
+      pageCls: s.opened ? 'pm-page pm-page--in' : 'pm-page',
+      open: () => { if (this.state.opened) return; this.setState({ opened: true }); SITE.opened(); }
+    });
+  }
+}
+</script>
+</body>
+</html>

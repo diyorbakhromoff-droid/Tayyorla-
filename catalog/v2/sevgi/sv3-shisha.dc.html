@@ -1,0 +1,518 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<title>Sevgi maktubi: Shishadagi maktub</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;family=Prata&amp;display=swap">
+<style>
+body{margin:0}
+.pr{font-family:'Prata',Georgia,'Times New Roman',serif;font-weight:400}
+.ico{fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.ico-f{fill:currentColor}
+button:focus-visible{outline:2px solid #E0B05A;outline-offset:3px}
+button:disabled{opacity:.75;cursor:default}
+
+/* svg paints */
+.w1{fill:#B5546F}.w2{fill:#7A3563}.w3{fill:#56244F}
+.w-pe{fill:#FFD3B5}.w-l1{fill:#FFD3B5;opacity:.35}.w-l2{fill:#FF9A76;opacity:.45}.w-l3{fill:#FFF1E6}
+.w-d1{fill:#8A3E6B;opacity:.45}.w-d2{fill:#56244F;opacity:.75}.w-d3{fill:#3D1A47}
+.gl{fill:rgba(214,240,236,.32);stroke:rgba(255,255,255,.85);stroke-width:1.6}
+.gl-hi{fill:none;stroke:rgba(255,255,255,.8);stroke-width:2.4;stroke-linecap:round}
+.gl-neck{fill:rgba(214,240,236,.4);stroke:rgba(255,255,255,.85);stroke-width:1.4}
+.ppr{fill:#FFF4EA}.ppr-s{fill:#F2D8C2}
+.rib{fill:#E0B05A}.rib-d{fill:#B98731}
+.crk{fill:#B9824F}.crk-d{fill:#8E5E35}
+.bird{fill:none;stroke:#3D1A47;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;opacity:.7}
+.cs{fill:#E0B05A}.cs-d{fill:#B98731}
+.bt-ln{fill:none;stroke:#E0B05A;stroke-width:1.4;stroke-linecap:round}
+
+/* intro */
+.p-intro{transition:opacity .55s ease 1.25s,visibility 0s linear 1.85s}
+.p-intro.is-open{opacity:0;visibility:hidden;pointer-events:none}
+.p-fadeout{transition:opacity .4s ease,transform .4s ease}
+.p-intro.is-open .p-fadeout{opacity:0;transform:translateY(-12px)}
+.p-cork{transform-origin:50% 50%}
+.p-intro.is-open .p-cork{animation:pCork .55s cubic-bezier(.2,.7,.3,1) forwards}
+@keyframes pCork{0%{transform:none;opacity:1}30%{transform:translate(10px,-4px) rotate(10deg);opacity:1}100%{transform:translate(70px,-90px) rotate(160deg);opacity:0}}
+.p-intro.is-open .p-bottle{animation:pSink .8s ease-in .55s forwards}
+@keyframes pSink{to{transform:translateY(46px) rotate(-8deg);opacity:0}}
+.p-scroll{opacity:0;transform:translate(70px,40px) scale(.18) rotate(-80deg)}
+.p-intro.is-open .p-scroll{animation:pScroll .9s cubic-bezier(.2,.8,.2,1) .35s forwards}
+@keyframes pScroll{0%{opacity:0;transform:translate(70px,40px) scale(.18) rotate(-80deg)}25%{opacity:1}100%{opacity:1;transform:translate(0,-150px) scale(1) rotate(0)}}
+
+/* moving decor */
+.p-bob{animation:pBob 4.2s ease-in-out infinite}
+@keyframes pBob{0%,100%{transform:translateY(0) rotate(-6deg)}50%{transform:translateY(-9px) rotate(-2deg)}}
+.p-wave{animation:pWave 7s linear infinite}
+.p-wave2{animation-duration:10s;animation-direction:reverse}
+.p-wave3{animation-duration:14s}
+@keyframes pWave{from{transform:translateX(0)}to{transform:translateX(-130px)}}
+.p-sun{animation:pSun 6s ease-in-out infinite}
+@keyframes pSun{0%,100%{opacity:.75;transform:scale(1)}50%{opacity:1;transform:scale(1.08)}}
+.p-glint{animation:pGlint 2.8s ease-in-out infinite}
+.p-g2{animation-delay:-.9s}.p-g3{animation-delay:-1.8s}
+@keyframes pGlint{0%,100%{opacity:.2;transform:scaleX(.6)}50%{opacity:1;transform:scaleX(1)}}
+.p-bird{animation:pBird 16s ease-in-out infinite}
+.p-bird2{animation-duration:21s;animation-delay:-7s}
+@keyframes pBird{0%,100%{transform:translate(0,0)}50%{transform:translate(34px,-12px)}}
+.p-bub{animation:pBub 9s ease-in-out infinite}
+.p-bub2{animation-duration:12s;animation-delay:-4s}.p-bub3{animation-duration:10s;animation-delay:-7s}
+@keyframes pBub{0%,100%{transform:translateY(0);opacity:.5}50%{transform:translateY(-18px);opacity:1}}
+.p-shine{position:relative;overflow:hidden}
+.p-shine::after{content:"";position:absolute;top:0;left:0;width:40%;height:100%;background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,.65),rgba(255,255,255,0));transform:translateX(-120%) skewX(-20deg);animation:pShine 3.8s ease-in-out 1s infinite;pointer-events:none}
+@keyframes pShine{0%{transform:translateX(-120%) skewX(-20deg)}55%,100%{transform:translateX(320%) skewX(-20deg)}}
+.p-pulse{animation:pPulse 2.6s ease-out infinite}
+@keyframes pPulse{0%{transform:scale(.8);opacity:.9}100%{transform:scale(2);opacity:0}}
+
+.p-secret{filter:blur(7px);opacity:.8;user-select:none;transition:filter .9s ease,opacity .9s ease}
+.p-secret.is-shown{filter:none;opacity:1;user-select:auto}
+.pg-img{position:absolute;left:0;top:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.05);transition:opacity .6s ease,transform 1.2s ease}
+.pg-img.is-on{opacity:1;transform:scale(1)}
+.pg-thumb{opacity:.55;transition:opacity .2s ease,box-shadow .2s ease}
+.pg-thumb.is-on{opacity:1;box-shadow:0 0 0 2px #FFF1E6,0 0 0 4px #C9573F}
+.p-chip{transition:background-color .2s ease,color .2s ease,border-color .2s ease}
+.p-pop{animation:pPop .6s cubic-bezier(.2,1.4,.4,1) both}
+@keyframes pPop{from{transform:scale(.2);opacity:0}to{transform:scale(1);opacity:1}}
+.p-up{position:absolute;animation:pUp 1.8s ease-out both}
+.p-up2{animation-delay:.15s}.p-up3{animation-delay:.3s}.p-up4{animation-delay:.45s}
+@keyframes pUp{0%{transform:translateY(10px) scale(.6);opacity:0}25%{opacity:1}100%{transform:translateY(-50px) scale(1);opacity:0}}
+.p-in{animation:pIn .5s ease-out both}
+@keyframes pIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+@media (prefers-reduced-motion: reduce){
+.p-bob,.p-wave,.p-sun,.p-glint,.p-bird,.p-bub,.p-shine::after,.p-pulse,.p-pop,.p-up,.p-in{animation:none}
+.p-up{opacity:0}
+.p-intro,.p-fadeout,.p-secret,.pg-img,.pg-thumb,.p-chip{transition:none}
+.p-intro.is-open .p-cork,.p-intro.is-open .p-bottle,.p-intro.is-open .p-scroll{animation:none}
+}
+</style>
+</helmet>
+<div style="width: 390px; min-height: var(--vh, 100vh); position: relative; overflow: hidden; background: #FFF1E6; color: #3D1A47; font-family: 'Montserrat', system-ui, -apple-system, 'Segoe UI', sans-serif; display: flex; flex-direction: column">
+
+  <div data-intro class="{{ introCls }}" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; z-index: 20; overflow: hidden; background: linear-gradient(180deg, #3D1A47 0%, #6E2F5E 22%, #B9506E 42%, #F07D74 58%, #FFB48E 66%, #FFD3B5 70%, #E9877A 70.2%, #B5546F 76.5%, #B5546F 83.5%, #7A3563 84.5%, #7A3563 100%)">
+    <div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px">
+      <div class="p-sun" style="position: absolute; left: 45px; top: 440px; width: 300px; height: 300px; border-radius: 50%; background: radial-gradient(circle, rgba(255, 226, 170, 0.75) 0%, rgba(255, 180, 130, 0.25) 42%, rgba(255, 180, 130, 0) 68%)"></div>
+      <div style="position: absolute; left: 0; top: 0; width: 390px; height: 591px; overflow: hidden">
+        <div style="position: absolute; left: 125px; top: 521px; width: 140px; height: 140px; border-radius: 50%; background: radial-gradient(circle at 50% 40%, #FFF6E2 0%, #FFE0A8 45%, #FFB27A 100%); box-shadow: 0 0 60px rgba(255, 210, 150, 0.8)"></div>
+      </div>
+      <span class="p-glint" style="position: absolute; left: 150px; top: 604px; width: 90px; height: 3px; border-radius: 3px; background: #FFE7C4"></span>
+      <span class="p-glint p-g2" style="position: absolute; left: 165px; top: 622px; width: 60px; height: 3px; border-radius: 3px; background: #FFE7C4"></span>
+      <span class="p-glint p-g3" style="position: absolute; left: 176px; top: 642px; width: 38px; height: 2px; border-radius: 2px; background: #FFE7C4"></span>
+      <span class="p-glint p-g2" style="position: absolute; left: 184px; top: 664px; width: 22px; height: 2px; border-radius: 2px; background: #FFE7C4"></span>
+      <svg class="p-bird" style="position: absolute; left: 70px; top: 360px" width="26" height="12" viewBox="0 0 26 12"><path class="bird" d="M1 6 Q7 0 13 7 Q19 0 25 6"></path></svg>
+      <svg class="p-bird p-bird2" style="position: absolute; left: 290px; top: 400px" width="18" height="9" viewBox="0 0 26 12"><path class="bird" d="M1 6 Q7 0 13 7 Q19 0 25 6"></path></svg>
+      <svg class="p-bird" style="position: absolute; left: 110px; top: 392px" width="14" height="7" viewBox="0 0 26 12"><path class="bird" d="M1 6 Q7 0 13 7 Q19 0 25 6"></path></svg>
+      <svg class="p-wave p-wave3" style="position: absolute; left: 0; top: 640px" width="520" height="204" viewBox="0 0 520 204"><path class="w1" d="M0 20 Q32.5 12 65.0 20 T130 20 Q162.5 12 195.0 20 T260 20 Q292.5 12 325.0 20 T390 20 Q422.5 12 455.0 20 T520 20 V204 H0 Z"></path></svg>
+      <svg class="p-wave p-wave2" style="position: absolute; left: 0; top: 700px" width="520" height="144" viewBox="0 0 520 144"><path class="w2" d="M0 18 Q32.5 9 65.0 18 T130 18 Q162.5 9 195.0 18 T260 18 Q292.5 9 325.0 18 T390 18 Q422.5 9 455.0 18 T520 18 V144 H0 Z"></path></svg>
+    </div>
+
+    <div class="p-fadeout" style="position: relative; z-index: 2; padding: 92px 20px 0; display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center">
+      <p style="margin: 0; font-size: 12px; font-weight: 600; letter-spacing: 0.26em; text-transform: uppercase; color: #FFD3B5">Dengiz senga maktub keltirdi</p>
+      <p class="pr" style="margin: 0; font-size: {{ introPx }}px; line-height: 1.12; color: #FFF6EE; overflow-wrap: break-word">{{ d.kimga }} uchun</p>
+      <p style="margin: 0; font-size: 15px; font-weight: 500; color: #FFE3D3; overflow-wrap: anywhere">{{ fromSub }}</p>
+    </div>
+
+    <div aria-hidden="true" class="p-scroll" style="position: absolute; left: 125px; top: 420px; z-index: 4; width: 140px; height: 168px">
+      <div style="position: absolute; left: 0; top: 0; width: 140px; height: 14px; border-radius: 7px; background: linear-gradient(180deg, #F2D8C2, #FFF8F0 50%, #E8C8AE)"></div>
+      <div style="position: absolute; left: 6px; top: 7px; width: 128px; height: 154px; box-sizing: border-box; padding: 16px 14px; background: #FFF6EC; display: flex; flex-direction: column; gap: 8px">
+        <span class="pr" style="font-size: 13px; color: #B4475A; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{ greet }}</span>
+        <span style="width: 92%; height: 3px; border-radius: 3px; background: #F0D9C6"></span>
+        <span style="width: 80%; height: 3px; border-radius: 3px; background: #F0D9C6"></span>
+        <span style="width: 88%; height: 3px; border-radius: 3px; background: #F0D9C6"></span>
+        <span style="width: 70%; height: 3px; border-radius: 3px; background: #F0D9C6"></span>
+        <span style="width: 84%; height: 3px; border-radius: 3px; background: #F0D9C6"></span>
+      </div>
+      <div style="position: absolute; left: 0; top: 154px; width: 140px; height: 14px; border-radius: 7px; background: linear-gradient(180deg, #F2D8C2, #FFF8F0 50%, #E8C8AE)"></div>
+    </div>
+
+    <div aria-hidden="true" class="p-bottle" style="position: absolute; left: 92px; top: 588px; z-index: 3; width: 206px; height: 96px">
+      <div class="p-bob" style="width: 206px; height: 96px">
+        <svg width="206" height="96" viewBox="0 0 206 96">
+          <path class="gl" d="M30 18 H128 C140 18 146 30 156 34 H176 V62 H156 C146 66 140 78 128 78 H30 C14 78 6 66 6 48 C6 30 14 18 30 18 Z"></path>
+          <rect class="ppr-s" x="30" y="34" width="96" height="28" rx="14"></rect>
+          <rect class="ppr" x="30" y="32" width="96" height="26" rx="13"></rect>
+          <rect class="rib" x="72" y="31" width="10" height="28"></rect>
+          <path class="rib-d" d="M77 58 L71 70 L77 66 L83 70 Z"></path>
+          <path class="gl-hi" d="M30 26 H110"></path>
+          <path class="gl-hi" d="M16 40 C15 46 15 52 16 58" style="opacity: 0.6"></path>
+          <g class="p-cork">
+            <rect class="crk" x="174" y="36" width="24" height="24" rx="4"></rect>
+            <path class="crk-d" d="M180 40 V56 M186 38 V58 M192 40 V56"></path>
+          </g>
+        </svg>
+      </div>
+    </div>
+
+    <div class="p-fadeout" style="position: absolute; left: 0; top: 724px; z-index: 5; width: 390px; display: flex; flex-direction: column; align-items: center; gap: 10px">
+      <button type="button" class="p-shine" onClick="{{ open }}" style="min-height: 56px; padding: 0 30px; border-radius: 999px; border: 1.5px solid #E0B05A; background: linear-gradient(135deg, #FFE6D3 0%, #FFC3A0 55%, #FF9A76 100%); color: #3D1A47; font-family: 'Montserrat', system-ui, sans-serif; font-size: 17px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 10px; box-shadow: 0 14px 30px -10px rgba(30, 6, 30, 0.6)">
+        <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path class="ico" d="M9 3h6v4H9z"></path><path class="ico" d="M10 7v2.5C7.5 10.5 6 12.8 6 15.5V20a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-4.5c0-2.7-1.5-5-4-6V7"></path></svg>
+        Tiqinni oching
+      </button>
+      <p style="margin: 0; font-size: 13px; color: #FFD3B5">Shisha ichida — faqat sen uchun yozilgan so’zlar</p>
+    </div>
+  </div>
+
+  <header style="position: relative; overflow: hidden; height: 470px; background: linear-gradient(180deg, #3D1A47 0%, #6E2F5E 26%, #C0566F 50%, #F48A78 68%, #FFC9A6 84%, #FFE2CC 100%); display: flex; flex-direction: column; align-items: center; text-align: center">
+    <div aria-hidden="true" class="p-sun" style="position: absolute; left: 65px; top: 250px; width: 260px; height: 260px; border-radius: 50%; background: radial-gradient(circle, rgba(255, 236, 196, 0.85) 0%, rgba(255, 200, 150, 0.3) 45%, rgba(255, 200, 150, 0) 70%)"></div>
+    <div aria-hidden="true" style="position: absolute; left: 140px; top: 330px; width: 110px; height: 110px; border-radius: 50%; background: radial-gradient(circle at 50% 40%, #FFF6E2 0%, #FFE0A8 50%, #FFB27A 100%)"></div>
+    <svg aria-hidden="true" class="p-bird" style="position: absolute; left: 60px; top: 250px" width="24" height="11" viewBox="0 0 26 12"><path class="bird" d="M1 6 Q7 0 13 7 Q19 0 25 6"></path></svg>
+    <svg aria-hidden="true" class="p-bird p-bird2" style="position: absolute; left: 300px; top: 280px" width="16" height="8" viewBox="0 0 26 12"><path class="bird" d="M1 6 Q7 0 13 7 Q19 0 25 6"></path></svg>
+    <div style="position: relative; padding: 70px 20px 0; display: flex; flex-direction: column; align-items: center; gap: 10px">
+      <p style="margin: 0; font-size: 12px; font-weight: 600; letter-spacing: 0.26em; text-transform: uppercase; color: #FFD3B5; overflow-wrap: anywhere">{{ eyebrow }}</p>
+      <h1 class="pr" style="margin: 0; font-size: {{ h1px }}px; line-height: 1.12; color: #FFF6EE; overflow-wrap: break-word">{{ d.kimga }} uchun</h1>
+      <sc-if value="{{ hasDate }}">
+      <p style="margin: 4px 0 0; font-size: 15px; font-weight: 500; color: #FFE3D3">{{ dateSince }}</p>
+      </sc-if>
+    </div>
+    <svg aria-hidden="true" class="p-wave p-wave3" style="position: absolute; left: 0; top: 392px" width="520" height="80" viewBox="0 0 520 80"><path class="w-l1" d="M0 22 Q32.5 12 65.0 22 T130 22 Q162.5 12 195.0 22 T260 22 Q292.5 12 325.0 22 T390 22 Q422.5 12 455.0 22 T520 22 V80 H0 Z"></path></svg>
+    <svg aria-hidden="true" class="p-wave p-wave2" style="position: absolute; left: 0; top: 410px" width="520" height="62" viewBox="0 0 520 62"><path class="w-l2" d="M0 18 Q32.5 9 65.0 18 T130 18 Q162.5 9 195.0 18 T260 18 Q292.5 9 325.0 18 T390 18 Q422.5 9 455.0 18 T520 18 V62 H0 Z"></path></svg>
+    <svg aria-hidden="true" class="p-wave" style="position: absolute; left: 0; top: 432px" width="520" height="40" viewBox="0 0 520 40"><path class="w-l3" d="M0 14 Q32.5 7 65.0 14 T130 14 Q162.5 7 195.0 14 T260 14 Q292.5 7 325.0 14 T390 14 Q422.5 7 455.0 14 T520 14 V40 H0 Z"></path></svg>
+  </header>
+
+  <sc-if value="{{ b.maktub }}">
+  <section style="position: relative; padding: 8px 18px 48px; background: #FFF1E6">
+    <div style="position: relative; margin: 0 auto; width: 354px">
+      <div aria-hidden="true" style="position: relative; z-index: 2; height: 22px; border-radius: 11px; background: linear-gradient(180deg, #E8C8AE 0%, #FFF8F0 45%, #F2D8C2 70%, #D9B394 100%); box-shadow: 0 6px 10px -6px rgba(90, 40, 30, 0.45)"></div>
+      <svg aria-hidden="true" width="60" height="34" viewBox="0 0 60 34" style="position: absolute; left: 147px; top: 2px; z-index: 3">
+        <path class="rib" d="M30 10 C18 -2 6 2 8 10 C10 18 22 14 30 10 Z"></path>
+        <path class="rib" d="M30 10 C42 -2 54 2 52 10 C50 18 38 14 30 10 Z"></path>
+        <path class="rib-d" d="M28 10 L20 32 L26 28 L30 12 Z"></path>
+        <path class="rib-d" d="M32 10 L40 32 L34 28 L30 12 Z"></path>
+        <circle class="rib-d" cx="30" cy="10" r="4"></circle>
+      </svg>
+      <article style="margin: -11px 10px 0; padding: 34px 22px 30px; background: linear-gradient(180deg, #FFF6EC 0%, #FFFAF4 50%, #FFF3E6 100%); box-shadow: 0 20px 40px -26px rgba(90, 40, 60, 0.5); display: flex; flex-direction: column; gap: 14px">
+        <p class="pr" style="margin: 0; font-size: 22px; line-height: 1.3; color: #B4475A; overflow-wrap: anywhere">{{ greet }}</p>
+        <p style="margin: 0; font-size: 16px; line-height: 1.75; white-space: pre-line; overflow-wrap: anywhere">{{ d.matn }}</p>
+        <sc-if value="{{ sign }}">
+        <div style="margin-top: 4px; display: flex; justify-content: flex-end; align-items: center; gap: 12px">
+          <span style="width: 40px; height: 1px; background: #E0B05A"></span>
+          <p class="pr" style="margin: 0; font-size: 19px; color: #B4475A; overflow-wrap: anywhere">{{ sign }}</p>
+        </div>
+        </sc-if>
+      </article>
+      <div aria-hidden="true" style="position: relative; z-index: 2; margin-top: -11px; height: 22px; border-radius: 11px; background: linear-gradient(180deg, #E8C8AE 0%, #FFF8F0 45%, #F2D8C2 70%, #D9B394 100%); box-shadow: 0 -4px 10px -6px rgba(90, 40, 30, 0.35)"></div>
+    </div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.sabablar }}">
+  <section style="position: relative; overflow: hidden; padding: 44px 20px 46px; background: linear-gradient(180deg, #FFF1E6 0%, #FFE0CC 55%, #FFD3B5 100%)">
+    <span aria-hidden="true" class="p-bub" style="position: absolute; left: 26px; top: 120px; width: 14px; height: 14px; border-radius: 50%; border: 1.5px solid rgba(255, 154, 118, 0.7)"></span>
+    <span aria-hidden="true" class="p-bub p-bub2" style="position: absolute; left: 340px; top: 210px; width: 10px; height: 10px; border-radius: 50%; border: 1.5px solid rgba(224, 176, 90, 0.8)"></span>
+    <span aria-hidden="true" class="p-bub p-bub3" style="position: absolute; left: 330px; top: 60px; width: 18px; height: 18px; border-radius: 50%; border: 1.5px solid rgba(255, 154, 118, 0.6)"></span>
+    <span aria-hidden="true" class="p-bub p-bub2" style="position: absolute; left: 40px; top: 380px; width: 8px; height: 8px; border-radius: 50%; background: rgba(224, 176, 90, 0.6)"></span>
+    <div style="position: relative; display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center">
+      <p style="margin: 0; font-size: 12px; font-weight: 700; letter-spacing: 0.24em; text-transform: uppercase; color: #9A4A3A">{{ reasonsLbl }}</p>
+      <h2 class="pr" style="margin: 0; font-size: 29px; line-height: 1.2; color: #3D1A47">Seni sevishimning sabablari</h2>
+    </div>
+    <ol style="position: relative; list-style: none; margin: 22px 0 0; padding: 0; display: flex; flex-direction: column; gap: 12px">
+      <sc-for list="{{ reasons }}" as="r">
+      <li style="{{ r.st }}display: flex; align-items: center; gap: 14px; padding: 12px 18px 12px 12px; border-radius: 999px; background: rgba(255, 255, 255, 0.72); box-shadow: 0 10px 20px -16px rgba(90, 30, 60, 0.6)">
+        <span class="pr" style="flex: none; width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #F5D58E, #E0B05A 55%, #B98731); color: #3D1A47; display: flex; align-items: center; justify-content: center; font-size: 17px">{{ r.n }}</span>
+        <span style="font-size: 16px; font-weight: 500; line-height: 1.35; overflow-wrap: anywhere">{{ r.t }}</span>
+      </li>
+      </sc-for>
+    </ol>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ darkBand }}">
+  <div style="position: relative; overflow: hidden; background: linear-gradient(180deg, #4A1F52 0%, #3D1A47 30%, #2A1033 100%); color: #F6E6EE">
+    <svg aria-hidden="true" class="p-wave p-wave2" style="position: absolute; left: 0; top: -1px" width="520" height="40" viewBox="0 0 520 40"><path class="{{ wtop }}" d="M0 0 H520 V22 Q487.5 30 455.0 22 T390 22 Q357.5 30 325.0 22 T260 22 Q227.5 30 195.0 22 T130 22 Q97.5 30 65.0 22 T0 22 Z"></path></svg>
+
+    <sc-if value="{{ b.yol }}">
+    <section style="position: relative; padding: 70px 22px 40px">
+      <div style="display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center">
+        <sc-if value="{{ yolRange }}"><p style="margin: 0; font-size: 12px; font-weight: 700; letter-spacing: 0.24em; color: #E0B05A">{{ yolRange }}</p></sc-if>
+        <h2 class="pr" style="margin: 0; font-size: 29px; line-height: 1.2; color: #FFD3B5">Bizning yo’limiz</h2>
+        <p style="margin: 0; font-size: 14px; font-style: italic; color: #E2C6D6">Dengiz bo’ylab, bekatma-bekat</p>
+      </div>
+      <ol style="position: relative; list-style: none; margin: 26px 0 0; padding: 0 0 0 4px">
+        <span aria-hidden="true" style="position: absolute; left: 23px; top: 10px; bottom: 26px; width: 0; border-left: 2px dashed rgba(224, 176, 90, 0.6)"></span>
+        <sc-for list="{{ yol }}" as="y">
+        <li style="position: relative; display: flex; gap: 16px; padding-bottom: 22px">
+          <span style="position: relative; flex: none; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center">
+            <sc-if value="{{ y.last }}"><span aria-hidden="true" class="p-pulse" style="position: absolute; left: 4px; top: 4px; width: 32px; height: 32px; border-radius: 50%; background: rgba(255, 154, 118, 0.5)"></span></sc-if>
+            <svg aria-hidden="true" width="34" height="34" viewBox="0 0 34 34" style="position: relative">
+              <circle cx="17" cy="17" r="15" style="fill: #3D1A47; stroke: #E0B05A; stroke-width: 1.4"></circle>
+              <path class="cs" d="M17 4 L19.2 14.8 L30 17 L19.2 19.2 L17 30 L14.8 19.2 L4 17 L14.8 14.8 Z"></path>
+              <path class="cs-d" d="M17 4 L19.2 14.8 L17 17 Z M30 17 L19.2 19.2 L17 17 Z M17 30 L14.8 19.2 L17 17 Z M4 17 L14.8 14.8 L17 17 Z"></path>
+            </svg>
+          </span>
+          <div style="flex: 1; min-width: 0; padding-top: 2px; display: flex; flex-direction: column; gap: 3px">
+            <span class="pr" style="font-size: 20px; line-height: 1.2; color: #F0C87A">{{ y.yil }}</span>
+            <span style="font-size: 16px; font-weight: 700; line-height: 1.35; color: #FFE3D3; overflow-wrap: anywhere">{{ y.sarlavha }}</span>
+            <sc-if value="{{ y.matn }}"><span style="font-size: 14px; line-height: 1.5; color: #E2C6D6; overflow-wrap: anywhere">{{ y.matn }}</span></sc-if>
+          </div>
+        </li>
+        </sc-for>
+      </ol>
+    </section>
+    </sc-if>
+
+    <sc-if value="{{ b.sirli }}">
+    <section style="{{ sirliPad }}position: relative; padding-left: 20px; padding-right: 20px; padding-bottom: 56px">
+      <div style="position: relative; overflow: hidden; border-radius: 24px; padding: 28px 22px 26px; background: linear-gradient(160deg, rgba(255, 154, 118, 0.2), rgba(138, 62, 107, 0.25)); border: 1px solid rgba(224, 176, 90, 0.45); display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center">
+        <svg aria-hidden="true" width="44" height="58" viewBox="0 0 44 58">
+          <rect class="crk" x="15" y="2" width="14" height="9" rx="2"></rect>
+          <path class="gl" d="M17 11 H27 V18 C36 21 40 28 40 36 V48 C40 53 36 56 31 56 H13 C8 56 4 53 4 48 V36 C4 28 8 21 17 18 Z"></path>
+          <rect class="ppr" x="13" y="30" width="18" height="18" rx="3"></rect>
+          <path class="bt-ln" d="M17 36 H27 M17 41 H24"></path>
+        </svg>
+        <h2 class="pr" style="margin: 0; font-size: 25px; line-height: 1.2; color: #FFD3B5">Shisha tubidagi sir</h2>
+        <p class="{{ secretCls }}" style="margin: 4px 0 0; font-size: 17px; line-height: 1.6; font-style: italic; color: #FFF1E6; white-space: pre-line; overflow-wrap: anywhere">{{ d.sirli_soz }}</p>
+        <sc-if value="{{ secretHidden }}" hint-placeholder-val="{{ true }}">
+        <button type="button" onClick="{{ reveal }}" style="margin-top: 6px; min-height: 48px; padding: 0 24px; border-radius: 999px; border: 1.5px solid #E0B05A; background: rgba(61, 26, 71, 0.6); color: #FFD3B5; font-family: 'Montserrat', system-ui, sans-serif; font-size: 15px; font-weight: 700; cursor: pointer">Sirni ochish</button>
+        </sc-if>
+        <sc-if value="{{ secretShown }}" hint-placeholder-val="{{ false }}">
+        <p class="p-in" style="margin: 2px 0 0; font-size: 13px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #E0B05A">Endi bu sir ikkimizniki</p>
+        </sc-if>
+      </div>
+    </section>
+    </sc-if>
+    <svg aria-hidden="true" class="p-wave" style="position: relative; display: block; left: 0" width="520" height="40" viewBox="0 0 520 40"><path class="w-l3" d="M0 20 Q32.5 12 65.0 20 T130 20 Q162.5 12 195.0 20 T260 20 Q292.5 12 325.0 20 T390 20 Q422.5 12 455.0 20 T520 20 V40 H0 Z"></path></svg>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ b.galereya }}">
+  <section style="padding: 40px 20px 46px; background: #FFF1E6">
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center">
+      <p style="margin: 0; font-size: 12px; font-weight: 700; letter-spacing: 0.24em; text-transform: uppercase; color: #9A4A3A">{{ galLbl }}</p>
+      <h2 class="pr" style="margin: 0; font-size: 29px; line-height: 1.2; color: #3D1A47">Sohildagi lahzalar</h2>
+    </div>
+    <div style="position: relative; margin: 22px auto 0; width: 350px">
+      <div aria-hidden="true" style="position: absolute; left: 10px; top: 10px; width: 350px; height: 436px; border-radius: 22px; border: 1.5px solid #E0B05A"></div>
+      <div style="position: relative; width: 350px; height: 436px; border-radius: 22px; overflow: hidden; background: #F4D9C6; box-shadow: 0 24px 40px -24px rgba(61, 26, 71, 0.6)">
+        <sc-for list="{{ gal }}" as="g">
+        <img class="{{ g.c }}" src="{{ g.src }}" alt="">
+        </sc-for>
+        <div aria-hidden="true" style="position: absolute; left: 0; bottom: 0; width: 100%; height: 110px; background: linear-gradient(180deg, rgba(61, 26, 71, 0), rgba(61, 26, 71, 0.65))"></div>
+        <sc-if value="{{ multi }}">
+        <div style="position: absolute; left: 14px; right: 14px; bottom: 14px; display: flex; align-items: center; justify-content: space-between">
+          <button type="button" aria-label="Oldingi surat" onClick="{{ prev }}" style="width: 46px; height: 46px; border-radius: 50%; border: 1px solid rgba(255, 255, 255, 0.6); background: rgba(61, 26, 71, 0.45); color: #FFF1E6; cursor: pointer; display: flex; align-items: center; justify-content: center"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path class="ico" d="M15 5l-7 7 7 7"></path></svg></button>
+          <span style="font-size: 14px; font-weight: 600; color: #FFF1E6; letter-spacing: 0.1em">{{ phNum }} / {{ phTotal }}</span>
+          <button type="button" aria-label="Keyingi surat" onClick="{{ next }}" style="width: 46px; height: 46px; border-radius: 50%; border: 1px solid rgba(255, 255, 255, 0.6); background: rgba(61, 26, 71, 0.45); color: #FFF1E6; cursor: pointer; display: flex; align-items: center; justify-content: center"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path class="ico" d="M9 5l7 7-7 7"></path></svg></button>
+        </div>
+        </sc-if>
+      </div>
+    </div>
+    <sc-if value="{{ multi }}">
+    <div style="margin-top: 22px; display: flex; justify-content: center; gap: 8px">
+      <sc-for list="{{ gal }}" as="g">
+      <button type="button" class="{{ g.t }}" aria-label="{{ g.lbl }}" onClick="{{ g.go }}" style="width: 48px; height: 48px; padding: 0; border: 0; border-radius: 12px; overflow: hidden; cursor: pointer; background: #F4D9C6"><img src="{{ g.src }}" alt="" style="display: block; width: 48px; height: 48px; object-fit: cover"></button>
+      </sc-for>
+    </div>
+    </sc-if>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.hisob }}">
+  <section ref="{{ cRef }}" style="position: relative; overflow: hidden; padding: 46px 20px 0; background: linear-gradient(180deg, #FFF1E6 0%, #FFD3B5 14%, #FF9A76 45%, #C0566F 80%, #8A3E6B 100%); display: flex; flex-direction: column; align-items: center; text-align: center">
+    <p style="position: relative; margin: 0; font-size: 12px; font-weight: 700; letter-spacing: 0.24em; text-transform: uppercase; color: #5A2652">Biz tanishganimizga</p>
+    <div style="position: relative; margin-top: 22px; width: 250px; height: 250px">
+      <div aria-hidden="true" class="p-sun" style="position: absolute; left: -45px; top: -45px; width: 340px; height: 340px; border-radius: 50%; background: radial-gradient(circle, rgba(255, 240, 210, 0.7) 0%, rgba(255, 240, 210, 0) 65%)"></div>
+      <div style="position: absolute; left: 0; top: 0; width: 250px; height: 250px; border-radius: 50%; background: radial-gradient(circle at 50% 38%, #FFF8EA 0%, #FFE3B0 55%, #FFC08A 100%); box-shadow: 0 0 0 8px rgba(255, 246, 230, 0.35); display: flex; flex-direction: column; align-items: center; justify-content: center">
+        <span class="pr" style="font-size: {{ countPx }}px; line-height: 1; color: #3D1A47; font-variant-numeric: lining-nums tabular-nums">{{ countText }}</span>
+        <span style="margin-top: 8px; font-size: 15px; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: #8A3E6B">kun</span>
+      </div>
+    </div>
+    <div style="position: relative; z-index: 2; margin-top: 26px; display: flex; gap: 10px">
+      <span style="min-width: 86px; padding: 10px 12px; border-radius: 16px; background: rgba(61, 26, 71, 0.55); border: 1px solid rgba(255, 211, 181, 0.5); color: #FFF1E6; font-size: 15px; font-weight: 600">{{ yrs }}</span>
+      <span style="min-width: 86px; padding: 10px 12px; border-radius: 16px; background: rgba(61, 26, 71, 0.55); border: 1px solid rgba(255, 211, 181, 0.5); color: #FFF1E6; font-size: 15px; font-weight: 600">{{ mos }}</span>
+      <span style="min-width: 86px; padding: 10px 12px; border-radius: 16px; background: rgba(61, 26, 71, 0.55); border: 1px solid rgba(255, 211, 181, 0.5); color: #FFF1E6; font-size: 15px; font-weight: 600">{{ dys }}</span>
+    </div>
+    <sc-if value="{{ hasDate }}"><p style="position: relative; z-index: 2; margin: 14px 0 0; font-size: 14px; font-style: italic; color: #FFE3D3">{{ dateSince }}</p></sc-if>
+    <svg aria-hidden="true" class="p-wave p-wave2" style="position: relative; display: block; margin-top: 22px; left: -20px" width="520" height="44" viewBox="0 0 520 44"><path class="w-l3" d="M0 20 Q32.5 11 65.0 20 T130 20 Q162.5 11 195.0 20 T260 20 Q292.5 11 325.0 20 T390 20 Q422.5 11 455.0 20 T520 20 V44 H0 Z"></path></svg>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.javob }}">
+  <section style="padding: 44px 20px 30px; background: #FFF1E6; display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center">
+    <h2 class="pr" style="margin: 0; font-size: 29px; line-height: 1.2; color: #3D1A47; overflow-wrap: anywhere">{{ replyTitle }}</h2>
+    <p style="margin: 0; font-size: 15px; color: #7A4A68">Javobingni shishaga solib, dengizga qo’yib yuboramiz</p>
+    <div style="position: relative; box-sizing: border-box; width: 100%; min-height: 220px; margin-top: 14px; padding: 24px 20px; border-radius: 24px; background: #FFFFFF; box-shadow: 0 20px 40px -28px rgba(61, 26, 71, 0.6); display: flex; flex-direction: column; justify-content: center">
+      <sc-if value="{{ notSent }}" hint-placeholder-val="{{ true }}">
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 14px">
+          <div role="group" aria-label="Javobni tanlang" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 8px">
+            <button type="button" class="p-chip" aria-pressed="{{ pressA }}" onClick="{{ pickA }}" style="{{ chipA }}">Men ham seni sevaman</button>
+            <button type="button" class="p-chip" aria-pressed="{{ pressB }}" onClick="{{ pickB }}" style="{{ chipB }}">{{ thanksTxt }}</button>
+          </div>
+          <button type="button" class="p-shine" onClick="{{ send }}" disabled="{{ busy }}" style="width: 100%; min-height: 54px; border-radius: 999px; border: 0; background: linear-gradient(135deg, #5A2652, #3D1A47); color: #FFE3D3; font-family: 'Montserrat', system-ui, sans-serif; font-size: 16px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px">
+            <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path class="ico" d="M3 11.5 21 4l-7.5 18-2.5-8z"></path><path class="ico" d="M11 14l10-10"></path></svg>
+            Javobni yuborish
+          </button>
+          <sc-if value="{{ err }}"><p role="alert" style="margin: 0; font-size: 14px; font-weight: 600; color: #A8324A">{{ err }}</p></sc-if>
+        </div>
+      </sc-if>
+      <sc-if value="{{ isSent }}" hint-placeholder-val="{{ false }}">
+        <div style="position: relative; display: flex; flex-direction: column; align-items: center; gap: 8px">
+          <div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 100%; height: 60px">
+            <span class="p-up" style="left: 30%; top: 30px; width: 10px; height: 10px; border-radius: 50%; background: #E0B05A"></span>
+            <span class="p-up p-up2" style="left: 62%; top: 34px; width: 8px; height: 8px; border-radius: 50%; background: #FF9A76"></span>
+            <span class="p-up p-up3" style="left: 44%; top: 40px; width: 6px; height: 6px; border-radius: 50%; background: #C0566F"></span>
+            <span class="p-up p-up4" style="left: 74%; top: 28px; width: 9px; height: 9px; border-radius: 50%; background: #E0B05A"></span>
+          </div>
+          <svg class="p-pop" width="54" height="54" viewBox="0 0 24 24" aria-hidden="true" style="color: #FF9A76"><path class="ico-f" d="M12 20.5s-7.5-4.6-7.5-10.1A4.4 4.4 0 0 1 12 7.6a4.4 4.4 0 0 1 7.5 2.8c0 5.5-7.5 10.1-7.5 10.1z"></path></svg>
+          <p class="pr p-in" style="margin: 0; font-size: 22px; line-height: 1.3; color: #3D1A47">«{{ chosen }}»</p>
+          <p class="p-in" style="margin: 0; font-size: 15px; color: #7A4A68; overflow-wrap: anywhere">Javobing {{ fromGa }} yetib bordi</p>
+        </div>
+      </sc-if>
+    </div>
+  </section>
+  </sc-if>
+
+  <footer style="flex: 1; display: flex; flex-direction: column; justify-content: flex-start; align-items: center; gap: 6px; padding: 30px 24px 34px; background: #FFF1E6; text-align: center">
+    <div style="display: flex; align-items: center; gap: 12px">
+      <span style="width: 44px; height: 1px; background: linear-gradient(90deg, rgba(224, 176, 90, 0), #E0B05A)"></span>
+      <span class="pr" style="font-size: 22px; color: #9A6A1E">{{ mono }}</span>
+      <span style="width: 44px; height: 1px; background: linear-gradient(90deg, #E0B05A, rgba(224, 176, 90, 0))"></span>
+    </div>
+    <p style="margin: 0; font-size: 14px; color: #7A4A68; overflow-wrap: anywhere">{{ pair }}</p>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":3700}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { opened: false, count: null, secret: false, ph: 0, pick: 0, sent: false, busy: false, err: '' };
+    this.cRef = (el) => { this.cEl = el; };
+  }
+
+  nm(n) { return String(n || '').trim(); }
+  poss(n) { n = this.nm(n); return n ? n + (/[aeiouAEIOU]$/.test(n) ? 'ng' : 'ing') : ''; }
+  ini(n) { const m = this.nm(n).match(/[A-Za-zÀ-ɏЀ-ӿ]/); return m ? m[0].toUpperCase() : ''; }
+  fit(t, px, wpx, k) { const L = Math.max(1, ...String(t || '').split(/\s+/).map((x) => x.length)); return Math.max(14, Math.min(px, Math.floor(wpx / (L * (k || 0.56))))); }
+  thanks(n) { n = this.nm(n); return 'Rahmat, ' + (n && n.length <= 14 ? n : 'azizim'); }
+  numWord(n) { return ['', 'Bir', 'Ikki', 'Uch', 'To’rt', 'Besh', 'Olti', 'Yetti', 'Sakkiz', 'To’qqiz', 'O’n'][n] || ''; }
+  core() {
+    const d = SITE.d, to = this.nm(d.kimga), from = this.nm(d.kimdan);
+    const w = SITE.when(d.tanishgan_sana), el = SITE.elapsed(d.tanishgan_sana);
+    const has = !!w.day;
+    return {
+      to, from, w, el, hasDate: has,
+      greet: 'Azizim ' + to + ',',
+      sign: from ? 'Sening ' + this.poss(from) : '',
+      pair: [from, to].filter(Boolean).join(' va '),
+      mono: [this.ini(from), this.ini(to)].filter(Boolean).join(' · '),
+      dateSince: has ? w.dm + ' ' + w.year + '-yildan beri' : ''
+    };
+  }
+
+  componentDidMount() {
+    try {
+      if (this.cEl && typeof IntersectionObserver !== 'undefined') {
+        this.io = new IntersectionObserver((list) => {
+          list.forEach((en) => {
+            this.cVisible = en.isIntersecting;
+            if (en.isIntersecting && this.state.opened) this.runCount();
+          });
+        }, { threshold: 0.35 });
+        this.io.observe(this.cEl);
+      }
+    } catch (e) { this.io = null; }
+  }
+  componentWillUnmount() {
+    if (this.io) this.io.disconnect();
+    clearInterval(this.tick);
+    clearTimeout(this.wait);
+    clearTimeout(this.backup);
+  }
+  totalDays() { return SITE.elapsed(SITE.d.tanishgan_sana).days || 0; }
+  runCount() {
+    if (this.counted) return;
+    this.counted = true;
+    let reduce = false;
+    try { reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) { reduce = false; }
+    if (reduce) { this.setState({ count: null }); return; }
+    const N = this.totalDays(), t0 = Date.now();
+    clearInterval(this.tick);
+    this.tick = setInterval(() => {
+      const k = Math.min(1, (Date.now() - t0) / 2400), e = 1 - Math.pow(1 - k, 3);
+      this.setState({ count: k >= 1 ? null : Math.round(N * e) });
+      if (k >= 1) { clearInterval(this.tick); this.tick = null; }
+    }, 40);
+  }
+  open() {
+    if (this.state.opened) return;
+    this.setState({ opened: true });
+    SITE.opened();
+    this.wait = setTimeout(() => { if (!this.io || this.cVisible) this.runCount(); }, 900);
+    this.backup = setTimeout(() => this.runCount(), 9000);
+  }
+  send(text) {
+    if (this.state.busy) return;
+    this.setState({ busy: true, err: '' });
+    SITE.reply(text, '❤️').then(
+      () => this.setState({ sent: true, busy: false }),
+      () => this.setState({ busy: false, err: 'Yuborilmadi. Qayta urinib ko’ring.' })
+    );
+  }
+  renderVals() {
+    const s = this.state, v = this.core(), d = SITE.d, b = SITE.b;
+    const total = Math.min(6, Math.max(1, SITE.has.photos));
+    const ph = s.ph % total;
+    const replies = ['Men ham seni sevaman', this.thanks(v.from)];
+    const chip = (on) => 'min-height: 44px; padding: 0 16px; border-radius: 999px; cursor: pointer; font-family: Montserrat, system-ui, sans-serif; font-size: 14px; font-weight: 600; ' + (on ? 'border: 1.5px solid #3D1A47; background: #3D1A47; color: #FFE3D3' : 'border: 1.5px solid #FFB48E; background: #FFFFFF; color: #3D1A47');
+    const reasons = d.sabablar || [], yol = d.yol || [];
+    const ys = yol.map((x) => (x && x.yil) || '').filter(Boolean);
+    const offs = [0, 22, 8, 30, 14];
+    const days = s.count == null ? this.totalDays() : s.count;
+    const dl = String(SITE.num(this.totalDays())).length;
+    return Object.assign(v, {
+      fromGa: SITE.ga(v.from),
+      thanksTxt: this.thanks(v.from),
+      fromSub: v.from ? v.from + 'dan, sevgi bilan' : 'Sevgi bilan',
+      eyebrow: v.from ? v.from + 'dan maktub' : 'Senga maktub',
+      replyTitle: v.from ? SITE.ga(v.from) + ' javob' : 'Javob yozish',
+      introPx: this.fit(v.to, 46, 340, 0.6),
+      h1px: this.fit(v.to, 46, 340, 0.6),
+      introCls: s.opened ? 'p-intro is-open' : 'p-intro',
+      open: () => this.open(),
+      cRef: this.cRef,
+      countText: SITE.num(days),
+      countPx: dl > 6 ? 46 : 60,
+      yrs: v.el.years + ' yil',
+      mos: v.el.months + ' oy',
+      dys: v.el.rest + ' kun',
+      reasonsLbl: reasons.length <= 10 ? this.numWord(reasons.length) + ' sabab' : reasons.length + ' sabab',
+      reasons: reasons.map((t, i) => ({ n: i + 1, t, st: 'margin-left: ' + offs[i % 5] + 'px; margin-right: ' + (30 - offs[i % 5]) + 'px; ' })),
+      darkBand: !!(b.yol || b.sirli),
+      wtop: b.sabablar ? 'w-pe' : 'w-l3',
+      sirliPad: b.yol ? 'padding-top: 4px; ' : 'padding-top: 70px; ',
+      yolRange: ys.length > 1 && ys[0] !== ys[ys.length - 1] ? ys[0] + ' — ' + ys[ys.length - 1] : (ys[0] || ''),
+      yol: yol.map((x, i) => ({ yil: x.yil || '', sarlavha: x.sarlavha || '', matn: x.matn || '', last: i === yol.length - 1 && yol.length > 1 })),
+      secretCls: s.secret ? 'p-secret is-shown' : 'p-secret',
+      secretHidden: !s.secret,
+      secretShown: s.secret,
+      reveal: () => this.setState({ secret: true }),
+      galLbl: total <= 10 ? this.numWord(total) + ' lahza' : total + ' lahza',
+      multi: total > 1,
+      phTotal: total,
+      phNum: ph + 1,
+      gal: SITE.p.slice(0, total).map((src, i) => ({ src, c: i === ph ? 'pg-img is-on' : 'pg-img', t: i === ph ? 'pg-thumb is-on' : 'pg-thumb', lbl: (i + 1) + '-surat', go: () => this.setState({ ph: i }) })),
+      prev: () => this.setState({ ph: (ph + total - 1) % total }),
+      next: () => this.setState({ ph: (ph + 1) % total }),
+      chipA: chip(s.pick === 0),
+      chipB: chip(s.pick === 1),
+      pressA: s.pick === 0,
+      pressB: s.pick === 1,
+      pickA: () => this.setState({ pick: 0 }),
+      pickB: () => this.setState({ pick: 1 }),
+      chosen: replies[s.pick],
+      notSent: !s.sent,
+      isSent: s.sent,
+      busy: s.busy,
+      err: s.err,
+      send: () => this.send(replies[this.state.pick])
+    });
+  }
+}
+</script>
+</body>
+</html>

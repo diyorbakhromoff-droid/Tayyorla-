@@ -1,0 +1,654 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<title>Sevgi maktubi: Baxmal quticha</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&amp;family=Onest:wght@400;500;600;700&amp;display=swap">
+<style>
+body{margin:0}
+.cg{font-family:'Cormorant Garamond',Georgia,'Times New Roman',serif;font-variant-numeric:lining-nums}
+.v-foil{background:linear-gradient(100deg,#B8862F 0%,#F5D78E 24%,#E6B94F 44%,#FFF1C1 60%,#C9973A 80%,#F5D78E 100%);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent}
+.ico{fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.ico-f{fill:currentColor}
+button:focus-visible{outline:2px solid #F5D78E;outline-offset:3px}
+button:disabled{opacity:.75;cursor:default}
+
+/* svg paints */
+.gs1{stop-color:#B8862F}.gs2{stop-color:#FFF1C1}.gs3{stop-color:#E6B94F}.gs4{stop-color:#8E6420}
+.v-band{fill:none;stroke:url(#vgA);stroke-width:7}
+.v-band2{fill:none;stroke:url(#vgB);stroke-width:6}
+.v-gem{fill:#F4ECFF}
+.v-gem-d{fill:#CDB6F2}
+.v-gem-l{fill:none;stroke:#9E7CD6;stroke-width:.8;stroke-linejoin:round}
+.v-prong{fill:#E6B94F}
+.v-spk{fill:#FFF1C1}
+.v-orn{fill:none;stroke:url(#vgC);stroke-width:1.4;stroke-linecap:round}
+.v-orn-f{fill:url(#vgC)}
+.v-sm-ring{fill:none;stroke:#E6C27A;stroke-width:1.2}
+.v-sm-ring2{fill:none;stroke:rgba(230,194,122,.35);stroke-width:.8}
+.v-sm-tick{fill:none;stroke:rgba(230,194,122,.55);stroke-width:.8}
+.v-sm-grid{fill:none;stroke:rgba(199,125,255,.14);stroke-width:.7}
+.v-st{fill:#F3EAFB}
+.v-st-o{fill:#D9B3FF}
+.v-cl{fill:none;stroke:rgba(199,125,255,.65);stroke-width:.9;stroke-linejoin:round}
+.v-pair{fill:none;stroke:#E6C27A;stroke-width:1.2;stroke-dasharray:3 3}
+.v-star-big{fill:#FFF1C1}
+.v-star-lbl{fill:#F5D78E;font-family:'Cormorant Garamond',Georgia,serif;font-size:15px;font-style:italic;font-weight:600}
+
+/* intro */
+.v-intro{transition:opacity .7s ease 1.9s,visibility 0s linear 2.6s}
+.v-intro.is-open{opacity:0;visibility:hidden;pointer-events:none}
+.v-out{transition:opacity .45s ease,transform .45s ease}
+.v-intro.is-open .v-out{opacity:0;transform:translateY(-10px)}
+.v-intro.is-open .v-out2{opacity:0;transform:translateY(12px)}
+.v-lid{transform-origin:50% 100%}
+.v-intro.is-open .v-lid{animation:vLid .5s cubic-bezier(.5,0,.7,.4) forwards}
+@keyframes vLid{0%{transform:perspective(500px) rotateX(0);opacity:1}99%{opacity:1}100%{transform:perspective(500px) rotateX(90deg);opacity:0}}
+.v-inner{transform-origin:50% 100%;transform:scaleY(0)}
+.v-intro.is-open .v-inner{animation:vInner .55s cubic-bezier(.2,.8,.3,1) .45s forwards}
+@keyframes vInner{to{transform:scaleY(1)}}
+.v-ring{opacity:0;transform:translateY(34px) scale(.7)}
+.v-intro.is-open .v-ring{animation:vRing .8s cubic-bezier(.2,1.2,.4,1) .7s forwards}
+@keyframes vRing{to{opacity:1;transform:translateY(0) scale(1)}}
+.v-slit{opacity:0}
+.v-intro.is-open .v-slit{animation:vInner2 .3s ease .45s forwards}
+@keyframes vInner2{to{opacity:1}}
+.v-burst{opacity:0;transform:scale(.2)}
+.v-intro.is-open .v-burst{animation:vBurst 1.2s ease-out .75s forwards}
+@keyframes vBurst{0%{opacity:0;transform:scale(.2)}40%{opacity:1;transform:scale(1.25)}100%{opacity:.7;transform:scale(1.05)}}
+.v-pop{opacity:0;transform:scale(0)}
+.v-intro.is-open .v-pop{animation:vPopS .9s ease-out forwards}
+@keyframes vPopS{0%{opacity:0;transform:scale(0) rotate(0)}50%{opacity:1;transform:scale(1.2) rotate(45deg)}100%{opacity:0;transform:scale(.6) rotate(90deg)}}
+
+/* moving decor */
+.v-dust{position:absolute;border-radius:50%;background:#F5D78E;box-shadow:0 0 6px rgba(245,215,142,.9);animation:vDust 7s ease-in-out infinite}
+@keyframes vDust{0%{transform:translateY(0);opacity:0}20%{opacity:.95}80%{opacity:.7}100%{transform:translateY(-140px);opacity:0}}
+.v-bokeh{position:absolute;border-radius:50%;filter:blur(6px);animation:vBokeh 12s ease-in-out infinite}
+@keyframes vBokeh{0%,100%{transform:translate(0,0);opacity:.45}50%{transform:translate(12px,-18px);opacity:.85}}
+.v-beam{animation:vBeam 5s ease-in-out infinite}
+@keyframes vBeam{0%,100%{opacity:.55}50%{opacity:.9}}
+.v-halo{animation:vHalo 4.5s ease-in-out infinite}
+@keyframes vHalo{0%,100%{transform:scale(1);opacity:.7}50%{transform:scale(1.1);opacity:1}}
+.v-tw{animation:vTw 3.4s ease-in-out infinite}
+@keyframes vTw{0%,100%{opacity:.3}50%{opacity:1}}
+.v-float{animation:vFloat 7s ease-in-out infinite}
+.v-float2{animation-duration:9s;animation-delay:-3s}
+@keyframes vFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.v-shine{position:relative;overflow:hidden}
+.v-shine::after{content:"";position:absolute;top:0;left:0;width:40%;height:100%;background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,.7),rgba(255,255,255,0));transform:translateX(-120%) skewX(-20deg);animation:vShine 3.6s ease-in-out 1.2s infinite;pointer-events:none}
+@keyframes vShine{0%{transform:translateX(-120%) skewX(-20deg)}55%,100%{transform:translateX(320%) skewX(-20deg)}}
+.v-pulse{animation:vPulse 2.4s ease-out infinite}
+@keyframes vPulse{0%{transform:scale(.8);opacity:.9}100%{transform:scale(2.2);opacity:0}}
+
+/* flip digits */
+.v-flip{display:inline-block;transform-origin:50% 50%;animation:vFlip .45s cubic-bezier(.3,.7,.4,1) both}
+@keyframes vFlip{from{transform:perspective(200px) rotateX(-90deg);opacity:.2}to{transform:perspective(200px) rotateX(0);opacity:1}}
+
+.v-secret{filter:blur(7px);opacity:.8;user-select:none;transition:filter 1s ease,opacity 1s ease}
+.v-secret.is-shown{filter:none;opacity:1;user-select:auto}
+.v-in{animation:vIn .6s ease-out both}
+@keyframes vIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.v-yes{animation:vYes .7s cubic-bezier(.2,1.4,.4,1) both}
+@keyframes vYes{from{transform:scale(.3);opacity:0}to{transform:scale(1);opacity:1}}
+.v-bp{position:absolute;opacity:0;animation:vBp 2.2s ease-out both}
+@keyframes vBp{0%{transform:translate(0,0) scale(.4);opacity:0}20%{opacity:1}100%{transform:translate(var(--dx),var(--dy)) scale(1);opacity:0}}
+
+@media (prefers-reduced-motion: reduce){
+.v-dust,.v-bokeh,.v-beam,.v-halo,.v-tw,.v-float,.v-shine::after,.v-pulse,.v-flip,.v-in,.v-yes,.v-bp{animation:none}
+.v-bp,.v-dust{opacity:0}
+.v-intro,.v-out,.v-secret{transition:none}
+.v-intro.is-open .v-lid,.v-intro.is-open .v-inner,.v-intro.is-open .v-slit,.v-intro.is-open .v-ring,.v-intro.is-open .v-burst,.v-intro.is-open .v-pop{animation:none}
+}
+</style>
+</helmet>
+<div style="width: 390px; min-height: var(--vh, 100vh); position: relative; overflow: hidden; background: #1E0D33; color: #F3EAFB; font-family: 'Onest', system-ui, -apple-system, 'Segoe UI', sans-serif; display: flex; flex-direction: column">
+
+  <svg aria-hidden="true" width="0" height="0" style="position: absolute">
+    <defs>
+      <linearGradient id="vgA" x1="0" y1="0" x2="1" y2="1"><stop offset="0" class="gs1"></stop><stop offset=".35" class="gs2"></stop><stop offset=".6" class="gs3"></stop><stop offset="1" class="gs4"></stop></linearGradient>
+      <linearGradient id="vgB" x1="0" y1="0" x2="1" y2="1"><stop offset="0" class="gs1"></stop><stop offset=".4" class="gs2"></stop><stop offset=".7" class="gs3"></stop><stop offset="1" class="gs4"></stop></linearGradient>
+      <linearGradient id="vgC" x1="0" y1="0" x2="1" y2="0"><stop offset="0" class="gs1"></stop><stop offset=".5" class="gs2"></stop><stop offset="1" class="gs1"></stop></linearGradient>
+    </defs>
+  </svg>
+
+  <sc-if value="{{ has.music }}">
+  <button type="button" aria-label="Musiqa" aria-pressed="{{ musicOn }}" onClick="{{ toggleMusic }}" style="position: absolute; top: 16px; right: 16px; z-index: 40; width: 44px; height: 44px; padding: 0; border-radius: 50%; border: 1px solid rgba(230, 194, 122, 0.6); background: rgba(30, 13, 51, 0.6); color: #F5D78E; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 18px rgba(199, 125, 255, 0.35)">
+    <sc-if value="{{ musicOff }}" hint-placeholder-val="{{ true }}">
+      <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path class="ico" d="M9 18V5l11-2v13"></path><circle class="ico" cx="6" cy="18" r="3"></circle><circle class="ico" cx="17" cy="16" r="3"></circle><path class="ico" d="M3 3l18 18"></path></svg>
+    </sc-if>
+    <sc-if value="{{ musicOn }}" hint-placeholder-val="{{ false }}">
+      <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path class="ico" d="M9 18V5l11-2v13"></path><circle class="ico" cx="6" cy="18" r="3"></circle><circle class="ico" cx="17" cy="16" r="3"></circle></svg>
+    </sc-if>
+  </button>
+  </sc-if>
+
+  <div data-intro class="{{ introCls }}" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; z-index: 30; overflow: hidden; background: radial-gradient(70% 40% at 50% 47%, rgba(199, 125, 255, 0.32) 0%, rgba(199, 125, 255, 0) 70%), linear-gradient(180deg, #12061F 0%, #1E0D33 50%, #150824 100%)">
+    <div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px">
+      <div class="v-beam" style="position: absolute; left: 0; top: 0; width: 390px; height: 600px; background: linear-gradient(180deg, rgba(232, 200, 255, 0.28) 0%, rgba(199, 125, 255, 0.1) 60%, rgba(199, 125, 255, 0) 100%); clip-path: polygon(44% 0, 56% 0, 84% 100%, 16% 100%)"></div>
+      <span class="v-bokeh" style="left: 20px; top: 140px; width: 60px; height: 60px; background: radial-gradient(circle, rgba(199,125,255,0.35) 0%, rgba(0,0,0,0) 70%); animation-delay: 0s"></span>
+      <span class="v-bokeh" style="left: 300px; top: 210px; width: 80px; height: 80px; background: radial-gradient(circle, rgba(199,125,255,0.28) 0%, rgba(0,0,0,0) 70%); animation-delay: -4s"></span>
+      <span class="v-bokeh" style="left: 40px; top: 600px; width: 90px; height: 90px; background: radial-gradient(circle, rgba(230,194,122,0.18) 0%, rgba(0,0,0,0) 70%); animation-delay: -7s"></span>
+      <span class="v-bokeh" style="left: 290px; top: 640px; width: 70px; height: 70px; background: radial-gradient(circle, rgba(199,125,255,0.3) 0%, rgba(0,0,0,0) 70%); animation-delay: -2s"></span>
+      <span class="v-bokeh" style="left: 170px; top: 90px; width: 40px; height: 40px; background: radial-gradient(circle, rgba(230,194,122,0.22) 0%, rgba(0,0,0,0) 70%); animation-delay: -9s"></span>
+      <span class="v-bokeh" style="left: 330px; top: 470px; width: 40px; height: 40px; background: radial-gradient(circle, rgba(245,215,142,0.25) 0%, rgba(0,0,0,0) 70%); animation-delay: -5s"></span>
+      <span class="v-dust" style="left: 177px; top: 314px; width: 3px; height: 3px; animation-duration: 9.3s; animation-delay: -0.7s"></span>
+      <span class="v-dust" style="left: 286px; top: 256px; width: 3px; height: 3px; animation-duration: 8.9s; animation-delay: -9.1s"></span>
+      <span class="v-dust" style="left: 121px; top: 198px; width: 2px; height: 2px; animation-duration: 8.2s; animation-delay: -0.7s"></span>
+      <span class="v-dust" style="left: 58px; top: 724px; width: 3px; height: 3px; animation-duration: 6.3s; animation-delay: -5.7s"></span>
+      <span class="v-dust" style="left: 126px; top: 805px; width: 4px; height: 4px; animation-duration: 10.7s; animation-delay: -5.8s"></span>
+      <span class="v-dust" style="left: 215px; top: 210px; width: 2px; height: 2px; animation-duration: 6.2s; animation-delay: -8.6s"></span>
+      <span class="v-dust" style="left: 160px; top: 589px; width: 2px; height: 2px; animation-duration: 8.7s; animation-delay: -5.7s"></span>
+      <span class="v-dust" style="left: 298px; top: 345px; width: 2px; height: 2px; animation-duration: 8.9s; animation-delay: -6.4s"></span>
+      <span class="v-dust" style="left: 202px; top: 259px; width: 4px; height: 4px; animation-duration: 9.6s; animation-delay: -5.6s"></span>
+      <span class="v-dust" style="left: 328px; top: 370px; width: 3px; height: 3px; animation-duration: 9.4s; animation-delay: -4.3s"></span>
+      <span class="v-dust" style="left: 172px; top: 636px; width: 4px; height: 4px; animation-duration: 10.6s; animation-delay: -3.6s"></span>
+      <span class="v-dust" style="left: 139px; top: 344px; width: 2px; height: 2px; animation-duration: 6.4s; animation-delay: -3.0s"></span>
+      <span class="v-dust" style="left: 265px; top: 511px; width: 3px; height: 3px; animation-duration: 7.4s; animation-delay: -9.8s"></span>
+      <span class="v-dust" style="left: 72px; top: 684px; width: 3px; height: 3px; animation-duration: 6.8s; animation-delay: -3.4s"></span>
+      <span class="v-dust" style="left: 262px; top: 591px; width: 2px; height: 2px; animation-duration: 10.8s; animation-delay: -0.8s"></span>
+      <span class="v-dust" style="left: 297px; top: 746px; width: 3px; height: 3px; animation-duration: 7.7s; animation-delay: -3.5s"></span>
+      <span class="v-dust" style="left: 266px; top: 753px; width: 3px; height: 3px; animation-duration: 6.3s; animation-delay: -0.9s"></span>
+      <span class="v-dust" style="left: 150px; top: 645px; width: 2px; height: 2px; animation-duration: 6.3s; animation-delay: -7.0s"></span>
+      <span class="v-dust" style="left: 343px; top: 751px; width: 3px; height: 3px; animation-duration: 7.4s; animation-delay: -3.9s"></span>
+      <span class="v-dust" style="left: 354px; top: 515px; width: 2px; height: 2px; animation-duration: 10.7s; animation-delay: -3.6s"></span>
+      <span class="v-dust" style="left: 324px; top: 279px; width: 3px; height: 3px; animation-duration: 6.3s; animation-delay: -7.7s"></span>
+      <span class="v-dust" style="left: 78px; top: 413px; width: 3px; height: 3px; animation-duration: 8.0s; animation-delay: -8.7s"></span>
+      <span class="v-dust" style="left: 53px; top: 330px; width: 3px; height: 3px; animation-duration: 8.0s; animation-delay: -2.8s"></span>
+      <span class="v-dust" style="left: 82px; top: 600px; width: 4px; height: 4px; animation-duration: 7.4s; animation-delay: -4.2s"></span>
+      <span class="v-dust" style="left: 195px; top: 549px; width: 2px; height: 2px; animation-duration: 6.8s; animation-delay: -1.8s"></span>
+      <span class="v-dust" style="left: 130px; top: 398px; width: 2px; height: 2px; animation-duration: 8.4s; animation-delay: -5.9s"></span>
+    </div>
+
+    <div class="v-out" style="position: relative; z-index: 2; padding: 74px 20px 0; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 8px">
+      <p style="margin: 0; font-size: 12px; font-weight: 600; letter-spacing: 0.3em; text-transform: uppercase; color: #E6C27A; overflow-wrap: anywhere">{{ fromTo }}</p>
+      <svg width="120" height="14" viewBox="0 0 120 14" aria-hidden="true"><path class="v-orn" d="M2 7 H46 M74 7 H118"></path><path class="v-orn-f" d="M60 1 L66 7 L60 13 L54 7 Z"></path></svg>
+    </div>
+
+    <div aria-hidden="true" style="position: absolute; left: 75px; top: 238px; z-index: 3; width: 240px; height: 250px">
+      <div class="v-halo" style="position: absolute; left: -60px; top: 0; width: 360px; height: 280px; border-radius: 50%; background: radial-gradient(circle, rgba(199, 125, 255, 0.35) 0%, rgba(199, 125, 255, 0) 65%)"></div>
+      <div style="position: absolute; left: 10px; top: 226px; width: 220px; height: 22px; border-radius: 50%; background: radial-gradient(closest-side, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0))"></div>
+      <div class="v-inner" style="position: absolute; left: 14px; top: 34px; width: 212px; height: 100px; box-sizing: border-box; border-radius: 70px 70px 6px 6px / 46px 46px 6px 6px; background: radial-gradient(80% 90% at 50% 70%, #F1E6FF 0%, #D2BDF0 55%, #A98BD6 100%); border: 2px solid #E6B94F; box-shadow: inset 0 0 0 5px rgba(255, 255, 255, 0.25)"></div>
+      <div class="v-burst" style="position: absolute; left: 30px; top: 30px; width: 180px; height: 180px; border-radius: 50%; background: radial-gradient(circle, rgba(255, 241, 193, 0.95) 0%, rgba(245, 215, 142, 0.45) 30%, rgba(199, 125, 255, 0.25) 55%, rgba(199, 125, 255, 0) 72%)"></div>
+      <div class="v-slit" style="position: absolute; left: 70px; top: 116px; width: 100px; height: 26px; border-radius: 13px; background: linear-gradient(180deg, #160828, #2A1246); box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.7)"></div>
+      <div class="v-ring" style="position: absolute; left: 75px; top: 52px; width: 90px; height: 96px">
+        <svg width="90" height="96" viewBox="0 0 90 96">
+          <ellipse class="v-band" cx="45" cy="66" rx="30" ry="24"></ellipse>
+          <path class="v-prong" d="M34 40 L38 30 L41 40 Z M56 40 L52 30 L49 40 Z"></path>
+          <path class="v-gem" d="M30 22 L37 12 L53 12 L60 22 L45 42 Z"></path>
+          <path class="v-gem-d" d="M30 22 L45 42 L40 22 Z M60 22 L45 42 L50 22 Z"></path>
+          <path class="v-gem-l" d="M30 22 L37 12 L53 12 L60 22 L45 42 Z M30 22 H60 M37 12 L40 22 L45 42 M53 12 L50 22 L45 42 M45 12 L40 22 M45 12 L50 22"></path>
+        </svg>
+      </div>
+      <div style="position: absolute; left: 10px; top: 132px; width: 220px; height: 96px; border-radius: 8px 8px 26px 26px; background: linear-gradient(180deg, #4A2470 0%, #35185A 40%, #241043 100%); box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.08), inset 0 -10px 18px rgba(0, 0, 0, 0.35), 0 20px 30px -14px rgba(0, 0, 0, 0.8)"></div>
+      <div style="position: absolute; left: 10px; top: 132px; width: 220px; height: 3px; background: linear-gradient(90deg, #8E6420, #F5D78E 30%, #FFF1C1 50%, #E6B94F 70%, #8E6420)"></div>
+      <svg class="v-pop" style="position: absolute; left: 40px; top: 40px; animation-delay: 1s" width="22" height="22" viewBox="0 0 24 24"><path class="v-spk" d="M12 0 L14 10 L24 12 L14 14 L12 24 L10 14 L0 12 L10 10 Z"></path></svg>
+      <svg class="v-pop" style="position: absolute; left: 172px; top: 56px; animation-delay: 1.15s" width="18" height="18" viewBox="0 0 24 24"><path class="v-spk" d="M12 0 L14 10 L24 12 L14 14 L12 24 L10 14 L0 12 L10 10 Z"></path></svg>
+      <svg class="v-pop" style="position: absolute; left: 150px; top: 20px; animation-delay: 1.3s" width="14" height="14" viewBox="0 0 24 24"><path class="v-spk" d="M12 0 L14 10 L24 12 L14 14 L12 24 L10 14 L0 12 L10 10 Z"></path></svg>
+      <svg class="v-pop" style="position: absolute; left: 62px; top: 100px; animation-delay: 1.4s" width="12" height="12" viewBox="0 0 24 24"><path class="v-spk" d="M12 0 L14 10 L24 12 L14 14 L12 24 L10 14 L0 12 L10 10 Z"></path></svg>
+      <div class="v-lid" style="position: absolute; left: 6px; top: 38px; width: 228px; height: 96px; border-radius: 76px 76px 8px 8px / 50px 50px 8px 8px; background: radial-gradient(90% 80% at 40% 20%, #6A3596 0%, #4A2470 45%, #2C1250 100%); box-shadow: inset 0 3px 0 rgba(255, 255, 255, 0.1), inset 0 -8px 14px rgba(0, 0, 0, 0.3)">
+        <div style="position: absolute; left: 0; bottom: 0; width: 228px; height: 3px; background: linear-gradient(90deg, #8E6420, #F5D78E 30%, #FFF1C1 50%, #E6B94F 70%, #8E6420)"></div>
+        <div style="position: absolute; left: 84px; top: 26px; width: 60px; height: 60px; box-sizing: border-box; border-radius: 50%; border: 1.5px solid #E6B94F; box-shadow: 0 0 0 3px rgba(230, 185, 79, 0.25); display: flex; align-items: center; justify-content: center">
+          <span class="cg v-foil" style="font-size: 25px; font-style: italic; font-weight: 600; line-height: 1">{{ mono }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="v-out v-out2" style="position: absolute; left: 0; top: 520px; z-index: 4; width: 390px; box-sizing: border-box; padding: 0 20px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 6px">
+      <p class="cg v-foil" style="margin: 0; font-size: {{ introPx }}px; line-height: 1.08; font-style: italic; font-weight: 600; overflow-wrap: break-word">{{ d.kimga }} uchun</p>
+      <p class="cg" style="margin: 0; font-size: 19px; font-style: italic; color: #BFA9D6">Bu quticha faqat sen uchun</p>
+    </div>
+
+    <div class="v-out v-out2" style="position: absolute; left: 0; top: 700px; z-index: 5; width: 390px; display: flex; flex-direction: column; align-items: center; gap: 10px">
+      <sc-if value="{{ has.music }}">
+      <p style="margin: 0; display: flex; align-items: center; gap: 8px; font-size: 13px; color: #BFA9D6"><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" style="color: #E6C27A"><path class="ico" d="M9 18V5l11-2v13"></path><circle class="ico" cx="6" cy="18" r="3"></circle><circle class="ico" cx="17" cy="16" r="3"></circle></svg>Musiqa bilan ochiladi</p>
+      </sc-if>
+      <button type="button" class="v-shine" onClick="{{ open }}" style="min-height: 56px; padding: 0 32px; border-radius: 999px; border: 0; background: linear-gradient(110deg, #B8862F 0%, #F5D78E 30%, #E6B94F 52%, #FFF1C1 68%, #C9973A 100%); color: #24103D; font-family: 'Onest', system-ui, sans-serif; font-size: 17px; font-weight: 700; letter-spacing: 0.02em; cursor: pointer; display: flex; align-items: center; gap: 10px; box-shadow: 0 0 34px rgba(199, 125, 255, 0.45)">
+        <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path class="ico" d="M4 11h16v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"></path><path class="ico" d="M4 11a8 6 0 0 1 16 0"></path><path class="ico" d="M12 11v3"></path></svg>
+        Qutichani oching
+      </button>
+    </div>
+  </div>
+
+  <header style="position: relative; overflow: hidden; padding: 56px 20px 40px; background: radial-gradient(80% 36% at 50% 22%, rgba(199, 125, 255, 0.3) 0%, rgba(199, 125, 255, 0) 70%), linear-gradient(180deg, #12061F 0%, #1E0D33 60%); display: flex; flex-direction: column; align-items: center; text-align: center">
+    <span aria-hidden="true" class="v-dust" style="left: 146px; top: 204px; width: 2px; height: 2px; animation-duration: 6.7s; animation-delay: -5.3s"></span>
+    <span aria-hidden="true" class="v-dust" style="left: 324px; top: 349px; width: 2px; height: 2px; animation-duration: 10.8s; animation-delay: -6.9s"></span>
+    <span aria-hidden="true" class="v-dust" style="left: 275px; top: 376px; width: 3px; height: 3px; animation-duration: 9.4s; animation-delay: -0.5s"></span>
+    <span aria-hidden="true" class="v-dust" style="left: 360px; top: 468px; width: 3px; height: 3px; animation-duration: 8.0s; animation-delay: -4.0s"></span>
+    <span aria-hidden="true" class="v-dust" style="left: 65px; top: 306px; width: 3px; height: 3px; animation-duration: 8.0s; animation-delay: -1.9s"></span>
+    <span aria-hidden="true" class="v-dust" style="left: 118px; top: 285px; width: 2px; height: 2px; animation-duration: 6.5s; animation-delay: -6.0s"></span>
+    <span aria-hidden="true" class="v-dust" style="left: 64px; top: 60px; width: 3px; height: 3px; animation-duration: 6.8s; animation-delay: -1.0s"></span>
+    <span aria-hidden="true" class="v-dust" style="left: 198px; top: 374px; width: 2px; height: 2px; animation-duration: 6.4s; animation-delay: -2.1s"></span>
+    <span aria-hidden="true" class="v-dust" style="left: 204px; top: 136px; width: 3px; height: 3px; animation-duration: 7.3s; animation-delay: -3.5s"></span>
+    <span aria-hidden="true" class="v-dust" style="left: 198px; top: 302px; width: 2px; height: 2px; animation-duration: 6.6s; animation-delay: -4.9s"></span>
+    <span aria-hidden="true" class="v-dust" style="left: 250px; top: 305px; width: 2px; height: 2px; animation-duration: 7.6s; animation-delay: -1.4s"></span>
+    <span aria-hidden="true" class="v-dust" style="left: 187px; top: 439px; width: 2px; height: 2px; animation-duration: 8.4s; animation-delay: -6.9s"></span>
+    <div style="position: relative; width: 200px; height: 200px">
+      <svg aria-hidden="true" width="200" height="200" viewBox="0 0 200 200" style="position: absolute; left: 0; top: 0">
+        <circle class="v-orn" cx="100" cy="100" r="78"></circle>
+        <circle class="v-orn" cx="100" cy="100" r="72" style="opacity: 0.5"></circle>
+        <ellipse class="v-orn-f" cx="131.8" cy="187.4" rx="7" ry="2.6" transform="rotate(15.0 131.8 187.4)"></ellipse>
+        <ellipse class="v-orn-f" cx="128.7" cy="178.9" rx="6" ry="2.2" transform="rotate(125.0 128.7 178.9)" style="opacity: 0.75"></ellipse>
+        <ellipse class="v-orn-f" cx="153.3" cy="176.2" rx="7" ry="2.6" transform="rotate(0.0 153.3 176.2)"></ellipse>
+        <ellipse class="v-orn-f" cx="148.2" cy="168.8" rx="6" ry="2.2" transform="rotate(110.0 148.2 168.8)" style="opacity: 0.75"></ellipse>
+        <ellipse class="v-orn-f" cx="171.2" cy="159.8" rx="7" ry="2.6" transform="rotate(-15.0 171.2 159.8)"></ellipse>
+        <ellipse class="v-orn-f" cx="164.3" cy="154.0" rx="6" ry="2.2" transform="rotate(95.0 164.3 154.0)" style="opacity: 0.75"></ellipse>
+        <ellipse class="v-orn-f" cx="184.3" cy="139.3" rx="7" ry="2.6" transform="rotate(-30.0 184.3 139.3)"></ellipse>
+        <ellipse class="v-orn-f" cx="176.1" cy="135.5" rx="6" ry="2.2" transform="rotate(80.0 176.1 135.5)" style="opacity: 0.75"></ellipse>
+        <ellipse class="v-orn-f" cx="191.6" cy="116.1" rx="7" ry="2.6" transform="rotate(-45.0 191.6 116.1)"></ellipse>
+        <ellipse class="v-orn-f" cx="182.7" cy="114.6" rx="6" ry="2.2" transform="rotate(65.0 182.7 114.6)" style="opacity: 0.75"></ellipse>
+        <ellipse class="v-orn-f" cx="192.6" cy="91.9" rx="7" ry="2.6" transform="rotate(-60.0 192.6 91.9)"></ellipse>
+        <ellipse class="v-orn-f" cx="183.7" cy="92.7" rx="6" ry="2.2" transform="rotate(50.0 183.7 92.7)" style="opacity: 0.75"></ellipse>
+        <ellipse class="v-orn-f" cx="187.4" cy="68.2" rx="7" ry="2.6" transform="rotate(-75.0 187.4 68.2)"></ellipse>
+        <ellipse class="v-orn-f" cx="178.9" cy="71.3" rx="6" ry="2.2" transform="rotate(35.0 178.9 71.3)" style="opacity: 0.75"></ellipse>
+        <ellipse class="v-orn-f" cx="176.2" cy="46.7" rx="7" ry="2.6" transform="rotate(-90.0 176.2 46.7)"></ellipse>
+        <ellipse class="v-orn-f" cx="168.8" cy="51.8" rx="6" ry="2.2" transform="rotate(20.0 168.8 51.8)" style="opacity: 0.75"></ellipse>
+        <ellipse class="v-orn-f" cx="159.8" cy="28.8" rx="7" ry="2.6" transform="rotate(-105.0 159.8 28.8)"></ellipse>
+        <ellipse class="v-orn-f" cx="154.0" cy="35.7" rx="6" ry="2.2" transform="rotate(5.0 154.0 35.7)" style="opacity: 0.75"></ellipse>
+        <ellipse class="v-orn-f" cx="68.2" cy="187.4" rx="7" ry="2.6" transform="rotate(165.0 68.2 187.4)"></ellipse>
+        <ellipse class="v-orn-f" cx="71.3" cy="178.9" rx="6" ry="2.2" transform="rotate(55.0 71.3 178.9)" style="opacity: 0.75"></ellipse>
+        <ellipse class="v-orn-f" cx="46.7" cy="176.2" rx="7" ry="2.6" transform="rotate(180.0 46.7 176.2)"></ellipse>
+        <ellipse class="v-orn-f" cx="51.8" cy="168.8" rx="6" ry="2.2" transform="rotate(70.0 51.8 168.8)" style="opacity: 0.75"></ellipse>
+        <ellipse class="v-orn-f" cx="28.8" cy="159.8" rx="7" ry="2.6" transform="rotate(195.0 28.8 159.8)"></ellipse>
+        <ellipse class="v-orn-f" cx="35.7" cy="154.0" rx="6" ry="2.2" transform="rotate(85.0 35.7 154.0)" style="opacity: 0.75"></ellipse>
+        <ellipse class="v-orn-f" cx="15.7" cy="139.3" rx="7" ry="2.6" transform="rotate(210.0 15.7 139.3)"></ellipse>
+        <ellipse class="v-orn-f" cx="23.9" cy="135.5" rx="6" ry="2.2" transform="rotate(100.0 23.9 135.5)" style="opacity: 0.75"></ellipse>
+        <ellipse class="v-orn-f" cx="8.4" cy="116.1" rx="7" ry="2.6" transform="rotate(225.0 8.4 116.1)"></ellipse>
+        <ellipse class="v-orn-f" cx="17.3" cy="114.6" rx="6" ry="2.2" transform="rotate(115.0 17.3 114.6)" style="opacity: 0.75"></ellipse>
+        <ellipse class="v-orn-f" cx="7.4" cy="91.9" rx="7" ry="2.6" transform="rotate(240.0 7.4 91.9)"></ellipse>
+        <ellipse class="v-orn-f" cx="16.3" cy="92.7" rx="6" ry="2.2" transform="rotate(130.0 16.3 92.7)" style="opacity: 0.75"></ellipse>
+        <ellipse class="v-orn-f" cx="12.6" cy="68.2" rx="7" ry="2.6" transform="rotate(255.0 12.6 68.2)"></ellipse>
+        <ellipse class="v-orn-f" cx="21.1" cy="71.3" rx="6" ry="2.2" transform="rotate(145.0 21.1 71.3)" style="opacity: 0.75"></ellipse>
+        <ellipse class="v-orn-f" cx="23.8" cy="46.7" rx="7" ry="2.6" transform="rotate(270.0 23.8 46.7)"></ellipse>
+        <ellipse class="v-orn-f" cx="31.2" cy="51.8" rx="6" ry="2.2" transform="rotate(160.0 31.2 51.8)" style="opacity: 0.75"></ellipse>
+        <ellipse class="v-orn-f" cx="40.2" cy="28.8" rx="7" ry="2.6" transform="rotate(285.0 40.2 28.8)"></ellipse>
+        <ellipse class="v-orn-f" cx="46.0" cy="35.7" rx="6" ry="2.2" transform="rotate(175.0 46.0 35.7)" style="opacity: 0.75"></ellipse>
+        <path class="v-orn-f" d="M100 4 L106 12 L100 20 L94 12 Z"></path>
+        <circle class="v-orn-f" cx="100" cy="186" r="3"></circle>
+        <circle class="v-orn-f" cx="78" cy="10" r="1.6"></circle><circle class="v-orn-f" cx="122" cy="10" r="1.6"></circle>
+      </svg>
+      <div style="position: absolute; left: 0; top: 0; width: 200px; height: 200px; display: flex; align-items: center; justify-content: center">
+        <span class="cg v-foil" style="font-size: {{ monoPx }}px; font-style: italic; font-weight: 600; line-height: 1; padding: 0 6px">{{ monoAmp }}</span>
+      </div>
+    </div>
+    <p style="position: relative; margin: 18px 0 0; font-size: 12px; font-weight: 600; letter-spacing: 0.3em; text-transform: uppercase; color: #E6C27A; overflow-wrap: anywhere">{{ fromTo }}</p>
+    <h1 class="cg v-foil" style="position: relative; margin: 8px 0 0; font-size: {{ h1px }}px; line-height: 1.06; font-style: italic; font-weight: 600; overflow-wrap: break-word">{{ d.kimga }} uchun</h1>
+    <sc-if value="{{ hasDate }}">
+    <p class="cg" style="position: relative; margin: 8px 0 0; font-size: 19px; font-style: italic; color: #BFA9D6">{{ dateSince }}</p>
+    </sc-if>
+    <sc-if value="{{ has.photo }}">
+    <div style="position: relative; margin-top: 30px; width: 350px; height: 400px">
+      <div style="position: absolute; left: 6px; top: 0; width: 226px; height: 300px; transform: rotate(-3deg); box-sizing: border-box; padding: 6px; background: #2A1546; border: 1px solid rgba(230, 194, 122, 0.75); box-shadow: 0 30px 50px -22px rgba(0, 0, 0, 0.9)">
+        <img src="{{ p.0 }}" alt="" style="display: block; width: 100%; height: 100%; object-fit: cover">
+      </div>
+      <div class="v-float" style="position: absolute; left: 176px; top: 150px; width: 168px; height: 226px">
+        <div style="width: 168px; height: 226px; transform: rotate(4deg); box-sizing: border-box; padding: 6px; background: #2A1546; border: 1px solid rgba(230, 194, 122, 0.75); box-shadow: 0 30px 50px -18px rgba(0, 0, 0, 0.95), 0 0 40px rgba(199, 125, 255, 0.25)">
+          <img src="{{ p.1 }}" alt="" style="display: block; width: 100%; height: 100%; object-fit: cover">
+        </div>
+      </div>
+      <svg aria-hidden="true" class="v-tw" style="position: absolute; left: 150px; top: 120px" width="26" height="26" viewBox="0 0 24 24"><path class="v-spk" d="M12 0 L14 10 L24 12 L14 14 L12 24 L10 14 L0 12 L10 10 Z"></path></svg>
+    </div>
+    </sc-if>
+  </header>
+
+  <sc-if value="{{ b.maktub }}">
+  <section style="position: relative; padding: 20px 16px 40px">
+    <article style="position: relative; padding: 40px 26px 34px; background: linear-gradient(180deg, #2A1546 0%, #22103B 100%); border: 1px solid rgba(230, 194, 122, 0.4); box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.9), 0 0 60px rgba(199, 125, 255, 0.12)">
+      <svg aria-hidden="true" width="44" height="44" viewBox="0 0 44 44" style="position: absolute; left: 8px; top: 8px; transform: scale(1,1)"><path class="v-orn" d="M3 42 V14 Q3 3 14 3 H42"></path><path class="v-orn" d="M9 42 V18 Q9 9 18 9 H42" style="opacity: 0.5"></path><circle class="v-orn-f" cx="14" cy="14" r="2.4"></circle></svg>
+      <svg aria-hidden="true" width="44" height="44" viewBox="0 0 44 44" style="position: absolute; right: 8px; top: 8px; transform: scale(-1,1)"><path class="v-orn" d="M3 42 V14 Q3 3 14 3 H42"></path><path class="v-orn" d="M9 42 V18 Q9 9 18 9 H42" style="opacity: 0.5"></path><circle class="v-orn-f" cx="14" cy="14" r="2.4"></circle></svg>
+      <svg aria-hidden="true" width="44" height="44" viewBox="0 0 44 44" style="position: absolute; left: 8px; bottom: 8px; transform: scale(1,-1)"><path class="v-orn" d="M3 42 V14 Q3 3 14 3 H42"></path><path class="v-orn" d="M9 42 V18 Q9 9 18 9 H42" style="opacity: 0.5"></path><circle class="v-orn-f" cx="14" cy="14" r="2.4"></circle></svg>
+      <svg aria-hidden="true" width="44" height="44" viewBox="0 0 44 44" style="position: absolute; right: 8px; bottom: 8px; transform: scale(-1,-1)"><path class="v-orn" d="M3 42 V14 Q3 3 14 3 H42"></path><path class="v-orn" d="M9 42 V18 Q9 9 18 9 H42" style="opacity: 0.5"></path><circle class="v-orn-f" cx="14" cy="14" r="2.4"></circle></svg>
+      <p class="cg" style="margin: 0; font-size: 25px; line-height: 1.25; font-style: italic; font-weight: 600; color: #D9B3FF; overflow-wrap: anywhere">{{ greet }}</p>
+      <p style="margin: 16px 0 0; font-size: 16px; line-height: 1.75; color: #EADCF7; white-space: pre-line; overflow-wrap: anywhere"><sc-if value="{{ capL }}"><span class="cg v-foil" style="float: left; margin: 4px 10px 0 0; font-size: 66px; line-height: 0.82; font-weight: 700">{{ capL }}</span></sc-if>{{ capRest }}</p>
+      <sc-if value="{{ sign }}">
+      <div style="clear: both; margin-top: 18px; display: flex; justify-content: flex-end; align-items: center; gap: 12px">
+        <span style="width: 44px; height: 1px; background: linear-gradient(90deg, rgba(230, 194, 122, 0), #E6C27A)"></span>
+        <p class="cg v-foil" style="margin: 0; font-size: 26px; font-style: italic; font-weight: 600; overflow-wrap: anywhere">{{ sign }}</p>
+      </div>
+      </sc-if>
+    </article>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.sirli }}">
+  <section style="position: relative; padding: 0 20px 44px">
+    <div style="position: relative; overflow: hidden; padding: 30px 22px 28px; border-radius: 26px; background: radial-gradient(80% 70% at 50% 0%, rgba(199, 125, 255, 0.3), rgba(199, 125, 255, 0) 70%), #170A29; border: 1px solid rgba(199, 125, 255, 0.45); text-align: center; display: flex; flex-direction: column; align-items: center; gap: 12px">
+      <svg aria-hidden="true" width="40" height="40" viewBox="0 0 24 24" style="color: #E6C27A"><path class="ico" d="M5 11h14v9H5z"></path><path class="ico" d="M8 11V8a4 4 0 0 1 8 0v3"></path><path class="ico" d="M12 15v2"></path></svg>
+      <h2 class="cg v-foil" style="margin: 0; font-size: 32px; line-height: 1.15; font-style: italic; font-weight: 600">Qutichadagi sir</h2>
+      <p class="{{ secretCls }}" style="margin: 2px 0 0; font-size: 22px; line-height: 1.45; font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-weight: 500; color: #F3EAFB; white-space: pre-line; overflow-wrap: anywhere">{{ d.sirli_soz }}</p>
+      <sc-if value="{{ secretHidden }}" hint-placeholder-val="{{ true }}">
+      <button type="button" onClick="{{ reveal }}" style="margin-top: 4px; min-height: 48px; padding: 0 26px; border-radius: 999px; border: 1px solid #E6C27A; background: rgba(30, 13, 51, 0.7); color: #F5D78E; font-family: 'Onest', system-ui, sans-serif; font-size: 15px; font-weight: 600; cursor: pointer">Sirni ochish</button>
+      </sc-if>
+      <sc-if value="{{ secretShown }}" hint-placeholder-val="{{ false }}">
+      <p class="v-in" style="margin: 0; font-size: 12px; font-weight: 600; letter-spacing: 0.24em; text-transform: uppercase; color: #C77DFF">Faqat ikkimiz bilamiz</p>
+      </sc-if>
+    </div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.sabablar }}">
+  <section style="position: relative; padding: 20px 24px 44px">
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 4px; text-align: center">
+      <p style="margin: 0; font-size: 12px; font-weight: 600; letter-spacing: 0.3em; text-transform: uppercase; color: #C77DFF">{{ reasonsLbl }}</p>
+      <h2 class="cg v-foil" style="margin: 0; font-size: 36px; line-height: 1.1; font-style: italic; font-weight: 600">Seni sevishimning sabablari</h2>
+    </div>
+    <ol style="list-style: none; margin: 24px 0 0; padding: 0">
+      <sc-for list="{{ reasons }}" as="r">
+      <li style="display: flex; align-items: baseline; gap: 16px; padding: 14px 0; border-bottom: 1px solid rgba(230, 194, 122, 0.22)">
+        <span class="cg v-foil" style="flex: none; width: 46px; font-size: 26px; font-weight: 700; line-height: 1">{{ r.n }}</span>
+        <span style="font-size: 17px; line-height: 1.4; color: #F3EAFB; overflow-wrap: anywhere">{{ r.t }}</span>
+      </li>
+      </sc-for>
+    </ol>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.xarita }}">
+  <section style="position: relative; padding: 24px 20px 44px; text-align: center; background: radial-gradient(70% 40% at 50% 60%, rgba(199, 125, 255, 0.18), rgba(199, 125, 255, 0) 70%)">
+    <h2 class="cg v-foil" style="margin: 0; font-size: 36px; line-height: 1.12; font-style: italic; font-weight: 600">Ikki yulduz</h2>
+    <p class="cg" style="margin: 4px 0 0; font-size: 19px; font-style: italic; color: #BFA9D6">O’sha kunning osmoni — faqat bizniki</p>
+    <div style="position: relative; margin: 20px auto 0; width: 300px; height: 300px; border-radius: 50%; background: radial-gradient(circle at 50% 42%, #2C1650 0%, #1A0B30 62%, #110620 100%); box-shadow: 0 0 0 1px rgba(230, 194, 122, 0.6), 0 0 0 7px #1E0D33, 0 0 0 8px rgba(230, 194, 122, 0.3), 0 0 70px rgba(199, 125, 255, 0.3)">
+      <svg viewBox="0 0 300 300" width="300" height="300" role="img" aria-label="{{ mapLbl }}">
+        <circle class="v-sm-grid" cx="150" cy="150" r="48"></circle>
+        <circle class="v-sm-grid" cx="150" cy="150" r="96"></circle>
+        <path class="v-sm-grid" d="M150 8 V292 M8 150 H292"></path>
+        <circle class="v-sm-ring" cx="150" cy="150" r="142"></circle>
+        <path class="v-sm-tick" d="M292.0 150.0 L302.0 150.0 M291.5 162.4 L297.4 162.9 M289.8 174.7 L295.8 175.7 M287.2 186.8 L293.0 188.3 M283.4 198.6 L289.1 200.6 M278.7 210.0 L284.1 212.5 M273.0 221.0 L281.6 226.0 M266.3 231.4 L271.2 234.9 M258.8 241.3 L263.4 245.1 M250.4 250.4 L254.7 254.7 M241.3 258.8 L245.1 263.4 M231.4 266.3 L234.9 271.2 M221.0 273.0 L226.0 281.6 M210.0 278.7 L212.5 284.1 M198.6 283.4 L200.6 289.1 M186.8 287.2 L188.3 293.0 M174.7 289.8 L175.7 295.8 M162.4 291.5 L162.9 297.4 M150.0 292.0 L150.0 302.0 M137.6 291.5 L137.1 297.4 M125.3 289.8 L124.3 295.8 M113.2 287.2 L111.7 293.0 M101.4 283.4 L99.4 289.1 M90.0 278.7 L87.5 284.1 M79.0 273.0 L74.0 281.6 M68.6 266.3 L65.1 271.2 M58.7 258.8 L54.9 263.4 M49.6 250.4 L45.3 254.7 M41.2 241.3 L36.6 245.1 M33.7 231.4 L28.8 234.9 M27.0 221.0 L18.4 226.0 M21.3 210.0 L15.9 212.5 M16.6 198.6 L10.9 200.6 M12.8 186.8 L7.0 188.3 M10.2 174.7 L4.2 175.7 M8.5 162.4 L2.6 162.9 M8.0 150.0 L-2.0 150.0 M8.5 137.6 L2.6 137.1 M10.2 125.3 L4.2 124.3 M12.8 113.2 L7.0 111.7 M16.6 101.4 L10.9 99.4 M21.3 90.0 L15.9 87.5 M27.0 79.0 L18.4 74.0 M33.7 68.6 L28.8 65.1 M41.2 58.7 L36.6 54.9 M49.6 49.6 L45.3 45.3 M58.7 41.2 L54.9 36.6 M68.6 33.7 L65.1 28.8 M79.0 27.0 L74.0 18.4 M90.0 21.3 L87.5 15.9 M101.4 16.6 L99.4 10.9 M113.2 12.8 L111.7 7.0 M125.3 10.2 L124.3 4.2 M137.6 8.5 L137.1 2.6 M150.0 8.0 L150.0 -2.0 M162.4 8.5 L162.9 2.6 M174.7 10.2 L175.7 4.2 M186.8 12.8 L188.3 7.0 M198.6 16.6 L200.6 10.9 M210.0 21.3 L212.5 15.9 M221.0 27.0 L226.0 18.4 M231.4 33.7 L234.9 28.8 M241.3 41.2 L245.1 36.6 M250.4 49.6 L254.7 45.3 M258.8 58.7 L263.4 54.9 M266.3 68.6 L271.2 65.1 M273.0 79.0 L281.6 74.0 M278.7 90.0 L284.1 87.5 M283.4 101.4 L289.1 99.4 M287.2 113.2 L293.0 111.7 M289.8 125.3 L295.8 124.3 M291.5 137.6 L297.4 137.1"></path>
+        <sc-for list="{{ stars }}" as="s">
+        <circle class="{{ s.c }}" cx="{{ s.x }}" cy="{{ s.y }}" r="{{ s.r }}" style="{{ s.st }}"></circle>
+        </sc-for>
+        <polyline class="v-cl" points="{{ clA }}"></polyline>
+        <polyline class="v-cl" points="{{ clB }}"></polyline>
+        <path class="v-pair" d="{{ pairD }}"></path>
+        <circle class="v-star-big" cx="{{ sa.x }}" cy="{{ sa.y }}" r="3.4"></circle>
+        <circle class="v-star-big" cx="{{ sb.x }}" cy="{{ sb.y }}" r="3.4"></circle>
+        <circle cx="{{ sa.x }}" cy="{{ sa.y }}" r="9" style="fill: rgba(245, 215, 142, 0.18)"></circle>
+        <circle cx="{{ sb.x }}" cy="{{ sb.y }}" r="9" style="fill: rgba(245, 215, 142, 0.18)"></circle>
+        <text class="v-star-lbl" x="{{ sa.lx }}" y="{{ sa.ly }}">{{ iniFrom }}</text>
+        <text class="v-star-lbl" x="{{ sb.lx }}" y="{{ sb.ly }}">{{ iniTo }}</text>
+      </svg>
+    </div>
+    <sc-if value="{{ hasDate }}">
+    <p class="cg v-foil" style="margin: 22px 0 0; font-size: 26px; font-weight: 600; letter-spacing: 0.14em">{{ dateDots }}</p>
+    </sc-if>
+    <p style="margin: 6px 0 0; font-size: 14px; color: #BFA9D6">Shu kuni ikki yulduz bir-birini topdi</p>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.yol }}">
+  <section style="position: relative; padding: 24px 22px 40px">
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 4px; text-align: center">
+      <sc-if value="{{ yolRange }}"><p style="margin: 0; font-size: 12px; font-weight: 600; letter-spacing: 0.3em; color: #C77DFF">{{ yolRange }}</p></sc-if>
+      <h2 class="cg v-foil" style="margin: 0; font-size: 36px; line-height: 1.12; font-style: italic; font-weight: 600">Bizning yo’limiz</h2>
+    </div>
+    <ol style="position: relative; list-style: none; margin: 24px 0 0; padding: 0">
+      <span aria-hidden="true" style="position: absolute; left: 101px; top: 8px; bottom: 8px; width: 1px; background: linear-gradient(180deg, rgba(199, 125, 255, 0), rgba(199, 125, 255, 0.7) 12%, rgba(199, 125, 255, 0.7) 88%, rgba(199, 125, 255, 0))"></span>
+      <sc-for list="{{ yol }}" as="y">
+      <li style="position: relative; display: flex; gap: 24px; padding: 10px 0 18px">
+        <span class="cg v-foil" style="flex: none; width: 88px; text-align: right; font-size: 32px; line-height: 1; font-weight: 700; overflow-wrap: anywhere">{{ y.yil }}</span>
+        <span aria-hidden="true" style="position: absolute; left: 97px; top: 18px; width: 9px; height: 9px; border-radius: 50%; background: #C77DFF; box-shadow: 0 0 12px #C77DFF"></span>
+        <sc-if value="{{ y.last }}"><span aria-hidden="true" class="v-pulse" style="position: absolute; left: 95px; top: 16px; width: 13px; height: 13px; border-radius: 50%; background: rgba(199, 125, 255, 0.6)"></span></sc-if>
+        <div style="flex: 1; min-width: 0; padding-top: 4px; display: flex; flex-direction: column; gap: 3px">
+          <span style="font-size: 16px; font-weight: 600; line-height: 1.35; color: #F3EAFB; overflow-wrap: anywhere">{{ y.sarlavha }}</span>
+          <sc-if value="{{ y.matn }}"><span class="cg" style="font-size: 17px; line-height: 1.35; font-style: italic; color: #BFA9D6; overflow-wrap: anywhere">{{ y.matn }}</span></sc-if>
+        </div>
+      </li>
+      </sc-for>
+    </ol>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.galereya }}">
+  <section style="position: relative; padding: 24px 0 40px">
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 4px; text-align: center">
+      <p style="margin: 0; font-size: 12px; font-weight: 600; letter-spacing: 0.3em; text-transform: uppercase; color: #C77DFF">{{ galLbl }}</p>
+      <h2 class="cg v-foil" style="margin: 0; font-size: 36px; line-height: 1.12; font-style: italic; font-weight: 600">Lahzalarimiz</h2>
+    </div>
+    <div style="position: relative; margin-top: 24px; width: 390px; height: {{ galH }}px">
+      <sc-for list="{{ gal }}" as="g">
+      <div class="{{ g.fc }}" style="position: absolute; left: {{ g.l }}px; top: {{ g.t }}px; width: {{ g.w }}px; height: {{ g.h }}px; z-index: {{ g.z }}">
+        <div style="width: 100%; height: 100%; transform: rotate({{ g.r }}deg); box-sizing: border-box; padding: 6px; background: #2A1546; border: 1px solid rgba(230, 194, 122, 0.75); box-shadow: 0 30px 50px -20px rgba(0, 0, 0, 0.95)">
+          <img src="{{ g.src }}" alt="" style="display: block; width: 100%; height: 100%; object-fit: cover">
+        </div>
+      </div>
+      </sc-for>
+    </div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.hisob }}">
+  <section style="position: relative; padding: 24px 14px 44px; text-align: center">
+    <h2 class="cg v-foil" style="margin: 0; font-size: 36px; line-height: 1.12; font-style: italic; font-weight: 600">Tanishganimizga</h2>
+    <div style="margin-top: 18px; display: flex; justify-content: center; gap: 7px">
+      <sc-for list="{{ dd }}" as="g">
+      <div style="position: relative; width: {{ ddW }}px; height: 78px; border-radius: 8px; overflow: hidden; background: linear-gradient(180deg, #34195A 0%, #2A1449 49.5%, #1B0B30 50.5%, #24103F 100%); border: 1px solid rgba(230, 194, 122, 0.4); box-shadow: 0 16px 24px -12px rgba(0, 0, 0, 0.9); display: flex; align-items: center; justify-content: center">
+        <span key="{{ g.k }}" class="v-flip cg v-foil" style="font-size: 54px; font-weight: 700; line-height: 1">{{ g.d }}</span>
+        <span aria-hidden="true" style="position: absolute; left: 0; top: 38px; width: 100%; height: 1px; background: rgba(0, 0, 0, 0.65)"></span>
+      </div>
+      </sc-for>
+    </div>
+    <p style="margin: 8px 0 0; font-size: 12px; font-weight: 600; letter-spacing: 0.34em; text-transform: uppercase; color: #BFA9D6">kun</p>
+    <div style="margin-top: 18px; display: flex; justify-content: center; align-items: flex-start; gap: 10px">
+      <sc-for list="{{ clock }}" as="c">
+      <sc-if value="{{ c.sep }}"><span aria-hidden="true" class="cg" style="padding-top: 8px; font-size: 28px; color: #E6C27A">:</span></sc-if>
+      <div style="display: flex; flex-direction: column; align-items: center; gap: 6px">
+        <div style="display: flex; gap: 4px">
+          <sc-for list="{{ c.ds }}" as="g">
+          <div style="position: relative; width: 38px; height: 50px; border-radius: 6px; overflow: hidden; background: linear-gradient(180deg, #34195A 0%, #2A1449 49.5%, #1B0B30 50.5%, #24103F 100%); border: 1px solid rgba(230, 194, 122, 0.3); display: flex; align-items: center; justify-content: center">
+            <span key="{{ g.k }}" class="v-flip cg v-foil" style="font-size: 34px; font-weight: 700; line-height: 1">{{ g.d }}</span>
+            <span aria-hidden="true" style="position: absolute; left: 0; top: 24px; width: 100%; height: 1px; background: rgba(0, 0, 0, 0.65)"></span>
+          </div>
+          </sc-for>
+        </div>
+        <span style="font-size: 11px; font-weight: 600; letter-spacing: 0.24em; text-transform: uppercase; color: #BFA9D6">{{ c.lbl }}</span>
+      </div>
+      </sc-for>
+    </div>
+    <sc-if value="{{ hasDate }}"><p class="cg" style="margin: 16px 0 0; font-size: 18px; font-style: italic; color: #BFA9D6">{{ dateSince }}</p></sc-if>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.savol }}">
+  <section style="position: relative; overflow: hidden; padding: 40px 24px 40px; text-align: center">
+    <div aria-hidden="true" class="v-halo" style="position: absolute; left: -40px; top: 0; width: 470px; height: 420px; border-radius: 50%; background: radial-gradient(circle, rgba(199, 125, 255, 0.3) 0%, rgba(199, 125, 255, 0) 65%)"></div>
+    <div style="position: relative; display: flex; flex-direction: column; align-items: center">
+      <svg aria-hidden="true" width="84" height="90" viewBox="0 0 90 96">
+        <ellipse class="v-band2" cx="45" cy="66" rx="30" ry="24"></ellipse>
+        <path class="v-prong" d="M34 40 L38 30 L41 40 Z M56 40 L52 30 L49 40 Z"></path>
+        <path class="v-gem" d="M30 22 L37 12 L53 12 L60 22 L45 42 Z"></path>
+        <path class="v-gem-d" d="M30 22 L45 42 L40 22 Z M60 22 L45 42 L50 22 Z"></path>
+        <path class="v-gem-l" d="M30 22 L37 12 L53 12 L60 22 L45 42 Z M30 22 H60 M37 12 L40 22 L45 42 M53 12 L50 22 L45 42 M45 12 L40 22 M45 12 L50 22"></path>
+        <path class="v-spk v-tw" d="M74 2 L75.5 8.5 L82 10 L75.5 11.5 L74 18 L72.5 11.5 L66 10 L72.5 8.5 Z"></path>
+      </svg>
+      <p class="cg" style="margin: 12px 0 0; font-size: 24px; font-style: italic; font-weight: 600; color: #D9B3FF; overflow-wrap: anywhere">{{ to }},</p>
+      <h2 class="cg v-foil" style="margin: 4px 0 0; font-size: 42px; line-height: 1.1; font-style: italic; font-weight: 700; overflow-wrap: break-word">{{ d.savol }}</h2>
+      <div style="position: relative; width: 100%; min-height: 110px; margin-top: 22px">
+        <sc-if value="{{ asking }}" hint-placeholder-val="{{ true }}">
+          <div style="display: flex; flex-direction: column; gap: 12px">
+            <div style="display: flex; gap: 12px">
+              <button type="button" onClick="{{ sayHa }}" disabled="{{ busy }}" style="flex: 1; min-height: 56px; border-radius: 999px; border: 1.5px solid #E6C27A; background: rgba(30, 13, 51, 0.6); color: #F5D78E; font-family: 'Cormorant Garamond', Georgia, serif; font-size: 23px; font-weight: 700; cursor: pointer">Ha</button>
+              <button type="button" class="v-shine" onClick="{{ sayAlbatta }}" disabled="{{ busy }}" style="flex: 1; min-height: 56px; border-radius: 999px; border: 0; background: linear-gradient(110deg, #B8862F 0%, #F5D78E 30%, #E6B94F 52%, #FFF1C1 68%, #C9973A 100%); color: #24103D; font-family: 'Cormorant Garamond', Georgia, serif; font-size: 23px; font-weight: 700; cursor: pointer; box-shadow: 0 0 30px rgba(199, 125, 255, 0.45)">Albatta</button>
+            </div>
+            <p class="cg" style="margin: 0; font-size: 18px; font-style: italic; color: #BFA9D6">Ikkala javob ham to’g’ri.</p>
+            <sc-if value="{{ err }}"><p role="alert" style="margin: 0; font-size: 15px; color: #F0A8D8">{{ err }}</p></sc-if>
+          </div>
+        </sc-if>
+        <sc-if value="{{ answered }}" hint-placeholder-val="{{ false }}">
+          <div style="position: relative; display: flex; flex-direction: column; align-items: center; gap: 6px">
+            <div aria-hidden="true" style="position: absolute; left: 50%; top: 30px; width: 0; height: 0">
+              <svg class="v-bp" width="14" height="14" viewBox="0 0 24 24" style="left: -7px; top: -7px; color: #F5D78E; --dx: 93px; --dy: -20px; animation-delay: 0.14s"><path class="ico-f" d="M12 20.5s-7.5-4.6-7.5-10.1A4.4 4.4 0 0 1 12 7.6a4.4 4.4 0 0 1 7.5 2.8c0 5.5-7.5 10.1-7.5 10.1z"></path></svg>
+              <svg class="v-bp" width="10" height="10" viewBox="0 0 24 24" style="left: -5px; top: -5px; color: #C77DFF; --dx: 121px; --dy: 26px; animation-delay: 0.30s"><path class="ico-f" d="M12 0 L14 10 L24 12 L14 14 L12 24 L10 14 L0 12 L10 10 Z"></path></svg>
+              <svg class="v-bp" width="10" height="10" viewBox="0 0 24 24" style="left: -5px; top: -5px; color: #FFF1C1; --dx: 81px; --dy: 43px; animation-delay: 0.28s"><path class="ico-f" d="M12 20.5s-7.5-4.6-7.5-10.1A4.4 4.4 0 0 1 12 7.6a4.4 4.4 0 0 1 7.5 2.8c0 5.5-7.5 10.1-7.5 10.1z"></path></svg>
+              <svg class="v-bp" width="10" height="10" viewBox="0 0 24 24" style="left: -5px; top: -5px; color: #D9B3FF; --dx: 30px; --dy: 49px; animation-delay: 0.14s"><path class="ico-f" d="M12 0 L14 10 L24 12 L14 14 L12 24 L10 14 L0 12 L10 10 Z"></path></svg>
+              <svg class="v-bp" width="14" height="14" viewBox="0 0 24 24" style="left: -7px; top: -7px; color: #F5D78E; --dx: -17px; --dy: 59px; animation-delay: 0.13s"><path class="ico-f" d="M12 20.5s-7.5-4.6-7.5-10.1A4.4 4.4 0 0 1 12 7.6a4.4 4.4 0 0 1 7.5 2.8c0 5.5-7.5 10.1-7.5 10.1z"></path></svg>
+              <svg class="v-bp" width="10" height="10" viewBox="0 0 24 24" style="left: -5px; top: -5px; color: #C77DFF; --dx: -74px; --dy: 56px; animation-delay: 0.32s"><path class="ico-f" d="M12 0 L14 10 L24 12 L14 14 L12 24 L10 14 L0 12 L10 10 Z"></path></svg>
+              <svg class="v-bp" width="10" height="10" viewBox="0 0 24 24" style="left: -5px; top: -5px; color: #FFF1C1; --dx: -119px; --dy: 11px; animation-delay: 0.08s"><path class="ico-f" d="M12 20.5s-7.5-4.6-7.5-10.1A4.4 4.4 0 0 1 12 7.6a4.4 4.4 0 0 1 7.5 2.8c0 5.5-7.5 10.1-7.5 10.1z"></path></svg>
+              <svg class="v-bp" width="10" height="10" viewBox="0 0 24 24" style="left: -5px; top: -5px; color: #D9B3FF; --dx: -126px; --dy: -20px; animation-delay: 0.40s"><path class="ico-f" d="M12 0 L14 10 L24 12 L14 14 L12 24 L10 14 L0 12 L10 10 Z"></path></svg>
+              <svg class="v-bp" width="12" height="12" viewBox="0 0 24 24" style="left: -6px; top: -6px; color: #F5D78E; --dx: -95px; --dy: -59px; animation-delay: 0.08s"><path class="ico-f" d="M12 20.5s-7.5-4.6-7.5-10.1A4.4 4.4 0 0 1 12 7.6a4.4 4.4 0 0 1 7.5 2.8c0 5.5-7.5 10.1-7.5 10.1z"></path></svg>
+              <svg class="v-bp" width="12" height="12" viewBox="0 0 24 24" style="left: -6px; top: -6px; color: #C77DFF; --dx: -61px; --dy: -77px; animation-delay: 0.32s"><path class="ico-f" d="M12 0 L14 10 L24 12 L14 14 L12 24 L10 14 L0 12 L10 10 Z"></path></svg>
+              <svg class="v-bp" width="12" height="12" viewBox="0 0 24 24" style="left: -6px; top: -6px; color: #FFF1C1; --dx: -16px; --dy: -90px; animation-delay: 0.03s"><path class="ico-f" d="M12 20.5s-7.5-4.6-7.5-10.1A4.4 4.4 0 0 1 12 7.6a4.4 4.4 0 0 1 7.5 2.8c0 5.5-7.5 10.1-7.5 10.1z"></path></svg>
+              <svg class="v-bp" width="10" height="10" viewBox="0 0 24 24" style="left: -5px; top: -5px; color: #D9B3FF; --dx: 12px; --dy: -97px; animation-delay: 0.14s"><path class="ico-f" d="M12 0 L14 10 L24 12 L14 14 L12 24 L10 14 L0 12 L10 10 Z"></path></svg>
+              <svg class="v-bp" width="14" height="14" viewBox="0 0 24 24" style="left: -7px; top: -7px; color: #F5D78E; --dx: 85px; --dy: -95px; animation-delay: 0.34s"><path class="ico-f" d="M12 20.5s-7.5-4.6-7.5-10.1A4.4 4.4 0 0 1 12 7.6a4.4 4.4 0 0 1 7.5 2.8c0 5.5-7.5 10.1-7.5 10.1z"></path></svg>
+              <svg class="v-bp" width="12" height="12" viewBox="0 0 24 24" style="left: -6px; top: -6px; color: #C77DFF; --dx: 109px; --dy: -57px; animation-delay: 0.32s"><path class="ico-f" d="M12 0 L14 10 L24 12 L14 14 L12 24 L10 14 L0 12 L10 10 Z"></path></svg>
+            </div>
+            <p class="cg v-foil v-yes" style="position: relative; margin: 0; font-size: 40px; line-height: 1.15; font-style: italic; font-weight: 700">«{{ answer }}»</p>
+            <p class="v-in" style="position: relative; margin: 0; font-size: 16px; line-height: 1.45; color: #EADCF7; overflow-wrap: anywhere">Javobing {{ fromGa }} yetib bordi. Bu kunni umrbod eslaymiz.</p>
+          </div>
+        </sc-if>
+      </div>
+    </div>
+  </section>
+  </sc-if>
+
+  <footer style="flex: 1; padding: 20px 24px 44px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 8px">
+    <div style="display: flex; align-items: center; gap: 14px">
+      <span style="width: 56px; height: 1px; background: linear-gradient(90deg, rgba(230, 194, 122, 0), #E6C27A)"></span>
+      <span class="cg v-foil" style="font-size: 28px; font-style: italic; font-weight: 600; line-height: 1.2">{{ monoAmp }}</span>
+      <span style="width: 56px; height: 1px; background: linear-gradient(90deg, #E6C27A, rgba(230, 194, 122, 0))"></span>
+    </div>
+    <p class="cg" style="margin: 0; font-size: 18px; font-style: italic; color: #BFA9D6; overflow-wrap: anywhere">{{ pair }}</p>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":5200}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { opened: false, secret: false, answer: null, busy: false, err: '' };
+  }
+
+  nm(n) { return String(n || '').trim(); }
+  poss(n) { n = this.nm(n); return n ? n + (/[aeiouAEIOU]$/.test(n) ? 'ng' : 'ing') : ''; }
+  ini(n) { const m = this.nm(n).match(/[A-Za-zÀ-ɏЀ-ӿ]/); return m ? m[0].toUpperCase() : ''; }
+  fit(t, px, wpx, k) { const L = Math.max(1, ...String(t || '').split(/\s+/).map((x) => x.length)); return Math.max(14, Math.min(px, Math.floor(wpx / (L * (k || 0.56))))); }
+  numWord(n) { return ['', 'Bir', 'Ikki', 'Uch', 'To’rt', 'Besh', 'Olti', 'Yetti', 'Sakkiz', 'To’qqiz', 'O’n'][n] || ''; }
+  roman(n) { const r = [['M', 1000], ['CM', 900], ['D', 500], ['CD', 400], ['C', 100], ['XC', 90], ['L', 50], ['XL', 40], ['X', 10], ['IX', 9], ['V', 5], ['IV', 4], ['I', 1]]; let s = ''; r.forEach(([k, v]) => { while (n >= v) { s += k; n -= v; } }); return s; }
+  core() {
+    const d = SITE.d, to = this.nm(d.kimga), from = this.nm(d.kimdan);
+    const w = SITE.when(d.tanishgan_sana), el = SITE.elapsed(d.tanishgan_sana);
+    const has = !!w.day;
+    return {
+      to, from, w, el, hasDate: has,
+      greet: 'Azizim ' + to + ',',
+      sign: from ? 'Sening ' + this.poss(from) : '',
+      pair: [from, to].filter(Boolean).join(' va '),
+      mono: [this.ini(from), this.ini(to)].filter(Boolean).join('·'),
+      monoAmp: [this.ini(from), this.ini(to)].filter(Boolean).join(' & '),
+      dateSince: has ? w.dm + ' ' + w.year + '-yildan beri' : '',
+      dateDots: has ? w.dots.split('.').join(' · ') : ''
+    };
+  }
+  componentDidMount() { this.timer = setInterval(() => this.forceUpdate(), 1000); }
+  componentWillUnmount() { clearInterval(this.timer); }
+
+  sky() {
+    const d = SITE.d, key = (d.tanishgan_sana || '') + '|' + this.nm(d.kimdan) + '|' + this.nm(d.kimga);
+    if (this.skyC && this.skyC.key === key) return this.skyC.val;
+    let h = 2166136261;
+    for (let i = 0; i < key.length; i++) { h ^= key.charCodeAt(i); h = Math.imul(h, 16777619); }
+    let a = h >>> 0;
+    const rnd = () => { a = (a + 0x6D2B79F5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
+    const pt = (rmax) => { const r = Math.sqrt(rnd()) * rmax, t = rnd() * Math.PI * 2; return { x: +(150 + r * Math.cos(t)).toFixed(1), y: +(150 + r * Math.sin(t)).toFixed(1) }; };
+    const stars = [];
+    for (let i = 0; i < 90; i++) {
+      const p = pt(134), big = rnd();
+      const tw = i % 6 === 0;
+      stars.push({ x: p.x, y: p.y, r: big > 0.93 ? 1.5 : big > 0.7 ? 1 : 0.6, c: i % 5 === 0 ? 'v-st-o' : 'v-st', st: tw ? 'animation: vTw ' + (2.4 + (i % 4) * 0.7).toFixed(1) + 's ease-in-out ' + (-(i % 7) * 0.5).toFixed(1) + 's infinite' : '' });
+    }
+    const chain = (n, cx, cy, sp) => { const out = []; let x = cx, y = cy; for (let i = 0; i < n; i++) { out.push(x.toFixed(1) + ',' + y.toFixed(1)); const ang = rnd() * Math.PI * 2; x = Math.max(30, Math.min(270, x + Math.cos(ang) * sp)); y = Math.max(30, Math.min(270, y + Math.sin(ang) * sp)); } return out; };
+    const A = chain(5, 70 + rnd() * 40, 70 + rnd() * 40, 28), B = chain(5, 190 + rnd() * 40, 190 + rnd() * 30, 26);
+    const ang = rnd() * Math.PI, dist = 46 + rnd() * 14;
+    const sa = { x: +(150 - Math.cos(ang) * dist).toFixed(1), y: +(150 - Math.sin(ang) * dist * 0.6).toFixed(1) };
+    const sb = { x: +(150 + Math.cos(ang) * dist).toFixed(1), y: +(150 + Math.sin(ang) * dist * 0.6).toFixed(1) };
+    sa.lx = sa.x - 6; sa.ly = sa.y - 14; sb.lx = sb.x - 6; sb.ly = sb.y + 24;
+    const val = { stars, clA: A.join(' '), clB: B.join(' '), sa, sb, pairD: 'M' + sa.x + ' ' + sa.y + ' Q150 ' + (150 - 30) + ' ' + sb.x + ' ' + sb.y };
+    this.skyC = { key, val };
+    return val;
+  }
+  gallery() {
+    const n = Math.min(6, Math.max(1, SITE.has.photos)), out = [];
+    if (n === 1) return { items: [{ src: SITE.p[0], l: 20, t: 0, w: 350, h: 440, r: 0, z: 1, fc: '', n: 'I', nst: 'right: 14px; bottom: -30px; ' }], h: 480 };
+    let top = 0;
+    for (let i = 0; i < n; i += 2) {
+      const k = (i / 2) % 2, pairN = Math.min(2, n - i);
+      if (pairN === 1) {
+        out.push({ src: SITE.p[i], l: 30, t: top, w: 330, h: 240, r: k ? 2 : -2, z: 1, fc: '', n: this.roman(i + 1), nst: 'right: 6px; bottom: -32px; ' });
+        top += 290;
+      } else {
+        out.push({ src: SITE.p[i], l: k ? 142 : 20, t: top, w: 228, h: 300, r: k ? 2.5 : -2.5, z: 1, fc: '', n: this.roman(i + 1), nst: k ? 'right: 4px; top: -30px; ' : 'left: 4px; top: -30px; ' });
+        out.push({ src: SITE.p[i + 1], l: k ? 20 : 202, t: top + 168, w: 168, h: 220, r: k ? -4 : 4, z: 2, fc: i % 4 ? 'v-float v-float2' : 'v-float', n: this.roman(i + 2), nst: k ? 'left: 4px; bottom: -32px; ' : 'right: 4px; bottom: -32px; ' });
+        top += 430;
+      }
+    }
+    return { items: out, h: top };
+  }
+  answer(a) {
+    if (this.state.busy || this.state.answer) return;
+    this.setState({ busy: true, err: '' });
+    SITE.reply(a + '! — «' + (SITE.d.savol || '') + '»', '❤️').then(
+      () => this.setState({ answer: a, busy: false }),
+      () => this.setState({ busy: false, err: 'Javob yetib bormadi. Qayta bosib ko’ring.' })
+    );
+  }
+  renderVals() {
+    const s = this.state, v = this.core(), d = SITE.d, b = SITE.b;
+    const el = SITE.elapsed(d.tanishgan_sana);
+    const digits = (n, len, p) => String(n).padStart(len, '0').split('').map((x, i) => ({ d: x, k: p + i + '-' + x }));
+    const days = el.days || 0, dLen = Math.max(4, String(days).length);
+    const reasons = d.sabablar || [], yol = d.yol || [], rn = reasons.length;
+    const ys = yol.map((x) => (x && x.yil) || '').filter(Boolean);
+    const txt = String(d.matn || '').replace(/^\s+/, '');
+    const g = this.gallery();
+    const sky = b.xarita ? this.sky() : { stars: [], clA: '', clB: '', sa: {}, sb: {}, pairD: '' };
+    const total = Math.min(6, Math.max(1, SITE.has.photos));
+    const bp = [[-90, -70], [80, -80], [-120, 10], [120, 0], [-60, -110], [50, -120], [-20, -130], [100, -40], [-100, -40], [20, 40]];
+    return Object.assign(v, {
+      fromGa: SITE.ga(v.from),
+      fromTo: v.from ? v.from + 'dan ' + SITE.ga(v.to) : SITE.ga(v.to),
+      iniFrom: this.ini(v.from), iniTo: this.ini(v.to),
+      monoPx: v.monoAmp.length > 3 ? 58 : 76,
+      introPx: this.fit(v.to, 50, 350, 0.5),
+      h1px: this.fit(v.to, 52, 350, 0.5),
+      introCls: s.opened ? 'v-intro is-open' : 'v-intro',
+      open: () => { if (!this.state.opened) { this.setState({ opened: true }); SITE.opened(); } },
+      musicOn: !!SITE.music.playing,
+      musicOff: !SITE.music.playing,
+      toggleMusic: () => SITE.music.toggle(),
+      capL: /[A-Za-zÀ-ɏЀ-ӿ]/.test(txt.charAt(0)) ? txt.charAt(0) : '',
+      capRest: /[A-Za-zÀ-ɏЀ-ӿ]/.test(txt.charAt(0)) ? txt.slice(1) : txt,
+      secretCls: s.secret ? 'v-secret is-shown' : 'v-secret',
+      secretHidden: !s.secret,
+      secretShown: s.secret,
+      reveal: () => this.setState({ secret: true }),
+      reasonsLbl: rn <= 10 ? this.numWord(rn) + ' sabab' : rn + ' sabab',
+      reasons: reasons.map((t, i) => ({ n: this.roman(i + 1), t })),
+      stars: sky.stars, clA: sky.clA, clB: sky.clB, sa: sky.sa, sb: sky.sb, pairD: sky.pairD,
+      mapLbl: 'Yulduzlar xaritasi' + (v.hasDate ? ': ' + v.w.date : ''),
+      yolRange: ys.length > 1 && ys[0] !== ys[ys.length - 1] ? ys[0] + ' — ' + ys[ys.length - 1] : (ys[0] || ''),
+      yol: yol.map((x, i) => ({ yil: x.yil || '', sarlavha: x.sarlavha || '', matn: x.matn || '', last: i === yol.length - 1 && yol.length > 1 })),
+      galLbl: total <= 10 ? this.numWord(total) + ' lahza' : total + ' lahza',
+      gal: g.items, galH: g.h + 20,
+      dd: digits(days, dLen, 'd'),
+      ddW: dLen > 5 ? 46 : 58,
+      clock: [
+        { sep: false, lbl: 'soat', ds: digits(el.h || 0, 2, 'h') },
+        { sep: true, lbl: 'daqiqa', ds: digits(el.m || 0, 2, 'm') },
+        { sep: true, lbl: 'soniya', ds: digits(el.s || 0, 2, 's') }
+      ],
+      asking: !s.answer,
+      answered: !!s.answer,
+      answer: s.answer || '',
+      busy: s.busy,
+      err: s.err,
+      sayHa: () => this.answer('Ha'),
+      sayAlbatta: () => this.answer('Albatta')
+    });
+  }
+}
+</script>
+</body>
+</html>

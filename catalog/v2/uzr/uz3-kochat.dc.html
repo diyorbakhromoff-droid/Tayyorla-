@@ -1,0 +1,417 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<title>Uzr Premium: Yarashuv ko’chati</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Infant:ital,wght@0,500;0,600;1,500;1,600&amp;family=Nunito:wght@400;600;700;800&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#2F5D46}a:hover{color:#1F4433}
+.k-cf{font-family:'Cormorant Infant',Georgia,'Times New Roman',serif}
+.k-ic{fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.k-ic2{fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.k-stem{fill:none;stroke-width:4;stroke-linecap:round}
+.k-rib{fill:none;stroke-width:1.1;stroke-linecap:round}
+.k-ol{stroke-width:2;stroke-linejoin:round}
+.k-g1{stop-color:#FFF4D6}.k-g2{stop-color:#F3C561}
+/* harakat: bulut, chang, tebranish */
+.k-cloud{animation:kCloud 18s ease-in-out infinite alternate}
+@keyframes kCloud{from{transform:translateX(-16px)}to{transform:translateX(18px)}}
+.k-pol{position:absolute;width:5px;height:5px;border-radius:50%;background:radial-gradient(circle,#FFF6D2 0%,#F3C561 70%);animation:kPol 9s linear infinite}
+@keyframes kPol{0%{opacity:0;transform:translate(0,0)}15%{opacity:.95}100%{opacity:0;transform:translate(26px,-170px)}}
+.k-sway{transform-origin:100px 336px;animation:kSway 6s ease-in-out infinite}
+@keyframes kSway{0%,100%{transform:rotate(-1.6deg)}50%{transform:rotate(1.6deg)}}
+.k-rays{animation:kSpin 80s linear infinite}
+@keyframes kSpin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+.k-glow{animation:kGlow 5s ease-in-out infinite}
+@keyframes kGlow{0%,100%{opacity:.7;transform:scale(1)}50%{opacity:1;transform:scale(1.06)}}
+.k-bob{animation:kBob 2.4s ease-in-out infinite}
+@keyframes kBob{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+.k-float{animation:kFloat 7s ease-in-out infinite}
+@keyframes kFloat{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-8px) rotate(6deg)}}
+/* kirish sahnasi: suv quyiladi, ko'chat o'sadi, quyosh chiqadi */
+.k-intro{transition:opacity .8s ease 2.2s,visibility 0s linear 3s}
+.k-intro--open{opacity:0;visibility:hidden;pointer-events:none}
+.k-can{transform-origin:118px 70px;transition:transform .7s cubic-bezier(.4,0,.2,1)}
+.k-intro--open .k-can{transform:translate(-10px,10px) rotate(-30deg)}
+.k-drop{position:absolute;width:7px;height:11px;border-radius:50% 50% 50% 50% / 60% 60% 40% 40%;background:#8CC7DA;opacity:0}
+.k-intro--open .k-drop{animation:kDrop .7s ease-in 3}
+@keyframes kDrop{0%{opacity:0;transform:translateY(0)}15%{opacity:1}100%{opacity:0;transform:translate(-4px,120px)}}
+.k-plant{transform-origin:100px 336px;transform:scale(.3);transition:transform 1.3s cubic-bezier(.3,1.2,.5,1) .6s}
+.k-intro--open .k-plant{transform:scale(1)}
+.k-bud{transform-origin:100px 66px;transform:scale(0);transition:transform .8s cubic-bezier(.3,1.5,.5,1) 1.5s}
+.k-intro--open .k-bud{transform:scale(1)}
+.k-sun{transform:translateY(110px);transition:transform 1.8s ease .5s}
+.k-intro--open .k-sun{transform:none}
+.k-warm{opacity:0;transition:opacity 1.6s ease .5s}
+.k-intro--open .k-warm{opacity:1}
+.k-icopy{transition:opacity .5s ease,transform .5s ease}
+.k-intro--open .k-icopy{opacity:0;transform:translateY(-12px)}
+/* bloklar */
+.k-pop{animation:kPop .6s cubic-bezier(.2,1.3,.4,1) both}
+@keyframes kPop{from{opacity:0;transform:scale(.94) translateY(8px)}to{opacity:1;transform:none}}
+.k-pet{transform-origin:40px 40px;animation:kPet .7s cubic-bezier(.3,1.5,.5,1) both}
+@keyframes kPet{from{transform:scale(0) rotate(-40deg)}to{transform:none}}
+.k-leafin{animation:kLeafIn .8s cubic-bezier(.3,1.4,.5,1) both}
+@keyframes kLeafIn{from{opacity:0;transform:scale(.4) rotate(-30deg)}to{opacity:1;transform:none}}
+.k-shine{position:relative;overflow:hidden}
+.k-shine::after{content:'';position:absolute;top:0;bottom:0;left:-60%;width:45%;background:linear-gradient(100deg,rgba(255,255,255,0),rgba(255,255,255,.55),rgba(255,255,255,0));animation:kShine 3.6s ease-in-out infinite}
+@keyframes kShine{0%{transform:translateX(0)}60%,100%{transform:translateX(420%)}}
+.k-eq{display:flex;align-items:flex-end;gap:3px;height:16px}
+.k-eq span{width:3px;height:16px;border-radius:2px;background:#2F5D46;transform-origin:50% 100%;animation:kEq 1s ease-in-out infinite}
+@keyframes kEq{0%,100%{transform:scaleY(.3)}50%{transform:scaleY(1)}}
+.k-btn{transition:transform .15s ease,box-shadow .2s ease}
+.k-btn:active{transform:scale(.97)}
+.k-btn:focus-visible{outline:3px solid #2F5D46;outline-offset:3px}
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{animation:none !important;transition:none !important}.k-plant{transform:none}.k-bud{transform:none}.k-sun{transform:none}}
+</style>
+</helmet>
+<div style="width: 390px; min-height: var(--vh, 100vh); position: relative; overflow: hidden; background: #E6F2EC; color: #183A2B; font-family: 'Nunito', 'Segoe UI', system-ui, sans-serif; display: flex; flex-direction: column">
+
+  <sc-if value="{{ has.music }}">
+  <button type="button" class="k-btn" onClick="{{ toggleMusic }}" aria-label="Musiqa" aria-pressed="{{ musicOn }}" style="position: absolute; right: 16px; top: 16px; z-index: 30; width: 44px; height: 44px; padding: 0; border-radius: 50%; border: 1px solid rgba(47, 93, 70, 0.35); background: rgba(255, 255, 255, 0.7); display: flex; align-items: center; justify-content: center; cursor: pointer">
+    <sc-if value="{{ musicOff }}" hint-placeholder-val="{{ true }}">
+      <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 17.5V6l10-2v11.5" stroke="#2F5D46" class="k-ic"></path><circle cx="6.8" cy="17.5" r="2.2" stroke="#2F5D46" class="k-ic"></circle><circle cx="16.8" cy="15.5" r="2.2" stroke="#2F5D46" class="k-ic"></circle></svg>
+    </sc-if>
+    <sc-if value="{{ musicOn }}" hint-placeholder-val="{{ false }}">
+      <span class="k-eq" aria-hidden="true"><span></span><span style="animation-delay: -0.3s"></span><span style="animation-delay: -0.6s"></span><span style="animation-delay: -0.15s"></span></span>
+    </sc-if>
+  </button>
+  </sc-if>
+
+  <!-- KIRISH: suv quyish -->
+  <div class="{{ introCls }}" data-intro style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; z-index: 20; overflow: hidden; background: linear-gradient(180deg, #DCEEE4 0%, #E6F2EC 48%, #EEF1DF 72%, #F2EBCF 100%)">
+    <div class="k-warm" aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; background: linear-gradient(180deg, #E6F2EC 0%, #EEF4E4 42%, #FBEFCF 70%, #F8DC9E 100%)"></div>
+
+    <div class="k-cloud" aria-hidden="true" style="position: absolute; left: 22px; top: 250px; width: 130px; height: 40px; border-radius: 40px; background: rgba(255, 255, 255, 0.85)"></div>
+    <div class="k-cloud" aria-hidden="true" style="position: absolute; left: 58px; top: 232px; width: 60px; height: 44px; border-radius: 50%; background: rgba(255, 255, 255, 0.85)"></div>
+    <div class="k-cloud" aria-hidden="true" style="position: absolute; left: 270px; top: 400px; width: 100px; height: 30px; border-radius: 30px; background: rgba(255, 255, 255, 0.7); animation-delay: -6s"></div>
+
+    <div class="k-sun" aria-hidden="true" style="position: absolute; left: 85px; top: 500px; width: 220px; height: 220px">
+      <div style="position: absolute; left: -60px; top: -60px; width: 340px; height: 340px; border-radius: 50%; background: radial-gradient(closest-side, rgba(251, 226, 160, 0.85), rgba(251, 226, 160, 0))"></div>
+      <div style="position: absolute; left: 0; top: 0; width: 220px; height: 220px; border-radius: 50%; background: radial-gradient(circle at 50% 42%, #FFF7DC 0%, #FAD98A 55%, #F1BE5A 100%)"></div>
+    </div>
+
+    <svg width="390" height="250" viewBox="0 0 390 250" aria-hidden="true" style="position: absolute; left: 0; top: 600px">
+      <path d="M0 70 C70 34 140 40 200 62 C260 84 320 50 390 46 L390 250 L0 250 Z" fill="#B6D8C3"></path>
+      <path d="M0 110 C80 84 150 92 210 100 C280 110 330 86 390 92 L390 250 L0 250 Z" fill="#82B699"></path>
+      <path d="M0 150 C60 120 140 76 200 78 C260 80 330 124 390 140 L390 250 L0 250 Z" fill="#3F7A5A"></path>
+    </svg>
+
+    <svg width="200" height="340" viewBox="0 0 200 340" aria-hidden="true" style="position: absolute; left: 95px; top: 340px; overflow: visible">
+      <g class="k-plant">
+        <path d="M100 336 C96 280 106 220 98 160 C94 120 102 92 100 70" stroke="#2F5D46" class="k-stem"></path>
+        <path d="M0 0 C10 -14 36 -16 54 0 C36 14 10 14 0 0 Z" fill="#4E8C68" transform="translate(98 268) rotate(-150)"></path>
+        <path d="M0 0 C10 -14 36 -16 54 0 C36 14 10 14 0 0 Z" fill="#5E9C76" transform="translate(101 248) rotate(-30)"></path>
+        <path d="M0 0 C9 -12 30 -14 46 0 C30 12 9 12 0 0 Z" fill="#5E9C76" transform="translate(101 196) rotate(-150)"></path>
+        <path d="M0 0 C9 -12 30 -14 46 0 C30 12 9 12 0 0 Z" fill="#4E8C68" transform="translate(99 176) rotate(-28)"></path>
+        <path d="M0 0 C7 -10 24 -11 36 0 C24 10 7 10 0 0 Z" fill="#4E8C68" transform="translate(99 128) rotate(-148)"></path>
+        <path d="M0 0 C7 -10 24 -11 36 0 C24 10 7 10 0 0 Z" fill="#6FAA84" transform="translate(101 112) rotate(-34)"></path>
+        <g class="k-bud">
+          <ellipse cx="100" cy="44" rx="11" ry="22" fill="#F6CF7A"></ellipse>
+          <ellipse cx="100" cy="44" rx="11" ry="22" fill="#F6CF7A" transform="rotate(60 100 66)"></ellipse>
+          <ellipse cx="100" cy="44" rx="11" ry="22" fill="#F6CF7A" transform="rotate(120 100 66)"></ellipse>
+          <ellipse cx="100" cy="44" rx="11" ry="22" fill="#F6CF7A" transform="rotate(180 100 66)"></ellipse>
+          <ellipse cx="100" cy="44" rx="11" ry="22" fill="#F6CF7A" transform="rotate(240 100 66)"></ellipse>
+          <ellipse cx="100" cy="44" rx="11" ry="22" fill="#F6CF7A" transform="rotate(300 100 66)"></ellipse>
+          <circle cx="100" cy="66" r="12" fill="#E39A3C"></circle>
+          <circle cx="96" cy="62" r="3" fill="#FFE6B0"></circle>
+        </g>
+      </g>
+    </svg>
+
+    <div class="k-can" style="position: absolute; left: 196px; top: 430px; width: 150px; height: 110px">
+      <svg width="150" height="110" viewBox="0 0 150 110" aria-hidden="true">
+        <path d="M56 40 L8 18 L4 24 L50 56 Z" fill="#7FB394" stroke="#2F5D46" class="k-ol"></path>
+        <ellipse cx="6" cy="21" rx="5" ry="8" fill="#B6D8C3" stroke="#2F5D46" class="k-ol" transform="rotate(-25 6 21)"></ellipse>
+        <path d="M48 36 H124 L118 98 Q117 104 110 104 H62 Q55 104 54 98 Z" fill="#82B699" stroke="#2F5D46" class="k-ol"></path>
+        <path d="M58 52 H120" stroke="#B6D8C3" class="k-ic2"></path>
+        <path d="M118 46 C146 44 148 86 116 86" stroke="#2F5D46" class="k-ic2"></path>
+        <path d="M66 36 C70 14 104 14 108 36" stroke="#2F5D46" class="k-ic2"></path>
+        <path d="M78 72 C74 69 72.5 67 73.8 65 C75 63.4 77.2 63.7 78 65.2 C78.8 63.7 81 63.4 82.2 65 C83.5 67 82 69 78 72 Z" fill="#F6CF7A"></path>
+      </svg>
+    </div>
+    <span class="k-drop" style="left: 186px; top: 462px; animation-delay: 0.55s"></span>
+    <span class="k-drop" style="left: 196px; top: 456px; animation-delay: 0.75s"></span>
+    <span class="k-drop" style="left: 180px; top: 470px; animation-delay: 0.95s"></span>
+    <span class="k-drop" style="left: 192px; top: 466px; animation-delay: 1.15s"></span>
+
+    <span class="k-pol" style="left: 60px; top: 640px"></span>
+    <span class="k-pol" style="left: 300px; top: 620px; animation-delay: -3s"></span>
+    <span class="k-pol" style="left: 170px; top: 700px; animation-delay: -6s"></span>
+
+    <div class="k-icopy" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px">
+      <div style="position: absolute; left: 24px; right: 24px; top: 60px; display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center">
+        <p style="margin: 0; font-size: 12px; font-weight: 800; letter-spacing: 0.24em; text-transform: uppercase; color: #2F5D46; overflow-wrap: anywhere">{{ fromTo }}</p>
+        <p class="k-cf" style="margin: 0; font-style: italic; font-weight: 600; font-size: 50px; line-height: 1.02; color: #183A2B">Yarashuv<br>ko’chati</p>
+        <p style="margin: 0; max-width: 300px; font-size: 16px; line-height: 1.55; color: #2C4A3A; overflow-wrap: anywhere">{{ introSub }}</p>
+      </div>
+      <div style="position: absolute; left: 0; right: 0; top: 742px; display: flex; justify-content: center">
+        <button type="button" class="k-btn k-shine" onClick="{{ open }}" style="height: 56px; padding: 0 30px 0 24px; border: 0; border-radius: 28px; background: linear-gradient(135deg, #FBE3A6 0%, #F3C561 100%); color: #183A2B; font-family: inherit; font-size: 17px; font-weight: 800; display: inline-flex; align-items: center; gap: 10px; cursor: pointer; box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.6), 0 14px 26px -12px rgba(20, 50, 35, 0.6)">
+          <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 C12 3 5.5 10.5 5.5 14.5 A6.5 6.5 0 0 0 18.5 14.5 C18.5 10.5 12 3 12 3 Z" stroke="#183A2B" class="k-ic2"></path></svg>
+          <span>Suv quyish</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- BOSH QISM: o'sgan ko'chat va tong -->
+  <header style="flex: none; position: relative; height: 844px; overflow: hidden; background: linear-gradient(180deg, #E6F2EC 0%, #EEF4E4 42%, #FBEFCF 70%, #F8DC9E 100%)">
+    <div class="k-cloud" aria-hidden="true" style="position: absolute; left: 22px; top: 300px; width: 120px; height: 36px; border-radius: 40px; background: rgba(255, 255, 255, 0.8)"></div>
+    <div class="k-cloud" aria-hidden="true" style="position: absolute; left: 54px; top: 284px; width: 56px; height: 40px; border-radius: 50%; background: rgba(255, 255, 255, 0.8)"></div>
+    <div class="k-cloud" aria-hidden="true" style="position: absolute; left: 280px; top: 420px; width: 96px; height: 28px; border-radius: 30px; background: rgba(255, 255, 255, 0.7); animation-delay: -6s"></div>
+
+    <div aria-hidden="true" style="position: absolute; left: 85px; top: 500px; width: 220px; height: 220px">
+      <div class="k-rays" style="position: absolute; left: -110px; top: -110px; width: 440px; height: 440px; border-radius: 50%; background: repeating-conic-gradient(from 0deg, rgba(255, 240, 200, 0.55) 0deg 5deg, rgba(255, 240, 200, 0) 5deg 15deg); -webkit-mask-image: radial-gradient(closest-side, #000 30%, transparent 100%); mask-image: radial-gradient(closest-side, #000 30%, transparent 100%)"></div>
+      <div class="k-glow" style="position: absolute; left: -60px; top: -60px; width: 340px; height: 340px; border-radius: 50%; background: radial-gradient(closest-side, rgba(251, 226, 160, 0.9), rgba(251, 226, 160, 0))"></div>
+      <div style="position: absolute; left: 0; top: 0; width: 220px; height: 220px; border-radius: 50%; background: radial-gradient(circle at 50% 42%, #FFF7DC 0%, #FAD98A 55%, #F1BE5A 100%)"></div>
+    </div>
+
+    <svg width="390" height="250" viewBox="0 0 390 250" aria-hidden="true" style="position: absolute; left: 0; top: 600px">
+      <path d="M0 70 C70 34 140 40 200 62 C260 84 320 50 390 46 L390 250 L0 250 Z" fill="#B6D8C3"></path>
+      <path d="M0 110 C80 84 150 92 210 100 C280 110 330 86 390 92 L390 250 L0 250 Z" fill="#82B699"></path>
+      <path d="M0 150 C60 120 140 76 200 78 C260 80 330 124 390 140 L390 250 L0 250 Z" fill="#3F7A5A"></path>
+    </svg>
+
+    <svg width="200" height="340" viewBox="0 0 200 340" aria-hidden="true" style="position: absolute; left: 95px; top: 340px; overflow: visible">
+      <g class="k-sway">
+        <path d="M100 336 C96 280 106 220 98 160 C94 120 102 92 100 70" stroke="#2F5D46" class="k-stem"></path>
+        <path d="M0 0 C10 -14 36 -16 54 0 C36 14 10 14 0 0 Z" fill="#4E8C68" transform="translate(98 268) rotate(-150)"></path>
+        <path d="M0 0 C10 -14 36 -16 54 0 C36 14 10 14 0 0 Z" fill="#5E9C76" transform="translate(101 248) rotate(-30)"></path>
+        <path d="M0 0 C9 -12 30 -14 46 0 C30 12 9 12 0 0 Z" fill="#5E9C76" transform="translate(101 196) rotate(-150)"></path>
+        <path d="M0 0 C9 -12 30 -14 46 0 C30 12 9 12 0 0 Z" fill="#4E8C68" transform="translate(99 176) rotate(-28)"></path>
+        <path d="M0 0 C7 -10 24 -11 36 0 C24 10 7 10 0 0 Z" fill="#4E8C68" transform="translate(99 128) rotate(-148)"></path>
+        <path d="M0 0 C7 -10 24 -11 36 0 C24 10 7 10 0 0 Z" fill="#6FAA84" transform="translate(101 112) rotate(-34)"></path>
+        <ellipse cx="100" cy="44" rx="11" ry="22" fill="#F6CF7A"></ellipse>
+        <ellipse cx="100" cy="44" rx="11" ry="22" fill="#F6CF7A" transform="rotate(60 100 66)"></ellipse>
+        <ellipse cx="100" cy="44" rx="11" ry="22" fill="#F6CF7A" transform="rotate(120 100 66)"></ellipse>
+        <ellipse cx="100" cy="44" rx="11" ry="22" fill="#F6CF7A" transform="rotate(180 100 66)"></ellipse>
+        <ellipse cx="100" cy="44" rx="11" ry="22" fill="#F6CF7A" transform="rotate(240 100 66)"></ellipse>
+        <ellipse cx="100" cy="44" rx="11" ry="22" fill="#F6CF7A" transform="rotate(300 100 66)"></ellipse>
+        <circle cx="100" cy="66" r="12" fill="#E39A3C"></circle>
+        <circle cx="96" cy="62" r="3" fill="#FFE6B0"></circle>
+      </g>
+    </svg>
+
+    <span class="k-pol" style="left: 60px; top: 640px"></span>
+    <span class="k-pol" style="left: 120px; top: 560px; animation-delay: -2s"></span>
+    <span class="k-pol" style="left: 300px; top: 620px; animation-delay: -3s"></span>
+    <span class="k-pol" style="left: 250px; top: 520px; animation-delay: -7s"></span>
+    <span class="k-pol" style="left: 170px; top: 700px; animation-delay: -5s"></span>
+
+    <div style="position: absolute; left: 24px; right: 24px; top: 58px; display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center">
+      <p style="margin: 0; font-size: 12px; font-weight: 800; letter-spacing: 0.24em; text-transform: uppercase; color: #2F5D46; overflow-wrap: anywhere">{{ fromTo }}</p>
+      <h1 class="k-cf" style="margin: 0; font-style: italic; font-weight: 600; font-size: {{ h1Size }}; line-height: 1.04; color: #183A2B; overflow-wrap: anywhere">{{ d.kimga }},<br>kechirasanmi?</h1>
+      <p style="margin: 0; max-width: 300px; font-size: 16px; line-height: 1.55; color: #2C4A3A">Oramizdagi mehrni qaytadan o’stirmoqchiman. Iltimos, oxirigacha o’qi.</p>
+    </div>
+
+    <svg class="k-bob" width="26" height="26" viewBox="0 0 24 24" aria-hidden="true" style="position: absolute; left: 182px; top: 756px"><path d="M6 9.5 L12 15.5 L18 9.5" stroke="#E6F2EC" class="k-ic2"></path></svg>
+    <svg width="390" height="50" viewBox="0 0 390 50" aria-hidden="true" style="position: absolute; left: 0; top: 795px"><path d="M0 22 C70 4 130 2 195 18 C260 34 320 30 390 12 L390 50 L0 50 Z" fill="#E6F2EC"></path></svg>
+  </header>
+
+
+  <sc-if value="{{ b.maktub }}" hint-placeholder-val="{{ true }}">
+  <section style="flex: none; position: relative; padding: 20px 18px 40px">
+    <svg class="k-float" width="40" height="40" viewBox="0 0 40 40" aria-hidden="true" style="position: absolute; right: 14px; top: 0"><path d="M0 0 C7 -10 24 -11 36 0 C24 10 7 10 0 0 Z" fill="#82B699" transform="translate(4 30) rotate(-40)"></path></svg>
+    <article style="position: relative; border-radius: 26px; padding: 30px 24px 26px; background: linear-gradient(170deg, #FFFFFF 0%, #F4FAF6 60%, #FFF7E4 100%); box-shadow: 0 24px 40px -26px rgba(24, 58, 43, 0.45); display: flex; flex-direction: column; gap: 14px">
+      <div style="display: flex; align-items: center; gap: 10px">
+        <span style="font-size: 12px; font-weight: 800; letter-spacing: 0.24em; text-transform: uppercase; color: #2F5D46">Maktub</span>
+        <span aria-hidden="true" style="flex: 1; height: 1px; background: linear-gradient(90deg, rgba(47, 93, 70, 0.5), rgba(47, 93, 70, 0))"></span>
+      </div>
+      <h2 class="k-cf" style="margin: 0; font-style: italic; font-weight: 600; font-size: 32px; line-height: 1.1; color: #183A2B">Yuragimdagi gaplar</h2>
+      <p style="margin: 0; font-size: 16.5px; line-height: 1.7; color: #24402F; white-space: pre-line; overflow-wrap: anywhere">{{ d.matn }}</p>
+      <div style="display: flex; justify-content: flex-end; align-items: center; gap: 10px">
+        <svg width="30" height="20" viewBox="0 0 30 20" aria-hidden="true" style="flex: none"><path d="M2 16 C10 14 18 10 28 4" stroke="#2F5D46" class="k-ic"></path><path d="M0 0 C4 -5 12 -5 16 0 C12 5 4 5 0 0 Z" fill="#82B699" transform="translate(10 13) rotate(-60)"></path></svg>
+        <span class="k-cf" style="font-style: italic; font-weight: 600; font-size: 30px; line-height: 1.1; color: #2F5D46; overflow-wrap: anywhere; text-align: right">{{ d.kimdan }}</span>
+      </div>
+    </article>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.vadalar }}" hint-placeholder-val="{{ true }}">
+  <section style="flex: none; padding: 16px 18px 40px; display: flex; flex-direction: column; gap: 18px">
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center">
+      <span style="font-size: 12px; font-weight: 800; letter-spacing: 0.24em; text-transform: uppercase; color: #2F5D46">Bundan buyon</span>
+      <h2 class="k-cf" style="margin: 0; font-style: italic; font-weight: 600; font-size: 34px; line-height: 1.1; color: #183A2B">Har va’da — yangi barg</h2>
+    </div>
+    <ol style="position: relative; list-style: none; margin: 0; padding: 0 0 0 0; display: flex; flex-direction: column; gap: 12px">
+      <li aria-hidden="true" style="position: absolute; left: 25px; top: 10px; bottom: 10px; width: 3px; border-radius: 2px; background: linear-gradient(180deg, #82B699 0%, #2F5D46 100%)"></li>
+      <sc-for list="{{ promises }}" as="v" hint-placeholder-count="4">
+      <li style="position: relative; display: flex; align-items: center; gap: 14px; min-height: 56px">
+        <span style="flex: none; position: relative; width: 54px; height: 54px; display: flex; align-items: center; justify-content: center">
+          <svg width="44" height="44" viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="20" fill="{{ v.ring }}"></circle><path d="M0 0 C6 -9 20 -10 30 0 C20 9 6 9 0 0 Z" fill="{{ v.leaf }}" transform="{{ v.tr }}"></path></svg>
+        </span>
+        <span style="flex: 1; min-width: 0; padding: 14px 16px; border-radius: 18px; background: rgba(255, 255, 255, 0.78); box-shadow: 0 10px 20px -16px rgba(24, 58, 43, 0.5); font-size: 16px; font-weight: 700; line-height: 1.45; color: #183A2B; overflow-wrap: anywhere">{{ v.text }}</span>
+      </li>
+      </sc-for>
+    </ol>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.galereya }}" hint-placeholder-val="{{ true }}">
+  <section style="flex: none; position: relative; padding: 16px 18px 44px; display: flex; flex-direction: column; align-items: center; gap: 16px">
+    <span style="font-size: 12px; font-weight: 800; letter-spacing: 0.24em; text-transform: uppercase; color: #2F5D46">Xotiralarimiz</span>
+    <sc-if value="{{ twoPhotos }}">
+      <div style="position: relative; width: 354px; height: 330px">
+        <div class="k-float" aria-hidden="true" style="position: absolute; left: 150px; top: 6px; width: 70px; height: 70px; border-radius: 50%; background: radial-gradient(closest-side, rgba(243, 197, 97, 0.7), rgba(243, 197, 97, 0))"></div>
+        <figure style="position: absolute; left: 0; top: 20px; width: 196px; height: 290px; margin: 0; padding: 6px; box-sizing: border-box; border-radius: 100px 100px 16px 16px; background: linear-gradient(160deg, #FBE3A6, #F3C561); box-shadow: 0 24px 36px -22px rgba(24, 58, 43, 0.6)">
+          <img src="{{ p.0 }}" alt="" style="width: 100%; height: 100%; object-fit: cover; display: block; border-radius: 94px 94px 11px 11px">
+        </figure>
+        <figure style="position: absolute; left: 168px; top: 60px; width: 186px; height: 264px; margin: 0; padding: 6px; box-sizing: border-box; border-radius: 94px 94px 16px 16px; background: #FFFFFF; box-shadow: 0 24px 36px -20px rgba(24, 58, 43, 0.6)">
+          <img src="{{ p.1 }}" alt="" style="width: 100%; height: 100%; object-fit: cover; display: block; border-radius: 88px 88px 11px 11px">
+        </figure>
+      </div>
+    </sc-if>
+    <sc-if value="{{ onePhoto }}">
+      <figure style="width: 270px; height: 360px; margin: 0; padding: 7px; box-sizing: border-box; border-radius: 135px 135px 18px 18px; background: linear-gradient(160deg, #FBE3A6, #F3C561); box-shadow: 0 24px 36px -22px rgba(24, 58, 43, 0.6)">
+        <img src="{{ p.0 }}" alt="" style="width: 100%; height: 100%; object-fit: cover; display: block; border-radius: 128px 128px 12px 12px">
+      </figure>
+    </sc-if>
+    <p class="k-cf" style="margin: 0; font-style: italic; font-weight: 500; font-size: 21px; line-height: 1.3; color: #24402F; text-align: center">Bu kunlar yana qaytadi — ishonaman.</p>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.taklif }}" hint-placeholder-val="{{ true }}">
+  <section style="flex: none; padding: 8px 18px 40px">
+    <div style="border-radius: 26px; padding: 24px 22px; background: radial-gradient(circle at 100% 0%, rgba(243, 197, 97, 0.5) 0, rgba(243, 197, 97, 0) 180px), linear-gradient(170deg, #FFFFFF 0%, #FFF8E8 100%); box-shadow: 0 24px 40px -26px rgba(24, 58, 43, 0.45); display: flex; flex-direction: column; gap: 16px">
+      <div style="display: flex; gap: 14px; align-items: flex-start">
+        <svg width="80" height="64" viewBox="0 0 120 96" aria-hidden="true" style="flex: none; margin-top: 2px">
+          <ellipse cx="60" cy="88" rx="54" ry="6" fill="#DDEBE2"></ellipse>
+          <circle cx="94" cy="30" r="22" fill="#82B699"></circle>
+          <circle cx="104" cy="44" r="14" fill="#5E9C76"></circle>
+          <path d="M96 50 V86" stroke="#2F5D46" class="k-ic2"></path>
+          <path d="M14 44 H78 M14 54 H78" stroke="#B07A3A" class="k-ic2"></path>
+          <path d="M10 64 H82 V70 H10 Z" fill="#D9A55A" stroke="#8A5E2A" class="k-ol"></path>
+          <path d="M18 70 V86 M74 70 V86 M18 44 V64 M74 44 V64" stroke="#8A5E2A" class="k-ic2"></path>
+          <path d="M46 36 C41 32 39 29.5 40.6 27 C42 25 45 25.4 46 27.4 C47 25.4 50 25 51.4 27 C53 29.5 51 32 46 36 Z" fill="#E39A3C"></path>
+        </svg>
+        <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 6px">
+          <span style="font-size: 12px; font-weight: 800; letter-spacing: 0.22em; text-transform: uppercase; color: #2F5D46">Yarashish taklifi</span>
+          <p class="k-cf" style="margin: 0; font-style: italic; font-weight: 600; font-size: 24px; line-height: 1.2; color: #183A2B; overflow-wrap: anywhere">{{ d.taklif }}</p>
+        </div>
+      </div>
+      <sc-if value="{{ hasChips }}">
+      <div style="display: flex; flex-wrap: wrap; gap: 8px">
+        <sc-if value="{{ d.taklif_vaqt }}">
+        <span style="min-height: 36px; padding: 7px 13px 7px 10px; box-sizing: border-box; border-radius: 18px; background: #E6F2EC; display: inline-flex; align-items: center; gap: 7px; font-size: 14px; font-weight: 700; color: #183A2B">
+          <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" style="flex: none"><circle cx="12" cy="12" r="8.5" stroke="#2F5D46" class="k-ic"></circle><path d="M12 7.5V12l3 2" stroke="#2F5D46" class="k-ic"></path></svg>
+          <span style="overflow-wrap: anywhere">{{ d.taklif_vaqt }}</span>
+        </span>
+        </sc-if>
+        <sc-if value="{{ d.taklif_joy }}">
+        <span style="min-height: 36px; padding: 7px 13px 7px 10px; box-sizing: border-box; border-radius: 18px; background: #E6F2EC; display: inline-flex; align-items: center; gap: 7px; font-size: 14px; font-weight: 700; color: #183A2B">
+          <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" style="flex: none"><path d="M12 21s-6.5-6.2-6.5-11A6.5 6.5 0 0 1 18.5 10c0 4.8-6.5 11-6.5 11z" stroke="#2F5D46" class="k-ic"></path><circle cx="12" cy="10" r="2.3" stroke="#2F5D46" class="k-ic"></circle></svg>
+          <span style="overflow-wrap: anywhere">{{ d.taklif_joy }}</span>
+        </span>
+        </sc-if>
+      </div>
+      </sc-if>
+      <sc-if value="{{ notAgreed }}" hint-placeholder-val="{{ true }}">
+        <button type="button" class="k-btn" onClick="{{ agree }}" style="width: 100%; height: 52px; border: 0; border-radius: 26px; background: #2F5D46; color: #FFFFFF; font-family: inherit; font-size: 17px; font-weight: 800; cursor: pointer; box-shadow: 0 14px 26px -14px rgba(24, 58, 43, 0.8)">Roziman</button>
+      </sc-if>
+      <sc-if value="{{ agreed }}" hint-placeholder-val="{{ false }}">
+        <div class="k-pop" role="status" style="display: flex; align-items: center; gap: 12px; padding: 13px 16px; border-radius: 18px; background: #2F5D46">
+          <svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true" style="flex: none"><circle cx="12" cy="12" r="10.5" fill="#FBE3A6"></circle><path d="M7.6 12.4 L10.6 15.4 L16.4 9" stroke="#183A2B" class="k-ic2"></path></svg>
+          <p style="margin: 0; font-size: 15px; font-weight: 700; line-height: 1.45; color: #FFFFFF; overflow-wrap: anywhere">{{ agreedText }}</p>
+        </div>
+      </sc-if>
+    </div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.javob }}" hint-placeholder-val="{{ true }}">
+  <section style="flex: none; padding: 8px 18px 40px">
+    <div style="border-radius: 26px; padding: 28px 22px 26px; background: linear-gradient(170deg, #FFFFFF 0%, #F4FAF6 100%); box-shadow: 0 24px 40px -26px rgba(24, 58, 43, 0.45); display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center">
+      <h2 class="k-cf" style="margin: 0; font-style: italic; font-weight: 600; font-size: 38px; line-height: 1.05; color: #183A2B">Kechirasanmi?</h2>
+      <p style="margin: 0 0 6px; max-width: 290px; font-size: 15.5px; line-height: 1.55; color: #2C4A3A">Bir bosish — va ko’chatimiz gullaydi. Javobingni kutaman.</p>
+      <sc-if value="{{ waiting }}" hint-placeholder-val="{{ true }}">
+        <button type="button" class="k-btn k-shine" onClick="{{ forgive }}" style="min-width: 230px; height: 56px; padding: 0 30px; border: 0; border-radius: 28px; background: linear-gradient(135deg, #FBE3A6 0%, #F3C561 100%); color: #183A2B; font-family: inherit; font-size: 18px; font-weight: 800; cursor: pointer; box-shadow: 0 0 0 1.5px #E0A93F, 0 14px 26px -12px rgba(24, 58, 43, 0.5)">Kechirdim</button>
+      </sc-if>
+      <sc-if value="{{ forgiven }}" hint-placeholder-val="{{ false }}">
+        <div role="status" style="display: flex; flex-direction: column; align-items: center; gap: 8px">
+          <svg width="80" height="80" viewBox="0 0 80 80" aria-hidden="true">
+            <g class="k-pet"><ellipse cx="40" cy="20" rx="10" ry="18" fill="#F6CF7A"></ellipse></g>
+            <g class="k-pet" style="animation-delay: 0.08s"><ellipse cx="40" cy="20" rx="10" ry="18" fill="#F6CF7A" transform="rotate(60 40 40)"></ellipse></g>
+            <g class="k-pet" style="animation-delay: 0.16s"><ellipse cx="40" cy="20" rx="10" ry="18" fill="#F3C561" transform="rotate(120 40 40)"></ellipse></g>
+            <g class="k-pet" style="animation-delay: 0.24s"><ellipse cx="40" cy="20" rx="10" ry="18" fill="#F6CF7A" transform="rotate(180 40 40)"></ellipse></g>
+            <g class="k-pet" style="animation-delay: 0.32s"><ellipse cx="40" cy="20" rx="10" ry="18" fill="#F3C561" transform="rotate(240 40 40)"></ellipse></g>
+            <g class="k-pet" style="animation-delay: 0.40s"><ellipse cx="40" cy="20" rx="10" ry="18" fill="#F6CF7A" transform="rotate(300 40 40)"></ellipse></g>
+            <circle class="k-pet" style="animation-delay: 0.5s" cx="40" cy="40" r="11" fill="#E39A3C"></circle>
+          </svg>
+          <p class="k-cf k-pop" style="margin: 0; font-style: italic; font-weight: 600; font-size: 26px; line-height: 1.2; color: #183A2B; overflow-wrap: anywhere">Rahmat, {{ d.kimga }}.</p>
+          <p class="k-pop" style="margin: 0; font-size: 15.5px; line-height: 1.55; color: #2C4A3A; white-space: pre-line; overflow-wrap: anywhere; animation-delay: 0.15s">{{ thanks }}</p>
+        </div>
+      </sc-if>
+    </div>
+  </section>
+  </sc-if>
+
+  <footer style="flex: 1 0 auto; min-height: 250px; position: relative; overflow: hidden; background: linear-gradient(180deg, #E6F2EC 0%, #F6EBC8 55%, #F6D48A 100%)">
+    <div class="k-glow" aria-hidden="true" style="position: absolute; left: 95px; bottom: -110px; width: 200px; height: 200px; border-radius: 50%; background: radial-gradient(circle at 50% 40%, #FFF7DC 0%, #FAD98A 55%, #F1BE5A 100%); box-shadow: 0 0 60px 24px rgba(251, 226, 160, 0.8)"></div>
+    <svg width="390" height="70" viewBox="0 0 390 70" aria-hidden="true" style="position: absolute; left: 0; bottom: 0">
+      <path d="M0 34 C70 14 140 18 200 30 C270 44 330 24 390 22 L390 70 L0 70 Z" fill="#82B699"></path>
+      <path d="M0 52 C80 40 160 44 230 52 C300 60 350 50 390 46 L390 70 L0 70 Z" fill="#3F7A5A"></path>
+    </svg>
+    <div style="position: relative; padding: 34px 24px 90px; display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center">
+      <p class="k-cf" style="margin: 0; font-style: italic; font-weight: 600; font-size: 38px; line-height: 1.05; color: #183A2B">Mehr qaytadan unadi.</p>
+      <p style="margin: 0; font-size: 15px; line-height: 1.5; color: #2C4A3A">Uni har kuni asrab-avaylayman.</p>
+      <p class="k-cf" style="margin: 4px 0 0; font-style: italic; font-weight: 600; font-size: 28px; line-height: 1.1; color: #2F5D46; overflow-wrap: anywhere">{{ d.kimdan }}</p>
+    </div>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":3400}}'>
+class Component extends DCLogic {
+  constructor(...args) {
+    super(...args);
+    this.state = { opened: false, forgiven: false, agreed: false };
+  }
+  renderVals() {
+    const s = this.state || {};
+    const d = SITE.d;
+    const vad = d.vadalar || [];
+    const LEAF = ['#5E9C76', '#82B699', '#4E8C68', '#E0A93F'];
+    const RING = ['#D4E9DC', '#E3F0E3', '#D4E9DC', '#FBEBC4'];
+    const promises = vad.map((text, i) => {
+      // pastdan yuqoriga: har bir barg biroz boshqa burchakda, oxirgisi oltin
+      const last = i === vad.length - 1 && vad.length > 1;
+      const k = last ? 3 : i % 3;
+      const rot = i % 2 ? -40 : -140;
+      const tx = i % 2 ? 9 : 35;
+      return { text, leaf: LEAF[k], ring: RING[k], tr: 'translate(' + tx + ' 30) rotate(' + rot + ')' };
+    });
+    const tv = String(d.taklif_vaqt || '').trim();
+    const nameLen = String(d.kimga || '').length;
+    return {
+      fromTo: (d.kimdan || '') + 'dan ' + SITE.ga(d.kimga),
+      introSub: (d.kimga || '') + ', bu ko’chatni sen uchun ekdim. Bir tomchi suv quysang, u o’sadi.',
+      h1Size: nameLen > 18 ? '40px' : nameLen > 11 ? '46px' : '54px',
+      introCls: s.opened ? 'k-intro k-intro--open' : 'k-intro',
+      open: () => { if (this.state.opened) return; this.setState({ opened: true }); SITE.opened(); },
+      musicOn: !!SITE.music.playing,
+      musicOff: !SITE.music.playing,
+      toggleMusic: () => SITE.music.toggle(),
+      promises,
+      twoPhotos: SITE.has.photos >= 2,
+      onePhoto: SITE.has.photos < 2,
+      hasChips: !!(tv || d.taklif_joy),
+      agreedText: tv ? 'Kelishdik! ' + tv + ' — kutaman.' : 'Kelishdik! Seni kutaman.',
+      agreed: !!s.agreed,
+      notAgreed: !s.agreed,
+      agree: () => { this.setState({ agreed: true }); SITE.reply('Roziman: ' + (d.taklif || ''), '🥰'); },
+      thanks: d.javob_matni || 'Ko’chatimizni har kuni sug’oraman — va’dalarimni unutmayman.',
+      waiting: !s.forgiven,
+      forgiven: !!s.forgiven,
+      forgive: () => { this.setState({ forgiven: true }); SITE.reply('Kechirdim', '🤗'); }
+    };
+  }
+}
+</script>
+</body>
+</html>

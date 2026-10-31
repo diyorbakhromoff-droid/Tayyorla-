@@ -1,0 +1,578 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<title>Farzand VIP: Zarhal</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Forum&amp;family=Manrope:wght@400;500;600;700&amp;display=swap">
+<style>
+body{margin:0;background:#F7EFE3}
+.zg{--g:#B4C3D2;--gl:#E2E9F0;--gd:#4D6074;--gb:#DCE4EC}
+.zg.is-qiz{--g:#E7A9B5;--gl:#F7DDE2;--gd:#A3445B;--gb:#F3D6DC}
+.zg-serif{font-family:'Forum','Cormorant Garamond',Georgia,serif;font-weight:400}
+.zg-foil{background:linear-gradient(110deg,#7A5A1C 0%,#A87C2E 26%,#C99B48 40%,#8A6420 55%,#A87C2E 74%,#6B4E1A 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.zg-foilbg{background:linear-gradient(115deg,#B08433 0%,#E9CD86 26%,#FFF1C9 42%,#D2A550 58%,#F2D99A 78%,#B08433 100%)}
+.zg-line{background:linear-gradient(90deg,rgba(184,137,58,0),#B8893A 50%,rgba(184,137,58,0))}
+.zs1{stop-color:#A97B2C}.zs2{stop-color:#E9CD86}.zs3{stop-color:#FFF1C9}.zs4{stop-color:#C9993F}.zs5{stop-color:#8E6824}
+.zg-st{fill:none;stroke:url(#zgGold);stroke-width:1.6}
+.zg-st2{fill:none;stroke:url(#zgGold);stroke-width:.9}
+.zg-dot{fill:none;stroke:#B8893A;stroke-width:1.4;stroke-dasharray:1 5;stroke-linecap:round}
+.zg-iv{fill:#FBF6EE;stroke:url(#zgGold);stroke-width:1.6}
+.zg-iv2{fill:#F7EFE3;stroke:url(#zgGold);stroke-width:1.4}
+.zg-pt{fill:var(--gl);stroke:#C9A257;stroke-width:.8}
+.zg-lat{fill:none;stroke:#D9BF85;stroke-width:.7}
+.zg-gfill{fill:url(#zgGold)}
+.zg-ic{fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.zg-eyebrow{display:flex;align-items:center;justify-content:center;gap:12px;margin:0;font-size:11px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:#6B5038}
+.zg-eyebrow::before,.zg-eyebrow::after{content:"";width:28px;height:1px;background:#C9A257}
+.zg-h2{margin:6px 0 0;text-align:center;font-size:38px;line-height:1.05}
+.zg-btn{cursor:pointer;transition:transform .15s ease,filter .2s ease,box-shadow .2s ease}
+.zg-btn:hover{filter:brightness(1.05)}
+.zg-btn:active{transform:scale(.98)}
+.zg-btn:focus-visible{outline:3px solid #3B2A1E;outline-offset:3px}
+.zg-spark{position:absolute;display:block;clip-path:polygon(50% 0,60% 40%,100% 50%,60% 60%,50% 100%,40% 60%,0 50%,40% 40%);background:linear-gradient(135deg,#B08433,#FFF1C9 50%,#C99B48)}
+.zg-tw{animation:zgTw 3.4s ease-in-out infinite}
+.zg-tw2{animation:zgTw 4.6s ease-in-out 1.2s infinite}
+.zg-tw3{animation:zgTw 3.9s ease-in-out .6s infinite}
+@keyframes zgTw{0%,100%{opacity:.35;transform:scale(.7) rotate(0)}50%{opacity:1;transform:scale(1) rotate(45deg)}}
+.zg-dust{position:absolute;display:block;width:5px;height:5px;border-radius:50%;background:radial-gradient(circle,#FFF4D2 0%,#D9AE58 60%,rgba(217,174,88,0) 100%);opacity:0;animation:zgRise 7s linear infinite}
+@keyframes zgRise{0%{opacity:0;transform:translateY(0)}15%{opacity:.95}85%{opacity:.6}100%{opacity:0;transform:translateY(-190px)}}
+.zg-rays{background:repeating-conic-gradient(from 0deg,rgba(255,250,236,.75) 0deg 5deg,rgba(255,250,236,0) 5deg 15deg);-webkit-mask-image:radial-gradient(circle,#000 12%,rgba(0,0,0,0) 62%);mask-image:radial-gradient(circle,#000 12%,rgba(0,0,0,0) 62%);animation:zgSpin 90s linear infinite}
+.zg-spin{transform-box:fill-box;transform-origin:center;animation:zgSpin 120s linear infinite}
+@keyframes zgSpin{to{transform:rotate(360deg)}}
+.zg-sheen{position:relative;overflow:hidden}
+.zg-sheen::after{content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(100deg,rgba(255,255,255,0),rgba(255,255,255,.65),rgba(255,255,255,0));animation:zgSheen 4.5s ease-in-out infinite}
+@keyframes zgSheen{0%,55%{transform:translateX(0)}100%{transform:translateX(420%)}}
+.zg-float{animation:zgFloat 8s ease-in-out infinite}
+@keyframes zgFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+
+.zg-intro.is-open{pointer-events:none;animation:zgOut .9s ease 2.1s forwards}
+@keyframes zgOut{to{opacity:0}}
+.is-open .zg-pre{animation:zgFade .45s ease forwards}
+@keyframes zgFade{to{opacity:0;transform:translateY(-8px)}}
+.is-open .zg-med{animation:zgMed 1s cubic-bezier(.5,0,.4,1) forwards}
+@keyframes zgMed{0%{transform:scale(1) rotate(0);opacity:1}30%{transform:scale(1.1) rotate(-8deg);opacity:1;filter:brightness(1.15)}100%{transform:scale(.4) rotate(70deg);opacity:0}}
+.zd-l{transform-origin:0 50%}
+.zd-r{transform-origin:100% 50%}
+.is-open .zd-l{animation:zdL 1.4s cubic-bezier(.6,0,.3,1) .55s forwards}
+.is-open .zd-r{animation:zdR 1.4s cubic-bezier(.6,0,.3,1) .55s forwards}
+@keyframes zdL{to{transform:rotateY(-100deg);opacity:.2}}
+@keyframes zdR{to{transform:rotateY(100deg);opacity:.2}}
+.zg-flare{opacity:0;transform:scale(0)}
+.is-open .zg-flare{animation:zgFlare 1.5s ease-out .45s forwards}
+@keyframes zgFlare{0%{opacity:0;transform:scale(0)}35%{opacity:1}100%{opacity:0;transform:scale(16)}}
+
+.zf-card{animation:zfFlip .5s cubic-bezier(.3,.7,.4,1)}
+@keyframes zfFlip{from{transform:perspective(300px) rotateX(-70deg);opacity:.4}to{transform:perspective(300px) rotateX(0);opacity:1}}
+.zg-eq span{transform-origin:50% 100%;transform:scaleY(.3)}
+.zg-eq.is-playing span{animation:zgEq .9s ease-in-out infinite}
+.zg-eq.is-playing span:nth-child(2){animation-delay:.2s}
+.zg-eq.is-playing span:nth-child(3){animation-delay:.4s}
+.zg-eq.is-playing span:nth-child(4){animation-delay:.1s}
+@keyframes zgEq{0%,100%{transform:scaleY(.3)}50%{transform:scaleY(1)}}
+@media (prefers-reduced-motion: reduce){
+.zg-tw,.zg-tw2,.zg-tw3,.zg-rays,.zg-spin,.zg-float,.zf-card,.zg-eq.is-playing span{animation:none}
+.zg-sheen::after{display:none}
+.zg-dust{animation:none;opacity:0}
+.zg-intro.is-open{animation:none;opacity:0}
+.is-open .zg-pre,.is-open .zg-med,.is-open .zd-l,.is-open .zd-r,.is-open .zg-flare{animation:none}
+.zg-btn{transition:none}
+}
+</style>
+</helmet>
+<div class="zg {{ rootCls }}" style="width: 390px; min-height: var(--vh, 100vh); position: relative; overflow: hidden; background: #F7EFE3; color: #3B2A1E; font-family: 'Manrope', 'Segoe UI', system-ui, sans-serif">
+  <svg aria-hidden="true" width="0" height="0" style="position: absolute; left: 0; top: 0">
+    <defs>
+      <linearGradient id="zgGold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" class="zs1"></stop><stop offset=".35" class="zs2"></stop><stop offset=".5" class="zs3"></stop><stop offset=".7" class="zs4"></stop><stop offset="1" class="zs5"></stop></linearGradient>
+      <pattern id="zgLat" width="44" height="44" patternUnits="userSpaceOnUse"><polygon class="zg-lat" points="22,6 26.6,17.4 38,22 26.6,26.6 22,38 17.4,26.6 6,22 17.4,17.4"></polygon><path class="zg-lat" d="M0 0 L6 6 M44 0 L38 6 M0 44 L6 38 M44 44 L38 38"></path></pattern>
+    </defs>
+  </svg>
+
+  <div data-intro class="{{ introCls }}" aria-hidden="{{ introHidden }}" style="display: {{ introDisp }}; position: absolute; left: 0; top: 0; width: 390px; height: 844px; z-index: 30; overflow: hidden; background: radial-gradient(circle at 50% 46%, #FFFBF3 0%, #F7EFE3 48%, #EADBC4 100%)">
+    <div style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; perspective: 1400px">
+      <div class="zd-l" style="position: absolute; left: 0; top: 0; width: 195px; height: 844px; background: linear-gradient(90deg, #EFE2CC 0%, #FBF6EE 55%, #F3E8D6 100%)">
+        <svg aria-hidden="true" viewBox="0 0 195 844" width="195" height="844" style="position: absolute; left: 0; top: 0">
+          <path fill="url(#zgLat)" d="M26 806 V340 C26 226 112 166 195 136 V806 Z"></path>
+          <path class="zg-st" d="M26 806 V340 C26 226 112 166 195 136"></path>
+          <path class="zg-st2" d="M38 794 V346 C38 240 118 184 195 156"></path>
+          <rect class="zg-st2" x="14" y="14" width="200" height="816"></rect>
+        </svg>
+      </div>
+      <div class="zd-r" style="position: absolute; left: 195px; top: 0; width: 195px; height: 844px; background: linear-gradient(270deg, #EFE2CC 0%, #FBF6EE 55%, #F3E8D6 100%)">
+        <svg aria-hidden="true" viewBox="0 0 195 844" width="195" height="844" style="position: absolute; left: 0; top: 0; transform: scaleX(-1)">
+          <path fill="url(#zgLat)" d="M26 806 V340 C26 226 112 166 195 136 V806 Z"></path>
+          <path class="zg-st" d="M26 806 V340 C26 226 112 166 195 136"></path>
+          <path class="zg-st2" d="M38 794 V346 C38 240 118 184 195 156"></path>
+          <rect class="zg-st2" x="14" y="14" width="200" height="816"></rect>
+        </svg>
+      </div>
+      <span aria-hidden="true" class="zg-pre" style="position: absolute; left: 194px; top: 136px; width: 2px; height: 670px; background: #C9A257"></span>
+    </div>
+
+    <div class="zg-rays zg-pre" aria-hidden="true" style="position: absolute; left: -165px; top: 50px; width: 720px; height: 720px; border-radius: 50%"></div>
+    <div class="zg-flare" aria-hidden="true" style="position: absolute; left: 165px; top: 380px; width: 60px; height: 60px; border-radius: 50%; background: radial-gradient(circle, #FFFFFF 0%, rgba(255, 248, 230, 0.9) 40%, rgba(255, 248, 230, 0) 70%)"></div>
+
+    <span class="zg-dust" aria-hidden="true" style="left: 60px; top: 640px"></span>
+    <span class="zg-dust" aria-hidden="true" style="left: 110px; top: 700px; animation-delay: 1.5s"></span>
+    <span class="zg-dust" aria-hidden="true" style="left: 160px; top: 600px; animation-delay: 3s; width: 4px; height: 4px"></span>
+    <span class="zg-dust" aria-hidden="true" style="left: 236px; top: 680px; animation-delay: .7s"></span>
+    <span class="zg-dust" aria-hidden="true" style="left: 300px; top: 620px; animation-delay: 2.2s; width: 6px; height: 6px"></span>
+    <span class="zg-dust" aria-hidden="true" style="left: 340px; top: 720px; animation-delay: 4s"></span>
+    <span class="zg-dust" aria-hidden="true" style="left: 40px; top: 470px; animation-delay: 5s; width: 4px; height: 4px"></span>
+    <span class="zg-dust" aria-hidden="true" style="left: 350px; top: 450px; animation-delay: 2.8s"></span>
+    <span class="zg-dust" aria-hidden="true" style="left: 200px; top: 760px; animation-delay: 4.6s"></span>
+    <span class="zg-dust" aria-hidden="true" style="left: 82px; top: 380px; animation-delay: 3.6s; width: 4px; height: 4px"></span>
+    <span class="zg-dust" aria-hidden="true" style="left: 280px; top: 360px; animation-delay: 1s; width: 4px; height: 4px"></span>
+
+    <div class="zg-pre" style="position: absolute; left: 30px; top: 66px; width: 330px; text-align: center">
+      <p style="margin: 0; font-size: 11px; font-weight: 600; letter-spacing: 0.26em; text-transform: uppercase; color: #6B5038; overflow-wrap: anywhere">{{ fromHome }}</p>
+    </div>
+    <div class="zg-pre" style="position: absolute; left: 60px; top: 192px; width: 270px; text-align: center">
+      <h2 class="zg-serif zg-foil" style="margin: 0; font-size: 40px; line-height: 1.02">Zarhal<br>xushxabar</h2>
+    </div>
+
+    <div class="zg-med" style="position: absolute; left: 85px; top: 300px; width: 220px; height: 220px; filter: drop-shadow(0 14px 26px rgba(122, 90, 28, 0.25))">
+      <svg aria-hidden="true" viewBox="-100 -100 200 200" width="220" height="220" style="position: absolute; left: 0; top: 0"><circle class="zg-iv" cx="0" cy="0" r="97"></circle><circle class="zg-dot" cx="0" cy="0" r="91"></circle><g class="zg-spin"><ellipse class="zg-pt" cx="0" cy="-76" rx="6.5" ry="12" transform="rotate(0.0)"></ellipse><ellipse class="zg-pt" cx="0" cy="-76" rx="6.5" ry="12" transform="rotate(22.5)"></ellipse><ellipse class="zg-pt" cx="0" cy="-76" rx="6.5" ry="12" transform="rotate(45.0)"></ellipse><ellipse class="zg-pt" cx="0" cy="-76" rx="6.5" ry="12" transform="rotate(67.5)"></ellipse><ellipse class="zg-pt" cx="0" cy="-76" rx="6.5" ry="12" transform="rotate(90.0)"></ellipse><ellipse class="zg-pt" cx="0" cy="-76" rx="6.5" ry="12" transform="rotate(112.5)"></ellipse><ellipse class="zg-pt" cx="0" cy="-76" rx="6.5" ry="12" transform="rotate(135.0)"></ellipse><ellipse class="zg-pt" cx="0" cy="-76" rx="6.5" ry="12" transform="rotate(157.5)"></ellipse><ellipse class="zg-pt" cx="0" cy="-76" rx="6.5" ry="12" transform="rotate(180.0)"></ellipse><ellipse class="zg-pt" cx="0" cy="-76" rx="6.5" ry="12" transform="rotate(202.5)"></ellipse><ellipse class="zg-pt" cx="0" cy="-76" rx="6.5" ry="12" transform="rotate(225.0)"></ellipse><ellipse class="zg-pt" cx="0" cy="-76" rx="6.5" ry="12" transform="rotate(247.5)"></ellipse><ellipse class="zg-pt" cx="0" cy="-76" rx="6.5" ry="12" transform="rotate(270.0)"></ellipse><ellipse class="zg-pt" cx="0" cy="-76" rx="6.5" ry="12" transform="rotate(292.5)"></ellipse><ellipse class="zg-pt" cx="0" cy="-76" rx="6.5" ry="12" transform="rotate(315.0)"></ellipse><ellipse class="zg-pt" cx="0" cy="-76" rx="6.5" ry="12" transform="rotate(337.5)"></ellipse></g><polygon class="zg-iv2" points="0.0,-84.0 24.6,-59.4 59.4,-59.4 59.4,-24.6 84.0,0.0 59.4,24.6 59.4,59.4 24.6,59.4 0.0,84.0 -24.6,59.4 -59.4,59.4 -59.4,24.6 -84.0,0.0 -59.4,-24.6 -59.4,-59.4 -24.6,-59.4"></polygon><polygon class="zg-st2" points="23.0,-55.4 32.5,-32.5 55.4,-23.0 45.9,0.0 55.4,23.0 32.5,32.5 23.0,55.4 0.0,45.9 -23.0,55.4 -32.5,32.5 -55.4,23.0 -45.9,0.0 -55.4,-23.0 -32.5,-32.5 -23.0,-55.4 -0.0,-45.9"></polygon><circle class="zg-iv" cx="0" cy="0" r="42"></circle><circle class="zg-st2" cx="0" cy="0" r="36"></circle></svg>
+      <span class="zg-serif zg-foil" style="position: absolute; left: 0; top: 0; width: 220px; height: 220px; display: flex; align-items: center; justify-content: center; font-size: 62px; line-height: 1">{{ initial }}</span>
+    </div>
+
+    <div class="zg-pre" style="position: absolute; left: 50px; top: 552px; width: 290px; text-align: center">
+      <p style="margin: 0; font-size: 15px; line-height: 1.55; color: #6B5038">Muhrni oching va oilamiz xushxabarini birinchilardan bo’lib o’qing</p>
+    </div>
+
+    <sc-if value="{{ has.music }}">
+      <button type="button" class="zg-btn zg-pre" onClick="{{ toggleMusic }}" aria-label="{{ musicLabel }}" style="position: absolute; left: 324px; top: 26px; width: 46px; height: 46px; border: 1px solid #C9A257; border-radius: 50%; background: rgba(251, 246, 238, 0.85); color: #7A5A1C; display: flex; align-items: center; justify-content: center">
+        <svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20" class="zg-ic"><path d="M9 18V5.5l10-2V16"></path><circle cx="6.5" cy="18" r="2.5"></circle><circle cx="16.5" cy="16" r="2.5"></circle></svg>
+      </button>
+    </sc-if>
+
+    <div class="zg-pre" style="position: absolute; left: 0; top: 690px; width: 390px; display: flex; justify-content: center">
+      <button type="button" class="zg-btn zg-foilbg zg-sheen" onClick="{{ openSeal }}" style="display: inline-flex; align-items: center; gap: 10px; height: 58px; padding: 0 34px; border: 0; border-radius: 29px; color: #3B2A1E; font-family: 'Manrope', 'Segoe UI', system-ui, sans-serif; font-size: 16px; font-weight: 700; letter-spacing: 0.04em; box-shadow: 0 12px 28px rgba(122, 90, 28, 0.3)">
+        <svg aria-hidden="true" viewBox="-12 -12 24 24" width="20" height="20"><polygon fill="#3B2A1E" points="0.0,-10.0 2.9,-7.1 7.1,-7.1 7.1,-2.9 10.0,0.0 7.1,2.9 7.1,7.1 2.9,7.1 0.0,10.0 -2.9,7.1 -7.1,7.1 -7.1,2.9 -10.0,0.0 -7.1,-2.9 -7.1,-7.1 -2.9,-7.1"></polygon></svg>
+        Muhrni oching
+      </button>
+    </div>
+  </div>
+
+  <header style="position: relative; padding: 40px 24px 20px; text-align: center">
+    <div aria-hidden="true" style="position: absolute; left: 12px; top: 12px; width: 366px; height: 900px; box-sizing: border-box; border: 1px solid rgba(184, 137, 58, 0.55); border-bottom: 0; border-radius: 183px 183px 0 0; -webkit-mask-image: linear-gradient(180deg, #000 70%, rgba(0, 0, 0, 0)); mask-image: linear-gradient(180deg, #000 70%, rgba(0, 0, 0, 0))"></div>
+    <div aria-hidden="true" style="position: absolute; left: 19px; top: 19px; width: 352px; height: 893px; box-sizing: border-box; border: 1px solid rgba(184, 137, 58, 0.3); border-bottom: 0; border-radius: 176px 176px 0 0; -webkit-mask-image: linear-gradient(180deg, #000 60%, rgba(0, 0, 0, 0)); mask-image: linear-gradient(180deg, #000 60%, rgba(0, 0, 0, 0))"></div>
+    <span class="zg-spark zg-tw" aria-hidden="true" style="left: 46px; top: 200px; width: 16px; height: 16px"></span>
+    <span class="zg-spark zg-tw2" aria-hidden="true" style="left: 330px; top: 230px; width: 12px; height: 12px"></span>
+    <span class="zg-spark zg-tw3" aria-hidden="true" style="left: 40px; top: 540px; width: 11px; height: 11px"></span>
+    <span class="zg-spark zg-tw" aria-hidden="true" style="left: 340px; top: 470px; width: 18px; height: 18px"></span>
+
+    <div class="zg-float" style="position: relative; width: 104px; height: 104px; margin: 6px auto 0">
+      <svg aria-hidden="true" viewBox="-100 -100 200 200" width="104" height="104" style="position: absolute; left: 0; top: 0"><circle class="zg-iv" cx="0" cy="0" r="97"></circle><circle class="zg-dot" cx="0" cy="0" r="91"></circle><g class="zg-spin"><ellipse class="zg-pt" cx="0" cy="-76" rx="6.5" ry="12" transform="rotate(0.0)"></ellipse><ellipse class="zg-pt" cx="0" cy="-76" rx="6.5" ry="12" transform="rotate(22.5)"></ellipse><ellipse class="zg-pt" cx="0" cy="-76" rx="6.5" ry="12" transform="rotate(45.0)"></ellipse><ellipse class="zg-pt" cx="0" cy="-76" rx="6.5" ry="12" transform="rotate(67.5)"></ellipse><ellipse class="zg-pt" cx="0" cy="-76" rx="6.5" ry="12" transform="rotate(90.0)"></ellipse><ellipse class="zg-pt" cx="0" cy="-76" rx="6.5" ry="12" transform="rotate(112.5)"></ellipse><ellipse class="zg-pt" cx="0" cy="-76" rx="6.5" ry="12" transform="rotate(135.0)"></ellipse><ellipse class="zg-pt" cx="0" cy="-76" rx="6.5" ry="12" transform="rotate(157.5)"></ellipse><ellipse class="zg-pt" cx="0" cy="-76" rx="6.5" ry="12" transform="rotate(180.0)"></ellipse><ellipse class="zg-pt" cx="0" cy="-76" rx="6.5" ry="12" transform="rotate(202.5)"></ellipse><ellipse class="zg-pt" cx="0" cy="-76" rx="6.5" ry="12" transform="rotate(225.0)"></ellipse><ellipse class="zg-pt" cx="0" cy="-76" rx="6.5" ry="12" transform="rotate(247.5)"></ellipse><ellipse class="zg-pt" cx="0" cy="-76" rx="6.5" ry="12" transform="rotate(270.0)"></ellipse><ellipse class="zg-pt" cx="0" cy="-76" rx="6.5" ry="12" transform="rotate(292.5)"></ellipse><ellipse class="zg-pt" cx="0" cy="-76" rx="6.5" ry="12" transform="rotate(315.0)"></ellipse><ellipse class="zg-pt" cx="0" cy="-76" rx="6.5" ry="12" transform="rotate(337.5)"></ellipse></g><polygon class="zg-iv2" points="0.0,-84.0 24.6,-59.4 59.4,-59.4 59.4,-24.6 84.0,0.0 59.4,24.6 59.4,59.4 24.6,59.4 0.0,84.0 -24.6,59.4 -59.4,59.4 -59.4,24.6 -84.0,0.0 -59.4,-24.6 -59.4,-59.4 -24.6,-59.4"></polygon><polygon class="zg-st2" points="23.0,-55.4 32.5,-32.5 55.4,-23.0 45.9,0.0 55.4,23.0 32.5,32.5 23.0,55.4 0.0,45.9 -23.0,55.4 -32.5,32.5 -55.4,23.0 -45.9,0.0 -55.4,-23.0 -32.5,-32.5 -23.0,-55.4 -0.0,-45.9"></polygon><circle class="zg-iv" cx="0" cy="0" r="42"></circle><circle class="zg-st2" cx="0" cy="0" r="36"></circle></svg>
+      <span class="zg-serif zg-foil" style="position: absolute; left: 0; top: 0; width: 104px; height: 104px; display: flex; align-items: center; justify-content: center; font-size: 30px; line-height: 1">{{ initial }}</span>
+    </div>
+    <p style="position: relative; margin: 18px 0 0; font-size: 11px; font-weight: 600; letter-spacing: 0.26em; text-transform: uppercase; color: #6B5038; overflow-wrap: anywhere">{{ fromHome }}</p>
+    <h1 class="zg-serif zg-foil" style="position: relative; margin: 10px 0 0; font-size: {{ nameSize }}; line-height: 1.02; overflow-wrap: anywhere">{{ d.chaqaloq }}</h1>
+    <p style="position: relative; margin: 8px 0 0; font-size: 16px; font-weight: 600; letter-spacing: 0.04em; color: var(--gd)">{{ bornLine }}</p>
+
+    <div style="position: relative; width: 342px; height: {{ heroPhH }}; margin: 30px auto 0">
+      <div aria-hidden="true" style="position: absolute; left: 20px; top: 30px; width: 300px; height: 300px; border-radius: 50%; background: radial-gradient(circle, var(--gb) 0%, rgba(255, 255, 255, 0) 70%)"></div>
+      <div aria-hidden="true" style="position: absolute; left: 36px; top: -10px; width: 270px; height: 350px; box-sizing: border-box; border: 1px solid #C9A257; border-radius: 135px 135px 18px 18px"></div>
+      <sc-if value="{{ has.photo }}">
+        <img src="{{ p.0 }}" alt="" style="position: absolute; left: 46px; top: 0; display: block; width: 250px; height: 330px; object-fit: cover; object-position: 50% 35%; border-radius: 125px 125px 12px 12px; box-shadow: 0 18px 40px rgba(59, 42, 30, 0.18)">
+      </sc-if>
+      <sc-if value="{{ noPhoto }}">
+        <div style="position: absolute; left: 46px; top: 0; width: 250px; height: 330px; border-radius: 125px 125px 12px 12px; background: radial-gradient(circle at 50% 42%, #FFFFFF 0%, var(--gl) 75%); display: flex; align-items: center; justify-content: center">
+          <svg aria-hidden="true" viewBox="-100 -100 200 200" width="190" height="190"><polygon class="zg-st" points="0.0,-84.0 24.6,-59.4 59.4,-59.4 59.4,-24.6 84.0,0.0 59.4,24.6 59.4,59.4 24.6,59.4 0.0,84.0 -24.6,59.4 -59.4,59.4 -59.4,24.6 -84.0,0.0 -59.4,-24.6 -59.4,-59.4 -24.6,-59.4"></polygon><polygon class="zg-st2" points="23.0,-55.4 32.5,-32.5 55.4,-23.0 45.9,0.0 55.4,23.0 32.5,32.5 23.0,55.4 0.0,45.9 -23.0,55.4 -32.5,32.5 -55.4,23.0 -45.9,0.0 -55.4,-23.0 -32.5,-32.5 -23.0,-55.4 -0.0,-45.9"></polygon></svg>
+        </div>
+      </sc-if>
+      <sc-if value="{{ twoPh }}">
+        <div style="position: absolute; left: 218px; top: 226px; width: 120px; height: 120px; box-sizing: border-box; padding: 3px; border-radius: 50%" class="zg-foilbg">
+          <img src="{{ p.1 }}" alt="" style="display: block; width: 114px; height: 114px; object-fit: cover; border-radius: 50%; border: 4px solid #FBF6EE; box-sizing: border-box">
+        </div>
+      </sc-if>
+      <div style="position: absolute; left: 0; top: 352px; width: 342px; display: flex; justify-content: center">
+        <span style="display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 8px 20px; box-sizing: border-box; border-radius: 22px; background: #FBF6EE; border: 1px solid #DCC08A; font-size: 14px; font-weight: 600; color: #3B2A1E; text-align: center">{{ dateTime }}</span>
+      </div>
+    </div>
+
+    <sc-if value="{{ showCount }}">
+      <div style="position: relative; margin-top: 30px">
+        <p class="zg-eyebrow">Bu dunyoga kelganiga</p>
+        <div style="margin-top: 14px; display: flex; justify-content: center; gap: 10px">
+          <sc-for list="{{ flips }}" as="c">
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 6px">
+              <div style="position: relative; width: 72px; height: 80px; border-radius: 12px; padding: 1px; box-sizing: border-box" class="zg-foilbg">
+                <div key="{{ c.key }}" class="zf-card" style="position: relative; width: 70px; height: 78px; border-radius: 11px; background: linear-gradient(180deg, #FFFCF6 0%, #FBF6EE 49.5%, #F1E6D3 50.5%, #F6EDDF 100%); display: flex; align-items: center; justify-content: center">
+                  <span class="zg-serif" style="font-size: {{ c.fs }}; line-height: 1; color: #3B2A1E">{{ c.v }}</span>
+                  <span aria-hidden="true" style="position: absolute; left: 0; top: 38.5px; width: 70px; height: 1px; background: rgba(122, 90, 28, 0.25)"></span>
+                </div>
+              </div>
+              <span style="font-size: 11px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: #6B5038">{{ c.l }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ b.alla }}">
+      <div style="position: relative; margin-top: 30px; padding: 1px; border-radius: 24px" class="zg-foilbg">
+        <div style="display: flex; align-items: center; gap: 14px; padding: 14px 18px; border-radius: 23px; background: linear-gradient(120deg, #FBF6EE 0%, var(--gl) 100%); text-align: left">
+          <button type="button" class="zg-btn zg-foilbg" onClick="{{ toggleMusic }}" aria-label="{{ musicLabel }}" style="flex: none; width: 54px; height: 54px; border: 0; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #3B2A1E; box-shadow: 0 6px 16px rgba(122, 90, 28, 0.25)">
+            <sc-if value="{{ notPlaying }}"><svg aria-hidden="true" viewBox="0 0 24 24" width="22" height="22"><path fill="currentColor" d="M8.5 5.5v13l10.5-6.5z"></path></svg></sc-if>
+            <sc-if value="{{ playing }}"><svg aria-hidden="true" viewBox="0 0 24 24" width="22" height="22"><rect x="6.5" y="5.5" width="3.8" height="13" rx="1.2" fill="currentColor"></rect><rect x="13.7" y="5.5" width="3.8" height="13" rx="1.2" fill="currentColor"></rect></svg></sc-if>
+          </button>
+          <div style="flex: 1; min-width: 0">
+            <span style="display: block; font-size: 11px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: #6B5038">Beshik qo’shig’i</span>
+            <span class="zg-serif" style="display: block; font-size: 28px; line-height: 1.1; color: #3B2A1E">Alla</span>
+            <span style="display: block; font-size: 13px; color: #6B5038">{{ playHint }}</span>
+          </div>
+          <span class="{{ eqCls }}" aria-hidden="true" style="flex: none; display: flex; align-items: flex-end; gap: 3px; height: 28px">
+            <span style="display: block; width: 3px; height: 28px; border-radius: 2px; background: #B8893A"></span>
+            <span style="display: block; width: 3px; height: 28px; border-radius: 2px; background: var(--gd)"></span>
+            <span style="display: block; width: 3px; height: 28px; border-radius: 2px; background: #B8893A"></span>
+            <span style="display: block; width: 3px; height: 28px; border-radius: 2px; background: var(--gd)"></span>
+          </span>
+        </div>
+      </div>
+    </sc-if>
+  </header>
+
+  <sc-if value="{{ b.xabar }}">
+    <section style="position: relative; margin: 40px 24px 0; padding: 1px; border-radius: 6px" class="zg-foilbg">
+      <div style="position: relative; padding: 34px 28px 28px; border-radius: 5px; background: #FBF6EE">
+        <div aria-hidden="true" style="position: absolute; left: 7px; top: 7px; right: 7px; bottom: 7px; border: 1px solid rgba(184, 137, 58, 0.45); border-radius: 3px"></div>
+        <svg aria-hidden="true" viewBox="-12 -12 24 24" width="22" height="22" style="position: absolute; left: -4px; top: -4px"><polygon class="zg-iv2" points="0.0,-10.0 2.9,-7.1 7.1,-7.1 7.1,-2.9 10.0,0.0 7.1,2.9 7.1,7.1 2.9,7.1 0.0,10.0 -2.9,7.1 -7.1,7.1 -7.1,2.9 -10.0,0.0 -7.1,-2.9 -7.1,-7.1 -2.9,-7.1"></polygon></svg>
+        <svg aria-hidden="true" viewBox="-12 -12 24 24" width="22" height="22" style="position: absolute; right: -4px; top: -4px"><polygon class="zg-iv2" points="0.0,-10.0 2.9,-7.1 7.1,-7.1 7.1,-2.9 10.0,0.0 7.1,2.9 7.1,7.1 2.9,7.1 0.0,10.0 -2.9,7.1 -7.1,7.1 -7.1,2.9 -10.0,0.0 -7.1,-2.9 -7.1,-7.1 -2.9,-7.1"></polygon></svg>
+        <svg aria-hidden="true" viewBox="-12 -12 24 24" width="22" height="22" style="position: absolute; left: -4px; bottom: -4px"><polygon class="zg-iv2" points="0.0,-10.0 2.9,-7.1 7.1,-7.1 7.1,-2.9 10.0,0.0 7.1,2.9 7.1,7.1 2.9,7.1 0.0,10.0 -2.9,7.1 -7.1,7.1 -7.1,2.9 -10.0,0.0 -7.1,-2.9 -7.1,-7.1 -2.9,-7.1"></polygon></svg>
+        <svg aria-hidden="true" viewBox="-12 -12 24 24" width="22" height="22" style="position: absolute; right: -4px; bottom: -4px"><polygon class="zg-iv2" points="0.0,-10.0 2.9,-7.1 7.1,-7.1 7.1,-2.9 10.0,0.0 7.1,2.9 7.1,7.1 2.9,7.1 0.0,10.0 -2.9,7.1 -7.1,7.1 -7.1,2.9 -10.0,0.0 -7.1,-2.9 -7.1,-7.1 -2.9,-7.1"></polygon></svg>
+        <p class="zg-eyebrow">Maktub</p>
+        <h2 class="zg-serif zg-h2" style="color: #3B2A1E">Aziz yaqinlarimiz</h2>
+        <p style="position: relative; margin: 16px 0 0; font-size: 15.5px; line-height: 1.75; color: #4A3628; white-space: pre-line; overflow-wrap: anywhere">{{ d.matn }}</p>
+        <sc-if value="{{ d.ota_ona }}">
+          <p class="zg-serif zg-foil" style="position: relative; margin: 18px 0 0; text-align: right; font-size: 28px; line-height: 1.1; overflow-wrap: anywhere">{{ d.ota_ona }}</p>
+        </sc-if>
+      </div>
+    </section>
+  </sc-if>
+
+  <sc-if value="{{ b.olchov }}">
+    <section aria-label="Tug’ilish kartochkasi" style="position: relative; margin: 40px 24px 0; padding: 1.5px; border-radius: 22px; box-shadow: 0 16px 36px rgba(122, 90, 28, 0.14)" class="zg-foilbg">
+      <div style="position: relative; border-radius: 21px; padding: 26px 22px 22px; background: linear-gradient(170deg, #FFFCF6 0%, #F6ECDC 100%); overflow: hidden">
+        <svg aria-hidden="true" viewBox="0 0 132 132" width="132" height="132" style="position: absolute; right: -30px; top: -30px; opacity: .6"><rect width="132" height="132" fill="url(#zgLat)"></rect></svg>
+        <p class="zg-eyebrow" style="position: relative">Tug’ilish kartochkasi</p>
+        <p class="zg-serif" style="position: relative; margin: 8px 0 0; text-align: center; font-size: 26px; line-height: 1.15; color: #3B2A1E; overflow-wrap: anywhere">{{ nasab }}</p>
+        <div style="position: relative; margin-top: 18px; display: grid; grid-template-columns: repeat({{ cellCols }}, minmax(0, 1fr)); border-top: 1px solid rgba(184, 137, 58, 0.4)">
+          <sc-for list="{{ cells }}" as="c">
+            <div style="{{ c.st }}">
+              <span style="display: block; font-size: 11px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: #6B5038">{{ c.label }}</span>
+              <span class="zg-serif" style="display: block; margin-top: 6px; font-size: 30px; line-height: 1.05; color: #3B2A1E; overflow-wrap: anywhere">{{ c.value }}</span>
+              <span style="display: block; margin-top: 4px; font-size: 12.5px; color: #6B5038">{{ c.sub }}</span>
+            </div>
+          </sc-for>
+        </div>
+        <div style="position: relative; margin-top: 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px">
+          <span style="font-size: 13px; line-height: 1.4; color: #6B5038; overflow-wrap: anywhere">{{ parentsLine }}</span>
+          <div style="position: relative; flex: none; width: 64px; height: 64px">
+            <svg aria-hidden="true" viewBox="-100 -100 200 200" width="64" height="64" style="position: absolute; left: 0; top: 0"><circle class="zg-iv" cx="0" cy="0" r="97"></circle><g><ellipse class="zg-pt" cx="0" cy="-76" rx="6.5" ry="12" transform="rotate(0.0)"></ellipse><ellipse class="zg-pt" cx="0" cy="-76" rx="6.5" ry="12" transform="rotate(22.5)"></ellipse><ellipse class="zg-pt" cx="0" cy="-76" rx="6.5" ry="12" transform="rotate(45.0)"></ellipse><ellipse class="zg-pt" cx="0" cy="-76" rx="6.5" ry="12" transform="rotate(67.5)"></ellipse><ellipse class="zg-pt" cx="0" cy="-76" rx="6.5" ry="12" transform="rotate(90.0)"></ellipse><ellipse class="zg-pt" cx="0" cy="-76" rx="6.5" ry="12" transform="rotate(112.5)"></ellipse><ellipse class="zg-pt" cx="0" cy="-76" rx="6.5" ry="12" transform="rotate(135.0)"></ellipse><ellipse class="zg-pt" cx="0" cy="-76" rx="6.5" ry="12" transform="rotate(157.5)"></ellipse><ellipse class="zg-pt" cx="0" cy="-76" rx="6.5" ry="12" transform="rotate(180.0)"></ellipse><ellipse class="zg-pt" cx="0" cy="-76" rx="6.5" ry="12" transform="rotate(202.5)"></ellipse><ellipse class="zg-pt" cx="0" cy="-76" rx="6.5" ry="12" transform="rotate(225.0)"></ellipse><ellipse class="zg-pt" cx="0" cy="-76" rx="6.5" ry="12" transform="rotate(247.5)"></ellipse><ellipse class="zg-pt" cx="0" cy="-76" rx="6.5" ry="12" transform="rotate(270.0)"></ellipse><ellipse class="zg-pt" cx="0" cy="-76" rx="6.5" ry="12" transform="rotate(292.5)"></ellipse><ellipse class="zg-pt" cx="0" cy="-76" rx="6.5" ry="12" transform="rotate(315.0)"></ellipse><ellipse class="zg-pt" cx="0" cy="-76" rx="6.5" ry="12" transform="rotate(337.5)"></ellipse></g><polygon class="zg-iv2" points="0.0,-84.0 24.6,-59.4 59.4,-59.4 59.4,-24.6 84.0,0.0 59.4,24.6 59.4,59.4 24.6,59.4 0.0,84.0 -24.6,59.4 -59.4,59.4 -59.4,24.6 -84.0,0.0 -59.4,-24.6 -59.4,-59.4 -24.6,-59.4"></polygon><polygon class="zg-st2" points="23.0,-55.4 32.5,-32.5 55.4,-23.0 45.9,0.0 55.4,23.0 32.5,32.5 23.0,55.4 0.0,45.9 -23.0,55.4 -32.5,32.5 -55.4,23.0 -45.9,0.0 -55.4,-23.0 -32.5,-32.5 -23.0,-55.4 -0.0,-45.9"></polygon><circle class="zg-iv" cx="0" cy="0" r="42"></circle><circle class="zg-st2" cx="0" cy="0" r="36"></circle></svg>
+            <span class="zg-serif zg-foil" style="position: absolute; left: 0; top: 0; width: 64px; height: 64px; display: flex; align-items: center; justify-content: center; font-size: 20px">{{ initial }}</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </sc-if>
+
+  <sc-if value="{{ b.oila }}">
+    <section style="position: relative; margin: 56px 24px 0">
+      <p class="zg-eyebrow">Shajara</p>
+      <h2 class="zg-serif zg-h2 zg-foil">Oila daraxti</h2>
+      <div style="margin-top: 24px; display: flex; flex-direction: column; align-items: center">
+        <div style="width: 100%; display: flex; flex-wrap: wrap; justify-content: center; gap: 14px">
+          <sc-for list="{{ family }}" as="f">
+            <div style="flex: 0 1 164px; min-width: 0; display: flex; flex-direction: column; align-items: center">
+              <div style="width: 100%; box-sizing: border-box; padding: 16px 12px 14px; border-radius: 82px 82px 14px 14px; background: #FBF6EE; border: 1px solid #DCC08A; text-align: center">
+                <div style="display: flex; justify-content: center">
+                  <span class="zg-serif" style="width: 36px; height: 36px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 18px; color: #3B2A1E; background: var(--gl); border: 1px solid #C9A257">{{ f.a }}</span>
+                  <sc-if value="{{ f.b }}"><span class="zg-serif" style="width: 36px; height: 36px; margin-left: -8px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 18px; color: #3B2A1E; background: #F3E1D6; border: 1px solid #C9A257">{{ f.b }}</span></sc-if>
+                </div>
+                <span style="display: block; margin-top: 10px; font-size: 10.5px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #6B5038">{{ f.label }}</span>
+                <span class="zg-serif" style="display: block; margin-top: 4px; font-size: 18px; line-height: 1.3; color: #3B2A1E; white-space: pre-line; overflow-wrap: anywhere">{{ f.names }}</span>
+              </div>
+              <sc-if value="{{ famMany }}"><span aria-hidden="true" style="display: block; width: 1px; height: 18px; background: #B8893A"></span></sc-if>
+            </div>
+          </sc-for>
+        </div>
+        <sc-if value="{{ famMany }}"><span aria-hidden="true" style="display: block; width: 50%; height: 1px; background: #B8893A"></span></sc-if>
+        <span aria-hidden="true" style="display: block; width: 1px; height: 24px; background: #B8893A"></span>
+        <div style="max-width: 300px; box-sizing: border-box; padding: 1px; border-radius: 30px" class="zg-foilbg">
+          <div style="padding: 10px 26px; border-radius: 29px; background: #FBF6EE; text-align: center">
+            <span style="display: block; font-size: 10.5px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: #6B5038">{{ parLabel }}</span>
+            <span class="zg-serif" style="display: block; margin-top: 2px; font-size: 23px; line-height: 1.15; color: #3B2A1E; overflow-wrap: anywhere">{{ d.ota_ona }}</span>
+          </div>
+        </div>
+        <span aria-hidden="true" style="display: block; width: 1px; height: 24px; background: #B8893A"></span>
+        <div style="position: relative; width: 120px; height: 120px">
+          <svg aria-hidden="true" viewBox="-100 -100 200 200" width="120" height="120" style="position: absolute; left: 0; top: 0"><circle class="zg-iv" cx="0" cy="0" r="97"></circle><circle class="zg-dot" cx="0" cy="0" r="91"></circle><g class="zg-spin"><ellipse class="zg-pt" cx="0" cy="-76" rx="6.5" ry="12" transform="rotate(0.0)"></ellipse><ellipse class="zg-pt" cx="0" cy="-76" rx="6.5" ry="12" transform="rotate(22.5)"></ellipse><ellipse class="zg-pt" cx="0" cy="-76" rx="6.5" ry="12" transform="rotate(45.0)"></ellipse><ellipse class="zg-pt" cx="0" cy="-76" rx="6.5" ry="12" transform="rotate(67.5)"></ellipse><ellipse class="zg-pt" cx="0" cy="-76" rx="6.5" ry="12" transform="rotate(90.0)"></ellipse><ellipse class="zg-pt" cx="0" cy="-76" rx="6.5" ry="12" transform="rotate(112.5)"></ellipse><ellipse class="zg-pt" cx="0" cy="-76" rx="6.5" ry="12" transform="rotate(135.0)"></ellipse><ellipse class="zg-pt" cx="0" cy="-76" rx="6.5" ry="12" transform="rotate(157.5)"></ellipse><ellipse class="zg-pt" cx="0" cy="-76" rx="6.5" ry="12" transform="rotate(180.0)"></ellipse><ellipse class="zg-pt" cx="0" cy="-76" rx="6.5" ry="12" transform="rotate(202.5)"></ellipse><ellipse class="zg-pt" cx="0" cy="-76" rx="6.5" ry="12" transform="rotate(225.0)"></ellipse><ellipse class="zg-pt" cx="0" cy="-76" rx="6.5" ry="12" transform="rotate(247.5)"></ellipse><ellipse class="zg-pt" cx="0" cy="-76" rx="6.5" ry="12" transform="rotate(270.0)"></ellipse><ellipse class="zg-pt" cx="0" cy="-76" rx="6.5" ry="12" transform="rotate(292.5)"></ellipse><ellipse class="zg-pt" cx="0" cy="-76" rx="6.5" ry="12" transform="rotate(315.0)"></ellipse><ellipse class="zg-pt" cx="0" cy="-76" rx="6.5" ry="12" transform="rotate(337.5)"></ellipse></g><polygon class="zg-iv2" points="0.0,-84.0 24.6,-59.4 59.4,-59.4 59.4,-24.6 84.0,0.0 59.4,24.6 59.4,59.4 24.6,59.4 0.0,84.0 -24.6,59.4 -59.4,59.4 -59.4,24.6 -84.0,0.0 -59.4,-24.6 -59.4,-59.4 -24.6,-59.4"></polygon><polygon class="zg-st2" points="23.0,-55.4 32.5,-32.5 55.4,-23.0 45.9,0.0 55.4,23.0 32.5,32.5 23.0,55.4 0.0,45.9 -23.0,55.4 -32.5,32.5 -55.4,23.0 -45.9,0.0 -55.4,-23.0 -32.5,-32.5 -23.0,-55.4 -0.0,-45.9"></polygon><circle class="zg-iv" cx="0" cy="0" r="42"></circle><circle class="zg-st2" cx="0" cy="0" r="36"></circle></svg>
+          <span class="zg-serif zg-foil" style="position: absolute; left: 0; top: 0; width: 120px; height: 120px; display: flex; align-items: center; justify-content: center; font-size: 34px">{{ initial }}</span>
+        </div>
+        <p class="zg-serif" style="margin: 8px 0 0; padding: 0 10px; text-align: center; font-size: {{ pillSize }}; line-height: 1.1; color: #3B2A1E; overflow-wrap: anywhere">{{ d.chaqaloq }}</p>
+      </div>
+    </section>
+  </sc-if>
+
+  <sc-if value="{{ b.galereya }}">
+    <section style="position: relative; margin: 56px 24px 0">
+      <p class="zg-eyebrow">Xotiralar</p>
+      <h2 class="zg-serif zg-h2 zg-foil">Ilk kunlar</h2>
+      <div style="position: relative; margin-top: 26px; height: {{ gal.h }}">
+        <div aria-hidden="true" style="position: absolute; left: 12px; top: 12px; width: 330px; height: 250px; border: 1px solid #C9A257; border-radius: 4px; box-sizing: border-box"></div>
+        <img src="{{ gal.a }}" alt="" style="position: absolute; left: 0; top: 0; display: block; width: 330px; height: 250px; object-fit: cover; border-radius: 4px; box-shadow: 0 14px 30px rgba(59, 42, 30, 0.16)">
+        <sc-if value="{{ gal.b }}">
+          <img src="{{ gal.b }}" alt="" style="position: absolute; left: 0; top: 284px; display: block; width: 196px; height: 250px; object-fit: cover; border-radius: 98px 98px 4px 4px; box-shadow: 0 14px 30px rgba(59, 42, 30, 0.16)">
+        </sc-if>
+        <sc-if value="{{ gal.c }}">
+          <div style="position: absolute; left: 172px; top: 386px; width: 170px; height: 200px; padding: 6px; box-sizing: border-box; background: #FBF6EE; border: 1px solid #DCC08A; box-shadow: 0 16px 30px rgba(59, 42, 30, 0.18); transform: rotate(3deg)">
+            <img src="{{ gal.c }}" alt="" style="display: block; width: 156px; height: 186px; object-fit: cover">
+          </div>
+        </sc-if>
+        <sc-if value="{{ gal.cap }}">
+          <p class="zg-serif" style="{{ gal.capSt }}">Ilk kunlar —<br>eng aziz xotira</p>
+        </sc-if>
+      </div>
+    </section>
+  </sc-if>
+
+  <sc-if value="{{ b.albom }}">
+    <section style="position: relative; margin: 56px 24px 0">
+      <p class="zg-eyebrow">Oyma-oy</p>
+      <h2 class="zg-serif zg-h2 zg-foil">O’sish albomi</h2>
+      <p style="margin: 6px 0 0; text-align: center; font-size: 14px; color: #6B5038">Har oy yangi surat — birga kuzatamiz</p>
+      <div style="position: relative; margin-top: 22px">
+        <span aria-hidden="true" style="position: absolute; left: 171px; top: 30px; bottom: 30px; width: 1px; background: #C9A257"></span>
+        <div style="position: relative; display: flex; flex-direction: column; gap: 14px">
+          <sc-for list="{{ months }}" as="m">
+            <div style="{{ m.row }}">
+              <div style="flex: none; width: 76px; height: 76px; box-sizing: border-box; padding: 2px; border-radius: 50%; background: {{ m.ring }}">
+                <sc-if value="{{ m.src }}"><img src="{{ m.src }}" alt="" style="display: block; width: 72px; height: 72px; object-fit: cover; border-radius: 50%; border: 3px solid #FBF6EE; box-sizing: border-box"></sc-if>
+                <sc-if value="{{ m.empty }}"><span style="width: 72px; height: 72px; border-radius: 50%; background: #FBF6EE; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" viewBox="-12 -12 24 24" width="22" height="22"><polygon class="zg-st2" points="0.0,-10.0 2.9,-7.1 7.1,-7.1 7.1,-2.9 10.0,0.0 7.1,2.9 7.1,7.1 2.9,7.1 0.0,10.0 -2.9,7.1 -7.1,7.1 -7.1,2.9 -10.0,0.0 -7.1,-2.9 -7.1,-7.1 -2.9,-7.1"></polygon></svg></span></sc-if>
+              </div>
+              <div style="{{ m.txt }}">
+                <span class="zg-serif" style="display: block; font-size: 26px; line-height: 1; color: #3B2A1E">{{ m.label }}</span>
+                <sc-if value="{{ m.sub }}"><span style="display: block; margin-top: 4px; font-size: 13px; font-weight: 600; color: #3B2A1E">{{ m.sub }}</span></sc-if>
+                <span style="display: block; margin-top: 2px; font-size: 12px; letter-spacing: 0.06em; color: #6B5038">{{ m.note }}</span>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+  </sc-if>
+
+  <sc-if value="{{ b.tilaklar }}">
+    <section style="position: relative; margin: 56px 24px 0; padding: 30px 24px 22px; border-radius: 160px 160px 18px 18px; background: linear-gradient(180deg, var(--gl) 0%, #FBF6EE 60%)">
+      <p class="zg-eyebrow" style="margin-top: 14px">Duo va tilaklar</p>
+      <h2 class="zg-serif zg-h2 zg-foil">Tilaklarimiz</h2>
+      <ul style="list-style: none; margin: 18px 0 0; padding: 0">
+        <sc-for list="{{ wishes }}" as="t">
+          <li style="{{ t.st }}">
+            <svg aria-hidden="true" viewBox="-12 -12 24 24" width="18" height="18" style="flex: none; margin-top: 3px"><polygon class="zg-gfill" points="0.0,-10.0 2.9,-7.1 7.1,-7.1 7.1,-2.9 10.0,0.0 7.1,2.9 7.1,7.1 2.9,7.1 0.0,10.0 -2.9,7.1 -7.1,7.1 -7.1,2.9 -10.0,0.0 -7.1,-2.9 -7.1,-7.1 -2.9,-7.1"></polygon></svg>
+            <span class="zg-serif" style="flex: 1; min-width: 0; font-size: 21px; line-height: 1.25; color: #3B2A1E; overflow-wrap: anywhere">{{ t.text }}</span>
+          </li>
+        </sc-for>
+      </ul>
+    </section>
+  </sc-if>
+
+  <sc-if value="{{ b.mehmonlar }}">
+    <section style="position: relative; margin: 56px 24px 0">
+      <p class="zg-eyebrow">Yaqinlarimizdan</p>
+      <h2 class="zg-serif zg-h2 zg-foil">Iliq so’zlar</h2>
+      <div style="margin-top: 22px; display: flex; gap: 12px; align-items: flex-start">
+        <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 12px">
+          <sc-for list="{{ gA }}" as="g">
+            <div style="position: relative; padding: 18px 16px 14px; border-radius: 16px; background: #FBF6EE; border: 1px solid #E5D3AE">
+              <span class="zg-serif zg-foil" aria-hidden="true" style="display: block; height: 26px; font-size: 52px; line-height: 0.9">“</span>
+              <p style="margin: 2px 0 10px; font-size: 15px; line-height: 1.5; color: #3B2A1E; overflow-wrap: anywhere">{{ g.matn }}</p>
+              <p style="margin: 0; font-size: 13px; font-weight: 700; color: #3B2A1E; overflow-wrap: anywhere">{{ g.who }} <span style="font-weight: 500; color: var(--gd)">{{ g.rel }}</span></p>
+            </div>
+          </sc-for>
+        </div>
+        <sc-if value="{{ gB.length }}">
+          <div style="flex: 1; min-width: 0; padding-top: 34px; display: flex; flex-direction: column; gap: 12px">
+            <sc-for list="{{ gB }}" as="g">
+              <div style="position: relative; padding: 18px 16px 14px; border-radius: 16px; background: #FBF6EE; border: 1px solid #E5D3AE">
+                <span class="zg-serif zg-foil" aria-hidden="true" style="display: block; height: 26px; font-size: 52px; line-height: 0.9">“</span>
+                <p style="margin: 2px 0 10px; font-size: 15px; line-height: 1.5; color: #3B2A1E; overflow-wrap: anywhere">{{ g.matn }}</p>
+                <p style="margin: 0; font-size: 13px; font-weight: 700; color: #3B2A1E; overflow-wrap: anywhere">{{ g.who }} <span style="font-weight: 500; color: var(--gd)">{{ g.rel }}</span></p>
+              </div>
+            </sc-for>
+          </div>
+        </sc-if>
+      </div>
+    </section>
+  </sc-if>
+
+  <sc-if value="{{ b.javob }}">
+    <section style="position: relative; margin: 56px 24px 0; text-align: center">
+      <div aria-hidden="true" class="zg-line" style="height: 1px; margin: 0 20px 28px"></div>
+      <h2 class="zg-serif" style="margin: 0; font-size: 32px; line-height: 1.1; color: #3B2A1E; overflow-wrap: anywhere">{{ congratsTitle }}</h2>
+      <p style="margin: 10px 0 22px; font-size: 15px; line-height: 1.55; color: #6B5038">Bir og’iz iliq so’zingiz {{ parentsTo }} eng qimmatli sovg’a.</p>
+      <button type="button" class="zg-btn zg-foilbg zg-sheen" onClick="{{ congratulate }}" disabled="{{ sent }}" style="display: inline-flex; align-items: center; justify-content: center; gap: 10px; width: 100%; height: 60px; border: 0; border-radius: 30px; color: #3B2A1E; font-family: 'Manrope', 'Segoe UI', system-ui, sans-serif; font-size: 17px; font-weight: 700; letter-spacing: 0.03em; box-shadow: 0 12px 28px rgba(122, 90, 28, 0.25)">
+        <sc-if value="{{ sent }}"><svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20" class="zg-ic"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></sc-if>
+        {{ btnLabel }}
+      </button>
+      <sc-if value="{{ sent }}">
+        <p role="status" style="margin: 14px 0 0; font-size: 15px; font-weight: 600; color: #6B5038">Rahmat! Tabrigingiz oilaga yetkazildi.</p>
+      </sc-if>
+    </section>
+  </sc-if>
+
+  <footer style="position: relative; padding: 56px 24px 44px; text-align: center">
+    <div style="position: relative; width: 56px; height: 56px; margin: 0 auto">
+      <svg aria-hidden="true" viewBox="-100 -100 200 200" width="56" height="56" style="position: absolute; left: 0; top: 0"><circle class="zg-iv" cx="0" cy="0" r="97"></circle><g><ellipse class="zg-pt" cx="0" cy="-76" rx="6.5" ry="12" transform="rotate(0.0)"></ellipse><ellipse class="zg-pt" cx="0" cy="-76" rx="6.5" ry="12" transform="rotate(22.5)"></ellipse><ellipse class="zg-pt" cx="0" cy="-76" rx="6.5" ry="12" transform="rotate(45.0)"></ellipse><ellipse class="zg-pt" cx="0" cy="-76" rx="6.5" ry="12" transform="rotate(67.5)"></ellipse><ellipse class="zg-pt" cx="0" cy="-76" rx="6.5" ry="12" transform="rotate(90.0)"></ellipse><ellipse class="zg-pt" cx="0" cy="-76" rx="6.5" ry="12" transform="rotate(112.5)"></ellipse><ellipse class="zg-pt" cx="0" cy="-76" rx="6.5" ry="12" transform="rotate(135.0)"></ellipse><ellipse class="zg-pt" cx="0" cy="-76" rx="6.5" ry="12" transform="rotate(157.5)"></ellipse><ellipse class="zg-pt" cx="0" cy="-76" rx="6.5" ry="12" transform="rotate(180.0)"></ellipse><ellipse class="zg-pt" cx="0" cy="-76" rx="6.5" ry="12" transform="rotate(202.5)"></ellipse><ellipse class="zg-pt" cx="0" cy="-76" rx="6.5" ry="12" transform="rotate(225.0)"></ellipse><ellipse class="zg-pt" cx="0" cy="-76" rx="6.5" ry="12" transform="rotate(247.5)"></ellipse><ellipse class="zg-pt" cx="0" cy="-76" rx="6.5" ry="12" transform="rotate(270.0)"></ellipse><ellipse class="zg-pt" cx="0" cy="-76" rx="6.5" ry="12" transform="rotate(292.5)"></ellipse><ellipse class="zg-pt" cx="0" cy="-76" rx="6.5" ry="12" transform="rotate(315.0)"></ellipse><ellipse class="zg-pt" cx="0" cy="-76" rx="6.5" ry="12" transform="rotate(337.5)"></ellipse></g><polygon class="zg-iv2" points="0.0,-84.0 24.6,-59.4 59.4,-59.4 59.4,-24.6 84.0,0.0 59.4,24.6 59.4,59.4 24.6,59.4 0.0,84.0 -24.6,59.4 -59.4,59.4 -59.4,24.6 -84.0,0.0 -59.4,-24.6 -59.4,-59.4 -24.6,-59.4"></polygon><polygon class="zg-st2" points="23.0,-55.4 32.5,-32.5 55.4,-23.0 45.9,0.0 55.4,23.0 32.5,32.5 23.0,55.4 0.0,45.9 -23.0,55.4 -32.5,32.5 -55.4,23.0 -45.9,0.0 -55.4,-23.0 -32.5,-32.5 -23.0,-55.4 -0.0,-45.9"></polygon><circle class="zg-iv" cx="0" cy="0" r="42"></circle><circle class="zg-st2" cx="0" cy="0" r="36"></circle></svg>
+    </div>
+    <p class="zg-serif zg-foil" style="margin: 12px 0 0; font-size: 24px; overflow-wrap: anywhere">{{ famLine }}</p>
+    <sc-if value="{{ dotDate }}"><p style="margin: 6px 0 0; font-size: 12px; letter-spacing: 0.24em; color: #6B5038">{{ dotDate }}</p></sc-if>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":4600}}'>
+class Component extends DCLogic {
+  componentDidMount() {
+    this.tick = setInterval(() => this.forceUpdate(), 1000);
+  }
+  componentWillUnmount() {
+    if (this.tick) clearInterval(this.tick);
+    if (this.introTimer) clearTimeout(this.introTimer);
+  }
+  renderVals() {
+    const s = this.state || {};
+    const d = SITE.d;
+    const qiz = d.jins === 'qiz';
+    const name = String(d.chaqaloq || '').trim();
+    const w = SITE.when(d.sana, d.vaqt);
+    const fit = (t, max, wd, k) => { const L = Math.max(1, String(t || '').length); return Math.min(max, Math.floor(wd / (L * k))) + 'px'; };
+    const kgm = String(d.vazn || '').match(/(\d+(?:[.,]\d+)?)/);
+    const kgv = kgm ? parseFloat(kgm[1].replace(',', '.')) : 0;
+    const smm = String(d.boy || '').match(/(\d+(?:[.,]\d+)?)/);
+    const par = String(d.ota_ona || '').split(/\s+(?:va|ва|&|and)\s+|\s*[,&+]\s*/i).map(x => x.trim()).filter(Boolean);
+    const ini = x => (String(x || '').replace(/^[^A-Za-zА-Яа-яЁёЎўҚқҒғҲҳ]+/, '').charAt(0) || '').toUpperCase();
+    const hr = /^(\d{1,2}):/.test(d.vaqt || '') ? +d.vaqt.split(':')[0] : -1;
+    const part = hr < 0 ? null : hr < 4 ? { w: 'tun', sub: 'tun yarmida' } : hr < 7 ? { w: 'tong', sub: 'tong saharda' } : hr < 12 ? { w: 'ertalab', sub: 'ertalab' } : hr < 17 ? { w: 'kunduzi', sub: 'kunduzi' } : hr < 21 ? { w: 'kechqurun', sub: 'kechqurun' } : { w: 'tun', sub: 'tunda' };
+    const playing = SITE.music.playing;
+    const n = SITE.has.photos, P = SITE.p;
+
+    const el = SITE.elapsed(d.sana, d.vaqt);
+    const pad = SITE.pad;
+    const dayStr = String(el.days || 0);
+    const flips = [
+      { v: dayStr, l: 'kun', key: 'd' + dayStr, fs: dayStr.length > 3 ? '30px' : '38px' },
+      { v: pad(el.h || 0), l: 'soat', key: 'h' + el.h, fs: '38px' },
+      { v: pad(el.m || 0), l: 'daqiqa', key: 'm' + el.m, fs: '38px' },
+      { v: pad(el.s || 0), l: 'soniya', key: 's' + el.s, fs: '38px' }
+    ];
+
+    const cl = [];
+    if (w.date) cl.push({ label: 'Sana', value: w.dm, sub: [w.year, w.weekday].filter(Boolean).join(', ') });
+    if (d.vaqt) cl.push({ label: 'Vaqt', value: d.vaqt, sub: part ? part.sub : '' });
+    if (d.vazn) cl.push({ label: 'Vazn', value: d.vazn, sub: kgv > 0 && kgv < 20 ? SITE.num(Math.round(kgv * 1000)) + ' gramm' : '' });
+    if (d.boy) cl.push({ label: 'Bo’y', value: d.boy, sub: smm ? smm[1] + ' santimetr' : '' });
+    const L = cl.length, cols = L === 1 ? 1 : 2, rows = Math.ceil(L / cols);
+    const line = '1px solid rgba(184, 137, 58, 0.4)';
+    const cells = cl.map((c, i) => {
+      const col = i % cols, row = Math.floor(i / cols), lastOdd = cols === 2 && L % 2 && i === L - 1;
+      const st = ['padding: 14px 8px 12px', 'text-align: center',
+        col === 0 && cols === 2 && !lastOdd ? 'border-right: ' + line : '',
+        row < rows - 1 ? 'border-bottom: ' + line : '', lastOdd ? 'grid-column: 1 / -1' : ''].filter(Boolean).join('; ');
+      return Object.assign(c, { st });
+    });
+
+    const family = (d.bobo_buvi || []).filter(Boolean).map((ln, i, all) => {
+      const ps = String(ln).split(/\s+(?:va|ва|&)\s+|\s*[,&+]\s*/i).map(x => x.trim()).filter(Boolean);
+      return { names: ps.join('\n'), a: ini(ps[0]), b: ps[1] ? ini(ps[1]) : '', label: all.length === 1 ? 'Bobo va buvisi' : i === 0 ? 'Dadasi tomondan' : i === 1 ? 'Oyisi tomondan' : 'Yaqinlari' };
+    });
+
+    const g3 = n >= 5 ? [P[2], P[3], P[4]] : n === 4 ? [P[1], P[2], P[3]] : n === 3 ? [P[1], P[2]] : n === 2 ? [P[1]] : [P[0]];
+    const gal = g3.length === 3 ? { h: '590px', a: g3[0], b: g3[1], c: g3[2], cap: true, capSt: 'position: absolute; left: 214px; top: 290px; width: 128px; margin: 0; font-size: 20px; line-height: 1.2; color: #6B5038' }
+      : g3.length === 2 ? { h: '540px', a: g3[0], b: g3[1], c: '', cap: true, capSt: 'position: absolute; left: 214px; top: 400px; width: 128px; margin: 0; font-size: 20px; line-height: 1.2; color: #6B5038' }
+      : { h: '262px', a: g3[0], b: '', c: '', cap: false, capSt: '' };
+
+    const OY = ['yanvar', 'fevral', 'mart', 'aprel', 'may', 'iyun', 'iyul', 'avgust', 'sentabr', 'oktabr', 'noyabr', 'dekabr'];
+    const bm = /^(\d{4})-(\d{2})-(\d{2})/.exec(d.sana || '');
+    const filled = el.none ? 1 : Math.min(6, Math.max(1, (el.totalMonths || 0) + 1));
+    const months = [0, 1, 2, 3, 4, 5].map(i => {
+      let sub = '';
+      if (bm) { const t = new Date(Date.UTC(+bm[1], +bm[2] - 1 + i, 1)); sub = (+bm[3]) + '-' + OY[t.getUTCMonth()]; }
+      const has = i < filled;
+      const left = i % 2 === 0;
+      return {
+        label: (i + 1) + '-oy',
+        sub: sub,
+        note: i === 0 ? 'tug’ilgan kun' : has ? 'xotira' : 'tez orada',
+        src: has ? P[(1 + i) % P.length] : '',
+        empty: !has,
+        ring: has ? 'linear-gradient(135deg, #B08433, #FFF1C9 45%, #C99B48)' : 'rgba(201, 162, 87, 0.45)',
+        row: 'display: flex; align-items: center; gap: 16px; flex-direction: ' + (left ? 'row' : 'row-reverse') + '; padding-' + (left ? 'left' : 'right') + ': 133px',
+        txt: 'flex: 1; min-width: 0; text-align: ' + (left ? 'left' : 'right')
+      };
+    });
+    const wl = d.tilaklar || [];
+    const wishes = wl.map((text, i) => ({ text, st: 'display: flex; align-items: flex-start; gap: 12px; padding: 13px 4px' + (i < wl.length - 1 ? '; border-bottom: 1px solid rgba(184, 137, 58, 0.35)' : '') }));
+    const gl = (d.mehmon_tilaklari || []).filter(x => x && (x.matn || x.ism)).map(x => {
+      const nm = String(x.ism || '').trim(), m = nm.match(/^(.+?)\s*(?:·|—|–| - |,|\()\s*(.+?)\)?$/);
+      return { matn: x.matn || '', who: m ? m[1] : nm, rel: m ? m[2] : '' };
+    });
+    return {
+      rootCls: qiz ? 'is-qiz' : 'is-ogil',
+      w: w,
+      introDisp: s.gone ? 'none' : 'block',
+      introCls: s.opened ? 'zg-intro is-open' : 'zg-intro',
+      introHidden: s.opened ? 'true' : 'false',
+      openSeal: () => {
+        if (this.state && this.state.opened) return;
+        this.setState({ opened: true });
+        SITE.opened();
+        this.introTimer = setTimeout(() => this.setState({ gone: true }), 3200);
+      },
+      playing: playing,
+      notPlaying: !playing,
+      eqCls: playing ? 'zg-eq is-playing' : 'zg-eq',
+      musicLabel: playing ? 'Musiqani to’xtatish' : 'Musiqani yoqish',
+      playHint: playing ? 'yangramoqda' : 'tinglash uchun bosing',
+      toggleMusic: () => SITE.music.toggle(),
+      fromHome: d.ota_ona ? d.ota_ona + ' xonadonidan' : 'Xonadonimizdan',
+      initial: ini(name),
+      nameSize: fit(name, 58, 330, 0.58),
+      bornLine: qiz ? 'Qizimiz dunyoga keldi' : 'O’g’limiz dunyoga keldi',
+      noPhoto: !SITE.has.photo,
+      twoPh: n >= 2,
+      heroPhH: '398px',
+      dateTime: [w.date, w.Weekday, part && d.vaqt ? part.w + ' ' + d.vaqt : (d.vaqt || '')].filter(Boolean).join(' · '),
+      showCount: !el.none,
+      flips: flips,
+      nasab: par.length > 1 ? name + ' ' + par[0] + (qiz ? ' qizi' : ' o’g’li') : name,
+      cells: cells,
+      cellCols: cols,
+      parentsLine: d.ota_ona ? 'Ota-onasi: ' + d.ota_ona : '',
+      family: family,
+      famMany: family.length > 1,
+      parLabel: par.length > 1 ? 'Dadasi va oyisi' : 'Ota-onasi',
+      pillSize: fit(name, 30, 330, 0.54),
+      gal: gal,
+      months: months,
+      wishes: wishes,
+      gA: gl.filter((x, i) => i % 2 === 0),
+      gB: gl.filter((x, i) => i % 2 === 1),
+      congratsTitle: name ? name + 'ni tabriklang' : 'Tabriklang',
+      parentsTo: d.ota_ona ? SITE.ga(d.ota_ona) : 'ota-onasiga',
+      famLine: d.ota_ona ? d.ota_ona + ' oilasi' : '',
+      dotDate: w.dots ? w.dots.split('.').join(' · ') : '',
+      sent: !!s.sent,
+      btnLabel: s.sent ? 'Tabriklandi' : 'Tabriklash',
+      congratulate: () => { if (this.state && this.state.sent) return; this.setState({ sent: true }); SITE.reply(name + ' tug’ilgani bilan tabriklayman! Muborak bo’lsin!', '🥰'); }
+    };
+  }
+}
+</script>
+</body>
+</html>
