@@ -17,7 +17,15 @@ from .config import MEDIA_DIR, ROOT, settings
 from .qr import qr_path
 
 VIDEO_DIR = ROOT / "catalog" / "video"
-DESIGNS: dict[str, dict] = {d["id"]: d for d in json.loads((VIDEO_DIR / "designs.json").read_text(encoding="utf-8"))}
+
+
+def load_designs() -> dict[str, dict]:
+    """designs.json va designs.d/*.json (bo'limlar bo'yicha qo'shimcha dizaynlar), fayl nomi tartibida."""
+    files = [VIDEO_DIR / "designs.json", *sorted((VIDEO_DIR / "designs.d").glob("*.json"))]
+    return {d["id"]: d for f in files if f.is_file() for d in json.loads(f.read_text(encoding="utf-8"))}
+
+
+DESIGNS: dict[str, dict] = load_designs()
 SECTIONS = ["toy", "osh", "gap", "choy", "tk"]
 SECTION_EMOJI = {"toy": "💍", "osh": "🍚", "gap": "🌸", "choy": "🫖", "tk": "🎂"}
 EVENT_KEYS = {
