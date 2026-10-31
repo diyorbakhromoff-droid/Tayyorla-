@@ -216,6 +216,15 @@
 
   // ---------------------------------------------------------------- joylashuv: 390px dizaynni ekranga moslash
   var root = document.getElementById("dc-root"), zoom = 1;
+  // rang palitrasi: dizayn ohangi o'zgaradi, suratlarga teskari filtr — ular o'z rangida qoladi
+  var pal = CFG.pal || [0, 1, 1];
+  if (pal[0] || pal[1] !== 1 || pal[2] !== 1) {
+    var f = "hue-rotate(" + pal[0] + "deg) saturate(" + pal[1] + ") brightness(" + pal[2] + ")";
+    var inv = "brightness(" + (1 / pal[2]).toFixed(3) + ") saturate(" + (1 / pal[1]).toFixed(3) + ") hue-rotate(" + (-pal[0]) + "deg)";
+    var st = document.createElement("style");
+    st.textContent = "#dc-root{filter:" + f + "}#dc-root img,#dc-root video,#dc-root [style*=\"url('/media/\"],#dc-root [style*=\"url('/katalog/namuna/\"]{filter:" + inv + "}";
+    document.head.appendChild(st);
+  }
   function fit() {
     var w = Math.min(window.innerWidth || DW, 520);
     zoom = w / DW;

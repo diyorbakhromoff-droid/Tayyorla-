@@ -484,6 +484,35 @@ async def pay_site_from_balance(slug: str, x_init_data: str = Header("")):
     return {"ok": True, "paid": True}
 
 
+class UpgradeIn(BaseModel):
+    template: str = Field(max_length=40)
+
+
+@router.post("/api/sites/{slug}/upgrade")
+async def upgrade_site(slug: str, body: UpgradeIn, x_init_data: str = Header("")):
+    """To'langan saytni yuqori tarifdagi shablonga o'tkazish: farqi balansdan yechiladi, ma'lumotlar saqlanadi."""
+    uid, _ = _uid(x_init_data)
+    from .catalog import TEMPLATES, TIERS, catalog2, tier_price
+    new = TEMPLATES.get(body.template)
+    async with Session() as s:
+        site = (await s.execute(select(Site).where(Site.slug == slug))).scalar_one_or_none()
+        if not site or site.owner_id != uid or site.kind != "site":
+            raise HTTPException(404)
+        cfg = dict(site.config or {})
+        cur = TEMPLATES.get(cfg.get("template"))
+        if (not site.paid or not cur or not new or not cur.get("v2") or not new.get("v2") or new["section"] != cur["section"]
+                or TIERS[new["tier"]]["level"] <= TIERS[cfg.get("tarif", cur["tier"])]["level"]):
+            raise HTTPException(400, "Bu shablonga o'tib bo'lmaydi")
+        diff = tier_price(new["tier"]) - tier_price(cfg.get("tarif", cur["tier"]))
+        if not await billing.spend(s, uid, diff, "upgrade", f"site:{slug}"):
+            user = await s.get(User, uid)
+            raise HTTPException(402, {"code": "paywall", "need": diff, "balance": user.balance if user else 0, "topups": settings.topups})
+        cfg.update(template=new["id"], tarif=new["tier"], rang=1, hidden=catalog2.clean_hidden(new, cfg.get("hidden")))
+        site.config = cfg
+        await s.commit()
+    return {"ok": True, "paid": diff}
+
+
 # ---------------------------------------------------------------- admin paneli
 
 @router.get("/api/admin/music")

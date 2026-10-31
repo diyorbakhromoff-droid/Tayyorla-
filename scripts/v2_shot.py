@@ -39,6 +39,7 @@ async def main() -> None:
     ap.add_argument("--photos", type=int, default=-1, help="nechta surat qoldirilsin")
     ap.add_argument("--long", action="store_true", help="uzun ismlar bilan sinash")
     ap.add_argument("--data", default="", help="JSON: maydonlarni almashtirish")
+    ap.add_argument("--rang", type=int, default=1, help="palitra raqami (1 — asl)")
     ap.add_argument("--wait", type=int, default=1600, help="animatsiya uchun kutish, ms")
     ap.add_argument("--out", default="")
     a = ap.parse_args()
@@ -56,6 +57,7 @@ async def main() -> None:
         cfg["data"].update({k: v for k, v in LONG.items() if k in cfg["data"]})
     if a.data:
         cfg["data"].update(json.loads(a.data))
+    cfg["rang"] = a.rang
     html = catalog2.render(t, cfg, "test", preview=False, demo=True)
 
     from playwright.async_api import async_playwright

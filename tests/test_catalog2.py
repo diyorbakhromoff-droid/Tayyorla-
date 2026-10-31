@@ -67,4 +67,11 @@ cfg = clean_order({"template": t["id"], "tarif": t["tier"], "data": {}}, strict=
 assert all(v is False or k in ("sham", "javob", "kun", "taymer", "rsvp", "sorov") for k, v in
            catalog2.visible_blocks(t, cfg["data"], [], None, []).items())
 
+# rang palitralari: Standart 3, Premium 8, VIP 12; tarifdan ortig'i asl rangga qaytadi
+prem = next(t for t in v2 if t["tier"] == "premium")
+assert len(vip["colors"]) == 12 and len(prem["colors"]) == 8 and len(vip["swatch"]) == 12
+assert catalog2.palette(prem, 9) == [0, 1.0, 1.0] and catalog2.palette(vip, 12) != [0, 1.0, 1.0]
+assert clean_order({"template": prem["id"], "rang": 8, "data": {}}, strict=False)["rang"] == 8
+assert clean_order({"template": prem["id"], "rang": 9, "data": {}}, strict=False)["rang"] == 1
+
 print("catalog2: OK", len(v2), "ta shablon")

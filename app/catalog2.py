@@ -212,14 +212,14 @@ def _attach() -> None:
     """Yangi shablonlarni umumiy katalogga qo'shadi; eskilari yashiriladi (to'langan saytlari ishlayveradi)."""
     from . import catalog
 
+    for t in TEMPLATES2.values():
+        t["colors"], t["swatch"] = palette_swatches(t)
     if TEMPLATES2:
         for t in catalog.TEMPLATES.values():
             if not t.get("v2"):
                 t["legacy"] = True
         catalog.TEMPLATES.update(TEMPLATES2)
 
-
-_attach()
 
 
 def hero_fields(t: dict) -> list[str]:
@@ -315,6 +315,7 @@ def render(t: dict, config: dict, slug: str, preview: bool, guest=None, demo: bo
         data["mehmon"] = guest.name
     cfg = {
         "tarif": t["tier"], "data": data, "photos": photos, "slots": t["slots"], "music": music,
+        "pal": palette(t, config.get("rang")),
         "b": visible_blocks(t, data, photos, music, hidden),
         "guest": {"n": guest.name, "t": guest.token} if guest is not None else None,
         "urls": {} if demo else {"react": f"/s/{slug}/react", "rsvp": f"/s/{slug}/rsvp"},
@@ -347,6 +348,45 @@ def render(t: dict, config: dict, slug: str, preview: bool, guest=None, demo: bo
     )
 
 
+# ---------------------------------------------------------------- rang palitralari
+# Palitra dizaynning kayfiyatini saqlagan holda ohangini o'zgartiradi: rang aylanishi (±40° gacha),
+# to'yinganlik va yorqinlik. Suratlar o'z rangida qoladi. Tarif birinchi N tasini oladi (3 / 8 / 12).
+PALETTES = [  # (nomi, hue°, to'yinganlik, yorqinlik)
+    ("Asl", 0, 1.0, 1.0), ("Iliq", 16, 1.0, 1.0), ("Salqin", -16, 1.0, 1.0),
+    ("Yumshoq", 0, 0.72, 1.05), ("Yorqin", 0, 1.25, 0.98), ("Shaftoli", 30, 0.92, 1.02),
+    ("Tong", -30, 0.92, 1.02), ("Kechki", 0, 1.08, 0.88), ("Pastel", 10, 0.6, 1.08),
+    ("Jozibali", -10, 1.3, 0.95), ("Kuz", 40, 0.85, 0.96), ("Ayoz", -40, 0.85, 1.0),
+]
+PAL_COUNT = {"standart": 3, "premium": 8, "vip": 12}
+
+
+def palette(t: dict, rang) -> list:
+    try:
+        i = int(rang or 1) - 1
+    except (TypeError, ValueError):
+        i = 0
+    _, h, sat, br = PALETTES[i] if 0 <= i < PAL_COUNT[t["tier"]] else PALETTES[0]
+    return [h, sat, br]
+
+
+def palette_swatches(t: dict) -> tuple[list, list]:
+    """Mini App uchun: palitra nomlari va har birining 3 rangi (manifestdagi swatch o'zgartirilgan holda)."""
+    import colorsys
+
+    def shift(hexc: str, h: int, sat: float, br: float) -> str:
+        r, g, b = (int(hexc[i:i + 2], 16) / 255 for i in (1, 3, 5))
+        hh, ll, ss = colorsys.rgb_to_hls(r, g, b)
+        r, g, b = colorsys.hls_to_rgb((hh + h / 360) % 1, min(1, ll * br), min(1, ss * sat))
+        return "#%02X%02X%02X" % tuple(round(x * 255) for x in (r, g, b))
+
+    base = t["swatch"][0]
+    pals = PALETTES[:PAL_COUNT[t["tier"]]]
+    return [p[0] for p in pals], [[shift(c, h, sat, br) for c in base] for _, h, sat, br in pals]
+
+
 def demo_config(t: dict) -> dict:
     return {"template": t["id"], "tarif": t["tier"], "data": dict(DEMOS.get(t["section"], {})),
             "photos": list(t["demo_photos"]), "music": None, "hidden": []}
+
+
+_attach()

@@ -30,10 +30,10 @@ TIERS = {
     "standart": {"level": 1, "title": "Standart", "colors": 3, "photos": 6,
                  "features": ["Sodda va toza dizayn, sahifa darhol ochiladi", "6 tagacha surat va musiqa",
                               "Bo'limga xos asosiy bloklar", "Keraksiz blokni olib tashlash mumkin"]},
-    "premium": {"level": 2, "title": "Premium", "colors": 10, "photos": 40,
+    "premium": {"level": 2, "title": "Premium", "colors": 8, "photos": 40,
                 "features": ["Saytni ochishning o'zi tomosha: konvert, parda yoki quti ochiladi", "Harakatli bezak va boy ranglar",
                              "Qo'shimcha interaktiv bloklar", "40 tagacha surat"]},
-    "vip": {"level": 3, "title": "VIP", "colors": 15, "photos": 40,
+    "vip": {"level": 3, "title": "VIP", "colors": 12, "photos": 40,
             "features": ["Kinematik kirish sahnasi", "Oltin bezak, zarrachalar va noyob interaktiv",
                          "Barcha bloklar va VIP bloklar", "40 tagacha surat va o'z musiqangiz"]},
 }

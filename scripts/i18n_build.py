@@ -65,6 +65,9 @@ def catalog_keys() -> dict:
         out[f"rel.{k}"] = r["title"]
         if r.get("why"):
             out[f"relw.{k}"] = r["why"]
+    from app import catalog2
+    for name, *_ in catalog2.PALETTES:
+        out.setdefault(f"pal.{name}", name)
     for d in video.DESIGNS.values():
         out[f"d.{d['id']}"] = d["name"]
         for p in d.get("palettes", []):

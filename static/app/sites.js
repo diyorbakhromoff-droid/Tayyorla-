@@ -100,13 +100,45 @@
           ${x.paid ? "" : `<button type="button" class="btn sm" data-pay="${esc(x.slug)}" data-price="${x.price}">${esc(T("sites.pay", { sum: money(x.price) }))}</button>`}
           <button type="button" class="act" data-open="${esc(x.url)}">${icon("eye", "s")}${esc(T("open"))}</button>
           ${x.paid ? `<button type="button" class="act" data-share="${esc(x.public)}">${icon("share", "s")}${esc(T("share"))}</button>` : ""}
-          ${x.event ? `<button type="button" class="act" data-event="${esc(x.event)}">${icon("users", "s")}${esc(T("videos.guests"))}</button>` : ""}</div></div>`;
+          ${x.event ? `<button type="button" class="act" data-event="${esc(x.event)}">${icon("users", "s")}${esc(T("videos.guests"))}</button>` : ""}
+          ${x.paid && t && t.v2 && x.tarif !== "vip" ? `<button type="button" class="act" data-up="${esc(x.slug)}">${icon("sparkle", "s")}${esc(App.tx("sites.upgrade", "Tarifni ko‘tarish"))}</button>` : ""}</div></div>`;
     }).join("")}</div>`;
     $$("[data-open]", body).forEach((b) => (b.onclick = () => App.openLink(b.dataset.open)));
     $$("[data-share]", body).forEach((b) => (b.onclick = () => App.shareUrl(b.dataset.share, T("sites.share_text"))));
     $$("[data-event]", body).forEach((b) => (b.onclick = () => App.go("event", { slug: b.dataset.event })));
     $$("[data-pay]", body).forEach((b) => (b.onclick = () => paySite(b.dataset.pay, +b.dataset.price, b)));
+    $$("[data-up]", body).forEach((b) => (b.onclick = () => { haptic(); upgradeSheet(sites.find((x) => x.slug === b.dataset.up)); }));
   };
+
+  /** To'langan saytni yuqori tarif shabloniga o'tkazish: farqini to'laydi, ma'lumotlar saqlanadi. */
+  function upgradeSheet(site) {
+    const cur = S.cm.templates.find((y) => y.id === site.template);
+    if (!cur) return;
+    const lvl = { standart: 1, premium: 2, vip: 3 };
+    const price = (k) => (S.cm.tiers.find((x) => x.key === k) || {}).price || 0;
+    const list = S.cm.templates.filter((y) => y.section === cur.section && lvl[tierOf(y)] > lvl[site.tarif])
+      .sort((a, b) => lvl[tierOf(a)] - lvl[tierOf(b)] || (a.order || 50) - (b.order || 50));
+    const sh = App.sheet(`<div class="sh-head"><div><h1>${esc(App.tx("sites.upgrade", "Tarifni ko‘tarish"))}</h1>
+        <p>${esc(App.tx("sites.upgrade_p", "Havola o‘zgarmaydi, kiritgan ma’lumotlaringiz saqlanadi. Faqat narx farqini to‘laysiz."))}</p></div></div>
+      <div class="carousel" style="margin:0 -18px">${list.map((y) => App.tcard(y).replace("</small></button>",
+        `</small><span class="badge solid" style="align-self:flex-start;margin-top:6px">+${esc(money(price(tierOf(y)) - price(site.tarif)))}</span></button>`)).join("")}</div>`);
+    $$("[data-tpl]", sh.el).forEach((b) => (b.onclick = async () => {
+      const nt = list.find((y) => y.id === b.dataset.tpl);
+      const diff = price(tierOf(nt)) - price(site.tarif);
+      if (!(await App.confirmBox(App.tx("sites.upgrade_q", "«{name}» dizayniga o‘tamizmi? Balansdan {sum} yechiladi.").replace("{name}", tplName(nt)).replace("{sum}", money(diff))))) return;
+      try {
+        await api(`/api/sites/${encodeURIComponent(site.slug)}/upgrade`, { template: nt.id });
+        sh.close(); notify("success"); toast(App.tx("sites.upgraded", "Saytingiz yangi dizaynga o‘tdi"));
+        await App.refreshMe(); App.render();
+      } catch (e) {
+        if (e.status === 402 && e.detail && e.detail.code === "paywall") {
+          sh.close();
+          App.topupSheet({ need: Math.max(0, (e.detail.need || diff) - (e.detail.balance || 0)), title: T("sites.need_title"),
+            text: T("sites.need_text", { sum: money(e.detail.need || diff), balance: money(e.detail.balance || 0) }) });
+        } else toast(e.message);
+      }
+    }));
+  }
 
   async function paySite(slug, price, btn) {
     App.busy(btn, true);
@@ -212,11 +244,23 @@
 
     if (kind === "design") {
       const tierCard = t.v2 ? `<section class="card" style="margin-top:14px"><div class="total"><span>${esc(tierTitle(tier()))}</span><b>${esc(money(tier().price))}</b></div>
-          <ul class="tfeat">${tier().features.map((f, i) => `<li>${esc(tierFeat(tier(), i, f))}</li>`).join("")}</ul></section>` : "";
+          <ul class="tfeat">${tier().features.map((f, i) => `<li>${esc(tierFeat(tier(), i, f))}</li>`).join("")}</ul></section>
+        <section class="card"><h2>${esc(T("ord.color"))}</h2><p class="hint" style="margin-bottom:10px">${esc(T("ord.colors", { tier: tierTitle(tier()), n: colorLimit() }))}</p>
+          <div class="swatches">${t.swatch.slice(0, colorLimit()).map((c, i) => `
+            <button type="button" class="sw" data-r="${i + 1}" aria-pressed="${order.rang === i + 1}" title="${esc(App.tx("pal." + t.colors[i], t.colors[i]))}">
+              <i style="background:conic-gradient(${c[1]} 0 50%, ${c[2]} 0 75%, ${c[0]} 0)"></i><span>${esc(App.tx("pal." + t.colors[i], t.colors[i]))}</span></button>`).join("")}</div></section>` : "";
       el.innerHTML = head(tplName(t), T("ord.live")) + `
-        <div class="wrap fade"><div class="phone"><div class="loading">${esc(T("loading"))}</div><iframe id="demo" src="${esc(t.v2 ? t.demo : demoUrl())}" title="${esc(T("ord.live"))}"></iframe></div>
+        <div class="wrap fade"><div class="phone"><div class="loading">${esc(T("loading"))}</div><iframe id="demo" src="${esc(t.v2 ? `${t.demo}?r=${order.rang}` : demoUrl())}" title="${esc(T("ord.live"))}"></iframe></div>
           <p class="hint" style="text-align:center;margin-top:12px">${esc(T("ord.try"))}</p>${tierCard}</div>` + cta(T("ord.choose"));
       $("#demo").onload = () => { const l = $(".phone .loading"); if (l) l.remove(); };
+      if (t.v2) {
+        if (order.rang > colorLimit()) { order.rang = 1; save(); }
+        $$(".sw", el).forEach((b) => (b.onclick = () => {
+          haptic(); order.rang = +b.dataset.r; save();
+          $$(".sw", el).forEach((x) => x.setAttribute("aria-pressed", x === b));
+          $("#demo").src = `${t.demo}?r=${order.rang}`;
+        }));
+      }
       bindNav(0, () => go(1));
       return;
     }

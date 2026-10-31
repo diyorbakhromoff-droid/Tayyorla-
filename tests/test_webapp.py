@@ -71,8 +71,8 @@ base = {"template": "tk-tort", "data": {"kimga": "Madina", "kimdan": "Ali", "san
 std = clean_order({**base, "tarif": "standart", "rang": 9}, strict=True)
 assert std["rang"] == 1, "standartda 9-rang bo'lmaydi"
 assert "savollar" not in std["data"] and "sirli_xabar" not in std["data"], "premium maydonlar standartda yo'q"
-prem = clean_order({**base, "tarif": "premium", "rang": 9}, strict=True)
-assert prem["rang"] == 9 and prem["data"]["savollar"][0]["togri"] == 1 and prem["data"]["sirli_xabar"] == "sir"
+prem = clean_order({**base, "tarif": "premium", "rang": 8}, strict=True)
+assert prem["rang"] == 8 and prem["data"]["savollar"][0]["togri"] == 1 and prem["data"]["sirli_xabar"] == "sir"
 assert rejects(lambda: clean_order({**base, "template": "tk-maktub", "tarif": "premium"}, strict=False))  # VIP shablon
 assert clean_order({**base, "template": "tk-maktub", "tarif": "vip"}, strict=False)["tarif"] == "vip"
 assert rejects(lambda: clean_order({**base, "data": {"kimga": "A"}, "tarif": "vip"}, strict=True))  # majburiy maydonlar

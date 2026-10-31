@@ -214,6 +214,17 @@ async def create_site(body: SiteIn, x_init_data: str = Header("")):
     return {"url": site.url, "id": site.id}
 
 
+def _site_who(config: dict) -> str:
+    """«Mening saytlarim» ro'yxatidagi nom: to'yda kelin-kuyov, farzandda chaqaloq, qolganida kimga."""
+    d = config.get("data") or {}
+    if config.get("engine") == "catalog":
+        if d.get("kuyov") or d.get("kelin"):
+            return " va ".join(x for x in (d.get("kuyov"), d.get("kelin")) if x)
+        if d.get("chaqaloq"):
+            return d["chaqaloq"]
+    return recipient_name(config)
+
+
 # ---------------------------------------------------------------- tayyor shablonlar katalogi
 
 class OrderIn(BaseModel):
@@ -355,7 +366,7 @@ async def me(x_init_data: str = Header("")):
             {"slug": x.slug, "title": site_title(x.config), "url": owner_url(x), "paid": x.paid, "views": x.views,
              "reactions": counts.get(x.id, 0), "template": x.config.get("template"), "status": x.status,
              "tarif": x.config.get("tarif"), "price": site_price(x.config), "event": x.config.get("event_slug"),
-             "to": recipient_name(x.config), "public": x.url}
+             "to": _site_who(x.config), "public": x.url}
             for x in real_sites[:30]
         ],
         "stats": {
