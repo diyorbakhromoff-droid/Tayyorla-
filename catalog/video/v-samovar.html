@@ -1,0 +1,105 @@
+<style>
+:root { --f-display: 'Alegreya', Georgia, serif; --f-body: 'Onest', system-ui, sans-serif; }
+#tv { background: radial-gradient(90% 46% at 50% 58%, var(--card) 0%, var(--bg) 72%); }
+.sm-glow { position: absolute; left: 50%; top: 318px; width: 260px; height: 120px; margin-left: -130px; border-radius: 50%;
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--coal) 38%, transparent), transparent);
+  animation: sm-glow 1.3s ease-in-out infinite alternate both; }
+@keyframes sm-glow { from { opacity: .55; transform: scale(.94); } to { opacity: 1; transform: scale(1.04); } }
+.sm-embers { z-index: 0; }
+.sm-embers .p-dust { width: 3px; height: 3px; box-shadow: 0 0 6px 1px currentColor; }
+.sm-stage { position: absolute; left: 70px; top: 40px; width: 220px; height: 350px; animation: tv-rise 1.1s cubic-bezier(.2, .8, .2, 1) .1s both; }
+.sm-svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.sm-brass { fill: var(--brass); } .sm-hi { fill: var(--brass2); opacity: .75; } .sm-dark { fill: color-mix(in srgb, var(--brass) 62%, #000); }
+.sm-line { fill: none; stroke: color-mix(in srgb, var(--brass) 55%, #000); stroke-width: 2; }
+.sm-ring { fill: none; stroke: var(--brass2); stroke-width: 2.5; }
+.sm-handle { fill: none; stroke: color-mix(in srgb, var(--brass) 62%, #000); stroke-width: 7; stroke-linecap: round; }
+.sm-pot { fill: var(--pot); } .sm-potline { fill: none; stroke: var(--accent2); stroke-width: 3; }
+.sm-hole { fill: #120A06; }
+.sm-coal { fill: var(--coal); animation: sm-flick .7s ease-in-out infinite alternate both; }
+.sm-coal.b { animation-duration: 1.1s; animation-delay: -.4s; fill: var(--coal2); }
+@keyframes sm-flick { from { opacity: .55; } to { opacity: 1; } }
+.sm-medal { fill: var(--brass2); stroke: color-mix(in srgb, var(--brass) 55%, #000); stroke-width: 1.5; }
+.sm-steam { position: absolute; left: 70px; top: -70px; width: 80px; height: 90px; }
+.sm-steam .p-steam { background: color-mix(in srgb, var(--ink) 50%, transparent) !important; }
+.sm-drop { position: absolute; left: 44px; top: 250px; width: 5px; height: 46px; border-radius: 3px; background: var(--tea); transform-origin: 50% 0;
+  animation: sm-pour 3.2s ease-in-out 1.6s both; }
+@keyframes sm-pour { 0% { transform: scaleY(0); opacity: 1; } 12% { transform: scaleY(1); } 82% { transform: scaleY(1); opacity: 1; } 100% { transform: scaleY(1) translateY(10px); opacity: 0; } }
+.sm-cup { position: absolute; left: 17px; top: 292px; width: 58px; height: 32px; overflow: visible; }
+.sm-cupw { fill: var(--pot); } .sm-cupb { fill: none; stroke: var(--accent2); stroke-width: 2.5; }
+.sm-cupt { fill: var(--tea); transform-box: fill-box; transform-origin: 50% 100%; animation: sm-fill 2.4s ease-out 1.9s both; }
+@keyframes sm-fill { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+.sm-text { position: absolute; left: 24px; right: 24px; top: 412px; display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center; }
+.sm-inv { font-size: 16px; font-weight: 500; color: var(--muted); }
+.sm-dear { width: 100%; overflow: hidden; white-space: nowrap; font-family: var(--f-display); font-weight: 700; font-size: 36px; line-height: 1.15; }
+.sm-from { width: 100%; overflow: hidden; white-space: nowrap; font-size: 15px; font-weight: 600; color: var(--accent); }
+/* 2-sahna: samovar medali */
+.sm-card { position: absolute; left: 22px; right: 22px; top: 70px; bottom: 70px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; text-align: center; }
+.sm-medalbox { position: relative; width: 236px; height: 236px; flex: none; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; padding: 0 30px; }
+.sm-rim { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; animation: sm-spin 30s linear calc(var(--s)) both; }
+@keyframes sm-spin { from { transform: rotate(-20deg); } to { transform: rotate(40deg); } }
+.sm-rim .r1 { fill: color-mix(in srgb, var(--brass) 14%, var(--bg)); stroke: var(--brass); stroke-width: 3; }
+.sm-rim .r2 { fill: none; stroke: var(--brass2); stroke-width: 1.5; stroke-dasharray: 2 7; stroke-linecap: round; }
+.sm-rim .r3 { fill: none; stroke: var(--brass); stroke-width: 1.2; opacity: .7; }
+.sm-ctitle { position: relative; width: 100%; overflow: hidden; white-space: nowrap; font-family: var(--f-display); font-weight: 800; font-size: 36px; line-height: 1.1; color: var(--accent); }
+.sm-star { position: relative; width: 12px; height: 12px; transform: rotate(45deg); background: var(--brass2); }
+.sm-turn { position: relative; width: 100%; overflow: hidden; white-space: nowrap; font-family: var(--f-display); font-weight: 700; font-size: 22px; line-height: 1.2; }
+.sm-kassa { padding: 8px 18px; border-radius: 999px; background: var(--chip); color: var(--chip-ink); font-size: 16px; font-weight: 700; }
+.sm-date { width: 100%; overflow: hidden; white-space: nowrap; font-family: var(--f-display); font-weight: 700; font-size: 30px; line-height: 1.15; }
+.sm-wt { font-size: 15px; color: var(--muted); }
+.s3 .d-day, .s3 .d-month, .s3 .d-venue, .s4 .f-names, .s4 .f-date { font-weight: 700; }
+.s4 .tv-final { padding-top: 30px; }
+</style>
+<div class="bgk"><div class="sm-glow"></div><div class="ptc sm-embers" data-particles="dust" data-n="26" data-colors="var(--coal),var(--coal2),var(--brass2)"></div></div>
+<section class="sc s1">
+  <div class="sm-stage">
+    <div class="ptc sm-steam" data-particles="steam" data-n="7" data-at="1"></div>
+    <svg class="sm-svg" viewBox="0 0 220 350" aria-hidden="true">
+      <path class="sm-pot" d="M80 34c0-12 60-12 60 0c8 2 12 10 12 18c0 14-16 22-42 22s-42-8-42-22c0-8 4-16 12-18z"/>
+      <path class="sm-pot" d="M152 44c14-6 22-4 30-14l4 4c-6 12-18 16-32 20z"/>
+      <path class="sm-potline" d="M74 54c20 8 52 8 72 0"/>
+      <ellipse class="sm-pot" cx="110" cy="30" rx="18" ry="5"/><circle class="sm-pot" cx="110" cy="20" r="5"/>
+      <path class="sm-dark" d="M92 74h36l-4 12h-28z"/>
+      <path class="sm-handle" d="M44 116c-26 0-26 40 0 40M176 116c26 0 26 40 0 40"/>
+      <path class="sm-brass" d="M66 86h88c12 0 22 12 24 30c4 44-2 92-20 118c-6 8-14 12-24 12h-48c-10 0-18-4-24-12c-18-26-24-74-20-118c2-18 12-30 24-30z"/>
+      <path class="sm-hi" d="M72 96c-6 20-8 70 6 122c2 6 6 6 6 0c-8-46-6-96 0-122c0-4-10-6-12 0z"/>
+      <path class="sm-line" d="M50 130h120M48 200h124"/>
+      <path class="sm-ring" d="M42 120c40-8 96-8 136 0"/>
+      <circle class="sm-medal" cx="94" cy="164" r="11"/><circle class="sm-medal" cx="126" cy="164" r="11"/><circle class="sm-medal" cx="110" cy="148" r="9"/>
+      <path class="sm-dark" d="M54 172h-14c-6 0-8 4-8 8v10c0 4 4 6 6 6h4v54h8v-60h4z"/>
+      <path class="sm-dark" d="M28 176h16v-8h-16z"/>
+      <path class="sm-brass" d="M88 246h44l-6 22h-32z"/>
+      <path class="sm-brass" d="M64 268h92l8 40h-108z"/>
+      <path class="sm-line" d="M60 292h100"/>
+      <path class="sm-hole" d="M76 276h12l-2 12h-12zM104 276h12v12h-12zM132 276h12l2 12h-12z"/>
+      <path class="sm-coal" d="M76 278h11l-1 9h-11z"/><path class="sm-coal b" d="M105 278h10v9h-10z"/><path class="sm-coal" d="M133 278h10l1 9h-10z"/>
+      <path class="sm-dark" d="M56 308h108l6 12h-120z"/>
+      <path class="sm-dark" d="M60 320h12l-4 16h-8zM148 320h12v16h-8z"/>
+    </svg>
+    <span class="sm-drop"></span>
+    <svg class="sm-cup" viewBox="0 0 58 32" aria-hidden="true"><path class="sm-cupw" d="M2 4h54c-2 16-12 26-27 26S4 20 2 4z"/><path class="sm-cupt" d="M5 7h48c-2 10-10 18-24 18S7 17 5 7z"/><path class="sm-cupb" d="M7 14h44"/></svg>
+  </div>
+  <div class="sm-text">
+    <p class="sm-inv a-rise" style="--d:.7s" data-t="invite"></p>
+    <p class="sm-dear a-rise" style="--d:.9s" data-t="dear" data-if="guest" data-fit="36,18"></p>
+    <p class="sm-from a-rise" style="--d:1.2s" data-t="from" data-fit="15,12"></p>
+  </div>
+</section>
+<section class="sc s2">
+  <div class="sm-card">
+    <div class="sm-medalbox a-pop" style="--d:.1s">
+      <svg class="sm-rim" viewBox="0 0 236 236" aria-hidden="true"><circle class="r1" cx="118" cy="118" r="114"/><circle class="r2" cx="118" cy="118" r="104"/><circle class="r3" cx="118" cy="118" r="96"/></svg>
+      <span class="sm-star a-pop" style="--d:.5s"></span>
+      <p class="sm-ctitle a-blur" style="--d:.35s" data-t="title" data-fit="36,16"></p>
+      <p class="sm-turn a-rise" style="--d:.7s" data-t="turn" data-if="turn" data-fit="22,13"></p>
+    </div>
+    <p class="sm-kassa a-pop" style="--d:.9s" data-t="kassa" data-if="kassa"></p>
+    <p class="sm-date a-rise" style="--d:1.1s" data-t="date" data-fit="30,16"></p>
+    <p class="sm-wt a-rise" style="--d:1.3s" data-t="wt"></p>
+  </div>
+</section>
+<section class="sc s3"><div class="tv-details" data-std="details"></div></section>
+<section class="sc s4">
+  <div class="tv-final" data-std="final"></div>
+  <div class="ptc" data-particles="spark" data-n="22" data-at="15.2" data-colors="var(--brass2),var(--coal),var(--accent)"></div>
+  <div class="tv-brand" data-std="brand" data-if="free"></div>
+</section>

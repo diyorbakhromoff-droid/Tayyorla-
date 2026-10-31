@@ -1,0 +1,118 @@
+<style>
+:root { --f-display: 'Rubik', system-ui, sans-serif; --f-body: 'Onest', system-ui, sans-serif; }
+#tv { background: radial-gradient(color-mix(in srgb, var(--ink) 9%, transparent) 1.2px, transparent 1.6px) 0 0 / 18px 18px, var(--bg); }
+.ck-ico { display: block; flex: none; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.ck-plane { fill: currentColor; stroke: none; }
+.ck-head { position: absolute; left: 24px; right: 24px; top: 44px; display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center; }
+.ck-inv { font-size: 15px; font-weight: 600; letter-spacing: .08em; color: var(--muted); }
+.ck-dear { width: 100%; overflow: hidden; white-space: nowrap; font-family: var(--f-display); font-weight: 700; font-size: 26px; line-height: 1.2; }
+.ck-route { position: absolute; left: 30px; top: 128px; width: 300px; height: 64px; }
+.ck-route svg.ck-arc { position: absolute; inset: 0; overflow: visible; }
+.ck-arc path { fill: none; stroke: var(--accent2); stroke-width: 2; stroke-dasharray: 5 7; stroke-linecap: round; }
+.ck-arc circle { fill: var(--bg); stroke: var(--accent2); stroke-width: 2.5; }
+.ck-fly { position: absolute; left: 0; top: 0; width: 30px; height: 30px; color: var(--accent); offset-path: path('M10 52 Q150 -14 290 52'); offset-rotate: auto;
+  animation: ck-fly 2.8s cubic-bezier(.45, .05, .4, 1) .3s both; }
+.ck-fly svg { width: 30px; height: 30px; transform: rotate(90deg); }
+@keyframes ck-fly { from { offset-distance: 0%; opacity: 0; } 10% { opacity: 1; } to { offset-distance: 100%; opacity: 1; } }
+.ck-slot { position: absolute; left: 20px; right: 20px; top: 204px; height: 14px; border-radius: 7px; background: var(--ink); box-shadow: 0 6px 12px -6px rgba(0, 0, 0, .5); z-index: 2; }
+.ck-win { position: absolute; left: 34px; right: 34px; top: 211px; height: 372px; overflow: hidden; z-index: 1; }
+.ck-tk { position: relative; height: 362px; display: flex; flex-direction: column; border-radius: 0 0 18px 18px; background: var(--card); color: var(--ink);
+  box-shadow: 0 16px 26px -18px rgba(0, 0, 0, .6); animation: ck-print 2s cubic-bezier(.35, .6, .3, 1) .9s both; }
+@keyframes ck-print { 0% { transform: translateY(-100%); } 70% { transform: translateY(2%); } 100% { transform: none; } }
+.ck-strip { flex: none; display: flex; align-items: center; justify-content: center; gap: 10px; height: 50px; padding: 0 16px; background: var(--accent); color: var(--on-accent);
+  font-size: 14px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+.ck-strip span { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.ck-body { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; padding: 8px 18px; text-align: center; }
+.ck-name { width: 100%; overflow: hidden; white-space: nowrap; font-family: var(--f-display); font-weight: 700; font-size: 40px; line-height: 1.15; }
+.ck-chip { padding: 5px 14px; border-radius: 99px; border: 2px solid var(--accent2); color: var(--accent2); font-size: 15px; font-weight: 700; }
+.ck-perf { position: relative; flex: none; height: 22px; }
+.ck-perf::before { content: ""; position: absolute; left: 18px; right: 18px; top: 10px; border-top: 2px dashed color-mix(in srgb, var(--ink) 30%, transparent); }
+.ck-perf::after { content: ""; position: absolute; left: -12px; right: -12px; top: -1px; height: 24px;
+  background: radial-gradient(circle at 12px 12px, var(--bg) 11px, transparent 12px), radial-gradient(circle at calc(100% - 12px) 12px, var(--bg) 11px, transparent 12px); }
+.ck-stub { flex: none; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 4px 22px 0; }
+.ck-when { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.ck-day { font-family: var(--f-display); font-weight: 700; font-size: 46px; line-height: 1; color: var(--accent); }
+.ck-mw { display: flex; flex-direction: column; align-items: flex-start; min-width: 0; text-align: left; }
+.ck-mw b { font-size: 17px; font-weight: 700; white-space: nowrap; }
+.ck-mw small { font-size: 13px; color: var(--muted); white-space: nowrap; }
+.ck-time { flex: none; display: flex; align-items: center; gap: 6px; font-family: var(--f-display); font-weight: 700; font-size: 24px; }
+.ck-time .ck-ico { width: 20px; height: 20px; color: var(--accent2); }
+.ck-bar { flex: none; height: 40px; margin: 14px 22px 18px; opacity: .85;
+  background: repeating-linear-gradient(90deg, var(--ink) 0 2px, transparent 2px 4px, var(--ink) 4px 7px, transparent 7px 9px, var(--ink) 9px 10px, transparent 10px 13px, var(--ink) 13px 16px, transparent 16px 17px, var(--ink) 17px 18px, transparent 18px 21px); }
+.ck-card { position: absolute; left: 30px; right: 30px; top: 64px; bottom: 64px; display: flex; flex-direction: column; border-radius: 22px; overflow: hidden; background: var(--card);
+  box-shadow: 0 20px 34px -22px rgba(0, 0, 0, .6); }
+.ck-card .ck-strip { border-radius: 0; }
+.ck-card .ck-body { gap: 8px; }
+.ck-stamp { position: relative; width: 158px; height: 158px; flex: none; border-radius: 50%; border: 4px solid var(--accent2); color: var(--accent2); display: flex; flex-direction: column; align-items: center; justify-content: center;
+  transform: rotate(-12deg); animation: ck-stamp .55s cubic-bezier(.3, 1.4, .5, 1) calc(var(--s) + .8s) both; }
+.ck-stamp::before { content: ""; position: absolute; inset: 7px; border-radius: 50%; border: 2px dashed currentColor; opacity: .6; }
+@keyframes ck-stamp { from { opacity: 0; transform: rotate(-30deg) scale(2.2); } to { opacity: 1; transform: rotate(-12deg) scale(1); } }
+.ck-stamp b { font-family: var(--f-display); font-weight: 700; font-size: 68px; line-height: .95; }
+.ck-stamp span { max-width: 120px; font-size: 14px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; white-space: nowrap; overflow: hidden; }
+.ck-cname { width: 100%; overflow: hidden; white-space: nowrap; font-family: var(--f-display); font-weight: 700; font-size: 38px; line-height: 1.15; margin-top: 6px; }
+.ck-rows { flex: none; display: flex; flex-direction: column; gap: 8px; padding: 2px 24px 0; }
+.ck-row { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.ck-row .ck-ico { width: 22px; height: 22px; color: var(--accent); }
+.ck-date { flex: 1; min-width: 0; overflow: hidden; white-space: nowrap; font-family: var(--f-display); font-weight: 700; font-size: 21px; text-align: left; }
+.ck-wt { flex: 1; min-width: 0; font-size: 15px; color: var(--muted); text-align: left; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ck-panel { position: absolute; left: 18px; right: 18px; top: 34px; bottom: 34px; border-radius: 24px; background: var(--card); box-shadow: 0 20px 34px -24px rgba(0, 0, 0, .55);
+  animation: tv-fade .8s ease calc(var(--s) + 0s) both; }
+.ck-panel::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 12px; border-radius: 24px 24px 0 0; background: var(--accent); }
+.ck-panel::after { content: ""; position: absolute; left: 22px; right: 22px; bottom: 16px; height: 18px; opacity: .5;
+  background: repeating-linear-gradient(90deg, var(--ink) 0 2px, transparent 2px 4px, var(--ink) 4px 7px, transparent 7px 9px, var(--ink) 9px 10px, transparent 10px 13px); }
+.s3 .tv-details { padding: 52px 36px 46px; }
+.s3 .d-msg, .s3 .d-sign { font-family: var(--f-body); font-style: normal; }
+.s3 .d-msg { font-size: 19px; }
+.s3 .d-day, .s4 .f-names { font-weight: 700; }
+.s4 .f-photo { border-radius: 18px; }
+</style>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="ck-pl" viewBox="0 0 24 24"><path class="ck-plane" d="M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5z"/></symbol>
+</svg>
+<section class="sc s1">
+  <div class="ck-head">
+    <p class="ck-inv a-rise" style="--d:.2s" data-t="invite"></p>
+    <p class="ck-dear a-rise" style="--d:.4s" data-t="dear" data-if="guest" data-fit="26,15"></p>
+  </div>
+  <div class="ck-route a-fade" style="--d:.1s">
+    <svg class="ck-arc" viewBox="0 0 300 64" aria-hidden="true"><path d="M10 52 Q150 -14 290 52"/><circle cx="10" cy="52" r="5"/><circle cx="290" cy="52" r="5"/></svg>
+    <div class="ck-fly"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ck-pl"/></svg></div>
+  </div>
+  <div class="ck-slot"></div>
+  <div class="ck-win">
+    <div class="ck-tk">
+      <div class="ck-strip"><svg class="ck-ico" width="20" height="20" viewBox="0 0 24 24" style="transform:rotate(90deg)" aria-hidden="true"><use href="#ck-pl"/></svg><span data-t="event"></span></div>
+      <div class="ck-body">
+        <p class="ck-name" data-t="name" data-fit="40,17"></p>
+        <p class="ck-chip" data-t="age" data-if="age"></p>
+      </div>
+      <div class="ck-perf"></div>
+      <div class="ck-stub">
+        <div class="ck-when"><span class="ck-day" data-t="day"></span><span class="ck-mw"><b data-t="month"></b><small data-t="weekday"></small></span></div>
+        <div class="ck-time"><svg class="ck-ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span data-t="time"></span></div>
+      </div>
+      <div class="ck-bar"></div>
+    </div>
+  </div>
+</section>
+<section class="sc s2">
+  <div class="ck-card a-pop" style="--d:.05s">
+    <div class="ck-strip"><svg class="ck-ico" width="20" height="20" viewBox="0 0 24 24" style="transform:rotate(90deg)" aria-hidden="true"><use href="#ck-pl"/></svg><span data-t="event"></span></div>
+    <div class="ck-body">
+      <div class="ck-stamp" data-if="age"><b data-t="age_n"></b><span data-t="age"></span></div>
+      <p class="ck-cname a-blur" style="--d:.4s" data-t="name" data-fit="38,17"></p>
+    </div>
+    <div class="ck-perf"></div>
+    <div class="ck-rows">
+      <div class="ck-row a-rise" style="--d:1.2s"><svg class="ck-ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg><p class="ck-date" data-t="date" data-fit="21,13"></p></div>
+      <div class="ck-row a-rise" style="--d:1.4s"><svg class="ck-ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><p class="ck-wt" data-t="wt"></p></div>
+    </div>
+    <div class="ck-bar"></div>
+  </div>
+</section>
+<section class="sc s3"><div class="ck-panel"></div><div class="tv-details" data-std="details"></div></section>
+<section class="sc s4">
+  <div class="tv-final" data-std="final"></div>
+  <div class="ptc" data-particles="confetti" data-n="44" data-at="15.2" data-colors="var(--accent),var(--accent2),var(--gold)"></div>
+  <div class="tv-brand" data-std="brand" data-if="free"></div>
+</section>

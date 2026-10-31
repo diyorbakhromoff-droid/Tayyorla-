@@ -1,0 +1,104 @@
+<style>
+:root { --f-display: 'Rubik', system-ui, sans-serif; --f-body: 'Onest', system-ui, sans-serif; --f-hand: 'Caveat', cursive; }
+#tv { background-color: var(--bg);
+  background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 24px 24px; background-position: -1px 11px; }
+.tq-head { position: absolute; left: 24px; right: 24px; top: 50px; display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center; }
+.tq-inv { font-size: 15px; font-weight: 600; color: var(--muted); }
+.tq-dear { width: 100%; overflow: hidden; white-space: nowrap; font-family: var(--f-hand); font-weight: 700; font-size: 38px; line-height: 1.15; color: var(--accent); }
+.tq-cal { position: absolute; left: 62px; top: 150px; width: 236px; height: 270px; animation: tv-drop 1s cubic-bezier(.2, 1.2, .4, 1) .1s both; }
+.tq-pg { position: absolute; left: 0; right: 0; top: 16px; bottom: 0; border-radius: 4px 4px 16px 16px; background: var(--page); color: var(--page-ink); overflow: hidden;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, .06), 0 18px 30px -18px rgba(0, 0, 0, .45); display: flex; flex-direction: column; }
+.tq-base { box-shadow: 0 3px 0 -1px var(--page), 0 4px 0 -1px rgba(0, 0, 0, .12), 0 7px 0 -2px var(--page), 0 8px 0 -2px rgba(0, 0, 0, .12), 0 22px 34px -18px rgba(0, 0, 0, .5); }
+.tq-band { flex: none; height: 56px; padding: 14px 16px 0; background: var(--band); color: var(--band-ink); text-align: center; }
+.tq-month { display: block; width: 100%; overflow: hidden; white-space: nowrap; font-family: var(--f-display); font-weight: 700; font-size: 22px; line-height: 1.2; letter-spacing: .08em; text-transform: uppercase; }
+.tq-dbox { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; padding-bottom: 8px; }
+.tq-dwrap { position: relative; display: inline-block; padding: 0 10px; }
+.tq-day { display: block; max-width: 190px; overflow: hidden; white-space: nowrap; font-family: var(--f-display); font-weight: 700; font-size: 112px; line-height: 1.05; color: var(--day); font-variant-numeric: tabular-nums; }
+.tq-ring { position: absolute; left: -22px; right: -22px; top: -6px; bottom: -10px; width: calc(100% + 44px); height: calc(100% + 16px); overflow: visible; }
+.tq-ring path { fill: none; stroke: var(--pmarker); stroke-width: 4.5; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 1;
+  animation: tq-draw .9s cubic-bezier(.5, 0, .3, 1) 2.7s both; }
+@keyframes tq-draw { to { stroke-dashoffset: 0; } }
+.tq-wd { font-size: 17px; font-weight: 600; color: var(--page-muted); }
+.tq-sh .tq-band { background: var(--band); }
+.tq-lines { flex: 1; background: repeating-linear-gradient(var(--page) 0 27px, var(--rule) 27px 28px); margin: 22px 20px 26px; }
+.tq-sh { transform-origin: 12% 0; animation: tq-tear .95s cubic-bezier(.45, 0, .6, 1) var(--d) both; }
+.tq-sh.r { transform-origin: 88% 0; animation-name: tq-tear-r; }
+@keyframes tq-tear { 0% { transform: none; opacity: 1; } 22% { transform: rotate(-5deg); } 85% { opacity: 1; } 100% { transform: translate(-70px, 560px) rotate(-32deg); opacity: 0; } }
+@keyframes tq-tear-r { 0% { transform: none; opacity: 1; } 22% { transform: rotate(5deg); } 85% { opacity: 1; } 100% { transform: translate(70px, 560px) rotate(30deg); opacity: 0; } }
+.tq-bind { position: absolute; left: -6px; right: -6px; top: 4px; height: 22px; border-radius: 8px; background: var(--binder); z-index: 2; box-shadow: 0 3px 6px -3px rgba(0, 0, 0, .5); }
+.tq-bind::before, .tq-bind::after { content: ""; position: absolute; top: -10px; width: 12px; height: 26px; border-radius: 6px; border: 3px solid var(--binder); background: transparent; }
+.tq-bind::before { left: 54px; } .tq-bind::after { right: 54px; }
+.tq-note { position: absolute; left: 20px; right: 20px; top: 428px; display: flex; align-items: center; justify-content: center; gap: 6px; }
+.tq-arrow { flex: none; width: 46px; height: 40px; overflow: visible; }
+.tq-arrow path { fill: none; stroke: var(--marker); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1; stroke-dashoffset: 1; animation: tq-draw .5s ease 3.5s both; }
+.tq-time { max-width: 240px; overflow: hidden; white-space: nowrap; font-family: var(--f-hand); font-weight: 700; font-size: 34px; line-height: 1.1; color: var(--marker); transform: rotate(-4deg);
+  animation: tq-write .7s steps(8) 3.8s both; }
+@keyframes tq-write { from { clip-path: inset(-10px 100% -10px -10px); } to { clip-path: inset(-10px -10px -10px -10px); } }
+.tq-foot { position: absolute; left: 24px; right: 24px; top: 486px; display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center; }
+.tq-title { width: 100%; overflow: hidden; white-space: nowrap; font-family: var(--f-display); font-weight: 700; font-size: 30px; line-height: 1.2; color: var(--ink); }
+.tq-from { font-size: 15px; color: var(--muted); }
+
+.tq-pl { position: absolute; left: 30px; right: 30px; top: 92px; bottom: 92px; border-radius: 14px; background: var(--page); color: var(--page-ink);
+  box-shadow: 0 22px 34px -20px rgba(0, 0, 0, .5); padding: 40px 22px 26px 26px; display: flex; flex-direction: column; justify-content: center; gap: 16px; }
+.tq-holes { position: absolute; left: 22px; right: 22px; top: -9px; height: 24px; display: flex; justify-content: space-between; }
+.tq-holes i { display: block; width: 10px; height: 24px; border-radius: 5px; background: var(--binder); }
+.tq-ptitle { width: 100%; overflow: hidden; white-space: nowrap; font-family: var(--f-display); font-weight: 700; font-size: 28px; line-height: 1.2; color: var(--day); padding-bottom: 10px; border-bottom: 2px solid var(--rule); }
+.tq-row { display: flex; align-items: center; gap: 12px; }
+.tq-box { position: relative; flex: none; width: 26px; height: 26px; border-radius: 7px; border: 2.5px solid var(--page-muted); }
+.tq-box svg { position: absolute; left: -2px; top: -10px; width: 34px; height: 32px; overflow: visible; }
+.tq-box path { fill: none; stroke: var(--pmarker); stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1; stroke-dashoffset: 1;
+  animation: tq-draw .45s ease calc(var(--s) + var(--c)) both; }
+.tq-txt { flex: 1; min-width: 0; overflow: hidden; white-space: nowrap; font-family: var(--f-hand); font-weight: 700; font-size: 27px; line-height: 1.15; }
+.tq-pfrom { margin-top: 4px; font-size: 15px; color: var(--page-muted); text-align: center; }
+.s3 .d-msg, .s3 .d-sign { font-family: var(--f-hand); font-style: normal; font-weight: 700; }
+.s3 .d-msg { font-size: 27px; line-height: 1.2; }
+.s3 .d-day, .s3 .d-month, .s3 .d-venue, .s4 .f-names, .s4 .f-date { font-weight: 700; }
+</style>
+<div class="bgk"></div>
+<section class="sc s1">
+  <div class="tq-head">
+    <p class="tq-inv a-rise" style="--d:.2s" data-t="invite"></p>
+    <p class="tq-dear a-rise" style="--d:.4s" data-t="dear" data-if="guest" data-fit="38,20"></p>
+  </div>
+  <div class="tq-cal">
+    <div class="tq-pg tq-base">
+      <div class="tq-band"><span class="tq-month" data-t="month" data-fit="22,13"></span></div>
+      <div class="tq-dbox">
+        <span class="tq-dwrap"><span class="tq-day" data-t="day" data-fit="112,48"></span>
+          <svg class="tq-ring" viewBox="0 0 200 120" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M146 12C104-2 26 4 12 50c-12 42 50 66 104 62 52-4 80-32 74-62C185 22 160 8 118 9"/></svg></span>
+        <span class="tq-wd" data-t="weekday"></span>
+      </div>
+    </div>
+    <div class="tq-pg tq-sh r" style="--d:1.9s"><div class="tq-band"></div><div class="tq-lines"></div></div>
+    <div class="tq-pg tq-sh" style="--d:1.35s"><div class="tq-band"></div><div class="tq-lines"></div></div>
+    <div class="tq-pg tq-sh r" style="--d:.8s"><div class="tq-band"></div><div class="tq-lines"></div></div>
+    <div class="tq-bind"></div>
+  </div>
+  <div class="tq-note">
+    <svg class="tq-arrow" viewBox="0 0 46 40" aria-hidden="true"><path pathLength="1" d="M42 34C26 34 12 26 8 8M8 8 3 17M8 8l9 6"/></svg>
+    <p class="tq-time" data-t="time_line" data-fit="34,18"></p>
+  </div>
+  <div class="tq-foot">
+    <p class="tq-title a-blur" style="--d:4s" data-t="title" data-fit="30,15"></p>
+    <p class="tq-from a-rise" style="--d:4.2s" data-t="from"></p>
+  </div>
+</section>
+<section class="sc s2">
+  <div class="tq-pl a-rise" style="--d:.1s">
+    <div class="tq-holes"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <p class="tq-ptitle a-fade" style="--d:.4s" data-t="title" data-fit="28,15"></p>
+    <div class="tq-row a-left" style="--d:.6s" data-if="turn"><span class="tq-box"><svg viewBox="0 0 34 32" aria-hidden="true"><path pathLength="1" d="M6 18l8 8L31 3" style="--c:1.2s"/></svg></span><p class="tq-txt" data-t="turn" data-fit="27,15"></p></div>
+    <div class="tq-row a-left" style="--d:.8s" data-if="kassa"><span class="tq-box"><svg viewBox="0 0 34 32" aria-hidden="true"><path pathLength="1" d="M6 18l8 8L31 3" style="--c:1.6s"/></svg></span><p class="tq-txt" data-t="kassa" data-fit="27,15"></p></div>
+    <div class="tq-row a-left" style="--d:1s"><span class="tq-box"><svg viewBox="0 0 34 32" aria-hidden="true"><path pathLength="1" d="M6 18l8 8L31 3" style="--c:2s"/></svg></span><p class="tq-txt" data-t="date" data-fit="27,15"></p></div>
+    <div class="tq-row a-left" style="--d:1.2s"><span class="tq-box"><svg viewBox="0 0 34 32" aria-hidden="true"><path pathLength="1" d="M6 18l8 8L31 3" style="--c:2.4s"/></svg></span><p class="tq-txt" data-t="wt" data-fit="27,15"></p></div>
+    <div class="tq-row a-left" style="--d:1.4s" data-if="venue"><span class="tq-box"><svg viewBox="0 0 34 32" aria-hidden="true"><path pathLength="1" d="M6 18l8 8L31 3" style="--c:2.8s"/></svg></span><p class="tq-txt" data-t="venue" data-fit="27,15"></p></div>
+    <p class="tq-pfrom a-rise" style="--d:1.8s" data-t="from"></p>
+  </div>
+</section>
+<section class="sc s3"><div class="tv-details" data-std="details"></div></section>
+<section class="sc s4">
+  <div class="tv-final" data-std="final"></div>
+  <div class="ptc" data-particles="confetti" data-n="40" data-at="15.2" data-colors="var(--band),var(--marker),var(--gold)"></div>
+  <div class="tv-brand" data-std="brand" data-if="free"></div>
+</section>

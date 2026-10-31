@@ -1,0 +1,81 @@
+<style>
+:root { --f-display: 'Unbounded', system-ui, sans-serif; --f-body: 'Onest', system-ui, sans-serif; }
+#tv { background: radial-gradient(120% 70% at 50% 30%, var(--card) 0%, var(--bg) 70%); }
+.nd-edge { position: absolute; left: 0; right: 0; height: 10px; background: repeating-linear-gradient(90deg, var(--pt1) 0 12px, var(--pt2) 12px 24px); opacity: .9; }
+.nd-edge.t { top: 0; } .nd-edge.b { bottom: 0; }
+.nd-stage { position: absolute; left: 20px; top: 54px; width: 320px; height: 250px; animation: nd-open 1s cubic-bezier(.2, .8, .2, 1) .05s both; transform-origin: 50% 100%; }
+@keyframes nd-open { from { opacity: 0; transform: perspective(700px) rotateX(70deg); } to { opacity: 1; transform: none; } }
+.nd-board { width: 100%; height: 100%; display: block; overflow: visible; filter: drop-shadow(0 18px 18px rgba(0, 0, 0, .35)); }
+.nd-wood { fill: var(--wood); } .nd-wood2 { fill: none; stroke: var(--wood2); stroke-width: 3; }
+.nd-felt { fill: var(--felt); } .nd-bar { fill: var(--wood2); }
+.nd-pt.a { fill: var(--pt1); } .nd-pt.b { fill: var(--pt2); }
+.nd-man { transform-box: fill-box; transform-origin: center; stroke-width: 2; }
+.nd-man.m1 { fill: var(--man1); stroke: color-mix(in srgb, var(--man1) 60%, #000); }
+.nd-man.m2 { fill: var(--man2); stroke: color-mix(in srgb, var(--man2) 60%, #fff); }
+.nd-die { position: absolute; width: 38px; height: 38px; padding: 5px; border-radius: 9px; background: var(--die); box-shadow: inset -3px -3px 0 rgba(0, 0, 0, .12), 0 6px 10px -3px rgba(0, 0, 0, .5);
+  display: grid; grid-template: repeat(3, 1fr) / repeat(3, 1fr); place-items: center; }
+.nd-die i { width: 7px; height: 7px; border-radius: 50%; background: var(--pip); }
+.nd-die i.r { background: var(--accent2); }
+.nd-die.d1 { left: 184px; top: 104px; animation: nd-roll1 1.5s cubic-bezier(.25, .7, .3, 1) 1.6s both; }
+.nd-die.d2 { left: 236px; top: 112px; animation: nd-roll2 1.6s cubic-bezier(.25, .7, .3, 1) 1.75s both; }
+@keyframes nd-roll1 { 0% { opacity: 0; transform: translate(-200px, 150px) rotate(-540deg) scale(1.2); } 10% { opacity: 1; }
+  60% { transform: translate(8px, -6px) rotate(10deg); } 80% { transform: translate(-3px, 2px) rotate(-4deg); } 100% { opacity: 1; transform: rotate(-8deg); } }
+@keyframes nd-roll2 { 0% { opacity: 0; transform: translate(-230px, 170px) rotate(-620deg) scale(1.2); } 10% { opacity: 1; }
+  60% { transform: translate(10px, 4px) rotate(22deg); } 80% { transform: translate(-2px, -2px) rotate(8deg); } 100% { opacity: 1; transform: rotate(14deg); } }
+.nd-text { position: absolute; left: 24px; right: 24px; top: 346px; display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center; }
+.nd-inv { font-size: 16px; font-weight: 500; color: var(--muted); }
+.nd-dear { width: 100%; overflow: hidden; white-space: nowrap; font-family: var(--f-display); font-weight: 700; font-size: 30px; line-height: 1.2; }
+.nd-from { width: 100%; overflow: hidden; white-space: nowrap; font-family: var(--f-display); font-weight: 500; font-size: 16px; color: var(--accent); }
+/* 2-sahna: katta zar sanani "tashlaydi" */
+.nd-card { position: absolute; left: 24px; right: 24px; top: 56px; bottom: 56px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; text-align: center; }
+.nd-ctitle { width: 100%; overflow: hidden; white-space: nowrap; font-family: var(--f-display); font-weight: 800; font-size: 30px; line-height: 1.15; color: var(--accent); }
+.nd-big { position: relative; flex: none; width: 150px; height: 150px; border-radius: 30px; background: var(--die); color: var(--pip);
+  box-shadow: inset -7px -7px 0 rgba(0, 0, 0, .12), 0 22px 30px -14px rgba(0, 0, 0, .55);
+  display: flex; align-items: center; justify-content: center; animation: nd-bigroll 1.4s cubic-bezier(.25, .75, .3, 1) calc(var(--s) + .35s) both; }
+@keyframes nd-bigroll { 0% { opacity: 0; transform: translate(-260px, -40px) rotate(-450deg) scale(.6); } 12% { opacity: 1; }
+  65% { transform: translate(10px, 0) rotate(8deg); } 82% { transform: translate(-4px, 0) rotate(-3deg); } 100% { opacity: 1; transform: none; } }
+.nd-big i { position: absolute; width: 14px; height: 14px; border-radius: 50%; background: var(--accent2); }
+.nd-big i:nth-child(1) { left: 16px; top: 16px; } .nd-big i:nth-child(2) { right: 16px; top: 16px; }
+.nd-big i:nth-child(3) { left: 16px; bottom: 16px; } .nd-big i:nth-child(4) { right: 16px; bottom: 16px; }
+.nd-day { display: block; max-width: 104px; overflow: hidden; white-space: nowrap; font-family: var(--f-display); font-weight: 800; font-size: 62px; line-height: 1; font-variant-numeric: tabular-nums; }
+.nd-month { width: 100%; overflow: hidden; white-space: nowrap; font-family: var(--f-display); font-weight: 700; font-size: 24px; line-height: 1.15; }
+.nd-wt { font-size: 15px; color: var(--muted); }
+.nd-turn { width: fit-content; max-width: 100%; overflow: hidden; white-space: nowrap; padding: 8px 18px; border-radius: 999px; border: 2px solid var(--accent); font-family: var(--f-display); font-weight: 500; font-size: 17px; line-height: 1.2; }
+.nd-kassa { padding: 8px 18px; border-radius: 999px; background: var(--chip); color: var(--chip-ink); font-size: 16px; font-weight: 700; }
+.s3 .tv-details { gap: 14px; }
+.s3 .d-msg { font-family: var(--f-body); font-style: normal; font-weight: 500; font-size: 19px; }
+.s3 .d-day { font-weight: 800; color: var(--accent); }
+.s3 .d-month, .s3 .d-venue, .s4 .f-date { font-weight: 700; }
+.s3 .d-sign { font-family: var(--f-body); font-style: normal; font-size: 16px; }
+.s4 .f-names { font-weight: 800; }
+.s4 .f-date { font-size: 19px; }
+</style>
+<div class="bgk"><span class="nd-edge t"></span><span class="nd-edge b"></span></div>
+<section class="sc s1">
+  <div class="nd-stage">
+    <svg class="nd-board" viewBox="0 0 320 250" aria-hidden="true"><rect class="nd-wood" x="0" y="0" width="320" height="250" rx="14"/><rect class="nd-wood2" x="4" y="4" width="312" height="242" rx="11"/><rect class="nd-felt" x="14" y="14" width="138" height="222" rx="4"/><rect class="nd-felt" x="168" y="14" width="138" height="222" rx="4"/><rect class="nd-bar" x="152" y="10" width="16" height="230" rx="3"/><path class="nd-pt a" d="M14.0 14L25.5 108L37.0 14z"/><path class="nd-pt b" d="M14.0 236L25.5 142L37.0 236z"/><path class="nd-pt b" d="M37.0 14L48.5 108L60.0 14z"/><path class="nd-pt a" d="M37.0 236L48.5 142L60.0 236z"/><path class="nd-pt a" d="M60.0 14L71.5 108L83.0 14z"/><path class="nd-pt b" d="M60.0 236L71.5 142L83.0 236z"/><path class="nd-pt b" d="M83.0 14L94.5 108L106.0 14z"/><path class="nd-pt a" d="M83.0 236L94.5 142L106.0 236z"/><path class="nd-pt a" d="M106.0 14L117.5 108L129.0 14z"/><path class="nd-pt b" d="M106.0 236L117.5 142L129.0 236z"/><path class="nd-pt b" d="M129.0 14L140.5 108L152.0 14z"/><path class="nd-pt a" d="M129.0 236L140.5 142L152.0 236z"/><path class="nd-pt b" d="M168.0 14L179.5 108L191.0 14z"/><path class="nd-pt a" d="M168.0 236L179.5 142L191.0 236z"/><path class="nd-pt a" d="M191.0 14L202.5 108L214.0 14z"/><path class="nd-pt b" d="M191.0 236L202.5 142L214.0 236z"/><path class="nd-pt b" d="M214.0 14L225.5 108L237.0 14z"/><path class="nd-pt a" d="M214.0 236L225.5 142L237.0 236z"/><path class="nd-pt a" d="M237.0 14L248.5 108L260.0 14z"/><path class="nd-pt b" d="M237.0 236L248.5 142L260.0 236z"/><path class="nd-pt b" d="M260.0 14L271.5 108L283.0 14z"/><path class="nd-pt a" d="M260.0 236L271.5 142L283.0 236z"/><path class="nd-pt a" d="M283.0 14L294.5 108L306.0 14z"/><path class="nd-pt b" d="M283.0 236L294.5 142L306.0 236z"/><circle class="nd-man m1 a-pop" style="--d:0.25s" cx="25.5" cy="25.0" r="10"/><circle class="nd-man m1 a-pop" style="--d:0.31s" cx="25.5" cy="45.5" r="10"/><circle class="nd-man m1 a-pop" style="--d:0.37s" cx="25.5" cy="66.0" r="10"/><circle class="nd-man m1 a-pop" style="--d:0.43s" cx="25.5" cy="86.5" r="10"/><circle class="nd-man m2 a-pop" style="--d:0.49s" cx="117.5" cy="25.0" r="10"/><circle class="nd-man m2 a-pop" style="--d:0.55s" cx="117.5" cy="45.5" r="10"/><circle class="nd-man m2 a-pop" style="--d:0.61s" cx="294.5" cy="25.0" r="10"/><circle class="nd-man m2 a-pop" style="--d:0.67s" cx="294.5" cy="45.5" r="10"/><circle class="nd-man m2 a-pop" style="--d:0.73s" cx="294.5" cy="66.0" r="10"/><circle class="nd-man m1 a-pop" style="--d:0.79s" cx="202.5" cy="25.0" r="10"/><circle class="nd-man m1 a-pop" style="--d:0.85s" cx="202.5" cy="45.5" r="10"/><circle class="nd-man m2 a-pop" style="--d:0.91s" cx="71.5" cy="225.0" r="10"/><circle class="nd-man m2 a-pop" style="--d:0.97s" cx="71.5" cy="204.5" r="10"/><circle class="nd-man m2 a-pop" style="--d:1.03s" cx="71.5" cy="184.0" r="10"/><circle class="nd-man m1 a-pop" style="--d:1.09s" cx="140.5" cy="225.0" r="10"/><circle class="nd-man m1 a-pop" style="--d:1.15s" cx="140.5" cy="204.5" r="10"/><circle class="nd-man m1 a-pop" style="--d:1.21s" cx="248.5" cy="225.0" r="10"/><circle class="nd-man m1 a-pop" style="--d:1.27s" cx="248.5" cy="204.5" r="10"/><circle class="nd-man m1 a-pop" style="--d:1.33s" cx="248.5" cy="184.0" r="10"/><circle class="nd-man m1 a-pop" style="--d:1.39s" cx="248.5" cy="163.5" r="10"/><circle class="nd-man m2 a-pop" style="--d:1.45s" cx="179.5" cy="225.0" r="10"/><circle class="nd-man m2 a-pop" style="--d:1.51s" cx="179.5" cy="204.5" r="10"/></svg>
+    <div class="nd-die d1"><i></i><i></i><i></i><b></b><b></b><b></b><i></i><i></i><i></i></div>
+    <div class="nd-die d2"><i></i><b></b><i></i><b></b><i class="r"></i><b></b><i></i><b></b><i></i></div>
+  </div>
+  <div class="nd-text">
+    <p class="nd-inv a-rise" style="--d:.6s" data-t="invite"></p>
+    <p class="nd-dear a-rise" style="--d:.8s" data-t="dear" data-if="guest" data-fit="30,15"></p>
+    <p class="nd-from a-rise" style="--d:1.1s" data-t="from" data-fit="16,12"></p>
+  </div>
+</section>
+<section class="sc s2">
+  <div class="nd-card">
+    <p class="nd-ctitle a-rise" style="--d:.1s" data-t="title" data-fit="30,15"></p>
+    <div class="nd-big"><i></i><i></i><i></i><i></i><span class="nd-day" data-t="day" data-fit="62,28"></span></div>
+    <p class="nd-month a-rise" style="--d:1.3s" data-t="month" data-fit="24,14"></p>
+    <p class="nd-wt a-rise" style="--d:1.45s" data-t="wt"></p>
+    <p class="nd-turn a-pop" style="--d:1.7s" data-t="turn" data-if="turn" data-fit="17,12"></p>
+    <p class="nd-kassa a-pop" style="--d:1.9s" data-t="kassa" data-if="kassa"></p>
+  </div>
+</section>
+<section class="sc s3"><div class="tv-details" data-std="details"></div></section>
+<section class="sc s4">
+  <div class="tv-final" data-std="final"></div>
+  <div class="ptc" data-particles="confetti" data-n="34" data-at="15.2" data-colors="var(--pt1),var(--pt2),var(--man1),var(--accent)"></div>
+  <div class="tv-brand" data-std="brand" data-if="free"></div>
+</section>

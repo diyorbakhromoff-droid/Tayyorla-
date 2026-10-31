@@ -1,0 +1,124 @@
+<style>
+:root { --f-display: 'Cormorant Garamond', Georgia, serif; --f-body: 'Onest', system-ui, sans-serif; }
+#tv { background: var(--sky1); }
+.mh-sky { position: absolute; inset: 0; background: linear-gradient(180deg, var(--sky1) 0%, var(--sky1) 40%, var(--sky2) 88%); }
+.mh-glow { position: absolute; left: -80px; right: -80px; top: 220px; height: 420px; border-radius: 50%;
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--sun2) 70%, transparent) 0%, color-mix(in srgb, var(--sun) 40%, transparent) 45%, transparent 100%);
+  animation: mh-glow 6s ease-out .2s both; }
+@keyframes mh-glow { from { opacity: 0; transform: translateY(120px) scale(.7); } to { opacity: 1; transform: none; } }
+.mh-stars { position: absolute; left: 0; right: 0; top: 0; height: 330px; animation: mh-stars 4.6s ease-in .3s both; }
+@keyframes mh-stars { from { opacity: 1; } to { opacity: 0; } }
+.mh-sun { position: absolute; left: 116px; top: 300px; width: 128px; height: 128px; border-radius: 50%;
+  background: radial-gradient(circle at 50% 50%, var(--sun2) 0%, var(--sun2) 38%, var(--sun) 100%);
+  box-shadow: 0 0 0 14px color-mix(in srgb, var(--sun) 22%, transparent), 0 0 0 34px color-mix(in srgb, var(--sun) 10%, transparent), 0 0 80px 30px color-mix(in srgb, var(--sun) 45%, transparent);
+  animation: mh-rise 7.5s cubic-bezier(.25, .6, .3, 1) .1s both; }
+@keyframes mh-rise { from { transform: translateY(230px) scale(.92); } to { transform: none; } }
+.mh-rays { position: absolute; left: 30px; top: 214px; width: 300px; height: 300px; border-radius: 50%; opacity: .5;
+  background: repeating-conic-gradient(from 0deg, color-mix(in srgb, var(--sun) 40%, transparent) 0deg 6deg, transparent 6deg 18deg);
+  -webkit-mask: radial-gradient(closest-side, transparent 30%, #000 46%, transparent 100%); mask: radial-gradient(closest-side, transparent 30%, #000 46%, transparent 100%);
+  animation: mh-rays-in 3s ease-out 3.4s both, mh-rays-turn 40s linear 3.4s infinite both; }
+@keyframes mh-rays-in { from { opacity: 0; } to { opacity: .5; } }
+@keyframes mh-rays-turn { from { rotate: 0deg; } to { rotate: 360deg; } }
+.mh-town { position: absolute; left: 0; top: 420px; width: 360px; height: 220px; overflow: visible; }
+.mh-far { fill: var(--far, var(--sil2)); }
+.mh-near { fill: var(--near, var(--sil)); }
+.mh-win { fill: var(--lit, var(--win)); animation: mh-win 2.4s ease-in-out infinite alternate both; }
+.mh-win.b { animation-delay: -1.1s; } .mh-win.c { animation-delay: -1.9s; }
+@keyframes mh-win { from { opacity: .55; } to { opacity: 1; } }
+.mh-light { fill: var(--lit, var(--win)); }
+.mh-door { fill: var(--door); stroke: var(--sil); stroke-width: 2; transform-box: fill-box; animation: mh-open 1.4s cubic-bezier(.5, 0, .2, 1) 2.6s both; }
+.mh-door.l { transform-origin: 0% 50%; } .mh-door.r { transform-origin: 100% 50%; }
+@keyframes mh-open { from { transform: scaleX(1); } to { transform: scaleX(.16); } }
+.mh-band { fill: none; stroke: var(--win); stroke-width: 2; stroke-dasharray: 3 5; opacity: .55; }
+.mh-steam { position: absolute; width: 70px; height: 120px; top: 470px; }
+.mh-steam.a { left: 44px; } .mh-steam.b { left: 254px; }
+.mh-steam .p-steam { background: color-mix(in srgb, var(--sun2) 55%, #FFFFFF) !important; }
+.mh-head { position: absolute; left: 24px; right: 24px; top: 70px; display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center; }
+.mh-inv { font-size: 16px; font-weight: 500; color: var(--muted); letter-spacing: .02em; }
+.mh-dear { width: 100%; overflow: hidden; white-space: nowrap; font-family: var(--f-display); font-weight: 700; font-size: 38px; line-height: 1.15; color: var(--ink); }
+.mh-from { width: 100%; margin-top: 4px; overflow: hidden; white-space: nowrap; font-family: var(--f-display); font-style: italic; font-weight: 600; font-size: 26px; line-height: 1.2; color: var(--accent); }
+.mh-orn { width: 120px; height: 14px; margin-top: 4px; }
+.mh-orn path { fill: none; stroke: var(--accent); stroke-width: 1.6; stroke-linecap: round; }
+.mh-orn circle { fill: var(--accent); }
+.mh-arch { position: absolute; left: 32px; right: 32px; top: 84px; height: 340px; padding: 64px 22px 26px; border-radius: 148px 148px 16px 16px;
+  background: var(--card); box-shadow: 0 0 0 6px color-mix(in srgb, var(--card) 45%, transparent), 0 24px 40px -24px rgba(0, 0, 0, .5);
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; text-align: center; }
+.mh-arch::before { content: ""; position: absolute; left: 12px; right: 12px; top: 12px; bottom: 12px; border-radius: 136px 136px 10px 10px;
+  border: 1.5px solid color-mix(in srgb, var(--accent) 55%, transparent); pointer-events: none; }
+.mh-key { position: absolute; left: 50%; top: 26px; width: 44px; height: 44px; margin-left: -22px; }
+.mh-key path, .mh-key circle { fill: none; stroke: var(--accent); stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.mh-title { width: 100%; overflow: hidden; white-space: nowrap; font-family: var(--f-display); font-weight: 700; font-size: 50px; line-height: 1.05; color: var(--accent2); }
+.mh-reason { width: 100%; max-height: 52px; overflow: hidden; font-family: var(--f-display); font-style: italic; font-weight: 500; font-size: 19px; line-height: 1.3; color: var(--ink); }
+.mh-date { width: 100%; margin-top: 6px; overflow: hidden; white-space: nowrap; font-family: var(--f-display); font-weight: 700; font-size: 28px; color: var(--ink); }
+.mh-wt { font-size: 14px; color: var(--muted); }
+.mh-host { width: 100%; overflow: hidden; white-space: nowrap; margin-top: 4px; font-size: 15px; font-weight: 600; color: var(--accent); }
+.mh-day { background: radial-gradient(70% 26% at 50% 0%, color-mix(in srgb, var(--sun) 22%, var(--bg)) 0%, var(--bg) 100%); }
+.mh-strip { position: absolute; left: 0; bottom: 0; width: 360px; height: 120px; --near: color-mix(in srgb, var(--sil) 20%, var(--bg)); --far: color-mix(in srgb, var(--sil) 10%, var(--bg)); --lit: color-mix(in srgb, var(--win) 30%, var(--bg)); }
+.s3 .tv-details { padding: 40px 30px 86px; }
+.s4 .mh-sunlet { position: absolute; left: 50%; top: -110px; width: 240px; height: 240px; margin-left: -120px; border-radius: 50%;
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--sun) 30%, transparent), transparent); }
+</style>
+<div class="bgk">
+  <div class="mh-sky"></div>
+  <div class="ptc mh-stars" data-particles="star" data-n="34" data-colors="var(--ink),var(--sun2)"></div>
+  <div class="mh-glow"></div>
+  <div class="mh-rays"></div>
+  <div class="mh-sun"></div>
+  <div class="ptc mh-steam a" data-particles="steam" data-n="6"></div>
+  <div class="ptc mh-steam b" data-particles="steam" data-n="6"></div>
+  <svg class="mh-town" viewBox="0 0 360 220" aria-hidden="true">
+    <g id="mh-town-g">
+      <g class="mh-far">
+        <ellipse cx="22" cy="74" rx="11" ry="62"/><ellipse cx="42" cy="96" rx="9" ry="46"/><rect x="20" y="120" width="4" height="40"/>
+        <path d="M240 124Q240 76 272 70Q304 76 304 124Z"/><rect x="236" y="122" width="72" height="22"/><rect x="270" y="56" width="4" height="16"/><circle cx="272" cy="54" r="4"/>
+        <rect x="318" y="40" width="12" height="110"/><path d="M314 44h20l-10-20Z"/><rect x="314" y="58" width="20" height="5"/>
+        <ellipse cx="350" cy="96" rx="9" ry="48"/>
+        <rect x="0" y="134" width="360" height="86"/>
+      </g>
+      <g class="mh-near">
+        <path d="M0 150H34V126H98V146H126V220H0Z"/>
+        <path d="M234 220V142H270V120H330V150H360V220Z"/>
+        <rect x="0" y="170" width="360" height="50"/>
+        <rect x="122" y="46" width="14" height="174"/><rect x="224" y="46" width="14" height="174"/>
+        <circle cx="129" cy="44" r="8"/><circle cx="231" cy="44" r="8"/>
+        <rect x="126" y="58" width="108" height="12"/>
+        <path d="M136 70H224V220H208V122Q208 92 180 88Q152 92 152 122V220H136Z"/>
+      </g>
+      <path class="mh-light" d="M152 220V122Q152 92 180 88Q208 92 208 122V220Z"/>
+      <rect class="mh-win" x="58" y="134" width="10" height="13" rx="5"/><rect class="mh-win b" x="100" y="154" width="8" height="10" rx="4"/>
+      <rect class="mh-win c" x="288" y="128" width="10" height="13" rx="5"/><rect class="mh-win" x="248" y="150" width="8" height="10" rx="4"/>
+    </g>
+    <path class="mh-band" d="M140 80H220"/>
+    <rect class="mh-door l" x="152" y="92" width="28" height="128"/><rect class="mh-door r" x="180" y="92" width="28" height="128"/>
+  </svg>
+</div>
+<section class="sc s1">
+  <div class="mh-head">
+    <p class="mh-inv a-rise" style="--d:.5s" data-t="invite"></p>
+    <p class="mh-dear a-blur" style="--d:.8s" data-t="dear" data-if="guest" data-fit="38,18"></p>
+    <svg class="mh-orn a-fade" style="--d:1.2s" viewBox="0 0 120 14" aria-hidden="true"><path d="M4 7H48M72 7H116"/><path d="M52 7l8-6 8 6-8 6Z"/><circle cx="60" cy="7" r="2"/></svg>
+    <p class="mh-from a-rise" style="--d:1.4s" data-t="from" data-fit="26,15"></p>
+  </div>
+</section>
+<section class="sc s2">
+  <div class="mh-arch a-rise" style="--d:.1s">
+    <svg class="mh-key a-pop" style="--d:.5s" viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="11" r="7"/><circle cx="22" cy="11" r="2.5"/><path d="M22 18V40M22 30H29M22 36H27"/></svg>
+    <p class="mh-title a-blur" style="--d:.4s" data-t="title" data-fit="50,24"></p>
+    <p class="mh-reason a-rise" style="--d:.7s" data-t="reason" data-if="reason" data-fit="19,13"></p>
+    <p class="mh-date a-rise" style="--d:1s" data-t="date" data-fit="28,15"></p>
+    <p class="mh-wt a-rise" style="--d:1.15s" data-t="wt"></p>
+    <p class="mh-host a-rise" style="--d:1.35s" data-t="from" data-fit="15,11"></p>
+  </div>
+</section>
+<section class="sc s3 mh-day">
+  <svg class="mh-strip" viewBox="0 100 360 120" preserveAspectRatio="xMidYMax slice" aria-hidden="true"><use href="#mh-town-g"/></svg>
+  <div class="tv-details" data-std="details"></div>
+</section>
+<section class="sc s4 mh-day">
+  <span class="mh-sunlet"></span>
+  <div class="ptc" data-particles="dust" data-n="28" data-colors="var(--sun),var(--gold)"></div>
+  <svg class="mh-strip" viewBox="0 100 360 120" preserveAspectRatio="xMidYMax slice" aria-hidden="true"><use href="#mh-town-g"/></svg>
+  <div class="tv-final" data-std="final"></div>
+  <div class="ptc" data-particles="confetti" data-n="34" data-at="15.2" data-colors="var(--accent),var(--accent2),var(--gold)"></div>
+  <div class="tv-brand" data-std="brand" data-if="free"></div>
+</section>
