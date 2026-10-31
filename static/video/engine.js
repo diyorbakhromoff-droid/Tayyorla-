@@ -39,7 +39,7 @@
     final:
       '<div class="f-photo a-pop" style="--d:.1s" data-if="photo" data-photo></div>' +
       '<p class="f-event a-fade" style="--d:.2s" data-t="event" data-if="event_head"></p>' +
-      '<p class="f-names a-blur" style="--d:.3s" data-t="names_line" data-fit="40,14"></p>' +
+      '<p class="f-names a-blur" style="--d:.3s" data-t="names_line" data-fit="40,22,14"></p>' +
       '<p class="f-date a-rise" style="--d:.6s" data-t="date"></p>' +
       '<div class="tv-bank a-rise" style="--d:.9s" data-if="toyona"><p class="b-title" data-t="card_title"></p>' +
       '<div class="b-card"><span class="b-logo"></span><span class="b-chip"></span><span class="b-num" data-t="card_number" data-fit="19,13"></span><span class="b-owner" data-t="card_owner"></span></div></div>' +
@@ -132,12 +132,22 @@
     var size = +spec[0] || 40, min = +spec[1] || 10;
     // bir qatorli matn eni bo'yicha, ko'p qatorli matn balandligi bo'yicha sig'diriladi
     var line = getComputedStyle(el).whiteSpace === 'nowrap';
-    var over = function () { return el.scrollWidth > el.clientWidth + 1 || (!line && el.scrollHeight > el.clientHeight + 1); };
+    var over = function () { return line ? el.scrollWidth > el.clientWidth + 1 : el.scrollHeight > el.clientHeight + 4 || el.scrollWidth > el.clientWidth + 1; };
     el.style.fontSize = size + 'px';
     var guard = 80;
     while (guard-- > 0 && size > min && over()) {
       size -= 1;
       el.style.fontSize = size + 'px';
+    }
+    // data-fit="katta,kichik,qatorli": bir qatorga sig'masa, 3 qatorgacha bo'linib yana kichrayadi (uzun ismlar)
+    var wrapMin = +spec[2];
+    if (wrapMin && line && over()) {
+      el.style.whiteSpace = 'normal'; el.style.maxHeight = '3.6em'; line = false;
+      size = +spec[1]; el.style.fontSize = size + 'px';
+      while (guard-- > 0 && size > wrapMin && over()) {
+        size -= 1;
+        el.style.fontSize = size + 'px';
+      }
     }
   }
   function fitAll() { var list = document.querySelectorAll('[data-fit]'); for (var i = 0; i < list.length; i++) fit(list[i]); }
