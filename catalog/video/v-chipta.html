@@ -23,7 +23,7 @@
   font-size: 14px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
 .ck-strip span { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
 .ck-body { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; padding: 8px 18px; text-align: center; }
-.ck-name { width: 100%; overflow: hidden; white-space: nowrap; font-family: var(--f-display); font-weight: 700; font-size: 40px; line-height: 1.15; }
+.ck-name { width: 100%; max-height: 88px; overflow: hidden; overflow-wrap: anywhere; font-family: var(--f-display); font-weight: 700; font-size: 40px; line-height: 1.1; }
 .ck-chip { padding: 5px 14px; border-radius: 99px; border: 2px solid var(--accent2); color: var(--accent2); font-size: 15px; font-weight: 700; }
 .ck-perf { position: relative; flex: none; height: 22px; }
 .ck-perf::before { content: ""; position: absolute; left: 18px; right: 18px; top: 10px; border-top: 2px dashed color-mix(in srgb, var(--ink) 30%, transparent); }
@@ -49,7 +49,7 @@
 @keyframes ck-stamp { from { opacity: 0; transform: rotate(-30deg) scale(2.2); } to { opacity: 1; transform: rotate(-12deg) scale(1); } }
 .ck-stamp b { font-family: var(--f-display); font-weight: 700; font-size: 68px; line-height: .95; }
 .ck-stamp span { max-width: 120px; font-size: 14px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; white-space: nowrap; overflow: hidden; }
-.ck-cname { width: 100%; overflow: hidden; white-space: nowrap; font-family: var(--f-display); font-weight: 700; font-size: 38px; line-height: 1.15; margin-top: 6px; }
+.ck-cname { width: 100%; max-height: 84px; overflow: hidden; overflow-wrap: anywhere; font-family: var(--f-display); font-weight: 700; font-size: 38px; line-height: 1.1; margin-top: 6px; }
 .ck-rows { flex: none; display: flex; flex-direction: column; gap: 8px; padding: 2px 24px 0; }
 .ck-row { display: flex; align-items: center; gap: 10px; min-width: 0; }
 .ck-row .ck-ico { width: 22px; height: 22px; color: var(--accent); }
@@ -83,7 +83,7 @@
     <div class="ck-tk">
       <div class="ck-strip"><svg class="ck-ico" width="20" height="20" viewBox="0 0 24 24" style="transform:rotate(90deg)" aria-hidden="true"><use href="#ck-pl"/></svg><span data-t="event"></span></div>
       <div class="ck-body">
-        <p class="ck-name" data-t="name" data-fit="40,17"></p>
+        <p class="ck-name" data-t="name" data-fit="40,20"></p>
         <p class="ck-chip" data-t="age" data-if="age"></p>
       </div>
       <div class="ck-perf"></div>
@@ -100,7 +100,7 @@
     <div class="ck-strip"><svg class="ck-ico" width="20" height="20" viewBox="0 0 24 24" style="transform:rotate(90deg)" aria-hidden="true"><use href="#ck-pl"/></svg><span data-t="event"></span></div>
     <div class="ck-body">
       <div class="ck-stamp" data-if="age"><b data-t="age_n"></b><span data-t="age"></span></div>
-      <p class="ck-cname a-blur" style="--d:.4s" data-t="name" data-fit="38,17"></p>
+      <p class="ck-cname a-blur" style="--d:.4s" data-t="name" data-fit="38,20"></p>
     </div>
     <div class="ck-perf"></div>
     <div class="ck-rows">

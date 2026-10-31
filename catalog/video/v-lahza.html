@@ -27,7 +27,7 @@
 .pl-cap { display: flex; align-items: center; justify-content: center; overflow: hidden; color: var(--paper-ink); font-family: var(--f-display); font-weight: 700; text-align: center; }
 .pl-cap p { width: 100%; overflow: hidden; white-space: nowrap; }
 .pl-big .pl-img { height: 186px; } .pl-big .pl-num { font-size: 104px; }
-.pl-big .pl-cap { height: 64px; } .pl-big .pl-cap p { font-size: 36px; }
+.pl-big .pl-cap { height: 64px; } .pl-big .pl-cap p { max-height: 64px; white-space: normal; overflow-wrap: anywhere; font-size: 36px; line-height: 1.1; }
 .pl-ev { position: absolute; left: 24px; right: 24px; top: 566px; text-align: center; font-size: 14px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); }
 .pl-str { position: absolute; left: 0; top: 70px; width: 360px; height: 80px; overflow: visible; }
 .pl-str path { fill: none; stroke: var(--muted); stroke-width: 1.6; }
@@ -40,7 +40,7 @@
 .pl-mini .pl-cap { height: 40px; } .pl-mini .pl-cap p { font-size: 25px; }
 .pl-info { position: absolute; left: 24px; right: 24px; top: 336px; bottom: 60px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; text-align: center; }
 .pl-event { font-size: 14px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
-.pl-name { width: 100%; overflow: hidden; white-space: nowrap; font-family: var(--f-display); font-weight: 700; font-size: 60px; line-height: 1.05; color: var(--accent); }
+.pl-name { width: 100%; max-height: 120px; overflow: hidden; overflow-wrap: anywhere; font-family: var(--f-display); font-weight: 700; font-size: 60px; line-height: 1; color: var(--accent); }
 .pl-date { width: 100%; overflow: hidden; white-space: nowrap; font-family: var(--f-display); font-weight: 700; font-size: 34px; line-height: 1.1; }
 .pl-wt { font-size: 15px; color: var(--muted); }
 .pl-note { position: absolute; left: 22px; right: 22px; top: 40px; bottom: 40px; background: var(--card); transform: rotate(-1.2deg); box-shadow: 0 18px 30px -22px rgba(0, 0, 0, .6);
@@ -78,7 +78,7 @@
   <div class="pl-win">
     <div class="pl-photo pl-big pl-eject">
       <div class="pl-img"><span class="pl-num" data-t="age_n" data-if="age"></span><span class="pl-dev"></span></div>
-      <div class="pl-cap"><p data-t="name" data-fit="36,18"></p></div>
+      <div class="pl-cap"><p data-t="name" data-fit="36,20"></p></div>
     </div>
   </div>
   <p class="pl-ev a-fade" style="--d:3.2s" data-t="event"></p>
@@ -98,7 +98,7 @@
   </div>
   <div class="pl-info">
     <p class="pl-event a-fade" style="--d:.9s" data-t="event"></p>
-    <p class="pl-name a-blur" style="--d:1s" data-t="name" data-fit="60,26"></p>
+    <p class="pl-name a-blur" style="--d:1s" data-t="name" data-fit="60,28"></p>
     <p class="pl-date a-rise" style="--d:1.3s" data-t="date" data-fit="34,18"></p>
     <p class="pl-wt a-rise" style="--d:1.5s" data-t="wt"></p>
   </div>

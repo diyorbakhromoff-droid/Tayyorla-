@@ -17,8 +17,8 @@
 .tq-day { display: block; max-width: 190px; overflow: hidden; white-space: nowrap; font-family: var(--f-display); font-weight: 700; font-size: 112px; line-height: 1.05; color: var(--day); font-variant-numeric: tabular-nums; }
 .tq-ring { position: absolute; left: -22px; right: -22px; top: -6px; bottom: -10px; width: calc(100% + 44px); height: calc(100% + 16px); overflow: visible; }
 .tq-ring path { fill: none; stroke: var(--pmarker); stroke-width: 4.5; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 1;
-  animation: tq-draw .9s cubic-bezier(.5, 0, .3, 1) 2.7s both; }
-@keyframes tq-draw { to { stroke-dashoffset: 0; } }
+  animation: tq-draw .9s cubic-bezier(.5, 0, .3, 1) 2.5s both; }
+@keyframes tq-draw { 0% { stroke-dashoffset: 1; opacity: 0; } 2% { opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 1; } }
 .tq-wd { font-size: 17px; font-weight: 600; color: var(--page-muted); }
 .tq-sh .tq-band { background: var(--band); }
 .tq-lines { flex: 1; background: repeating-linear-gradient(var(--page) 0 27px, var(--rule) 27px 28px); margin: 22px 20px 26px; }
@@ -31,9 +31,9 @@
 .tq-bind::before { left: 54px; } .tq-bind::after { right: 54px; }
 .tq-note { position: absolute; left: 20px; right: 20px; top: 428px; display: flex; align-items: center; justify-content: center; gap: 6px; }
 .tq-arrow { flex: none; width: 46px; height: 40px; overflow: visible; }
-.tq-arrow path { fill: none; stroke: var(--marker); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1; stroke-dashoffset: 1; animation: tq-draw .5s ease 3.5s both; }
-.tq-time { max-width: 240px; overflow: hidden; white-space: nowrap; font-family: var(--f-hand); font-weight: 700; font-size: 34px; line-height: 1.1; color: var(--marker); transform: rotate(-4deg);
-  animation: tq-write .7s steps(8) 3.8s both; }
+.tq-arrow path { fill: none; stroke: var(--marker); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1; stroke-dashoffset: 1; animation: tq-draw .5s ease 3.2s both; }
+.tq-time { max-width: 240px; overflow: hidden; white-space: nowrap; font-family: var(--f-hand); font-weight: 700; font-size: 34px; line-height: 1.1; padding: 0 8px 0 2px; color: var(--marker); transform: rotate(-4deg);
+  animation: tq-write .7s steps(8) 3.45s both; }
 @keyframes tq-write { from { clip-path: inset(-10px 100% -10px -10px); } to { clip-path: inset(-10px -10px -10px -10px); } }
 .tq-foot { position: absolute; left: 24px; right: 24px; top: 486px; display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center; }
 .tq-title { width: 100%; overflow: hidden; white-space: nowrap; font-family: var(--f-display); font-weight: 700; font-size: 30px; line-height: 1.2; color: var(--ink); }
@@ -80,8 +80,8 @@
     <p class="tq-time" data-t="time_line" data-fit="34,18"></p>
   </div>
   <div class="tq-foot">
-    <p class="tq-title a-blur" style="--d:4s" data-t="title" data-fit="30,15"></p>
-    <p class="tq-from a-rise" style="--d:4.2s" data-t="from"></p>
+    <p class="tq-title a-blur" style="--d:3.1s" data-t="title" data-fit="30,15"></p>
+    <p class="tq-from a-rise" style="--d:3.5s" data-t="from"></p>
   </div>
 </section>
 <section class="sc s2">
