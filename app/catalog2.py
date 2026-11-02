@@ -173,6 +173,13 @@ BLOCKS2: dict[str, list[Block]] = {
     ],
 }
 
+# Olib tashlangan bloklar: yangi buyurtmalarda taklif qilinmaydi va namunada ko'rinmaydi.
+# Avval sotib olingan saytlarda (ma'lumoti to'ldirilgan bo'lsa) o'zgarishsiz qoladi.
+RETIRED_BLOCKS = {
+    "sevgi": {"savol"},  # «Menga turmushga chiqasanmi?» kabi muhim savol
+    "tugilgan-kun": {"bazm"},  # «Bazmga kelasanmi?» — bazmga taklif va javob
+}
+
 _FIELD = {s: {f.key: f for f in fs} for s, fs in FIELDS2.items()}
 _BLOCK = {s: {b.key: b for b in bs} for s, bs in BLOCKS2.items()}
 
@@ -192,10 +199,12 @@ def _load() -> tuple[dict, dict]:
                 continue
             m = json.loads(mf.read_text(encoding="utf-8"))
             sec = sec_dir.name
-            blocks = [b for b in m.get("blocks", []) if b in _BLOCK[sec]]
+            gone = RETIRED_BLOCKS.get(sec, set())
+            blocks = [b for b in m.get("blocks", []) if b in _BLOCK[sec] and b not in gone]
+            retired = [b for b in m.get("blocks", []) if b in _BLOCK[sec] and b in gone]
             templates[m["id"]] = {
                 "id": m["id"], "section": sec, "tier": m["tier"], "name": m["name"], "desc": m.get("desc", ""),
-                "file": f"v2/{sec}/{mf.stem}.dc.html", "blocks": blocks, "slots": int(m.get("slots", 6)),
+                "file": f"v2/{sec}/{mf.stem}.dc.html", "blocks": blocks, "retired": retired, "slots": int(m.get("slots", 6)),
                 "demo_photos": m.get("demo_photos", []), "fields_off": m.get("fields_off", []),
                 "order": int(m.get("order", 50)), "intro": bool(m.get("intro", m["tier"] != "standart")),
                 # eski kod bilan moslik
@@ -259,7 +268,8 @@ def _filled(v) -> bool:
 
 def visible_blocks(t: dict, data: dict, photos: list, music, hidden: list) -> dict:
     out = {}
-    for key in t["blocks"]:
+    # olib tashlangan bloklar faqat eski saytlarda, ma'lumoti bo'lsa ko'rinadi (yangi buyurtmada maydoni yo'q)
+    for key in t["blocks"] + t.get("retired", []):
         ok = key not in hidden
         for need in _BLOCK[t["section"]][key].needs:
             if need == PHOTOS:
@@ -395,7 +405,8 @@ def palette_swatches(t: dict) -> tuple[list, list]:
 
 
 def demo_config(t: dict) -> dict:
-    data = {k: v for k, v in DEMOS.get(t["section"], {}).items() if k not in OPTIONAL_FIELDS}
+    keep = {f.key for f in fields_for(t)}
+    data = {k: v for k, v in DEMOS.get(t["section"], {}).items() if k not in OPTIONAL_FIELDS and k in keep}
     return {"template": t["id"], "tarif": t["tier"], "data": data,
             "photos": list(t["demo_photos"]), "music": None, "hidden": default_hidden(t)}
 

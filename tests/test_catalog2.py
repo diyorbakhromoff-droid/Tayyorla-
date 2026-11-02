@@ -76,6 +76,17 @@ assert next(b for b in catalog2.block_meta(dress_t) if b["key"] == "dress")["opt
 assert next(f for f in meta["fields2"]["toy"] if f["key"] == "dress_kod")["optional"] is True
 assert "Kechki uslub" not in catalog2.render(dress_t, catalog2.demo_config(dress_t), "namuna", preview=False, demo=True)
 
+# olib tashlangan bloklar: «muhim savol» (sevgi) va «bazmga taklif» (tug'ilgan kun) yangi buyurtmada va namunada yo'q
+for t in v2:
+    assert not set(t["blocks"]) & catalog2.RETIRED_BLOCKS.get(t["section"], set()), t["id"]
+sv = next(t for t in v2 if "savol" in t["retired"])
+assert "savol" not in {f.key for f in catalog2.fields_for(sv)} and "savol" not in catalog2.demo_config(sv)["data"]
+assert "savol" not in clean_order({"template": sv["id"], "data": {"kimga": "A", "savol": "Turmushga chiqasanmi?"}}, strict=False)["data"]
+assert catalog2.visible_blocks(sv, {"savol": "Eski savol"}, [], None, [])["savol"] is True  # eski sotilgan sayt o'zgarmaydi
+assert catalog2.visible_blocks(sv, {}, [], None, [])["savol"] is False
+tk = next(t for t in v2 if "bazm" in t["retired"])
+assert "bazm_sana" not in catalog2.demo_config(tk)["data"] and "Bahor" not in catalog2.render(tk, catalog2.demo_config(tk), "namuna", preview=False, demo=True)
+
 # rang palitralari: Standart 3, Premium 8, VIP 12; tarifdan ortig'i asl rangga qaytadi
 prem = next(t for t in v2 if t["tier"] == "premium")
 assert len(vip["colors"]) == 12 and len(prem["colors"]) == 8 and len(vip["swatch"]) == 12
