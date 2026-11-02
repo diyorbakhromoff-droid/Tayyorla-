@@ -13,7 +13,7 @@ from aiogram.fsm.state import State, StatesGroup
 from aiogram.types import CallbackQuery, Message
 from sqlalchemy import select
 
-from .. import ai, billing
+from .. import ai, billing, track
 from ..catalog import photo_limit, site_price, site_title
 from ..i18n import tr
 from ..surprise import human, locked_until
@@ -161,6 +161,7 @@ async def start(message: Message, state: FSMContext, command: CommandObject | No
     await state.clear()
     args = (command.args or "") if command else ""
     lang, inviter = await remember_user(message.from_user, args)
+    await track.log_event("start", message.from_user.id, args)
     name = html.escape(message.from_user.first_name or "")
     if inviter:
         try:

@@ -199,6 +199,7 @@ class Payment(Base):
     status: Mapped[str] = mapped_column(String(12), default="new")
     job_id: Mapped[int | None] = mapped_column(Integer, nullable=True)  # to'lovdan keyin navbatga qo'yiladigan video
     admin_id: Mapped[int | None] = mapped_column(BigInteger, nullable=True)
+    receipt: Mapped[str] = mapped_column(String(255), default="")  # chek fayli (Telegram file_id), admin paneli uchun
     created_at: Mapped[datetime] = mapped_column(DateTime, default=utcnow)
     decided_at: Mapped[datetime | None] = mapped_column(DateTime, nullable=True)
 
@@ -215,6 +216,41 @@ class BalanceTx(Base):
     created_at: Mapped[datetime] = mapped_column(DateTime, default=utcnow)
 
 
+class Event(Base):
+    """Faollik hodisasi: /start bosildi, ilovaga kirdi (kuniga bir marta), reklama havolasi bosildi."""
+    __tablename__ = "events"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    user_id: Mapped[int | None] = mapped_column(BigInteger, nullable=True, index=True)
+    kind: Mapped[str] = mapped_column(String(12), index=True)  # start | app | click
+    src: Mapped[str] = mapped_column(String(32), default="", index=True)  # start parametri yoki havola kodi
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=utcnow, index=True)
+
+
+class TrafficLink(Base):
+    """Reklama uchun trafik manbasi havolasi: t.me/<bot>?start=src_<code> va /go/<code>."""
+    __tablename__ = "traffic_links"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    code: Mapped[str] = mapped_column(String(24), unique=True, index=True)
+    name: Mapped[str] = mapped_column(String(100))
+    note: Mapped[str] = mapped_column(String(255), default="")
+    cost: Mapped[int] = mapped_column(Integer, default=0)  # reklamaga to'langan summa (so'm)
+    archived: Mapped[bool] = mapped_column(Boolean, default=False)
+    created_by: Mapped[int | None] = mapped_column(BigInteger, nullable=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=utcnow)
+
+
+class Snapshot(Base):
+    """Kunlik ko'rsatkich (masalan, kanal obunachilari soni) — o'sishni ko'rish uchun."""
+    __tablename__ = "snapshots"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    day: Mapped[str] = mapped_column(String(10), index=True)  # YYYY-MM-DD (Toshkent)
+    key: Mapped[str] = mapped_column(String(24))
+    value: Mapped[int] = mapped_column(Integer, default=0)
+
+
 async def init_db() -> None:
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
@@ -229,6 +265,7 @@ _NEW_COLUMNS = [
     ("rsvps", "guest_id", "INTEGER"),
     # til endi Telegram'dan olinmaydi: avval avtomatik qo'yilgan tillar o'zbekchaga qaytariladi
     ("users", "lang_set", "BOOLEAN DEFAULT FALSE NOT NULL", "UPDATE users SET lang = 'uz'"),
+    ("payments", "receipt", "VARCHAR(255) DEFAULT '' NOT NULL"),
 ]
 
 

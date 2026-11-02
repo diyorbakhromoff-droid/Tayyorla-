@@ -11,7 +11,7 @@ from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
-from . import events
+from . import admin, events
 from .config import MEDIA_DIR, ROOT, settings
 from .db import Guest, Reaction, Rsvp, Session, Site, get_site, utcnow
 from . import catalog2
@@ -30,6 +30,8 @@ app.mount("/katalog", StaticFiles(directory=CATALOG_DIR), name="katalog")
 app.include_router(webapp_router)
 app.include_router(video_router)
 app.include_router(events.router)
+app.include_router(admin.router)
+app.include_router(admin.public)
 
 
 def page_for(site, preview: bool, guest: Guest | None = None) -> str:

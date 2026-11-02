@@ -8,7 +8,7 @@ import uvicorn
 from aiogram import Bot, Dispatcher
 from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
-from aiogram.types import BotCommand, MenuButtonWebApp, WebAppInfo
+from aiogram.types import BotCommand, BotCommandScopeChat, MenuButtonWebApp, WebAppInfo
 
 from . import videobot, web, webapp
 from .bot import keyboards as kb
@@ -53,12 +53,22 @@ async def main() -> None:
     if settings.base_url.startswith("https://"):
         # Mini App faqat HTTPS da ishlaydi
         await bot.set_chat_menu_button(menu_button=MenuButtonWebApp(text="✨ Yaratish", web_app=WebAppInfo(url=f"{settings.base_url}/app")))
-    await bot.set_my_commands([
+    commands = [
         BotCommand(command="start", description="Bosh menyu"),
         BotCommand(command="yaqinlar", description="Yaqinlarim kalendari"),
         BotCommand(command="mysites", description="Mening saytlarim"),
         BotCommand(command="help", description="Yordam"),
-    ])
+    ]
+    await bot.set_my_commands(commands)
+    for admin_id in settings.admins:  # adminlarga panel buyruqlari ham ko'rinadi
+        try:
+            await bot.set_my_commands(commands + [
+                BotCommand(command="admin", description="Admin panel"),
+                BotCommand(command="stats", description="Qisqa statistika"),
+                BotCommand(command="broadcast", description="Hammaga xabar"),
+            ], scope=BotCommandScopeChat(chat_id=admin_id))
+        except Exception:
+            logging.warning("Admin buyruqlarini o'rnatib bo'lmadi: %s", admin_id)
 
     server = uvicorn.Server(uvicorn.Config(web.app, host=settings.host, port=settings.port, log_level="info"))
     await asyncio.gather(server.serve(), dp.start_polling(bot), reminder_loop(bot))

@@ -20,7 +20,7 @@ from pydantic import BaseModel, Field
 from . import ai
 from sqlalchemy import delete, func, select
 
-from . import billing, reminders
+from . import billing, reminders, track
 from .catalog import RELATIONS, TEMPLATES, catalog_meta, clean_order, render_catalog, site_price, site_title
 from .config import MEDIA_DIR, ROOT, settings
 from .db import Person, Reaction, ReminderLog, RenderJob, Session, Site, UserProfile, new_slug
@@ -331,9 +331,12 @@ async def me(x_init_data: str = Header("")):
     async with Session() as s:
         u, new = await billing.touch_user(s, uid, user.get("first_name", ""), user.get("username", ""), user.get("language_code", ""))
         inviter = None
+        sp = start_param(x_init_data)
         if new:
             u.lang = "uz"
-            inviter = await billing.apply_referral(s, u, start_param(x_init_data))
+            if track.src_code(sp):
+                u.ref = sp[:32]
+            inviter = await billing.apply_referral(s, u, sp)
         await s.commit()
         quota = await billing.quota(s, u)
         n_videos = await s.scalar(select(func.count()).select_from(RenderJob).where(
@@ -347,6 +350,7 @@ async def me(x_init_data: str = Header("")):
         latest = (await s.execute(
             select(Reaction, Site).join(Site, Site.id == Reaction.site_id)
             .where(Site.owner_id == uid, Reaction.message != "").order_by(Reaction.id.desc()).limit(5))).all()
+    await track.app_open(uid, sp)
     if inviter and on_referral:
         await on_referral(inviter, user.get("first_name", ""))
     out_people = sorted((_person_out(p, ref) for p in people), key=lambda x: x["days_left"])

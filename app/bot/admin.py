@@ -1,4 +1,4 @@
-"""Admin vositalari: /stats, /broadcast va musiqa kutubxonasiga kuy qo'shish."""
+"""Admin vositalari: /admin (panel havolasi), /stats, /broadcast va musiqa kutubxonasiga kuy qo'shish."""
 
 import asyncio
 import html
@@ -10,10 +10,11 @@ from aiogram.exceptions import TelegramForbiddenError, TelegramRetryAfter
 from aiogram.filters import Command, CommandObject, StateFilter
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import State, StatesGroup
-from aiogram.types import CallbackQuery, Message
+from aiogram.types import CallbackQuery, InlineKeyboardButton, InlineKeyboardMarkup, Message, WebAppInfo
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 from sqlalchemy import func, select, update
 
+from ..admin import make_token
 from ..config import MUSIC_DIR, settings
 from ..db import MusicTrack, Session, User
 from ..stats import summary
@@ -33,6 +34,25 @@ def is_admin(uid: int) -> bool:
 
 def money(n: int) -> str:
     return f"{n:,}".replace(",", " ") + " so'm"
+
+
+# ---------------------------------------------------------------- /admin
+
+@router.message(Command("admin"))
+async def admin_panel(message: Message):
+    """Admin paneli: Telegram ichida ochish tugmasi va kompyuter brauzeri uchun 24 soatlik shaxsiy havola."""
+    if not is_admin(message.from_user.id):
+        return
+    url = f"{settings.base_url}/admin"
+    link = f"{url}?t={make_token(message.from_user.id, hours=24)}"
+    if not settings.base_url.startswith("https://"):
+        return await message.answer(f"📊 Admin panel: {link}")
+    markup = InlineKeyboardMarkup(inline_keyboard=[
+        [InlineKeyboardButton(text="📊 Admin panelni ochish", web_app=WebAppInfo(url=url))],
+        [InlineKeyboardButton(text="💻 Kompyuterda ochish", url=link)],
+    ])
+    await message.answer("📊 <b>Admin panel</b>\n\nStatistika, trafik manbalari, sotuvlar, to'lovlar va foydalanuvchilar.\n"
+                         "«Kompyuterda ochish» havolasi 24 soat ishlaydi — uni boshqalarga yubormang.", reply_markup=markup)
 
 
 # ---------------------------------------------------------------- /stats

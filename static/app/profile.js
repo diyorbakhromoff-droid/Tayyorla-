@@ -123,10 +123,12 @@
     el.innerHTML = `<div class="bar light"><button type="button" class="icon-btn" id="bk" aria-label="${esc(T("back"))}">${icon("back")}</button>
       <div class="ttl"><b>${esc(T("pr.admin"))}</b><span>${esc(T("pr.admin_s"))}</span></div></div>
       <div class="wrap stack fade">
+        <button type="button" class="btn primary" id="full-admin">Admin panelni ochish: statistika, trafik, to‘lovlar</button>
         <div class="seg" role="tablist"><button type="button" role="tab" data-t="music" aria-selected="${p.tab !== "stats"}">${esc(T("ad.music"))}</button>
           <button type="button" role="tab" data-t="stats" aria-selected="${p.tab === "stats"}">${esc(T("ad.stats"))}</button></div>
         <div id="abody"><div class="empty"><span class="spin"></span></div></div></div>`;
     $("#bk").onclick = App.back;
+    $("#full-admin").onclick = () => { location.href = "/admin"; };
     $$("[data-t]", el).forEach((b) => (b.onclick = () => { p.tab = b.dataset.t; App.render(); }));
     const box = $("#abody");
     if (p.tab === "stats") {

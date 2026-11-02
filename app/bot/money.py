@@ -55,6 +55,8 @@ async def topup_receipt(message: Message, state: FSMContext):
         if not p or p.user_id != message.from_user.id:
             return
         p.status = "pending"
+        media = message.photo[-1] if message.photo else message.document
+        p.receipt = media.file_id[:255] if media else ""
         job = await s.get(RenderJob, p.job_id) if p.job_id else None
         await s.commit()
     user = message.from_user
@@ -78,35 +80,49 @@ async def topup_receipt_wrong(message: Message):
     await message.answer(tr(lang, "bot.receipt_wrong"))
 
 
+async def decide_payment(bot, pid: int, approve: bool, admin_id: int) -> str:
+    """To'lovni tasdiqlaydi yoki rad etadi (bot tugmasi va admin paneli uchun umumiy).
+    Natija: ok | not_found | done (allaqachon ko'rib chiqilgan)."""
+    async with Session() as s:
+        p = await s.get(Payment, pid)
+        if not p:
+            return "not_found"
+        if p.status in ("approved", "rejected"):
+            return "done"
+        p.status = "approved" if approve else "rejected"
+        p.admin_id = admin_id
+        p.decided_at = utcnow()
+        if approve:
+            await billing.credit(s, p.user_id, p.amount, "topup", f"pay:{p.id}")
+        await s.commit()
+        user = await s.get(User, p.user_id)
+    lang = (user.lang if user else "") or "uz"
+    try:
+        if approve:
+            await bot.send_message(p.user_id, tr(lang, "bot.topup_done", amount=videobot.money(p.amount),
+                                                 balance=videobot.money(user.balance if user else p.amount)))
+            n = await videobot.run_awaiting(p.user_id)
+            if n:
+                await bot.send_message(p.user_id, tr(lang, "bot.queued_after_pay", n=n))
+        else:
+            await bot.send_message(p.user_id, tr(lang, "bot.topup_rejected"))
+    except Exception:
+        log.exception("To'lov natijasini foydalanuvchiga yuborib bo'lmadi: %s", p.user_id)
+    return "ok"
+
+
 @router.callback_query(F.data.startswith(("tok:", "tno:")))
 async def topup_decision(cb: CallbackQuery):
     if cb.from_user.id not in settings.admins:
         return await cb.answer("Ruxsat yo'q", show_alert=True)
     action, pid = cb.data.split(":")
-    async with Session() as s:
-        p = await s.get(Payment, int(pid))
-        if not p:
-            return await cb.answer("Topilmadi")
-        if p.status in ("approved", "rejected"):
-            return await cb.answer("Allaqachon ko'rib chiqilgan")
-        p.status = "approved" if action == "tok" else "rejected"
-        p.admin_id = cb.from_user.id
-        p.decided_at = utcnow()
-        if action == "tok":
-            await billing.credit(s, p.user_id, p.amount, "topup", f"pay:{p.id}")
-        await s.commit()
-        user = await s.get(User, p.user_id)
-    lang = (user.lang if user else "") or "uz"
-    if action == "tok":
-        await cb.bot.send_message(p.user_id, tr(lang, "bot.topup_done", amount=videobot.money(p.amount),
-                                                balance=videobot.money(user.balance if user else p.amount)))
-        n = await videobot.run_awaiting(p.user_id)
-        if n:
-            await cb.bot.send_message(p.user_id, tr(lang, "bot.queued_after_pay", n=n))
-        await cb.message.edit_text(cb.message.html_text + "\n\n✅ <b>Tasdiqlandi</b>")
-    else:
-        await cb.bot.send_message(p.user_id, tr(lang, "bot.topup_rejected"))
-        await cb.message.edit_text(cb.message.html_text + "\n\n❌ <b>Rad etildi</b>")
+    res = await decide_payment(cb.bot, int(pid), action == "tok", cb.from_user.id)
+    if res == "not_found":
+        return await cb.answer("Topilmadi")
+    if res == "done":
+        return await cb.answer("Allaqachon ko'rib chiqilgan")
+    mark = "\n\n✅ <b>Tasdiqlandi</b>" if action == "tok" else "\n\n❌ <b>Rad etildi</b>"
+    await cb.message.edit_text(cb.message.html_text + mark)
     await cb.answer()
 
 
