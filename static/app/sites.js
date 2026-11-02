@@ -212,11 +212,13 @@
     order = reuse ? prev : { template: t.id, tarif: t.vip ? "vip" : "premium", rang: 1, data, photos: [], music: null, unlock_at: null, _brief: tone ? `Uslub: ${tone}. ` : "", event: eventSlug || null };
     if (t.vip) order.tarif = "vip";
     if (t.premium && order.tarif === "standart") order.tarif = "premium";
-    if (t.v2) { order.tarif = t.tier; order.hidden = order.hidden || []; }
+    if (t.v2) { order.tarif = t.tier; order.hidden = order.hidden || optionalBlocks(t); }
     save();
     App.go("order", { step: 0 });
   }
   App.startOrder = startOrder;
+  // ixtiyoriy bloklar (masalan, kiyinish uslubi) boshida o'chiq: mijoz xohlasa qo'shadi
+  const optionalBlocks = (t) => (t.blocks || []).filter((b) => b.optional).map((b) => b.key);
 
   const STEP_KEYS = ["ord.s1", "ord.s2", "ord.s3", "ord.s4", "ord.s5"];
   // tarifli shablonda tarif tanlanmaydi: dizayn → ma'lumot va bloklar → suratlar → tayyor
@@ -390,7 +392,12 @@
     order.hidden = (order.hidden || []).filter((k) => t.blocks.some((b) => b.key === k));
     const hero = t.hero.map((k) => byKey[k]).filter(Boolean);
     const shown = t.blocks.filter((b) => !order.hidden.includes(b.key));
-    const gone = t.blocks.filter((b) => order.hidden.includes(b.key));
+    const gone = t.blocks.filter((b) => order.hidden.includes(b.key) && !b.optional);
+    const extra = t.blocks.filter((b) => order.hidden.includes(b.key) && b.optional);
+    order._open = order._open || [];
+    // ixtiyoriy maydon (kiyinish uslubi) bo'sh bo'lsa, «qo'shish» tugmasi bo'lib turadi
+    const optField = (f) => (f.optional && !order.data[f.key] && !order._open.includes(f.key)
+      ? `<button type="button" class="btn ghost sm" data-openf="${esc(f.key)}">+ ${esc(fLabel(f))} ${esc(App.tx("ord.b_add_s", "(ixtiyoriy)"))}</button>` : fieldHtml(f));
     const bFields = (b) => b.fields.map((k) => byKey[k]).filter(Boolean);
     const note = (b) => b.needs.includes("@photos") ? App.tx("ord.b_photos", "Suratlar keyingi qadamda qo'shiladi.")
       : b.needs.includes("@music") ? App.tx("ord.b_music", "Musiqa keyingi qadamda qo'shiladi.")
@@ -402,18 +409,24 @@
       <p class="hint">${esc(App.tx("ord.b_hint", "Ma'lumot topa olmasangiz, blokni olib tashlang — sayt baribir chiroyli qoladi. Keyin qaytarish mumkin."))}</p>
       ${shown.map((b) => `<section class="card stack blk"><div class="blk-head"><h2>${esc(blockTitle(sec, b))}</h2>
           <button type="button" class="btn ghost sm" data-rmblk="${esc(b.key)}" aria-label="${esc(App.tx("ord.b_remove", "Olib tashlash") + ": " + blockTitle(sec, b))}">✕ ${esc(App.tx("ord.b_remove", "Olib tashlash"))}</button></div>
-          ${bFields(b).map(fieldHtml).join("") || `<p class="hint">${esc(note(b))}</p>`}</section>`).join("")}
+          ${bFields(b).map(optField).join("") || `<p class="hint">${esc(note(b))}</p>`}</section>`).join("")}
+      ${extra.length ? `<section class="card"><h2>${esc(App.tx("ord.b_extra", "Xohlasangiz qo'shing"))}</h2><ul class="gone">${extra.map((b) =>
+        `<li><span>${esc(blockTitle(sec, b))}</span><button type="button" class="btn ghost sm" data-backblk="${esc(b.key)}">+ ${esc(App.tx("ord.b_add", "Qo'shish"))}</button></li>`).join("")}</ul></section>` : ""}
       ${gone.length ? `<section class="card"><h2>${esc(App.tx("ord.b_gone", "Olib tashlanganlar"))}</h2><ul class="gone">${gone.map((b) =>
         `<li><span>${esc(blockTitle(sec, b))}</span><button type="button" class="btn ghost sm" data-backblk="${esc(b.key)}">${esc(App.tx("ord.b_back", "Qaytarish"))}</button></li>`).join("")}</ul></section>` : ""}
       </div>` + cta(T("continue"));
-    const fs = hero.concat(...shown.map(bFields));
+    const fs = hero.concat(...shown.map(bFields)).filter((f) => !(f.optional && !order.data[f.key] && !order._open.includes(f.key)));
     bindInfo(el, fs);
+    $$("[data-openf]", el).forEach((b) => (b.onclick = () => { haptic(); order._open.push(b.dataset.openf); save(); App.render(); }));
     $$("[data-rmblk]", el).forEach((b) => (b.onclick = () => {
       haptic(); order.hidden.push(b.dataset.rmblk); save();
       toast(App.tx("ord.b_removed", "Blok olib tashlandi")); App.render();
     }));
     $$("[data-backblk]", el).forEach((b) => (b.onclick = () => {
-      haptic(); order.hidden = order.hidden.filter((k) => k !== b.dataset.backblk); save(); App.render();
+      haptic(); order.hidden = order.hidden.filter((k) => k !== b.dataset.backblk);
+      const bk = t.blocks.find((x) => x.key === b.dataset.backblk);
+      if (bk && bk.optional) order._open = [...new Set([...order._open, ...bk.fields])];
+      save(); App.render();
     }));
     const tp = $("#tryPrem");
     if (tp) tp.onclick = () => {
@@ -425,7 +438,7 @@
       $$("[data-tpl]", sh.el).forEach((x) => (x.onclick = () => {
         const nt = S.cm.templates.find((y) => y.id === x.dataset.tpl);
         sh.close(); haptic();
-        order.template = nt.id; order.tarif = nt.tier; order.hidden = []; save();
+        order.template = nt.id; order.tarif = nt.tier; order.hidden = optionalBlocks(nt); save();
         App.replace("order", { step: 0 });
       }));
     };

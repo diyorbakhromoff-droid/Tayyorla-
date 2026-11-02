@@ -192,7 +192,7 @@ APP = {
     "sites.upgrade_q": "«{name}» dizayniga o‘tamizmi? Balansdan {sum} yechiladi.",
     "ev.k_site": "Sayt taklifnoma", "ev.k_video": "Video taklifnoma",
     "ord.main": "Asosiy", "ord.b_hint": "Ma’lumot topa olmasangiz, blokni olib tashlang — sayt baribir chiroyli qoladi. Keyin qaytarish mumkin.",
-    "ord.b_remove": "Olib tashlash", "ord.b_back": "Qaytarish", "ord.b_gone": "Olib tashlanganlar", "ord.b_removed": "Blok olib tashlandi",
+    "ord.b_remove": "Olib tashlash", "ord.b_back": "Qaytarish", "ord.b_gone": "Olib tashlanganlar", "ord.b_extra": "Xohlasangiz qo‘shing", "ord.b_add": "Qo‘shish", "ord.b_add_s": "(ixtiyoriy)", "ord.b_removed": "Blok olib tashlandi",
     "ord.b_photos": "Suratlar keyingi qadamda qo‘shiladi.", "ord.b_music": "Musiqa keyingi qadamda qo‘shiladi.",
     "ord.b_ready": "Ma’lumot kerak emas — saytda tayyor holda chiqadi.",
     "ord.try_prem": "Premium’da ko‘ring", "ord.try_prem_s": "Shu ma’lumotlar bilan saytingiz Premium dizaynda qanday ko‘rinadi",

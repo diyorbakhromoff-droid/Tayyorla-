@@ -234,11 +234,21 @@ def fields_for(t: dict) -> list[Field]:
     return [f for f in FIELDS2[t["section"]] if f.key in keys]
 
 
+# Jamiyatimizda hali odat bo'lmagan qismlar: boshida o'chiq turadi, mijoz xohlasa qo'shadi
+OPTIONAL_BLOCKS = {"dress"}
+OPTIONAL_FIELDS = {"dress_kod"}
+
+
 def block_meta(t: dict) -> list[dict]:
     sec = t["section"]
     return [{"key": b, "title": _BLOCK[sec][b].title,
              "fields": [k for k in _BLOCK[sec][b].fields if k not in t["fields_off"]],
-             "needs": _BLOCK[sec][b].needs} for b in t["blocks"]]
+             "needs": _BLOCK[sec][b].needs, "optional": b in OPTIONAL_BLOCKS} for b in t["blocks"]]
+
+
+def default_hidden(t: dict) -> list[str]:
+    """Yangi buyurtmada boshida o'chiq turadigan (ixtiyoriy) bloklar."""
+    return [b for b in t["blocks"] if b in OPTIONAL_BLOCKS]
 
 
 def _filled(v) -> bool:
@@ -385,8 +395,9 @@ def palette_swatches(t: dict) -> tuple[list, list]:
 
 
 def demo_config(t: dict) -> dict:
-    return {"template": t["id"], "tarif": t["tier"], "data": dict(DEMOS.get(t["section"], {})),
-            "photos": list(t["demo_photos"]), "music": None, "hidden": []}
+    data = {k: v for k, v in DEMOS.get(t["section"], {}).items() if k not in OPTIONAL_FIELDS}
+    return {"template": t["id"], "tarif": t["tier"], "data": data,
+            "photos": list(t["demo_photos"]), "music": None, "hidden": default_hidden(t)}
 
 
 _attach()

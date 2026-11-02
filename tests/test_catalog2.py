@@ -67,6 +67,15 @@ cfg = clean_order({"template": t["id"], "tarif": t["tier"], "data": {}}, strict=
 assert all(v is False or k in ("sham", "javob", "kun", "taymer", "rsvp", "sorov") for k, v in
            catalog2.visible_blocks(t, cfg["data"], [], None, []).items())
 
+# kiyinish uslubi ixtiyoriy: yangi buyurtmada va namunada o'chiq, mijoz qo'shsa ko'rinadi
+dress_t = next(t for t in v2 if "dress" in t["blocks"])
+assert clean_order({"template": dress_t["id"], "data": {}}, strict=False)["hidden"] == ["dress"]
+assert clean_order({"template": dress_t["id"], "data": {}, "hidden": []}, strict=False)["hidden"] == []
+assert catalog2.demo_config(dress_t)["hidden"] == ["dress"] and "dress_kod" not in catalog2.demo_config(dress_t)["data"]
+assert next(b for b in catalog2.block_meta(dress_t) if b["key"] == "dress")["optional"] is True
+assert next(f for f in meta["fields2"]["toy"] if f["key"] == "dress_kod")["optional"] is True
+assert "Kechki uslub" not in catalog2.render(dress_t, catalog2.demo_config(dress_t), "namuna", preview=False, demo=True)
+
 # rang palitralari: Standart 3, Premium 8, VIP 12; tarifdan ortig'i asl rangga qaytadi
 prem = next(t for t in v2 if t["tier"] == "premium")
 assert len(vip["colors"]) == 12 and len(prem["colors"]) == 8 and len(vip["swatch"]) == 12

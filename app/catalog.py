@@ -246,7 +246,8 @@ def clean_order(body: dict, strict: bool) -> dict:
     out = {"engine": "catalog", "category": SECTION_TO_CATEGORY[t["section"]], "template": tid,
            "tarif": tarif, "rang": rang, "data": data, "photos": photos, "music": music}
     if t.get("v2"):
-        out["hidden"] = catalog2.clean_hidden(t, body.get("hidden"))
+        # eski mijozlar (hidden yubormaydigan) uchun ixtiyoriy bloklar boshida o'chiq
+        out["hidden"] = catalog2.clean_hidden(t, body["hidden"] if "hidden" in body else catalog2.default_hidden(t))
     if body.get("unlock_at"):
         from .surprise import clean_unlock
         unlock = clean_unlock(body["unlock_at"])
@@ -336,7 +337,8 @@ def render_catalog(config: dict, slug: str, preview: bool, guest=None) -> str:
 def catalog_meta() -> dict:
     def fdict(f: Field) -> dict:
         return {"key": f.key, "label": f.label, "kind": f.kind, "required": f.required, "tier": f.tier,
-                "only": list(f.only), "options": f.options, "sub": f.sub, "hint": f.hint, "ai": f.ai}
+                "only": list(f.only), "options": f.options, "sub": f.sub, "hint": f.hint, "ai": f.ai,
+                "optional": f.key in catalog2.OPTIONAL_FIELDS}
 
     def tdict(t: dict) -> dict:
         out = {"id": t["id"], "section": t["section"], "name": t["name"], "desc": t["desc"], "vip": t["vip"],
