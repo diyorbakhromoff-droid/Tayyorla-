@@ -296,32 +296,32 @@ button:disabled{opacity:.7;cursor:default}
   </sc-if>
 
   <!-- ============ SAVOL: the knot ============ -->
-  <sc-if value="{{ b.savol }}">
+  <sc-if value="{{ b.javob }}">
   <section style="position: relative; padding: 176px 26px 56px; background: #1E1D1B; color: #F3F1EC; text-align: center">
     <svg aria-hidden="true" style="position: absolute; left: 0; top: 0" width="390" height="176" viewBox="0 0 390 176">
       <path class="ip-th2" d="M24 0 C24 50, 110 84, 192 92"></path>
       <path class="ip-th2" d="M193 92 C150 40, 112 104, 190 96 M197 92 C240 40, 278 104, 200 96 M193 96 C186 120, 170 136, 150 160 M197 96 C206 120, 224 134, 244 156"></path>
       <circle class="ip-dot" cx="195" cy="94" r="5"></circle>
     </svg>
-    <p class="ip-lb ip-lbd">Muhim savol</p>
+    <p class="ip-lb ip-lbd">Sening javobing</p>
     <p class="sp" style="margin: 16px 0 0; font-size: 26px; font-style: italic; font-weight: 300; color: #A9A59D; overflow-wrap: anywhere">{{ to }},</p>
-    <h2 class="sp" style="margin: 6px 0 0; font-size: {{ qPx }}px; font-weight: 300; line-height: 1.12; color: #F3F1EC; overflow-wrap: break-word">{{ d.savol }}</h2>
+    <h2 class="sp" style="margin: 6px 0 0; font-size: 38px; font-weight: 300; line-height: 1.12; color: #F3F1EC; overflow-wrap: break-word">Javobingni kutaman</h2>
     <div style="position: relative; margin-top: 34px; min-height: 120px">
       <sc-if value="{{ asking }}">
       <div style="display: flex; flex-direction: column; gap: 14px">
-        <div style="display: flex; gap: 12px">
-          <button type="button" onClick="{{ sayHa }}" disabled="{{ busy }}" style="flex: 1; min-height: 56px; border: 1px solid #F3F1EC; border-radius: 999px; background: transparent; color: #F3F1EC; font-family: 'Spectral', Georgia, serif; font-size: 22px; font-weight: 300; cursor: pointer">Ha</button>
-          <button type="button" onClick="{{ sayAlbatta }}" disabled="{{ busy }}" style="flex: 1; min-height: 56px; border: 1px solid #F3F1EC; border-radius: 999px; background: #F3F1EC; color: #1E1D1B; font-family: 'Spectral', Georgia, serif; font-size: 22px; font-weight: 400; cursor: pointer">Albatta</button>
+        <div role="group" aria-label="Javobni tanlang" style="display: flex; flex-direction: column; gap: 12px">
+          <button type="button" onClick="{{ sayLove }}" disabled="{{ busy }}" style="width: 100%; padding: 0 18px; min-height: 56px; border: 1px solid #F3F1EC; border-radius: 999px; background: #F3F1EC; color: #1E1D1B; font-family: 'Spectral', Georgia, serif; font-size: 22px; font-weight: 400; cursor: pointer">Men ham seni sevaman</button>
+          <button type="button" onClick="{{ sayThanks }}" disabled="{{ busy }}" style="width: 100%; padding: 0 18px; min-height: 56px; border: 1px solid #F3F1EC; border-radius: 999px; background: transparent; color: #F3F1EC; font-family: 'Spectral', Georgia, serif; font-size: 22px; font-weight: 300; cursor: pointer">Rahmat, juda ta’sirlandim</button>
         </div>
         <p class="sp" style="margin: 0; font-size: 16px; font-style: italic; font-weight: 300; color: #A9A59D">{{ askHint }}</p>
         <sc-if value="{{ err }}"><p role="alert" class="jo" style="margin: 0; font-size: 14px; color: #F3F1EC">{{ err }}</p></sc-if>
       </div>
       </sc-if>
       <sc-if value="{{ answered }}">
-      <div style="position: relative; padding: 18px 0 8px">
-        <svg aria-hidden="true" style="position: absolute; left: 50%; top: -34px; margin-left: -95px" width="190" height="158" viewBox="0 0 240 200"><path class="ip-th ip-heart" pathLength="1" d="M120 56 C120 18, 52 4, 34 52 C18 98, 92 140, 120 186 C148 140, 222 98, 206 52 C188 4, 120 18, 120 56"></path></svg>
-        <p class="sp ip-in" style="position: relative; margin: 0; font-size: 44px; font-weight: 300; font-style: italic; line-height: 1.1">«{{ answer }}»</p>
-        <p class="sp ip-in" style="position: relative; margin: 62px 0 0; font-size: 17px; font-weight: 300; line-height: 1.5; color: #D9D5CC; overflow-wrap: anywhere">Tugun bog’landi. Javobing {{ fromGa }} yetib bordi.</p>
+      <div style="position: relative; padding: 0 0 8px">
+        <svg aria-hidden="true" style="display: block; margin: 0 auto 14px" width="96" height="80" viewBox="0 0 240 200"><path class="ip-th ip-heart" pathLength="1" style="stroke-width: 4.4" d="M120 56 C120 18, 52 4, 34 52 C18 98, 92 140, 120 186 C148 140, 222 98, 206 52 C188 4, 120 18, 120 56"></path></svg>
+        <p class="sp ip-in" style="position: relative; margin: 0; font-size: 36px; font-weight: 300; font-style: italic; line-height: 1.15">«{{ answer }}»</p>
+        <p class="sp ip-in" style="position: relative; margin: 20px 0 0; font-size: 17px; font-weight: 300; line-height: 1.5; color: #D9D5CC; overflow-wrap: anywhere">Tugun bog’landi. Javobing {{ fromGa }} yetib bordi.</p>
       </div>
       </sc-if>
     </div>
@@ -404,7 +404,7 @@ class Component extends DCLogic {
   answer(a) {
     if (this.state.busy || this.state.answer) return;
     this.setState({ busy: true, err: '' });
-    SITE.reply(a + '! — «' + (SITE.d.savol || '') + '»', '❤️').then(
+    SITE.reply(a, '❤️').then(
       () => this.setState({ answer: a, busy: false }),
       () => this.setState({ busy: false, err: 'Javob yetib bormadi. Qayta bosib ko’ring.' })
     );
@@ -458,14 +458,13 @@ class Component extends DCLogic {
       daysLbl: days + ' kun',
       clock: [{ v: pad(el.h), l: 'soat' }, { v: pad(el.m), l: 'daqiqa' }, { v: pad(el.s), l: 'soniya' }],
       clockLbl: (el.h || 0) + ' soat ' + (el.m || 0) + ' daqiqa ' + (el.s || 0) + ' soniya',
-      qPx: String(d.savol || '').length > 40 ? 32 : 38,
       askHint: from ? 'Javobing ip orqali ' + SITE.ga(from) + ' yetadi' : 'Javobing ip orqali menga yetadi',
       asking: !s.answer, answered: !!s.answer, answer: s.answer || '',
       busy: s.busy, err: s.err,
-      sayHa: () => this.answer('Ha'),
-      sayAlbatta: () => this.answer('Albatta'),
-      footThread: !b.savol,
-      footSt: b.savol ? 'background: #1E1D1B; color: #F3F1EC; ' : 'background: #F3F1EC; color: #1E1D1B; '
+      sayLove: () => this.answer('Men ham seni sevaman'),
+      sayThanks: () => this.answer('Rahmat, juda ta’sirlandim'),
+      footThread: !b.javob,
+      footSt: b.javob ? 'background: #1E1D1B; color: #F3F1EC; ' : 'background: #F3F1EC; color: #1E1D1B; '
     };
   }
 }

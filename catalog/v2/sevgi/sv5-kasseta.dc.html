@@ -481,7 +481,7 @@ button:disabled{opacity:.75;cursor:default}
   </sc-if>
 
   <!-- ============ SAVOL: the last track ============ -->
-  <sc-if value="{{ b.savol }}">
+  <sc-if value="{{ b.javob }}">
   <section style="position: relative; padding: 0 16px 60px">
     <div class="ks-grain" style="position: relative; background: #F3EAD6; color: #2A2724; border-radius: 6px; box-shadow: 0 30px 50px -18px rgba(5, 10, 20, 0.8); text-align: center">
       <div aria-hidden="true" style="height: 30px; border-radius: 6px 6px 0 0; background: linear-gradient(180deg, #F0703A 0 10px, #F2B544 10px 20px, #4FA89A 20px 30px)"></div>
@@ -491,13 +491,13 @@ button:disabled{opacity:.75;cursor:default}
           <span class="rm" style="font-size: 10px; letter-spacing: 0.2em; color: #C2462A">{{ recTxt }}</span>
         </div>
         <p class="mk" style="margin: 16px 0 0; font-size: 32px; line-height: 1.05; color: #2F4A9A; overflow-wrap: anywhere">{{ to }},</p>
-        <h2 class="mk" style="margin: 6px 0 0; font-size: {{ qPx }}px; line-height: 1.02; color: #2A2724; overflow-wrap: break-word">{{ d.savol }}</h2>
+        <h2 class="mk" style="margin: 6px 0 0; font-size: 44px; line-height: 1.02; color: #2A2724; overflow-wrap: break-word">Javobingni kutaman</h2>
         <div style="position: relative; margin-top: 26px; min-height: 104px">
           <sc-if value="{{ asking }}">
           <div style="display: flex; flex-direction: column; gap: 14px; align-items: center">
-            <div style="display: flex; gap: 12px; width: 100%">
-              <button type="button" onClick="{{ sayHa }}" disabled="{{ busy }}" style="flex: 1; min-height: 64px; border: 0; border-radius: 10px; background: linear-gradient(180deg, #F4EFE6, #D3CAB7); color: #2A2724; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; box-shadow: 0 6px 0 #9C9381, 0 10px 18px rgba(0, 0, 0, 0.25)"><span aria-hidden="true" style="width: 14px; height: 14px; border-radius: 50%; background: #D8352A"></span><span class="mk" style="font-size: 32px; line-height: 1">Ha</span></button>
-              <button type="button" onClick="{{ sayAlbatta }}" disabled="{{ busy }}" style="flex: 1; min-height: 64px; border: 0; border-radius: 10px; background: linear-gradient(180deg, #F58A55, #E0612E); color: #2A1408; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; box-shadow: 0 6px 0 #9A421C, 0 10px 18px rgba(0, 0, 0, 0.25)"><span aria-hidden="true" style="width: 14px; height: 14px; border-radius: 50%; background: #F3EAD6"></span><span class="mk" style="font-size: 32px; line-height: 1">Albatta</span></button>
+            <div role="group" aria-label="Javobni tanlang" style="display: flex; flex-direction: column; gap: 12px; width: 100%">
+              <button type="button" onClick="{{ sayLove }}" disabled="{{ busy }}" style="width: 100%; padding: 0 18px; min-height: 64px; border: 0; border-radius: 10px; background: linear-gradient(180deg, #F58A55, #E0612E); color: #2A1408; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; box-shadow: 0 6px 0 #9A421C, 0 10px 18px rgba(0, 0, 0, 0.25)"><span aria-hidden="true" style="width: 14px; height: 14px; border-radius: 50%; background: #F3EAD6"></span><span class="mk" style="font-size: 28px; line-height: 1">Men ham seni sevaman</span></button>
+              <button type="button" onClick="{{ sayThanks }}" disabled="{{ busy }}" style="width: 100%; padding: 0 18px; min-height: 64px; border: 0; border-radius: 10px; background: linear-gradient(180deg, #F4EFE6, #D3CAB7); color: #2A2724; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; box-shadow: 0 6px 0 #9C9381, 0 10px 18px rgba(0, 0, 0, 0.25)"><span aria-hidden="true" style="width: 14px; height: 14px; border-radius: 50%; background: #D8352A"></span><span class="mk" style="font-size: 28px; line-height: 1">Rahmat, juda ta’sirlandim</span></button>
             </div>
             <p style="margin: 4px 0 0; font-size: 13px; color: #6B5E4E">Javobingni shu lentaga yozib olaman</p>
             <sc-if value="{{ err }}"><p role="alert" style="margin: 0; font-size: 14px; font-weight: 600; color: #C2462A">{{ err }}</p></sc-if>
@@ -508,7 +508,7 @@ button:disabled{opacity:.75;cursor:default}
             <div aria-hidden="true" style="position: absolute; left: 50%; top: 30px; width: 0; height: 0">
               <sc-for list="{{ streamers }}" as="s"><span class="ks-str" style="{{ s.st }}"></span></sc-for>
             </div>
-            <p class="mk ks-in" style="position: relative; margin: 0; font-size: 54px; line-height: 1; color: #C2462A">«{{ answer }}»</p>
+            <p class="mk ks-in" style="position: relative; margin: 0; font-size: 42px; line-height: 1; color: #C2462A">«{{ answer }}»</p>
             <p class="ks-in" style="position: relative; margin: 0; font-size: 14px; line-height: 1.6; color: #2A2724; overflow-wrap: anywhere">Yozib olindi. Javobing {{ fromGa }} yetib bordi — bu qo’shiqni endi birga tinglaymiz.</p>
           </div>
           </sc-if>
@@ -583,7 +583,7 @@ class Component extends DCLogic {
   answer(a) {
     if (this.state.busy || this.state.answer) return;
     this.setState({ busy: true, err: '' });
-    SITE.reply(a + '! — «' + (SITE.d.savol || '') + '»', '❤️').then(
+    SITE.reply(a, '❤️').then(
       () => this.setState({ answer: a, busy: false }),
       () => this.setState({ busy: false, err: 'Javob yetib bormadi. Qayta bosib ko’ring.' })
     );
@@ -637,7 +637,6 @@ class Component extends DCLogic {
       labName,
       labPx: Math.max(14, Math.min(34, Math.floor(220 / (labName.length * 0.44)))),
       h1Px: Math.max(30, Math.min(72, Math.floor(340 / (this.longest(to + ' uchun') * 0.42)))),
-      qPx: String(d.savol || '').length > 44 ? 36 : 44,
       introCls: s.opened ? 'ks-intro is-on' : 'ks-intro',
       open: () => { if (!this.state.opened) { this.setState({ opened: true }); SITE.opened(); } },
       musicOn: !!SITE.music.playing, musicOff: !SITE.music.playing,
@@ -664,8 +663,8 @@ class Component extends DCLogic {
       streamers,
       asking: !s.answer, answered: !!s.answer, answer: s.answer || '',
       busy: s.busy, err: s.err,
-      sayHa: () => this.answer('Ha'),
-      sayAlbatta: () => this.answer('Albatta')
+      sayLove: () => this.answer('Men ham seni sevaman'),
+      sayThanks: () => this.answer('Rahmat, juda ta’sirlandim')
     };
   }
 }

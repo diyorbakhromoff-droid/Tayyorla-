@@ -79,7 +79,8 @@ assert "Kechki uslub" not in catalog2.render(dress_t, catalog2.demo_config(dress
 # olib tashlangan bloklar: «muhim savol» (sevgi) va «bazmga taklif» (tug'ilgan kun) yangi buyurtmada va namunada yo'q
 for t in v2:
     assert not set(t["blocks"]) & catalog2.RETIRED_BLOCKS.get(t["section"], set()), t["id"]
-sv = next(t for t in v2 if "savol" in t["retired"])
+# «savol»li 7 ta VIP shablon «javob»ga o'tkazildi; mexanizmni eski manifest kabi sintetik nusxada tekshiramiz
+sv = next((t for t in v2 if "savol" in t["retired"]), None) or dict(next(t for t in v2 if t["section"] == "sevgi"), retired=["savol"])
 assert "savol" not in {f.key for f in catalog2.fields_for(sv)} and "savol" not in catalog2.demo_config(sv)["data"]
 assert "savol" not in clean_order({"template": sv["id"], "data": {"kimga": "A", "savol": "Turmushga chiqasanmi?"}}, strict=False)["data"]
 assert catalog2.visible_blocks(sv, {"savol": "Eski savol"}, [], None, [])["savol"] is True  # eski sotilgan sayt o'zgarmaydi

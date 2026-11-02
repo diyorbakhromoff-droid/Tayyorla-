@@ -452,7 +452,7 @@ button:disabled{opacity:.75;cursor:default}
   </section>
   </sc-if>
 
-  <sc-if value="{{ b.savol }}">
+  <sc-if value="{{ b.javob }}">
   <section style="position: relative; overflow: hidden; padding: 40px 24px 40px; text-align: center">
     <div aria-hidden="true" class="v-halo" style="position: absolute; left: -40px; top: 0; width: 470px; height: 420px; border-radius: 50%; background: radial-gradient(circle, rgba(199, 125, 255, 0.3) 0%, rgba(199, 125, 255, 0) 65%)"></div>
     <div style="position: relative; display: flex; flex-direction: column; align-items: center">
@@ -465,15 +465,15 @@ button:disabled{opacity:.75;cursor:default}
         <path class="v-spk v-tw" d="M74 2 L75.5 8.5 L82 10 L75.5 11.5 L74 18 L72.5 11.5 L66 10 L72.5 8.5 Z"></path>
       </svg>
       <p class="cg" style="margin: 12px 0 0; font-size: 24px; font-style: italic; font-weight: 600; color: #D9B3FF; overflow-wrap: anywhere">{{ to }},</p>
-      <h2 class="cg v-foil" style="margin: 4px 0 0; font-size: 42px; line-height: 1.1; font-style: italic; font-weight: 700; overflow-wrap: break-word">{{ d.savol }}</h2>
+      <h2 class="cg v-foil" style="margin: 4px 0 0; font-size: 42px; line-height: 1.1; font-style: italic; font-weight: 700; overflow-wrap: break-word">Javobingni kutaman</h2>
+      <sc-if value="{{ asking }}" hint-placeholder-val="{{ true }}"><p class="cg" style="margin: 8px 0 0; font-size: 18px; font-style: italic; color: #BFA9D6">Bitta bosish — va javobing yetib boradi</p></sc-if>
       <div style="position: relative; width: 100%; min-height: 110px; margin-top: 22px">
         <sc-if value="{{ asking }}" hint-placeholder-val="{{ true }}">
           <div style="display: flex; flex-direction: column; gap: 12px">
-            <div style="display: flex; gap: 12px">
-              <button type="button" onClick="{{ sayHa }}" disabled="{{ busy }}" style="flex: 1; min-height: 56px; border-radius: 999px; border: 1.5px solid #E6C27A; background: rgba(30, 13, 51, 0.6); color: #F5D78E; font-family: 'Cormorant Garamond', Georgia, serif; font-size: 23px; font-weight: 700; cursor: pointer">Ha</button>
-              <button type="button" class="v-shine" onClick="{{ sayAlbatta }}" disabled="{{ busy }}" style="flex: 1; min-height: 56px; border-radius: 999px; border: 0; background: linear-gradient(110deg, #B8862F 0%, #F5D78E 30%, #E6B94F 52%, #FFF1C1 68%, #C9973A 100%); color: #24103D; font-family: 'Cormorant Garamond', Georgia, serif; font-size: 23px; font-weight: 700; cursor: pointer; box-shadow: 0 0 30px rgba(199, 125, 255, 0.45)">Albatta</button>
+            <div role="group" aria-label="Javobni tanlang" style="display: flex; flex-direction: column; gap: 12px">
+              <button type="button" class="v-shine" onClick="{{ sayLove }}" disabled="{{ busy }}" style="width: 100%; padding: 0 18px; min-height: 56px; border-radius: 999px; border: 0; background: linear-gradient(110deg, #B8862F 0%, #F5D78E 30%, #E6B94F 52%, #FFF1C1 68%, #C9973A 100%); color: #24103D; font-family: 'Cormorant Garamond', Georgia, serif; font-size: 23px; font-weight: 700; cursor: pointer; box-shadow: 0 0 30px rgba(199, 125, 255, 0.45)">Men ham seni sevaman</button>
+              <button type="button" onClick="{{ sayThanks }}" disabled="{{ busy }}" style="width: 100%; padding: 0 18px; min-height: 56px; border-radius: 999px; border: 1.5px solid #E6C27A; background: rgba(30, 13, 51, 0.6); color: #F5D78E; font-family: 'Cormorant Garamond', Georgia, serif; font-size: 23px; font-weight: 700; cursor: pointer">Rahmat, juda ta’sirlandim</button>
             </div>
-            <p class="cg" style="margin: 0; font-size: 18px; font-style: italic; color: #BFA9D6">Ikkala javob ham to’g’ri.</p>
             <sc-if value="{{ err }}"><p role="alert" style="margin: 0; font-size: 15px; color: #F0A8D8">{{ err }}</p></sc-if>
           </div>
         </sc-if>
@@ -495,7 +495,7 @@ button:disabled{opacity:.75;cursor:default}
               <svg class="v-bp" width="14" height="14" viewBox="0 0 24 24" style="left: -7px; top: -7px; color: #F5D78E; --dx: 85px; --dy: -95px; animation-delay: 0.34s"><path class="ico-f" d="M12 20.5s-7.5-4.6-7.5-10.1A4.4 4.4 0 0 1 12 7.6a4.4 4.4 0 0 1 7.5 2.8c0 5.5-7.5 10.1-7.5 10.1z"></path></svg>
               <svg class="v-bp" width="12" height="12" viewBox="0 0 24 24" style="left: -6px; top: -6px; color: #C77DFF; --dx: 109px; --dy: -57px; animation-delay: 0.32s"><path class="ico-f" d="M12 0 L14 10 L24 12 L14 14 L12 24 L10 14 L0 12 L10 10 Z"></path></svg>
             </div>
-            <p class="cg v-foil v-yes" style="position: relative; margin: 0; font-size: 40px; line-height: 1.15; font-style: italic; font-weight: 700">«{{ answer }}»</p>
+            <p class="cg v-foil v-yes" style="position: relative; margin: 0; font-size: 34px; line-height: 1.15; font-style: italic; font-weight: 700">«{{ answer }}»</p>
             <p class="v-in" style="position: relative; margin: 0; font-size: 16px; line-height: 1.45; color: #EADCF7; overflow-wrap: anywhere">Javobing {{ fromGa }} yetib bordi. Bu kunni umrbod eslaymiz.</p>
           </div>
         </sc-if>
@@ -589,7 +589,7 @@ class Component extends DCLogic {
   answer(a) {
     if (this.state.busy || this.state.answer) return;
     this.setState({ busy: true, err: '' });
-    SITE.reply(a + '! — «' + (SITE.d.savol || '') + '»', '❤️').then(
+    SITE.reply(a, '❤️').then(
       () => this.setState({ answer: a, busy: false }),
       () => this.setState({ busy: false, err: 'Javob yetib bormadi. Qayta bosib ko’ring.' })
     );
@@ -644,8 +644,8 @@ class Component extends DCLogic {
       answer: s.answer || '',
       busy: s.busy,
       err: s.err,
-      sayHa: () => this.answer('Ha'),
-      sayAlbatta: () => this.answer('Albatta')
+      sayLove: () => this.answer('Men ham seni sevaman'),
+      sayThanks: () => this.answer('Rahmat, juda ta’sirlandim')
     });
   }
 }

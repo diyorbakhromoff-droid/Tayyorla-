@@ -398,7 +398,7 @@ button:disabled{opacity:.75;cursor:default}
   </section>
   </sc-if>
 
-  <sc-if value="{{ b.savol }}">
+  <sc-if value="{{ b.javob }}">
   <section style="position: relative; padding: 0 20px 50px; text-align: center">
     <div style="position: relative; border: 4px solid #06070B; border-radius: 175px 175px 12px 12px; overflow: hidden; box-shadow: 0 0 0 1px rgba(217, 178, 95, 0.6), 0 0 60px {{ savGlow }}">
       <div class="v-lit" style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; background: radial-gradient(80% 50% at 50% 20%, #7A1A30 0%, #3E0B1A 60%, #1A0810 100%)"></div>
@@ -406,15 +406,15 @@ button:disabled{opacity:.75;cursor:default}
       <svg aria-hidden="true" style="position: absolute; left: 0; top: 0" width="342" height="200" viewBox="0 0 342 200"><path class="v-lead2" d="M171 0 V60 M171 60 L60 0 M171 60 L282 0 M171 60 L20 110 M171 60 L322 110"></path><circle class="f-a" cx="171" cy="60" r="22"></circle><path class="v-lead" d="M193 60 a22 22 0 1 1 -44 0 a22 22 0 1 1 44 0"></path><path class="ico-f" d="M171 72s-9-5.5-9-12.2A5.2 5.2 0 0 1 171 56.6a5.2 5.2 0 0 1 9 3.2c0 6.7-9 12.2-9 12.2z" style="color: #7A1426"></path></svg>
       <div style="position: relative; padding: 104px 22px 34px; display: flex; flex-direction: column; align-items: center">
         <p class="fo" style="margin: 0; font-size: 26px; color: #FFD98A; overflow-wrap: anywhere">{{ to }},</p>
-        <h2 class="fo" style="margin: 6px 0 0; font-size: {{ qPx }}px; line-height: 1.1; color: #FFF6E6; text-shadow: 0 0 18px rgba(255, 180, 190, 0.5); overflow-wrap: break-word">{{ d.savol }}</h2>
+        <h2 class="fo" style="margin: 6px 0 0; font-size: 38px; line-height: 1.1; color: #FFF6E6; text-shadow: 0 0 18px rgba(255, 180, 190, 0.5); overflow-wrap: break-word">Javobingni kutaman</h2>
+        <sc-if value="{{ asking }}" hint-placeholder-val="{{ true }}"><p style="margin: 8px 0 0; font-size: 17px; font-style: italic; color: #F2C9D0">Bitta bosish — va javobing yetib boradi</p></sc-if>
         <div style="position: relative; width: 100%; min-height: 120px; margin-top: 24px">
           <sc-if value="{{ asking }}" hint-placeholder-val="{{ true }}">
             <div style="display: flex; flex-direction: column; gap: 12px">
-              <div style="display: flex; gap: 12px">
-                <button type="button" onClick="{{ sayHa }}" disabled="{{ busy }}" style="flex: 1; min-height: 56px; border-radius: 999px; border: 2px solid #06070B; background: #0E1118; color: #FFE3A0; font-family: 'Forum', Georgia, serif; font-size: 23px; cursor: pointer; box-shadow: 0 0 0 1px rgba(217, 178, 95, 0.7)">Ha</button>
-                <button type="button" onClick="{{ sayAlbatta }}" disabled="{{ busy }}" style="flex: 1; min-height: 56px; border-radius: 999px; border: 2px solid #06070B; background: linear-gradient(110deg, #B7782A 0%, #FFD98A 30%, #E8A33A 52%, #FFF1CC 68%, #C98A2A 100%); color: #12151E; font-family: 'Forum', Georgia, serif; font-size: 23px; cursor: pointer; box-shadow: 0 0 24px rgba(255, 210, 122, 0.5)">Albatta</button>
+              <div role="group" aria-label="Javobni tanlang" style="display: flex; flex-direction: column; gap: 12px">
+                <button type="button" onClick="{{ sayLove }}" disabled="{{ busy }}" style="width: 100%; padding: 0 18px; min-height: 56px; border-radius: 999px; border: 2px solid #06070B; background: linear-gradient(110deg, #B7782A 0%, #FFD98A 30%, #E8A33A 52%, #FFF1CC 68%, #C98A2A 100%); color: #12151E; font-family: 'Forum', Georgia, serif; font-size: 23px; cursor: pointer; box-shadow: 0 0 24px rgba(255, 210, 122, 0.5)">Men ham seni sevaman</button>
+                <button type="button" onClick="{{ sayThanks }}" disabled="{{ busy }}" style="width: 100%; padding: 0 18px; min-height: 56px; border-radius: 999px; border: 2px solid #06070B; background: #0E1118; color: #FFE3A0; font-family: 'Forum', Georgia, serif; font-size: 23px; cursor: pointer; box-shadow: 0 0 0 1px rgba(217, 178, 95, 0.7)">Rahmat, juda ta’sirlandim</button>
               </div>
-              <p style="margin: 0; font-size: 17px; font-style: italic; color: #F2C9D0">Ikkala javob ham to’g’ri.</p>
               <sc-if value="{{ err }}"><p role="alert" style="margin: 0; font-size: 15px; font-weight: 700; color: #FFD98A">{{ err }}</p></sc-if>
             </div>
           </sc-if>
@@ -425,7 +425,7 @@ button:disabled{opacity:.75;cursor:default}
                 <svg class="v-shard" width="{{ s.w }}" height="{{ s.h }}" viewBox="0 0 10 16" style="{{ s.st }}"><path class="{{ s.c }}" d="M5 0 L10 6 L5 16 L0 6Z" style="stroke: #06070B; stroke-width: 1"></path></svg>
                 </sc-for>
               </div>
-              <p class="fo v-foil v-in" style="position: relative; margin: 0; font-size: 42px; line-height: 1.15">«{{ answer }}»</p>
+              <p class="fo v-foil v-in" style="position: relative; margin: 0; font-size: 34px; line-height: 1.15">«{{ answer }}»</p>
               <p class="v-in" style="position: relative; margin: 0; font-size: 17px; line-height: 1.45; color: #FFE9EC; overflow-wrap: anywhere">Javobing {{ fromGa }} yetib bordi. Bu tongni umrbod eslaymiz.</p>
             </div>
           </sc-if>
@@ -572,7 +572,7 @@ class Component extends DCLogic {
   answer(a) {
     if (this.state.busy || this.state.answer) return;
     this.setState({ busy: true, err: '' });
-    SITE.reply(a + '! — «' + (SITE.d.savol || '') + '»', '❤️').then(
+    SITE.reply(a, '❤️').then(
       () => this.setState({ answer: a, busy: false }),
       () => this.setState({ busy: false, err: 'Javob yetib bormadi. Qayta bosib ko’ring.' })
     );
@@ -604,7 +604,6 @@ class Component extends DCLogic {
       eyebrow: v.from ? v.from + 'dan maktub' : 'Senga maktub',
       introPx: Math.min(this.fit(v.to, 42, 340, 0.48), v.to.length > 14 ? 34 : 42),
       h1px: this.fit(v.to, 52, 340, 0.48),
-      qPx: String(d.savol || '').length > 40 ? 32 : 38,
       introCls: s.opened ? 'v-intro is-open' : 'v-intro',
       open: () => { if (!this.state.opened) { this.setState({ opened: true }); SITE.opened(); } },
       musicOn: !!SITE.music.playing,
@@ -640,8 +639,8 @@ class Component extends DCLogic {
       answer: s.answer || '',
       busy: s.busy,
       err: s.err,
-      sayHa: () => this.answer('Ha'),
-      sayAlbatta: () => this.answer('Albatta')
+      sayLove: () => this.answer('Men ham seni sevaman'),
+      sayThanks: () => this.answer('Rahmat, juda ta’sirlandim')
     });
   }
 }
