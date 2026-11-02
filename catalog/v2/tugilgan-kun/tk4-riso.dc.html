@@ -1,0 +1,661 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<title>Tug’ilgan kun: Riso plakat</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&amp;family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;0,700;1,500&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#1D4FB8}
+.is-hidden{display:none}
+.rs-d{font-family:'Dela Gothic One','Arial Black',Impact,sans-serif;font-weight:400}
+.rs-m{font-family:'IBM Plex Mono','Courier New',monospace}
+.rs-mul{mix-blend-mode:multiply}
+.rs-cap{margin:0;font-family:'IBM Plex Mono','Courier New',monospace;font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#1D4FB8}
+
+/* halftone + grain */
+.rs-ht{background:radial-gradient(circle,#1D4FB8 0 1.7px,rgba(29,79,184,0) 2.1px) 0 0/7px 7px}
+.rs-htO{background:radial-gradient(circle,#FF6A2B 0 2px,rgba(255,106,43,0) 2.4px) 0 0/8px 8px}
+.rs-htP{background:radial-gradient(circle,rgba(243,237,225,0.55) 0 1.4px,rgba(243,237,225,0) 1.8px) 0 0/6px 6px}
+.rs-fadeR{-webkit-mask-image:linear-gradient(110deg,#000 10%,rgba(0,0,0,0) 85%);mask-image:linear-gradient(110deg,#000 10%,rgba(0,0,0,0) 85%)}
+.rs-fadeC{-webkit-mask-image:radial-gradient(circle,#000 30%,rgba(0,0,0,0) 72%);mask-image:radial-gradient(circle,#000 30%,rgba(0,0,0,0) 72%)}
+.rs-grain{position:absolute;left:0;top:0;width:390px;height:100%;pointer-events:none;mix-blend-mode:multiply;opacity:.3}
+
+/* overprint headings */
+.rs-h2{position:relative;display:inline-grid;margin:0;font-family:'Dela Gothic One','Arial Black',Impact,sans-serif;font-weight:400;font-size:40px;line-height:1.05;overflow-wrap:anywhere}
+.rs-h2 > span{grid-area:1/1}
+.rs-o{color:#FF6A2B;mix-blend-mode:multiply;transform:translate(4px,3px)}
+.rs-b{position:relative;color:#1D4FB8}
+.rs-jit{animation:rs-jit 5s steps(1) infinite}
+@keyframes rs-jit{0%{transform:translate(4px,3px)}40%{transform:translate(5px,2px)}55%{transform:translate(3px,4px)}80%{transform:translate(4px,3px)}}
+
+/* svg props */
+.rs-wave{fill:none;stroke-width:16;stroke-linecap:round;mix-blend-mode:multiply}
+.rs-ico{fill:none;stroke:#1D4FB8;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.rs-icoP{fill:none;stroke:#F7F2E8;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.rs-icoN{fill:none;stroke:#142F6B;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.rs-mark{fill:none;stroke:#1D4FB8;stroke-width:1.2}
+.rs-smoke{fill:none;stroke:#1D4FB8;stroke-width:2.4;stroke-linecap:round;stroke-dasharray:3 5;opacity:0}
+
+/* moving decor */
+.rs-star{position:absolute;display:block;clip-path:polygon(50% 0,60% 40%,100% 50%,60% 60%,50% 100%,40% 60%,0 50%,40% 40%);mix-blend-mode:multiply;animation:rs-twirl 7s ease-in-out infinite}
+@keyframes rs-twirl{0%,100%{transform:rotate(0) scale(.8)}50%{transform:rotate(45deg) scale(1.1)}}
+.rs-rays{position:absolute;border-radius:50%;background:repeating-conic-gradient(from 0deg,#FF6A2B 0deg 7deg,rgba(255,106,43,0) 7deg 18deg);-webkit-mask-image:radial-gradient(circle,rgba(0,0,0,0) 18%,#000 24%,rgba(0,0,0,0) 70%);mask-image:radial-gradient(circle,rgba(0,0,0,0) 18%,#000 24%,rgba(0,0,0,0) 70%);mix-blend-mode:multiply;animation:rs-spin 90s linear infinite}
+@keyframes rs-spin{to{transform:rotate(360deg)}}
+.rs-float{animation:rs-float 8s ease-in-out infinite alternate}
+@keyframes rs-float{from{transform:translate(0,0)}to{transform:translate(10px,-14px)}}
+.rs-wob{animation:rs-wob 4s ease-in-out infinite}
+@keyframes rs-wob{0%,100%{transform:rotate(-10deg)}50%{transform:rotate(-4deg) scale(1.04)}}
+.rs-wob2{animation:rs-wob2 5s ease-in-out infinite}
+@keyframes rs-wob2{0%,100%{transform:rotate(8deg)}50%{transform:rotate(3deg)}}
+.rs-marq{display:flex;width:max-content;animation:rs-marq 22s linear infinite}
+@keyframes rs-marq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes rs-chev{0%,100%{transform:translateY(0);opacity:.6}50%{transform:translateY(7px);opacity:1}}
+@keyframes rs-out{from{opacity:1}to{opacity:0}}
+
+/* sticker */
+.rs-stk{position:absolute;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:50%;box-sizing:border-box;border:5px solid #FFFDF7;background:#1D4FB8;color:#F7F2E8;box-shadow:0 10px 18px rgba(20,47,107,0.28),0 2px 0 rgba(20,47,107,0.2)}
+.rs-stk::after{content:"";position:absolute;left:14%;top:10%;width:30%;height:16%;border-radius:50%;background:rgba(255,255,255,0.28);transform:rotate(-30deg)}
+
+/* timer */
+.rs-tile{position:relative;display:flex;flex-direction:column;align-items:center;gap:4px}
+.rs-disc{position:relative;width:78px;height:78px;border-radius:50%;display:grid;place-items:center}
+.rs-num{grid-area:1/1;font-family:'Dela Gothic One','Arial Black',Impact,sans-serif;font-size:32px;line-height:1;font-variant-numeric:tabular-nums}
+.rs-pa{animation:rs-popA .45s cubic-bezier(.2,1.6,.4,1)}
+.rs-pb{animation:rs-popB .45s cubic-bezier(.2,1.6,.4,1)}
+@keyframes rs-popA{from{transform:translate(10px,-8px) scale(1.25);opacity:.2}}
+@keyframes rs-popB{from{transform:translate(-8px,8px) scale(1.25);opacity:.2}}
+
+/* wishes stickers */
+.rs-wish{display:inline-block;max-width:300px;box-sizing:border-box;padding:12px 18px 13px;border:3px solid #FFFDF7;font-family:'Dela Gothic One','Arial Black',Impact,sans-serif;font-size:20px;line-height:1.2;box-shadow:0 8px 14px rgba(20,47,107,0.2);overflow-wrap:anywhere;animation:rs-peel 6s ease-in-out infinite}
+@keyframes rs-peel{0%,100%{translate:0 0}50%{translate:0 -4px}}
+
+/* candle */
+.rs-flame{transform-box:fill-box;transform-origin:50% 100%;animation:rs-flick .9s ease-in-out infinite alternate}
+.rs-halo{transform-box:fill-box;transform-origin:50% 50%;animation:rs-halo 1.8s ease-in-out infinite}
+@keyframes rs-flick{0%{transform:scale(1,1) rotate(-3deg)}50%{transform:scale(.9,1.1) rotate(2deg)}100%{transform:scale(1.05,.94) rotate(-1deg)}}
+@keyframes rs-halo{0%,100%{opacity:.5;transform:scale(.9)}50%{opacity:.9;transform:scale(1.12)}}
+.rs-cake--out .rs-flame{opacity:0;animation:rs-flameOut .35s ease-in both}
+.rs-cake--out .rs-halo{opacity:0;animation:rs-out .3s ease both}
+.rs-cake--out .rs-smoke{animation:rs-smoke 2s ease-out .25s both}
+@keyframes rs-flameOut{from{opacity:1;transform:scale(1)}to{opacity:0;transform:scale(.3,.1)}}
+@keyframes rs-smoke{0%{opacity:0;transform:translateY(0)}20%{opacity:.9}100%{opacity:0;transform:translateY(-34px)}}
+.rs-wishLine{opacity:0;transform:translateY(10px);transition:opacity .6s ease .35s,transform .6s ease .35s}
+.rs-wishLine--on{opacity:1;transform:none}
+
+/* secret: tear-off flap */
+.rs-sec{position:relative;display:block;width:100%;padding:0;border:0;background:none;cursor:pointer;color:inherit;font:inherit;text-align:center}
+.rs-flap{position:absolute;left:0;top:0;right:0;bottom:0;transform-origin:0 0;transition:transform .7s cubic-bezier(.5,0,.6,1),opacity .5s ease .25s}
+.rs-sec--on .rs-flap{transform:translate(30px,70px) rotate(14deg);opacity:0}
+.rs-msg{opacity:0;transition:opacity .5s ease .35s}
+.rs-sec--on .rs-msg{opacity:1}
+
+/* buttons */
+.rs-btn{position:relative;min-height:58px;border:3px solid #142F6B;border-radius:14px;background:#FF6A2B;color:#142F6B;font-family:'Dela Gothic One','Arial Black',Impact,sans-serif;font-size:18px;display:inline-flex;align-items:center;justify-content:center;gap:10px;cursor:pointer;padding:0 22px;box-shadow:6px 6px 0 #1D4FB8;transition:transform .15s ease,box-shadow .15s ease}
+.rs-btn:active{transform:translate(4px,4px);box-shadow:2px 2px 0 #1D4FB8}
+.rs-btn--done{transform:translate(6px,6px);box-shadow:0 0 0 #1D4FB8;background:#F7F2E8;cursor:default}
+.rs-pill{min-height:50px;border:2.5px solid #142F6B;border-radius:25px;background:#FFFDF7;color:#142F6B;font-family:'IBM Plex Mono','Courier New',monospace;font-size:15px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;padding:0 24px;box-shadow:4px 4px 0 #FF6A2B}
+.rs-go{flex:1 1 0;min-width:0;min-height:52px;border:2.5px solid #142F6B;border-radius:12px;background:#1D4FB8;color:#F7F2E8;font-family:'Dela Gothic One','Arial Black',Impact,sans-serif;font-size:16px;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;padding:0 12px}
+.rs-go--on{background:#FF6A2B;color:#142F6B}
+.rs-map{flex:1.3 1 0;min-width:0;min-height:52px;border-radius:12px;border:2.5px dashed #1D4FB8;color:#1D4FB8;font-family:'IBM Plex Mono','Courier New',monospace;font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;padding:0 10px;box-sizing:border-box}
+.rs-input{width:100%;height:50px;box-sizing:border-box;border-radius:12px;border:2px solid rgba(29,79,184,0.45);background:#FFFDF7;color:#142F6B;padding:0 16px;font-family:'IBM Plex Mono','Courier New',monospace;font-size:15px;font-weight:600;outline:none}
+.rs-input::placeholder{color:#5F6F98}
+.rs-input:focus{border-color:#FF6A2B}
+.rs-err{margin:0;font-family:'IBM Plex Mono','Courier New',monospace;font-size:13px;font-weight:700;color:#B33A0C}
+.rs-row{display:flex;align-items:center;gap:8px}
+.rs-music{position:absolute;right:16px;top:58px;z-index:5;width:46px;height:46px;border-radius:50%;border:2.5px solid #142F6B;background:#FFFDF7;display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0;box-shadow:3px 3px 0 #FF6A2B}
+.rs-music--on{background:#FF6A2B}
+.rs-stamp{position:absolute;right:6px;top:-30px;padding:6px 12px;border:3px solid #FF6A2B;border-radius:8px;color:#E2531A;font-family:'Dela Gothic One','Arial Black',Impact,sans-serif;font-size:16px;letter-spacing:.06em;mix-blend-mode:multiply;opacity:0;transform:rotate(-12deg) scale(2.2);pointer-events:none}
+.rs-stamp--on{animation:rs-stamp .45s cubic-bezier(.3,1.4,.5,1) .1s both}
+@keyframes rs-stamp{from{opacity:0;transform:rotate(-12deg) scale(2.2)}to{opacity:1;transform:rotate(-12deg) scale(1)}}
+.rs-spark{position:absolute;left:0;top:0;display:block;width:16px;height:16px;margin:-8px 0 0 -8px;clip-path:polygon(50% 0,60% 40%,100% 50%,60% 60%,50% 100%,40% 60%,0 50%,40% 40%);opacity:0}
+.rs-burst--go .rs-spark{animation:rs-shoot 1.1s cubic-bezier(.15,.8,.3,1) both}
+@keyframes rs-shoot{0%{opacity:1;transform:translateY(0) scale(.5)}70%{opacity:1}100%{opacity:0;transform:translateY(-120px) scale(1.2) rotate(90deg)}}
+
+/* intro: the press */
+.rs-drum{animation:rs-spin 9s linear infinite}
+.rs-intro--open{pointer-events:none;animation:rs-introOut .5s ease-in 1.8s both}
+@keyframes rs-introOut{to{opacity:0;transform:translateY(-30px)}}
+.rs-intro--open .rs-drum{animation-duration:.5s}
+.rs-intro--open .rs-ctaWrap{animation:rs-out .3s ease both}
+.rs-sheet{transform:translateY(-345px)}
+.rs-intro--open .rs-sheet{animation:rs-feed .6s cubic-bezier(.3,.7,.3,1) .15s both}
+@keyframes rs-feed{from{transform:translateY(-345px)}to{transform:translateY(0)}}
+.rs-wipe{position:absolute;left:0;top:0;width:250px;height:330px;overflow:hidden;transform:translateY(-100%)}
+.rs-wipeIn{position:absolute;left:0;top:0;width:250px;height:330px;transform:translateY(100%)}
+.rs-intro--open .rs-w1{animation:rs-wipeA .45s ease-in-out .72s both}
+.rs-intro--open .rs-w1 > .rs-wipeIn{animation:rs-wipeB .45s ease-in-out .72s both}
+.rs-intro--open .rs-w2{animation:rs-wipeA .45s ease-in-out 1.12s both}
+.rs-intro--open .rs-w2 > .rs-wipeIn{animation:rs-wipeB .45s ease-in-out 1.12s both}
+@keyframes rs-wipeA{from{transform:translateY(-100%)}to{transform:translateY(0)}}
+@keyframes rs-wipeB{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.rs-roller{opacity:0}
+.rs-intro--open .rs-r1{animation:rs-roll .45s ease-in-out .72s both}
+.rs-intro--open .rs-r2{animation:rs-roll .45s ease-in-out 1.12s both}
+@keyframes rs-roll{0%{opacity:1;transform:translateY(-10px)}90%{opacity:1;transform:translateY(325px)}100%{opacity:0;transform:translateY(330px)}}
+.rs-pStk{opacity:0}
+.rs-intro--open .rs-pStk{animation:rs-pStk .35s cubic-bezier(.3,1.5,.5,1) 1.5s both}
+@keyframes rs-pStk{from{opacity:0;transform:rotate(-14deg) scale(1.8)}to{opacity:1;transform:rotate(-14deg) scale(1)}}
+.rs-ring::after{content:"";position:absolute;inset:-9px;border-radius:20px;border:2.5px dashed #1D4FB8;animation:rs-ringA 1.8s ease-out infinite;pointer-events:none}
+@keyframes rs-ringA{0%{transform:scale(.96);opacity:.9}100%{transform:scale(1.1);opacity:0}}
+
+/* page reveal */
+.rs-page--in .rs-rv1{animation:rs-regIn .9s cubic-bezier(.3,1.3,.5,1) 1.9s both}
+.rs-page--in .rs-rv2{animation:rs-drop .6s cubic-bezier(.3,1.5,.5,1) 2.2s both}
+.rs-page--in .rs-rv3{animation:rs-fade .8s ease 1.9s both}
+@keyframes rs-regIn{from{transform:translate(22px,-14px)}}
+@keyframes rs-drop{from{opacity:0;transform:rotate(-30deg) scale(1.9)}}
+@keyframes rs-fade{from{opacity:0}}
+
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation:none !important;transition:none !important}
+  .rs-sheet{transform:none}
+  .rs-wipe,.rs-wipeIn{transform:none}
+  .rs-pStk{opacity:1}
+  .rs-intro--open{opacity:0}
+}
+</style>
+</helmet>
+<div style="width: 390px; min-height: var(--vh, 100vh); position: relative; overflow: hidden; background: #F3EDE1; color: #142F6B; font-family: 'IBM Plex Mono', 'Courier New', monospace">
+
+  <svg aria-hidden="true" width="0" height="0" style="position: absolute">
+    <filter id="rs-grainF" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch"></feTurbulence><feColorMatrix type="matrix" values="0 0 0 0 0.08  0 0 0 0 0.16  0 0 0 0 0.36  3.2 0 0 0 -1.85"></feColorMatrix></filter>
+  </svg>
+
+  <div aria-hidden="true" style="position: absolute; left: 0; top: 0; bottom: 0; width: 390px; pointer-events: none; z-index: 0; overflow: hidden">
+    <sc-for list="{{ pageDots }}" as="p"><div class="{{ p.cls }}" style="{{ p.st }}"></div></sc-for>
+    <sc-for list="{{ pageStars }}" as="p"><span class="rs-star" style="{{ p.st }}"></span></sc-for>
+  </div>
+
+  <div class="{{ pageCls }}" style="position: relative; z-index: 1; min-height: var(--vh, 100vh); display: flex; flex-direction: column">
+
+    <section style="position: relative; height: 844px; flex: none; overflow: hidden">
+      <div aria-hidden="true" class="rs-rays" style="left: -105px; top: 120px; width: 600px; height: 600px"></div>
+      <div aria-hidden="true" class="rs-htO rs-fadeC rs-mul rs-float" style="position: absolute; left: 196px; top: -70px; width: 280px; height: 280px; border-radius: 50%"></div>
+      <div aria-hidden="true" class="rs-ht rs-fadeC rs-mul" style="position: absolute; left: -90px; top: 470px; width: 260px; height: 260px; border-radius: 50%; opacity: 0.7"></div>
+
+      <div style="position: absolute; left: 20px; top: 18px; width: 350px; display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-top: 2px solid #1D4FB8; border-bottom: 1px solid #1D4FB8">
+        <span class="rs-cap" style="font-size: 11px">Tug’ilgan kun · Maxsus nashr</span>
+        <span class="rs-cap" style="font-size: 11px">{{ issue }}</span>
+      </div>
+      <sc-if value="{{ has.music }}"><button type="button" class="{{ musicCls }}" onClick="{{ toggleMusic }}" aria-label="Musiqa" aria-pressed="{{ musicOn }}"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 22 26"><path d="M8 3L20 0V17.5A3.5 3 0 1 1 17 14.6V5.2L10 7V20.5A3.5 3 0 1 1 7 17.6V3Z" fill="#142F6B"></path></svg></button></sc-if>
+
+      <div style="position: absolute; left: 20px; top: 70px; width: 350px; height: 196px; display: flex; flex-direction: column; justify-content: center; align-items: flex-start">
+        <p class="rs-m" style="margin: 0; font-size: 15px; font-weight: 600; color: #1D4FB8">Tug’ilgan kuning muborak,</p>
+        <h1 class="rs-h2" style="margin-top: 6px; font-size: {{ nameFs }}px; line-height: 1.02">
+          <span aria-hidden="true" class="rs-o rs-jit rs-rv1">{{ nameUp }}</span>
+          <span class="rs-b">{{ nameUp }}</span>
+        </h1>
+      </div>
+
+      <div style="position: absolute; left: 0; top: 270px; width: 390px; height: 320px">
+        <div aria-hidden="true" class="rs-ht rs-mul" style="position: absolute; left: 92px; top: 26px; width: 250px; height: 250px; border-radius: 50%"></div>
+        <div style="position: absolute; left: 70px; top: 12px; width: 250px; height: 250px; border-radius: 50%; overflow: hidden; background: #1D4FB8; isolation: isolate">
+          <sc-if value="{{ has.photo }}"><img class="rs-rv3" src="{{ p.0 }}" alt="" style="display: block; width: 250px; height: 250px; object-fit: cover; mix-blend-mode: screen; filter: grayscale(1) contrast(1.1) brightness(1.05)"></sc-if>
+          <sc-if value="{{ noPhoto }}"><div aria-hidden="true" class="rs-d" style="width: 250px; height: 250px; display: flex; align-items: center; justify-content: center; font-size: 150px; line-height: 1; color: #FF6A2B">{{ initial }}</div></sc-if>
+          <div aria-hidden="true" class="rs-htO rs-mul" style="position: absolute; inset: 0; opacity: 0.5; -webkit-mask-image: linear-gradient(200deg, #000 0%, rgba(0,0,0,0) 55%); mask-image: linear-gradient(200deg, #000 0%, rgba(0,0,0,0) 55%)"></div>
+        </div>
+        <div aria-hidden="true" style="position: absolute; left: 62px; top: 4px; width: 266px; height: 266px; box-sizing: border-box; border-radius: 50%; border: 2px solid #1D4FB8; transform: translate(-5px, 3px)"></div>
+        <div aria-hidden="true" class="rs-wob2" style="position: absolute; left: 34px; top: 26px; padding: 8px 12px; background: #FF6A2B; border: 3px solid #FFFDF7; border-radius: 6px; box-shadow: 0 8px 14px rgba(20,47,107,0.22)">
+          <span class="rs-d" style="display: block; font-size: 15px; line-height: 1; color: #142F6B">BAYRAM!</span>
+        </div>
+        <sc-if value="{{ d.yosh }}">
+          <div class="rs-rv2" style="position: absolute; left: 244px; top: 178px; width: 124px; height: 124px">
+            <div class="rs-stk rs-wob" style="left: 0; top: 0; width: 124px; height: 124px">
+              <span class="rs-d" style="font-size: {{ ageFs }}px; line-height: 1">{{ d.yosh }}</span>
+              <span class="rs-m" style="margin-top: 2px; font-size: 12px; font-weight: 700; letter-spacing: 0.2em">YOSH</span>
+            </div>
+          </div>
+        </sc-if>
+        <span aria-hidden="true" class="rs-star" style="left: 330px; top: 30px; width: 26px; height: 26px; background: #1D4FB8"></span>
+        <span aria-hidden="true" class="rs-star" style="left: 24px; top: 210px; width: 20px; height: 20px; background: #FF6A2B; animation-delay: -3s"></span>
+      </div>
+
+      <div aria-hidden="true" style="position: absolute; left: -20px; top: 616px; width: 430px; height: 46px; background: #FF6A2B; transform: rotate(-3deg); overflow: hidden; display: flex; align-items: center; box-shadow: 0 0 0 2px #142F6B">
+        <div class="rs-marq">
+          <sc-for list="{{ marq }}" as="m"><span class="rs-d" style="flex: none; padding: 0 14px; font-size: 18px; line-height: 1; color: #142F6B; white-space: nowrap">{{ m }}</span><span style="flex: none; width: 12px; height: 12px; background: #142F6B; clip-path: polygon(50% 0,60% 40%,100% 50%,60% 60%,50% 100%,40% 60%,0 50%,40% 40%)"></span></sc-for>
+        </div>
+      </div>
+      <p class="rs-m" style="position: absolute; left: 20px; top: 684px; width: 350px; margin: 0; text-align: center; font-size: 14px; font-weight: 700; letter-spacing: 0.06em; color: #142F6B">{{ heroDate }}</p>
+
+      <svg aria-hidden="true" width="390" height="120" viewBox="0 0 390 120" style="position: absolute; left: 0; top: 724px">
+        <path class="rs-wave" d="M-20 50C40 10 90 90 150 50S260 10 320 50S400 90 420 60" stroke="#1D4FB8"></path>
+        <path class="rs-wave" d="M-20 74C40 34 90 114 150 74S260 34 320 74S400 114 420 84" stroke="#FF6A2B"></path>
+        <path class="rs-wave" d="M-20 98C40 58 90 138 150 98S260 58 320 98S400 138 420 108" stroke="#1D4FB8"></path>
+      </svg>
+      <sc-if value="{{ anyBlock }}"><svg aria-hidden="true" width="26" height="16" viewBox="0 0 26 16" style="position: absolute; left: 182px; top: 708px; animation: rs-chev 1.8s ease-in-out infinite"><path class="rs-icoN" d="M3 3l10 9 10-9"></path></svg></sc-if>
+    </section>
+
+<sc-if value="{{ b.tabrik }}">
+    <section style="padding: 34px 20px 30px">
+      <div style="position: relative">
+        <div aria-hidden="true" class="rs-ht rs-mul" style="position: absolute; left: 12px; top: 12px; right: -8px; bottom: -10px; border-radius: 6px; opacity: 0.85"></div>
+        <div style="position: relative; padding: 26px 22px 22px; background: #FFFDF7; border: 2.5px solid #142F6B; border-radius: 6px">
+          <p class="rs-cap" style="font-size: 11px">Bosh maqola</p>
+          <h2 class="rs-h2" style="margin-top: 6px; font-size: 38px"><span aria-hidden="true" class="rs-o">Tabrik</span><span class="rs-b">Tabrik</span></h2>
+          <p style="margin: 14px 0 0; font-size: 15px; font-weight: 500; line-height: 1.7; color: #142F6B; white-space: pre-line; overflow-wrap: anywhere">{{ d.matn }}</p>
+          <sc-if value="{{ d.kimdan }}">
+            <div aria-hidden="true" style="height: 0; margin: 18px 0 14px; border-top: 2px dashed rgba(29,79,184,0.5)"></div>
+            <div style="display: flex; align-items: center; gap: 12px">
+              <span aria-hidden="true" style="flex: none; width: 42px; height: 42px; border-radius: 50%; background: #FF6A2B; display: flex; align-items: center; justify-content: center"><svg width="20" height="20" viewBox="0 0 20 20"><path class="rs-icoN" d="M3 14.5l9-9 3 3-9 9H3zM11 6.5l3 3"></path></svg></span>
+              <p style="margin: 0; min-width: 0; font-size: 14px; line-height: 1.4; overflow-wrap: anywhere"><sc-if value="{{ from.label }}"><span style="display: block; font-weight: 500; color: #1D4FB8">{{ from.label }}:</span></sc-if><span class="rs-d" style="display: block; font-size: 16px; color: #142F6B">{{ from.names }}</span></p>
+            </div>
+          </sc-if>
+        </div>
+      </div>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.taymer }}">
+    <section style="position: relative; padding: 20px 20px 30px; text-align: center">
+      <p class="rs-cap">{{ cdDate }}</p>
+      <h2 class="rs-h2" style="margin-top: 6px"><span aria-hidden="true" class="rs-o rs-jit">{{ cdTitle }}</span><span class="rs-b">{{ cdTitle }}</span></h2>
+      <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; margin-top: 18px">
+        <sc-for list="{{ tiles }}" as="t">
+          <div class="rs-tile">
+            <div class="rs-disc">
+              <div aria-hidden="true" class="{{ t.dot }}" style="position: absolute; inset: 0; border-radius: 50%"></div>
+              <span aria-hidden="true" class="{{ t.clsO }}">{{ t.v }}</span>
+              <span class="{{ t.clsB }}">{{ t.v }}</span>
+            </div>
+            <span class="rs-m" style="font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #1D4FB8">{{ t.l }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.tilaklar }}">
+    <section style="position: relative; padding: 24px 20px 32px; text-align: center">
+      <div aria-hidden="true" class="rs-htO rs-fadeC rs-mul" style="position: absolute; left: 60px; top: 30px; width: 270px; height: 270px; border-radius: 50%; opacity: 0.55"></div>
+      <p class="rs-cap" style="position: relative">Stikerlar to’plami</p>
+      <h2 class="rs-h2" style="margin-top: 6px"><span aria-hidden="true" class="rs-o">Tilaklarimiz</span><span class="rs-b">Tilaklarimiz</span></h2>
+      <div style="position: relative; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 14px 12px; margin-top: 22px">
+        <sc-for list="{{ wishes }}" as="w"><span class="rs-wish" style="{{ w.st }}">{{ w.text }}</span></sc-for>
+      </div>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.sham }}">
+    <section style="position: relative; padding: 22px 20px 32px; display: flex; flex-direction: column; align-items: center; text-align: center">
+      <p class="rs-cap">Niyat qil</p>
+      <h2 class="rs-h2" style="margin-top: 6px; font-size: 36px"><span aria-hidden="true" class="rs-o">Shamni puflang</span><span class="rs-b">Shamni puflang</span></h2>
+      <div class="{{ cakeCls }}" style="position: relative; width: 240px; height: 250px; margin-top: 14px">
+        <div aria-hidden="true" class="rs-rays" style="left: -60px; top: -80px; width: 360px; height: 360px; opacity: 0.6"></div>
+        <svg aria-hidden="true" width="240" height="250" viewBox="0 0 240 250" style="position: relative; display: block">
+          <defs><pattern id="rs-dotP" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r="1.5" fill="#1D4FB8"></circle></pattern></defs>
+          <circle class="rs-halo rs-mul" cx="120" cy="44" r="34" fill="#FF6A2B" opacity="0.35"></circle>
+          <path class="rs-flame rs-mul" d="M120 14C129 30 133 40 129 50C126 58 114 58 111 50C107 40 111 30 120 14Z" fill="#FF6A2B"></path>
+          <path class="rs-flame" d="M120 32C124 40 125 46 123 50C121 53 119 53 117 50C115 46 116 40 120 32Z" fill="#FFFDF7"></path>
+          <path class="rs-smoke" d="M120 52C113 44 127 38 120 28C114 20 124 13 120 4"></path>
+          <rect x="112" y="56" width="16" height="66" rx="3" fill="#FFFDF7" stroke="#142F6B" stroke-width="2"></rect>
+          <path class="rs-mul" d="M113 70L127 62V70L113 78ZM113 88L127 80V88L113 96ZM113 106L127 98V106L113 114Z" fill="#FF6A2B"></path>
+          <rect class="rs-mul" x="62" y="120" width="116" height="46" rx="8" fill="#FF6A2B"></rect>
+          <rect class="rs-mul" x="62" y="120" width="116" height="46" rx="8" fill="url(#rs-dotP)" opacity="0.5"></rect>
+          <rect class="rs-mul" x="34" y="160" width="172" height="60" rx="8" fill="#1D4FB8"></rect>
+          <path d="M34 168C34 160 40 158 46 158H194C200 158 206 160 206 168V172C200 186 192 172 186 182C180 192 172 170 164 180C156 192 150 172 140 184C132 194 124 172 116 182C108 192 100 172 92 182C84 192 76 172 68 184C60 194 52 172 46 182C40 190 36 180 34 176Z" fill="#FF6A2B"></path>
+          <circle cx="80" cy="140" r="4" fill="#FFFDF7"></circle><circle cx="104" cy="148" r="3" fill="#142F6B"></circle><circle cx="136" cy="140" r="4" fill="#FFFDF7"></circle><circle cx="160" cy="148" r="3" fill="#142F6B"></circle>
+          <circle cx="70" cy="204" r="3.5" fill="#F7F2E8"></circle><circle cx="100" cy="196" r="3" fill="#F7F2E8"></circle><circle cx="140" cy="206" r="3.5" fill="#F7F2E8"></circle><circle cx="172" cy="198" r="3" fill="#F7F2E8"></circle>
+          <ellipse cx="120" cy="226" rx="104" ry="9" fill="none" stroke="#142F6B" stroke-width="3"></ellipse>
+          <ellipse class="rs-mul" cx="126" cy="232" rx="100" ry="8" fill="url(#rs-dotP)"></ellipse>
+        </svg>
+      </div>
+      <p class="{{ wishCls }}" style="margin: 8px 0 0; min-height: 26px; font-family: 'Dela Gothic One', 'Arial Black', sans-serif; font-size: 19px; line-height: 1.3; color: #1D4FB8; overflow-wrap: anywhere">{{ wishLine }}</p>
+      <button type="button" class="rs-pill" onClick="{{ blow }}" style="margin-top: 14px">
+        <span class="{{ blowIdle }}">Puflash</span><span class="{{ blowDone }}">Shamni qayta yoqish</span>
+      </button>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.galereya }}">
+    <section style="position: relative; padding: 22px 20px 34px">
+      <div style="text-align: center">
+        <p class="rs-cap">Kontakt varaq</p>
+        <h2 class="rs-h2" style="margin-top: 6px"><span aria-hidden="true" class="rs-o">Kadrlar</span><span class="rs-b">Kadrlar</span></h2>
+      </div>
+      <div style="position: relative; margin: 24px 6px 0; padding: 12px">
+        <svg aria-hidden="true" width="338" height="290" viewBox="0 0 338 290" style="position: absolute; left: 0; top: 0">
+          <path class="rs-mark" d="M0 12H8M12 0V8M326 0V8M330 12H338M0 278H8M12 282V290M330 278H338M326 282V290"></path>
+        </svg>
+        <div style="position: relative; height: 266px; background: #FF6A2B; overflow: hidden">
+          <img src="{{ cover }}" alt="" style="display: block; width: 314px; height: 266px; object-fit: cover">
+          <div aria-hidden="true" class="rs-ht" style="position: absolute; inset: 0; mix-blend-mode: multiply; opacity: 0.16"></div>
+        </div>
+        <div style="display: flex; justify-content: space-between; margin-top: 8px">
+          <span class="rs-cap" style="font-size: 11px">Kadr 01</span>
+          <span class="rs-cap" style="font-size: 11px">{{ coverCap }}</span>
+        </div>
+      </div>
+      <sc-if value="{{ hasRest }}">
+        <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px 16px; margin-top: 26px">
+          <sc-for list="{{ rest }}" as="g">
+            <div style="{{ g.st }}">
+              <span aria-hidden="true" class="rs-mul" style="{{ g.tape }}"></span>
+              <img src="{{ g.src }}" alt="" style="display: block; width: 100%; aspect-ratio: 1 / 1; object-fit: cover">
+              <span class="rs-m" style="display: block; margin-top: 6px; font-size: 11px; font-weight: 700; letter-spacing: 0.14em; color: #1D4FB8">KADR {{ g.n }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </sc-if>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.sirli }}">
+    <section style="padding: 22px 20px 34px">
+      <button type="button" class="{{ secCls }}" onClick="{{ toggleSec }}" aria-label="Sirli tilakni ochish">
+        <div style="position: relative; min-height: 230px; border: 2.5px solid #142F6B; border-radius: 8px; background: #FFFDF7; overflow: hidden">
+          <div class="rs-msg" style="position: relative; min-height: 230px; box-sizing: border-box; padding: 26px 22px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px">
+            <div aria-hidden="true" class="rs-htO rs-fadeC rs-mul" style="position: absolute; left: 30px; top: -20px; width: 270px; height: 270px; border-radius: 50%; opacity: 0.7"></div>
+            <span class="rs-cap" style="position: relative">Sirli tilak</span>
+            <span class="rs-d" style="position: relative; font-size: 19px; line-height: 1.45; color: #142F6B; white-space: pre-line; overflow-wrap: anywhere">{{ d.sirli_tilak }}</span>
+          </div>
+          <div class="rs-flap" style="background: #1D4FB8; color: #F7F2E8; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; padding: 18px; box-sizing: border-box">
+            <div aria-hidden="true" class="rs-htP" style="position: absolute; inset: 0; opacity: 0.35"></div>
+            <span aria-hidden="true" class="rs-d" style="position: relative; font-size: 74px; line-height: 1; color: #FF6A2B">?</span>
+            <span class="rs-d" style="position: relative; font-size: 24px; line-height: 1.15">Sirli tilak</span>
+            <span class="rs-m" style="position: relative; font-size: 14px; font-weight: 600; line-height: 1.45">Yirtib oling — ichida biz yashirgan tilak bor</span>
+            <span aria-hidden="true" style="position: absolute; left: 10px; right: 10px; bottom: 12px; border-top: 2px dashed rgba(247,242,232,0.7)"></span>
+            <svg aria-hidden="true" width="22" height="22" viewBox="0 0 22 22" style="position: absolute; right: 14px; bottom: 2px"><circle class="rs-icoP" cx="5" cy="6" r="3"></circle><circle class="rs-icoP" cx="5" cy="16" r="3"></circle><path class="rs-icoP" d="M7.5 7.5L20 15M7.5 14.5L20 7"></path></svg>
+          </div>
+        </div>
+      </button>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.bazm }}">
+    <section style="padding: 22px 20px 34px">
+      <div style="position: relative; background: #FFFDF7; border: 2.5px solid #142F6B; border-radius: 4px; box-shadow: 9px 9px 0 #FF6A2B">
+        <div style="position: relative; padding: 22px 20px 6px; overflow: hidden">
+          <div aria-hidden="true" class="rs-ht rs-fadeR rs-mul" style="position: absolute; right: -50px; top: -50px; width: 190px; height: 190px; border-radius: 50%; opacity: 0.45"></div>
+          <p class="rs-cap" style="position: relative">E’lon · Taklifnoma</p>
+          <h2 class="rs-h2" style="margin-top: 4px; font-size: 64px; line-height: 0.95"><span aria-hidden="true" class="rs-o rs-jit">BAZM</span><span class="rs-b">BAZM</span></h2>
+          <p style="position: relative; margin: 10px 0 0; font-size: 15px; font-weight: 500; line-height: 1.55; color: #142F6B">Shu quvonchni birga nishonlaymiz — kuy, raqs va eng yaqinlar davrasida!</p>
+        </div>
+        <div style="padding: 14px 20px 18px; display: flex; flex-direction: column; gap: 12px">
+          <div style="display: flex; align-items: center; gap: 12px">
+            <span style="flex: none; width: 40px; height: 40px; border-radius: 50%; background: #FF6A2B; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 20 20"><rect class="rs-icoN" x="3" y="4.5" width="14" height="12.5" rx="2"></rect><path class="rs-icoN" d="M3 8.5h14M7 2.5v4M13 2.5v4"></path></svg></span>
+            <p style="margin: 0; font-size: 15px; line-height: 1.4"><span class="rs-d" style="display: block; font-size: 16px">{{ bazmDate }}</span><sc-if value="{{ d.bazm_vaqt }}"><span style="display: block; font-weight: 600; color: #1D4FB8">soat {{ d.bazm_vaqt }} da</span></sc-if></p>
+          </div>
+          <div style="display: flex; align-items: center; gap: 12px">
+            <span style="flex: none; width: 40px; height: 40px; border-radius: 50%; background: #FF6A2B; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 20 20"><path class="rs-icoN" d="M10 18s-5.5-5.2-5.5-9.3a5.5 5.5 0 0 1 11 0C15.5 12.8 10 18 10 18z"></path><circle class="rs-icoN" cx="10" cy="8.7" r="2"></circle></svg></span>
+            <p style="margin: 0; min-width: 0; font-size: 15px; line-height: 1.4; overflow-wrap: anywhere"><span class="rs-d" style="display: block; font-size: 16px">{{ d.bazm_joy }}</span><sc-if value="{{ d.bazm_manzil }}"><span style="display: block; font-weight: 600; color: #1D4FB8">{{ d.bazm_manzil }}</span></sc-if></p>
+          </div>
+          <sc-if value="{{ d.dress_kod }}">
+          <div style="display: flex; align-items: center; gap: 12px">
+            <span style="flex: none; width: 40px; height: 40px; border-radius: 50%; background: #FF6A2B; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 20 20"><path class="rs-icoN" d="M7 2.5L3 5l1.5 4L6 8.3V17.5h8V8.3l1.5.7L17 5l-4-2.5c-.5 1.5-1.6 2.2-3 2.2s-2.5-.7-3-2.2z"></path></svg></span>
+            <p style="margin: 0; min-width: 0; font-size: 15px; line-height: 1.4; overflow-wrap: anywhere"><span style="display: block; font-weight: 600; color: #1D4FB8">Kiyinish uslubi</span><span class="rs-d" style="display: block; font-size: 16px">{{ d.dress_kod }}</span></p>
+          </div>
+          </sc-if>
+          <sc-if value="{{ askGuest }}">
+            <input class="rs-input" type="text" maxlength="100" placeholder="Ismingiz" aria-label="Ismingiz" onInput="{{ setName }}" style="margin-top: 4px">
+          </sc-if>
+          <div style="display: flex; gap: 10px; margin-top: 4px">
+            <button type="button" class="{{ goCls }}" onClick="{{ go }}">
+              <span class="{{ goIdle }}">Boraman</span>
+              <span class="{{ goDone }}"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 20 20"><path class="rs-icoN" d="M4 10.5l4 4 8-9"></path></svg>Kutamiz!</span>
+            </button>
+            <sc-if value="{{ d.xarita }}"><a class="rs-map" href="{{ d.xarita }}" target="_blank" rel="noopener"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 20 20"><path class="rs-ico" d="M10 18s-5.5-5.2-5.5-9.3a5.5 5.5 0 0 1 11 0C15.5 12.8 10 18 10 18z"></path><circle class="rs-ico" cx="10" cy="8.7" r="2"></circle></svg>Xaritada ochish</a></sc-if>
+          </div>
+          <sc-if value="{{ goErr }}"><p class="rs-err" role="alert">{{ goErr }}</p></sc-if>
+        </div>
+        <div aria-hidden="true" style="display: flex; border-top: 2px dashed rgba(20,47,107,0.55); height: 124px; overflow: hidden">
+          <sc-for list="{{ tabs }}" as="t"><div style="{{ t.st }}"><span class="rs-m" style="writing-mode: vertical-rl; font-size: 10px; font-weight: 700; letter-spacing: 0.06em; white-space: nowrap; color: #1D4FB8">{{ tabText }}</span></div></sc-for>
+        </div>
+      </div>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.javob }}">
+    <section style="position: relative; padding: 18px 20px 30px; display: flex; flex-direction: column; align-items: center; text-align: center">
+      <h2 class="rs-d" style="margin: 0; font-size: 26px; font-weight: 400; line-height: 1.25; color: #1D4FB8; overflow-wrap: anywhere">{{ askName }}</h2>
+      <p class="rs-m" style="margin: 8px 0 22px; font-size: 14px; font-weight: 500; line-height: 1.45; color: #142F6B">Bir bosishda tabrigingizni yetkazing</p>
+      <div style="position: relative; width: 300px">
+        <div class="{{ burstCls }}" aria-hidden="true" style="position: absolute; left: 150px; top: 20px; width: 0; height: 0; z-index: 3; pointer-events: none">
+          <sc-for list="{{ sparks }}" as="c"><span style="{{ c.w }}"><span class="rs-spark" style="{{ c.p }}"></span></span></sc-for>
+        </div>
+        <button type="button" class="{{ sendCls }}" onClick="{{ send }}" style="width: 300px">
+          <span class="{{ sendIdle }}"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 20 20"><path d="M10 17s-6.5-4.1-6.5-8.6A3.6 3.6 0 0 1 10 6.3a3.6 3.6 0 0 1 6.5 2.1C16.5 12.9 10 17 10 17z" fill="#142F6B"></path></svg>Tabrikladim</span>
+          <span class="{{ sendDone }}"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 20 20"><path class="rs-icoN" d="M4 10.5l4 4 8-9"></path></svg>Rahmat!</span>
+        </button>
+        <span class="{{ stampCls }}">YETKAZILDI</span>
+      </div>
+    </section>
+</sc-if>
+
+    <footer aria-hidden="true" style="position: relative; flex: 1; min-height: 110px; display: flex; flex-direction: column; justify-content: flex-end; padding: 0 20px 22px; box-sizing: border-box">
+      <div style="display: flex; align-items: center; gap: 10px; border-top: 1px solid #1D4FB8; padding-top: 10px">
+        <svg width="24" height="24" viewBox="0 0 24 24"><circle class="rs-mark" cx="12" cy="12" r="7"></circle><path class="rs-mark" d="M12 1V23M1 12H23"></path></svg>
+        <span style="width: 18px; height: 18px; background: #1D4FB8"></span>
+        <span class="rs-mul" style="width: 18px; height: 18px; background: #FF6A2B"></span>
+        <span style="position: relative; width: 18px; height: 18px"><span class="rs-mul" style="position: absolute; inset: 0; background: #1D4FB8"></span><span class="rs-mul" style="position: absolute; inset: 0; background: #FF6A2B"></span></span>
+        <span class="rs-m" style="margin-left: auto; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; color: #1D4FB8">{{ colophon }}</span>
+      </div>
+    </footer>
+  </div>
+
+  <svg aria-hidden="true" class="rs-grain" width="390" height="100%" style="z-index: 2"><rect x="0" y="0" width="100%" height="100%" filter="url(#rs-grainF)"></rect></svg>
+
+  <div data-intro class="{{ introCls }}" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; z-index: 20; overflow: hidden; background: #F3EDE1">
+    <div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px">
+      <div class="rs-rays" style="left: -105px; top: 40px; width: 600px; height: 600px; opacity: 0.75"></div>
+      <div class="rs-ht rs-fadeC rs-mul" style="position: absolute; left: -150px; top: 640px; width: 300px; height: 300px; border-radius: 50%"></div>
+      <div class="rs-htO rs-fadeC rs-mul rs-float" style="position: absolute; left: 250px; top: 650px; width: 240px; height: 240px; border-radius: 50%"></div>
+      <sc-for list="{{ introStars }}" as="p"><span class="rs-star" style="{{ p.st }}"></span></sc-for>
+      <svg width="390" height="844" viewBox="0 0 390 844" style="position: absolute; left: 0; top: 0">
+        <path class="rs-mark" d="M14 26H28M21 19V33M362 26H376M369 19V33M14 818H28M21 811V825M362 818H376M369 811V825"></path>
+        <circle class="rs-mark" cx="21" cy="26" r="4"></circle><circle class="rs-mark" cx="369" cy="26" r="4"></circle><circle class="rs-mark" cx="21" cy="818" r="4"></circle><circle class="rs-mark" cx="369" cy="818" r="4"></circle>
+      </svg>
+      <svg class="rs-grain" width="390" height="844" style="height: 844px"><rect x="0" y="0" width="390" height="844" filter="url(#rs-grainF)"></rect></svg>
+    </div>
+
+    <div style="position: absolute; left: 24px; top: 46px; width: 342px; text-align: center">
+      <p class="rs-cap" style="font-size: 11px">{{ introCap }}</p>
+      <h2 class="rs-h2" style="margin-top: 10px; font-size: {{ introFs }}px; line-height: 1.08; justify-items: center"><span aria-hidden="true" class="rs-o rs-jit">{{ introTitle }}</span><span class="rs-b">{{ introTitle }}</span></h2>
+    </div>
+
+    <div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; pointer-events: none">
+      <div style="position: absolute; left: 92px; top: 196px; width: 206px; height: 34px; transform: skewX(-18deg); background: #FFFDF7; border: 2.5px solid #142F6B; border-bottom: 0; box-shadow: 0 -5px 0 -1px #FF6A2B, 0 -10px 0 -2px #FFFDF7, 0 -10px 0 0 #142F6B"></div>
+      <div style="position: absolute; left: 40px; top: 228px; width: 310px; height: 250px; box-sizing: border-box; border-radius: 22px; border: 3px solid #142F6B; background: #1D4FB8; overflow: hidden; box-shadow: 8px 8px 0 #FF6A2B">
+        <div class="rs-htP" style="position: absolute; inset: 0; opacity: 0.4"></div>
+        <div style="position: absolute; left: 0; top: 182px; width: 310px; height: 14px; background: #FF6A2B"></div>
+        <div style="position: absolute; left: 24px; top: 22px; width: 150px; height: 150px; box-sizing: border-box; border-radius: 50%; border: 6px solid #FFFDF7; background: #142F6B; overflow: hidden">
+          <div class="rs-drum" style="position: absolute; left: -20px; top: -20px; width: 178px; height: 178px; border-radius: 50%; background: repeating-conic-gradient(#FF6A2B 0deg 12deg, #F3EDE1 12deg 24deg)"></div>
+          <div style="position: absolute; left: 44px; top: 44px; width: 50px; height: 50px; border-radius: 50%; background: #142F6B; border: 4px solid #FFFDF7"></div>
+        </div>
+        <div style="position: absolute; left: 196px; top: 26px; width: 88px; height: 46px; border-radius: 8px; background: #F3EDE1; border: 2.5px solid #142F6B; display: flex; align-items: center; justify-content: center">
+          <span class="rs-d" style="font-size: 20px; color: #142F6B">{{ panelText }}</span>
+        </div>
+        <div style="position: absolute; left: 200px; top: 88px; display: flex; gap: 10px">
+          <span style="width: 22px; height: 22px; border-radius: 50%; background: #FF6A2B; border: 2.5px solid #142F6B"></span>
+          <span style="width: 22px; height: 22px; border-radius: 50%; background: #FFFDF7; border: 2.5px solid #142F6B"></span>
+          <span style="width: 22px; height: 22px; border-radius: 50%; background: #FF6A2B; border: 2.5px solid #142F6B"></span>
+        </div>
+        <span class="rs-m" style="position: absolute; left: 198px; top: 128px; font-size: 11px; font-weight: 700; letter-spacing: 0.16em; color: #F3EDE1">BOSMA-2</span>
+        <span class="rs-m" style="position: absolute; left: 198px; top: 146px; font-size: 10px; font-weight: 600; letter-spacing: 0.1em; color: #F3EDE1; opacity: 0.8">2 RANG</span>
+        <div style="position: absolute; left: 20px; top: 212px; width: 270px; height: 12px; border-radius: 6px; background: #0E1E45"></div>
+      </div>
+      <div style="position: absolute; left: 70px; top: 470px; width: 250px; height: 345px; overflow: hidden; z-index: 3">
+        <div class="rs-sheet" style="position: absolute; left: 0; top: 0; width: 250px; height: 330px; background: #FFFDF7; box-shadow: 0 10px 22px rgba(20,47,107,0.25); overflow: hidden">
+          <div class="rs-wipe rs-w1"><div class="rs-wipeIn">
+            <div class="rs-ht rs-mul" style="position: absolute; left: 40px; top: 118px; width: 170px; height: 170px; border-radius: 50%"></div>
+            <div class="rs-mul" style="position: absolute; left: 18px; top: 24px; width: 214px; text-align: center; font-family: 'Dela Gothic One', 'Arial Black', sans-serif; font-size: {{ posterFs }}px; line-height: 1.05; color: #1D4FB8; overflow-wrap: anywhere">{{ nameUp }}</div>
+            <p class="rs-m rs-mul" style="position: absolute; left: 0; bottom: 14px; width: 250px; margin: 0; text-align: center; font-size: 11px; font-weight: 700; letter-spacing: 0.14em; color: #1D4FB8">{{ posterDate }}</p>
+          </div></div>
+          <div class="rs-wipe rs-w2"><div class="rs-wipeIn">
+            <div class="rs-rays" style="left: -45px; top: 50px; width: 340px; height: 340px; animation: none"></div>
+            <div class="rs-mul" style="position: absolute; left: 22px; top: 27px; width: 214px; text-align: center; font-family: 'Dela Gothic One', 'Arial Black', sans-serif; font-size: {{ posterFs }}px; line-height: 1.05; color: #FF6A2B; overflow-wrap: anywhere">{{ nameUp }}</div>
+          </div></div>
+          <div class="rs-pStk" style="position: absolute; left: 84px; top: 162px; width: 84px; height: 84px">
+            <div class="rs-stk" style="left: 0; top: 0; width: 84px; height: 84px; border-width: 4px">
+              <span class="rs-d" style="font-size: 26px; line-height: 1">{{ posterAge }}</span>
+              <span class="rs-m" style="font-size: 9px; font-weight: 700; letter-spacing: 0.16em">{{ posterAgeL }}</span>
+            </div>
+          </div>
+          <div class="rs-roller rs-r1" style="position: absolute; left: -6px; top: 0; width: 262px; height: 14px; border-radius: 7px; background: #1D4FB8; box-shadow: 0 3px 0 #142F6B"></div>
+          <div class="rs-roller rs-r2" style="position: absolute; left: -6px; top: 0; width: 262px; height: 14px; border-radius: 7px; background: #FF6A2B; box-shadow: 0 3px 0 #142F6B"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="rs-ctaWrap" style="position: absolute; left: 24px; top: 540px; width: 342px; display: flex; flex-direction: column; align-items: center; gap: 14px; z-index: 2">
+      <p class="rs-m" style="margin: 0; font-size: 14px; font-weight: 600; line-height: 1.45; color: #142F6B; text-align: center">Bo’yoqlar tayyor. Ikki rang — bitta plakat.</p>
+      <button type="button" class="rs-btn rs-ring" onClick="{{ open }}" style="width: 300px">Plakatni chop eting</button>
+      <sc-if value="{{ from.line }}"><p class="rs-m" style="margin: 6px 0 0; padding: 4px 10px; border-radius: 6px; background: #F3EDE1; font-size: 13px; font-weight: 600; line-height: 1.4; color: #1D4FB8; overflow-wrap: anywhere">{{ from.line }}</p></sc-if>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":4400}}'>
+const tkName = (d) => String(d.kimga || '').trim();
+const tkFrom = (d) => {
+  const kd = String(d.kimdan || '').trim(), ci = kd.indexOf(':');
+  const label = ci > 0 ? kd.slice(0, ci).trim() : '';
+  const names = ci > 0 ? kd.slice(ci + 1).trim() : kd;
+  return { label: label, names: names, line: !kd ? '' : (label ? label + 'dan: ' + names : names + 'dan') };
+};
+const tkFit = (text, max, min, width, k) => {
+  const longest = Math.max(1, ...String(text || '').split(/\s+/).map((x) => x.length));
+  return Math.max(min, Math.min(max, Math.floor(width / (longest * k))));
+};
+const up = (s) => String(s || '').toLocaleUpperCase('uz');
+
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { opened: false, blown: false, sec: false, going: false, sent: false, goErr: '' };
+    this.guestName = '';
+    const rnd = (i, k) => { const x = Math.sin(i * 127.1 + k * 311.7) * 43758.5453; return x - Math.floor(x); };
+    const stars = (n, seed, pct, h) => Array.from({ length: n }, (_, i) => {
+      const s = 12 + Math.round(rnd(i, seed) * 16);
+      const top = pct ? (4 + rnd(i, seed + 2) * 94).toFixed(1) + '%' : Math.round(rnd(i, seed + 2) * h) + 'px';
+      return { st: 'left: ' + Math.round(6 + rnd(i, seed + 1) * 360) + 'px; top: ' + top + '; width: ' + s + 'px; height: ' + s + 'px; background: ' + (i % 2 ? '#FF6A2B' : '#1D4FB8') + '; opacity: 0.8; animation-duration: ' + (5 + rnd(i, seed + 3) * 5).toFixed(1) + 's; animation-delay: -' + (rnd(i, seed + 4) * 6).toFixed(1) + 's' };
+    });
+    const dots = Array.from({ length: 7 }, (_, i) => {
+      const s = 180 + Math.round(rnd(i, 41) * 120);
+      return { cls: (i % 2 ? 'rs-htO' : 'rs-ht') + ' rs-fadeC rs-mul', st: 'position: absolute; left: ' + (i % 2 ? 230 + Math.round(rnd(i, 42) * 60) : -110 + Math.round(rnd(i, 42) * 60)) + 'px; top: ' + (18 + i * 12) + '%; width: ' + s + 'px; height: ' + s + 'px; border-radius: 50%; opacity: 0.45' };
+    });
+    const scol = ['#FF6A2B', '#1D4FB8', '#142F6B'];
+    this.deco = {
+      pageStars: stars(14, 5, true, 0),
+      pageDots: dots,
+      introStars: stars(8, 17, false, 820),
+      sparks: Array.from({ length: 14 }, (_, i) => {
+        const ang = -80 + (160 * i) / 13 + (rnd(i, 61) - 0.5) * 10;
+        return { w: 'position: absolute; left: 0; top: 0; width: 0; height: 0; transform: rotate(' + ang.toFixed(1) + 'deg)', p: 'background: ' + scol[i % 3] + '; animation-delay: ' + (rnd(i, 62) * 0.18).toFixed(2) + 's' };
+      }),
+      tabs: Array.from({ length: 7 }, (_, i) => ({ st: 'flex: 1 1 0; display: flex; align-items: center; justify-content: center; ' + (i ? 'border-left: 2px dashed rgba(20,47,107,0.45); ' : '') + (i === 4 ? 'transform: translateY(26px) rotate(4deg); opacity: 0.35' : '') }))
+    };
+  }
+  componentDidMount() {
+    this.timer = setInterval(() => this.forceUpdate(), 1000);
+  }
+  componentWillUnmount() {
+    clearInterval(this.timer);
+  }
+  renderVals() {
+    const s = this.state;
+    const D = SITE.d;
+    const name = tkName(D), from = tkFrom(D), nameUp = up(name);
+    const w = SITE.when(D.sana), bw = SITE.when(D.bazm_sana);
+    const cd = SITE.countdown(D.sana);
+    const yosh = String(D.yosh || '').trim();
+    const n = Math.min(6, SITE.has.photos);
+    const order = n > 1 ? SITE.p.slice(1, n).concat([SITE.p[0]]) : SITE.p.slice(0, 1);
+    const pop = (v) => (v % 2 ? ' rs-pa' : ' rs-pb');
+    const tl = [[cd.dd, 'kun', cd.d], [cd.hh, 'soat', cd.h], [cd.mm, 'daqiqa', cd.m], [cd.ss, 'soniya', cd.s]];
+    const wst = [
+      'background: #1D4FB8; color: #F7F2E8; border-radius: 999px; rotate: -4deg',
+      'background: #FF6A2B; color: #142F6B; border-radius: 14px; rotate: 3deg',
+      'background: #FFFDF7; color: #1D4FB8; border-radius: 999px; outline: 2.5px solid #1D4FB8; outline-offset: -8px; rotate: -2deg',
+      'background: #142F6B; color: #FFB08F; border-radius: 6px; rotate: 4deg',
+      'background: #FF6A2B; color: #142F6B; border-radius: 999px; rotate: -3deg',
+      'background: #1D4FB8; color: #F7F2E8; border-radius: 14px; rotate: 2deg'
+    ];
+    const introTitle = name + ' uchun maxsus plakat';
+    const marqItems = [w.dm ? up(w.dm) : 'TUG’ILGAN KUN', yosh ? yosh + ' YOSH' : 'MUBORAK', nameUp, 'TUG’ILGAN KUN'];
+    const tapes = ['#FF6A2B', '#1D4FB8'];
+    return Object.assign({}, this.deco, {
+      from: from,
+      anyBlock: Object.keys(SITE.b).some((k) => SITE.b[k]),
+      nameUp: nameUp,
+      issue: yosh ? '№ ' + yosh : (w.year ? '№ ' + w.year : '№ 1'),
+      nameFs: tkFit(nameUp, 76, 20, 345, 0.98),
+      initial: nameUp.charAt(0),
+      noPhoto: !SITE.has.photo,
+      ageFs: yosh.length > 2 ? 34 : 50,
+      heroDate: [w.date, w.weekday].filter(Boolean).join(' · '),
+      marq: marqItems.concat(marqItems, marqItems, marqItems),
+      musicCls: SITE.music.playing ? 'rs-music rs-music--on' : 'rs-music',
+      musicOn: SITE.music.playing ? 'true' : 'false',
+      toggleMusic: () => { SITE.music.toggle(); },
+      cdTitle: cd.done ? 'Bayram boshlandi!' : 'Bayramgacha',
+      cdDate: [w.date, w.weekday].filter(Boolean).join(', '),
+      tiles: tl.map((t, i) => ({
+        v: t[0], l: t[1],
+        dot: (i % 2 ? 'rs-ht' : 'rs-htO') + ' rs-mul',
+        clsO: 'rs-num rs-o' + (i === 3 ? pop(t[2]) : ''),
+        clsB: 'rs-num rs-b' + (i === 3 ? pop(t[2]) : '')
+      })),
+      wishes: (D.tilaklar || []).map((t, i) => ({ text: t, st: wst[i % wst.length] + '; animation-delay: -' + (i * 0.9).toFixed(1) + 's' })),
+      cakeCls: s.blown ? 'rs-cake rs-cake--out' : 'rs-cake',
+      wishCls: s.blown ? 'rs-wishLine rs-wishLine--on' : 'rs-wishLine',
+      wishLine: 'Niyating ushalsin, ' + name + '!',
+      blowIdle: s.blown ? 'is-hidden' : '',
+      blowDone: s.blown ? '' : 'is-hidden',
+      blow: () => this.setState({ blown: !this.state.blown }),
+      cover: order[0],
+      coverCap: name,
+      hasRest: order.length > 1,
+      rest: order.slice(1).map((src, i) => ({
+        src: src, n: '0' + (i + 2),
+        st: 'position: relative; padding: 8px 8px 10px; background: #FFFDF7; border: 2px solid #142F6B; transform: rotate(' + (i % 2 ? 2 : -2) + 'deg)' + ((order.length - 1) % 2 === 1 && i === order.length - 2 ? '; grid-column: 1 / -1; width: 58%; justify-self: center' : ''),
+        tape: 'position: absolute; left: 50%; top: -12px; width: 70px; height: 22px; margin-left: -35px; background: ' + tapes[i % 2] + '; opacity: 0.75; transform: rotate(' + (i % 2 ? -6 : 5) + 'deg); z-index: 2'
+      })),
+      secCls: s.sec ? 'rs-sec rs-sec--on' : 'rs-sec',
+      toggleSec: () => this.setState({ sec: !this.state.sec }),
+      bazmDate: [bw.date, bw.weekday].filter(Boolean).join(', '),
+      tabText: [bw.dm, D.bazm_vaqt].filter(Boolean).join(' · ') || 'Bazm',
+      askGuest: !SITE.has.guest && !s.going,
+      setName: (e) => { this.guestName = e.target.value; },
+      goErr: s.goErr,
+      goCls: s.going ? 'rs-go rs-go--on' : 'rs-go',
+      goIdle: s.going ? 'is-hidden' : '',
+      goDone: s.going ? 'rs-row' : 'is-hidden',
+      go: () => {
+        if (this.state.going || this.busy) return;
+        const nm = this.guestName.trim();
+        if (!SITE.has.guest && !nm) { this.setState({ goErr: 'Ismingizni yozing' }); return; }
+        this.busy = true;
+        SITE.rsvp(true, 1, nm).then(() => { this.busy = false; this.setState({ going: true, goErr: '' }); })
+          .catch(() => { this.busy = false; this.setState({ goErr: 'Yuborilmadi, qayta urinib ko’ring' }); });
+      },
+      askName: name + 'ni tabrikladingizmi?',
+      sendCls: s.sent ? 'rs-btn rs-btn--done' : 'rs-btn',
+      sendIdle: s.sent ? 'is-hidden' : 'rs-row',
+      sendDone: s.sent ? 'rs-row' : 'is-hidden',
+      stampCls: s.sent ? 'rs-stamp rs-stamp--on' : 'rs-stamp',
+      burstCls: s.sent ? 'rs-burst rs-burst--go' : 'rs-burst',
+      send: () => { if (this.state.sent) return; this.setState({ sent: true }); SITE.reply('Tabrikladim', '🥰'); },
+      colophon: '2 rang · ' + (w.dots || 'riso'),
+      introCap: w.dm ? w.dm + ' · maxsus nashr' : 'Maxsus nashr',
+      introTitle: introTitle,
+      introFs: tkFit(introTitle, 36, 22, 330, 0.95),
+      panelText: yosh || '×2',
+      posterFs: tkFit(nameUp, 40, 18, 214, 0.98),
+      posterDate: up(w.dm || 'Tug’ilgan kun'),
+      posterAge: yosh || '!',
+      posterAgeL: yosh ? 'YOSH' : 'BAYRAM',
+      introCls: s.opened ? 'rs-intro rs-intro--open' : 'rs-intro',
+      pageCls: s.opened ? 'rs-page rs-page--in' : 'rs-page',
+      open: () => { if (this.state.opened) return; this.setState({ opened: true }); SITE.opened(); }
+    });
+  }
+}
+</script>
+</body>
+</html>

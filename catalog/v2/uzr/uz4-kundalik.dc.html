@@ -1,0 +1,650 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<title>Uzr Premium: Kundalik</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pangolin&amp;family=PT+Mono&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#1F5A58}
+.pk-h{font-family:'Pangolin','Comic Sans MS','Segoe Print',cursive}
+.pk-m{font-family:'PT Mono','Courier New',monospace}
+/* qalam chizgilari */
+.pk-pen{fill:none;stroke:#6B655C;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.pk-pen2{fill:none;stroke:#6B655C;stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round;opacity:.55}
+.pk-tl{fill:none;stroke:#2E7A77;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.pk-ic{fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.pk-ic2{fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.pk-wire{fill:none;stroke:#8E8B85;stroke-width:3.4;stroke-linecap:round}
+.pk-wireh{fill:none;stroke:#E4E2DD;stroke-width:1.2;stroke-linecap:round}
+.pk-scrib{fill:none;stroke:#7D776D;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round;opacity:.55}
+.pk-svgt{font-family:'Pangolin','Comic Sans MS',cursive;font-size:19px;fill:#1F5A58}
+/* yopishqoq lenta (washi) */
+.pk-tape{position:absolute;height:24px;clip-path:polygon(0 0,100% 0,96% 22%,100% 45%,96% 70%,100% 100%,0 100%,4% 76%,0 52%,4% 28%);box-shadow:0 1px 0 rgba(255,255,255,.4) inset}
+.pk-tape--y{background:repeating-linear-gradient(45deg,rgba(246,215,118,.92) 0 7px,rgba(250,231,166,.92) 7px 14px)}
+.pk-tape--t{background-color:rgba(124,186,180,.82);background-image:radial-gradient(circle,rgba(255,255,255,.8) 1.4px,transparent 1.9px);background-size:9px 9px}
+.pk-tape--g{background-color:rgba(233,226,211,.92);background-image:linear-gradient(90deg,rgba(46,122,119,.25) 1px,transparent 1px),linear-gradient(0deg,rgba(46,122,119,.25) 1px,transparent 1px);background-size:6px 6px}
+.pk-note{position:relative;box-shadow:0 12px 16px -12px rgba(52,49,44,.5),0 1px 2px rgba(52,49,44,.12)}
+.pk-note::after{content:'';position:absolute;right:0;bottom:0;width:24px;height:24px;background:linear-gradient(135deg,rgba(0,0,0,0) 50%,rgba(52,49,44,.14) 50%,rgba(255,255,255,.65) 100%)}
+.pk-pol{background:#FDFCF8;box-shadow:0 20px 26px -16px rgba(52,49,44,.55),0 1px 2px rgba(52,49,44,.15)}
+.pk-hl{background:linear-gradient(180deg,rgba(246,215,118,0) 52%,rgba(246,215,118,.95) 52%,rgba(246,215,118,.95) 88%,rgba(246,215,118,0) 88%);-webkit-box-decoration-break:clone;box-decoration-break:clone;padding:0 4px;margin:0 -4px}
+/* kirish: muqova ochiladi, varaqlar aylanadi */
+.pk-intro{perspective:1500px;perspective-origin:0 50%;transition:opacity .6s ease 2.2s,visibility 0s linear 2.85s}
+.pk-intro--open{opacity:0;visibility:hidden;pointer-events:none}
+.pk-flip{transform-origin:0 50%;-webkit-backface-visibility:hidden;backface-visibility:hidden}
+.pk-cover{transition:transform 1.05s cubic-bezier(.55,.05,.35,1) .35s}
+.pk-intro--open .pk-cover{transform:rotateY(-178deg)}
+.pk-pg1{transition:transform .8s cubic-bezier(.5,.05,.4,1) 1.05s}
+.pk-pg2{transition:transform .8s cubic-bezier(.5,.05,.4,1) 1.38s}
+.pk-pg3{transition:transform .8s cubic-bezier(.5,.05,.4,1) 1.7s}
+.pk-intro--open .pk-pg1,.pk-intro--open .pk-pg2,.pk-intro--open .pk-pg3{transform:rotateY(-178deg)}
+.pk-band{transition:transform .45s ease,opacity .45s ease}
+.pk-intro--open .pk-band{transform:translateX(90px) rotate(6deg);opacity:0}
+.pk-wob{animation:pkWob 4.5s ease-in-out infinite}
+@keyframes pkWob{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(3deg)}}
+.pk-tw{animation:pkTw 3s ease-in-out infinite}
+@keyframes pkTw{0%,100%{transform:scale(1) rotate(0deg)}50%{transform:scale(1.12) rotate(8deg)}}
+/* bosh qism: yozuv paydo bo'ladi, chizgilar chiziladi */
+.pk-write{clip-path:inset(0 100% 0 0)}
+.is-open .pk-write{clip-path:inset(0 0 0 0);transition:clip-path 1s cubic-bezier(.4,0,.3,1) 2.3s}
+.is-open .pk-write2{transition-delay:2.95s}
+.pk-fade{opacity:0;transform:translateY(8px)}
+.is-open .pk-fade{opacity:1;transform:none;transition:opacity .7s ease 3.5s,transform .7s ease 3.5s}
+.pk-draw{stroke-dasharray:1;stroke-dashoffset:1}
+.is-open .pk-draw{stroke-dashoffset:0;transition:stroke-dashoffset .9s ease 2.7s}
+.pk-pop0{opacity:0;transform:scale(.6)}
+.is-open .pk-pop0{opacity:1;transform:none;transition:opacity .4s ease 4.3s,transform .5s cubic-bezier(.3,1.6,.5,1) 4.3s}
+.pk-bob{animation:pkBob 2.2s ease-in-out infinite}
+@keyframes pkBob{0%,100%{transform:translateY(0)}50%{transform:translateY(7px)}}
+.pk-sway{animation:pkSway 6s ease-in-out infinite;transform-origin:50% 0}
+@keyframes pkSway{0%,100%{transform:rotate(4deg)}50%{transform:rotate(2deg)}}
+/* bloklar */
+.pk-stamp{animation:pkStamp .55s cubic-bezier(.2,1.5,.4,1) both}
+@keyframes pkStamp{from{opacity:0;transform:scale(1.8) rotate(-24deg)}to{opacity:1;transform:rotate(-12deg)}}
+.pk-in{animation:pkIn .6s cubic-bezier(.2,1.3,.4,1) both}
+@keyframes pkIn{from{opacity:0;transform:translateY(10px) scale(.96)}to{opacity:1;transform:none}}
+.pk-tickoff{opacity:0}
+.pk-tick{stroke-dasharray:1;stroke-dashoffset:1;animation:pkTick .5s ease .1s forwards}
+@keyframes pkTick{to{stroke-dashoffset:0}}
+.pk-heart{animation:pkHeart 2.6s ease-out infinite}
+@keyframes pkHeart{0%{opacity:0;transform:translateY(0) scale(.6)}20%{opacity:1}100%{opacity:0;transform:translateY(-60px) scale(1.1)}}
+.pk-eq{display:flex;align-items:flex-end;gap:3px;height:16px}
+.pk-eq span{width:3px;height:16px;border-radius:2px;background:#1F5A58;transform-origin:50% 100%;animation:pkEq 1s ease-in-out infinite}
+@keyframes pkEq{0%,100%{transform:scaleY(.3)}50%{transform:scaleY(1)}}
+.pk-btn{transition:transform .15s ease,box-shadow .2s ease}
+.pk-btn:active{transform:translateY(2px) scale(.98)}
+.pk-btn:focus-visible{outline:3px solid #1F5A58;outline-offset:3px}
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{animation:none !important;transition:none !important}.pk-write{clip-path:none}.pk-fade,.pk-pop0{opacity:1;transform:none}.pk-draw,.pk-tick{stroke-dashoffset:0}}
+</style>
+</helmet>
+<div class="{{ rootCls }}" style="width: 390px; min-height: var(--vh, 100vh); position: relative; overflow: hidden; background-color: #ECE8E1; background-image: radial-gradient(circle at 2px 2px, #C8C0B3 1.15px, rgba(200, 192, 179, 0) 1.7px); background-size: 22px 22px; color: #34312C; font-family: 'Pangolin', 'Comic Sans MS', cursive; display: flex; flex-direction: column">
+
+  <sc-if value="{{ has.music }}">
+  <button type="button" class="pk-btn" onClick="{{ toggleMusic }}" aria-label="Musiqa" aria-pressed="{{ musicOn }}" style="position: absolute; right: 14px; top: 14px; z-index: 30; width: 46px; height: 46px; padding: 0; border-radius: 50%; border: 2px solid #FFFFFF; background: #F6D776; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 6px 12px -6px rgba(52, 49, 44, 0.55); transform: rotate(-8deg)">
+    <sc-if value="{{ musicOff }}" hint-placeholder-val="{{ true }}">
+      <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 17.5V6l10-2v11.5" stroke="#1F5A58" class="pk-ic"></path><circle cx="6.8" cy="17.5" r="2.2" stroke="#1F5A58" class="pk-ic"></circle><circle cx="16.8" cy="15.5" r="2.2" stroke="#1F5A58" class="pk-ic"></circle></svg>
+    </sc-if>
+    <sc-if value="{{ musicOn }}" hint-placeholder-val="{{ false }}">
+      <span class="pk-eq" aria-hidden="true"><span></span><span style="animation-delay: -0.3s"></span><span style="animation-delay: -0.6s"></span><span style="animation-delay: -0.15s"></span></span>
+    </sc-if>
+  </button>
+  </sc-if>
+
+  <!-- KIRISH: kundalik muqovasi ochilib, varaqlar bugungi sahifagacha aylanadi -->
+  <div class="{{ introCls }}" data-intro style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; z-index: 20; overflow: hidden; background-color: #ECE8E1; background-image: radial-gradient(circle at 2px 2px, #C8C0B3 1.15px, rgba(200, 192, 179, 0) 1.7px); background-size: 22px 22px">
+
+    <!-- eski varaqlar -->
+    <div class="pk-flip pk-pg3" aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; z-index: 1; background-color: #EEEAE3; background-image: radial-gradient(circle at 2px 2px, #C8C0B3 1.15px, rgba(200, 192, 179, 0) 1.7px); background-size: 22px 22px; box-shadow: inset -18px 0 24px -20px rgba(52, 49, 44, 0.35)">
+      <p class="pk-m" style="position: absolute; left: 58px; top: 104px; margin: 0; font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: #1F5A58; opacity: 0.75">{{ prev3 }}</p>
+      <svg width="390" height="600" viewBox="0 0 390 600" style="position: absolute; left: 0; top: 0">
+        <path d="M58 160 q2.5 -5 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 m8 0 q2.5 -5 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 m8 0 q2.5 -7 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 m8 0 q2.5 -5 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 m8 0 q2.5 -4 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 m8 0 q2.5 -4 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 m8 0 q2.5 -6 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 m8 0 q2.5 -5 5 0 q1 3 2 1 m8 0" class="pk-scrib"></path>
+        <path d="M58 194 q2.5 -6 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 m8 0 q2.5 -6 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 m8 0 q2.5 -4 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 m8 0 q2.5 -5 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 m8 0 q2.5 -7 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 m8 0 q2.5 -4 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 m8 0 q2.5 -6 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 m8 0 q2.5 -4 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 m8 0" class="pk-scrib"></path>
+        <path d="M58 228 q2.5 -6 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 m8 0 q2.5 -4 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 m8 0 q2.5 -6 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 m8 0 q2.5 -4 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 m8 0 q2.5 -6 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 m8 0 q2.5 -4 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 m8 0 q2.5 -5 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 m8 0" class="pk-scrib"></path>
+        <path d="M58 262 q2.5 -4 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 m8 0 q2.5 -7 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 m8 0 q2.5 -5 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 m8 0 q2.5 -5 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 m8 0 q2.5 -5 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 m8 0 q2.5 -6 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 m8 0 q2.5 -5 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 m8 0" class="pk-scrib"></path>
+        <path d="M58 296 q2.5 -4 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 m8 0 q2.5 -7 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 m8 0 q2.5 -7 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 m8 0 q2.5 -7 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 m8 0 q2.5 -6 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 m8 0 q2.5 -7 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 m8 0 q2.5 -6 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 m8 0 q2.5 -6 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 m8 0" class="pk-scrib"></path>
+        <path d="M58 330 q2.5 -7 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 m8 0 q2.5 -6 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 m8 0 q2.5 -7 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 m8 0 q2.5 -7 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 m8 0 q2.5 -7 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 m8 0 q2.5 -6 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 m8 0 q2.5 -7 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 m8 0" class="pk-scrib"></path>
+        <path d="M58 364 q2.5 -6 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 m8 0 q2.5 -6 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 m8 0 q2.5 -5 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 m8 0 q2.5 -5 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 m8 0 q2.5 -4 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 m8 0 q2.5 -6 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 m8 0" class="pk-scrib"></path>
+        <path d="M58 398 q2.5 -4 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 m8 0 q2.5 -4 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 m8 0 q2.5 -5 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 m8 0 q2.5 -6 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 m8 0 q2.5 -6 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 m8 0 q2.5 -5 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 m8 0" class="pk-scrib"></path>
+        <path d="M58 432 q2.5 -4 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 m8 0 q2.5 -5 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 m8 0 q2.5 -6 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 m8 0 q2.5 -5 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 m8 0" class="pk-scrib"></path>
+        <path d="M300 520 C292 506 300 494 312 500 C324 494 332 506 324 520 L312 532 Z" class="pk-pen2"></path>
+      </svg>
+    </div>
+    <div class="pk-flip pk-pg2" aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; z-index: 2; background-color: #EFEBE4; background-image: radial-gradient(circle at 2px 2px, #C8C0B3 1.15px, rgba(200, 192, 179, 0) 1.7px); background-size: 22px 22px; box-shadow: inset -18px 0 24px -20px rgba(52, 49, 44, 0.35)">
+      <p class="pk-m" style="position: absolute; left: 58px; top: 126px; margin: 0; font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: #1F5A58; opacity: 0.75">{{ prev2 }}</p>
+      <svg width="390" height="620" viewBox="0 0 390 620" style="position: absolute; left: 0; top: 0">
+        <path d="M58 190 q2.5 -5 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 m8 0 q2.5 -6 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 m8 0 q2.5 -6 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 m8 0 q2.5 -5 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 m8 0 q2.5 -7 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 m8 0 q2.5 -5 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 m8 0 q2.5 -4 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 m8 0" class="pk-scrib"></path>
+        <path d="M58 224 q2.5 -7 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 m8 0 q2.5 -6 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 m8 0 q2.5 -4 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 m8 0 q2.5 -4 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 m8 0 q2.5 -6 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 m8 0 q2.5 -7 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 m8 0" class="pk-scrib"></path>
+        <path d="M58 258 q2.5 -7 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 m8 0 q2.5 -5 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 m8 0 q2.5 -5 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 m8 0 q2.5 -5 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 m8 0 q2.5 -5 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 m8 0 q2.5 -5 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 m8 0 q2.5 -6 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 m8 0 q2.5 -5 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 m8 0 q2.5 -6 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 m8 0" class="pk-scrib"></path>
+        <path d="M58 292 q2.5 -5 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 m8 0 q2.5 -6 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 m8 0 q2.5 -7 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 m8 0 q2.5 -5 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 m8 0 q2.5 -7 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 m8 0 q2.5 -5 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 m8 0 q2.5 -4 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 m8 0" class="pk-scrib"></path>
+        <path d="M58 326 q2.5 -7 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 m8 0 q2.5 -7 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 m8 0 q2.5 -6 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 m8 0 q2.5 -5 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 m8 0 q2.5 -4 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 m8 0 q2.5 -4 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 m8 0" class="pk-scrib"></path>
+        <path d="M58 360 q2.5 -7 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 m8 0 q2.5 -4 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 m8 0 q2.5 -7 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 m8 0 q2.5 -5 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 m8 0 q2.5 -7 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 m8 0 q2.5 -6 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 m8 0 q2.5 -5 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 m8 0" class="pk-scrib"></path>
+        <path d="M58 394 q2.5 -4 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 m8 0 q2.5 -6 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 m8 0 q2.5 -6 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 m8 0 q2.5 -5 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 m8 0 q2.5 -6 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 m8 0 q2.5 -7 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 m8 0 q2.5 -7 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 m8 0" class="pk-scrib"></path>
+        <path d="M58 428 q2.5 -7 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 m8 0 q2.5 -4 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 m8 0 q2.5 -7 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 m8 0 q2.5 -7 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 m8 0 q2.5 -6 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 m8 0 q2.5 -6 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 m8 0 q2.5 -7 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 m8 0 q2.5 -6 5 0 q1 3 2 1 m8 0" class="pk-scrib"></path>
+        <path d="M58 462 q2.5 -7 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 m8 0 q2.5 -7 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 m8 0 q2.5 -4 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 m8 0 q2.5 -5 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 m8 0" class="pk-scrib"></path>
+        <path d="M70 560 L74 570 L84 574 L74 578 L70 588 L66 578 L56 574 L66 570 Z" class="pk-pen2"></path>
+      </svg>
+      <div class="pk-tape pk-tape--g" style="left: 250px; top: 600px; width: 96px; transform: rotate(-8deg)"></div>
+    </div>
+    <div class="pk-flip pk-pg1" aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; z-index: 3; background-color: #F0ECE5; background-image: radial-gradient(circle at 2px 2px, #C8C0B3 1.15px, rgba(200, 192, 179, 0) 1.7px); background-size: 22px 22px; box-shadow: inset -18px 0 24px -20px rgba(52, 49, 44, 0.35)">
+      <p class="pk-m" style="position: absolute; left: 58px; top: 96px; margin: 0; font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: #1F5A58; opacity: 0.75">{{ prev1 }}</p>
+      <svg width="390" height="600" viewBox="0 0 390 600" style="position: absolute; left: 0; top: 0">
+        <path d="M58 170 q2.5 -7 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 m8 0 q2.5 -7 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 m8 0 q2.5 -5 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 m8 0 q2.5 -6 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 m8 0 q2.5 -6 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 m8 0 q2.5 -5 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 m8 0 q2.5 -6 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 m8 0" class="pk-scrib"></path>
+        <path d="M58 204 q2.5 -4 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 m8 0 q2.5 -6 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 m8 0 q2.5 -5 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 m8 0 q2.5 -5 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 m8 0 q2.5 -6 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 m8 0 q2.5 -7 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 m8 0 q2.5 -4 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 m8 0 q2.5 -5 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 m8 0" class="pk-scrib"></path>
+        <path d="M58 238 q2.5 -5 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 m8 0 q2.5 -6 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 m8 0 q2.5 -6 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 m8 0 q2.5 -6 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 m8 0 q2.5 -5 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 m8 0 q2.5 -6 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 m8 0 q2.5 -4 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 m8 0" class="pk-scrib"></path>
+        <path d="M58 272 q2.5 -5 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 m8 0 q2.5 -6 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 m8 0 q2.5 -7 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 m8 0 q2.5 -7 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 m8 0 q2.5 -6 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 m8 0 q2.5 -5 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 m8 0" class="pk-scrib"></path>
+        <path d="M58 306 q2.5 -6 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 m8 0 q2.5 -7 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 m8 0 q2.5 -6 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 m8 0 q2.5 -6 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 m8 0 q2.5 -4 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 m8 0 q2.5 -6 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 m8 0 q2.5 -4 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 m8 0 q2.5 -6 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 m8 0 q2.5 -5 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 m8 0" class="pk-scrib"></path>
+        <path d="M58 340 q2.5 -4 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 m8 0 q2.5 -5 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 m8 0 q2.5 -5 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 m8 0 q2.5 -4 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 m8 0 q2.5 -7 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 m8 0 q2.5 -7 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 m8 0 q2.5 -5 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 m8 0" class="pk-scrib"></path>
+        <path d="M58 374 q2.5 -5 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 m8 0 q2.5 -7 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 m8 0 q2.5 -5 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 m8 0 q2.5 -5 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 m8 0 q2.5 -5 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 m8 0 q2.5 -6 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 m8 0 q2.5 -7 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 m8 0 q2.5 -4 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 m8 0" class="pk-scrib"></path>
+        <path d="M58 408 q2.5 -6 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 m8 0 q2.5 -7 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 m8 0 q2.5 -5 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 m8 0 q2.5 -4 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 m8 0 q2.5 -7 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 m8 0 q2.5 -5 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 m8 0" class="pk-scrib"></path>
+        <path d="M58 442 q2.5 -5 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 m8 0 q2.5 -4 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 m8 0 q2.5 -6 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 q2.5 -7 5 0 q1 3 2 1 q2.5 -5 5 0 q1 3 2 1 q2.5 -4 5 0 q1 3 2 1 m8 0 q2.5 -6 5 0 q1 3 2 1 q2.5 -6 5 0 q1 3 2 1 m8 0" class="pk-scrib"></path>
+        <path d="M60 520 C120 508 200 528 250 512" class="pk-pen2"></path>
+      </svg>
+      <div class="pk-note" style="position: absolute; left: 236px; top: 560px; width: 118px; height: 104px; background: #FBEFC4; transform: rotate(5deg)"></div>
+    </div>
+
+    <!-- muqova -->
+    <div class="pk-flip pk-cover" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; z-index: 4; border-radius: 0 18px 18px 0; overflow: hidden; background-color: #2F7C7A; background-image: repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.045) 0 1px, rgba(255, 255, 255, 0) 1px 3px), repeating-linear-gradient(90deg, rgba(0, 0, 0, 0.05) 0 1px, rgba(0, 0, 0, 0) 1px 3px), linear-gradient(140deg, #3E8C88 0%, #2F7C7A 55%, #296C6A 100%); box-shadow: inset -10px 0 18px -10px rgba(0, 0, 0, 0.3)">
+      <div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 40px; height: 844px; background: linear-gradient(90deg, rgba(0, 0, 0, 0.18), rgba(0, 0, 0, 0.04))"></div>
+      <div aria-hidden="true" style="position: absolute; left: 46px; top: 14px; bottom: 14px; width: 0; border-left: 2px dashed rgba(249, 227, 154, 0.55)"></div>
+      <div aria-hidden="true" style="position: absolute; left: 60px; right: 14px; top: 14px; height: 0; border-top: 2px dashed rgba(249, 227, 154, 0.35)"></div>
+      <div aria-hidden="true" style="position: absolute; left: 60px; right: 14px; bottom: 14px; height: 0; border-top: 2px dashed rgba(249, 227, 154, 0.35)"></div>
+
+      <!-- yorliq -->
+      <div style="position: absolute; left: 76px; top: 168px; width: 232px; transform: rotate(-2.5deg)">
+        <div style="position: relative; padding: 26px 22px 22px; background-color: #FBF9F4; background-image: repeating-linear-gradient(180deg, rgba(46, 122, 119, 0) 0 33px, rgba(46, 122, 119, 0.22) 33px 34px); box-shadow: 0 14px 20px -12px rgba(0, 0, 0, 0.5); display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center">
+          <p class="pk-m" style="margin: 0; font-size: 21px; font-weight: 700; letter-spacing: 0.32em; padding-left: 0.32em; color: #1F5A58">KUNDALIK</p>
+          <svg width="150" height="10" viewBox="0 0 150 10" aria-hidden="true"><path d="M3 6 C30 2 60 8 90 4 C110 2 130 6 147 4" class="pk-pen"></path></svg>
+          <p style="margin: 4px 0 0; font-size: 25px; line-height: 1.2; color: #34312C; overflow-wrap: anywhere">{{ labelTo }}</p>
+          <p style="margin: 0; font-size: 19px; line-height: 1.25; color: #5A544B; overflow-wrap: anywhere">{{ labelFrom }}</p>
+        </div>
+        <div class="pk-tape pk-tape--y" style="left: -20px; top: -8px; width: 82px; transform: rotate(-32deg)"></div>
+        <div class="pk-tape pk-tape--t" style="right: -22px; bottom: -6px; width: 80px; transform: rotate(-28deg)"></div>
+      </div>
+
+      <!-- stikerlar -->
+      <svg class="pk-tw" width="64" height="64" viewBox="0 0 64 64" aria-hidden="true" style="position: absolute; left: 266px; top: 96px">
+        <path d="M32 4 L39.5 23 L60 24.5 L44 37.5 L49.5 58 L32 46.5 L14.5 58 L20 37.5 L4 24.5 L24.5 23 Z" fill="#FFFFFF" stroke="#FFFFFF" class="pk-ic2"></path>
+        <path d="M32 9 L38 24.5 L54.5 25.7 L41.7 36 L46 52.5 L32 43.3 L18 52.5 L22.3 36 L9.5 25.7 L26 24.5 Z" fill="#F6D776"></path>
+      </svg>
+      <div style="position: absolute; left: 72px; top: 470px; width: 104px; height: 104px; border-radius: 50%; background: #FBF9F4; border: 3px solid #FFFFFF; box-shadow: 0 10px 16px -10px rgba(0, 0, 0, 0.55); transform: rotate(-12deg); display: flex; align-items: center; justify-content: center; text-align: center">
+        <span style="font-size: 22px; line-height: 1.05; color: #1F5A58">sen<br>uchun</span>
+      </div>
+      <svg width="120" height="110" viewBox="0 0 120 110" aria-hidden="true" style="position: absolute; left: 196px; top: 454px; transform: rotate(8deg)">
+        <path d="M60 100 C24 78 6 58 12 36 C18 16 44 12 60 34 C76 12 102 16 108 36 C114 58 96 78 60 100 Z" fill="#FBF9F4" stroke="#FFFFFF" class="pk-ic2"></path>
+        <path d="M60 92 C30 74 16 56 20 38 C25 22 46 20 60 40 C74 20 95 22 100 38 C104 56 90 74 60 92 Z" fill="#F7C8B9"></path>
+        <g transform="rotate(-35 60 58)"><rect x="30" y="49" width="60" height="18" rx="8" fill="#F6D776"></rect><rect x="51" y="51" width="18" height="14" rx="3" fill="#FBEFC4"></rect><circle cx="38" cy="58" r="1.2" fill="#C9A43E"></circle><circle cx="44" cy="58" r="1.2" fill="#C9A43E"></circle><circle cx="76" cy="58" r="1.2" fill="#C9A43E"></circle><circle cx="82" cy="58" r="1.2" fill="#C9A43E"></circle></g>
+      </svg>
+
+      <div style="position: absolute; left: 54px; right: 76px; top: 604px; display: flex; flex-direction: column; align-items: center; gap: 22px; text-align: center">
+        <p style="margin: 0; font-size: 22px; line-height: 1.35; color: #FFFDF6">Bu sahifalarda senga aytolmagan gaplarim bor.</p>
+        <button type="button" class="pk-btn pk-m" onClick="{{ open }}" style="height: 58px; padding: 0 22px 0 18px; border: 0; border-radius: 14px; background: #F6D776; color: #1F5A58; font-size: 16px; font-weight: 700; letter-spacing: 0.04em; display: inline-flex; align-items: center; gap: 10px; cursor: pointer; box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.9), 0 16px 24px -12px rgba(0, 0, 0, 0.6)">
+          <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5 C7.5 4 10 4.5 12 6.5 C14 4.5 16.5 4 20 5.5 V19 C16.5 17.5 14 18 12 20 C10 18 7.5 17.5 4 19 Z M12 6.5 V20" stroke="#1F5A58" class="pk-ic"></path></svg>
+          <span>Kundalikni ochish</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- rezinka -->
+    <div class="pk-band" aria-hidden="true" style="position: absolute; left: 322px; top: 0; width: 18px; height: 844px; z-index: 5; background: linear-gradient(90deg, #D9B44E 0%, #F6D776 35%, #FBE7A4 55%, #E8C562 100%); box-shadow: -3px 0 6px rgba(0, 0, 0, 0.25)"></div>
+
+    <!-- spiral -->
+    <svg width="30" height="844" viewBox="0 0 30 844" aria-hidden="true" style="position: absolute; left: 0; top: 0; z-index: 6; overflow: visible">
+      <ellipse cx="21" cy="26" rx="4.6" ry="3.6" fill="#6A6257" opacity="0.5"></ellipse>
+      <path d="M3 32 C-1 25 5 17 13 17 C19 17 23 22 21 26" class="pk-wire"></path>
+      <path d="M4 29 C2 24 7 19 13 19" class="pk-wireh"></path>
+      <ellipse cx="21" cy="58" rx="4.6" ry="3.6" fill="#6A6257" opacity="0.5"></ellipse>
+      <path d="M3 64 C-1 57 5 49 13 49 C19 49 23 54 21 58" class="pk-wire"></path>
+      <path d="M4 61 C2 56 7 51 13 51" class="pk-wireh"></path>
+      <ellipse cx="21" cy="90" rx="4.6" ry="3.6" fill="#6A6257" opacity="0.5"></ellipse>
+      <path d="M3 96 C-1 89 5 81 13 81 C19 81 23 86 21 90" class="pk-wire"></path>
+      <path d="M4 93 C2 88 7 83 13 83" class="pk-wireh"></path>
+      <ellipse cx="21" cy="122" rx="4.6" ry="3.6" fill="#6A6257" opacity="0.5"></ellipse>
+      <path d="M3 128 C-1 121 5 113 13 113 C19 113 23 118 21 122" class="pk-wire"></path>
+      <path d="M4 125 C2 120 7 115 13 115" class="pk-wireh"></path>
+      <ellipse cx="21" cy="154" rx="4.6" ry="3.6" fill="#6A6257" opacity="0.5"></ellipse>
+      <path d="M3 160 C-1 153 5 145 13 145 C19 145 23 150 21 154" class="pk-wire"></path>
+      <path d="M4 157 C2 152 7 147 13 147" class="pk-wireh"></path>
+      <ellipse cx="21" cy="186" rx="4.6" ry="3.6" fill="#6A6257" opacity="0.5"></ellipse>
+      <path d="M3 192 C-1 185 5 177 13 177 C19 177 23 182 21 186" class="pk-wire"></path>
+      <path d="M4 189 C2 184 7 179 13 179" class="pk-wireh"></path>
+      <ellipse cx="21" cy="218" rx="4.6" ry="3.6" fill="#6A6257" opacity="0.5"></ellipse>
+      <path d="M3 224 C-1 217 5 209 13 209 C19 209 23 214 21 218" class="pk-wire"></path>
+      <path d="M4 221 C2 216 7 211 13 211" class="pk-wireh"></path>
+      <ellipse cx="21" cy="250" rx="4.6" ry="3.6" fill="#6A6257" opacity="0.5"></ellipse>
+      <path d="M3 256 C-1 249 5 241 13 241 C19 241 23 246 21 250" class="pk-wire"></path>
+      <path d="M4 253 C2 248 7 243 13 243" class="pk-wireh"></path>
+      <ellipse cx="21" cy="282" rx="4.6" ry="3.6" fill="#6A6257" opacity="0.5"></ellipse>
+      <path d="M3 288 C-1 281 5 273 13 273 C19 273 23 278 21 282" class="pk-wire"></path>
+      <path d="M4 285 C2 280 7 275 13 275" class="pk-wireh"></path>
+      <ellipse cx="21" cy="314" rx="4.6" ry="3.6" fill="#6A6257" opacity="0.5"></ellipse>
+      <path d="M3 320 C-1 313 5 305 13 305 C19 305 23 310 21 314" class="pk-wire"></path>
+      <path d="M4 317 C2 312 7 307 13 307" class="pk-wireh"></path>
+      <ellipse cx="21" cy="346" rx="4.6" ry="3.6" fill="#6A6257" opacity="0.5"></ellipse>
+      <path d="M3 352 C-1 345 5 337 13 337 C19 337 23 342 21 346" class="pk-wire"></path>
+      <path d="M4 349 C2 344 7 339 13 339" class="pk-wireh"></path>
+      <ellipse cx="21" cy="378" rx="4.6" ry="3.6" fill="#6A6257" opacity="0.5"></ellipse>
+      <path d="M3 384 C-1 377 5 369 13 369 C19 369 23 374 21 378" class="pk-wire"></path>
+      <path d="M4 381 C2 376 7 371 13 371" class="pk-wireh"></path>
+      <ellipse cx="21" cy="410" rx="4.6" ry="3.6" fill="#6A6257" opacity="0.5"></ellipse>
+      <path d="M3 416 C-1 409 5 401 13 401 C19 401 23 406 21 410" class="pk-wire"></path>
+      <path d="M4 413 C2 408 7 403 13 403" class="pk-wireh"></path>
+      <ellipse cx="21" cy="442" rx="4.6" ry="3.6" fill="#6A6257" opacity="0.5"></ellipse>
+      <path d="M3 448 C-1 441 5 433 13 433 C19 433 23 438 21 442" class="pk-wire"></path>
+      <path d="M4 445 C2 440 7 435 13 435" class="pk-wireh"></path>
+      <ellipse cx="21" cy="474" rx="4.6" ry="3.6" fill="#6A6257" opacity="0.5"></ellipse>
+      <path d="M3 480 C-1 473 5 465 13 465 C19 465 23 470 21 474" class="pk-wire"></path>
+      <path d="M4 477 C2 472 7 467 13 467" class="pk-wireh"></path>
+      <ellipse cx="21" cy="506" rx="4.6" ry="3.6" fill="#6A6257" opacity="0.5"></ellipse>
+      <path d="M3 512 C-1 505 5 497 13 497 C19 497 23 502 21 506" class="pk-wire"></path>
+      <path d="M4 509 C2 504 7 499 13 499" class="pk-wireh"></path>
+      <ellipse cx="21" cy="538" rx="4.6" ry="3.6" fill="#6A6257" opacity="0.5"></ellipse>
+      <path d="M3 544 C-1 537 5 529 13 529 C19 529 23 534 21 538" class="pk-wire"></path>
+      <path d="M4 541 C2 536 7 531 13 531" class="pk-wireh"></path>
+      <ellipse cx="21" cy="570" rx="4.6" ry="3.6" fill="#6A6257" opacity="0.5"></ellipse>
+      <path d="M3 576 C-1 569 5 561 13 561 C19 561 23 566 21 570" class="pk-wire"></path>
+      <path d="M4 573 C2 568 7 563 13 563" class="pk-wireh"></path>
+      <ellipse cx="21" cy="602" rx="4.6" ry="3.6" fill="#6A6257" opacity="0.5"></ellipse>
+      <path d="M3 608 C-1 601 5 593 13 593 C19 593 23 598 21 602" class="pk-wire"></path>
+      <path d="M4 605 C2 600 7 595 13 595" class="pk-wireh"></path>
+      <ellipse cx="21" cy="634" rx="4.6" ry="3.6" fill="#6A6257" opacity="0.5"></ellipse>
+      <path d="M3 640 C-1 633 5 625 13 625 C19 625 23 630 21 634" class="pk-wire"></path>
+      <path d="M4 637 C2 632 7 627 13 627" class="pk-wireh"></path>
+      <ellipse cx="21" cy="666" rx="4.6" ry="3.6" fill="#6A6257" opacity="0.5"></ellipse>
+      <path d="M3 672 C-1 665 5 657 13 657 C19 657 23 662 21 666" class="pk-wire"></path>
+      <path d="M4 669 C2 664 7 659 13 659" class="pk-wireh"></path>
+      <ellipse cx="21" cy="698" rx="4.6" ry="3.6" fill="#6A6257" opacity="0.5"></ellipse>
+      <path d="M3 704 C-1 697 5 689 13 689 C19 689 23 694 21 698" class="pk-wire"></path>
+      <path d="M4 701 C2 696 7 691 13 691" class="pk-wireh"></path>
+      <ellipse cx="21" cy="730" rx="4.6" ry="3.6" fill="#6A6257" opacity="0.5"></ellipse>
+      <path d="M3 736 C-1 729 5 721 13 721 C19 721 23 726 21 730" class="pk-wire"></path>
+      <path d="M4 733 C2 728 7 723 13 723" class="pk-wireh"></path>
+      <ellipse cx="21" cy="762" rx="4.6" ry="3.6" fill="#6A6257" opacity="0.5"></ellipse>
+      <path d="M3 768 C-1 761 5 753 13 753 C19 753 23 758 21 762" class="pk-wire"></path>
+      <path d="M4 765 C2 760 7 755 13 755" class="pk-wireh"></path>
+      <ellipse cx="21" cy="794" rx="4.6" ry="3.6" fill="#6A6257" opacity="0.5"></ellipse>
+      <path d="M3 800 C-1 793 5 785 13 785 C19 785 23 790 21 794" class="pk-wire"></path>
+      <path d="M4 797 C2 792 7 787 13 787" class="pk-wireh"></path>
+      <ellipse cx="21" cy="826" rx="4.6" ry="3.6" fill="#6A6257" opacity="0.5"></ellipse>
+      <path d="M3 832 C-1 825 5 817 13 817 C19 817 23 822 21 826" class="pk-wire"></path>
+      <path d="M4 829 C2 824 7 819 13 819" class="pk-wireh"></path>
+    </svg>
+  </div>
+
+  <!-- BOSH QISM: bugungi sahifa -->
+  <header style="flex: none; position: relative; height: 844px">
+    <svg width="30" height="844" viewBox="0 0 30 844" aria-hidden="true" style="position: absolute; left: 0; top: 0; overflow: visible">
+      <ellipse cx="21" cy="26" rx="4.6" ry="3.6" fill="#6A6257" opacity="0.5"></ellipse>
+      <path d="M3 32 C-1 25 5 17 13 17 C19 17 23 22 21 26" class="pk-wire"></path>
+      <path d="M4 29 C2 24 7 19 13 19" class="pk-wireh"></path>
+      <ellipse cx="21" cy="58" rx="4.6" ry="3.6" fill="#6A6257" opacity="0.5"></ellipse>
+      <path d="M3 64 C-1 57 5 49 13 49 C19 49 23 54 21 58" class="pk-wire"></path>
+      <path d="M4 61 C2 56 7 51 13 51" class="pk-wireh"></path>
+      <ellipse cx="21" cy="90" rx="4.6" ry="3.6" fill="#6A6257" opacity="0.5"></ellipse>
+      <path d="M3 96 C-1 89 5 81 13 81 C19 81 23 86 21 90" class="pk-wire"></path>
+      <path d="M4 93 C2 88 7 83 13 83" class="pk-wireh"></path>
+      <ellipse cx="21" cy="122" rx="4.6" ry="3.6" fill="#6A6257" opacity="0.5"></ellipse>
+      <path d="M3 128 C-1 121 5 113 13 113 C19 113 23 118 21 122" class="pk-wire"></path>
+      <path d="M4 125 C2 120 7 115 13 115" class="pk-wireh"></path>
+      <ellipse cx="21" cy="154" rx="4.6" ry="3.6" fill="#6A6257" opacity="0.5"></ellipse>
+      <path d="M3 160 C-1 153 5 145 13 145 C19 145 23 150 21 154" class="pk-wire"></path>
+      <path d="M4 157 C2 152 7 147 13 147" class="pk-wireh"></path>
+      <ellipse cx="21" cy="186" rx="4.6" ry="3.6" fill="#6A6257" opacity="0.5"></ellipse>
+      <path d="M3 192 C-1 185 5 177 13 177 C19 177 23 182 21 186" class="pk-wire"></path>
+      <path d="M4 189 C2 184 7 179 13 179" class="pk-wireh"></path>
+      <ellipse cx="21" cy="218" rx="4.6" ry="3.6" fill="#6A6257" opacity="0.5"></ellipse>
+      <path d="M3 224 C-1 217 5 209 13 209 C19 209 23 214 21 218" class="pk-wire"></path>
+      <path d="M4 221 C2 216 7 211 13 211" class="pk-wireh"></path>
+      <ellipse cx="21" cy="250" rx="4.6" ry="3.6" fill="#6A6257" opacity="0.5"></ellipse>
+      <path d="M3 256 C-1 249 5 241 13 241 C19 241 23 246 21 250" class="pk-wire"></path>
+      <path d="M4 253 C2 248 7 243 13 243" class="pk-wireh"></path>
+      <ellipse cx="21" cy="282" rx="4.6" ry="3.6" fill="#6A6257" opacity="0.5"></ellipse>
+      <path d="M3 288 C-1 281 5 273 13 273 C19 273 23 278 21 282" class="pk-wire"></path>
+      <path d="M4 285 C2 280 7 275 13 275" class="pk-wireh"></path>
+      <ellipse cx="21" cy="314" rx="4.6" ry="3.6" fill="#6A6257" opacity="0.5"></ellipse>
+      <path d="M3 320 C-1 313 5 305 13 305 C19 305 23 310 21 314" class="pk-wire"></path>
+      <path d="M4 317 C2 312 7 307 13 307" class="pk-wireh"></path>
+      <ellipse cx="21" cy="346" rx="4.6" ry="3.6" fill="#6A6257" opacity="0.5"></ellipse>
+      <path d="M3 352 C-1 345 5 337 13 337 C19 337 23 342 21 346" class="pk-wire"></path>
+      <path d="M4 349 C2 344 7 339 13 339" class="pk-wireh"></path>
+      <ellipse cx="21" cy="378" rx="4.6" ry="3.6" fill="#6A6257" opacity="0.5"></ellipse>
+      <path d="M3 384 C-1 377 5 369 13 369 C19 369 23 374 21 378" class="pk-wire"></path>
+      <path d="M4 381 C2 376 7 371 13 371" class="pk-wireh"></path>
+      <ellipse cx="21" cy="410" rx="4.6" ry="3.6" fill="#6A6257" opacity="0.5"></ellipse>
+      <path d="M3 416 C-1 409 5 401 13 401 C19 401 23 406 21 410" class="pk-wire"></path>
+      <path d="M4 413 C2 408 7 403 13 403" class="pk-wireh"></path>
+      <ellipse cx="21" cy="442" rx="4.6" ry="3.6" fill="#6A6257" opacity="0.5"></ellipse>
+      <path d="M3 448 C-1 441 5 433 13 433 C19 433 23 438 21 442" class="pk-wire"></path>
+      <path d="M4 445 C2 440 7 435 13 435" class="pk-wireh"></path>
+      <ellipse cx="21" cy="474" rx="4.6" ry="3.6" fill="#6A6257" opacity="0.5"></ellipse>
+      <path d="M3 480 C-1 473 5 465 13 465 C19 465 23 470 21 474" class="pk-wire"></path>
+      <path d="M4 477 C2 472 7 467 13 467" class="pk-wireh"></path>
+      <ellipse cx="21" cy="506" rx="4.6" ry="3.6" fill="#6A6257" opacity="0.5"></ellipse>
+      <path d="M3 512 C-1 505 5 497 13 497 C19 497 23 502 21 506" class="pk-wire"></path>
+      <path d="M4 509 C2 504 7 499 13 499" class="pk-wireh"></path>
+      <ellipse cx="21" cy="538" rx="4.6" ry="3.6" fill="#6A6257" opacity="0.5"></ellipse>
+      <path d="M3 544 C-1 537 5 529 13 529 C19 529 23 534 21 538" class="pk-wire"></path>
+      <path d="M4 541 C2 536 7 531 13 531" class="pk-wireh"></path>
+      <ellipse cx="21" cy="570" rx="4.6" ry="3.6" fill="#6A6257" opacity="0.5"></ellipse>
+      <path d="M3 576 C-1 569 5 561 13 561 C19 561 23 566 21 570" class="pk-wire"></path>
+      <path d="M4 573 C2 568 7 563 13 563" class="pk-wireh"></path>
+      <ellipse cx="21" cy="602" rx="4.6" ry="3.6" fill="#6A6257" opacity="0.5"></ellipse>
+      <path d="M3 608 C-1 601 5 593 13 593 C19 593 23 598 21 602" class="pk-wire"></path>
+      <path d="M4 605 C2 600 7 595 13 595" class="pk-wireh"></path>
+      <ellipse cx="21" cy="634" rx="4.6" ry="3.6" fill="#6A6257" opacity="0.5"></ellipse>
+      <path d="M3 640 C-1 633 5 625 13 625 C19 625 23 630 21 634" class="pk-wire"></path>
+      <path d="M4 637 C2 632 7 627 13 627" class="pk-wireh"></path>
+      <ellipse cx="21" cy="666" rx="4.6" ry="3.6" fill="#6A6257" opacity="0.5"></ellipse>
+      <path d="M3 672 C-1 665 5 657 13 657 C19 657 23 662 21 666" class="pk-wire"></path>
+      <path d="M4 669 C2 664 7 659 13 659" class="pk-wireh"></path>
+      <ellipse cx="21" cy="698" rx="4.6" ry="3.6" fill="#6A6257" opacity="0.5"></ellipse>
+      <path d="M3 704 C-1 697 5 689 13 689 C19 689 23 694 21 698" class="pk-wire"></path>
+      <path d="M4 701 C2 696 7 691 13 691" class="pk-wireh"></path>
+      <ellipse cx="21" cy="730" rx="4.6" ry="3.6" fill="#6A6257" opacity="0.5"></ellipse>
+      <path d="M3 736 C-1 729 5 721 13 721 C19 721 23 726 21 730" class="pk-wire"></path>
+      <path d="M4 733 C2 728 7 723 13 723" class="pk-wireh"></path>
+      <ellipse cx="21" cy="762" rx="4.6" ry="3.6" fill="#6A6257" opacity="0.5"></ellipse>
+      <path d="M3 768 C-1 761 5 753 13 753 C19 753 23 758 21 762" class="pk-wire"></path>
+      <path d="M4 765 C2 760 7 755 13 755" class="pk-wireh"></path>
+      <ellipse cx="21" cy="794" rx="4.6" ry="3.6" fill="#6A6257" opacity="0.5"></ellipse>
+      <path d="M3 800 C-1 793 5 785 13 785 C19 785 23 790 21 794" class="pk-wire"></path>
+      <path d="M4 797 C2 792 7 787 13 787" class="pk-wireh"></path>
+      <ellipse cx="21" cy="826" rx="4.6" ry="3.6" fill="#6A6257" opacity="0.5"></ellipse>
+      <path d="M3 832 C-1 825 5 817 13 817 C19 817 23 822 21 826" class="pk-wire"></path>
+      <path d="M4 829 C2 824 7 819 13 819" class="pk-wireh"></path>
+    </svg>
+
+    <p class="pk-m" style="position: absolute; left: 50px; top: 40px; margin: 0; font-size: 12px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: #1F5A58">Kundalikdan bir sahifa</p>
+
+    <div style="position: absolute; right: 22px; top: 74px; transform: rotate(7deg)">
+      <div style="position: relative; padding: 8px 12px 7px; border: 2px solid rgba(46, 122, 119, 0.85); border-radius: 6px; display: flex; flex-direction: column; align-items: center; gap: 1px; color: #1F5A58">
+        <span class="pk-m" style="font-size: 10px; font-weight: 700; letter-spacing: 0.24em">BUGUN</span>
+        <span class="pk-m" style="font-size: 16px; font-weight: 700; letter-spacing: 0.04em">{{ todayDm }}</span>
+        <span class="pk-m" style="font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase">{{ todayWd }}</span>
+      </div>
+      <div class="pk-tape pk-tape--t" style="left: 24px; top: -14px; width: 64px; height: 20px; transform: rotate(-6deg)"></div>
+    </div>
+
+    <div style="position: absolute; left: 48px; right: 22px; top: 150px; display: flex; flex-direction: column; gap: 14px">
+      <h1 style="margin: 0; font-weight: 400; line-height: 1.12; color: #34312C">
+        <span class="pk-write" style="display: block; font-size: {{ h1Size }}; overflow-wrap: anywhere">{{ d.kimga }},</span>
+        <span class="pk-write pk-write2" style="display: block; font-size: 44px; color: #1F5A58"><span class="pk-hl">kechirasanmi?</span></span>
+      </h1>
+      <p class="pk-fade" style="margin: 0; max-width: 300px; font-size: 20px; line-height: 1.45; color: #4F4A42">Bugungi sahifani faqat sen uchun yozdim. Oxirigacha o’qib chiq, iltimos.</p>
+      <p class="pk-m pk-fade" style="margin: 0; font-size: 12px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: #1F5A58; overflow-wrap: anywhere">{{ fromTo }}</p>
+    </div>
+
+    <!-- qalam bilan chizilgan rasm: yomg'ir, yamalgan yurak, quyosh -->
+    <svg width="310" height="240" viewBox="0 0 310 240" aria-hidden="true" style="position: absolute; left: 44px; top: {{ dTop }}; transform: scale({{ dScale }}); transform-origin: 0 0; overflow: visible">
+      <path d="M34 78 C22 78 16 66 24 58 C20 44 36 36 46 44 C50 30 72 28 78 42 C90 36 102 46 98 58 C108 62 106 78 94 78 Z" pathLength="1" class="pk-pen pk-draw"></path>
+      <path d="M36 82 C58 84 78 83 96 82" pathLength="1" class="pk-pen2 pk-draw" style="transition-delay: 3s"></path>
+      <path d="M40 92 L36 104 M56 94 L52 106 M72 92 L68 104 M88 94 L84 106" pathLength="1" class="pk-tl pk-draw" style="transition-delay: 3.2s"></path>
+      <path d="M106 40 C140 12 196 8 226 30" pathLength="1" class="pk-pen pk-draw" style="transition-delay: 3.3s"></path>
+      <path d="M215 22 L227 31 L215 37" pathLength="1" class="pk-pen pk-draw" style="transition-delay: 3.9s"></path>
+      <circle class="pk-pop0" cx="258" cy="48" r="15" fill="#F6D776" style="transform-origin: 258px 48px"></circle>
+      <path d="M258 32 C268 32 274 40 274 48 C274 58 266 64 258 64 C248 64 242 57 242 48 C242 39 249 32 259 33" pathLength="1" class="pk-pen pk-draw" style="transition-delay: 3.5s"></path>
+      <path d="M258 10 L258 20 M258 76 L258 86 M220 48 L230 48 M286 48 L296 48 M231 21 L238 28 M278 68 L285 75 M231 75 L238 68 M278 28 L285 21" pathLength="1" class="pk-pen pk-draw" style="transition-delay: 3.8s"></path>
+      <path d="M251 51 Q258 58 265 51" pathLength="1" class="pk-pen pk-draw" style="transition-delay: 4.1s"></path>
+      <path d="M150 220 C112 194 92 170 98 148 C104 126 132 120 150 144 C168 120 196 126 202 148 C208 170 188 194 150 220 Z" pathLength="1" class="pk-pen pk-draw" style="transition-delay: 2.7s"></path>
+      <path d="M150 214 C116 190 100 170 104 150 C110 132 132 128 150 150 C168 128 190 132 197 150 C202 170 186 190 150 214" pathLength="1" class="pk-pen2 pk-draw" style="transition-delay: 3s"></path>
+      <path d="M147 140 L157 158 L143 172 L157 188 L149 208" pathLength="1" class="pk-pen pk-draw" style="transition-delay: 3.4s"></path>
+      <g class="pk-pop0" style="transform-origin: 150px 172px">
+        <g transform="rotate(-32 150 172)"><rect x="114" y="162" width="72" height="20" rx="9" fill="#F6D776" stroke="#2E7A77" class="pk-ic"></rect><rect x="139" y="164" width="22" height="16" rx="3" fill="#FBEFC4"></rect><circle cx="123" cy="172" r="1.3" fill="#2E7A77"></circle><circle cx="130" cy="172" r="1.3" fill="#2E7A77"></circle><circle cx="170" cy="172" r="1.3" fill="#2E7A77"></circle><circle cx="177" cy="172" r="1.3" fill="#2E7A77"></circle></g>
+      </g>
+      <path d="M232 196 C224 184 214 180 204 182" pathLength="1" class="pk-tl pk-draw" style="transition-delay: 4.4s"></path>
+      <path d="M210 176 L203 182 L211 188" pathLength="1" class="pk-tl pk-draw" style="transition-delay: 4.7s"></path>
+      <text class="pk-svgt pk-pop0" x="214" y="218" style="transform-origin: 250px 212px">tuzataman</text>
+      <path d="M18 150 L22 160 L32 164 L22 168 L18 178 L14 168 L4 164 L14 160 Z" pathLength="1" class="pk-tl pk-draw" style="transition-delay: 4s"></path>
+      <path d="M286 130 c3 -3 8 0 6 5 c-3 6 -13 4 -13 -4 c0 -10 14 -14 20 -6 c6 9 -2 22 -14 21" pathLength="1" class="pk-pen pk-draw" style="transition-delay: 4.2s"></path>
+    </svg>
+
+    <!-- yopishqoq qog'oz -->
+    <div class="pk-fade" style="position: absolute; left: 208px; top: 676px; width: 152px">
+      <div class="pk-note pk-sway" style="padding: 22px 14px 18px; background: #F9E08A">
+        <p style="margin: 0; font-size: 18px; line-height: 1.3; color: #34312C">P.S. Bu safar so’zda emas, ishda isbotlayman.</p>
+      </div>
+      <div class="pk-tape pk-tape--t" style="left: 44px; top: -10px; width: 66px; height: 20px; transform: rotate(3deg)"></div>
+    </div>
+
+    <div class="pk-fade" style="position: absolute; left: 52px; top: 740px; display: flex; align-items: center; gap: 8px">
+      <svg class="pk-bob" width="34" height="46" viewBox="0 0 34 46" aria-hidden="true"><path d="M14 4 C20 14 8 22 16 32 C18 35 18 38 17 42 M9 34 L17 42 L24 33" class="pk-pen"></path></svg>
+      <span style="font-size: 20px; color: #5A544B">varaqlang</span>
+    </div>
+  </header>
+
+  <sc-if value="{{ b.maktub }}" hint-placeholder-val="{{ true }}">
+  <section style="flex: none; position: relative; padding: 34px 18px 46px">
+    <article style="position: relative; margin: 0 2px; padding: 64px 22px 32px 52px; background-color: #FBF9F4; background-image: linear-gradient(90deg, rgba(46, 122, 119, 0) 38px, rgba(46, 122, 119, 0.35) 38px, rgba(46, 122, 119, 0.35) 39px, rgba(46, 122, 119, 0) 39px), repeating-linear-gradient(180deg, rgba(46, 122, 119, 0) 0 31px, rgba(46, 122, 119, 0.2) 31px 32px); clip-path: polygon(0 1.4%, 5% 0.4%, 11% 1.2%, 17% 0.2%, 24% 1%, 31% 0.3%, 38% 1.3%, 45% 0.4%, 52% 1.1%, 59% 0.2%, 66% 1.2%, 73% 0.4%, 80% 1.3%, 87% 0.3%, 94% 1.1%, 100% 0.5%, 100% 100%, 0 100%); box-shadow: 0 18px 30px -22px rgba(52, 49, 44, 0.6); transform: rotate(-0.8deg)">
+      <span aria-hidden="true" style="position: absolute; left: 14px; top: 96px; width: 13px; height: 13px; border-radius: 50%; background: #ECE8E1; box-shadow: inset 1px 2px 3px rgba(52, 49, 44, 0.3)"></span>
+      <span aria-hidden="true" style="position: absolute; left: 14px; top: 50%; width: 13px; height: 13px; border-radius: 50%; background: #ECE8E1; box-shadow: inset 1px 2px 3px rgba(52, 49, 44, 0.3)"></span>
+      <span aria-hidden="true" style="position: absolute; left: 14px; bottom: 80px; width: 13px; height: 13px; border-radius: 50%; background: #ECE8E1; box-shadow: inset 1px 2px 3px rgba(52, 49, 44, 0.3)"></span>
+      <p class="pk-m" style="position: absolute; left: 52px; top: 30px; margin: 0; font-size: 12px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: #1F5A58">Maktub · {{ todayDm }}</p>
+      <h2 style="position: relative; margin: 0; font-weight: 400; font-size: 30px; line-height: 32px; color: #1F5A58">Yuragimdagi gaplar
+        <svg width="190" height="12" viewBox="0 0 190 12" aria-hidden="true" style="position: absolute; left: 0; top: 30px"><path d="M2 7 C40 2 90 10 130 5 C150 3 170 6 188 4" class="pk-tl"></path></svg>
+      </h2>
+      <p style="margin: 32px 0 0; font-size: 20px; line-height: 32px; color: #23605D; white-space: pre-line; overflow-wrap: anywhere">{{ d.matn }}</p>
+      <div style="margin-top: 32px; display: flex; justify-content: flex-end; align-items: center; gap: 8px">
+        <svg width="28" height="26" viewBox="0 0 28 26" aria-hidden="true" style="flex: none"><path d="M14 23 C5 17 2 12 3.5 7.5 C5 3 10.5 2.5 14 7 C17.5 2.5 23 3 24.5 7.5 C26 12 23 17 14 23 Z" fill="#F6D776" stroke="#6B655C" class="pk-ic"></path></svg>
+        <span style="font-size: {{ sigSize }}; line-height: 32px; color: #34312C; overflow-wrap: anywhere; text-align: right">{{ d.kimdan }}</span>
+      </div>
+    </article>
+    <div class="pk-tape pk-tape--y" style="left: 6px; top: 26px; width: 92px; transform: rotate(-24deg)"></div>
+    <div class="pk-tape pk-tape--g" style="right: 4px; top: 30px; width: 86px; transform: rotate(18deg)"></div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.vadalar }}" hint-placeholder-val="{{ true }}">
+  <section style="flex: none; position: relative; padding: 22px 22px 50px">
+    <div style="position: relative; display: flex; flex-direction: column; align-items: flex-start; gap: 2px; padding-left: 4px">
+      <span class="pk-m" style="font-size: 12px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: #1F5A58">Bundan buyon</span>
+      <div style="position: relative; padding: 6px 18px 10px 10px">
+        <svg width="210" height="78" viewBox="0 0 210 78" aria-hidden="true" style="position: absolute; left: -10px; top: -4px; overflow: visible"><path d="M120 6 C60 0 8 12 6 38 C4 64 70 76 130 70 C180 64 206 50 202 32 C198 12 160 4 100 8" class="pk-tl"></path></svg>
+        <h2 style="position: relative; margin: 0; font-weight: 400; font-size: 44px; line-height: 1.1; color: #34312C">Va’dalarim</h2>
+      </div>
+    </div>
+    <svg width="80" height="70" viewBox="0 0 80 70" aria-hidden="true" style="position: absolute; right: 26px; top: 22px"><path d="M8 40 C20 20 44 12 70 18 M58 8 L71 18 L60 28" class="pk-pen"></path><path d="M12 56 L15 63 L22 65 L15 67 L12 74 L9 67 L2 65 L9 63 Z" class="pk-tl"></path></svg>
+    <div style="margin-top: 22px; display: flex; flex-direction: column; gap: 22px">
+      <sc-for list="{{ promises }}" as="v" hint-placeholder-count="4">
+      <div class="pk-note" style="width: 296px; box-sizing: border-box; min-height: 74px; margin-left: {{ v.ml }}; padding: 20px 18px 18px 14px; background: {{ v.bg }}; transform: rotate({{ v.rot }}); display: flex; align-items: flex-start; gap: 12px">
+        <sc-if value="{{ v.tape }}"><div class="pk-tape pk-tape--t" style="left: 108px; top: -11px; width: 74px; height: 20px; transform: rotate(-4deg)"></div></sc-if>
+        <sc-if value="{{ v.pin }}"><span aria-hidden="true" style="position: absolute; left: 140px; top: -7px; width: 16px; height: 16px; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #7FC2BC 0%, #2E7A77 60%, #1F5A58 100%); box-shadow: 0 3px 4px rgba(52, 49, 44, 0.4)"></span></sc-if>
+        <span style="flex: none; position: relative; width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; font-size: 22px; color: #1F5A58">
+          <svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true" style="position: absolute; left: 0; top: 0"><path d="M17 3 C26 2 32 9 31 18 C30 27 22 32 15 31 C7 30 2 23 3 15 C4 8 10 3 19 4" class="pk-tl"></path></svg>
+          <span style="position: relative">{{ v.n }}</span>
+        </span>
+        <span style="flex: 1; min-width: 0; padding-top: 3px; font-size: 21px; line-height: 1.32; color: #34312C; overflow-wrap: anywhere">{{ v.text }}</span>
+      </div>
+      </sc-for>
+    </div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.galereya }}" hint-placeholder-val="{{ true }}">
+  <section style="flex: none; position: relative; padding: 18px 18px 50px; display: flex; flex-direction: column; align-items: center; gap: 14px">
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 2px; text-align: center">
+      <span class="pk-m" style="font-size: 12px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: #1F5A58">Yopishtirilgan xotiralar</span>
+      <h2 style="margin: 0; font-weight: 400; font-size: 36px; line-height: 1.15; color: #34312C">Eng yaxshi kunlarimiz</h2>
+    </div>
+    <sc-if value="{{ twoPhotos }}">
+      <div style="position: relative; width: 354px; height: 456px">
+        <figure class="pk-pol" style="position: absolute; left: 4px; top: 14px; width: 210px; margin: 0; padding: 11px 11px 48px; box-sizing: border-box; transform: rotate(-5deg)">
+          <img src="{{ p.0 }}" alt="" style="width: 188px; height: 210px; object-fit: cover; display: block">
+          <figcaption style="position: absolute; left: 16px; right: 0; bottom: 10px; text-align: left; font-size: 20px; color: #34312C">o’sha kun</figcaption>
+          <div class="pk-tape pk-tape--y" style="left: 64px; top: -12px; width: 84px; transform: rotate(4deg)"></div>
+        </figure>
+        <figure class="pk-pol" style="position: absolute; left: 146px; top: 192px; width: 206px; margin: 0; padding: 11px 11px 48px; box-sizing: border-box; transform: rotate(4.5deg)">
+          <img src="{{ p.1 }}" alt="" style="width: 184px; height: 196px; object-fit: cover; display: block">
+          <figcaption style="position: absolute; left: 0; right: 0; bottom: 10px; text-align: center; font-size: 20px; color: #34312C">yana shunday bo’ladi</figcaption>
+          <div class="pk-tape pk-tape--t" style="right: -18px; top: -6px; width: 70px; transform: rotate(38deg)"></div>
+        </figure>
+        <svg width="90" height="90" viewBox="0 0 90 90" aria-hidden="true" style="position: absolute; left: 24px; top: 330px"><path d="M45 74 C24 60 14 48 17 36 C20 24 36 22 45 35 C54 22 70 24 73 36 C76 48 66 60 45 74 Z" class="pk-tl"></path><path d="M45 68 C28 57 21 47 23 38" class="pk-pen2"></path></svg>
+        <svg width="40" height="40" viewBox="0 0 40 40" aria-hidden="true" style="position: absolute; left: 290px; top: 40px"><path d="M20 4 L24 16 L36 20 L24 24 L20 36 L16 24 L4 20 L16 16 Z" class="pk-pen"></path></svg>
+      </div>
+    </sc-if>
+    <sc-if value="{{ onePhoto }}">
+      <div style="position: relative; width: 300px; padding: 14px 0 10px">
+        <figure class="pk-pol" style="position: relative; width: 270px; margin: 0 auto; padding: 13px 13px 54px; box-sizing: border-box; transform: rotate(-2.5deg)">
+          <img src="{{ p.0 }}" alt="" style="width: 244px; height: 270px; object-fit: cover; display: block">
+          <figcaption style="position: absolute; left: 0; right: 0; bottom: 13px; text-align: center; font-size: 21px; color: #34312C">yana shunday bo’ladi</figcaption>
+          <div class="pk-tape pk-tape--y" style="left: 90px; top: -12px; width: 90px; transform: rotate(3deg)"></div>
+        </figure>
+        <svg width="40" height="40" viewBox="0 0 40 40" aria-hidden="true" style="position: absolute; right: -20px; bottom: 30px"><path d="M20 4 L24 16 L36 20 L24 24 L20 36 L16 24 L4 20 L16 16 Z" class="pk-tl"></path></svg>
+      </div>
+    </sc-if>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.taklif }}" hint-placeholder-val="{{ true }}">
+  <section style="flex: none; position: relative; padding: 14px 20px 50px">
+    <div style="position: relative; display: flex; transform: rotate(0.8deg); box-shadow: 0 18px 28px -20px rgba(52, 49, 44, 0.6)">
+      <div style="flex: none; width: 46px; background: #2E7A77; display: flex; align-items: center; justify-content: center; border-radius: 6px 0 0 6px">
+        <span class="pk-m" style="transform: rotate(-90deg); white-space: nowrap; font-size: 13px; font-weight: 700; letter-spacing: 0.32em; color: #FFFDF6">REJA</span>
+      </div>
+      <div style="flex: none; width: 12px; background-color: #FBF9F4; background-image: radial-gradient(circle at 0 50%, #ECE8E1 4px, rgba(236, 232, 225, 0) 4.5px); background-size: 12px 16px"></div>
+      <div style="flex: 1; min-width: 0; padding: 22px 20px 22px 8px; background: #FBF9F4; border-radius: 0 6px 6px 0; display: flex; flex-direction: column; gap: 12px">
+        <span class="pk-m" style="font-size: 12px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: #1F5A58">Yarashish taklifi</span>
+        <p style="margin: 0; font-size: 26px; line-height: 1.25; color: #34312C; overflow-wrap: anywhere">{{ d.taklif }}</p>
+        <sc-if value="{{ d.taklif_vaqt }}">
+        <div style="display: flex; align-items: center; gap: 10px; font-size: 19px; color: #34312C">
+          <svg width="26" height="26" viewBox="0 0 26 26" aria-hidden="true" style="flex: none"><path d="M13 3 C20 3 24 8 23 14 C22 20 17 24 12 23 C6 22 2 17 3 11 C4 6 8 3 14 3.5" class="pk-pen"></path><path d="M13 8 V13.5 L17 16" class="pk-tl"></path></svg>
+          <span style="overflow-wrap: anywhere">{{ d.taklif_vaqt }}</span>
+        </div>
+        </sc-if>
+        <sc-if value="{{ d.taklif_joy }}">
+        <div style="display: flex; align-items: center; gap: 10px; font-size: 19px; color: #34312C">
+          <svg width="26" height="26" viewBox="0 0 26 26" aria-hidden="true" style="flex: none"><path d="M13 24 C8 18 5 14 5 10 C5 5 9 2 13 2 C17.5 2 21 5 21 10 C21 14 18 18 13 24 Z" class="pk-pen"></path><circle cx="13" cy="10" r="3" class="pk-tl"></circle></svg>
+          <span style="overflow-wrap: anywhere">{{ d.taklif_joy }}</span>
+        </div>
+        </sc-if>
+        <sc-if value="{{ notAgreed }}" hint-placeholder-val="{{ true }}">
+          <button type="button" class="pk-btn pk-m" onClick="{{ agree }}" style="margin-top: 6px; height: 52px; border: 0; border-radius: 12px; background: #2E7A77; color: #FFFFFF; font-size: 16px; font-weight: 700; letter-spacing: 0.06em; cursor: pointer; box-shadow: 0 4px 0 #1F5A58">Roziman</button>
+        </sc-if>
+        <sc-if value="{{ agreed }}" hint-placeholder-val="{{ false }}">
+          <div role="status" style="position: relative; display: flex; align-items: center; gap: 14px; margin-top: 4px; min-height: 84px">
+            <div class="pk-stamp" style="flex: none; width: 84px; height: 84px; border-radius: 50%; border: 3px solid #2E7A77; display: flex; align-items: center; justify-content: center; box-shadow: inset 0 0 0 4px #FBF9F4, inset 0 0 0 5.5px #2E7A77">
+              <span class="pk-m" style="font-size: 11px; font-weight: 700; letter-spacing: 0.08em; color: #1F5A58; text-align: center; line-height: 1.2">KELISH-<br>DIK!</span>
+            </div>
+            <p class="pk-in" style="margin: 0; font-size: 19px; line-height: 1.35; color: #1F5A58; overflow-wrap: anywhere">{{ agreedText }}</p>
+          </div>
+        </sc-if>
+      </div>
+    </div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.javob }}" hint-placeholder-val="{{ true }}">
+  <section style="flex: none; position: relative; padding: 16px 26px 54px">
+    <div class="pk-note" style="padding: 34px 24px 28px; background-color: #FBEFC4; background-image: linear-gradient(180deg, rgba(246, 215, 118, 0.6), rgba(246, 215, 118, 0) 40%); transform: rotate(-1.5deg); display: flex; flex-direction: column; gap: 14px">
+      <div class="pk-tape pk-tape--g" style="left: 110px; top: -12px; width: 100px; transform: rotate(-3deg)"></div>
+      <svg width="74" height="92" viewBox="0 0 74 92" aria-hidden="true" style="position: absolute; right: 18px; top: 118px"><path d="M20 26 C20 12 32 6 42 8 C54 10 58 22 52 32 C46 41 37 42 37 54 V58" class="pk-pen"></path><path d="M36.5 68 L37.5 69" class="pk-pen" style="stroke-width: 4"></path><path d="M60 80 C52 75 49 71 50 67.5 C51 64 55.5 63.5 58 66.5 C60.5 63.5 65 64 66 67.5 C67 71 64 75 60 80 Z" fill="#F6D776" stroke="#2E7A77" class="pk-ic"></path><path d="M6 60 L8.5 65 L14 67 L8.5 69 L6 74 L3.5 69 L-2 67 L3.5 65 Z" class="pk-tl"></path></svg>
+      <h2 style="margin: 0; font-weight: 400; font-size: 36px; line-height: 1.1; color: #34312C">Meni kechirasanmi?</h2>
+      <p class="pk-m" style="margin: 0; font-size: 12px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: #1F5A58">Bittasini belgila</p>
+      <div style="display: flex; flex-direction: column; gap: 8px">
+        <button type="button" class="pk-btn" onClick="{{ forgiveA }}" disabled="{{ forgiven }}" aria-pressed="{{ tickA }}" style="height: 54px; padding: 0 12px 0 6px; border: 0; background: transparent; display: flex; align-items: center; gap: 12px; font-family: inherit; font-size: 24px; color: #34312C; cursor: pointer; text-align: left">
+          <svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true" style="flex: none"><path d="M5 6 C13 4 22 5 29 5 C30 13 29 21 29.5 29 C21 30 12 29 5 29.5 C4 21 4.5 13 5 6" class="pk-pen"></path><path d="M8 17 L15 25 L32 3" pathLength="1" class="{{ tickACls }}" style="stroke-width: 3"></path></svg>
+          <span>Ha</span>
+        </button>
+        <button type="button" class="pk-btn" onClick="{{ forgiveB }}" disabled="{{ forgiven }}" aria-pressed="{{ tickB }}" style="height: 54px; padding: 0 12px 0 6px; border: 0; background: transparent; display: flex; align-items: center; gap: 12px; font-family: inherit; font-size: 24px; color: #34312C; cursor: pointer; text-align: left">
+          <svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true" style="flex: none"><path d="M5 5 C12 5.5 22 4 29.5 5.5 C29 13 30 22 29 29 C21 29.5 12 30 5.5 29 C5 21 4 13 5 5" class="pk-pen"></path><path d="M8 17 L15 25 L32 3" pathLength="1" class="{{ tickBCls }}" style="stroke-width: 3"></path></svg>
+          <span>Albatta, ha!</span>
+        </button>
+      </div>
+      <sc-if value="{{ forgiven }}" hint-placeholder-val="{{ false }}">
+        <div role="status" style="position: relative; display: flex; flex-direction: column; gap: 6px; padding-top: 6px; border-top: 2px dashed rgba(107, 101, 92, 0.4)">
+          <svg class="pk-heart" width="22" height="20" viewBox="0 0 28 26" aria-hidden="true" style="position: absolute; right: 10px; top: 0"><path d="M14 23 C5 17 2 12 3.5 7.5 C5 3 10.5 2.5 14 7 C17.5 2.5 23 3 24.5 7.5 C26 12 23 17 14 23 Z" fill="#2E7A77"></path></svg>
+          <svg class="pk-heart" width="16" height="15" viewBox="0 0 28 26" aria-hidden="true" style="position: absolute; right: 44px; top: 10px; animation-delay: 0.9s"><path d="M14 23 C5 17 2 12 3.5 7.5 C5 3 10.5 2.5 14 7 C17.5 2.5 23 3 24.5 7.5 C26 12 23 17 14 23 Z" fill="#E8B84A"></path></svg>
+          <p class="pk-in" style="margin: 8px 0 0; font-size: 28px; line-height: 1.2; color: #1F5A58; overflow-wrap: anywhere">Rahmat, {{ d.kimga }}!</p>
+          <p class="pk-in" style="margin: 0; font-size: 19px; line-height: 1.45; color: #34312C; white-space: pre-line; overflow-wrap: anywhere; animation-delay: 0.15s">{{ thanks }}</p>
+        </div>
+      </sc-if>
+    </div>
+  </section>
+  </sc-if>
+
+  <footer style="flex: 1 0 auto; min-height: 330px; position: relative; display: flex; flex-direction: column; justify-content: flex-end">
+    <div style="position: relative; padding: 20px 28px 40px; display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center">
+      <svg width="120" height="60" viewBox="0 0 120 60" aria-hidden="true"><path d="M60 50 C42 38 34 30 36 22 C38 14 50 12 60 22 C70 12 82 14 84 22 C86 30 78 38 60 50 Z" class="pk-tl"></path><path d="M14 30 L18 38 L26 41 L18 44 L14 52 L10 44 L2 41 L10 38 Z" class="pk-pen"></path><path d="M104 10 L107 16 L113 18 L107 20 L104 26 L101 20 L95 18 L101 16 Z" class="pk-pen"></path></svg>
+      <p style="margin: 0; font-size: 44px; line-height: 1.05; color: #34312C">Davomi bor…</p>
+      <p style="margin: 0; max-width: 290px; font-size: 19px; line-height: 1.4; color: #4F4A42">Bu kundalikning eng yaxshi sahifalari hali oldinda.</p>
+      <p style="margin: 6px 0 0; font-size: {{ sigSize }}; line-height: 1.2; color: #1F5A58; overflow-wrap: anywhere">{{ d.kimdan }}</p>
+    </div>
+    <div aria-hidden="true" style="position: relative; height: 96px; border-radius: 18px 18px 0 0; background-color: #2F7C7A; background-image: repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.045) 0 1px, rgba(255, 255, 255, 0) 1px 3px), repeating-linear-gradient(90deg, rgba(0, 0, 0, 0.05) 0 1px, rgba(0, 0, 0, 0) 1px 3px), linear-gradient(140deg, #3E8C88 0%, #2F7C7A 55%, #296C6A 100%); box-shadow: 0 -8px 16px -10px rgba(52, 49, 44, 0.45)">
+      <div style="position: absolute; left: 14px; right: 14px; top: 14px; height: 0; border-top: 2px dashed rgba(249, 227, 154, 0.45)"></div>
+      <div style="position: absolute; left: 322px; top: 0; width: 18px; height: 96px; background: linear-gradient(90deg, #D9B44E 0%, #F6D776 35%, #FBE7A4 55%, #E8C562 100%)"></div>
+    </div>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":3600}}'>
+class Component extends DCLogic {
+  constructor(...args) {
+    super(...args);
+    this.state = { opened: false, agreed: false, forgiven: false, pick: '' };
+  }
+  renderVals() {
+    const s = this.state || {};
+    const d = SITE.d;
+    // bugungi va oldingi kunlar (Toshkent vaqti) — kundalik sahifalari uchun
+    const iso = (k) => new Date(Date.now() + 5 * 3600e3 - k * 86400e3).toISOString().slice(0, 10);
+    const today = SITE.when(iso(0));
+    const vad = d.vadalar || [];
+    const BG = ['#F9E08A', '#D3E8E4', '#FBEFC4', '#F7F4EC'];
+    const ROT = [-2.2, 1.6, -1.1, 2.1, -1.7, 1.2];
+    const promises = vad.map((text, i) => ({
+      text, n: i + 1, ml: i % 2 ? '30px' : '2px', bg: BG[i % 4], rot: ROT[i % ROT.length] + 'deg', tape: i % 2 === 0, pin: i % 2 === 1
+    }));
+    const tv = String(d.taklif_vaqt || '').trim();
+    const nameLen = String(d.kimga || '').length;
+    const fromLen = String(d.kimdan || '').length;
+    // uzun ism yoki imzo bo'lsa, rasm pastroq va kichikroq
+    const ftLines = Math.ceil(((d.kimdan || '').length + (d.kimga || '').length + 6) / 34);
+    const extra = (nameLen > 16 ? 22 : 0) + Math.max(0, ftLines - 1) * 15;
+    const dTopN = 418 + extra;
+    const forgive = (pick) => () => {
+      if (this.state.forgiven) return;
+      this.setState({ forgiven: true, pick });
+      SITE.reply(pick === 'b' ? 'Kechirdim. Albatta, ha!' : 'Kechirdim', '🤗');
+    };
+    return {
+      rootCls: s.opened ? 'is-open' : '',
+      introCls: s.opened ? 'pk-intro pk-intro--open' : 'pk-intro',
+      open: () => { if (this.state.opened) return; this.setState({ opened: true }); SITE.opened(); },
+      musicOn: !!SITE.music.playing,
+      musicOff: !SITE.music.playing,
+      toggleMusic: () => SITE.music.toggle(),
+      todayDm: today.dm,
+      todayWd: today.weekday,
+      prev1: SITE.when(iso(1)).dm, prev2: SITE.when(iso(2)).dm, prev3: SITE.when(iso(3)).dm,
+      labelTo: SITE.ga(d.kimga),
+      labelFrom: (d.kimdan || '') + 'dan',
+      fromTo: (d.kimdan || '') + 'dan ' + SITE.ga(d.kimga),
+      h1Size: nameLen > 18 ? '36px' : nameLen > 11 ? '44px' : '54px',
+      sigSize: fromLen > 16 ? '22px' : '30px',
+      promises,
+      dTop: dTopN + 'px',
+      dScale: Math.max(0.6, Math.min(1, (672 - dTopN) / 240)).toFixed(3),
+      twoPhotos: SITE.has.photos >= 2,
+      onePhoto: SITE.has.photos < 2,
+      agreedText: tv ? 'Kelishdik! ' + tv + ' — kutaman.' : 'Kelishdik! Seni kutaman.',
+      agreed: !!s.agreed,
+      notAgreed: !s.agreed,
+      agree: () => { this.setState({ agreed: true }); SITE.reply('Roziman: ' + (d.taklif || ''), '🥰'); },
+      thanks: d.javob_matni || 'Bugungi sahifani yulduzcha bilan belgilab qo’yaman. Va’dalarimni unutmayman.',
+      forgiven: !!s.forgiven,
+      tickA: s.pick === 'a',
+      tickB: s.pick === 'b',
+      tickACls: s.pick === 'a' ? 'pk-tl pk-tick' : 'pk-tl pk-tickoff',
+      tickBCls: s.pick === 'b' ? 'pk-tl pk-tick' : 'pk-tl pk-tickoff',
+      forgiveA: forgive('a'),
+      forgiveB: forgive('b')
+    };
+  }
+}
+</script>
+</body>
+</html>

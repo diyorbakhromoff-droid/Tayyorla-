@@ -1,0 +1,650 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<title>Sevgi maktubi: Vitraj</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Forum&amp;family=Alegreya:ital,wght@0,400;0,500;0,700;1,400;1,500&amp;display=swap">
+<style>
+body{margin:0}
+.fo{font-family:'Forum',Georgia,'Times New Roman',serif;font-weight:400}
+.ico{fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.ico-f{fill:currentColor}
+button:focus-visible{outline:3px solid #FFD27A;outline-offset:3px}
+button:disabled{opacity:.75;cursor:default}
+.v-foil{background:linear-gradient(100deg,#B7782A 0%,#FFD98A 28%,#E8A33A 48%,#FFF1CC 64%,#D0932F 84%,#F5C76A 100%);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent}
+
+/* glass */
+.sS0{stop-color:#7FA8F0}.sS1{stop-color:#1F4FA8}.sS2{stop-color:#0A1E55}
+.sT0{stop-color:#4F7FD6}.sT1{stop-color:#163C8A}.sT2{stop-color:#081A48}
+.sE0{stop-color:#7AD9A6}.sE1{stop-color:#1A7F51}.sE2{stop-color:#083F26}
+.sA0{stop-color:#FFE29A}.sA1{stop-color:#DE982F}.sA2{stop-color:#8A4C0C}
+.sR0{stop-color:#F27C93}.sR1{stop-color:#A81C36}.sR2{stop-color:#550918}
+.sC0{stop-color:#FFF6DC}.sC1{stop-color:#E9D9AE}.sC2{stop-color:#B49C66}
+.f-s{fill:url(#vgS)}.f-t{fill:url(#vgT)}.f-e{fill:url(#vgE)}.f-a{fill:url(#vgA)}.f-r{fill:url(#vgR)}.f-c{fill:url(#vgC)}
+.v-lead{fill:none;stroke:#06070B;stroke-width:3;stroke-linejoin:round}
+.v-lead2{fill:none;stroke:#06070B;stroke-width:1.6;stroke-linejoin:round}
+.v-hi{fill:none;stroke:rgba(255,236,190,.22);stroke-width:1}
+.v-rim{fill:none;stroke:#1B202D;stroke-width:12}
+.v-rim2{fill:none;stroke:#D9B25F;stroke-width:1;opacity:.55}
+.v-riv{fill:#D9B25F;opacity:.8}
+.v-arch{fill:none;stroke:#D9B25F;stroke-width:1.2;opacity:.55}
+.v-arch2{fill:none;stroke:#2A3042;stroke-width:9}
+.v-sill{fill:#1B202D}.v-sill2{fill:none;stroke:#D9B25F;stroke-width:1;opacity:.6}
+.v-tex{pointer-events:none;mix-blend-mode:overlay;background-image:radial-gradient(circle at 30% 30%,rgba(255,255,255,.34) 0,rgba(255,255,255,0) 42%),radial-gradient(circle at 60% 60%,rgba(0,0,0,.34) 0,rgba(0,0,0,0) 40%),radial-gradient(circle at 50% 50%,rgba(255,255,255,.2) 0,rgba(255,255,255,0) 35%),repeating-linear-gradient(112deg,rgba(255,255,255,.1) 0 2px,rgba(255,255,255,0) 2px 8px,rgba(0,0,0,.1) 8px 10px,rgba(0,0,0,0) 10px 15px);background-size:37px 41px,53px 47px,23px 29px,100% 100%}
+.v-mono{font-family:'Forum',Georgia,serif;font-size:21px;fill:#FFE3A0;text-anchor:middle;letter-spacing:1px}
+.v-ln{stroke:#D9B25F;stroke-width:1;opacity:.7}
+.v-spk{fill:#FFF3D6}
+.v-sky1{fill:#14306C}.v-sky2{fill:#1A3C82}
+.v-st{fill:#FFE3A0}.v-st-o{fill:#BFD6FF}
+.v-cl{fill:none;stroke:#D9B25F;stroke-width:1.2;opacity:.75;stroke-linejoin:round}
+.v-pair{fill:none;stroke:#FF8DA0;stroke-width:1.6;stroke-dasharray:4 4}
+.v-star-big{fill:#FFF1CC}
+.v-star-lbl{font-family:'Forum',Georgia,serif;font-size:15px;fill:#FFD98A}
+
+/* intro */
+.v-intro{transition:opacity .7s ease 2.05s,visibility 0s linear 2.8s}
+.v-intro.is-open{opacity:0;visibility:hidden;pointer-events:none}
+.v-dim{fill:#081230;opacity:.72;transition:opacity .7s ease}
+.v-intro.is-open .v-dim{opacity:0}
+.v-out{transition:opacity .45s ease,transform .45s ease}
+.v-intro.is-open .v-out{opacity:0;transform:translateY(10px)}
+.v-sweep{opacity:0;transform:translate(-228px,304px) rotate(37deg)}
+.v-intro.is-open .v-sweep{animation:vSweep 1.9s cubic-bezier(.4,0,.3,1) .15s both}
+@keyframes vSweep{0%{opacity:0;transform:translate(-228px,304px) rotate(37deg)}20%{opacity:1}80%{opacity:.9}100%{opacity:0;transform:translate(228px,-304px) rotate(37deg)}}
+.v-raysI{opacity:0;transition:opacity 1s ease 1.2s}
+.v-intro.is-open .v-raysI{opacity:1}
+
+/* motion */
+.v-glint{animation:vGlint 7s ease-in-out infinite}
+@keyframes vGlint{0%{transform:translateX(-380px) skewX(-18deg)}45%,100%{transform:translateX(420px) skewX(-18deg)}}
+.v-ray{animation:vRay 6s ease-in-out infinite}
+.v-ray2{animation-duration:8s;animation-delay:-3s}.v-ray3{animation-duration:7s;animation-delay:-5s}
+@keyframes vRay{0%,100%{opacity:.55}50%{opacity:1}}
+.v-tw{animation:vTw 2.8s ease-in-out infinite}
+.v-tw2{animation-delay:-.9s}.v-tw3{animation-delay:-1.8s}
+@keyframes vTw{0%,100%{opacity:.15;transform:scale(.6)}50%{opacity:1;transform:scale(1)}}
+.v-mote{position:absolute;border-radius:50%;background:rgba(255,226,160,.7);animation:vMote 11s ease-in-out infinite}
+@keyframes vMote{0%,100%{transform:translate(0,0);opacity:.2}50%{transform:translate(14px,-30px);opacity:.9}}
+.v-breath{animation:vBreath 4s ease-in-out infinite}
+@keyframes vBreath{0%,100%{opacity:.45}50%{opacity:.9}}
+.v-flip{display:inline-block;animation:vFlip .55s cubic-bezier(.3,1.4,.5,1) both}
+@keyframes vFlip{from{transform:perspective(200px) rotateX(-90deg);opacity:.2}to{transform:none;opacity:1}}
+.v-frost{transition:transform 1.1s cubic-bezier(.6,0,.3,1),opacity .7s ease .45s}
+.v-frost.is-clear{transform:translateX(108%) skewX(-8deg);opacity:0;pointer-events:none}
+.v-secret{filter:blur(6px);opacity:.7;transition:filter .9s ease .3s,opacity .9s ease .3s}
+.v-secret.is-shown{filter:none;opacity:1}
+.v-shard{position:absolute;left:0;top:0;opacity:0;animation:vShard 1.6s cubic-bezier(.2,.7,.3,1) both}
+@keyframes vShard{0%{transform:translate(0,0) rotate(0) scale(.3);opacity:0}15%{opacity:1}100%{transform:translate(var(--dx),var(--dy)) rotate(var(--rot)) scale(1);opacity:0}}
+.v-lit{transition:opacity 1s ease}
+.v-in{animation:vIn .6s ease-out both}
+@keyframes vIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+@media (prefers-reduced-motion: reduce){
+.v-glint,.v-ray,.v-tw,.v-mote,.v-breath,.v-flip,.v-shard,.v-in{animation:none}
+.v-glint,.v-shard{opacity:0}
+.v-intro,.v-dim,.v-out,.v-raysI,.v-frost,.v-secret,.v-lit{transition:none}
+.v-intro.is-open .v-sweep{animation:none}
+}
+</style>
+</helmet>
+<div style="width: 390px; min-height: var(--vh, 100vh); position: relative; overflow: hidden; background: #0E1118; color: #F3EBDD; font-family: 'Alegreya', Georgia, 'Times New Roman', serif; display: flex; flex-direction: column">
+
+  <svg aria-hidden="true" width="0" height="0" style="position: absolute; left: 0; top: 0">
+    <defs>
+      <radialGradient id="vgS" cx=".36" cy=".3" r=".9"><stop offset="0" class="sS0"></stop><stop offset=".5" class="sS1"></stop><stop offset="1" class="sS2"></stop></radialGradient>
+      <radialGradient id="vgT" cx=".36" cy=".3" r=".9"><stop offset="0" class="sT0"></stop><stop offset=".5" class="sT1"></stop><stop offset="1" class="sT2"></stop></radialGradient>
+      <radialGradient id="vgE" cx=".36" cy=".3" r=".9"><stop offset="0" class="sE0"></stop><stop offset=".5" class="sE1"></stop><stop offset="1" class="sE2"></stop></radialGradient>
+      <radialGradient id="vgA" cx=".36" cy=".3" r=".9"><stop offset="0" class="sA0"></stop><stop offset=".5" class="sA1"></stop><stop offset="1" class="sA2"></stop></radialGradient>
+      <radialGradient id="vgR" cx=".36" cy=".3" r=".9"><stop offset="0" class="sR0"></stop><stop offset=".5" class="sR1"></stop><stop offset="1" class="sR2"></stop></radialGradient>
+      <radialGradient id="vgC" cx=".36" cy=".3" r=".9"><stop offset="0" class="sC0"></stop><stop offset=".5" class="sC1"></stop><stop offset="1" class="sC2"></stop></radialGradient>
+    </defs>
+  </svg>
+
+  <sc-if value="{{ has.music }}">
+  <button type="button" aria-label="Musiqa" aria-pressed="{{ musicOn }}" onClick="{{ toggleMusic }}" style="position: absolute; top: 14px; right: 14px; z-index: 40; width: 46px; height: 46px; padding: 0; border-radius: 50%; border: 2px solid #06070B; background: radial-gradient(circle at 36% 30%, #4F7FD6, #163C8A 55%, #081A48); color: #FFE3A0; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 0 1px rgba(217, 178, 95, 0.6), 0 0 18px rgba(79, 127, 214, 0.5)">
+    <sc-if value="{{ musicOff }}" hint-placeholder-val="{{ true }}">
+      <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path class="ico" d="M9 18V5l11-2v13"></path><circle class="ico" cx="6" cy="18" r="3"></circle><circle class="ico" cx="17" cy="16" r="3"></circle><path class="ico" d="M3 3l18 18"></path></svg>
+    </sc-if>
+    <sc-if value="{{ musicOn }}" hint-placeholder-val="{{ false }}">
+      <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path class="ico" d="M9 18V5l11-2v13"></path><circle class="ico" cx="6" cy="18" r="3"></circle><circle class="ico" cx="17" cy="16" r="3"></circle></svg>
+    </sc-if>
+  </button>
+  </sc-if>
+
+  <div data-intro class="{{ introCls }}" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; z-index: 30; overflow: hidden; background: radial-gradient(70% 45% at 50% 36%, #141B2E 0%, #0B0E15 70%)">
+    <div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px">
+      <span class="v-mote" style="left: 60px; top: 520px; width: 3px; height: 3px"></span>
+      <span class="v-mote" style="left: 300px; top: 600px; width: 2px; height: 2px; animation-delay: -4s"></span>
+      <span class="v-mote" style="left: 180px; top: 700px; width: 3px; height: 3px; animation-delay: -7s"></span>
+      <div class="v-raysI" style="position: absolute; left: 0; top: 300px; width: 390px; height: 544px">
+        <div class="v-ray" style="position: absolute; left: 0; top: 0; width: 390px; height: 544px; background: linear-gradient(180deg, rgba(232, 163, 58, 0.34), rgba(232, 163, 58, 0)); clip-path: polygon(38% 0, 50% 0, 78% 100%, 46% 100%); filter: blur(10px)"></div>
+        <div class="v-ray v-ray2" style="position: absolute; left: 0; top: 0; width: 390px; height: 544px; background: linear-gradient(180deg, rgba(79, 134, 224, 0.36), rgba(79, 134, 224, 0)); clip-path: polygon(52% 0, 62% 0, 100% 100%, 80% 100%); filter: blur(10px)"></div>
+        <div class="v-ray v-ray3" style="position: absolute; left: 0; top: 0; width: 390px; height: 544px; background: linear-gradient(180deg, rgba(224, 80, 106, 0.3), rgba(224, 80, 106, 0)); clip-path: polygon(28% 0, 36% 0, 42% 100%, 18% 100%); filter: blur(10px)"></div>
+      </div>
+      <svg style="position: absolute; left: 0; top: 0" width="390" height="640" viewBox="0 0 390 640">
+        <path class="v-arch2" d="M14 640 V330 A322.8 322.8 0 0 1 195 40 A322.8 322.8 0 0 1 376 330 V640"></path>
+        <path class="v-arch" d="M6 640 V330 A330 330 0 0 1 195 32 A330 330 0 0 1 384 330 V640"></path>
+        <path class="v-arch" d="M22 640 V330 A315 315 0 0 1 195 48 A315 315 0 0 1 368 330 V640"></path>
+        <rect class="v-sill" x="0" y="626" width="390" height="14"></rect><path class="v-sill2" d="M0 626.5 H390 M0 639.5 H390"></path>
+        <circle class="v-rim" cx="195" cy="300" r="164"></circle>
+        <circle class="v-rim2" cx="195" cy="300" r="171"></circle>
+        <sc-for list="{{ rivets }}" as="q"><circle class="v-riv" cx="{{ q.x }}" cy="{{ q.y }}" r="1.6"></circle></sc-for>
+        <sc-for list="{{ rose }}" as="g"><path class="{{ g.f }}" d="{{ g.d }}"></path></sc-for>
+        <text class="v-mono" x="195" y="307">{{ mono }}</text>
+        <sc-for list="{{ rose }}" as="g"><path class="v-dim" d="{{ g.d }}" style="{{ g.st }}"></path></sc-for>
+        <path class="v-lead" d="{{ leadD }}"></path>
+        <path class="v-hi" d="{{ hiD }}"></path>
+      </svg>
+      <div class="v-tex" style="position: absolute; left: 35px; top: 140px; width: 320px; height: 320px; border-radius: 50%"></div>
+      <div class="v-tex" style="position: absolute; left: 55px; top: 488px; width: 280px; height: 130px"></div>
+      <div class="v-sweep" style="position: absolute; left: -255px; top: 222px; width: 900px; height: 220px; background: linear-gradient(180deg, rgba(255, 214, 140, 0) 0%, rgba(255, 214, 140, 0.4) 50%, rgba(255, 214, 140, 0) 100%); filter: blur(6px)"></div>
+    </div>
+
+    <div class="v-out" style="position: absolute; left: 0; top: 0; width: 390px; height: 30px; display: flex; align-items: flex-end; justify-content: center">
+      <p style="margin: 0; font-size: 11px; font-weight: 700; letter-spacing: 0.32em; text-transform: uppercase; color: #8E97AE">Tong otmoqda</p>
+    </div>
+    <div class="v-out" style="position: absolute; left: 0; top: 654px; width: 390px; box-sizing: border-box; padding: 0 24px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 6px">
+      <p style="margin: 0; font-size: 12px; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: #E8A33A; overflow-wrap: anywhere">{{ introEyebrow }}</p>
+      <p class="fo v-foil" style="margin: 0; font-size: {{ introPx }}px; line-height: 1.08; overflow-wrap: break-word">{{ d.kimga }} uchun</p>
+    </div>
+    <div class="v-out" style="position: absolute; left: 0; top: 762px; width: 390px; display: flex; flex-direction: column; align-items: center; gap: 8px">
+      <button type="button" onClick="{{ open }}" style="min-height: 56px; padding: 0 30px; border-radius: 999px; border: 2px solid #06070B; background: linear-gradient(110deg, #B7782A 0%, #FFD98A 30%, #E8A33A 52%, #FFF1CC 68%, #C98A2A 100%); color: #12151E; font-family: 'Forum', Georgia, serif; font-size: 19px; letter-spacing: 0.04em; cursor: pointer; display: flex; align-items: center; gap: 10px; box-shadow: 0 0 0 1px rgba(255, 217, 138, 0.5), 0 0 34px rgba(232, 163, 58, 0.4)">
+        <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><circle class="ico" cx="12" cy="12" r="4"></circle><path class="ico" d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9 7 7M17 17l2.1 2.1M4.9 19.1 7 17M17 7l2.1-2.1"></path></svg>
+        Oynani yoriting
+      </button>
+      <sc-if value="{{ has.music }}">
+      <p style="margin: 0; display: flex; align-items: center; gap: 6px; font-size: 13px; color: #AEB6C8"><svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true" style="color: #E8A33A"><path class="ico" d="M9 18V5l11-2v13"></path><circle class="ico" cx="6" cy="18" r="3"></circle><circle class="ico" cx="17" cy="16" r="3"></circle></svg>Musiqa bilan ochiladi</p>
+      </sc-if>
+    </div>
+  </div>
+
+  <header style="position: relative; background: radial-gradient(70% 40% at 50% 300px, #1A2440 0%, #0E1118 70%)">
+    <div aria-hidden="true" style="position: absolute; left: 0; top: 300px; width: 390px; height: 560px; pointer-events: none">
+      <div class="v-ray" style="position: absolute; left: 0; top: 0; width: 390px; height: 560px; background: linear-gradient(180deg, rgba(232, 163, 58, 0.3), rgba(232, 163, 58, 0)); clip-path: polygon(38% 0, 50% 0, 78% 100%, 46% 100%); filter: blur(10px)"></div>
+      <div class="v-ray v-ray2" style="position: absolute; left: 0; top: 0; width: 390px; height: 560px; background: linear-gradient(180deg, rgba(79, 134, 224, 0.32), rgba(79, 134, 224, 0)); clip-path: polygon(52% 0, 62% 0, 100% 100%, 80% 100%); filter: blur(10px)"></div>
+      <div class="v-ray v-ray3" style="position: absolute; left: 0; top: 0; width: 390px; height: 560px; background: linear-gradient(180deg, rgba(224, 80, 106, 0.26), rgba(224, 80, 106, 0)); clip-path: polygon(28% 0, 36% 0, 42% 100%, 18% 100%); filter: blur(10px)"></div>
+    </div>
+    <div aria-hidden="true" style="position: relative; width: 390px; height: 630px">
+      <div style="position: absolute; left: 25px; top: 130px; width: 340px; height: 340px; border-radius: 50%; box-shadow: 0 0 80px 10px rgba(232, 163, 58, 0.22), 0 0 160px 30px rgba(79, 127, 214, 0.18)"></div>
+      <svg style="position: absolute; left: 0; top: 0" width="390" height="640" viewBox="0 0 390 640">
+        <path class="v-arch2" d="M14 640 V330 A322.8 322.8 0 0 1 195 40 A322.8 322.8 0 0 1 376 330 V640"></path>
+        <path class="v-arch" d="M6 640 V330 A330 330 0 0 1 195 32 A330 330 0 0 1 384 330 V640"></path>
+        <path class="v-arch" d="M22 640 V330 A315 315 0 0 1 195 48 A315 315 0 0 1 368 330 V640"></path>
+        <rect class="v-sill" x="0" y="626" width="390" height="14"></rect><path class="v-sill2" d="M0 626.5 H390 M0 639.5 H390"></path>
+        <circle class="v-rim" cx="195" cy="300" r="164"></circle>
+        <circle class="v-rim2" cx="195" cy="300" r="171"></circle>
+        <sc-for list="{{ rivets }}" as="q"><circle class="v-riv" cx="{{ q.x }}" cy="{{ q.y }}" r="1.6"></circle></sc-for>
+        <g id="vRose">
+          <sc-for list="{{ rose }}" as="g"><path class="{{ g.f }}" d="{{ g.d }}"></path></sc-for>
+          <text class="v-mono" x="195" y="307">{{ mono }}</text>
+          <path class="v-lead" d="{{ leadD }}"></path>
+          <path class="v-hi" d="{{ hiD }}"></path>
+        </g>
+      </svg>
+      <div class="v-tex" style="position: absolute; left: 35px; top: 140px; width: 320px; height: 320px; border-radius: 50%"></div>
+      <div class="v-tex" style="position: absolute; left: 55px; top: 488px; width: 280px; height: 130px"></div>
+      <div style="position: absolute; left: 31px; top: 136px; width: 328px; height: 328px; border-radius: 50%; overflow: hidden">
+        <div class="v-glint" style="position: absolute; left: 0; top: -20px; width: 90px; height: 380px; background: linear-gradient(90deg, rgba(255, 248, 225, 0), rgba(255, 248, 225, 0.28), rgba(255, 248, 225, 0))"></div>
+      </div>
+      <svg class="v-tw" style="position: absolute; left: 112px; top: 196px" width="14" height="14" viewBox="0 0 10 10"><path class="v-spk" d="M5 0 L5.8 4.2 L10 5 L5.8 5.8 L5 10 L4.2 5.8 L0 5 L4.2 4.2Z"></path></svg>
+      <svg class="v-tw v-tw2" style="position: absolute; left: 262px; top: 250px" width="12" height="12" viewBox="0 0 10 10"><path class="v-spk" d="M5 0 L5.8 4.2 L10 5 L5.8 5.8 L5 10 L4.2 5.8 L0 5 L4.2 4.2Z"></path></svg>
+      <svg class="v-tw v-tw3" style="position: absolute; left: 160px; top: 390px" width="11" height="11" viewBox="0 0 10 10"><path class="v-spk" d="M5 0 L5.8 4.2 L10 5 L5.8 5.8 L5 10 L4.2 5.8 L0 5 L4.2 4.2Z"></path></svg>
+      <svg class="v-tw v-tw2" style="position: absolute; left: 92px; top: 535px" width="10" height="10" viewBox="0 0 10 10"><path class="v-spk" d="M5 0 L5.8 4.2 L10 5 L5.8 5.8 L5 10 L4.2 5.8 L0 5 L4.2 4.2Z"></path></svg>
+      <svg class="v-tw" style="position: absolute; left: 286px; top: 560px" width="10" height="10" viewBox="0 0 10 10"><path class="v-spk" d="M5 0 L5.8 4.2 L10 5 L5.8 5.8 L5 10 L4.2 5.8 L0 5 L4.2 4.2Z"></path></svg>
+    </div>
+    <div style="position: relative; padding: 18px 24px 54px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 8px">
+      <p style="margin: 0; font-size: 12px; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: #E8A33A; overflow-wrap: anywhere">{{ eyebrow }}</p>
+      <h1 class="fo v-foil" style="margin: 0; font-size: {{ h1px }}px; line-height: 1.06; overflow-wrap: break-word">{{ d.kimga }} uchun</h1>
+      <p style="margin: 2px 0 0; font-size: 19px; font-style: italic; color: #C9CFDC">Bu oyna faqat sen uchun yondi</p>
+      <sc-if value="{{ hasDate }}">
+      <div style="margin-top: 10px; display: flex; align-items: center; gap: 12px">
+        <svg aria-hidden="true" width="14" height="14" viewBox="0 0 16 16"><path class="f-r v-lead2" d="M8 1 L15 8 L8 15 L1 8Z"></path></svg>
+        <span class="fo" style="font-size: 22px; letter-spacing: 0.18em; color: #FFE3A0">{{ dateDots }}</span>
+        <svg aria-hidden="true" width="14" height="14" viewBox="0 0 16 16"><path class="f-s v-lead2" d="M8 1 L15 8 L8 15 L1 8Z"></path></svg>
+      </div>
+      </sc-if>
+    </div>
+  </header>
+
+  <sc-if value="{{ b.maktub }}">
+  <section style="position: relative; padding: 10px 16px 56px">
+    <div style="position: relative; padding: 12px; background: #06070B; box-shadow: 0 0 0 1px rgba(217, 178, 95, 0.55), 0 30px 60px -20px rgba(0, 0, 0, 0.9), 0 0 60px rgba(232, 163, 58, 0.12)">
+      <div aria-hidden="true" style="position: absolute; left: 12px; right: 12px; top: 2px; height: 8px; background: repeating-linear-gradient(90deg, #2457B8 0 26px, #06070B 26px 28px, #E8A33A 28px 54px, #06070B 54px 56px, #1E8E5A 56px 82px, #06070B 82px 84px, #B3203A 84px 110px, #06070B 110px 112px)"></div>
+      <div aria-hidden="true" style="position: absolute; left: 12px; right: 12px; bottom: 2px; height: 8px; background: repeating-linear-gradient(90deg, #1E8E5A 0 26px, #06070B 26px 28px, #2457B8 28px 54px, #06070B 54px 56px, #B3203A 56px 82px, #06070B 82px 84px, #E8A33A 84px 110px, #06070B 110px 112px)"></div>
+      <div aria-hidden="true" style="position: absolute; top: 12px; bottom: 12px; left: 2px; width: 8px; background: repeating-linear-gradient(180deg, #E8A33A 0 26px, #06070B 26px 28px, #2457B8 28px 54px, #06070B 54px 56px, #B3203A 56px 82px, #06070B 82px 84px, #1E8E5A 84px 110px, #06070B 110px 112px)"></div>
+      <div aria-hidden="true" style="position: absolute; top: 12px; bottom: 12px; right: 2px; width: 8px; background: repeating-linear-gradient(180deg, #B3203A 0 26px, #06070B 26px 28px, #1E8E5A 28px 54px, #06070B 54px 56px, #E8A33A 56px 82px, #06070B 82px 84px, #2457B8 84px 110px, #06070B 110px 112px)"></div>
+      <svg aria-hidden="true" style="position: absolute; left: 1px; top: 1px" width="10" height="10" viewBox="0 0 10 10"><rect class="f-r" x="0" y="0" width="10" height="10"></rect></svg>
+      <svg aria-hidden="true" style="position: absolute; right: 1px; top: 1px" width="10" height="10" viewBox="0 0 10 10"><rect class="f-s" x="0" y="0" width="10" height="10"></rect></svg>
+      <svg aria-hidden="true" style="position: absolute; left: 1px; bottom: 1px" width="10" height="10" viewBox="0 0 10 10"><rect class="f-e" x="0" y="0" width="10" height="10"></rect></svg>
+      <svg aria-hidden="true" style="position: absolute; right: 1px; bottom: 1px" width="10" height="10" viewBox="0 0 10 10"><rect class="f-a" x="0" y="0" width="10" height="10"></rect></svg>
+      <article style="position: relative; padding: 30px 22px 28px; color: #1B1E27; background-color: #EFE4C8; background-image: radial-gradient(90% 60% at 30% 10%, rgba(255, 246, 220, 0.9) 0%, rgba(255, 246, 220, 0) 70%), repeating-linear-gradient(45deg, rgba(0, 0, 0, 0) 0 31px, rgba(70, 58, 30, 0.16) 31px 32px), repeating-linear-gradient(-45deg, rgba(0, 0, 0, 0) 0 31px, rgba(70, 58, 30, 0.16) 31px 32px)">
+        <p style="margin: 0 0 4px; font-size: 12px; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: #6E4A12">Maktub</p>
+        <p class="fo" style="margin: 0 0 16px; font-size: 27px; line-height: 1.2; color: #7A1426; overflow-wrap: anywhere">{{ greet }}</p>
+        <div style="font-size: 17.5px; line-height: 1.7; white-space: pre-line; overflow-wrap: anywhere"><sc-if value="{{ capL }}"><span aria-hidden="true" style="float: left; position: relative; width: 62px; height: 62px; margin: 4px 12px 2px 0; box-sizing: border-box; border: 3px solid #06070B; background: radial-gradient(circle at 34% 28%, #8DB8FF, #2457B8 50%, #0C2460); box-shadow: 0 0 0 1px rgba(217, 178, 95, 0.8), 0 6px 14px rgba(20, 30, 60, 0.35); display: flex; align-items: center; justify-content: center"><span style="position: absolute; left: 3px; top: 3px; width: 10px; height: 10px; background: #E8A33A; border: 1px solid #06070B"></span><span style="position: absolute; right: 3px; bottom: 3px; width: 10px; height: 10px; background: #B3203A; border: 1px solid #06070B"></span><span class="fo v-foil" style="font-size: 44px; line-height: 1">{{ capL }}</span></span></sc-if>{{ capRest }}
+        </div>
+        <sc-if value="{{ sign }}">
+        <div style="clear: both; margin-top: 18px; display: flex; justify-content: flex-end; align-items: center; gap: 10px">
+          <svg aria-hidden="true" width="40" height="10" viewBox="0 0 40 10"><path d="M0 5 H30" style="stroke: #6E4A12; stroke-width: 1"></path><path class="f-r v-lead2" d="M35 1 L39 5 L35 9 L31 5Z"></path></svg>
+          <p class="fo" style="margin: 0; font-size: 23px; color: #7A1426; overflow-wrap: anywhere">{{ sign }}</p>
+        </div>
+        </sc-if>
+      </article>
+    </div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.sirli }}">
+  <section style="position: relative; padding: 0 20px 60px">
+    <div style="position: relative; overflow: hidden; border: 4px solid #06070B; border-radius: 120px 120px 10px 10px; box-shadow: 0 0 0 1px rgba(217, 178, 95, 0.55), 0 0 50px rgba(79, 127, 214, 0.25)">
+      <div style="position: relative; min-height: 280px; box-sizing: border-box; padding: 54px 26px 34px; background: radial-gradient(70% 50% at 50% 30%, #2C5FBF 0%, #163C8A 55%, #0A1D4F 100%); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; text-align: center">
+        <svg aria-hidden="true" width="44" height="44" viewBox="0 0 44 44"><circle class="f-a" cx="22" cy="12" r="9"></circle><circle class="f-a" cx="22" cy="32" r="9"></circle><circle class="f-r" cx="12" cy="22" r="9"></circle><circle class="f-r" cx="32" cy="22" r="9"></circle><circle class="f-c" cx="22" cy="22" r="6"></circle><path class="v-lead2" d="M22 3 a9 9 0 1 1 0 18 a9 9 0 1 1 0 -18 M22 23 a9 9 0 1 1 0 18 a9 9 0 1 1 0 -18 M12 13 a9 9 0 1 1 0 18 a9 9 0 1 1 0 -18 M32 13 a9 9 0 1 1 0 18 a9 9 0 1 1 0 -18 M22 16 a6 6 0 1 1 0 12 a6 6 0 1 1 0 -12"></path></svg>
+        <h2 class="fo v-foil" style="margin: 0; font-size: 32px; line-height: 1.12">Oyna ortidagi sir</h2>
+        <p class="{{ secretCls }}" style="margin: 0; font-size: 19px; line-height: 1.55; font-style: italic; color: #F3EBDD; white-space: pre-line; overflow-wrap: anywhere">{{ d.sirli_soz }}</p>
+        <sc-if value="{{ secretShown }}" hint-placeholder-val="{{ false }}">
+        <p class="v-in" style="margin: 4px 0 0; font-size: 12px; font-weight: 700; letter-spacing: 0.26em; text-transform: uppercase; color: #FFD98A">Endi bu sir ikkimizniki</p>
+        </sc-if>
+      </div>
+      <div class="{{ frostCls }}" style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; background: linear-gradient(160deg, rgba(225, 235, 250, 0.62), rgba(170, 195, 235, 0.5)); -webkit-backdrop-filter: blur(7px); backdrop-filter: blur(7px); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; text-align: center">
+        <div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; background-image: repeating-linear-gradient(60deg, rgba(255, 255, 255, 0) 0 22px, rgba(255, 255, 255, 0.35) 22px 23px), repeating-linear-gradient(-30deg, rgba(255, 255, 255, 0) 0 34px, rgba(255, 255, 255, 0.28) 34px 35px)"></div>
+        <p class="fo" style="position: relative; margin: 30px 0 0; font-size: 28px; line-height: 1.15; color: #10213F">Muzlagan oyna</p>
+        <p style="position: relative; margin: 0; font-size: 16px; font-style: italic; color: #1E3156">Ortida faqat sen uchun so’z bor</p>
+        <button type="button" onClick="{{ reveal }}" style="position: relative; min-height: 50px; padding: 0 26px; border-radius: 999px; border: 2px solid #06070B; background: #0E1118; color: #FFE3A0; font-family: 'Forum', Georgia, serif; font-size: 18px; letter-spacing: 0.04em; cursor: pointer; box-shadow: 0 0 0 1px rgba(217, 178, 95, 0.6), 0 10px 20px -8px rgba(0, 0, 0, 0.6)">Oynani arting</button>
+      </div>
+    </div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.sabablar }}">
+  <section style="position: relative; padding: 0 16px 60px">
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center">
+      <svg aria-hidden="true" width="80" height="18" viewBox="0 0 80 18"><path class="v-ln" d="M0 9 H30 M50 9 H80"></path><path class="f-a v-lead2" d="M40 1 L48 9 L40 17 L32 9Z"></path></svg>
+      <p style="margin: 0; font-size: 12px; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: #E8A33A">{{ reasonsLbl }}</p>
+      <h2 class="fo v-foil" style="margin: 0; font-size: 35px; line-height: 1.1">Seni sevishimning sabablari</h2>
+    </div>
+    <ol style="list-style: none; margin: 26px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 14px">
+      <sc-for list="{{ reasons }}" as="r">
+      <li style="{{ r.w }}box-sizing: border-box; display: flex; flex-direction: column; border: 4px solid #06070B; border-radius: 90px 90px 8px 8px; overflow: hidden; background: #131826; box-shadow: 0 0 0 1px rgba(217, 178, 95, 0.5), 0 18px 30px -16px rgba(0, 0, 0, 0.9)">
+        <div style="position: relative; height: 82px; background: {{ r.bg }}; border-bottom: 4px solid #06070B; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 10px">
+          <span aria-hidden="true" style="position: absolute; left: 50%; top: 0; width: 3px; height: 30px; margin-left: -1.5px; background: #06070B"></span>
+          <span aria-hidden="true" style="position: absolute; left: 0; top: 30px; width: 100%; height: 3px; background: #06070B"></span>
+          <span class="fo" style="position: relative; font-size: 30px; line-height: 1; color: #FFF1CC; text-shadow: 0 0 12px rgba(255, 220, 150, 0.7)">{{ r.n }}</span>
+        </div>
+        <div style="flex: 1; padding: 14px 14px 16px; display: flex; align-items: center; justify-content: center; text-align: center; background: radial-gradient(90% 80% at 50% 0%, rgba(232, 163, 58, 0.14), rgba(232, 163, 58, 0) 70%)">
+          <span style="font-size: 18px; line-height: 1.3; color: #F3EBDD; overflow-wrap: anywhere">{{ r.t }}</span>
+        </div>
+      </li>
+      </sc-for>
+    </ol>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.xarita }}">
+  <section style="position: relative; padding: 0 20px 60px; text-align: center">
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 6px">
+      <svg aria-hidden="true" width="80" height="18" viewBox="0 0 80 18"><path class="v-ln" d="M0 9 H30 M50 9 H80"></path><path class="f-s v-lead2" d="M40 1 L48 9 L40 17 L32 9Z"></path></svg>
+      <h2 class="fo v-foil" style="margin: 0; font-size: 35px; line-height: 1.1">O’sha kungi osmon</h2>
+      <p style="margin: 0; font-size: 18px; font-style: italic; color: #C9CFDC">Yulduzlar oynaga terilgan</p>
+    </div>
+    <div style="position: relative; margin: 22px auto 0; width: 310px; height: 310px; border-radius: 50%; box-shadow: 0 0 0 1px rgba(217, 178, 95, 0.6), 0 0 0 8px #1B202D, 0 0 0 9px rgba(217, 178, 95, 0.45), 0 0 70px rgba(79, 127, 214, 0.35)">
+      <svg viewBox="0 0 310 310" width="310" height="310" role="img" aria-label="{{ mapLbl }}">
+        <sc-for list="{{ skySec }}" as="s"><path class="{{ s.c }}" d="{{ s.d }}"></path></sc-for>
+        <sc-for list="{{ stars }}" as="s">
+        <circle class="{{ s.c }}" cx="{{ s.x }}" cy="{{ s.y }}" r="{{ s.r }}" style="{{ s.st }}"></circle>
+        </sc-for>
+        <polyline class="v-cl" points="{{ clA }}"></polyline>
+        <polyline class="v-cl" points="{{ clB }}"></polyline>
+        <path class="v-pair" d="{{ pairD }}"></path>
+        <circle cx="{{ sa.x }}" cy="{{ sa.y }}" r="10" style="fill: rgba(255, 210, 122, 0.22)"></circle>
+        <circle cx="{{ sb.x }}" cy="{{ sb.y }}" r="10" style="fill: rgba(255, 210, 122, 0.22)"></circle>
+        <circle class="v-star-big" cx="{{ sa.x }}" cy="{{ sa.y }}" r="3.6"></circle>
+        <circle class="v-star-big" cx="{{ sb.x }}" cy="{{ sb.y }}" r="3.6"></circle>
+        <text class="v-star-lbl" x="{{ sa.lx }}" y="{{ sa.ly }}">{{ iniFrom }}</text>
+        <text class="v-star-lbl" x="{{ sb.lx }}" y="{{ sb.ly }}">{{ iniTo }}</text>
+        <path class="v-lead" d="{{ skyLead }}"></path>
+      </svg>
+    </div>
+    <sc-if value="{{ hasDate }}">
+    <p class="fo v-foil" style="margin: 26px 0 0; font-size: 28px; letter-spacing: 0.14em">{{ dateDots }}</p>
+    </sc-if>
+    <p style="margin: 6px 0 0; font-size: 17px; font-style: italic; color: #C9CFDC">Shu kuni ikki yulduz bir-birini topdi</p>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.yol }}">
+  <section style="position: relative; padding: 0 20px 56px">
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center">
+      <svg aria-hidden="true" width="80" height="18" viewBox="0 0 80 18"><path class="v-ln" d="M0 9 H30 M50 9 H80"></path><path class="f-e v-lead2" d="M40 1 L48 9 L40 17 L32 9Z"></path></svg>
+      <sc-if value="{{ yolRange }}"><p style="margin: 0; font-size: 12px; font-weight: 700; letter-spacing: 0.3em; color: #E8A33A">{{ yolRange }}</p></sc-if>
+      <h2 class="fo v-foil" style="margin: 0; font-size: 35px; line-height: 1.1">Bizning yo’limiz</h2>
+      <p style="margin: 0; font-size: 17px; font-style: italic; color: #C9CFDC">Har bir medalyonda bir sahifa</p>
+    </div>
+    <ol style="position: relative; list-style: none; margin: 28px 0 0; padding: 0">
+      <span aria-hidden="true" style="position: absolute; left: 27px; top: 0; bottom: 0; width: 22px; box-sizing: border-box; border-left: 3px solid #06070B; border-right: 3px solid #06070B; background: repeating-linear-gradient(180deg, #E9D9AE 0 18px, #06070B 18px 20px, #B49C66 20px 38px, #06070B 38px 40px); box-shadow: 0 0 0 1px rgba(217, 178, 95, 0.35), 0 0 24px rgba(232, 163, 58, 0.25)"></span>
+      <sc-for list="{{ yol }}" as="y">
+      <li style="position: relative; display: flex; align-items: flex-start; gap: 16px; padding-bottom: 22px">
+        <span style="position: relative; flex: none; width: 76px; height: 76px; box-sizing: border-box; border-radius: 50%; border: 4px solid #06070B; background: {{ y.bg }}; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 0 1px rgba(217, 178, 95, 0.7), 0 0 22px {{ y.glow }}">
+          <span aria-hidden="true" style="position: absolute; left: 6px; top: 6px; width: 56px; height: 56px; border-radius: 50%; border: 2px solid rgba(6, 7, 11, 0.85)"></span>
+          <span class="fo" style="position: relative; font-size: {{ y.fs }}px; line-height: 1; color: #FFF1CC; text-shadow: 0 1px 2px rgba(0, 0, 0, 0.7); overflow-wrap: anywhere; text-align: center; padding: 0 6px">{{ y.yil }}</span>
+        </span>
+        <div style="flex: 1; min-width: 0; padding-top: 14px; display: flex; flex-direction: column; gap: 3px">
+          <span class="fo" style="font-size: 23px; line-height: 1.15; color: #FFE3A0; overflow-wrap: anywhere">{{ y.sarlavha }}</span>
+          <sc-if value="{{ y.matn }}"><span style="font-size: 17px; line-height: 1.4; font-style: italic; color: #C9CFDC; overflow-wrap: anywhere">{{ y.matn }}</span></sc-if>
+        </div>
+      </li>
+      </sc-for>
+    </ol>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.galereya }}">
+  <section style="position: relative; padding: 0 12px 60px">
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center">
+      <svg aria-hidden="true" width="80" height="18" viewBox="0 0 80 18"><path class="v-ln" d="M0 9 H30 M50 9 H80"></path><path class="f-r v-lead2" d="M40 1 L48 9 L40 17 L32 9Z"></path></svg>
+      <p style="margin: 0; font-size: 12px; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: #E8A33A">{{ galLbl }}</p>
+      <h2 class="fo v-foil" style="margin: 0; font-size: 35px; line-height: 1.1">Yorug’ tushgan lahzalar</h2>
+    </div>
+    <div style="margin-top: 26px; display: flex; flex-direction: column; gap: 18px">
+      <sc-for list="{{ galRows }}" as="row">
+      <div style="display: flex; justify-content: center; align-items: flex-end; gap: 12px">
+        <sc-for list="{{ row.items }}" as="g">
+        <div style="position: relative; width: {{ g.w }}px; height: {{ g.h }}px; box-sizing: border-box; border: 4px solid #06070B; border-radius: {{ g.rad }}; overflow: hidden; background: #131826; box-shadow: 0 0 0 1px rgba(217, 178, 95, 0.6), 0 0 30px {{ g.glow }}, 0 24px 34px -18px rgba(0, 0, 0, 0.9)">
+          <img src="{{ g.src }}" alt="" style="display: block; width: 100%; height: 100%; object-fit: cover">
+          <div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; background: linear-gradient(160deg, rgba(255, 230, 170, 0.18) 0%, rgba(255, 230, 170, 0) 40%, rgba(14, 17, 24, 0) 70%, rgba(14, 17, 24, 0.35) 100%)"></div>
+        </div>
+        </sc-for>
+      </div>
+      </sc-for>
+    </div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.hisob }}">
+  <section style="position: relative; padding: 0 14px 60px; text-align: center">
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 6px">
+      <svg aria-hidden="true" width="80" height="18" viewBox="0 0 80 18"><path class="v-ln" d="M0 9 H30 M50 9 H80"></path><path class="f-a v-lead2" d="M40 1 L48 9 L40 17 L32 9Z"></path></svg>
+      <h2 class="fo v-foil" style="margin: 0; font-size: 35px; line-height: 1.1">Tanishganimizga</h2>
+    </div>
+    <div style="margin-top: 20px; display: flex; justify-content: center; gap: 6px">
+      <sc-for list="{{ dd }}" as="g">
+      <div style="position: relative; width: {{ ddW }}px; height: 82px; box-sizing: border-box; border: 3px solid #06070B; border-radius: 6px; overflow: hidden; background: linear-gradient(180deg, #2457B8 0%, #163C8A 49%, #0C2460 51%, #10307A 100%); box-shadow: 0 0 0 1px rgba(217, 178, 95, 0.55), 0 16px 24px -12px rgba(0, 0, 0, 0.9); display: flex; align-items: center; justify-content: center">
+        <span key="{{ g.k }}" class="v-flip fo v-foil" style="font-size: 54px; line-height: 1">{{ g.d }}</span>
+        <span aria-hidden="true" style="position: absolute; left: 0; top: 38px; width: 100%; height: 3px; background: #06070B"></span>
+      </div>
+      </sc-for>
+    </div>
+    <p style="margin: 10px 0 0; font-size: 12px; font-weight: 700; letter-spacing: 0.34em; text-transform: uppercase; color: #AEB6C8">kun</p>
+    <div style="margin-top: 18px; display: flex; justify-content: center; align-items: flex-start; gap: 8px">
+      <sc-for list="{{ clock }}" as="c">
+      <sc-if value="{{ c.sep }}"><svg aria-hidden="true" width="10" height="50" viewBox="0 0 10 50"><path class="f-r v-lead2" d="M5 14 L9 18 L5 22 L1 18Z M5 30 L9 34 L5 38 L1 34Z"></path></svg></sc-if>
+      <div style="display: flex; flex-direction: column; align-items: center; gap: 6px">
+        <div style="display: flex; gap: 4px">
+          <sc-for list="{{ c.ds }}" as="g">
+          <div style="position: relative; width: 40px; height: 52px; box-sizing: border-box; border: 3px solid #06070B; border-radius: 5px; overflow: hidden; background: {{ c.bg }}; box-shadow: 0 0 0 1px rgba(217, 178, 95, 0.4); display: flex; align-items: center; justify-content: center">
+            <span key="{{ g.k }}" class="v-flip fo" style="font-size: 32px; line-height: 1; color: #FFF1CC">{{ g.d }}</span>
+            <span aria-hidden="true" style="position: absolute; left: 0; top: 22px; width: 100%; height: 2px; background: #06070B"></span>
+          </div>
+          </sc-for>
+        </div>
+        <span style="font-size: 11px; font-weight: 700; letter-spacing: 0.24em; text-transform: uppercase; color: #AEB6C8">{{ c.lbl }}</span>
+      </div>
+      </sc-for>
+    </div>
+    <sc-if value="{{ hasDate }}"><p style="margin: 16px 0 0; font-size: 18px; font-style: italic; color: #C9CFDC">{{ dateSince }}</p></sc-if>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.savol }}">
+  <section style="position: relative; padding: 0 20px 50px; text-align: center">
+    <div style="position: relative; border: 4px solid #06070B; border-radius: 175px 175px 12px 12px; overflow: hidden; box-shadow: 0 0 0 1px rgba(217, 178, 95, 0.6), 0 0 60px {{ savGlow }}">
+      <div class="v-lit" style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; background: radial-gradient(80% 50% at 50% 20%, #7A1A30 0%, #3E0B1A 60%, #1A0810 100%)"></div>
+      <div class="v-lit" style="{{ savLitSt }}position: absolute; left: 0; top: 0; width: 100%; height: 100%; background: radial-gradient(80% 55% at 50% 22%, #E0506A 0%, #B3203A 45%, #5E0A1C 100%)"></div>
+      <svg aria-hidden="true" style="position: absolute; left: 0; top: 0" width="342" height="200" viewBox="0 0 342 200"><path class="v-lead2" d="M171 0 V60 M171 60 L60 0 M171 60 L282 0 M171 60 L20 110 M171 60 L322 110"></path><circle class="f-a" cx="171" cy="60" r="22"></circle><path class="v-lead" d="M193 60 a22 22 0 1 1 -44 0 a22 22 0 1 1 44 0"></path><path class="ico-f" d="M171 72s-9-5.5-9-12.2A5.2 5.2 0 0 1 171 56.6a5.2 5.2 0 0 1 9 3.2c0 6.7-9 12.2-9 12.2z" style="color: #7A1426"></path></svg>
+      <div style="position: relative; padding: 104px 22px 34px; display: flex; flex-direction: column; align-items: center">
+        <p class="fo" style="margin: 0; font-size: 26px; color: #FFD98A; overflow-wrap: anywhere">{{ to }},</p>
+        <h2 class="fo" style="margin: 6px 0 0; font-size: {{ qPx }}px; line-height: 1.1; color: #FFF6E6; text-shadow: 0 0 18px rgba(255, 180, 190, 0.5); overflow-wrap: break-word">{{ d.savol }}</h2>
+        <div style="position: relative; width: 100%; min-height: 120px; margin-top: 24px">
+          <sc-if value="{{ asking }}" hint-placeholder-val="{{ true }}">
+            <div style="display: flex; flex-direction: column; gap: 12px">
+              <div style="display: flex; gap: 12px">
+                <button type="button" onClick="{{ sayHa }}" disabled="{{ busy }}" style="flex: 1; min-height: 56px; border-radius: 999px; border: 2px solid #06070B; background: #0E1118; color: #FFE3A0; font-family: 'Forum', Georgia, serif; font-size: 23px; cursor: pointer; box-shadow: 0 0 0 1px rgba(217, 178, 95, 0.7)">Ha</button>
+                <button type="button" onClick="{{ sayAlbatta }}" disabled="{{ busy }}" style="flex: 1; min-height: 56px; border-radius: 999px; border: 2px solid #06070B; background: linear-gradient(110deg, #B7782A 0%, #FFD98A 30%, #E8A33A 52%, #FFF1CC 68%, #C98A2A 100%); color: #12151E; font-family: 'Forum', Georgia, serif; font-size: 23px; cursor: pointer; box-shadow: 0 0 24px rgba(255, 210, 122, 0.5)">Albatta</button>
+              </div>
+              <p style="margin: 0; font-size: 17px; font-style: italic; color: #F2C9D0">Ikkala javob ham to’g’ri.</p>
+              <sc-if value="{{ err }}"><p role="alert" style="margin: 0; font-size: 15px; font-weight: 700; color: #FFD98A">{{ err }}</p></sc-if>
+            </div>
+          </sc-if>
+          <sc-if value="{{ answered }}" hint-placeholder-val="{{ false }}">
+            <div style="position: relative; display: flex; flex-direction: column; align-items: center; gap: 6px">
+              <div aria-hidden="true" style="position: absolute; left: 50%; top: 30px; width: 0; height: 0">
+                <sc-for list="{{ shards }}" as="s">
+                <svg class="v-shard" width="{{ s.w }}" height="{{ s.h }}" viewBox="0 0 10 16" style="{{ s.st }}"><path class="{{ s.c }}" d="M5 0 L10 6 L5 16 L0 6Z" style="stroke: #06070B; stroke-width: 1"></path></svg>
+                </sc-for>
+              </div>
+              <p class="fo v-foil v-in" style="position: relative; margin: 0; font-size: 42px; line-height: 1.15">«{{ answer }}»</p>
+              <p class="v-in" style="position: relative; margin: 0; font-size: 17px; line-height: 1.45; color: #FFE9EC; overflow-wrap: anywhere">Javobing {{ fromGa }} yetib bordi. Bu tongni umrbod eslaymiz.</p>
+            </div>
+          </sc-if>
+        </div>
+      </div>
+    </div>
+  </section>
+  </sc-if>
+
+  <footer style="flex: 1; padding: 6px 24px 44px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 10px">
+    <svg aria-hidden="true" width="96" height="96" viewBox="27 132 336 336"><circle cx="195" cy="300" r="168" style="fill: #1B202D"></circle><use href="#vRose"></use></svg>
+    <p class="fo" style="margin: 0; font-size: 20px; color: #FFE3A0; overflow-wrap: anywhere">{{ pair }}</p>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":6200}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { opened: false, secret: false, answer: null, busy: false, err: '' };
+  }
+
+  nm(n) { return String(n || '').trim(); }
+  poss(n) { n = this.nm(n); return n ? n + (/[aeiouAEIOU]$/.test(n) ? 'ng' : 'ing') : ''; }
+  ini(n) { const m = this.nm(n).match(/[A-Za-zÀ-ɏЀ-ӿ]/); return m ? m[0].toUpperCase() : ''; }
+  fit(t, px, wpx, k) { const L = Math.max(1, ...String(t || '').split(/\s+/).map((x) => x.length)); return Math.max(14, Math.min(px, Math.floor(wpx / (L * (k || 0.5))))); }
+  numWord(n) { return ['', 'Bir', 'Ikki', 'Uch', 'To’rt', 'Besh', 'Olti', 'Yetti', 'Sakkiz', 'To’qqiz', 'O’n'][n] || ''; }
+  roman(n) { const r = [['M', 1000], ['CM', 900], ['D', 500], ['CD', 400], ['C', 100], ['XC', 90], ['L', 50], ['XL', 40], ['X', 10], ['IX', 9], ['V', 5], ['IV', 4], ['I', 1]]; let s = ''; r.forEach(([k, v]) => { while (n >= v) { s += k; n -= v; } }); return s; }
+  core() {
+    const d = SITE.d, to = this.nm(d.kimga), from = this.nm(d.kimdan);
+    const w = SITE.when(d.tanishgan_sana);
+    const has = !!w.day;
+    return {
+      to, from, w, hasDate: has,
+      greet: 'Azizim ' + to + ',',
+      sign: from ? 'Sening ' + this.poss(from) : '',
+      pair: [from, to].filter(Boolean).join(' va '),
+      mono: [this.ini(from), this.ini(to)].filter(Boolean).join('·'),
+      dateSince: has ? w.dm + ' ' + w.year + '-yildan beri' : '',
+      dateDots: has ? w.dots.split('.').join(' · ') : ''
+    };
+  }
+  componentDidMount() { this.timer = setInterval(() => this.forceUpdate(), 1000); }
+  componentWillUnmount() { clearInterval(this.timer); }
+
+  roseGeo() {
+    if (this.roseC) return this.roseC;
+    const cx = 195, cy = 300, T = Math.PI * 2;
+    const P = (r, a) => (cx + r * Math.cos(a)).toFixed(1) + ' ' + (cy + r * Math.sin(a)).toFixed(1);
+    const circ = (x, y, r) => 'M' + (x - r).toFixed(1) + ' ' + y.toFixed(1) + ' a' + r + ' ' + r + ' 0 1 0 ' + (2 * r) + ' 0 a' + r + ' ' + r + ' 0 1 0 ' + (-2 * r) + ' 0Z';
+    const out = [];
+    const add = (d, f, x, y) => {
+      const proj = (x - 195) * 0.6 - (y - 420) * 0.8;
+      const t = 0.2 + 1.4 * Math.max(0, Math.min(1, (proj + 120) / 420));
+      out.push({ d, f, st: 'transition-delay: ' + t.toFixed(2) + 's' });
+    };
+    const at = (r, a) => [cx + r * Math.cos(a), cy + r * Math.sin(a)];
+    add(circ(cx, cy, 158), 'f-t', cx, cy + 158);
+    const n16 = 16, st16 = T / n16;
+    for (let i = 0; i < n16; i++) {
+      const a1 = -Math.PI / 2 + (i - 0.5) * st16, a2 = a1 + st16, am = a1 + st16 / 2, c = at(136, am);
+      add('M' + P(120, a1) + ' L' + P(146, a1) + ' Q' + P(166, am) + ' ' + P(146, a2) + ' L' + P(120, a2) + ' A120 120 0 0 0 ' + P(120, a1) + 'Z', i % 2 ? 'f-a' : 'f-e', c[0], c[1]);
+    }
+    for (let i = 0; i < n16; i++) {
+      const a1 = -Math.PI / 2 + i * st16, a2 = a1 + st16, c = at(100, a1 + st16 / 2);
+      add('M' + P(80, a1) + ' L' + P(120, a1) + ' A120 120 0 0 1 ' + P(120, a2) + ' L' + P(80, a2) + ' A80 80 0 0 0 ' + P(80, a1) + 'Z', i % 2 ? 'f-t' : 'f-s', c[0], c[1]);
+    }
+    for (let i = 0; i < n16; i++) {
+      const c = at(100, -Math.PI / 2 + (i + 0.5) * st16);
+      add(circ(c[0], c[1], 7.5), i % 2 ? 'f-r' : 'f-a', c[0], c[1]);
+    }
+    add(circ(cx, cy, 80), 'f-s', cx, cy + 40);
+    const n8 = 8, st8 = T / n8, dl = st8 / 2;
+    for (let i = 0; i < n8; i++) {
+      const th = -Math.PI / 2 + i * st8, c = at(55, th);
+      add('M' + P(32, th - dl) + ' A32 32 0 0 1 ' + P(32, th + dl) + ' Q' + P(66, th + dl * 0.9) + ' ' + P(78, th) + ' Q' + P(66, th - dl * 0.9) + ' ' + P(32, th - dl) + 'Z', i % 2 ? 'f-c' : 'f-a', c[0], c[1]);
+    }
+    add(circ(cx, cy, 32), 'f-r', cx, cy);
+    const lan = [['f-s', 'f-a', 'f-e'], ['f-r', 'f-s', 'f-a'], ['f-e', 'f-a', 'f-s'], ['f-a', 'f-e', 'f-r']];
+    for (let k = 0; k < 4; k++) {
+      const x = 55 + k * 74, w = 58, y = 488, h0 = 50, yb = 618, m = 556;
+      const head = 'M' + x + ' ' + (y + h0) + ' A' + w + ' ' + w + ' 0 0 1 ' + (x + w / 2) + ' ' + y + ' A' + w + ' ' + w + ' 0 0 1 ' + (x + w) + ' ' + (y + h0) + 'Z';
+      add(head, lan[k][0], x + w / 2, y + 30);
+      add('M' + x + ' ' + (y + h0) + ' H' + (x + w) + ' V' + m + ' H' + x + 'Z', lan[k][1], x + w / 2, y + 60);
+      add('M' + x + ' ' + m + ' H' + (x + w) + ' V' + yb + ' H' + x + 'Z', lan[k][2], x + w / 2, m + 30);
+      add(circ(x + w / 2, y + 30, 9), 'f-c', x + w / 2, y + 30);
+    }
+    [[36, 494], [354, 494]].forEach(([qx, qy]) => {
+      add('M' + qx + ' ' + (qy - 15) + ' L' + (qx + 15) + ' ' + qy + ' L' + qx + ' ' + (qy + 15) + ' L' + (qx - 15) + ' ' + qy + 'Z', 'f-r', qx, qy);
+      add(circ(qx, qy, 5), 'f-a', qx, qy);
+    });
+    const lead = out.map((x) => x.d).join(' ');
+    const hi = [];
+    for (let i = 0; i < 16; i++) { const a = -Math.PI / 2 + i * st16 + 0.05; hi.push('M' + P(84, a) + ' A84 84 0 0 1 ' + P(84, a + st16 * 0.45)); }
+    const rivets = [];
+    for (let i = 0; i < 32; i++) { const c = at(164, (i / 32) * T); rivets.push({ x: c[0].toFixed(1), y: c[1].toFixed(1) }); }
+    this.roseC = { panels: out, lead, hi: hi.join(' '), rivets };
+    return this.roseC;
+  }
+  sky() {
+    const d = SITE.d, key = (d.tanishgan_sana || '') + '|' + this.nm(d.kimdan) + '|' + this.nm(d.kimga);
+    if (this.skyC && this.skyC.key === key) return this.skyC.val;
+    let h = 2166136261;
+    for (let i = 0; i < key.length; i++) { h ^= key.charCodeAt(i); h = Math.imul(h, 16777619); }
+    let a = h >>> 0;
+    const rnd = () => { a = (a + 0x6D2B79F5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
+    const C = 155, R = 150, T = Math.PI * 2;
+    const P = (r, an) => (C + r * Math.cos(an)).toFixed(1) + ' ' + (C + r * Math.sin(an)).toFixed(1);
+    const sec = [], leads = [];
+    for (let i = 0; i < 8; i++) {
+      const a1 = -Math.PI / 2 + i * T / 8, a2 = a1 + T / 8;
+      sec.push({ c: i % 2 ? 'v-sky1' : 'v-sky2', d: 'M' + C + ' ' + C + ' L' + P(R + 2, a1) + ' A' + (R + 2) + ' ' + (R + 2) + ' 0 0 1 ' + P(R + 2, a2) + 'Z' });
+      leads.push('M' + P(62, a1) + ' L' + P(R, a1));
+    }
+    leads.push('M' + (C - 62) + ' ' + C + ' a62 62 0 1 0 124 0 a62 62 0 1 0 -124 0');
+    const pt = (rmax) => { const r = Math.sqrt(rnd()) * rmax, t = rnd() * T; return { x: +(C + r * Math.cos(t)).toFixed(1), y: +(C + r * Math.sin(t)).toFixed(1) }; };
+    const stars = [];
+    for (let i = 0; i < 80; i++) {
+      const p = pt(140), big = rnd();
+      stars.push({ x: p.x, y: p.y, r: big > 0.93 ? 1.8 : big > 0.7 ? 1.2 : 0.8, c: i % 5 === 0 ? 'v-st-o' : 'v-st', st: i % 6 === 0 ? 'animation: vTw ' + (2.4 + (i % 4) * 0.7).toFixed(1) + 's ease-in-out ' + (-(i % 7) * 0.5).toFixed(1) + 's infinite; transform-origin: ' + p.x + 'px ' + p.y + 'px' : '' });
+    }
+    const chain = (n, x, y, sp) => { const o = []; for (let i = 0; i < n; i++) { o.push(x.toFixed(1) + ',' + y.toFixed(1)); const an = rnd() * T; x = Math.max(34, Math.min(276, x + Math.cos(an) * sp)); y = Math.max(34, Math.min(276, y + Math.sin(an) * sp)); } return o.join(' '); };
+    const A = chain(5, 70 + rnd() * 40, 70 + rnd() * 40, 28), B = chain(5, 196 + rnd() * 40, 196 + rnd() * 30, 26);
+    const ang = rnd() * Math.PI, dist = 48 + rnd() * 14;
+    const sa = { x: +(C - Math.cos(ang) * dist).toFixed(1), y: +(C - Math.sin(ang) * dist * 0.6).toFixed(1) };
+    const sb = { x: +(C + Math.cos(ang) * dist).toFixed(1), y: +(C + Math.sin(ang) * dist * 0.6).toFixed(1) };
+    sa.lx = sa.x - 6; sa.ly = sa.y - 14; sb.lx = sb.x - 6; sb.ly = sb.y + 24;
+    const val = { sec, lead: leads.join(' '), stars, clA: A, clB: B, sa, sb, pairD: 'M' + sa.x + ' ' + sa.y + ' Q' + C + ' ' + (C - 30) + ' ' + sb.x + ' ' + sb.y };
+    this.skyC = { key, val };
+    return val;
+  }
+  galRows() {
+    const n = Math.min(6, Math.max(1, SITE.has.photos)), plan = { 1: [1], 2: [2], 3: [3], 4: [2, 2], 5: [3, 2], 6: [3, 3] }[n];
+    const glows = ['rgba(79, 127, 214, 0.35)', 'rgba(232, 163, 58, 0.32)', 'rgba(30, 142, 90, 0.32)', 'rgba(179, 32, 58, 0.32)'];
+    const rows = []; let i = 0;
+    plan.forEach((c) => {
+      const items = [];
+      const dims = c === 1 ? [[320, 380]] : c === 2 ? [[170, 250], [170, 250]] : [[106, 214], [138, 272], [106, 214]];
+      dims.forEach(([w, h]) => { items.push({ src: SITE.p[i], w, h, rad: (w / 2) + 'px ' + (w / 2) + 'px 6px 6px', glow: glows[i % 4] }); i++; });
+      rows.push({ items });
+    });
+    return rows;
+  }
+  answer(a) {
+    if (this.state.busy || this.state.answer) return;
+    this.setState({ busy: true, err: '' });
+    SITE.reply(a + '! — «' + (SITE.d.savol || '') + '»', '❤️').then(
+      () => this.setState({ answer: a, busy: false }),
+      () => this.setState({ busy: false, err: 'Javob yetib bormadi. Qayta bosib ko’ring.' })
+    );
+  }
+  renderVals() {
+    const s = this.state, v = this.core(), d = SITE.d, b = SITE.b;
+    const el = SITE.elapsed(d.tanishgan_sana);
+    const digits = (n, len, p) => String(n).padStart(len, '0').split('').map((x, i) => ({ d: x, k: p + i + '-' + x }));
+    const days = el.days || 0, dLen = Math.max(4, String(days).length);
+    const reasons = d.sabablar || [], yol = d.yol || [], rn = reasons.length;
+    const ys = yol.map((x) => (x && x.yil) || '').filter(Boolean);
+    const txt = String(d.matn || '').replace(/^\s+/, '');
+    const isL = /[A-Za-zÀ-ɏЀ-ӿ]/.test(txt.charAt(0));
+    const rose = this.roseGeo();
+    const sky = b.xarita ? this.sky() : { sec: [], lead: '', stars: [], clA: '', clB: '', sa: {}, sb: {}, pairD: '' };
+    const total = Math.min(6, Math.max(1, SITE.has.photos));
+    const glass = ['radial-gradient(circle at 36% 30%, #8DB8FF, #2457B8 50%, #0C2460)', 'radial-gradient(circle at 36% 30%, #FFE7A6, #E8A33A 50%, #97560F)', 'radial-gradient(circle at 36% 30%, #8FF0BC, #1E8E5A 50%, #0A4A2C)', 'radial-gradient(circle at 36% 30%, #FF8DA0, #B3203A 50%, #5E0A1C)'];
+    const glow = ['rgba(79, 127, 214, 0.55)', 'rgba(232, 163, 58, 0.5)', 'rgba(30, 142, 90, 0.5)', 'rgba(179, 32, 58, 0.5)'];
+    const shardC = ['f-s', 'f-a', 'f-e', 'f-r', 'f-c'];
+    const shards = [];
+    for (let i = 0; i < 16; i++) {
+      const an = (i / 16) * Math.PI * 2 + (i % 3) * 0.2, dist = 90 + (i % 4) * 22;
+      shards.push({ c: shardC[i % 5], w: 10 + (i % 3) * 3, h: 16 + (i % 3) * 5, st: '--dx: ' + Math.round(Math.cos(an) * dist) + 'px; --dy: ' + Math.round(Math.sin(an) * dist * 0.8) + 'px; --rot: ' + ((i % 2 ? 1 : -1) * (120 + i * 17)) + 'deg; animation-delay: ' + ((i % 5) * 0.05).toFixed(2) + 's' });
+    }
+    return Object.assign(v, {
+      fromGa: SITE.ga(v.from),
+      iniFrom: this.ini(v.from), iniTo: this.ini(v.to),
+      introEyebrow: v.from ? v.from + 'dan maktub' : 'Senga maktub',
+      eyebrow: v.from ? v.from + 'dan maktub' : 'Senga maktub',
+      introPx: Math.min(this.fit(v.to, 42, 340, 0.48), v.to.length > 14 ? 34 : 42),
+      h1px: this.fit(v.to, 52, 340, 0.48),
+      qPx: String(d.savol || '').length > 40 ? 32 : 38,
+      introCls: s.opened ? 'v-intro is-open' : 'v-intro',
+      open: () => { if (!this.state.opened) { this.setState({ opened: true }); SITE.opened(); } },
+      musicOn: !!SITE.music.playing,
+      musicOff: !SITE.music.playing,
+      toggleMusic: () => SITE.music.toggle(),
+      rose: rose.panels, leadD: rose.lead, hiD: rose.hi, rivets: rose.rivets,
+      capL: isL ? txt.charAt(0) : '',
+      capRest: isL ? txt.slice(1) : txt,
+      secretCls: s.secret ? 'v-secret is-shown' : 'v-secret',
+      frostCls: s.secret ? 'v-frost is-clear' : 'v-frost',
+      secretShown: s.secret,
+      reveal: () => this.setState({ secret: true }),
+      reasonsLbl: rn <= 10 ? this.numWord(rn) + ' sabab' : rn + ' sabab',
+      reasons: reasons.map((t, i) => ({ n: this.roman(i + 1), t, bg: glass[i % 4], w: (rn % 2 === 1 && i === rn - 1) ? 'width: 100%; ' : 'width: calc(50% - 7px); ' })),
+      skySec: sky.sec, skyLead: sky.lead, stars: sky.stars, clA: sky.clA, clB: sky.clB, sa: sky.sa, sb: sky.sb, pairD: sky.pairD,
+      mapLbl: 'Yulduzlar xaritasi' + (v.hasDate ? ': ' + v.w.date : ''),
+      yolRange: ys.length > 1 && ys[0] !== ys[ys.length - 1] ? ys[0] + ' — ' + ys[ys.length - 1] : (ys[0] || ''),
+      yol: yol.map((x, i) => { const yl = String(x.yil || ''); return { yil: yl, sarlavha: x.sarlavha || '', matn: x.matn || '', bg: glass[i % 4], glow: glow[i % 4], fs: yl.length <= 4 ? 22 : yl.length <= 7 ? 16 : 13 }; }),
+      galLbl: total <= 10 ? this.numWord(total) + ' lahza' : total + ' lahza',
+      galRows: this.galRows(),
+      dd: digits(days, dLen, 'd'),
+      ddW: dLen > 5 ? 48 : 60,
+      clock: [
+        { sep: false, lbl: 'soat', bg: 'linear-gradient(180deg, #1E8E5A 0%, #136B43 48%, #0A4A2C 52%, #0E5A36 100%)', ds: digits(el.h || 0, 2, 'h') },
+        { sep: true, lbl: 'daqiqa', bg: 'linear-gradient(180deg, #C9862A 0%, #A5651A 48%, #7A4510 52%, #8F5514 100%)', ds: digits(el.m || 0, 2, 'm') },
+        { sep: true, lbl: 'soniya', bg: 'linear-gradient(180deg, #B3203A 0%, #8A1A2E 48%, #5E0A1C 52%, #741326 100%)', ds: digits(el.s || 0, 2, 's') }
+      ],
+      savGlow: s.answer ? 'rgba(224, 80, 106, 0.6)' : 'rgba(179, 32, 58, 0.3)',
+      savLitSt: s.answer ? 'opacity: 1; ' : 'opacity: 0; ',
+      shards,
+      asking: !s.answer,
+      answered: !!s.answer,
+      answer: s.answer || '',
+      busy: s.busy,
+      err: s.err,
+      sayHa: () => this.answer('Ha'),
+      sayAlbatta: () => this.answer('Albatta')
+    });
+  }
+}
+</script>
+</body>
+</html>
