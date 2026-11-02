@@ -97,7 +97,7 @@ a{color:#1E2C7A}
 .m-fh{position:absolute;left:0;width:62px;height:40px;overflow:hidden;background:linear-gradient(180deg,#2A3A92,#1E2C7A);backface-visibility:hidden}
 .m-fh--t{top:0;border-radius:6px 6px 0 0;transform-origin:50% 100%}
 .m-fh--b{top:40px;border-radius:0 0 6px 6px;transform-origin:50% 0;background:linear-gradient(180deg,#18236A,#141E58)}
-.m-fd{display:block;width:62px;height:80px;line-height:82px;text-align:center;font-family:'Kurale',Georgia,serif;font-size:40px;color:#F1D98A}
+.m-fd{display:block;width:62px;height:80px;line-height:82px;text-align:center;font-family:'Kurale',Georgia,serif;font-size:35px;color:#F1D98A}
 .m-fh--b .m-fd{margin-top:-40px}
 .m-ftop,.m-fbot{z-index:2}
 .m-fbot{transform:rotateX(90deg)}
@@ -481,7 +481,7 @@ a{color:#1E2C7A}
   <div style="height: 46px; flex: none"></div>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":6400}}'>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":6350}}'>
 const D = SITE.d;
 const ROMAN = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII'];
 function hhmm(t) { t = String(t || ''); return /^\d:\d\d$/.test(t) ? '0' + t : t; }
@@ -598,9 +598,9 @@ class Component extends DCLogic {
       toggleMusic: () => { SITE.music.toggle(); },
       w, mono, fsMono: mono.length > 3 ? 28 : 34,
       guestName, guestFull: GUEST ? GUEST : 'mehmon',
-      fsGuest: fitPx(guestName, 44, 340, 0.5),
-      fsFront: fitPx(longer, 36, 216, 0.52),
-      fsName: fitPx(longer, 54, 330, 0.52),
+      fsGuest: fitPx(guestName, 44, 340, 0.56),
+      fsFront: fitPx(longer, 36, 214, 0.6),
+      fsName: fitPx(longer, 54, 326, 0.6),
       romanDate: w.day ? w.day + ' · ' + ROMAN[+w.monthNum - 1] + ' · ' + w.year : '',
       wkTime: w.Weekday + (D.vaqt ? ', soat ' + D.vaqt : ''),
       dropA: matn.charAt(0), dropRest: matn.slice(1),
@@ -632,7 +632,7 @@ class Component extends DCLogic {
       sendLabel: s.busy ? 'Yuborilmoqda…' : (s.sent ? 'Javob yuborildi' : 'Javobni yuborish'),
       rsvpNote: note,
       telSt: SITE.b.guruh || SITE.b.rsvp ? 'padding-top: 30px' : '',
-      coloNames: colo, fsColo: fitPx(colo, 26, 250, 0.5),
+      coloNames: colo, fsColo: fitPx(colo, 26, 250, 0.58),
       tel: telHref(D.telefon)
     };
   }
