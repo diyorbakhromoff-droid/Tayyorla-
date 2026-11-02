@@ -57,13 +57,16 @@ async def home():
 
 
 @app.get("/namuna/{tid}", response_class=HTMLResponse)
-async def namuna(tid: str, r: int = 1):
-    """Katalogdagi tarifli shablonning namunasi (namuna ma'lumotlari bilan, javoblar saqlanmaydi)."""
+async def namuna(tid: str, r: int = 1, m: str = ""):
+    """Katalogdagi tarifli shablonning namunasi (namuna ma'lumotlari bilan, javoblar saqlanmaydi).
+    m — marosim turi (fotiha, sunnat...): namuna shu marosim uchun ko'rsatiladi."""
     t = TEMPLATES.get(tid)
     if not t or not t.get("v2"):
         raise HTTPException(404)
     cfg = catalog2.demo_config(t)
     cfg["rang"] = r
+    if m and m in {**catalog2.TOY_MAROSIM, **catalog2.OSH_MAROSIM}:
+        cfg["data"]["marosim"] = m
     return catalog2.render(t, cfg, "namuna", preview=False, demo=True)
 
 

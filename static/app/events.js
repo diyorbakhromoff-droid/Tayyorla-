@@ -19,14 +19,25 @@
   }
 
   // ---------------------------------------------------------------- Taklifnomalar bo'limi
+  // Marosim turlari: to'y shablonlari (nikoh, fotiha, qizlar bazmi, kelin salom) va «Osh va marosimlar» bo'limi
+  const MAROSIM = [
+    ["nikoh", "toy"], ["fotiha", "toy"], ["qizlar", "toy"], ["kelin", "toy"],
+    ["nahorgi", "osh"], ["osh_toyi", "osh"], ["sunnat", "osh"], ["beshik", "osh"], ["iftor", "", true],
+  ];
+  const marosimName = (k, sec) => (k === "iftor" ? App.tx("ev.iftor", "Iftorlik")
+    : ((S.vm.event_names || {})[sec] || {})[k] || k);
   App.views.events = (p, el) => {
     App.chrome({ tabs: true });
     const kind = p.kind === "video" ? "video" : "site";
+    const m = MAROSIM.find((x) => x[0] === p.m) || MAROSIM[0];
+    const [mk, msec, soon] = m;
     el.innerHTML = `
       <header class="page-head"><h1>${esc(T("ev.title"))}</h1><p>${esc(T("ev.sub"))}</p>
         <div class="seg" role="tablist" style="margin-top:8px">
           <button type="button" role="tab" data-k="site" aria-selected="${kind === "site"}">${esc(App.tx("ev.k_site", "Sayt taklifnoma"))}</button>
           <button type="button" role="tab" data-k="video" aria-selected="${kind === "video"}">${esc(App.tx("ev.k_video", "Video taklifnoma"))}</button></div></header>
+      <div style="padding:12px 16px 0"><div class="chips scroll" role="group" aria-label="${esc(App.tx("ev.marosim", "Marosim"))}">${MAROSIM.map(([k, sec, isSoon]) =>
+        `<button type="button" class="chip" data-m="${k}" aria-pressed="${k === mk}">${esc(marosimName(k, sec))}${isSoon ? ` <small>· ${esc(App.tx("soon", "tez kunda"))}</small>` : ""}</button>`).join("")}</div></div>
       <div id="invCat" class="fade"></div>
       <section class="sec"><div class="sec-h"><h2>${esc(T("ev.mine"))}</h2></div><div class="stack" id="evList"><div class="empty"><span class="spin"></span></div></div></section>
       <section class="sec"><div class="sec-h"><h2>${esc(T("ev.can"))}</h2></div><div class="stack">
@@ -34,16 +45,23 @@
         <div class="feat"><span class="ic g">${icon("check")}</span><span><b>${esc(T("ev.can2_t"))}</b>${esc(T("ev.can2_s"))}</span></div>
         <div class="feat"><span class="ic y">${icon("qr")}</span><span><b>${esc(T("ev.can3_t"))}</b>${esc(T("ev.can3_s"))}</span></div></div></section>`;
     $$("[data-k]", el).forEach((b) => (b.onclick = () => { haptic(); p.kind = b.dataset.k; App.render(); }));
+    $$("[data-m]", el).forEach((b) => (b.onclick = () => { haptic(); p.m = b.dataset.m; App.render(); }));
+    const onChip = $('[data-m][aria-pressed="true"]', el);
+    if (onChip && onChip.parentElement) onChip.parentElement.scrollLeft = Math.max(0, onChip.offsetLeft - 16);
     const cat = $("#invCat");
-    if (kind === "site") {
-      App.siteCatalog(cat, "toy", p);
+    const mField = msec === "osh" ? (kind === "site" ? "marosim" : "nomi") : "marosim";
+    if (soon) {
+      cat.innerHTML = `<div class="wrap" style="padding-top:16px"><div class="empty"><b>${esc(App.tx("ev.iftor_t", "Iftorlik taklifnomalari tez kunda"))}</b>${esc(App.tx("ev.iftor_s", "Ramazon oldidan maxsus dizaynlar qo‘shiladi. Hozircha boshqa marosimni tanlang."))}</div></div>`;
+    } else if (kind === "site") {
+      p.pre = { marosim: mk };
+      App.siteCatalog(cat, msec, p);
       cat.insertAdjacentHTML("beforeend", `<div class="wrap" style="padding-top:16px"><button type="button" class="banner" id="fromVideo">${icon("video")}<span><b>${esc(T("sites.from_video_t"))}</b>${esc(T("sites.from_video_s"))}</span>${icon("chev")}</button></div>`);
       $("#fromVideo").onclick = () => { haptic(); App.pickEventForSite(); };
     } else {
       cat.innerHTML = `<div class="wrap" style="padding-top:16px"><ol class="steps3">
           <li><span>1</span>${esc(T("videos.step1"))}</li><li><span>2</span>${esc(T("videos.step2"))}</li><li><span>3</span>${esc(T("videos.step3"))}</li></ol></div>
-        <div class="wrap" style="padding-top:16px">${App.videoGrid(S.vm.designs.filter((d) => d.section === "toy"))}</div>`;
-      $$("[data-design]", cat).forEach((b) => (b.onclick = () => { haptic(); App.Draft.set(null); App.go("editor", { design: b.dataset.design }); }));
+        <div class="wrap" style="padding-top:16px">${App.videoGrid(S.vm.designs.filter((d) => d.section === msec))}</div>`;
+      $$("[data-design]", cat).forEach((b) => (b.onclick = () => { haptic(); App.Draft.set(null); App.go("editor", { design: b.dataset.design, prefill: { [mField]: mk } }); }));
     }
     const box = $("#evList");
     api("/api/events").then(({ events }) => {

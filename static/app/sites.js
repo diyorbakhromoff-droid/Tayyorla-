@@ -50,7 +50,7 @@
     const all = $("#allTiers", box); if (all) all.onclick = () => { haptic(); p.tier = ""; App.render(); };
     $$("[data-tpl]", box).forEach((b) => (b.onclick = () => {
       haptic();
-      const pre = {};
+      const pre = { ...(p.pre || {}) };
       if (S.me.name) pre.kimdan = S.me.name;
       startOrder(b.dataset.tpl, pre, "");
     }));
@@ -59,11 +59,13 @@
   // ---------------------------------------------------------------- Saytlar bo'limi
   // To'y taklifnomalari «Taklifnomalar» bo'limida (video va sayt bir joyda)
   App.views.sites = (p, el) => {
+    // to'y va osh (marosimlar) taklifnomalari «Taklifnomalar» bo'limida
     if (p.section === "toy" && !p.fromEvent && !p.mine) { App.tab("events", { kind: "site", tier: p.tier || "" }); return; }
+    if (p.section === "osh" && !p.mine) { App.tab("events", { kind: "site", m: "nahorgi" }); return; }
     App.chrome({ tabs: true });
     const sites = S.me.sites || [];
     const tab = p.mine ? "mine" : "designs";
-    const secs = S.cm.sections.filter((s) => s.key !== "toy");
+    const secs = S.cm.sections.filter((s) => s.key !== "toy" && s.key !== "osh");
     const sec = secs.some((s) => s.key === p.section) ? p.section : secs[0].key;
     el.innerHTML = `
       <header class="page-head"><h1>${esc(T("sites.title"))}</h1><p>${esc(T("sites.sub"))}</p>
@@ -208,7 +210,8 @@
     const prev = store.json(OKEY);
     const keys = new Set(t.v2 ? t.fields : S.cm.fields[t.section].map((f) => f.key));
     const data = Object.fromEntries(Object.entries(pre || {}).filter(([k]) => keys.has(k)));
-    const reuse = prev && prev.template === t.id && !eventSlug && !Object.keys(pre || {}).filter((k) => k !== "kimdan").length;
+    const reuse = prev && prev.template === t.id && !eventSlug && !Object.keys(pre || {}).filter((k) => k !== "kimdan" && k !== "marosim").length;
+    if (reuse && data.marosim) prev.data = { ...(prev.data || {}), marosim: data.marosim };
     order = reuse ? prev : { template: t.id, tarif: t.vip ? "vip" : "premium", rang: 1, data, photos: [], music: null, unlock_at: null, _brief: tone ? `Uslub: ${tone}. ` : "", event: eventSlug || null };
     if (t.vip) order.tarif = "vip";
     if (t.premium && order.tarif === "standart") order.tarif = "premium";
@@ -217,6 +220,8 @@
     App.go("order", { step: 0 });
   }
   App.startOrder = startOrder;
+  // namuna: tanlangan rang va marosim bilan (Fotiha to'yi, Sunnat to'yi...)
+  const v2demo = (t) => `${t.demo}?r=${order.rang}${order.data && order.data.marosim ? `&m=${encodeURIComponent(order.data.marosim)}` : ""}`;
   // ixtiyoriy bloklar (masalan, kiyinish uslubi) boshida o'chiq: mijoz xohlasa qo'shadi
   const optionalBlocks = (t) => (t.blocks || []).filter((b) => b.optional).map((b) => b.key);
 
@@ -252,7 +257,7 @@
             <button type="button" class="sw" data-r="${i + 1}" aria-pressed="${order.rang === i + 1}" title="${esc(App.tx("pal." + t.colors[i], t.colors[i]))}">
               <i style="background:conic-gradient(${c[1]} 0 50%, ${c[2]} 0 75%, ${c[0]} 0)"></i><span>${esc(App.tx("pal." + t.colors[i], t.colors[i]))}</span></button>`).join("")}</div></section>` : "";
       el.innerHTML = head(tplName(t), T("ord.live")) + `
-        <div class="wrap fade"><div class="phone"><div class="loading">${esc(T("loading"))}</div><iframe id="demo" src="${esc(t.v2 ? `${t.demo}?r=${order.rang}` : demoUrl())}" title="${esc(T("ord.live"))}"></iframe></div>
+        <div class="wrap fade"><div class="phone"><div class="loading">${esc(T("loading"))}</div><iframe id="demo" src="${esc(t.v2 ? v2demo(t) : demoUrl())}" title="${esc(T("ord.live"))}"></iframe></div>
           <p class="hint" style="text-align:center;margin-top:12px">${esc(T("ord.try"))}</p>${tierCard}</div>` + cta(T("ord.choose"));
       $("#demo").onload = () => { const l = $(".phone .loading"); if (l) l.remove(); };
       if (t.v2) {
@@ -260,7 +265,7 @@
         $$(".sw", el).forEach((b) => (b.onclick = () => {
           haptic(); order.rang = +b.dataset.r; save();
           $$(".sw", el).forEach((x) => x.setAttribute("aria-pressed", x === b));
-          $("#demo").src = `${t.demo}?r=${order.rang}`;
+          $("#demo").src = v2demo(t);
         }));
       }
       bindNav(0, () => go(1));

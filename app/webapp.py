@@ -20,7 +20,7 @@ from pydantic import BaseModel, Field
 from . import ai
 from sqlalchemy import delete, func, select
 
-from . import billing, reminders, track
+from . import billing, catalog2, reminders, track
 from .catalog import RELATIONS, TEMPLATES, catalog_meta, clean_order, render_catalog, site_price, site_title
 from .config import MEDIA_DIR, ROOT, settings
 from .db import Person, Reaction, ReminderLog, RenderJob, Session, Site, UserProfile, new_slug
@@ -264,8 +264,13 @@ async def catalog_ai_write(body: CatalogWriteIn, x_init_data: str = Header("")):
         raise HTTPException(400, "Noma'lum shablon")
     _rate_limit(user)
     order = clean_order({"template": body.template, "tarif": "vip", "data": body.data}, strict=False)
+    sec = TEMPLATES[body.template]["section"]
+    brief = body.brief
+    if sec in ("toy", "osh"):  # AI matnni tanlangan marosimga yozsin (Nahorgi osh, Fotiha to'yi...)
+        brief = f"Bu {catalog2.MAROSIM_TAKLIF[catalog2.marosim_key(sec, order['data'])].lower()} matni. {brief}"
+        order["data"]["marosim"] = catalog2.marosim_label(sec, order["data"])
     try:
-        text = await ai.write_message(order["category"], order["data"], body.brief, body.previous)
+        text = await ai.write_message(order["category"], order["data"], brief, body.previous)
     except Exception:
         log.exception("Mini App: AI matn yozishda xato")
         raise HTTPException(502, "Hozir matn yozib bo'lmadi, qayta urinib ko'ring")

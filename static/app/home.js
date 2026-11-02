@@ -73,7 +73,8 @@
     $$("[data-go]", el).forEach((b) => (b.onclick = () => { haptic(); App.tab(b.dataset.go); }));
     $$("[data-occ]", el).forEach((b) => (b.onclick = () => {
       haptic();
-      const [, tab, section] = OCCASIONS.find((o) => o[0] === b.dataset.occ);
+      const [k, tab, section] = OCCASIONS.find((o) => o[0] === b.dataset.occ);
+      if (k === "toy" || k === "osh") { App.tab("events", { kind: "site", m: k === "osh" ? "nahorgi" : "nikoh" }); return; }
       App.tab(tab, { section });
     }));
     $$("[data-design]", el).forEach((b) => (b.onclick = () => { haptic(); App.go("editor", { design: b.dataset.design }); }));

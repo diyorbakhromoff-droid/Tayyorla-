@@ -22,9 +22,11 @@ SECTIONS = {
     "sevgi": "💌 Sevgi izhori",
     "farzand": "👶 Farzand muborak",
     "uzr": "🙏 Uzrnoma",
+    "osh": "🍚 Osh va marosimlar",
 }
 # Eski kategoriyalar bilan bog'lash (AI uchun matn turi)
-SECTION_TO_CATEGORY = {"tugilgan-kun": "birthday", "toy": "wedding", "sevgi": "love", "farzand": "baby", "uzr": "apology"}
+SECTION_TO_CATEGORY = {"tugilgan-kun": "birthday", "toy": "wedding", "sevgi": "love", "farzand": "baby", "uzr": "apology",
+                       "osh": "wedding"}
 
 TIERS = {
     "standart": {"level": 1, "title": "Standart", "colors": 3, "photos": 6,

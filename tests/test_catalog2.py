@@ -88,6 +88,21 @@ assert catalog2.visible_blocks(sv, {}, [], None, [])["savol"] is False
 tk = next(t for t in v2 if "bazm" in t["retired"])
 assert "bazm_sana" not in catalog2.demo_config(tk)["data"] and "Bahor" not in catalog2.render(tk, catalog2.demo_config(tk), "namuna", preview=False, demo=True)
 
+# marosim turlari: to'y shablonlari fotiha / qizlar bazmi / kelin salomga moslashadi
+assert catalog2.marosim_text("NIKOH TO’YIGA TAKLIFNOMA, nikoh to’yimizga", "fotiha") == "FOTIHA TO’YIGA TAKLIFNOMA, fotiha to’yimizga"
+assert catalog2.marosim_text("Nikoh to’yi sharafiga", "qizlar") == "Qizlar bazmi sharafiga"
+assert catalog2.marosim_text("NIKOH TO’YIGA, nikoh to’yi", "kelin") == "KELIN SALOMGA, kelin salom"
+assert catalog2.marosim_text("nikoh to’yi", "nikoh") == "nikoh to’yi"
+toy_t = next(t for t in v2 if t["section"] == "toy")
+cfg = catalog2.demo_config(toy_t)
+cfg["data"]["marosim"] = "fotiha"
+page = catalog2.render(toy_t, cfg, "namuna", preview=False, demo=True)
+assert "Fotiha to\'yiga taklifnoma" in page or "fotiha to\'yiga taklifnoma" in page or "fotiha to'yiga taklifnoma" in page.lower()
+assert clean_order({"template": toy_t["id"], "data": {"marosim": "qizlar"}}, strict=False)["data"]["marosim"] == "qizlar"
+assert "marosim" not in clean_order({"template": toy_t["id"], "data": {"marosim": "yoq"}}, strict=False)["data"]
+assert catalog2.page_title("osh", {"marosim": "sunnat", "mezbon": "Karimovlar oilasi"}) == "Karimovlar oilasi — sunnat to'yiga taklifnoma"
+assert [f.key for f in catalog2.FIELDS2["osh"]][:1] == ["marosim"] and "osh" in catalog2.DEMOS
+
 # rang palitralari: Standart 3, Premium 8, VIP 12; tarifdan ortig'i asl rangga qaytadi
 prem = next(t for t in v2 if t["tier"] == "premium")
 assert len(vip["colors"]) == 12 and len(prem["colors"]) == 8 and len(vip["swatch"]) == 12

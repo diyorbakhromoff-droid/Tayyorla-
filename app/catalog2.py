@@ -31,6 +31,14 @@ class Block:
 _ITEMS_YOL = [("yil", "Yil yoki sana", "text"), ("sarlavha", "Sarlavha", "text"), ("matn", "Qisqa matn", "text")]
 _ITEMS_TILAK = [("ism", "Kimdan", "text"), ("matn", "Tilak", "text")]
 
+# Marosim turlari: to'y shablonlari nikohdan boshqa marosimlarga ham moslashadi; osh bo'limi alohida
+TOY_MAROSIM = {"nikoh": "Nikoh to'yi", "fotiha": "Fotiha to'yi", "qizlar": "Qizlar bazmi", "kelin": "Kelin salom"}
+OSH_MAROSIM = {"nahorgi": "Nahorgi osh", "osh_toyi": "Osh to'yi", "sunnat": "Sunnat to'yi", "beshik": "Beshik to'yi"}
+# «…ga taklif» shakli
+MAROSIM_TAKLIF = {"nikoh": "Nikoh to'yiga taklifnoma", "fotiha": "Fotiha to'yiga taklifnoma", "qizlar": "Qizlar bazmiga taklifnoma",
+                  "kelin": "Kelin salomga taklifnoma", "nahorgi": "Nahorgi oshga taklifnoma", "osh_toyi": "Osh to'yiga taklifnoma",
+                  "sunnat": "Sunnat to'yiga taklifnoma", "beshik": "Beshik to'yiga taklifnoma"}
+
 FIELDS2: dict[str, list[Field]] = {
     "tugilgan-kun": [
         Field("kimga", "Kimni tabriklaymiz?", required=True, hint="Masalan: Madina"),
@@ -51,6 +59,7 @@ FIELDS2: dict[str, list[Field]] = {
         Field("mehmon_tilaklari", "Yaqinlar tilaklari", "items", sub=_ITEMS_TILAK),
     ],
     "toy": [
+        Field("marosim", "Marosim", "choice", options=TOY_MAROSIM),
         Field("kuyov", "Kuyovning ismi", required=True),
         Field("kelin", "Kelinning ismi", required=True),
         Field("sana", "To'y sanasi", "date", required=True),
@@ -66,6 +75,22 @@ FIELDS2: dict[str, list[Field]] = {
         Field("hikoya", "Sevgi tarixi", "items", sub=_ITEMS_YOL),
         Field("dress_kod", "Kiyinish uslubi", hint="Masalan: Zumrad, shampan va oltin ranglar"),
         Field("telegram_guruh", "Mehmonlar Telegram guruhi", "url"),
+        Field("telefon", "Aloqa uchun telefon", "tel"),
+    ],
+    "osh": [
+        Field("marosim", "Marosim", "choice", required=True, options=OSH_MAROSIM),
+        Field("sababi", "Munosabat", hint="Masalan: O'g'limiz Sardorning to'yi munosabati bilan"),
+        Field("ism", "Farzandingiz ismi", hint="Sunnat yoki beshik to'yi uchun, masalan: Sardor"),
+        Field("mezbon", "Taklif qiluvchilar", required=True, hint="Masalan: Karimovlar oilasi"),
+        Field("sana", "Sana", "date", required=True),
+        Field("vaqt", "Boshlanish vaqti", "time", required=True),
+        Field("mehmon", "Mehmon ismi", hint="Mehmonlar ro'yxatidan yuborilsa, har biriga o'z ismi chiqadi"),
+        Field("matn", "Taklif matni", "textarea", ai=True),
+        Field("manzil_nomi", "Joy nomi", hint="Masalan: «Navro'z» to'yxonasi yoki hovlimiz"),
+        Field("manzil", "Manzil"),
+        Field("xarita", "Xarita havolasi (Google yoki Yandex)", "url"),
+        Field("joy_rasmi", "Joy surati", "photo"),
+        Field("dastur", "Dastur", "items", sub=[("vaqt", "Vaqt", "time"), ("nomi", "Nima bo'ladi", "text")]),
         Field("telefon", "Aloqa uchun telefon", "tel"),
     ],
     "sevgi": [
@@ -106,7 +131,8 @@ FIELDS2: dict[str, list[Field]] = {
 # Bosh qism: har doim ko'rinadi, olib tashlanmaydi
 HERO2 = {
     "tugilgan-kun": ["kimga", "yosh", "sana"],
-    "toy": ["kuyov", "kelin", "sana", "vaqt", "mehmon"],
+    "toy": ["marosim", "kuyov", "kelin", "sana", "vaqt", "mehmon"],
+    "osh": ["marosim", "sababi", "ism", "mezbon", "sana", "vaqt", "mehmon"],
     "sevgi": ["kimga", "kimdan"],
     "farzand": ["chaqaloq", "jins", "sana", "vaqt", "ota_ona"],
     "uzr": ["kimga", "kimdan"],
@@ -139,6 +165,16 @@ BLOCKS2: dict[str, list[Block]] = {
         Block("dress", "Kiyinish uslubi", ["dress_kod"], ["dress_kod"]),
         Block("rsvp", "Mehmon javobi"),
         Block("guruh", "Telegram guruhi", ["telegram_guruh"], ["telegram_guruh"]),
+        Block("telefon", "Aloqa telefoni", ["telefon"], ["telefon"]),
+    ],
+    "osh": [
+        Block("taklif", "Taklif matni", ["matn"], ["matn"]),
+        Block("kun", "Sana va vaqt"),
+        Block("taymer", "Taymer"),
+        Block("manzil", "Manzil", ["manzil_nomi", "manzil", "xarita", "joy_rasmi"], ["manzil_nomi"]),
+        Block("dastur", "Dastur", ["dastur"], ["dastur"]),
+        Block("galereya", "Suratlar", [], [PHOTOS]),
+        Block("rsvp", "Mehmon javobi"),
         Block("telefon", "Aloqa telefoni", ["telefon"], ["telefon"]),
     ],
     "sevgi": [
@@ -311,10 +347,52 @@ def _asset_v(rel: str) -> int:
     return int(p.stat().st_mtime) if p.is_file() else 0
 
 
+def marosim_key(section: str, d: dict) -> str:
+    opts = TOY_MAROSIM if section == "toy" else OSH_MAROSIM if section == "osh" else {}
+    k = d.get("marosim")
+    return k if k in opts else (next(iter(opts)) if opts else "")
+
+
+def marosim_label(section: str, d: dict) -> str:
+    k = marosim_key(section, d)
+    return {**TOY_MAROSIM, **OSH_MAROSIM}.get(k, "")
+
+
+_NIKOH = re.compile(r"\b(nikoh|Nikoh|NIKOH)(\s+)(to[’'‘ʼ]y|To[’'‘ʼ]y|TO[’'‘ʼ]Y)(imizga|imizni|imiz|iga|ini|ida|i|IMIZGA|IMIZNI|IMIZ|IGA|INI|IDA|I)?")
+_KELIN_SFX = {"imizga": "imizga", "imizni": "imizni", "imiz": "imiz", "iga": "ga", "ini": "ni", "ida": "da", "i": "", "": ""}
+
+
+def _case(src: str, word: str) -> str:
+    if src.isupper():
+        return word.upper()
+    return word[:1].upper() + word[1:] if src[:1].isupper() else word
+
+
+def marosim_text(text: str, kind: str) -> str:
+    """To'y shablonidagi «nikoh to'yi» iboralarini tanlangan marosimga moslaydi (qo'shimchalari bilan)."""
+    if kind not in ("fotiha", "qizlar", "kelin"):
+        return text
+
+    def sub(m: re.Match) -> str:
+        w, sp, ty, sfx = m.group(1), m.group(2), m.group(3), m.group(4) or ""
+        if kind == "fotiha":
+            return _case(w, "fotiha") + sp + ty + sfx
+        if kind == "qizlar":
+            return _case(w, "qizlar") + sp + _case(ty, "bazm") + sfx
+        tail = _KELIN_SFX[sfx.lower()]
+        return _case(w, "kelin") + sp + _case(ty, "salom") + (tail.upper() if sfx.isupper() else tail)
+    return _NIKOH.sub(sub, text)
+
+
 def page_title(section: str, d: dict) -> str:
     if section == "toy":
         names = " va ".join(x for x in (d.get("kuyov"), d.get("kelin")) if x)
-        return f"{names} — to'y taklifnomasi" if names else "To'y taklifnomasi"
+        kind = marosim_key(section, d)
+        what = "to'y taklifnomasi" if kind == "nikoh" else MAROSIM_TAKLIF[kind].lower()
+        return f"{names} — {what}" if names else what[:1].upper() + what[1:]
+    if section == "osh":
+        label = MAROSIM_TAKLIF[marosim_key(section, d)]
+        return f"{d.get('mezbon')} — {label.lower()}" if d.get("mezbon") else label
     if section == "tugilgan-kun":
         return f"{d.get('kimga')}, tug'ilgan kuning muborak!" if d.get("kimga") else "Tug'ilgan kuning muborak!"
     if section == "sevgi":
@@ -333,6 +411,14 @@ def render(t: dict, config: dict, slug: str, preview: bool, guest=None, demo: bo
     hidden = config.get("hidden") or []
     if guest is not None:
         data["mehmon"] = guest.name
+    if t["section"] in ("toy", "osh"):
+        # shablon uchun tayyor matnlar: «Nahorgi osh», «Nahorgi oshga taklifnoma»
+        kind = marosim_key(t["section"], data)
+        data["marosim"] = kind
+        data["marosim_nomi"] = marosim_label(t["section"], data)
+        data["marosim_taklif"] = MAROSIM_TAKLIF[kind]
+        if t["section"] == "toy" and kind != "nikoh":
+            markup, script = marosim_text(markup, kind), marosim_text(script, kind)
     cfg = {
         "tarif": t["tier"], "data": data, "photos": photos, "slots": t["slots"], "music": music,
         "pal": palette(t, config.get("rang")),
