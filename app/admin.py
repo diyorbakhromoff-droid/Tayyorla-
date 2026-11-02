@@ -5,6 +5,7 @@ Kirish: Telegram ichida initData (X-Init-Data) yoki botdagi /admin buyrug'i berg
 
 import asyncio
 import csv
+from html import escape as html_escape
 import hashlib
 import hmac
 import io
@@ -319,9 +320,10 @@ def _slug(name: str) -> str:
     return re.sub(r"_+", "_", base).strip("_")[:16]
 
 
-def link_urls(code: str) -> dict:
+def link_urls(code: str, share: str = "") -> dict:
     return {"bot": f"https://t.me/{settings.bot_username}?start={track.SRC_PREFIX}{code}",
-            "go": f"{settings.base_url}/go/{code}"}
+            "go": f"{settings.base_url}/go/{code}",
+            "report": f"{settings.base_url}/hisobot/{share}" if share else None}
 
 
 def source_key(ref: str) -> str:
@@ -392,7 +394,8 @@ async def sources(frm: str | None = Query(None, alias="from"), to: str | None = 
                  cpb=round(cost / m["bought"]) if cost and m["bought"] else None,
                  roi=round(100 * (m["revenue"] - cost) / cost, 1) if cost else None)
         rows.append({"id": x.id, "code": x.code, "name": x.name, "note": x.note, "cost": cost, "archived": x.archived,
-                     "created_at": x.created_at.isoformat() if x.created_at else None, "urls": link_urls(x.code), **m})
+                     "share_revenue": x.share_revenue, "created_at": x.created_at.isoformat() if x.created_at else None,
+                     "urls": link_urls(x.code, x.share), **m})
     other = []
     for key in ("", "ref_", "r_", "other"):
         other.append({"key": key or "organic", "name": SOURCE_GROUPS[key], **metrics(groups.pop(key, []))})
@@ -429,6 +432,120 @@ async def link_edit(link_id: int, body: LinkPatch, uid: int = Depends(admin_uid)
             setattr(x, k, v.strip() if isinstance(v, str) else v)
         await s.commit()
     return {"ok": True}
+
+
+class ShareIn(BaseModel):
+    enable: bool = True
+    revenue: bool = False
+    renew: bool = False
+
+
+@router.post("/links/{link_id}/share")
+async def link_share(link_id: int, body: ShareIn, uid: int = Depends(admin_uid)):
+    """Hamkor (kanal egasi) uchun faqat shu havola natijalari ko'rinadigan maxfiy hisobot sahifasi."""
+    async with Session() as s:
+        x = await s.get(TrafficLink, link_id)
+        if not x:
+            raise HTTPException(404)
+        if not body.enable:
+            x.share = ""
+        elif body.renew or not x.share:
+            x.share = secrets.token_urlsafe(18)[:24]
+        x.share_revenue = body.revenue
+        await s.commit()
+    return {"urls": link_urls(x.code, x.share), "share_revenue": x.share_revenue}
+
+
+async def link_report(x: TrafficLink, a: datetime, b: datetime, days: list[date]) -> dict:
+    """Bitta havolaning natijalari: bosish, start, yangi foydalanuvchilar va ularning keyingi harakatlari."""
+    ref = f"{track.SRC_PREFIX}{x.code}"
+    async with Session() as s:
+        cohort = select(User.tg_id).where(User.ref == ref, User.created_at >= a, User.created_at < b)
+        users = (await s.execute(select(User.tg_id, User.created_at).where(User.ref == ref, User.created_at >= a,
+                                                                           User.created_at < b))).all()
+        clicks = (await s.execute(select(Event.created_at).where(Event.kind == "click", Event.src == x.code,
+                                                                 Event.created_at >= a, Event.created_at < b))).scalars().all()
+        starts = (await s.execute(select(Event.user_id, Event.created_at).where(Event.kind == "start", Event.src == ref,
+                                                                                Event.created_at >= a, Event.created_at < b))).all()
+        app = await s.scalar(select(func.count(func.distinct(Event.user_id))).where(Event.kind == "app", Event.user_id.in_(cohort)))
+        site_owners = set((await s.execute(select(Site.owner_id).where(Site.kind == "site", Site.owner_id.in_(cohort)).distinct())).scalars().all())
+        job_owners = set((await s.execute(select(RenderJob.owner_id).where(RenderJob.guest_id.is_(None),
+                                                                            RenderJob.owner_id.in_(cohort)).distinct())).scalars().all())
+        spenders = set((await s.execute(select(BalanceTx.user_id).where(BalanceTx.kind.in_(SPEND_KINDS),
+                                                                         BalanceTx.user_id.in_(cohort)).distinct())).scalars().all())
+        payers = set((await s.execute(select(Payment.user_id).where(Payment.status == "approved", Payment.user_id.in_(cohort)).distinct())).scalars().all())
+        revenue = await s.scalar(select(func.coalesce(func.sum(Payment.amount), 0)).where(Payment.status == "approved",
+                                                                                          Payment.user_id.in_(cohort)))
+    idx = {d: i for i, d in enumerate(days)}
+    daily = [{"day": d.isoformat(), "clicks": 0, "starts": 0, "users": 0} for d in days]
+    for t in clicks:
+        if (i := idx.get(local_day(t))) is not None:
+            daily[i]["clicks"] += 1
+    seen = set()
+    for u, t in starts:
+        if (i := idx.get(local_day(t))) is not None and (u, i) not in seen:
+            seen.add((u, i))
+            daily[i]["starts"] += 1
+    for _, t in users:
+        if (i := idx.get(local_day(t))) is not None:
+            daily[i]["users"] += 1
+    n = len(users)
+    bought = len(spenders | payers)
+    return {"clicks": len(clicks), "starts": len({u for u, _ in starts}), "users": n, "app": app or 0,
+            "created": len(site_owners | job_owners), "bought": bought, "conv": pct(bought, n),
+            "revenue": int(revenue or 0), "daily": daily}
+
+
+REPORT_PERIODS = {"7": ("7 kun", 7), "30": ("30 kun", 30), "90": ("90 kun", 90), "all": ("Hammasi", None)}
+
+
+@public.get("/hisobot/{share}", response_class=HTMLResponse)
+async def partner_report(share: str, d: str = "30"):
+    """Hamkor hisobot sahifasi: kirish uchun faqat maxfiy havola kerak, shaxsiy ma'lumot ko'rsatilmaydi."""
+    if not share or len(share) < 16:
+        raise HTTPException(404)
+    async with Session() as s:
+        x = (await s.execute(select(TrafficLink).where(TrafficLink.share == share))).scalar_one_or_none()
+    if not x:
+        return HTMLResponse("<!doctype html><meta charset=utf-8><meta name=viewport content='width=device-width'>"
+                            "<p style='font:16px sans-serif;padding:40px 20px;text-align:center'>Bu hisobot havolasi o'chirilgan yoki noto'g'ri.</p>",
+                            status_code=404)
+    d = d if d in REPORT_PERIODS else "30"
+    t = today()
+    span = REPORT_PERIODS[d][1]
+    start = t - timedelta(days=span - 1) if span else max(local_day(x.created_at) if x.created_at else t, t - timedelta(days=365))
+    days = [start + timedelta(days=i) for i in range((t - start).days + 1)]
+    r = await link_report(x, utc_of(start) if span else datetime(2000, 1, 1), utc_of(t + timedelta(days=1)), days)
+    e = html_escape
+    num = lambda v: f"{v:,}".replace(",", " ")  # noqa: E731
+    chips = "".join(f'<a class="chip" href="?d={k}" aria-pressed="{str(k == d).lower()}">{v[0]}</a>' for k, v in REPORT_PERIODS.items())
+    cards = [("Bosish", r["clicks"], "havolani ochganlar"), ("Start", r["starts"], "botda start bosganlar"),
+             ("Yangi foydalanuvchi", r["users"], "botga birinchi marta kelganlar"), ("Ilovaga kirdi", r["app"], "yangi kelganlardan"),
+             ("Yasadi", r["created"], "taklifnoma yoki video"), ("Sotib oldi", r["bought"], f"konversiya {r['conv']}%")]
+    if x.share_revenue:
+        cards.append(("Tushum", r["revenue"], "so'm, shu odamlardan"))
+    top = max([1] + [x2["clicks"] for x2 in r["daily"]] + [x2["users"] for x2 in r["daily"]])
+    rows = "".join(
+        f'<tr><td class="num">{e(row["day"][8:10])}.{e(row["day"][5:7])}.{e(row["day"][:4])}</td><td class="r num">{num(row["clicks"])}</td>'
+        f'<td class="r num">{num(row["starts"])}</td><td class="r num"><b>{num(row["users"])}</b>'
+        f'<div class="mini-bar"><i style="width:{100 * row["users"] / top:.1f}%"></i></div></td></tr>'
+        for row in reversed(r["daily"]) if row["clicks"] or row["starts"] or row["users"])
+    v = str(int((ROOT / "static" / "admin" / "admin.css").stat().st_mtime))
+    page = f"""<!doctype html><html lang="uz"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex, nofollow"><meta name="referrer" content="no-referrer">
+<title>{e(x.name)} — Tayyorla hisoboti</title><link rel="stylesheet" href="/static/fonts/fonts.css"><link rel="stylesheet" href="/static/admin/admin.css?v={v}">
+</head><body class="report"><main>
+<div class="brand-line"><span class="ikat" aria-hidden="true"></span><span>Tayyorla · hamkor hisoboti</span></div>
+<div class="head"><div><h1>{e(x.name)}</h1><p>@{e(settings.bot_username)} botiga shu havola orqali kelganlar. Raqamlar avtomatik yangilanadi.</p></div></div>
+<div class="period" role="group" aria-label="Davr">{chips}</div>
+<section class="blk"><div class="report-grid">{"".join(f'<div><b>{num(val)}</b><span>{e(lbl)}</span><small>{e(h)}</small></div>' for lbl, val, h in cards)}</div></section>
+<section class="blk"><div class="bh"><h2>Kunlar bo'yicha</h2></div>
+<div class="tbl-wrap"><table><thead><tr><th>Sana</th><th class="r">Bosish</th><th class="r">Start</th><th class="r">Yangi foydalanuvchi</th></tr></thead>
+<tbody>{rows or '<tr><td colspan="4" class="empty">Bu davrda hali hech kim kelmagan</td></tr>'}</tbody></table></div></section>
+<p class="muted" style="font-size:12.5px;margin-top:18px">«Yangi foydalanuvchi» — botga birinchi marta aynan shu havola orqali kirganlar. «Yasadi» va «Sotib oldi» — ular keyinchalik qilgan ishlar.
+Shaxsiy ma'lumotlar ko'rsatilmaydi.</p>
+</main></body></html>"""
+    return HTMLResponse(page, headers={"Cache-Control": "no-store", "X-Robots-Tag": "noindex", "Referrer-Policy": "no-referrer"})
 
 
 @public.api_route("/go/{code}", methods=["GET", "HEAD"])

@@ -108,6 +108,26 @@ async def main() -> None:
     organic = next(x for x in src["groups"] if x["key"] == "organic")
     assert organic["users"] == 1 and organic["created"] == 1 and organic["bought"] == 0
 
+    # hamkor hisoboti: maxfiy havola, faqat shu havola raqamlari, tushum faqat ruxsat bilan
+    sh = await admin.link_share(row["id"], admin.ShareIn(enable=True), uid=999)
+    rep_url = sh["urls"]["report"]
+    assert rep_url and "/hisobot/" in rep_url
+    key = rep_url.rsplit("/", 1)[1]
+    page = (await admin.partner_report(key, d="7")).body.decode()
+    assert "Instagram reklama" in page and "Tushum" not in page and "Ali" not in page and "Vali" not in page
+    async with Session() as s:
+        from app.db import TrafficLink
+        x = (await s.execute(__import__("sqlalchemy").select(TrafficLink).where(TrafficLink.code == "insta1"))).scalar_one()
+    rep = await admin.link_report(x, admin.utc_of(today()), admin.utc_of(today() + timedelta(days=1)), [today()])
+    assert (rep["clicks"], rep["starts"], rep["users"], rep["app"], rep["created"], rep["bought"]) == (1, 2, 2, 2, 2, 1), rep
+    assert rep["daily"][0] == {"day": today().isoformat(), "clicks": 1, "starts": 2, "users": 2}
+    await admin.link_share(row["id"], admin.ShareIn(enable=True, revenue=True), uid=999)
+    assert "59 000" in (await admin.partner_report(key, d="all")).body.decode()  # kalit o'zgarmadi, tushum ko'rinadi
+    new_key = (await admin.link_share(row["id"], admin.ShareIn(enable=True, renew=True), uid=999))["urls"]["report"].rsplit("/", 1)[1]
+    assert new_key != key and (await admin.partner_report(key)).status_code == 404
+    await admin.link_share(row["id"], admin.ShareIn(enable=False), uid=999)
+    assert (await admin.partner_report(new_key)).status_code == 404
+
     sl = await admin.sales(frm=d, to=d, uid=999)
     t = next(x for x in sl["templates"] if x["id"] == TPL["id"])
     assert t["created"] == 2 and t["paid"] == 1 and t["conv"] == 50.0

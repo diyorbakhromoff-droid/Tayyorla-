@@ -282,7 +282,7 @@
     const d = await api(`/api/admin/sources?${allTime ? "all_time=1" : `from=${f}&to=${t}`}${S.showArchived ? "&archived=1" : ""}`);
     if (!alive()) return;
     const rows = d.links.map((x) => `<tr class="click" data-link="${x.id}">
-      <td><b>${esc(x.name)}</b>${x.archived ? " " + tag("arxivda") : ""}<span class="sub">${esc(x.code)}${x.note ? ` · ${esc(x.note)}` : ""}</span></td>
+      <td><b>${esc(x.name)}</b>${x.archived ? " " + tag("arxivda") : ""}${x.urls.report ? " " + tag("hisobot ochiq", "pink") : ""}<span class="sub">${esc(x.code)}${x.note ? ` · ${esc(x.note)}` : ""}</span></td>
       <td class="r num">${fmt(x.clicks)}</td><td class="r num">${fmt(x.starts)}</td><td class="r num"><b>${fmt(x.users)}</b></td>
       <td class="r num">${fmt(x.app)}</td><td class="r num">${fmt(x.created)}</td><td class="r num"><b>${fmt(x.bought)}</b><span class="sub">${x.conv}%</span></td>
       <td class="r num">${som(x.revenue)}</td>
@@ -334,6 +334,12 @@
         <div><b>${fmt(x.created)}</b><span>yasadi</span></div><div><b>${fmt(x.bought)}</b><span>sotib oldi</span></div>
         <div><b>${som(x.revenue)}</b><span>tushum</span></div></div>
         ${x.cost ? `<p style="margin-top:10px">Bir foydalanuvchi narxi: <b>${som(x.cpu)}</b> · bir xaridor narxi: <b>${som(x.cpb)}</b> · ROI: <b>${x.roi}%</b></p>` : ""}</section>
+      <section><h3>Hamkor uchun hisobot</h3>
+        <p class="muted" style="font-size:13px;margin-bottom:8px">Kanal egasi yoki bloger faqat shu havola natijalarini ko'radi: bosish, start, yangi foydalanuvchi, ilovaga kirgan, yasagan, sotib olgan. Ismlar va shaxsiy ma'lumotlar ko'rinmaydi.</p>
+        ${x.urls.report ? `<div class="copy"><code>${esc(x.urls.report)}</code><button type="button" data-copy="${esc(x.urls.report)}">Nusxa</button><button type="button" data-open="${esc(x.urls.report)}">Ochish</button></div>
+          <label class="row" style="font-size:13px;margin-top:8px"><input type="checkbox" id="sh-rev" ${x.share_revenue ? "checked" : ""}> Tushumni (so'mda) ham ko'rsatish</label>
+          <div class="row" style="margin-top:8px"><button type="button" class="btn sm" id="sh-renew">Yangi havola (eskisi ishlamay qoladi)</button><button type="button" class="btn sm bad" id="sh-off">Hisobotni o'chirish</button></div>`
+          : `<button type="button" class="btn" id="sh-on">Hisobot havolasini yaratish</button>`}</section>
       <section><h3>Tahrirlash</h3><form class="form" id="edit-link">
         <label class="f">Nomi<input class="in" name="name" value="${esc(x.name)}" maxlength="100" required></label>
         <label class="f">Reklama narxi (so'm)<input class="in" name="cost" type="number" min="0" step="1000" value="${x.cost || ""}"></label>
@@ -342,6 +348,18 @@
           <button class="btn" type="button" id="arch-link">${x.archived ? "Arxivdan chiqarish" : "Arxivga olish"}</button></div>
       </form></section>`);
     $$("[data-copy]", $("#sheet")).forEach((b) => (b.onclick = () => copy(b.dataset.copy)));
+    $$("[data-open]", $("#sheet")).forEach((b) => (b.onclick = () => openExternal(b.dataset.open)));
+    const share = async (body, msg, copyAfter) => {
+      try {
+        const r = await api(`/api/admin/links/${x.id}/share`, body);
+        x.urls = r.urls; x.share_revenue = r.share_revenue; toast(msg); linkSheet(x);
+        if (copyAfter && r.urls.report) copy(r.urls.report);
+      } catch (err) { toast(err.message, true); }
+    };
+    if ($("#sh-on")) $("#sh-on").onclick = () => share({ enable: true, revenue: false }, "Hisobot havolasi yaratildi", true);
+    if ($("#sh-rev")) $("#sh-rev").onchange = (e) => share({ enable: true, revenue: e.target.checked, renew: false }, "Saqlandi");
+    if ($("#sh-renew")) $("#sh-renew").onclick = () => confirm("Eski havola ishlamay qoladi. Davom etasizmi?") && share({ enable: true, revenue: x.share_revenue, renew: true }, "Yangi havola tayyor", true);
+    if ($("#sh-off")) $("#sh-off").onclick = () => confirm("Hamkor hisobotni ko'ra olmay qoladi. O'chirasizmi?") && share({ enable: false }, "Hisobot o'chirildi");
     $("#edit-link").onsubmit = async (e) => {
       e.preventDefault(); const fd = new FormData(e.target);
       try { await api(`/api/admin/links/${x.id}`, { name: fd.get("name"), cost: +fd.get("cost") || 0, note: fd.get("note") || "" }, "PATCH"); toast("Saqlandi"); closeSheet(); render(); }
