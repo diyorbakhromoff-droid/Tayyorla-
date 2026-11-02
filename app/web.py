@@ -67,6 +67,11 @@ async def namuna(tid: str, r: int = 1, m: str = ""):
     cfg["rang"] = r
     if m and m in {**catalog2.TOY_MAROSIM, **catalog2.OSH_MAROSIM}:
         cfg["data"]["marosim"] = m
+        # osh bo'limida namuna suratlari marosimga mos: beshik — chaqaloq suratlari, sunnat — suratsiz (kelin-kuyov chiqmasin)
+        if t["section"] == "osh" and m == "beshik":
+            cfg["photos"] = [f"/katalog/namuna/demo/c{i}.jpg" for i in range(1, 7)][: t["slots"]]
+        elif t["section"] == "osh" and m == "sunnat":
+            cfg["photos"] = []
     return catalog2.render(t, cfg, "namuna", preview=False, demo=True)
 
 
