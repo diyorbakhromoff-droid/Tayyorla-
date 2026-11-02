@@ -305,7 +305,7 @@ button:disabled{opacity:.7;cursor:default}
     </svg>
     <p class="ip-lb ip-lbd">Sening javobing</p>
     <p class="sp" style="margin: 16px 0 0; font-size: 26px; font-style: italic; font-weight: 300; color: #A9A59D; overflow-wrap: anywhere">{{ to }},</p>
-    <h2 class="sp" style="margin: 6px 0 0; font-size: 38px; font-weight: 300; line-height: 1.12; color: #F3F1EC; overflow-wrap: break-word">Javobingni kutaman</h2>
+    <h2 class="sp" style="margin: 6px 0 0; font-size: {{ qPx }}px; font-weight: 300; line-height: 1.12; color: #F3F1EC; overflow-wrap: break-word">{{ qTitle }}</h2>
     <div style="position: relative; margin-top: 34px; min-height: 120px">
       <sc-if value="{{ asking }}">
       <div style="display: flex; flex-direction: column; gap: 14px">
@@ -404,7 +404,7 @@ class Component extends DCLogic {
   answer(a) {
     if (this.state.busy || this.state.answer) return;
     this.setState({ busy: true, err: '' });
-    SITE.reply(a, '❤️').then(
+    SITE.reply(String(SITE.d.savol || '').trim() ? a + ' — «' + String(SITE.d.savol).trim() + '»' : a, '❤️').then(
       () => this.setState({ answer: a, busy: false }),
       () => this.setState({ busy: false, err: 'Javob yetib bormadi. Qayta bosib ko’ring.' })
     );
@@ -459,6 +459,8 @@ class Component extends DCLogic {
       clock: [{ v: pad(el.h), l: 'soat' }, { v: pad(el.m), l: 'daqiqa' }, { v: pad(el.s), l: 'soniya' }],
       clockLbl: (el.h || 0) + ' soat ' + (el.m || 0) + ' daqiqa ' + (el.s || 0) + ' soniya',
       askHint: from ? 'Javobing ip orqali ' + SITE.ga(from) + ' yetadi' : 'Javobing ip orqali menga yetadi',
+      qTitle: String(d.savol || '').trim() || 'Javobingni kutaman',  // eski sotilgan saytlarda o’z savoli qoladi
+      qPx: String(d.savol || '').trim().length > 40 ? 32 : 38,
       asking: !s.answer, answered: !!s.answer, answer: s.answer || '',
       busy: s.busy, err: s.err,
       sayLove: () => this.answer('Men ham seni sevaman'),

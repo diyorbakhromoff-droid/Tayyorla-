@@ -406,7 +406,7 @@ button:disabled{opacity:.75;cursor:default}
       <svg aria-hidden="true" style="position: absolute; left: 0; top: 0" width="342" height="200" viewBox="0 0 342 200"><path class="v-lead2" d="M171 0 V60 M171 60 L60 0 M171 60 L282 0 M171 60 L20 110 M171 60 L322 110"></path><circle class="f-a" cx="171" cy="60" r="22"></circle><path class="v-lead" d="M193 60 a22 22 0 1 1 -44 0 a22 22 0 1 1 44 0"></path><path class="ico-f" d="M171 72s-9-5.5-9-12.2A5.2 5.2 0 0 1 171 56.6a5.2 5.2 0 0 1 9 3.2c0 6.7-9 12.2-9 12.2z" style="color: #7A1426"></path></svg>
       <div style="position: relative; padding: 104px 22px 34px; display: flex; flex-direction: column; align-items: center">
         <p class="fo" style="margin: 0; font-size: 26px; color: #FFD98A; overflow-wrap: anywhere">{{ to }},</p>
-        <h2 class="fo" style="margin: 6px 0 0; font-size: 38px; line-height: 1.1; color: #FFF6E6; text-shadow: 0 0 18px rgba(255, 180, 190, 0.5); overflow-wrap: break-word">Javobingni kutaman</h2>
+        <h2 class="fo" style="margin: 6px 0 0; font-size: {{ qPx }}px; line-height: 1.1; color: #FFF6E6; text-shadow: 0 0 18px rgba(255, 180, 190, 0.5); overflow-wrap: break-word">{{ qTitle }}</h2>
         <sc-if value="{{ asking }}" hint-placeholder-val="{{ true }}"><p style="margin: 8px 0 0; font-size: 17px; font-style: italic; color: #F2C9D0">Bitta bosish — va javobing yetib boradi</p></sc-if>
         <div style="position: relative; width: 100%; min-height: 120px; margin-top: 24px">
           <sc-if value="{{ asking }}" hint-placeholder-val="{{ true }}">
@@ -572,7 +572,7 @@ class Component extends DCLogic {
   answer(a) {
     if (this.state.busy || this.state.answer) return;
     this.setState({ busy: true, err: '' });
-    SITE.reply(a, '❤️').then(
+    SITE.reply(String(SITE.d.savol || '').trim() ? a + ' — «' + String(SITE.d.savol).trim() + '»' : a, '❤️').then(
       () => this.setState({ answer: a, busy: false }),
       () => this.setState({ busy: false, err: 'Javob yetib bormadi. Qayta bosib ko’ring.' })
     );
@@ -634,6 +634,8 @@ class Component extends DCLogic {
       savGlow: s.answer ? 'rgba(224, 80, 106, 0.6)' : 'rgba(179, 32, 58, 0.3)',
       savLitSt: s.answer ? 'opacity: 1; ' : 'opacity: 0; ',
       shards,
+      qTitle: String(d.savol || '').trim() || 'Javobingni kutaman',  // eski sotilgan saytlarda o’z savoli qoladi
+      qPx: String(d.savol || '').trim().length > 40 ? 32 : 38,
       asking: !s.answer,
       answered: !!s.answer,
       answer: s.answer || '',

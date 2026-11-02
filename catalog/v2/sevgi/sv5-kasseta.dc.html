@@ -491,7 +491,7 @@ button:disabled{opacity:.75;cursor:default}
           <span class="rm" style="font-size: 10px; letter-spacing: 0.2em; color: #C2462A">{{ recTxt }}</span>
         </div>
         <p class="mk" style="margin: 16px 0 0; font-size: 32px; line-height: 1.05; color: #2F4A9A; overflow-wrap: anywhere">{{ to }},</p>
-        <h2 class="mk" style="margin: 6px 0 0; font-size: 44px; line-height: 1.02; color: #2A2724; overflow-wrap: break-word">Javobingni kutaman</h2>
+        <h2 class="mk" style="margin: 6px 0 0; font-size: {{ qPx }}px; line-height: 1.02; color: #2A2724; overflow-wrap: break-word">{{ qTitle }}</h2>
         <div style="position: relative; margin-top: 26px; min-height: 104px">
           <sc-if value="{{ asking }}">
           <div style="display: flex; flex-direction: column; gap: 14px; align-items: center">
@@ -583,7 +583,7 @@ class Component extends DCLogic {
   answer(a) {
     if (this.state.busy || this.state.answer) return;
     this.setState({ busy: true, err: '' });
-    SITE.reply(a, '❤️').then(
+    SITE.reply(String(SITE.d.savol || '').trim() ? a + ' — «' + String(SITE.d.savol).trim() + '»' : a, '❤️').then(
       () => this.setState({ answer: a, busy: false }),
       () => this.setState({ busy: false, err: 'Javob yetib bormadi. Qayta bosib ko’ring.' })
     );
@@ -661,6 +661,8 @@ class Component extends DCLogic {
       recCls: s.answer ? 'ks-rec' : '',
       recTxt: s.answer ? 'YOZIB OLINDI' : (s.busy ? 'YOZILMOQDA' : 'SO’NGGI TREK'),
       streamers,
+      qTitle: String(d.savol || '').trim() || 'Javobingni kutaman',  // eski sotilgan saytlarda o’z savoli qoladi
+      qPx: String(d.savol || '').trim().length > 44 ? 36 : 44,
       asking: !s.answer, answered: !!s.answer, answer: s.answer || '',
       busy: s.busy, err: s.err,
       sayLove: () => this.answer('Men ham seni sevaman'),

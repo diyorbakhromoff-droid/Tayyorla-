@@ -465,7 +465,7 @@ button:disabled{opacity:.75;cursor:default}
         <path class="v-spk v-tw" d="M74 2 L75.5 8.5 L82 10 L75.5 11.5 L74 18 L72.5 11.5 L66 10 L72.5 8.5 Z"></path>
       </svg>
       <p class="cg" style="margin: 12px 0 0; font-size: 24px; font-style: italic; font-weight: 600; color: #D9B3FF; overflow-wrap: anywhere">{{ to }},</p>
-      <h2 class="cg v-foil" style="margin: 4px 0 0; font-size: 42px; line-height: 1.1; font-style: italic; font-weight: 700; overflow-wrap: break-word">Javobingni kutaman</h2>
+      <h2 class="cg v-foil" style="margin: 4px 0 0; font-size: 42px; line-height: 1.1; font-style: italic; font-weight: 700; overflow-wrap: break-word">{{ qTitle }}</h2>
       <sc-if value="{{ asking }}" hint-placeholder-val="{{ true }}"><p class="cg" style="margin: 8px 0 0; font-size: 18px; font-style: italic; color: #BFA9D6">Bitta bosish — va javobing yetib boradi</p></sc-if>
       <div style="position: relative; width: 100%; min-height: 110px; margin-top: 22px">
         <sc-if value="{{ asking }}" hint-placeholder-val="{{ true }}">
@@ -589,7 +589,7 @@ class Component extends DCLogic {
   answer(a) {
     if (this.state.busy || this.state.answer) return;
     this.setState({ busy: true, err: '' });
-    SITE.reply(a, '❤️').then(
+    SITE.reply(String(SITE.d.savol || '').trim() ? a + ' — «' + String(SITE.d.savol).trim() + '»' : a, '❤️').then(
       () => this.setState({ answer: a, busy: false }),
       () => this.setState({ busy: false, err: 'Javob yetib bormadi. Qayta bosib ko’ring.' })
     );
@@ -639,6 +639,7 @@ class Component extends DCLogic {
         { sep: true, lbl: 'daqiqa', ds: digits(el.m || 0, 2, 'm') },
         { sep: true, lbl: 'soniya', ds: digits(el.s || 0, 2, 's') }
       ],
+      qTitle: String(d.savol || '').trim() || 'Javobingni kutaman',  // eski sotilgan saytlarda o’z savoli qoladi
       asking: !s.answer,
       answered: !!s.answer,
       answer: s.answer || '',

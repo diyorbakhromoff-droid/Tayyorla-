@@ -928,7 +928,7 @@ button:disabled{opacity:.75;cursor:default}
         <path class="t-spk t-tw t-tw2" d="M11 22 L11.8 25.2 L15 26 L11.8 26.8 L11 30 L10.2 26.8 L7 26 L10.2 25.2 Z"></path>
       </svg>
       <p class="bs" style="margin: 10px 0 0; font-size: 24px; color: #F7E6DF; overflow-wrap: anywhere">{{ to }},</p>
-      <h2 class="ob t-foil" style="margin: 4px 0 0; font-size: 42px; line-height: 1.08; font-weight: 400; overflow-wrap: break-word">Javobingni kutaman</h2>
+      <h2 class="ob t-foil" style="margin: 4px 0 0; font-size: 42px; line-height: 1.08; font-weight: 400; overflow-wrap: break-word">{{ qTitle }}</h2>
       <sc-if value="{{ asking }}" hint-placeholder-val="{{ true }}"><p class="bs" style="margin: 8px 0 0; font-size: 17px; color: #CDAFA6">Bitta bosish — va javobing yetib boradi</p></sc-if>
       <div style="position: relative; width: 100%; min-height: 100px; margin-top: 18px">
         <sc-if value="{{ asking }}" hint-placeholder-val="{{ true }}">
@@ -1283,7 +1283,7 @@ class Component extends DCLogic {
   answer(a) {
     if (this.state.busy || this.state.answer) return;
     this.setState({ busy: true, err: '' });
-    SITE.reply(a, '❤️').then(
+    SITE.reply(String(SITE.d.savol || '').trim() ? a + ' — «' + String(SITE.d.savol).trim() + '»' : a, '❤️').then(
       () => this.setState({ answer: a, busy: false }),
       () => this.setState({ busy: false, err: 'Javob yetib bormadi. Qayta bosib ko’ring.' })
     );
@@ -1332,6 +1332,7 @@ class Component extends DCLogic {
       hh0: hh[0], hh1: hh[1],
       mm0: mm[0], mm1: mm[1],
       ss0: ss[0], ss1: ss[1],
+      qTitle: String(d.savol || '').trim() || 'Javobingni kutaman',  // eski sotilgan saytlarda o’z savoli qoladi
       asking: !s.answer,
       answered: !!s.answer,
       answer: s.answer || '',
