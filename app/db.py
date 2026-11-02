@@ -238,7 +238,8 @@ class TrafficLink(Base):
     cost: Mapped[int] = mapped_column(Integer, default=0)  # reklamaga to'langan summa (so'm)
     archived: Mapped[bool] = mapped_column(Boolean, default=False)
     share: Mapped[str] = mapped_column(String(32), default="", index=True)  # hamkor hisobotining maxfiy kaliti
-    share_revenue: Mapped[bool] = mapped_column(Boolean, default=False)  # hamkorga tushumni ko'rsatish
+    share_revenue: Mapped[bool] = mapped_column(Boolean, default=False)  # eski sozlama (endi tushum doim ko'rinadi)
+    share_pct: Mapped[int] = mapped_column(Integer, default=0)  # hamkor ulushi, % (hisobotda «Sizning ulushingiz»)
     created_by: Mapped[int | None] = mapped_column(BigInteger, nullable=True)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=utcnow)
 
@@ -270,6 +271,7 @@ _NEW_COLUMNS = [
     ("payments", "receipt", "VARCHAR(255) DEFAULT '' NOT NULL"),
     ("traffic_links", "share", "VARCHAR(32) DEFAULT '' NOT NULL"),
     ("traffic_links", "share_revenue", "BOOLEAN DEFAULT FALSE NOT NULL"),
+    ("traffic_links", "share_pct", "INTEGER DEFAULT 0 NOT NULL"),
 ]
 
 

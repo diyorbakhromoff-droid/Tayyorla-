@@ -108,21 +108,25 @@ async def main() -> None:
     organic = next(x for x in src["groups"] if x["key"] == "organic")
     assert organic["users"] == 1 and organic["created"] == 1 and organic["bought"] == 0
 
-    # hamkor hisoboti: maxfiy havola, faqat shu havola raqamlari, tushum faqat ruxsat bilan
+    # hamkor hisoboti: maxfiy havola, faqat shu havola raqamlari va tushum, ulush foizi bilan
     sh = await admin.link_share(row["id"], admin.ShareIn(enable=True), uid=999)
     rep_url = sh["urls"]["report"]
     assert rep_url and "/hisobot/" in rep_url
     key = rep_url.rsplit("/", 1)[1]
     page = (await admin.partner_report(key, d="7")).body.decode()
-    assert "Instagram reklama" in page and "Tushum" not in page and "Ali" not in page and "Vali" not in page
+    assert "Instagram reklama" in page and "59 000 so" in page and "Ali" not in page and "Vali" not in page
+    assert "Sizning ulushingiz" not in page
+    await admin.link_edit(row["id"], admin.LinkPatch(share_pct=20), uid=999)
+    page = (await admin.partner_report(key, d="month")).body.decode()
+    assert "Sizning ulushingiz (20%)" in page and "11 800 so" in page, "ulush: 59 000 ning 20% i"
+    assert "59 000" not in (await admin.partner_report(key, d="prev")).body.decode().split("report-money")[1].split("</section>")[0]
     async with Session() as s:
         from app.db import TrafficLink
         x = (await s.execute(__import__("sqlalchemy").select(TrafficLink).where(TrafficLink.code == "insta1"))).scalar_one()
     rep = await admin.link_report(x, admin.utc_of(today()), admin.utc_of(today() + timedelta(days=1)), [today()])
     assert (rep["clicks"], rep["starts"], rep["users"], rep["app"], rep["created"], rep["bought"]) == (1, 2, 2, 2, 2, 1), rep
-    assert rep["daily"][0] == {"day": today().isoformat(), "clicks": 1, "starts": 2, "users": 2}
-    await admin.link_share(row["id"], admin.ShareIn(enable=True, revenue=True), uid=999)
-    assert "59 000" in (await admin.partner_report(key, d="all")).body.decode()  # kalit o'zgarmadi, tushum ko'rinadi
+    assert rep["revenue"] == 59000 and rep["payments"] == 1
+    assert rep["daily"][0] == {"day": today().isoformat(), "clicks": 1, "starts": 2, "users": 2, "revenue": 59000}
     new_key = (await admin.link_share(row["id"], admin.ShareIn(enable=True, renew=True), uid=999))["urls"]["report"].rsplit("/", 1)[1]
     assert new_key != key and (await admin.partner_report(key)).status_code == 404
     await admin.link_share(row["id"], admin.ShareIn(enable=False), uid=999)

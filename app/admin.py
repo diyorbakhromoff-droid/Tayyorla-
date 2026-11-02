@@ -106,6 +106,10 @@ def parse_range(frm: str | None, to: str | None, default_days: int = 7) -> tuple
     return d1, d2
 
 
+def day_uz(d: date) -> str:
+    return d.strftime("%d.%m.%Y")
+
+
 def pct(a: float, b: float) -> float:
     return round(100 * a / b, 1) if b else 0.0
 
@@ -312,6 +316,7 @@ class LinkPatch(BaseModel):
     cost: int | None = Field(None, ge=0, le=10**10)
     note: str | None = Field(None, max_length=255)
     archived: bool | None = None
+    share_pct: int | None = Field(None, ge=0, le=100)
 
 
 def _slug(name: str) -> str:
@@ -394,7 +399,7 @@ async def sources(frm: str | None = Query(None, alias="from"), to: str | None = 
                  cpb=round(cost / m["bought"]) if cost and m["bought"] else None,
                  roi=round(100 * (m["revenue"] - cost) / cost, 1) if cost else None)
         rows.append({"id": x.id, "code": x.code, "name": x.name, "note": x.note, "cost": cost, "archived": x.archived,
-                     "share_revenue": x.share_revenue, "created_at": x.created_at.isoformat() if x.created_at else None,
+                     "share_pct": x.share_pct or 0, "created_at": x.created_at.isoformat() if x.created_at else None,
                      "urls": link_urls(x.code, x.share), **m})
     other = []
     for key in ("", "ref_", "r_", "other"):
@@ -436,7 +441,6 @@ async def link_edit(link_id: int, body: LinkPatch, uid: int = Depends(admin_uid)
 
 class ShareIn(BaseModel):
     enable: bool = True
-    revenue: bool = False
     renew: bool = False
 
 
@@ -451,9 +455,8 @@ async def link_share(link_id: int, body: ShareIn, uid: int = Depends(admin_uid))
             x.share = ""
         elif body.renew or not x.share:
             x.share = secrets.token_urlsafe(18)[:24]
-        x.share_revenue = body.revenue
         await s.commit()
-    return {"urls": link_urls(x.code, x.share), "share_revenue": x.share_revenue}
+    return {"urls": link_urls(x.code, x.share)}
 
 
 async def link_report(x: TrafficLink, a: datetime, b: datetime, days: list[date]) -> dict:
@@ -474,10 +477,15 @@ async def link_report(x: TrafficLink, a: datetime, b: datetime, days: list[date]
         spenders = set((await s.execute(select(BalanceTx.user_id).where(BalanceTx.kind.in_(SPEND_KINDS),
                                                                          BalanceTx.user_id.in_(cohort)).distinct())).scalars().all())
         payers = set((await s.execute(select(Payment.user_id).where(Payment.status == "approved", Payment.user_id.in_(cohort)).distinct())).scalars().all())
-        revenue = await s.scalar(select(func.coalesce(func.sum(Payment.amount), 0)).where(Payment.status == "approved",
-                                                                                          Payment.user_id.in_(cohort)))
+        # tushum: shu havoladan kelgan barcha odamlarning (qachon kelganidan qat'i nazar) shu davrdagi tasdiqlangan to'lovlari
+        pays = (await s.execute(select(Payment.amount, Payment.decided_at).where(
+            Payment.status == "approved", Payment.decided_at >= a, Payment.decided_at < b,
+            Payment.user_id.in_(select(User.tg_id).where(User.ref == ref))))).all()
     idx = {d: i for i, d in enumerate(days)}
-    daily = [{"day": d.isoformat(), "clicks": 0, "starts": 0, "users": 0} for d in days]
+    daily = [{"day": d.isoformat(), "clicks": 0, "starts": 0, "users": 0, "revenue": 0} for d in days]
+    for amount, t in pays:
+        if t and (i := idx.get(local_day(t))) is not None:
+            daily[i]["revenue"] += amount
     for t in clicks:
         if (i := idx.get(local_day(t))) is not None:
             daily[i]["clicks"] += 1
@@ -493,10 +501,21 @@ async def link_report(x: TrafficLink, a: datetime, b: datetime, days: list[date]
     bought = len(spenders | payers)
     return {"clicks": len(clicks), "starts": len({u for u, _ in starts}), "users": n, "app": app or 0,
             "created": len(site_owners | job_owners), "bought": bought, "conv": pct(bought, n),
-            "revenue": int(revenue or 0), "daily": daily}
+            "revenue": int(sum(p[0] for p in pays)), "payments": len(pays), "daily": daily}
 
 
-REPORT_PERIODS = {"7": ("7 kun", 7), "30": ("30 kun", 30), "90": ("90 kun", 90), "all": ("Hammasi", None)}
+REPORT_PERIODS = {"month": "Bu oy", "prev": "O'tgan oy", "7": "7 kun", "30": "30 kun", "90": "90 kun", "all": "Hammasi"}
+
+
+def report_range(d: str, t: date, since: date) -> tuple[date, date]:
+    if d == "month":
+        return t.replace(day=1), t
+    if d == "prev":
+        end = t.replace(day=1) - timedelta(days=1)
+        return end.replace(day=1), end
+    if d == "all":
+        return max(since, t - timedelta(days=365)), t
+    return t - timedelta(days=int(d) - 1), t
 
 
 @public.get("/hisobot/{share}", response_class=HTMLResponse)
@@ -510,26 +529,29 @@ async def partner_report(share: str, d: str = "30"):
         return HTMLResponse("<!doctype html><meta charset=utf-8><meta name=viewport content='width=device-width'>"
                             "<p style='font:16px sans-serif;padding:40px 20px;text-align:center'>Bu hisobot havolasi o'chirilgan yoki noto'g'ri.</p>",
                             status_code=404)
-    d = d if d in REPORT_PERIODS else "30"
+    d = d if d in REPORT_PERIODS else "month"
     t = today()
-    span = REPORT_PERIODS[d][1]
-    start = t - timedelta(days=span - 1) if span else max(local_day(x.created_at) if x.created_at else t, t - timedelta(days=365))
-    days = [start + timedelta(days=i) for i in range((t - start).days + 1)]
-    r = await link_report(x, utc_of(start) if span else datetime(2000, 1, 1), utc_of(t + timedelta(days=1)), days)
+    start, end = report_range(d, t, min(local_day(x.created_at), t) if x.created_at else t)
+    days = [start + timedelta(days=i) for i in range((end - start).days + 1)]
+    r = await link_report(x, datetime(2000, 1, 1) if d == "all" else utc_of(start), utc_of(end + timedelta(days=1)), days)
+    share = round(r["revenue"] * (x.share_pct or 0) / 100)
+    span = "butun davr" if d == "all" else (day_uz(start) if start == end else f"{day_uz(start)} — {day_uz(end)}")
     e = html_escape
     num = lambda v: f"{v:,}".replace(",", " ")  # noqa: E731
-    chips = "".join(f'<a class="chip" href="?d={k}" aria-pressed="{str(k == d).lower()}">{v[0]}</a>' for k, v in REPORT_PERIODS.items())
+    chips = "".join(f'<a class="chip" href="?d={k}" aria-pressed="{str(k == d).lower()}">{v}</a>' for k, v in REPORT_PERIODS.items())
     cards = [("Bosish", r["clicks"], "havolani ochganlar"), ("Start", r["starts"], "botda start bosganlar"),
              ("Yangi foydalanuvchi", r["users"], "botga birinchi marta kelganlar"), ("Ilovaga kirdi", r["app"], "yangi kelganlardan"),
              ("Yasadi", r["created"], "taklifnoma yoki video"), ("Sotib oldi", r["bought"], f"konversiya {r['conv']}%")]
-    if x.share_revenue:
-        cards.append(("Tushum", r["revenue"], "so'm, shu odamlardan"))
+    money = [("Tushum", f"{num(r['revenue'])} so'm", f"{r['payments']} ta to'lov, shu davrda")]
+    if x.share_pct:
+        money.append((f"Sizning ulushingiz ({x.share_pct}%)", f"{num(share)} so'm", "tushumdan hisoblangan"))
     top = max([1] + [x2["clicks"] for x2 in r["daily"]] + [x2["users"] for x2 in r["daily"]])
     rows = "".join(
         f'<tr><td class="num">{e(row["day"][8:10])}.{e(row["day"][5:7])}.{e(row["day"][:4])}</td><td class="r num">{num(row["clicks"])}</td>'
         f'<td class="r num">{num(row["starts"])}</td><td class="r num"><b>{num(row["users"])}</b>'
-        f'<div class="mini-bar"><i style="width:{100 * row["users"] / top:.1f}%"></i></div></td></tr>'
-        for row in reversed(r["daily"]) if row["clicks"] or row["starts"] or row["users"])
+        f'<div class="mini-bar"><i style="width:{100 * row["users"] / top:.1f}%"></i></div></td>'
+        f'<td class="r num">{num(row["revenue"]) + " so&#39;m" if row["revenue"] else "—"}</td></tr>'
+        for row in reversed(r["daily"]) if row["clicks"] or row["starts"] or row["users"] or row["revenue"])
     v = str(int((ROOT / "static" / "admin" / "admin.css").stat().st_mtime))
     page = f"""<!doctype html><html lang="uz"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex, nofollow"><meta name="referrer" content="no-referrer">
@@ -538,12 +560,14 @@ async def partner_report(share: str, d: str = "30"):
 <div class="brand-line"><span class="ikat" aria-hidden="true"></span><span>Tayyorla · hamkor hisoboti</span></div>
 <div class="head"><div><h1>{e(x.name)}</h1><p>@{e(settings.bot_username)} botiga shu havola orqali kelganlar. Raqamlar avtomatik yangilanadi.</p></div></div>
 <div class="period" role="group" aria-label="Davr">{chips}</div>
+<p class="muted" style="margin-top:10px">{e(span)}</p>
+<section class="blk"><div class="report-money">{"".join(f'<div><b>{e(val)}</b><span>{e(lbl)}</span><small>{e(h)}</small></div>' for lbl, val, h in money)}</div></section>
 <section class="blk"><div class="report-grid">{"".join(f'<div><b>{num(val)}</b><span>{e(lbl)}</span><small>{e(h)}</small></div>' for lbl, val, h in cards)}</div></section>
 <section class="blk"><div class="bh"><h2>Kunlar bo'yicha</h2></div>
-<div class="tbl-wrap"><table><thead><tr><th>Sana</th><th class="r">Bosish</th><th class="r">Start</th><th class="r">Yangi foydalanuvchi</th></tr></thead>
-<tbody>{rows or '<tr><td colspan="4" class="empty">Bu davrda hali hech kim kelmagan</td></tr>'}</tbody></table></div></section>
+<div class="tbl-wrap"><table><thead><tr><th>Sana</th><th class="r">Bosish</th><th class="r">Start</th><th class="r">Yangi foydalanuvchi</th><th class="r">Tushum</th></tr></thead>
+<tbody>{rows or '<tr><td colspan="5" class="empty">Bu davrda hali hech kim kelmagan</td></tr>'}</tbody></table></div></section>
 <p class="muted" style="font-size:12.5px;margin-top:18px">«Yangi foydalanuvchi» — botga birinchi marta aynan shu havola orqali kirganlar. «Yasadi» va «Sotib oldi» — ular keyinchalik qilgan ishlar.
-Shaxsiy ma'lumotlar ko'rsatilmaydi.</p>
+«Tushum» — shu havola orqali kelgan odamlar tanlangan davrda to'lagan va tasdiqlangan pul (qachon kelganidan qat'i nazar). Shaxsiy ma'lumotlar ko'rsatilmaydi.</p>
 </main></body></html>"""
     return HTMLResponse(page, headers={"Cache-Control": "no-store", "X-Robots-Tag": "noindex", "Referrer-Policy": "no-referrer"})
 
