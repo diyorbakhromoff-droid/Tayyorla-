@@ -1,0 +1,572 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<title>Uzr VIP: To’lqin</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pacifico&amp;family=Oswald:wght@400;500;600&amp;family=PT+Serif:ital,wght@0,400;0,700;1,400&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#F2A93B}
+.r-pa{font-family:'Pacifico','Brush Script MT',cursive;font-weight:400}
+.r-os{font-family:'Oswald','Arial Narrow','Roboto Condensed',sans-serif}
+.r-se{font-family:'PT Serif',Georgia,'Times New Roman',serif}
+.r-amber{background:linear-gradient(100deg,#E58B2E 0%,#FFD98A 40%,#F2A93B 65%,#FFE7B0 100%);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent}
+.r-ic{fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.r-ic2{fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+/* radio */
+.r-cab{position:absolute;width:330px;height:290px;border-radius:38px 38px 20px 20px;background-color:#6E4128;background-image:repeating-linear-gradient(97deg,rgba(40,18,6,.16) 0 2px,rgba(40,18,6,0) 2px 7px,rgba(255,214,160,.05) 7px 8px,rgba(40,18,6,0) 8px 15px),radial-gradient(120% 90% at 30% 10%,#94603B 0%,#6E4128 55%,#4E2C19 100%);box-shadow:inset 0 2px 0 rgba(255,220,170,.35),inset 0 -6px 12px rgba(0,0,0,.35),0 34px 50px -24px rgba(0,0,0,.8)}
+.r-panel{position:absolute;left:18px;top:18px;width:294px;height:226px;border-radius:24px;background:linear-gradient(170deg,#F6EBD2 0%,#EBDCBA 60%,#DCC9A2 100%);box-shadow:inset 0 2px 0 rgba(255,255,255,.8),inset 0 -3px 6px rgba(120,80,40,.25),0 2px 0 rgba(0,0,0,.25)}
+.r-dial{position:absolute;left:14px;top:14px;width:266px;height:72px;border-radius:14px;overflow:hidden;background:#2A1A10;box-shadow:inset 0 0 0 3px #B8915A,inset 0 0 0 4px rgba(0,0,0,.4),inset 0 6px 14px rgba(0,0,0,.6)}
+.r-glow{position:absolute;left:0;top:0;width:100%;height:100%;background:radial-gradient(120% 140% at 50% 120%,#FFE2A0 0%,#F7B04A 45%,#C8681E 100%)}
+.r-nums{position:absolute;left:14px;right:14px;top:11px;display:flex;justify-content:space-between;font-family:'Oswald','Arial Narrow',sans-serif;font-size:11px;font-weight:500;color:#3A1E0C;letter-spacing:.02em}
+.r-ticks{position:absolute;left:14px;right:14px;bottom:10px;height:20px;background-image:repeating-linear-gradient(90deg,rgba(58,30,12,.75) 0 1px,rgba(58,30,12,0) 1px 9.5px);-webkit-mask-image:linear-gradient(180deg,#000 0,#000 100%);background-size:100% 9px;background-repeat:repeat-x;background-position:0 100%}
+.r-ticks::after{content:'';position:absolute;left:0;right:0;bottom:0;height:18px;background-image:repeating-linear-gradient(90deg,rgba(58,30,12,.9) 0 2px,rgba(58,30,12,0) 2px 47.6px)}
+.r-needle{position:absolute;top:6px;bottom:6px;width:3px;margin-left:-1.5px;border-radius:2px;background:#C2402A;box-shadow:0 0 8px 2px rgba(255,120,60,.55)}
+.r-grille{position:absolute;left:14px;top:100px;width:164px;height:112px;border-radius:16px;background-color:#C6A574;background-image:repeating-linear-gradient(0deg,rgba(255,236,200,0) 0 19px,#B48A4E 19px 20px,#F4DDA8 20px 22px,#9C7238 22px 23px),repeating-linear-gradient(0deg,rgba(90,55,22,.28) 0 1px,rgba(90,55,22,0) 1px 3px),repeating-linear-gradient(90deg,rgba(90,55,22,.28) 0 1px,rgba(90,55,22,0) 1px 3px);box-shadow:inset 0 0 0 3px #B8915A,inset 0 4px 10px rgba(60,30,10,.45)}
+.r-eye{position:absolute;width:46px;height:46px;border-radius:50%;box-shadow:0 0 0 4px #3A2414,0 0 0 6px #B8915A,0 0 14px 4px rgba(125,240,166,.35)}
+.r-eye::after{content:'';position:absolute;left:15px;top:15px;width:16px;height:16px;border-radius:50%;background:radial-gradient(circle,#1B2A1E,#0B140D)}
+.r-lamp{position:absolute;height:20px;padding:0 9px;border-radius:10px;display:flex;align-items:center;gap:5px;font-family:'Oswald','Arial Narrow',sans-serif;font-size:10px;font-weight:600;letter-spacing:.14em;background:#3A2414;color:#7A5A44}
+.r-lamp i{display:block;width:7px;height:7px;border-radius:50%;background:#5A2A1E}
+.r-on .r-lamp{color:#FFD9C8}
+.r-on .r-lamp i{background:#FF5A3C;box-shadow:0 0 8px 3px rgba(255,90,60,.75)}
+.r-sknob{position:absolute;width:36px;height:36px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#FFF8E8 0%,#E6D6B4 55%,#B9A27A 100%);box-shadow:0 0 0 3px #CDB98F,0 4px 6px rgba(60,30,10,.45)}
+.r-sknob::after{content:'';position:absolute;left:17px;top:4px;width:2px;height:10px;border-radius:1px;background:#6E4128}
+.r-feet{position:absolute;width:40px;height:10px;border-radius:0 0 8px 8px;background:#2A1810}
+/* to'lqinlar */
+.r-wave{position:absolute;border-radius:50%;border:2px solid rgba(255,206,130,.55);border-left-color:transparent;border-bottom-color:transparent;transform:rotate(45deg);animation:rWave 2.6s ease-out infinite}
+.r-wave--l{border:2px solid rgba(255,206,130,.55);border-right-color:transparent;border-top-color:transparent}
+@keyframes rRing{0%{opacity:.9;transform:scale(.4)}100%{opacity:0;transform:scale(2.6)}}
+@keyframes rWave{0%{opacity:0;scale:.6}30%{opacity:1}100%{opacity:0;scale:1.25}}
+.r-mote{position:absolute;width:3px;height:3px;border-radius:50%;background:rgba(255,214,140,.8);box-shadow:0 0 6px 2px rgba(255,180,90,.4);animation:rMote 12s linear infinite}
+@keyframes rMote{0%{opacity:0;transform:translate(0,0)}15%{opacity:1}85%{opacity:.7}100%{opacity:0;transform:translate(-20px,-160px)}}
+/* kirish */
+.r-intro{transition:opacity 1s ease 3.4s,visibility 0s linear 4.4s}
+.r-intro--open{opacity:0;visibility:hidden;pointer-events:none}
+.r-noise{position:absolute;left:-30px;top:-30px;animation:rNoise .32s steps(3) infinite;transition:opacity .4s ease}
+@keyframes rNoise{0%{transform:translate(0,0)}33%{transform:translate(-11px,7px)}66%{transform:translate(8px,-9px)}100%{transform:translate(-4px,12px)}}
+.r-scan{position:absolute;left:0;top:0;width:390px;height:844px;background:repeating-linear-gradient(180deg,rgba(255,240,210,.06) 0 2px,rgba(0,0,0,0) 2px 5px);animation:rScan 1.6s linear infinite;transition:opacity .4s ease}
+@keyframes rScan{from{background-position:0 0}to{background-position:0 50px}}
+.r-band-x{position:absolute;left:0;width:390px;height:22px;background:linear-gradient(180deg,rgba(255,240,210,0),rgba(255,240,210,.14),rgba(255,240,210,0));animation:rBand 2.2s linear infinite}
+@keyframes rBand{from{transform:translateY(-40px)}to{transform:translateY(860px)}}
+.r-flick{animation:rFlick 2.4s steps(2) infinite}
+@keyframes rFlick{0%,100%{opacity:1}47%{opacity:.75}50%{opacity:.95}53%{opacity:.7}}
+.r-on .r-flick{animation:none}
+.r-knob{position:absolute;width:140px;height:140px;padding:0;border:0;border-radius:50%;background:transparent;cursor:grab;touch-action:none;-webkit-tap-highlight-color:transparent}
+.r-knob:focus-visible{outline:3px solid #F2A93B;outline-offset:6px}
+.r-kn{position:absolute;left:0;top:0;width:140px;height:140px;border-radius:50%;background:repeating-conic-gradient(from 0deg,#F3E8CF 0deg 5deg,#C9B48A 5deg 10deg);box-shadow:0 18px 30px -10px rgba(0,0,0,.75),inset 0 0 0 2px rgba(255,255,255,.5)}
+.r-kn::before{content:'';position:absolute;left:12px;top:12px;width:116px;height:116px;border-radius:50%;background:radial-gradient(circle at 38% 32%,#FFFBF0 0%,#EFE3C6 45%,#C9B48A 100%);box-shadow:inset 0 -6px 12px rgba(110,70,30,.35),0 2px 3px rgba(0,0,0,.25)}
+.r-kn::after{content:'';position:absolute;left:66px;top:18px;width:8px;height:30px;border-radius:4px;background:#C2402A;box-shadow:inset 0 1px 2px rgba(0,0,0,.4)}
+.r-fade{opacity:0 !important;transition:opacity .6s ease .3s}
+.r-ch{opacity:0}
+.r-on .r-ch{animation:rCh .35s ease forwards}
+@keyframes rCh{0%{opacity:0;filter:blur(3px)}100%{opacity:1;filter:blur(0)}}
+.r-seek{transition:opacity .4s ease}
+.r-on .r-seek{opacity:0}
+.r-cast{opacity:0;transition:opacity .4s ease .2s}
+.r-on .r-cast{opacity:1}
+/* bloklar */
+.r-band{position:relative;height:66px;margin:0 16px;border-radius:12px;overflow:hidden;background:#2A1A10;box-shadow:inset 0 0 0 3px #B8915A,inset 0 0 0 4px rgba(0,0,0,.45),0 14px 24px -14px rgba(0,0,0,.8)}
+.r-band .r-glow{opacity:.92}
+.r-band .r-needle{transition:left 1.2s cubic-bezier(.3,1.4,.5,1)}
+.r-key{flex:none;width:44px;height:48px;box-sizing:border-box;border-radius:6px 6px 9px 9px;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,#FFF8E6 0%,#EADCBC 70%,#CDB98F 100%);box-shadow:0 4px 0 #9C8458,0 8px 12px -4px rgba(0,0,0,.6);font-family:'Oswald','Arial Narrow',sans-serif;font-size:19px;font-weight:600;color:#4A2C1C;transition:transform .25s ease,box-shadow .25s ease,background .3s ease}
+.r-pressed .r-key{transform:translateY(3px);box-shadow:0 1px 0 #9C8458,0 0 16px 3px rgba(242,169,59,.55);background:linear-gradient(180deg,#FFE7B0 0%,#F5BE5E 100%)}
+.r-paper{position:relative;background:#F7EEDB;background-image:linear-gradient(180deg,rgba(255,255,255,.5),rgba(255,255,255,0) 30%),repeating-linear-gradient(180deg,rgba(120,80,40,0) 0 27px,rgba(120,80,40,.09) 27px 28px);border-radius:4px;box-shadow:0 26px 40px -24px rgba(0,0,0,.85)}
+.r-holes{position:absolute;top:14px;bottom:14px;width:8px;background-image:radial-gradient(circle,#4A2C1C 0 3px,rgba(0,0,0,0) 3.5px);background-size:8px 22px;opacity:.75}
+.r-initial{float:left;font-size:46px;line-height:52px;margin:2px 10px 0 0;padding:0 6px 0 2px;color:#B5562B}
+.r-cloth{background-color:#C6A574;background-image:repeating-linear-gradient(0deg,rgba(90,55,22,.25) 0 1px,rgba(90,55,22,0) 1px 3px),repeating-linear-gradient(90deg,rgba(90,55,22,.25) 0 1px,rgba(90,55,22,0) 1px 3px),radial-gradient(120% 90% at 50% 0%,#D9BC8A,#B48A4E)}
+.r-onair{display:inline-flex;align-items:center;gap:6px;height:24px;padding:0 10px;border-radius:12px;background:#3A2414;font-family:'Oswald','Arial Narrow',sans-serif;font-size:11px;font-weight:600;letter-spacing:.18em;color:#FFD9C8}
+.r-onair i{display:block;width:8px;height:8px;border-radius:50%;background:#FF5A3C;box-shadow:0 0 8px 3px rgba(255,90,60,.7);animation:rBlink 1.6s ease-in-out infinite}
+@keyframes rBlink{0%,100%{opacity:1}50%{opacity:.35}}
+.r-pop{animation:rPop .6s cubic-bezier(.2,1.3,.4,1) both}
+@keyframes rPop{from{opacity:0;transform:scale(.94) translateY(8px)}to{opacity:1;transform:none}}
+.r-btn{transition:transform .15s ease,box-shadow .2s ease}
+.r-btn:active{transform:translateY(2px)}
+.r-btn:focus-visible{outline:3px solid #FFD98A;outline-offset:3px}
+.r-ta::placeholder{color:#8C7458}
+.r-ta:focus{outline:2px solid #F2A93B;outline-offset:1px}
+.r-eq{display:flex;align-items:flex-end;gap:3px;height:16px}
+.r-eq span{width:3px;height:16px;border-radius:2px;background:#FFD98A;transform-origin:50% 100%;animation:rEq 1s ease-in-out infinite}
+@keyframes rEq{0%,100%{transform:scaleY(.3)}50%{transform:scaleY(1)}}
+.r-bob{animation:rBob 2.4s ease-in-out infinite}
+@keyframes rBob{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+.r-mic{transform-origin:50% 100%;animation:rMic 5s ease-in-out infinite}
+@keyframes rMic{0%,100%{transform:rotate(-2deg)}50%{transform:rotate(2deg)}}
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{animation:none !important;transition:none !important}.r-ch{opacity:1}}
+</style>
+</helmet>
+<div style="width: 390px; min-height: var(--vh, 100vh); position: relative; overflow: hidden; color: #F6EAD2; font-family: 'PT Serif', Georgia, serif; display: flex; flex-direction: column; background-color: #47291A; background-image: repeating-linear-gradient(91deg, rgba(20, 8, 2, 0.1) 0 2px, rgba(20, 8, 2, 0) 2px 9px, rgba(255, 210, 160, 0.035) 9px 10px, rgba(20, 8, 2, 0) 10px 17px)">
+
+  <svg width="0" height="0" aria-hidden="true" style="position: absolute; left: 0; top: 0">
+    <defs>
+      <filter id="rNz" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch"></feTurbulence><feColorMatrix type="saturate" values="0"></feColorMatrix></filter>
+    </defs>
+  </svg>
+
+  <sc-if value="{{ has.music }}">
+  <button type="button" class="r-btn" onClick="{{ toggleMusic }}" aria-label="Musiqa" aria-pressed="{{ musicOn }}" style="position: absolute; right: 16px; top: 16px; z-index: 30; width: 44px; height: 44px; padding: 0; border-radius: 50%; border: 1px solid rgba(255, 217, 138, 0.55); background: rgba(58, 36, 20, 0.7); display: flex; align-items: center; justify-content: center; cursor: pointer">
+    <sc-if value="{{ musicOff }}">
+      <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 17.5V6l10-2v11.5" stroke="#FFD98A" class="r-ic"></path><circle cx="6.8" cy="17.5" r="2.2" stroke="#FFD98A" class="r-ic"></circle><circle cx="16.8" cy="15.5" r="2.2" stroke="#FFD98A" class="r-ic"></circle></svg>
+    </sc-if>
+    <sc-if value="{{ musicOn }}">
+      <span class="r-eq" aria-hidden="true"><span></span><span style="animation-delay: -0.3s"></span><span style="animation-delay: -0.6s"></span><span style="animation-delay: -0.15s"></span></span>
+    </sc-if>
+  </button>
+  </sc-if>
+
+  <!-- KIRISH: shovqinli radio -->
+  <div class="{{ introCls }}" data-intro style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; z-index: 20; overflow: hidden; background: radial-gradient(90% 60% at 50% 40%, #56331F 0%, #3E2416 60%, #2E1A0F 100%); transition: opacity 1s ease {{ outDelay }}, visibility 0s linear {{ outDelay2 }}">
+    <div aria-hidden="true" style="position: absolute; left: -40px; top: 120px; width: 470px; height: 420px; border-radius: 50%; background: radial-gradient(closest-side, rgba(247, 176, 74, 0.45), rgba(247, 176, 74, 0)); opacity: {{ glowOp }}"></div>
+
+    <div style="position: absolute; left: 24px; right: 24px; top: 56px; display: flex; flex-direction: column; align-items: center; gap: 4px; text-align: center">
+      <p class="r-os" style="margin: 0; font-size: 12px; font-weight: 500; letter-spacing: {{ fromLs }}; text-transform: uppercase; color: #E9CFA2; overflow-wrap: anywhere">{{ fromTo }}</p>
+      <p class="r-pa r-amber" style="margin: 0; font-size: 44px; line-height: 1.45; padding: 0 8px">To’lqin</p>
+    </div>
+
+    <div class="{{ radioCls }}" aria-hidden="true">
+      <div class="r-cab" style="left: 30px; top: 168px">
+        <div class="r-panel">
+          <div class="r-dial">
+            <div style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; opacity: {{ dialOp }}"><div class="r-glow r-flick"></div></div>
+            <div class="r-nums"><span>88</span><span>92</span><span>96</span><span>100</span><span>104</span><span>108</span></div>
+            <div class="r-ticks"></div>
+            <span class="r-needle" style="left: {{ needle }}"></span>
+          </div>
+          <div class="r-grille"></div>
+          <div class="r-eye" style="left: 211px; top: 104px; background: {{ eyeBg }}"></div>
+          <span class="r-lamp" style="left: 198px; top: 164px"><i></i>EFIRDA</span>
+          <span class="r-sknob" style="left: 196px; top: 192px"></span>
+          <span class="r-sknob" style="left: 242px; top: 192px; transform: rotate({{ knobRot }})"></span>
+        </div>
+        <p class="r-pa" style="position: absolute; left: 0; right: 0; bottom: 6px; margin: 0; text-align: center; font-size: 20px; line-height: 1.3; color: #E8C98E; text-shadow: 0 1px 0 rgba(0, 0, 0, 0.5)">Sado</p>
+      </div>
+      <span class="r-feet" style="left: 74px; top: 458px"></span>
+      <span class="r-feet" style="left: 276px; top: 458px"></span>
+      <svg class="r-noise" width="450" height="904" aria-hidden="true" style="opacity: {{ noiseOp }}"><rect x="0" y="0" width="450" height="904" filter="url(#rNz)"></rect></svg>
+      <div class="r-scan" style="opacity: {{ scanOp }}"></div>
+      <div class="r-band-x" style="opacity: {{ scanOp }}"></div>
+
+      <div class="r-seek" style="position: absolute; left: 24px; right: 24px; top: 494px; display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center">
+        <div style="height: 44px; padding: 0 18px; border-radius: 8px; background: #1E120A; box-shadow: inset 0 0 0 2px #8C6A3E, inset 0 4px 10px rgba(0, 0, 0, 0.6); display: flex; align-items: baseline; gap: 6px">
+          <span class="r-os" style="font-size: 30px; font-weight: 500; line-height: 44px; color: #FFC46A; text-shadow: 0 0 10px rgba(255, 170, 70, 0.7)">{{ freq }}</span>
+          <span class="r-os" style="font-size: 12px; letter-spacing: 0.14em; color: #C9A06A">MHz</span>
+        </div>
+        <p class="r-se" style="margin: 0; font-size: 15px; font-style: italic; line-height: 1.5; color: #E5D2B0">{{ seekText }}</p>
+      </div>
+
+      <div class="r-cast" style="position: absolute; left: 22px; right: 22px; top: 488px; display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center">
+        <span class="r-onair"><i></i>EFIRDA</span>
+        <p class="r-os" style="margin: 0; font-size: {{ castSize }}; font-weight: 500; line-height: 1.25; letter-spacing: 0.02em; color: #FFF1D6; text-shadow: 0 0 18px rgba(255, 180, 90, 0.55); overflow-wrap: anywhere"><sc-for list="{{ chars }}" as="c"><span class="r-ch" style="animation-delay: {{ c.dl }}">{{ c.ch }}</span></sc-for></p>
+      </div>
+    </div>
+
+    <div class="{{ knobWrapCls }}" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; pointer-events: none">
+      <svg width="210" height="210" viewBox="0 0 210 210" aria-hidden="true" style="position: absolute; left: 90px; top: 592px">
+        <path d="M105 12 A93 93 0 0 1 195 82" stroke="#E9CFA2" class="r-ic" style="opacity: 0.7"></path>
+        <path d="M187 70 L195 84 L180 86" stroke="#E9CFA2" class="r-ic" style="opacity: 0.7"></path>
+        <circle cx="105" cy="105" r="82" stroke="rgba(233,207,162,0.35)" class="r-ic" style="stroke-dasharray: 1.5 9"></circle>
+      </svg>
+      <p class="r-os" style="position: absolute; left: 0; right: 0; top: 802px; margin: 0; text-align: center; font-size: 12px; font-weight: 500; letter-spacing: 0.26em; text-transform: uppercase; color: #E9CFA2">Murvatni burang</p>
+    </div>
+    <button type="button" class="{{ knobCls }}" onClick="{{ tap }}" onPointerDown="{{ kDown }}" onPointerMove="{{ kMove }}" onPointerUp="{{ kUp }}" onPointerCancel="{{ kUp }}" aria-label="To’lqinni sozlash murvati" style="left: 125px; top: 627px; pointer-events: {{ knobPe }}">
+      <span class="r-kn" style="transform: rotate({{ bigRot }})"></span>
+    </button>
+  </div>
+
+  <!-- BOSH QISM: efirdagi radio -->
+  <header class="r-on" style="flex: none; position: relative; height: 844px; overflow: hidden; background: radial-gradient(90% 55% at 50% 26%, rgba(247, 176, 74, 0.32) 0%, rgba(247, 176, 74, 0) 70%)">
+    <span class="r-mote" style="left: 40px; top: 520px"></span>
+    <span class="r-mote" style="left: 340px; top: 460px; animation-delay: -4s"></span>
+    <span class="r-mote" style="left: 300px; top: 740px; animation-delay: -8s"></span>
+    <span class="r-mote" style="left: 90px; top: 700px; animation-delay: -6s"></span>
+    <div aria-hidden="true">
+      <span class="r-wave r-wave--l" style="left: -14px; top: 230px; width: 90px; height: 90px"></span>
+      <span class="r-wave r-wave--l" style="left: -44px; top: 200px; width: 150px; height: 150px; animation-delay: -0.9s"></span>
+      <span class="r-wave" style="left: 314px; top: 230px; width: 90px; height: 90px; animation-delay: -0.4s"></span>
+      <span class="r-wave" style="left: 284px; top: 200px; width: 150px; height: 150px; animation-delay: -1.3s"></span>
+      <div class="r-cab" style="left: 30px; top: 112px">
+        <div class="r-panel">
+          <div class="r-dial">
+            <div class="r-glow"></div>
+            <div class="r-nums"><span>88</span><span>92</span><span>96</span><span>100</span><span>104</span><span>108</span></div>
+            <div class="r-ticks"></div>
+            <span class="r-needle" style="left: 86%"></span>
+          </div>
+          <div class="r-grille"></div>
+          <div class="r-eye" style="left: 211px; top: 104px; background: conic-gradient(from 0deg, #0D3B22 0deg 4deg, #7DF0A6 4deg 356deg, #0D3B22 356deg)"></div>
+          <span class="r-lamp" style="left: 198px; top: 164px"><i></i>EFIRDA</span>
+          <span class="r-sknob" style="left: 196px; top: 192px"></span>
+          <span class="r-sknob" style="left: 242px; top: 192px; transform: rotate(160deg)"></span>
+        </div>
+        <p class="r-pa" style="position: absolute; left: 0; right: 0; bottom: 6px; margin: 0; text-align: center; font-size: 20px; line-height: 1.3; color: #E8C98E; text-shadow: 0 1px 0 rgba(0, 0, 0, 0.5)">Sado</p>
+      </div>
+      <span class="r-feet" style="left: 74px; top: 402px"></span>
+      <span class="r-feet" style="left: 276px; top: 402px"></span>
+      <div style="position: absolute; left: 50px; top: 414px; width: 290px; height: 24px; border-radius: 50%; background: radial-gradient(closest-side, rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0))"></div>
+    </div>
+
+    <div style="position: absolute; left: 22px; right: 22px; bottom: 120px; display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center">
+      <p class="r-os" style="margin: 0; font-size: 12px; font-weight: 500; letter-spacing: {{ fromLs }}; text-transform: uppercase; color: #E9CFA2; overflow-wrap: anywhere">{{ fromTo }}</p>
+      <h1 style="margin: 0; display: flex; flex-direction: column; align-items: center; gap: 0; font-weight: 400">
+        <span class="r-pa r-amber" style="font-size: {{ h1Size }}; line-height: 1.4; padding: 0 10px; overflow-wrap: anywhere">{{ d.kimga }},</span>
+        <span class="r-os" style="font-size: 36px; font-weight: 500; line-height: 1.1; letter-spacing: 0.08em; text-transform: uppercase; color: #FFF1D6">kechirasanmi?</span>
+      </h1>
+      <p class="r-se" style="margin: 10px 0 0; max-width: 300px; font-size: 16px; font-style: italic; line-height: 1.55; color: #E8D7B8">To’lqinimizni qayta topdim. Iltimos, bu efirni oxirigacha tingla.</p>
+    </div>
+    <svg class="r-bob" width="26" height="26" viewBox="0 0 24 24" aria-hidden="true" style="position: absolute; left: 182px; top: 770px"><path d="M6 9.5 L12 15.5 L18 9.5" stroke="#FFD98A" class="r-ic2"></path></svg>
+  </header>
+
+  <sc-if value="{{ b.maktub }}">
+  <section style="flex: none; position: relative; padding: 24px 0 18px">
+    <div class="r-band" aria-hidden="true">
+      <div class="r-glow"></div>
+      <div class="r-nums"><span>88</span><span>92</span><span>96</span><span>100</span><span>104</span><span>108</span></div>
+      <div class="r-ticks"></div>
+      <span class="r-needle" style="left: 22%"></span>
+    </div>
+    <div style="padding: 26px 20px 0; display: flex; flex-direction: column; gap: 6px">
+      <span class="r-os" style="font-size: 12px; font-weight: 500; letter-spacing: 0.28em; text-transform: uppercase; color: #F2B85A">92.4 FM · Maktub</span>
+      <h2 class="r-os" style="margin: 0; font-size: 30px; font-weight: 500; line-height: 1.15; letter-spacing: 0.04em; text-transform: uppercase; color: #FFF1D6">Yuragimdagi gaplar</h2>
+    </div>
+    <article class="r-paper" style="margin: 20px 16px 0; padding: 26px 34px 26px 34px">
+      <span class="r-holes" aria-hidden="true" style="left: 10px"></span>
+      <span class="r-holes" aria-hidden="true" style="right: 10px"></span>
+      <div style="display: flex; justify-content: space-between; align-items: center; gap: 10px; padding-bottom: 12px; border-bottom: 1px dashed rgba(74, 44, 28, 0.35)">
+        <span class="r-onair"><i></i>EFIR MATNI</span>
+        <span class="r-os" style="font-size: 12px; letter-spacing: 0.16em; color: #7A5236">{{ iniFrom }} → {{ iniTo }}</span>
+      </div>
+      <p class="r-se" style="margin: 16px 0 0; font-size: 16.5px; line-height: 1.72; color: #3A2416; white-space: pre-line; overflow-wrap: anywhere"><span class="r-initial r-pa">{{ dropCap }}</span>{{ dropRest }}</p>
+      <div style="margin-top: 14px; display: flex; justify-content: flex-end">
+        <span class="r-pa" style="font-size: {{ sigSize }}; line-height: 1.4; color: #8E3F1E; text-align: right; padding: 0 4px; overflow-wrap: anywhere">{{ d.kimdan }}</span>
+      </div>
+    </article>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.galereya }}">
+  <section style="flex: none; position: relative; padding: 30px 0 18px">
+    <div class="r-band" aria-hidden="true">
+      <div class="r-glow"></div>
+      <div class="r-nums"><span>88</span><span>92</span><span>96</span><span>100</span><span>104</span><span>108</span></div>
+      <div class="r-ticks"></div>
+      <span class="r-needle" style="left: 42%"></span>
+    </div>
+    <div style="padding: 26px 20px 0; display: flex; flex-direction: column; gap: 6px">
+      <span class="r-os" style="font-size: 12px; font-weight: 500; letter-spacing: 0.28em; text-transform: uppercase; color: #F2B85A">96.8 FM · Xotiralar</span>
+      <h2 class="r-os" style="margin: 0; font-size: 30px; font-weight: 500; line-height: 1.15; letter-spacing: 0.04em; text-transform: uppercase; color: #FFF1D6">Eng sevimli to’lqinlar</h2>
+    </div>
+    <div style="position: relative; margin: 22px 16px 0; height: {{ galH }}">
+      <figure style="position: absolute; left: 0; top: 0; width: 358px; height: 250px; margin: 0; padding: 9px; box-sizing: border-box; border-radius: 34px; background: linear-gradient(150deg, #FBE6B8 0%, #B8915A 35%, #F4D598 60%, #8C6A3E 100%); box-shadow: 0 30px 44px -24px rgba(0, 0, 0, 0.9)">
+        <div style="position: relative; width: 100%; height: 100%; border-radius: 26px; overflow: hidden; background: #2A1A10">
+          <img src="{{ p.0 }}" alt="" style="width: 100%; height: 100%; object-fit: cover; display: block">
+          <div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; background: linear-gradient(125deg, rgba(255, 240, 210, 0.28) 0%, rgba(255, 240, 210, 0) 34%), linear-gradient(180deg, rgba(247, 176, 74, 0) 60%, rgba(247, 176, 74, 0.22) 100%)"></div>
+        </div>
+      </figure>
+      <sc-if value="{{ g2 }}">
+      <figure style="position: absolute; left: 14px; top: 206px; width: 164px; height: 164px; margin: 0; padding: 8px; box-sizing: border-box; border-radius: 50%; background: conic-gradient(from 30deg, #FBE6B8, #B8915A, #F4D598, #8C6A3E, #FBE6B8); box-shadow: 0 24px 34px -18px rgba(0, 0, 0, 0.9)">
+        <img src="{{ p.1 }}" alt="" style="width: 100%; height: 100%; object-fit: cover; display: block; border-radius: 50%">
+      </figure>
+      </sc-if>
+      <sc-if value="{{ g3 }}">
+      <figure style="position: absolute; left: 184px; top: 236px; width: 160px; height: 160px; margin: 0; padding: 8px; box-sizing: border-box; border-radius: 50%; background: conic-gradient(from 200deg, #FBE6B8, #B8915A, #F4D598, #8C6A3E, #FBE6B8); box-shadow: 0 24px 34px -18px rgba(0, 0, 0, 0.9)">
+        <img src="{{ p.2 }}" alt="" style="width: 100%; height: 100%; object-fit: cover; display: block; border-radius: 50%">
+      </figure>
+      </sc-if>
+      <sc-if value="{{ g2only }}">
+      <p class="r-pa" style="position: absolute; left: 196px; top: 270px; width: 150px; margin: 0; font-size: 21px; line-height: 1.45; color: #F2B85A">Har biri — bir qo’shiq.</p>
+      </sc-if>
+    </div>
+    <sc-if value="{{ g1 }}">
+    <p class="r-pa" style="margin: 14px 20px 0; font-size: 22px; line-height: 1.45; color: #F2B85A; text-align: center">Har biri — bir qo’shiq.</p>
+    </sc-if>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.vadalar }}">
+  <section class="{{ keysCls }}" style="flex: none; position: relative; padding: 30px 0 18px">
+    <div class="r-band" aria-hidden="true">
+      <div class="r-glow"></div>
+      <div class="r-nums"><span>88</span><span>92</span><span>96</span><span>100</span><span>104</span><span>108</span></div>
+      <div class="r-ticks"></div>
+      <span class="r-needle" style="left: 58%"></span>
+    </div>
+    <div style="padding: 26px 20px 0; display: flex; flex-direction: column; gap: 6px">
+      <span class="r-os" style="font-size: 12px; font-weight: 500; letter-spacing: 0.28em; text-transform: uppercase; color: #F2B85A">100.2 FM · Va’dalar</span>
+      <h2 class="r-os" style="margin: 0; font-size: 30px; font-weight: 500; line-height: 1.15; letter-spacing: 0.04em; text-transform: uppercase; color: #FFF1D6">Doimiy to’lqinlarim</h2>
+      <p class="r-se" style="margin: 2px 0 0; font-size: 15px; font-style: italic; line-height: 1.5; color: #E2CDAA">Har bir tugma — bundan buyon o’chmaydigan bitta va’da.</p>
+    </div>
+    <ol style="list-style: none; margin: 20px 16px 0; padding: 18px 16px; border-radius: 18px; background: linear-gradient(180deg, rgba(30, 16, 8, 0.55), rgba(30, 16, 8, 0.35)); box-shadow: inset 0 0 0 1px rgba(184, 145, 90, 0.4); display: flex; flex-direction: column; gap: 14px">
+      <sc-for list="{{ promises }}" as="v">
+      <li style="display: flex; align-items: center; gap: 14px">
+        <span class="r-key" aria-hidden="true" style="transition-delay: {{ v.dl }}">{{ v.n }}</span>
+        <span class="r-se" style="flex: 1; min-width: 0; font-size: 16.5px; line-height: 1.45; color: #FFF1D6; overflow-wrap: anywhere">{{ v.text }}</span>
+      </li>
+      </sc-for>
+    </ol>
+    <div style="padding: 18px 16px 0">
+      <sc-if value="{{ notAccepted }}">
+        <button type="button" class="r-btn r-os" onClick="{{ accept }}" style="width: 100%; height: 54px; border: 2px solid #F2A93B; border-radius: 27px; background: rgba(242, 169, 59, 0.1); color: #FFE2A8; font-size: 16px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; cursor: pointer">Hammasiga ishonaman</button>
+      </sc-if>
+      <sc-if value="{{ accepted }}">
+        <p class="r-pop r-se" role="status" style="margin: 0; min-height: 50px; display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 16px; font-style: italic; color: #FFD98A">
+          <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" style="flex: none"><path d="M6.6 12.4 L10.2 16 L17.4 8.6" stroke="#FFD98A" class="r-ic2"></path></svg>
+          <span>Tugmalar bosildi. Har birini bajaraman.</span>
+        </p>
+      </sc-if>
+    </div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.taklif }}">
+  <section style="flex: none; position: relative; padding: 30px 0 18px">
+    <div class="r-band" aria-hidden="true">
+      <div class="r-glow"></div>
+      <div class="r-nums"><span>88</span><span>92</span><span>96</span><span>100</span><span>104</span><span>108</span></div>
+      <div class="r-ticks"></div>
+      <span class="r-needle" style="left: 74%"></span>
+    </div>
+    <div class="r-cloth" style="position: relative; margin: 26px 16px 0; padding: 18px; border-radius: 22px; box-shadow: inset 0 0 0 4px #B8915A, inset 0 0 0 5px rgba(0, 0, 0, 0.3), 0 28px 44px -24px rgba(0, 0, 0, 0.9)">
+      <div style="position: relative; padding: 22px 20px 22px; border-radius: 14px; background: linear-gradient(170deg, #FBF3E1 0%, #F1E2C2 100%); box-shadow: 0 6px 14px -6px rgba(60, 30, 10, 0.5); display: flex; flex-direction: column; gap: 14px">
+        <div style="display: flex; gap: 14px; align-items: flex-start">
+          <svg class="r-mic" width="56" height="86" viewBox="0 0 56 86" aria-hidden="true" style="flex: none">
+            <rect x="12" y="2" width="32" height="46" rx="16" fill="#3A2414"></rect>
+            <rect x="15" y="5" width="26" height="40" rx="13" fill="#C9B48A"></rect>
+            <path d="M15 14 H41 M15 20 H41 M15 26 H41 M15 32 H41 M15 38 H41" stroke="#8C6A3E" class="r-ic" style="stroke-width: 1.2"></path>
+            <path d="M8 30 C8 46 18 54 28 54 C38 54 48 46 48 30" stroke="#3A2414" class="r-ic2" style="stroke-width: 3"></path>
+            <path d="M28 54 V74" stroke="#3A2414" class="r-ic2" style="stroke-width: 3"></path>
+            <path d="M14 82 H42" stroke="#3A2414" class="r-ic2" style="stroke-width: 4"></path>
+          </svg>
+          <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 8px">
+            <span class="r-onair" style="align-self: flex-start"><i></i>JONLI EFIR</span>
+            <p class="r-se" style="margin: 0; font-size: 22px; font-weight: 700; line-height: 1.3; color: #3A2416; overflow-wrap: anywhere">{{ d.taklif }}</p>
+          </div>
+        </div>
+        <sc-if value="{{ hasChips }}">
+        <div style="display: flex; flex-wrap: wrap; gap: 8px">
+          <sc-if value="{{ d.taklif_vaqt }}">
+          <span class="r-os" style="min-height: 36px; padding: 6px 14px 6px 10px; box-sizing: border-box; border-radius: 18px; background: #3A2414; display: inline-flex; align-items: center; gap: 7px; font-size: 14px; letter-spacing: 0.06em; color: #FFE2A8">
+            <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" style="flex: none"><circle cx="12" cy="12" r="8.5" stroke="#F2A93B" class="r-ic"></circle><path d="M12 7.5V12l3 2" stroke="#F2A93B" class="r-ic"></path></svg>
+            <span style="overflow-wrap: anywhere">{{ d.taklif_vaqt }}</span>
+          </span>
+          </sc-if>
+          <sc-if value="{{ d.taklif_joy }}">
+          <span class="r-os" style="min-height: 36px; padding: 6px 14px 6px 10px; box-sizing: border-box; border-radius: 18px; background: #3A2414; display: inline-flex; align-items: center; gap: 7px; font-size: 14px; letter-spacing: 0.06em; color: #FFE2A8">
+            <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" style="flex: none"><path d="M12 21s-6.5-6.2-6.5-11A6.5 6.5 0 0 1 18.5 10c0 4.8-6.5 11-6.5 11z" stroke="#F2A93B" class="r-ic"></path><circle cx="12" cy="10" r="2.3" stroke="#F2A93B" class="r-ic"></circle></svg>
+            <span style="overflow-wrap: anywhere">{{ d.taklif_joy }}</span>
+          </span>
+          </sc-if>
+        </div>
+        </sc-if>
+        <sc-if value="{{ notAgreed }}">
+          <button type="button" class="r-btn r-os" onClick="{{ agree }}" style="width: 100%; height: 54px; border: 0; border-radius: 27px; background: linear-gradient(180deg, #F7B851 0%, #E58B2E 100%); color: #2E1608; font-size: 17px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; cursor: pointer; box-shadow: 0 4px 0 #A85A1C, 0 14px 22px -12px rgba(120, 60, 10, 0.8)">Roziman</button>
+        </sc-if>
+        <sc-if value="{{ agreed }}">
+          <div class="r-pop" role="status" style="display: flex; align-items: center; gap: 12px; padding: 13px 16px; border-radius: 16px; background: #3A2414">
+            <svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true" style="flex: none"><circle cx="12" cy="12" r="10.5" fill="#F2A93B"></circle><path d="M7.6 12.4 L10.6 15.4 L16.4 9" stroke="#2E1608" class="r-ic2"></path></svg>
+            <p class="r-se" style="margin: 0; font-size: 15px; line-height: 1.45; color: #FFF1D6; overflow-wrap: anywhere">{{ agreedText }}</p>
+          </div>
+        </sc-if>
+      </div>
+    </div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ showAnswer }}">
+  <section style="flex: none; position: relative; padding: 30px 0 18px">
+    <div class="r-band" aria-hidden="true">
+      <div class="r-glow"></div>
+      <div class="r-nums"><span>88</span><span>92</span><span>96</span><span>100</span><span>104</span><span>108</span></div>
+      <div class="r-ticks"></div>
+      <span class="r-needle" style="left: 90%"></span>
+    </div>
+    <div style="margin: 26px 16px 0; padding: 26px 20px 24px; border-radius: 22px; background: linear-gradient(170deg, #F6EBD2 0%, #E9D9B6 100%); box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.8), 0 28px 44px -24px rgba(0, 0, 0, 0.9); display: flex; flex-direction: column; gap: 14px">
+      <div style="display: flex; flex-direction: column; align-items: center; gap: 2px; text-align: center">
+        <span class="r-os" style="font-size: 12px; font-weight: 500; letter-spacing: 0.28em; text-transform: uppercase; color: #8E3F1E">106.0 FM · Javob</span>
+        <h2 class="r-pa" style="margin: 0; font-size: 38px; font-weight: 400; line-height: 1.45; color: #4A2C1C">Kechirasanmi?</h2>
+        <p class="r-se" style="margin: 0; font-size: 15px; font-style: italic; line-height: 1.5; color: #5A3E2A">{{ askSub }}</p>
+      </div>
+      <sc-if value="{{ b.javob }}">
+      <sc-if value="{{ waiting }}">
+        <button type="button" class="r-btn r-os" onClick="{{ forgive }}" style="width: 100%; height: 60px; border: 0; border-radius: 30px; background: linear-gradient(180deg, #D4553A 0%, #A8361F 100%); color: #FFF1E6; font-size: 19px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 12px; box-shadow: 0 5px 0 #6E2010, 0 16px 26px -12px rgba(110, 32, 16, 0.8)">
+          <span aria-hidden="true" style="width: 10px; height: 10px; border-radius: 50%; background: #FFD9C8; box-shadow: 0 0 8px 3px rgba(255, 200, 170, 0.8)"></span>
+          <span>Kechirdim</span>
+        </button>
+      </sc-if>
+      <sc-if value="{{ forgiven }}">
+        <div class="r-pop" role="status" style="display: flex; align-items: center; gap: 14px; padding: 16px; border-radius: 18px; background: #3A2414">
+          <span aria-hidden="true" style="position: relative; flex: none; width: 46px; height: 46px; border-radius: 50%; background: conic-gradient(from 0deg, #0D3B22 0deg 2deg, #7DF0A6 2deg 358deg, #0D3B22 358deg); box-shadow: 0 0 0 3px #B8915A, 0 0 16px 4px rgba(125, 240, 166, 0.45)"><span style="position: absolute; left: 15px; top: 15px; width: 16px; height: 16px; border-radius: 50%; background: #0B140D"></span></span>
+          <div style="min-width: 0; display: flex; flex-direction: column; gap: 3px">
+            <p class="r-pa" style="margin: 0; font-size: 22px; line-height: 1.4; color: #FFD98A; overflow-wrap: anywhere">Rahmat, {{ d.kimga }}.</p>
+            <p class="r-se" style="margin: 0; font-size: 14.5px; line-height: 1.5; color: #F1E2C6; white-space: pre-line; overflow-wrap: anywhere">{{ thanks }}</p>
+          </div>
+        </div>
+      </sc-if>
+      </sc-if>
+      <sc-if value="{{ both }}">
+      <div style="display: flex; align-items: center; gap: 10px">
+        <span aria-hidden="true" style="flex: 1; height: 1px; background: #CDB88E"></span>
+        <span class="r-se" style="font-size: 13.5px; font-style: italic; color: #5A3E2A">yoki o’z so’zlaring bilan</span>
+        <span aria-hidden="true" style="flex: 1; height: 1px; background: #CDB88E"></span>
+      </div>
+      </sc-if>
+      <sc-if value="{{ b.sorov }}">
+      <sc-if value="{{ notSent }}">
+        <div style="display: flex; flex-direction: column; gap: 10px">
+          <label for="rReply" class="r-os" style="font-size: 12px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: #5A3E2A">Efirga xat</label>
+          <textarea id="rReply" class="r-ta r-se" rows="3" placeholder="Bir-ikki so’z ham kifoya" style="width: 100%; height: 88px; box-sizing: border-box; resize: none; padding: 12px 14px; border: 1px solid #CDB88E; border-radius: 14px; background: #FFFBF1; color: #3A2416; font-size: 16px; line-height: 1.45"></textarea>
+          <sc-if value="{{ sendErr }}"><p role="alert" style="margin: -2px 0 0; font-size: 13.5px; line-height: 1.4; color: #9A3B2A">{{ sendErr }}</p></sc-if>
+          <button type="button" class="r-btn r-os" onClick="{{ send }}" disabled="{{ sending }}" style="width: 100%; height: 52px; border: 0; border-radius: 26px; background: #3A2414; color: #FFE2A8; font-size: 15px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px">
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12l16-8-6 16-2.5-6.5L4 12z M11.5 13.5L20 4" stroke="#F2A93B" class="r-ic"></path></svg>
+            <span>{{ sendLabel }}</span>
+          </button>
+        </div>
+      </sc-if>
+      <sc-if value="{{ sent }}">
+        <div class="r-pop" role="status" style="display: flex; align-items: center; gap: 12px; padding: 14px 16px; border-radius: 16px; background: rgba(58, 36, 20, 0.08); border: 1px solid #CDB88E">
+          <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" style="flex: none"><path d="M4 12l16-8-6 16-2.5-6.5L4 12z M11.5 13.5L20 4" stroke="#8E3F1E" class="r-ic"></path></svg>
+          <p class="r-se" style="margin: 0; font-size: 15px; line-height: 1.45; color: #3A2416; overflow-wrap: anywhere">Xating {{ toFrom }} efir orqali yetib bordi.</p>
+        </div>
+      </sc-if>
+      </sc-if>
+    </div>
+  </section>
+  </sc-if>
+
+  <footer style="flex: 1 0 auto; position: relative; min-height: 420px; overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; padding: 0 24px 64px; box-sizing: border-box; text-align: center; background: radial-gradient(70% 45% at 50% 42%, rgba(247, 176, 74, 0.28) 0%, rgba(247, 176, 74, 0) 100%)">
+    <div aria-hidden="true" style="position: absolute; left: 115px; top: 70px; width: 160px; height: 160px">
+      <span style="position: absolute; left: 50px; top: 50px; width: 60px; height: 60px; border-radius: 50%; border: 2px solid rgba(255, 206, 130, 0.55); animation: rRing 3s ease-out infinite"></span>
+      <span style="position: absolute; left: 50px; top: 50px; width: 60px; height: 60px; border-radius: 50%; border: 2px solid rgba(255, 206, 130, 0.55); animation: rRing 3s ease-out -1s infinite"></span>
+      <span style="position: absolute; left: 50px; top: 50px; width: 60px; height: 60px; border-radius: 50%; border: 2px solid rgba(255, 206, 130, 0.55); animation: rRing 3s ease-out -2s infinite"></span>
+      <span style="position: absolute; left: 66px; top: 66px; width: 28px; height: 28px; border-radius: 50%; background: radial-gradient(circle at 40% 35%, #FFE7B0, #F2A93B 60%, #C8681E); box-shadow: 0 0 22px 6px rgba(247, 176, 74, 0.6)"></span>
+    </div>
+    <p class="r-pa r-amber" style="margin: 0; font-size: 34px; line-height: 1.45; padding: 0 8px">To’lqinimiz yana bir.</p>
+    <p class="r-se" style="margin: 6px 0 0; max-width: 300px; font-size: 15.5px; font-style: italic; line-height: 1.55; color: #E8D7B8">Bu chastotani endi hech qachon yo’qotmayman.</p>
+    <p class="r-pa" style="margin: 14px 0 0; font-size: {{ footSig }}; line-height: 1.45; color: #FFD98A; padding: 0 6px; overflow-wrap: anywhere">{{ d.kimdan }}</p>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":4300}}'>
+class Component extends DCLogic {
+  constructor(...args) {
+    super(...args);
+    this.state = { p: 0, locked: false, accepted: false, agreed: false, forgiven: false, sent: false };
+  }
+  componentWillUnmount() { this.gone = true; }
+  tune(dp) {
+    if (this.state.locked) return;
+    let p = Math.max(0, Math.min(1, (this.state.p || 0) + dp));
+    if (p >= 0.985) {
+      this.setState({ p: 1, locked: true });
+      SITE.opened();
+      return;
+    }
+    this.setState({ p });
+  }
+  renderVals() {
+    const s = this.state || {};
+    const d = SITE.d, b = SITE.b;
+    const ini = (n) => (String(n || '').trim().charAt(0) || '').toUpperCase();
+    const vad = d.vadalar || [];
+    const matn = String(d.matn || '').replace(/^\s+/, '');
+    const n = SITE.has.photos;
+    const p = s.p || 0, locked = !!s.locked;
+    const msg = String(d.kimga || '').trim() + ', kechirasanmi?';
+    const step = Math.min(0.06, 1.6 / Math.max(1, msg.length));
+    const castEnd = 0.3 + msg.length * step + 1.6;
+    const tv = String(d.taklif_vaqt || '').trim();
+    const nameLen = String(d.kimga || '').length;
+    const fromLen = String(d.kimdan || '').length;
+    const w = Math.round((1 - p) * 70 + 3);
+    return {
+      fromTo: (d.kimdan || '') + 'dan ' + SITE.ga(d.kimga),
+      fromLs: (String(d.kimdan || '') + String(d.kimga || '')).length > 28 ? '0.12em' : '0.3em',
+      introCls: locked ? 'r-intro r-intro--open' : 'r-intro',
+      radioCls: locked ? 'r-on' : '',
+      outDelay: castEnd.toFixed(2) + 's',
+      outDelay2: (castEnd + 1).toFixed(2) + 's',
+      knobWrapCls: locked ? 'r-fade' : '',
+      knobCls: locked ? 'r-knob r-fade' : 'r-knob',
+      knobPe: locked ? 'none' : 'auto',
+      glowOp: (0.15 + p * 0.85).toFixed(2),
+      dialOp: (0.18 + p * 0.82).toFixed(2),
+      noiseOp: (locked ? 0 : 0.3 - p * 0.24).toFixed(2),
+      scanOp: (locked ? 0 : 1 - p * 0.7).toFixed(2),
+      needle: (8 + p * 78).toFixed(1) + '%',
+      knobRot: Math.round(p * 160) + 'deg',
+      bigRot: Math.round(p * 540) + 'deg',
+      eyeBg: 'conic-gradient(from 0deg, #0D3B22 0deg ' + w + 'deg, rgba(125,240,166,' + (0.35 + p * 0.65).toFixed(2) + ') ' + w + 'deg ' + (360 - w) + 'deg, #0D3B22 ' + (360 - w) + 'deg)',
+      freq: (87.6 + p * 12.6).toFixed(1),
+      seekText: p === 0 ? 'Faqat shovqin… Murvatni burab, to’lqinni toping.' : p < 0.6 ? 'Uzuq-yuluq ovoz eshitilyapti…' : 'Yana ozgina — signal yaqin.',
+      chars: msg.split('').map((ch, i) => ({ ch, dl: (0.3 + i * step).toFixed(2) + 's' })),
+      castSize: msg.length > 34 ? '24px' : msg.length > 24 ? '28px' : '32px',
+      tap: () => { if (this.moved > 0.25) { this.moved = 0; return; } this.moved = 0; this.tune(0.25); },
+      kDown: (e) => {
+        const r = e.currentTarget.getBoundingClientRect();
+        this.cx = r.left + r.width / 2; this.cy = r.top + r.height / 2;
+        this.drag = true; this.moved = 0;
+        this.lastA = Math.atan2(e.clientY - this.cy, e.clientX - this.cx);
+        try { e.currentTarget.setPointerCapture(e.pointerId); } catch (err) { /* */ }
+      },
+      kMove: (e) => {
+        if (!this.drag) return;
+        const a = Math.atan2(e.clientY - this.cy, e.clientX - this.cx);
+        let da = a - this.lastA;
+        if (da > Math.PI) da -= 2 * Math.PI;
+        if (da < -Math.PI) da += 2 * Math.PI;
+        this.lastA = a;
+        this.moved += Math.abs(da);
+        if (Math.abs(da) > 0.004) this.tune(da / (Math.PI * 3));
+      },
+      kUp: () => { this.drag = false; },
+      musicOn: !!SITE.music.playing,
+      musicOff: !SITE.music.playing,
+      toggleMusic: () => SITE.music.toggle(),
+      h1Size: nameLen > 18 ? '32px' : nameLen > 11 ? '40px' : '52px',
+      iniFrom: ini(d.kimdan), iniTo: ini(d.kimga),
+      dropCap: matn.charAt(0), dropRest: matn.slice(1),
+      sigSize: fromLen > 16 ? '20px' : '28px',
+      footSig: fromLen > 16 ? '20px' : '28px',
+      g1: n < 2, g2: n >= 2, g3: n >= 3, g2only: n === 2,
+      galH: n >= 3 ? '400px' : n === 2 ? '372px' : '250px',
+      promises: vad.map((text, i) => ({ text, n: String(i + 1), dl: (i * 0.12).toFixed(2) + 's' })),
+      keysCls: s.accepted ? 'r-pressed' : '',
+      accepted: !!s.accepted,
+      notAccepted: !s.accepted,
+      accept: () => { if (this.state.accepted) return; this.setState({ accepted: true }); SITE.reply('Va’dalaringga ishonaman', '🥹'); },
+      hasChips: !!(tv || d.taklif_joy),
+      agreedText: tv ? 'Kelishdik. ' + tv + ' — efirda uchrashamiz.' : 'Kelishdik. Seni kutaman.',
+      agreed: !!s.agreed,
+      notAgreed: !s.agreed,
+      agree: () => { if (this.state.agreed) return; this.setState({ agreed: true }); SITE.reply('Roziman: ' + (d.taklif || ''), '🥰'); },
+      showAnswer: !!(b.javob || b.sorov),
+      both: !!(b.javob && b.sorov),
+      askSub: b.javob && b.sorov ? 'Bitta tugma yoki bir necha so’z — qanday bo’lsa ham, kutaman.' : b.javob ? 'Bitta so’zing kifoya — kutaman.' : 'Bir necha so’z yozsang ham kifoya — kutaman.',
+      thanks: d.javob_matni || 'Signal toza, to’lqinimiz bir. Endi uni hech qachon yo’qotmayman.',
+      waiting: !s.forgiven,
+      forgiven: !!s.forgiven,
+      forgive: () => { if (this.state.forgiven) return; this.setState({ forgiven: true }); SITE.reply('Kechirdim', '🤗'); },
+      toFrom: SITE.ga(d.kimdan),
+      sent: !!s.sent,
+      notSent: !s.sent,
+      sending: !!s.sending,
+      sendLabel: s.sending ? 'Yuborilmoqda…' : 'Efirga yuborish',
+      sendErr: s.err || '',
+      send: () => {
+        const el = document.getElementById('rReply');
+        const text = el ? el.value.trim() : '';
+        if (!text) { this.setState({ err: 'Avval bir-ikki so’z yozing.' }); if (el) el.focus(); return; }
+        this.setState({ sending: true, err: '' });
+        SITE.reply(text, '❤️').then(() => { if (!this.gone) this.setState({ sent: true, sending: false }); })
+          .catch(() => { if (!this.gone) this.setState({ sending: false, err: 'Yuborilmadi. Qaytadan urinib ko’ring.' }); });
+      }
+    };
+  }
+}
+</script>
+</body>
+</html>

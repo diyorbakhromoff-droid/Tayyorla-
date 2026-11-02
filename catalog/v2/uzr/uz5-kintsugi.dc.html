@@ -1,0 +1,589 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<title>Uzr VIP: Oltin chok</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tenor+Sans&amp;family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,500;1,7..72,400;1,7..72,500&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#7A4B37}
+.k-te{font-family:'Tenor Sans','Gill Sans','Trebuchet MS',sans-serif;font-weight:400}
+.k-li{font-family:'Literata',Georgia,'Times New Roman',serif}
+.k-gold{background:linear-gradient(100deg,#A87B23 0%,#F6DB8F 28%,#C9982F 50%,#FFF1C4 68%,#A87B23 100%);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent}
+.k-gfill{background:linear-gradient(120deg,#B88A2E 0%,#F3D58A 30%,#D4A64A 55%,#FCEBB8 75%,#B88A2E 100%)}
+/* svg gradient stops */
+.ks-g1{stop-color:#9C7425}.ks-g2{stop-color:#F6DB8F}.ks-g3{stop-color:#C9982F}.ks-g4{stop-color:#FFF1C4}
+.ks-gl1{stop-color:#E6DFD1}.ks-gl2{stop-color:#CFC7B6}.ks-gl3{stop-color:#AEAA98}
+.ks-c1{stop-color:#BC8768}.ks-c2{stop-color:#8A5841}
+.ks-i1{stop-color:#5E574D}.ks-i2{stop-color:#A39A8A}
+.ks-w{stop-color:#FFFFFF;stop-opacity:.24}.ks-w0{stop-color:#FFFFFF;stop-opacity:0}.ks-b0{stop-color:#000000;stop-opacity:0}.ks-b{stop-color:#1E140C;stop-opacity:.34}
+.k-fd{flood-color:#140C06;flood-opacity:.45}
+.k-fg{flood-color:#F6CF6E;flood-opacity:.95}
+.k-rim{fill:none;stroke-width:2.4}
+.k-rim2{fill:none;stroke-width:1;opacity:.45}
+.k-foot{fill:none;stroke-width:1.4}
+.k-seam{fill:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.k-seamg{fill:none;stroke-width:9;stroke-linecap:round;stroke-linejoin:round;opacity:.28}
+.k-shine{fill:none;stroke:#FFF8DF;stroke-width:3;stroke-linecap:round;stroke-dasharray:.05px .95px;animation:kShine 5s linear infinite}
+@keyframes kShine{from{stroke-dashoffset:1px}to{stroke-dashoffset:0px}}
+.k-line{fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke}
+.k-lineg{fill:none;stroke-width:8;stroke-linecap:round;stroke-linejoin:round;opacity:.22;vector-effect:non-scaling-stroke}
+.k-ic{fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.k-ic2{fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.k-steam{fill:none;stroke-width:2;stroke-linecap:round;animation:kSteam 3.2s ease-in-out infinite}
+@keyframes kSteam{0%{opacity:0;transform:translateY(6px)}40%{opacity:.85}100%{opacity:0;transform:translateY(-10px)}}
+/* kul zarralari */
+.k-ash{position:absolute;width:3px;height:3px;border-radius:50%;background:rgba(246,219,143,.75);box-shadow:0 0 6px 1px rgba(246,207,110,.45);animation:kAsh 11s linear infinite}
+.k-ash2{width:2px;height:2px;background:rgba(232,226,214,.6);box-shadow:none;animation-duration:15s}
+@keyframes kAsh{0%{opacity:0;transform:translate(0,0)}15%{opacity:1}85%{opacity:.8}100%{opacity:0;transform:translate(18px,-180px)}}
+.k-beam{animation:kBeam 9s ease-in-out infinite}
+@keyframes kBeam{0%,100%{opacity:.75}50%{opacity:1}}
+/* kirish: bo'laklar */
+.k-intro{transition:opacity 1.1s ease 3.6s,visibility 0s linear 4.7s}
+.k-intro--open{opacity:0;visibility:hidden;pointer-events:none}
+.k-sh{transform-box:view-box;transition:transform .85s cubic-bezier(.2,.9,.25,1.12)}
+.k-sh1{transform-origin:60px 60px;transform:translate(-16px,202px) rotate(-22deg) scale(.72)}
+.k-sh2{transform-origin:210px 48px;transform:translate(48px,210px) rotate(16deg) scale(.72)}
+.k-sh3{transform-origin:58px 150px;transform:translate(40px,138px) rotate(10deg) scale(.72)}
+.k-sh4{transform-origin:216px 124px;transform:translate(-66px,134px) rotate(-14deg) scale(.72)}
+.k-sh5{transform-origin:214px 180px;transform:translate(-10px,110px) rotate(24deg) scale(.72)}
+.k-sh.is-in{transform:none}
+.k-bob{filter:url(#kDrop)}
+.k-sh.is-next .k-bob{filter:url(#kGlow);animation:kNudge 1.8s ease-in-out infinite}
+.k-sh.is-in .k-bob{filter:none}
+@keyframes kNudge{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+.k-ghost{fill:rgba(232,220,194,.04);stroke-width:1.2;stroke-dasharray:5 6;opacity:.45;transition:opacity .6s ease .4s}
+.k-intro--done .k-ghost{opacity:0}
+.k-iseam{stroke-dasharray:1px 1px;stroke-dashoffset:1px;transition:stroke-dashoffset 1.8s cubic-bezier(.5,0,.3,1) .8s}
+.k-intro--done .k-iseam{stroke-dashoffset:0px}
+.k-iglow{opacity:0;transition:opacity 1.2s ease 1.6s}
+.k-intro--done .k-iglow{opacity:1}
+.k-hit{position:absolute;width:84px;height:84px;padding:0;border:0;border-radius:50%;background:transparent;cursor:pointer}
+.k-hit::before{content:'';position:absolute;left:10px;top:10px;right:10px;bottom:10px;border-radius:50%;border:1.5px solid rgba(246,219,143,.85);animation:kRing 1.8s ease-out infinite}
+@keyframes kRing{0%{opacity:.9;transform:scale(.55)}100%{opacity:0;transform:scale(1.15)}}
+.k-hit:focus-visible{outline:2px solid #F6DB8F;outline-offset:2px}
+.k-ask{transition:opacity .5s ease .2s,transform .5s ease .2s}
+.k-intro--done .k-ask{opacity:0;transform:translateY(10px);pointer-events:none}
+.k-reveal{pointer-events:none;opacity:0;transform:translateY(14px);transition:opacity 1s ease 2.1s,transform 1.2s cubic-bezier(.2,.8,.3,1) 2.1s}
+.k-intro--done .k-reveal{opacity:1;transform:none}
+.k-dot{width:18px;height:12px;clip-path:polygon(0 30%,40% 0,100% 20%,85% 100%,15% 85%);background:rgba(232,226,214,.22);transition:background .4s ease}
+.k-dot.is-on{background:linear-gradient(120deg,#C9982F,#F6DB8F)}
+/* bloklar */
+.k-node{position:absolute;width:14px;height:14px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#FFF1C4,#D4A64A 55%,#9C7425);box-shadow:0 0 0 4px #ECE6DA,0 0 0 5px rgba(201,152,47,.45),0 0 14px 2px rgba(246,207,110,.55)}
+.k-node--dk{box-shadow:0 0 0 4px #3B3430,0 0 0 5px rgba(201,152,47,.5),0 0 16px 3px rgba(246,207,110,.6)}
+.k-initial{float:left;font-size:62px;line-height:50px;margin:7px 12px 0 0;padding:0 2px}
+.k-mend{position:absolute;top:-1px;height:3px;border-radius:2px}
+.k-pop{animation:kPop .6s cubic-bezier(.2,1.3,.4,1) both}
+@keyframes kPop{from{opacity:0;transform:scale(.94) translateY(8px)}to{opacity:1;transform:none}}
+.k-stamp{animation:kStamp .7s cubic-bezier(.3,1.2,.4,1) .15s both}
+@keyframes kStamp{0%{opacity:0;transform:scale(1.8) rotate(-24deg)}60%{opacity:1;transform:scale(.92) rotate(-4deg)}100%{opacity:1;transform:scale(1) rotate(-8deg)}}
+.k-float{animation:kFloat 7s ease-in-out infinite}
+@keyframes kFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.k-bobd{animation:kBobD 2.4s ease-in-out infinite}
+@keyframes kBobD{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+.k-btn{transition:transform .15s ease,box-shadow .2s ease,background .2s ease}
+.k-btn:active{transform:scale(.97)}
+.k-btn:focus-visible{outline:3px solid #C9982F;outline-offset:3px}
+.k-ta::placeholder{color:#857A6C}
+.k-ta:focus{outline:2px solid #3B3430;outline-offset:1px}
+.k-eq{display:flex;align-items:flex-end;gap:3px;height:16px}
+.k-eq span{width:3px;height:16px;border-radius:2px;background:#F6DB8F;transform-origin:50% 100%;animation:kEq 1s ease-in-out infinite}
+@keyframes kEq{0%,100%{transform:scaleY(.3)}50%{transform:scaleY(1)}}
+.k-shim{position:relative;overflow:hidden}
+.k-shim::after{content:'';position:absolute;top:0;bottom:0;left:-60%;width:40%;background:linear-gradient(100deg,rgba(255,255,255,0),rgba(255,255,255,.55),rgba(255,255,255,0));animation:kShim 4s ease-in-out infinite}
+@keyframes kShim{0%{transform:translateX(0)}55%,100%{transform:translateX(420%)}}
+.k-done .k-sglow{opacity:1}
+.k-sglow{opacity:.35;transition:opacity 1.2s ease}
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{animation:none !important;transition:none !important}}
+</style>
+</helmet>
+<div style="width: 390px; min-height: var(--vh, 100vh); position: relative; overflow: hidden; background: #3B3430; color: #2C2621; font-family: 'Literata', Georgia, serif; display: flex; flex-direction: column">
+
+  <!-- umumiy SVG ta'riflari: kosa, darzlar, gradientlar -->
+  <svg width="0" height="0" aria-hidden="true" style="position: absolute; left: 0; top: 0">
+    <defs>
+      <linearGradient id="kgGold" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="300" y2="40"><stop offset="0" class="ks-g1"></stop><stop offset="0.3" class="ks-g2"></stop><stop offset="0.52" class="ks-g3"></stop><stop offset="0.72" class="ks-g4"></stop><stop offset="1" class="ks-g1"></stop></linearGradient>
+      <linearGradient id="kgGoldV" x1="0" y1="0" x2="0.3" y2="1"><stop offset="0" class="ks-g2"></stop><stop offset="0.35" class="ks-g3"></stop><stop offset="0.6" class="ks-g4"></stop><stop offset="1" class="ks-g1"></stop></linearGradient>
+      <linearGradient id="kgGlaze" x1="0" y1="0" x2="0" y2="1"><stop offset="0" class="ks-gl1"></stop><stop offset="0.55" class="ks-gl2"></stop><stop offset="1" class="ks-gl3"></stop></linearGradient>
+      <linearGradient id="kgClay" x1="0" y1="0" x2="0" y2="1"><stop offset="0" class="ks-c1"></stop><stop offset="1" class="ks-c2"></stop></linearGradient>
+      <linearGradient id="kgIn" x1="0" y1="0" x2="0" y2="1"><stop offset="0" class="ks-i1"></stop><stop offset="1" class="ks-i2"></stop></linearGradient>
+      <linearGradient id="kgShade" x1="0" y1="0" x2="1" y2="0"><stop offset="0" class="ks-w"></stop><stop offset="0.38" class="ks-w0"></stop><stop offset="0.62" class="ks-b0"></stop><stop offset="1" class="ks-b"></stop></linearGradient>
+      <filter id="kDrop" x="-30%" y="-30%" width="160%" height="170%"><feDropShadow dx="0" dy="6" stdDeviation="5" class="k-fd"></feDropShadow></filter>
+      <filter id="kGlow" x="-40%" y="-40%" width="180%" height="180%"><feDropShadow dx="0" dy="0" stdDeviation="6" class="k-fg"></feDropShadow></filter>
+      <filter id="kBlur" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="3"></feGaussianBlur></filter>
+      <clipPath id="kcBowl"><path d="M22 40 A128 20 0 0 1 278 40 C276 110 220 160 182 168 L184 186 Q150 192 116 186 L118 168 C80 160 24 110 22 40 Z"></path></clipPath>
+      <clipPath id="kc1"><polygon points="0,0 112,0 118,30 108,58 126,84 122,108 100,112 80,98 52,120 30,104 0,112"></polygon></clipPath>
+      <clipPath id="kc2"><polygon points="112,0 300,0 300,92 262,80 232,100 204,86 176,112 150,96 122,108 126,84 108,58 118,30"></polygon></clipPath>
+      <clipPath id="kc3"><polygon points="0,112 30,104 52,120 80,98 100,112 122,108 138,132 128,158 140,210 0,210"></polygon></clipPath>
+      <clipPath id="kc4"><polygon points="122,108 150,96 176,112 204,86 232,100 262,80 300,92 300,170 256,150 226,162 196,140 166,148 138,132"></polygon></clipPath>
+      <clipPath id="kc5"><polygon points="138,132 166,148 196,140 226,162 256,150 300,170 300,210 140,210 128,158"></polygon></clipPath>
+      <g id="kBowl">
+        <path d="M22 40 A128 20 0 0 1 278 40 C276 110 220 160 182 168 L184 186 Q150 192 116 186 L118 168 C80 160 24 110 22 40 Z" fill="url(#kgClay)"></path>
+        <path d="M22 40 A128 20 0 0 1 278 40 C277 78 266 102 250 118 C243 126 236 120 229 131 C221 142 212 131 203 139 C195 146 188 137 178 145 C168 152 160 141 150 148 C140 155 131 143 121 147 C111 151 103 139 93 141 C80 138 70 128 58 122 C40 103 23 76 22 40 Z" fill="url(#kgGlaze)"></path>
+        <path d="M34 70 C52 96 70 110 94 120 M262 72 C250 92 238 104 222 112" stroke="#FFFFFF" class="k-rim2"></path>
+        <path d="M22 40 A128 20 0 0 1 278 40 C276 110 220 160 182 168 L184 186 Q150 192 116 186 L118 168 C80 160 24 110 22 40 Z" fill="url(#kgShade)"></path>
+        <ellipse cx="150" cy="40" rx="121" ry="15" fill="url(#kgIn)"></ellipse>
+        <ellipse cx="150" cy="44" rx="96" ry="9" fill="#BDB4A3" opacity="0.35"></ellipse>
+        <ellipse cx="150" cy="40" rx="128" ry="20" stroke="#F3EDE1" class="k-rim"></ellipse>
+        <ellipse cx="150" cy="40" rx="121" ry="15" stroke="#FFFFFF" class="k-rim2"></ellipse>
+        <path d="M118 168 Q150 175 182 168" stroke="#6A4232" class="k-foot"></path>
+        <circle cx="70" cy="78" r="1.6" fill="#5A4636" opacity="0.5"></circle><circle cx="96" cy="96" r="1.1" fill="#5A4636" opacity="0.45"></circle><circle cx="132" cy="72" r="1.4" fill="#5A4636" opacity="0.4"></circle><circle cx="182" cy="92" r="1.8" fill="#5A4636" opacity="0.45"></circle><circle cx="214" cy="70" r="1.2" fill="#5A4636" opacity="0.5"></circle><circle cx="240" cy="96" r="1.5" fill="#5A4636" opacity="0.4"></circle><circle cx="158" cy="120" r="1.2" fill="#5A4636" opacity="0.45"></circle><circle cx="56" cy="60" r="1" fill="#5A4636" opacity="0.45"></circle><circle cx="118" cy="132" r="1.3" fill="#5A4636" opacity="0.4"></circle><circle cx="200" cy="118" r="1" fill="#5A4636" opacity="0.5"></circle>
+      </g>
+      <path id="kCracks" d="M112 0 L118 30 L108 58 L126 84 L122 108 L138 132 L128 158 L140 210 M0 112 L30 104 L52 120 L80 98 L100 112 L122 108 L150 96 L176 112 L204 86 L232 100 L262 80 L300 92 M138 132 L166 148 L196 140 L226 162 L256 150 L300 170"></path>
+    </defs>
+  </svg>
+
+  <sc-if value="{{ has.music }}">
+  <button type="button" class="k-btn" onClick="{{ toggleMusic }}" aria-label="Musiqa" aria-pressed="{{ musicOn }}" style="position: absolute; right: 16px; top: 16px; z-index: 30; width: 44px; height: 44px; padding: 0; border-radius: 50%; border: 1px solid rgba(246, 219, 143, 0.55); background: rgba(59, 52, 48, 0.6); display: flex; align-items: center; justify-content: center; cursor: pointer">
+    <sc-if value="{{ musicOff }}">
+      <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 17.5V6l10-2v11.5" stroke="#F6DB8F" class="k-ic"></path><circle cx="6.8" cy="17.5" r="2.2" stroke="#F6DB8F" class="k-ic"></circle><circle cx="16.8" cy="15.5" r="2.2" stroke="#F6DB8F" class="k-ic"></circle></svg>
+    </sc-if>
+    <sc-if value="{{ musicOn }}">
+      <span class="k-eq" aria-hidden="true"><span></span><span style="animation-delay: -0.3s"></span><span style="animation-delay: -0.6s"></span><span style="animation-delay: -0.15s"></span></span>
+    </sc-if>
+  </button>
+  </sc-if>
+
+  <!-- KIRISH: singan kosa bo'laklari -->
+  <div class="{{ introCls }}" data-intro style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; z-index: 20; overflow: hidden; background: radial-gradient(90% 60% at 50% 38%, #4C433D 0%, #3B3430 55%, #2E2824 100%)">
+    <div class="k-beam" aria-hidden="true" style="position: absolute; left: -160px; top: -420px; width: 420px; height: 1700px; transform: rotate(-24deg); background: linear-gradient(90deg, rgba(255, 236, 196, 0) 0%, rgba(255, 236, 196, 0.07) 40%, rgba(255, 236, 196, 0.11) 55%, rgba(255, 236, 196, 0) 100%)"></div>
+    <span class="k-ash" style="left: 60px; top: 700px"></span>
+    <span class="k-ash k-ash2" style="left: 120px; top: 620px; animation-delay: -4s"></span>
+    <span class="k-ash" style="left: 300px; top: 660px; animation-delay: -7s"></span>
+    <span class="k-ash k-ash2" style="left: 250px; top: 520px; animation-delay: -2s"></span>
+    <span class="k-ash" style="left: 340px; top: 420px; animation-delay: -9s"></span>
+    <span class="k-ash k-ash2" style="left: 36px; top: 470px; animation-delay: -11s"></span>
+
+    <div style="position: absolute; left: 32px; right: 32px; top: 70px; display: flex; flex-direction: column; gap: 10px">
+      <p class="k-te" style="margin: 0; font-size: 11.5px; letter-spacing: 0.32em; text-transform: uppercase; color: #E8D9B4; overflow-wrap: anywhere">{{ fromTo }}</p>
+      <p class="k-te" style="margin: 0; font-size: 42px; line-height: 1.05; color: #F3EDE1">Singan kosa</p>
+      <span aria-hidden="true" style="width: 54px; height: 2px; background: linear-gradient(90deg, #C9982F, #F6DB8F, rgba(246, 219, 143, 0))"></span>
+    </div>
+
+    <!-- past taxta -->
+    <div aria-hidden="true" style="position: absolute; left: 18px; top: 548px; width: 354px; height: 14px; border-radius: 3px; background: linear-gradient(180deg, #5A4A3E 0%, #3A2F28 60%, #2A221D 100%); box-shadow: 0 18px 30px -10px rgba(0, 0, 0, 0.6)"></div>
+    <div aria-hidden="true" style="position: absolute; left: 75px; top: 404px; width: 240px; height: 26px; border-radius: 50%; background: radial-gradient(closest-side, rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0))"></div>
+
+    <svg width="330" height="341" viewBox="0 0 300 310" aria-hidden="true" style="position: absolute; left: 30px; top: 200px; overflow: visible">
+      <path class="k-ghost" d="M22 40 A128 20 0 0 1 278 40 C276 110 220 160 182 168 L184 186 Q150 192 116 186 L118 168 C80 160 24 110 22 40 Z M22 40 A128 20 0 0 0 278 40" stroke="#E8DCC2"></path>
+      <g class="{{ sh.0 }}"><g class="k-bob"><g clip-path="url(#kc1)"><use href="#kBowl"></use></g></g></g>
+      <g class="{{ sh.1 }}"><g class="k-bob" style="animation-delay: -0.4s"><g clip-path="url(#kc2)"><use href="#kBowl"></use></g></g></g>
+      <g class="{{ sh.2 }}"><g class="k-bob" style="animation-delay: -0.8s"><g clip-path="url(#kc3)"><use href="#kBowl"></use></g></g></g>
+      <g class="{{ sh.3 }}"><g class="k-bob" style="animation-delay: -1.2s"><g clip-path="url(#kc4)"><use href="#kBowl"></use></g></g></g>
+      <g class="{{ sh.4 }}"><g class="k-bob" style="animation-delay: -1.6s"><g clip-path="url(#kc5)"><use href="#kBowl"></use></g></g></g>
+      <g clip-path="url(#kcBowl)">
+        <use href="#kCracks" stroke="#F6CF6E" class="k-seamg k-iglow" filter="url(#kBlur)"></use>
+        <path d="M112 0 L118 30 L108 58 L126 84 L122 108 L138 132 L128 158 L140 210 M0 112 L30 104 L52 120 L80 98 L100 112 L122 108 L150 96 L176 112 L204 86 L232 100 L262 80 L300 92 M138 132 L166 148 L196 140 L226 162 L256 150 L300 170" pathLength="1" stroke="url(#kgGold)" class="k-seam k-iseam"></path>
+      </g>
+    </svg>
+
+    <sc-if value="{{ notDone }}">
+    <button type="button" class="k-hit" onClick="{{ place }}" aria-label="Bo’lakni joyiga qo’yish" style="left: {{ hitX }}; top: {{ hitY }}"></button>
+    </sc-if>
+
+    <div class="k-ask" style="position: absolute; left: 32px; right: 32px; top: 600px; display: flex; flex-direction: column; gap: 16px">
+      <p class="k-li" style="margin: 0; max-width: 316px; font-size: 16px; line-height: 1.6; font-style: italic; color: #DCD3C3; overflow-wrap: anywhere">{{ introSub }}</p>
+      <div style="display: flex; align-items: center; gap: 16px">
+        <button type="button" class="k-btn k-te" onClick="{{ place }}" style="height: 54px; padding: 0 24px 0 18px; border-radius: 4px; border: 1px solid rgba(246, 219, 143, 0.7); background: rgba(246, 219, 143, 0.1); color: #FBF0D2; font-size: 15px; letter-spacing: 0.06em; display: inline-flex; align-items: center; gap: 10px; cursor: pointer">
+          <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9 L11 4 L20 7 L18 18 L7 20 Z" stroke="#F6DB8F" class="k-ic"></path><path d="M11 4 L12 11 L7 20 M12 11 L20 7" stroke="#F6DB8F" class="k-ic"></path></svg>
+          <span>Bo’lakni qo’yish</span>
+        </button>
+        <div aria-hidden="true" style="display: flex; gap: 5px">
+          <span class="{{ dots.0 }}"></span><span class="{{ dots.1 }}"></span><span class="{{ dots.2 }}"></span><span class="{{ dots.3 }}"></span><span class="{{ dots.4 }}"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="k-reveal" style="position: absolute; left: 32px; right: 32px; top: 598px; display: flex; flex-direction: column; gap: 8px">
+      <p class="k-te k-gold" style="margin: 0; font-size: {{ revealSize }}; line-height: 1.08; padding-bottom: 2px; overflow-wrap: anywhere">{{ d.kimga }},</p>
+      <p class="k-te" style="margin: 0; font-size: 30px; line-height: 1.1; color: #F3EDE1">kechirasanmi?</p>
+      <p class="k-li" style="margin: 6px 0 0; font-size: 15px; font-style: italic; line-height: 1.55; color: #D8CDBB">Singan joyini oltin bilan bog’ladim.</p>
+    </div>
+  </div>
+
+  <!-- BOSH QISM: tiklangan kosa -->
+  <header style="flex: none; position: relative; height: 844px; overflow: hidden; background: radial-gradient(90% 60% at 50% 30%, #4E4540 0%, #3B3430 55%, #322C28 100%)">
+    <div class="k-beam" aria-hidden="true" style="position: absolute; left: -160px; top: -420px; width: 420px; height: 1700px; transform: rotate(-24deg); background: linear-gradient(90deg, rgba(255, 236, 196, 0) 0%, rgba(255, 236, 196, 0.07) 40%, rgba(255, 236, 196, 0.11) 55%, rgba(255, 236, 196, 0) 100%)"></div>
+    <span class="k-ash" style="left: 60px; top: 380px"></span>
+    <span class="k-ash k-ash2" style="left: 330px; top: 300px; animation-delay: -4s"></span>
+    <span class="k-ash" style="left: 300px; top: 620px; animation-delay: -7s"></span>
+    <span class="k-ash k-ash2" style="left: 250px; top: 760px; animation-delay: -2s"></span>
+
+    <div style="position: absolute; left: 32px; top: 56px; display: flex; align-items: center; gap: 12px">
+      <div aria-hidden="true" style="width: 40px; height: 40px; box-sizing: border-box; border-radius: 3px; background: linear-gradient(150deg, #A3583B 0%, #87442C 100%); box-shadow: inset 0 0 0 2px rgba(243, 237, 225, 0.35); display: flex; align-items: center; justify-content: center">
+        <span class="k-te" style="font-size: 17px; color: #F7EBDD; letter-spacing: 0.04em">{{ iniFrom }}{{ iniTo }}</span>
+      </div>
+      <span class="k-te" style="font-size: 11.5px; letter-spacing: 0.32em; text-transform: uppercase; color: #CFC2A8">Oltin chok</span>
+    </div>
+
+    <div aria-hidden="true" style="position: absolute; left: 75px; top: 318px; width: 240px; height: 30px; border-radius: 50%; background: radial-gradient(closest-side, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0))"></div>
+    <div class="k-float" aria-hidden="true" style="position: absolute; left: 30px; top: 118px; width: 330px; height: 220px">
+      <svg width="330" height="220" viewBox="0 0 300 200" style="position: absolute; left: 0; top: 0; overflow: visible">
+        <g filter="url(#kDrop)"><use href="#kBowl"></use></g>
+        <g clip-path="url(#kcBowl)">
+          <use href="#kCracks" stroke="#F6CF6E" class="k-seamg" filter="url(#kBlur)"></use>
+          <use href="#kCracks" stroke="url(#kgGold)" class="k-seam"></use>
+          <path d="M112 0 L118 30 L108 58 L126 84 L122 108 L138 132 L128 158 L140 210 M0 112 L30 104 L52 120 L80 98 L100 112 L122 108 L150 96 L176 112 L204 86 L232 100 L262 80 L300 92 M138 132 L166 148 L196 140 L226 162 L256 150 L300 170" pathLength="1" class="k-shine"></path>
+        </g>
+      </svg>
+    </div>
+
+    <svg width="390" height="844" viewBox="0 0 390 844" aria-hidden="true" style="position: absolute; left: 0; top: 0">
+      <path d="M182 342 L170 356 L176 368 L154 380 L140 376 L122 394 L104 392 L90 408 L70 410 L58 428 L40 436 L36 456 L30 480 L38 520 L32 560 L36 600 L30 650 L37 700 L31 760 L35 800 L34 844" stroke="#F6CF6E" class="k-seamg" filter="url(#kBlur)"></path>
+      <path d="M182 342 L170 356 L176 368 L154 380 L140 376 L122 394 L104 392 L90 408 L70 410 L58 428 L40 436 L36 456 L30 480 L38 520 L32 560 L36 600 L30 650 L37 700 L31 760 L35 800 L34 844" stroke="url(#kgGoldV)" class="k-seam"></path>
+      <path d="M182 342 L170 356 L176 368 L154 380 L140 376 L122 394 L104 392 L90 408 L70 410 L58 428 L40 436 L36 456 L30 480 L38 520 L32 560 L36 600 L30 650 L37 700 L31 760 L35 800 L34 844" pathLength="1" class="k-shine" style="animation-duration: 7s"></path>
+    </svg>
+
+    <div style="position: absolute; left: 64px; right: 26px; bottom: 126px; display: flex; flex-direction: column; gap: 14px">
+      <p class="k-te" style="margin: 0; font-size: 11.5px; letter-spacing: {{ fromLs }}; text-transform: uppercase; color: #E8D9B4; overflow-wrap: anywhere">{{ fromTo }}</p>
+      <h1 class="k-te" style="margin: 0; font-size: {{ h1Size }}; font-weight: 400; line-height: 1.06; color: #F3EDE1; overflow-wrap: anywhere"><span class="k-gold" style="padding-right: 2px">{{ d.kimga }},</span><br>kechirasanmi?</h1>
+      <p class="k-li" style="margin: 0; max-width: 290px; font-size: 16px; font-style: italic; line-height: 1.6; color: #DCD3C3">Singan narsani tashlamaydilar — uni oltin bilan tiklaydilar. Shunda u avvalgidan ham qadrli bo’ladi.</p>
+    </div>
+
+    <svg class="k-bobd" width="26" height="26" viewBox="0 0 24 24" aria-hidden="true" style="position: absolute; left: 182px; top: 736px"><path d="M6 9.5 L12 15.5 L18 9.5" stroke="#F6DB8F" class="k-ic2"></path></svg>
+
+    <svg width="390" height="64" viewBox="0 0 390 64" preserveAspectRatio="none" aria-hidden="true" style="position: absolute; left: 0; bottom: 0">
+      <path d="M0 64 V30 C10 30 12 44 18 50 C24 56 30 50 30 38 C30 30 40 26 54 28 C70 30 72 52 80 54 C88 56 90 40 98 34 C110 26 128 34 140 32 C150 30 154 58 162 60 C170 62 172 44 178 38 C190 28 214 36 230 32 C242 30 246 46 252 48 C258 50 262 36 274 32 C290 28 304 34 314 36 C322 38 326 56 334 58 C342 60 344 42 352 36 C364 28 378 32 390 30 V64 Z" fill="#ECE6DA"></path>
+    </svg>
+  </header>
+
+  <!-- TANA: kul sir rangidagi sahifa -->
+  <main style="flex: 1 0 auto; position: relative; display: flex; flex-direction: column; background-color: #ECE6DA; background-image: radial-gradient(circle at 20% 30%, rgba(74, 58, 46, 0.16) 0, rgba(74, 58, 46, 0.16) 1px, rgba(74, 58, 46, 0) 1.6px), radial-gradient(circle at 70% 75%, rgba(74, 58, 46, 0.11) 0, rgba(74, 58, 46, 0.11) 1.2px, rgba(74, 58, 46, 0) 1.9px), radial-gradient(120% 60% at 100% 0%, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0)); background-size: 37px 41px, 53px 47px, 100% 100%">
+
+  <div style="position: relative; flex: none; display: flex; flex-direction: column">
+    <!-- uzluksiz oltin chok -->
+    <svg width="24" height="100" viewBox="0 0 24 1000" preserveAspectRatio="none" aria-hidden="true" style="position: absolute; left: 22px; top: 0; height: 100%; z-index: 3; pointer-events: none">
+      <path d="M12 0 L9 40 L15 80 L10 130 L14 170 L8 220 L13 260 L11 310 L16 350 L10 400 L13 450 L9 500 L14 540 L11 600 L15 640 L9 690 L13 740 L10 800 L15 850 L11 900 L13 950 L12 1000" stroke="#E9BE5C" class="k-lineg"></path>
+      <path d="M12 0 L9 40 L15 80 L10 130 L14 170 L8 220 L13 260 L11 310 L16 350 L10 400 L13 450 L9 500 L14 540 L11 600 L15 640 L9 690 L13 740 L10 800 L15 850 L11 900 L13 950 L12 1000" stroke="url(#kgGoldV)" class="k-line"></path>
+    </svg>
+
+    <sc-if value="{{ b.maktub }}">
+    <section style="position: relative; padding: 52px 26px 30px 64px">
+      <div style="position: relative; display: flex; flex-direction: column; gap: 6px">
+        <span class="k-node" aria-hidden="true" style="left: -37px; top: 1px"></span>
+        <span class="k-te" style="font-size: 12px; letter-spacing: 0.26em; text-transform: uppercase; color: #7A4B37">{{ num.maktub }} — Maktub</span>
+        <h2 class="k-te" style="margin: 0; font-size: 31px; font-weight: 400; line-height: 1.12; color: #2C2621">Yuragimdagi gaplar</h2>
+      </div>
+      <p class="k-li" style="margin: 22px 0 0; font-size: 16.5px; line-height: 1.75; color: #3A322C; white-space: pre-line; overflow-wrap: anywhere"><span class="k-initial k-te k-gold">{{ dropCap }}</span>{{ dropRest }}</p>
+      <div style="margin-top: 20px; display: flex; justify-content: flex-end; align-items: center; gap: 12px">
+        <span aria-hidden="true" style="flex: none; width: 46px; height: 1px; background: #B9AD98"></span>
+        <span class="k-li" style="min-width: 0; font-size: {{ sigSize }}; font-style: italic; line-height: 1.25; color: #2C2621; text-align: right; overflow-wrap: anywhere">{{ d.kimdan }}</span>
+        <span aria-hidden="true" style="flex: none; width: 34px; height: 34px; border-radius: 3px; background: linear-gradient(150deg, #A3583B 0%, #87442C 100%); box-shadow: inset 0 0 0 2px rgba(243, 237, 225, 0.35); transform: rotate(-4deg); display: flex; align-items: center; justify-content: center">
+          <span class="k-te" style="font-size: 16px; color: #F7EBDD">{{ iniFrom }}</span>
+        </span>
+      </div>
+    </section>
+    </sc-if>
+
+    <sc-if value="{{ b.galereya }}">
+    <section style="position: relative; padding: 52px 20px 30px 64px">
+      <div style="position: relative; display: flex; flex-direction: column; gap: 6px">
+        <span class="k-node" aria-hidden="true" style="left: -37px; top: 1px"></span>
+        <span class="k-te" style="font-size: 12px; letter-spacing: 0.26em; text-transform: uppercase; color: #7A4B37">{{ num.galereya }} — Bo’laklar</span>
+        <h2 class="k-te" style="margin: 0; font-size: 31px; font-weight: 400; line-height: 1.12; color: #2C2621">Bizning lahzalar</h2>
+      </div>
+      <div style="position: relative; margin-top: 26px; width: 296px; height: 296px">
+        <div aria-hidden="true" style="position: absolute; left: 10px; top: 24px; width: 296px; height: 296px; border-radius: 50%; background: rgba(60, 40, 24, 0.22); filter: blur(14px)"></div>
+        <div class="k-float" style="position: absolute; left: 0; top: 0; width: 296px; height: 296px; box-sizing: border-box; border-radius: 50%; padding: 9px; background: linear-gradient(160deg, #F4EFE5 0%, #D8CFBE 60%, #C4B9A5 100%); box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.8), inset 0 -3px 6px rgba(80, 60, 40, 0.18)">
+          <div style="position: relative; width: 278px; height: 278px; border-radius: 50%; overflow: hidden; background: #3B3430">
+            <sc-if value="{{ g3 }}">
+              <div style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; clip-path: polygon(0 0, 44% 0, 48% 22%, 52% 46%, 34% 72%, 20% 100%, 0 100%)"><img src="{{ p.0 }}" alt="" style="position: absolute; left: 0; top: 0; width: 54%; height: 100%; object-fit: cover; display: block"></div>
+              <div style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; clip-path: polygon(44% 0, 100% 0, 100% 70%, 76% 58%, 52% 46%, 48% 22%)"><img src="{{ p.1 }}" alt="" style="position: absolute; left: 44%; top: 0; width: 56%; height: 70%; object-fit: cover; display: block"></div>
+              <div style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; clip-path: polygon(52% 46%, 76% 58%, 100% 70%, 100% 100%, 20% 100%, 34% 72%)"><img src="{{ p.2 }}" alt="" style="position: absolute; left: 20%; top: 46%; width: 80%; height: 54%; object-fit: cover; display: block"></div>
+              <svg width="278" height="278" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" style="position: absolute; left: 0; top: 0">
+                <path d="M44 0 L48 22 L52 46 L34 72 L20 100 M52 46 L76 58 L100 70" stroke="#F6CF6E" class="k-lineg"></path>
+                <path d="M44 0 L48 22 L52 46 L34 72 L20 100 M52 46 L76 58 L100 70" stroke="url(#kgGoldV)" class="k-line" style="stroke-width: 4"></path>
+              </svg>
+            </sc-if>
+            <sc-if value="{{ g2 }}">
+              <div style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; clip-path: polygon(0 0, 30% 0, 42% 30%, 36% 52%, 58% 74%, 64% 100%, 0 100%)"><img src="{{ p.0 }}" alt="" style="position: absolute; left: 0; top: 0; width: 64%; height: 100%; object-fit: cover; display: block"></div>
+              <div style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; clip-path: polygon(30% 0, 100% 0, 100% 100%, 64% 100%, 58% 74%, 36% 52%, 42% 30%)"><img src="{{ p.1 }}" alt="" style="position: absolute; left: 30%; top: 0; width: 70%; height: 100%; object-fit: cover; display: block"></div>
+              <svg width="278" height="278" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" style="position: absolute; left: 0; top: 0">
+                <path d="M30 0 L42 30 L36 52 L58 74 L64 100" stroke="#F6CF6E" class="k-lineg"></path>
+                <path d="M30 0 L42 30 L36 52 L58 74 L64 100" stroke="url(#kgGoldV)" class="k-line" style="stroke-width: 4"></path>
+              </svg>
+            </sc-if>
+            <sc-if value="{{ g1 }}">
+              <img src="{{ p.0 }}" alt="" style="width: 100%; height: 100%; object-fit: cover; display: block">
+              <svg width="278" height="278" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" style="position: absolute; left: 0; top: 0">
+                <path d="M0 62 L18 58 L30 66 L46 56 L58 60 L66 52" stroke="#F6CF6E" class="k-lineg"></path>
+                <path d="M0 62 L18 58 L30 66 L46 56 L58 60 L66 52" stroke="url(#kgGoldV)" class="k-line" style="stroke-width: 4"></path>
+              </svg>
+            </sc-if>
+          </div>
+        </div>
+      </div>
+      <p class="k-li" style="margin: 30px 0 0; max-width: 270px; font-size: 16px; font-style: italic; line-height: 1.6; color: #4A4038">Har bir bo’lak — bir xotira. Oltin esa ularni bog’lagan sabr.</p>
+    </section>
+    </sc-if>
+
+    <sc-if value="{{ b.vadalar }}">
+    <section style="position: relative; padding: 52px 26px 30px 64px">
+      <div style="position: relative; display: flex; flex-direction: column; gap: 6px">
+        <span class="k-node" aria-hidden="true" style="left: -37px; top: 1px"></span>
+        <span class="k-te" style="font-size: 12px; letter-spacing: 0.26em; text-transform: uppercase; color: #7A4B37">{{ num.vadalar }} — Va’dalar</span>
+        <h2 class="k-te" style="margin: 0; font-size: 31px; font-weight: 400; line-height: 1.12; color: #2C2621">Bundan buyon</h2>
+        <sc-if value="{{ accepted }}">
+          <div class="k-stamp" aria-hidden="true" style="position: absolute; right: -4px; top: -8px; width: 64px; height: 64px; box-sizing: border-box; border-radius: 4px; background: linear-gradient(150deg, #A3583B 0%, #87442C 100%); box-shadow: inset 0 0 0 3px rgba(243, 237, 225, 0.4); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px">
+            <svg width="20" height="20" viewBox="0 0 24 24"><path d="M6.6 12.4 L10.2 16 L17.4 8.6" stroke="#F7EBDD" class="k-ic2"></path></svg>
+            <span class="k-te" style="font-size: 9px; letter-spacing: 0.14em; color: #F7EBDD">QABUL</span>
+          </div>
+        </sc-if>
+      </div>
+      <ol style="list-style: none; margin: 24px 0 0; padding: 0; display: flex; flex-direction: column">
+        <sc-for list="{{ promises }}" as="v">
+        <li style="position: relative; display: flex; align-items: baseline; gap: 16px; padding: 16px 0 17px; border-top: 1px solid #CFC5B4">
+          <span class="k-mend k-gfill" aria-hidden="true" style="left: {{ v.mx }}; width: {{ v.mw }}"></span>
+          <span class="k-te" style="flex: none; width: 28px; font-size: 20px; line-height: 1; color: #84601E">{{ v.n }}</span>
+          <span class="k-li" style="flex: 1; min-width: 0; font-size: 16.5px; line-height: 1.5; color: #2C2621; overflow-wrap: anywhere">{{ v.text }}</span>
+        </li>
+        </sc-for>
+      </ol>
+      <div aria-hidden="true" style="height: 1px; background: #CFC5B4"></div>
+      <sc-if value="{{ notAccepted }}">
+        <button type="button" class="k-btn k-te" onClick="{{ accept }}" style="margin-top: 24px; width: 100%; height: 54px; border: 1.5px solid #3B3430; border-radius: 4px; background: transparent; color: #2C2621; font-size: 15px; letter-spacing: 0.06em; cursor: pointer">Va’dalaringga ishonaman</button>
+      </sc-if>
+      <sc-if value="{{ accepted }}">
+        <p class="k-pop k-li" role="status" style="margin: 24px 0 0; min-height: 44px; display: flex; align-items: center; gap: 10px; font-size: 16px; font-style: italic; color: #4A4038">
+          <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" style="flex: none"><path d="M6.6 12.4 L10.2 16 L17.4 8.6" stroke="#84601E" class="k-ic2"></path></svg>
+          <span>Ishonching uchun rahmat. Har birini bajaraman.</span>
+        </p>
+      </sc-if>
+    </section>
+    </sc-if>
+
+    <sc-if value="{{ b.taklif }}">
+    <section style="position: relative; margin-top: 44px; padding: 52px 26px 48px 64px; background: radial-gradient(80% 70% at 80% 10%, #4E4540 0%, #3B3430 60%, #342E2A 100%); box-shadow: inset 0 10px 22px -12px rgba(0, 0, 0, 0.6)">
+      <div style="position: relative; display: flex; flex-direction: column; gap: 6px">
+        <span class="k-node k-node--dk" aria-hidden="true" style="left: -37px; top: 1px"></span>
+        <span class="k-te" style="font-size: 12px; letter-spacing: 0.26em; text-transform: uppercase; color: #E8D9B4">{{ num.taklif }} — Taklif</span>
+      </div>
+      <svg width="200" height="120" viewBox="0 0 200 120" aria-hidden="true" style="display: block; margin: 22px 0 6px -6px">
+        <path class="k-steam" d="M58 34 C52 26 64 20 58 10" stroke="#E8D9B4"></path>
+        <path class="k-steam" d="M76 32 C70 24 82 18 76 8" stroke="#E8D9B4" style="animation-delay: -1.1s"></path>
+        <path class="k-steam" d="M142 46 C136 38 148 32 142 22" stroke="#E8D9B4" style="animation-delay: -2s"></path>
+        <ellipse cx="100" cy="112" rx="96" ry="6" fill="#000000" opacity="0.28"></ellipse>
+        <path d="M34 42 H100 C99 74 96 98 88 108 H46 C38 98 35 74 34 42 Z" fill="url(#kgGlaze)"></path>
+        <path d="M34 42 H100 C99 60 98 70 96 78 C90 82 84 74 78 80 C72 86 66 76 60 82 C54 86 48 78 40 80 C37 70 35 58 34 42 Z" fill="#8E5C44" opacity="0.55"></path>
+        <ellipse cx="67" cy="42" rx="33" ry="6" fill="#5E574D"></ellipse>
+        <ellipse cx="67" cy="42" rx="33" ry="6" stroke="#F3EDE1" class="k-rim" style="stroke-width: 1.6"></ellipse>
+        <path d="M58 44 L62 60 L56 74 L64 90 L60 108 M62 60 L80 66 L92 60" stroke="url(#kgGoldV)" class="k-seam" style="stroke-width: 2.4"></path>
+        <path d="M118 58 H168 C167 82 164 98 158 108 H128 C122 98 119 82 118 58 Z" fill="url(#kgClay)"></path>
+        <path d="M118 58 H168 C167 70 166 78 164 84 C158 88 152 80 146 86 C140 90 134 82 126 86 C121 78 119 68 118 58 Z" fill="url(#kgGlaze)" opacity="0.9"></path>
+        <ellipse cx="143" cy="58" rx="25" ry="5" fill="#5E574D"></ellipse>
+        <ellipse cx="143" cy="58" rx="25" ry="5" stroke="#F3EDE1" class="k-rim" style="stroke-width: 1.6"></ellipse>
+      </svg>
+      <p class="k-te" style="margin: 0; font-size: 27px; line-height: 1.2; color: #F3EDE1; overflow-wrap: anywhere">{{ d.taklif }}</p>
+      <sc-if value="{{ hasChips }}">
+      <div style="margin-top: 18px; display: flex; flex-direction: column; gap: 10px">
+        <sc-if value="{{ d.taklif_vaqt }}">
+        <div style="display: flex; align-items: center; gap: 12px; font-size: 16px; color: #E8E0D0">
+          <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" style="flex: none"><circle cx="12" cy="12" r="8.5" stroke="#E9BE5C" class="k-ic"></circle><path d="M12 7.5V12l3 2" stroke="#E9BE5C" class="k-ic"></path></svg>
+          <span style="overflow-wrap: anywhere">{{ d.taklif_vaqt }}</span>
+        </div>
+        </sc-if>
+        <sc-if value="{{ d.taklif_joy }}">
+        <div style="display: flex; align-items: center; gap: 12px; font-size: 16px; color: #E8E0D0">
+          <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" style="flex: none"><path d="M12 21s-6.5-6.2-6.5-11A6.5 6.5 0 0 1 18.5 10c0 4.8-6.5 11-6.5 11z" stroke="#E9BE5C" class="k-ic"></path><circle cx="12" cy="10" r="2.3" stroke="#E9BE5C" class="k-ic"></circle></svg>
+          <span style="overflow-wrap: anywhere">{{ d.taklif_joy }}</span>
+        </div>
+        </sc-if>
+      </div>
+      </sc-if>
+      <sc-if value="{{ notAgreed }}">
+        <button type="button" class="k-btn k-te k-gfill" onClick="{{ agree }}" style="margin-top: 26px; width: 100%; height: 54px; border: 0; border-radius: 4px; color: #2A1E0C; font-size: 16px; letter-spacing: 0.06em; cursor: pointer; box-shadow: 0 14px 26px -14px rgba(0, 0, 0, 0.8)">Roziman</button>
+      </sc-if>
+      <sc-if value="{{ agreed }}">
+        <div class="k-pop" role="status" style="margin-top: 26px; display: flex; align-items: center; gap: 12px; padding: 14px 16px; border-radius: 4px; border: 1px solid rgba(233, 190, 92, 0.6); background: rgba(246, 219, 143, 0.08)">
+          <svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true" style="flex: none"><circle cx="12" cy="12" r="10.5" fill="#E9BE5C"></circle><path d="M7.6 12.4 L10.6 15.4 L16.4 9" stroke="#2A1E0C" class="k-ic2"></path></svg>
+          <p style="margin: 0; font-size: 15.5px; line-height: 1.45; color: #F3EDE1; overflow-wrap: anywhere">{{ agreedText }}</p>
+        </div>
+      </sc-if>
+    </section>
+    </sc-if>
+
+    <sc-if value="{{ showAnswer }}">
+    <section class="{{ ansCls }}" style="position: relative; padding: 56px 26px 34px 64px">
+      <div style="position: relative; display: flex; flex-direction: column; gap: 6px">
+        <span class="k-node" aria-hidden="true" style="left: -37px; top: 1px"></span>
+        <span class="k-te" style="font-size: 12px; letter-spacing: 0.26em; text-transform: uppercase; color: #7A4B37">{{ num.javob }} — Javob</span>
+        <h2 class="k-te" style="margin: 0; font-size: 38px; font-weight: 400; line-height: 1.08; color: #2C2621">Kechirasanmi?</h2>
+        <p class="k-li" style="margin: 4px 0 0; font-size: 15.5px; font-style: italic; line-height: 1.55; color: #4A4038">{{ askSub }}</p>
+      </div>
+      <sc-if value="{{ b.javob }}">
+      <sc-if value="{{ waiting }}">
+        <button type="button" class="k-btn k-te k-gfill k-shim" onClick="{{ forgive }}" style="margin-top: 24px; width: 100%; height: 58px; border: 0; border-radius: 4px; color: #2A1E0C; font-size: 17px; letter-spacing: 0.08em; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; box-shadow: 0 16px 28px -16px rgba(120, 80, 20, 0.8)">
+          <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9 H21 C20.5 15 17 19 12 19 C7 19 3.5 15 3 9 Z" stroke="#2A1E0C" class="k-ic"></path><path d="M11 9 L12.5 13 L10.5 16.5" stroke="#2A1E0C" class="k-ic"></path></svg>
+          <span>Kechirdim</span>
+        </button>
+      </sc-if>
+      <sc-if value="{{ forgiven }}">
+        <div class="k-pop" role="status" style="margin-top: 24px; display: flex; align-items: center; gap: 14px; padding: 16px; border-radius: 4px; background: #3B3430">
+          <svg width="56" height="40" viewBox="0 0 300 200" aria-hidden="true" style="flex: none; overflow: visible">
+            <use href="#kBowl"></use>
+            <g clip-path="url(#kcBowl)"><use href="#kCracks" stroke="url(#kgGold)" class="k-seam" style="stroke-width: 7"></use></g>
+          </svg>
+          <div style="min-width: 0; display: flex; flex-direction: column; gap: 3px">
+            <p class="k-te" style="margin: 0; font-size: 21px; line-height: 1.2; color: #F3EDE1; overflow-wrap: anywhere">Rahmat, {{ d.kimga }}.</p>
+            <p class="k-li" style="margin: 0; font-size: 14.5px; font-style: italic; line-height: 1.5; color: #DCD3C3; white-space: pre-line; overflow-wrap: anywhere">{{ thanks }}</p>
+          </div>
+        </div>
+      </sc-if>
+      </sc-if>
+      <sc-if value="{{ both }}">
+      <div style="margin-top: 22px; display: flex; align-items: center; gap: 10px">
+        <span aria-hidden="true" style="flex: 1; height: 1px; background: #CFC5B4"></span>
+        <span class="k-li" style="font-size: 13.5px; font-style: italic; color: #5A4F45">yoki o’z so’zlaring bilan</span>
+        <span aria-hidden="true" style="flex: 1; height: 1px; background: #CFC5B4"></span>
+      </div>
+      </sc-if>
+      <sc-if value="{{ b.sorov }}">
+      <sc-if value="{{ notSent }}">
+        <div style="margin-top: 18px; display: flex; flex-direction: column; gap: 12px">
+          <label for="kReply" class="k-te" style="font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #5A4F45">Javobingiz</label>
+          <textarea id="kReply" class="k-ta k-li" rows="3" placeholder="Bir-ikki so’z ham kifoya" style="width: 100%; height: 92px; box-sizing: border-box; resize: none; padding: 12px 14px; border: 1px solid #C4B9A5; border-radius: 4px; background: #F6F2EA; color: #2C2621; font-size: 16px; line-height: 1.5"></textarea>
+          <sc-if value="{{ sendErr }}"><p role="alert" style="margin: -4px 0 0; font-size: 13.5px; line-height: 1.4; color: #9A3B2A">{{ sendErr }}</p></sc-if>
+          <button type="button" class="k-btn k-te" onClick="{{ send }}" disabled="{{ sending }}" style="width: 100%; height: 52px; border: 0; border-radius: 4px; background: #3B3430; color: #F3EDE1; font-size: 15px; letter-spacing: 0.08em; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px">
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12l16-8-6 16-2.5-6.5L4 12z M11.5 13.5L20 4" stroke="#E9BE5C" class="k-ic"></path></svg>
+            <span>{{ sendLabel }}</span>
+          </button>
+        </div>
+      </sc-if>
+      <sc-if value="{{ sent }}">
+        <div class="k-pop" role="status" style="margin-top: 18px; display: flex; align-items: center; gap: 12px; padding: 14px 16px; border-radius: 4px; border: 1px solid #C4B9A5; background: #F6F2EA">
+          <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" style="flex: none"><path d="M4 12l16-8-6 16-2.5-6.5L4 12z M11.5 13.5L20 4" stroke="#84601E" class="k-ic"></path></svg>
+          <p class="k-li" style="margin: 0; font-size: 15px; line-height: 1.45; color: #2C2621; overflow-wrap: anywhere">Javobing {{ toFrom }} yetib bordi.</p>
+        </div>
+      </sc-if>
+      </sc-if>
+    </section>
+    </sc-if>
+  </div>
+
+  <!-- YAKUN -->
+  <footer class="{{ footCls }}" style="flex: 1 0 auto; position: relative; min-height: 470px; padding: 64px 26px 60px; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; text-align: center">
+    <svg width="390" height="120" viewBox="0 0 390 120" aria-hidden="true" style="position: absolute; left: 0; top: 0">
+      <path d="M34 0 L37 18 L30 36 L44 52 L66 58 L92 76 L120 78 L150 96 L176 104 L190 120" stroke="#E9BE5C" class="k-seamg"></path>
+      <path d="M34 0 L37 18 L30 36 L44 52 L66 58 L92 76 L120 78 L150 96 L176 104 L190 120" stroke="url(#kgGoldV)" class="k-seam" style="stroke-width: 2.4"></path>
+    </svg>
+    <div style="position: relative; width: 240px; height: 170px; margin-top: 48px">
+      <div aria-hidden="true" style="position: absolute; left: 20px; top: 136px; width: 200px; height: 26px; border-radius: 50%; background: radial-gradient(closest-side, rgba(60, 40, 24, 0.35), rgba(60, 40, 24, 0))"></div>
+      <svg width="240" height="160" viewBox="0 0 300 200" aria-hidden="true" style="position: absolute; left: 0; top: 0; overflow: visible">
+        <g filter="url(#kDrop)"><use href="#kBowl"></use></g>
+        <g clip-path="url(#kcBowl)">
+          <use href="#kCracks" stroke="#F6CF6E" class="k-seamg k-sglow" filter="url(#kBlur)"></use>
+          <use href="#kCracks" stroke="url(#kgGold)" class="k-seam"></use>
+          <path d="M112 0 L118 30 L108 58 L126 84 L122 108 L138 132 L128 158 L140 210 M0 112 L30 104 L52 120 L80 98 L100 112 L122 108 L150 96 L176 112 L204 86 L232 100 L262 80 L300 92 M138 132 L166 148 L196 140 L226 162 L256 150 L300 170" pathLength="1" class="k-shine"></path>
+        </g>
+      </svg>
+    </div>
+    <p class="k-te" style="margin: 26px 0 0; max-width: 320px; font-size: 29px; line-height: 1.18; color: #2C2621">Singan joyimiz — endi eng go’zal joyimiz.</p>
+    <p class="k-li" style="margin: 12px 0 0; max-width: 290px; font-size: 15.5px; font-style: italic; line-height: 1.55; color: #4A4038">Uni har kuni ehtiyot qilaman.</p>
+    <div style="margin-top: 18px; display: flex; align-items: center; gap: 12px; max-width: 320px">
+      <span class="k-li" style="min-width: 0; font-size: {{ footSig }}; font-style: italic; line-height: 1.25; color: #2C2621; overflow-wrap: anywhere">{{ d.kimdan }}</span>
+      <span aria-hidden="true" style="flex: none; width: 34px; height: 34px; border-radius: 3px; background: linear-gradient(150deg, #A3583B 0%, #87442C 100%); box-shadow: inset 0 0 0 2px rgba(243, 237, 225, 0.35); transform: rotate(-4deg); display: flex; align-items: center; justify-content: center">
+        <span class="k-te" style="font-size: 16px; color: #F7EBDD">{{ iniFrom }}</span>
+      </span>
+    </div>
+  </footer>
+  </main>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":4100}}'>
+class Component extends DCLogic {
+  constructor(...args) {
+    super(...args);
+    this.state = { placed: 0, accepted: false, agreed: false, forgiven: false, sent: false };
+  }
+  componentWillUnmount() { this.gone = true; }
+  renderVals() {
+    const s = this.state || {};
+    const d = SITE.d, b = SITE.b;
+    const ini = (n) => (String(n || '').trim().charAt(0) || '').toUpperCase();
+    const vad = d.vadalar || [];
+    const matn = String(d.matn || '').replace(/^\s+/, '');
+    const n = SITE.has.photos;
+    const placed = s.placed || 0, done = placed >= 5;
+    // bo'laklar markazi (viewBox) va yerdagi siljishi
+    const SH = [[60, 60, -16, 202], [210, 48, 48, 210], [58, 150, 40, 138], [216, 124, -66, 134], [214, 180, -10, 110]];
+    const nx = SH[Math.min(placed, 4)];
+    const order = ['maktub', 'galereya', 'vadalar', 'taklif', 'javob'];
+    const vis = { maktub: b.maktub, galereya: b.galereya, vadalar: b.vadalar, taklif: b.taklif, javob: b.javob || b.sorov };
+    const num = {};
+    let k = 0;
+    order.forEach((key) => { if (vis[key]) { k += 1; num[key] = (k < 10 ? '0' : '') + k; } });
+    const tv = String(d.taklif_vaqt || '').trim();
+    const nameLen = String(d.kimga || '').length;
+    const fromLen = String(d.kimdan || '').length;
+    const MX = [12, 58, 30, 70, 44, 20, 64, 36];
+    return {
+      fromTo: (d.kimdan || '') + 'dan ' + SITE.ga(d.kimga),
+      fromLs: (String(d.kimdan || '') + String(d.kimga || '')).length > 28 ? '0.14em' : '0.32em',
+      introSub: (d.kimga || '') + ', ayb menda. Bo’laklarni birma-bir joyiga qo’ying — darzlarni oltin bilan to’ldiraman.',
+      introCls: done ? 'k-intro k-intro--done k-intro--open' : 'k-intro',
+      notDone: !done,
+      sh: [0, 1, 2, 3, 4].map((i) => 'k-sh k-sh' + (i + 1) + (placed > i ? ' is-in' : i === placed ? ' is-next' : '')),
+      dots: [0, 1, 2, 3, 4].map((i) => 'k-dot' + (placed > i ? ' is-on' : '')),
+      hitX: Math.round(30 + (nx[0] + nx[2]) * 1.1 - 42) + 'px',
+      hitY: Math.round(200 + (nx[1] + nx[3]) * 1.1 - 42) + 'px',
+      place: () => {
+        const p = this.state.placed || 0;
+        if (p >= 5) return;
+        this.setState({ placed: p + 1 });
+        if (p + 1 >= 5) SITE.opened();
+      },
+      revealSize: nameLen > 18 ? '34px' : nameLen > 11 ? '42px' : '52px',
+      h1Size: nameLen > 18 ? '32px' : nameLen > 11 ? '38px' : '44px',
+      musicOn: !!SITE.music.playing,
+      musicOff: !SITE.music.playing,
+      toggleMusic: () => SITE.music.toggle(),
+      iniFrom: ini(d.kimdan), iniTo: ini(d.kimga),
+      num,
+      dropCap: matn.charAt(0), dropRest: matn.slice(1),
+      sigSize: fromLen > 16 ? '20px' : '26px',
+      footSig: fromLen > 16 ? '20px' : '26px',
+      g3: n >= 3, g2: n === 2, g1: n < 2,
+      promises: vad.map((text, i) => ({ text, n: (i < 9 ? '0' : '') + (i + 1), mx: MX[i % MX.length] + '%', mw: (18 + (i * 7) % 16) + 'px' })),
+      accepted: !!s.accepted,
+      notAccepted: !s.accepted,
+      accept: () => { if (this.state.accepted) return; this.setState({ accepted: true }); SITE.reply('Va’dalaringga ishonaman', '🥹'); },
+      hasChips: !!(tv || d.taklif_joy),
+      agreedText: tv ? 'Kelishdik. ' + tv + ' — kutaman.' : 'Kelishdik. Seni kutaman.',
+      agreed: !!s.agreed,
+      notAgreed: !s.agreed,
+      agree: () => { if (this.state.agreed) return; this.setState({ agreed: true }); SITE.reply('Roziman: ' + (d.taklif || ''), '🥰'); },
+      showAnswer: !!(b.javob || b.sorov),
+      both: !!(b.javob && b.sorov),
+      askSub: b.javob && b.sorov ? 'Bitta tugma yoki bir necha so’z — qanday bo’lsa ham, kutaman.' : b.javob ? 'Bitta so’zing kifoya — kutaman.' : 'Bir necha so’z yozsang ham kifoya — kutaman.',
+      ansCls: s.forgiven || s.sent ? 'k-done' : '',
+      footCls: s.forgiven || s.sent ? 'k-done' : '',
+      thanks: d.javob_matni || 'Darzlarimiz endi oltin. Bu kosani umr bo’yi asrayman.',
+      waiting: !s.forgiven,
+      forgiven: !!s.forgiven,
+      forgive: () => { if (this.state.forgiven) return; this.setState({ forgiven: true }); SITE.reply('Kechirdim', '🤗'); },
+      toFrom: SITE.ga(d.kimdan),
+      sent: !!s.sent,
+      notSent: !s.sent,
+      sending: !!s.sending,
+      sendLabel: s.sending ? 'Yuborilmoqda…' : 'Yuborish',
+      sendErr: s.err || '',
+      send: () => {
+        const el = document.getElementById('kReply');
+        const text = el ? el.value.trim() : '';
+        if (!text) { this.setState({ err: 'Avval bir-ikki so’z yozing.' }); if (el) el.focus(); return; }
+        this.setState({ sending: true, err: '' });
+        SITE.reply(text, '❤️').then(() => { if (!this.gone) this.setState({ sent: true, sending: false }); })
+          .catch(() => { if (!this.gone) this.setState({ sending: false, err: 'Yuborilmadi. Qaytadan urinib ko’ring.' }); });
+      }
+    };
+  }
+}
+</script>
+</body>
+</html>

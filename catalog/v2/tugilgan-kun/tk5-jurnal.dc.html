@@ -1,0 +1,682 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<title>Tug’ilgan kun: Muqova yulduzi</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:ital,wdth,wght@0,62.5..100,400..900;1,62.5..100,400..900&amp;family=Inter+Tight:wght@400;500;600;700;800&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#B8142A}
+.is-hidden{display:none}
+.jr-d{font-family:'Noto Serif Display','Didot','Bodoni 72','Georgia',serif}
+.jr-t{font-family:'Inter Tight','Helvetica Neue','Arial',sans-serif}
+.jr-mast{font-family:'Noto Serif Display','Didot','Bodoni 72','Georgia',serif;font-weight:900;font-stretch:66%;letter-spacing:-.01em;line-height:.86;text-transform:uppercase}
+.jr-svgMast{font-family:'Noto Serif Display','Didot','Bodoni 72','Georgia',serif;font-weight:900;font-stretch:62.5%;font-variation-settings:'wdth' 62.5}
+.jr-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.jr-kick{margin:0;font-family:'Inter Tight','Helvetica Neue',Arial,sans-serif;font-size:12px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:#B8142A}
+.jr-h2{margin:6px 0 0;font-family:'Noto Serif Display','Didot','Georgia',serif;font-weight:500;font-size:48px;line-height:1;letter-spacing:-.01em;overflow-wrap:anywhere}
+.jr-folio{display:flex;align-items:center;gap:10px;padding-bottom:10px;border-bottom:1px solid currentColor;font-family:'Inter Tight','Helvetica Neue',Arial,sans-serif;font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase}
+.jr-folio b{font-family:'Noto Serif Display','Didot',Georgia,serif;font-size:18px;font-weight:700;letter-spacing:0}
+.jr-ico{fill:none;stroke:#FBF7F3;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.jr-icoD{fill:none;stroke:#16110F;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.jr-gloss{position:absolute;left:-70%;top:-10%;width:45%;height:120%;background:linear-gradient(105deg,rgba(255,255,255,0) 0%,rgba(255,255,255,0.32) 48%,rgba(255,255,255,0) 100%);transform:skewX(-12deg);animation:jr-gloss 7s ease-in-out infinite;pointer-events:none}
+@keyframes jr-gloss{0%,62%{transform:translateX(0) skewX(-12deg)}100%{transform:translateX(420%) skewX(-12deg)}}
+@keyframes jr-chev{0%,100%{transform:translateY(0);opacity:.5}50%{transform:translateY(6px);opacity:1}}
+@keyframes jr-out{from{opacity:1}to{opacity:0}}
+.jr-rise{animation:jr-rise 1s ease-out both;animation-timeline:view();animation-range:entry 5% entry 90%}
+@keyframes jr-rise{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+.jr-wipe{animation:jr-wipe 1.2s cubic-bezier(.3,.7,.2,1) both;animation-timeline:view();animation-range:entry 0% entry 70%}
+@keyframes jr-wipe{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
+.jr-zoom{animation:jr-zoom 1s ease-out both;animation-timeline:view();animation-range:entry 0% entry 100%}
+@keyframes jr-zoom{from{transform:scale(1.12)}to{transform:scale(1)}}
+
+/* countdown page-turn */
+.jr-num{position:relative;display:block;perspective:400px}
+.jr-num span{display:block;transform-origin:50% 0;font-family:'Noto Serif Display','Didot',Georgia,serif;font-weight:800;font-stretch:72%;font-size:96px;line-height:.95;color:#FBF7F3;font-variant-numeric:lining-nums tabular-nums}
+.jr-num--a span{animation:jr-turnA .55s cubic-bezier(.2,.7,.3,1) both}
+.jr-num--b span{animation:jr-turnB .55s cubic-bezier(.2,.7,.3,1) both}
+@keyframes jr-turnA{from{transform:rotateX(-88deg);opacity:.2}to{transform:none;opacity:1}}
+@keyframes jr-turnB{from{transform:rotateX(-88deg);opacity:.2}to{transform:none;opacity:1}}
+
+/* candle */
+.jr-flame{transform-box:fill-box;transform-origin:50% 100%;animation:jr-fl .8s ease-in-out infinite alternate}
+@keyframes jr-fl{0%{transform:scale(1,1) rotate(-3deg)}50%{transform:scale(.9,1.1) rotate(2deg)}100%{transform:scale(1.05,.94) rotate(-1deg)}}
+.jr-halo{transform-box:fill-box;transform-origin:50% 50%;animation:jr-halo 2.2s ease-in-out infinite}
+@keyframes jr-halo{0%,100%{opacity:.35;transform:scale(.92)}50%{opacity:.7;transform:scale(1.1)}}
+.jr-smoke{fill:none;stroke:#D8CFC9;stroke-width:1.5;stroke-linecap:round;opacity:0}
+.jr-cake--out .jr-flame{opacity:0;animation:jr-fOut .3s ease-in both}
+.jr-cake--out .jr-halo{opacity:0;animation:jr-out .3s ease both}
+.jr-cake--out .jr-smoke{animation:jr-smoke 2.2s ease-out .2s both}
+@keyframes jr-fOut{from{opacity:1;transform:scale(1)}to{opacity:0;transform:scale(.2,.1)}}
+@keyframes jr-smoke{0%{opacity:0;transform:translateY(0)}20%{opacity:.8}100%{opacity:0;transform:translateY(-34px)}}
+.jr-spot{opacity:1;transition:opacity .8s ease .2s}
+.jr-cake--out .jr-spot{opacity:.25}
+.jr-wish{opacity:0;transform:translateY(12px);transition:opacity .7s ease .45s,transform .7s ease .45s}
+.jr-wish--on{opacity:1;transform:none}
+
+/* secret: peel tab */
+.jr-sec{position:relative;display:block;width:100%;padding:0;border:0;background:none;cursor:pointer;color:inherit;font:inherit;text-align:left;perspective:900px}
+.jr-flap{position:absolute;left:0;top:0;width:100%;height:100%;transform-origin:50% 0;transition:transform .9s cubic-bezier(.5,0,.25,1),opacity .4s ease .55s;z-index:2}
+.jr-sec--on .jr-flap{transform:rotateX(-172deg);opacity:0}
+.jr-msg{opacity:.0;transition:opacity .6s ease .45s}
+.jr-sec--on .jr-msg{opacity:1}
+
+/* buttons */
+.jr-btn{position:relative;overflow:hidden;min-height:56px;border:0;border-radius:999px;background:#B8142A;color:#FBF7F3;font-family:'Inter Tight','Helvetica Neue',Arial,sans-serif;font-size:15px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;display:inline-flex;align-items:center;justify-content:center;gap:10px;cursor:pointer;padding:0 26px;box-shadow:0 14px 30px rgba(184,20,42,0.35)}
+.jr-btn--done{background:#16110F;color:#FBF7F3;box-shadow:none;cursor:default}
+.jr-btnL{min-height:50px;border:1.5px solid currentColor;border-radius:999px;background:transparent;font-family:'Inter Tight','Helvetica Neue',Arial,sans-serif;font-size:14px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;display:inline-flex;align-items:center;justify-content:center;gap:10px;cursor:pointer;padding:0 26px}
+.jr-go{flex:1 1 0;min-width:0;min-height:52px;border:0;border-radius:999px;background:#FBF7F3;color:#8E0F21;font-family:'Inter Tight','Helvetica Neue',Arial,sans-serif;font-size:15px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;padding:0 12px}
+.jr-go--on{background:#16110F;color:#FBF7F3}
+.jr-map{flex:1.2 1 0;min-width:0;min-height:52px;border:1.5px solid rgba(251,247,243,0.85);border-radius:999px;color:#FBF7F3;font-family:'Inter Tight','Helvetica Neue',Arial,sans-serif;font-size:14px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;padding:0 10px;box-sizing:border-box}
+.jr-input{width:100%;height:50px;box-sizing:border-box;border:0;border-bottom:1.5px solid rgba(251,247,243,0.7);background:rgba(251,247,243,0.08);color:#FBF7F3;padding:0 14px;font-family:'Inter Tight','Helvetica Neue',Arial,sans-serif;font-size:16px;outline:none}
+.jr-input::placeholder{color:rgba(251,247,243,0.7)}
+.jr-input:focus{border-bottom-color:#FBF7F3}
+.jr-err{margin:0;font-family:'Inter Tight',Arial,sans-serif;font-size:13px;font-weight:700;color:#FFE1E1}
+.jr-row{display:flex;align-items:center;gap:8px}
+.jr-music{position:absolute;right:14px;top:52px;z-index:5;width:46px;height:46px;border-radius:50%;border:1.5px solid #16110F;background:rgba(242,228,220,0.85);display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0}
+.jr-music--on{background:#16110F}
+.jr-music--on path{fill:#F2E4DC}
+.jr-pop{position:absolute;left:0;top:0;display:block;opacity:0}
+.jr-burst--go .jr-pop{animation:jr-pop 1.2s cubic-bezier(.15,.8,.3,1) both}
+@keyframes jr-pop{0%{opacity:1;transform:translate(0,0) rotate(0) scale(.6)}75%{opacity:1}100%{opacity:0;transform:translate(var(--x),var(--y)) rotate(var(--r)) scale(1)}}
+
+/* intro: the cover opens */
+.jr-intro--open{pointer-events:none;animation:jr-out .55s ease 1.75s both}
+.jr-stage{perspective:1500px;perspective-origin:0 50%}
+.jr-cover{transform-origin:0 50%;transform-style:preserve-3d;transition:transform 1.25s cubic-bezier(.55,.05,.3,1) .25s}
+.jr-intro--open .jr-cover{transform:rotateY(-158deg)}
+.jr-face{backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.jr-back{transform:rotateY(180deg)}
+.jr-shade{opacity:0;transition:opacity 1.25s ease .25s}
+.jr-intro--open .jr-shade{opacity:.6}
+.jr-curl{transition:transform .35s ease}
+.jr-intro--open .jr-curl{transform:scale(1.9)}
+.jr-intro--open .jr-ctaWrap{animation:jr-out .25s ease both}
+.jr-inside{opacity:.6;transform:scale(.97);transition:opacity .9s ease .5s,transform 1.2s ease .3s}
+.jr-intro--open .jr-inside{opacity:1;transform:none}
+.jr-curlHint{animation:jr-nudge 2.4s ease-in-out infinite}
+@keyframes jr-nudge{0%,60%,100%{transform:scale(1)}75%{transform:scale(1.18)}}
+
+/* page reveal */
+.jr-page--in .jr-rv1{animation:jr-rv .9s ease-out 1.8s both}
+.jr-page--in .jr-rv2{animation:jr-rv .9s ease-out 2s both}
+.jr-page--in .jr-rv3{animation:jr-rv .9s ease-out 2.2s both}
+@keyframes jr-rv{from{opacity:0;transform:translateY(18px)}}
+
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation:none !important;transition:none !important}
+  .jr-intro--open{opacity:0}
+}
+</style>
+</helmet>
+<div style="width: 390px; min-height: var(--vh, 100vh); position: relative; overflow: hidden; background: #F2E4DC; color: #16110F; font-family: 'Inter Tight', 'Helvetica Neue', Arial, sans-serif">
+
+  <div class="{{ pageCls }}" style="position: relative; z-index: 1; min-height: var(--vh, 100vh); display: flex; flex-direction: column">
+
+    <section style="position: relative; min-height: 844px; flex: none; padding: 18px 20px 24px; box-sizing: border-box; display: flex; flex-direction: column">
+      <div class="jr-folio" style="color: #16110F"><span style="flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">Maxsus son</span><span>{{ issue }}</span></div>
+      <sc-if value="{{ has.music }}"><button type="button" class="{{ musicCls }}" onClick="{{ toggleMusic }}" aria-label="Musiqa" aria-pressed="{{ musicOn }}"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 22 26"><path d="M8 3L20 0V17.5A3.5 3 0 1 1 17 14.6V5.2L10 7V20.5A3.5 3 0 1 1 7 17.6V3Z" fill="#16110F"></path></svg></button></sc-if>
+
+      <div class="jr-rv1" style="margin-top: 20px">
+        <p class="jr-kick">Ushbu sonda · Muqovada</p>
+        <h1 style="margin: 12px 0 0"><span class="jr-sr">{{ name }}</span><svg aria-hidden="true" width="{{ mHero.w }}" height="{{ mHero.h }}" viewBox="{{ mHero.vb }}" style="display: block; overflow: visible"><g transform="{{ mHero.tf }}"><sc-for list="{{ mHero.lines }}" as="l"><sc-if value="{{ l.fit }}"><text class="jr-svgMast" x="0" y="{{ l.y }}" textLength="{{ mHero.w }}" lengthAdjust="spacingAndGlyphs" style="{{ l.st }}">{{ l.t }}</text></sc-if><sc-if value="{{ l.free }}"><text class="jr-svgMast" x="{{ mHero.x }}" y="{{ l.y }}" text-anchor="{{ mHero.anchor }}" style="{{ l.st }}">{{ l.t }}</text></sc-if></sc-for></g></svg></h1>
+        <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-top: 14px; padding-top: 10px; border-top: 3px solid #16110F">
+          <span class="jr-d" style="font-size: 30px; font-style: italic; font-weight: 500; line-height: 1">Mundarija</span>
+          <span class="jr-t" style="font-size: 12px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; text-align: right; color: #6B5A55">{{ heroDate }}</span>
+        </div>
+      </div>
+
+      <div class="jr-rv2" style="position: relative; display: flex; gap: 16px; margin-top: 16px">
+        <div style="flex: 1; min-width: 0">
+          <sc-if value="{{ toc.length }}">
+            <div style="display: flex; flex-direction: column">
+              <sc-for list="{{ toc }}" as="x">
+                <a href="{{ x.href }}" style="display: flex; gap: 10px; align-items: baseline; padding: 7px 0; border-bottom: 1px solid rgba(22,17,15,0.18); text-decoration: none; color: #16110F">
+                  <span class="jr-d" style="flex: none; width: 30px; font-size: 22px; font-weight: 700; line-height: 1; color: #B8142A">{{ x.pg }}</span>
+                  <span style="min-width: 0">
+                    <span class="jr-t" style="display: block; font-size: 11px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; color: #B8142A">{{ x.kick }}</span>
+                    <span class="jr-t" style="display: block; margin-top: 2px; font-size: 14px; font-weight: 500; line-height: 1.25">{{ x.title }}</span>
+                  </span>
+                </a>
+              </sc-for>
+            </div>
+          </sc-if>
+          <sc-if value="{{ noToc }}">
+            <p class="jr-d" style="margin: 0; font-size: 26px; font-style: italic; line-height: 1.25">Yilning eng yorqin insoni haqida maxsus son.</p>
+          </sc-if>
+        </div>
+        <div style="flex: none; width: 146px">
+          <div style="position: relative; width: 146px; height: 206px; overflow: hidden; background: #E3CFC4">
+            <sc-if value="{{ has.photo }}"><img src="{{ p.1 }}" alt="" style="display: block; width: 146px; height: 206px; object-fit: cover"></sc-if>
+            <sc-if value="{{ noPhoto }}"><div aria-hidden="true" style="width: 146px; height: 206px; display: flex; align-items: center; justify-content: center; background: linear-gradient(160deg, #B8142A, #6E0A18)"><span class="jr-mast" style="font-size: 120px; color: #F2E4DC">{{ initial }}</span></div></sc-if>
+            <span aria-hidden="true" class="jr-gloss"></span>
+          </div>
+          <p class="jr-t" style="margin: 8px 0 0; font-size: 11px; line-height: 1.4; color: #6B5A55"><b style="color: #16110F; font-weight: 700">Muqovada:</b> {{ coverCap }}</p>
+          <sc-if value="{{ d.yosh }}">
+            <div style="margin-top: 14px; border-top: 1px solid #16110F; padding-top: 6px">
+              <span class="jr-mast" style="display: block; font-size: {{ ageFs }}px; color: #16110F">{{ d.yosh }}</span>
+              <span class="jr-t" style="display: block; margin-top: 4px; font-size: 11px; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: #B8142A">yosh · yubiley</span>
+            </div>
+          </sc-if>
+        </div>
+      </div>
+      <div style="flex: 1; min-height: 20px"></div>
+      <div class="jr-rv3" style="display: flex; align-items: center; gap: 12px; border-top: 1px solid #16110F; padding-top: 12px">
+        <p class="jr-d" style="flex: 1; min-width: 0; margin: 0; font-size: 19px; font-style: italic; line-height: 1.25; overflow-wrap: anywhere">Yilning eng yorqin insoni — {{ name }}</p>
+        <sc-if value="{{ anyBlock }}"><svg aria-hidden="true" width="26" height="16" viewBox="0 0 26 16" style="flex: none; animation: jr-chev 2s ease-in-out infinite"><path class="jr-icoD" d="M3 3l10 9 10-9"></path></svg></sc-if>
+      </div>
+    </section>
+
+<sc-if value="{{ b.tabrik }}">
+    <section id="jr-tabrik" style="position: relative; padding: 26px 20px 38px; background: #FBF7F3">
+      <div class="jr-folio" style="color: #16110F"><b>{{ pg.tabrik }}</b><span style="flex: 1; white-space: nowrap">Tahririyatdan</span><span style="min-width: 0; max-width: 50%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{ nameUp }}</span></div>
+      <p class="jr-kick" style="margin-top: 26px">Bosh maqola</p>
+      <h2 class="jr-h2" style="font-style: italic">Sen haqingda bir necha so’z</h2>
+      <sc-if value="{{ lead }}"><p class="jr-d jr-rise" style="margin: 22px 0 0; padding: 14px 0; border-top: 3px solid #B8142A; border-bottom: 1px solid #B8142A; font-size: 24px; font-weight: 500; line-height: 1.25; color: #B8142A; overflow-wrap: anywhere">«{{ lead }}»</p></sc-if>
+      <div style="margin-top: 20px; font-size: 16px; line-height: 1.65; color: #2A211E; overflow-wrap: anywhere">
+        <sc-if value="{{ dropCap }}"><span aria-hidden="true" class="jr-mast" style="float: left; margin: 6px 10px 0 0; font-size: 92px; line-height: 0.78; color: #B8142A">{{ dropCap }}</span></sc-if>
+        <span style="white-space: pre-line"><span style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">{{ dropCap }}</span>{{ restText }}</span>
+      </div>
+      <sc-if value="{{ d.kimdan }}">
+        <div style="clear: both; margin-top: 22px; padding-top: 12px; border-top: 1px solid rgba(22,17,15,0.25)">
+          <p class="jr-t" style="margin: 0; font-size: 11px; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: #6B5A55">{{ fromLbl }}</p>
+          <p class="jr-d" style="margin: 4px 0 0; font-size: 26px; font-style: italic; font-weight: 500; line-height: 1.2; overflow-wrap: anywhere">{{ from.names }}</p>
+        </div>
+      </sc-if>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.taymer }}">
+    <section id="jr-taymer" style="position: relative; padding: 26px 20px 34px; background: #B8142A; color: #FBF7F3; overflow: hidden">
+      <div aria-hidden="true" class="jr-mast" style="position: absolute; right: -20px; bottom: -40px; font-size: 300px; color: rgba(255,255,255,0.07)">{{ cdBg }}</div>
+      <div class="jr-folio" style="position: relative; color: #FBF7F3"><b>{{ pg.taymer }}</b><span style="flex: 1; white-space: nowrap">Kun tartibi</span><span style="min-width: 0; max-width: 50%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{ nameUp }}</span></div>
+      <p class="jr-kick" style="position: relative; margin-top: 26px; color: #FFD9DD">{{ cdDate }}</p>
+      <h2 class="jr-h2" style="position: relative; color: #FBF7F3">{{ cdTitle }}</h2>
+      <div style="position: relative; display: grid; grid-template-columns: 1fr 1fr; margin-top: 22px; border-top: 1px solid rgba(251,247,243,0.6)">
+        <sc-for list="{{ units }}" as="u">
+          <div style="{{ u.st }}">
+            <span class="{{ u.cls }}"><span>{{ u.v }}</span></span>
+            <span class="jr-t" style="display: block; margin-top: 6px; font-size: 12px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: #FFD9DD">{{ u.l }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.tilaklar }}">
+    <section id="jr-tilaklar" style="position: relative; padding: 26px 20px 38px">
+      <div class="jr-folio" style="color: #16110F"><b>{{ pg.tilaklar }}</b><span style="flex: 1; white-space: nowrap">Reyting</span><span style="min-width: 0; max-width: 50%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{ nameUp }}</span></div>
+      <p class="jr-kick" style="margin-top: 26px">Top-{{ wishN }}</p>
+      <h2 class="jr-h2">Yilning eng muhim <i>tilaklari</i></h2>
+      <div style="margin-top: 22px; border-top: 3px solid #16110F">
+        <sc-for list="{{ wishes }}" as="w">
+          <div class="jr-rise" style="display: flex; align-items: center; gap: 16px; padding: 12px 0; border-bottom: 1px solid rgba(22,17,15,0.22)">
+            <span class="jr-mast" style="flex: none; width: 74px; font-size: 64px; color: transparent; -webkit-text-stroke: 1.5px #B8142A">{{ w.n }}</span>
+            <span class="jr-d" style="min-width: 0; font-size: 28px; font-weight: 600; line-height: 1.1; overflow-wrap: anywhere">{{ w.text }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.sham }}">
+    <section id="jr-sham" style="position: relative; padding: 26px 20px 38px; background: #16110F; color: #FBF7F3">
+      <div class="jr-folio" style="color: #FBF7F3"><b>{{ pg.sham }}</b><span style="flex: 1; white-space: nowrap">Marosim</span><span style="min-width: 0; max-width: 50%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{ nameUp }}</span></div>
+      <p class="jr-kick" style="margin-top: 26px; color: #FF8C9A">Niyat qiling</p>
+      <h2 class="jr-h2" style="color: #FBF7F3">Shamni <i>o’chiring</i></h2>
+      <div class="{{ cakeCls }}" style="position: relative; height: 330px; margin-top: 18px">
+        <div aria-hidden="true" class="jr-spot" style="position: absolute; left: 25px; top: 0; width: 300px; height: 330px; background: radial-gradient(50% 55% at 50% 40%, rgba(255,214,200,0.30), rgba(255,214,200,0) 70%)"></div>
+        <svg aria-hidden="true" width="350" height="330" viewBox="0 0 350 330" style="position: absolute; left: 0; top: 0">
+          <defs>
+            <linearGradient id="jr-gk" x1="0" y1="0" x2="1" y2="0"><stop offset="0" style="stop-color: #E9C9C0"></stop><stop offset="0.35" style="stop-color: #FFF4F0"></stop><stop offset="1" style="stop-color: #D9AFA4"></stop></linearGradient>
+            <linearGradient id="jr-gr" x1="0" y1="0" x2="1" y2="0"><stop offset="0" style="stop-color: #8E0F21"></stop><stop offset="0.4" style="stop-color: #D8263E"></stop><stop offset="1" style="stop-color: #7A0C1C"></stop></linearGradient>
+          </defs>
+          <ellipse cx="175" cy="314" rx="90" ry="8" fill="#000" opacity="0.6"></ellipse>
+          <path d="M150 312H200L190 270H160Z" fill="url(#jr-gk)"></path>
+          <ellipse cx="175" cy="268" rx="108" ry="10" fill="url(#jr-gk)"></ellipse>
+          <path d="M95 256V180A80 11 0 0 1 255 180V256A80 11 0 0 1 95 256Z" fill="url(#jr-gk)"></path>
+          <path d="M95 180A80 11 0 0 0 255 180V198C245 198 247 214 236 214S226 196 214 198 204 220 192 220 182 200 170 200 160 218 148 218 138 198 126 198 117 212 106 212 100 196 95 196Z" fill="url(#jr-gr)"></path>
+          <ellipse cx="175" cy="180" rx="80" ry="11" fill="#D8263E"></ellipse>
+          <path d="M110 238H240" stroke="#B8142A" style="stroke-width: 1.2; stroke-dasharray: 1 6; stroke-linecap: round"></path>
+          <circle cx="132" cy="176" r="5" fill="#FBF7F3"></circle><circle cx="218" cy="176" r="5" fill="#FBF7F3"></circle><circle cx="160" cy="184" r="4" fill="#FBF7F3"></circle><circle cx="192" cy="184" r="4" fill="#FBF7F3"></circle>
+          <rect x="170" y="108" width="10" height="70" rx="2" fill="#FBF7F3"></rect>
+          <path d="M170 120l10-5M170 134l10-5M170 148l10-5M170 162l10-5" stroke="#B8142A" style="stroke-width: 2"></path>
+          <ellipse class="jr-halo" cx="175" cy="88" rx="22" ry="28" fill="#FFD6C8" opacity="0.5"></ellipse>
+          <path class="jr-flame" d="M175 70C181 81 183 89 180 96C178 100 172 100 170 96C167 89 169 81 175 70Z" fill="#FFE7D6"></path>
+          <path class="jr-flame" d="M175 82C177 87 178 90 176.5 93C176 94 174 94 173.5 93C172 90 173 87 175 82Z" fill="#FF8C6A"></path>
+          <path class="jr-smoke" d="M175 104C169 95 181 88 175 79C170 71 178 65 175 56"></path>
+        </svg>
+        <p class="jr-t" style="position: absolute; left: 0; bottom: 0; margin: 0; font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #A8968F">Surat: bayram stoli</p>
+      </div>
+      <p class="{{ wishCls }}" style="margin: 14px 0 0; min-height: 34px; text-align: center; font-family: 'Noto Serif Display', Georgia, serif; font-size: 28px; font-style: italic; line-height: 1.15; color: #FFC2CB; overflow-wrap: anywhere">{{ wishLine }}</p>
+      <div style="display: flex; justify-content: center; margin-top: 14px">
+        <button type="button" class="jr-btnL" onClick="{{ blow }}" style="color: #FBF7F3"><span class="{{ blowIdle }}">Puflash</span><span class="{{ blowDone }}">Shamni qayta yoqish</span></button>
+      </div>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.sirli }}">
+    <section id="jr-sirli" style="position: relative; padding: 26px 20px 38px">
+      <div class="jr-folio" style="color: #16110F"><b>{{ pg.sirli }}</b><span style="flex: 1; white-space: nowrap">Eksklyuziv</span><span style="min-width: 0; max-width: 50%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{ nameUp }}</span></div>
+      <p class="jr-kick" style="margin-top: 26px">Faqat siz uchun</p>
+      <h2 class="jr-h2">Sirli <i>tilak</i></h2>
+      <p class="jr-t" style="margin: 10px 0 0; font-size: 15px; line-height: 1.5; color: #6B5A55">Jurnaldagi atir namunasidek: qopqoqni ko’taring va o’qing.</p>
+      <div style="margin-top: 22px; padding: 14px; background: #FBF7F3; box-shadow: 0 20px 40px rgba(110,10,24,0.18)">
+        <button type="button" class="{{ secCls }}" onClick="{{ toggleSec }}" aria-label="Sirli tilakni ochish">
+          <div style="position: relative; min-height: 210px; padding: 30px 22px; box-sizing: border-box; background: linear-gradient(160deg, #FFF7F4, #F6E3DC); border: 1px dashed rgba(184,20,42,0.5); display: flex; flex-direction: column; justify-content: center">
+            <div class="jr-msg">
+              <p class="jr-kick" style="font-size: 11px">Eksklyuziv · faqat {{ nameGa }}</p>
+              <p class="jr-d" style="margin: 10px 0 0; font-size: 25px; font-style: italic; font-weight: 500; line-height: 1.3; color: #16110F; white-space: pre-line; overflow-wrap: anywhere">{{ d.sirli_tilak }}</p>
+            </div>
+          </div>
+          <div class="jr-flap" aria-hidden="true">
+            <div class="jr-face" style="position: absolute; inset: 0; overflow: hidden; background: linear-gradient(150deg, #D8263E 0%, #B8142A 45%, #7A0C1C 100%); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; color: #FBF7F3">
+              <span class="jr-gloss"></span>
+              <span class="jr-t" style="font-size: 11px; font-weight: 800; letter-spacing: 0.3em; text-transform: uppercase">Maxfiy</span>
+              <span class="jr-mast" style="margin-top: 8px; font-size: 54px">Sirli tilak</span>
+              <span class="jr-t" style="margin-top: 14px; display: inline-flex; align-items: center; gap: 8px; padding: 9px 16px; border-radius: 999px; background: #FBF7F3; color: #B8142A; font-size: 12px; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase">Bu yerdan oching
+                <svg width="14" height="14" viewBox="0 0 20 20"><path d="M10 15V5M5 10l5-5 5 5" fill="none" stroke="#B8142A" style="stroke-width: 2.2; stroke-linecap: round"></path></svg></span>
+              <span style="position: absolute; left: 0; right: 0; bottom: 14px; border-top: 1.5px dashed rgba(251,247,243,0.6)"></span>
+            </div>
+          </div>
+        </button>
+      </div>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.galereya }}">
+    <section id="jr-galereya" style="position: relative; padding: 26px 0 38px; background: #16110F; color: #FBF7F3">
+      <div style="padding: 0 20px">
+        <div class="jr-folio" style="color: #FBF7F3"><b>{{ pg.galereya }}</b><span style="flex: 1; white-space: nowrap">Fotosessiya</span><span style="min-width: 0; max-width: 50%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{ nameUp }}</span></div>
+        <p class="jr-kick" style="margin-top: 26px; color: #FF8C9A">Eng yorqin kadrlar</p>
+        <h2 class="jr-h2" style="color: #FBF7F3"><i>Fotosessiya</i></h2>
+      </div>
+      <div class="jr-wipe" style="position: relative; margin-top: 22px; width: 390px; height: 470px; overflow: hidden; background: #2A2220">
+        <img class="jr-zoom" src="{{ g0 }}" alt="" style="display: block; width: 390px; height: 470px; object-fit: cover">
+        <div aria-hidden="true" style="position: absolute; left: 0; bottom: 0; width: 390px; height: 160px; background: linear-gradient(0deg, rgba(22,17,15,0.85), rgba(22,17,15,0))"></div>
+        <p class="jr-d" style="position: absolute; left: 20px; bottom: 18px; right: 20px; margin: 0; font-size: 26px; font-style: italic; line-height: 1.15; color: #FBF7F3">01 — Bayram oqshomi</p>
+      </div>
+      <sc-if value="{{ g1on }}">
+        <div style="display: flex; gap: 14px; padding: 0 20px; margin-top: 16px">
+          <div class="jr-rise" style="flex: none; width: 200px; height: 268px; overflow: hidden; background: #2A2220"><img src="{{ g1 }}" alt="" style="display: block; width: 200px; height: 268px; object-fit: cover"></div>
+          <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; justify-content: flex-end; padding-bottom: 4px">
+            <span class="jr-mast" style="font-size: 54px; color: #B8142A">02</span>
+            <p class="jr-t" style="margin: 10px 0 0; font-size: 12px; line-height: 1.6; color: #CFC4BF"><b style="color: #FBF7F3">Kadrda:</b> {{ name }}<br><b style="color: #FBF7F3">Uslub:</b> tabassum<br><b style="color: #FBF7F3">Yorug’lik:</b> ko’zlaridagi nur<br><b style="color: #FBF7F3">Joy:</b> eng yaqinlar davrasi</p>
+          </div>
+        </div>
+      </sc-if>
+      <sc-if value="{{ gRestOn }}">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 0 20px; margin-top: 12px">
+          <sc-for list="{{ gRest }}" as="g">
+            <div class="jr-rise" style="{{ g.st }}"><img src="{{ g.src }}" alt="" style="display: block; width: 100%; height: 100%; object-fit: cover"><span class="jr-t" style="position: absolute; left: 8px; bottom: 6px; font-size: 11px; font-weight: 800; letter-spacing: 0.14em; color: #FBF7F3; text-shadow: 0 1px 4px rgba(0,0,0,0.6)">{{ g.n }}</span></div>
+          </sc-for>
+        </div>
+      </sc-if>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.xronika }}">
+    <section id="jr-xronika" style="position: relative; padding: 26px 20px 38px">
+      <div class="jr-folio" style="color: #16110F"><b>{{ pg.xronika }}</b><span style="flex: 1; white-space: nowrap">Biografiya</span><span style="min-width: 0; max-width: 50%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{ nameUp }}</span></div>
+      <p class="jr-kick" style="margin-top: 26px">Yillar va voqealar</p>
+      <h2 class="jr-h2">Hayot <i>yo’li</i></h2>
+      <div style="margin-top: 22px; border-top: 3px solid #16110F">
+        <sc-for list="{{ chron }}" as="c">
+          <div class="jr-rise" style="display: flex; align-items: center; gap: 14px; padding: 14px 0; border-bottom: 1px solid rgba(22,17,15,0.22)">
+            <div style="flex: none; width: 84px">
+              <span class="jr-mast" style="display: block; font-size: {{ c.fs }}px; font-style: italic; color: #B8142A">{{ c.yosh }}</span>
+              <span class="jr-t" style="display: block; margin-top: 4px; font-size: 10px; font-weight: 800; letter-spacing: 0.22em; text-transform: uppercase; color: #6B5A55">yosh</span>
+            </div>
+            <p class="jr-d" style="flex: 1; min-width: 0; margin: 0; font-size: 20px; font-weight: 500; line-height: 1.25; overflow-wrap: anywhere">{{ c.matn }}</p>
+            <sc-if value="{{ has.photo }}"><img src="{{ c.src }}" alt="" style="flex: none; display: block; width: 64px; height: 84px; object-fit: cover"></sc-if>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.mehmonlar }}">
+    <section id="jr-mehmonlar" style="position: relative; padding: 26px 20px 38px; background: #FBF7F3">
+      <div class="jr-folio" style="color: #16110F"><b>{{ pg.mehmonlar }}</b><span style="flex: 1; white-space: nowrap">Intervyu</span><span style="min-width: 0; max-width: 50%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{ nameUp }}</span></div>
+      <p class="jr-kick" style="margin-top: 26px">Yaqinlar tilaklari</p>
+      <h2 class="jr-h2">Ular nima <i>deydi?</i></h2>
+      <sc-if value="{{ top.matn }}">
+        <figure class="jr-rise" style="position: relative; margin: 24px 0 0; padding: 0 0 0 4px">
+          <span aria-hidden="true" class="jr-d" style="position: absolute; left: -6px; top: -34px; font-size: 120px; font-weight: 900; line-height: 1; color: #B8142A; opacity: 0.9">“</span>
+          <blockquote class="jr-d" style="position: relative; margin: 0; padding-top: 34px; font-size: 30px; font-style: italic; font-weight: 500; line-height: 1.2; overflow-wrap: anywhere">{{ top.matn }}</blockquote>
+          <figcaption class="jr-t" style="margin-top: 12px; font-size: 12px; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: #B8142A; overflow-wrap: anywhere">— {{ top.ism }}</figcaption>
+        </figure>
+      </sc-if>
+      <div style="margin-top: 22px; border-top: 1px solid rgba(22,17,15,0.25)">
+        <sc-for list="{{ rest }}" as="r">
+          <p class="jr-rise" style="margin: 0; padding: 16px 0; border-bottom: 1px solid rgba(22,17,15,0.25); font-size: 16px; line-height: 1.6; color: #2A211E; overflow-wrap: anywhere"><b class="jr-t" style="font-size: 13px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: #B8142A">{{ r.ism }}:</b> {{ r.matn }}</p>
+        </sc-for>
+      </div>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.bazm }}">
+    <section id="jr-bazm" style="position: relative; padding: 26px 20px 42px">
+      <div class="jr-folio" style="color: #16110F"><b>{{ pg.bazm }}</b><span style="flex: 1; white-space: nowrap">Afisha</span><span style="min-width: 0; max-width: 50%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{ nameUp }}</span></div>
+      <div class="jr-rise" style="position: relative; margin-top: 30px; transform: rotate(-1.4deg)">
+        <div style="position: relative; padding: 26px 22px 24px 30px; background: linear-gradient(160deg, #C8172E, #9C1024); color: #FBF7F3; box-shadow: 0 24px 50px rgba(110,10,24,0.35); overflow: hidden">
+          <span aria-hidden="true" style="position: absolute; left: 10px; top: 0; bottom: 0; border-left: 2px dashed rgba(251,247,243,0.45)"></span>
+          <span aria-hidden="true" class="jr-gloss"></span>
+          <p class="jr-t" style="position: relative; margin: 0; font-size: 11px; font-weight: 800; letter-spacing: 0.26em; text-transform: uppercase; color: #FFD9DD">Taklifnoma · ichki varaq</p>
+          <h2 class="jr-mast" style="position: relative; margin: 10px 0 0; font-size: 64px; color: #FBF7F3">Bazmga taklif</h2>
+          <p class="jr-d" style="position: relative; margin: 12px 0 0; font-size: 19px; font-style: italic; line-height: 1.35; color: #FFE7EA">Sahifalardan chiqib, jonli bayramga keling — sizni kutamiz.</p>
+          <div style="position: relative; margin-top: 18px; border-top: 1px solid rgba(251,247,243,0.5)">
+            <div style="display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid rgba(251,247,243,0.5)">
+              <span class="jr-t" style="flex: none; width: 86px; font-size: 11px; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; color: #FFD9DD; padding-top: 4px">Qachon</span>
+              <span style="min-width: 0"><span class="jr-d" style="display: block; font-size: 22px; font-weight: 600; line-height: 1.15">{{ bazmDate }}</span><span class="jr-t" style="display: block; margin-top: 2px; font-size: 14px; color: #FFE7EA">{{ bazmSub }}</span></span>
+            </div>
+            <div style="display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid rgba(251,247,243,0.5)">
+              <span class="jr-t" style="flex: none; width: 86px; font-size: 11px; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; color: #FFD9DD; padding-top: 4px">Qayerda</span>
+              <span style="min-width: 0; overflow-wrap: anywhere"><span class="jr-d" style="display: block; font-size: 22px; font-weight: 600; line-height: 1.15">{{ d.bazm_joy }}</span><sc-if value="{{ d.bazm_manzil }}"><span class="jr-t" style="display: block; margin-top: 2px; font-size: 14px; color: #FFE7EA">{{ d.bazm_manzil }}</span></sc-if></span>
+            </div>
+            <sc-if value="{{ d.dress_kod }}">
+              <div style="display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid rgba(251,247,243,0.5)">
+                <span class="jr-t" style="flex: none; width: 86px; font-size: 11px; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; color: #FFD9DD; padding-top: 4px">Uslub</span>
+                <span class="jr-d" style="min-width: 0; font-size: 22px; font-weight: 600; line-height: 1.15; overflow-wrap: anywhere">{{ d.dress_kod }}</span>
+              </div>
+            </sc-if>
+          </div>
+          <div style="position: relative; display: flex; flex-direction: column; gap: 10px; margin-top: 18px">
+            <sc-if value="{{ askGuest }}"><input class="jr-input" type="text" maxlength="100" placeholder="Ismingiz" aria-label="Ismingiz" onInput="{{ setName }}"></sc-if>
+            <div style="display: flex; gap: 10px">
+              <button type="button" class="{{ goCls }}" onClick="{{ go }}">
+                <span class="{{ goIdle }}">Boraman</span>
+                <span class="{{ goDone }}"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 20 20"><path class="jr-ico" d="M4 10.5l4 4 8-9"></path></svg>Kutamiz!</span>
+              </button>
+              <sc-if value="{{ d.xarita }}"><a class="jr-map" href="{{ d.xarita }}" target="_blank" rel="noopener"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 20 20"><path class="jr-ico" d="M10 18s-5.5-5.2-5.5-9.3a5.5 5.5 0 0 1 11 0C15.5 12.8 10 18 10 18z"></path><circle class="jr-ico" cx="10" cy="8.7" r="2"></circle></svg>Xaritada ochish</a></sc-if>
+            </div>
+            <sc-if value="{{ goErr }}"><p class="jr-err" role="alert">{{ goErr }}</p></sc-if>
+          </div>
+        </div>
+      </div>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.javob }}">
+    <section id="jr-javob" style="position: relative; padding: 26px 20px 34px; background: #FBF7F3">
+      <div class="jr-folio" style="color: #16110F"><b>{{ pg.javob }}</b><span style="flex: 1; white-space: nowrap">Oxirgi sahifa</span><span style="min-width: 0; max-width: 50%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{ nameUp }}</span></div>
+      <div style="display: flex; flex-direction: column; align-items: center; text-align: center; margin-top: 26px">
+        <p class="jr-kick">Sizning navbatingiz</p>
+        <h2 class="jr-d" style="margin: 8px 0 0; font-size: 34px; font-style: italic; font-weight: 500; line-height: 1.15; overflow-wrap: anywhere">{{ askName }}</h2>
+        <p class="jr-t" style="margin: 8px 0 22px; font-size: 15px; line-height: 1.5; color: #6B5A55">Bir bosishda tabrigingiz yetib boradi</p>
+        <div style="position: relative; width: 300px">
+          <div class="{{ burstCls }}" aria-hidden="true" style="position: absolute; left: 150px; top: 28px; width: 0; height: 0; z-index: 3; pointer-events: none">
+            <sc-for list="{{ pops }}" as="c"><span class="jr-pop" style="{{ c }}"></span></sc-for>
+          </div>
+          <button type="button" class="{{ sendCls }}" onClick="{{ send }}" style="width: 300px">
+            <span class="{{ sendIdle }}"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 20 20"><path d="M10 17s-6.5-4.1-6.5-8.6A3.6 3.6 0 0 1 10 6.3a3.6 3.6 0 0 1 6.5 2.1C16.5 12.9 10 17 10 17z" fill="#FBF7F3"></path></svg>Tabrikladim</span>
+            <span class="{{ sendDone }}"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 20 20"><path class="jr-ico" d="M4 10.5l4 4 8-9"></path></svg>Rahmat, yetkazildi</span>
+            <span aria-hidden="true" class="jr-gloss"></span>
+          </button>
+        </div>
+      </div>
+    </section>
+</sc-if>
+
+    <footer style="position: relative; flex: 1; min-height: 170px; padding: 26px 20px 26px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: flex-end; background: #16110F; color: #FBF7F3">
+      <sc-if value="{{ nextAge }}"><p class="jr-kick" style="color: #FF8C9A">Keyingi sonda</p><p class="jr-mast" style="margin: 6px 0 0; font-size: 58px; color: #FBF7F3">{{ nextAge }} yosh</p></sc-if>
+      <div style="display: flex; align-items: flex-end; justify-content: space-between; gap: 14px; margin-top: 18px">
+        <div style="min-width: 0">
+          <p class="jr-t" style="margin: 0; font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: #CFC4BF; overflow-wrap: anywhere">{{ footLine }}</p>
+          <p class="jr-d" style="margin: 4px 0 0; font-size: 16px; font-style: italic; color: #CFC4BF">Narxi: bebaho</p>
+        </div>
+        <div aria-hidden="true" style="flex: none; padding: 6px 8px 4px; background: #FBF7F3">
+          <svg width="96" height="38" viewBox="0 0 96 38"><sc-for list="{{ bars }}" as="r"><rect x="{{ r.x }}" y="0" width="{{ r.w }}" height="30" fill="#16110F"></rect></sc-for></svg>
+          <p class="jr-t" style="margin: 0; font-size: 8px; letter-spacing: 0.18em; text-align: center; color: #16110F">{{ barNum }}</p>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <div data-intro class="{{ introCls }}" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; z-index: 20; overflow: hidden; background: #16110F">
+    <div class="jr-inside" aria-hidden="true" style="position: absolute; inset: 0; background: #F2E4DC; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 0 34px; text-align: center; color: #16110F">
+      <p class="jr-kick">Maxsus son · {{ issueNo }}</p>
+      <p class="jr-d" style="margin: 18px 0 0; font-size: 28px; font-style: italic; line-height: 1.25">Ushbu son butunlay</p>
+      <div style="margin: 14px 0 0"><svg aria-hidden="true" width="{{ mDed.w }}" height="{{ mDed.h }}" viewBox="{{ mDed.vb }}" style="display: block; overflow: visible"><g transform="{{ mDed.tf }}"><sc-for list="{{ mDed.lines }}" as="l"><sc-if value="{{ l.fit }}"><text class="jr-svgMast" x="0" y="{{ l.y }}" textLength="{{ mDed.w }}" lengthAdjust="spacingAndGlyphs" style="{{ l.st }}">{{ l.t }}</text></sc-if><sc-if value="{{ l.free }}"><text class="jr-svgMast" x="{{ mDed.x }}" y="{{ l.y }}" text-anchor="{{ mDed.anchor }}" style="{{ l.st }}">{{ l.t }}</text></sc-if></sc-for></g></svg></div>
+      <p class="jr-d" style="margin: 12px 0 0; font-size: 28px; font-style: italic; line-height: 1.25">bag’ishlanadi</p>
+    </div>
+    <div class="jr-stage" style="position: absolute; inset: 0">
+      <div class="jr-cover" style="position: absolute; inset: 0">
+        <div class="jr-face" style="position: absolute; inset: 0; overflow: hidden; background: #2A1A1C">
+          <sc-if value="{{ has.photo }}"><img src="{{ p.0 }}" alt="" style="display: block; width: 390px; height: 844px; object-fit: cover"></sc-if>
+          <sc-if value="{{ noPhoto }}">
+            <div aria-hidden="true" style="position: absolute; inset: 0; background: linear-gradient(170deg, #D8263E 0%, #B8142A 45%, #5E0814 100%)">
+              <span class="jr-mast" style="position: absolute; right: -10px; bottom: 60px; font-size: 420px; color: rgba(251,247,243,0.16)">{{ bigMark }}</span>
+            </div>
+          </sc-if>
+          <div aria-hidden="true" style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(10,6,6,0.62) 0%, rgba(10,6,6,0.42) 26%, rgba(10,6,6,0.12) 44%, rgba(10,6,6,0) 54%, rgba(10,6,6,0.1) 64%, rgba(10,6,6,0.78) 100%)"></div>
+          <span aria-hidden="true" class="jr-gloss" style="width: 38%"></span>
+
+          <div style="position: absolute; left: 16px; top: 14px; width: 358px; display: flex; justify-content: space-between; gap: 8px; font-family: 'Inter Tight', Arial, sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: #FBF7F3">
+            <span>Maxsus son</span><span>{{ issue }}</span>
+          </div>
+          <h2 style="position: absolute; left: 12px; top: 34px; width: 366px; margin: 0"><span class="jr-sr">{{ name }}</span><svg aria-hidden="true" width="{{ mCover.w }}" height="{{ mCover.h }}" viewBox="{{ mCover.vb }}" style="display: block; overflow: visible; filter: drop-shadow(0 4px 18px rgba(0,0,0,0.3))"><g transform="{{ mCover.tf }}"><sc-for list="{{ mCover.lines }}" as="l"><sc-if value="{{ l.fit }}"><text class="jr-svgMast" x="0" y="{{ l.y }}" textLength="{{ mCover.w }}" lengthAdjust="spacingAndGlyphs" style="{{ l.st }}">{{ l.t }}</text></sc-if><sc-if value="{{ l.free }}"><text class="jr-svgMast" x="{{ mCover.x }}" y="{{ l.y }}" text-anchor="{{ mCover.anchor }}" style="{{ l.st }}">{{ l.t }}</text></sc-if></sc-for></g></svg></h2>
+
+          <div style="position: absolute; left: 18px; top: {{ linesTop }}px; width: 190px; color: #FBF7F3">
+            <span class="jr-t" style="display: inline-block; padding: 4px 8px; background: #B8142A; font-size: 11px; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase">Eksklyuziv</span>
+            <p class="jr-d" style="margin: 8px 0 0; font-size: 30px; font-style: italic; font-weight: 500; line-height: 1.02; text-shadow: 0 2px 16px rgba(0,0,0,0.35)">Yilning eng yorqin insoni</p>
+            <p class="jr-t" style="margin: 18px 0 0; font-size: 12px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; line-height: 1.35; text-shadow: 0 1px 8px rgba(0,0,0,0.5)">Yaqinlari sirni ochdi:<br><span style="font-weight: 500; letter-spacing: 0.06em; text-transform: none; font-size: 14px">eng samimiy tilaklar ichkarida</span></p>
+          </div>
+          <div style="position: absolute; right: 16px; top: {{ linesTop2 }}px; width: 120px; text-align: right; color: #FBF7F3">
+            <p class="jr-t" style="margin: 0; font-size: 12px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; line-height: 1.35; text-shadow: 0 1px 8px rgba(0,0,0,0.5)">Sirli tilak<br><span style="font-weight: 500; letter-spacing: 0.04em; text-transform: none; font-size: 13px">faqat bitta o’quvchi uchun</span></p>
+          </div>
+
+          <div style="position: absolute; left: 18px; bottom: 140px; width: 354px; color: #FBF7F3">
+            <sc-if value="{{ d.yosh }}"><p class="jr-mast" style="margin: 0; font-size: 104px; color: #FBF7F3; text-shadow: 0 4px 24px rgba(0,0,0,0.35)">{{ d.yosh }}<span class="jr-d" style="font-size: 30px; font-style: italic; font-weight: 500; font-stretch: 100%; text-transform: none; letter-spacing: 0; margin-left: 8px">yosh</span></p></sc-if>
+            <p class="jr-t" style="margin: 6px 0 0; font-size: 13px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; text-shadow: 0 1px 8px rgba(0,0,0,0.5)">{{ coverLine }}</p>
+          </div>
+          <div aria-hidden="true" style="position: absolute; left: 18px; bottom: 24px; padding: 5px 6px 3px; background: #FBF7F3">
+            <svg width="70" height="26" viewBox="0 0 96 38" style="display: block"><sc-for list="{{ bars }}" as="r"><rect x="{{ r.x }}" y="0" width="{{ r.w }}" height="38" fill="#16110F"></rect></sc-for></svg>
+          </div>
+          <div aria-hidden="true" class="jr-curl" style="position: absolute; right: 0; bottom: 0; width: 64px; height: 64px; transform-origin: 100% 100%">
+            <div class="jr-curlHint" style="position: absolute; inset: 0; transform-origin: 100% 100%">
+              <div style="position: absolute; inset: 0; background: linear-gradient(135deg, rgba(0,0,0,0) 50%, #F2E4DC 50%)"></div>
+              <div style="position: absolute; inset: 0; background: linear-gradient(135deg, rgba(0,0,0,0) 46%, rgba(0,0,0,0.35) 50%, #FFF7F2 51%, #E8D3C8 80%); clip-path: polygon(100% 0, 0 100%, 100% 100%)"></div>
+            </div>
+          </div>
+        </div>
+        <div class="jr-face jr-back" aria-hidden="true" style="position: absolute; inset: 0; background: linear-gradient(90deg, #E8D6CC, #F6ECE6 30%, #EBDCD3)"></div>
+      </div>
+      <div class="jr-shade" aria-hidden="true" style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(22,17,15,0.6), rgba(22,17,15,0) 70%); pointer-events: none"></div>
+    </div>
+
+    <div class="jr-ctaWrap" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; pointer-events: none">
+      <sc-if value="{{ from.line }}"><p class="jr-t" style="position: absolute; left: 100px; right: 80px; bottom: 26px; margin: 0; font-size: 11px; font-weight: 600; line-height: 1.35; color: #FBF7F3; text-shadow: 0 1px 6px rgba(0,0,0,0.6); overflow-wrap: anywhere">{{ from.line }}</p></sc-if>
+      <button type="button" class="jr-btn" onClick="{{ open }}" style="position: absolute; left: 70px; bottom: 66px; width: 250px; pointer-events: auto">Jurnalni oching<svg aria-hidden="true" width="18" height="18" viewBox="0 0 20 20"><path d="M4 10h11M11 5l5 5-5 5" fill="none" stroke="#FBF7F3" style="stroke-width: 2; stroke-linecap: round; stroke-linejoin: round"></path></svg><span aria-hidden="true" class="jr-gloss"></span></button>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":6000}}'>
+const tkName = (d) => String(d.kimga || '').trim();
+const tkFrom = (d) => {
+  const kd = String(d.kimdan || '').trim(), ci = kd.indexOf(':');
+  const label = ci > 0 ? kd.slice(0, ci).trim() : '';
+  const names = ci > 0 ? kd.slice(ci + 1).trim() : kd;
+  return { label: label, names: names, line: !kd ? '' : (label ? label + 'dan: ' + names : names + 'dan') };
+};
+const tkFit = (text, max, min, width, k) => {
+  const longest = Math.max(1, ...String(text || '').split(/\s+/).map((x) => x.length));
+  return Math.max(min, Math.min(max, Math.floor(width / (longest * k))));
+};
+const up = (s) => String(s || '').toLocaleUpperCase('uz');
+const pad2 = (n) => (n < 10 ? '0' : '') + n;
+const ORDER = ['tabrik', 'taymer', 'tilaklar', 'sham', 'sirli', 'galereya', 'xronika', 'mehmonlar', 'bazm', 'javob'];
+const TOC = {
+  tabrik: ['Tahririyatdan', 'Sen haqingda bir necha so’z'], taymer: ['Kun tartibi', 'Bayramgacha qolgan vaqt'],
+  tilaklar: ['Reyting', 'Yilning eng muhim tilaklari'], sham: ['Marosim', 'Shamni o’chirish'],
+  sirli: ['Eksklyuziv', 'Sirli tilak'], galereya: ['Fotosessiya', 'Eng yorqin kadrlar'],
+  xronika: ['Biografiya', 'Yillar va voqealar'], mehmonlar: ['Intervyu', 'Yaqinlar nima deydi'],
+  bazm: ['Afisha', 'Bazmga taklif'], javob: ['Oxirgi sahifa', 'Tabrik yuborish']
+};
+const CW = 0.64;
+const mast = (text, W, maxFs, minFs, vk, anchor, fill) => {
+  const words = String(text || '').split(/\s+/).filter(Boolean);
+  const total = words.join(' ').length;
+  let rows = words.length > 1 && total * CW * minFs * 1.1 > W ? words : [words.join(' ')];
+  if (!rows[0]) rows = [''];
+  const longest = Math.max(1, ...rows.map((r) => r.length));
+  const fs = Math.max(minFs, Math.min(maxFs, Math.floor(W / (longest * CW))));
+  const capH = fs * 0.72 * vk, gap = fs * 0.16;
+  const lines = rows.map((t, i) => {
+    const est = t.length * CW * fs, fit = est > W * 0.82;
+    return { t: t, fit: fit, free: !fit, y: (((i + 1) * capH + i * gap) / vk).toFixed(1), st: 'font-size: ' + fs + 'px; fill: ' + fill };
+  });
+  const h = Math.ceil(rows.length * capH + (rows.length - 1) * gap + 2);
+  return { lines: lines, w: W, h: h, vb: '0 0 ' + W + ' ' + h, tf: 'scale(1 ' + vk + ')', x: anchor === 'middle' ? W / 2 : 0, anchor: anchor };
+};
+const OY = ['yanvar', 'fevral', 'mart', 'aprel', 'may', 'iyun', 'iyul', 'avgust', 'sentabr', 'oktabr', 'noyabr', 'dekabr'];
+
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { opened: false, blown: false, sec: false, going: false, sent: false, goErr: '' };
+    this.guestName = '';
+    this.tick = 0;
+    const rnd = (i, k) => { const x = Math.sin(i * 127.1 + k * 311.7) * 43758.5453; return x - Math.floor(x); };
+    const cols = ['#B8142A', '#16110F', '#F2C6CC', '#B8142A', '#E9B04F'];
+    this.deco = {
+      pops: Array.from({ length: 22 }, (_, i) => {
+        const a = (-170 + i * (160 / 21) + (rnd(i, 2) - 0.5) * 8) * Math.PI / 180, r = 90 + rnd(i, 3) * 70;
+        const w = 4 + Math.round(rnd(i, 4) * 6), h = i % 3 ? 3 : w;
+        return 'width: ' + w + 'px; height: ' + h + 'px; margin: -' + (h / 2) + 'px 0 0 -' + (w / 2) + 'px; background: ' + cols[i % 5] + '; --x: ' + Math.round(Math.cos(a) * r) + 'px; --y: ' + Math.round(Math.sin(a) * r) + 'px; --r: ' + Math.round(rnd(i, 5) * 540 - 270) + 'deg; animation-delay: ' + (rnd(i, 6) * 0.12).toFixed(2) + 's';
+      })
+    };
+  }
+  componentDidMount() {
+    this.timer = setInterval(() => { this.prevCd = this.lastCd; this.tick += 1; this.forceUpdate(); }, 1000);
+  }
+  componentWillUnmount() {
+    clearInterval(this.timer);
+  }
+  renderVals() {
+    const s = this.state;
+    const D = SITE.d;
+    const name = tkName(D), from = tkFrom(D), nameUp = up(name);
+    const w = SITE.when(D.sana), bw = SITE.when(D.bazm_sana);
+    const c = SITE.countdown(D.sana);
+    const yosh = String(D.yosh || '').trim();
+    const ageNum = /^\d+$/.test(yosh) ? parseInt(yosh, 10) : 0;
+    const pg = {}, toc = [];
+    let k = 0;
+    ORDER.forEach((key) => {
+      if (SITE.b[key]) { k += 1; pg[key] = String(2 + k * 4); toc.push({ pg: pg[key], kick: TOC[key][0], title: TOC[key][1], href: '#jr-' + key }); }
+      else pg[key] = '';
+    });
+    const cur = [String(c.d), c.hh, c.mm, c.ss];
+    const prev = this.prevCd || cur;
+    this.lastCd = cur;
+    const L = ['kun', 'soat', 'daqiqa', 'soniya'];
+    const units = cur.map((v, i) => ({
+      v: v, l: L[i],
+      cls: v !== prev[i] ? (this.tick % 2 ? 'jr-num jr-num--a' : 'jr-num jr-num--b') : 'jr-num',
+      st: 'padding: 16px 0 14px' + (i % 2 ? '; padding-left: 18px; border-left: 1px solid rgba(251,247,243,0.6)' : '') + (i < 2 ? '; border-bottom: 1px solid rgba(251,247,243,0.6)' : '')
+    }));
+    const matn = String(D.matn || '').trim();
+    const m1 = matn.match(/^[^.!?]+[.!?]/);
+    const lead = m1 && m1[0].length < 120 ? m1[0].trim() : '';
+    const body = lead ? matn.slice(m1[0].length).trim() : matn;
+    const list = D.tilaklar || [];
+    const n = Math.min(6, SITE.has.photos);
+    const gp = n > 0 ? SITE.p.slice(0, n) : [];
+    const restP = gp.slice(2);
+    const gRest = restP.map((src, i) => ({
+      src: src, n: pad2(i + 3),
+      st: 'position: relative; overflow: hidden; background: #2A2220; height: ' + (restP.length % 2 === 1 && i === restP.length - 1 ? '220px; grid-column: 1 / -1' : '210px')
+    }));
+    const revs = (D.mehmon_tilaklari || []).map((r) => ({ ism: r.ism || '', matn: r.matn || '' }));
+    const digits = (w.dots || '14.11.2026').replace(/\D/g, '') + String(ageNum || 7);
+    let x = 0; const bars = [];
+    for (let i = 0; x < 92; i++) { const wd = 1 + (+digits[i % digits.length] % 3); bars.push({ x: x, w: wd }); x += wd + 1 + ((+digits[(i + 3) % digits.length]) % 2); }
+    const mHero = mast(nameUp, 350, 120, 50, 1.25, 'start', '#B8142A');
+    const mCover = mast(nameUp, 366, 150, 56, 1.4, 'middle', '#FBF7F3');
+    const mDed = mast(SITE.ga(name).toLocaleUpperCase('uz'), 322, 110, 40, 1.2, 'middle', '#B8142A');
+    return Object.assign({}, this.deco, {
+      name: name, nameUp: nameUp, from: from, pg: pg, toc: toc, noToc: !toc.length,
+      anyBlock: Object.keys(SITE.b).some((key) => SITE.b[key]),
+      noPhoto: !SITE.has.photo,
+      initial: nameUp.charAt(0),
+      bigMark: yosh || nameUp.charAt(0),
+      issue: (ageNum ? '№' + ageNum + ' · ' : '') + (w.monthNum ? OY[+w.monthNum - 1] + ' ' + w.year : ''),
+      issueNo: ageNum ? '№' + ageNum : w.year,
+      heroDate: [w.date, w.weekday].filter(Boolean).join(', '),
+      coverCap: name + (ageNum ? ', ' + ageNum : ''),
+      ageFs: yosh.length > 2 ? 60 : 84,
+      musicCls: SITE.music.playing ? 'jr-music jr-music--on' : 'jr-music',
+      musicOn: SITE.music.playing ? 'true' : 'false',
+      toggleMusic: () => { SITE.music.toggle(); },
+      lead: lead,
+      dropCap: body.charAt(0),
+      restText: body.slice(1),
+      fromLbl: from.label ? from.label : 'Tabrik mualliflari',
+      cdTitle: c.done ? 'Bayram boshlandi!' : 'Bayramgacha',
+      cdDate: [w.date, w.weekday].filter(Boolean).join(' · '),
+      cdBg: ageNum || '',
+      units: units,
+      wishN: list.length,
+      wishes: list.map((t, i) => ({ text: t, n: pad2(i + 1) })),
+      cakeCls: s.blown ? 'jr-cake jr-cake--out' : 'jr-cake',
+      wishCls: s.blown ? 'jr-wish jr-wish--on' : 'jr-wish',
+      wishLine: 'Niyating ushalsin, ' + name + '!',
+      blowIdle: s.blown ? 'is-hidden' : '',
+      blowDone: s.blown ? '' : 'is-hidden',
+      blow: () => this.setState({ blown: !this.state.blown }),
+      secCls: s.sec ? 'jr-sec jr-sec--on' : 'jr-sec',
+      toggleSec: () => this.setState({ sec: !this.state.sec }),
+      nameGa: SITE.ga(name),
+      g0: gp[0] || SITE.p[0], g1: gp[1] || '', g1on: n >= 2,
+      gRest: gRest, gRestOn: gRest.length > 0,
+      chron: (D.xronika || []).map((xx, i) => {
+        const y = String(xx.yosh || '').trim();
+        return { yosh: y, matn: xx.matn || '', fs: y.length > 2 ? 40 : 58, src: SITE.p[i % SITE.p.length] };
+      }),
+      top: revs[0] || { ism: '', matn: '' },
+      rest: revs.slice(1),
+      bazmDate: bw.date || '',
+      bazmSub: [bw.Weekday, D.bazm_vaqt ? 'soat ' + D.bazm_vaqt : ''].filter(Boolean).join(', '),
+      askGuest: !SITE.has.guest && !s.going,
+      setName: (e) => { this.guestName = e.target.value; },
+      goErr: s.goErr,
+      goCls: s.going ? 'jr-go jr-go--on' : 'jr-go',
+      goIdle: s.going ? 'is-hidden' : '',
+      goDone: s.going ? 'jr-row' : 'is-hidden',
+      go: () => {
+        if (this.state.going || this.busy) return;
+        const nm = this.guestName.trim();
+        if (!SITE.has.guest && !nm) { this.setState({ goErr: 'Ismingizni yozing' }); return; }
+        this.busy = true;
+        SITE.rsvp(true, 1, nm).then(() => { this.busy = false; this.setState({ going: true, goErr: '' }); })
+          .catch(() => { this.busy = false; this.setState({ goErr: 'Yuborilmadi, qayta urinib ko’ring' }); });
+      },
+      askName: name + 'ni tabrikladingizmi?',
+      sendCls: s.sent ? 'jr-btn jr-btn--done' : 'jr-btn',
+      sendIdle: s.sent ? 'is-hidden' : 'jr-row',
+      sendDone: s.sent ? 'jr-row' : 'is-hidden',
+      burstCls: s.sent ? 'jr-burst jr-burst--go' : 'jr-burst',
+      send: () => { if (this.state.sent) return; this.setState({ sent: true }); SITE.reply('Tabrikladim', '🥰'); },
+      nextAge: ageNum ? ageNum + 1 : '',
+      footLine: [name, w.dots].filter(Boolean).join(' · '),
+      bars: bars, barNum: (w.dots || '').replace(/\./g, ' '),
+      mHero: mHero, mCover: mCover, mDed: mDed,
+      linesTop: Math.round(34 + mCover.h + 26),
+      linesTop2: Math.round(34 + mCover.h + 30),
+      coverLine: ageNum ? 'Baxt, orzu va ' + ageNum + ' ta sham' : 'Baxt, orzu va bayram shamlari',
+      introCls: s.opened ? 'jr-intro jr-intro--open' : 'jr-intro',
+      pageCls: s.opened ? 'jr-page jr-page--in' : 'jr-page',
+      open: () => { if (this.state.opened) return; this.setState({ opened: true }); SITE.opened(); }
+    });
+  }
+}
+</script>
+</body>
+</html>

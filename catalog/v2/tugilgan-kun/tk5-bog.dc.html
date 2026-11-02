@@ -1,0 +1,818 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<title>Tug’ilgan kun: Kechki bog’</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&amp;family=Great+Vibes&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#E8B4A4}
+.is-hidden{display:none}
+.bg-s{font-family:'Old Standard TT','Bodoni MT','Georgia',serif}
+.bg-v{font-family:'Great Vibes','Snell Roundhand','Apple Chancery',cursive;font-weight:400}
+.bg-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.bg-cap{margin:0;font-family:'Old Standard TT',Georgia,serif;font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:#C9D6C2}
+.bg-h2{margin:6px 0 0;font-family:'Old Standard TT',Georgia,serif;font-style:italic;font-weight:400;font-size:36px;line-height:1.1;color:#F3EBDC;overflow-wrap:anywhere}
+/* engraving styles: D = cream lines on dark ground, L = green ink on cream paper */
+.bg-lfD{fill:#1B3826;stroke:#DCE6D2;stroke-width:.9;stroke-linejoin:round}
+.bg-lnD{fill:none;stroke:#DCE6D2;stroke-width:.5;stroke-linecap:round;opacity:.78}
+.bg-rsD{fill:#E8B4A4;stroke:#4A2622;stroke-width:.9}
+.bg-rlD{fill:none;stroke:#6E3830;stroke-width:.65;stroke-linecap:round}
+.bg-stD{fill:none;stroke:#DCE6D2;stroke-width:1.1;stroke-linecap:round}
+.bg-beD{fill:#C9867A;stroke:#F3EBDC;stroke-width:.7}
+.bg-lfL{fill:#F3EBDC;stroke:#1C3A28;stroke-width:.85;stroke-linejoin:round}
+.bg-lnL{fill:none;stroke:#1C3A28;stroke-width:.45;stroke-linecap:round;opacity:.85}
+.bg-rsL{fill:#F2C9BC;stroke:#6A3A32;stroke-width:.85}
+.bg-rlL{fill:none;stroke:#7E4A40;stroke-width:.6;stroke-linecap:round}
+.bg-stL{fill:none;stroke:#1C3A28;stroke-width:1;stroke-linecap:round}
+.bg-beL{fill:#C9867A;stroke:#1C3A28;stroke-width:.6}
+.bg-ln{fill:none;stroke:#C9D6C2;stroke-width:1}
+.bg-ico{fill:none;stroke:#1C3A28;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.bg-icoC{fill:none;stroke:#F3EBDC;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.bg-paper{background:#F3EBDC;background-image:radial-gradient(120% 90% at 50% 0%,rgba(255,255,255,0.5),rgba(255,255,255,0) 60%),radial-gradient(90% 70% at 100% 100%,rgba(201,134,122,0.12),rgba(201,134,122,0) 70%)}
+
+/* fairy lights */
+.bg-wire{fill:none;stroke:#0A140E;stroke-width:1.4}
+.bg-wireL{fill:none;stroke:#4B5E4C;stroke-width:1}
+.bg-cap2{fill:#2E3B30}
+.bg-bulb{fill:#3B4A3C;stroke:#6F806C;stroke-width:.6;transition:fill .25s ease}
+.bg-glow{opacity:0;transition:opacity .35s ease}
+.bg-lit .bg-bulb{fill:#FFE2A0;stroke:#FFF3D0}
+.bg-lit .bg-glow{opacity:1}
+.bg-tw{animation:bg-tw 3.2s ease-in-out infinite}
+@keyframes bg-tw{0%,100%{opacity:1}50%{opacity:.55}}
+.bg-fly{position:absolute;display:block;width:4px;height:4px;border-radius:50%;background:#FFF0B8;box-shadow:0 0 8px 2px rgba(255,226,140,0.75);animation:bg-fly ease-in-out infinite alternate}
+@keyframes bg-fly{0%{transform:translate(0,0);opacity:.15}35%{opacity:1}70%{opacity:.4}100%{transform:translate(var(--dx),var(--dy));opacity:.9}}
+.bg-sway{transform-box:fill-box;transform-origin:50% 0;animation:bg-sway 7s ease-in-out infinite alternate}
+@keyframes bg-sway{from{transform:rotate(-1.2deg)}to{transform:rotate(1.2deg)}}
+.bg-swayB{transform-box:fill-box;transform-origin:50% 100%;animation:bg-sway 8s ease-in-out infinite alternate}
+@keyframes bg-chev{0%,100%{transform:translateY(0);opacity:.5}50%{transform:translateY(6px);opacity:1}}
+@keyframes bg-out{from{opacity:1}to{opacity:0}}
+.bg-rise{animation:bg-rise 1s ease-out both;animation-timeline:view();animation-range:entry 5% entry 90%}
+@keyframes bg-rise{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+.bg-grow{animation:bg-grow 1.2s ease-out both;animation-timeline:view();animation-range:entry 0% entry 100%}
+@keyframes bg-grow{from{opacity:0;transform:scale(.85)}to{opacity:1;transform:none}}
+
+/* plant-marker countdown */
+.bg-tag{position:relative;display:block;perspective:300px}
+.bg-tag span{display:block;transform-origin:50% 0}
+.bg-tag--a span{animation:bg-flipA .5s cubic-bezier(.2,.7,.3,1) both}
+.bg-tag--b span{animation:bg-flipB .5s cubic-bezier(.2,.7,.3,1) both}
+@keyframes bg-flipA{from{transform:rotateX(-90deg);opacity:.3}to{transform:none;opacity:1}}
+@keyframes bg-flipB{from{transform:rotateX(-90deg);opacity:.3}to{transform:none;opacity:1}}
+
+/* lantern */
+.bg-flame{transform-box:fill-box;transform-origin:50% 100%;animation:bg-fl .8s ease-in-out infinite alternate}
+@keyframes bg-fl{0%{transform:scale(1,1) rotate(-3deg)}50%{transform:scale(.9,1.1) rotate(2deg)}100%{transform:scale(1.05,.94) rotate(-1deg)}}
+.bg-halo{transform-box:fill-box;transform-origin:50% 50%;animation:bg-halo 2.4s ease-in-out infinite}
+@keyframes bg-halo{0%,100%{opacity:.45;transform:scale(.92)}50%{opacity:.8;transform:scale(1.08)}}
+.bg-smoke{fill:none;stroke:#C9D6C2;stroke-width:1.4;stroke-linecap:round;opacity:0}
+.bg-lan--out .bg-flame{opacity:0;animation:bg-fOut .3s ease-in both}
+.bg-lan--out .bg-halo{opacity:0;animation:bg-out .3s ease both}
+.bg-lan--out .bg-smoke{animation:bg-smoke 2.2s ease-out .2s both}
+@keyframes bg-fOut{from{opacity:1;transform:scale(1)}to{opacity:0;transform:scale(.2,.1)}}
+@keyframes bg-smoke{0%{opacity:0;transform:translateY(0)}20%{opacity:.8}100%{opacity:0;transform:translateY(-30px)}}
+.bg-free{position:absolute;left:0;top:0;width:5px;height:5px;margin:-2.5px 0 0 -2.5px;border-radius:50%;background:#FFF0B8;box-shadow:0 0 10px 3px rgba(255,226,140,0.8);opacity:0}
+.bg-lan--out .bg-free{animation:bg-free 2.6s ease-out both}
+@keyframes bg-free{0%{opacity:0;transform:translate(0,0)}15%{opacity:1}100%{opacity:0;transform:translate(var(--dx),var(--dy))}}
+.bg-wish{opacity:0;transform:translateY(10px);transition:opacity .7s ease .6s,transform .7s ease .6s}
+.bg-wish--on{opacity:1;transform:none}
+
+/* secret: blooming flower */
+.bg-sec{position:relative;display:block;width:330px;height:330px;margin:0 auto;padding:0;border:0;background:none;cursor:pointer;color:inherit;font:inherit}
+.bg-pet{transform-box:view-box;transform-origin:165px 165px;transform:rotate(var(--a)) translateY(-26px) scale(.42);transition:transform 1.2s cubic-bezier(.3,1.25,.4,1);transition-delay:var(--d)}
+.bg-sec--on .bg-pet{transform:rotate(var(--a)) translateY(-92px) scale(1)}
+.bg-bud{transform-box:view-box;transform-origin:165px 165px;transition:transform .7s ease,opacity .5s ease}
+.bg-sec--on .bg-bud{transform:scale(.4);opacity:0}
+.bg-disc{opacity:0;transform:scale(.6);transition:opacity .7s ease .55s,transform .9s cubic-bezier(.3,1.3,.4,1) .45s}
+.bg-sec--on .bg-disc{opacity:1;transform:none}
+.bg-hint{transition:opacity .3s ease}
+.bg-sec--on .bg-hint{opacity:0}
+
+/* buttons */
+.bg-btn{position:relative;overflow:hidden;min-height:56px;border:0;border-radius:999px;background:linear-gradient(180deg,#F2C6B8,#E8B4A4 55%,#D79A89);color:#14261A;font-family:'Old Standard TT',Georgia,serif;font-size:16px;font-weight:700;letter-spacing:.08em;white-space:nowrap;text-transform:uppercase;display:inline-flex;align-items:center;justify-content:center;gap:10px;cursor:pointer;padding:0 26px;box-shadow:0 0 0 1px rgba(255,236,226,0.6) inset,0 12px 30px rgba(232,180,164,0.25)}
+.bg-btn--done{background:#1E3A28;color:#F2C6B8;box-shadow:inset 0 0 0 1px #E8B4A4;cursor:default}
+.bg-btnL{min-height:50px;border:1px solid #C9D6C2;border-radius:999px;background:rgba(12,26,18,0.5);color:#F3EBDC;font-family:'Old Standard TT',Georgia,serif;font-size:15px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;padding:0 26px}
+.bg-go{flex:1 1 0;min-width:0;min-height:52px;border:0;border-radius:999px;background:#1C3A28;color:#F3EBDC;font-family:'Old Standard TT',Georgia,serif;font-size:16px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;padding:0 12px}
+.bg-go--on{background:#C9867A;color:#14261A}
+.bg-map{flex:1.2 1 0;min-width:0;min-height:52px;border:1.5px solid #1C3A28;border-radius:999px;color:#1C3A28;font-family:'Old Standard TT',Georgia,serif;font-size:15px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;padding:0 10px;box-sizing:border-box}
+.bg-input{width:100%;height:50px;box-sizing:border-box;border:0;border-bottom:1.5px solid rgba(28,58,40,0.5);background:rgba(28,58,40,0.05);color:#1C3A28;padding:0 14px;font-family:'Old Standard TT',Georgia,serif;font-size:17px;outline:none}
+.bg-input::placeholder{color:#5D6F60}
+.bg-input:focus{border-bottom-color:#1C3A28}
+.bg-err{margin:0;font-family:'Old Standard TT',Georgia,serif;font-size:14px;font-weight:700;color:#9A2A1A}
+.bg-row{display:flex;align-items:center;gap:8px}
+.bg-music{position:absolute;right:14px;top:120px;z-index:5;width:46px;height:46px;border-radius:50%;border:1px solid #C9D6C2;background:rgba(12,26,18,0.7);display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0}
+.bg-music--on{background:rgba(232,180,164,0.25)}
+.bg-petal{position:absolute;left:0;top:0;width:9px;height:14px;margin:-7px 0 0 -4.5px;border-radius:50% 50% 50% 50% / 70% 70% 30% 30%;background:#E8B4A4;opacity:0}
+.bg-burst--go .bg-petal{animation:bg-petal 1.5s cubic-bezier(.15,.8,.3,1) both}
+@keyframes bg-petal{0%{opacity:1;transform:translate(0,0) rotate(0) scale(.5)}70%{opacity:1}100%{opacity:0;transform:translate(var(--x),var(--y)) rotate(var(--r)) scale(1)}}
+
+/* intro: pull the cord */
+.bg-intro--on{pointer-events:none;animation:bg-out .7s ease 2.65s both}
+.bg-pull{transition:transform .22s cubic-bezier(.5,0,.6,1)}
+.bg-intro--on .bg-pull{animation:bg-pull .6s cubic-bezier(.4,0,.3,1) both}
+@keyframes bg-pull{0%{transform:translateY(0)}35%{transform:translateY(26px)}70%{transform:translateY(-4px)}100%{transform:translateY(0)}}
+.bg-iName{opacity:.16;filter:blur(2.5px);transition:opacity 1s ease 1.05s,filter 1s ease 1.05s}
+.bg-intro--on .bg-iName{opacity:1;filter:none}
+.bg-iSub{opacity:0;transform:translateY(8px);transition:opacity .8s ease 1.4s,transform .8s ease 1.4s}
+.bg-intro--on .bg-iSub{opacity:1;transform:none}
+.bg-warm{opacity:0;transition:opacity 1.4s ease .5s}
+.bg-intro--on .bg-warm{opacity:1}
+.bg-iFly{opacity:0;transition:opacity 1s ease 1.2s}
+.bg-intro--on .bg-iFly{opacity:1}
+.bg-intro--on .bg-hintTxt{animation:bg-out .3s ease .3s both}
+
+/* page reveal */
+.bg-page--in .bg-rv1{animation:bg-rv 1s ease-out 2.8s both}
+.bg-page--in .bg-rv2{animation:bg-rv 1s ease-out 3s both}
+.bg-page--in .bg-rv3{animation:bg-zoom 1.2s cubic-bezier(.3,1.1,.4,1) 2.7s both}
+@keyframes bg-rv{from{opacity:0;transform:translateY(18px)}}
+@keyframes bg-zoom{from{opacity:0;transform:scale(.9)}}
+
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation:none !important;transition:none !important}
+  .bg-intro--on{opacity:0}
+}
+</style>
+</helmet>
+<div style="width: 390px; min-height: var(--vh, 100vh); position: relative; overflow: hidden; background: linear-gradient(180deg, #0C1A12 0%, #13261B 18%, #15291D 50%, #13261B 82%, #0C1A12 100%); color: #F3EBDC; font-family: 'Old Standard TT', Georgia, serif">
+
+  <div aria-hidden="true" style="position: absolute; left: 0; top: 0; bottom: 0; width: 390px; pointer-events: none; z-index: 0; overflow: hidden">
+    <sc-for list="{{ glows }}" as="g"><div style="{{ g }}"></div></sc-for>
+    <sc-for list="{{ pageFlies }}" as="f"><span class="bg-fly" style="{{ f }}"></span></sc-for>
+  </div>
+
+  <div class="{{ pageCls }}" style="position: relative; z-index: 1; min-height: var(--vh, 100vh); display: flex; flex-direction: column">
+
+    <section style="position: relative; min-height: 844px; flex: none; display: flex; flex-direction: column; align-items: center">
+      <svg aria-hidden="true" width="390" height="140" viewBox="0 0 390 140" style="position: absolute; left: 0; top: 0">
+        <defs><radialGradient id="bg-gl"><stop offset="0" style="stop-color: #FFE7A8; stop-opacity: 0.85"></stop><stop offset="1" style="stop-color: #FFD27A; stop-opacity: 0"></stop></radialGradient></defs>
+        <g class="bg-lit">
+          <sc-for list="{{ heroWires }}" as="w"><path class="bg-wire" d="{{ w }}"></path></sc-for>
+          <sc-for list="{{ heroBulbs }}" as="u"><g><circle class="bg-glow bg-tw" cx="{{ u.x }}" cy="{{ u.gy }}" r="16" fill="url(#bg-gl)" style="{{ u.tw }}"></circle><rect class="bg-cap2" x="{{ u.cx }}" y="{{ u.y }}" width="4" height="4"></rect><ellipse class="bg-bulb" cx="{{ u.x }}" cy="{{ u.by }}" rx="3.6" ry="5.4"></ellipse></g></sc-for>
+        </g>
+      </svg>
+      <sc-if value="{{ has.music }}"><button type="button" class="{{ musicCls }}" onClick="{{ toggleMusic }}" aria-label="Musiqa" aria-pressed="{{ musicOn }}"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 22 26"><path d="M8 3L20 0V17.5A3.5 3 0 1 1 17 14.6V5.2L10 7V20.5A3.5 3 0 1 1 7 17.6V3Z" fill="#E8B4A4"></path></svg></button></sc-if>
+
+      <div class="bg-rv3" style="position: relative; flex: none; width: 390px; height: 450px; margin-top: 76px">
+        <div style="position: absolute; left: 87px; top: 34px; width: 216px; height: 290px; border-radius: 50%; overflow: hidden; background: radial-gradient(circle at 50% 40%, #24452F, #10221A 75%); box-shadow: 0 0 0 5px #13261B, 0 0 0 6px #C9D6C2, 0 0 0 10px #13261B, 0 0 0 11px rgba(201,214,194,0.5), 0 0 60px rgba(255,214,140,0.18)">
+          <sc-if value="{{ has.photo }}"><img src="{{ p.0 }}" alt="" style="display: block; width: 216px; height: 290px; object-fit: cover"></sc-if>
+          <sc-if value="{{ noPhoto }}"><div aria-hidden="true" style="width: 216px; height: 290px; display: flex; align-items: center; justify-content: center"><span class="bg-v" style="font-size: 150px; line-height: 1; color: #E8B4A4">{{ initial }}</span></div></sc-if>
+        </div>
+        <svg aria-hidden="true" width="390" height="450" viewBox="0 0 390 450" style="position: absolute; left: 0; top: 0">
+          <sc-for list="{{ wreathStems }}" as="st"><path class="bg-stD" d="{{ st }}"></path></sc-for>
+          <sc-for list="{{ wreath }}" as="s"><g><path class="{{ s.f }}" d="{{ s.o }}"></path><path class="{{ s.l }}" d="{{ s.v }}"></path></g></sc-for>
+        </svg>
+      </div>
+
+      <div class="bg-rv1" style="position: relative; width: 350px; text-align: center; margin-top: -6px">
+        <p class="bg-cap" style="letter-spacing: 0.34em">Tug’ilgan kuning muborak</p>
+        <h1 class="bg-v" style="margin: 2px 0 0; font-size: {{ nameFs }}px; line-height: 1.12; color: #F3EBDC; text-shadow: 0 0 24px rgba(255,214,140,0.35); overflow-wrap: anywhere">{{ name }}</h1>
+      </div>
+      <div class="bg-rv2" style="position: relative; width: 350px; text-align: center; margin-top: 4px">
+        <sc-if value="{{ d.yosh }}">
+          <div style="display: flex; align-items: center; justify-content: center; gap: 12px">
+            <svg aria-hidden="true" width="60" height="12" viewBox="0 0 60 12"><path class="bg-ln" d="M0 6H48M52 6c2-4 6-4 8 0-2 4-6 4-8 0z"></path></svg>
+            <span class="bg-s" style="font-size: 24px; font-style: italic; color: #E8B4A4">{{ d.yosh }} yosh</span>
+            <svg aria-hidden="true" width="60" height="12" viewBox="0 0 60 12"><path class="bg-ln" d="M60 6H12M8 6c-2-4-6-4-8 0 2 4 6 4 8 0z"></path></svg>
+          </div>
+        </sc-if>
+        <p style="margin: 8px 0 0; font-size: 14px; letter-spacing: 0.22em; text-transform: uppercase; color: #C9D6C2">{{ heroDate }}</p>
+      </div>
+      <div style="flex: 1; min-height: 116px"></div>
+      <svg aria-hidden="true" width="390" height="150" viewBox="0 0 390 210" style="position: absolute; left: 0; bottom: 0"><sc-for list="{{ heroFoot }}" as="s"><g><path class="{{ s.f }}" d="{{ s.o }}"></path><path class="{{ s.l }}" d="{{ s.v }}"></path></g></sc-for></svg>
+      <sc-if value="{{ anyBlock }}"><svg aria-hidden="true" width="26" height="16" viewBox="0 0 26 16" style="position: relative; display: block; margin-bottom: 22px; animation: bg-chev 2s ease-in-out infinite"><path class="bg-icoC" d="M3 3l10 9 10-9"></path></svg></sc-if>
+    </section>
+
+<sc-if value="{{ b.tabrik }}">
+    <section style="padding: 26px 20px 38px">
+      <div style="text-align: center">
+        <p class="bg-cap">{{ tab.tabrik }}</p>
+        <h2 class="bg-h2">Bog’dan maktub</h2>
+        <svg aria-hidden="true" width="240" height="40" viewBox="0 0 240 40" style="display: block; margin: 6px auto 0"><sc-for list="{{ divider }}" as="s"><g><path class="{{ s.f }}" d="{{ s.o }}"></path><path class="{{ s.l }}" d="{{ s.v }}"></path></g></sc-for></svg>
+      </div>
+      <div class="bg-paper bg-rise" style="position: relative; margin-top: 26px; padding: 52px 24px 50px; color: #1C3A28; box-shadow: 0 0 0 1px rgba(28,58,40,0.2), 0 24px 50px rgba(0,0,0,0.45)">
+        <div aria-hidden="true" style="position: absolute; left: 8px; top: 8px; right: 8px; bottom: 8px; border: 1px solid rgba(28,58,40,0.35); pointer-events: none"></div>
+        <svg aria-hidden="true" width="110" height="93" viewBox="0 0 130 110" style="position: absolute; right: -12px; top: -24px"><sc-for list="{{ cornerTR }}" as="s"><g><path class="{{ s.f }}" d="{{ s.o }}"></path><path class="{{ s.l }}" d="{{ s.v }}"></path></g></sc-for></svg>
+        <svg aria-hidden="true" width="110" height="93" viewBox="0 0 130 110" style="position: absolute; left: -12px; bottom: -24px; transform: rotate(180deg)"><sc-for list="{{ cornerTR }}" as="s"><g><path class="{{ s.f }}" d="{{ s.o }}"></path><path class="{{ s.l }}" d="{{ s.v }}"></path></g></sc-for></svg>
+        <div style="position: relative; font-size: 17px; line-height: 1.7; overflow-wrap: anywhere">
+          <sc-if value="{{ dropCap }}"><span aria-hidden="true" style="float: left; position: relative; width: 64px; height: 64px; margin: 2px 12px 0 0; border-radius: 50%; border: 1px solid #1C3A28; box-shadow: 0 0 0 3px #F3EBDC, 0 0 0 4px rgba(28,58,40,0.4); display: flex; align-items: center; justify-content: center; background: radial-gradient(circle, #FBE3DA, #F3EBDC 70%)"><span class="bg-v" style="font-size: 52px; line-height: 1; margin-top: 4px; color: #A85A4E">{{ dropCap }}</span></span></sc-if>
+          <span style="white-space: pre-line"><span class="bg-sr">{{ dropCap }}</span>{{ restText }}</span>
+        </div>
+        <sc-if value="{{ d.kimdan }}">
+          <div style="position: relative; clear: both; margin-top: 20px; text-align: center">
+            <sc-if value="{{ from.label }}"><p style="margin: 0; font-size: 12px; letter-spacing: 0.26em; text-transform: uppercase; color: #4E6553">{{ from.label }}</p></sc-if>
+            <p class="bg-v" style="margin: 2px 0 0; font-size: 34px; line-height: 1.2; color: #1C3A28; overflow-wrap: anywhere">{{ from.names }}</p>
+          </div>
+        </sc-if>
+      </div>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.taymer }}">
+    <section style="padding: 26px 20px 38px; text-align: center">
+      <p class="bg-cap">{{ tab.taymer }}</p>
+      <h2 class="bg-h2">{{ cdTitle }}</h2>
+      <p style="margin: 6px 0 0; font-size: 15px; font-style: italic; color: #C9D6C2">{{ cdDate }}</p>
+      <div class="bg-rise" style="position: relative; margin-top: 24px; height: 200px">
+        <div aria-hidden="true" style="position: absolute; left: -20px; right: -20px; bottom: 0; height: 40px; background: linear-gradient(180deg, rgba(10,20,14,0), #0A140E)"></div>
+        <svg aria-hidden="true" width="350" height="200" viewBox="0 0 350 200" style="position: absolute; left: 0; top: 0">
+          <path class="bg-ln" d="M0 172C60 166 120 176 175 170S290 166 350 172" style="opacity: 0.7"></path>
+          <sc-for list="{{ grass }}" as="g"><path class="bg-stD" d="{{ g }}" style="stroke-width: 0.8"></path></sc-for>
+        </svg>
+        <div style="position: absolute; left: 0; top: 0; width: 350px; display: flex; justify-content: space-between; padding: 0 4px; box-sizing: border-box">
+          <sc-for list="{{ tags }}" as="t">
+            <div style="{{ t.st }}">
+              <div style="position: relative; width: 76px; padding: 12px 0 10px; background: linear-gradient(180deg, #F6EEE0, #E9DCC6); color: #1C3A28; border-radius: 6px 6px 2px 2px; box-shadow: 0 0 0 1px rgba(28,58,40,0.35) inset, 0 10px 20px rgba(0,0,0,0.35)">
+                <span aria-hidden="true" style="position: absolute; left: 32px; top: 5px; width: 10px; height: 10px; border-radius: 50%; background: #13261B; box-shadow: inset 0 1px 2px rgba(0,0,0,0.6)"></span>
+                <span class="{{ t.cls }}" style="margin-top: 8px"><span class="bg-s" style="font-size: 38px; font-weight: 700; line-height: 1; font-variant-numeric: lining-nums tabular-nums">{{ t.v }}</span></span>
+                <span style="display: block; margin-top: 4px; font-size: 13px; font-style: italic; color: #4E6553">{{ t.l }}</span>
+              </div>
+              <div aria-hidden="true" style="width: 18px; height: 70px; margin: 0 auto; background: linear-gradient(90deg, #CDBFA6, #E9DCC6 50%, #BFAF94); clip-path: polygon(0 0, 100% 0, 100% 78%, 50% 100%, 0 78%)"></div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.tilaklar }}">
+    <section style="padding: 26px 20px 38px">
+      <div style="text-align: center">
+        <p class="bg-cap">{{ tab.tilaklar }}</p>
+        <h2 class="bg-h2">Tilaklar gulzori</h2>
+        <svg aria-hidden="true" width="240" height="40" viewBox="0 0 240 40" style="display: block; margin: 6px auto 0"><sc-for list="{{ divider }}" as="s"><g><path class="{{ s.f }}" d="{{ s.o }}"></path><path class="{{ s.l }}" d="{{ s.v }}"></path></g></sc-for></svg>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin-top: 18px">
+        <sc-for list="{{ wishes }}" as="w">
+          <div class="bg-paper bg-rise" style="{{ w.st }}">
+            <div aria-hidden="true" style="position: absolute; left: 6px; top: 6px; right: 6px; bottom: 6px; border: 1px solid rgba(28,58,40,0.3); pointer-events: none"></div>
+            <svg aria-hidden="true" width="150" height="96" viewBox="0 0 150 96" style="display: block; margin: 0 auto"><sc-for list="{{ w.art }}" as="s"><g><path class="{{ s.f }}" d="{{ s.o }}"></path><path class="{{ s.l }}" d="{{ s.v }}"></path></g></sc-for></svg>
+            <p style="margin: 4px 0 0; font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase; color: #4E6553">No. {{ w.n }}</p>
+            <p class="bg-s" style="margin: 4px 0 0; font-size: 22px; font-style: italic; line-height: 1.2; color: #1C3A28; overflow-wrap: anywhere">{{ w.text }}</p>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.sham }}">
+    <section style="padding: 26px 20px 38px; display: flex; flex-direction: column; align-items: center; text-align: center">
+      <p class="bg-cap">{{ tab.sham }}</p>
+      <h2 class="bg-h2">Shamni o’chiring</h2>
+      <p style="margin: 6px 0 0; font-size: 15px; font-style: italic; color: #C9D6C2">Niyat qiling — fonusdagi sham uni yulduzlarga yetkazadi.</p>
+      <div class="{{ lanCls }}" style="position: relative; width: 300px; height: 330px; margin-top: 10px">
+        <div aria-hidden="true" class="bg-halo" style="position: absolute; left: 50px; top: 90px; width: 200px; height: 200px; border-radius: 50%; background: radial-gradient(circle, rgba(255,214,140,0.45), rgba(255,214,140,0) 70%)"></div>
+        <svg aria-hidden="true" width="300" height="330" viewBox="0 0 300 330" style="position: absolute; left: 0; top: 0">
+          <g class="bg-sway">
+            <path class="bg-stD" d="M150 0V40"></path>
+            <circle class="bg-stD" cx="150" cy="48" r="8"></circle>
+            <path d="M118 74H182L170 56H130Z" fill="#1B3826" stroke="#DCE6D2" style="stroke-width: 1.1"></path>
+            <path class="bg-lnD" d="M134 60L126 72M142 60L136 72M150 58V72M158 60L164 72M166 60L174 72"></path>
+            <rect x="112" y="74" width="76" height="8" fill="#1B3826" stroke="#DCE6D2" style="stroke-width: 1.1"></rect>
+            <path d="M116 82H184L178 236H122Z" fill="rgba(255,226,160,0.07)" stroke="#DCE6D2" style="stroke-width: 1.2"></path>
+            <path class="bg-lnD" d="M150 82V236M133 82L136 236M167 82L164 236" style="opacity: 0.45"></path>
+            <rect x="139" y="176" width="22" height="58" rx="2" fill="#F3EBDC"></rect>
+            <path class="bg-lnL" d="M141 186H159M141 196H159M141 206H159" style="opacity: 0.5"></path>
+            <path d="M150 176V168" stroke="#2E2A22" style="stroke-width: 1.4"></path>
+            <ellipse class="bg-halo" cx="150" cy="150" rx="20" ry="26" fill="#FFE2A0" opacity="0.55"></ellipse>
+            <path class="bg-flame" d="M150 134C156 145 158 153 155 160C153 164 147 164 145 160C142 153 144 145 150 134Z" fill="#FFE7B0"></path>
+            <path class="bg-flame" d="M150 146C152 151 153 154 151.5 157C151 158 149 158 148.5 157C147 154 148 151 150 146Z" fill="#FF9C5A"></path>
+            <path class="bg-smoke" d="M150 166C144 157 156 150 150 141C145 133 153 127 150 118"></path>
+            <rect x="110" y="236" width="80" height="10" fill="#1B3826" stroke="#DCE6D2" style="stroke-width: 1.1"></rect>
+            <path d="M120 246H180L174 256H126Z" fill="#1B3826" stroke="#DCE6D2" style="stroke-width: 1.1"></path>
+          </g>
+          <sc-for list="{{ lanLeaves }}" as="s"><g><path class="{{ s.f }}" d="{{ s.o }}"></path><path class="{{ s.l }}" d="{{ s.v }}"></path></g></sc-for>
+        </svg>
+        <div aria-hidden="true" style="position: absolute; left: 150px; top: 150px; width: 0; height: 0">
+          <sc-for list="{{ freed }}" as="f"><span class="bg-free" style="{{ f }}"></span></sc-for>
+        </div>
+      </div>
+      <p class="{{ wishCls }}" style="margin: 6px 0 0; min-height: 40px; font-family: 'Great Vibes', cursive; font-size: 36px; line-height: 1.15; color: #F2C6B8; overflow-wrap: anywhere">{{ wishLine }}</p>
+      <button type="button" class="bg-btnL" onClick="{{ blow }}" style="margin-top: 12px"><span class="{{ blowIdle }}">Puflash</span><span class="{{ blowDone }}">Shamni qayta yoqish</span></button>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.sirli }}">
+    <section style="padding: 26px 20px 38px; text-align: center">
+      <p class="bg-cap">{{ tab.sirli }}</p>
+      <h2 class="bg-h2">Yashirin gul</h2>
+      <p style="margin: 6px 0 14px; font-size: 15px; font-style: italic; color: #C9D6C2">Gul g’unchasiga teging — u ochilib, sirli tilakni ko’rsatadi.</p>
+      <button type="button" class="{{ secCls }}" onClick="{{ toggleSec }}" aria-label="Sirli tilakni ochish">
+        <svg aria-hidden="true" width="330" height="330" viewBox="0 0 330 330" style="position: absolute; left: 0; top: 0">
+          <sc-for list="{{ secLeaves }}" as="s"><g><path class="{{ s.f }}" d="{{ s.o }}"></path><path class="{{ s.l }}" d="{{ s.v }}"></path></g></sc-for>
+          <sc-for list="{{ petals }}" as="pt"><g class="bg-pet" style="{{ pt.st }}"><path class="bg-rsD" d="M165 165C140 150 128 112 140 86C148 70 158 66 165 72C172 66 182 70 190 86C202 112 190 150 165 165Z"></path><path class="bg-rlD" d="M165 160C158 130 156 104 165 76M160 150C150 128 146 108 150 92M170 150C180 128 184 108 180 92M152 118L144 112M178 118L186 112M155 132L146 128M175 132L184 128"></path></g></sc-for>
+          <g class="bg-bud">
+            <path class="bg-rsD" d="M165 214C132 204 126 160 140 132C148 116 158 108 165 104C172 108 182 116 190 132C204 160 198 204 165 214Z"></path>
+            <path class="bg-rlD" d="M165 210C148 190 146 156 160 120M165 210C182 190 184 156 170 120M150 196C140 178 140 156 148 140M180 196C190 178 190 156 182 140"></path>
+            <path d="M165 214C150 222 136 226 124 222C134 214 146 210 165 214ZM165 214C180 222 194 226 206 222C196 214 184 210 165 214Z" fill="#1B3826" stroke="#DCE6D2" style="stroke-width: 0.9"></path>
+          </g>
+        </svg>
+        <div class="bg-disc" style="position: absolute; left: 70px; top: 70px; width: 190px; height: 190px; border-radius: 50%; background: radial-gradient(circle at 50% 40%, #FFF8EE, #F3EBDC 70%); box-shadow: 0 0 0 1px #6E3830, 0 0 0 4px #F3EBDC, 0 0 0 5px rgba(110,56,48,0.4), 0 0 40px rgba(255,214,140,0.35); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 22px; box-sizing: border-box">
+          <span style="font-size: 10px; letter-spacing: 0.26em; text-transform: uppercase; color: #8C5A50">Sirli tilak</span>
+          <span class="bg-s" style="margin-top: 6px; font-size: {{ secFs }}px; font-style: italic; line-height: 1.3; color: #1C3A28; white-space: pre-line; overflow-wrap: anywhere">{{ d.sirli_tilak }}</span>
+        </div>
+        <span class="bg-hint" style="position: absolute; left: 0; right: 0; top: 40px; font-size: 13px; letter-spacing: 0.26em; text-transform: uppercase; color: #E8B4A4">Bosing</span>
+      </button>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.galereya }}">
+    <section style="padding: 26px 20px 38px">
+      <div style="text-align: center">
+        <p class="bg-cap">{{ tab.galereya }}</p>
+        <h2 class="bg-h2">Oranjereya xotiralari</h2>
+        <svg aria-hidden="true" width="240" height="40" viewBox="0 0 240 40" style="display: block; margin: 6px auto 0"><sc-for list="{{ divider }}" as="s"><g><path class="{{ s.f }}" d="{{ s.o }}"></path><path class="{{ s.l }}" d="{{ s.v }}"></path></g></sc-for></svg>
+      </div>
+      <div class="bg-grow" style="position: relative; width: 330px; height: 430px; margin: 18px auto 0">
+        <div style="position: absolute; inset: 0; border-radius: 165px 165px 0 0; overflow: hidden; background: #0C1A12"><img src="{{ g0 }}" alt="" style="display: block; width: 330px; height: 430px; object-fit: cover"></div>
+        <svg aria-hidden="true" width="330" height="430" viewBox="0 0 330 430" style="position: absolute; left: 0; top: 0">
+          <path d="M2 430V165A163 163 0 0 1 328 165V430" fill="none" stroke="#DCE6D2" style="stroke-width: 3"></path>
+          <path d="M165 2V430M2 290H328M57 430V60M273 430V60" fill="none" stroke="#DCE6D2" style="stroke-width: 1.2; opacity: 0.5"></path>
+          <path d="M10 165A155 155 0 0 1 320 165" fill="none" stroke="#DCE6D2" style="stroke-width: 1.2; opacity: 0.5"></path>
+        </svg>
+        <svg aria-hidden="true" width="330" height="120" viewBox="0 0 330 120" style="position: absolute; left: 0; top: -10px">
+          <g class="bg-lit">
+            <path class="bg-wire" d="{{ galWire }}"></path>
+            <sc-for list="{{ galBulbs }}" as="u"><g><circle class="bg-glow bg-tw" cx="{{ u.x }}" cy="{{ u.gy }}" r="14" fill="url(#bg-gl)" style="{{ u.tw }}"></circle><rect class="bg-cap2" x="{{ u.cx }}" y="{{ u.y }}" width="4" height="4"></rect><ellipse class="bg-bulb" cx="{{ u.x }}" cy="{{ u.by }}" rx="3.4" ry="5"></ellipse></g></sc-for>
+          </g>
+        </svg>
+        <svg aria-hidden="true" width="330" height="160" viewBox="0 0 330 160" style="position: absolute; left: 0; bottom: -30px"><sc-for list="{{ galFoot }}" as="s"><g><path class="{{ s.f }}" d="{{ s.o }}"></path><path class="{{ s.l }}" d="{{ s.v }}"></path></g></sc-for></svg>
+      </div>
+      <sc-if value="{{ gRestOn }}">
+        <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin-top: 44px">
+          <sc-for list="{{ gRest }}" as="g">
+            <div class="bg-rise" style="{{ g.st }}">
+              <div style="position: absolute; inset: 0; border-radius: 80px 80px 0 0; overflow: hidden; background: #0C1A12"><img src="{{ g.src }}" alt="" style="display: block; width: 100%; height: 100%; object-fit: cover"></div>
+              <div aria-hidden="true" style="position: absolute; inset: 0; border-radius: 80px 80px 0 0; box-shadow: inset 0 0 0 2px #DCE6D2"></div>
+              <div aria-hidden="true" style="position: absolute; left: 50%; top: 0; bottom: 0; width: 1px; background: rgba(220,230,210,0.6)"></div>
+              <div aria-hidden="true" style="position: absolute; left: 0; right: 0; top: 46%; height: 1px; background: rgba(220,230,210,0.6)"></div>
+            </div>
+          </sc-for>
+        </div>
+      </sc-if>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.xronika }}">
+    <section style="padding: 26px 20px 38px">
+      <div style="text-align: center">
+        <p class="bg-cap">{{ tab.xronika }}</p>
+        <h2 class="bg-h2">O’sish yo’li</h2>
+        <p style="margin: 6px 0 0; font-size: 15px; font-style: italic; color: #C9D6C2">Har bir yil — yangi novda, yangi gul.</p>
+      </div>
+      <div style="position: relative; margin-top: 22px">
+        <div aria-hidden="true" style="position: absolute; left: 135px; top: 0; bottom: 0; width: 80px; background-image: url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='140' viewBox='0 0 80 140'%3E%3Cpath d='M40 0C52 35 28 70 40 105S52 140 40 140' fill='none' stroke='%23DCE6D2' stroke-width='1.3'/%3E%3Cpath d='M44 28C56 14 70 14 78 22C68 32 56 34 44 28Z' fill='%231B3826' stroke='%23DCE6D2' stroke-width='.9'/%3E%3Cpath d='M46 27L74 21M52 26L56 31M58 25L62 30M64 24L67 28' fill='none' stroke='%23DCE6D2' stroke-width='.5'/%3E%3Cpath d='M37 96C25 82 11 82 3 90C13 100 25 102 37 96Z' fill='%231B3826' stroke='%23DCE6D2' stroke-width='.9'/%3E%3Cpath d='M35 95L7 89M29 94L25 99M23 93L19 98M17 92L14 96' fill='none' stroke='%23DCE6D2' stroke-width='.5'/%3E%3C/svg%3E&quot;); background-repeat: repeat-y; opacity: 0.85"></div>
+        <sc-for list="{{ chron }}" as="c">
+          <div class="bg-rise" style="{{ c.row }}">
+            <div style="{{ c.box }}">
+              <sc-if value="{{ has.photo }}"><img src="{{ c.src }}" alt="" style="display: block; width: 74px; height: 92px; margin: 0 auto 10px; border-radius: 50%; object-fit: cover; box-shadow: 0 0 0 3px #13261B, 0 0 0 4px #C9D6C2"></sc-if>
+              <p class="bg-s" style="margin: 0; font-size: 16px; line-height: 1.45; color: #F3EBDC; overflow-wrap: anywhere">{{ c.matn }}</p>
+            </div>
+            <div style="flex: none; position: relative; width: 70px; height: 70px; border-radius: 50%; background: radial-gradient(circle at 50% 35%, #FBE3DA, #E8B4A4 75%); box-shadow: 0 0 0 3px #13261B, 0 0 0 4px #E8B4A4, 0 10px 24px rgba(0,0,0,0.4); display: flex; flex-direction: column; align-items: center; justify-content: center; color: #1C3A28">
+              <span class="bg-s" style="font-size: {{ c.fs }}px; font-weight: 700; line-height: 1">{{ c.yosh }}</span>
+              <span style="font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase">yosh</span>
+            </div>
+            <div style="flex: 1; min-width: 0"></div>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.mehmonlar }}">
+    <section style="padding: 26px 20px 38px">
+      <div style="text-align: center">
+        <p class="bg-cap">{{ tab.mehmonlar }}</p>
+        <h2 class="bg-h2">Mehmonlar daftari</h2>
+        <svg aria-hidden="true" width="240" height="40" viewBox="0 0 240 40" style="display: block; margin: 6px auto 0"><sc-for list="{{ divider }}" as="s"><g><path class="{{ s.f }}" d="{{ s.o }}"></path><path class="{{ s.l }}" d="{{ s.v }}"></path></g></sc-for></svg>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 18px; margin-top: 18px">
+        <sc-for list="{{ reviews }}" as="r">
+          <figure class="bg-paper bg-rise" style="{{ r.st }}">
+            <svg aria-hidden="true" width="92" height="80" viewBox="0 0 92 80" style="{{ r.art }}"><sc-for list="{{ pressed }}" as="s"><g><path class="{{ s.f }}" d="{{ s.o }}"></path><path class="{{ s.l }}" d="{{ s.v }}"></path></g></sc-for></svg>
+            <blockquote class="bg-s" style="position: relative; margin: 0; font-size: 17px; font-style: italic; line-height: 1.55; color: #1C3A28; overflow-wrap: anywhere">«{{ r.matn }}»</blockquote>
+            <figcaption class="bg-v" style="position: relative; margin-top: 8px; font-size: 28px; line-height: 1.2; color: #A85A4E; overflow-wrap: anywhere">{{ r.ism }}</figcaption>
+          </figure>
+        </sc-for>
+      </div>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.bazm }}">
+    <section style="padding: 30px 20px 38px">
+      <div class="bg-paper bg-rise" style="position: relative; padding: 0 22px 24px; color: #1C3A28; box-shadow: 0 0 0 1px rgba(28,58,40,0.2), 0 26px 50px rgba(0,0,0,0.5)">
+        <div aria-hidden="true" style="position: absolute; left: 8px; top: 8px; right: 8px; bottom: 8px; border: 1px solid rgba(28,58,40,0.35); pointer-events: none"></div>
+        <svg aria-hidden="true" width="310" height="96" viewBox="0 0 310 96" style="display: block; margin: 0 auto"><sc-for list="{{ garland }}" as="s"><g><path class="{{ s.f }}" d="{{ s.o }}"></path><path class="{{ s.l }}" d="{{ s.v }}"></path></g></sc-for></svg>
+        <div style="position: relative; text-align: center">
+          <p style="margin: 0; font-size: 12px; letter-spacing: 0.3em; text-transform: uppercase; color: #4E6553">{{ tab.bazm }}</p>
+          <h2 class="bg-v" style="margin: 2px 0 0; font-size: 50px; font-weight: 400; line-height: 1.1; color: #1C3A28">Bog’ ziyofatiga taklif</h2>
+          <p style="margin: 8px 0 0; font-size: 16px; font-style: italic; line-height: 1.5; color: #35503D">Chiroqlar yonadi, gullar ochiladi — sizni kutamiz.</p>
+        </div>
+        <svg aria-hidden="true" width="240" height="40" viewBox="0 0 240 40" style="display: block; margin: 10px auto 6px"><sc-for list="{{ dividerL }}" as="s"><g><path class="{{ s.f }}" d="{{ s.o }}"></path><path class="{{ s.l }}" d="{{ s.v }}"></path></g></sc-for></svg>
+        <div style="position: relative; display: flex; flex-direction: column; gap: 14px">
+          <div style="display: flex; align-items: center; gap: 14px">
+            <span style="flex: none; width: 40px; height: 40px; border-radius: 50%; border: 1px solid #1C3A28; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 20 20"><rect class="bg-ico" x="3" y="4.5" width="14" height="12.5" rx="1"></rect><path class="bg-ico" d="M3 8.5h14M7 2.5v4M13 2.5v4"></path></svg></span>
+            <p style="margin: 0; font-size: 17px; line-height: 1.4"><span style="display: block; font-weight: 700">{{ bazmDate }}</span><sc-if value="{{ d.bazm_vaqt }}"><span style="display: block; font-style: italic; color: #35503D">soat {{ d.bazm_vaqt }} da</span></sc-if></p>
+          </div>
+          <div style="display: flex; align-items: center; gap: 14px">
+            <span style="flex: none; width: 40px; height: 40px; border-radius: 50%; border: 1px solid #1C3A28; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 20 20"><path class="bg-ico" d="M10 18s-5.5-5.2-5.5-9.3a5.5 5.5 0 0 1 11 0C15.5 12.8 10 18 10 18z"></path><circle class="bg-ico" cx="10" cy="8.7" r="2"></circle></svg></span>
+            <p style="margin: 0; min-width: 0; font-size: 17px; line-height: 1.4; overflow-wrap: anywhere"><span style="display: block; font-weight: 700">{{ d.bazm_joy }}</span><sc-if value="{{ d.bazm_manzil }}"><span style="display: block; font-style: italic; color: #35503D">{{ d.bazm_manzil }}</span></sc-if></p>
+          </div>
+          <sc-if value="{{ d.dress_kod }}">
+            <div style="display: flex; align-items: center; gap: 14px">
+              <span style="flex: none; width: 40px; height: 40px; border-radius: 50%; border: 1px solid #1C3A28; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 20 20"><path class="bg-ico" d="M7 2.5L3 5l1.5 4L6 8.3V17.5h8V8.3l1.5.7L17 5l-4-2.5c-.5 1.5-1.6 2.2-3 2.2s-2.5-.7-3-2.2z"></path></svg></span>
+              <p style="margin: 0; min-width: 0; font-size: 17px; line-height: 1.4; overflow-wrap: anywhere"><span style="display: block; font-style: italic; color: #35503D">Kiyinish uslubi</span><span style="display: block; font-weight: 700">{{ d.dress_kod }}</span></p>
+            </div>
+          </sc-if>
+          <sc-if value="{{ askGuest }}"><input class="bg-input" type="text" maxlength="100" placeholder="Ismingiz" aria-label="Ismingiz" onInput="{{ setName }}"></sc-if>
+          <div style="display: flex; gap: 10px">
+            <button type="button" class="{{ goCls }}" onClick="{{ go }}">
+              <span class="{{ goIdle }}">Boraman</span>
+              <span class="{{ goDone }}"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 20 20"><path class="bg-ico" d="M4 10.5l4 4 8-9"></path></svg>Kutamiz!</span>
+            </button>
+            <sc-if value="{{ d.xarita }}"><a class="bg-map" href="{{ d.xarita }}" target="_blank" rel="noopener"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 20 20"><path class="bg-ico" d="M10 18s-5.5-5.2-5.5-9.3a5.5 5.5 0 0 1 11 0C15.5 12.8 10 18 10 18z"></path><circle class="bg-ico" cx="10" cy="8.7" r="2"></circle></svg>Xaritada ochish</a></sc-if>
+          </div>
+          <sc-if value="{{ goErr }}"><p class="bg-err" role="alert">{{ goErr }}</p></sc-if>
+        </div>
+      </div>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.javob }}">
+    <section style="position: relative; padding: 22px 20px 30px; display: flex; flex-direction: column; align-items: center; text-align: center">
+      <h2 class="bg-v" style="margin: 0; font-size: 42px; font-weight: 400; line-height: 1.15; color: #F3EBDC; overflow-wrap: anywhere">{{ askName }}</h2>
+      <p style="margin: 6px 0 22px; font-size: 15px; font-style: italic; line-height: 1.45; color: #C9D6C2">Bir bosishda tabrigingizni yetkazing</p>
+      <div style="position: relative; width: 300px">
+        <div class="{{ burstCls }}" aria-hidden="true" style="position: absolute; left: 150px; top: 28px; width: 0; height: 0; z-index: 3; pointer-events: none">
+          <sc-for list="{{ petalBurst }}" as="c"><span class="bg-petal" style="{{ c }}"></span></sc-for>
+        </div>
+        <button type="button" class="{{ sendCls }}" onClick="{{ send }}" style="width: 300px">
+          <span class="{{ sendIdle }}"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 20 20"><path d="M10 17s-6.5-4.1-6.5-8.6A3.6 3.6 0 0 1 10 6.3a3.6 3.6 0 0 1 6.5 2.1C16.5 12.9 10 17 10 17z" fill="#14261A"></path></svg>Tabrikladim</span>
+          <span class="{{ sendDone }}"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 20 20"><path class="bg-icoC" d="M4 10.5l4 4 8-9" style="stroke: #F2C6B8"></path></svg>Rahmat, yetkazildi</span>
+        </button>
+      </div>
+    </section>
+</sc-if>
+
+    <footer aria-hidden="true" style="position: relative; flex: 1; min-height: 170px; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; padding-bottom: 22px; box-sizing: border-box">
+      <svg width="390" height="120" viewBox="0 0 390 120" style="position: absolute; left: 0; bottom: 0"><sc-for list="{{ footArt }}" as="s"><g><path class="{{ s.f }}" d="{{ s.o }}"></path><path class="{{ s.l }}" d="{{ s.v }}"></path></g></sc-for></svg>
+      <p class="bg-v" style="position: relative; max-width: 220px; margin: 0; text-align: center; font-size: {{ footFs }}px; line-height: 1.15; color: #E8B4A4">{{ name }}</p>
+      <p class="bg-cap" style="position: relative; max-width: 220px; margin-top: 4px; text-align: center; font-size: 11px; line-height: 1.6">{{ footLine }}</p>
+    </footer>
+  </div>
+
+  <div data-intro class="{{ introCls }}" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; z-index: 20; overflow: hidden; background: #0C1A12">
+    <div aria-hidden="true" style="position: absolute; inset: 0; background: radial-gradient(70% 50% at 50% 46%, #1A3524 0%, #10221A 60%, #08130D 100%)"></div>
+    <div aria-hidden="true" class="bg-warm" style="position: absolute; inset: 0; background: radial-gradient(60% 40% at 50% 40%, rgba(255,200,120,0.22), rgba(255,200,120,0) 70%), radial-gradient(90% 30% at 50% 18%, rgba(255,214,140,0.18), rgba(255,214,140,0) 70%)"></div>
+    <div aria-hidden="true" style="position: absolute; left: 292px; top: 40px; width: 70px; height: 70px; border-radius: 50%; background: radial-gradient(circle, rgba(243,235,220,0.35), rgba(243,235,220,0) 70%)"></div>
+    <svg aria-hidden="true" width="390" height="844" viewBox="0 0 390 844" style="position: absolute; left: 0; top: 0">
+      <circle cx="327" cy="75" r="15" fill="#F3EBDC" opacity="0.9"></circle>
+      <circle cx="334" cy="70" r="13" fill="#10221A"></circle>
+      <sc-for list="{{ introArt }}" as="s"><g><path class="{{ s.f }}" d="{{ s.o }}"></path><path class="{{ s.l }}" d="{{ s.v }}"></path></g></sc-for>
+    </svg>
+    <div aria-hidden="true" class="bg-iFly" style="position: absolute; inset: 0">
+      <sc-for list="{{ introFlies }}" as="f"><span class="bg-fly" style="{{ f }}"></span></sc-for>
+    </div>
+
+    <div style="position: absolute; left: 20px; top: 340px; width: 350px; text-align: center">
+      <p class="bg-cap bg-iSub" style="letter-spacing: 0.34em">{{ introCap }}</p>
+      <p class="bg-v bg-iName" style="margin: 6px 0 0; font-size: {{ introFs }}px; line-height: 1.1; color: #F3EBDC; text-shadow: 0 0 22px rgba(255,214,140,0.55); overflow-wrap: anywhere">{{ name }}</p>
+      <p class="bg-iSub" style="margin: 8px 0 0; font-size: 17px; font-style: italic; color: #E8B4A4">{{ introSub }}</p>
+    </div>
+
+    <svg aria-hidden="true" width="390" height="844" viewBox="0 0 390 844" style="position: absolute; left: 0; top: 0; pointer-events: none">
+      <defs><radialGradient id="bg-gi"><stop offset="0" style="stop-color: #FFE7A8; stop-opacity: 0.9"></stop><stop offset="1" style="stop-color: #FFD27A; stop-opacity: 0"></stop></radialGradient></defs>
+      <sc-for list="{{ introWires }}" as="w"><path class="bg-wire" d="{{ w }}"></path></sc-for>
+      <sc-for list="{{ introBulbs }}" as="u"><g class="{{ u.cls }}" style="{{ u.del }}"><circle class="bg-glow" cx="{{ u.x }}" cy="{{ u.gy }}" r="19" fill="url(#bg-gi)" style="{{ u.del }}"></circle><rect class="bg-cap2" x="{{ u.cx }}" y="{{ u.y }}" width="4" height="4"></rect><ellipse class="bg-bulb" cx="{{ u.x }}" cy="{{ u.by }}" rx="3.8" ry="5.8" style="{{ u.del }}"></ellipse></g></sc-for>
+    </svg>
+    <sc-if value="{{ has.music }}"><div aria-hidden="true" style="position: absolute; left: 16px; top: 14px; display: flex; align-items: center; gap: 6px"><svg width="12" height="14" viewBox="0 0 22 26"><path d="M8 3L20 0V17.5A3.5 3 0 1 1 17 14.6V5.2L10 7V20.5A3.5 3 0 1 1 7 17.6V3Z" fill="#C9D6C2"></path></svg><span style="font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase; color: #C9D6C2">Musiqa bilan</span></div></sc-if>
+
+    <div aria-hidden="true" style="position: absolute; left: -40px; top: 690px; width: 470px; height: 200px; background: radial-gradient(50% 50% at 50% 55%, rgba(8,19,13,0.9), rgba(8,19,13,0.6) 55%, rgba(8,19,13,0) 100%); pointer-events: none"></div>
+    <div class="bg-pull" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; pointer-events: none">
+      <svg aria-hidden="true" width="390" height="844" viewBox="0 0 390 844" style="position: absolute; left: 0; top: 0">
+        <path d="{{ cordD }}" fill="none" stroke="#C9D6C2" style="stroke-width: 1.6"></path>
+        <path d="{{ cordD }}" fill="none" stroke="#0A140E" style="stroke-width: 0.6; stroke-dasharray: 2 3"></path>
+      </svg>
+      <div style="position: absolute; left: 50px; top: 724px; width: 290px; display: flex; flex-direction: column; align-items: center; gap: 10px">
+        <button type="button" class="bg-btn" onClick="{{ open }}" style="width: 290px; pointer-events: auto">
+          <svg aria-hidden="true" width="20" height="24" viewBox="0 0 20 24"><path d="M10 0V8" stroke="#14261A" style="stroke-width: 1.6"></path><path d="M6 8H14L13 14H7Z" fill="#14261A"></path><path d="M7 14L5 23M10 14V23M13 14L15 23M8.5 14L7.5 23M11.5 14L12.5 23" stroke="#14261A" style="stroke-width: 1"></path></svg>
+          Chiroqlarni yoqing
+        </button>
+      </div>
+    </div>
+    <div class="bg-hintTxt" style="position: absolute; left: 30px; top: 800px; width: 330px; text-align: center">
+      <sc-if value="{{ from.line }}"><p style="margin: 0; font-size: 13px; font-style: italic; line-height: 1.35; color: #C9D6C2; overflow-wrap: anywhere">{{ from.line }}</p></sc-if>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":6400}}'>
+const tkName = (d) => String(d.kimga || '').trim();
+const tkFrom = (d) => {
+  const kd = String(d.kimdan || '').trim(), ci = kd.indexOf(':');
+  const label = ci > 0 ? kd.slice(0, ci).trim() : '';
+  const names = ci > 0 ? kd.slice(ci + 1).trim() : kd;
+  return { label: label, names: names, line: !kd ? '' : (label ? label + 'dan: ' + names : names + 'dan') };
+};
+const tkFit = (text, max, min, width, k) => {
+  const longest = Math.max(1, ...String(text || '').split(/\s+/).map((x) => x.length));
+  return Math.max(min, Math.min(max, Math.floor(width / (longest * k))));
+};
+const RIM = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII'];
+const ORDER = ['tabrik', 'taymer', 'tilaklar', 'sham', 'sirli', 'galereya', 'xronika', 'mehmonlar', 'bazm', 'javob'];
+const TABN = { tabrik: 'Maktub', taymer: 'Kutish', tilaklar: 'Tilaklar', sham: 'Fonus', sirli: 'G’uncha', galereya: 'Oranjereya', xronika: 'Yillar', mehmonlar: 'Daftar', bazm: 'Taklif', javob: 'Tabrik' };
+
+/* ---------- copperplate engraving generator ---------- */
+const F = (n) => (Math.round(n * 10) / 10).toString();
+const leaf = (x0, y0, len, ang, wid, tone, plain) => {
+  const ca = Math.cos(ang), sa = Math.sin(ang);
+  const T = (u, v) => F(x0 + u * ca - v * sa) + ' ' + F(y0 + u * sa + v * ca);
+  const o = 'M' + T(0, 0) + 'C' + T(len * 0.22, -wid) + ' ' + T(len * 0.72, -wid * 0.85) + ' ' + T(len, 0) + 'C' + T(len * 0.72, wid * 0.85) + ' ' + T(len * 0.22, wid) + ' ' + T(0, 0) + 'Z';
+  const hw = (u) => wid * 0.7 * Math.pow(Math.sin(Math.PI * Math.min(0.999, u / len)), 0.8);
+  let v = 'M' + T(0, 0) + 'L' + T(len * 0.93, 0);
+  const nv = plain ? 1 : Math.max(2, Math.round(len / 9));
+  for (let i = 1; i <= nv; i++) {
+    const u = len * i / (nv + 1.2), u2 = Math.min(len * 0.95, u + len * 0.16);
+    v += 'M' + T(u, 0) + 'Q' + T(u + len * 0.08, -hw(u) * 0.5) + ' ' + T(u2, -hw(u2) * 0.82);
+  }
+  const step = len > 30 ? 2.4 : 2;
+  for (let u = len * 0.06; !plain && u < len * 0.9; u += step) {
+    const e = hw(u) * 0.9;
+    v += 'M' + T(u, 0.8) + 'L' + T(u + e * 0.45, e);
+  }
+  return { o: o, v: v, f: 'bg-lf' + tone, l: 'bg-ln' + tone };
+};
+const rose = (cx, cy, r, tone, rot) => {
+  const pt = (rr, a) => F(cx + rr * Math.cos(a)) + ' ' + F(cy + rr * Math.sin(a));
+  rot = rot || 0;
+  let o = '';
+  const n = 7;
+  for (let i = 0; i < n; i++) {
+    const a0 = rot + i * 2 * Math.PI / n, a1 = rot + (i + 1) * 2 * Math.PI / n;
+    o += (i ? 'A' + F(r * 0.48) + ' ' + F(r * 0.48) + ' 0 0 1 ' : 'M') + pt(r, a0);
+    if (i === n - 1) o += 'A' + F(r * 0.48) + ' ' + F(r * 0.48) + ' 0 0 1 ' + pt(r, a1);
+  }
+  o += 'Z';
+  let v = '';
+  for (let k = 0; k < 5; k++) {
+    const rk = r * (0.82 - k * 0.16), a0 = rot + k * 1.35;
+    v += 'M' + pt(rk, a0) + 'A' + F(rk) + ' ' + F(rk) + ' 0 1 1 ' + pt(rk, a0 + 3.7);
+  }
+  for (let dd = r * 0.25; dd < r * 0.92; dd += 2.4) {
+    const hl = Math.sqrt(Math.max(0, r * r - dd * dd)) * 0.55;
+    const bx = cx + dd * Math.cos(rot + 0.9), by = cy + dd * Math.sin(rot + 0.9);
+    const px = -Math.sin(rot + 0.9), py = Math.cos(rot + 0.9);
+    v += 'M' + F(bx - px * hl * 0.2) + ' ' + F(by - py * hl * 0.2) + 'L' + F(bx + px * hl) + ' ' + F(by + py * hl);
+  }
+  return { o: o, v: v, f: 'bg-rs' + tone, l: 'bg-rl' + tone };
+};
+const berry = (cx, cy, r, tone) => ({ o: 'M' + F(cx - r) + ' ' + F(cy) + 'a' + r + ' ' + r + ' 0 1 0 ' + F(2 * r) + ' 0a' + r + ' ' + r + ' 0 1 0 -' + F(2 * r) + ' 0Z', v: 'M' + F(cx - r * 0.3) + ' ' + F(cy - r * 0.4) + 'l1 0', f: 'bg-be' + tone, l: 'bg-ln' + tone });
+const stemObj = (d, tone) => ({ o: d, v: '', f: 'bg-st' + tone, l: 'bg-st' + tone });
+/* a curved sprig: stem + alternating leaves + optional terminal flower */
+const sprig = (x0, y0, ang, len, n, leafLen, bend, tone, opt) => {
+  opt = opt || {};
+  const x2 = x0 + len * Math.cos(ang), y2 = y0 + len * Math.sin(ang);
+  const nx = -Math.sin(ang), ny = Math.cos(ang);
+  const x1 = (x0 + x2) / 2 + nx * bend, y1 = (y0 + y2) / 2 + ny * bend;
+  const B = (t) => [(1 - t) * (1 - t) * x0 + 2 * (1 - t) * t * x1 + t * t * x2, (1 - t) * (1 - t) * y0 + 2 * (1 - t) * t * y1 + t * t * y2];
+  const D = (t) => Math.atan2(2 * (1 - t) * (y1 - y0) + 2 * t * (y2 - y1), 2 * (1 - t) * (x1 - x0) + 2 * t * (x2 - x1));
+  const out = [stemObj('M' + F(x0) + ' ' + F(y0) + 'Q' + F(x1) + ' ' + F(y1) + ' ' + F(x2) + ' ' + F(y2), tone)];
+  for (let i = 0; i < n; i++) {
+    const t = 0.16 + 0.78 * i / Math.max(1, n - 1);
+    const p = B(t), a = D(t), side = i % 2 ? 1 : -1;
+    const L = leafLen * (1 - t * 0.45);
+    out.push(leaf(p[0], p[1], L, a + side * (opt.spread || 0.75), L * (opt.wk || 0.34), tone));
+  }
+  if (opt.flower) out.push(rose(x2, y2, opt.flower, tone, ang));
+  else if (opt.berries) { for (let j = 0; j < 3; j++) out.push(berry(x2 + Math.cos(ang + j * 2.1) * 5, y2 + Math.sin(ang + j * 2.1) * 5, 3.2, tone)); }
+  else out.push(leaf(x2, y2, leafLen * 0.55, D(1), leafLen * 0.18, tone));
+  return out;
+};
+const fern = (x0, y0, ang, len, tone) => {
+  const out = [stemObj('M' + F(x0) + ' ' + F(y0) + 'L' + F(x0 + len * Math.cos(ang)) + ' ' + F(y0 + len * Math.sin(ang)), tone)];
+  const n = Math.round(len / 10);
+  for (let i = 1; i < n; i++) {
+    const t = i / n, px = x0 + len * t * Math.cos(ang), py = y0 + len * t * Math.sin(ang);
+    const L = len * 0.24 * Math.sin(Math.PI * (0.12 + t * 0.88));
+    out.push(leaf(px, py, L, ang - 0.95, L * 0.24, tone, true));
+    out.push(leaf(px, py, L, ang + 0.95, L * 0.24, tone, true));
+  }
+  return out;
+};
+/* fairy-light strand between two points with sag */
+const strand = (x0, y0, x1, y1, sag, n, t0, dt) => {
+  const mx = (x0 + x1) / 2, my = Math.max(y0, y1) + sag;
+  const cx = 2 * mx - (x0 + x1) / 2, cy = 2 * my - (y0 + y1) / 2;
+  const d = 'M' + x0 + ' ' + y0 + 'Q' + F(cx) + ' ' + F(cy) + ' ' + x1 + ' ' + y1;
+  const bulbs = [];
+  for (let i = 0; i < n; i++) {
+    const t = (i + 0.5) / n;
+    const x = (1 - t) * (1 - t) * x0 + 2 * (1 - t) * t * cx + t * t * x1, y = (1 - t) * (1 - t) * y0 + 2 * (1 - t) * t * cy + t * t * y1;
+    bulbs.push({ x: F(x), cx: F(x - 2), y: F(y), by: F(y + 9), gy: F(y + 9), tw: 'animation-delay: -' + ((i * 0.37) % 3).toFixed(2) + 's', del: 'transition-delay: ' + (t0 + i * dt).toFixed(2) + 's' });
+  }
+  return { d: d, bulbs: bulbs };
+};
+
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { opened: false, blown: false, sec: false, going: false, sent: false, goErr: '' };
+    this.guestName = '';
+    this.tick = 0;
+    const rnd = (i, k) => { const x = Math.sin(i * 127.1 + k * 311.7) * 43758.5453; return x - Math.floor(x); };
+    const flies = (n, seed, top, h) => Array.from({ length: n }, (_, i) => 'left: ' + Math.round(10 + rnd(i, seed) * 370) + 'px; top: ' + (top === null ? (3 + rnd(i, seed + 1) * 94).toFixed(1) + '%' : Math.round(top + rnd(i, seed + 1) * h) + 'px') + '; --dx: ' + Math.round((rnd(i, seed + 2) - 0.5) * 60) + 'px; --dy: ' + Math.round((rnd(i, seed + 3) - 0.5) * 50) + 'px; animation-duration: ' + (3 + rnd(i, seed + 4) * 4).toFixed(1) + 's; animation-delay: -' + (rnd(i, seed + 5) * 6).toFixed(1) + 's');
+
+    /* intro foliage */
+    const ia = [].concat(
+      sprig(-12, 560, -1.22, 270, 10, 44, 34, 'D'),
+      sprig(-10, 690, -0.42, 200, 8, 38, -22, 'D', { flower: 15 }),
+      fern(14, 844, -1.25, 260, 'D'),
+      sprig(402, 560, Math.PI + 1.22, 270, 10, 44, -34, 'D'),
+      sprig(400, 700, Math.PI + 0.42, 196, 8, 38, 22, 'D', { flower: 13 }),
+      fern(376, 844, Math.PI + 1.25, 250, 'D'),
+      sprig(195, 860, -1.57, 130, 6, 40, 10, 'D'),
+      [rose(70, 700, 22, 'D', 0.4), rose(318, 712, 20, 'D', 1.4), rose(108, 742, 14, 'D', 2), rose(285, 680, 13, 'D', 0.8)],
+      sprig(-10, 150, 0.25, 150, 7, 36, 26, 'D', { berries: 1 }),
+      sprig(400, 170, Math.PI - 0.25, 150, 7, 36, -26, 'D', { berries: 1 }),
+      sprig(120, -10, 1.35, 110, 6, 34, -14, 'D'),
+      sprig(270, -10, 1.8, 110, 6, 34, 14, 'D')
+    );
+    const s1 = strand(-6, 96, 396, 96, 92, 12, 0.3, 0.08);
+    const s2 = strand(-6, 260, 396, 236, 74, 11, 0.42, 0.08);
+    const tc = (302 + 6) / 402, cordY = (1 - tc) * (1 - tc) * 96 + 2 * (1 - tc) * tc * 280 + tc * tc * 96 + 3;
+    const heroFoot = [].concat(fern(4, 200, -1.15, 150, 'D'), fern(386, 200, Math.PI + 1.15, 150, 'D'), sprig(-6, 200, -0.5, 130, 7, 30, -14, 'D', { flower: 12 }), sprig(396, 200, Math.PI + 0.5, 130, 7, 30, 14, 'D', { flower: 12 }), sprig(150, 206, -1.9, 70, 4, 24, 8, 'D'), sprig(240, 206, -1.25, 70, 4, 24, -8, 'D'));
+    const iBulbs = s1.bulbs.concat(s2.bulbs).map((u) => Object.assign({}, u, { cls: '' }));
+    const hs = strand(-6, 14, 396, 10, 46, 13, 0, 0);
+
+    /* hero wreath around the oval (cx 195, cy 213 in 390x450 box) */
+    const wr = [], wst = [];
+    const ex = 195, ey = 213, rx = 134, ry = 172;
+    const branch = (from, to, dir) => {
+      const n = 13;
+      let d = '';
+      for (let i = 0; i <= n; i++) {
+        const th = from + (to - from) * i / n;
+        const px = ex + rx * Math.cos(th), py = ey + ry * Math.sin(th);
+        d += (i ? 'L' : 'M') + F(px) + ' ' + F(py);
+        if (i === 0 || i === n) continue;
+        const tx = -rx * Math.sin(th) * dir, ty = ry * Math.cos(th) * dir;
+        const ta = Math.atan2(ty, tx);
+        const L = 34 - i * 1.2;
+        wr.push(leaf(px, py, L, ta + (i % 2 ? 0.7 : -0.7), L * 0.34, 'D'));
+      }
+      wst.push(d);
+    };
+    branch(Math.PI * 0.56, Math.PI * 1.36, 1);
+    branch(Math.PI * 0.44, -Math.PI * 0.36, -1);
+    wr.push(rose(195, 392, 20, 'D', 0.3), rose(164, 382, 14, 'D', 1.1), rose(226, 382, 14, 'D', 2.2), berry(140, 392, 3.5, 'D'), berry(250, 392, 3.5, 'D'), berry(146, 400, 3, 'D'), berry(244, 400, 3, 'D'));
+    wr.push(rose(98, 92, 11, 'D', 0.5), rose(292, 92, 11, 'D', 1.7));
+
+    /* small ornaments */
+    const divider = [].concat(sprig(120, 22, Math.PI - 0.08, 104, 7, 22, -8, 'D'), sprig(120, 22, 0.08, 104, 7, 22, 8, 'D'), [rose(120, 21, 9, 'D', 0.6)]);
+    const dividerL = [].concat(sprig(120, 22, Math.PI - 0.08, 104, 7, 22, -8, 'L'), sprig(120, 22, 0.08, 104, 7, 22, 8, 'L'), [rose(120, 21, 9, 'L', 0.6)]);
+    const cornerTR = [].concat(sprig(134, -4, 2.45, 120, 7, 28, -14, 'L'), sprig(134, -4, 1.95, 90, 5, 24, 10, 'L', { berries: 1 }), [rose(112, 22, 11, 'L', 1)]);
+    const spec = [
+      [].concat(sprig(75, 92, -1.57, 78, 8, 26, 8, 'L')),
+      fern(75, 92, -1.62, 84, 'L'),
+      [].concat(sprig(75, 94, -1.5, 60, 4, 26, -6, 'L', { flower: 15 })),
+      [].concat(sprig(75, 92, -1.7, 70, 6, 22, 14, 'L', { berries: 1 }), sprig(75, 92, -1.2, 56, 4, 20, -10, 'L', { berries: 1 }))
+    ];
+    const garland = [].concat(sprig(155, 30, Math.PI - 0.2, 150, 10, 30, -18, 'L'), sprig(155, 30, 0.2, 150, 10, 30, 18, 'L'), sprig(155, 30, Math.PI - 0.7, 90, 5, 22, 10, 'L', { berries: 1 }), sprig(155, 30, 0.7, 90, 5, 22, -10, 'L', { berries: 1 }), [rose(155, 32, 17, 'L', 0.2), rose(132, 40, 10, 'L', 1.3), rose(178, 40, 10, 'L', 2.4)]);
+    const pressed = [].concat(sprig(8, 74, -0.75, 70, 5, 24, 10, 'L'), [rose(56, 26, 12, 'L', 0.9)]);
+    const lanLeaves = [].concat(sprig(40, 330, -1.2, 120, 7, 30, 16, 'D'), sprig(262, 330, -1.95, 120, 7, 30, -16, 'D'), [rose(70, 300, 14, 'D', 0.4), rose(232, 304, 12, 'D', 1.6)]);
+    const secLeaves = [].concat(sprig(165, 330, -1.95, 110, 6, 32, -10, 'D'), sprig(165, 330, -1.2, 110, 6, 32, 10, 'D'));
+    const galFoot = [].concat(sprig(-10, 160, -0.65, 140, 8, 32, -16, 'D', { flower: 13 }), sprig(340, 160, Math.PI + 0.65, 140, 8, 32, 16, 'D', { flower: 13 }), fern(30, 165, -1.2, 100, 'D'), fern(300, 165, Math.PI + 1.2, 100, 'D'));
+    const gs = strand(-4, 22, 334, 22, 40, 9, 0, 0);
+    const footArt = [].concat(fern(10, 125, -1.0, 130, 'D'), fern(380, 125, Math.PI + 1.0, 130, 'D'), sprig(60, 125, -1.3, 90, 6, 28, 12, 'D'), sprig(330, 125, Math.PI + 1.3, 90, 6, 28, -12, 'D'), [rose(92, 64, 10, 'D', 0.4), rose(298, 64, 10, 'D', 1.2)]);
+    const grass = [];
+    for (let i = 0; i < 46; i++) { const x = 4 + i * 7.6 + rnd(i, 9) * 3, h = 6 + rnd(i, 10) * 12; grass.push('M' + F(x) + ' 172q' + F((rnd(i, 11) - 0.5) * 6) + ' -' + F(h * 0.6) + ' ' + F((rnd(i, 12) - 0.5) * 8) + ' -' + F(h)); }
+    const pcol = ['#E8B4A4', '#F2C6B8', '#C9867A', '#DCE6D2'];
+    this.deco = {
+      glows: [[-150, 1000, 'rgba(255,214,140,0.06)'], [150, 1800, 'rgba(232,180,164,0.07)'], [-150, 2700, 'rgba(255,214,140,0.06)'], [150, 3600, 'rgba(232,180,164,0.06)'], [-140, 4500, 'rgba(255,214,140,0.06)'], [140, 5400, 'rgba(232,180,164,0.06)']].map((g) => 'position: absolute; left: ' + g[0] + 'px; top: ' + g[1] + 'px; width: 440px; height: 440px; border-radius: 50%; background: radial-gradient(circle, ' + g[2] + ', rgba(0,0,0,0) 70%)'),
+      pageFlies: flies(26, 3, null, 0),
+      introFlies: flies(18, 21, 300, 420),
+      introArt: ia, introWires: [s1.d, s2.d], introBulbs: iBulbs,
+      cordD: 'M302 ' + F(cordY) + 'C298 ' + F(cordY + 160) + ' 306 560 302 724',
+      heroFoot: heroFoot,
+      heroWires: [hs.d], heroBulbs: hs.bulbs,
+      wreath: wr, wreathStems: wst,
+      divider: divider, dividerL: dividerL, cornerTR: cornerTR, spec: spec, garland: garland, pressed: pressed,
+      lanLeaves: lanLeaves, secLeaves: secLeaves, galFoot: galFoot, galWire: gs.d, galBulbs: gs.bulbs, footArt: footArt, grass: grass,
+      petals: Array.from({ length: 8 }, (_, i) => ({ st: '--a: ' + (i * 45 + 22.5) + 'deg; --d: ' + (i * 0.04).toFixed(2) + 's' })),
+      freed: Array.from({ length: 14 }, (_, i) => '--dx: ' + Math.round((rnd(i, 31) - 0.5) * 260) + 'px; --dy: ' + Math.round(-60 - rnd(i, 32) * 200) + 'px; animation-delay: ' + (0.15 + rnd(i, 33) * 0.4).toFixed(2) + 's'),
+      petalBurst: Array.from({ length: 20 }, (_, i) => {
+        const a = (-170 + i * 8.4 + (rnd(i, 41) - 0.5) * 8) * Math.PI / 180, r = 80 + rnd(i, 42) * 80;
+        return 'background: ' + pcol[i % 4] + '; --x: ' + Math.round(Math.cos(a) * r) + 'px; --y: ' + Math.round(Math.sin(a) * r) + 'px; --r: ' + Math.round(rnd(i, 43) * 400 - 200) + 'deg; animation-delay: ' + (rnd(i, 44) * 0.15).toFixed(2) + 's';
+      })
+    };
+  }
+  componentDidMount() {
+    this.timer = setInterval(() => { this.prevCd = this.lastCd; this.tick += 1; this.forceUpdate(); }, 1000);
+  }
+  componentWillUnmount() {
+    clearInterval(this.timer);
+  }
+  renderVals() {
+    const s = this.state;
+    const D = SITE.d;
+    const name = tkName(D), from = tkFrom(D);
+    const w = SITE.when(D.sana), bw = SITE.when(D.bazm_sana);
+    const c = SITE.countdown(D.sana);
+    const yosh = String(D.yosh || '').trim();
+    const tab = {};
+    let k = 0;
+    ORDER.forEach((key) => { if (SITE.b[key]) { tab[key] = 'Varaq ' + RIM[k] + ' · ' + TABN[key]; k += 1; } else tab[key] = ''; });
+    const cur = [String(c.d), c.hh, c.mm, c.ss];
+    const prev = this.prevCd || cur;
+    this.lastCd = cur;
+    const L = ['kun', 'soat', 'daqiqa', 'soniya'];
+    const tags = cur.map((v, i) => ({ v: v, l: L[i], cls: v !== prev[i] ? (this.tick % 2 ? 'bg-tag bg-tag--a' : 'bg-tag bg-tag--b') : 'bg-tag', st: 'transform: rotate(' + [-3, 2, -1.5, 3][i] + 'deg); margin-top: ' + [18, 4, 12, 0][i] + 'px' }));
+    const matn = String(D.matn || '').trim();
+    const list = D.tilaklar || [];
+    const n = Math.min(6, SITE.has.photos);
+    const gp = n > 0 ? SITE.p.slice(0, n) : SITE.p.slice(0, 1);
+    const restP = gp.slice(1);
+    const sec = String(D.sirli_tilak || '');
+    return Object.assign({}, this.deco, {
+      name: name, from: from, tab: tab,
+      anyBlock: Object.keys(SITE.b).some((key) => SITE.b[key]),
+      noPhoto: !SITE.has.photo,
+      initial: name.charAt(0),
+      nameFs: tkFit(name, 76, 34, 350, 0.5),
+      footFs: tkFit(name, 30, 20, 220, 0.5),
+      heroDate: [w.date, w.weekday].filter(Boolean).join(' · '),
+      musicCls: SITE.music.playing ? 'bg-music bg-music--on' : 'bg-music',
+      musicOn: SITE.music.playing ? 'true' : 'false',
+      toggleMusic: () => { SITE.music.toggle(); },
+      dropCap: matn.charAt(0),
+      restText: matn.slice(1),
+      cdTitle: c.done ? 'Bayram boshlandi!' : 'Bayramgacha',
+      cdDate: [w.date, w.weekday].filter(Boolean).join(', '),
+      tags: tags,
+      wishes: list.map((t, i) => ({ text: t, n: RIM[i] || String(i + 1), art: this.deco.spec[i % 4], st: 'position: relative; padding: 12px 12px 18px; text-align: center; transform: rotate(' + [-1.2, 1, 0.8, -1][i % 4] + 'deg)' + (list.length % 2 === 1 && i === list.length - 1 ? '; grid-column: 1 / -1; width: 60%; justify-self: center; box-sizing: border-box' : '') })),
+      lanCls: s.blown ? 'bg-lan bg-lan--out' : 'bg-lan',
+      wishCls: s.blown ? 'bg-wish bg-wish--on' : 'bg-wish',
+      wishLine: 'Niyating ushalsin, ' + name + '!',
+      blowIdle: s.blown ? 'is-hidden' : '',
+      blowDone: s.blown ? '' : 'is-hidden',
+      blow: () => this.setState({ blown: !this.state.blown }),
+      secCls: s.sec ? 'bg-sec bg-sec--on' : 'bg-sec',
+      secFs: sec.length > 150 ? 13 : sec.length > 100 ? 14.5 : 16,
+      toggleSec: () => this.setState({ sec: !this.state.sec }),
+      g0: gp[0],
+      gRest: restP.map((src, i) => ({ src: src, st: 'position: relative; height: ' + (restP.length % 2 === 1 && i === restP.length - 1 ? '250px; grid-column: 1 / -1; width: 66%; justify-self: center' : '220px') })),
+      gRestOn: restP.length > 0,
+      chron: (D.xronika || []).map((x, i) => {
+        const y = String(x.yosh || '').trim(), left = i % 2 === 0;
+        return {
+          yosh: y, matn: x.matn || '', fs: y.length > 2 ? 20 : 28, src: SITE.p[i % SITE.p.length],
+          row: 'position: relative; display: flex; align-items: center; gap: 0; padding: 14px 0; flex-direction: ' + (left ? 'row' : 'row-reverse'),
+          box: 'flex: none; width: 140px; box-sizing: border-box; text-align: ' + (left ? 'right' : 'left') + '; ' + (left ? 'padding-right: 16px' : 'padding-left: 16px')
+        };
+      }),
+      reviews: (D.mehmon_tilaklari || []).map((r, i) => ({
+        ism: r.ism || '', matn: r.matn || '',
+        st: 'position: relative; margin: 0; padding: 22px 22px 18px; color: #1C3A28; box-shadow: 0 0 0 1px rgba(28,58,40,0.2), 0 16px 30px rgba(0,0,0,0.35); transform: rotate(' + (i % 2 ? 1 : -1) + 'deg); ' + (i % 2 ? 'margin-left: 18px; padding-left: 86px' : 'margin-right: 18px; padding-right: 86px'),
+        art: 'position: absolute; top: 10px; ' + (i % 2 ? 'left: 4px; transform: scaleX(-1)' : 'right: 4px')
+      })),
+      bazmDate: [bw.date, bw.weekday].filter(Boolean).join(', '),
+      askGuest: !SITE.has.guest && !s.going,
+      setName: (e) => { this.guestName = e.target.value; },
+      goErr: s.goErr,
+      goCls: s.going ? 'bg-go bg-go--on' : 'bg-go',
+      goIdle: s.going ? 'is-hidden' : '',
+      goDone: s.going ? 'bg-row' : 'is-hidden',
+      go: () => {
+        if (this.state.going || this.busy) return;
+        const nm = this.guestName.trim();
+        if (!SITE.has.guest && !nm) { this.setState({ goErr: 'Ismingizni yozing' }); return; }
+        this.busy = true;
+        SITE.rsvp(true, 1, nm).then(() => { this.busy = false; this.setState({ going: true, goErr: '' }); })
+          .catch(() => { this.busy = false; this.setState({ goErr: 'Yuborilmadi, qayta urinib ko’ring' }); });
+      },
+      askName: name + 'ni tabrikladingizmi?',
+      sendCls: s.sent ? 'bg-btn bg-btn--done' : 'bg-btn',
+      sendIdle: s.sent ? 'is-hidden' : 'bg-row',
+      sendDone: s.sent ? 'bg-row' : 'is-hidden',
+      burstCls: s.sent ? 'bg-burst bg-burst--go' : 'bg-burst',
+      send: () => { if (this.state.sent) return; this.setState({ sent: true }); SITE.reply('Tabrikladim', '🥰'); },
+      footLine: [yosh ? yosh + ' yosh' : '', w.dots].filter(Boolean).join(' · '),
+      introCap: [w.dm, w.weekday].filter(Boolean).join(' · ') || 'Kechki bog’ ziyofati',
+      introFs: tkFit(name, 80, 34, 340, 0.5),
+      introSub: yosh ? yosh + ' yoshing muborak bo’lsin' : 'Tug’ilgan kuning muborak',
+      introBulbs: s.opened ? this.deco.introBulbs.map((u) => Object.assign({}, u, { cls: 'bg-lit' })) : this.deco.introBulbs,
+      introCls: s.opened ? 'bg-intro bg-intro--on' : 'bg-intro',
+      pageCls: s.opened ? 'bg-page bg-page--in' : 'bg-page',
+      open: () => { if (this.state.opened) return; this.setState({ opened: true }); SITE.opened(); }
+    });
+  }
+}
+</script>
+</body>
+</html>

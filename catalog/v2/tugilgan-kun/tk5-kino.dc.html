@@ -1,0 +1,774 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<title>Tug’ilgan kun: Kinolenta</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&amp;family=PT+Mono&amp;family=Caveat:wght@500;700&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#F0A23B}
+.is-hidden{display:none}
+.kn-o{font-family:'Oswald','Arial Narrow','Roboto Condensed',sans-serif}
+.kn-m{font-family:'PT Mono','Courier New',monospace}
+.kn-hand{font-family:'Caveat','Segoe Print','Comic Sans MS',cursive}
+.kn-grain{position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none;opacity:.16;mix-blend-mode:screen;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 .9 0 0 0 0 .76 1.4 0 0 0 -.62'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");background-size:160px 160px}
+.kn-grainJ{animation:kn-jit .5s steps(1) infinite}
+@keyframes kn-jit{0%{transform:translate(0,0)}25%{transform:translate(-40px,22px)}50%{transform:translate(28px,-36px)}75%{transform:translate(-18px,-12px)}}
+.kn-paper{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .45 0 0 0 0 .3 0 0 0 0 .15 0 0 0 -.9 .55'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23p)'/%3E%3C/svg%3E")}
+.kn-cap{margin:0;font-family:'PT Mono','Courier New',monospace;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#F0A23B}
+.kn-h2{margin:8px 0 0;font-family:'Oswald','Arial Narrow',sans-serif;font-weight:600;font-size:42px;line-height:1.02;letter-spacing:.02em;text-transform:uppercase;color:#F3E5C8;overflow-wrap:anywhere}
+.kn-head{display:flex;align-items:center;gap:10px}
+.kn-slate{flex:none;width:30px;height:14px;background:repeating-linear-gradient(-45deg,#F3E5C8 0 5px,#15100C 5px 10px);border:1px solid #F3E5C8;box-sizing:border-box}
+.kn-rule{flex:1;height:1px;background:linear-gradient(90deg,rgba(240,162,59,0.7),rgba(240,162,59,0.1))}
+.kn-tc{font-family:'PT Mono','Courier New',monospace;font-size:11px;letter-spacing:.08em;color:#B9A68A}
+.kn-ln{fill:none;stroke:#F0A23B;stroke-width:1.4}
+.kn-ico{fill:none;stroke:#F0A23B;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.kn-icoD{fill:none;stroke:#2B1D12;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.kn-chalk{fill:none;stroke:#EDE6D6;stroke-width:1.3;stroke-linecap:round;opacity:.75}
+
+/* film strips */
+.kn-stripH{position:relative;background:#0B0806;background-image:linear-gradient(90deg,rgba(243,229,200,0.86) 0 10px,rgba(0,0,0,0) 10px),linear-gradient(90deg,rgba(243,229,200,0.86) 0 10px,rgba(0,0,0,0) 10px);background-size:20px 8px,20px 8px;background-repeat:repeat-x,repeat-x;background-position:4px 7px,4px calc(100% - 7px)}
+.kn-stripV{position:relative;background:#0B0806;background-image:linear-gradient(180deg,rgba(243,229,200,0.86) 0 10px,rgba(0,0,0,0) 10px),linear-gradient(180deg,rgba(243,229,200,0.86) 0 10px,rgba(0,0,0,0) 10px);background-size:8px 20px,8px 20px;background-repeat:repeat-y,repeat-y;background-position:7px 4px,calc(100% - 7px) 4px}
+.kn-edge{font-family:'PT Mono','Courier New',monospace;font-size:9px;letter-spacing:.14em;color:#E0702A;white-space:nowrap}
+.kn-track{display:flex;width:max-content;animation:kn-roll linear infinite}
+@keyframes kn-roll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* light leaks, scratches */
+.kn-leak{position:absolute;border-radius:50%;pointer-events:none;mix-blend-mode:screen;animation:kn-leak 7s ease-in-out infinite alternate}
+@keyframes kn-leak{0%{opacity:.35;transform:scale(.9)}100%{opacity:.85;transform:scale(1.12)}}
+.kn-scr{position:absolute;top:0;width:1px;background:rgba(243,229,200,0.5);pointer-events:none;animation:kn-scr 1.7s steps(1) infinite}
+@keyframes kn-scr{0%{opacity:0;transform:translateX(0)}12%{opacity:.8;transform:translateX(6px)}24%{opacity:0}55%{opacity:.6;transform:translateX(-30px)}63%{opacity:0}}
+.kn-flick{animation:kn-flick 3.2s steps(1) infinite}
+@keyframes kn-flick{0%,100%{opacity:1}31%{opacity:.86}33%{opacity:1}67%{opacity:.9}69%{opacity:1}}
+.kn-mote{position:absolute;display:block;border-radius:50%;background:#FFE7B8;animation:kn-mote linear infinite}
+@keyframes kn-mote{0%{transform:translate(0,0);opacity:0}20%{opacity:.9}80%{opacity:.6}100%{transform:translate(18px,-70px);opacity:0}}
+@keyframes kn-chev{0%,100%{transform:translateY(0);opacity:.5}50%{transform:translateY(6px);opacity:1}}
+@keyframes kn-out{from{opacity:1}to{opacity:0}}
+@keyframes kn-in{from{opacity:0}to{opacity:1}}
+.kn-spinS{transform-box:fill-box;transform-origin:50% 50%;animation:kn-spin 6s linear infinite}
+@keyframes kn-spin{to{transform:rotate(360deg)}}
+
+/* scroll-driven development (falls back to a short one-time run) */
+.kn-dev{animation:kn-dev 1.6s ease-out both;animation-timeline:view();animation-range:entry 20% entry 100%}
+@keyframes kn-dev{from{opacity:1}to{opacity:0}}
+.kn-devImg{animation:kn-devImg 1.6s ease-out both;animation-timeline:view();animation-range:entry 20% entry 100%}
+@keyframes kn-devImg{from{filter:saturate(0) contrast(.5) brightness(1.4)}to{filter:none}}
+.kn-rise{animation:kn-rise 1s ease-out both;animation-timeline:view();animation-range:entry 5% entry 90%}
+@keyframes kn-rise{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+
+/* odometer */
+.kn-drum{position:relative;display:block;width:29px;height:52px;overflow:hidden;border-radius:4px;background:#0B0806;box-shadow:inset 0 0 0 1px rgba(240,162,59,0.35)}
+.kn-drum::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0.75),rgba(0,0,0,0) 30%,rgba(0,0,0,0) 70%,rgba(0,0,0,0.75));pointer-events:none}
+.kn-col{display:block;transition:transform .7s cubic-bezier(.4,1.4,.5,1)}
+.kn-col span{display:block;height:52px;line-height:52px;text-align:center;font-family:'Oswald','Arial Narrow',sans-serif;font-weight:500;font-size:31px;color:#F3E5C8}
+
+/* candle */
+.kn-flame{transform-box:fill-box;transform-origin:50% 100%;animation:kn-fl .8s ease-in-out infinite alternate}
+@keyframes kn-fl{0%{transform:scale(1,1) rotate(-3deg)}50%{transform:scale(.9,1.1) rotate(2deg)}100%{transform:scale(1.05,.94) rotate(-1deg)}}
+.kn-glow{transform-box:fill-box;transform-origin:50% 50%;animation:kn-glow 2.2s ease-in-out infinite}
+@keyframes kn-glow{0%,100%{opacity:.4}50%{opacity:.75}}
+.kn-smoke{fill:none;stroke:#D9CDB5;stroke-width:1.6;stroke-linecap:round;opacity:0}
+.kn-cake--out .kn-flame{opacity:0;animation:kn-fOut .3s ease-in both}
+.kn-cake--out .kn-glow{opacity:0;animation:kn-out .3s ease both}
+.kn-cake--out .kn-smoke{animation:kn-smoke 2.2s ease-out .2s both}
+@keyframes kn-fOut{from{opacity:1;transform:scale(1)}to{opacity:0;transform:scale(.2,.1)}}
+@keyframes kn-smoke{0%{opacity:0;transform:translateY(0)}20%{opacity:.8}100%{opacity:0;transform:translateY(-30px)}}
+.kn-flash{position:absolute;inset:0;background:#FFF6E2;opacity:0;pointer-events:none}
+.kn-cake--out .kn-flash{animation:kn-flash .7s ease-out .25s both}
+@keyframes kn-flash{0%{opacity:0}12%{opacity:.95}100%{opacity:0}}
+.kn-shut{position:absolute;left:0;width:100%;height:50%;background:#0B0806;transform:scaleY(0);pointer-events:none}
+.kn-shutT{top:0;transform-origin:50% 0}
+.kn-shutB{bottom:0;transform-origin:50% 100%}
+.kn-cake--out .kn-shut{animation:kn-shut .32s ease-in-out .18s both}
+@keyframes kn-shut{0%{transform:scaleY(0)}50%{transform:scaleY(1)}100%{transform:scaleY(0)}}
+.kn-wish{opacity:0;transform:translateY(10px);transition:opacity .6s ease .5s,transform .6s ease .5s}
+.kn-wish--on{opacity:1;transform:none}
+
+/* secret negative */
+.kn-sec{position:relative;display:block;width:350px;margin:0 auto;padding:0;border:0;background:none;cursor:pointer;color:inherit;font:inherit;text-align:left}
+.kn-lead{position:relative;transform:translateX(-26px);transition:transform 1s cubic-bezier(.3,.8,.3,1)}
+.kn-sec--on .kn-lead{transform:translateX(0)}
+.kn-neg{position:absolute;inset:0;background:linear-gradient(160deg,#C8732F,#9A4A1C 60%,#7E3A16);transition:opacity 1.4s ease .4s}
+.kn-sec--on .kn-neg{opacity:0}
+.kn-print{position:absolute;inset:0;background:#F6EEDC}
+.kn-secTxt{position:relative;filter:invert(1) blur(5px);opacity:.75;transition:filter 1.6s ease .5s,opacity 1.2s ease .5s}
+.kn-sec--on .kn-secTxt{filter:none;opacity:1}
+.kn-hintA{transition:opacity .3s ease}
+.kn-sec--on .kn-hintA{opacity:0}
+
+/* clapper */
+.kn-stick{transform-origin:4px 100%;transform:rotate(-11deg);transition:transform .18s cubic-bezier(.6,0,.9,.4)}
+.kn-clap--on .kn-stick{transform:rotate(0deg)}
+
+/* buttons */
+.kn-btn{position:relative;overflow:hidden;min-height:56px;border:0;border-radius:6px;background:linear-gradient(180deg,#FFB955,#F0A23B 55%,#D9861F);color:#1A120C;font-family:'Oswald','Arial Narrow',sans-serif;font-size:18px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;display:inline-flex;align-items:center;justify-content:center;gap:12px;cursor:pointer;padding:0 24px;box-shadow:0 0 0 1px rgba(255,214,150,0.6) inset,0 10px 30px rgba(240,140,40,0.35)}
+.kn-btn--done{background:#2A1E15;color:#F0A23B;box-shadow:0 0 0 1px #F0A23B inset;cursor:default}
+.kn-ghost{min-height:50px;border:1px solid #F0A23B;border-radius:6px;background:rgba(21,16,12,0.6);color:#F3E5C8;font-family:'Oswald','Arial Narrow',sans-serif;font-size:16px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;display:inline-flex;align-items:center;justify-content:center;gap:10px;cursor:pointer;padding:0 24px}
+.kn-go{flex:1 1 0;min-width:0;min-height:52px;border:0;border-radius:6px;background:#F0A23B;color:#1A120C;font-family:'Oswald','Arial Narrow',sans-serif;font-size:17px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;padding:0 12px}
+.kn-go--on{background:#3B2A1C;color:#FFC872;box-shadow:inset 0 0 0 1px #F0A23B}
+.kn-map{flex:1.15 1 0;min-width:0;min-height:52px;border:1px solid rgba(237,230,214,0.7);border-radius:6px;color:#EDE6D6;font-family:'Oswald','Arial Narrow',sans-serif;font-size:15px;font-weight:500;letter-spacing:.06em;display:flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;padding:0 10px;box-sizing:border-box}
+.kn-input{width:100%;height:50px;box-sizing:border-box;border:1px solid rgba(237,230,214,0.45);border-radius:6px;background:rgba(237,230,214,0.06);color:#EDE6D6;padding:0 16px;font-family:'PT Mono','Courier New',monospace;font-size:16px;outline:none}
+.kn-input::placeholder{color:#A99C86}
+.kn-input:focus{border-color:#F0A23B}
+.kn-err{margin:0;font-family:'PT Mono',monospace;font-size:13px;color:#FF9C7A}
+.kn-row{display:flex;align-items:center;gap:10px}
+.kn-music{position:absolute;right:14px;top:58px;z-index:5;width:46px;height:46px;border-radius:50%;border:1px solid rgba(240,162,59,0.8);background:rgba(21,16,12,0.75);display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0}
+.kn-music--on{background:rgba(240,162,59,0.22)}
+.kn-burst{position:absolute;left:0;top:0;width:0;height:0;pointer-events:none}
+.kn-ray{position:absolute;left:-1px;bottom:0;width:2px;height:120px;transform-origin:50% 100%;background:linear-gradient(0deg,rgba(255,200,114,0.9),rgba(255,200,114,0));opacity:0}
+.kn-burst--go .kn-ray{animation:kn-ray 1.1s ease-out both}
+@keyframes kn-ray{0%{opacity:0;transform:rotate(var(--a)) scaleY(.2)}25%{opacity:1}100%{opacity:0;transform:rotate(var(--a)) scaleY(1.3)}}
+
+/* intro */
+.kn-intro--run{pointer-events:none;animation:kn-out .6s ease 2.8s both}
+.kn-intro--run .kn-ctaWrap{animation:kn-out .3s ease both}
+.kn-intro--run .kn-reel{animation:kn-spin .9s linear infinite}
+.kn-beam{opacity:.5}
+.kn-intro--run .kn-beam{animation:kn-beam .5s steps(4) both, kn-flick 1.2s steps(1) .5s infinite}
+@keyframes kn-beam{0%{opacity:.2}50%{opacity:.9}75%{opacity:.4}100%{opacity:1}}
+.kn-lamp{opacity:.25}
+.kn-intro--run .kn-lamp{animation:kn-in .2s ease both}
+.kn-intro--run .kn-card{animation:kn-out .2s ease .3s both}
+.kn-leader{opacity:0}
+.kn-intro--run .kn-leader{animation:kn-in .15s ease .4s both}
+.kn-n{position:absolute;left:0;top:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;opacity:0}
+.kn-intro--run .kn-n{animation:kn-num .66s linear both}
+@keyframes kn-num{0%{opacity:0}2%{opacity:1}97%{opacity:1}100%{opacity:0}}
+.kn-intro--run .kn-sweep{transform-box:view-box;transform-origin:159px 110px;animation:kn-spin .66s linear .4s 3}
+.kn-white{opacity:0}
+.kn-intro--run .kn-white{animation:kn-white .45s ease-in 2.4s both}
+@keyframes kn-white{0%{opacity:0}60%{opacity:1}100%{opacity:1}}
+.kn-intro--run .kn-iTop{animation:kn-out .4s ease .2s both}
+
+/* page reveal */
+.kn-page--in .kn-rv1{animation:kn-rv 1s ease-out 2.75s both}
+.kn-page--in .kn-rv2{animation:kn-rv 1s ease-out 3s both}
+.kn-page--in .kn-rv3{animation:kn-develop 1.8s ease-out 2.7s both}
+@keyframes kn-rv{from{opacity:0;transform:translateY(18px)}}
+@keyframes kn-develop{0%{opacity:0;filter:brightness(2.2) saturate(0)}40%{opacity:1}100%{filter:none}}
+
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation:none !important;transition:none !important}
+  .kn-intro--run{opacity:0}
+}
+</style>
+</helmet>
+<div style="width: 390px; min-height: var(--vh, 100vh); position: relative; overflow: hidden; background: linear-gradient(180deg, #120D0A 0%, #1A130E 30%, #160F0B 60%, #1B130E 85%, #120D0A 100%); color: #F3E5C8; font-family: 'PT Mono', 'Courier New', monospace">
+
+  <div aria-hidden="true" style="position: absolute; left: 0; top: 0; bottom: 0; width: 390px; pointer-events: none; z-index: 0; overflow: hidden">
+    <sc-for list="{{ leaks }}" as="g"><div class="kn-leak" style="{{ g }}"></div></sc-for>
+    <div class="kn-grain"></div>
+  </div>
+
+  <div class="{{ pageCls }}" style="position: relative; z-index: 1; min-height: var(--vh, 100vh); display: flex; flex-direction: column">
+
+    <section style="position: relative; min-height: 844px; flex: none; overflow: hidden; display: flex; flex-direction: column">
+      <div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; overflow: hidden; pointer-events: none">
+        <div class="kn-leak" style="left: 210px; top: -120px; width: 320px; height: 320px; background: radial-gradient(circle, rgba(255,128,40,0.55), rgba(255,90,30,0) 70%)"></div>
+        <div class="kn-leak" style="left: -170px; top: 380px; width: 300px; height: 380px; background: radial-gradient(circle, rgba(220,60,40,0.45), rgba(200,50,30,0) 70%); animation-delay: -3s"></div>
+        <span class="kn-scr" style="left: 72px; height: 844px"></span>
+        <span class="kn-scr" style="left: 300px; height: 600px; animation-delay: -.8s; animation-duration: 2.3s"></span>
+      </div>
+
+      <div class="kn-stripH" style="flex: none; height: 46px; overflow: hidden">
+        <div style="position: absolute; left: 0; top: 16px; width: 390px; display: flex; justify-content: space-around">
+          <sc-for list="{{ edgeTop }}" as="e"><span class="kn-edge">{{ e }}</span></sc-for>
+        </div>
+      </div>
+      <sc-if value="{{ has.music }}"><button type="button" class="{{ musicCls }}" onClick="{{ toggleMusic }}" aria-label="Musiqa" aria-pressed="{{ musicOn }}"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 22 26"><path d="M8 3L20 0V17.5A3.5 3 0 1 1 17 14.6V5.2L10 7V20.5A3.5 3 0 1 1 7 17.6V3Z" fill="#F0A23B"></path></svg></button></sc-if>
+
+      <div class="kn-rv3" style="position: relative; flex: none; width: 292px; height: 432px; margin: 30px auto 0; transform: rotate(-2.2deg)">
+        <div class="kn-stripV" style="position: absolute; inset: 0; box-shadow: 0 30px 60px rgba(0,0,0,0.6)">
+          <div style="position: absolute; left: 26px; top: 14px; width: 240px; height: 404px; overflow: hidden; background: #2A1E15">
+            <sc-if value="{{ has.photo }}"><img src="{{ p.0 }}" alt="" style="display: block; width: 240px; height: 404px; object-fit: cover"></sc-if>
+            <sc-if value="{{ noPhoto }}">
+              <div aria-hidden="true" style="width: 240px; height: 404px; display: flex; flex-direction: column; align-items: center; justify-content: center; background: radial-gradient(circle at 50% 45%, #6B3A1A, #2A1E15 75%)">
+                <span class="kn-o" style="font-size: 150px; font-weight: 600; line-height: 1; color: #F0A23B">{{ bigMark }}</span>
+              </div>
+            </sc-if>
+            <div aria-hidden="true" style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(255,140,50,0.12), rgba(0,0,0,0) 40%, rgba(20,8,0,0.35))"></div>
+            <sc-if value="{{ stamp }}"><span class="kn-m" style="position: absolute; right: 14px; bottom: 12px; font-size: 19px; letter-spacing: 0.06em; color: #FF8A2A; text-shadow: 0 0 6px rgba(255,120,30,0.9), 0 0 1px #FFB070">{{ stamp }}</span></sc-if>
+          </div>
+          <span class="kn-edge" style="position: absolute; left: 12px; top: 214px; transform: translate(-50%, -50%) rotate(-90deg)">{{ edgeSide }}</span>
+          <span class="kn-edge" style="position: absolute; right: 12px; top: 214px; transform: translate(50%, -50%) rotate(90deg)">{{ edgeSide2 }}</span>
+        </div>
+      </div>
+
+      <div class="kn-rv1" style="position: relative; padding: 26px 22px 0; text-align: center">
+        <p class="kn-cap" style="letter-spacing: 0.32em">Bosh rolda</p>
+        <h1 class="kn-o" style="margin: 6px 0 0; font-size: {{ nameFs }}px; font-weight: 600; line-height: 1; letter-spacing: 0.04em; text-transform: uppercase; color: #F3E5C8; overflow-wrap: anywhere">{{ name }}</h1>
+        <p class="kn-o" style="margin: 10px 0 0; font-size: 18px; font-weight: 300; letter-spacing: 0.08em; color: #E8D3AE">{{ heroSub }}</p>
+      </div>
+      <div class="kn-rv2" style="position: relative; padding: 18px 22px 0; text-align: center">
+        <div aria-hidden="true" class="kn-o" style="display: flex; flex-wrap: wrap; justify-content: center; align-items: baseline; column-gap: 8px; font-weight: 300; text-transform: uppercase; color: #B9A68A; line-height: 1.3">
+          <span style="font-size: 10px; letter-spacing: 0.1em">rejissyor</span><span style="font-size: 15px; letter-spacing: 0.04em; color: #D8C6A6">Hayot</span>
+          <span style="font-size: 10px; letter-spacing: 0.1em">ssenariy</span><span style="font-size: 15px; letter-spacing: 0.04em; color: #D8C6A6">Orzular</span>
+          <span style="font-size: 10px; letter-spacing: 0.1em">operator</span><span style="font-size: 15px; letter-spacing: 0.04em; color: #D8C6A6">Quyosh</span>
+          <span style="font-size: 10px; letter-spacing: 0.1em">musiqa</span><span style="font-size: 15px; letter-spacing: 0.04em; color: #D8C6A6">Kulgu</span>
+        </div>
+        <sc-if value="{{ heroDate }}"><p class="kn-m" style="margin: 14px 0 0; font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase; color: #F0A23B">{{ heroDate }}</p></sc-if>
+      </div>
+      <div style="flex: 1; min-height: 40px"></div>
+      <sc-if value="{{ anyBlock }}"><svg aria-hidden="true" width="26" height="16" viewBox="0 0 26 16" style="display: block; margin: 0 auto 22px; animation: kn-chev 2s ease-in-out infinite"><path class="kn-ico" d="M3 3l10 9 10-9"></path></svg></sc-if>
+    </section>
+
+<sc-if value="{{ b.tabrik }}">
+    <section style="padding: 34px 20px 38px">
+      <div class="kn-head"><span class="kn-slate"></span><span class="kn-cap">Sahna {{ sc.tabrik }}</span><span class="kn-rule"></span><span class="kn-tc">{{ tc.tabrik }}</span></div>
+      <h2 class="kn-h2">Tabrik</h2>
+      <div class="kn-rise" style="position: relative; margin-top: 22px">
+        <div class="kn-paper" style="position: relative; background-color: #EFE2C4; color: #2B1D12; transform: rotate(-1deg); box-shadow: 0 24px 50px rgba(0,0,0,0.55)">
+          <div style="display: flex; align-items: stretch; background: #D9661F; color: #FFF3E0">
+            <div style="flex: 1; padding: 12px 14px">
+              <p class="kn-o" style="margin: 0; font-size: 20px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; line-height: 1">Fotolaboratoriya</p>
+              <p class="kn-m" style="margin: 4px 0 0; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase">Ishlov berish: muhabbat bilan</p>
+            </div>
+            <div style="flex: none; width: 82px; border-left: 2px dashed rgba(255,243,224,0.6); display: flex; flex-direction: column; align-items: center; justify-content: center">
+              <span class="kn-m" style="font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase">Buyurtma</span>
+              <span class="kn-o" style="font-size: 26px; font-weight: 600; line-height: 1">№{{ orderNo }}</span>
+            </div>
+          </div>
+          <div style="position: relative; padding: 16px 20px 22px">
+            <div style="display: flex; align-items: baseline; gap: 10px; border-bottom: 1px dashed rgba(43,29,18,0.4); padding-bottom: 4px">
+              <span class="kn-m" style="flex: none; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #6B4A2C">Kimga:</span>
+              <span class="kn-hand" style="min-width: 0; font-size: 28px; font-weight: 700; line-height: 1.05; color: #23356E; overflow-wrap: anywhere">{{ name }}</span>
+            </div>
+            <p style="margin: 16px 0 0; font-size: 15px; line-height: 1.7; white-space: pre-line; overflow-wrap: anywhere">{{ d.matn }}</p>
+            <sc-if value="{{ d.kimdan }}">
+              <div style="display: flex; align-items: baseline; gap: 10px; margin-top: 18px; border-top: 1px dashed rgba(43,29,18,0.4); padding: 8px 74px 0 0">
+                <span class="kn-m" style="flex: none; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #6B4A2C">{{ fromLbl }}</span>
+                <span class="kn-hand" style="min-width: 0; font-size: 25px; font-weight: 700; line-height: 1.1; color: #23356E; overflow-wrap: anywhere">{{ from.names }}</span>
+              </div>
+            </sc-if>
+            <div aria-hidden="true" style="position: absolute; right: 4px; bottom: -30px; width: 86px; height: 86px; border-radius: 50%; border: 2px solid rgba(200,67,43,0.75); transform: rotate(-14deg); display: flex; flex-direction: column; align-items: center; justify-content: center; color: rgba(200,67,43,0.85)">
+              <span class="kn-m" style="font-size: 8px; letter-spacing: 0.16em; text-transform: uppercase">Sifat</span>
+              <span class="kn-o" style="font-size: 20px; font-weight: 700; letter-spacing: 0.08em; line-height: 1.1; text-transform: uppercase">Tayyor</span>
+              <span class="kn-m" style="font-size: 8px; letter-spacing: 0.16em">{{ stampShort }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.taymer }}">
+    <section style="padding: 30px 20px 38px">
+      <div class="kn-head"><span class="kn-slate"></span><span class="kn-cap">Sahna {{ sc.taymer }}</span><span class="kn-rule"></span><span class="kn-tc">{{ tc.taymer }}</span></div>
+      <h2 class="kn-h2">{{ cdTitle }}</h2>
+      <p class="kn-m" style="margin: 8px 0 0; font-size: 13px; letter-spacing: 0.1em; color: #B9A68A">{{ cdDate }}</p>
+      <div class="kn-rise" style="position: relative; margin-top: 22px; padding: 22px 8px 18px; border-radius: 14px; background: linear-gradient(180deg, #2E241B, #17110C); box-shadow: inset 0 1px 0 rgba(255,220,170,0.18), inset 0 0 0 1px rgba(240,162,59,0.25), 0 20px 40px rgba(0,0,0,0.5)">
+        <svg aria-hidden="true" width="64" height="64" viewBox="0 0 64 64" style="position: absolute; right: 10px; top: -84px"><g class="kn-spinS"><circle cx="32" cy="32" r="30" fill="#1A130E" stroke="#F0A23B" style="stroke-width: 1.5"></circle><circle cx="32" cy="32" r="5" fill="#F0A23B"></circle><circle cx="32" cy="15" r="7" fill="#0B0806"></circle><circle cx="46.7" cy="40.5" r="7" fill="#0B0806"></circle><circle cx="17.3" cy="40.5" r="7" fill="#0B0806"></circle></g></svg>
+        <div style="display: flex; justify-content: center; gap: 8px">
+          <sc-for list="{{ odo }}" as="u">
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 10px">
+              <div style="display: flex; gap: 3px; padding: 5px; border-radius: 7px; background: #0B0806; box-shadow: inset 0 2px 6px rgba(0,0,0,0.8), 0 0 0 1px rgba(240,162,59,0.3)">
+                <sc-for list="{{ u.dg }}" as="g"><span class="kn-drum"><span class="kn-col" style="{{ g }}"><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span></span></span></sc-for>
+              </div>
+              <span class="kn-m" style="font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #F0A23B">{{ u.l }}</span>
+            </div>
+          </sc-for>
+        </div>
+        <div aria-hidden="true" style="display: flex; align-items: center; gap: 8px; margin-top: 16px; padding: 0 6px">
+          <span style="width: 8px; height: 8px; border-radius: 50%; background: #C8432B; box-shadow: 0 0 8px #FF5A3A"></span>
+          <span class="kn-m" style="font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: #B9A68A">Lenta hisoblagichi</span>
+          <span style="flex: 1; height: 1px; background: rgba(240,162,59,0.25)"></span>
+          <span class="kn-m" style="font-size: 10px; letter-spacing: 0.14em; color: #B9A68A">24 kadr/s</span>
+        </div>
+      </div>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.tilaklar }}">
+    <section style="position: relative; padding: 30px 20px 40px">
+      <div class="kn-head"><span class="kn-slate"></span><span class="kn-cap">Sahna {{ sc.tilaklar }}</span><span class="kn-rule"></span><span class="kn-tc">{{ tc.tilaklar }}</span></div>
+      <h2 class="kn-h2">Tilaklar</h2>
+      <div style="position: relative; margin-top: 22px; padding: 30px 0 26px; background: #0B0806; border-radius: 4px; box-shadow: 0 0 0 1px rgba(240,162,59,0.18)">
+        <p class="kn-m" style="margin: 0 0 18px; text-align: center; font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; color: #B9A68A">Bu filmda ishtirok etadi</p>
+        <div style="display: flex; flex-direction: column; gap: 14px">
+          <sc-for list="{{ credits }}" as="c">
+            <div class="kn-rise" style="display: flex; align-items: baseline; gap: 14px">
+              <span class="kn-m" style="flex: 0 0 42%; text-align: right; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: #B9A68A">{{ c.role }}</span>
+              <span class="kn-o" style="flex: 1; min-width: 0; padding-right: 14px; font-size: 25px; font-weight: 500; line-height: 1.1; letter-spacing: 0.04em; text-transform: uppercase; color: #F3E5C8; overflow-wrap: anywhere">{{ c.text }}</span>
+            </div>
+          </sc-for>
+        </div>
+        <p class="kn-o" style="margin: 26px 0 0; text-align: center; font-size: 13px; font-weight: 300; letter-spacing: 0.3em; text-transform: uppercase; color: #F0A23B">va albatta, sen</p>
+      </div>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.sham }}">
+    <section style="padding: 30px 20px 38px">
+      <div class="kn-head"><span class="kn-slate"></span><span class="kn-cap">Sahna {{ sc.sham }}</span><span class="kn-rule"></span><span class="kn-tc">{{ tc.sham }}</span></div>
+      <h2 class="kn-h2">Shamni o’chiring</h2>
+      <p class="kn-m" style="margin: 8px 0 0; font-size: 13px; letter-spacing: 0.06em; color: #B9A68A">Ko’zingizni yuming, niyat qiling — va puflang.</p>
+      <div class="{{ cakeCls }}" style="position: relative; margin-top: 22px; height: 300px; border-radius: 6px; overflow: hidden; background: radial-gradient(70% 60% at 50% 45%, #3A2616, #1A120C 70%, #0E0A07)">
+        <div aria-hidden="true" class="kn-glow" style="position: absolute; left: 75px; top: 0; width: 200px; height: 200px; border-radius: 50%; background: radial-gradient(circle, rgba(255,200,114,0.45), rgba(255,200,114,0) 70%)"></div>
+        <svg aria-hidden="true" width="350" height="300" viewBox="0 0 350 300" style="position: absolute; left: 0; top: 0">
+          <path class="kn-ln" d="M18 40V18H40M332 40V18H310M18 260V282H40M332 260V282H310"></path>
+          <circle class="kn-ln" cx="175" cy="150" r="26" style="opacity: 0.5"></circle>
+          <path class="kn-ln" d="M175 116V128M175 172V184M141 150H153M197 150H209" style="opacity: 0.5"></path>
+          <ellipse cx="175" cy="252" rx="112" ry="16" fill="#0B0806" opacity="0.7"></ellipse>
+          <ellipse cx="175" cy="244" rx="104" ry="14" fill="#C9B898"></ellipse>
+          <path d="M95 160H255V236A80 12 0 0 1 95 236Z" fill="#F3E5C8"></path>
+          <path d="M95 160H255V176C246 176 246 196 236 196C226 196 228 178 218 178C206 178 210 202 196 202C184 202 188 180 175 180C162 180 166 204 152 204C140 204 142 182 132 182C120 182 124 198 112 198C102 198 104 178 95 178Z" fill="#E0702A"></path>
+          <ellipse cx="175" cy="160" rx="80" ry="12" fill="#F0A23B"></ellipse>
+          <path d="M105 214H245" stroke="#E0702A" style="stroke-width: 3; stroke-dasharray: 2 9; stroke-linecap: round"></path>
+          <rect x="138" y="108" width="9" height="50" rx="2" fill="#F3E5C8"></rect>
+          <rect x="170.5" y="96" width="9" height="62" rx="2" fill="#F3E5C8"></rect>
+          <rect x="203" y="108" width="9" height="50" rx="2" fill="#F3E5C8"></rect>
+          <path d="M138 118l9-4M138 132l9-4M138 146l9-4M170.5 106l9-4M170.5 120l9-4M170.5 134l9-4M170.5 148l9-4M203 118l9-4M203 132l9-4M203 146l9-4" stroke="#C8432B" style="stroke-width: 2.4"></path>
+          <ellipse class="kn-glow" cx="142.5" cy="94" rx="14" ry="18" fill="#FFC872" opacity="0.5"></ellipse>
+          <ellipse class="kn-glow" cx="175" cy="82" rx="14" ry="18" fill="#FFC872" opacity="0.5"></ellipse>
+          <ellipse class="kn-glow" cx="207.5" cy="94" rx="14" ry="18" fill="#FFC872" opacity="0.5"></ellipse>
+          <path class="kn-flame" d="M142.5 80C147 88 149 94 146.5 100C145 103 140 103 138.5 100C136 94 138 88 142.5 80Z" fill="#FFC872"></path>
+          <path class="kn-flame" d="M175 68C179.5 76 181.5 82 179 88C177.5 91 172.5 91 171 88C168.5 82 170.5 76 175 68Z" fill="#FFC872"></path>
+          <path class="kn-flame" d="M207.5 80C212 88 214 94 211.5 100C210 103 205 103 203.5 100C201 94 203 88 207.5 80Z" fill="#FFC872"></path>
+          <path class="kn-smoke" d="M142.5 104C138 96 147 90 142.5 82C139 75 145 70 142.5 62"></path>
+          <path class="kn-smoke" d="M175 92C170 84 179 78 175 70C171 63 177 58 175 50"></path>
+          <path class="kn-smoke" d="M207.5 104C203 96 212 90 207.5 82C204 75 210 70 207.5 62"></path>
+        </svg>
+        <span class="kn-m" style="position: absolute; left: 26px; bottom: 26px; font-size: 11px; letter-spacing: 0.12em; color: #F0A23B">f/2.8 · 1/60</span>
+        <span class="kn-m" style="position: absolute; right: 26px; bottom: 26px; font-size: 11px; letter-spacing: 0.12em; color: #F0A23B">ISO 400</span>
+        <span class="kn-shut kn-shutT"></span><span class="kn-shut kn-shutB"></span>
+        <span class="kn-flash"></span>
+        <div aria-hidden="true" class="kn-grain"></div>
+      </div>
+      <p class="{{ wishCls }}" style="margin: 16px 0 0; min-height: 32px; text-align: center; font-family: 'Caveat', cursive; font-size: 30px; font-weight: 700; line-height: 1.1; color: #FFC872; overflow-wrap: anywhere">{{ wishLine }}</p>
+      <div style="display: flex; justify-content: center; margin-top: 12px">
+        <button type="button" class="kn-ghost" onClick="{{ blow }}">
+          <span class="{{ blowIdle }}">Puflash</span><span class="{{ blowDone }}">Shamni qayta yoqish</span>
+        </button>
+      </div>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.sirli }}">
+    <section style="padding: 30px 20px 38px">
+      <div class="kn-head"><span class="kn-slate"></span><span class="kn-cap">Sahna {{ sc.sirli }}</span><span class="kn-rule"></span><span class="kn-tc">{{ tc.sirli }}</span></div>
+      <h2 class="kn-h2">Ochilmagan kadr</h2>
+      <p class="kn-m" style="margin: 8px 0 0; font-size: 13px; letter-spacing: 0.06em; color: #B9A68A">Kassetada sirli tilak bor. Plyonkani tortib, kadrni chiqaring.</p>
+      <button type="button" class="{{ secCls }}" onClick="{{ toggleSec }}" aria-label="Sirli tilakni ochish" style="margin-top: 24px">
+        <div style="position: relative; display: flex; align-items: center; min-height: 190px">
+          <div class="kn-lead" style="position: relative; z-index: 1; margin-left: 74px; flex: 1; min-width: 0">
+            <div class="kn-stripH" style="padding: 24px 14px; background-color: #6B3418">
+              <div style="position: relative; min-height: 130px; padding: 18px 16px; overflow: hidden; display: flex; flex-direction: column; justify-content: center">
+                <div class="kn-print"></div>
+                <div class="kn-neg"></div>
+                <div class="kn-secTxt">
+                  <p class="kn-m" style="margin: 0; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: #9A4A1C">Kadr 00 · sirli tilak</p>
+                  <p class="kn-hand" style="margin: 6px 0 0; font-size: 24px; font-weight: 700; line-height: 1.2; color: #2B1D12; white-space: pre-line; overflow-wrap: anywhere">{{ d.sirli_tilak }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <svg aria-hidden="true" width="96" height="170" viewBox="0 0 96 170" style="position: absolute; left: 0; top: 50%; margin-top: -85px; z-index: 2">
+            <rect x="30" y="0" width="36" height="12" rx="3" fill="#2A211A"></rect>
+            <rect x="38" y="4" width="20" height="6" rx="2" fill="#0B0806"></rect>
+            <rect x="8" y="12" width="80" height="146" rx="10" fill="#1E1712"></rect>
+            <rect x="8" y="12" width="80" height="146" rx="10" fill="none" stroke="#F0A23B" style="stroke-width: 1.2; opacity: 0.6"></rect>
+            <rect x="14" y="40" width="68" height="90" rx="3" fill="#F0A23B"></rect>
+            <rect x="14" y="40" width="68" height="18" fill="#C8432B"></rect>
+            <text x="48" y="53" text-anchor="middle" class="kn-o" style="font-size: 11px; font-weight: 600; letter-spacing: 1.5px" fill="#FFF3E0">KINO</text>
+            <text x="48" y="92" text-anchor="middle" class="kn-o" style="font-size: 30px; font-weight: 600" fill="#1A120C">400</text>
+            <text x="48" y="118" text-anchor="middle" class="kn-m" style="font-size: 9px; letter-spacing: 1px" fill="#1A120C">35MM · 36</text>
+            <rect x="84" y="62" width="8" height="46" rx="2" fill="#0B0806"></rect>
+            <rect x="30" y="158" width="36" height="8" rx="2" fill="#2A211A"></rect>
+          </svg>
+        </div>
+        <p class="kn-m kn-hintA" style="margin: 14px 0 0; text-align: center; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #F0A23B">Bosing — kadr chiqadi</p>
+      </button>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.galereya }}">
+    <section style="padding: 30px 0 38px">
+      <div style="padding: 0 20px">
+        <div class="kn-head"><span class="kn-slate"></span><span class="kn-cap">Sahna {{ sc.galereya }}</span><span class="kn-rule"></span><span class="kn-tc">{{ tc.galereya }}</span></div>
+        <h2 class="kn-h2">Kinolenta</h2>
+      </div>
+      <div style="position: relative; margin-top: 22px; overflow: hidden; transform: rotate(-2deg); width: 430px; margin-left: -20px">
+        <div class="kn-stripH kn-track" style="{{ trackSt }}">
+          <sc-for list="{{ track }}" as="f">
+            <div style="position: relative; flex: none; width: 178px; height: 170px">
+              <div style="position: absolute; left: 6px; top: 26px; width: 166px; height: 112px; overflow: hidden; background: #2A1E15"><img src="{{ f.src }}" alt="" style="display: block; width: 166px; height: 112px; object-fit: cover"></div>
+              <span class="kn-edge" style="position: absolute; left: 10px; top: 143px">{{ f.n }}</span>
+              <span class="kn-edge" style="position: absolute; right: 12px; top: 143px">KINO 400</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+      <div style="{{ polBox }}">
+        <sc-for list="{{ polas }}" as="q">
+          <div style="{{ q.st }}">
+            <div style="position: relative; padding: 10px 10px 0; background: #F6F0E2; box-shadow: 0 18px 36px rgba(0,0,0,0.55)">
+              <div style="position: relative; width: 100%; aspect-ratio: 1 / 1; overflow: hidden; background: #2A2620">
+                <img class="kn-devImg" src="{{ q.src }}" alt="" style="display: block; width: 100%; height: 100%; object-fit: cover">
+                <div aria-hidden="true" class="kn-dev" style="position: absolute; inset: 0; background: linear-gradient(160deg, #6E7466, #3C4038)"></div>
+              </div>
+              <p class="kn-hand" style="margin: 0; padding: 8px 2px 10px; text-align: center; font-size: 22px; font-weight: 700; line-height: 1.1; color: #2B2A6E">{{ q.cap }}</p>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.xronika }}">
+    <section style="padding: 30px 20px 38px">
+      <div class="kn-head"><span class="kn-slate"></span><span class="kn-cap">Sahna {{ sc.xronika }}</span><span class="kn-rule"></span><span class="kn-tc">{{ tc.xronika }}</span></div>
+      <h2 class="kn-h2">Hayot epizodlari</h2>
+      <div style="position: relative; margin-top: 24px">
+        <div aria-hidden="true" class="kn-stripV" style="position: absolute; left: 0; top: 0; bottom: 0; width: 124px"></div>
+        <sc-for list="{{ chron }}" as="c">
+          <div class="kn-rise" style="position: relative; display: flex; align-items: center; gap: 18px; padding: 12px 0">
+            <div style="position: relative; flex: none; width: 124px; height: 100px">
+              <div style="position: absolute; left: 22px; top: 6px; width: 80px; height: 80px; overflow: hidden; background: radial-gradient(circle, #6B3A1A, #2A1E15)">
+                <sc-if value="{{ has.photo }}"><img src="{{ c.src }}" alt="" style="display: block; width: 80px; height: 80px; object-fit: cover"></sc-if>
+                <sc-if value="{{ noPhoto }}"><span class="kn-o" style="display: flex; width: 80px; height: 80px; align-items: center; justify-content: center; font-size: 34px; font-weight: 600; color: #F0A23B">{{ c.yosh }}</span></sc-if>
+              </div>
+              <span class="kn-edge" style="position: absolute; left: 22px; top: 88px">EP.{{ c.n }}</span>
+            </div>
+            <div style="flex: 1; min-width: 0">
+              <p class="kn-o" style="margin: 0; display: flex; align-items: baseline; gap: 8px; color: #F0A23B"><span style="font-size: {{ c.fs }}px; font-weight: 600; line-height: 1">{{ c.yosh }}</span><span class="kn-m" style="font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #B9A68A">yosh</span></p>
+              <p style="margin: 6px 0 0; font-size: 15px; line-height: 1.5; color: #F3E5C8; overflow-wrap: anywhere">{{ c.matn }}</p>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.mehmonlar }}">
+    <section style="padding: 30px 20px 38px">
+      <div class="kn-head"><span class="kn-slate"></span><span class="kn-cap">Sahna {{ sc.mehmonlar }}</span><span class="kn-rule"></span><span class="kn-tc">{{ tc.mehmonlar }}</span></div>
+      <h2 class="kn-h2">Tomoshabinlar fikri</h2>
+      <div style="display: flex; flex-direction: column; gap: 16px; margin-top: 22px">
+        <sc-for list="{{ reviews }}" as="r">
+          <figure class="kn-rise" style="{{ r.st }}">
+            <div aria-hidden="true" style="display: flex; gap: 4px; justify-content: {{ r.jc }}">
+              <sc-for list="{{ stars }}" as="s"><svg width="16" height="16" viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.6 6.1.7-4.5 4.2 1.2 6L10 15l-5.4 3 1.2-6L1.3 7.8l6.1-.7z" fill="#F0A23B"></path></svg></sc-for>
+            </div>
+            <blockquote class="kn-o" style="margin: 12px 0 0; font-size: 21px; font-weight: 400; line-height: 1.3; color: #F3E5C8; overflow-wrap: anywhere">«{{ r.matn }}»</blockquote>
+            <figcaption class="kn-m" style="margin-top: 12px; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #F0A23B; overflow-wrap: anywhere">— {{ r.ism }}</figcaption>
+          </figure>
+        </sc-for>
+      </div>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.bazm }}">
+    <section style="padding: 30px 20px 38px">
+      <div class="kn-head"><span class="kn-slate"></span><span class="kn-cap">Sahna {{ sc.bazm }}</span><span class="kn-rule"></span><span class="kn-tc">{{ tc.bazm }}</span></div>
+      <h2 class="kn-h2">Bazmga taklif</h2>
+      <p class="kn-m" style="margin: 8px 0 0; font-size: 13px; line-height: 1.55; letter-spacing: 0.04em; color: #B9A68A">Filmning eng yorqin sahnasi hali suratga olinmagan — u siz bilan bo’ladi.</p>
+      <div class="{{ clapCls }}" style="position: relative; margin-top: 78px">
+        <div class="kn-stick" style="position: relative; height: 34px; margin: 0 6px 0 0; border-radius: 4px 4px 0 0; background: repeating-linear-gradient(-60deg, #EDE6D6 0 18px, #15100C 18px 36px); box-shadow: 0 0 0 1px #3A2E24"></div>
+        <div style="position: relative; height: 30px; background: repeating-linear-gradient(60deg, #EDE6D6 0 18px, #15100C 18px 36px); box-shadow: 0 0 0 1px #3A2E24"></div>
+        <div style="position: relative; padding: 18px 18px 20px; background: #1E1915; border-radius: 0 0 8px 8px; box-shadow: 0 0 0 1px #3A2E24, 0 26px 50px rgba(0,0,0,0.6)">
+          <div class="kn-grain" style="opacity: 0.08"></div>
+          <div style="position: relative; display: grid; grid-template-columns: 1fr 1fr; border: 1px solid rgba(237,230,214,0.45)">
+            <div style="grid-column: 1 / -1; padding: 8px 12px; border-bottom: 1px solid rgba(237,230,214,0.45)">
+              <span class="kn-m" style="display: block; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: #A99C86">Sahna</span>
+              <span class="kn-hand" style="display: block; font-size: 30px; font-weight: 700; line-height: 1.05; color: #EDE6D6">Bazm · {{ name }}</span>
+            </div>
+            <div style="padding: 8px 12px; border-right: 1px solid rgba(237,230,214,0.45); border-bottom: 1px solid rgba(237,230,214,0.45)">
+              <span class="kn-m" style="display: block; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: #A99C86">Sana</span>
+              <span class="kn-hand" style="display: block; font-size: 25px; font-weight: 700; line-height: 1.05; color: #EDE6D6">{{ bazmDm }}</span>
+              <span class="kn-m" style="display: block; font-size: 11px; color: #C9BFAE">{{ bazmWy }}</span>
+            </div>
+            <div style="padding: 8px 12px; border-bottom: 1px solid rgba(237,230,214,0.45)">
+              <span class="kn-m" style="display: block; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: #A99C86">Vaqt</span>
+              <span class="kn-hand" style="display: block; font-size: 25px; font-weight: 700; line-height: 1.05; color: #EDE6D6">{{ bazmTime }}</span>
+            </div>
+            <div style="grid-column: 1 / -1; padding: 8px 12px">
+              <span class="kn-m" style="display: block; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: #A99C86">Joy</span>
+              <span class="kn-hand" style="display: block; font-size: 26px; font-weight: 700; line-height: 1.1; color: #EDE6D6; overflow-wrap: anywhere">{{ d.bazm_joy }}</span>
+              <sc-if value="{{ d.bazm_manzil }}"><span style="display: block; margin-top: 2px; font-size: 13px; line-height: 1.4; color: #C9BFAE; overflow-wrap: anywhere">{{ d.bazm_manzil }}</span></sc-if>
+            </div>
+            <sc-if value="{{ d.dress_kod }}">
+              <div style="grid-column: 1 / -1; padding: 8px 12px; border-top: 1px solid rgba(237,230,214,0.45)">
+                <span class="kn-m" style="display: block; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: #A99C86">Kiyinish uslubi</span>
+                <span class="kn-hand" style="display: block; font-size: 24px; font-weight: 700; line-height: 1.1; color: #EDE6D6; overflow-wrap: anywhere">{{ d.dress_kod }}</span>
+              </div>
+            </sc-if>
+          </div>
+          <div style="position: relative; display: flex; flex-direction: column; gap: 10px; margin-top: 16px">
+            <sc-if value="{{ askGuest }}">
+              <input class="kn-input" type="text" maxlength="100" placeholder="Ismingiz" aria-label="Ismingiz" onInput="{{ setName }}">
+            </sc-if>
+            <div style="display: flex; gap: 10px">
+              <button type="button" class="{{ goCls }}" onClick="{{ go }}">
+                <span class="{{ goIdle }}">Boraman</span>
+                <span class="{{ goDone }}"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 20 20"><path class="kn-ico" d="M4 10.5l4 4 8-9" style="stroke: #FFC872"></path></svg>Kutamiz!</span>
+              </button>
+              <sc-if value="{{ d.xarita }}"><a class="kn-map" href="{{ d.xarita }}" target="_blank" rel="noopener"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 20 20"><path class="kn-ico" d="M10 18s-5.5-5.2-5.5-9.3a5.5 5.5 0 0 1 11 0C15.5 12.8 10 18 10 18z" style="stroke: #EDE6D6"></path><circle class="kn-ico" cx="10" cy="8.7" r="2" style="stroke: #EDE6D6"></circle></svg>Xaritada ochish</a></sc-if>
+            </div>
+            <sc-if value="{{ goErr }}"><p class="kn-err" role="alert">{{ goErr }}</p></sc-if>
+          </div>
+        </div>
+      </div>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.javob }}">
+    <section style="position: relative; padding: 30px 20px 30px; display: flex; flex-direction: column; align-items: center; text-align: center">
+      <p class="kn-cap">So’nggi kadr</p>
+      <h2 class="kn-o" style="margin: 8px 0 0; font-size: 30px; font-weight: 500; line-height: 1.15; text-transform: uppercase; color: #F3E5C8; overflow-wrap: anywhere">{{ askName }}</h2>
+      <p class="kn-m" style="margin: 8px 0 22px; font-size: 13px; line-height: 1.5; color: #B9A68A">Bir bosishda tabrigingiz yetib boradi</p>
+      <div style="position: relative; width: 300px">
+        <div class="{{ burstCls }}" aria-hidden="true" style="position: absolute; left: 150px; top: 28px; z-index: 3">
+          <sc-for list="{{ rays }}" as="r"><span class="kn-ray" style="{{ r }}"></span></sc-for>
+        </div>
+        <button type="button" class="{{ sendCls }}" onClick="{{ send }}" style="width: 300px">
+          <span class="{{ sendIdle }}"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 20 20"><path d="M5 3.5v13l11-6.5z" fill="#1A120C"></path></svg>Tabrikladim</span>
+          <span class="{{ sendDone }}"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 20 20"><path class="kn-ico" d="M4 10.5l4 4 8-9"></path></svg>Rahmat, yetkazildi</span>
+        </button>
+      </div>
+    </section>
+</sc-if>
+
+    <footer style="position: relative; flex: 1; min-height: 190px; display: flex; flex-direction: column; justify-content: flex-end; box-sizing: border-box">
+      <div style="padding: 0 20px 22px; text-align: center">
+        <p class="kn-o" style="margin: 0; font-size: 34px; font-weight: 300; letter-spacing: 0.2em; text-transform: uppercase; color: #F3E5C8">Davomi bor…</p>
+        <p class="kn-m" style="margin: 8px 0 0; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: #F0A23B; overflow-wrap: anywhere">{{ footLine }}</p>
+      </div>
+      <div aria-hidden="true" class="kn-stripH" style="height: 40px; overflow: hidden">
+        <div style="position: absolute; left: 0; top: 13px; width: 390px; display: flex; justify-content: space-around">
+          <sc-for list="{{ edgeEnd }}" as="e"><span class="kn-edge">{{ e }}</span></sc-for>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <div data-intro class="{{ introCls }}" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; z-index: 20; overflow: hidden; background: #0E0A08">
+    <div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; background: radial-gradient(80% 40% at 50% 26%, #2A1C12 0%, #120C09 60%, #0B0806 100%)"></div>
+    <div aria-hidden="true" class="kn-leak" style="left: -120px; top: 560px; width: 300px; height: 300px; background: radial-gradient(circle, rgba(200,67,43,0.35), rgba(200,67,43,0) 70%)"></div>
+
+    <div class="kn-iTop" style="position: absolute; left: 20px; top: 34px; width: 350px; text-align: center">
+      <p class="kn-cap" style="font-size: 11px; letter-spacing: 0.26em">{{ introCap }}</p>
+    </div>
+    <sc-if value="{{ has.music }}"><div aria-hidden="true" style="position: absolute; right: 14px; top: 10px; display: flex; align-items: center; gap: 6px"><svg width="11" height="13" viewBox="0 0 22 26"><path d="M8 3L20 0V17.5A3.5 3 0 1 1 17 14.6V5.2L10 7V20.5A3.5 3 0 1 1 7 17.6V3Z" fill="#F0A23B"></path></svg><span class="kn-m" style="font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: #F0A23B">Ovozli film</span></div></sc-if>
+
+    <svg aria-hidden="true" width="390" height="844" viewBox="0 0 390 844" style="position: absolute; left: 0; top: 0">
+      <defs>
+        <linearGradient id="kn-gb" x1="0" y1="1" x2="0" y2="0"><stop offset="0" style="stop-color: #FFE2A8; stop-opacity: 0.9"></stop><stop offset="1" style="stop-color: #FFC872; stop-opacity: 0.12"></stop></linearGradient>
+      </defs>
+      <polygon class="kn-beam" points="98,634 98,650 352,316 38,316" fill="url(#kn-gb)"></polygon>
+    </svg>
+    <div aria-hidden="true" class="kn-beam" style="position: absolute; left: 0; top: 300px; width: 390px; height: 360px; pointer-events: none">
+      <sc-for list="{{ motes }}" as="m"><span class="kn-mote" style="{{ m }}"></span></sc-for>
+    </div>
+
+    <div style="position: absolute; left: 30px; top: 84px; width: 330px; height: 232px; padding: 6px; box-sizing: border-box; background: #050403; box-shadow: 0 0 60px rgba(255,200,114,0.18)">
+      <div class="kn-flick" style="position: relative; width: 318px; height: 220px; overflow: hidden; background: radial-gradient(80% 85% at 50% 48%, #6E5034, #3A2818 70%, #24180F)">
+        <div class="kn-grain kn-grainJ" style="opacity: 0.22; width: 400px; height: 300px; left: -40px; top: -40px"></div>
+        <div class="kn-card" style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 0 16px; text-align: center">
+          <p class="kn-m" style="margin: 0; font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase; color: #E8C890">{{ presents }}</p>
+          <p class="kn-o" style="margin: 8px 0 0; font-size: {{ introFs }}px; font-weight: 600; line-height: 1; letter-spacing: 0.06em; text-transform: uppercase; color: #FFF0D2; text-shadow: 0 0 18px rgba(255,200,114,0.45); overflow-wrap: anywhere">{{ name }}</p>
+          <p class="kn-o" style="margin: 8px 0 0; font-size: 15px; font-weight: 300; letter-spacing: 0.1em; color: #E8D3AE">{{ introSub }}</p>
+        </div>
+        <div class="kn-leader" style="position: absolute; inset: 0; background: #CFC3A8">
+          <svg width="318" height="220" viewBox="0 0 318 220" style="position: absolute; left: 0; top: 0">
+            <g class="kn-sweep"><path d="M159 110L159 -60A170 170 0 0 1 330 110Z" fill="#9D917A" opacity="0.55"></path></g>
+            <circle cx="159" cy="110" r="88" fill="none" stroke="#2B231A" style="stroke-width: 3"></circle>
+            <circle cx="159" cy="110" r="74" fill="none" stroke="#2B231A" style="stroke-width: 2"></circle>
+            <path d="M0 110H318M159 0V220" stroke="#2B231A" style="stroke-width: 1.5"></path>
+          </svg>
+          <sc-for list="{{ leaderNums }}" as="n"><span class="kn-n kn-o" style="{{ n.st }}"><span style="font-size: 120px; font-weight: 500; line-height: 1; color: #1A140E">{{ n.t }}</span></span></sc-for>
+          <div class="kn-grain kn-grainJ" style="opacity: 0.4; mix-blend-mode: multiply; width: 400px; height: 300px; left: -40px; top: -40px"></div>
+        </div>
+        <span class="kn-scr" style="left: 90px; height: 220px"></span>
+        <span class="kn-scr" style="left: 240px; height: 220px; animation-delay: -1s"></span>
+      </div>
+    </div>
+
+    <svg aria-hidden="true" width="390" height="844" viewBox="0 0 390 844" style="position: absolute; left: 0; top: 0; pointer-events: none">
+      <g class="kn-reel" style="transform-box: fill-box; transform-origin: 50% 50%"><circle cx="186" cy="520" r="62" fill="#1E1712" stroke="#F0A23B" style="stroke-width: 2"></circle><circle cx="186" cy="520" r="54" fill="none" stroke="#3A2C20" style="stroke-width: 2"></circle><circle cx="186" cy="488" r="15" fill="#0B0806"></circle><circle cx="213.7" cy="536" r="15" fill="#0B0806"></circle><circle cx="158.3" cy="536" r="15" fill="#0B0806"></circle><circle cx="186" cy="520" r="8" fill="#F0A23B"></circle></g>
+      <g class="kn-reel" style="transform-box: fill-box; transform-origin: 50% 50%"><circle cx="298" cy="506" r="52" fill="#1E1712" stroke="#F0A23B" style="stroke-width: 2"></circle><circle cx="298" cy="506" r="45" fill="none" stroke="#3A2C20" style="stroke-width: 2"></circle><circle cx="298" cy="479" r="12" fill="#0B0806"></circle><circle cx="321.4" cy="519.5" r="12" fill="#0B0806"></circle><circle cx="274.6" cy="519.5" r="12" fill="#0B0806"></circle><circle cx="298" cy="506" r="7" fill="#F0A23B"></circle></g>
+      <path d="M186 582L210 612M298 558L280 612" stroke="#3A2C20" style="stroke-width: 7; stroke-linecap: round"></path>
+      <path d="M124 520C140 560 150 600 170 622M350 506C356 560 340 600 320 618" fill="none" stroke="#0B0806" style="stroke-width: 3"></path>
+      <rect x="140" y="606" width="200" height="92" rx="14" fill="#2A2018"></rect>
+      <rect x="140" y="606" width="200" height="92" rx="14" fill="none" stroke="#F0A23B" style="stroke-width: 1.5; opacity: 0.7"></rect>
+      <rect x="154" y="620" width="96" height="10" rx="3" fill="#3A2C20"></rect>
+      <path d="M268 622H324M268 634H324M268 646H324M268 658H324" stroke="#3A2C20" style="stroke-width: 4; stroke-linecap: round"></path>
+      <rect x="104" y="626" width="40" height="32" rx="4" fill="#1E1712" stroke="#F0A23B" style="stroke-width: 1.5; opacity: 0.9"></rect>
+      <ellipse cx="102" cy="642" rx="7" ry="17" fill="#0B0806" stroke="#F0A23B" style="stroke-width: 1.5"></ellipse>
+      <ellipse class="kn-lamp" cx="101" cy="642" rx="5" ry="13" fill="#FFE2A8"></ellipse>
+      <circle cx="170" cy="672" r="7" fill="#C8432B"></circle>
+      <circle class="kn-lamp" cx="170" cy="672" r="11" fill="#FF6A4A" opacity="0.6"></circle>
+      <path d="M160 698L150 726M320 698L330 726" stroke="#3A2C20" style="stroke-width: 6; stroke-linecap: round"></path>
+      <ellipse cx="240" cy="730" rx="120" ry="6" fill="#000" opacity="0.5"></ellipse>
+    </svg>
+    <div class="kn-white" aria-hidden="true" style="position: absolute; inset: 0; background: radial-gradient(70% 50% at 50% 30%, #FFF7E6, #FFE2A8 60%, #F0A23B)"></div>
+
+    <div class="kn-ctaWrap" style="position: absolute; left: 20px; top: 744px; width: 350px; display: flex; flex-direction: column; align-items: center; gap: 10px">
+      <button type="button" class="kn-btn" onClick="{{ open }}" style="width: 290px"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 20 20"><path d="M5 3.5v13l11-6.5z" fill="#1A120C"></path></svg>Filmni boshlash</button>
+      <sc-if value="{{ from.line }}"><p class="kn-m" style="margin: 0; font-size: 12px; line-height: 1.4; letter-spacing: 0.04em; color: #D8C6A6; overflow-wrap: anywhere">{{ from.line }}</p></sc-if>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":6000}}'>
+const tkName = (d) => String(d.kimga || '').trim();
+const tkFrom = (d) => {
+  const kd = String(d.kimdan || '').trim(), ci = kd.indexOf(':');
+  const label = ci > 0 ? kd.slice(0, ci).trim() : '';
+  const names = ci > 0 ? kd.slice(ci + 1).trim() : kd;
+  return { label: label, names: names, line: !kd ? '' : (label ? label + 'dan: ' + names : names + 'dan') };
+};
+const tkFit = (text, max, min, width, k) => {
+  const longest = Math.max(1, ...String(text || '').split(/\s+/).map((x) => x.length));
+  return Math.max(min, Math.min(max, Math.floor(width / (longest * k))));
+};
+const pad2 = (n) => (n < 10 ? '0' : '') + n;
+const ORDER = ['tabrik', 'taymer', 'tilaklar', 'sham', 'sirli', 'galereya', 'xronika', 'mehmonlar', 'bazm', 'javob'];
+const ROLES = ['bosh rolda', 'ishtirokida', 'maxsus ishtirokida', 'hamrohligida', 'shuningdek', 'mehmon rolida', 'epizodda', 'kadr ortida'];
+const CAPS = ['Bayram oqshomi', 'Eng yorqin kulgu', 'Sevimli lahza'];
+
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { opened: false, blown: false, sec: false, going: false, sent: false, goErr: '' };
+    this.guestName = '';
+    const rnd = (i, k) => { const x = Math.sin(i * 127.1 + k * 311.7) * 43758.5453; return x - Math.floor(x); };
+    this.deco = {
+      leaks: [[230, 1100, 'rgba(255,128,40,0.18)'], [-200, 1900, 'rgba(200,67,43,0.16)'], [220, 2800, 'rgba(255,128,40,0.15)'], [-190, 3700, 'rgba(200,67,43,0.15)'], [230, 4600, 'rgba(255,128,40,0.14)'], [-200, 5500, 'rgba(255,128,40,0.12)']].map((g, i) => 'left: ' + g[0] + 'px; top: ' + g[1] + 'px; width: 380px; height: 380px; background: radial-gradient(circle, ' + g[2] + ', rgba(0,0,0,0) 70%); animation-delay: -' + (i * 1.7).toFixed(1) + 's'),
+      motes: Array.from({ length: 22 }, (_, i) => {
+        const s = 1 + Math.round(rnd(i, 5) * 2);
+        const y = rnd(i, 6), x = 100 + y * 0 + rnd(i, 7) * 220 * (1 - y * 0.6) + y * 20;
+        return 'left: ' + Math.round(x) + 'px; top: ' + Math.round(20 + y * 300) + 'px; width: ' + s + 'px; height: ' + s + 'px; animation-duration: ' + (4 + rnd(i, 8) * 5).toFixed(1) + 's; animation-delay: -' + (rnd(i, 9) * 8).toFixed(1) + 's';
+      }),
+      leaderNums: ['3', '2', '1'].map((t, i) => ({ t: t, st: 'animation-delay: ' + (0.4 + i * 0.66).toFixed(2) + 's' })),
+      stars: [1, 2, 3, 4, 5],
+      rays: Array.from({ length: 18 }, (_, i) => '--a: ' + (-85 + i * 10) + 'deg; height: ' + (80 + Math.round(rnd(i, 3) * 70)) + 'px; animation-delay: ' + (rnd(i, 4) * 0.15).toFixed(2) + 's')
+    };
+  }
+  componentDidMount() {
+    this.timer = setInterval(() => this.forceUpdate(), 1000);
+  }
+  componentWillUnmount() {
+    clearInterval(this.timer);
+  }
+  renderVals() {
+    const s = this.state;
+    const D = SITE.d;
+    const name = tkName(D), from = tkFrom(D);
+    const w = SITE.when(D.sana), bw = SITE.when(D.bazm_sana);
+    const c = SITE.countdown(D.sana);
+    const yosh = String(D.yosh || '').trim();
+    const ageNum = /^\d+$/.test(yosh) ? parseInt(yosh, 10) : 0;
+    const sc = {}, tc = {};
+    let k = 0;
+    ORDER.forEach((key) => {
+      if (SITE.b[key]) { k += 1; sc[key] = pad2(k); tc[key] = '00:' + pad2((k * 7 + 3) % 60) + ':' + pad2((k * 23 + 11) % 60); }
+      else { sc[key] = ''; tc[key] = ''; }
+    });
+    const fr = ageNum ? ageNum : 25;
+    const edge = (a) => [String(a - 1) + 'A', '▸ ' + a, String(a) + 'A', '▸ ' + (a + 1)];
+    const dg = (v) => String(v).split('').map((ch) => 'transform: translateY(-' + (+ch * 52) + 'px)');
+    const odo = [
+      { l: 'kun', dg: dg(String(c.d).length < 2 ? '0' + c.d : String(c.d)) },
+      { l: 'soat', dg: dg(c.hh) },
+      { l: 'daqiqa', dg: dg(c.mm) },
+      { l: 'soniya', dg: dg(c.ss) }
+    ];
+    const n = Math.min(6, SITE.has.photos);
+    const base = SITE.p.slice(0, Math.max(1, n));
+    const reps = Math.max(1, Math.ceil(4 / base.length));
+    let half = [];
+    for (let r = 0; r < reps; r++) half = half.concat(base);
+    const track = half.concat(half).map((src, i) => ({ src: src, n: '▸ ' + ((i % half.length) + 1) + 'A' }));
+    const polSrc = n > 1 ? SITE.p.slice(1, Math.min(n, 4)) : SITE.p.slice(0, 1);
+    const pc = polSrc.length;
+    const polSt = pc >= 3
+      ? [['left: 0; top: 30px; width: 168px', -6], ['left: 170px; top: 0; width: 168px', 5], ['left: 86px; top: 236px; width: 178px', -2]]
+      : pc === 2 ? [['left: 0; top: 24px; width: 182px', -5], ['left: 160px; top: 0; width: 182px', 4]] : [['left: 75px; top: 0; width: 200px', -3]];
+    const polas = polSrc.map((src, i) => ({ src: src, cap: CAPS[i], st: 'position: absolute; ' + polSt[i][0] + '; transform: rotate(' + polSt[i][1] + 'deg)' }));
+    const chron = (D.xronika || []).map((x, i) => {
+      const y = String(x.yosh || '').trim();
+      return { yosh: y, matn: x.matn || '', fs: y.length > 3 ? 30 : 44, n: pad2(i + 1), src: SITE.p[i % SITE.p.length] };
+    });
+    const sy = w.year ? '’' + w.year.slice(2) + ' ' + w.monthNum + ' ' + pad2(+w.day) : '';
+    return Object.assign({}, this.deco, {
+      name: name,
+      from: from,
+      sc: sc, tc: tc,
+      anyBlock: Object.keys(SITE.b).some((x) => SITE.b[x]),
+      noPhoto: !SITE.has.photo,
+      bigMark: yosh || name.charAt(0),
+      nameFs: tkFit(name, 64, 28, 346, 0.64),
+      heroSub: ageNum ? ageNum + ' yillik hayot haqida film' : 'Hayoting haqida film',
+      heroDate: w.monthNum ? 'Seans: ' + [w.date, w.weekday].join(', ') : '',
+      stamp: sy, stampShort: w.monthNum ? w.dots : '',
+      edgeTop: edge(fr), edgeEnd: edge(fr + 1),
+      edgeSide: 'KINO 400 ▸ ' + fr, edgeSide2: (w.dots || '') + ' ▸ ' + fr + 'A',
+      musicCls: SITE.music.playing ? 'kn-music kn-music--on' : 'kn-music',
+      musicOn: SITE.music.playing ? 'true' : 'false',
+      toggleMusic: () => { SITE.music.toggle(); },
+      orderNo: ageNum || 1,
+      fromLbl: (from.label ? from.label : 'Kimdan') + ':',
+      cdTitle: c.done ? 'Seans boshlandi!' : 'Seansgacha',
+      cdDate: [w.date, w.weekday].filter(Boolean).join(', '),
+      odo: odo,
+      credits: (D.tilaklar || []).map((t, i) => ({ text: t, role: ROLES[i % ROLES.length] })),
+      cakeCls: s.blown ? 'kn-cake--out' : '',
+      wishCls: s.blown ? 'kn-wish kn-wish--on' : 'kn-wish',
+      wishLine: 'Niyating ushalsin, ' + name + '!',
+      blowIdle: s.blown ? 'is-hidden' : '',
+      blowDone: s.blown ? '' : 'is-hidden',
+      blow: () => this.setState({ blown: !this.state.blown }),
+      secCls: s.sec ? 'kn-sec kn-sec--on' : 'kn-sec',
+      toggleSec: () => this.setState({ sec: !this.state.sec }),
+      track: track,
+      trackSt: 'animation-duration: ' + (half.length * 5) + 's',
+      polas: polas,
+      polBox: 'position: relative; width: 338px; margin: 40px auto 0; height: ' + (pc >= 3 ? 470 : pc === 2 ? 270 : 270) + 'px',
+      chron: chron,
+      reviews: (D.mehmon_tilaklari || []).map((r, i) => ({
+        ism: r.ism || '', matn: r.matn || '', jc: i % 2 ? 'flex-end' : 'flex-start',
+        st: 'position: relative; margin: 0; padding: 20px 20px 18px; border-radius: 4px; background: linear-gradient(160deg, #2A1F17, #1C1510); box-shadow: inset 0 0 0 1px rgba(240,162,59,0.28); text-align: ' + (i % 2 ? 'right' : 'left') + '; ' + (i % 2 ? 'margin-left: 26px' : 'margin-right: 26px')
+      })),
+      bazmDm: bw.dm || '',
+      bazmWy: [bw.year, bw.weekday].filter(Boolean).join(', '),
+      bazmTime: D.bazm_vaqt || 'Kechqurun',
+      clapCls: s.going ? 'kn-clap kn-clap--on' : 'kn-clap',
+      askGuest: !SITE.has.guest && !s.going,
+      setName: (e) => { this.guestName = e.target.value; },
+      goErr: s.goErr,
+      goCls: s.going ? 'kn-go kn-go--on' : 'kn-go',
+      goIdle: s.going ? 'is-hidden' : '',
+      goDone: s.going ? 'kn-row' : 'is-hidden',
+      go: () => {
+        if (this.state.going || this.busy) return;
+        const nm = this.guestName.trim();
+        if (!SITE.has.guest && !nm) { this.setState({ goErr: 'Ismingizni yozing' }); return; }
+        this.busy = true;
+        SITE.rsvp(true, 1, nm).then(() => { this.busy = false; this.setState({ going: true, goErr: '' }); })
+          .catch(() => { this.busy = false; this.setState({ goErr: 'Yuborilmadi, qayta urinib ko’ring' }); });
+      },
+      askName: name + 'ni tabrikladingizmi?',
+      sendCls: s.sent ? 'kn-btn kn-btn--done' : 'kn-btn',
+      sendIdle: s.sent ? 'is-hidden' : 'kn-row',
+      sendDone: s.sent ? 'kn-row' : 'is-hidden',
+      burstCls: s.sent ? 'kn-burst kn-burst--go' : 'kn-burst',
+      send: () => { if (this.state.sent) return; this.setState({ sent: true }); SITE.reply('Tabrikladim', '🥰'); },
+      footLine: [name, w.dots].filter(Boolean).join(' · '),
+      introCap: w.monthNum ? 'Bir kishilik seans · ' + w.dots : 'Bir kishilik seans',
+      presents: (from.label || 'Yaqinlaring') + ' taqdim etadi',
+      introFs: tkFit(name, 58, 24, 290, 0.64),
+      introSub: ageNum ? ageNum + ' yillik hayot haqida film' : 'Hayoting haqida film',
+      introCls: s.opened ? 'kn-intro kn-intro--run' : 'kn-intro',
+      pageCls: s.opened ? 'kn-page kn-page--in' : 'kn-page',
+      open: () => { if (this.state.opened) return; this.setState({ opened: true }); SITE.opened(); }
+    });
+  }
+}
+</script>
+</body>
+</html>

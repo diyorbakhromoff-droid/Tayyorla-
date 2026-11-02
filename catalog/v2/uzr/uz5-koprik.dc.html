@@ -1,0 +1,536 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<title>Uzr VIP: Ko’prik</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Yeseva+One&amp;family=Raleway:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#FFC46B}
+.b-ye{font-family:'Yeseva One','Playfair Display',Georgia,serif;font-weight:400}
+.b-ra{font-family:'Raleway','Segoe UI',system-ui,sans-serif}
+.b-amber{background:linear-gradient(100deg,#FFB35C 0%,#FFE0A3 45%,#FFC46B 70%,#FFE9C2 100%);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent}
+.b-ic{fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.b-ic2{fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.b-rope{fill:none;stroke:#3A1838;stroke-width:1.6;stroke-linecap:round}
+.b-rope2{fill:none;stroke:#3A1838;stroke-width:1;opacity:.8}
+.b-bird{fill:none;stroke:#4A2050;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.b-reed{fill:none;stroke:#3C1739;stroke-width:1.6;stroke-linecap:round}
+.b-shim{fill:none;stroke:#FFE7C6;stroke-width:1.4;stroke-linecap:round;opacity:.65;animation:bShim 3.4s ease-in-out infinite}
+@keyframes bShim{0%,100%{transform:translateX(-6px);opacity:.2}50%{transform:translateX(6px);opacity:.75}}
+.bs-r1{stop-color:#FFD8A6}.bs-r2{stop-color:#D9708C}
+.bs-s1{stop-color:#FFF2CC}.bs-s2{stop-color:#FFD08A;stop-opacity:.55}.bs-s3{stop-color:#FFB070;stop-opacity:0}
+.b-stars{position:absolute;left:0;top:0;width:1px;height:1px;border-radius:50%;box-shadow:42px 38px rgba(255,240,220,.85),96px 120px rgba(255,240,220,.6),150px 64px rgba(255,240,220,.8),214px 30px rgba(255,240,220,.7),262px 102px rgba(255,240,220,.55),318px 54px rgba(255,240,220,.85),360px 140px rgba(255,240,220,.6),20px 170px rgba(255,240,220,.45),182px 160px rgba(255,240,220,.4),344px 20px rgba(255,240,220,.7),120px 20px rgba(255,240,220,.6),236px 186px rgba(255,240,220,.4);animation:bTw 5s ease-in-out infinite}
+@keyframes bTw{0%,100%{opacity:1}50%{opacity:.45}}
+.b-fly{position:absolute;width:4px;height:4px;border-radius:50%;background:#FFD27A;box-shadow:0 0 8px 3px rgba(255,190,90,.55);animation:bFly 7s ease-in-out infinite}
+@keyframes bFly{0%,100%{opacity:.25;transform:translate(0,0)}35%{opacity:1;transform:translate(12px,-18px)}70%{opacity:.6;transform:translate(-8px,-32px)}}
+.b-sway{transform-box:fill-box;transform-origin:50% 100%;animation:bSway 6s ease-in-out infinite}
+@keyframes bSway{0%,100%{transform:rotate(-1.5deg)}50%{transform:rotate(1.5deg)}}
+.b-heart{transform-box:fill-box;transform-origin:50% 50%;animation:bBeat 1.8s ease-in-out infinite}
+@keyframes bBeat{0%,100%{transform:scale(1)}50%{transform:scale(1.14)}}
+.b-lamp{transition:opacity .8s ease}
+/* kirish */
+.b-intro{transition:opacity 1.1s ease 4.2s,visibility 0s linear 5.3s}
+.b-intro--open{opacity:0;visibility:hidden;pointer-events:none}
+.b-pl{transition:transform .6s cubic-bezier(.3,1.5,.5,1),opacity .3s ease}
+.b-pl.is-off{transform:translateY(-70px);opacity:0}
+.b-figL,.b-figR{transition:transform 1.9s cubic-bezier(.45,0,.3,1) .7s}
+.b-intro--done .b-figL{transform:translate(71px,19px)}
+.b-intro--done .b-figR{transform:translate(-71px,19px)}
+.b-ilamp{opacity:0;transition:opacity .9s ease .5s}
+.b-intro--done .b-ilamp{opacity:1}
+.b-iheart{opacity:0;transition:opacity .8s ease 2.6s}
+.b-intro--done .b-iheart{opacity:1}
+.b-ask{transition:opacity .5s ease .2s,transform .5s ease .2s}
+.b-intro--done .b-ask{opacity:0;transform:translateY(-10px);pointer-events:none}
+.b-reveal{pointer-events:none;opacity:0;transform:translateY(12px);transition:opacity 1s ease 2.4s,transform 1.2s cubic-bezier(.2,.8,.3,1) 2.4s}
+.b-intro--done .b-reveal{opacity:1;transform:none}
+.b-cta{transition:opacity .4s ease}
+.b-intro--done .b-cta{opacity:0;pointer-events:none}
+.b-hit{position:absolute;padding:0;border:0;background:transparent;cursor:pointer;border-radius:30px}
+.b-hit:focus-visible{outline:2px solid #FFC46B;outline-offset:2px}
+.b-next{animation:bNext 1.4s ease-in-out infinite}
+@keyframes bNext{0%,100%{opacity:.25}50%{opacity:.85}}
+/* bloklar */
+.b-ridge{position:absolute;left:0;top:0;width:390px;height:64px;filter:drop-shadow(0 -6px 8px rgba(20,2,22,.5))}
+.b-cap{float:left;position:relative;width:56px;height:56px;margin:4px 14px 2px 0;border-radius:50%;background:#FFE9CF;box-shadow:0 6px 12px -4px rgba(20,4,20,.6);display:flex;align-items:center;justify-content:center;font-size:32px;line-height:1;color:#5E2A58}
+.b-cap::after{content:'';position:absolute;left:4px;top:4px;right:4px;bottom:4px;border-radius:50%;border:1.5px dashed rgba(94,42,88,.45)}
+.b-arch{position:absolute;margin:0;box-sizing:border-box;overflow:hidden;background:#2A1230;box-shadow:0 0 0 3px #FFE9CF,0 18px 30px -14px rgba(10,0,10,.8)}
+.b-arch::after{content:'';position:absolute;left:0;top:0;right:0;bottom:0;border-radius:inherit;box-shadow:inset 0 10px 16px -6px rgba(20,4,24,.7),inset 0 -2px 6px rgba(20,4,24,.35);pointer-events:none}
+.b-plank{position:relative;display:flex;align-items:center;gap:14px;padding:14px 18px 14px 16px;border-radius:3px;background-color:#DDA36A;background-image:repeating-linear-gradient(178deg,rgba(120,60,20,0) 0 6px,rgba(120,60,20,.18) 6px 7px,rgba(120,60,20,0) 7px 15px),linear-gradient(180deg,#EDBE87 0%,#D49557 100%);box-shadow:0 3px 0 #8E5328,0 12px 16px -8px rgba(20,4,20,.7)}
+.b-knot{position:absolute;top:50%;width:12px;height:12px;margin-top:-6px;border-radius:50%;background:#3A1838;box-shadow:inset 0 0 0 2px #6A3A5E}
+.b-pop{animation:bPop .6s cubic-bezier(.2,1.3,.4,1) both}
+@keyframes bPop{from{opacity:0;transform:scale(.94) translateY(8px)}to{opacity:1;transform:none}}
+.b-btn{transition:transform .15s ease,box-shadow .2s ease}
+.b-btn:active{transform:scale(.97)}
+.b-btn:focus-visible{outline:3px solid #FFE0A3;outline-offset:3px}
+.b-ta::placeholder{color:#8C6A80}
+.b-ta:focus{outline:2px solid #FFC46B;outline-offset:1px}
+.b-eq{display:flex;align-items:flex-end;gap:3px;height:16px}
+.b-eq span{width:3px;height:16px;border-radius:2px;background:#FFE0A3;transform-origin:50% 100%;animation:bEq 1s ease-in-out infinite}
+@keyframes bEq{0%,100%{transform:scaleY(.3)}50%{transform:scaleY(1)}}
+.b-bob{animation:bBob 2.4s ease-in-out infinite}
+@keyframes bBob{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+.b-float{animation:bFloat 7s ease-in-out infinite}
+@keyframes bFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.b-glow{animation:bGlow 2.6s ease-in-out infinite}
+@keyframes bGlow{0%,100%{opacity:.75}50%{opacity:1}}
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{animation:none !important;transition:none !important}}
+</style>
+</helmet>
+<div style="width: 390px; min-height: var(--vh, 100vh); position: relative; overflow: hidden; background: #241634; color: #FFF1E4; font-family: 'Raleway', 'Segoe UI', system-ui, sans-serif; display: flex; flex-direction: column">
+
+  <!-- manzara qatlamlari -->
+  <svg width="0" height="0" aria-hidden="true" style="position: absolute; left: 0; top: 0">
+    <defs>
+      <linearGradient id="bgRiver" x1="0" y1="0" x2="0" y2="1"><stop offset="0" class="bs-r1"></stop><stop offset="1" class="bs-r2"></stop></linearGradient>
+      <radialGradient id="bgSun" cx="0.5" cy="0.5" r="0.5"><stop offset="0" class="bs-s1"></stop><stop offset="0.45" class="bs-s2"></stop><stop offset="1" class="bs-s3"></stop></radialGradient>
+      <g id="bLand">
+        <circle cx="250" cy="452" r="110" fill="url(#bgSun)"></circle>
+        <circle cx="250" cy="452" r="44" fill="#FFE6B0"></circle>
+        <path d="M70 404 L77 409 L84 404 M94 394 L100 398 L106 394 M300 380 L305 384 L310 380" class="b-bird"></path>
+        <path d="M0 470 L30 452 L58 462 L92 430 L120 448 L150 420 L182 444 L210 428 L246 452 L272 432 L304 446 L338 424 L366 440 L390 432 L390 640 L0 640 Z" fill="#D9808F"></path>
+        <path d="M0 520 C40 500 70 506 100 498 C130 490 160 508 195 500 C230 492 262 510 300 502 C330 496 360 504 390 496 L390 660 L0 660 Z" fill="#B35C86"></path>
+        <ellipse cx="62" cy="486" rx="4" ry="15" fill="#9A4C78"></ellipse><ellipse cx="72" cy="490" rx="3.5" ry="12" fill="#9A4C78"></ellipse><ellipse cx="318" cy="486" rx="4" ry="16" fill="#9A4C78"></ellipse><ellipse cx="330" cy="491" rx="3.5" ry="12" fill="#9A4C78"></ellipse>
+        <path d="M118 560 L272 560 L272 844 L118 844 Z" fill="#8E4874"></path>
+        <path d="M128 600 L150 610 L142 660 L158 700 L148 760 L120 770 Z M262 610 L242 620 L250 670 L236 720 L246 770 L272 770 Z" fill="#7C3D68"></path>
+        <rect x="118" y="768" width="154" height="50" fill="url(#bgRiver)"></rect>
+        <path d="M136 780 H156 M180 788 H206 M226 780 H246 M160 798 H178 M206 804 H226" class="b-shim"></path>
+        <path d="M0 548 Q10 540 18 546 Q26 538 34 545 L60 543 Q70 536 80 544 L104 545 Q112 540 120 547 L138 556 L134 600 L142 640 L130 690 L138 740 L126 790 L132 844 L0 844 Z" fill="#6E2F60"></path>
+        <path d="M390 548 Q380 540 372 546 Q364 538 356 545 L330 543 Q320 536 310 544 L286 545 Q278 540 270 547 L252 556 L256 610 L246 650 L258 700 L248 750 L260 800 L254 844 L390 844 Z" fill="#6E2F60"></path>
+        <g class="b-sway"><rect x="27" y="500" width="3" height="46" fill="#4E2048"></rect><ellipse cx="28.5" cy="500" rx="8" ry="34" fill="#55224E"></ellipse></g>
+        <g class="b-sway" style="animation-delay: -2s"><rect x="47" y="516" width="2.5" height="30" fill="#4E2048"></rect><ellipse cx="48" cy="514" rx="6" ry="24" fill="#55224E"></ellipse></g>
+        <g class="b-sway" style="animation-delay: -1s"><rect x="356" y="502" width="3" height="44" fill="#4E2048"></rect><ellipse cx="357.5" cy="502" rx="8" ry="34" fill="#55224E"></ellipse></g>
+        <g class="b-sway" style="animation-delay: -3s"><rect x="339" y="518" width="2.5" height="28" fill="#4E2048"></rect><ellipse cx="340" cy="516" rx="6" ry="23" fill="#55224E"></ellipse></g>
+        <path d="M0 844 L0 742 C30 728 62 736 86 752 C102 764 110 786 116 812 L390 812 L390 844 Z" fill="#541F4D"></path>
+        <path d="M390 812 L390 730 C356 722 330 738 308 758 C292 774 280 794 276 812 Z" fill="#541F4D"></path>
+        <path d="M0 844 L0 812 C40 804 80 808 120 806 C160 804 200 810 240 806 C290 802 340 808 390 804 L390 844 Z" fill="#4A1D45"></path>
+        <path d="M14 806 L10 784 M20 806 L22 780 M26 806 L32 788 M360 804 L356 780 M366 804 L370 776 M374 804 L382 788 M300 806 L296 790 M306 806 L310 786" class="b-reed"></path>
+        <rect x="134" y="526" width="4" height="32" fill="#3A1838"></rect>
+        <rect x="252" y="526" width="4" height="32" fill="#3A1838"></rect>
+        <path d="M136 528 Q195 560 254 528" class="b-rope"></path>
+        <path d="M136 556 Q195 584 254 556" class="b-rope"></path>
+        <path d="M152 535 V561 M170 541 V566 M188 544 V569 M206 543 V568 M224 539 V565 M240 533 V560" class="b-rope2"></path>
+      </g>
+      <g id="bPlanks">
+        <g transform="translate(144.4 559.7) rotate(22.1)"><rect x="-7.5" y="-3" width="15" height="6" rx="1"></rect></g>
+        <g transform="translate(161.3 565.4) rotate(15.2)"><rect x="-7.5" y="-3" width="15" height="6" rx="1"></rect></g>
+        <g transform="translate(178.1 568.9) rotate(7.7)"><rect x="-7.5" y="-3" width="15" height="6" rx="1"></rect></g>
+        <g transform="translate(195 570)"><rect x="-7.5" y="-3" width="15" height="6" rx="1"></rect></g>
+        <g transform="translate(211.9 568.9) rotate(-7.7)"><rect x="-7.5" y="-3" width="15" height="6" rx="1"></rect></g>
+        <g transform="translate(228.7 565.4) rotate(-15.2)"><rect x="-7.5" y="-3" width="15" height="6" rx="1"></rect></g>
+        <g transform="translate(245.6 559.7) rotate(-22.1)"><rect x="-7.5" y="-3" width="15" height="6" rx="1"></rect></g>
+      </g>
+      <g id="bFigA"><circle cx="0" cy="-29" r="4.6"></circle><path d="M-5 -23 Q0 -25.5 5 -23 L6.5 -10 L3.2 -10 L3 0 L1 0 L0 -9 L-1 0 L-3 0 L-3.2 -10 L-6.5 -10 Z"></path></g>
+      <g id="bFigB"><circle cx="0" cy="-27" r="4.3"></circle><circle cx="3.6" cy="-30" r="2.6"></circle><path d="M-4.6 -21.5 Q0 -24 4.6 -21.5 L8 -5 L2.2 -5 L2 0 L0.6 0 L0 -5 L-0.6 0 L-2 0 L-2.2 -5 L-8 -5 Z"></path></g>
+      <g id="bLamps">
+        <circle cx="136" cy="522" r="14" fill="#FFC46B" opacity="0.3"></circle><circle cx="136" cy="522" r="4.5" fill="#FFE2A0"></circle>
+        <circle cx="254" cy="522" r="14" fill="#FFC46B" opacity="0.3"></circle><circle cx="254" cy="522" r="4.5" fill="#FFE2A0"></circle>
+      </g>
+      <path id="bHeart" d="M195 512 C189 506 180 509 181 517 C182 523 190 528 195 532 C200 528 208 523 209 517 C210 509 201 506 195 512 Z"></path>
+    </defs>
+  </svg>
+
+  <sc-if value="{{ has.music }}">
+  <button type="button" class="b-btn" onClick="{{ toggleMusic }}" aria-label="Musiqa" aria-pressed="{{ musicOn }}" style="position: absolute; right: 16px; top: 16px; z-index: 30; width: 44px; height: 44px; padding: 0; border-radius: 50%; border: 1px solid rgba(255, 224, 163, 0.6); background: rgba(58, 44, 106, 0.55); display: flex; align-items: center; justify-content: center; cursor: pointer">
+    <sc-if value="{{ musicOff }}">
+      <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 17.5V6l10-2v11.5" stroke="#FFE0A3" class="b-ic"></path><circle cx="6.8" cy="17.5" r="2.2" stroke="#FFE0A3" class="b-ic"></circle><circle cx="16.8" cy="15.5" r="2.2" stroke="#FFE0A3" class="b-ic"></circle></svg>
+    </sc-if>
+    <sc-if value="{{ musicOn }}">
+      <span class="b-eq" aria-hidden="true"><span></span><span style="animation-delay: -0.3s"></span><span style="animation-delay: -0.6s"></span><span style="animation-delay: -0.15s"></span></span>
+    </sc-if>
+  </button>
+  </sc-if>
+
+  <!-- KIRISH: jarlik ustidagi ko'prik -->
+  <div class="{{ introCls }}" data-intro style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; z-index: 20; overflow: hidden; background: linear-gradient(180deg, #3A2C6A 0%, #5E3A7E 16%, #9A5288 30%, #D9727F 40%, #F6A47A 47%, #FFD49A 53%, #B35C86 58%, #6E2F60 64%, #4A1D45 100%)">
+    <div class="b-stars"></div>
+    <svg width="390" height="844" viewBox="0 0 390 844" aria-hidden="true" style="position: absolute; left: 0; top: 0">
+      <g transform="translate(195 510) scale(1.3) translate(-195 -560)"><use href="#bLand"></use>
+      <g class="b-ilamp"><g class="b-glow"><use href="#bLamps"></use></g></g>
+      <g transform="translate(144.4 559.7) rotate(22.1)"><rect class="{{ pl.0 }}" x="-7.5" y="-3" width="15" height="6" rx="1" fill="#3A1838"></rect></g>
+      <g transform="translate(161.3 565.4) rotate(15.2)"><rect class="{{ pl.1 }}" x="-7.5" y="-3" width="15" height="6" rx="1" fill="#3A1838"></rect></g>
+      <g transform="translate(178.1 568.9) rotate(7.7)"><rect class="{{ pl.2 }}" x="-7.5" y="-3" width="15" height="6" rx="1" fill="#3A1838"></rect></g>
+      <g transform="translate(195 570)"><rect class="{{ pl.3 }}" x="-7.5" y="-3" width="15" height="6" rx="1" fill="#3A1838"></rect></g>
+      <g transform="translate(211.9 568.9) rotate(-7.7)"><rect class="{{ pl.4 }}" x="-7.5" y="-3" width="15" height="6" rx="1" fill="#3A1838"></rect></g>
+      <g transform="translate(228.7 565.4) rotate(-15.2)"><rect class="{{ pl.5 }}" x="-7.5" y="-3" width="15" height="6" rx="1" fill="#3A1838"></rect></g>
+      <g transform="translate(245.6 559.7) rotate(-22.1)"><rect class="{{ pl.6 }}" x="-7.5" y="-3" width="15" height="6" rx="1" fill="#3A1838"></rect></g>
+      <sc-if value="{{ notDone }}">
+        <circle class="b-next" cx="{{ nextX }}" cy="{{ nextY }}" r="11" fill="none" stroke="#FFE2A0" style="stroke-width: 1.6; stroke-dasharray: 3 3"></circle>
+      </sc-if>
+      <g class="b-figL"><g transform="translate(112 549)"><use href="#bFigA" fill="#3A1838"></use></g></g>
+      <g class="b-figR"><g transform="translate(278 549)"><use href="#bFigB" fill="#3A1838"></use></g></g>
+      <g class="b-iheart"><use href="#bHeart" fill="#FFC46B" class="b-heart"></use></g>
+    </g>
+    </svg>
+    <span class="b-fly" style="left: 150px; top: 610px"></span>
+    <span class="b-fly" style="left: 240px; top: 640px; animation-delay: -3s"></span>
+    <span class="b-fly" style="left: 60px; top: 680px; animation-delay: -5s"></span>
+
+    <div class="b-ask" style="position: absolute; left: 26px; right: 26px; top: 60px; display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center">
+      <p class="b-ra" style="margin: 0; font-size: 12px; font-weight: 700; letter-spacing: {{ fromLs }}; text-transform: uppercase; color: #F3D9E6; overflow-wrap: anywhere">{{ fromTo }}</p>
+      <p class="b-ye" style="margin: 0; font-size: 40px; line-height: 1.1; color: #FFF1E4">Oramizdagi ko’prik</p>
+      <p class="b-ra" style="margin: 4px 0 0; max-width: 310px; font-size: 15.5px; font-weight: 500; line-height: 1.55; color: #F6E2EC; overflow-wrap: anywhere">{{ introSub }}</p>
+    </div>
+
+    <div class="b-reveal" style="position: absolute; left: 22px; right: 22px; top: 70px; display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center">
+      <p class="b-ye b-amber" style="margin: 0; font-size: {{ revealSize }}; line-height: 1.15; padding: 0 4px; overflow-wrap: anywhere">{{ d.kimga }},</p>
+      <p class="b-ye" style="margin: 0; font-size: 34px; line-height: 1.1; color: #FFF1E4">kechirasanmi?</p>
+      <p class="b-ra" style="margin: 8px 0 0; font-size: 15px; font-weight: 500; line-height: 1.5; color: #F6E2EC">Ko’prik tayyor. Endi yana yonma-yon.</p>
+    </div>
+
+    <sc-if value="{{ notDone }}">
+    <button type="button" class="b-hit" onClick="{{ lay }}" aria-label="Ko’prikka taxta qo’yish" style="left: 90px; top: 410px; width: 210px; height: 160px"></button>
+    </sc-if>
+    <div class="b-cta" style="position: absolute; left: 0; right: 0; top: 716px; display: flex; justify-content: center">
+      <button type="button" class="b-btn b-ra" onClick="{{ lay }}" style="height: 56px; padding: 0 12px 0 24px; border: 0; border-radius: 28px; background: linear-gradient(135deg, #FFE0A3 0%, #FFB35C 100%); color: #3A1838; font-size: 16px; font-weight: 700; display: inline-flex; align-items: center; gap: 14px; cursor: pointer; box-shadow: 0 0 0 4px rgba(255, 224, 163, 0.25), 0 16px 30px -12px rgba(20, 4, 20, 0.8)">
+        <span>Taxta qo’yish</span>
+        <span class="b-ye" style="min-width: 54px; height: 36px; padding: 0 10px; box-sizing: border-box; border-radius: 18px; background: #3A1838; color: #FFE0A3; font-size: 16px; display: inline-flex; align-items: center; justify-content: center">{{ count }}</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- BOSH QISM: tiklangan ko'prik -->
+  <header style="flex: none; position: relative; height: 844px; overflow: hidden; background: linear-gradient(180deg, #3A2C6A 0%, #5E3A7E 18%, #9A5288 34%, #D9727F 46%, #F6A47A 54%, #FFD49A 60%, #FFE3B0 66%)">
+    <div class="b-stars"></div>
+    <svg width="390" height="844" viewBox="0 0 390 844" aria-hidden="true" style="position: absolute; left: 0; top: 0">
+      <g transform="translate(195 510) scale(1.3) translate(-195 -560)"><use href="#bLand"></use>
+      <g class="b-glow"><use href="#bLamps"></use></g>
+      <use href="#bPlanks" fill="#3A1838"></use>
+      <g transform="translate(183 568)"><use href="#bFigA" fill="#3A1838"></use></g>
+      <g transform="translate(207 568)"><use href="#bFigB" fill="#3A1838"></use></g>
+      <g class="b-float"><use href="#bHeart" fill="#FFC46B" class="b-heart"></use></g>
+    </g>
+    </svg>
+    <span class="b-fly" style="left: 150px; top: 610px"></span>
+    <span class="b-fly" style="left: 240px; top: 640px; animation-delay: -3s"></span>
+    <span class="b-fly" style="left: 60px; top: 680px; animation-delay: -5s"></span>
+    <span class="b-fly" style="left: 330px; top: 700px; animation-delay: -2s"></span>
+
+    <div style="position: absolute; left: 22px; right: 22px; top: 64px; display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center">
+      <p class="b-ra" style="margin: 0; font-size: 12px; font-weight: 700; letter-spacing: {{ fromLs }}; text-transform: uppercase; color: #F3D9E6; overflow-wrap: anywhere">{{ fromTo }}</p>
+      <h1 class="b-ye" style="margin: 0; font-weight: 400; display: flex; flex-direction: column; align-items: center">
+        <span class="b-amber" style="font-size: {{ h1Size }}; line-height: 1.15; padding: 0 4px; overflow-wrap: anywhere">{{ d.kimga }},</span>
+        <span style="font-size: 36px; line-height: 1.1; color: #FFF1E4">kechirasanmi?</span>
+      </h1>
+      <p class="b-ra" style="margin: 6px 0 0; max-width: 300px; font-size: 15.5px; font-weight: 500; line-height: 1.55; color: #F6E2EC">Oramizdagi ko’prikni taxtama-taxta qayta qurdim. Iltimos, oxirigacha o’qi.</p>
+    </div>
+    <svg class="b-bob" width="26" height="26" viewBox="0 0 24 24" aria-hidden="true" style="position: absolute; left: 182px; top: 756px"><path d="M6 9.5 L12 15.5 L18 9.5" stroke="#FFE0A3" class="b-ic2"></path></svg>
+  </header>
+
+  <sc-if value="{{ b.maktub }}">
+  <section style="flex: none; position: relative; padding: 84px 22px 34px; background: {{ bg.maktub }}">
+    <svg class="b-ridge" viewBox="0 0 390 64" preserveAspectRatio="none" aria-hidden="true"><path d="M0 64 V30 C40 18 80 22 120 30 C150 36 170 24 200 20 C240 14 280 30 320 26 C350 22 370 28 390 24 V64 Z M296 28 C290 12 294 0 300 -2 C306 0 310 12 304 28 Z M312 26 C308 14 311 6 316 4 C321 6 324 14 320 26 Z M60 24 C55 10 58 2 63 0 C68 2 71 10 66 24 Z" fill="{{ rf.maktub }}"></path></svg>
+    <div style="display: flex; flex-direction: column; gap: 6px">
+      <span class="b-ra" style="font-size: 12px; font-weight: 700; letter-spacing: 0.28em; text-transform: uppercase; color: #FFC46B">Maktub</span>
+      <h2 class="b-ye" style="margin: 0; font-size: 32px; font-weight: 400; line-height: 1.12; color: #FFF1E4">Senga aytolmaganlarim</h2>
+    </div>
+    <p class="b-ra" style="margin: 22px 0 0; font-size: 16.5px; font-weight: 500; line-height: 1.72; color: #F8E8EF; white-space: pre-line; overflow-wrap: anywhere"><span class="b-cap b-ye">{{ dropCap }}</span>{{ dropRest }}</p>
+    <div style="margin-top: 18px; display: flex; justify-content: flex-end; align-items: center; gap: 12px">
+      <span aria-hidden="true" style="flex: none; width: 50px; height: 1px; background: rgba(255, 196, 107, 0.6)"></span>
+      <span class="b-ye b-amber" style="min-width: 0; font-size: {{ sigSize }}; line-height: 1.25; padding: 0 4px; text-align: right; overflow-wrap: anywhere">{{ d.kimdan }}</span>
+    </div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.galereya }}">
+  <section style="flex: none; position: relative; padding: 84px 22px 36px; background: {{ bg.galereya }}">
+    <svg class="b-ridge" viewBox="0 0 390 64" preserveAspectRatio="none" aria-hidden="true"><path d="M0 64 V36 Q30 22 60 30 Q90 40 120 28 Q150 16 180 26 Q210 36 240 24 Q270 12 300 22 Q330 32 360 20 Q378 14 390 18 V64 Z" fill="{{ rf.galereya }}"></path></svg>
+    <div style="display: flex; flex-direction: column; gap: 6px">
+      <span class="b-ra" style="font-size: 12px; font-weight: 700; letter-spacing: 0.28em; text-transform: uppercase; color: #FFC46B">Xotiralar</span>
+      <h2 class="b-ye" style="margin: 0; font-size: 32px; font-weight: 400; line-height: 1.12; color: #FFF1E4">Ko’prikning ikki uchi</h2>
+    </div>
+    <sc-if value="{{ g3 }}">
+    <div style="position: relative; margin-top: 24px; height: 330px">
+      <figure class="b-arch" style="left: 4px; top: 0; width: 184px; height: 300px; border-radius: 92px 92px 6px 6px"><img src="{{ p.0 }}" alt="" style="width: 100%; height: 100%; object-fit: cover; display: block"></figure>
+      <figure class="b-arch b-float" style="left: 206px; top: 16px; width: 136px; height: 136px; border-radius: 50%"><img src="{{ p.1 }}" alt="" style="width: 100%; height: 100%; object-fit: cover; display: block"></figure>
+      <figure class="b-arch" style="left: 206px; top: 172px; width: 136px; height: 150px; border-radius: 68px 68px 6px 6px"><img src="{{ p.2 }}" alt="" style="width: 100%; height: 100%; object-fit: cover; display: block"></figure>
+    </div>
+    </sc-if>
+    <sc-if value="{{ g2 }}">
+    <div style="position: relative; margin-top: 24px; height: 330px">
+      <figure class="b-arch" style="left: 4px; top: 0; width: 180px; height: 290px; border-radius: 90px 90px 6px 6px"><img src="{{ p.0 }}" alt="" style="width: 100%; height: 100%; object-fit: cover; display: block"></figure>
+      <figure class="b-arch" style="left: 198px; top: 40px; width: 148px; height: 280px; border-radius: 74px 74px 6px 6px"><img src="{{ p.1 }}" alt="" style="width: 100%; height: 100%; object-fit: cover; display: block"></figure>
+    </div>
+    </sc-if>
+    <sc-if value="{{ g1 }}">
+    <div style="position: relative; margin: 24px auto 0; width: 300px; height: 330px">
+      <figure class="b-arch" style="left: 0; top: 0; width: 300px; height: 330px; border-radius: 150px 150px 8px 8px"><img src="{{ p.0 }}" alt="" style="width: 100%; height: 100%; object-fit: cover; display: block"></figure>
+    </div>
+    </sc-if>
+    <p class="b-ye" style="margin: 18px 0 0; font-size: 21px; line-height: 1.3; color: #FFE0A3; text-align: center">Bir uchida sen, bir uchida men.</p>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.vadalar }}">
+  <section style="flex: none; position: relative; padding: 84px 22px 36px; background: {{ bg.vadalar }}">
+    <svg class="b-ridge" viewBox="0 0 390 64" preserveAspectRatio="none" aria-hidden="true"><path d="M0 64 V34 C30 26 60 30 90 34 L94 22 L97 33 L101 18 L104 33 C140 30 170 24 200 28 L203 16 L206 28 L210 20 L213 29 C250 32 280 26 320 30 L323 18 L326 30 L330 22 L333 30 C356 30 372 26 390 28 V64 Z" fill="{{ rf.vadalar }}"></path></svg>
+    <div style="display: flex; flex-direction: column; gap: 6px">
+      <span class="b-ra" style="font-size: 12px; font-weight: 700; letter-spacing: 0.28em; text-transform: uppercase; color: #FFC46B">Va’dalar</span>
+      <h2 class="b-ye" style="margin: 0; font-size: 32px; font-weight: 400; line-height: 1.12; color: #FFF1E4">Ko’prik taxtalari</h2>
+      <p class="b-ra" style="margin: 2px 0 0; font-size: 15px; font-weight: 500; line-height: 1.5; color: #EBD3E0">Har bir va’da — sen tomon qo’yilgan bitta mustahkam taxta.</p>
+    </div>
+    <div style="position: relative; margin-top: 24px; padding: 0 8px">
+      <span aria-hidden="true" style="position: absolute; left: 13px; top: -14px; bottom: -14px; width: 3px; border-radius: 2px; background: repeating-linear-gradient(180deg, #2A1028 0 4px, #6A3A5E 4px 8px)"></span>
+      <span aria-hidden="true" style="position: absolute; right: 13px; top: -14px; bottom: -14px; width: 3px; border-radius: 2px; background: repeating-linear-gradient(180deg, #2A1028 0 4px, #6A3A5E 4px 8px)"></span>
+      <ol style="position: relative; list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px">
+        <sc-for list="{{ promises }}" as="v">
+        <li class="b-plank" style="transform: rotate({{ v.rot }})">
+          <span class="b-knot" aria-hidden="true" style="left: -1px"></span>
+          <span class="b-knot" aria-hidden="true" style="right: -1px"></span>
+          <span class="b-ye" style="flex: none; width: 26px; padding-left: 8px; font-size: 22px; line-height: 1; color: #6A2E1A">{{ v.n }}</span>
+          <span class="b-ra" style="flex: 1; min-width: 0; padding-right: 6px; font-size: 16px; font-weight: 600; line-height: 1.4; color: #3A1A12; overflow-wrap: anywhere">{{ v.text }}</span>
+        </li>
+        </sc-for>
+      </ol>
+    </div>
+    <div style="margin-top: 26px">
+      <sc-if value="{{ notAccepted }}">
+        <button type="button" class="b-btn b-ra" onClick="{{ accept }}" style="width: 100%; height: 54px; border: 1.5px solid #FFC46B; border-radius: 27px; background: rgba(255, 196, 107, 0.1); color: #FFE0A3; font-size: 16px; font-weight: 700; cursor: pointer">Bu ko’prikka ishonaman</button>
+      </sc-if>
+      <sc-if value="{{ accepted }}">
+        <p class="b-pop b-ra" role="status" style="margin: 0; min-height: 50px; display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 16px; font-weight: 600; color: #FFE0A3">
+          <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" style="flex: none"><path d="M6.6 12.4 L10.2 16 L17.4 8.6" stroke="#FFE0A3" class="b-ic2"></path></svg>
+          <span>Ishonching — eng mustahkam taxta.</span>
+        </p>
+      </sc-if>
+    </div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.taklif }}">
+  <section style="flex: none; position: relative; padding: 92px 22px 36px; background: {{ bg.taklif }}">
+    <svg class="b-ridge" viewBox="0 0 390 64" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0 64 V38 H24 V30 H52 V38 H66 V24 H96 V36 H118 V30 C118 18 146 18 146 30 V36 H160 V8 H166 V36 H178 V28 H210 V38 H228 V22 H262 V34 H280 V28 C280 20 300 20 300 28 V36 H318 V26 H348 V36 H366 V30 H390 V64 Z" fill="{{ rf.taklif }}"></path>
+      <rect x="34" y="40" width="6" height="7" fill="#FFC46B"></rect><rect x="78" y="32" width="6" height="7" fill="#FFC46B"></rect><rect x="128" y="40" width="7" height="8" fill="#FFC46B"></rect><rect x="192" y="36" width="6" height="7" fill="#FFC46B"></rect><rect x="242" y="30" width="6" height="7" fill="#FFC46B"></rect><rect x="286" y="38" width="6" height="7" fill="#FFC46B"></rect><rect x="330" y="34" width="6" height="7" fill="#FFC46B"></rect>
+    </svg>
+    <div style="position: relative; padding: 26px 22px 24px; background: #FFF1E2; clip-path: polygon(0 14px, 14px 0, calc(100% - 14px) 0, 100% 14px, 100% calc(100% - 14px), calc(100% - 14px) 100%, 14px 100%, 0 calc(100% - 14px)); display: flex; flex-direction: column; gap: 14px">
+      <div style="display: flex; gap: 14px; align-items: flex-start">
+        <svg width="48" height="74" viewBox="0 0 48 74" aria-hidden="true" style="flex: none">
+          <path d="M24 2 V10" stroke="#5E2A58" class="b-ic2"></path>
+          <path d="M14 10 H34 L30 16 H18 Z" fill="#5E2A58"></path>
+          <circle class="b-glow" cx="24" cy="38" r="20" fill="#FFC46B" opacity="0.35"></circle>
+          <path d="M12 18 C8 30 8 46 12 58 H36 C40 46 40 30 36 18 Z" fill="#FFB35C"></path>
+          <path d="M18 18 C16 30 16 46 18 58 M30 18 C32 30 32 46 30 58 M24 18 V58" stroke="#C8692E" class="b-ic" style="stroke-width: 1.2"></path>
+          <path d="M14 58 H34 L30 64 H18 Z" fill="#5E2A58"></path>
+          <path d="M24 64 V72" stroke="#5E2A58" class="b-ic2"></path>
+        </svg>
+        <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 6px">
+          <span class="b-ra" style="font-size: 12px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: #8E3F5E">Ko’prikning narigi tomonida</span>
+          <p class="b-ye" style="margin: 0; font-size: 24px; line-height: 1.22; color: #4A1D45; overflow-wrap: anywhere">{{ d.taklif }}</p>
+        </div>
+      </div>
+      <sc-if value="{{ hasChips }}">
+      <div style="display: flex; flex-wrap: wrap; gap: 8px">
+        <sc-if value="{{ d.taklif_vaqt }}">
+        <span class="b-ra" style="min-height: 36px; padding: 6px 14px 6px 10px; box-sizing: border-box; border-radius: 18px; background: rgba(94, 42, 88, 0.08); border: 1px solid rgba(94, 42, 88, 0.22); display: inline-flex; align-items: center; gap: 7px; font-size: 14px; font-weight: 600; color: #4A1D45">
+          <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" style="flex: none"><circle cx="12" cy="12" r="8.5" stroke="#8E3F5E" class="b-ic"></circle><path d="M12 7.5V12l3 2" stroke="#8E3F5E" class="b-ic"></path></svg>
+          <span style="overflow-wrap: anywhere">{{ d.taklif_vaqt }}</span>
+        </span>
+        </sc-if>
+        <sc-if value="{{ d.taklif_joy }}">
+        <span class="b-ra" style="min-height: 36px; padding: 6px 14px 6px 10px; box-sizing: border-box; border-radius: 18px; background: rgba(94, 42, 88, 0.08); border: 1px solid rgba(94, 42, 88, 0.22); display: inline-flex; align-items: center; gap: 7px; font-size: 14px; font-weight: 600; color: #4A1D45">
+          <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" style="flex: none"><path d="M12 21s-6.5-6.2-6.5-11A6.5 6.5 0 0 1 18.5 10c0 4.8-6.5 11-6.5 11z" stroke="#8E3F5E" class="b-ic"></path><circle cx="12" cy="10" r="2.3" stroke="#8E3F5E" class="b-ic"></circle></svg>
+          <span style="overflow-wrap: anywhere">{{ d.taklif_joy }}</span>
+        </span>
+        </sc-if>
+      </div>
+      </sc-if>
+      <sc-if value="{{ notAgreed }}">
+        <button type="button" class="b-btn b-ra" onClick="{{ agree }}" style="width: 100%; height: 54px; border: 0; border-radius: 27px; background: linear-gradient(135deg, #6E2F60 0%, #4A1D45 100%); color: #FFE9CF; font-size: 16px; font-weight: 700; cursor: pointer; box-shadow: 0 14px 24px -14px rgba(40, 8, 40, 0.9)">Roziman</button>
+      </sc-if>
+      <sc-if value="{{ agreed }}">
+        <div class="b-pop" role="status" style="display: flex; align-items: center; gap: 12px; padding: 13px 16px; border-radius: 16px; background: linear-gradient(135deg, #6E2F60 0%, #4A1D45 100%)">
+          <svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true" style="flex: none"><circle cx="12" cy="12" r="10.5" fill="#FFC46B"></circle><path d="M7.6 12.4 L10.6 15.4 L16.4 9" stroke="#4A1D45" class="b-ic2"></path></svg>
+          <p class="b-ra" style="margin: 0; font-size: 15px; font-weight: 600; line-height: 1.45; color: #FFF1E4; overflow-wrap: anywhere">{{ agreedText }}</p>
+        </div>
+      </sc-if>
+    </div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ showAnswer }}">
+  <section style="flex: none; position: relative; padding: 84px 22px 40px; background: {{ bg.javob }}">
+    <svg class="b-ridge" viewBox="0 0 390 64" preserveAspectRatio="none" aria-hidden="true"><path d="M0 64 V32 L36 20 L66 30 L104 12 L140 28 L176 18 L210 30 L248 10 L284 26 L318 16 L352 30 L390 20 V64 Z" fill="{{ rf.javob }}"></path></svg>
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center">
+      <span class="b-ra" style="font-size: 12px; font-weight: 700; letter-spacing: 0.28em; text-transform: uppercase; color: #FFC46B">Javob</span>
+      <h2 class="b-ye" style="margin: 0; font-size: 40px; font-weight: 400; line-height: 1.08; color: #FFF1E4">Kechirasanmi?</h2>
+      <p class="b-ra" style="margin: 2px 0 0; max-width: 310px; font-size: 15px; font-weight: 500; line-height: 1.5; color: #EBD3E0">{{ askSub }}</p>
+    </div>
+    <sc-if value="{{ b.javob }}">
+    <sc-if value="{{ waiting }}">
+      <button type="button" class="b-btn b-ra" onClick="{{ forgive }}" style="margin-top: 22px; width: 100%; height: 58px; border: 0; border-radius: 29px; background: linear-gradient(135deg, #FFE0A3 0%, #FFB35C 100%); color: #3A1838; font-size: 17px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; box-shadow: 0 0 0 4px rgba(255, 224, 163, 0.2), 0 16px 28px -12px rgba(10, 0, 10, 0.8)">
+        <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 16 Q12 8 21 16 M6 13.6 V17 M9 11.8 V16 M12 11.2 V16 M15 11.8 V16 M18 13.6 V17" stroke="#3A1838" class="b-ic"></path></svg>
+        <span>Kechirdim</span>
+      </button>
+    </sc-if>
+    <sc-if value="{{ forgiven }}">
+      <div class="b-pop" role="status" style="margin-top: 22px; display: flex; align-items: center; gap: 14px; padding: 14px 16px; border-radius: 18px; background: rgba(255, 233, 207, 0.1); border: 1px solid rgba(255, 196, 107, 0.45)">
+        <svg width="60" height="46" viewBox="160 500 70 76" aria-hidden="true" style="flex: none">
+          <path d="M160 572 Q195 586 230 572" class="b-rope"></path>
+          <g transform="translate(186 572)"><use href="#bFigA" fill="#FFE0A3"></use></g>
+          <g transform="translate(205 572)"><use href="#bFigB" fill="#3A1838"></use></g>
+          <use href="#bHeart" fill="#FFC46B" class="b-heart"></use>
+        </svg>
+        <div style="min-width: 0; display: flex; flex-direction: column; gap: 3px">
+          <p class="b-ye" style="margin: 0; font-size: 21px; line-height: 1.2; color: #FFE0A3; overflow-wrap: anywhere">Rahmat, {{ d.kimga }}.</p>
+          <p class="b-ra" style="margin: 0; font-size: 14.5px; font-weight: 500; line-height: 1.5; color: #F6E2EC; white-space: pre-line; overflow-wrap: anywhere">{{ thanks }}</p>
+        </div>
+      </div>
+    </sc-if>
+    </sc-if>
+    <sc-if value="{{ both }}">
+    <div style="margin-top: 20px; display: flex; align-items: center; gap: 10px">
+      <span aria-hidden="true" style="flex: 1; height: 1px; background: rgba(255, 224, 163, 0.3)"></span>
+      <span class="b-ra" style="font-size: 13.5px; font-weight: 500; color: #E2C6D6">yoki o’z so’zlaring bilan</span>
+      <span aria-hidden="true" style="flex: 1; height: 1px; background: rgba(255, 224, 163, 0.3)"></span>
+    </div>
+    </sc-if>
+    <sc-if value="{{ b.sorov }}">
+    <sc-if value="{{ notSent }}">
+      <div style="margin-top: 16px; display: flex; flex-direction: column; gap: 10px">
+        <label for="bReply" class="b-ra" style="font-size: 13px; font-weight: 700; color: #F3D9E6">Javobingiz</label>
+        <textarea id="bReply" class="b-ta b-ra" rows="3" placeholder="Bir-ikki so’z ham kifoya" style="width: 100%; height: 88px; box-sizing: border-box; resize: none; padding: 12px 14px; border: 0; border-radius: 14px; background: #FFF1E2; color: #3A1838; font-size: 16px; font-weight: 500; line-height: 1.45"></textarea>
+        <sc-if value="{{ sendErr }}"><p role="alert" style="margin: -2px 0 0; font-size: 13.5px; font-weight: 600; line-height: 1.4; color: #FFB3A0">{{ sendErr }}</p></sc-if>
+        <button type="button" class="b-btn b-ra" onClick="{{ send }}" disabled="{{ sending }}" style="width: 100%; height: 52px; border: 1.5px solid #FFC46B; border-radius: 26px; background: transparent; color: #FFE0A3; font-size: 16px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px">
+          <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12l16-8-6 16-2.5-6.5L4 12z M11.5 13.5L20 4" stroke="#FFC46B" class="b-ic"></path></svg>
+          <span>{{ sendLabel }}</span>
+        </button>
+      </div>
+    </sc-if>
+    <sc-if value="{{ sent }}">
+      <div class="b-pop" role="status" style="margin-top: 16px; display: flex; align-items: center; gap: 12px; padding: 14px 16px; border-radius: 16px; background: rgba(255, 233, 207, 0.1); border: 1px solid rgba(255, 196, 107, 0.45)">
+        <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" style="flex: none"><path d="M4 12l16-8-6 16-2.5-6.5L4 12z M11.5 13.5L20 4" stroke="#FFC46B" class="b-ic"></path></svg>
+        <p class="b-ra" style="margin: 0; font-size: 15px; font-weight: 600; line-height: 1.45; color: #FFF1E4; overflow-wrap: anywhere">Javobing {{ toFrom }} yetib bordi.</p>
+      </div>
+    </sc-if>
+    </sc-if>
+  </section>
+  </sc-if>
+
+  <footer style="flex: 1 0 auto; position: relative; min-height: 480px; overflow: hidden; display: flex; flex-direction: column; align-items: center; padding: 140px 24px 230px; box-sizing: border-box; text-align: center; background: {{ footBg }}">
+    <svg class="b-ridge" viewBox="0 0 390 64" preserveAspectRatio="none" aria-hidden="true"><path d="M0 64 V26 C50 34 90 20 140 24 C190 28 230 36 280 26 C320 18 360 24 390 30 V64 Z" fill="#2C1840"></path></svg>
+    <div class="b-stars" style="top: 60px"></div>
+    <div class="b-glow" aria-hidden="true" style="position: absolute; left: 316px; top: 72px; width: 40px; height: 40px; border-radius: 50%; background: radial-gradient(circle at 40% 40%, #FFF6E2, #F4DCC0); box-shadow: 0 0 40px 12px rgba(255, 230, 190, 0.35)"></div>
+    <p class="b-ye" style="position: relative; margin: 0; max-width: 320px; font-size: 32px; line-height: 1.15; color: #FFF1E4">Ko’prigimiz endi mustahkam.</p>
+    <p class="b-ra" style="position: relative; margin: 10px 0 0; max-width: 290px; font-size: 15.5px; font-weight: 500; line-height: 1.55; color: #E8D2E0">Har kuni uni bir taxtadan mustahkamlab boraman.</p>
+    <p class="b-ye b-amber" style="position: relative; margin: 14px 0 0; font-size: {{ footSig }}; line-height: 1.25; padding: 0 4px; overflow-wrap: anywhere">{{ d.kimdan }}</p>
+    <svg width="390" height="200" viewBox="0 460 390 200" aria-hidden="true" style="position: absolute; left: 0; bottom: 0">
+      <path d="M0 548 Q10 540 18 546 Q26 538 34 545 L60 543 Q70 536 80 544 L104 545 Q112 540 120 547 L138 556 L134 600 L142 640 L134 660 L0 660 Z" fill="#170C22"></path>
+      <path d="M390 548 Q380 540 372 546 Q364 538 356 545 L330 543 Q320 536 310 544 L286 545 Q278 540 270 547 L252 556 L256 610 L246 650 L250 660 L390 660 Z" fill="#170C22"></path>
+      <g class="b-sway"><rect x="27" y="500" width="3" height="46" fill="#170C22"></rect><ellipse cx="28.5" cy="500" rx="8" ry="34" fill="#170C22"></ellipse></g>
+      <g class="b-sway" style="animation-delay: -1s"><rect x="356" y="502" width="3" height="44" fill="#170C22"></rect><ellipse cx="357.5" cy="502" rx="8" ry="34" fill="#170C22"></ellipse></g>
+      <rect x="134" y="526" width="4" height="32" fill="#170C22"></rect>
+      <rect x="252" y="526" width="4" height="32" fill="#170C22"></rect>
+      <path d="M136 528 Q195 560 254 528" class="b-rope" style="stroke: #170C22"></path>
+      <path d="M136 556 Q195 584 254 556" class="b-rope" style="stroke: #170C22"></path>
+      <use href="#bPlanks" fill="#170C22"></use>
+      <g class="b-glow"><use href="#bLamps"></use></g>
+      <g transform="translate(186 568)"><use href="#bFigA" fill="#170C22"></use></g>
+      <g transform="translate(205 568)"><use href="#bFigB" fill="#170C22"></use></g>
+      <use href="#bHeart" fill="#FFC46B" class="b-heart"></use>
+    </svg>
+    <span class="b-fly" style="left: 80px; top: auto; bottom: 120px"></span>
+    <span class="b-fly" style="left: 300px; top: auto; bottom: 90px; animation-delay: -3s"></span>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":4400}}'>
+class Component extends DCLogic {
+  constructor(...args) {
+    super(...args);
+    this.state = { laid: 0, accepted: false, agreed: false, forgiven: false, sent: false };
+  }
+  componentWillUnmount() { this.gone = true; }
+  renderVals() {
+    const s = this.state || {};
+    const d = SITE.d, b = SITE.b;
+    const ini = (n) => (String(n || '').trim().charAt(0) || '').toUpperCase();
+    const vad = d.vadalar || [];
+    const matn = String(d.matn || '').replace(/^\s+/, '');
+    const n = SITE.has.photos;
+    const N = 7, laid = s.laid || 0, done = laid >= N;
+    const PL = [[144.4, 559.7], [161.3, 565.4], [178.1, 568.9], [195, 570], [211.9, 568.9], [228.7, 565.4], [245.6, 559.7]];
+    // qatlamlar: shom → tun; yashirilgan bloklar orasida rang uzilmaydi
+    const chain = [['maktub', '#66305F'], ['galereya', '#542763'], ['vadalar', '#47215A'], ['taklif', '#3B1C4E'], ['javob', '#2F1742']];
+    const vis = { maktub: b.maktub, galereya: b.galereya, vadalar: b.vadalar, taklif: b.taklif, javob: b.javob || b.sorov };
+    let prev = '#4A1D45';
+    const bg = {}, rf = {};
+    chain.forEach(([k, c]) => {
+      bg[k] = 'linear-gradient(180deg, ' + prev + ' 0, ' + prev + ' 40px, ' + c + ' 40px, ' + c + ' 100%)';
+      rf[k] = c;
+      if (vis[k]) prev = c;
+    });
+    const tv = String(d.taklif_vaqt || '').trim();
+    const nameLen = String(d.kimga || '').length;
+    const fromLen = String(d.kimdan || '').length;
+    const nx = PL[Math.min(laid, N - 1)];
+    return {
+      fromTo: (d.kimdan || '') + 'dan ' + SITE.ga(d.kimga),
+      fromLs: (String(d.kimdan || '') + String(d.kimga || '')).length > 28 ? '0.12em' : '0.3em',
+      introSub: (d.kimga || '') + ', oramizda jarlik paydo bo’ldi — ayb menda. Har bosishingda ko’prikka bitta taxta qo’yaman.',
+      introCls: done ? 'b-intro b-intro--done b-intro--open' : 'b-intro',
+      notDone: !done,
+      pl: PL.map((_, i) => 'b-pl' + (laid > i ? '' : ' is-off')),
+      nextX: String(nx[0]), nextY: String(nx[1]),
+      count: laid + ' / ' + N,
+      lay: () => {
+        const c = this.state.laid || 0;
+        if (c >= N) return;
+        this.setState({ laid: c + 1 });
+        if (c + 1 >= N) SITE.opened();
+      },
+      revealSize: nameLen > 18 ? '32px' : nameLen > 11 ? '40px' : '50px',
+      h1Size: nameLen > 18 ? '32px' : nameLen > 11 ? '40px' : '50px',
+      musicOn: !!SITE.music.playing,
+      musicOff: !SITE.music.playing,
+      toggleMusic: () => SITE.music.toggle(),
+      bg, rf,
+      footBg: 'linear-gradient(180deg, ' + prev + ' 0, ' + prev + ' 40px, #2C1840 40px, #2A1840 55%, #5A2F62 100%)',
+      iniFrom: ini(d.kimdan), iniTo: ini(d.kimga),
+      dropCap: matn.charAt(0), dropRest: matn.slice(1),
+      sigSize: fromLen > 16 ? '20px' : '28px',
+      footSig: fromLen > 16 ? '20px' : '28px',
+      g3: n >= 3, g2: n === 2, g1: n < 2,
+      promises: vad.map((text, i) => ({ text, n: String(i + 1), rot: ([-0.8, 0.6, -0.4, 0.9, -0.7, 0.3][i % 6]) + 'deg' })),
+      accepted: !!s.accepted,
+      notAccepted: !s.accepted,
+      accept: () => { if (this.state.accepted) return; this.setState({ accepted: true }); SITE.reply('Va’dalaringga ishonaman', '🥹'); },
+      hasChips: !!(tv || d.taklif_joy),
+      agreedText: tv ? 'Kelishdik. ' + tv + ' — ko’prikning o’rtasida kutaman.' : 'Kelishdik. Seni kutaman.',
+      agreed: !!s.agreed,
+      notAgreed: !s.agreed,
+      agree: () => { if (this.state.agreed) return; this.setState({ agreed: true }); SITE.reply('Roziman: ' + (d.taklif || ''), '🥰'); },
+      showAnswer: !!(b.javob || b.sorov),
+      both: !!(b.javob && b.sorov),
+      askSub: b.javob && b.sorov ? 'Bitta tugma yoki bir necha so’z — qanday bo’lsa ham, kutaman.' : b.javob ? 'Bitta so’zing kifoya — kutaman.' : 'Bir necha so’z yozsang ham kifoya — kutaman.',
+      thanks: d.javob_matni || 'Ko’prigimiz qayta tutashdi. Endi uni hech qachon buzmayman.',
+      waiting: !s.forgiven,
+      forgiven: !!s.forgiven,
+      forgive: () => { if (this.state.forgiven) return; this.setState({ forgiven: true }); SITE.reply('Kechirdim', '🤗'); },
+      toFrom: SITE.ga(d.kimdan),
+      sent: !!s.sent,
+      notSent: !s.sent,
+      sending: !!s.sending,
+      sendLabel: s.sending ? 'Yuborilmoqda…' : 'Yuborish',
+      sendErr: s.err || '',
+      send: () => {
+        const el = document.getElementById('bReply');
+        const text = el ? el.value.trim() : '';
+        if (!text) { this.setState({ err: 'Avval bir-ikki so’z yozing.' }); if (el) el.focus(); return; }
+        this.setState({ sending: true, err: '' });
+        SITE.reply(text, '❤️').then(() => { if (!this.gone) this.setState({ sent: true, sending: false }); })
+          .catch(() => { if (!this.gone) this.setState({ sending: false, err: 'Yuborilmadi. Qaytadan urinib ko’ring.' }); });
+      }
+    };
+  }
+}
+</script>
+</body>
+</html>
