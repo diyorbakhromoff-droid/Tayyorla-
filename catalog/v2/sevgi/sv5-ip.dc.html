@@ -1,0 +1,474 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<title>Sevgi maktubi: Qizil ip</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500&amp;family=Spectral:ital,wght@0,200;0,300;0,400;1,300;1,400&amp;display=swap">
+<style>
+body{margin:0}
+.sp{font-family:'Spectral',Georgia,'Times New Roman',serif}
+.jo{font-family:'Jost','Helvetica Neue',Arial,sans-serif}
+.ico{fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+button:focus-visible{outline:2px solid #D62A1E;outline-offset:3px}
+button:disabled{opacity:.7;cursor:default}
+.ip-lb{margin:0;font-family:'Jost',Arial,sans-serif;font-size:11px;font-weight:500;letter-spacing:.32em;text-transform:uppercase;color:#6E6B65}
+.ip-lbd{color:#A9A59D}
+.ip-h2{margin:8px 0 0;font-family:'Spectral',Georgia,serif;font-weight:300;font-size:36px;line-height:1.1;color:#1E1D1B}
+.ip-h2d{color:#F3F1EC}
+.ip-th{fill:none;stroke:#D62A1E;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.ip-th2{fill:none;stroke:#D62A1E;stroke-width:2.8;stroke-linecap:round;stroke-linejoin:round}
+.ip-dot{fill:#D62A1E}
+.ip-gut{position:absolute;left:23px;width:2px;background:#D62A1E}
+.ip-bw{filter:grayscale(1) contrast(1.06)}
+#dc-root .ip-bw{filter:grayscale(1) contrast(1.06)}
+.ip-st{fill:#1E1D1B}.ip-ln{fill:none;stroke:#8A8780;stroke-width:.8}
+.ip-ring{fill:none;stroke:#1E1D1B;stroke-width:1}
+.ip-ring2{fill:none;stroke:#C9C5BC;stroke-width:.8;stroke-dasharray:2 4}
+.ip-ini{font-family:'Spectral',serif;font-style:italic;font-size:19px;fill:#1E1D1B}
+
+/* intro */
+.ip-intro{transition:opacity .9s ease 2.2s,visibility 0s linear 3.1s}
+.ip-intro.is-on{opacity:0;visibility:hidden;pointer-events:none}
+.ip-loose{transition:d 1.15s cubic-bezier(.65,0,.25,1) .1s,opacity .2s linear 1.3s}
+.ip-intro.is-on .ip-loose{d:path("M44 324 C60.8 340.9, 77.6 357.8, 94.3 374.7 C111.1 391.6, 127.9 408.4, 144.7 425.3 C161.4 442.2, 178.2 459.1, 195 476 C211.8 492.9, 228.6 509.8, 245.3 526.7 C262.1 543.6, 278.9 560.4, 295.7 577.3 C312.4 594.2, 329.2 611.1, 346 628");opacity:0}
+.ip-tight{opacity:0;transition:opacity .2s linear 1.25s}
+.ip-intro.is-on .ip-tight{opacity:1}
+.ip-knot{stroke-dasharray:1;stroke-dashoffset:1}
+.ip-intro.is-on .ip-knot{transition:stroke-dashoffset .8s ease-out 1.25s;stroke-dashoffset:0}
+.ip-tail{transition:opacity .4s ease .1s}
+.ip-intro.is-on .ip-tail{opacity:0}
+.ip-pullbtn{transition:transform .5s cubic-bezier(.5,0,.3,1),opacity .4s ease .5s}
+.ip-intro.is-on .ip-pullbtn{transform:translateY(14px);opacity:0}
+.ip-fade{transition:opacity .5s ease .2s}
+.ip-intro.is-on .ip-fade{opacity:.25}
+.ip-pulse{animation:ipPulse 2.2s ease-in-out infinite}
+@keyframes ipPulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.35);opacity:.6}}
+
+/* page */
+.ip-draw{stroke-dasharray:1;stroke-dashoffset:1}
+.ip-root.is-on .ip-draw{transition:stroke-dashoffset 2.2s cubic-bezier(.5,0,.3,1) 2.4s;stroke-dashoffset:0}
+.ip-tie{stroke-dasharray:1;stroke-dashoffset:0;transition:stroke-dashoffset .9s ease}
+.ip-tie.is-off{stroke-dashoffset:1}
+.ip-secret{filter:blur(7px);opacity:.6;transition:filter .9s ease .4s,opacity .9s ease .4s}
+.ip-secret.is-shown{filter:none;opacity:1}
+.ip-heart{stroke-dasharray:1;stroke-dashoffset:1;animation:ipHeart 1.8s cubic-bezier(.5,0,.3,1) .1s forwards}
+@keyframes ipHeart{to{stroke-dashoffset:0}}
+.ip-in{animation:ipIn .8s ease-out both}
+@keyframes ipIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.ip-sway{transform-origin:50% 0;animation:ipSway 6s ease-in-out infinite}
+@keyframes ipSway{0%,100%{transform:rotate(var(--r0))}50%{transform:rotate(var(--r1))}}
+
+@media (prefers-reduced-motion: reduce){
+.ip-pulse,.ip-in,.ip-sway,.ip-heart{animation:none}
+.ip-heart{stroke-dashoffset:0}
+.ip-intro,.ip-loose,.ip-tight,.ip-tail,.ip-pullbtn,.ip-fade,.ip-tie,.ip-secret{transition:none}
+.ip-intro.is-on .ip-knot,.ip-root.is-on .ip-draw{transition:none}
+.ip-draw{stroke-dashoffset:0}
+}
+</style>
+</helmet>
+<div class="{{ rootCls }}" style="width: 390px; min-height: var(--vh, 100vh); position: relative; overflow: hidden; background: #F3F1EC; color: #1E1D1B; font-family: 'Spectral', Georgia, 'Times New Roman', serif; display: flex; flex-direction: column">
+
+  <sc-if value="{{ has.music }}">
+  <button type="button" aria-label="Musiqa" aria-pressed="{{ musicOn }}" onClick="{{ toggleMusic }}" style="position: absolute; top: 14px; right: 14px; z-index: 40; width: 46px; height: 46px; padding: 0; border-radius: 50%; border: 1px solid #1E1D1B; background: #F3F1EC; color: #1E1D1B; cursor: pointer; display: flex; align-items: center; justify-content: center">
+    <sc-if value="{{ musicOff }}">
+      <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path class="ico" d="M9 18V5l11-2v13"></path><circle class="ico" cx="6" cy="18" r="3"></circle><circle class="ico" cx="17" cy="16" r="3"></circle><path class="ico" d="M3 3l18 18"></path></svg>
+    </sc-if>
+    <sc-if value="{{ musicOn }}">
+      <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path class="ico" d="M9 18V5l11-2v13"></path><circle class="ico" cx="6" cy="18" r="3"></circle><circle class="ico" cx="17" cy="16" r="3"></circle></svg>
+    </sc-if>
+  </button>
+  </sc-if>
+
+  <!-- ============ INTRO: pull the thread ============ -->
+  <div data-intro class="{{ introCls }}" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; z-index: 30; overflow: hidden; background: #F3F1EC">
+    <div class="ip-fade" style="position: absolute; left: 0; top: 50px; width: 390px; box-sizing: border-box; padding: 0 38px; text-align: center">
+      <p class="ip-lb">Qizil ip afsonasi</p>
+      <p class="sp" style="margin: 22px 0 0; font-size: 19px; font-style: italic; font-weight: 300; line-height: 1.55; color: #1E1D1B">Aytishlaricha, bir-biriga atalgan ikki insonni ko’rinmas qizil ip bog’lab turadi. U cho’zilishi, chigallashishi mumkin — lekin hech qachon uzilmaydi.</p>
+    </div>
+    <div style="position: absolute; left: 40px; top: 240px; width: 320px">
+      <p class="jo" style="margin: 0; font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase; color: #6E6B65">Ipning bir uchida</p>
+      <p class="sp" style="margin: 2px 0 0; font-size: {{ fromPx }}px; font-weight: 300; line-height: 1.15; white-space: {{ fromWs }}; overflow-wrap: anywhere">{{ fromName }}</p>
+    </div>
+    <div style="position: absolute; right: 40px; top: 644px; width: 320px; text-align: right">
+      <p class="jo" style="margin: 0; font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase; color: #6E6B65">Ikkinchi uchida</p>
+      <p class="sp" style="margin: 2px 0 0; font-size: {{ toPx }}px; font-weight: 300; line-height: 1.15; white-space: {{ toWs }}; overflow-wrap: anywhere">{{ toName }}</p>
+    </div>
+    <svg aria-hidden="true" style="position: absolute; left: 0; top: 0" width="390" height="844" viewBox="0 0 390 844">
+      <path class="ip-th ip-loose" d="M44 324 C150 328, 236 302, 200 392 C180 442, 52 412, 92 472 C130 532, 270 372, 318 440 C354 492, 266 552, 222 512 C186 478, 110 560, 170 600 C210 626, 300 630, 346 628"></path>
+      <path class="ip-th ip-tight" d="M44 324 C60.8 340.9, 77.6 357.8, 94.3 374.7 C111.1 391.6, 127.9 408.4, 144.7 425.3 C161.4 442.2, 178.2 459.1, 195 476 C211.8 492.9, 228.6 509.8, 245.3 526.7 C262.1 543.6, 278.9 560.4, 295.7 577.3 C312.4 594.2, 329.2 611.1, 346 628"></path>
+      <path class="ip-th2 ip-knot" pathLength="1" d="M181 472 C163 450, 217 444, 210 476 C204 506, 169 502, 185 482 C197 468, 229 490, 215 506"></path>
+      <circle class="ip-dot" cx="44" cy="324" r="3"></circle>
+      <circle class="ip-dot" cx="346" cy="628" r="3"></circle>
+    </svg>
+    <button type="button" class="ip-pullbtn" onClick="{{ open }}" style="position: absolute; left: 115px; top: 754px; width: 160px; min-height: 52px; padding: 0; border: 1px solid #1E1D1B; border-radius: 999px; background: #F3F1EC; color: #1E1D1B; font-family: 'Jost', Arial, sans-serif; font-size: 15px; letter-spacing: 0.08em; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px">
+      <span class="ip-pulse" aria-hidden="true" style="display: block; width: 9px; height: 9px; border-radius: 50%; background: #D62A1E"></span>
+      Ipni torting
+    </button>
+    <sc-if value="{{ has.music }}">
+    <p class="ip-fade jo" style="position: absolute; left: 0; top: 818px; width: 390px; margin: 0; display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 12px; color: #6E6B65"><svg width="13" height="13" viewBox="0 0 24 24" aria-hidden="true"><path class="ico" d="M9 18V5l11-2v13"></path><circle class="ico" cx="6" cy="18" r="3"></circle><circle class="ico" cx="17" cy="16" r="3"></circle></svg>Qo’shiq bilan ochiladi</p>
+    </sc-if>
+  </div>
+
+  <!-- ============ HERO ============ -->
+  <header style="position: relative; height: 830px">
+    <p class="ip-lb" style="position: absolute; left: 40px; top: 58px">{{ heroLb }}</p>
+    <p class="jo" style="position: absolute; left: 40px; top: 96px; margin: 0; font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase; color: #6E6B65">Ipning bir uchida</p>
+    <p class="sp" style="position: absolute; left: 40px; top: 112px; margin: 0; width: 310px; font-size: {{ fromPx }}px; font-weight: 300; line-height: 1.15; white-space: {{ fromWs }}; overflow-wrap: anywhere">{{ fromName }}</p>
+    <div style="position: absolute; left: 40px; top: 214px; width: 310px; height: 380px; overflow: hidden; background: #E4E1DA">
+      <sc-if value="{{ has.photo }}">
+        <img class="ip-bw" src="{{ p.0 }}" alt="" style="display: block; width: 310px; height: 380px; object-fit: cover">
+      </sc-if>
+      <sc-if value="{{ noPhoto }}">
+        <div style="width: 310px; height: 380px; box-sizing: border-box; padding: 40px 34px; display: flex; flex-direction: column; justify-content: flex-end; background: #1E1D1B">
+          <p class="sp" style="margin: 0; font-size: 30px; font-weight: 300; font-style: italic; line-height: 1.25; color: #F3F1EC">Bir-biriga atalganlar albatta uchrashadi.</p>
+        </div>
+      </sc-if>
+    </div>
+    <p class="jo" style="position: absolute; right: 40px; top: 616px; margin: 0; font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase; color: #6E6B65">Ikkinchi uchida</p>
+    <p class="sp" style="position: absolute; right: 40px; top: 632px; margin: 0; width: 310px; font-size: {{ toPx }}px; font-weight: 300; line-height: 1.15; white-space: {{ toWs }}; overflow-wrap: anywhere; text-align: right">{{ toName }}</p>
+    <sc-if value="{{ hasDate }}">
+    <p class="sp" style="position: absolute; left: 56px; right: 40px; top: 736px; margin: 0; font-size: 19px; font-style: italic; font-weight: 300; line-height: 1.4; color: #1E1D1B">{{ dateSince }} — bir ipda</p>
+    </sc-if>
+    <svg aria-hidden="true" style="position: absolute; left: 0; top: 0" width="390" height="830" viewBox="0 0 390 830">
+      <path class="ip-th ip-draw" pathLength="1" d="M40 184 C160 192, 300 172, 352 202 C392 228, 330 300, 240 330 C130 368, 70 430, 150 480 C230 530, 394 560, 386 644 C380 716, 200 714, 120 710 C50 704, 24 744, 24 830"></path>
+      <circle class="ip-dot" cx="40" cy="184" r="3"></circle>
+    </svg>
+  </header>
+
+  <!-- ============ MAKTUB ============ -->
+  <sc-if value="{{ b.maktub }}">
+  <section style="position: relative; padding: 44px 26px 64px 48px">
+    <div class="ip-gut" style="top: 0; height: 40px"></div>
+    <div class="ip-gut" style="top: 186px; bottom: 0"></div>
+    <svg aria-hidden="true" style="position: absolute; left: 0; top: 0" width="390" height="188" viewBox="0 0 390 188"><path class="ip-th" d="M24 39 L24 116 C24 126, 32 134, 48 134 L330 134 C370 134, 370 160, 330 160 L56 160 C34 160, 24 168, 24 187"></path></svg>
+    <p class="ip-lb">Senga maktub</p>
+    <p class="sp" style="margin: 14px 0 0; font-size: {{ greetPx }}px; font-weight: 300; font-style: italic; line-height: 1.1; white-space: nowrap">{{ greet }}</p>
+    <div style="margin-top: 66px; font-size: 18px; font-weight: 300; line-height: 1.75; white-space: pre-line; overflow-wrap: anywhere"><sc-if value="{{ capL }}"><span aria-hidden="true" style="float: left; margin: 2px 12px 0 0; font-size: 78px; font-weight: 200; line-height: 0.9; color: #1E1D1B">{{ capL }}</span></sc-if>{{ capRest }}</div>
+    <sc-if value="{{ sign }}">
+    <p class="sp" style="clear: both; margin: 26px 0 0; text-align: right; font-size: 24px; font-style: italic; font-weight: 300; overflow-wrap: anywhere">{{ sign }}</p>
+    </sc-if>
+  </section>
+  </sc-if>
+
+  <!-- ============ SIRLI ============ -->
+  <sc-if value="{{ b.sirli }}">
+  <section style="position: relative; padding: 56px 26px 64px 48px; background: #1E1D1B; color: #F3F1EC">
+    <div class="ip-gut" style="top: 0; bottom: 0"></div>
+    <p class="ip-lb ip-lbd">Yechilmagan tugun</p>
+    <h2 class="ip-h2 ip-h2d">Yashirin so’z</h2>
+    <div style="position: relative; margin-top: 28px; padding: 30px 24px; background: #F3F1EC; color: #1E1D1B; transform: rotate(-1.2deg)">
+      <p class="sp {{ secretCls }}" style="margin: 0; font-size: 21px; font-style: italic; font-weight: 300; line-height: 1.5; overflow-wrap: anywhere">{{ d.sirli_soz }}</p>
+      <svg aria-hidden="true" style="position: absolute; left: -8px; top: 50%; margin-top: -30px" width="332" height="60" viewBox="0 0 332 60" preserveAspectRatio="none">
+        <path class="ip-th2 {{ tieCls }}" pathLength="1" d="M0 34 C80 30, 130 36, 150 32 C140 8, 186 6, 178 30 C172 52, 140 50, 156 32 C176 24, 250 34, 332 28"></path>
+      </svg>
+    </div>
+    <sc-if value="{{ secretHidden }}">
+    <button type="button" onClick="{{ reveal }}" style="margin-top: 30px; min-height: 50px; padding: 0 26px; border: 1px solid #F3F1EC; border-radius: 999px; background: transparent; color: #F3F1EC; font-family: 'Jost', Arial, sans-serif; font-size: 15px; letter-spacing: 0.08em; cursor: pointer; display: inline-flex; align-items: center; gap: 10px">
+      <span aria-hidden="true" style="display: block; width: 9px; height: 9px; border-radius: 50%; background: #D62A1E"></span>
+      Tugunni yech
+    </button>
+    </sc-if>
+    <sc-if value="{{ secretShown }}">
+    <p class="sp ip-in" style="margin: 26px 0 0; font-size: 18px; font-style: italic; font-weight: 300; color: #A9A59D">Endi bu sir ikkimizniki.</p>
+    </sc-if>
+  </section>
+  </sc-if>
+
+  <!-- ============ SABABLAR ============ -->
+  <sc-if value="{{ b.sabablar }}">
+  <section style="position: relative; padding: 56px 26px 60px 48px">
+    <div class="ip-gut" style="top: 0; bottom: 0"></div>
+    <p class="ip-lb">Ipdagi tugunlar</p>
+    <h2 class="ip-h2">Seni sevishimning sabablari</h2>
+    <p class="sp" style="margin: 10px 0 0; font-size: 16px; font-style: italic; font-weight: 300; color: #6E6B65">Har bir sabab — ipdagi bitta tugun</p>
+    <div style="margin-top: 24px">
+      <sc-for list="{{ reasons }}" as="r">
+      <div style="position: relative; display: flex; align-items: baseline; gap: 16px; padding: 16px 0; border-top: 1px solid #D9D5CC">
+        <svg aria-hidden="true" style="position: absolute; left: -38px; top: 50%; margin-top: -14px" width="28" height="28" viewBox="0 0 28 28"><rect x="0" y="0" width="28" height="28" style="fill: #F3F1EC"></rect><path class="ip-th" d="M14 0 V8 C14 13, 5 15, 5 10 C5 4, 23 4, 23 10 C23 15, 14 13, 14 20 V28"></path></svg>
+        <span class="jo" style="flex: none; width: 24px; font-size: 13px; font-weight: 400; letter-spacing: 0.08em; color: #8A8780">{{ r.n }}</span>
+        <span class="sp" style="flex: 1; min-width: 0; font-size: 22px; font-weight: 300; line-height: 1.3; overflow-wrap: anywhere">{{ r.t }}</span>
+      </div>
+      </sc-for>
+      <div style="border-top: 1px solid #D9D5CC"></div>
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- ============ XARITA ============ -->
+  <sc-if value="{{ b.xarita }}">
+  <section style="position: relative; padding: 56px 26px 64px 48px">
+    <div class="ip-gut" style="top: 0; bottom: 0"></div>
+    <p class="ip-lb">Yulduzlar xaritasi</p>
+    <h2 class="ip-h2">O’sha kungi osmon</h2>
+    <div style="position: relative; width: 316px; height: 316px; margin: 26px 0 0">
+      <svg role="img" aria-label="{{ mapLbl }}" width="316" height="316" viewBox="0 0 316 316">
+        <circle class="ip-ring" cx="158" cy="158" r="152"></circle>
+        <circle class="ip-ring" cx="158" cy="158" r="146"></circle>
+        <circle class="ip-ring2" cx="158" cy="158" r="100"></circle>
+        <circle class="ip-ring2" cx="158" cy="158" r="52"></circle>
+        <path class="ip-ln" d="M12 158 H304 M158 12 V304" style="stroke: #D9D5CC"></path>
+        <sc-for list="{{ ticks }}" as="t"><path class="ip-ln" d="{{ t }}"></path></sc-for>
+        <sc-for list="{{ stars }}" as="s"><circle class="ip-st" cx="{{ s.x }}" cy="{{ s.y }}" r="{{ s.r }}"></circle></sc-for>
+        <polyline class="ip-ln" points="{{ clA }}"></polyline>
+        <polyline class="ip-ln" points="{{ clB }}"></polyline>
+        <path class="ip-th" d="{{ pairD }}"></path>
+        <circle cx="{{ sa.x }}" cy="{{ sa.y }}" r="7" style="fill: #F3F1EC; stroke: #1E1D1B; stroke-width: 1"></circle>
+        <circle cx="{{ sa.x }}" cy="{{ sa.y }}" r="3.2" class="ip-st"></circle>
+        <circle cx="{{ sb.x }}" cy="{{ sb.y }}" r="7" style="fill: #F3F1EC; stroke: #1E1D1B; stroke-width: 1"></circle>
+        <circle cx="{{ sb.x }}" cy="{{ sb.y }}" r="3.2" class="ip-st"></circle>
+        <text class="ip-ini" x="{{ sa.lx }}" y="{{ sa.ly }}">{{ iniFrom }}</text>
+        <text class="ip-ini" x="{{ sb.lx }}" y="{{ sb.ly }}">{{ iniTo }}</text>
+      </svg>
+    </div>
+    <p class="sp" style="margin: 20px 0 0; font-size: 18px; font-style: italic; font-weight: 300; color: #1E1D1B">{{ mapCap }}</p>
+  </section>
+  </sc-if>
+
+  <!-- ============ YOL ============ -->
+  <sc-if value="{{ b.yol }}">
+  <section style="position: relative; padding: 56px 26px 50px 48px">
+    <div class="ip-gut" style="top: 0; bottom: 0"></div>
+    <p class="ip-lb">Ip bo’ylab</p>
+    <h2 class="ip-h2">Bizning yo’limiz</h2>
+    <div style="margin-top: 28px; display: flex; flex-direction: column; gap: 30px">
+      <sc-for list="{{ yol }}" as="y">
+      <div style="position: relative">
+        <svg aria-hidden="true" style="position: absolute; left: -33px; top: 2px" width="20" height="20" viewBox="0 0 20 20"><circle cx="10" cy="10" r="8" style="fill: #F3F1EC; stroke: #D62A1E; stroke-width: 2"></circle><circle class="ip-dot" cx="10" cy="10" r="3.5"></circle></svg>
+        <p class="jo" style="margin: 0; font-size: 13px; font-weight: 500; letter-spacing: 0.24em; color: #6E6B65; overflow-wrap: anywhere">{{ y.yil }}</p>
+        <p class="sp" style="margin: 4px 0 0; font-size: 26px; font-weight: 300; line-height: 1.2; overflow-wrap: anywhere">{{ y.sarlavha }}</p>
+        <sc-if value="{{ y.matn }}"><p class="sp" style="margin: 4px 0 0; font-size: 17px; font-style: italic; font-weight: 300; line-height: 1.45; color: #6E6B65; overflow-wrap: anywhere">{{ y.matn }}</p></sc-if>
+      </div>
+      </sc-for>
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- ============ GALEREYA: the clothesline ============ -->
+  <sc-if value="{{ b.galereya }}">
+  <section style="position: relative">
+    <div style="position: relative; padding: 56px 26px 10px 48px">
+      <div class="ip-gut" style="top: 0; bottom: 0"></div>
+      <p class="ip-lb">Ipga ilingan lahzalar</p>
+      <h2 class="ip-h2">Lahzalarimiz</h2>
+    </div>
+    <div style="position: relative; height: {{ gal.h }}px">
+      <svg aria-hidden="true" style="position: absolute; left: 0; top: 0" width="390" height="{{ gal.h }}" viewBox="{{ gal.vb }}"><path class="ip-th" d="{{ gal.d }}"></path></svg>
+      <sc-for list="{{ gal.items }}" as="g">
+      <div class="ip-sway" style="position: absolute; left: {{ g.l }}px; top: {{ g.t }}px; width: {{ g.w }}px; --r0: {{ g.r0 }}deg; --r1: {{ g.r1 }}deg">
+        <div style="padding: 6px 6px 22px; background: #FFFFFF; box-shadow: 0 10px 24px -12px rgba(30, 29, 27, 0.5)">
+          <img class="ip-bw" src="{{ g.src }}" alt="" style="display: block; width: {{ g.iw }}px; height: {{ g.ih }}px; object-fit: cover">
+        </div>
+        <span aria-hidden="true" style="position: absolute; left: 50%; top: -12px; width: 8px; height: 22px; margin-left: -4px; border-radius: 2px; background: #1E1D1B"></span>
+      </div>
+      </sc-for>
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- ============ HISOB ============ -->
+  <sc-if value="{{ b.hisob }}">
+  <section style="position: relative; padding: 56px 26px 64px 48px; background: #1E1D1B; color: #F3F1EC">
+    <div class="ip-gut" style="top: 0; height: 40px"></div>
+    <div class="ip-gut" style="top: 292px; bottom: 0"></div>
+    <svg aria-hidden="true" style="position: absolute; left: 0; top: 0" width="390" height="294" viewBox="0 0 390 294"><path class="ip-th" d="M24 39 L24 224 C24 234, 32 242, 48 242 L330 242 C372 242, 372 268, 330 268 L56 268 C34 268, 24 276, 24 293"></path></svg>
+    <p class="ip-lb ip-lbd">Ip bog’langanidan beri</p>
+    <div role="img" aria-label="{{ daysLbl }}" style="margin-top: 8px; display: flex; align-items: baseline; gap: 12px">
+      <span aria-hidden="true" class="sp" style="font-size: {{ dPx }}px; font-weight: 200; line-height: 1.05; letter-spacing: -0.02em">{{ daysTxt }}</span>
+      <span aria-hidden="true" class="jo" style="font-size: 14px; letter-spacing: 0.24em; text-transform: uppercase; color: #A9A59D">kun</span>
+    </div>
+    <h2 class="ip-h2 ip-h2d" style="font-size: 28px; font-style: italic; margin-top: 2px">birga o’tgan kunlar</h2>
+    <div role="img" aria-label="{{ clockLbl }}" style="margin-top: 86px; display: flex; gap: 28px">
+      <sc-for list="{{ clock }}" as="c">
+      <div aria-hidden="true">
+        <span class="sp" style="display: block; font-size: 38px; font-weight: 200; line-height: 1">{{ c.v }}</span>
+        <span class="jo" style="display: block; margin-top: 6px; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: #A9A59D">{{ c.l }}</span>
+      </div>
+      </sc-for>
+    </div>
+    <sc-if value="{{ hasDate }}"><p class="sp" style="margin: 26px 0 0; font-size: 17px; font-style: italic; font-weight: 300; color: #A9A59D">{{ dateSince }}</p></sc-if>
+  </section>
+  </sc-if>
+
+  <!-- ============ SAVOL: the knot ============ -->
+  <sc-if value="{{ b.savol }}">
+  <section style="position: relative; padding: 176px 26px 56px; background: #1E1D1B; color: #F3F1EC; text-align: center">
+    <svg aria-hidden="true" style="position: absolute; left: 0; top: 0" width="390" height="176" viewBox="0 0 390 176">
+      <path class="ip-th2" d="M24 0 C24 50, 110 84, 192 92"></path>
+      <path class="ip-th2" d="M193 92 C150 40, 112 104, 190 96 M197 92 C240 40, 278 104, 200 96 M193 96 C186 120, 170 136, 150 160 M197 96 C206 120, 224 134, 244 156"></path>
+      <circle class="ip-dot" cx="195" cy="94" r="5"></circle>
+    </svg>
+    <p class="ip-lb ip-lbd">Muhim savol</p>
+    <p class="sp" style="margin: 16px 0 0; font-size: 26px; font-style: italic; font-weight: 300; color: #A9A59D; overflow-wrap: anywhere">{{ to }},</p>
+    <h2 class="sp" style="margin: 6px 0 0; font-size: {{ qPx }}px; font-weight: 300; line-height: 1.12; color: #F3F1EC; overflow-wrap: break-word">{{ d.savol }}</h2>
+    <div style="position: relative; margin-top: 34px; min-height: 120px">
+      <sc-if value="{{ asking }}">
+      <div style="display: flex; flex-direction: column; gap: 14px">
+        <div style="display: flex; gap: 12px">
+          <button type="button" onClick="{{ sayHa }}" disabled="{{ busy }}" style="flex: 1; min-height: 56px; border: 1px solid #F3F1EC; border-radius: 999px; background: transparent; color: #F3F1EC; font-family: 'Spectral', Georgia, serif; font-size: 22px; font-weight: 300; cursor: pointer">Ha</button>
+          <button type="button" onClick="{{ sayAlbatta }}" disabled="{{ busy }}" style="flex: 1; min-height: 56px; border: 1px solid #F3F1EC; border-radius: 999px; background: #F3F1EC; color: #1E1D1B; font-family: 'Spectral', Georgia, serif; font-size: 22px; font-weight: 400; cursor: pointer">Albatta</button>
+        </div>
+        <p class="sp" style="margin: 0; font-size: 16px; font-style: italic; font-weight: 300; color: #A9A59D">{{ askHint }}</p>
+        <sc-if value="{{ err }}"><p role="alert" class="jo" style="margin: 0; font-size: 14px; color: #F3F1EC">{{ err }}</p></sc-if>
+      </div>
+      </sc-if>
+      <sc-if value="{{ answered }}">
+      <div style="position: relative; padding: 18px 0 8px">
+        <svg aria-hidden="true" style="position: absolute; left: 50%; top: -34px; margin-left: -95px" width="190" height="158" viewBox="0 0 240 200"><path class="ip-th ip-heart" pathLength="1" d="M120 56 C120 18, 52 4, 34 52 C18 98, 92 140, 120 186 C148 140, 222 98, 206 52 C188 4, 120 18, 120 56"></path></svg>
+        <p class="sp ip-in" style="position: relative; margin: 0; font-size: 44px; font-weight: 300; font-style: italic; line-height: 1.1">«{{ answer }}»</p>
+        <p class="sp ip-in" style="position: relative; margin: 62px 0 0; font-size: 17px; font-weight: 300; line-height: 1.5; color: #D9D5CC; overflow-wrap: anywhere">Tugun bog’landi. Javobing {{ fromGa }} yetib bordi.</p>
+      </div>
+      </sc-if>
+    </div>
+  </section>
+  </sc-if>
+
+  <footer style="{{ footSt }}flex: 1; position: relative; padding: 40px 26px 46px; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; gap: 8px; text-align: center">
+    <sc-if value="{{ footThread }}">
+      <div class="ip-gut" style="top: 0; height: 30px"></div>
+      <svg aria-hidden="true" style="position: absolute; left: 0; top: 0" width="390" height="80" viewBox="0 0 390 80"><path class="ip-th2" d="M24 29 C24 46, 30 60, 40 60 C54 60, 50 40, 36 46 C24 52, 34 70, 52 66"></path></svg>
+    </sc-if>
+    <p class="jo" style="margin: 0; font-size: 13px; font-weight: 400; letter-spacing: 0.3em; text-transform: uppercase; overflow-wrap: anywhere">{{ pair }}</p>
+    <p class="sp" style="margin: 0; font-size: 16px; font-style: italic; font-weight: 300; opacity: 0.7">Bir ipda</p>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":6300}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { opened: false, secret: false, answer: null, busy: false, err: '' };
+  }
+
+  nm(n) { return String(n || '').trim(); }
+  poss(n) { n = this.nm(n); return n ? n + (/[aeiouAEIOU]$/.test(n) ? 'ng' : 'ing') : ''; }
+  ini(n) { const m = this.nm(n).match(/[A-Za-zÀ-ɏЀ-ӿ]/); return m ? m[0].toUpperCase() : ''; }
+  componentDidMount() { this.timer = setInterval(() => this.forceUpdate(), 1000); }
+  componentWillUnmount() { clearInterval(this.timer); }
+
+  sky() {
+    const d = SITE.d, key = (d.tanishgan_sana || '') + '|' + this.nm(d.kimdan) + '|' + this.nm(d.kimga);
+    if (this.skyC && this.skyC.key === key) return this.skyC.val;
+    let h = 2166136261;
+    for (let i = 0; i < key.length; i++) { h ^= key.charCodeAt(i); h = Math.imul(h, 16777619); }
+    let a = h >>> 0;
+    const rnd = () => { a = (a + 0x6D2B79F5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
+    const C = 158, T = Math.PI * 2, stars = [];
+    for (let i = 0; i < 90; i++) {
+      const r = Math.sqrt(rnd()) * 138, t = rnd() * T, big = rnd();
+      stars.push({ x: (C + r * Math.cos(t)).toFixed(1), y: (C + r * Math.sin(t)).toFixed(1), r: big > 0.94 ? 2 : big > 0.7 ? 1.3 : 0.7 });
+    }
+    const chain = (n, x, y, sp) => { const o = []; for (let i = 0; i < n; i++) { o.push(x.toFixed(1) + ',' + y.toFixed(1)); const an = rnd() * T; x = Math.max(50, Math.min(266, x + Math.cos(an) * sp)); y = Math.max(50, Math.min(266, y + Math.sin(an) * sp)); } return o.join(' '); };
+    const clA = chain(6, 70 + rnd() * 30, 70 + rnd() * 30, 26), clB = chain(5, 200 + rnd() * 30, 200 + rnd() * 20, 24);
+    const ang = rnd() * Math.PI, dist = 50 + rnd() * 12;
+    const sa = { x: +(C - Math.cos(ang) * dist).toFixed(1), y: +(C - Math.sin(ang) * dist * 0.6).toFixed(1) };
+    const sb = { x: +(C + Math.cos(ang) * dist).toFixed(1), y: +(C + Math.sin(ang) * dist * 0.6).toFixed(1) };
+    sa.lx = sa.x - 6; sa.ly = sa.y - 14; sb.lx = sb.x - 5; sb.ly = sb.y + 28;
+    const val = { stars, clA, clB, sa, sb, pairD: 'M' + sa.x + ' ' + sa.y + ' C' + (C - 10) + ' ' + (C - 70) + ' ' + (C + 40) + ' ' + (C + 60) + ' ' + sb.x + ' ' + sb.y };
+    this.skyC = { key, val };
+    return val;
+  }
+  gallery() {
+    const n = Math.min(6, Math.max(1, SITE.has.photos));
+    const plan = { 1: [1], 2: [2], 3: [2, 1], 4: [2, 2], 5: [2, 1, 2], 6: [2, 2, 2] }[n];
+    let y = 34, right = false, d = 'M24 0 L24 ' + y, i = 0;
+    const items = [];
+    const xAt = (t) => { const u = 1 - t; return u * u * u * 24 + 3 * u * u * t * 120 + 3 * u * t * t * 270 + t * t * t * 366; };
+    const sagY = (t) => 3 * t * (1 - t) * 42;
+    const tFor = (x) => { let lo = 0, hi = 1; for (let k = 0; k < 24; k++) { const m = (lo + hi) / 2; if (xAt(m) < x) lo = m; else hi = m; } return (lo + hi) / 2; };
+    plan.forEach((c, r) => {
+      const one = c === 1, iw = one ? 236 : 138, ih = one ? 290 : 176, rowH = ih + 28 + 70;
+      d += right ? ' C270 ' + (y + 42) + ', 120 ' + (y + 42) + ', 24 ' + y : ' C120 ' + (y + 42) + ', 270 ' + (y + 42) + ', 366 ' + y;
+      const xs = one ? [195] : [112, 280];
+      xs.forEach((cx, k) => {
+        const t = tFor(right ? 390 - cx : cx);
+        const yy = y + sagY(t), w = iw + 12;
+        const tilt = (right ? -1 : 1) * (k === 0 ? -1.6 : 1.6) * (one ? 0.6 : 1);
+        items.push({ src: SITE.p[i], l: Math.round(cx - w / 2), t: Math.round(yy - 4), w, iw, ih, r0: (tilt - 1).toFixed(1), r1: (tilt + 1).toFixed(1) });
+        i++;
+      });
+      const ny = y + rowH;
+      right = !right;
+      if (r < plan.length - 1) { d += ' L' + (right ? 366 : 24) + ' ' + ny; }
+      y = ny;
+    });
+    const H = y + 30;
+    d += right ? ' C366 ' + (y - 20) + ', 24 ' + (y - 40) + ', 24 ' + H : ' L24 ' + H;
+    return { h: H, vb: '0 0 390 ' + H, d, items };
+  }
+  answer(a) {
+    if (this.state.busy || this.state.answer) return;
+    this.setState({ busy: true, err: '' });
+    SITE.reply(a + '! — «' + (SITE.d.savol || '') + '»', '❤️').then(
+      () => this.setState({ answer: a, busy: false }),
+      () => this.setState({ busy: false, err: 'Javob yetib bormadi. Qayta bosib ko’ring.' })
+    );
+  }
+  renderVals() {
+    const s = this.state, d = SITE.d, b = SITE.b;
+    const to = this.nm(d.kimga), from = this.nm(d.kimdan);
+    const w = SITE.when(d.tanishgan_sana), hasDate = !!w.day;
+    const el = SITE.elapsed(d.tanishgan_sana);
+    const fit = (t) => { const one = Math.floor(305 / (Math.max(1, t.length) * 0.5)); return one >= 26 ? { px: Math.min(54, one), ws: 'nowrap' } : { px: Math.max(15, Math.min(30, Math.floor(590 / (t.length * 0.5)))), ws: 'normal' }; };
+    const fN = fit(from || 'Men'), tN = fit(to || 'Sen');
+    const fromName = from || 'Men', toName = to || 'Sen';
+    const txt = String(d.matn || '').replace(/^\s+/, '');
+    const isL = /[A-Za-zÀ-ɏЀ-ӿ]/.test(txt.charAt(0));
+    const sky = b.xarita ? this.sky() : { stars: [], clA: '', clB: '', sa: {}, sb: {}, pairD: '' };
+    const ticks = [];
+    for (let k = 0; k < 72; k++) { const a = (k / 72) * Math.PI * 2, r1 = 146, r2 = k % 6 ? 141 : 136; ticks.push('M' + (158 + r1 * Math.cos(a)).toFixed(1) + ' ' + (158 + r1 * Math.sin(a)).toFixed(1) + ' L' + (158 + r2 * Math.cos(a)).toFixed(1) + ' ' + (158 + r2 * Math.sin(a)).toFixed(1)); }
+    const days = el.days || 0, daysTxt = SITE.num(days);
+    const pad = (x) => String(x || 0).padStart(2, '0');
+    const reasons = (d.sabablar || []).filter((x) => String(x || '').trim()).map((t, i) => ({ n: String(i + 1).padStart(2, '0'), t }));
+    return {
+      to, from, w, hasDate,
+      rootCls: s.opened ? 'ip-root is-on' : 'ip-root',
+      fromName, toName,
+      fromPx: fN.px, toPx: tN.px, fromWs: fN.ws, toWs: tN.ws,
+      heroLb: hasDate ? 'Qizil ip · ' + w.dots : 'Qizil ip',
+      noPhoto: !SITE.has.photo,
+      greet: 'Azizim ' + to + ',',
+      greetPx: Math.max(16, Math.min(34, Math.floor(310 / (Math.max(1, ('Azizim ' + to + ',').length) * 0.47)))),
+      sign: from ? 'Sening ' + this.poss(from) : '',
+      capL: isL ? txt.charAt(0) : '', capRest: isL ? txt.slice(1) : txt,
+      pair: [from, to].filter(Boolean).join(' · '),
+      fromGa: from ? SITE.ga(from) : 'menga',
+      iniFrom: this.ini(from), iniTo: this.ini(to),
+      dateSince: hasDate ? w.dm + ' ' + w.year + '-yildan beri' : '',
+      introCls: s.opened ? 'ip-intro is-on' : 'ip-intro',
+      open: () => { if (!this.state.opened) { this.setState({ opened: true }); SITE.opened(); } },
+      musicOn: !!SITE.music.playing, musicOff: !SITE.music.playing,
+      toggleMusic: () => SITE.music.toggle(),
+      secretCls: s.secret ? 'ip-secret is-shown' : 'ip-secret',
+      tieCls: s.secret ? 'ip-tie is-off' : 'ip-tie',
+      secretShown: s.secret, secretHidden: !s.secret,
+      reveal: () => this.setState({ secret: true }),
+      reasons,
+      stars: sky.stars, clA: sky.clA, clB: sky.clB, sa: sky.sa, sb: sky.sb, pairD: sky.pairD, ticks: b.xarita ? ticks : [],
+      mapLbl: 'Yulduzlar xaritasi' + (hasDate ? ': ' + w.date : ''),
+      mapCap: hasDate ? w.date + ', ' + w.weekday + '. Ikki yulduz — bir ipda.' : 'Ikki yulduz — bir ipda.',
+      yol: (d.yol || []).map((x) => ({ yil: String((x && x.yil) || ''), sarlavha: (x && x.sarlavha) || '', matn: (x && x.matn) || '' })),
+      gal: b.galereya ? this.gallery() : { h: 0, vb: '0 0 390 1', d: '', items: [] },
+      daysTxt, dPx: daysTxt.length > 6 ? 72 : 96,
+      daysLbl: days + ' kun',
+      clock: [{ v: pad(el.h), l: 'soat' }, { v: pad(el.m), l: 'daqiqa' }, { v: pad(el.s), l: 'soniya' }],
+      clockLbl: (el.h || 0) + ' soat ' + (el.m || 0) + ' daqiqa ' + (el.s || 0) + ' soniya',
+      qPx: String(d.savol || '').length > 40 ? 32 : 38,
+      askHint: from ? 'Javobing ip orqali ' + SITE.ga(from) + ' yetadi' : 'Javobing ip orqali menga yetadi',
+      asking: !s.answer, answered: !!s.answer, answer: s.answer || '',
+      busy: s.busy, err: s.err,
+      sayHa: () => this.answer('Ha'),
+      sayAlbatta: () => this.answer('Albatta'),
+      footThread: !b.savol,
+      footSt: b.savol ? 'background: #1E1D1B; color: #F3F1EC; ' : 'background: #F3F1EC; color: #1E1D1B; '
+    };
+  }
+}
+</script>
+</body>
+</html>
