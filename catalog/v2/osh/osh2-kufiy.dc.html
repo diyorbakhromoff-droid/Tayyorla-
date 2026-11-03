@@ -1,0 +1,626 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<title>Nahorgi osh taklifnomasi: Kufiy</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;500;600&amp;family=Onest:wght@400;500;600&amp;family=Reem+Kufi:wght@400;500&amp;display=swap&amp;subset=arabic,cyrillic,cyrillic-ext,latin-ext">
+<style>
+body{margin:0}
+a{color:#E6C77E}
+.kf-root{font-family:'Onest','Segoe UI',Arial,sans-serif;color:#F4ECD8;background:#0F3B2E}
+.kf-d{font-family:'Unbounded','Onest',sans-serif}
+.kf-num{font-variant-numeric:lining-nums tabular-nums}
+.kf-ar{font-family:'Reem Kufi','Amiri',serif;direction:rtl}
+.kf-icon{fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.kf-foil{background:linear-gradient(115deg,#A5812F 0%,#E6C77E 28%,#FFF1C8 42%,#D8B262 56%,#9C7A2E 76%,#E9CF8A 100%);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:kf-shine 8s ease-in-out infinite}
+@keyframes kf-shine{0%,100%{background-position:0 0}50%{background-position:100% 0}}
+.kf-bricks{position:absolute;inset:0;pointer-events:none;background:linear-gradient(rgba(201,162,78,.06) 1px,transparent 1px) 0 0/20px 20px,linear-gradient(90deg,rgba(201,162,78,.06) 1px,transparent 1px) 0 0/20px 20px}
+.kf-check{height:12px;background:conic-gradient(#C9A24E 25%,transparent 0 50%,#C9A24E 0 75%,transparent 0) 0 0/12px 12px;opacity:.85}
+
+/* ---------- tile (banna'i) */
+.kf-t{position:absolute;width:7.4px;height:7.4px;border-radius:.6px}
+.kf-t--g{background:linear-gradient(135deg,#F3DC9A,#C9A24E 55%,#9E7B30)}
+.kf-t--c{width:9.1px;height:9.1px;border-radius:0;background:#F4ECD8}
+.kf-t--m{background:#2E7058}
+.kf-t--d{background:#8E7438}
+.kf-asm .kf-t{animation:kf-asm .95s cubic-bezier(.2,.75,.25,1) both;animation-delay:var(--dl)}
+@keyframes kf-asm{from{opacity:0;transform:translate(var(--dx),var(--dy)) rotate(var(--r)) scale(.4)}to{opacity:1;transform:none}}
+
+/* ---------- intro */
+.kf-i{position:absolute;left:0;top:0;width:390px;height:844px;z-index:40;overflow:hidden;background:#0B2E24}
+.kf-i::before{content:"";position:absolute;inset:0;background:radial-gradient(90% 55% at 50% 42%,rgba(46,112,88,.55),rgba(11,46,36,0) 70%),radial-gradient(70% 40% at 50% 100%,rgba(201,162,78,.16),rgba(201,162,78,0) 70%)}
+.kf-i-ui{transition:opacity .45s ease}
+.kf-i-in{opacity:0;animation:kf-fadein 1s ease forwards}
+@keyframes kf-fadein{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.kf-panel{position:absolute;left:46px;top:186px;width:298px;height:298px}
+.kf-panel::before{content:"";position:absolute;inset:-26px;background:radial-gradient(circle,rgba(230,199,126,.22),rgba(230,199,126,0) 65%);opacity:0;animation:kf-glow 1.2s ease 1.4s forwards}
+@keyframes kf-glow{to{opacity:1}}
+.kf-spark{position:absolute;width:4px;height:4px;background:#E6C77E;opacity:0;animation:kf-spark 7s linear infinite}
+@keyframes kf-spark{0%{opacity:0;transform:translateY(0) rotate(0)}12%{opacity:.85}80%{opacity:.5}100%{opacity:0;transform:translateY(-260px) rotate(180deg)}}
+.kf-i-btn{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:12px;width:262px;height:58px;border:0;border-radius:4px;cursor:pointer;font-family:'Unbounded',sans-serif;font-weight:500;font-size:14px;letter-spacing:.06em;color:#0B2E24;background:linear-gradient(115deg,#A5812F,#E6C77E 38%,#FFF1C8 50%,#D8B262 64%,#9C7A2E);box-shadow:0 0 0 1px rgba(255,236,190,.4),0 14px 32px -10px rgba(230,199,126,.55)}
+.kf-i-btn:focus-visible{outline:2px solid #F4ECD8;outline-offset:4px}
+.kf-i-btn::before,.kf-i-btn::after{content:"";position:absolute;top:50%;width:8px;height:8px;margin-top:-4px;background:#C9A24E}
+.kf-i-btn::before{left:-18px}.kf-i-btn::after{right:-18px}
+.kf-i--open{pointer-events:none;animation:kf-out .8s ease 1.15s forwards}
+.kf-i--open .kf-i-ui{opacity:0}
+.kf-i--open .kf-t{animation:kf-scat .95s cubic-bezier(.55,0,.6,.4) forwards;animation-delay:var(--ol)}
+@keyframes kf-scat{from{opacity:1;transform:none}to{opacity:0;transform:translate(var(--ox),var(--oy)) rotate(var(--r)) scale(.5)}}
+@keyframes kf-out{to{opacity:0;visibility:hidden}}
+
+/* ---------- sahifa */
+.kf-up{opacity:0;transform:translateY(14px)}
+.kf-on .kf-up{animation:kf-fadein .9s cubic-bezier(.2,.7,.2,1) forwards}
+.kf-on .kf-d1{animation-delay:.9s}.kf-on .kf-d2{animation-delay:1.05s}.kf-on .kf-d3{animation-delay:1.2s}.kf-on .kf-d4{animation-delay:1.35s}.kf-on .kf-d5{animation-delay:1.5s}
+.kf-mono{position:relative;width:126px;height:126px}
+.kf-mono .kf-t{width:12px;height:12px;border-radius:1px}
+.kf-mono .kf-t--c{width:14.1px;height:14.1px;border-radius:0}
+.kf-on .kf-mono .kf-t{animation:kf-asm .9s cubic-bezier(.2,.75,.25,1) both;animation-delay:calc(var(--dl) + 1s)}
+.kf-star{position:absolute;animation:kf-rot 120s linear infinite}
+.kf-fst{fill:none;stroke:#C9A24E;stroke-width:1.4}
+.kf-starl{fill:none;stroke:rgba(201,162,78,.16);stroke-width:1}
+@keyframes kf-rot{to{transform:rotate(360deg)}}
+.kf-chip{position:relative;box-sizing:border-box;width:106px;height:106px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;border:1px solid rgba(201,162,78,.55);background:rgba(10,44,34,.55)}
+.kf-chip::before,.kf-chip::after{content:"";position:absolute;width:6px;height:6px;background:#C9A24E}
+.kf-chip::before{left:-3.5px;top:-3.5px}.kf-chip::after{right:-3.5px;bottom:-3.5px}
+.kf-lbl{margin:0;display:flex;align-items:center;justify-content:center;gap:22px;font-family:'Unbounded',sans-serif;font-weight:500;font-size:11px;line-height:16px;letter-spacing:.24em;color:#E6C77E;text-transform:uppercase}
+.kf-lbl i{display:block;width:6px;height:6px;background:#C9A24E;box-shadow:9px 0 0 #2E7058,-9px 0 0 #2E7058}
+.kf-lbl--k{color:#7A5E1F}
+.kf-lbl--k i{background:#A5812F;box-shadow:9px 0 0 #8FB3A3,-9px 0 0 #8FB3A3}
+.kf-h2{margin:14px 0 0;font-family:'Unbounded',sans-serif;font-weight:300;font-size:27px;line-height:1.2;letter-spacing:-.01em;text-align:center;overflow-wrap:anywhere}
+.kf-sec{position:relative;padding:80px 24px 0;display:flex;flex-direction:column;align-items:center;text-align:center}
+.kf-card{position:relative;box-sizing:border-box;width:342px;background:#F4ECD8;color:#0F3B2E;padding:40px 26px 34px}
+.kf-card::before{content:"";position:absolute;inset:8px;border:1px solid rgba(165,129,47,.5);pointer-events:none}
+.kf-cn{position:absolute;width:22px;height:22px;pointer-events:none}
+.kf-cn::before,.kf-cn::after{content:"";position:absolute;background:#0F3B2E}
+.kf-cn::before{left:0;top:0;width:22px;height:6px}
+.kf-cn::after{left:0;top:0;width:6px;height:22px}
+.kf-cn i{position:absolute;left:10px;top:10px;width:6px;height:6px;background:#C9A24E}
+.kf-btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:54px;padding:0 26px;border-radius:3px;box-sizing:border-box;font-family:'Unbounded',sans-serif;font-weight:500;font-size:13px;letter-spacing:.05em;text-decoration:none;cursor:pointer;border:0}
+.kf-btn--g{color:#0B2E24;background:linear-gradient(115deg,#A5812F,#E6C77E 38%,#FFF1C8 50%,#D8B262 64%,#9C7A2E)}
+.kf-btn--g:hover{color:#0B2E24;filter:brightness(1.06)}
+.kf-btn--o{color:#F4ECD8;background:transparent;box-shadow:inset 0 0 0 1.4px rgba(201,162,78,.75)}
+.kf-btn--o:hover{color:#F4ECD8;background:rgba(201,162,78,.12)}
+.kf-btn--k{color:#F4ECD8;background:#0F3B2E}
+.kf-btn--k:hover{color:#F4ECD8;background:#0B2E24}
+.kf-btn--k .kf-icon{color:#E6C77E}
+.kf-btn:disabled{opacity:.55;cursor:default}
+
+.kf-grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px;width:342px}
+.kf-sq{position:relative;box-sizing:border-box;height:166px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;border:1px solid rgba(201,162,78,.5);background:#0B2E24;overflow:hidden}
+.kf-sq--g{background:linear-gradient(135deg,#C9A24E,#E6C77E 45%,#A5812F);border:0;color:#0B2E24}
+.kf-sq--c{background:#F4ECD8;border:0;color:#0F3B2E}
+.kf-sq-l{margin:0;font-family:'Unbounded',sans-serif;font-weight:500;font-size:10.5px;line-height:14px;letter-spacing:.22em;text-transform:uppercase}
+.kf-sq-v{margin:10px 0 0;font-family:'Unbounded',sans-serif;font-weight:300;line-height:1;letter-spacing:-.03em}
+
+.kf-fl{display:flex;gap:10px;justify-content:center}
+.kf-fu{display:flex;flex-direction:column;align-items:center;gap:10px}
+.kf-fc{position:relative;width:74px;height:90px;perspective:300px}
+.kf-fc{box-shadow:0 14px 26px -12px rgba(0,0,0,.55)}
+.kf-fh{position:absolute;left:0;width:74px;height:45px;overflow:hidden;background:#164A3A;box-shadow:inset 0 0 0 1px rgba(201,162,78,.28)}
+.kf-fh--t{top:0;background:linear-gradient(#22624C,#1A5442);border-bottom:1px solid #0B2E24;box-sizing:border-box}
+.kf-fh--b{top:45px;background:linear-gradient(#174C3B,#134535)}
+.kf-fh span{position:absolute;left:0;width:74px;height:90px;line-height:90px;text-align:center;font-family:'Unbounded',sans-serif;font-weight:400;font-size:38px;letter-spacing:-.02em;color:#F4ECD8}
+.kf-fh--b span{top:-45px}
+.kf-leaf{position:absolute;left:0;top:0;width:74px;height:45px;overflow:hidden;background:linear-gradient(#22624C,#1A5442);transform-origin:50% 100%;backface-visibility:hidden;animation:kf-flip .62s cubic-bezier(.45,0,.7,.4) forwards;z-index:2}
+.kf-leaf span{position:absolute;left:0;top:0;width:74px;height:90px;line-height:90px;text-align:center;font-family:'Unbounded',sans-serif;font-weight:400;font-size:38px;letter-spacing:-.02em;color:#F4ECD8}
+@keyframes kf-flip{0%{transform:rotateX(0)}100%{transform:rotateX(-90deg);opacity:.4}}
+.kf-fc::before{content:"";position:absolute;left:-3px;top:41px;width:6px;height:8px;background:#C9A24E;z-index:3}
+.kf-fc::after{content:"";position:absolute;right:-3px;top:41px;width:6px;height:8px;background:#C9A24E;z-index:3}
+.kf-fs .kf-fh span,.kf-fs .kf-leaf span{color:#E6C77E}
+.kf-fl-l{font-family:'Unbounded',sans-serif;font-weight:500;font-size:10px;line-height:14px;letter-spacing:.2em;color:rgba(244,236,216,.75)}
+
+.kf-stepframe{position:relative;width:322px;height:250px}
+.kf-stepframe .kf-sfo{position:absolute;inset:0;background:linear-gradient(135deg,#E6C77E,#A5812F);clip-path:polygon(0 18px,18px 18px,18px 0,calc(100% - 18px) 0,calc(100% - 18px) 18px,100% 18px,100% calc(100% - 18px),calc(100% - 18px) calc(100% - 18px),calc(100% - 18px) 100%,18px 100%,18px calc(100% - 18px),0 calc(100% - 18px))}
+.kf-stepframe img{position:absolute;left:4px;top:4px;width:314px;height:242px;object-fit:cover;display:block;clip-path:polygon(0 16px,16px 16px,16px 0,calc(100% - 16px) 0,calc(100% - 16px) 16px,100% 16px,100% calc(100% - 16px),calc(100% - 16px) calc(100% - 16px),calc(100% - 16px) 100%,16px 100%,16px calc(100% - 16px),0 calc(100% - 16px))}
+
+.kf-prog{position:relative;width:342px;text-align:left}
+.kf-pr{position:relative;display:grid;grid-template-columns:52px 1fr;column-gap:16px;align-items:start;padding:0 0 26px}
+.kf-pr::before{content:"";position:absolute;left:25.5px;top:52px;bottom:4px;width:1px;background:repeating-linear-gradient(rgba(201,162,78,.6) 0 4px,transparent 4px 8px)}
+.kf-pr:last-child::before{display:none}
+.kf-pn{width:52px;height:52px;box-sizing:border-box;display:flex;align-items:center;justify-content:center;border:1px solid #C9A24E;font-family:'Unbounded',sans-serif;font-weight:400;font-size:14px;color:#E6C77E;background:#0B2E24}
+.kf-pr--first .kf-pn{background:linear-gradient(135deg,#C9A24E,#E6C77E 45%,#A5812F);color:#0B2E24;border:0}
+.kf-pt{margin:4px 0 0;font-family:'Unbounded',sans-serif;font-weight:400;font-size:20px;line-height:1.2;color:#E6C77E}
+.kf-pnm{margin:6px 0 0;font-size:17px;line-height:1.45;color:#F4ECD8;overflow-wrap:anywhere}
+
+.kf-gal{position:relative;width:342px;height:560px}
+.kf-gp{position:absolute;overflow:hidden;background:#164A3A;box-shadow:0 18px 40px -18px rgba(0,0,0,.6)}
+.kf-gp img{display:block;width:100%;height:100%;object-fit:cover}
+.kf-gp::after{content:"";position:absolute;inset:6px;border:1px solid rgba(244,236,216,.55);pointer-events:none}
+.kf-gt{position:absolute;width:10px;height:10px;background:#C9A24E}
+
+.kf-opt{flex:1 1 0;min-width:0;height:54px;border-radius:3px;border:0;cursor:pointer;font-family:'Onest',sans-serif;font-size:16px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:8px;padding:0 8px;white-space:nowrap;color:#0F3B2E;background:transparent;box-shadow:inset 0 0 0 1.4px rgba(15,59,46,.45);transition:background-color .2s,color .2s}
+.kf-opt--on{background:#0F3B2E;color:#F4ECD8;box-shadow:none}
+.kf-opt--on .kf-icon{color:#E6C77E}
+.kf-step{display:flex;align-items:center;justify-content:space-between;gap:6px;margin-top:12px;padding:6px 6px 6px 14px;box-shadow:inset 0 0 0 1.4px rgba(15,59,46,.2);transition:opacity .2s}
+.kf-step--off{opacity:.4}
+.kf-sb{width:44px;height:44px;border-radius:2px;border:0;background:#E5D9BC;color:#0F3B2E;font-size:22px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:inherit}
+.kf-sb:disabled{opacity:.4;cursor:default}
+.kf-inp,.kf-ta{display:block;width:100%;box-sizing:border-box;border:0;background:rgba(15,59,46,.06);box-shadow:inset 0 0 0 1.4px rgba(15,59,46,.22);color:#0F3B2E;font-family:inherit;font-size:16px;outline:none;border-radius:2px}
+.kf-inp{height:52px;padding:0 16px}
+.kf-ta{height:84px;padding:14px 16px;resize:none;line-height:1.45}
+.kf-inp:focus,.kf-ta:focus{box-shadow:inset 0 0 0 1.6px #A5812F}
+.kf-inp::placeholder,.kf-ta::placeholder{color:#5D7468}
+.kf-music{position:absolute;right:14px;top:14px;z-index:45;width:46px;height:46px;border-radius:3px;border:0;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#E6C77E;background:rgba(11,46,36,.75);box-shadow:inset 0 0 0 1.2px rgba(201,162,78,.6)}
+.kf-music--on{background:#C9A24E;color:#0B2E24}
+.kf-eq{display:flex;align-items:flex-end;gap:3px;height:16px}
+.kf-eq i{display:block;width:3px;height:100%;background:currentColor;transform-origin:50% 100%;animation:kf-eq 1s ease-in-out infinite}
+.kf-eq i:nth-child(2){animation-delay:-.3s}.kf-eq i:nth-child(3){animation-delay:-.6s}
+@keyframes kf-eq{0%,100%{transform:scaleY(.3)}50%{transform:scaleY(1)}}
+
+@media (prefers-reduced-motion: reduce){
+  .kf-foil,.kf-spark,.kf-star,.kf-eq i,.kf-leaf,.kf-i-in,.kf-panel::before{animation:none}
+  .kf-i-in,.kf-panel::before{opacity:1}
+  .kf-asm .kf-t,.kf-on .kf-mono .kf-t{animation:none}
+  .kf-up{opacity:1;transform:none}
+  .kf-on .kf-up{animation:none}
+  .kf-leaf{display:none}
+  .kf-i--open{animation:kf-out .01s linear forwards}
+  .kf-i--open .kf-t{animation:none}
+}
+</style>
+</helmet>
+<div class="{{ rootCls }}" style="width: 390px; min-height: var(--vh, 100vh); position: relative; overflow: hidden; display: flex; flex-direction: column">
+  <div class="kf-bricks"></div>
+
+  <sc-if value="{{ has.music }}">
+  <button type="button" class="{{ musicCls }}" aria-label="{{ musicLabel }}" aria-pressed="{{ musicOn }}" onClick="{{ toggleMusic }}">
+    <sc-if value="{{ musicOn }}"><span class="kf-eq" aria-hidden="true"><i></i><i></i><i></i></span></sc-if>
+    <sc-if value="{{ musicOff }}"><svg class="kf-icon" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V5.5l11-2.2v12.5"></path><circle cx="6.2" cy="18" r="2.8"></circle><circle cx="17.2" cy="15.8" r="2.8"></circle></svg></sc-if>
+  </button>
+  </sc-if>
+
+  <!-- ===== kirish: koshinlar «Xush kelibsiz» kompozitsiyasiga yig'iladi ===== -->
+  <div data-intro class="{{ introCls }}" aria-hidden="{{ introHidden }}">
+    <div class="kf-bricks"></div>
+    <sc-for list="{{ sparks }}" as="s"><i class="kf-spark" style="{{ s }}"></i></sc-for>
+    <div class="kf-i-ui">
+      <div class="kf-i-in" style="position: absolute; left: 0; right: 0; top: 52px; text-align: center; animation-delay: .2s">
+        <p class="kf-ar kf-foil" lang="ar" dir="rtl" style="margin: 0; font-size: 27px; line-height: 1.5">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p>
+        <p class="kf-lbl" style="margin-top: 8px; color: rgba(244,236,216,.62); font-size: 10px; letter-spacing: 0.26em">Bismillahir Rohmanir Rohiym</p>
+      </div>
+      <div class="kf-i-in" style="position: absolute; left: 0; right: 0; top: 140px; text-align: center; animation-delay: .5s">
+        <p class="kf-lbl" style="font-size: 10.5px">{{ taklifUp }}</p>
+      </div>
+    </div>
+    <div class="kf-panel kf-asm" role="img" aria-label="Xush kelibsiz">
+      <sc-for list="{{ panel }}" as="t"><i class="{{ t.c }}" style="{{ t.s }}"></i></sc-for>
+    </div>
+    <div class="kf-i-ui">
+      <div class="kf-i-in" style="position: absolute; left: 0; right: 0; top: 520px; padding: 0 28px; text-align: center; animation-delay: 1.5s">
+        <p class="kf-d" style="margin: 0; font-weight: 300; font-size: {{ introGuestFs }}px; line-height: 1.25; color: #F4ECD8; overflow-wrap: anywhere">{{ guestHello }}</p>
+        <p style="margin: 12px 0 0; font-size: 15px; line-height: 1.5; color: rgba(244,236,216,.78); text-wrap: balance; overflow-wrap: anywhere">{{ introLine }}</p>
+      </div>
+      <div class="kf-i-in" style="position: absolute; left: 0; right: 0; top: 690px; display: flex; flex-direction: column; align-items: center; animation-delay: 1.75s">
+        <button type="button" class="kf-i-btn" onClick="{{ open }}">
+          <svg class="kf-icon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16"></rect><path d="M12 4v16M4 12h16"></path></svg>
+          Taklifnomani ochish
+        </button>
+        <p class="kf-num" style="margin: 18px 0 0; font-size: 12.5px; line-height: 18px; letter-spacing: 0.18em; color: rgba(244,236,216,.62)">{{ introDate }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== bosh qism ===== -->
+  <header style="position: relative; padding: 0 0 0; text-align: center">
+    <div class="kf-check" style="opacity: .55"></div>
+    <svg class="kf-star" width="560" height="560" viewBox="0 0 200 200" aria-hidden="true" style="left: -85px; top: 250px">
+      <rect class="kf-starl" x="40" y="40" width="120" height="120"></rect>
+      <rect class="kf-starl" x="40" y="40" width="120" height="120" transform="rotate(45 100 100)"></rect>
+      <rect class="kf-starl" x="58" y="58" width="84" height="84"></rect>
+      <rect class="kf-starl" x="58" y="58" width="84" height="84" transform="rotate(45 100 100)"></rect>
+    </svg>
+    <div style="position: relative; padding: 44px 24px 0; display: flex; flex-direction: column; align-items: center">
+      <div class="kf-up kf-d1">
+        <p class="kf-ar kf-foil" lang="ar" dir="rtl" style="margin: 0; font-size: 26px; line-height: 1.5">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p>
+        <p class="kf-lbl" style="margin-top: 6px; font-size: 10px; color: rgba(244,236,216,.62)">Bismillahir Rohmanir Rohiym</p>
+      </div>
+      <div class="kf-up kf-d2" style="margin-top: 34px">
+        <p style="margin: 0; font-size: 16px; line-height: 1.4; color: rgba(244,236,216,.78)">Assalomu alaykum,</p>
+        <p class="kf-d" style="margin: 8px 0 0; max-width: 340px; font-weight: 300; font-size: {{ guestFs }}px; line-height: 1.2; overflow-wrap: anywhere">{{ guestLine }}</p>
+      </div>
+      <div class="kf-up kf-d3" style="margin-top: 36px; display: flex; flex-direction: column; align-items: center">
+        <sc-if value="{{ hasMono }}">
+        <div class="kf-mono" role="img" aria-label="{{ mezbon }}">
+          <sc-for list="{{ mono }}" as="t"><i class="{{ t.c }}" style="{{ t.s }}"></i></sc-for>
+        </div>
+        </sc-if>
+        <p class="kf-d" style="margin: 22px 0 0; max-width: 330px; font-weight: 500; font-size: 22px; line-height: 1.25; overflow-wrap: anywhere">{{ mezbon }}</p>
+        <p style="margin: 8px 0 0; font-size: 16px; line-height: 1.4; color: rgba(244,236,216,.78)">sizni</p>
+      </div>
+      <h1 class="kf-up kf-d4 kf-d kf-foil" style="margin: 10px 0 0; max-width: 342px; font-weight: 600; font-size: {{ titleFs }}px; line-height: 1.08; letter-spacing: -0.01em; text-transform: uppercase; overflow-wrap: anywhere">{{ taklifGa }}</h1>
+      <p class="kf-up kf-d4" style="margin: 10px 0 0; font-size: 16px; line-height: 1.4; color: rgba(244,236,216,.78)">lutfan taklif etadi</p>
+      <sc-if value="{{ sabab }}">
+      <div class="kf-up kf-d5" style="margin-top: 26px; display: flex; align-items: center; gap: 14px; max-width: 342px">
+        <i aria-hidden="true" style="flex: none; width: 8px; height: 8px; background: #C9A24E"></i>
+        <p style="margin: 0; font-size: 17px; line-height: 1.5; color: #F4ECD8; text-wrap: balance; overflow-wrap: anywhere">{{ sabab }}</p>
+        <i aria-hidden="true" style="flex: none; width: 8px; height: 8px; background: #C9A24E"></i>
+      </div>
+      </sc-if>
+      <div class="kf-up kf-d5" style="margin-top: 34px; display: flex; gap: 12px">
+        <div class="kf-chip"><span class="kf-d kf-num" style="font-weight: 300; font-size: 38px; line-height: 1">{{ w.day }}</span><span class="kf-sq-l" style="margin-top: 8px; color: #E6C77E">{{ monthShort }}</span></div>
+        <div class="kf-chip" style="background: linear-gradient(135deg,#C9A24E,#E6C77E 45%,#A5812F); border: 0; color: #0B2E24"><span class="kf-d kf-num" style="font-weight: 400; font-size: 26px; line-height: 1">{{ hhmm }}</span><span class="kf-sq-l" style="margin-top: 10px">tong</span></div>
+        <div class="kf-chip"><span class="kf-d" style="font-weight: 300; font-size: 15px; line-height: 1.2">{{ w.Weekday }}</span><span class="kf-sq-l kf-num" style="margin-top: 10px; color: #E6C77E">{{ w.year }}</span></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== taklif ===== -->
+  <sc-if value="{{ b.taklif }}">
+  <section class="kf-sec">
+    <div class="kf-card">
+      <span class="kf-cn" style="left: 0; top: 0"><i></i></span>
+      <span class="kf-cn" style="right: 0; top: 0; transform: scaleX(-1)"><i></i></span>
+      <span class="kf-cn" style="left: 0; bottom: 0; transform: scaleY(-1)"><i></i></span>
+      <span class="kf-cn" style="right: 0; bottom: 0; transform: scale(-1)"><i></i></span>
+      <p class="kf-lbl kf-lbl--k"><i></i>Taklif<i></i></p>
+      <p style="margin: 22px 0 0; font-size: 18px; line-height: 1.68; white-space: pre-line; overflow-wrap: anywhere; text-wrap: pretty">{{ d.matn }}</p>
+      <div aria-hidden="true" style="display: flex; justify-content: center; gap: 4px; margin: 24px 0 14px"><i style="width: 6px; height: 6px; background: #2E7058"></i><i style="width: 6px; height: 6px; background: #A5812F"></i><i style="width: 6px; height: 6px; background: #2E7058"></i></div>
+      <p class="kf-d" style="margin: 0; font-weight: 400; font-size: 15px; line-height: 1.4; overflow-wrap: anywhere">Hurmat bilan, {{ mezbon }}</p>
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- ===== sana va vaqt ===== -->
+  <sc-if value="{{ b.kun }}">
+  <section class="kf-sec">
+    <p class="kf-lbl"><i></i>Marosim kuni<i></i></p>
+    <h2 class="kf-h2">Qutlug’ kun</h2>
+    <div class="kf-grid2" style="margin-top: 28px">
+      <div class="kf-sq kf-sq--g"><p class="kf-sq-l">Kun</p><p class="kf-sq-v kf-num" style="font-size: 76px">{{ w.day }}</p></div>
+      <div class="kf-sq"><p class="kf-sq-l" style="color: #E6C77E">Oy</p><p class="kf-sq-v" style="font-size: {{ monthFs }}px; line-height: 1.1">{{ monthCap }}</p><p class="kf-num" style="margin: 8px 0 0; font-size: 14px; color: rgba(244,236,216,.72)">{{ w.year }}</p></div>
+      <div class="kf-sq"><p class="kf-sq-l" style="color: #E6C77E">Hafta kuni</p><p class="kf-sq-v" style="font-size: 22px; line-height: 1.2">{{ w.Weekday }}</p></div>
+      <div class="kf-sq kf-sq--c"><p class="kf-sq-l" style="color: #7A5E1F">Boshlanishi</p><p class="kf-sq-v kf-num" style="font-size: 40px">{{ hhmm }}</p><p style="margin: 8px 0 0; font-size: 13px; color: #3E5E52">tong sahar</p></div>
+    </div>
+    <p style="margin: 22px 0 0; max-width: 320px; font-size: 15px; line-height: 1.55; color: rgba(244,236,216,.78)">Iltimos, belgilangan vaqtda yetib keling — osh tong sahar tortiladi.</p>
+    <sc-if value="{{ calLink }}">
+    <a class="kf-btn kf-btn--o" href="{{ calLink }}" target="_blank" rel="noopener" style="margin-top: 22px">
+      <svg class="kf-icon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="1"></rect><path d="M3.5 10h17M8 3v4M16 3v4M12 13v5M9.5 15.5h5"></path></svg>
+      Kalendarga qo’shish
+    </a>
+    </sc-if>
+  </section>
+  </sc-if>
+
+  <!-- ===== taymer ===== -->
+  <sc-if value="{{ b.taymer }}">
+  <section class="kf-sec">
+    <p class="kf-lbl"><i></i>{{ untilText }}<i></i></p>
+    <div class="kf-fl kf-num" role="timer" aria-label="{{ cdText }}" style="margin-top: 26px">
+      <sc-for list="{{ flips }}" as="f">
+      <div class="kf-fu">
+        <div class="{{ f.cls }}">
+          <div class="kf-fh kf-fh--t"><span>{{ f.n }}</span></div>
+          <div class="kf-fh kf-fh--b"><span>{{ f.n }}</span></div>
+          <div class="kf-leaf" key="{{ f.k }}"><span>{{ f.o }}</span></div>
+        </div>
+        <span class="kf-fl-l">{{ f.l }}</span>
+      </div>
+      </sc-for>
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- ===== manzil ===== -->
+  <sc-if value="{{ b.manzil }}">
+  <section class="kf-sec">
+    <p class="kf-lbl"><i></i>Manzil<i></i></p>
+    <h2 class="kf-h2" style="max-width: 342px">{{ d.manzil_nomi }}</h2>
+    <sc-if value="{{ d.joy_rasmi }}">
+    <div class="kf-stepframe" style="margin-top: 26px"><span class="kf-sfo"></span><img src="{{ d.joy_rasmi }}" alt=""></div>
+    </sc-if>
+    <sc-if value="{{ d.manzil }}"><p style="margin: 20px 0 0; max-width: 320px; font-size: 16px; line-height: 1.6; color: rgba(244,236,216,.8); text-wrap: balance; overflow-wrap: anywhere">{{ d.manzil }}</p></sc-if>
+    <sc-if value="{{ d.xarita }}">
+    <a class="kf-btn kf-btn--g" href="{{ d.xarita }}" target="_blank" rel="noopener" style="margin-top: 22px">
+      <svg class="kf-icon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.5s-7-6.1-7-11.6a7 7 0 0 1 14 0c0 5.5-7 11.6-7 11.6Z"></path><circle cx="12" cy="9.8" r="2.6"></circle></svg>
+      Xaritada ochish
+    </a>
+    </sc-if>
+  </section>
+  </sc-if>
+
+  <!-- ===== dastur ===== -->
+  <sc-if value="{{ b.dastur }}">
+  <section class="kf-sec">
+    <p class="kf-lbl"><i></i>Dastur<i></i></p>
+    <h2 class="kf-h2">Marosim tartibi</h2>
+    <div class="kf-prog" style="margin-top: 30px">
+      <sc-for list="{{ prog }}" as="x">
+      <div class="{{ x.cls }}">
+        <span class="kf-pn kf-num">{{ x.n }}</span>
+        <div><p class="kf-pt kf-num">{{ x.vaqt }}</p><p class="kf-pnm">{{ x.nomi }}</p></div>
+      </div>
+      </sc-for>
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- ===== suratlar ===== -->
+  <sc-if value="{{ b.galereya }}">
+  <section class="kf-sec">
+    <p class="kf-lbl"><i></i>Suratlar<i></i></p>
+    <h2 class="kf-h2">Quvonchli lahzalar</h2>
+    <div class="kf-gal" style="margin-top: 30px">
+      <div class="kf-gp" style="left: 0; top: 0; width: 214px; height: 288px"><img src="{{ p.0 }}" alt=""></div>
+      <div class="kf-gp" style="left: 172px; top: 196px; width: 170px; height: 196px"><img src="{{ p.1 }}" alt=""></div>
+      <div class="kf-gp" style="left: 0; top: 312px; width: 150px; height: 168px"><img src="{{ p.2 }}" alt=""></div>
+      <div class="kf-gp" style="left: 96px; top: 410px; width: 246px; height: 150px"><img src="{{ p.3 }}" alt=""></div>
+      <i class="kf-gt" aria-hidden="true" style="left: 230px; top: 20px"></i>
+      <i class="kf-gt" aria-hidden="true" style="left: 246px; top: 20px; background: #2E7058"></i>
+      <i class="kf-gt" aria-hidden="true" style="left: 230px; top: 36px; background: #2E7058"></i>
+      <i class="kf-gt" aria-hidden="true" style="left: 300px; top: 150px; width: 26px; height: 26px; background: transparent; box-shadow: inset 0 0 0 1px #C9A24E"></i>
+      <i class="kf-gt" aria-hidden="true" style="left: 22px; top: 512px"></i>
+      <i class="kf-gt" aria-hidden="true" style="left: 38px; top: 528px; background: #2E7058"></i>
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- ===== javob ===== -->
+  <sc-if value="{{ b.rsvp }}">
+  <section class="kf-sec">
+    <div class="kf-card" style="text-align: left; padding: 40px 24px 30px">
+      <span class="kf-cn" style="left: 0; top: 0"><i></i></span>
+      <span class="kf-cn" style="right: 0; top: 0; transform: scaleX(-1)"><i></i></span>
+      <span class="kf-cn" style="left: 0; bottom: 0; transform: scaleY(-1)"><i></i></span>
+      <span class="kf-cn" style="right: 0; bottom: 0; transform: scale(-1)"><i></i></span>
+      <p class="kf-lbl kf-lbl--k"><i></i>Javobingiz<i></i></p>
+      <h2 class="kf-h2" style="color: #0F3B2E">Kelasizmi?</h2>
+      <p style="margin: 10px 0 22px; font-size: 15px; line-height: 1.5; color: #3E5E52; text-align: center">{{ deadline }}</p>
+      <sc-if value="{{ askName }}"><input class="kf-inp" type="text" maxlength="100" autocomplete="name" placeholder="Ismingiz" aria-label="Ismingiz" onInput="{{ onName }}" style="margin-bottom: 12px"></sc-if>
+      <div style="display: flex; gap: 10px">
+        <button type="button" class="{{ optYesCls }}" aria-pressed="{{ isYes }}" onClick="{{ sayYes }}">
+          <sc-if value="{{ isYes }}"><svg class="kf-icon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"></path></svg></sc-if>
+          Boraman
+        </button>
+        <button type="button" class="{{ optNoCls }}" aria-pressed="{{ isNo }}" onClick="{{ sayNo }}">
+          <sc-if value="{{ isNo }}"><svg class="kf-icon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"></path></svg></sc-if>
+          Bora olmayman
+        </button>
+      </div>
+      <div class="{{ stepCls }}">
+        <span style="font-size: 14.5px; font-weight: 500; white-space: nowrap">Necha kishi bo’lasiz?</span>
+        <div style="display: flex; align-items: center; gap: 2px">
+          <button type="button" class="kf-sb" aria-label="Kamaytirish" disabled="{{ minusOff }}" onClick="{{ dec }}">−</button>
+          <span class="kf-d kf-num" style="min-width: 30px; text-align: center; font-size: 18px" aria-live="polite">{{ guests }}</span>
+          <button type="button" class="kf-sb" aria-label="Ko’paytirish" disabled="{{ plusOff }}" onClick="{{ inc }}">+</button>
+        </div>
+      </div>
+      <textarea class="kf-ta" maxlength="300" placeholder="Tilagingiz yoki izoh (ixtiyoriy)" aria-label="Tilagingiz yoki izoh" onInput="{{ onWish }}" style="margin-top: 12px"></textarea>
+      <button type="button" class="kf-btn kf-btn--k" disabled="{{ busy }}" onClick="{{ send }}" style="width: 100%; margin-top: 16px">{{ sendLabel }}</button>
+      <div aria-live="polite" style="min-height: 22px; margin-top: 14px; font-size: 15px; line-height: 1.5; color: #0F3B2E; text-align: center">
+        <sc-if value="{{ rsvpNote }}"><p style="margin: 0">{{ rsvpNote }}</p></sc-if>
+      </div>
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- ===== telefon ===== -->
+  <sc-if value="{{ b.telefon }}">
+  <section class="kf-sec" style="padding-top: 56px">
+    <div style="box-sizing: border-box; width: 342px; padding: 22px 20px; display: flex; align-items: center; justify-content: space-between; gap: 14px; border: 1px solid rgba(201,162,78,.5); background: rgba(11,46,36,.6); text-align: left">
+      <div style="min-width: 0">
+        <p style="margin: 0; font-size: 14px; line-height: 1.5; color: rgba(244,236,216,.75)">Savollar bo’lsa, qo’ng’iroq qiling</p>
+        <p class="kf-num" style="margin: 4px 0 0; font-weight: 500; font-size: 21px; line-height: 1.3; letter-spacing: 0.01em; overflow-wrap: anywhere">{{ d.telefon }}</p>
+      </div>
+      <a class="kf-btn kf-btn--g" href="{{ tel }}" aria-label="Qo’ng’iroq qilish" style="width: 54px; padding: 0; flex: none">
+        <svg class="kf-icon" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M5.2 3.5h3.1l1.6 4.2-2.1 1.5a12.2 12.2 0 0 0 7 7l1.5-2.1 4.2 1.6v3.1a1.9 1.9 0 0 1-2.1 1.9A16.6 16.6 0 0 1 3.3 5.6a1.9 1.9 0 0 1 1.9-2.1Z"></path></svg>
+      </a>
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- ===== yakun: duo ===== -->
+  <footer style="position: relative; margin-top: auto; padding-top: 90px; text-align: center">
+    <div style="padding: 0 30px 48px; display: flex; flex-direction: column; align-items: center">
+      <svg width="64" height="64" viewBox="0 0 64 64" aria-hidden="true">
+        <rect class="kf-fst" x="14" y="14" width="36" height="36"></rect>
+        <rect class="kf-fst" x="14" y="14" width="36" height="36" transform="rotate(45 32 32)"></rect>
+        <rect x="28" y="28" width="8" height="8" fill="#E6C77E"></rect>
+      </svg>
+      <p class="kf-d" style="margin: 22px 0 0; font-weight: 300; font-size: 23px; line-height: 1.4; text-wrap: balance">Tashrifingiz bilan dasturxonimizga fayz kiradi</p>
+      <p style="margin: 16px 0 0; max-width: 310px; font-size: 16px; line-height: 1.6; color: rgba(244,236,216,.78)">Alloh barchamizni yaxshi kunlarga yetkazsin, qilgan duolaringiz ijobat bo’lsin.</p>
+      <p class="kf-lbl" style="margin-top: 28px">Duolaringiz bilan</p>
+      <p class="kf-d kf-foil" style="margin: 10px 0 0; max-width: 330px; font-weight: 500; font-size: 22px; line-height: 1.3; overflow-wrap: anywhere">{{ mezbon }}</p>
+      <p class="kf-num" style="margin: 12px 0 0; font-size: 13px; letter-spacing: 0.18em; color: rgba(244,236,216,.62)">{{ w.dots }} · {{ hhmm }}</p>
+    </div>
+    <div class="kf-check"></div>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":6200}}'>
+const D = SITE.d;
+const AP = (s) => String(s || '').replace(/'/g, '’').trim();
+const NOMI = AP(D.marosim_nomi) || 'Nahorgi osh';
+const TAKLIF = AP(D.marosim_taklif) || 'Nahorgi oshga taklifnoma';
+const TAKLIF_GA = TAKLIF.replace(/\s*taklifnoma$/i, '') || SITE.ga(NOMI);
+const GUEST = AP(D.mehmon);
+const MEZBON = AP(D.mezbon);
+const SABAB = AP(D.sababi);
+function hhmm(t) { t = String(t || '').trim(); return /^\d:\d\d$/.test(t) ? '0' + t : (/^\d\d:\d\d$/.test(t) ? t : ''); }
+const HM = hhmm(D.vaqt);
+function stamp(iso, time) { const t = Date.parse(String(iso || '').slice(0, 10) + 'T' + (hhmm(time) || '12:00') + ':00+05:00'); return isNaN(t) ? null : t; }
+function fitPx(text, max, width, em) { const n = String(text || '').length || 1; return Math.max(Math.round(max * 0.5), Math.min(max, Math.floor(width / (n * em)))); }
+function telHref(t) { return 'tel:' + String(t || '').replace(/[^\d+]/g, ''); }
+function calUrl() {
+  const t = stamp(D.sana, D.vaqt); if (t == null) return '';
+  const f = (ms) => new Date(ms).toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
+  const title = NOMI + (MEZBON ? ' — ' + MEZBON : '');
+  const loc = [D.manzil_nomi, D.manzil].filter(Boolean).join(', ');
+  return 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + encodeURIComponent(title) + '&dates=' + f(t) + '/' + f(t + 2 * 3600e3) + (loc ? '&location=' + encodeURIComponent(loc) : '');
+}
+function deadlineText(tail) {
+  const t = stamp(D.sana, '12:00'); if (t == null) return 'Iltimos, ' + tail + '.';
+  const dl = t - 5 * 864e5;
+  if (dl < Date.now()) return 'Iltimos, imkon qadar tezroq ' + tail + '.';
+  return 'Iltimos, ' + SITE.when(new Date(dl + 5 * 3600e3).toISOString().slice(0, 10)).dm + 'gacha ' + tail + '.';
+}
+
+// ---- kvadrat kufiy uslubidagi koshin harflari (3x5, «I» — bir ustun)
+const GL = {
+  A: ['###', '#.#', '###', '#.#', '#.#'], B: ['##.', '#.#', '###', '#.#', '###'], C: ['###', '#..', '#..', '#..', '###'],
+  D: ['##.', '#.#', '#.#', '#.#', '##.'], E: ['###', '#..', '###', '#..', '###'], F: ['###', '#..', '###', '#..', '#..'],
+  G: ['###', '#..', '#.#', '#.#', '###'], H: ['#.#', '#.#', '###', '#.#', '#.#'], I: ['#', '#', '#', '#', '#'],
+  J: ['..#', '..#', '..#', '#.#', '###'], K: ['#.#', '#.#', '##.', '#.#', '#.#'], L: ['#..', '#..', '#..', '#..', '###'],
+  M: ['#...#', '##.##', '#.#.#', '#...#', '#...#'], N: ['#..#', '##.#', '#.##', '#..#', '#..#'], O: ['###', '#.#', '#.#', '#.#', '###'],
+  P: ['###', '#.#', '###', '#..', '#..'], Q: ['###', '#.#', '#.#', '###', '..#'], R: ['###', '#.#', '##.', '#.#', '#.#'],
+  S: ['###', '#..', '###', '..#', '###'], T: ['###', '.#.', '.#.', '.#.', '.#.'], U: ['#.#', '#.#', '#.#', '#.#', '###'],
+  V: ['#.#', '#.#', '#.#', '#.#', '.#.'], W: ['#...#', '#...#', '#.#.#', '##.##', '#...#'], X: ['#.#', '#.#', '.#.', '#.#', '#.#'],
+  Y: ['#.#', '#.#', '###', '.#.', '.#.'], Z: ['###', '..#', '.#.', '#..', '###']
+};
+function wordRows(w) {
+  const rows = ['', '', '', '', ''];
+  w.split('').forEach((ch, i) => { const g = GL[ch]; for (let r = 0; r < 5; r++) rows[r] += (i ? '.' : '') + g[r]; });
+  return rows;
+}
+function rnd(i, k) { const x = Math.sin(i * 12.9898 + k * 78.233) * 43758.5453; return x - Math.floor(x); }
+// 33x33 panel: chekka halqa, nuqtali halqa, romb qatorlari va «XUSH KELIBSIZ»
+function buildPanel() {
+  const N = 33, C = 9, map = {};
+  const put = (r, c, t) => { if (r >= 0 && r < N && c >= 0 && c < N) map[r + ',' + c] = t; };
+  for (let i = 0; i < N; i++) { put(0, i, 'g'); put(N - 1, i, 'g'); put(i, 0, 'g'); put(i, N - 1, 'g'); }
+  for (let i = 2; i <= 30; i += 2) { put(2, i, 'd'); put(30, i, 'd'); if (i <= 9 || i >= 23) { put(i, 2, 'd'); put(i, 30, 'd'); } }
+  [[4, 8], [24, 28]].forEach(([r0, r1]) => {
+    const rc = (r0 + r1) / 2;
+    [6, 11, 16, 21, 26].forEach((cc) => {
+      for (let r = r0; r <= r1; r++) for (let c = cc - 2; c <= cc + 2; c++) {
+        const dist = Math.abs(r - rc) + Math.abs(c - cc);
+        if (cc === 16 ? dist <= 2 : (dist === 2 || dist === 0)) put(r, c, cc === 16 ? 'g' : 'm');
+      }
+    });
+  });
+  [['XUSH', 11], ['KELIBSIZ', 17]].forEach(([w, r0]) => {
+    const rows = wordRows(w), c0 = Math.floor((N - rows[0].length) / 2);
+    rows.forEach((row, r) => row.split('').forEach((ch, c) => { if (ch === '#') put(r0 + r, c0 + c, 'c'); }));
+  });
+  const out = []; let i = 0;
+  Object.keys(map).forEach((k) => {
+    const [r, c] = k.split(',').map(Number), t = map[k];
+    const x = c * C, y = r * C;
+    const wave = t === 'g' || t === 'd' ? 0 : (t === 'm' ? 260 : 520);
+    const ang = rnd(i, 1) * Math.PI * 2, far = 160 + rnd(i, 2) * 220;
+    const side = c < 16 ? -1 : (c > 16 ? 1 : (rnd(i, 5) < .5 ? -1 : 1));
+    const st = 'left: ' + x + 'px; top: ' + y + 'px; --dx: ' + Math.round(Math.cos(ang) * far) + 'px; --dy: ' + Math.round(Math.sin(ang) * far) + 'px; --r: ' + Math.round((rnd(i, 3) - 0.5) * 360) + 'deg; --dl: ' + Math.round(wave + rnd(i, 4) * 320) + 'ms; --ox: ' + (side * Math.round(220 + rnd(i, 6) * 200)) + 'px; --oy: ' + Math.round((rnd(i, 7) - 0.5) * 260) + 'px; --ol: ' + Math.round(Math.abs(c - 16) * 14 + rnd(i, 8) * 120) + 'ms';
+    out.push({ c: 'kf-t kf-t--' + t, s: st }); i++;
+  });
+  return out;
+}
+const PANEL = buildPanel();
+function initialOf(name) {
+  const m = /[A-Za-z]/.exec(String(name || '')); if (!m) return '';
+  const ch = m[0].toUpperCase();
+  return GL[ch] ? ch : '';
+}
+// 9x9 monogramma: koshin halqasi, burchak bloklari va harf
+function buildMono(ch) {
+  const N = 9, C = 14, map = {};
+  const put = (r, c, t) => { map[r + ',' + c] = t; };
+  for (let i = 0; i < N; i++) { if (i % 2 === 0 || i === 0 || i === N - 1) { put(0, i, 'g'); put(N - 1, i, 'g'); put(i, 0, 'g'); put(i, N - 1, 'g'); } else { put(0, i, 'm'); put(N - 1, i, 'm'); put(i, 0, 'm'); put(i, N - 1, 'm'); } }
+  const g = GL[ch]; const w = g[0].length, c0 = Math.floor((N - w) / 2);
+  g.forEach((row, r) => row.split('').forEach((x, c) => { if (x === '#') put(2 + r, c0 + c, 'c'); }));
+  const out = []; let i = 0;
+  Object.keys(map).forEach((k) => {
+    const [r, c] = k.split(',').map(Number), t = map[k];
+    const ang = rnd(i + 900, 1) * Math.PI * 2, far = 60 + rnd(i + 900, 2) * 80;
+    out.push({ c: 'kf-t kf-t--' + t, s: 'left: ' + c * C + 'px; top: ' + r * C + 'px; --dx: ' + Math.round(Math.cos(ang) * far) + 'px; --dy: ' + Math.round(Math.sin(ang) * far) + 'px; --r: ' + Math.round((rnd(i, 3) - 0.5) * 180) + 'deg; --dl: ' + Math.round((t === 'c' ? 250 : 0) + rnd(i + 900, 4) * 300) + 'ms' });
+    i++;
+  });
+  return out;
+}
+const INITIAL = initialOf(MEZBON);
+const MONO = INITIAL ? buildMono(INITIAL) : [];
+const SPARKS = Array.from({ length: 16 }, (_, i) => 'left: ' + Math.round(i % 2 ? 330 + rnd(i, 11) * 48 : 12 + rnd(i, 11) * 48) + 'px; top: ' + Math.round(360 + rnd(i, 12) * 460) + 'px; animation-delay: ' + (rnd(i, 13) * 7).toFixed(2) + 's; width: ' + (rnd(i, 14) < .5 ? 3 : 5) + 'px; height: ' + (rnd(i, 14) < .5 ? 3 : 5) + 'px');
+const REDUCED = typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
+const UNIT = { d: 'kun', h: 'soat', m: 'daqiqa', s: 'soniya' };
+
+class Component extends DCLogic {
+  constructor(...args) {
+    super(...args);
+    this.state = { opened: false, rsvp: '', guests: 1, sent: false, busy: false, warn: '' };
+    this.nm = ''; this.wish = '';
+  }
+  componentDidMount() { this.timer = setInterval(() => this.forceUpdate(), 1000); }
+  componentWillUnmount() { clearInterval(this.timer); }
+  open() { if (this.state.opened) return; this.setState({ opened: true }); SITE.opened(); }
+  send() {
+    const s = this.state;
+    if (!s.rsvp) { this.setState({ warn: 'Iltimos, avval javobingizni tanlang.' }); return; }
+    const name = this.nm.trim();
+    if (!SITE.has.guest && !name) { this.setState({ warn: 'Iltimos, ismingizni yozing.' }); return; }
+    if (s.busy) return;
+    this.setState({ busy: true, warn: '' });
+    SITE.rsvp(s.rsvp === 'yes', s.rsvp === 'yes' ? s.guests : 1, name, this.wish.trim())
+      .then(() => this.setState({ sent: true, busy: false }))
+      .catch(() => this.setState({ busy: false, warn: 'Javob yuborilmadi. Iltimos, qayta urinib ko’ring.' }));
+  }
+  renderVals() {
+    const s = this.state || {};
+    const w = SITE.when(D.sana, D.vaqt);
+    const cd = SITE.countdown(D.sana, D.vaqt);
+    const flip = (k, v, wrap) => ({ n: SITE.pad(v), o: SITE.pad(wrap ? (v + 1) % wrap : v + 1), k: k + v, l: UNIT[k], cls: k === 's' ? 'kf-fc kf-fs' : 'kf-fc' });
+    const isYes = s.rsvp === 'yes', isNo = s.rsvp === 'no', guests = s.guests || 1;
+    const who = GUEST || this.nm.trim();
+    let note = '';
+    if (s.sent && isYes) note = (who ? 'Rahmat, ' + who + '! ' : 'Rahmat! ') + 'Sizni ' + (guests > 1 ? guests + ' kishi bilan ' : '') + 'tong sahar kutamiz.';
+    else if (s.sent && isNo) note = (who ? 'Rahmat, ' + who + '! ' : 'Rahmat! ') + 'Javobingiz yetkazildi, duolaringiz biz bilan bo’ladi.';
+    else if (s.warn) note = s.warn;
+    const music = SITE.music.playing;
+    const guestLine = GUEST ? 'hurmatli ' + GUEST + '!' : 'hurmatli mehmon!';
+    const monthCap = SITE.cap(w.month || '');
+    return {
+      w,
+      rootCls: s.opened || REDUCED ? 'kf-root kf-on' : 'kf-root',
+      introCls: s.opened ? 'kf-i kf-i--open' : 'kf-i',
+      introHidden: !!s.opened,
+      open: () => this.open(),
+      panel: PANEL, sparks: SPARKS,
+      taklifUp: TAKLIF.toUpperCase(),
+      guestHello: GUEST ? 'Hurmatli ' + GUEST : 'Hurmatli mehmon',
+      introGuestFs: GUEST.length > 16 ? 20 : 24,
+      introLine: MEZBON ? MEZBON + ' sizni ' + NOMI.toLowerCase() + 'ga lutfan taklif etadi' : 'Sizni ' + NOMI.toLowerCase() + 'ga lutfan taklif etamiz',
+      introDate: [w.dots, HM].filter(Boolean).join(' · '),
+      guestLine, guestFs: guestLine.length > 24 ? 21 : 26,
+      hasMono: !!INITIAL, mono: MONO,
+      mezbon: MEZBON, sabab: SABAB, taklifGa: TAKLIF_GA,
+      titleFs: fitPx(TAKLIF_GA, 36, 340, 0.82),
+      hhmm: HM || '—',
+      monthCap, monthShort: String(w.month || '').toUpperCase(),
+      monthFs: monthCap.length > 7 ? 22 : 26,
+      dateTitle: [w.Weekday, w.date].filter(Boolean).join(', '),
+      calLink: calUrl(),
+      untilText: cd.done ? 'Marosim vaqti keldi' : NOMI + 'gacha qoldi',
+      flips: [flip('d', cd.d, 0), flip('h', cd.h, 24), flip('m', cd.m, 60), flip('s', cd.s, 60)],
+      cdText: cd.d + ' kun, ' + cd.h + ' soat, ' + cd.m + ' daqiqa qoldi',
+      prog: (D.dastur || []).filter((x) => x && (x.vaqt || x.nomi)).map((x, i) => ({ n: SITE.pad(i + 1), vaqt: hhmm(x.vaqt) || x.vaqt || '', nomi: AP(x.nomi), cls: i === 0 ? 'kf-pr kf-pr--first' : 'kf-pr' })),
+      deadline: deadlineText('javob bering'),
+      askName: !SITE.has.guest,
+      onName: (e) => { this.nm = e.target.value; },
+      onWish: (e) => { this.wish = e.target.value; },
+      isYes, isNo, guests,
+      optYesCls: isYes ? 'kf-opt kf-opt--on' : 'kf-opt',
+      optNoCls: isNo ? 'kf-opt kf-opt--on' : 'kf-opt',
+      sayYes: () => this.setState({ rsvp: 'yes', sent: false, warn: '' }),
+      sayNo: () => this.setState({ rsvp: 'no', sent: false, warn: '' }),
+      stepCls: isNo ? 'kf-step kf-step--off' : 'kf-step',
+      minusOff: isNo || guests <= 1, plusOff: isNo || guests >= 10,
+      dec: () => this.setState({ guests: Math.max(1, guests - 1), sent: false }),
+      inc: () => this.setState({ guests: Math.min(10, guests + 1), sent: false }),
+      send: () => this.send(),
+      busy: !!s.busy,
+      sendLabel: s.busy ? 'Yuborilmoqda…' : (s.sent ? 'Javob yuborildi' : 'Javobni yuborish'),
+      rsvpNote: note,
+      tel: telHref(D.telefon),
+      musicOn: music, musicOff: !music,
+      musicCls: music ? 'kf-music kf-music--on' : 'kf-music',
+      musicLabel: music ? 'Musiqani o’chirish' : 'Musiqani yoqish',
+      toggleMusic: () => { SITE.music.toggle(); }
+    };
+  }
+}
+</script>
+</body>
+</html>

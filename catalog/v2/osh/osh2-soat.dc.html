@@ -1,0 +1,651 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<title>Nahorgi osh taklifnomasi: Soat</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700&amp;family=Spectral:ital,wght@0,300;0,400;0,500;1,300;1,400&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#1F1F21}
+.sa-root{font-family:'Manrope','Segoe UI',Arial,sans-serif;color:#1F1F21;background:#F2F0EB}
+.sa-serif{font-family:'Spectral',Georgia,'Times New Roman',serif}
+.sa-num{font-variant-numeric:lining-nums tabular-nums}
+.sa-cap{margin:0;font-size:11px;line-height:16px;font-weight:600;letter-spacing:.26em;text-transform:uppercase}
+.sa-icon{fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;flex:none}
+
+/* ---------- intro: soat mili tong vaqtiga yetadi */
+.sa-i{position:absolute;left:0;top:0;width:390px;height:844px;z-index:40;overflow:hidden;background:#19191B;color:#F2F0EB}
+.sa-i::before{content:"";position:absolute;inset:0;background:radial-gradient(120% 70% at 50% 108%,rgba(227,155,27,.20),rgba(227,155,27,0) 60%),linear-gradient(#141416,#1F1F22);}
+.sa-i-grid{position:absolute;inset:0;background:linear-gradient(90deg,rgba(242,240,235,.045) 1px,transparent 1px) 0 0/48.75px 100%;}
+.sa-i-glow{position:absolute;left:45px;top:150px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(245,194,90,.26),rgba(227,155,27,0) 68%);opacity:0;transform:scale(.7);transition:opacity 1.4s ease .9s,transform 1.8s ease .6s}
+.sa-i--swept .sa-i-glow{opacity:1;transform:scale(1.25)}
+.sa-d-ring{fill:none;stroke:rgba(242,240,235,.22);stroke-width:1}
+.sa-d-face{fill:#1C1C1F;stroke:rgba(242,240,235,.08);stroke-width:1}
+.sa-tk{stroke:rgba(242,240,235,.32);stroke-width:1.2;stroke-linecap:round}
+.sa-tk--h{stroke:#F2F0EB;stroke-width:2.4}
+.sa-d-num{text-anchor:middle;fill:rgba(242,240,235,.55);font-family:'Manrope',sans-serif;font-size:13px;font-weight:500;letter-spacing:.04em}
+.sa-d-arc{fill:none;stroke:#E39B1B;stroke-width:3;stroke-linecap:round;stroke-dasharray:360;transform:rotate(-90deg);transform-origin:150px 150px;transform-box:view-box;transition:stroke-dashoffset 1.9s cubic-bezier(.65,0,.35,1)}
+.sa-d-arcbg{fill:none;stroke:rgba(242,240,235,.07);stroke-width:3}
+.sa-hand{transform-origin:150px 150px;transform-box:view-box;transition:transform 1.9s cubic-bezier(.65,0,.35,1)}
+.sa-hand-h{stroke:#F2F0EB;stroke-width:6;stroke-linecap:round}
+.sa-hand-m{stroke:#F2F0EB;stroke-width:2.6;stroke-linecap:round}
+.sa-hand-tip{fill:#E39B1B}
+.sa-sec{transform-origin:150px 150px;transform-box:view-box;animation:sa-spin 60s steps(60) infinite}
+.sa-sec line{stroke:#E39B1B;stroke-width:1;stroke-linecap:round}
+.sa-i--swept .sa-sec{opacity:.0;transition:opacity .6s ease}
+.sa-hub{fill:#E39B1B}
+.sa-hub2{fill:#19191B}
+.sa-read{font-weight:200;font-size:78px;line-height:1;letter-spacing:-.02em;color:#F2F0EB;transition:color 1s ease .2s}
+.sa-i--swept .sa-read{color:#F0AE33}
+.sa-i-ui{transition:opacity .5s ease}
+.sa-i-btn{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:12px;width:256px;height:58px;border:0;border-radius:999px;cursor:pointer;font-family:'Manrope',sans-serif;font-weight:600;font-size:16px;letter-spacing:.02em;color:#19191B;background:linear-gradient(180deg,#F5B23A,#E39B1B);box-shadow:0 0 0 1px rgba(255,214,140,.35),0 14px 34px -10px rgba(227,155,27,.65)}
+.sa-i-btn:focus-visible{outline:2px solid #F2F0EB;outline-offset:4px}
+.sa-i-btn::after{content:"";position:absolute;inset:-7px;border-radius:999px;border:1px solid rgba(240,174,51,.45);animation:sa-ring 2.6s ease-out infinite}
+.sa-dawn{position:absolute;left:-60px;top:0;width:510px;height:1300px;transform:translateY(844px);background:linear-gradient(180deg,rgba(240,174,51,0) 0,#F0AE33 160px,#F6D9A0 300px,#F2F0EB 460px)}
+.sa-i--open{pointer-events:none;animation:sa-out .7s ease 1.25s forwards}
+.sa-i--open .sa-i-ui{opacity:0}
+.sa-i--open .sa-dawn{animation:sa-rise 1.35s cubic-bezier(.55,0,.25,1) forwards}
+@keyframes sa-rise{to{transform:translateY(-420px)}}
+@keyframes sa-out{to{opacity:0;visibility:hidden}}
+@keyframes sa-spin{to{transform:rotate(360deg)}}
+@keyframes sa-ring{0%{opacity:.9;transform:scale(.96)}100%{opacity:0;transform:scale(1.14)}}
+.sa-fade{animation:sa-fadein 1s ease both}
+@keyframes sa-fadein{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+/* ---------- hero */
+.sa-up{opacity:0;transform:translateY(14px)}
+.sa-on .sa-up{animation:sa-fadein .9s cubic-bezier(.2,.7,.2,1) forwards}
+.sa-on .sa-d1{animation-delay:.9s}.sa-on .sa-d2{animation-delay:1.05s}.sa-on .sa-d3{animation-delay:1.2s}.sa-on .sa-d4{animation-delay:1.35s}.sa-on .sa-d5{animation-delay:1.5s}.sa-on .sa-d6{animation-delay:1.7s}
+.sa-big{font-weight:200;line-height:.8;letter-spacing:-.045em;color:#1F1F21;display:block}
+.sa-sun{position:absolute;border-radius:50%;background:radial-gradient(circle at 50% 50%,#F6C453 0,#E39B1B 46%,rgba(227,155,27,.0) 70%);filter:blur(.3px);animation:sa-breathe 7s ease-in-out infinite}
+@keyframes sa-breathe{0%,100%{transform:scale(1);opacity:.92}50%{transform:scale(1.06);opacity:1}}
+.sa-rim{position:absolute;animation:sa-spin 240s linear infinite}
+.sa-rim line{stroke:rgba(31,31,33,.22);stroke-width:1}
+.sa-rim .sa-rimh{stroke:rgba(31,31,33,.5);stroke-width:1.6}
+.sa-hl{height:1px;background:rgba(31,31,33,.16)}
+.sa-hl--k{background:#1F1F21}
+.sa-vl{position:absolute;left:0;margin:0;height:140px;writing-mode:vertical-rl;transform:rotate(180deg);text-align:right}
+.sa-meta{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid #1F1F21}
+.sa-meta>div{padding:12px 0 0}
+.sa-meta>div+div{padding-left:16px;border-left:1px solid rgba(31,31,33,.16)}
+.sa-ml{margin:0 0 6px;font-size:10.5px;line-height:14px;font-weight:600;letter-spacing:.24em;color:#57544E;text-transform:uppercase}
+.sa-mv{margin:0;font-size:17px;line-height:1.35;font-weight:500}
+
+/* ---------- bo'limlar */
+.sa-sec-b{padding:76px 28px 0}
+.sa-head{display:flex;align-items:center;gap:12px;margin-bottom:28px}
+.sa-idx{font-size:13px;line-height:16px;font-weight:600;color:#9A5F00;letter-spacing:.06em}
+.sa-rule{flex:1;height:1px;background:rgba(31,31,33,.18)}
+.sa-ttl{font-size:11px;line-height:16px;font-weight:700;letter-spacing:.26em;text-transform:uppercase}
+.sa-dark .sa-idx{color:#F0AE33}
+.sa-dark .sa-rule{background:rgba(242,240,235,.2)}
+.sa-p{margin:0;font-family:'Spectral',Georgia,serif;font-weight:300;font-size:21px;line-height:1.62;white-space:pre-line;overflow-wrap:anywhere;text-wrap:pretty}
+.sa-btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:54px;padding:0 26px;border-radius:999px;box-sizing:border-box;font-family:inherit;font-weight:600;font-size:16px;text-decoration:none;cursor:pointer;border:0;transition:background-color .2s,color .2s,transform .2s}
+.sa-btn--k{background:#1F1F21;color:#F2F0EB}
+.sa-btn--k:hover{background:#000;color:#F2F0EB}
+.sa-btn--k .sa-icon{color:#F0AE33}
+.sa-btn--o{background:transparent;color:#1F1F21;box-shadow:inset 0 0 0 1.4px #1F1F21}
+.sa-btn--o:hover{background:#1F1F21;color:#F2F0EB}
+.sa-btn--s{background:#E39B1B;color:#1F1F21}
+.sa-btn--s:hover{background:#F0AE33;color:#1F1F21}
+.sa-btn:disabled{opacity:.55;cursor:default}
+
+.sa-wk{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));border-top:1px solid #1F1F21;border-bottom:1px solid rgba(31,31,33,.16)}
+.sa-wd{position:relative;display:flex;flex-direction:column;align-items:center;gap:8px;padding:14px 0 16px}
+.sa-wd+.sa-wd{border-left:1px solid rgba(31,31,33,.1)}
+.sa-wd-l{font-size:11px;line-height:14px;font-weight:600;letter-spacing:.14em;color:#57544E}
+.sa-wd-n{font-size:22px;line-height:26px;font-weight:300}
+.sa-wd--on{background:#1F1F21;color:#F2F0EB}
+.sa-wd--on .sa-wd-l{color:#F0AE33}
+.sa-wd--on::before{content:"";position:absolute;left:50%;top:-5px;width:9px;height:9px;margin-left:-4.5px;border-radius:50%;background:#E39B1B}
+.sa-ruler{position:relative;height:96px}
+.sa-band{position:absolute;left:0;right:0;top:30px;height:6px;border-radius:3px;background:linear-gradient(90deg,#2A2A2E 0%,#55504A 22%,#E39B1B 46%,#F6C453 62%,#EDE6D6 100%)}
+.sa-tick{position:absolute;top:42px;width:1px;height:8px;background:rgba(31,31,33,.35)}
+.sa-tick--h{height:16px;background:#1F1F21}
+.sa-tlab{position:absolute;top:62px;width:40px;margin-left:-20px;text-align:center;font-size:12px;line-height:16px;font-weight:500;color:#57544E}
+.sa-mark{position:absolute;top:0;width:2px;margin-left:-1px;height:40px;background:#1F1F21}
+.sa-mark::after{content:"";position:absolute;left:50%;top:26px;width:14px;height:14px;margin-left:-7px;border-radius:50%;background:#E39B1B;box-shadow:0 0 0 4px #F2F0EB,0 0 0 5px rgba(31,31,33,.25)}
+.sa-markl{position:absolute;top:-4px;white-space:nowrap;font-size:12px;line-height:16px;font-weight:700;letter-spacing:.08em}
+
+.sa-dark{background:#1F1F21;color:#F2F0EB}
+.sa-cd{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid rgba(242,240,235,.3)}
+.sa-cdc{position:relative;padding:18px 0 4px 12px;overflow:hidden}
+.sa-cdc+.sa-cdc{border-left:1px solid rgba(242,240,235,.14)}
+.sa-cdn{display:block;font-weight:200;font-size:50px;line-height:56px;letter-spacing:-.03em;color:#F2F0EB}
+.sa-cdl{display:block;margin-top:6px;font-size:10.5px;line-height:14px;font-weight:600;letter-spacing:.2em;color:rgba(242,240,235,.72);text-transform:uppercase}
+.sa-roll{display:inline-block;animation:sa-roll .45s cubic-bezier(.2,.7,.2,1)}
+@keyframes sa-roll{from{opacity:0;transform:translateY(-40%)}to{opacity:1;transform:none}}
+.sa-bar{position:relative;height:2px;margin-top:26px;background:rgba(242,240,235,.14);overflow:hidden}
+.sa-bar i{position:absolute;left:0;top:0;bottom:0;width:100%;background:#E39B1B;transform-origin:0 50%;transition:transform .9s linear}
+
+.sa-ph{position:relative;display:block;overflow:hidden;background:#E4E0D7}
+.sa-ph img{display:block;width:100%;height:100%;object-fit:cover}
+.sa-frame{position:absolute;border:1px solid rgba(31,31,33,.55);pointer-events:none}
+.sa-tag{position:absolute;left:0;bottom:0;padding:7px 10px 6px;background:#F2F0EB;font-size:11px;line-height:14px;font-weight:700;letter-spacing:.16em}
+
+.sa-row{display:grid;grid-template-columns:92px 1fr;align-items:baseline;padding:18px 0;border-top:1px solid rgba(31,31,33,.16)}
+.sa-row:last-child{border-bottom:1px solid rgba(31,31,33,.16)}
+.sa-rt{font-weight:300;font-size:30px;line-height:34px;letter-spacing:-.02em}
+.sa-rn{margin:0;font-family:'Spectral',Georgia,serif;font-size:19px;line-height:1.4;overflow-wrap:anywhere}
+.sa-row--first .sa-rt{color:#B36F00}
+.sa-row--first .sa-rn{font-weight:500}
+
+.sa-opt{flex:1 1 0;min-width:0;height:56px;border-radius:999px;border:0;cursor:pointer;font-family:inherit;font-size:16px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:8px;padding:0 8px;white-space:nowrap;background:transparent;color:#1F1F21;box-shadow:inset 0 0 0 1.4px rgba(31,31,33,.4);transition:background-color .2s,color .2s,box-shadow .2s}
+.sa-opt--on{background:#1F1F21;color:#F2F0EB;box-shadow:inset 0 0 0 1.4px #1F1F21}
+.sa-opt--on .sa-icon{color:#F0AE33}
+.sa-step{display:flex;align-items:center;justify-content:space-between;margin-top:14px;padding:6px 6px 6px 20px;border-radius:999px;box-shadow:inset 0 0 0 1.4px rgba(31,31,33,.18);transition:opacity .2s}
+.sa-step--off{opacity:.4}
+.sa-sb{width:44px;height:44px;border-radius:50%;border:0;background:#E7E3DA;color:#1F1F21;font-size:22px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:inherit}
+.sa-sb:disabled{opacity:.4;cursor:default}
+.sa-inp,.sa-ta{display:block;width:100%;box-sizing:border-box;border:0;border-bottom:1.4px solid rgba(31,31,33,.35);background:transparent;color:#1F1F21;font-family:inherit;font-size:17px;outline:none;border-radius:0}
+.sa-inp{height:52px;padding:0 2px}
+.sa-ta{height:80px;padding:14px 2px;resize:none;line-height:1.45}
+.sa-inp:focus,.sa-ta:focus{border-bottom-color:#E39B1B}
+.sa-inp::placeholder,.sa-ta::placeholder{color:#77736B}
+.sa-music{position:absolute;right:16px;top:16px;z-index:30;width:46px;height:46px;border-radius:50%;border:0;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#1F1F21;background:rgba(242,240,235,.9);box-shadow:inset 0 0 0 1.2px rgba(31,31,33,.3)}
+.sa-music--on{background:#1F1F21;color:#F0AE33}
+.sa-eq{display:flex;align-items:flex-end;gap:3px;height:16px}
+.sa-eq i{display:block;width:3px;height:100%;border-radius:2px;background:currentColor;transform-origin:50% 100%;animation:sa-eq 1s ease-in-out infinite}
+.sa-eq i:nth-child(2){animation-delay:-.3s}.sa-eq i:nth-child(3){animation-delay:-.6s}
+@keyframes sa-eq{0%,100%{transform:scaleY(.3)}50%{transform:scaleY(1)}}
+.sa-mini{transform-origin:28px 28px;transform-box:view-box}
+.sa-mn-ring{fill:none;stroke:rgba(242,240,235,.35);stroke-width:1}
+.sa-mn-arc{fill:none;stroke:#E39B1B;stroke-width:2}
+.sa-mn-h{stroke:#F2F0EB;stroke-width:3;stroke-linecap:round}
+.sa-mn-m{stroke:#F2F0EB;stroke-width:1.6;stroke-linecap:round}
+
+@media (prefers-reduced-motion: reduce){
+  .sa-sec,.sa-sun,.sa-rim,.sa-i-btn::after,.sa-eq i,.sa-roll,.sa-fade{animation:none}
+  .sa-hand,.sa-d-arc,.sa-i-glow,.sa-read,.sa-bar i{transition:none}
+  .sa-up{opacity:1;transform:none}
+  .sa-on .sa-up{animation:none}
+  .sa-i--open{animation:sa-out .01s linear forwards}
+  .sa-i--open .sa-dawn{animation:none}
+}
+</style>
+</helmet>
+<div class="{{ rootCls }}" style="width: 390px; min-height: var(--vh, 100vh); position: relative; overflow: hidden; display: flex; flex-direction: column">
+
+  <sc-if value="{{ has.music }}">
+  <button type="button" class="{{ musicCls }}" aria-label="{{ musicLabel }}" aria-pressed="{{ musicOn }}" onClick="{{ toggleMusic }}">
+    <sc-if value="{{ musicOn }}"><span class="sa-eq" aria-hidden="true"><i></i><i></i><i></i></span></sc-if>
+    <sc-if value="{{ musicOff }}"><svg class="sa-icon" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V5.5l11-2.2v12.5"></path><circle cx="6.2" cy="18" r="2.8"></circle><circle cx="17.2" cy="15.8" r="2.8"></circle></svg></sc-if>
+  </button>
+  </sc-if>
+
+  <!-- ===== kirish: soat mili tong vaqtiga yetadi ===== -->
+  <div data-intro class="{{ introCls }}" aria-hidden="{{ introHidden }}">
+    <div class="sa-i-grid"></div>
+    <div class="sa-i-glow"></div>
+    <div class="sa-i-ui">
+      <div style="position: absolute; left: 0; right: 0; top: 58px; text-align: center; padding: 0 30px">
+        <p class="sa-cap" style="color: rgba(242,240,235,.62); letter-spacing: 0.3em">Assalomu alaykum</p>
+        <p class="sa-serif" style="margin: 12px 0 0; font-style: italic; font-weight: 300; font-size: {{ introGuestFs }}px; line-height: 1.15; color: #F2F0EB; overflow-wrap: anywhere">{{ guestHello }}</p>
+      </div>
+      <svg width="300" height="300" viewBox="0 0 300 300" aria-hidden="true" style="position: absolute; left: 45px; top: 176px; overflow: visible">
+        <circle class="sa-d-ring" cx="150" cy="150" r="149"></circle>
+        <circle class="sa-d-face" cx="150" cy="150" r="140"></circle>
+        <sc-for list="{{ ticks }}" as="t"><line x1="{{ t.x1 }}" y1="{{ t.y1 }}" x2="{{ t.x2 }}" y2="{{ t.y2 }}" class="{{ t.c }}"></line></sc-for>
+        <text class="sa-d-num" x="150" y="68">12</text>
+        <text class="sa-d-num" x="236" y="155">3</text>
+        <text class="sa-d-num" x="150" y="242">6</text>
+        <text class="sa-d-num" x="64" y="155">9</text>
+        <circle class="sa-d-arcbg" cx="150" cy="150" r="112"></circle>
+        <circle class="sa-d-arc" cx="150" cy="150" r="112" pathLength="360" style="{{ arcStyle }}"></circle>
+        <g class="sa-sec"><line x1="150" y1="172" x2="150" y2="22"></line></g>
+        <g class="sa-hand" style="{{ hStyle }}"><line class="sa-hand-h" x1="150" y1="164" x2="150" y2="86"></line></g>
+        <g class="sa-hand" style="{{ mStyle }}"><line class="sa-hand-m" x1="150" y1="172" x2="150" y2="40"></line><circle class="sa-hand-tip" cx="150" cy="40" r="4"></circle></g>
+        <circle class="sa-hub" cx="150" cy="150" r="8"></circle>
+        <circle class="sa-hub2" cx="150" cy="150" r="2.6"></circle>
+      </svg>
+      <div style="position: absolute; left: 0; right: 0; top: 508px; text-align: center">
+        <div class="sa-read sa-num" role="img" aria-label="{{ readLabel }}">{{ readout }}</div>
+        <p class="sa-cap" style="margin-top: 16px; color: rgba(242,240,235,.72)">{{ introMeta }}</p>
+      </div>
+      <div style="position: absolute; left: 0; right: 0; top: 676px; display: flex; flex-direction: column; align-items: center">
+        <button type="button" class="sa-i-btn" onClick="{{ open }}">
+          <svg class="sa-icon" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 7.5V12l3 2"></path></svg>
+          Taklifnomani ochish
+        </button>
+        <p style="margin: 18px 0 0; font-size: 13px; line-height: 18px; color: rgba(242,240,235,.6)">{{ introFrom }}</p>
+      </div>
+    </div>
+    <div class="sa-dawn"></div>
+  </div>
+
+  <!-- ===== bosh qism ===== -->
+  <header style="position: relative; padding: 40px 28px 0">
+    <div class="sa-up sa-d1" style="display: flex; align-items: center; justify-content: space-between; gap: 12px">
+      <p class="sa-cap" style="color: #9A5F00">Bismillahir Rohmanir Rohiym</p>
+      <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" style="flex: none"><circle cx="12" cy="12" r="5" fill="#E39B1B"></circle><path class="sa-icon" d="M2 17.5h20" style="color: #1F1F21"></path></svg>
+    </div>
+    <div class="sa-hl sa-hl--k sa-up sa-d1" style="margin-top: 14px"></div>
+
+    <div class="sa-up sa-d2" style="margin-top: 34px">
+      <p class="sa-serif" style="margin: 0; font-style: italic; font-weight: 300; font-size: 21px; line-height: 1.3; color: #57544E">Assalomu alaykum,</p>
+      <p class="sa-serif" style="margin: 4px 0 0; font-weight: 400; font-size: {{ guestFs }}px; line-height: 1.12; overflow-wrap: anywhere">{{ guestLine }}</p>
+    </div>
+
+    <div class="sa-up sa-d3" style="margin-top: 38px; display: grid; grid-template-columns: 74px 1fr; column-gap: 0">
+      <p class="sa-ml" style="margin-top: 6px">Mezbon</p>
+      <div>
+        <p style="margin: 0; font-weight: 600; font-size: 22px; line-height: 1.25; overflow-wrap: anywhere">{{ mezbon }}</p>
+        <p class="sa-serif" style="margin: 6px 0 0; font-style: italic; font-weight: 300; font-size: 18px; line-height: 1.35; color: #57544E">sizni</p>
+        <h1 style="margin: 2px 0 0; font-weight: 300; font-size: {{ titleFs }}px; line-height: 1.02; letter-spacing: -0.03em; overflow-wrap: anywhere">{{ taklifGa }}</h1>
+        <p class="sa-serif" style="margin: 8px 0 0; font-style: italic; font-weight: 300; font-size: 18px; line-height: 1.35; color: #57544E">lutfan taklif etadi</p>
+      </div>
+    </div>
+    <sc-if value="{{ sabab }}">
+    <div class="sa-up sa-d4" style="margin-top: 22px; display: grid; grid-template-columns: 74px 1fr">
+      <span aria-hidden="true" style="display: block; width: 36px; height: 2px; margin-top: 12px; background: #E39B1B"></span>
+      <p class="sa-serif" style="margin: 0; font-size: 18px; line-height: 1.45; color: #1F1F21; overflow-wrap: anywhere">{{ sabab }}</p>
+    </div>
+    </sc-if>
+
+    <!-- vaqt — sahifaning qahramoni -->
+    <div class="sa-up sa-d5" style="position: relative; margin-top: 46px">
+      <div style="display: flex; justify-content: space-between; align-items: baseline; padding-bottom: 10px; border-bottom: 1px solid #1F1F21">
+        <p class="sa-ml" style="margin: 0">Boshlanishi</p>
+        <p class="sa-ml" style="margin: 0; color: #9A5F00">Tong sahar</p>
+      </div>
+      <div style="position: relative; height: 352px">
+        <svg class="sa-rim" width="236" height="236" viewBox="0 0 300 300" aria-hidden="true" style="left: 232px; top: 10px">
+          <sc-for list="{{ rim }}" as="t"><line x1="{{ t.x1 }}" y1="{{ t.y1 }}" x2="{{ t.x2 }}" y2="{{ t.y2 }}" class="{{ t.c }}"></line></sc-for>
+        </svg>
+        <div class="sa-sun" aria-hidden="true" style="left: 288px; top: 66px; width: 124px; height: 124px"></div>
+        <p class="sa-ml sa-vl" style="top: 26px">soat</p>
+        <p class="sa-ml sa-vl" style="top: 190px">daqiqa</p>
+        <span aria-hidden="true" style="position: absolute; left: 0; top: 178px; width: 14px; height: 1px; background: #1F1F21"></span>
+        <div class="sa-num" role="img" aria-label="{{ readLabel }}" style="position: absolute; left: 14px; top: 22px">
+          <span class="sa-big" style="font-size: 196px">{{ hh }}</span>
+          <span class="sa-big" style="font-size: 196px; margin-top: 4px">{{ mm }}</span>
+        </div>
+      </div>
+      <div class="sa-meta">
+        <div><p class="sa-ml">Sana</p><p class="sa-mv">{{ w.date }}</p></div>
+        <div><p class="sa-ml">Kun</p><p class="sa-mv">{{ w.Weekday }}</p></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== taklif ===== -->
+  <sc-if value="{{ b.taklif }}">
+  <section class="sa-sec-b">
+    <div class="sa-head"><span class="sa-idx sa-num">{{ ix.taklif }}</span><span class="sa-rule"></span><span class="sa-ttl">Taklif so’zi</span></div>
+    <p class="sa-p">{{ d.matn }}</p>
+    <div style="display: flex; align-items: center; gap: 14px; margin-top: 24px">
+      <span aria-hidden="true" style="width: 36px; height: 2px; background: #E39B1B"></span>
+      <p class="sa-serif" style="margin: 0; font-style: italic; font-size: 18px; line-height: 1.4; color: #57544E; overflow-wrap: anywhere">Hurmat bilan, {{ mezbon }}</p>
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- ===== sana va vaqt ===== -->
+  <sc-if value="{{ b.kun }}">
+  <section class="sa-sec-b">
+    <div class="sa-head"><span class="sa-idx sa-num">{{ ix.kun }}</span><span class="sa-rule"></span><span class="sa-ttl">Sana va vaqt</span></div>
+    <div style="display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 18px">
+      <p style="margin: 0; font-weight: 300; font-size: 34px; line-height: 1.1; letter-spacing: -0.02em">{{ monthCap }}</p>
+      <p class="sa-num" style="margin: 0; font-size: 15px; font-weight: 500; color: #57544E">{{ w.year }}</p>
+    </div>
+    <sc-if value="{{ hasWeek }}">
+    <div class="sa-wk sa-num">
+      <sc-for list="{{ week }}" as="x"><div class="{{ x.cls }}"><span class="sa-wd-l">{{ x.l }}</span><span class="sa-wd-n">{{ x.n }}</span></div></sc-for>
+    </div>
+    </sc-if>
+    <p style="margin: 18px 0 0; font-size: 17px; line-height: 1.5; font-weight: 500">{{ dateLine }}</p>
+
+    <sc-if value="{{ hasRuler }}">
+    <p class="sa-ml" style="margin: 40px 0 14px">Tong soatlari</p>
+    <div class="sa-ruler sa-num" aria-hidden="true">
+      <div class="sa-band"></div>
+      <sc-for list="{{ ruler }}" as="r"><span class="{{ r.c }}" style="{{ r.s }}"></span></sc-for>
+      <sc-for list="{{ rulerLab }}" as="r"><span class="sa-tlab" style="{{ r.s }}">{{ r.t }}</span></sc-for>
+      <span class="sa-mark" style="{{ markStyle }}"><span class="sa-markl" style="{{ markLStyle }}">{{ hhmm }}</span></span>
+    </div>
+    <p style="margin: 6px 0 0; font-size: 15px; line-height: 1.5; color: #57544E">Iltimos, soat {{ hhmm }} da yetib keling — osh tong sahar tortiladi.</p>
+    </sc-if>
+    <sc-if value="{{ calLink }}">
+    <a class="sa-btn sa-btn--o" href="{{ calLink }}" target="_blank" rel="noopener" style="margin-top: 26px">
+      <svg class="sa-icon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"></rect><path d="M3.5 10h17M8 3v4M16 3v4M12 13v5M9.5 15.5h5"></path></svg>
+      Kalendarga qo’shish
+    </a>
+    </sc-if>
+  </section>
+  </sc-if>
+
+  <!-- ===== taymer ===== -->
+  <sc-if value="{{ b.taymer }}">
+  <section class="sa-dark" style="margin-top: 76px; padding: 56px 28px 54px">
+    <div class="sa-head"><span class="sa-idx sa-num">{{ ix.taymer }}</span><span class="sa-rule"></span><span class="sa-ttl">Qolgan vaqt</span></div>
+    <p style="margin: -6px 0 26px; font-weight: 300; font-size: 30px; line-height: 1.2; letter-spacing: -0.01em">{{ untilText }}</p>
+    <div class="sa-cd sa-num" role="timer" aria-label="{{ cdText }}">
+      <div class="sa-cdc"><span class="sa-cdn"><span class="sa-roll" key="{{ cdKey.d }}">{{ cd.dd }}</span></span><span class="sa-cdl">kun</span></div>
+      <div class="sa-cdc"><span class="sa-cdn"><span class="sa-roll" key="{{ cdKey.h }}">{{ cd.hh }}</span></span><span class="sa-cdl">soat</span></div>
+      <div class="sa-cdc"><span class="sa-cdn"><span class="sa-roll" key="{{ cdKey.m }}">{{ cd.mm }}</span></span><span class="sa-cdl">daqiqa</span></div>
+      <div class="sa-cdc"><span class="sa-cdn" style="color: #F0AE33"><span class="sa-roll" key="{{ cdKey.s }}">{{ cd.ss }}</span></span><span class="sa-cdl">soniya</span></div>
+    </div>
+    <div class="sa-bar" aria-hidden="true"><i style="{{ barStyle }}"></i></div>
+  </section>
+  </sc-if>
+
+  <!-- ===== manzil ===== -->
+  <sc-if value="{{ b.manzil }}">
+  <section class="sa-sec-b">
+    <div class="sa-head"><span class="sa-idx sa-num">{{ ix.manzil }}</span><span class="sa-rule"></span><span class="sa-ttl">Manzil</span></div>
+    <sc-if value="{{ d.joy_rasmi }}">
+    <div style="position: relative; width: 334px; height: 236px; margin-bottom: 26px">
+      <div class="sa-frame" style="left: 12px; top: 12px; width: 334px; height: 236px"></div>
+      <div class="sa-ph" style="width: 334px; height: 236px"><img src="{{ d.joy_rasmi }}" alt=""></div>
+    </div>
+    </sc-if>
+    <h2 style="margin: 0; font-weight: 500; font-size: 28px; line-height: 1.2; letter-spacing: -0.01em; overflow-wrap: anywhere">{{ d.manzil_nomi }}</h2>
+    <sc-if value="{{ d.manzil }}">
+    <div style="display: grid; grid-template-columns: 28px 1fr; margin-top: 14px">
+      <svg class="sa-icon" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" style="color: #B36F00; margin-top: 3px"><path d="M12 21.5s-7-6.1-7-11.6a7 7 0 0 1 14 0c0 5.5-7 11.6-7 11.6Z"></path><circle cx="12" cy="9.8" r="2.6"></circle></svg>
+      <p class="sa-serif" style="margin: 0; font-size: 18px; line-height: 1.5; color: #3A3835; overflow-wrap: anywhere">{{ d.manzil }}</p>
+    </div>
+    </sc-if>
+    <sc-if value="{{ d.xarita }}">
+    <a class="sa-btn sa-btn--k" href="{{ d.xarita }}" target="_blank" rel="noopener" style="margin-top: 24px">
+      <svg class="sa-icon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4.5 3.5 6.6v13l5.5-2.1 6 2.1 5.5-2.1v-13L15 6.6Z"></path><path d="M9 4.5v13M15 6.6v13"></path></svg>
+      Xaritada ochish
+    </a>
+    </sc-if>
+  </section>
+  </sc-if>
+
+  <!-- ===== dastur ===== -->
+  <sc-if value="{{ b.dastur }}">
+  <section class="sa-sec-b">
+    <div class="sa-head"><span class="sa-idx sa-num">{{ ix.dastur }}</span><span class="sa-rule"></span><span class="sa-ttl">Marosim tartibi</span></div>
+    <div>
+      <sc-for list="{{ prog }}" as="x">
+      <div class="{{ x.cls }}"><span class="sa-rt sa-num">{{ x.vaqt }}</span><p class="sa-rn">{{ x.nomi }}</p></div>
+      </sc-for>
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- ===== suratlar ===== -->
+  <sc-if value="{{ b.galereya }}">
+  <section class="sa-sec-b">
+    <div class="sa-head"><span class="sa-idx sa-num">{{ ix.galereya }}</span><span class="sa-rule"></span><span class="sa-ttl">Suratlar</span></div>
+    <div style="position: relative; width: 334px; height: 250px">
+      <div class="sa-frame" style="left: -10px; top: -10px; width: 200px; height: 140px; border-right: 0; border-bottom: 0"></div>
+      <div class="sa-ph" style="width: 334px; height: 250px"><img src="{{ p.0 }}" alt=""></div>
+      <span class="sa-tag sa-num">01</span>
+    </div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px">
+      <div style="position: relative; height: 214px"><div class="sa-ph" style="height: 214px"><img src="{{ p.1 }}" alt=""></div><span class="sa-tag sa-num">02</span></div>
+      <div style="position: relative; height: 214px; margin-top: 34px"><div class="sa-ph" style="height: 214px"><img src="{{ p.2 }}" alt=""></div><span class="sa-tag sa-num">03</span><div class="sa-frame" style="right: -10px; bottom: -10px; width: 120px; height: 120px; border-left: 0; border-top: 0"></div></div>
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- ===== javob ===== -->
+  <sc-if value="{{ b.rsvp }}">
+  <section class="sa-sec-b">
+    <div class="sa-head"><span class="sa-idx sa-num">{{ ix.rsvp }}</span><span class="sa-rule"></span><span class="sa-ttl">Javobingiz</span></div>
+    <h2 style="margin: 0; font-weight: 300; font-size: 40px; line-height: 1.05; letter-spacing: -0.03em">Kelasizmi?</h2>
+    <p style="margin: 12px 0 24px; font-size: 15px; line-height: 1.5; color: #57544E">{{ deadline }}</p>
+    <sc-if value="{{ askName }}"><input class="sa-inp" type="text" maxlength="100" autocomplete="name" placeholder="Ismingiz" aria-label="Ismingiz" onInput="{{ onName }}" style="margin-bottom: 18px"></sc-if>
+    <div style="display: flex; gap: 10px">
+      <button type="button" class="{{ optYesCls }}" aria-pressed="{{ isYes }}" onClick="{{ sayYes }}">
+        <sc-if value="{{ isYes }}"><svg class="sa-icon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"></path></svg></sc-if>
+        Boraman
+      </button>
+      <button type="button" class="{{ optNoCls }}" aria-pressed="{{ isNo }}" onClick="{{ sayNo }}">
+        <sc-if value="{{ isNo }}"><svg class="sa-icon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"></path></svg></sc-if>
+        Bora olmayman
+      </button>
+    </div>
+    <div class="{{ stepCls }}">
+      <span style="font-size: 16px; font-weight: 500">Necha kishi bo’lasiz?</span>
+      <div style="display: flex; align-items: center; gap: 6px">
+        <button type="button" class="sa-sb" aria-label="Kamaytirish" disabled="{{ minusOff }}" onClick="{{ dec }}">−</button>
+        <span class="sa-num" style="min-width: 34px; text-align: center; font-size: 22px; font-weight: 500" aria-live="polite">{{ guests }}</span>
+        <button type="button" class="sa-sb" aria-label="Ko’paytirish" disabled="{{ plusOff }}" onClick="{{ inc }}">+</button>
+      </div>
+    </div>
+    <textarea class="sa-ta" maxlength="300" placeholder="Tilagingiz yoki izoh (ixtiyoriy)" aria-label="Tilagingiz yoki izoh" onInput="{{ onWish }}" style="margin-top: 10px"></textarea>
+    <button type="button" class="sa-btn sa-btn--k" disabled="{{ busy }}" onClick="{{ send }}" style="width: 100%; margin-top: 22px">{{ sendLabel }}</button>
+    <div aria-live="polite" style="min-height: 24px; margin-top: 14px; font-size: 15px; line-height: 1.5; color: #1F1F21">
+      <sc-if value="{{ rsvpNote }}"><p style="margin: 0; display: flex; gap: 10px; align-items: baseline"><span aria-hidden="true" style="flex: none; width: 8px; height: 8px; border-radius: 50%; background: #E39B1B"></span>{{ rsvpNote }}</p></sc-if>
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- ===== telefon ===== -->
+  <sc-if value="{{ b.telefon }}">
+  <section class="sa-sec-b" style="padding-top: 56px">
+    <div class="sa-head"><span class="sa-idx sa-num">{{ ix.telefon }}</span><span class="sa-rule"></span><span class="sa-ttl">Aloqa</span></div>
+    <div style="display: flex; align-items: center; justify-content: space-between; gap: 16px">
+      <div style="min-width: 0">
+        <p style="margin: 0; font-size: 15px; line-height: 1.5; color: #57544E">Savollar bo’lsa, qo’ng’iroq qiling</p>
+        <p class="sa-num" style="margin: 4px 0 0; font-weight: 300; font-size: 27px; line-height: 1.25; letter-spacing: -0.01em; overflow-wrap: anywhere">{{ d.telefon }}</p>
+      </div>
+      <a class="sa-btn sa-btn--s" href="{{ tel }}" aria-label="Qo’ng’iroq qilish" style="width: 58px; height: 58px; padding: 0; flex: none">
+        <svg class="sa-icon" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M5.2 3.5h3.1l1.6 4.2-2.1 1.5a12.2 12.2 0 0 0 7 7l1.5-2.1 4.2 1.6v3.1a1.9 1.9 0 0 1-2.1 1.9A16.6 16.6 0 0 1 3.3 5.6a1.9 1.9 0 0 1 1.9-2.1Z"></path></svg>
+      </a>
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- ===== yakun: duo ===== -->
+  <footer class="sa-dark" style="margin-top: auto; padding-top: 0">
+    <div style="height: 84px; background: #F2F0EB"></div>
+    <div style="padding: 54px 28px 56px">
+      <svg width="56" height="56" viewBox="0 0 56 56" aria-hidden="true" style="display: block">
+        <circle class="sa-mn-ring" cx="28" cy="28" r="26"></circle>
+        <circle class="sa-mn-arc" cx="28" cy="28" r="20" pathLength="360" transform="rotate(-90 28 28)" style="{{ miniArc }}"></circle>
+        <g class="sa-mini" style="{{ miniH }}"><line class="sa-mn-h" x1="28" y1="30" x2="28" y2="16"></line></g>
+        <g class="sa-mini" style="{{ miniM }}"><line class="sa-mn-m" x1="28" y1="31" x2="28" y2="10"></line></g>
+        <circle cx="28" cy="28" r="3" fill="#E39B1B"></circle>
+      </svg>
+      <p class="sa-serif" style="margin: 26px 0 0; font-style: italic; font-weight: 300; font-size: 30px; line-height: 1.25">Tashrifingiz — dasturxonimizga fayz va baraka.</p>
+      <p style="margin: 18px 0 0; font-size: 16px; line-height: 1.6; color: rgba(242,240,235,.78)">Alloh barchamizni yaxshi kunlarga yetkazsin, duolaringiz ijobat bo’lsin.</p>
+      <div style="height: 1px; margin: 30px 0 16px; background: rgba(242,240,235,.2)"></div>
+      <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 8px 16px">
+        <p style="margin: 0; flex: 1 1 180px; font-weight: 600; font-size: 18px; line-height: 1.35; overflow-wrap: anywhere">{{ mezbon }}</p>
+        <p class="sa-num" style="margin: 0; flex: none; font-size: 13px; letter-spacing: 0.14em; color: #F0AE33">{{ hhmm }} · {{ w.dots }}</p>
+      </div>
+    </div>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":5200}}'>
+const D = SITE.d;
+const AP = (s) => String(s || '').replace(/'/g, '’').trim();
+const NOMI = AP(D.marosim_nomi) || 'Nahorgi osh';
+const TAKLIF = AP(D.marosim_taklif) || 'Nahorgi oshga taklifnoma';
+const TAKLIF_GA = TAKLIF.replace(/\s*taklifnoma$/i, '') || SITE.ga(NOMI);
+const GUEST = AP(D.mehmon);
+const MEZBON = AP(D.mezbon);
+const SABAB = AP(D.sababi);
+const ORDER = ['taklif', 'kun', 'taymer', 'manzil', 'dastur', 'galereya', 'rsvp', 'telefon'];
+function hhmm(t) { t = String(t || '').trim(); return /^\d:\d\d$/.test(t) ? '0' + t : (/^\d\d:\d\d$/.test(t) ? t : ''); }
+const HM = hhmm(D.vaqt);
+const H24 = HM ? parseInt(HM.slice(0, 2), 10) : 6;
+const MIN = HM ? parseInt(HM.slice(3, 5), 10) : 0;
+const TOTAL = H24 * 60 + MIN;
+const H_DEG = ((H24 % 12) + MIN / 60) * 30;
+const M_DEG = (H24 % 12) * 360 + MIN * 6;
+function stamp(iso, time) { const t = Date.parse(String(iso || '').slice(0, 10) + 'T' + (hhmm(time) || '12:00') + ':00+05:00'); return isNaN(t) ? null : t; }
+function fitPx(text, max, width, em) { const n = String(text || '').length || 1; return Math.max(Math.round(max * 0.5), Math.min(max, Math.floor(width / (n * em)))); }
+function telHref(t) { return 'tel:' + String(t || '').replace(/[^\d+]/g, ''); }
+function calUrl() {
+  const t = stamp(D.sana, D.vaqt); if (t == null) return '';
+  const f = (ms) => new Date(ms).toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
+  const title = NOMI + (MEZBON ? ' — ' + MEZBON : '');
+  const loc = [D.manzil_nomi, D.manzil].filter(Boolean).join(', ');
+  return 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + encodeURIComponent(title) + '&dates=' + f(t) + '/' + f(t + 2 * 3600e3) + (loc ? '&location=' + encodeURIComponent(loc) : '');
+}
+function deadlineText(tail) {
+  const t = stamp(D.sana, '12:00'); if (t == null) return 'Iltimos, ' + tail + '.';
+  const dl = t - 5 * 864e5;
+  if (dl < Date.now()) return 'Iltimos, imkon qadar tezroq ' + tail + '.';
+  return 'Iltimos, ' + SITE.when(new Date(dl + 5 * 3600e3).toISOString().slice(0, 10)).dm + 'gacha ' + tail + '.';
+}
+function tickList(n, r1, r1h, r2, cx, cls, clsH, every) {
+  const out = [];
+  for (let i = 0; i < n; i++) {
+    const a = i / n * Math.PI * 2, big = i % every === 0, ra = big ? r1h : r1;
+    const s = Math.sin(a), c = Math.cos(a), f = (v) => Math.round(v * 10) / 10;
+    out.push({ x1: f(cx + ra * s), y1: f(cx - ra * c), x2: f(cx + r2 * s), y2: f(cx - r2 * c), c: big ? cls + ' ' + clsH : cls });
+  }
+  return out;
+}
+const TICKS = tickList(60, 128, 120, 136, 150, 'sa-tk', 'sa-tk--h', 5);
+const RIM = tickList(120, 140, 128, 148, 150, '', 'sa-rimh', 10);
+const WD = ['Du', 'Se', 'Ch', 'Pa', 'Ju', 'Sh', 'Ya'];
+function weekStrip(iso) {
+  const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(String(iso || '')); if (!m) return [];
+  const base = Date.UTC(+m[1], +m[2] - 1, +m[3]);
+  const off = (new Date(base).getUTCDay() + 6) % 7;
+  const out = [];
+  for (let i = 0; i < 7; i++) {
+    const dt = new Date(base + (i - off) * 864e5);
+    out.push({ l: WD[i], n: String(dt.getUTCDate()), cls: i === off ? 'sa-wd sa-wd--on' : 'sa-wd' });
+  }
+  return out;
+}
+function rulerVals() {
+  if (!HM) return null;
+  const from = Math.max(0, Math.floor(TOTAL / 60) * 60 - 120), span = 300, W = 334;
+  const x = (min) => Math.round((min - from) / span * W * 10) / 10;
+  const ticks = [], labs = [];
+  for (let k = 0; k <= span; k += 15) {
+    const hour = k % 60 === 0;
+    ticks.push({ c: hour ? 'sa-tick sa-tick--h' : 'sa-tick', s: 'left: ' + Math.min(W - 1, x(from + k)) + 'px' });
+    if (hour && k > 0 && k < span) labs.push({ t: SITE.pad(Math.floor((from + k) / 60) % 24) + ':00', s: 'left: ' + x(from + k) + 'px' });
+  }
+  const mx = x(TOTAL);
+  return { ticks, labs, mark: 'left: ' + mx + 'px', markL: mx > W - 60 ? 'right: 10px' : 'left: 10px' };
+}
+const RULER = rulerVals();
+function ease(t) { return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }
+const REDUCED = typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+class Component extends DCLogic {
+  constructor(...args) {
+    super(...args);
+    this.state = { swept: REDUCED, sw: REDUCED ? 1 : 0, opened: false, rsvp: '', guests: 1, sent: false, busy: false, warn: '' };
+    this.nm = ''; this.wish = '';
+  }
+  componentDidMount() {
+    this.timer = setInterval(() => this.forceUpdate(), 1000);
+    if (!REDUCED) this.kick = setTimeout(() => this.sweep(), 380);
+  }
+  componentWillUnmount() { clearInterval(this.timer); clearInterval(this.anim); clearTimeout(this.kick); }
+  sweep() {
+    if (this.state.swept) return;
+    this.setState({ swept: true });
+    const t0 = Date.now(), dur = 1900;
+    this.anim = setInterval(() => {
+      const t = Math.min(1, (Date.now() - t0) / dur);
+      this.setState({ sw: ease(t) });
+      if (t >= 1) clearInterval(this.anim);
+    }, 40);
+  }
+  open() {
+    if (this.state.opened) return;
+    clearTimeout(this.kick); clearInterval(this.anim);
+    this.setState({ opened: true, swept: true, sw: 1 });
+    SITE.opened();
+  }
+  send() {
+    const s = this.state;
+    if (!s.rsvp) { this.setState({ warn: 'Iltimos, avval javobingizni tanlang.' }); return; }
+    const name = this.nm.trim();
+    if (!SITE.has.guest && !name) { this.setState({ warn: 'Iltimos, ismingizni yozing.' }); return; }
+    if (s.busy) return;
+    this.setState({ busy: true, warn: '' });
+    SITE.rsvp(s.rsvp === 'yes', s.rsvp === 'yes' ? s.guests : 1, name, this.wish.trim())
+      .then(() => this.setState({ sent: true, busy: false }))
+      .catch(() => this.setState({ busy: false, warn: 'Javob yuborilmadi. Iltimos, qayta urinib ko’ring.' }));
+  }
+  renderVals() {
+    const s = this.state || {};
+    const w = SITE.when(D.sana, D.vaqt);
+    const cd = SITE.countdown(D.sana, D.vaqt);
+    const sw = s.swept ? 1 : 0;
+    const shown = Math.round(TOTAL * (s.sw || 0));
+    const isYes = s.rsvp === 'yes', isNo = s.rsvp === 'no', guests = s.guests || 1;
+    const who = GUEST || this.nm.trim();
+    let note = '';
+    if (s.sent && isYes) note = (who ? 'Rahmat, ' + who + '! ' : 'Rahmat! ') + 'Sizni ' + (guests > 1 ? guests + ' kishi bilan ' : '') + 'tong sahar kutamiz.';
+    else if (s.sent && isNo) note = (who ? 'Rahmat, ' + who + '! ' : 'Rahmat! ') + 'Javobingiz yetkazildi, duolaringiz biz bilan bo’ladi.';
+    else if (s.warn) note = s.warn;
+    const ix = {}; let n = 0;
+    ORDER.forEach((k) => { if (SITE.b[k]) { n += 1; ix[k] = SITE.pad(n); } });
+    const music = SITE.music.playing;
+    const guestLine = GUEST ? 'hurmatli ' + GUEST + '!' : 'hurmatli mehmon!';
+    return {
+      w, cd, ix,
+      rootCls: s.opened || REDUCED ? 'sa-root sa-on' : 'sa-root',
+      introCls: 'sa-i' + (s.swept ? ' sa-i--swept' : '') + (s.opened ? ' sa-i--open' : ''),
+      introHidden: !!s.opened,
+      open: () => this.open(),
+      ticks: TICKS, rim: RIM,
+      hStyle: 'transform: rotate(' + (H_DEG * sw) + 'deg)',
+      mStyle: 'transform: rotate(' + (M_DEG * sw) + 'deg)',
+      arcStyle: 'stroke-dashoffset: ' + (360 - H_DEG * sw),
+      readout: SITE.pad(Math.floor(shown / 60)) + ':' + SITE.pad(shown % 60),
+      readLabel: HM ? 'Boshlanishi soat ' + HM : 'Boshlanish vaqti',
+      introMeta: [NOMI, [w.Weekday, w.dm].filter(Boolean).join(', ')].filter(Boolean).join(' · '),
+      introFrom: MEZBON ? MEZBON + ' taklifi' : 'Tong sahar sizni kutamiz',
+      guestHello: GUEST ? 'Hurmatli ' + GUEST : 'Hurmatli mehmon',
+      introGuestFs: GUEST.length > 16 ? 25 : 31,
+      guestLine, guestFs: guestLine.length > 20 ? 29 : 36,
+      mezbon: MEZBON, sabab: SABAB, taklifGa: TAKLIF_GA,
+      titleFs: fitPx(TAKLIF_GA, 50, 260, 0.56),
+      hh: HM ? HM.slice(0, 2) : '--', mm: HM ? HM.slice(3, 5) : '--', hhmm: HM,
+      monthCap: SITE.cap(w.month || ''),
+      week: weekStrip(D.sana), hasWeek: !!w.day,
+      dateLine: [w.Weekday, w.date].filter(Boolean).join(', ') + (HM ? ' · soat ' + HM : ''),
+      hasRuler: !!RULER, ruler: RULER ? RULER.ticks : [], rulerLab: RULER ? RULER.labs : [],
+      markStyle: RULER ? RULER.mark : '', markLStyle: RULER ? RULER.markL : '',
+      calLink: calUrl(),
+      untilText: cd.done ? 'Marosim vaqti keldi' : NOMI + 'gacha qoldi',
+      cdKey: { d: 'd' + cd.dd, h: 'h' + cd.hh, m: 'm' + cd.mm, s: 's' + cd.ss },
+      cdText: cd.d + ' kun, ' + cd.h + ' soat, ' + cd.m + ' daqiqa qoldi',
+      barStyle: 'transform: scaleX(' + (cd.s / 60).toFixed(3) + ')',
+      prog: (D.dastur || []).filter((x) => x && (x.vaqt || x.nomi)).map((x, i) => ({ vaqt: hhmm(x.vaqt) || x.vaqt || '', nomi: AP(x.nomi), cls: i === 0 ? 'sa-row sa-row--first' : 'sa-row' })),
+      deadline: deadlineText('javob bering'),
+      askName: !SITE.has.guest,
+      onName: (e) => { this.nm = e.target.value; },
+      onWish: (e) => { this.wish = e.target.value; },
+      isYes, isNo, guests,
+      optYesCls: isYes ? 'sa-opt sa-opt--on' : 'sa-opt',
+      optNoCls: isNo ? 'sa-opt sa-opt--on' : 'sa-opt',
+      sayYes: () => this.setState({ rsvp: 'yes', sent: false, warn: '' }),
+      sayNo: () => this.setState({ rsvp: 'no', sent: false, warn: '' }),
+      stepCls: isNo ? 'sa-step sa-step--off' : 'sa-step',
+      minusOff: isNo || guests <= 1, plusOff: isNo || guests >= 10,
+      dec: () => this.setState({ guests: Math.max(1, guests - 1), sent: false }),
+      inc: () => this.setState({ guests: Math.min(10, guests + 1), sent: false }),
+      send: () => this.send(),
+      busy: !!s.busy,
+      sendLabel: s.busy ? 'Yuborilmoqda…' : (s.sent ? 'Javob yuborildi' : 'Javobni yuborish'),
+      rsvpNote: note,
+      tel: telHref(D.telefon),
+      miniArc: 'stroke-dasharray: ' + H_DEG + ' 360',
+      miniH: 'transform: rotate(' + H_DEG + 'deg)',
+      miniM: 'transform: rotate(' + (MIN * 6) + 'deg)',
+      musicOn: music, musicOff: !music,
+      musicCls: music ? 'sa-music sa-music--on' : 'sa-music',
+      musicLabel: music ? 'Musiqani o’chirish' : 'Musiqani yoqish',
+      toggleMusic: () => { SITE.music.toggle(); }
+    };
+  }
+}
+</script>
+</body>
+</html>
