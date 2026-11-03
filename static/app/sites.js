@@ -27,11 +27,14 @@
   /** Bo'lim shablonlari tarif bo'yicha: Standart → Premium → VIP. Tarif kartochkasini bosish — faqat o'sha tarif. */
   App.siteCatalog = (box, sec, p) => {
     const tiers = S.cm.tiers;
-    const list = S.cm.templates.filter((t) => t.section === sec);
+    // marosimga xos shablonlar (Qizlar bazmi, Nahorgi osh) faqat o'z marosimida va birinchi bo'lib chiqadi
+    const mk = p.pre && p.pre.marosim;
+    const own = (t) => (t.marosim && t.marosim.length ? 0 : 1);
+    const list = S.cm.templates.filter((t) => t.section === sec && (!t.marosim || !t.marosim.length || (mk && t.marosim.includes(mk))));
     const only = tiers.some((x) => x.key === p.tier) ? p.tier : "";
     const groups = ["standart", "premium", "vip"].map((k) => ({
       tier: tiers.find((x) => x.key === k),
-      items: list.filter((t) => tierOf(t) === k).sort((a, b) => (a.order || 50) - (b.order || 50)),
+      items: list.filter((t) => tierOf(t) === k).sort((a, b) => own(a) - own(b) || (a.order || 50) - (b.order || 50)),
     })).filter((g) => g.items.length && g.tier && (!only || g.tier.key === only));
     box.innerHTML = `
       <div class="wrap" style="padding-top:18px"><div class="tiers3" role="group" aria-label="${esc(T("ord.tier"))}">${["standart", "premium", "vip"].map((k, i) => {
@@ -436,7 +439,9 @@
     const tp = $("#tryPrem");
     if (tp) tp.onclick = () => {
       haptic();
-      const list = S.cm.templates.filter((x) => x.section === sec && tierOf(x) === "premium").sort((a, b) => (a.order || 50) - (b.order || 50));
+      const om = order.data && order.data.marosim;
+      const list = S.cm.templates.filter((x) => x.section === sec && tierOf(x) === "premium" && (!x.marosim || !x.marosim.length || (om && x.marosim.includes(om))))
+        .sort((a, b) => (a.order || 50) - (b.order || 50));
       const sh = App.sheet(`<div class="sh-head"><div><h1>${esc(App.tx("ord.try_prem", "Premium'da ko'ring"))}</h1>
           <p>${esc(App.tx("ord.try_prem_p", "Tanlang — kiritgan ma'lumotlaringiz saqlanadi"))}</p></div></div>
         <div class="carousel" style="margin:0 -18px">${list.map(App.tcard).join("")}</div>`);

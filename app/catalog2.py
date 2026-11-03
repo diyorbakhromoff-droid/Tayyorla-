@@ -230,8 +230,11 @@ def _load() -> tuple[dict, dict]:
         demo = sec_dir / "demo.json"
         if demo.is_file():
             demos[sec_dir.name] = json.loads(demo.read_text(encoding="utf-8"))
+        # marosimga xos namuna matnlari: demo.<marosim>.json asosiy namunaning ustiga yoziladi
+        for extra in sorted(sec_dir.glob("demo.*.json")):
+            demos[f"{sec_dir.name}:{extra.stem.split('.', 1)[1]}"] = json.loads(extra.read_text(encoding="utf-8"))
         for mf in sorted(sec_dir.glob("*.json")):
-            if mf.name == "demo.json" or not (sec_dir / f"{mf.stem}.dc.html").is_file():
+            if mf.name.startswith("demo.") or not (sec_dir / f"{mf.stem}.dc.html").is_file():
                 continue
             m = json.loads(mf.read_text(encoding="utf-8"))
             sec = sec_dir.name
@@ -243,6 +246,8 @@ def _load() -> tuple[dict, dict]:
                 "file": f"v2/{sec}/{mf.stem}.dc.html", "blocks": blocks, "retired": retired, "slots": int(m.get("slots", 6)),
                 "demo_photos": m.get("demo_photos", []), "fields_off": m.get("fields_off", []),
                 "order": int(m.get("order", 50)), "intro": bool(m.get("intro", m["tier"] != "standart")),
+                # faqat shu marosim(lar) uchun chizilgan shablon (masalan, «qizlar» yoki «nahorgi»)
+                "marosim": [x for x in m.get("marosim", []) if x in {**TOY_MAROSIM, **OSH_MAROSIM}],
                 # eski kod bilan moslik
                 "v2": True, "vip": m["tier"] == "vip", "premium": m["tier"] == "premium", "new": False,
                 "colors": ["Asl"], "swatch": [m.get("swatch") or ["#FFFFFF", "#888888", "#222222"]],
@@ -268,7 +273,13 @@ def _attach() -> None:
 
 
 def hero_fields(t: dict) -> list[str]:
-    return [k for k in HERO2[t["section"]] if k not in t["fields_off"]]
+    # marosimga xos shablonda marosim tanlanmaydi
+    return [k for k in HERO2[t["section"]] if k not in t["fields_off"] and not (k == "marosim" and t.get("marosim"))]
+
+
+def marosim_of(t: dict, d: dict) -> str:
+    """Shablon uchun marosim: marosimga xos shablonda — o'zi, aks holda mijoz tanlagani."""
+    return t["marosim"][0] if t.get("marosim") else marosim_key(t["section"], d)
 
 
 def fields_for(t: dict) -> list[Field]:
@@ -413,7 +424,7 @@ def render(t: dict, config: dict, slug: str, preview: bool, guest=None, demo: bo
         data["mehmon"] = guest.name
     if t["section"] in ("toy", "osh"):
         # shablon uchun tayyor matnlar: «Nahorgi osh», «Nahorgi oshga taklifnoma»
-        kind = marosim_key(t["section"], data)
+        kind = marosim_of(t, data)
         data["marosim"] = kind
         data["marosim_nomi"] = marosim_label(t["section"], data)
         data["marosim_taklif"] = MAROSIM_TAKLIF[kind]
@@ -490,9 +501,14 @@ def palette_swatches(t: dict) -> tuple[list, list]:
     return [p[0] for p in pals], [[shift(c, h, sat, br) for c in base] for _, h, sat, br in pals]
 
 
-def demo_config(t: dict) -> dict:
-    keep = {f.key for f in fields_for(t)}
-    data = {k: v for k, v in DEMOS.get(t["section"], {}).items() if k not in OPTIONAL_FIELDS and k in keep}
+def demo_config(t: dict, m: str = "") -> dict:
+    """Namuna ma'lumoti; marosim (shablonniki yoki ?m=) bo'lsa, o'sha marosim namunasi ustiga yoziladi."""
+    keep = {f.key for f in fields_for(t)} | {"marosim"}
+    kind = t["marosim"][0] if t.get("marosim") else m
+    base = {**DEMOS.get(t["section"], {}), **(DEMOS.get(f"{t['section']}:{kind}", {}) if kind else {})}
+    if kind:
+        base["marosim"] = kind
+    data = {k: v for k, v in base.items() if k not in OPTIONAL_FIELDS and k in keep}
     return {"template": t["id"], "tarif": t["tier"], "data": data,
             "photos": list(t["demo_photos"]), "music": None, "hidden": default_hidden(t)}
 

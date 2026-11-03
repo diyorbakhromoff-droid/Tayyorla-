@@ -63,10 +63,10 @@ async def namuna(tid: str, r: int = 1, m: str = ""):
     t = TEMPLATES.get(tid)
     if not t or not t.get("v2"):
         raise HTTPException(404)
-    cfg = catalog2.demo_config(t)
+    m = m if m in {**catalog2.TOY_MAROSIM, **catalog2.OSH_MAROSIM} else ""
+    cfg = catalog2.demo_config(t, m)
     cfg["rang"] = r
-    if m and m in {**catalog2.TOY_MAROSIM, **catalog2.OSH_MAROSIM}:
-        cfg["data"]["marosim"] = m
+    if m:
         # osh bo'limida namuna suratlari marosimga mos: beshik — chaqaloq suratlari, sunnat — suratsiz (kelin-kuyov chiqmasin)
         if t["section"] == "osh" and m == "beshik":
             cfg["photos"] = [f"/katalog/namuna/demo/c{i}.jpg" for i in range(1, 7)][: t["slots"]]

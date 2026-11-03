@@ -267,8 +267,9 @@ async def catalog_ai_write(body: CatalogWriteIn, x_init_data: str = Header("")):
     sec = TEMPLATES[body.template]["section"]
     brief = body.brief
     if sec in ("toy", "osh"):  # AI matnni tanlangan marosimga yozsin (Nahorgi osh, Fotiha to'yi...)
-        brief = f"Bu {catalog2.MAROSIM_TAKLIF[catalog2.marosim_key(sec, order['data'])].lower()} matni. {brief}"
-        order["data"]["marosim"] = catalog2.marosim_label(sec, order["data"])
+        kind = catalog2.marosim_of(TEMPLATES[body.template], order["data"])
+        brief = f"Bu {catalog2.MAROSIM_TAKLIF[kind].lower()} matni. Milliy qadriyatlarga mos, odobli yoz. {brief}"
+        order["data"]["marosim"] = {**catalog2.TOY_MAROSIM, **catalog2.OSH_MAROSIM}[kind]
     try:
         text = await ai.write_message(order["category"], order["data"], brief, body.previous)
     except Exception:

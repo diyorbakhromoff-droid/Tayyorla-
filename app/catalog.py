@@ -349,7 +349,7 @@ def catalog_meta() -> dict:
                "demo": f"/katalog/namuna/{t['file']}"}
         if t.get("v2"):
             out.update(v2=True, tier=t["tier"], demo=f"/namuna/{t['id']}", order=t["order"], intro=t["intro"], slots=t["slots"],
-                       blocks=catalog2.block_meta(t), hero=catalog2.hero_fields(t),
+                       blocks=catalog2.block_meta(t), hero=catalog2.hero_fields(t), marosim=t.get("marosim", []),
                        fields=[f.key for f in catalog2.fields_for(t)])
         return out
 

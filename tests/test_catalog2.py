@@ -103,6 +103,14 @@ assert "marosim" not in clean_order({"template": toy_t["id"], "data": {"marosim"
 assert catalog2.page_title("osh", {"marosim": "sunnat", "mezbon": "Karimovlar oilasi"}) == "Karimovlar oilasi — sunnat to'yiga taklifnoma"
 assert [f.key for f in catalog2.FIELDS2["osh"]][:1] == ["marosim"] and "osh" in catalog2.DEMOS
 
+# marosimga xos shablon (masalan, faqat Qizlar bazmi): marosim tanlanmaydi, namuna o'sha marosim matni bilan
+qt = dict(toy_t, marosim=["qizlar"])
+assert "marosim" not in catalog2.hero_fields(qt) and catalog2.marosim_of(qt, {"marosim": "nikoh"}) == "qizlar"
+qd = catalog2.demo_config(qt)["data"]
+assert qd["marosim"] == "qizlar" and "qizlar bazmi" in qd["matn"]
+assert "qizlar bazmi" in catalog2.demo_config(toy_t, "qizlar")["data"]["matn"]  # ?m=qizlar umumiy shablonda ham
+assert catalog2.demo_config(next(t for t in v2 if t["section"] == "osh"), "sunnat")["data"]["ism"] == "Sardor"
+
 # rang palitralari: Standart 3, Premium 8, VIP 12; tarifdan ortig'i asl rangga qaytadi
 prem = next(t for t in v2 if t["tier"] == "premium")
 assert len(vip["colors"]) == 12 and len(prem["colors"]) == 8 and len(vip["swatch"]) == 12
