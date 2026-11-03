@@ -237,7 +237,7 @@ a{color:inherit}
         <p class="xv-lbl" style="font-size: 12px; letter-spacing: 0.28em">Bismillahir rohmanir rohiym</p>
         <p class="xv-d" style="margin: 14px 0 0; font-size: 21px; line-height: 1.25; color: #CFE9E6">Assalomu alaykum,</p>
         <p class="xv-d xv-foil" style="margin: 2px 0 0; max-width: 340px; font-size: {{ guestFs }}px; line-height: 1.12; overflow-wrap: anywhere; text-wrap: balance">{{ guestLine }}</p>
-        <p style="margin: 10px 0 0; max-width: 300px; font-size: 15px; line-height: 1.45; color: #CFE9E6; text-wrap: balance">{{ introHint }}</p>
+        <sc-if value="{{ introHint }}"><p style="margin: 10px 0 0; max-width: 300px; font-size: 15px; line-height: 1.45; color: #CFE9E6; text-wrap: balance">{{ introHint }}</p></sc-if>
       </div>
       <div class="xv-portal">
         <div class="xv-portal-glow" aria-hidden="true"></div>
@@ -526,8 +526,8 @@ function extraVals(s, self) {
     introCls: s.opened ? 'xv-i xv-i--open' : 'xv-i',
     introHidden: !!s.opened,
     open: () => self.open(),
-    introHint: SITE.has.music ? 'Eshikni oching — sizni ichkarida kutamiz. Musiqa bilan ochiladi.' : 'Eshikni oching — sizni ichkarida kutamiz',
-    guestFs: fitPx('Hurmatli ' + (GUEST || 'mehmon') + '!', 40, 680, 0.5),
+    introHint: ('Hurmatli ' + (GUEST || 'mehmon') + '!').length > 24 ? '' : (SITE.has.music ? 'Eshikni oching — sizni ichkarida kutamiz. Musiqa bilan ochiladi.' : 'Eshikni oching — sizni ichkarida kutamiz'),
+    guestFs: fitPx('Hurmatli ' + (GUEST || 'mehmon') + '!', 40, 640, 0.5),
     guestFs2: fitPx('Hurmatli ' + (GUEST || 'mehmon') + '!', 36, 560, 0.5),
     mezFs: fitPx(mez, 32, 540, 0.5),
     titleFs: fitPx(SITE.ga(NOMI), 58, 290, 0.5),
