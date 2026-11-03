@@ -428,7 +428,8 @@ def render(t: dict, config: dict, slug: str, preview: bool, guest=None, demo: bo
         data["marosim"] = kind
         data["marosim_nomi"] = marosim_label(t["section"], data)
         data["marosim_taklif"] = MAROSIM_TAKLIF[kind]
-        if t["section"] == "toy" and kind != "nikoh":
+        # marosimga xos shablon o'z marosimiga yozilgan — matni o'zgartirilmaydi
+        if t["section"] == "toy" and kind != "nikoh" and not t.get("marosim"):
             markup, script = marosim_text(markup, kind), marosim_text(script, kind)
     cfg = {
         "tarif": t["tier"], "data": data, "photos": photos, "slots": t["slots"], "music": music,
