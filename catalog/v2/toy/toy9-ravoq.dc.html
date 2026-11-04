@@ -510,6 +510,7 @@ function ini(n) {
   return n.charAt(0).toUpperCase();
 }
 function fitPx(text, max, width, em) { const n = String(text || '').length || 1; return Math.max(Math.round(max * 0.42), Math.min(max, Math.floor(width / (n * em)))); }
+function fitWord(text, max, width, em) { const L = Math.max(1, ...String(text || '').split(/\s+/).map((x) => x.length)); return Math.max(Math.round(max * 0.45), Math.min(max, Math.floor(width / (L * em)))); }
 function telHref(t) { return 'tel:' + String(t || '').replace(/[^\d+]/g, ''); }
 const KUYOV = String(D.kuyov || '').trim();
 const KELIN = String(D.kelin || '').trim();
@@ -638,12 +639,12 @@ class Component extends DCLogic {
       open: () => this.open(),
       walls: WALLS, motes: MOTES, w,
       kuyov: KUYOV, kelin: KELIN,
-      fsK: fitPx(KUYOV, 60, 270, 0.52), fsL: fitPx(KELIN, 60, 270, 0.52),
+      fsK: fitPx(KUYOV, 60, 262, 0.6), fsL: fitPx(KELIN, 60, 262, 0.6),
       heroLine: [w.Weekday, w.dm, D.vaqt ? 'soat ' + D.vaqt : ''].filter(Boolean).join(' · '),
       pair: [KUYOV, KELIN].filter(Boolean).join(' va '),
       mono: [ini(KUYOV), ini(KELIN)].filter(Boolean).join('&'),
       guestName, fsGuest: fitPx(guestName, 28, 330, 0.5),
-      guestHello: hello, fsHello: fitPx(hello, 40, 350, 0.5),
+      guestHello: hello, fsHello: fitWord(hello, 40, 340, 0.54),
       noTaklif: !SITE.b.taklif,
       cal: calUrl(),
       tiles: [tile(cd.d, 'KUN', 0), tile(cd.h, 'SOAT', 1), tile(cd.m, 'DAQIQA', 2), tile(cd.s, 'SONIYA', 3)],
