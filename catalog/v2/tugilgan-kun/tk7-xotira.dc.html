@@ -382,7 +382,7 @@ body{margin:0}
     <div class="xt-iFade" style="position: absolute; left: 20px; top: 30px; width: 350px; text-align: center">
       <sc-if value="{{ has.music }}"><p aria-label="Musiqa bilan" style="margin: 0 0 6px; display: flex; justify-content: center"><svg aria-hidden="true" width="14" height="16" viewBox="0 0 22 26"><path d="M8 3L20 0V17.5A3.5 3 0 1 1 17 14.6V5.2L10 7V20.5A3.5 3 0 1 1 7 17.6V3Z" fill="#FF5436"></path></svg></p></sc-if>
       <p class="xt-hd" style="margin: 0; font-size: 42px; line-height: 1; color: #231942">Juftini top!</p>
-      <p class="xt-phase" style="margin: 8px 0 0; font-size: 14px; line-height: 1.4; color: #5C5287; overflow-wrap: anywhere">{{ phaseLine }}</p>
+      <p class="xt-phase" style="min-height: 40px; margin: 8px 0 0; font-size: 14px; line-height: 1.4; color: #5C5287; overflow-wrap: anywhere">{{ phaseLine }}</p>
       <div style="margin-top: 12px; display: flex; align-items: center; justify-content: center; gap: 12px">
         <span class="{{ movesCls }}" aria-live="polite">Yurish: {{ moves }}</span>
         <span class="xt-chip" aria-label="{{ pairsLbl }}" style="gap: 5px"><sc-for list="{{ pips }}" as="pp"><span class="{{ pp }}"></span></sc-for></span>
@@ -391,7 +391,7 @@ body{margin:0}
 
     <div class="{{ boardCls }}" style="position: absolute; left: 27px; top: 186px; width: 336px; height: 548px">
       <sc-for list="{{ deck }}" as="c">
-        <button type="button" class="{{ c.cls }}" style="{{ c.st }}" onClick="{{ c.tap }}" aria-label="{{ c.label }}">
+        <button type="button" class="{{ c.cls }}" style="{{ c.st }}" onClick="{{ c.tap }}" aria-label="{{ c.label }}" data-f="{{ c.fid }}">
           <span class="xt-in">
             <span class="xt-side xt-back"><span class="xt-q">?</span></span>
             <span class="xt-side xt-face">
@@ -525,7 +525,7 @@ class Component extends DCLogic {
       const up = s.phase === 'peek' || s.open.indexOf(i) >= 0 || !!s.done[i];
       const cx = col * (CW + GAP) + CW / 2 - 168, cy = row * (CH + GAP) + CH / 2 - 274;
       return {
-        img: f.img, ref: f.ref, ib: f.ib || '', hit: s.hit.indexOf(i) >= 0,
+        img: f.img, ref: f.ref, ib: f.ib || '', hit: s.hit.indexOf(i) >= 0, fid: fid,
         cls: 'xt-card' + (up ? ' xt-card--up' : '') + (s.done[i] ? ' xt-card--done' : '') + (s.miss.indexOf(i) >= 0 ? ' xt-card--miss' : ''),
         st: 'position: absolute; left: ' + (col * (CW + GAP)) + 'px; top: ' + (row * (CH + GAP)) + 'px; width: ' + CW + 'px; height: ' + CH + 'px; --i: ' + i + '; --dx: ' + Math.round(-cx) + 'px; --dr: ' + Math.round(rnd(i, 7) * 60 - 30) + 'deg; --wr: ' + [-6, 0, 6][col] + 'deg; --fx: ' + Math.round(cx * 2.4) + 'px; --fy: ' + Math.round(cy * 2.2 - 120) + 'px; --fr: ' + Math.round(rnd(i, 9) * 90 - 45) + 'deg',
         label: 'Karta ' + (i + 1) + (s.done[i] ? ': jufti topildi' : up ? ': ochiq' : ''),

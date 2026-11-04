@@ -1,0 +1,930 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<title>Farzand Premium: Taxmin o’yini</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Days+One&amp;family=Mulish:wght@400;500;600;700;800;900&amp;display=swap">
+<style>
+body{margin:0;background:#EAF2A0}
+.tx{--g:#EAF2A0;--g2:#DCE786;--ink:#1B2A1F;--mut:#4C5B47;--pop:#FF7A3D;--popS:#FFE2D2;--a:#3557F0;--aS:#DCE3FF;--aT:#2440C4}
+.tx.is-qiz{--a:#D63371;--aS:#FFDDE9;--aT:#B0245A}
+.tx-d{font-family:'Days One','Arial Black',system-ui,sans-serif;font-weight:400}
+.tx-t{font-family:'Mulish','Segoe UI',system-ui,sans-serif}
+.tx-ic{fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.tx-icf{fill:currentColor}
+.tx-btn{cursor:pointer;border:0;-webkit-tap-highlight-color:transparent;transition:transform .2s cubic-bezier(.3,1.7,.5,1),box-shadow .2s ease,background-color .25s ease,color .25s ease,opacity .25s ease}
+.tx-btn:active{transform:scale(.94)}
+.tx-btn:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+.tx-btn[disabled]{cursor:default}
+.tx-big{box-shadow:0 6px 0 rgba(27,42,31,.28)}
+.tx-big:active{transform:translateY(4px) scale(.98);box-shadow:0 2px 0 rgba(27,42,31,.28)}
+.tx-big[disabled]{opacity:.45;transform:none;box-shadow:0 6px 0 rgba(27,42,31,.12)}
+.card{background:#FFFFFF;border-radius:30px;box-shadow:0 2px 0 rgba(27,42,31,.08),0 22px 40px -30px rgba(27,42,31,.55)}
+.sec-h{margin:0 0 16px;padding:0 4px;font-size:26px;line-height:1.1;letter-spacing:-.01em;color:var(--ink)}
+.sec-k{display:inline-block;margin:0 0 8px 4px;padding:6px 12px;border-radius:999px;background:var(--ink);color:var(--g);font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase}
+
+/* ambient */
+.am-fl{animation:amFl 9s ease-in-out infinite alternate}
+@keyframes amFl{0%{transform:translate(0,0) rotate(var(--r0,0deg))}100%{transform:translate(var(--fx,10px),var(--fy,-16px)) rotate(var(--r1,40deg))}}
+.am-spin{animation:amSpin 16s linear infinite;transform-origin:50% 50%}
+@keyframes amSpin{to{transform:rotate(360deg)}}
+.am-wob{animation:amWob 4.5s ease-in-out infinite}
+@keyframes amWob{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(2deg) translateY(-6px)}}
+.am-q{animation:amQ 2.4s cubic-bezier(.4,0,.2,1) infinite}
+@keyframes amQ{0%,100%{transform:scale(1) rotate(0)}12%{transform:scale(1.12) rotate(-8deg)}24%{transform:scale(1) rotate(6deg)}36%{transform:scale(1) rotate(0)}}
+.am-dot{animation:amDot 1s ease-in-out infinite}
+.am-dot.d2{animation-delay:.15s}.am-dot.d3{animation-delay:.3s}
+@keyframes amDot{0%,100%{transform:translateY(0)}40%{transform:translateY(-14px)}}
+
+/* intro: screens */
+.scr{position:absolute;left:0;top:0;width:390px;height:844px;opacity:0;visibility:hidden;pointer-events:none;transform:translateX(70px) rotate(2deg);transition:opacity .4s ease,transform .6s cubic-bezier(.3,1.25,.45,1),visibility 0s linear .6s}
+.scr.on{opacity:1;visibility:visible;pointer-events:auto;transform:none;transition:opacity .4s ease,transform .65s cubic-bezier(.3,1.25,.45,1),visibility 0s}
+.scr.past{transform:translateX(-90px) rotate(-3deg)}
+.cin{opacity:0;transform:translateY(22px)}
+.scr.on .cin{animation:cin .8s cubic-bezier(.25,1.3,.45,1) both}
+@keyframes cin{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+.scr.on .cin.c2{animation-delay:.1s}.scr.on .cin.c3{animation-delay:.2s}.scr.on .cin.c4{animation-delay:.32s}.scr.on .cin.c5{animation-delay:.44s}.scr.on .cin.c6{animation-delay:.56s}
+.cpop{opacity:0}
+.scr.on .cpop{animation:cpop .9s cubic-bezier(.3,1.6,.45,1) .25s both}
+@keyframes cpop{from{opacity:0;transform:scale(.3) rotate(-25deg)}to{opacity:1;transform:rotate(-4deg)}}
+.pg{transform-origin:0 50%;transition:transform .6s cubic-bezier(.3,1.3,.5,1)}
+.intro{transition:transform 1s cubic-bezier(.7,0,.2,1),opacity .4s ease .7s}
+.intro.is-out{transform:translateY(-104%);opacity:0;pointer-events:none}
+
+/* gender tiles */
+.gt{transition:transform .35s cubic-bezier(.3,1.7,.5,1),box-shadow .25s ease,opacity .25s ease}
+.gt.sel{transform:scale(1.05) rotate(var(--gr,0deg));box-shadow:0 0 0 4px #1B2A1F,0 18px 30px -16px rgba(27,42,31,.6)}
+.gt.dim{opacity:.55;transform:scale(.96)}
+.gt-ck{opacity:0;transform:scale(.2)}
+.gt.sel .gt-ck{opacity:1;transform:none;transition:transform .4s cubic-bezier(.3,1.8,.5,1),opacity .2s}
+
+/* slider */
+.rg{-webkit-appearance:none;appearance:none;display:block;width:100%;height:48px;margin:0;background:transparent;cursor:pointer;touch-action:pan-y}
+.rg:focus{outline:none}
+.rg:focus-visible{outline:3px solid #1B2A1F;outline-offset:4px;border-radius:12px}
+.rg::-webkit-slider-runnable-track{height:18px;border-radius:9px;background:linear-gradient(90deg,#FF7A3D 0%,#FF7A3D var(--p,50%),rgba(27,42,31,.12) var(--p,50%),rgba(27,42,31,.12) 100%)}
+.rg::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:40px;height:40px;margin-top:-11px;border-radius:50%;background:#FFFFFF;border:5px solid #1B2A1F;box-sizing:border-box;box-shadow:0 6px 0 rgba(27,42,31,.25);transition:transform .2s cubic-bezier(.3,1.7,.5,1)}
+.rg:active::-webkit-slider-thumb{transform:scale(1.18)}
+.rg::-moz-range-track{height:18px;border-radius:9px;background:rgba(27,42,31,.12)}
+.rg::-moz-range-progress{height:18px;border-radius:9px;background:#FF7A3D}
+.rg::-moz-range-thumb{width:40px;height:40px;border-radius:50%;background:#FFFFFF;border:5px solid #1B2A1F;box-sizing:border-box}
+.ndl{transition:transform .35s cubic-bezier(.3,1.6,.45,1)}
+.tape{transition:transform .3s cubic-bezier(.3,1.4,.45,1)}
+.orb{transition:transform .35s cubic-bezier(.3,1.4,.45,1)}
+.sky{transition:opacity .5s ease}
+.rd{display:inline-block}
+.bump{animation:bump .35s cubic-bezier(.3,1.8,.5,1)}
+@keyframes bump{0%{transform:scale(1)}40%{transform:scale(1.12)}100%{transform:scale(1)}}
+
+/* reveal */
+.rvl-wait{opacity:0;transition:opacity .3s ease}
+.scr.on .rvl-wait{animation:wait 1.15s ease both}
+@keyframes wait{0%,70%{opacity:1}100%{opacity:0}}
+.flood{transform:scale(0)}
+.scr.on .flood{animation:flood 1.1s cubic-bezier(.7,0,.2,1) .95s both}
+@keyframes flood{from{transform:scale(0)}to{transform:scale(1)}}
+.gw{opacity:0}
+.scr.on .gw{animation:gw 1s cubic-bezier(.25,1.7,.45,1) 1.45s both}
+@keyframes gw{from{opacity:0;transform:scale(.2) rotate(-14deg)}to{opacity:1;transform:rotate(-3deg)}}
+.nch{display:inline-block;opacity:0}
+.scr.on .nch{animation:nch .6s cubic-bezier(.3,1.7,.45,1) both}
+@keyframes nch{from{opacity:0;transform:translateY(.6em) scale(.4)}to{opacity:1;transform:none}}
+.cf{position:absolute;opacity:0}
+.scr.on .cf{animation:cf 1.6s cubic-bezier(.15,.75,.35,1) both}
+@keyframes cf{0%{opacity:0;transform:translate(0,0) rotate(0) scale(.4)}12%{opacity:1}100%{opacity:0;transform:translate(var(--cx),var(--cy)) rotate(var(--cr)) scale(1)}}
+.rup{opacity:0}
+.scr.on .rup{animation:cin .8s cubic-bezier(.25,1.3,.45,1) both}
+.ring-s{stroke-dasharray:100}
+.scr.on .ring-s{animation:ringS 1.6s cubic-bezier(.2,.8,.25,1) 2.3s both}
+@keyframes ringS{from{stroke-dashoffset:100}}
+.acc{transform-origin:0 50%}
+.scr.on .acc{animation:acc 1.1s cubic-bezier(.2,.9,.25,1) both}
+@keyframes acc{from{transform:scaleX(0)}}
+.star{opacity:0}
+.scr.on .star{animation:star .7s cubic-bezier(.3,1.9,.45,1) both}
+@keyframes star{from{opacity:0;transform:scale(0) rotate(-90deg)}to{opacity:1;transform:none}}
+
+/* digit roller */
+.rl{display:inline-flex;align-items:flex-start;line-height:1}
+.rl-c{display:inline-block;height:1em;overflow:hidden}
+.rl-s{display:flex;flex-direction:column}
+.rl-s i{display:block;height:1em;line-height:1em;font-style:normal;text-align:center}
+.rl-t{display:inline-block;height:1em;line-height:1em}
+.scr.on .rl-s,.rv.in .rl-s{animation:rl 1.5s cubic-bezier(.2,1.12,.35,1) both}
+@keyframes rl{from{transform:translateY(0)}}
+
+/* page */
+.hv{opacity:0;transform:translateY(24px)}
+.is-on .hv{animation:cin .9s cubic-bezier(.25,1.3,.45,1) both}
+.is-on .hv.h2{animation-delay:.1s}.is-on .hv.h3{animation-delay:.2s}.is-on .hv.h4{animation-delay:.3s}.is-on .hv.h5{animation-delay:.4s}.is-on .hv.h6{animation-delay:.5s}
+.hpop{opacity:0}
+.is-on .hpop{animation:cpop .9s cubic-bezier(.3,1.6,.45,1) .45s both}
+.hph{opacity:0;transform:rotate(-2deg)}
+.is-on .hph{animation:hph 1s cubic-bezier(.25,1.35,.45,1) .25s both}
+@keyframes hph{from{opacity:0;transform:translateY(40px) rotate(6deg) scale(.9)}to{opacity:1;transform:rotate(-2deg)}}
+.rv{opacity:0;transform:translateY(36px)}
+.rv.in{opacity:1;transform:none;transition:opacity .7s ease,transform .9s cubic-bezier(.25,1.2,.45,1)}
+.rv .ri{opacity:0}
+.rv.in .ri{animation:ri .75s cubic-bezier(.25,1.4,.45,1) both}
+@keyframes ri{from{opacity:0;transform:translateY(18px) scale(.94) rotate(var(--rz,0deg))}to{opacity:1;transform:rotate(var(--rr,0deg))}}
+.tile{transition:transform .3s cubic-bezier(.3,1.6,.5,1),background-color .3s ease,color .3s ease}
+.stamp{opacity:0;transform:scale(2.2) rotate(-30deg)}
+.tile.on .stamp{opacity:1;transform:rotate(-12deg);transition:transform .45s cubic-bezier(.3,1.5,.45,1),opacity .15s ease}
+.cb .cf2{opacity:0}
+.cb.go .cf2{animation:cf 1.3s cubic-bezier(.15,.75,.35,1) both}
+
+@media (prefers-reduced-motion: reduce){
+.am-fl,.am-spin,.am-wob,.am-q,.am-dot{animation:none}
+.scr,.scr.on,.intro,.gt,.ndl,.tape,.orb,.sky,.pg,.tile,.tx-btn,.rv.in{transition:none}
+.scr{transform:none}
+.cin,.cpop,.gw,.nch,.rup,.star,.hv,.hpop,.hph,.rv,.rv .ri{opacity:1;transform:none;animation:none!important}
+.scr.on .cin,.scr.on .cpop,.scr.on .gw,.scr.on .nch,.scr.on .rup,.scr.on .star,.is-on .hv,.is-on .hpop,.is-on .hph,.rv.in .ri{animation:none}
+.scr.on .flood,.scr.on .ring-s,.scr.on .acc,.scr.on .rl-s,.rv.in .rl-s,.scr.on .cf,.cb.go .cf2,.bump{animation:none}
+.flood{transform:none}
+.scr.on .rvl-wait{animation:none;opacity:0}
+.cf,.cf2{display:none}
+}
+</style>
+</helmet>
+<div class="tx tx-t {{ rootCls }}" style="width: 390px; min-height: var(--vh, 100vh); position: relative; overflow: hidden; background: #EAF2A0; color: #1B2A1F">
+
+  <!-- ===================== KIRISH: TAXMIN O'YINI ===================== -->
+  <div data-intro class="intro {{ introCls }}" style="display: {{ introDisp }}; position: absolute; left: 0; top: 0; width: 390px; height: 844px; z-index: 40; overflow: hidden; background: #EAF2A0">
+    <div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; background-image: radial-gradient(rgba(27, 42, 31, 0.1) 1.6px, rgba(0, 0, 0, 0) 1.8px); background-size: 22px 22px"></div>
+    <sc-for list="{{ confetti }}" as="c">
+      <span class="am-fl" aria-hidden="true" style="{{ c }}"></span>
+    </sc-for>
+
+    <!-- yuqori: o'yin progressi -->
+    <div style="position: absolute; left: 22px; right: 22px; top: 30px; height: 44px; display: flex; align-items: center; gap: 12px; z-index: 5">
+      <span class="tx-t" style="flex: none; height: 34px; padding: 0 14px; border-radius: 999px; background: #1B2A1F; color: #EAF2A0; font-size: 13px; font-weight: 900; letter-spacing: 0.12em; text-transform: uppercase; display: inline-flex; align-items: center">Taxmin o’yini</span>
+      <span style="flex: 1; height: 10px; border-radius: 5px; background: rgba(27, 42, 31, 0.12); overflow: hidden">
+        <span class="pg" style="display: block; height: 10px; border-radius: 5px; background: #1B2A1F; {{ pgSt }}"></span>
+      </span>
+      <span class="tx-d" style="flex: none; min-width: 44px; text-align: right; font-size: 15px; color: #1B2A1F">{{ pgLabel }}</span>
+    </div>
+
+    <!-- muqova -->
+    <div class="{{ scr.cover }}">
+      <svg class="am-spin" aria-hidden="true" viewBox="0 0 140 140" width="140" height="140" style="position: absolute; left: 236px; top: 92px">
+        <defs><path id="txBadge" d="M70 70m-52 0a52 52 0 1 1 104 0a52 52 0 1 1-104 0"></path></defs>
+        <circle cx="70" cy="70" r="66" fill="#FF7A3D"></circle>
+        <circle cx="70" cy="70" r="40" fill="none" stroke="#1B2A1F" stroke-dasharray="2 5" style="stroke-width: 2"></circle>
+        <text style="font-family: 'Mulish', sans-serif; font-size: 13px; font-weight: 900; letter-spacing: 2.6px; fill: #1B2A1F"><textPath href="#txBadge">YANGI MEHMON • TAXMIN QILING •</textPath></text>
+      </svg>
+      <span class="tx-d" aria-hidden="true" style="position: absolute; left: 236px; top: 92px; width: 140px; height: 140px; display: flex; align-items: center; justify-content: center; font-size: 38px; color: #1B2A1F">?</span>
+
+      <p class="cin tx-t" style="position: absolute; left: 24px; top: 112px; margin: 0; font-size: 15px; font-weight: 800; color: #4C5B47">{{ hostLine }}</p>
+      <h1 class="cin c2 tx-d" style="position: absolute; left: 24px; top: 144px; width: 230px; margin: 0; font-size: 36px; line-height: 1.08; letter-spacing: -0.01em; color: #1B2A1F">Oilamizga yangi mehmon keldi!</h1>
+
+      <div class="cin c3" style="position: absolute; left: 30px; top: 330px; width: 330px; height: 252px">
+        <div class="am-wob" style="position: absolute; left: 0; top: 0; width: 330px; height: 252px; border-radius: 34px; background: #FFFFFF; box-shadow: 0 8px 0 #1B2A1F">
+          <div style="position: absolute; left: 22px; top: 22px; right: 22px; display: flex; justify-content: space-between; align-items: center">
+            <span class="tx-t" style="font-size: 13px; font-weight: 900; letter-spacing: 0.14em; text-transform: uppercase; color: #4C5B47">Kim u?</span>
+            <span class="tx-t" style="font-size: 13px; font-weight: 800; color: #4C5B47">{{ w.dm }}</span>
+          </div>
+          <span class="am-q tx-d" aria-hidden="true" style="position: absolute; left: 0; top: 46px; width: 330px; text-align: center; font-size: 112px; line-height: 1; color: #1B2A1F; text-shadow: 6px 6px 0 #FF7A3D">?</span>
+          <div style="position: absolute; left: 18px; right: 18px; bottom: 20px; display: flex; justify-content: center; flex-wrap: wrap; gap: 6px">
+            <sc-for list="{{ chips }}" as="c">
+              <span class="tx-t" style="height: 32px; padding: 0 12px; border-radius: 999px; background: #EAF2A0; color: #1B2A1F; font-size: 13px; font-weight: 800; display: inline-flex; align-items: center; gap: 6px"><svg aria-hidden="true" viewBox="0 0 24 24" width="15" height="15" class="tx-ic" style="stroke-width: 2.4"><path d="{{ c.icon }}"></path></svg>{{ c.l }}</span>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+      <p class="cin c4 tx-t" style="position: absolute; left: 30px; right: 30px; top: 614px; margin: 0; text-align: center; font-size: 17px; line-height: 1.45; font-weight: 700; color: #1B2A1F">Avval taxmin qiling — keyin javobini ko’ring!</p>
+      <div class="cin c5" style="position: absolute; left: 30px; top: 690px; width: 330px">
+        <button type="button" class="tx-btn tx-big tx-d" onClick="{{ start }}" style="width: 330px; height: 64px; border-radius: 22px; background: #1B2A1F; color: #EAF2A0; font-size: 20px; display: flex; align-items: center; justify-content: center; gap: 12px">
+          O’yinni boshlash
+          <svg aria-hidden="true" viewBox="0 0 24 24" width="22" height="22" class="tx-ic" style="stroke-width: 2.8"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- savollar -->
+    <sc-for list="{{ qs }}" as="q">
+      <div class="{{ q.cls }}">
+        <p class="cin tx-t" style="position: absolute; left: 24px; top: 104px; margin: 0; font-size: 14px; font-weight: 900; letter-spacing: 0.14em; text-transform: uppercase; color: #4C5B47">{{ q.kicker }}</p>
+        <h2 class="cin c2 tx-d" style="position: absolute; left: 24px; right: 24px; top: 130px; margin: 0; font-size: 34px; line-height: 1.1; letter-spacing: -0.01em; color: #1B2A1F">{{ q.title }}</h2>
+
+        <sc-if value="{{ q.isJins }}">
+          <div class="cin c3" style="position: absolute; left: 24px; top: 236px; width: 342px; height: 330px; display: flex; gap: 14px">
+            <sc-for list="{{ q.opts }}" as="o">
+              <button type="button" class="{{ o.cls }}" onClick="{{ o.pick }}" aria-pressed="{{ o.pressed }}" style="{{ o.st }}">
+                <span class="gt-ck" aria-hidden="true" style="position: absolute; right: 12px; top: 12px; width: 34px; height: 34px; border-radius: 50%; background: #1B2A1F; color: #EAF2A0; display: flex; align-items: center; justify-content: center"><svg viewBox="0 0 24 24" width="18" height="18" class="tx-ic" style="stroke-width: 3"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></span>
+                <svg aria-hidden="true" viewBox="0 0 120 120" width="112" height="112">
+                  <circle cx="60" cy="60" r="56" fill="#FFFFFF" opacity="0.7"></circle>
+                  <path d="{{ o.art }}" fill="none" stroke="#1B2A1F" style="stroke-width: 5; stroke-linecap: round; stroke-linejoin: round"></path>
+                  <circle cx="48" cy="58" r="4" fill="#1B2A1F"></circle><circle cx="72" cy="58" r="4" fill="#1B2A1F"></circle>
+                  <path d="M50 72q10 8 20 0" fill="none" stroke="#1B2A1F" style="stroke-width: 4; stroke-linecap: round"></path>
+                  <circle cx="40" cy="70" r="6" fill="#FF7A3D" opacity="0.45"></circle><circle cx="80" cy="70" r="6" fill="#FF7A3D" opacity="0.45"></circle>
+                </svg>
+                <span class="tx-d" style="display: block; margin-top: 18px; font-size: 28px; color: #1B2A1F">{{ o.l }}</span>
+                <span class="tx-t" style="display: block; margin-top: 4px; font-size: 14px; font-weight: 700; color: #4C5B47">{{ o.s }}</span>
+              </button>
+            </sc-for>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ q.isKg }}">
+          <div class="card cin c3" style="position: absolute; left: 24px; top: 236px; width: 342px; height: 300px; overflow: hidden">
+            <svg aria-hidden="true" viewBox="0 0 300 170" width="300" height="170" style="position: absolute; left: 21px; top: 26px">
+              <path d="M20 150 A130 130 0 0 1 280 150" fill="none" stroke="#EAF2A0" style="stroke-width: 30"></path>
+              <sc-for list="{{ kgTicks }}" as="t"><line x1="150" y1="{{ t.y1 }}" x2="150" y2="44" stroke="#1B2A1F" transform="{{ t.r }}" style="{{ t.st }}"></line></sc-for>
+              <sc-for list="{{ kgLabels }}" as="t"><text x="{{ t.x }}" y="{{ t.y }}" text-anchor="middle" style="font-family: 'Days One', sans-serif; font-size: 15px; fill: #1B2A1F">{{ t.l }}</text></sc-for>
+              <g class="ndl" style="{{ q.ndl }}; transform-origin: 150px 150px"><path d="M150 150 L145 148 L150 52 L155 148 Z" fill="#FF7A3D"></path></g>
+              <circle cx="150" cy="150" r="13" fill="#1B2A1F"></circle><circle cx="150" cy="150" r="5" fill="#FF7A3D"></circle>
+            </svg>
+            <div style="position: absolute; left: 0; top: 206px; width: 342px; text-align: center">
+              <span class="tx-d" style="font-size: 50px; line-height: 1; color: #1B2A1F">{{ q.read }}</span>
+              <span class="tx-d" style="font-size: 22px; color: #4C5B47"> kg</span>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ q.isSm }}">
+          <div class="card cin c3" style="position: absolute; left: 24px; top: 236px; width: 342px; height: 300px; overflow: hidden">
+            <div style="position: absolute; left: 0; top: 40px; width: 342px; text-align: center">
+              <span class="tx-d" style="font-size: 58px; line-height: 1; color: #1B2A1F">{{ q.read }}</span>
+              <span class="tx-d" style="font-size: 24px; color: #4C5B47"> sm</span>
+            </div>
+            <div style="position: absolute; left: 0; top: 150px; width: 342px; height: 110px; overflow: hidden; background: #FFE9A8; border-top: 3px solid #1B2A1F; border-bottom: 3px solid #1B2A1F">
+              <div class="tape" style="position: absolute; left: 0; top: 0; height: 110px; width: 760px; {{ q.tape }}">
+                <svg aria-hidden="true" viewBox="0 0 760 110" width="760" height="110" style="display: block">
+                  <sc-for list="{{ smTicks }}" as="t"><line x1="{{ t.x }}" y1="0" x2="{{ t.x }}" y2="{{ t.h }}" stroke="#1B2A1F" style="{{ t.st }}"></line></sc-for>
+                  <sc-for list="{{ smLabels }}" as="t"><text x="{{ t.x }}" y="84" text-anchor="middle" style="font-family: 'Days One', sans-serif; font-size: 17px; fill: #1B2A1F">{{ t.l }}</text></sc-for>
+                </svg>
+              </div>
+              <span aria-hidden="true" style="position: absolute; left: 169px; top: 0; width: 4px; height: 110px; background: #FF7A3D"></span>
+              <span aria-hidden="true" style="position: absolute; left: 159px; top: -2px; width: 0; height: 0; border-left: 12px solid rgba(0, 0, 0, 0); border-right: 12px solid rgba(0, 0, 0, 0); border-top: 16px solid #FF7A3D"></span>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ q.isT }}">
+          <div class="card cin c3" style="position: absolute; left: 24px; top: 236px; width: 342px; height: 300px; overflow: hidden; background: #22305C">
+            <div class="sky" aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 342px; height: 300px; background: linear-gradient(180deg, #8FD0FF 0%, #E6F5FF 100%); opacity: {{ q.day }}"></div>
+            <div class="sky" aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 342px; height: 300px; background: linear-gradient(180deg, #5B4FA8 0%, #FFB27A 100%); opacity: {{ q.dusk }}"></div>
+            <svg aria-hidden="true" viewBox="0 0 260 260" width="260" height="260" style="position: absolute; left: 41px; top: 20px">
+              <circle cx="130" cy="130" r="112" fill="none" stroke="#FFFFFF" opacity="0.55" stroke-dasharray="3 9" style="stroke-width: 3"></circle>
+              <g class="orb" style="{{ q.orb }}; transform-origin: 130px 130px">
+                <sc-if value="{{ q.sunUp }}">
+                  <circle cx="130" cy="18" r="22" fill="#FFD23F" stroke="#1B2A1F" style="stroke-width: 3"></circle>
+                </sc-if>
+                <sc-if value="{{ q.moonUp }}">
+                  <circle cx="130" cy="18" r="20" fill="#FFF3C9" stroke="#1B2A1F" style="stroke-width: 3"></circle>
+                  <circle cx="139" cy="12" r="15" fill="#22305C"></circle>
+                </sc-if>
+              </g>
+              <circle cx="130" cy="130" r="76" fill="#FFFFFF" stroke="#1B2A1F" style="stroke-width: 4"></circle>
+            </svg>
+            <div style="position: absolute; left: 95px; top: 112px; width: 152px; text-align: center">
+              <span class="tx-d" style="display: block; font-size: 42px; line-height: 1; color: #1B2A1F">{{ q.read }}</span>
+              <span class="tx-t" style="display: block; margin-top: 6px; font-size: 14px; font-weight: 800; color: #4C5B47">{{ q.partL }}</span>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ q.isRange }}">
+          <div class="cin c4" style="position: absolute; left: 24px; top: 560px; width: 342px; display: flex; align-items: center; gap: 10px">
+            <button type="button" class="tx-btn" onClick="{{ q.dec }}" aria-label="Kamaytirish" style="flex: none; width: 48px; height: 48px; border-radius: 16px; background: #FFFFFF; color: #1B2A1F; box-shadow: 0 4px 0 rgba(27, 42, 31, 0.2); display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" viewBox="0 0 24 24" width="22" height="22" class="tx-ic" style="stroke-width: 3"><path d="M6 12h12"></path></svg></button>
+            <input type="range" class="rg" min="{{ q.min }}" max="{{ q.max }}" step="{{ q.step }}" value="{{ q.val }}" onInput="{{ q.set }}" aria-label="{{ q.title }}" style="--p: {{ q.p }}">
+            <button type="button" class="tx-btn" onClick="{{ q.inc }}" aria-label="Oshirish" style="flex: none; width: 48px; height: 48px; border-radius: 16px; background: #FFFFFF; color: #1B2A1F; box-shadow: 0 4px 0 rgba(27, 42, 31, 0.2); display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" viewBox="0 0 24 24" width="22" height="22" class="tx-ic" style="stroke-width: 3"><path d="M6 12h12M12 6v12"></path></svg></button>
+          </div>
+          <p class="cin c4 tx-t" style="position: absolute; left: 24px; right: 24px; top: 622px; margin: 0; display: flex; justify-content: space-between; font-size: 13px; font-weight: 800; color: #4C5B47"><span>{{ q.minL }}</span><span>{{ q.maxL }}</span></p>
+        </sc-if>
+        <sc-if value="{{ q.isJins }}">
+          <p class="cin c4 tx-t" style="position: absolute; left: 24px; right: 24px; top: 594px; margin: 0; text-align: center; font-size: 15px; font-weight: 700; color: #4C5B47">{{ q.hint }}</p>
+        </sc-if>
+
+        <div class="cin c5" style="position: absolute; left: 24px; top: 690px; width: 342px">
+          <button type="button" class="tx-btn tx-big tx-d" onClick="{{ q.next }}" disabled="{{ q.lock }}" style="{{ q.btnSt }}">
+            {{ q.btn }}
+            <sc-if value="{{ q.last }}"><svg aria-hidden="true" viewBox="0 0 24 24" width="22" height="22" class="tx-ic" style="stroke-width: 2.6"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"></path><circle cx="12" cy="12" r="3"></circle></svg></sc-if>
+            <sc-if value="{{ q.notLast }}"><svg aria-hidden="true" viewBox="0 0 24 24" width="22" height="22" class="tx-ic" style="stroke-width: 2.8"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></sc-if>
+          </button>
+        </div>
+      </div>
+    </sc-for>
+
+    <!-- javoblar -->
+    <div class="{{ scr.reveal }}">
+      <div class="rvl-wait" aria-hidden="true" style="position: absolute; left: 0; top: 330px; width: 390px; text-align: center">
+        <div style="display: flex; justify-content: center; gap: 12px">
+          <span class="am-dot" style="width: 18px; height: 18px; border-radius: 50%; background: #1B2A1F"></span>
+          <span class="am-dot d2" style="width: 18px; height: 18px; border-radius: 50%; background: #FF7A3D"></span>
+          <span class="am-dot d3" style="width: 18px; height: 18px; border-radius: 50%; background: #1B2A1F"></span>
+        </div>
+        <p class="tx-d" style="margin: 22px 0 0; font-size: 22px; color: #1B2A1F">Javoblar ochilmoqda</p>
+      </div>
+
+      <div style="position: absolute; left: 16px; top: 88px; width: 358px; height: 236px; border-radius: 34px; overflow: hidden">
+        <div class="flood" aria-hidden="true" style="position: absolute; left: -100px; top: -160px; width: 560px; height: 560px; border-radius: 50%; background: var(--a)"></div>
+        <sc-for list="{{ burst }}" as="c"><span class="cf" aria-hidden="true" style="{{ c }}"></span></sc-for>
+        <div style="position: absolute; left: 0; top: 30px; width: 358px; text-align: center">
+          <span class="gw tx-d" style="display: inline-block; padding: 6px 22px 10px; border-radius: 22px; background: #FFFFFF; color: var(--aT); font-size: 46px; line-height: 1.1; box-shadow: 0 6px 0 rgba(27, 42, 31, 0.3)">{{ genderWord }}</span>
+          <p class="rup tx-t" style="margin: 22px 0 0; font-size: 15px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255, 255, 255, 0.92); animation-delay: 1.7s">Ismi</p>
+          <p class="tx-d" aria-label="{{ d.chaqaloq }}" style="margin: 4px 14px 0; font-size: {{ revealNameSize }}; line-height: 1.05; color: #FFFFFF; overflow-wrap: anywhere">
+            <sc-for list="{{ nameChars }}" as="c"><span class="nch" aria-hidden="true" style="{{ c.st }}">{{ c.ch }}</span></sc-for>
+          </p>
+        </div>
+      </div>
+
+      <sc-if value="{{ played }}">
+        <div class="rup card" style="position: absolute; left: 16px; top: 340px; width: 358px; height: 112px; display: flex; align-items: center; gap: 16px; padding: 0 20px; box-sizing: border-box; animation-delay: 2.1s">
+          <div style="position: relative; flex: none; width: 82px; height: 82px">
+            <svg aria-hidden="true" viewBox="0 0 82 82" width="82" height="82" style="position: absolute; left: 0; top: 0">
+              <circle cx="41" cy="41" r="35" fill="none" stroke="#EAF2A0" style="stroke-width: 9"></circle>
+              <circle cx="41" cy="41" r="35" fill="none" stroke="#FF7A3D" class="ring-s" pathLength="100" style="stroke-width: 9; stroke-linecap: round; stroke-dashoffset: {{ scoreOff }}" transform="rotate(-90 41 41)"></circle>
+            </svg>
+            <span class="tx-d" style="position: absolute; left: 0; top: 22px; width: 82px; text-align: center; font-size: 30px; color: #1B2A1F">
+              <span class="rl"><sc-for list="{{ rollScore }}" as="c"><sc-if value="{{ c.d }}"><span class="rl-c"><span class="rl-s" style="{{ c.st }}"><sc-for list="{{ strip }}" as="n"><i>{{ n }}</i></sc-for></span></span></sc-if><sc-if value="{{ c.t }}"><span class="rl-t">{{ c.ch }}</span></sc-if></sc-for></span>
+            </span>
+            <span class="tx-t" style="position: absolute; left: 0; top: 54px; width: 82px; text-align: center; font-size: 11px; font-weight: 900; letter-spacing: 0.1em; color: #4C5B47">BALL</span>
+          </div>
+          <div style="flex: 1; min-width: 0">
+            <div style="display: flex; gap: 4px">
+              <sc-for list="{{ stars }}" as="s"><svg aria-hidden="true" viewBox="0 0 24 24" width="24" height="24" class="star" style="{{ s }}"><path d="M12 2.8l2.8 5.8 6.3.8-4.6 4.4 1.2 6.3L12 17l-5.7 3.1 1.2-6.3L2.9 9.4l6.3-.8z" stroke="#1B2A1F" style="stroke-width: 1.6; stroke-linejoin: round"></path></svg></sc-for>
+            </div>
+            <p class="tx-d" style="margin: 8px 0 0; font-size: 19px; line-height: 1.15; color: #1B2A1F">{{ verdict }}</p>
+            <p class="tx-t" style="margin: 4px 0 0; font-size: 13px; font-weight: 700; color: #4C5B47">{{ verdictSub }}</p>
+          </div>
+        </div>
+        <div style="position: absolute; left: 16px; top: 466px; width: 358px; display: grid; gap: 8px">
+          <sc-for list="{{ rows }}" as="r">
+            <div class="rup" style="{{ r.box }}">
+              <span style="flex: none; width: 42px; height: 42px; border-radius: 14px; background: #EAF2A0; color: #1B2A1F; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" viewBox="0 0 24 24" width="22" height="22" class="tx-ic" style="stroke-width: 2.4"><path d="{{ r.icon }}"></path></svg></span>
+              <span style="flex: 1; min-width: 0">
+                <span style="display: flex; justify-content: space-between; align-items: baseline; gap: 8px">
+                  <span class="tx-t" style="font-size: 13px; font-weight: 800; color: #4C5B47">{{ r.l }} · siz: {{ r.g }}</span>
+                  <span class="tx-t" style="flex: none; font-size: 12px; font-weight: 900; color: {{ r.diffInk }}">{{ r.diff }}</span>
+                </span>
+                <span class="tx-d" style="display: block; margin-top: 2px; font-size: 21px; color: var(--aT)">{{ r.real }}</span>
+                <span style="display: block; margin-top: 6px; height: 6px; border-radius: 3px; background: #EAF2A0; overflow: hidden"><span class="acc" style="{{ r.bar }}"></span></span>
+              </span>
+            </div>
+          </sc-for>
+        </div>
+      </sc-if>
+      <sc-if value="{{ notPlayed }}">
+        <div class="rup card" style="position: absolute; left: 16px; top: 340px; width: 358px; padding: 22px; box-sizing: border-box; animation-delay: 2s">
+          <p class="tx-d" style="margin: 0; font-size: 22px; color: #1B2A1F">Javoblar</p>
+          <div style="margin-top: 12px; display: grid; gap: 10px">
+            <sc-for list="{{ facts }}" as="f"><p class="tx-t" style="margin: 0; display: flex; justify-content: space-between; gap: 10px; font-size: 16px; font-weight: 700; color: #4C5B47">{{ f.l }}<b class="tx-d" style="font-weight: 400; color: var(--aT)">{{ f.v }}</b></p></sc-for>
+          </div>
+        </div>
+      </sc-if>
+
+      <div class="rup" style="position: absolute; left: 24px; top: 724px; width: 342px; animation-delay: {{ openDelay }}">
+        <button type="button" class="tx-btn tx-big tx-d" onClick="{{ finish }}" style="width: 342px; height: 64px; border-radius: 22px; background: var(--a); color: #FFFFFF; font-size: 20px; display: flex; align-items: center; justify-content: center; gap: 12px">
+          E’lonni ochish
+          <svg aria-hidden="true" viewBox="0 0 24 24" width="22" height="22" class="tx-ic" style="stroke-width: 2.8"><path d="M12 5v14M6 13l6 6 6-6"></path></svg>
+        </button>
+      </div>
+    </div>
+
+    <sc-if value="{{ showSkip }}">
+      <button type="button" class="tx-btn tx-t" onClick="{{ skip }}" style="position: absolute; left: 95px; top: 772px; z-index: 6; width: 200px; height: 44px; border-radius: 22px; background: transparent; color: #1B2A1F; font-size: 15px; font-weight: 800; text-decoration: underline; text-underline-offset: 4px">O’yinsiz ko’rish</button>
+    </sc-if>
+  </div>
+
+  <!-- ===================== SAHIFA ===================== -->
+  <div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 390px; height: 100%; background-image: radial-gradient(rgba(27, 42, 31, 0.08) 1.6px, rgba(0, 0, 0, 0) 1.8px); background-size: 22px 22px; pointer-events: none"></div>
+
+  <header class="hv" style="position: relative; padding: 22px 20px 0; display: flex; align-items: center; justify-content: space-between; gap: 12px">
+    <span class="tx-t" style="height: 34px; padding: 0 14px; border-radius: 999px; background: #1B2A1F; color: #EAF2A0; font-size: 13px; font-weight: 900; letter-spacing: 0.12em; text-transform: uppercase; display: inline-flex; align-items: center; gap: 8px"><span aria-hidden="true" style="width: 8px; height: 8px; border-radius: 50%; background: var(--a); box-shadow: 0 0 0 2px #EAF2A0"></span>Javob ochildi</span>
+    <sc-if value="{{ has.music }}">
+      <button type="button" class="tx-btn" onClick="{{ toggleMusic }}" aria-label="{{ musicLabel }}" style="flex: none; width: 48px; height: 48px; border-radius: 16px; background: #FFFFFF; color: #1B2A1F; box-shadow: 0 4px 0 rgba(27, 42, 31, 0.2); display: flex; align-items: center; justify-content: center">
+        <sc-if value="{{ playing }}"><svg aria-hidden="true" viewBox="0 0 24 24" width="22" height="22" class="tx-icf"><rect x="6" y="5" width="4" height="14" rx="1.2"></rect><rect x="14" y="5" width="4" height="14" rx="1.2"></rect></svg></sc-if>
+        <sc-if value="{{ notPlaying }}"><svg aria-hidden="true" viewBox="0 0 24 24" width="22" height="22" class="tx-ic" style="stroke-width: 2.4"><path d="M9 18V6l10-2v12"></path><circle cx="6.5" cy="18" r="2.5"></circle><circle cx="16.5" cy="16" r="2.5"></circle></svg></sc-if>
+      </button>
+    </sc-if>
+  </header>
+
+  <section style="position: relative; padding: 26px 20px 0">
+    <p class="hv h2 tx-d" style="margin: 0; font-size: 22px; color: var(--aT)">{{ genderWord }}</p>
+    <h1 class="hv h2 tx-d" style="margin: 6px 0 0; font-size: {{ heroNameSize }}; line-height: 1.02; letter-spacing: -0.01em; color: #1B2A1F; overflow-wrap: anywhere">{{ d.chaqaloq }}</h1>
+    <p class="hv h3 tx-t" style="margin: 14px 0 0; font-size: 17px; line-height: 1.5; font-weight: 700; color: #4C5B47; overflow-wrap: anywhere">{{ heroLine }}</p>
+
+    <sc-if value="{{ has.photo }}">
+      <div class="hph" style="position: relative; margin: 26px auto 0; width: 330px; height: 390px; border-radius: 34px; background: #FFFFFF; padding: 10px; box-sizing: border-box; box-shadow: 0 8px 0 #1B2A1F">
+        <img src="{{ p.0 }}" alt="" style="display: block; width: 310px; height: 370px; border-radius: 26px; object-fit: cover; object-position: 50% 40%">
+        <div class="hpop" style="position: absolute; right: -12px; top: -22px; width: 104px; height: 104px">
+          <div class="am-spin" style="width: 104px; height: 104px; border-radius: 50%; background: #FF7A3D; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 0 4px #EAF2A0">
+            <span class="tx-d" style="display: block; transform: rotate(14deg); text-align: center; font-size: 15px; line-height: 1.15; color: #1B2A1F">{{ stickerTop }}<br>{{ stickerBot }}</span>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+
+    <div class="hv h4" style="margin-top: 22px; display: grid; grid-template-columns: {{ factCols }}; gap: 10px">
+      <sc-for list="{{ heroFacts }}" as="f">
+        <div class="card" style="padding: 14px 12px; border-radius: 22px; min-width: 0; text-align: center">
+          <span class="tx-d" style="display: block; font-size: 20px; line-height: 1.1; color: #1B2A1F; overflow-wrap: anywhere">{{ f.v }}</span>
+          <span class="tx-t" style="display: block; margin-top: 4px; font-size: 12px; font-weight: 800; letter-spacing: 0.06em; color: #4C5B47">{{ f.l }}</span>
+        </div>
+      </sc-for>
+    </div>
+
+    <div class="hv h5 card" style="margin-top: 14px; padding: 16px 16px 16px 18px; display: flex; align-items: center; gap: 14px; background: #1B2A1F; color: #EAF2A0">
+      <sc-if value="{{ played }}">
+        <span class="tx-d" style="flex: none; width: 58px; height: 58px; border-radius: 50%; background: #FF7A3D; color: #1B2A1F; display: flex; align-items: center; justify-content: center; font-size: 22px">{{ score }}</span>
+        <span style="flex: 1; min-width: 0">
+          <span class="tx-t" style="display: block; font-size: 12px; font-weight: 900; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(234, 242, 160, 0.75)">Sizning natijangiz</span>
+          <span class="tx-d" style="display: block; margin-top: 3px; font-size: 17px; line-height: 1.2; color: #FFFFFF">{{ verdict }}</span>
+        </span>
+      </sc-if>
+      <sc-if value="{{ notPlayed }}">
+        <span style="flex: none; width: 58px; height: 58px; border-radius: 50%; background: #FF7A3D; color: #1B2A1F; display: flex; align-items: center; justify-content: center"><span class="tx-d" style="font-size: 28px">?</span></span>
+        <span style="flex: 1; min-width: 0">
+          <span class="tx-t" style="display: block; font-size: 12px; font-weight: 900; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(234, 242, 160, 0.75)">Taxmin o’yini</span>
+          <span class="tx-d" style="display: block; margin-top: 3px; font-size: 17px; line-height: 1.2; color: #FFFFFF">Sezgingizni sinab ko’ring</span>
+        </span>
+      </sc-if>
+      <button type="button" class="tx-btn tx-t" onClick="{{ replay }}" style="flex: none; height: 44px; padding: 0 14px; border-radius: 14px; background: #EAF2A0; color: #1B2A1F; font-size: 14px; font-weight: 900">{{ replayLabel }}</button>
+    </div>
+  </section>
+
+  <sc-if value="{{ b.olchov }}">
+    <section data-rv="olchov" class="{{ rv.olchov }}" style="position: relative; padding: 46px 20px 0">
+      <span class="sec-k tx-t">To’g’ri javoblar</span>
+      <h2 class="sec-h tx-d">Tug’ilish kartochkasi</h2>
+      <div style="display: grid; gap: 12px">
+        <sc-for list="{{ answers }}" as="x">
+          <div class="card ri" style="{{ x.box }}">
+            <span style="flex: none; width: 56px; height: 56px; border-radius: 18px; background: var(--aS); color: var(--aT); display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" viewBox="0 0 24 24" width="28" height="28" class="tx-ic" style="stroke-width: 2.2"><path d="{{ x.icon }}"></path></svg></span>
+            <span style="flex: 1; min-width: 0">
+              <span class="tx-t" style="display: block; font-size: 13px; font-weight: 900; letter-spacing: 0.1em; text-transform: uppercase; color: #4C5B47">{{ x.l }}</span>
+              <span class="tx-d" style="display: block; margin-top: 4px; font-size: {{ x.size }}; line-height: 1; color: #1B2A1F">
+                <span class="rl"><sc-for list="{{ x.roll }}" as="c"><sc-if value="{{ c.d }}"><span class="rl-c"><span class="rl-s" style="{{ c.st }}"><sc-for list="{{ strip }}" as="n"><i>{{ n }}</i></sc-for></span></span></sc-if><sc-if value="{{ c.t }}"><span class="rl-t">{{ c.ch }}</span></sc-if></sc-for></span>
+              </span>
+            </span>
+            <sc-if value="{{ x.mine }}">
+              <span style="flex: none; max-width: 104px; padding: 8px 10px; border-radius: 14px; background: #FFE2D2; text-align: center">
+                <span class="tx-t" style="display: block; font-size: 11px; font-weight: 900; letter-spacing: 0.06em; color: #8A3A12">SIZNIKI</span>
+                <span class="tx-d" style="display: block; margin-top: 2px; font-size: 14px; color: #1B2A1F">{{ x.mine }}</span>
+              </span>
+            </sc-if>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+  </sc-if>
+
+  <sc-if value="{{ b.xabar }}">
+    <section data-rv="xabar" class="{{ rv.xabar }}" style="position: relative; padding: 46px 20px 0">
+      <div class="card ri" style="position: relative; padding: 54px 22px 24px; border-radius: 34px; --rr: -1deg; --rz: 3deg">
+        <span class="tx-d" aria-hidden="true" style="position: absolute; left: 20px; top: -22px; width: 64px; height: 64px; border-radius: 20px; background: #FF7A3D; color: #1B2A1F; font-size: 56px; line-height: 84px; text-align: center; box-shadow: 0 5px 0 #1B2A1F">“</span>
+        <p class="tx-t" style="margin: 0; font-size: 17px; line-height: 1.65; font-weight: 600; color: #1B2A1F; white-space: pre-line; overflow-wrap: anywhere">{{ d.matn }}</p>
+        <sc-if value="{{ d.ota_ona }}"><p class="tx-d" style="margin: 18px 0 0; font-size: 17px; color: var(--aT); overflow-wrap: anywhere">— {{ d.ota_ona }}</p></sc-if>
+      </div>
+    </section>
+  </sc-if>
+
+  <sc-if value="{{ b.oila }}">
+    <section data-rv="oila" class="{{ rv.oila }}" style="position: relative; padding: 46px 20px 0">
+      <span class="sec-k tx-t">Jamoa</span>
+      <h2 class="sec-h tx-d">Oila davrasi</h2>
+      <div style="display: grid; gap: 10px">
+        <sc-for list="{{ team }}" as="m">
+          <div class="card ri" style="{{ m.box }}">
+            <span class="tx-d" style="{{ m.num }}">{{ m.n }}</span>
+            <span style="flex: 1; min-width: 0">
+              <span class="tx-d" style="display: block; font-size: 18px; line-height: 1.25; color: #1B2A1F; overflow-wrap: anywhere">{{ m.names }}</span>
+              <span class="tx-t" style="display: block; margin-top: 3px; font-size: 13px; font-weight: 800; color: #4C5B47">{{ m.role }}</span>
+            </span>
+            <sc-if value="{{ m.star }}"><svg aria-hidden="true" viewBox="0 0 24 24" width="28" height="28" style="flex: none"><path d="M12 2.8l2.8 5.8 6.3.8-4.6 4.4 1.2 6.3L12 17l-5.7 3.1 1.2-6.3L2.9 9.4l6.3-.8z" fill="#FFD23F" stroke="#1B2A1F" style="stroke-width: 1.6; stroke-linejoin: round"></path></svg></sc-if>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+  </sc-if>
+
+  <sc-if value="{{ b.galereya }}">
+    <section data-rv="galereya" class="{{ rv.galereya }}" style="position: relative; padding: 46px 20px 0">
+      <h2 class="sec-h tx-d">Suratlar</h2>
+      <div style="display: grid; grid-template-columns: {{ gCols }}; gap: 14px">
+        <sc-for list="{{ gallery }}" as="g">
+          <div class="ri" style="{{ g.box }}">
+            <img src="{{ g.src }}" alt="" style="{{ g.img }}">
+            <span class="tx-d" style="position: absolute; left: 14px; bottom: 14px; height: 28px; padding: 0 10px; border-radius: 10px; background: #1B2A1F; color: #EAF2A0; font-size: 13px; display: inline-flex; align-items: center">{{ g.n }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+  </sc-if>
+
+  <sc-if value="{{ b.tilaklar }}">
+    <section data-rv="tilaklar" class="{{ rv.tilaklar }}" style="position: relative; padding: 46px 20px 0">
+      <span class="sec-k tx-t">Belgilang</span>
+      <h2 class="sec-h tx-d">Tilaklarimiz</h2>
+      <p class="tx-t" style="margin: -6px 4px 16px; font-size: 15px; font-weight: 700; color: #4C5B47">Qo’shiladigan tilagingizni bosing — muhr bosiladi.</p>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px">
+        <sc-for list="{{ wishTiles }}" as="t">
+          <button type="button" class="{{ t.cls }}" onClick="{{ t.tap }}" aria-pressed="{{ t.pressed }}" style="{{ t.st }}">
+            <span class="tx-d" style="position: relative; z-index: 1; display: block; font-size: 17px; line-height: 1.25; overflow-wrap: anywhere">{{ t.text }}</span>
+            <span class="stamp" aria-hidden="true" style="position: absolute; right: 8px; bottom: 8px; width: 46px; height: 46px; border-radius: 50%; border: 3px solid var(--a); color: var(--a); display: flex; align-items: center; justify-content: center; background: rgba(255, 255, 255, 0.85)">
+              <svg viewBox="0 0 24 24" width="24" height="24" class="tx-ic" style="stroke-width: 3"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>
+            </span>
+          </button>
+        </sc-for>
+      </div>
+    </section>
+  </sc-if>
+
+  <sc-if value="{{ b.mehmonlar }}">
+    <section data-rv="mehmonlar" class="{{ rv.mehmonlar }}" style="position: relative; padding: 46px 20px 0">
+      <h2 class="sec-h tx-d">Yaqinlar yozdi</h2>
+      <div style="display: grid; gap: 14px">
+        <sc-for list="{{ guests }}" as="g">
+          <div class="ri" style="{{ g.wrap }}">
+            <div class="card" style="padding: 16px 18px; border-radius: 24px">
+              <p class="tx-t" style="margin: 0; font-size: 16px; line-height: 1.55; font-weight: 600; color: #1B2A1F; overflow-wrap: anywhere">{{ g.matn }}</p>
+            </div>
+            <p style="margin: 10px 0 0 14px; display: flex; align-items: center; gap: 8px">
+              <span class="tx-d" style="{{ g.av }}">{{ g.ini }}</span>
+              <span class="tx-t" style="font-size: 14px; font-weight: 800; color: #1B2A1F; overflow-wrap: anywhere">{{ g.who }}<sc-if value="{{ g.rel }}"><span style="font-weight: 700; color: #4C5B47"> · {{ g.rel }}</span></sc-if></span>
+            </p>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+  </sc-if>
+
+  <sc-if value="{{ b.javob }}">
+    <section data-rv="javob" class="{{ rv.javob }}" style="position: relative; padding: 46px 20px 0">
+      <div class="card" style="position: relative; padding: 30px 22px 26px; border-radius: 34px; text-align: center; background: var(--a); color: #FFFFFF; box-shadow: 0 8px 0 #1B2A1F">
+        <h2 class="tx-d" style="margin: 0; font-size: 28px; line-height: 1.12; overflow-wrap: anywhere">{{ congratsTitle }}</h2>
+        <p class="tx-t" style="margin: 12px 0 22px; font-size: 16px; line-height: 1.5; font-weight: 700; color: rgba(255, 255, 255, 0.92)">{{ congratsSub }}</p>
+        <div class="{{ cbCls }}" style="position: relative">
+          <sc-for list="{{ burst2 }}" as="c"><span class="cf2" aria-hidden="true" style="{{ c }}"></span></sc-for>
+          <button type="button" class="tx-btn tx-big tx-d" onClick="{{ congratulate }}" disabled="{{ sent }}" style="position: relative; width: 100%; height: 62px; border-radius: 20px; background: {{ btnBg }}; color: #1B2A1F; font-size: 19px; display: flex; align-items: center; justify-content: center; gap: 10px">
+            <sc-if value="{{ sent }}"><svg aria-hidden="true" viewBox="0 0 24 24" width="22" height="22" class="tx-ic" style="stroke-width: 3"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></sc-if>
+            {{ btnLabel }}
+          </button>
+        </div>
+        <sc-if value="{{ sent }}"><p class="tx-t" style="margin: 14px 0 0; font-size: 15px; font-weight: 800; color: #FFFFFF">Tabrigingiz {{ parentsTo }} yetkazildi</p></sc-if>
+      </div>
+    </section>
+  </sc-if>
+
+  <footer style="position: relative; padding: 46px 20px 48px; text-align: center">
+    <sc-if value="{{ d.ota_ona }}"><p class="tx-d" style="margin: 0; font-size: 19px; color: #1B2A1F; overflow-wrap: anywhere">{{ famLine }}</p></sc-if>
+    <sc-if value="{{ w.dots }}"><p class="tx-t" style="margin: 6px 0 0; font-size: 13px; font-weight: 800; letter-spacing: 0.2em; color: #4C5B47">{{ w.dots }}</p></sc-if>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":3800}}'>
+const REDUCED = typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
+// avtomatik skrinshotlarda (navigator.webdriver) bo'limlar darhol ko'rinadi
+const CAN_IO = typeof IntersectionObserver === 'function' && !REDUCED && !(typeof navigator !== 'undefined' && navigator.webdriver);
+const STRIP = ['0','1','2','3','4','5','6','7','8','9','0','1','2','3','4','5','6','7','8','9','0'];
+const IC = {
+  jins: 'M12 21a8 8 0 1 0 0-16 8 8 0 0 0 0 16zM9 11h.01M15 11h.01M9.5 15q2.5 2 5 0M12 5c0-2 1.5-3 3-2',
+  kg: 'M12 3.5a7.5 7.5 0 1 1 0 15 7.5 7.5 0 0 1 0-15zM12 11l3.2-3.2M7 21h10M12 18.5V21',
+  sm: 'M3 8h18v8H3zM7 8v3M11 8v4M15 8v3M19 8v2',
+  t: 'M12 21a8 8 0 1 0 0-16 8 8 0 0 0 0 16zM12 9v4l2.5 2M9.5 2.5h5'
+};
+
+function roll(text, base) {
+  let k = 0;
+  return Array.from(String(text == null ? '' : text)).map(ch => {
+    if (/[0-9]/.test(ch)) {
+      const n = +ch, i = k++;
+      return { d: true, t: false, ch, st: 'transform: translateY(-' + (10 + n) + 'em); animation-delay: ' + (base + i * 0.12).toFixed(2) + 's; animation-duration: ' + (1.3 + i * 0.18).toFixed(2) + 's' };
+    }
+    return { d: false, t: true, ch: ch === ' ' ? ' ' : ch, st: '' };
+  });
+}
+const num = (s) => { const m = String(s || '').match(/(\d+(?:[.,]\d+)?)/); return m ? parseFloat(m[1].replace(',', '.')) : 0; };
+const realKg = (s) => { const v = num(s); const k = v > 100 ? v / 1000 : v; return k >= 1 && k <= 7 ? k : 0; };
+const realSm = (s) => { const v = num(s); return v >= 30 && v <= 70 ? v : 0; };
+const realT = (s) => /^(\d{1,2}):(\d{2})/.test(s || '') ? (+s.split(':')[0]) * 60 + (+s.split(':')[1].slice(0, 2)) : -1;
+const comma = (v, f) => v.toFixed(f).replace('.', ',');
+const fKg = (v) => comma(v, 2);
+const fSm = (v) => Math.abs(v - Math.round(v)) < 0.01 ? String(Math.round(v)) : comma(v, 1);
+const fT = (m) => SITE.pad(Math.floor(m / 60) % 24) + ':' + SITE.pad(m % 60);
+const partOf = (m) => { const h = Math.floor(m / 60); return h < 4 ? 'tun' : h < 7 ? 'tong' : h < 12 ? 'ertalab' : h < 17 ? 'kunduz' : h < 21 ? 'kechqurun' : 'tun'; };
+const partL = { tun: 'tunda', tong: 'tong saharda', ertalab: 'ertalab', kunduz: 'kunduzi', kechqurun: 'kechqurun' };
+
+class Component extends DCLogic {
+  constructor(...args) {
+    super(...args);
+    this.state = { phase: 'cover', qi: 0, g: { jins: '', kg: 3.3, sm: 50, t: 720 }, played: false, rv: {}, on: false, gone: false, sent: false, cb: false, stamped: {} };
+    this.timers = [];
+  }
+  componentDidMount() {
+    this.tick = setInterval(() => { if (this.state.phase === 'gone') this.forceUpdate(); }, 60000);
+    if (CAN_IO) {
+      this.io = new IntersectionObserver((es) => {
+        const add = {};
+        es.forEach((e) => { if (e.isIntersecting) { add[e.target.getAttribute('data-rv')] = true; this.io.unobserve(e.target); } });
+        if (Object.keys(add).length) this.setState((s) => ({ rv: Object.assign({}, s.rv, add) }));
+      }, { rootMargin: '0px 0px -10% 0px' });
+      document.querySelectorAll('[data-rv]').forEach((el) => this.io.observe(el));
+    }
+  }
+  componentWillUnmount() {
+    clearInterval(this.tick);
+    if (this.io) this.io.disconnect();
+    this.timers.forEach(t => clearTimeout(t));
+  }
+  T(fn, ms) { this.timers.push(setTimeout(fn, ms)); }
+  questions() {
+    const d = SITE.d, b = SITE.b, out = ['jins'];
+    if (b.olchov && realKg(d.vazn)) out.push('kg');
+    if (b.olchov && realSm(d.boy)) out.push('sm');
+    if (realT(d.vaqt) >= 0) out.push('t');
+    return out;
+  }
+  finish() {
+    if (this.state.phase === 'out') return;
+    this.setState({ phase: 'out' });
+    SITE.opened();
+    this.T(() => this.setState({ on: true }), 350);
+    this.T(() => this.setState({ gone: true }), REDUCED ? 200 : 1200);
+  }
+  setG(k, v) { this.setState((s) => ({ g: Object.assign({}, s.g, { [k]: v }) })); }
+  renderVals() {
+    const s = this.state, g = s.g;
+    const d = SITE.d, b = SITE.b, P = SITE.p, n = SITE.has.photos;
+    const qiz = d.jins === 'qiz';
+    const name = String(d.chaqaloq || '').trim();
+    const w = SITE.when(d.sana, d.vaqt);
+    const fit = (t, max, wd, k) => { const L = Math.max(1, Array.from(String(t || '')).length); return Math.min(max, Math.floor(wd / (L * k))) + 'px'; };
+    const ini = x => (String(x || '').replace(/^[^A-Za-zА-Яа-яЁёЎўҚқҒғҲҳ]+/, '').charAt(0) || '').toUpperCase();
+    const par = String(d.ota_ona || '').split(/\s+(?:va|ва|&|and)\s+|\s*[,&+]\s*/i).map(x => x.trim()).filter(Boolean);
+
+    const rk = realKg(d.vazn), rs = realSm(d.boy), rt = realT(d.vaqt);
+    const list = this.questions(), N = list.length;
+    const phase = s.phase;
+    const inQ = phase === 'q';
+    const qi = Math.min(s.qi, N - 1);
+
+    // o'yin oralig'i (haqiqiy qiymat chetda qolmasin)
+    const R = {
+      kg: { min: Math.min(2, Math.floor((rk - 0.4) * 10) / 10 || 2), max: Math.max(5, Math.ceil((rk + 0.4) * 10) / 10), step: 0.05 },
+      sm: { min: Math.min(42, Math.floor(rs - 3) || 42), max: Math.max(60, Math.ceil(rs + 3)), step: 0.5 },
+      t: { min: 0, max: 1435, step: 5 }
+    };
+    const pct = (k, v) => ((v - R[k].min) / (R[k].max - R[k].min) * 100).toFixed(1) + '%';
+    const clamp = (k, v) => Math.max(R[k].min, Math.min(R[k].max, Math.round(v / R[k].step) * R[k].step));
+
+    const conf = (k) => ({ kg: 'Vazni', sm: 'Bo’yi', t: 'Vaqti', jins: 'O’g’ilmi, qizmi?' })[k];
+    const qs = list.map((k, i) => {
+      const cls = 'scr' + (inQ && i === qi ? ' on' : (phase !== 'cover' && i < (inQ ? qi : N)) ? ' past' : '');
+      const last = i === N - 1;
+      const next = () => {
+        if (k === 'jins' && !this.state.g.jins) return;
+        if (last) {
+          this.setState({ phase: 'reveal', played: true });
+          return;
+        }
+        this.setState({ qi: i + 1 });
+      };
+      const q = {
+        k, cls, last, notLast: !last,
+        kicker: 'Savol ' + (i + 1) + ' / ' + N,
+        isJins: k === 'jins', isKg: k === 'kg', isSm: k === 'sm', isT: k === 't', isRange: k !== 'jins',
+        btn: last ? 'Javobni ko’rish' : 'Keyingisi',
+        lock: k === 'jins' && !g.jins,
+        btnSt: 'width: 342px; height: 64px; border-radius: 22px; background: ' + (last ? '#FF7A3D' : '#1B2A1F') + '; color: ' + (last ? '#1B2A1F' : '#EAF2A0') + '; font-size: 20px; display: flex; align-items: center; justify-content: center; gap: 12px',
+        next
+      };
+      if (k === 'jins') {
+        q.title = 'O’g’ilmi yoki qiz?';
+        q.hint = g.jins ? 'Zo’r! Endi keyingi savol' : 'Birini tanlang';
+        q.opts = [['ogil', 'O’g’il', 'polvon', '#D6E1FF', -2, 'M34 44q2-18 26-20q24 2 26 20M60 24q4-8 12-6'], ['qiz', 'Qiz', 'malika', '#FFD9E6', 2, 'M34 46q2-20 26-22q24 2 26 22M46 26q-8-8-14 0q6 6 14 0zM74 26q8-8 14 0q-6 6-14 0z']].map(o => ({
+          l: o[1], s: o[2], art: o[5], pressed: g.jins === o[0] ? 'true' : 'false',
+          cls: 'gt tx-btn' + (g.jins === o[0] ? ' sel' : g.jins ? ' dim' : ''),
+          st: '--gr: ' + o[4] + 'deg; position: relative; flex: 1; min-width: 0; height: 330px; border-radius: 30px; background: ' + o[3] + '; padding: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 6px 0 rgba(27, 42, 31, 0.22)',
+          pick: () => this.setG('jins', o[0])
+        }));
+      } else {
+        const v = g[k];
+        q.min = R[k].min; q.max = R[k].max; q.step = R[k].step; q.val = String(v); q.p = pct(k, v);
+        q.set = (e) => this.setG(k, clamp(k, parseFloat(e.target.value)));
+        q.dec = () => this.setG(k, clamp(k, this.state.g[k] - R[k].step * (k === 't' ? 3 : 1)));
+        q.inc = () => this.setG(k, clamp(k, this.state.g[k] + R[k].step * (k === 't' ? 3 : 1)));
+        if (k === 'kg') {
+          q.title = 'Vazni qancha ekan?'; q.read = fKg(v);
+          q.ndl = 'transform: rotate(' + (-90 + (v - R.kg.min) / (R.kg.max - R.kg.min) * 180).toFixed(1) + 'deg)';
+          q.minL = comma(R.kg.min, 1) + ' kg'; q.maxL = comma(R.kg.max, 1) + ' kg';
+        } else if (k === 'sm') {
+          q.title = 'Bo’yi necha santimetr?'; q.read = fSm(v);
+          q.tape = 'transform: translateX(' + (171 - (v - 40) * 30 - 20).toFixed(1) + 'px)';
+          q.minL = R.sm.min + ' sm'; q.maxL = R.sm.max + ' sm';
+        } else {
+          q.title = 'Soat nechada tug’ilgan?'; q.read = fT(v);
+          const pt = partOf(v);
+          q.partL = partL[pt];
+          q.orb = 'transform: rotate(' + (180 + v / 1440 * 360).toFixed(1) + 'deg)';
+          q.sunUp = v >= 360 && v < 1140; q.moonUp = !q.sunUp;
+          q.day = pt === 'ertalab' || pt === 'kunduz' ? '1' : '0';
+          q.dusk = pt === 'tong' || pt === 'kechqurun' ? '1' : '0';
+          q.minL = '00:00'; q.maxL = '23:55';
+        }
+      }
+      return q;
+    });
+
+    // tarozi va lenta belgilari
+    const kgTicks = [], kgLabels = [];
+    const kSpan = R.kg.max - R.kg.min;
+    for (let i = 0; i <= Math.round(kSpan * 10); i++) {
+      const v = R.kg.min + i / 10, a = -90 + (i / 10) / kSpan * 180, major = Math.abs(v - Math.round(v)) < 0.001;
+      kgTicks.push({ y1: major ? 30 : 36, r: 'rotate(' + a.toFixed(2) + ' 150 150)', st: 'stroke-width: ' + (major ? 4 : 2) + '; stroke-linecap: round; opacity: ' + (major ? 1 : 0.45) });
+      if (major) { const rad = (a - 90) * Math.PI / 180; kgLabels.push({ x: (150 + Math.cos(rad) * 82).toFixed(1), y: (155 + Math.sin(rad) * 82).toFixed(1), l: String(Math.round(v)) }); }
+    }
+    const smTicks = [], smLabels = [];
+    for (let i = 0; i <= 48; i++) {
+      const x = 20 + i * 15, v = 40 + i / 2, major = i % 4 === 0;
+      smTicks.push({ x, h: major ? 52 : i % 2 === 0 ? 36 : 24, st: 'stroke-width: ' + (major ? 3 : 2) });
+      if (major) smLabels.push({ x, l: String(v) });
+    }
+
+    // natija
+    const acc = {}, rows = [];
+    if (list.indexOf('jins') >= 0) acc.jins = g.jins === (qiz ? 'qiz' : 'ogil') ? 1 : 0;
+    if (list.indexOf('kg') >= 0) {
+      const df = Math.abs(g.kg - rk); acc.kg = Math.max(0, 1 - df / 1.2);
+      rows.push({ k: 'kg', l: 'Vazni', g: fKg(g.kg) + ' kg', real: d.vazn, diff: df < 0.03 ? 'Aynan!' : SITE.num(Math.round(df * 1000)) + ' g farq', a: acc.kg });
+    }
+    if (list.indexOf('sm') >= 0) {
+      const df = Math.abs(g.sm - rs); acc.sm = Math.max(0, 1 - df / 8);
+      rows.push({ k: 'sm', l: 'Bo’yi', g: fSm(g.sm) + ' sm', real: d.boy, diff: df < 0.3 ? 'Aynan!' : fSm(df) + ' sm farq', a: acc.sm });
+    }
+    if (list.indexOf('t') >= 0) {
+      let df = Math.abs(g.t - rt); df = Math.min(df, 1440 - df); acc.t = Math.max(0, 1 - df / 360);
+      const hh = Math.floor(df / 60), mm = df % 60;
+      rows.push({ k: 't', l: 'Vaqti', g: fT(g.t), real: d.vaqt, diff: df < 5 ? 'Aynan!' : (hh ? hh + ' soat ' : '') + (mm ? mm + ' daq.' : '') + ' farq', a: acc.t });
+    }
+    const keys = Object.keys(acc);
+    const score = keys.length ? Math.round(keys.reduce((x, k) => x + acc[k], 0) / keys.length * 100) : 0;
+    const verdict = score >= 95 ? 'Sehrgar! Deyarli aniq topdingiz' : score >= 80 ? 'Ajoyib sezgi!' : score >= 60 ? 'Juda yaxshi taxmin!' : score >= 40 ? 'Yomon emas!' : 'Chaqaloq sizni hayron qoldirdi';
+    const nStars = score >= 90 ? 3 : score >= 65 ? 2 : score >= 35 ? 1 : 0;
+    const genderOk = acc.jins === 1;
+    const rowsOut = rows.map((r, i) => ({
+      l: r.l, g: r.g, real: r.real, diff: r.diff, icon: IC[r.k],
+      diffInk: r.diff === 'Aynan!' ? '#1E7A3C' : '#8A3A12',
+      bar: 'display: block; width: ' + Math.max(4, Math.round(r.a * 100)) + '%; height: 6px; border-radius: 3px; background: var(--a); animation-delay: ' + (2.75 + i * 0.22).toFixed(2) + 's',
+      box: 'display: flex; align-items: center; gap: 12px; padding: 10px 14px; border-radius: 22px; background: #FFFFFF; box-shadow: 0 2px 0 rgba(27, 42, 31, 0.08); animation-delay: ' + (2.5 + i * 0.22).toFixed(2) + 's'
+    }));
+
+    const confetti = [];
+    const cc = ['#1B2A1F', '#FF7A3D', '#FFFFFF', '#FFD23F'];
+    const spots = [[18, 250, 14, 0], [350, 260, 10, 1], [40, 640, 12, 1], [330, 610, 16, 0], [14, 470, 9, 0], [362, 450, 12, 1], [200, 820, 10, 0], [90, 80, 10, 1], [300, 40, 9, 0], [250, 300, 8, 1]];
+    spots.forEach((p, i) => {
+      confetti.push('--r0: ' + (i * 23) + 'deg; --r1: ' + (i * 23 + 50) + 'deg; --fx: ' + (i % 2 ? 12 : -10) + 'px; --fy: ' + (i % 3 ? -18 : 14) + 'px; position: absolute; left: ' + p[0] + 'px; top: ' + p[1] + 'px; width: ' + p[2] + 'px; height: ' + (p[3] ? p[2] : Math.round(p[2] * 0.45)) + 'px; border-radius: ' + (p[3] ? '50%' : '3px') + '; background: ' + cc[i % 4] + '; animation-delay: -' + (i * 0.9).toFixed(1) + 's');
+    });
+    const burst = [];
+    for (let i = 0; i < 22; i++) {
+      const a = (i / 22) * Math.PI * 2, r = 120 + (i % 4) * 30;
+      burst.push('left: 175px; top: 110px; width: ' + (8 + (i % 3) * 3) + 'px; height: ' + (i % 2 ? 8 : 14) + 'px; border-radius: ' + (i % 2 ? '50%' : '2px') + '; background: ' + ['#FFFFFF', '#FFD23F', '#EAF2A0', '#FF7A3D'][i % 4] + '; --cx: ' + Math.round(Math.cos(a) * r) + 'px; --cy: ' + Math.round(Math.sin(a) * r * 0.7) + 'px; --cr: ' + (i * 47) + 'deg; animation-delay: ' + (1.4 + (i % 5) * 0.03).toFixed(2) + 's');
+    }
+    const burst2 = [];
+    for (let i = 0; i < 16; i++) {
+      const a = (i / 16) * Math.PI * 2, r = 90 + (i % 3) * 30;
+      burst2.push('position: absolute; left: 50%; top: 30px; width: ' + (8 + (i % 3) * 3) + 'px; height: ' + (i % 2 ? 8 : 13) + 'px; border-radius: ' + (i % 2 ? '50%' : '2px') + '; background: ' + ['#FFFFFF', '#FFD23F', '#EAF2A0', '#FF7A3D'][i % 4] + '; --cx: ' + Math.round(Math.cos(a) * r) + 'px; --cy: ' + Math.round(Math.sin(a) * r * 0.8) + 'px; --cr: ' + (i * 53) + 'deg; animation-delay: ' + ((i % 4) * 0.03).toFixed(2) + 's');
+    }
+
+    const chars = Array.from(name);
+    const nameChars = chars.map((ch, i) => ({ ch: ch === ' ' ? ' ' : ch, st: 'animation-delay: ' + (1.8 + i * 0.06).toFixed(2) + 's' }));
+
+    const chips = list.map(k => ({ l: ({ jins: 'Jinsi', kg: 'Vazni', sm: 'Bo’yi', t: 'Vaqti' })[k], icon: IC[k] }));
+
+    // sahifa
+    const hr = rt >= 0 ? partOf(rt) : '';
+    const heroFacts = [];
+    if (w.dm) heroFacts.push({ v: w.dm, l: w.Weekday || 'Kuni' });
+    if (d.vaqt) heroFacts.push({ v: d.vaqt, l: partL[hr] ? partL[hr].toUpperCase().slice(0, 1) + partL[hr].slice(1) : 'Vaqti' });
+    const mineOf = { kg: fKg(g.kg) + ' kg', sm: fSm(g.sm) + ' sm', t: fT(g.t) };
+    const answers = [];
+    if (d.vazn) answers.push({ k: 'kg', l: 'Vazni', v: d.vazn });
+    if (d.boy) answers.push({ k: 'sm', l: 'Bo’yi', v: d.boy });
+    if (d.vaqt) answers.push({ k: 't', l: 'Tug’ilgan vaqti', v: d.vaqt });
+    const answersOut = answers.map((x, i) => ({
+      l: x.l, icon: IC[x.k], roll: roll(x.v, 0.3 + i * 0.15), size: fit(x.v, 38, s.played && list.indexOf(x.k) >= 0 ? 150 : 230, 0.66),
+      mine: s.played && list.indexOf(x.k) >= 0 ? mineOf[x.k] : '',
+      box: 'display: flex; align-items: center; gap: 14px; padding: 16px; border-radius: 26px; --rr: ' + [-1, 1, -0.5][i % 3] + 'deg; --rz: ' + [-4, 4, -3][i % 3] + 'deg; animation-delay: ' + (0.1 + i * 0.12).toFixed(2) + 's'
+    }));
+
+    const fl = (d.bobo_buvi || []).filter(Boolean);
+    const teamRaw = [{ names: name || 'Chaqaloq', role: qiz ? 'Yangi a’zo · malikamiz' : 'Yangi a’zo · polvonimiz', star: true }];
+    if (d.ota_ona) teamRaw.push({ names: d.ota_ona, role: par.length > 1 ? 'Dadasi va oyisi' : 'Ota-onasi' });
+    fl.forEach((line, i) => teamRaw.push({ names: line, role: fl.length === 1 ? 'Bobo va buvisi' : i === 0 ? 'Dadasi tomondan' : i === 1 ? 'Oyisi tomondan' : 'Yaqinlari' }));
+    const team = teamRaw.map((m, i) => ({
+      names: m.names, role: m.role, star: !!m.star, n: String(i + 1),
+      num: 'flex: none; width: 48px; height: 48px; border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 22px; ' + (i === 0 ? 'background: var(--a); color: #FFFFFF' : 'background: #EAF2A0; color: #1B2A1F'),
+      box: 'display: flex; align-items: center; gap: 14px; padding: 14px 16px; border-radius: 24px; ' + (i === 0 ? 'box-shadow: 0 0 0 3px var(--a), 0 22px 40px -30px rgba(27, 42, 31, 0.55); ' : '') + 'animation-delay: ' + (0.08 + i * 0.1).toFixed(2) + 's'
+    }));
+
+    const gsrc = P.slice(0, Math.max(1, Math.min(5, n)));
+    const cnt = gsrc.length;
+    const gallery = gsrc.map((src, i) => {
+      const wide = cnt === 1 || (cnt % 2 === 1 && i === 0);
+      const h = wide ? 250 : 200;
+      const rot = [-2, 2, 1.5, -1.5, 2][i % 5];
+      return {
+        src, n: '#' + (i + 1),
+        img: 'display: block; width: 100%; height: ' + h + 'px; border-radius: 18px; object-fit: cover',
+        box: (wide ? 'grid-column: 1 / -1; ' : '') + 'position: relative; padding: 8px; border-radius: 26px; background: #FFFFFF; box-shadow: 0 6px 0 rgba(27, 42, 31, 0.85); --rr: ' + rot + 'deg; --rz: ' + (rot * 3) + 'deg; animation-delay: ' + (0.08 * i).toFixed(2) + 's'
+      };
+    });
+
+    const tl = (d.tilaklar || []).filter(Boolean);
+    const tileBg = ['#FFFFFF', 'var(--aS)', '#FFE2D2', '#FFFFFF'];
+    const wishTiles = tl.map((text, i) => {
+      const on = !!s.stamped[i];
+      return {
+        text, pressed: on ? 'true' : 'false',
+        cls: 'tile tx-btn ri' + (on ? ' on' : ''),
+        st: 'position: relative; min-height: 112px; padding: 16px 16px 46px; border-radius: 24px; text-align: left; color: #1B2A1F; background: ' + tileBg[i % 4] + '; box-shadow: 0 5px 0 rgba(27, 42, 31, 0.22); overflow: hidden; animation-delay: ' + (0.06 + i * 0.08).toFixed(2) + 's' + (tl.length % 2 === 1 && i === tl.length - 1 ? '; grid-column: 1 / -1; min-height: 90px' : ''),
+        tap: () => this.setState((st) => ({ stamped: Object.assign({}, st.stamped, { [i]: !st.stamped[i] }) }))
+      };
+    });
+
+    const avBg = ['var(--a)', '#FF7A3D', '#1B2A1F'];
+    const gl = (d.mehmon_tilaklari || []).filter(x => x && (x.matn || x.ism));
+    const guests = gl.map((x, i) => {
+      const bits = String(x.ism || '').split(/\s*[·•|]\s*/);
+      const who = bits[0] || 'Mehmon';
+      return {
+        who, rel: bits.slice(1).join(' · '), matn: x.matn || '', ini: ini(who) || '+',
+        av: 'flex: none; width: 32px; height: 32px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 14px; color: ' + (i % 3 === 1 ? '#1B2A1F' : '#FFFFFF') + '; background: ' + avBg[i % 3],
+        wrap: '--rr: ' + [-1, 1][i % 2] + 'deg; --rz: ' + [-3, 3][i % 2] + 'deg; margin-' + (i % 2 ? 'left' : 'right') + ': 22px; animation-delay: ' + (0.08 + i * 0.1).toFixed(2) + 's'
+      };
+    });
+
+    const rvc = (k) => (!CAN_IO || s.rv[k]) ? 'rv in' : 'rv';
+    const pgDone = phase === 'cover' ? 0 : phase === 'q' ? qi : N;
+    const facts = [];
+    if (d.vazn) facts.push({ l: 'Vazni', v: d.vazn });
+    if (d.boy) facts.push({ l: 'Bo’yi', v: d.boy });
+    if (d.vaqt) facts.push({ l: 'Tug’ilgan vaqti', v: d.vaqt });
+    if (w.date) facts.push({ l: 'Sanasi', v: w.date });
+
+    return {
+      rootCls: (qiz ? 'is-qiz' : 'is-ogil') + (s.on ? ' is-on' : ''),
+      introDisp: s.gone ? 'none' : 'block',
+      introCls: phase === 'out' ? 'is-out' : '',
+      scr: { cover: 'scr' + (phase === 'cover' ? ' on' : ' past'), reveal: 'scr' + (phase === 'reveal' || phase === 'out' ? ' on' : '') },
+      pgSt: 'transform: scaleX(' + (N ? pgDone / N : 0).toFixed(3) + ')',
+      pgLabel: phase === 'q' ? (qi + 1) + '/' + N : phase === 'cover' ? N + ' savol' : '',
+      showSkip: phase === 'cover' || phase === 'q',
+      w, qs, kgTicks, kgLabels, smTicks, smLabels, confetti, burst, burst2, chips,
+      hostLine: d.ota_ona ? d.ota_ona + ' xonadoni' : 'Bizning xonadon',
+      start: () => {
+        if (SITE.has.music && !SITE.music.playing) SITE.music.play();
+        this.setState({ phase: 'q', qi: 0 });
+      },
+      skip: () => this.finish(),
+      finish: () => this.finish(),
+      replay: () => {
+        this.timers.forEach(t => clearTimeout(t)); this.timers = [];
+        window.scrollTo(0, 0);
+        this.setState({ phase: 'cover', qi: 0, gone: false, g: { jins: '', kg: 3.3, sm: 50, t: 720 } });
+      },
+      genderWord: qiz ? 'Qiz!' : 'O’g’il!',
+      revealNameSize: fit(name, 54, 320, 0.72),
+      nameChars,
+      played: !!s.played, notPlayed: !s.played,
+      score, scoreOff: String(100 - score), rollScore: roll(score, 2.4), strip: STRIP,
+      stars: [0, 1, 2].map(i => 'fill: ' + (i < nStars ? '#FFD23F' : '#EAF2A0') + '; animation-delay: ' + (3 + i * 0.15).toFixed(2) + 's'),
+      verdict, verdictSub: (genderOk ? 'Jinsini to’g’ri topdingiz' : 'Jinsini topa olmadingiz') + (rows.length ? ' · ' + rows.length + ' ta raqam' : ''),
+      rows: rowsOut, facts,
+      openDelay: s.played ? (2.7 + rows.length * 0.22).toFixed(2) + 's' : '2.2s',
+      heroNameSize: fit(name, 60, 350, 0.74),
+      heroLine: (d.ota_ona ? d.ota_ona + ' xonadonida ' : '') + (w.date ? w.date + ' kuni ' : '') + (qiz ? 'qizaloq' : 'o’g’il bola') + ' dunyoga keldi',
+      stickerTop: qiz ? 'Bu' : 'Bu', stickerBot: qiz ? 'qizaloq!' : 'o’g’il!',
+      heroFacts, factCols: heroFacts.length > 1 ? '1fr 1fr' : '1fr',
+      replayLabel: s.played ? 'Qayta o’ynash' : 'O’ynash',
+      answers: answersOut,
+      team, gallery, gCols: '1fr 1fr', wishTiles, guests,
+      rv: { olchov: rvc('olchov'), xabar: rvc('xabar'), oila: rvc('oila'), galereya: rvc('galereya'), tilaklar: rvc('tilaklar'), mehmonlar: rvc('mehmonlar'), javob: rvc('javob') },
+      congratsTitle: name ? name + 'ni tabriklang' : 'Tabriklang',
+      congratsSub: s.played ? 'Tabrigingiz bilan birga ' + score + ' ballik natijangiz ham yetib boradi.' : 'Bir og’iz iliq so’zingiz ' + (d.ota_ona ? SITE.ga(d.ota_ona) : 'ota-onasiga') + ' eng shirin sovg’a.',
+      parentsTo: d.ota_ona ? SITE.ga(d.ota_ona) : 'ota-onasiga',
+      famLine: d.ota_ona ? d.ota_ona + ' oilasi' : '',
+      sent: !!s.sent, cbCls: 'cb' + (s.cb ? ' go' : ''),
+      btnBg: s.sent ? '#EAF2A0' : '#FFFFFF',
+      btnLabel: s.sent ? 'Tabriklandi' : 'Tabriklash',
+      congratulate: () => {
+        if (this.state.sent) return;
+        this.setState({ sent: true, cb: true });
+        const extra = this.state.played ? ' (Taxmin o’yinida ' + score + ' ball to’pladim)' : '';
+        SITE.reply((name ? name + ' tug’ilgani bilan' : 'Farzandingiz tug’ilgani bilan') + ' tabriklayman! Muborak bo’lsin!' + extra, '🥰');
+      },
+      playing: SITE.music.playing, notPlaying: !SITE.music.playing,
+      musicLabel: SITE.music.playing ? 'Musiqani to’xtatish' : 'Musiqani yoqish',
+      toggleMusic: () => { SITE.music.toggle(); this.forceUpdate(); }
+    };
+  }
+}
+</script>
+</body>
+</html>

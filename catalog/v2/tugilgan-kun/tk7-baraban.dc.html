@@ -1,0 +1,844 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<title>Tug’ilgan kun: Omad g’ildiragi</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Days+One&amp;family=Cuprum:ital,wght@0,400;0,500;0,700;1,500&amp;display=swap">
+<style>
+body{margin:0}
+.is-hidden{display:none !important}
+.bb-d1{font-family:'Days One','Arial Black',sans-serif;font-weight:400}
+.bb-ico{fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.gg-a{stop-color:#FFE48A}.gg-b{stop-color:#F2B21C}.gg-c{stop-color:#C98300}
+.bb-segT{font-family:'Cuprum','Arial Narrow',sans-serif;font-weight:700;letter-spacing:.01em}
+.bb-rimS{fill:none;stroke:#5A0614;stroke-width:22}
+.bb-gold1{fill:none;stroke:#FFCE3A;stroke-width:3}
+.bb-gold2{fill:none;stroke:#E0A100;stroke-width:2}
+.bb-segL{fill:none;stroke:rgba(42,10,18,0.35);stroke-width:1.6}
+.bb-btn{-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+
+/* bulbs */
+.bb-bulb{fill:#FFF1B8;animation:bb-chase 1.4s linear infinite;animation-delay:var(--d,0s)}
+@keyframes bb-chase{0%,100%{opacity:1}50%{opacity:.25}}
+.bb-fast .bb-bulb{animation-duration:.35s}
+.bb-dot{position:absolute;width:10px;height:10px;border-radius:50%;background:#FFF1B8;box-shadow:0 0 8px 2px rgba(255,214,92,0.7);animation:bb-chase 1.4s linear infinite;animation-delay:var(--d,0s)}
+
+/* intro */
+.bb-intro{transition:transform .9s cubic-bezier(.7,0,.25,1),opacity .5s ease .4s,visibility 0s linear 0s}
+.bb-intro--gone{transform:translateY(-104%);opacity:0;visibility:hidden;pointer-events:none;transition:transform .95s cubic-bezier(.7,0,.25,1) .15s,opacity .5s ease .6s,visibility 0s linear 1.2s}
+.bb-rays{position:absolute;left:-310px;top:-90px;width:1010px;height:1010px;border-radius:50%;background:repeating-conic-gradient(from 0deg,rgba(255,206,58,0.10) 0deg 7.5deg,rgba(255,206,58,0) 7.5deg 15deg);animation:bb-rot 80s linear infinite}
+@keyframes bb-rot{to{transform:rotate(360deg)}}
+.bb-signIn{animation:bb-drop .9s cubic-bezier(.2,1.3,.4,1) .15s both}
+@keyframes bb-drop{from{opacity:0;transform:translateY(-70px) rotate(-4deg)}to{opacity:1;transform:none}}
+.bb-ch{display:inline-block;animation:bb-lit 1.2s steps(1,end) both;animation-delay:calc(.6s + var(--i) * 70ms)}
+@keyframes bb-lit{0%{opacity:.18;text-shadow:none}20%{opacity:1}30%{opacity:.3}45%,100%{opacity:1}}
+.bb-wheelIn{animation:bb-wIn 1.3s cubic-bezier(.2,1.15,.35,1) .35s both}
+@keyframes bb-wIn{from{opacity:0;transform:scale(.55) rotate(-160deg)}to{opacity:1;transform:none}}
+.bb-up{animation:bb-up .8s cubic-bezier(.2,1,.3,1) both;animation-delay:var(--d,0s)}
+@keyframes bb-up{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+.bb-ptrIn{animation:bb-ptrIn .7s cubic-bezier(.2,1.6,.4,1) 1.2s both}
+@keyframes bb-ptrIn{from{opacity:0;transform:translateY(-40px)}to{opacity:1;transform:none}}
+.bb-blur{position:absolute;left:22px;top:22px;width:296px;height:296px;border-radius:50%;opacity:0;pointer-events:none;filter:blur(5px)}
+.bb-spin{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:10px;min-width:236px;height:64px;padding:0 30px;box-sizing:border-box;border:0;border-radius:32px;background:linear-gradient(180deg,#FFE27A,#FFCE3A 45%,#F2A900);color:#4A0410;font-family:'Days One','Arial Black',sans-serif;font-size:20px;cursor:pointer;box-shadow:0 7px 0 #A86E00,0 14px 26px rgba(40,0,8,0.5);transition:transform .12s ease,box-shadow .12s ease}
+.bb-spin:active{transform:translateY(5px);box-shadow:0 2px 0 #A86E00,0 6px 14px rgba(40,0,8,0.5)}
+.bb-spin[disabled]{cursor:default;filter:saturate(.6) brightness(.92)}
+.bb-spin::after{content:"";position:absolute;left:0;top:0;right:0;bottom:0;border-radius:32px;background:linear-gradient(100deg,rgba(255,255,255,0) 30%,rgba(255,255,255,0.55) 45%,rgba(255,255,255,0) 60%);background-size:260% 100%;animation:bb-shine 3s ease-in-out 2s infinite;pointer-events:none}
+@keyframes bb-shine{0%{background-position:120% 0}45%,100%{background-position:-60% 0}}
+.bb-pulse{animation:bb-pulse 1.8s ease-in-out 2.2s infinite}
+@keyframes bb-pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.045)}}
+.bb-skip{border:0;background:none;color:rgba(255,244,222,0.8);font-family:'Cuprum','Arial Narrow',sans-serif;font-size:17px;font-weight:700;min-height:44px;padding:0 18px;cursor:pointer;text-decoration:underline;text-underline-offset:5px;text-decoration-color:rgba(255,244,222,0.35)}
+.bb-hl{fill:#FFFFFF;opacity:0;pointer-events:none}
+.bb-hl--on{animation:bb-flash .5s ease-in-out 4 alternate both}
+@keyframes bb-flash{from{opacity:0}to{opacity:.55}}
+
+/* win card */
+.bb-card{position:absolute;left:30px;top:226px;width:330px;opacity:0;visibility:hidden;transform:scale(.3) rotate(-14deg);transition:opacity .25s ease,transform .3s ease,visibility 0s linear .3s;pointer-events:none}
+.bb-card--on{opacity:1;visibility:visible;transform:none;pointer-events:auto;transition:opacity .3s ease .45s,transform .75s cubic-bezier(.2,1.45,.35,1) .45s,visibility 0s linear 0s}
+.bb-tkt{position:relative;border-radius:22px;background:#FFF4DE;color:#2A0A12;box-shadow:0 26px 60px rgba(30,0,6,0.55);-webkit-mask:radial-gradient(circle 13px at 0 118px,transparent 98%,#000) left/51% 100% no-repeat,radial-gradient(circle 13px at 100% 118px,transparent 98%,#000) right/51% 100% no-repeat;mask:radial-gradient(circle 13px at 0 118px,transparent 98%,#000) left/51% 100% no-repeat,radial-gradient(circle 13px at 100% 118px,transparent 98%,#000) right/51% 100% no-repeat}
+.bb-wishW{display:inline-block}
+.bb-card--on .bb-wishW{animation:bb-wish .9s cubic-bezier(.2,1.6,.4,1) .75s both}
+@keyframes bb-wish{0%{opacity:0;transform:scale(.2)}60%{opacity:1;transform:scale(1.12)}100%{transform:none}}
+.bb-mini{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:50px;padding:0 18px;border-radius:25px;border:0;font-family:'Cuprum','Arial Narrow',sans-serif;font-size:17px;font-weight:700;cursor:pointer;transition:transform .15s cubic-bezier(.3,1.6,.5,1)}
+.bb-mini:active{transform:scale(.94)}
+.bb-cf{position:absolute;left:0;top:0;width:10px;height:16px;border-radius:2px;opacity:0}
+.bb-cfA .bb-cf{animation:bb-cfA 1.7s cubic-bezier(.15,.75,.3,1) both;animation-delay:var(--d,0s)}
+.bb-cfB .bb-cf{animation:bb-cfB 1.7s cubic-bezier(.15,.75,.3,1) both;animation-delay:var(--d,0s)}
+@keyframes bb-cfA{0%{opacity:1;transform:translate(0,0) rotate(0) scale(.6)}100%{opacity:0;transform:translate(var(--x),var(--y)) rotate(var(--r)) scale(1)}}
+@keyframes bb-cfB{0%{opacity:1;transform:translate(0,0) rotate(0) scale(.6)}100%{opacity:0;transform:translate(var(--x),var(--y)) rotate(var(--r)) scale(1)}}
+.bb-chip{flex:none;display:inline-flex;align-items:center;gap:6px;height:34px;padding:0 13px;border-radius:17px;background:#FFCE3A;color:#4A0410;font-family:'Cuprum','Arial Narrow',sans-serif;font-size:16px;font-weight:700;white-space:nowrap;animation:bb-chipIn .6s cubic-bezier(.2,1.6,.4,1) both}
+@keyframes bb-chipIn{from{opacity:0;transform:translateY(-60px) scale(.4)}to{opacity:1;transform:none}}
+
+/* page */
+.bb-page{opacity:0}
+.bb-live .bb-page{opacity:1;transition:opacity .4s ease}
+.bb-h{opacity:0}
+.bb-live .bb-h{animation:bb-up .9s cubic-bezier(.2,1,.3,1) both;animation-delay:var(--d,0s)}
+.bb-live .bb-hP{animation:bb-pop 1s cubic-bezier(.2,1.4,.4,1) both;animation-delay:var(--d,0s)}
+@keyframes bb-pop{from{opacity:0;transform:scale(.5) rotate(-30deg)}to{opacity:1;transform:none}}
+.bb-nc{display:inline-block;opacity:.15}
+.bb-live .bb-nc{animation:bb-lit 1.3s steps(1,end) both;animation-delay:calc(.5s + var(--i) * 80ms)}
+.bb-rv{opacity:0;transform:translateY(36px);transition:opacity .7s ease,transform .9s cubic-bezier(.2,1,.3,1)}
+.bb-rv--in{opacity:1;transform:none}
+.bb-rv .bb-rc{opacity:0;transform:translateY(18px) scale(.95);transition:opacity .5s ease,transform .7s cubic-bezier(.2,1.35,.4,1);transition-delay:var(--d,0s)}
+.bb-rv--in .bb-rc{opacity:1;transform:none}
+.bb-rv .bb-ball{opacity:0;transform:translateY(-120px) scale(.6);transition:opacity .3s ease,transform .9s cubic-bezier(.3,1.5,.45,1);transition-delay:var(--d,0s)}
+.bb-rv--in .bb-ball{opacity:1;transform:none}
+.bb-ballB{position:relative;display:flex;align-items:center;justify-content:center;width:104px;height:104px;border-radius:50%;border:0;padding:10px;box-sizing:border-box;cursor:pointer;font-family:'Cuprum','Arial Narrow',sans-serif;font-size:18px;font-weight:700;line-height:1.08;text-align:center;overflow-wrap:anywhere;box-shadow:inset -8px -10px 0 rgba(0,0,0,0.12),0 10px 18px rgba(40,0,8,0.35)}
+.bb-ballB::before{content:"";position:absolute;left:20px;top:14px;width:28px;height:16px;border-radius:50%;background:rgba(255,255,255,0.6);transform:rotate(-30deg)}
+.bb-jig{animation:bb-jig .6s cubic-bezier(.3,1.6,.5,1)}
+@keyframes bb-jig{0%{transform:none}30%{transform:translateY(-16px) scale(1.08)}60%{transform:translateY(3px) scale(.97)}100%{transform:none}}
+.bb-badge{position:absolute;right:-4px;top:-4px;width:34px;height:34px;border-radius:50%;background:#FFF4DE;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 10px rgba(40,0,8,0.35)}
+.bb-tk{animation:bb-tick .5s cubic-bezier(.2,1.4,.4,1)}
+.bb-tk2{animation:bb-tick2 .5s cubic-bezier(.2,1.4,.4,1)}
+@keyframes bb-tick{from{transform:translateY(-45%);opacity:.2}}
+@keyframes bb-tick2{from{transform:translateY(-45%);opacity:.2}}
+.bb-paper{background:#FFF4DE;color:#2A0A12;border-radius:26px;box-shadow:0 24px 50px -20px rgba(30,0,6,0.6)}
+.bb-perf{-webkit-mask:radial-gradient(circle 12px at 0 var(--py,90px),transparent 98%,#000) left/51% 100% no-repeat,radial-gradient(circle 12px at 100% var(--py,90px),transparent 98%,#000) right/51% 100% no-repeat;mask:radial-gradient(circle 12px at 0 var(--py,90px),transparent 98%,#000) left/51% 100% no-repeat,radial-gradient(circle 12px at 100% var(--py,90px),transparent 98%,#000) right/51% 100% no-repeat}
+.bb-cake .bb-flame{transform-box:fill-box;transform-origin:50% 100%;animation:bb-flick .7s ease-in-out infinite alternate}
+@keyframes bb-flick{0%{transform:scale(1,1) rotate(-4deg)}50%{transform:scale(.9,1.12) rotate(3deg)}100%{transform:scale(1.06,.94) rotate(-1deg)}}
+.bb-smoke{fill:none;stroke:#E9C9C9;stroke-width:2.2;stroke-linecap:round;opacity:0}
+.bb-out .bb-flame{animation:bb-fOut .35s ease-in both}
+.bb-out .bb-smoke{animation:bb-smoke 2.2s ease-out .2s both}
+@keyframes bb-fOut{to{opacity:0;transform:scale(.2,.1)}}
+@keyframes bb-smoke{0%{opacity:0;transform:translateY(0)}20%{opacity:.9}100%{opacity:0;transform:translateY(-30px)}}
+.bb-wl{opacity:0;transform:translateY(8px);transition:opacity .5s ease .4s,transform .6s cubic-bezier(.2,1.3,.4,1) .4s}
+.bb-out .bb-wl{opacity:1;transform:none}
+.bb-spot{position:absolute;left:50%;top:-40px;width:340px;height:420px;margin-left:-170px;background:radial-gradient(50% 70% at 50% 0%,rgba(255,236,170,0.32),rgba(255,236,170,0));transform-origin:50% 0;animation:bb-sway 6s ease-in-out infinite alternate;pointer-events:none}
+@keyframes bb-sway{from{transform:rotate(-8deg)}to{transform:rotate(8deg)}}
+.bb-scr{position:absolute;left:0;top:0;width:100%;height:100%;border-radius:18px;touch-action:none;cursor:pointer;transition:opacity .8s ease}
+.bb-scr--off{opacity:0;pointer-events:none}
+.bb-secT{filter:blur(6px);transition:filter .8s ease}
+.bb-secOn .bb-secT{filter:none}
+.bb-slide{position:absolute;left:0;top:0;width:100%;height:100%;opacity:0;transform:scale(.92) translateX(40px);transition:opacity .5s ease,transform .7s cubic-bezier(.2,1.1,.3,1)}
+.bb-slide--on{opacity:1;transform:none}
+.bb-slide--pre{transform:scale(.92) translateX(-40px)}
+.bb-arr{width:52px;height:52px;border-radius:26px;border:0;background:#FFCE3A;color:#4A0410;display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0;box-shadow:0 5px 0 #A86E00;transition:transform .12s ease,box-shadow .12s ease}
+.bb-arr:active{transform:translateY(4px);box-shadow:0 1px 0 #A86E00}
+.bb-big{position:relative;width:230px;height:230px;border-radius:50%;border:0;padding:0;cursor:pointer;background:radial-gradient(circle at 50% 35%,#FF5A6E,#D3122F 55%,#8E0A20);box-shadow:inset 0 -10px 0 rgba(0,0,0,0.22),0 14px 0 #5A0614,0 0 0 12px #FFCE3A,0 0 0 18px #A86E00,0 30px 50px rgba(30,0,6,0.55);color:#FFF4DE;font-family:'Days One','Arial Black',sans-serif;font-size:27px;transition:transform .12s ease,box-shadow .12s ease}
+.bb-big:active{transform:translateY(10px);box-shadow:inset 0 -4px 0 rgba(0,0,0,0.22),0 4px 0 #5A0614,0 0 0 12px #FFCE3A,0 0 0 18px #A86E00,0 14px 30px rgba(30,0,6,0.55)}
+.bb-big--done{background:radial-gradient(circle at 50% 35%,#4FE0B0,#17A37E 55%,#0B6E52);box-shadow:inset 0 -10px 0 rgba(0,0,0,0.22),0 14px 0 #064A37,0 0 0 12px #FFCE3A,0 0 0 18px #A86E00,0 30px 50px rgba(30,0,6,0.55)}
+.bb-ring{position:absolute;left:50%;top:50%;width:230px;height:230px;margin:-115px 0 0 -115px;border-radius:50%;border:4px solid #FFCE3A;opacity:0;pointer-events:none}
+.bb-sent .bb-ring{animation:bb-ringA 1.1s ease-out both;animation-delay:var(--d,0s)}
+@keyframes bb-ringA{0%{opacity:.9;transform:scale(1)}100%{opacity:0;transform:scale(1.8)}}
+.bb-music{width:46px;height:46px;border-radius:23px;border:2px solid rgba(255,206,58,0.6);background:rgba(74,4,16,0.5);display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0}
+.bb-music--on{background:#FFCE3A}
+.bb-music--on path{fill:#4A0410}
+
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation:none !important;transition:none !important}
+  .bb-page,.bb-h,.bb-nc{opacity:1 !important}
+  .bb-rv,.bb-rv .bb-rc,.bb-rv .bb-ball{opacity:1 !important;transform:none !important}
+}
+</style>
+</helmet>
+<div class="{{ rootCls }}" style="width: 390px; min-height: var(--vh, 100vh); position: relative; overflow: hidden; background: #9E0F28; color: #FFF4DE; font-family: 'Cuprum', 'Arial Narrow', system-ui, sans-serif">
+
+  <!-- ================= PAGE ================= -->
+  <div class="bb-page" style="position: relative; padding-bottom: 40px; background: radial-gradient(120% 40% at 50% 0%, #C8173A 0%, rgba(200,23,58,0) 70%), linear-gradient(180deg, #A8102B 0%, #8A0B22 50%, #6E0819 100%)">
+    <div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 390px; height: 900px; overflow: hidden; pointer-events: none">
+      <div class="bb-rays" style="top: -40px; opacity: 0.9"></div>
+    </div>
+
+    <!-- hero -->
+    <section style="position: relative; padding: 22px 20px 10px; text-align: center">
+      <div style="display: flex; align-items: center; justify-content: space-between; min-height: 46px">
+        <span class="bb-h" style="--d: .1s; display: inline-flex; align-items: center; gap: 8px; height: 32px; padding: 0 14px; border-radius: 16px; background: rgba(42,10,18,0.35); border: 1.5px solid rgba(255,206,58,0.5); font-size: 15px; font-weight: 700; letter-spacing: 0.08em; color: #FFCE3A">{{ heroChip }}</span>
+        <sc-if value="{{ has.music }}"><button type="button" class="{{ musicCls }}" onClick="{{ toggleMusic }}" aria-label="Musiqa" aria-pressed="{{ musicOn }}"><svg aria-hidden="true" width="18" height="20" viewBox="0 0 22 26"><path d="M8 3L20 0V17.5A3.5 3 0 1 1 17 14.6V5.2L10 7V20.5A3.5 3 0 1 1 7 17.6V3Z" fill="#FFCE3A"></path></svg></button></sc-if>
+      </div>
+      <p class="bb-h" style="--d: .25s; margin: 26px 0 0; font-size: 21px; font-weight: 700; letter-spacing: 0.3em; color: #FFF4DE">TUG’ILGAN KUNING</p>
+      <h1 class="bb-d1" style="margin: 10px 0 0; font-size: {{ nameFs }}px; line-height: 1.06; color: #FFCE3A; text-shadow: 0 4px 0 #6E0717, 0 0 26px rgba(255,206,58,0.45); overflow-wrap: anywhere"><sc-for list="{{ nameChars }}" as="c"><span class="bb-nc" style="{{ c.st }}">{{ c.t }}</span></sc-for></h1>
+      <p class="bb-h" style="--d: .9s; margin: 12px 0 0; font-size: 26px; font-weight: 700; font-style: italic; color: #FFF4DE">muborak bo’lsin!</p>
+
+      <div class="bb-h bb-hP" style="--d: .55s; position: relative; width: 264px; height: 264px; margin: 30px auto 0">
+        <div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 264px; height: 264px; border-radius: 50%; background: #5A0614; box-shadow: 0 0 0 5px #FFCE3A, 0 20px 40px rgba(30,0,6,0.5)"></div>
+        <sc-for list="{{ heroDots }}" as="x"><span aria-hidden="true" class="bb-dot" style="{{ x }}"></span></sc-for>
+        <div style="position: absolute; left: 24px; top: 24px; width: 216px; height: 216px; border-radius: 50%; overflow: hidden; background: conic-gradient(#FFCE3A 0 45deg, #17A398 45deg 90deg, #FF7AA8 90deg 135deg, #6C4BD8 135deg 180deg, #3FA9F5 180deg 225deg, #FF8A1F 225deg 270deg, #FFF4DE 270deg 315deg, #2BC46B 315deg 360deg)">
+          <sc-if value="{{ has.photo }}"><img src="{{ p.0 }}" alt="" style="width: 216px; height: 216px; object-fit: cover"></sc-if>
+          <sc-if value="{{ noPhoto }}"><div style="position: absolute; left: 58px; top: 58px; width: 100px; height: 100px; border-radius: 50%; background: radial-gradient(circle at 40% 35%, #FFE48A, #F2B21C 60%, #C98300); display: flex; align-items: center; justify-content: center; color: #6E0717"><span class="bb-d1" style="font-size: 34px">{{ heroMark }}</span></div></sc-if>
+        </div>
+        <sc-if value="{{ ageOn }}">
+          <div style="position: absolute; right: -18px; bottom: 6px; transform: rotate(-12deg)">
+            <div class="bb-perf" style="--py: 37px; width: 112px; height: 74px; border-radius: 12px; background: #FFCE3A; color: #6E0717; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 10px 22px rgba(30,0,6,0.45)">
+              <span class="bb-d1" style="font-size: {{ ageFs }}px; line-height: 1">{{ d.yosh }}</span>
+              <span style="margin-top: 2px; font-size: 13px; font-weight: 700; letter-spacing: 0.24em">YOSH</span>
+            </div>
+          </div>
+        </sc-if>
+      </div>
+      <p class="bb-h" style="--d: 1.1s; display: inline-flex; align-items: center; gap: 8px; margin: 30px 0 0; font-size: 18px; font-weight: 700; color: #FFE7B8">
+        <svg aria-hidden="true" width="18" height="18" viewBox="0 0 20 20"><rect class="bb-ico" x="3" y="4.5" width="14" height="12.5" rx="3"></rect><path class="bb-ico" d="M3 8.5h14M7 2.5v4M13 2.5v4"></path></svg>{{ dateLine }}
+      </p>
+      <sc-if value="{{ from.line }}"><p class="bb-h" style="--d: 1.2s; margin: 6px 20px 0; font-size: 17px; font-weight: 500; color: rgba(255,244,222,0.8); overflow-wrap: anywhere">{{ from.line }}</p></sc-if>
+      <div class="bb-h" style="--d: 1.3s; margin-top: 22px">
+        <button type="button" class="bb-mini bb-btn" onClick="{{ replay }}" style="background: rgba(42,10,18,0.4); color: #FFCE3A; border: 2px solid rgba(255,206,58,0.55)">
+          <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24"><circle class="bb-ico" cx="12" cy="12" r="9"></circle><path class="bb-ico" d="M12 3v18M3 12h18M5.6 5.6l12.8 12.8M18.4 5.6L5.6 18.4"></path></svg>
+          G’ildirakni yana aylantirish
+        </button>
+      </div>
+    </section>
+
+<sc-if value="{{ b.tilaklar }}">
+    <section data-rv="tilaklar" class="{{ rv.tilaklar }}" style="position: relative; padding: 46px 20px 0; text-align: center">
+      <p class="bb-rc" style="margin: 0; font-size: 15px; font-weight: 700; letter-spacing: 0.3em; color: #FFCE3A">SOVRINLAR</p>
+      <h2 class="bb-rc bb-d1" style="--d: .05s; margin: 8px 0 0; font-size: 30px; line-height: 1.15; color: #FFF4DE">Tushgan tilaklar</h2>
+      <p class="bb-rc" style="--d: .1s; margin: 10px 10px 0; font-size: 17.5px; line-height: 1.4; color: rgba(255,244,222,0.82); overflow-wrap: anywhere">{{ wonLine }}</p>
+      <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 16px 14px; margin-top: 24px">
+        <sc-for list="{{ balls }}" as="w">
+          <div class="bb-ball" style="{{ w.dl }}">
+            <button type="button" class="{{ w.cls }}" style="{{ w.st }}" onClick="{{ w.tap }}">
+              <span style="position: relative">{{ w.t }}</span>
+              <sc-if value="{{ w.won }}"><span class="bb-badge" aria-label="Tushdi"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 20 20"><path d="M10 1.8l2.4 5 5.4.6-4 3.7 1.1 5.4L10 13.8l-4.9 2.7 1.1-5.4-4-3.7 5.4-.6z" fill="#E0A100"></path></svg></span></sc-if>
+            </button>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.tabrik }}">
+    <section data-rv="tabrik" class="{{ rv.tabrik }}" style="padding: 50px 18px 0">
+      <div class="bb-paper bb-perf" style="--py: 74px; position: relative; overflow: hidden">
+        <div style="height: 74px; display: flex; align-items: center; justify-content: space-between; padding: 0 24px; background: repeating-linear-gradient(135deg, #B3122E 0 14px, #A00F28 14px 28px); color: #FFF4DE">
+          <span class="bb-d1" style="font-size: 24px">Tabrik</span>
+          <span style="font-size: 15px; font-weight: 700; letter-spacing: 0.2em; color: #FFCE3A">{{ ticketNo }}</span>
+        </div>
+        <div style="padding: 24px 24px 24px; border-top: 2px dashed rgba(42,10,18,0.25)">
+          <p class="bb-rc" style="--d: .15s; margin: 0; font-size: 20px; line-height: 1.55; font-weight: 500; white-space: pre-line; overflow-wrap: anywhere">{{ d.matn }}</p>
+          <sc-if value="{{ from.names }}"><p class="bb-rc" style="--d: .3s; margin: 16px 0 0; font-size: 20px; font-weight: 500; font-style: italic; color: #B3122E; overflow-wrap: anywhere">— {{ from.names }}</p></sc-if>
+        </div>
+      </div>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.taymer }}">
+    <section data-rv="taymer" class="{{ rv.taymer }}" style="padding: 50px 18px 0; text-align: center">
+      <p class="bb-rc" style="margin: 0; font-size: 15px; font-weight: 700; letter-spacing: 0.3em; color: #FFCE3A">{{ cdKicker }}</p>
+      <h2 class="bb-rc bb-d1" style="--d: .05s; margin: 8px 0 0; font-size: 27px; line-height: 1.2; color: #FFF4DE; overflow-wrap: anywhere">{{ cdTitle }}</h2>
+      <div class="bb-rc" style="--d: .12s; position: relative; margin-top: 20px; padding: 24px 16px 22px; border-radius: 26px; background: #2A0A12; box-shadow: inset 0 0 0 3px #5A0614, 0 20px 40px rgba(30,0,6,0.45)">
+        <sc-for list="{{ boardDots }}" as="x"><span aria-hidden="true" class="bb-dot" style="{{ x }}"></span></sc-for>
+        <sc-if value="{{ cdLive }}">
+          <div style="display: flex; justify-content: center; gap: 8px">
+            <sc-for list="{{ tiles }}" as="x">
+              <div style="display: flex; flex-direction: column; align-items: center; width: 74px; padding: 12px 0 10px; border-radius: 16px; background: linear-gradient(180deg, #4A0410, #34040D); overflow: hidden">
+                <span class="bb-d1" style="font-size: 34px; line-height: 1; color: #FFCE3A; text-shadow: 0 0 14px rgba(255,206,58,0.55)"><span class="{{ x.cls }}" style="display: inline-block">{{ x.v }}</span></span>
+                <span style="margin-top: 8px; font-size: 14px; font-weight: 700; letter-spacing: 0.08em; color: rgba(255,244,222,0.75)">{{ x.l }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </sc-if>
+        <sc-if value="{{ cdDone }}"><p class="bb-d1" style="margin: 6px 0; font-size: 34px; color: #FFCE3A">Bugun!</p></sc-if>
+        <sc-if value="{{ calUrl }}"><a href="{{ calUrl }}" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 46px; margin-top: 18px; padding: 0 22px; border-radius: 23px; border: 2px solid rgba(255,206,58,0.6); color: #FFCE3A; font-size: 17px; font-weight: 700; text-decoration: none"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 20 20"><rect class="bb-ico" x="3" y="4.5" width="14" height="12.5" rx="3"></rect><path class="bb-ico" d="M3 8.5h14M7 2.5v4M13 2.5v4"></path></svg>Taqvimga qo’shish</a></sc-if>
+      </div>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.sham }}">
+    <section data-rv="sham" class="{{ rv.sham }}" style="padding: 50px 18px 0; text-align: center">
+      <div class="{{ cakeCls }}" style="position: relative; padding: 26px 16px 26px; border-radius: 28px; background: linear-gradient(180deg, #4A0410, #2A0A12); overflow: hidden; box-shadow: 0 20px 40px rgba(30,0,6,0.45)">
+        <div aria-hidden="true" class="bb-spot"></div>
+        <p class="bb-rc" style="position: relative; margin: 0; font-size: 15px; font-weight: 700; letter-spacing: 0.3em; color: #FFCE3A">NIYAT QILING</p>
+        <h2 class="bb-rc bb-d1" style="--d: .05s; position: relative; margin: 8px 0 0; font-size: 27px; line-height: 1.2">Shamlarni puflang</h2>
+        <div class="bb-cake" style="position: relative; height: 240px; margin-top: 10px">
+          <svg aria-hidden="true" width="300" height="240" viewBox="0 0 300 240" style="position: absolute; left: 21px; top: 0">
+            <sc-for list="{{ candles }}" as="c">
+              <g transform="{{ c.tr }}">
+                <path class="bb-smoke" d="M0 -4C-6 -12 6 -18 0 -26C-5 -32 4 -38 0 -44"></path>
+                <path class="bb-flame" d="M0 -30C7 -19 9 -12 7 -6C5 -2 -5 -2 -7 -6C-9 -12 -7 -19 0 -30Z" fill="#FFB12E"></path>
+                <path class="bb-flame" d="M0 -18C3 -13 3.6 -9.5 2.4 -6.5C1.5 -5 -1.5 -5 -2.4 -6.5C-3.6 -9.5 -3 -13 0 -18Z" fill="#FFF3C4"></path>
+                <rect x="-5" y="0" width="10" height="50" rx="3" fill="{{ c.col }}"></rect>
+                <rect x="-5" y="10" width="10" height="6" fill="#FFF4DE" opacity="0.8"></rect>
+                <rect x="-5" y="28" width="10" height="6" fill="#FFF4DE" opacity="0.8"></rect>
+              </g>
+            </sc-for>
+            <rect x="60" y="100" width="180" height="58" rx="12" fill="#FF7AA8"></rect>
+            <path d="M60 114C60 106 66 100 74 100H226C234 100 240 106 240 114C234 126 226 112 218 124C210 136 202 112 194 124C186 136 178 112 170 124C162 136 154 112 146 124C138 136 130 112 122 124C114 136 106 112 98 124C90 134 80 116 74 128C68 136 62 124 60 130Z" fill="#FFF4DE"></path>
+            <rect x="36" y="152" width="228" height="56" rx="14" fill="#FFCE3A"></rect>
+            <path d="M36 166C36 158 42 152 50 152H250C258 152 264 158 264 166C258 178 248 164 240 176C232 188 222 164 214 176C206 188 196 164 188 176C180 188 170 164 162 176C154 188 144 164 136 176C128 188 118 164 110 176C102 188 92 164 84 176C76 188 66 166 58 180C50 190 40 178 36 184Z" fill="#FFF4DE"></path>
+            <text class="bb-d1" x="150" y="200" text-anchor="middle" fill="#B3122E" style="font-size: 18px">{{ cakeText }}</text>
+            <rect x="14" y="206" width="272" height="12" rx="6" fill="#E0A100"></rect>
+            <rect x="120" y="218" width="60" height="16" rx="4" fill="#A86E00"></rect>
+          </svg>
+          <div aria-hidden="true" class="{{ cakeCf }}" style="position: absolute; left: 50%; top: 40%; width: 1px; height: 1px">
+            <sc-for list="{{ confetti }}" as="f"><span class="bb-cf" style="{{ f }}"></span></sc-for>
+          </div>
+        </div>
+        <p class="bb-wl" style="position: relative; margin: 6px 0 0; min-height: 30px; font-size: 24px; font-weight: 700; font-style: italic; color: #FFCE3A; overflow-wrap: anywhere">{{ wishLine }}</p>
+        <button type="button" class="bb-spin bb-btn" onClick="{{ blow }}" style="margin-top: 14px; font-size: 18px; min-width: 220px">
+          <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24"><path class="bb-ico" d="M3 9c3-3 6 3 9 0s5-3 6-1M3 14c3-3 6 3 9 0s5-3 6-1M3 19c3-3 6 3 9 0s5-3 6-1"></path></svg>
+          <span>{{ blowLabel }}</span>
+        </button>
+      </div>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.sirli }}">
+    <section data-rv="sirli" class="{{ rv.sirli }}" style="padding: 50px 18px 0; text-align: center">
+      <p class="bb-rc" style="margin: 0; font-size: 15px; font-weight: 700; letter-spacing: 0.3em; color: #FFCE3A">SUPER-SOVRIN</p>
+      <h2 class="bb-rc bb-d1" style="--d: .05s; margin: 8px 0 0; font-size: 27px; line-height: 1.2">Sirli tilak</h2>
+      <p class="bb-rc" style="--d: .1s; margin: 8px 0 0; font-size: 17.5px; color: rgba(255,244,222,0.82)">Barmog’ingiz bilan qirib oching</p>
+      <div class="bb-rc {{ secWrap }}" style="--d: .15s; position: relative; margin-top: 18px; padding: 14px; border-radius: 26px; background: #FFF4DE; box-shadow: 0 20px 40px rgba(30,0,6,0.45)">
+        <div style="position: relative; min-height: 190px; border-radius: 18px; background: repeating-linear-gradient(45deg, #FFF8EA 0 12px, #FFF1D6 12px 24px); display: flex; align-items: center; justify-content: center; padding: 22px 20px; box-sizing: border-box">
+          <p class="bb-secT" style="margin: 0; font-size: 21px; line-height: 1.45; font-weight: 700; color: #6E0717; white-space: pre-line; overflow-wrap: anywhere">{{ d.sirli_tilak }}</p>
+          <canvas class="{{ scrCls }}" width="640" height="380" aria-hidden="true" onPointerDown="{{ scrDown }}" onPointerMove="{{ scrMove }}" onPointerUp="{{ scrUp }}" onPointerCancel="{{ scrUp }}"></canvas>
+        </div>
+        <div aria-hidden="true" class="{{ secCf }}" style="position: absolute; left: 50%; top: 50%; width: 1px; height: 1px">
+          <sc-for list="{{ confetti }}" as="f"><span class="bb-cf" style="{{ f }}"></span></sc-for>
+        </div>
+      </div>
+      <sc-if value="{{ secClosed }}"><button type="button" class="bb-mini bb-btn" onClick="{{ openSec }}" style="margin-top: 16px; background: rgba(42,10,18,0.4); color: #FFCE3A; border: 2px solid rgba(255,206,58,0.55)">Bir bosishda ochish</button></sc-if>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.galereya }}">
+    <section data-rv="galereya" class="{{ rv.galereya }}" style="padding: 50px 18px 0; text-align: center">
+      <p class="bb-rc" style="margin: 0; font-size: 15px; font-weight: 700; letter-spacing: 0.3em; color: #FFCE3A">LAHZALAR</p>
+      <h2 class="bb-rc bb-d1" style="--d: .05s; margin: 8px 0 0; font-size: 27px; line-height: 1.2">{{ galTitle }}</h2>
+      <div class="bb-rc" style="--d: .12s; position: relative; width: 354px; height: 444px; margin: 22px auto 0; border-radius: 30px; background: #5A0614; box-shadow: 0 0 0 4px #FFCE3A, 0 24px 46px rgba(30,0,6,0.5)">
+        <sc-for list="{{ frameDots }}" as="x"><span aria-hidden="true" class="bb-dot" style="{{ x }}"></span></sc-for>
+        <div style="position: absolute; left: 22px; top: 22px; width: 310px; height: 400px; border-radius: 18px; overflow: hidden; background: #2A0A12">
+          <sc-for list="{{ slides }}" as="g"><img class="{{ g.cls }}" src="{{ g.src }}" alt="{{ g.alt }}" style="object-fit: cover"></sc-for>
+        </div>
+      </div>
+      <sc-if value="{{ manyShots }}">
+        <div style="display: flex; align-items: center; justify-content: center; gap: 18px; margin-top: 22px">
+          <button type="button" class="bb-arr" onClick="{{ prevShot }}" aria-label="Oldingi surat"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 20 20"><path class="bb-ico" d="M12.5 4.5L7 10l5.5 5.5"></path></svg></button>
+          <span class="bb-d1" style="min-width: 70px; font-size: 20px; color: #FFF4DE">{{ shotNo }}</span>
+          <button type="button" class="bb-arr" onClick="{{ nextShot }}" aria-label="Keyingi surat"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 20 20"><path class="bb-ico" d="M7.5 4.5L13 10l-5.5 5.5"></path></svg></button>
+        </div>
+      </sc-if>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.mehmonlar }}">
+    <section data-rv="mehmonlar" class="{{ rv.mehmonlar }}" style="padding: 50px 18px 0">
+      <p class="bb-rc" style="margin: 0; text-align: center; font-size: 15px; font-weight: 700; letter-spacing: 0.3em; color: #FFCE3A">YAQINLAR</p>
+      <h2 class="bb-rc bb-d1" style="--d: .05s; margin: 8px 0 18px; text-align: center; font-size: 27px; line-height: 1.2">Ular ham tilak yo’lladi</h2>
+      <sc-for list="{{ guests }}" as="g">
+        <div class="bb-rc bb-paper bb-perf" style="{{ g.st }}">
+          <div style="flex: none; width: 70px; display: flex; align-items: center; justify-content: center; border-right: 2px dashed rgba(42,10,18,0.22)">
+            <span aria-hidden="true" class="bb-d1" style="{{ g.av }}">{{ g.ini }}</span>
+          </div>
+          <div style="flex: 1; min-width: 0; padding: 14px 18px 14px 16px">
+            <p style="margin: 0; font-size: 17px; font-weight: 700; color: #B3122E; overflow-wrap: anywhere">{{ g.name }}</p>
+            <p style="margin: 4px 0 0; font-size: 18px; line-height: 1.45; overflow-wrap: anywhere">{{ g.text }}</p>
+          </div>
+        </div>
+      </sc-for>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.javob }}">
+    <section data-rv="javob" class="{{ rv.javob }}" style="padding: 56px 18px 0; text-align: center">
+      <h2 class="bb-rc bb-d1" style="margin: 0; font-size: 26px; line-height: 1.25; overflow-wrap: anywhere">{{ askLine }}</h2>
+      <p class="bb-rc" style="--d: .05s; margin: 8px 0 0; font-size: 17.5px; color: rgba(255,244,222,0.82)">Katta tugmani bosing — tabrigingiz yetib boradi</p>
+      <div class="{{ sentCls }}" style="position: relative; display: flex; justify-content: center; margin-top: 40px; height: 270px">
+        <span aria-hidden="true" class="bb-ring" style="--d: 0s"></span>
+        <span aria-hidden="true" class="bb-ring" style="--d: .25s"></span>
+        <button type="button" class="{{ bigCls }}" onClick="{{ send }}">
+          <span style="display: block; line-height: 1.15">{{ bigLabel }}</span>
+        </button>
+        <div aria-hidden="true" class="{{ sendCf }}" style="position: absolute; left: 50%; top: 115px; width: 1px; height: 1px">
+          <sc-for list="{{ confetti }}" as="f"><span class="bb-cf" style="{{ f }}"></span></sc-for>
+        </div>
+      </div>
+      <p role="status" style="margin: 0; min-height: 26px; font-size: 19px; font-weight: 700; color: #FFCE3A; overflow-wrap: anywhere">{{ sentLine }}</p>
+    </section>
+</sc-if>
+
+    <footer style="padding: 44px 20px 0; text-align: center; font-size: 16px; font-weight: 700; letter-spacing: 0.06em; color: rgba(255,244,222,0.7); overflow-wrap: anywhere">{{ footLine }}</footer>
+  </div>
+
+  <!-- ================= INTRO: fortune wheel ================= -->
+  <div data-intro class="{{ introCls }}" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; z-index: 30; overflow: hidden; background: #8A0B22">
+    <div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; background: radial-gradient(70% 50% at 50% 50%, #D4183D 0%, #A8102B 45%, #5E0716 100%)"></div>
+    <div aria-hidden="true" class="bb-rays" style="top: -85px"></div>
+    <div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; background: radial-gradient(100% 70% at 50% 50%, rgba(0,0,0,0) 55%, rgba(30,0,6,0.55) 100%)"></div>
+
+    <!-- marquee sign -->
+    <div class="bb-signIn" style="position: absolute; left: 30px; top: 34px; width: 330px; height: 116px">
+      <div style="position: absolute; left: 0; top: 0; width: 330px; height: 116px; border-radius: 24px; background: linear-gradient(180deg, #5A0614, #3A030C); box-shadow: inset 0 0 0 3px #FFCE3A, 0 16px 30px rgba(30,0,6,0.5)"></div>
+      <sc-for list="{{ signDots }}" as="x"><span aria-hidden="true" class="bb-dot" style="{{ x }}"></span></sc-for>
+      <div style="position: absolute; left: 0; top: 0; width: 330px; height: 116px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center">
+        <p style="margin: 0; max-width: 280px; font-size: 15px; font-weight: 700; letter-spacing: 0.22em; color: #FFF4DE; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{ signKicker }}</p>
+        <p class="bb-d1" style="margin: 6px 0 0; font-size: 31px; line-height: 1; color: #FFCE3A; text-shadow: 0 0 18px rgba(255,206,58,0.6)"><sc-for list="{{ signChars }}" as="c"><span class="bb-ch" style="{{ c.st }}">{{ c.t }}</span></sc-for></p>
+      </div>
+    </div>
+    <p class="bb-up" style="--d: .9s; position: absolute; left: 24px; top: 166px; width: 342px; margin: 0; text-align: center; font-size: 19px; font-weight: 700; line-height: 1.3; color: #FFF4DE; overflow-wrap: anywhere">{{ introAsk }}</p>
+
+    <!-- wheel -->
+    <div class="{{ stageCls }}" style="position: absolute; left: 25px; top: 246px; width: 340px; height: 340px">
+      <div aria-hidden="true" style="position: absolute; left: 105px; top: 300px; width: 130px; height: 70px; background: linear-gradient(180deg, #FFCE3A, #C98300); clip-path: polygon(30% 0, 70% 0, 100% 100%, 0 100%); border-radius: 6px"></div>
+      <div aria-hidden="true" style="position: absolute; left: 70px; top: 360px; width: 200px; height: 16px; border-radius: 8px; background: #E0A100; box-shadow: 0 8px 18px rgba(30,0,6,0.5)"></div>
+      <div class="bb-wheelIn" style="position: absolute; left: 0; top: 0; width: 340px; height: 340px">
+        <div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 340px; height: 340px; border-radius: 50%; box-shadow: 0 24px 50px rgba(30,0,6,0.6)"></div>
+        <div class="bb-wheelRot" aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 340px; height: 340px; will-change: transform">
+          <svg width="340" height="340" viewBox="0 0 340 340">
+            <defs><linearGradient id="bb-gold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" class="gg-a"></stop><stop offset=".5" class="gg-b"></stop><stop offset="1" class="gg-c"></stop></linearGradient></defs>
+            <sc-for list="{{ segs }}" as="g">
+              <path d="{{ g.d }}" fill="{{ g.fill }}"></path>
+            </sc-for>
+            <sc-for list="{{ segs }}" as="g">
+              <path class="bb-segL" d="{{ g.edge }}"></path>
+              <g transform="{{ g.tr }}">
+                <sc-for list="{{ g.lines }}" as="l"><text class="bb-segT" x="{{ l.x }}" y="{{ l.y }}" text-anchor="middle" fill="{{ g.ink }}" style="{{ g.fs }}">{{ l.t }}</text></sc-for>
+                <sc-if value="{{ g.star }}"><path d="M300 170l3.2 6.6 7.2.8-5.4 5 1.5 7.1-6.5-3.7-6.5 3.7 1.5-7.1-5.4-5 7.2-.8z" transform="translate(-16 -10)" fill="#6E0717"></path></sc-if>
+              </g>
+              <path class="{{ g.hl }}" d="{{ g.d }}"></path>
+            </sc-for>
+            <sc-for list="{{ pegs }}" as="q"><circle cx="{{ q.x }}" cy="{{ q.y }}" r="4.6" fill="#FFE48A" stroke="#A86E00" stroke-width="1.2"></circle></sc-for>
+          </svg>
+        </div>
+        <div class="bb-blur" style="{{ blurBg }}"></div>
+        <svg aria-hidden="true" class="{{ rimCls }}" width="340" height="340" viewBox="0 0 340 340" style="position: absolute; left: 0; top: 0">
+          <circle class="bb-rimS" cx="170" cy="170" r="159"></circle>
+          <circle class="bb-gold1" cx="170" cy="170" r="169"></circle>
+          <circle class="bb-gold2" cx="170" cy="170" r="148.5"></circle>
+          <sc-for list="{{ rimBulbs }}" as="u"><circle class="bb-bulb" cx="{{ u.x }}" cy="{{ u.y }}" r="4.4" style="{{ u.st }}"></circle></sc-for>
+          <circle cx="170" cy="170" r="38" fill="url(#bb-gold)" stroke="#A86E00" stroke-width="2"></circle>
+          <circle cx="170" cy="170" r="29" fill="#8A0B22"></circle>
+          <text class="bb-d1" x="170" y="{{ hubY }}" text-anchor="middle" fill="#FFCE3A" style="{{ hubFs }}">{{ hubText }}</text>
+        </svg>
+      </div>
+      <div class="bb-ptrIn" style="position: absolute; left: 148px; top: -22px; width: 44px; height: 62px">
+        <div class="bb-ptr" style="position: absolute; left: 0; top: 0; width: 44px; height: 62px; transform-origin: 22px 18px; will-change: transform">
+          <svg aria-hidden="true" width="44" height="62" viewBox="0 0 44 62"><path d="M22 60L8 26A16 16 0 1 1 36 26Z" fill="#FFF4DE" stroke="#6E0717" stroke-width="3" stroke-linejoin="round"></path><circle cx="22" cy="18" r="8" fill="url(#bb-gold)" stroke="#A86E00" stroke-width="1.5"></circle></svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- confetti from the wheel -->
+    <div aria-hidden="true" class="{{ winCf }}" style="position: absolute; left: 195px; top: 400px; width: 1px; height: 1px">
+      <sc-for list="{{ bigConfetti }}" as="f"><span class="bb-cf" style="{{ f }}"></span></sc-for>
+    </div>
+
+    <!-- win card -->
+    <div class="{{ cardCls }}">
+      <div class="bb-tkt" style="{{ tktSt }}">
+        <div style="height: 118px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 0 20px; box-sizing: border-box; border-bottom: 2px dashed rgba(42,10,18,0.25)">
+          <p style="margin: 0; font-size: 15px; font-weight: 700; letter-spacing: 0.26em; color: #B3122E">{{ winKicker }}</p>
+          <p class="bb-d1" style="margin: 8px 0 0; font-size: {{ winFs }}px; line-height: 1.05; color: #2A0A12; overflow-wrap: anywhere"><span class="bb-wishW">{{ winText }}</span></p>
+        </div>
+        <div style="padding: 18px 22px 20px; text-align: center">
+          <p style="margin: 0; font-size: {{ winLineFs }}px; line-height: 1.4; font-weight: 700; color: #6E0717; white-space: pre-line; overflow-wrap: anywhere">{{ winLine }}</p>
+          <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 16px">
+            <sc-if value="{{ canMore }}"><button type="button" class="bb-mini bb-btn" onClick="{{ again }}" style="background: #B3122E; color: #FFF4DE; box-shadow: 0 5px 0 #6E0717">Yana aylantirish</button></sc-if>
+            <button type="button" class="bb-mini bb-btn" onClick="{{ close }}" style="background: #FFCE3A; color: #4A0410; box-shadow: 0 5px 0 #A86E00">Tabrikni o’qish</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- controls -->
+    <div class="{{ ctrlCls }}" style="position: absolute; left: 0; top: 650px; width: 390px; display: flex; justify-content: center">
+      <div class="bb-up" style="--d: 1.5s">
+        <button type="button" class="bb-spin bb-btn bb-pulse" onClick="{{ spin }}" disabled="{{ spinning }}">
+          <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24"><circle class="bb-ico" cx="12" cy="12" r="9"></circle><path class="bb-ico" d="M12 3v18M3 12h18M5.6 5.6l12.8 12.8M18.4 5.6L5.6 18.4"></path></svg>
+          <span>{{ spinLabel }}</span>
+        </button>
+      </div>
+    </div>
+    <div style="position: absolute; left: 0; top: 738px; width: 390px; height: 40px; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 0 16px; box-sizing: border-box; overflow: hidden">
+      <sc-if value="{{ noWins }}"><p class="bb-up" style="--d: 1.7s; margin: 0; font-size: 16px; font-weight: 500; color: rgba(255,244,222,0.75)">Har aylanishda — yangi tilak</p></sc-if>
+      <sc-for list="{{ chips }}" as="c"><span class="bb-chip"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 20 20"><path d="M10 1.8l2.4 5 5.4.6-4 3.7 1.1 5.4L10 13.8l-4.9 2.7 1.1-5.4-4-3.7 5.4-.6z" fill="#B3122E"></path></svg>{{ c }}</span></sc-for>
+    </div>
+    <div style="position: absolute; left: 0; top: 784px; width: 390px; display: flex; justify-content: center">
+      <button type="button" class="bb-skip" onClick="{{ close }}">Tabrikka o’tish</button>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":4600}}'>
+const tkName = (d) => String(d.kimga || '').trim();
+const tkFrom = (d) => {
+  const kd = String(d.kimdan || '').trim(), ci = kd.indexOf(':');
+  const label = ci > 0 ? kd.slice(0, ci).trim() : '';
+  const names = ci > 0 ? kd.slice(ci + 1).trim() : kd;
+  return { label: label, names: names, line: !kd ? '' : (label ? label + 'dan: ' + names : names + 'dan') };
+};
+const REDUCED = typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
+const CAN_IO = typeof IntersectionObserver === 'function' && !REDUCED;
+const pad2 = (n) => (n < 10 ? '0' : '') + n;
+const rnd = (i, k) => { const x = Math.sin(i * 127.1 + k * 311.7) * 43758.5453; return x - Math.floor(x); };
+const SEG = ['#FFCE3A', '#17A398', '#FF7AA8', '#6C4BD8', '#3FA9F5', '#FF8A1F', '#FFF4DE', '#2BC46B'];
+const INK = { '#6C4BD8': '#FFFFFF' };
+const DEF = ['Baxt', 'Sog’liq', 'Omad', 'Muhabbat', 'Quvonch', 'Ilhom', 'Tinchlik'];
+const CX = 170, CY = 170, R = 148;
+const pt = (a, r) => [CX + r * Math.sin(a * Math.PI / 180), CY - r * Math.cos(a * Math.PI / 180)];
+const dots = (n, w, h, rad, inset, z) => {
+  // bulbs along a rounded rectangle
+  const per = 2 * (w - 2 * rad) + 2 * (h - 2 * rad) + 2 * Math.PI * rad, out = [];
+  for (let i = 0; i < n; i++) {
+    let s = (i / n) * per, x, y;
+    const a = w - 2 * rad, b = h - 2 * rad, q = Math.PI * rad / 2;
+    if (s < a) { x = rad + s; y = 0; }
+    else if ((s -= a) < q) { const t = s / rad; x = w - rad + Math.sin(t) * rad; y = rad - Math.cos(t) * rad; }
+    else if ((s -= q) < b) { x = w; y = rad + s; }
+    else if ((s -= b) < q) { const t = s / rad; x = w - rad + Math.cos(t) * rad; y = h - rad + Math.sin(t) * rad; }
+    else if ((s -= q) < a) { x = w - rad - s; y = h; }
+    else if ((s -= a) < q) { const t = s / rad; x = rad - Math.sin(t) * rad; y = h - rad + Math.cos(t) * rad; }
+    else if ((s -= q) < b) { x = 0; y = h - rad - s; }
+    else { s -= b; const t = s / rad; x = rad - Math.cos(t) * rad; y = rad - Math.sin(t) * rad; }
+    const nx = x < w / 2 ? 1 : -1, ny = y < h / 2 ? 1 : -1;
+    const ix = x <= 0.5 ? inset : x >= w - 0.5 ? -inset : 0, iy = y <= 0.5 ? inset : y >= h - 0.5 ? -inset : 0;
+    out.push('left: ' + (x + (ix || (Math.abs(x - w / 2) > w / 2 - rad ? nx * inset * 0.7 : 0)) - z / 2).toFixed(1) + 'px; top: ' + (y + (iy || (Math.abs(y - h / 2) > h / 2 - rad ? ny * inset * 0.7 : 0)) - z / 2).toFixed(1) + 'px; width: ' + z + 'px; height: ' + z + 'px; --d: -' + ((i % 4) * 0.35).toFixed(2) + 's');
+  }
+  return out;
+};
+
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { phase: 'idle', opened: false, live: false, won: [], last: -1, wins: 0, jig: -1, blown: false, scr: false, gi: 0, sent: false, sendErr: '', rv: {}, cake: 0 };
+    this.rot = 0; this.pv = 0;
+    const cf = (n, k, spread, up) => Array.from({ length: n }, (_, i) => {
+      const a = (rnd(i, k) * 2 - 1) * Math.PI, r = spread * (0.45 + rnd(i, k + 1) * 0.7);
+      return 'background: ' + ['#FFCE3A', '#FFF4DE', '#17A398', '#FF7AA8', '#3FA9F5', '#6C4BD8'][i % 6] + '; --x: ' + Math.round(Math.cos(a) * r) + 'px; --y: ' + Math.round(Math.sin(a) * r * 0.9 + up) + 'px; --r: ' + Math.round((rnd(i, k + 2) - 0.5) * 1000) + 'deg; --d: ' + (rnd(i, k + 3) * 0.15).toFixed(2) + 's; width: ' + (7 + Math.round(rnd(i, k + 4) * 6)) + 'px';
+    });
+    this.confetti = cf(26, 5, 170, 40);
+    this.bigConfetti = cf(40, 9, 240, 60);
+    this.signDots = dots(30, 330, 116, 24, 9, 9);
+    this.boardDots = dots(28, 354, 196, 26, 9, 8);
+    this.frameDots = dots(32, 354, 444, 30, 11, 9);
+    this.heroDots = Array.from({ length: 22 }, (_, i) => {
+      const a = (i / 22) * Math.PI * 2;
+      return 'left: ' + (132 + Math.cos(a) * 120 - 6).toFixed(1) + 'px; top: ' + (132 + Math.sin(a) * 120 - 6).toFixed(1) + 'px; width: 12px; height: 12px; --d: -' + ((i % 3) * 0.47).toFixed(2) + 's';
+    });
+    this.rimBulbs = Array.from({ length: 24 }, (_, i) => {
+      const p = pt((i / 24) * 360 + 7.5, 159);
+      return { x: p[0].toFixed(1), y: p[1].toFixed(1), st: '--d: -' + ((i % 3) * 0.47).toFixed(2) + 's' };
+    });
+  }
+  componentDidMount() {
+    this.timer = setInterval(() => this.forceUpdate(), 1000);
+    this.wEl = document.querySelector('.bb-wheelRot');
+    this.pEl = document.querySelector('.bb-ptr');
+    this.bEl = document.querySelector('.bb-blur');
+    const n = (this.segs || []).length || 6;
+    this.rot = -180 / n;
+    this.apply(0);
+    if (!REDUCED) { this.last = 0; this.raf = requestAnimationFrame((t) => this.frame(t)); }
+    if (CAN_IO) {
+      this.io = new IntersectionObserver((es) => {
+        const add = {};
+        es.forEach((e) => { if (e.isIntersecting) { add[e.target.getAttribute('data-rv')] = true; this.io.unobserve(e.target); } });
+        if (Object.keys(add).length) this.setState((s) => ({ rv: Object.assign({}, s.rv, add) }));
+      }, { rootMargin: '0px 0px -10% 0px' });
+      document.querySelectorAll('[data-rv]').forEach((el) => this.io.observe(el));
+    }
+    this.scratchInit();
+  }
+  componentWillUnmount() {
+    clearInterval(this.timer); cancelAnimationFrame(this.raf); clearTimeout(this.jigT);
+    if (this.io) this.io.disconnect();
+  }
+  apply(speed) {
+    if (this.wEl) this.wEl.style.transform = 'rotate(' + this.rot.toFixed(2) + 'deg)';
+    if (this.pEl) this.pEl.style.transform = 'rotate(' + this.pv.toFixed(2) + 'deg)';
+    if (this.bEl) this.bEl.style.opacity = Math.min(0.62, speed * 0.5).toFixed(3);
+  }
+  frame(now) {
+    const dt = this.last ? Math.min(50, now - this.last) : 16;
+    this.last = now;
+    const n = this.segs.length, seg = 360 / n;
+    const prev = this.rot;
+    const A = this.anim;
+    if (A) {
+      const e = now - A.t0, W = 300, D = A.D, S = 360;
+      if (e < W) this.rot = A.base - 10 * Math.sin((e / W) * Math.PI / 2);
+      else if (e < W + D) { const u = (e - W) / D; this.rot = (A.base - 10) + (A.target - (A.base - 10)) * (1 - Math.pow(1 - u, 4)); }
+      else if (e < W + D + S) this.rot = A.target - 1.6 * Math.sin(((e - W - D) / S) * Math.PI / 2);
+      else { this.rot = A.target - 1.6; this.anim = null; this.landed(A.k); }
+    } else if (this.state.phase === 'idle' && !this.state.opened) {
+      this.rot += 0.0045 * dt;
+    }
+    const speed = Math.abs(this.rot - prev) / Math.max(1, dt);
+    const pa = Math.floor(prev / seg), pb = Math.floor(this.rot / seg);
+    if (pa !== pb && A) {
+      this.pv = -Math.min(26, 7 + speed * 14);
+      if (speed < 0.22) { try { if (navigator.vibrate) navigator.vibrate(6); } catch (x) {} }
+    }
+    this.pv *= 0.8;
+    this.apply(A ? speed : 0);
+    if (this.state.phase !== 'gone' || A) this.raf = requestAnimationFrame((t) => this.frame(t));
+    else this.raf = 0;
+  }
+  ensureLoop() { if (!this.raf && !REDUCED) { this.last = 0; this.raf = requestAnimationFrame((t) => this.frame(t)); } }
+  spin() {
+    if (this.anim || this.state.phase === 'spin') return;
+    const segs = this.segs, n = segs.length, seg = 360 / n, won = this.state.won;
+    let cand = segs.map((_, i) => i).filter((i) => won.indexOf(i) < 0);
+    const si = segs.findIndex((x) => x.star);
+    if (si >= 0 && won.length < 2 && cand.length > 1) cand = cand.filter((i) => i !== si);
+    if (!cand.length) return;
+    const k = cand[Math.floor(Math.random() * cand.length)];
+    if (SITE.has.music && !SITE.music.playing) SITE.music.play();
+    const jit = (Math.random() - 0.5) * seg * 0.56;
+    const want = -((k + 0.5) * seg) + jit + 1.6;
+    const base = this.rot;
+    let delta = ((want - base) % 360 + 360) % 360;
+    const target = base + delta + 360 * (5 + Math.floor(Math.random() * 2));
+    this.setState({ phase: 'spin' });
+    if (REDUCED) { this.rot = target - 1.6; this.apply(0); this.landed(k); return; }
+    this.anim = { t0: performance.now(), base: base, target: target, D: 5200 + Math.random() * 900, k: k };
+    this.ensureLoop();
+  }
+  landed(k) {
+    try { if (navigator.vibrate) navigator.vibrate([18, 50, 28]); } catch (x) {}
+    this.setState((s) => ({ phase: 'won', last: k, won: s.won.indexOf(k) < 0 ? s.won.concat([k]) : s.won, wins: s.wins + 1 }));
+  }
+  close() {
+    if (this.state.phase === 'gone') return;
+    const first = !this.state.opened;
+    this.setState({ phase: 'gone', opened: true, live: true });
+    if (first) SITE.opened();
+    else {
+      document.documentElement.style.overflow = '';
+      const y = this.scrollY || 0;
+      setTimeout(() => window.scrollTo(0, y), 40);
+    }
+  }
+  reopen() {
+    this.scrollY = window.scrollY || 0;
+    window.scrollTo(0, 0);
+    document.documentElement.style.overflow = 'hidden';
+    this.setState({ phase: 'idle' });
+    this.ensureLoop();
+  }
+  scratchInit() {
+    const c = document.querySelector('.bb-scr');
+    if (!c) return;
+    this.cv = c;
+    const draw = () => {
+      const g = c.getContext('2d'), w = c.width, h = c.height;
+      g.globalCompositeOperation = 'source-over';
+      const gr = g.createLinearGradient(0, 0, w, h);
+      gr.addColorStop(0, '#F7D774'); gr.addColorStop(0.35, '#E0A100'); gr.addColorStop(0.55, '#FFE9A3'); gr.addColorStop(0.8, '#D18E00'); gr.addColorStop(1, '#F2C14E');
+      g.fillStyle = gr; g.fillRect(0, 0, w, h);
+      g.fillStyle = 'rgba(255,255,255,0.35)';
+      for (let i = 0; i < 160; i++) { g.beginPath(); g.arc(rnd(i, 51) * w, rnd(i, 52) * h, 1 + rnd(i, 53) * 2.5, 0, Math.PI * 2); g.fill(); }
+      g.fillStyle = '#6E0717'; g.textAlign = 'center'; g.textBaseline = 'middle';
+      g.font = '44px "Days One", "Arial Black", sans-serif';
+      g.fillText('QIRIB OCHING', w / 2, h / 2 - 14);
+      g.font = '700 30px "Cuprum", "Arial Narrow", sans-serif';
+      g.fillText('omadingiz shu yerda', w / 2, h / 2 + 40);
+    };
+    draw();
+    this.hits = {};
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { if (!this.state.scr && !Object.keys(this.hits).length) draw(); });
+  }
+  scratchAt(e) {
+    const c = this.cv; if (!c || this.state.scr) return;
+    const r = c.getBoundingClientRect();
+    const x = (e.clientX - r.left) / r.width * c.width, y = (e.clientY - r.top) / r.height * c.height;
+    const g = c.getContext('2d');
+    g.globalCompositeOperation = 'destination-out';
+    g.beginPath();
+    if (this.lp) { g.lineWidth = 64; g.lineCap = 'round'; g.moveTo(this.lp[0], this.lp[1]); g.lineTo(x, y); g.stroke(); }
+    g.arc(x, y, 32, 0, Math.PI * 2); g.fill();
+    this.lp = [x, y];
+    this.hits[Math.floor(x / c.width * 10) + ':' + Math.floor(y / c.height * 6)] = 1;
+    if (Object.keys(this.hits).length >= 32) this.setState({ scr: true });
+  }
+  renderVals() {
+    const s = this.state, D = SITE.d, B = SITE.b;
+    const name = tkName(D), from = tkFrom(D);
+    const w = SITE.when(D.sana), cd = SITE.countdown(D.sana);
+    const yosh = String(D.yosh || '').trim(), isAge = /^\d{1,3}$/.test(yosh);
+    const nameOr = name || 'Do’stim';
+    const ga = name ? SITE.ga(name) : 'Sizga';
+
+    // segments
+    const wl = (D.tilaklar || []).map((x) => String(x || '').trim()).filter(Boolean);
+    const max = B.sirli ? 7 : 8;
+    let ws = (B.tilaklar && wl.length ? wl : DEF.slice(0, 6)).slice(0, max);
+    for (let i = 0; ws.length < 4 && i < DEF.length; i++) if (ws.map((x) => x.toLowerCase()).indexOf(DEF[i].toLowerCase()) < 0) ws.push(DEF[i]);
+    const list = ws.map((t) => ({ t: t, star: false }));
+    if (B.sirli) list.splice(Math.floor(list.length / 2), 0, { t: 'Sirli tilak', star: true });
+    const n = list.length, seg = 360 / n;
+    const segs = list.map((x, i) => {
+      const a0 = i * seg, a1 = (i + 1) * seg, mid = a0 + seg / 2;
+      const p0 = pt(a0, R), p1 = pt(a1, R), pe = pt(a0, R);
+      const fill = x.star ? 'url(#bb-gold)' : SEG[i % SEG.length];
+      const words = x.t.split(/\s+/);
+      let lines = [x.t];
+      if (!x.star && x.t.length > 9 && words.length > 1) {
+        let best = 1, bd = 1e9;
+        for (let j = 1; j < words.length; j++) { const l1 = words.slice(0, j).join(' ').length, l2 = words.slice(j).join(' ').length; if (Math.abs(l1 - l2) < bd) { bd = Math.abs(l1 - l2); best = j; } }
+        lines = [words.slice(0, best).join(' '), words.slice(best).join(' ')];
+      }
+      if (x.star) lines = ['Sirli', 'tilak'];
+      const longest = Math.max(...lines.map((l) => l.length));
+      const arc = 2 * Math.PI * 95 / n;
+      let fs = Math.floor(Math.min(24, 98 / (longest * 0.5), (lines.length > 1 ? arc * 0.4 : arc * 0.55)));
+      fs = Math.max(11, fs);
+      const lx = CX + (x.star ? 86 : 92);
+      const ys = lines.length > 1 ? [CY - fs * 0.16, CY + fs * 0.9] : [CY + fs * 0.35];
+      return {
+        d: 'M' + CX + ' ' + CY + 'L' + p0[0].toFixed(2) + ' ' + p0[1].toFixed(2) + 'A' + R + ' ' + R + ' 0 0 1 ' + p1[0].toFixed(2) + ' ' + p1[1].toFixed(2) + 'Z',
+        edge: 'M' + CX + ' ' + CY + 'L' + pe[0].toFixed(2) + ' ' + pe[1].toFixed(2),
+        fill: fill, ink: x.star ? '#6E0717' : (INK[SEG[i % SEG.length]] || '#2A0A12'),
+        tr: 'rotate(' + (mid - 90).toFixed(2) + ' ' + CX + ' ' + CY + ')',
+        lines: lines.map((t, j) => ({ t: t, x: (x.star ? lx - 8 : lx).toFixed(1), y: ys[j].toFixed(1) })),
+        fs: 'font-size: ' + fs + 'px', star: x.star, t: x.t,
+        hl: 'bb-hl' + (s.phase === 'won' && s.last === i ? ' bb-hl--on' : '')
+      };
+    });
+    this.segs = segs;
+    const pegs = list.map((_, i) => { const p = pt(i * seg, 141); return { x: p[0].toFixed(1), y: p[1].toFixed(1) }; });
+    const cg = list.map((x, i) => (x.star ? '#F2B21C' : SEG[i % SEG.length]) + ' ' + (i * seg).toFixed(1) + 'deg ' + ((i + 1) * seg).toFixed(1) + 'deg').join(', ');
+
+    // win card
+    const lastSeg = s.last >= 0 ? segs[s.last] : null;
+    const isSecret = !!(lastSeg && lastSeg.star);
+    const allWon = s.won.length >= n;
+    const wt = lastSeg ? (isSecret ? 'Sirli tilak' : lastSeg.t) : '';
+    const lower = wt ? wt.charAt(0).toLocaleLowerCase('uz') + wt.slice(1) : '';
+    const winLine = isSecret ? String(D.sirli_tilak || '') : (name ? 'Bu yil ' + ga + ' ' + lower + ' tilaymiz!' : 'Bu yil sizga ' + lower + ' tilaymiz!') + (allWon ? '\nBarcha tilaklar endi ' + (name ? name + 'niki' : 'sizniki') + '!' : '');
+    const wlen = Math.max(...wt.split(/\s+/).map((x) => x.length), 1);
+    const winFs = isSecret ? 30 : Math.max(26, Math.min(48, Math.floor(280 / (wlen * 0.78))));
+    const wonNames = s.won.map((i) => (segs[i] && segs[i].star ? 'Sirli tilak' : (segs[i] ? segs[i].t : '')));
+
+    // page: balls
+    const ballCols = ['#FFCE3A', '#17A398', '#FF7AA8', '#6C4BD8', '#3FA9F5', '#FF8A1F', '#FFF4DE', '#2BC46B'];
+    const balls = wl.map((t, i) => {
+      const segI = segs.findIndex((x) => !x.star && x.t === t);
+      const won = segI >= 0 && s.won.indexOf(segI) >= 0;
+      const col = ballCols[i % ballCols.length];
+      const fs = t.length > 16 ? 15 : t.length > 10 ? 16.5 : 19;
+      return {
+        t: t, won: won,
+        cls: 'bb-ballB bb-btn' + (s.jig === i ? ' bb-jig' : ''),
+        st: 'background: radial-gradient(circle at 35% 30%, #FFFFFF -40%, ' + col + ' 45%); color: ' + (col === '#6C4BD8' ? '#FFFFFF' : '#2A0A12') + '; font-size: ' + fs + 'px' + (won ? '; box-shadow: inset -8px -10px 0 rgba(0,0,0,0.12), 0 0 0 4px #FFCE3A, 0 10px 18px rgba(40,0,8,0.35)' : ''),
+        dl: '--d: ' + (0.1 + i * 0.09).toFixed(2) + 's',
+        tap: () => { clearTimeout(this.jigT); this.setState({ jig: -1 }); setTimeout(() => this.setState({ jig: i }), 20); this.jigT = setTimeout(() => this.setState({ jig: -1 }), 650); }
+      };
+    });
+    const wonRegular = wonNames.filter((x) => x && x !== 'Sirli tilak' && wl.indexOf(x) >= 0);
+    const wonLine = wonRegular.length
+      ? 'G’ildirak ' + ga.toLocaleLowerCase('uz').replace(/^./, (c) => (name ? c.toLocaleUpperCase('uz') : c)) + ' «' + wonRegular.join('», «') + '» tilagini tanladi. Lekin aslida hammasi — ' + (name ? name + 'niki' : 'sizniki') + '!'
+      : (name ? 'Bu tilaklarning hammasi — ' + name + 'niki!' : 'Bu tilaklarning hammasi — sizniki!');
+
+    // countdown
+    const tl = [[cd.dd, 'kun', cd.d], [cd.hh, 'soat', cd.h], [cd.mm, 'daqiqa', cd.m], [cd.ss, 'soniya', cd.s]];
+    const tiles = tl.map((x, i) => ({ v: x[0], l: x[1], cls: i === 3 ? (x[2] % 2 ? 'bb-tk' : 'bb-tk2') : '' }));
+    const iso = String(D.sana || '');
+    let calUrl = '';
+    if (/^\d{4}-\d{2}-\d{2}/.test(iso) && !cd.done) {
+      const a = iso.slice(0, 10).replace(/-/g, '');
+      const nx = new Date(Date.UTC(+iso.slice(0, 4), +iso.slice(5, 7) - 1, +iso.slice(8, 10) + 1));
+      const bb = nx.getUTCFullYear() + pad2(nx.getUTCMonth() + 1) + pad2(nx.getUTCDate());
+      calUrl = 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + encodeURIComponent(nameOr + 'ning tug’ilgan kuni') + '&dates=' + a + '/' + bb;
+    }
+
+    // photos
+    const np = Math.max(1, Math.min(6, SITE.has.photos));
+    const order = np > 1 ? SITE.p.slice(1, np).concat([SITE.p[0]]) : SITE.p.slice(0, 1);
+    const gi = ((s.gi % order.length) + order.length) % order.length;
+    const slides = order.map((src, i) => ({ src: src, alt: (i + 1) + '-surat', cls: 'bb-slide' + (i === gi ? ' bb-slide--on' : (i < gi ? ' bb-slide--pre' : '')) }));
+
+    // guests
+    const mt = (D.mehmon_tilaklari || []).filter((g) => g && (g.ism || g.matn));
+    const gc = ['#B3122E', '#17A398', '#6C4BD8', '#FF8A1F', '#3FA9F5'];
+    const guests = mt.map((g, i) => {
+      const nm = String(g.ism || '').trim() || 'Mehmon';
+      return {
+        name: nm, text: g.matn || '', ini: nm.charAt(0).toLocaleUpperCase('uz'),
+        av: 'width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; color: #FFF4DE; background: ' + gc[i % gc.length],
+        st: '--d: ' + (0.08 + i * 0.1).toFixed(2) + 's; --py: 50%; display: flex; margin-top: 12px; transform: rotate(' + (i % 2 ? 0.8 : -0.8) + 'deg)'
+      };
+    });
+
+    const rv = {};
+    ['tilaklar', 'tabrik', 'taymer', 'sham', 'sirli', 'galereya', 'mehmonlar', 'javob'].forEach((k) => { rv[k] = 'bb-rv' + (!CAN_IO || s.rv[k] ? ' bb-rv--in' : ''); });
+
+    let ci = 0;
+    const nameChars = Array.from(nameOr).map((c) => ({ t: c === ' ' ? ' ' : c, st: '--i: ' + (ci++) }));
+    const longestN = Math.max(1, ...nameOr.split(/\s+/).map((x) => x.length));
+    const nameFs = Math.max(30, Math.min(64, Math.floor(340 / (longestN * 0.78))));
+    let sc = 0;
+    const signChars = Array.from('Omad g’ildiragi').map((c) => ({ t: c === ' ' ? ' ' : c, st: '--i: ' + (sc++) }));
+    const spinning = s.phase === 'spin';
+    const sentCls = s.sent ? 'bb-sent' : '';
+
+    return {
+      rootCls: s.live ? 'bb-live' : 'bb-shut',
+      introCls: 'bb-intro' + (s.phase === 'gone' ? ' bb-intro--gone' : ''),
+      stageCls: spinning ? 'bb-fast' : '', rimCls: '',
+      segs: segs, pegs: pegs, rimBulbs: this.rimBulbs,
+      blurBg: 'background: conic-gradient(' + cg + ')',
+      hubText: isAge ? yosh : '★'.replace('★', '+'), hubY: isAge ? (yosh.length > 2 ? 178 : 180) : 182,
+      hubFs: 'font-size: ' + (isAge ? (yosh.length > 2 ? 20 : 26) : 30) + 'px',
+      signDots: this.signDots, signChars: signChars,
+      signKicker: name ? name.toLocaleUpperCase('uz') + ' UCHUN' : 'SIZ UCHUN',
+      introAsk: name ? 'Aylantiring — bu yil ' + ga + ' qaysi tilak tushadi?' : 'Aylantiring — bu yil sizga qaysi tilak tushadi?',
+      spin: () => this.spin(), spinning: spinning,
+      spinLabel: spinning ? 'Aylanmoqda...' : (s.wins ? 'Yana aylantirish' : 'Aylantirish'),
+      ctrlCls: s.phase === 'won' ? 'is-hidden' : '',
+      cardCls: 'bb-card' + (s.phase === 'won' ? ' bb-card--on' : ''),
+      tktSt: isSecret ? 'background: linear-gradient(160deg, #FFF1C2, #FFD76A)' : '',
+      winKicker: isSecret ? 'SUPER-SOVRIN!' : 'G’ILDIRAK TANLADI',
+      winText: wt, winFs: winFs, winLine: winLine,
+      winLineFs: isSecret ? (winLine.length > 140 ? 17 : 19) : 20,
+      canMore: !allWon,
+      again: () => { this.setState({ phase: 'idle' }); setTimeout(() => this.spin(), 380); },
+      close: () => this.close(),
+      winCf: s.wins ? (s.wins % 2 ? 'bb-cfA' : 'bb-cfB') : '',
+      bigConfetti: s.phase === 'won' ? this.bigConfetti : [],
+      noWins: !s.won.length, chips: wonNames,
+      // page
+      heroChip: [w.dm, isAge ? yosh + ' yosh' : ''].filter(Boolean).join(' · ') || 'Tug’ilgan kun',
+      musicCls: SITE.music.playing ? 'bb-music bb-music--on' : 'bb-music', musicOn: SITE.music.playing ? 'true' : 'false',
+      toggleMusic: () => SITE.music.toggle(),
+      nameChars: nameChars, nameFs: nameFs, noPhoto: !SITE.has.photo,
+      heroDots: this.heroDots, heroMark: isAge ? yosh : nameOr.charAt(0).toLocaleUpperCase('uz'),
+      ageOn: isAge && SITE.has.photo, ageFs: yosh.length > 2 ? 26 : 32,
+      dateLine: [w.date, w.weekday].filter(Boolean).join(', ') || 'Bugun — bayram',
+      from: from,
+      replay: () => this.reopen(),
+      balls: balls, wonLine: wonLine,
+      ticketNo: '№ ' + (isAge ? pad2(+yosh) : '01'),
+      cdKicker: cd.done ? 'BAYRAM' : 'ORTGA SANOQ',
+      cdTitle: cd.done ? 'Bayram boshlandi!' : (name ? name + 'ning tug’ilgan kunigacha' : 'Tug’ilgan kungacha'),
+      cdLive: !cd.done && !cd.none, cdDone: cd.done, tiles: tiles, calUrl: calUrl, boardDots: this.boardDots,
+      cakeCls: s.blown ? 'bb-out' : '', candles: [0, 1, 2, 3, 4].map((i) => ({ tr: 'translate(' + (102 + i * 24) + ' 52)', col: ['#B3122E', '#17A398', '#6C4BD8', '#FF8A1F', '#3FA9F5'][i] })),
+      cakeText: isAge ? yosh + ' YOSH' : 'MUBORAK',
+      cakeCf: s.blown ? (s.cake % 2 ? 'bb-cfA' : 'bb-cfB') : '',
+      confetti: this.confetti,
+      wishLine: s.blown ? (name ? 'Niyatingiz ushalsin, ' + name + '!' : 'Niyatingiz ushalsin!') : '',
+      blowLabel: s.blown ? 'Qayta yoqish' : 'Puflash',
+      blow: () => this.setState((st) => ({ blown: !st.blown, cake: st.cake + (st.blown ? 0 : 1) })),
+      scrCls: 'bb-scr' + (s.scr ? ' bb-scr--off' : ''), secWrap: s.scr ? 'bb-secOn' : '',
+      secCf: s.scr ? 'bb-cfA' : '', secClosed: !s.scr,
+      openSec: () => this.setState({ scr: true }),
+      scrDown: (e) => { this.lp = null; this.scr = true; try { e.target.setPointerCapture(e.pointerId); } catch (x) {} this.scratchAt(e); },
+      scrMove: (e) => { if (this.scr) this.scratchAt(e); },
+      scrUp: () => { this.scr = false; this.lp = null; },
+      galTitle: order.length > 1 ? order.length + ' ta yorqin lahza' : 'Yorqin lahza',
+      slides: slides, manyShots: order.length > 1, shotNo: (gi + 1) + ' / ' + order.length, frameDots: this.frameDots,
+      prevShot: () => this.setState({ gi: (this.state.gi - 1 + order.length) % order.length }),
+      nextShot: () => this.setState({ gi: (this.state.gi + 1) % order.length }),
+      guests: guests,
+      askLine: name ? name + 'ni tabriklang!' : 'Tabriklang!',
+      sentCls: sentCls, bigCls: 'bb-big bb-btn' + (s.sent ? ' bb-big--done' : ''),
+      bigLabel: s.sent ? 'Yetib bordi!' : 'Tabrikladim!',
+      sendCf: s.sent ? 'bb-cfA' : '',
+      send: () => {
+        if (this.state.sent || this.busy) return;
+        this.busy = true;
+        this.setState({ sent: true, sendErr: '' });
+        SITE.reply('Tabrikladim', '🥰').then(() => { this.busy = false; }).catch(() => { this.busy = false; this.setState({ sent: false, sendErr: 'Yuborilmadi, qayta bosing' }); });
+      },
+      sentLine: s.sendErr || (s.sent ? 'Rahmat! Tabrigingiz ' + ga + ' yetib boradi' : ''),
+      rv: rv,
+      footLine: [nameOr, w.dots].filter(Boolean).join(' · ')
+    };
+  }
+}
+</script>
+</body>
+</html>

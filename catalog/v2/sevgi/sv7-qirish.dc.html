@@ -531,7 +531,7 @@ button:disabled{cursor:default}
           <p class="rs" style="margin: 10px 0 0; font-size: 15px; line-height: 1.5; color: #6B3A4A; overflow-wrap: anywhere">{{ askHint }}</p>
           <sc-if value="{{ asking }}">
           <div style="margin-top: 20px; display: flex; flex-direction: column; gap: 12px">
-            <button type="button" class="qr-btn qr-btn-r" onClick="{{ sayYes }}" disabled="{{ busy }}"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path class="icf" d="M12 21s-7.5-4.6-9.6-9.3C1 8.4 3 4.8 6.6 4.8c2.2 0 3.7 1.3 5.4 3.4 1.7-2.1 3.2-3.4 5.4-3.4 3.6 0 5.6 3.6 4.2 6.9C19.5 16.4 12 21 12 21z"></path></svg>Qabul qildim — men ham sevaman</button>
+            <button type="button" class="qr-btn qr-btn-r" onClick="{{ sayYes }}" disabled="{{ busy }}"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path class="icf" d="M12 21s-7.5-4.6-9.6-9.3C1 8.4 3 4.8 6.6 4.8c2.2 0 3.7 1.3 5.4 3.4 1.7-2.1 3.2-3.4 5.4-3.4 3.6 0 5.6 3.6 4.2 6.9C19.5 16.4 12 21 12 21z"></path></svg>Sovrinni qabul qildim</button>
             <button type="button" class="qr-btn qr-btn-o" onClick="{{ sayThanks }}" disabled="{{ busy }}">Rahmat, juda ta’sirlandim</button>
             <div style="display: flex; gap: 10px; align-items: center; margin-top: 4px">
               <input class="qr-inp" type="text" maxlength="280" placeholder="O’z javobingni yoz…" aria-label="Javob yozing" onInput="{{ onDraft }}" onKeyDown="{{ onKey }}">
@@ -627,7 +627,7 @@ class Component extends DCLogic {
     this.introCoins = ic.map((p, i) => ({ x: p[0], y: p[1], s: p[2], h: Math.round(p[2] * 0.45), d: (-i * 0.7).toFixed(1) + 's', o: 0.95 }));
     const is = [[60, 30], [318, 22], [10, 300], [366, 420], [40, 470], [350, 160], [190, 18], [100, 640], [290, 680], [30, 820]];
     this.introSparks = is.map((p, i) => ({ x: p[0], y: p[1], s: 12 + Math.round(r() * 14), d: (-r() * 2.6).toFixed(2) + 's' }));
-    const pc = [[14, '5%', 26], [350, '11%', 22], [8, '24%', 30], [352, '33%', 26], [12, '47%', 22], [354, '58%', 30], [10, '72%', 26], [350, '84%', 22]];
+    const pc = [[-12, '5%', 26], [374, '11%', 24], [-14, '24%', 30], [372, '33%', 26], [-10, '47%', 24], [372, '58%', 30], [-12, '72%', 26], [374, '84%', 24]];
     this.pageCoins = pc.map((p, i) => ({ x: p[0], y: p[1], s: p[2], h: Math.round(p[2] * 0.45), d: (-i * 0.9).toFixed(1) + 's' }));
     const ps = [[70, '3%'], [300, '8%'], [40, '19%'], [330, '27%'], [60, '41%'], [320, '52%'], [40, '66%'], [330, '78%'], [180, '92%']];
     this.pageSparks = ps.map((p, i) => ({ x: p[0], y: p[1], s: 10 + Math.round(r() * 12), d: (-r() * 2.6).toFixed(2) + 's' }));
