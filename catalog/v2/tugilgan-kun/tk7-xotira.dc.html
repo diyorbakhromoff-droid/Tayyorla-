@@ -1,0 +1,652 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<title>Tug’ilgan kun: Xotira o’yini</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pangolin&amp;family=Inter:wght@400;500;600;700&amp;display=swap">
+<style>
+body{margin:0}
+.xt-root{font-family:'Inter',Arial,sans-serif;-webkit-tap-highlight-color:transparent}
+.xt-root button{-webkit-tap-highlight-color:transparent;font:inherit;color:inherit}
+.is-hidden{display:none !important}
+.xt-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.xt-hd{font-family:'Pangolin','Comic Sans MS',cursive;font-weight:400}
+.xt-tag{display:inline-block;margin:0;padding:6px 14px 5px;border-radius:10px;background:#FFFFFF;box-shadow:0 3px 0 #D3C6F5;font-family:'Pangolin',cursive;font-size:15px;color:#FF5436;transform:rotate(-3deg)}
+.xt-h2{margin:12px 0 0;font-family:'Pangolin','Comic Sans MS',cursive;font-weight:400;font-size:44px;line-height:1.05;color:#231942;overflow-wrap:break-word}
+.xt-lead{margin:8px 0 0;font-size:15px;line-height:1.5;color:#5C5287}
+.xt-sq{display:block;width:120px;height:14px;margin-top:4px}
+.xt-sq path{fill:none;stroke:#FF5436;stroke-width:4;stroke-linecap:round;stroke-dasharray:140;stroke-dashoffset:140;animation:xt-draw 1.2s ease both;animation-timeline:view();animation-range:entry 10% entry 80%}
+@keyframes xt-draw{to{stroke-dashoffset:0}}
+.xt-rise{animation:xt-rise 1s cubic-bezier(.2,.85,.25,1.1) both;animation-timeline:view();animation-range:entry 0% entry 75%}
+@keyframes xt-rise{from{opacity:0;transform:translateY(40px) rotate(4deg) scale(.94)}to{opacity:1;transform:none}}
+.xt-deal{animation:xt-dealV 1s cubic-bezier(.3,1.35,.5,1) both;animation-timeline:view();animation-range:entry 0% entry 70%}
+@keyframes xt-dealV{from{opacity:0;transform:translate(-60px,50px) rotate(-18deg) scale(.7)}to{opacity:1;transform:none}}
+.xt-ill-s{fill:none;stroke:#231942;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.xt-ill-w{fill:none;stroke:#FFFFFF;stroke-width:3;stroke-linecap:round}
+.xt-float{position:absolute;display:block;border-radius:10px;animation:xt-float 8s ease-in-out infinite alternate}
+@keyframes xt-float{from{transform:translateY(0) rotate(var(--r0))}to{transform:translateY(-22px) rotate(var(--r1))}}
+
+/* the playing card (3D flip) */
+.xt-card{position:relative;display:block;padding:0;border:0;background:none;cursor:pointer;perspective:900px;-webkit-perspective:900px}
+.xt-in{position:absolute;left:0;top:0;width:100%;height:100%;transform-style:preserve-3d;-webkit-transform-style:preserve-3d;transition:transform .6s cubic-bezier(.3,1.35,.45,1)}
+.xt-up .xt-in,.xt-card--up .xt-in{transform:rotateY(180deg)}
+.xt-side{position:absolute;left:0;top:0;width:100%;height:100%;border-radius:16px;box-sizing:border-box;overflow:hidden;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.xt-back{background-color:#FF5436;background-image:radial-gradient(circle,rgba(255,255,255,0.22) 0 2px,rgba(255,255,255,0) 2.5px);background-size:14px 14px;box-shadow:inset 0 0 0 5px #FF5436,inset 0 0 0 7px rgba(255,255,255,0.75),0 5px 0 #C93A22;display:flex;align-items:center;justify-content:center}
+.xt-face{transform:rotateY(180deg);background:#FFFFFF;box-shadow:0 5px 0 #CBBDF2;padding:6px}
+.xt-face img{display:block;width:100%;height:100%;border-radius:11px;object-fit:cover}
+.xt-ill{width:100%;height:100%;border-radius:11px;display:flex;align-items:center;justify-content:center}
+.xt-q{display:flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:50%;background:#FFFFFF;box-shadow:0 3px 0 rgba(120,20,0,0.35);font-family:'Pangolin',cursive;font-size:30px;line-height:1;color:#FF5436;transform:rotate(-8deg)}
+.xt-card:active .xt-in{transition-duration:.15s}
+.xt-card:active{transform:scale(.95)}
+/* intro board */
+.xt-board .xt-card{animation:xt-dealIn .7s cubic-bezier(.3,1.4,.5,1) both;animation-delay:calc(.15s + var(--i) * .06s)}
+@keyframes xt-dealIn{from{opacity:0;transform:translate(var(--dx),420px) rotate(var(--dr)) scale(.6)}to{opacity:1;transform:none}}
+.xt-board .xt-card--miss{animation:xt-miss .5s ease .45s both}
+@keyframes xt-miss{0%,100%{transform:none}20%{transform:translateX(-7px) rotate(-3deg)}40%{transform:translateX(6px) rotate(3deg)}60%{transform:translateX(-4px)}80%{transform:translateX(3px)}}
+.xt-board .xt-card--done{animation:xt-hop .7s cubic-bezier(.3,1.6,.5,1) .35s both}
+@keyframes xt-hop{0%{transform:none}40%{transform:translateY(-16px) scale(1.07)}100%{transform:scale(.94)}}
+.xt-card--done .xt-face{box-shadow:0 0 0 4px #6FDDB0,0 5px 0 #4FBF94}
+.xt-tick{position:absolute;right:-6px;top:-8px;width:28px;height:28px;border-radius:50%;background:#6FDDB0;box-shadow:0 3px 0 #3FAE82;display:flex;align-items:center;justify-content:center;transform:translateZ(1px) rotateY(180deg) scale(0);transition:transform .5s cubic-bezier(.3,1.8,.5,1) .5s}
+.xt-card--done .xt-tick{transform:translateZ(1px) rotateY(180deg) scale(1)}
+.xt-bits{position:absolute;left:50%;top:50%;width:0;height:0;pointer-events:none;z-index:4}
+.xt-bit{position:absolute;left:0;top:0;opacity:0;animation:xt-bit 1.2s cubic-bezier(.15,.8,.3,1) .4s both}
+@keyframes xt-bit{0%{opacity:1;transform:translate(0,0) rotate(0) scale(.3)}70%{opacity:1}100%{opacity:0;transform:translate(var(--x),var(--y)) rotate(var(--r)) scale(1)}}
+.xt-board--win .xt-card{animation:xt-wave .8s cubic-bezier(.3,1.5,.5,1) both;animation-delay:calc(var(--i) * .07s)}
+@keyframes xt-wave{0%{transform:scale(.94)}45%{transform:translateY(-24px) rotate(var(--wr)) scale(1)}100%{transform:scale(.94)}}
+.xt-pip{width:14px;height:18px;border-radius:4px;background:rgba(35,25,66,0.14);transition:background .3s ease,transform .5s cubic-bezier(.3,1.8,.5,1)}
+.xt-pip--on{background:#6FDDB0;transform:rotate(-10deg) scale(1.15)}
+.xt-chip{display:inline-flex;align-items:center;gap:8px;min-height:36px;padding:0 15px;border-radius:999px;background:#FFFFFF;box-shadow:0 3px 0 #D3C6F5;font-size:14px;font-weight:700;color:#231942}
+.xt-chip--a{animation:xt-bumpA .5s cubic-bezier(.3,1.8,.5,1) both}
+.xt-chip--b{animation:xt-bumpB .5s cubic-bezier(.3,1.8,.5,1) both}
+@keyframes xt-bumpA{40%{transform:scale(1.18) rotate(-3deg)}}
+@keyframes xt-bumpB{40%{transform:scale(1.18) rotate(3deg)}}
+.xt-phase{transition:opacity .3s ease,transform .4s cubic-bezier(.3,1.5,.5,1)}
+.xt-win{position:absolute;left:24px;top:250px;width:342px;padding:26px 22px 22px;box-sizing:border-box;border-radius:28px;background:#FFFFFF;box-shadow:0 8px 0 #D3C6F5,0 30px 60px rgba(35,25,66,0.35);text-align:center;animation:xt-winIn .8s cubic-bezier(.3,1.45,.5,1) .5s both;z-index:6}
+@keyframes xt-winIn{from{opacity:0;transform:translateY(80px) rotate(6deg) scale(.7)}to{opacity:1;transform:none}}
+.xt-cf{position:absolute;top:-30px;display:block;opacity:0}
+.xt-intro--win .xt-cf{animation:xt-fall var(--t) linear var(--d) 2 both}
+@keyframes xt-fall{0%{opacity:0;transform:translate(0,0) rotate(0)}8%{opacity:1}100%{opacity:1;transform:translate(var(--x),900px) rotate(var(--r))}}
+/* exit */
+.xt-intro--out{pointer-events:none;animation:xt-out .7s ease .75s both}
+@keyframes xt-out{to{opacity:0;visibility:hidden}}
+.xt-intro--out .xt-board .xt-card{animation:xt-fly .9s cubic-bezier(.5,0,.3,1) both;animation-delay:calc(var(--i) * .03s)}
+@keyframes xt-fly{to{opacity:0;transform:translate(var(--fx),var(--fy)) rotate(var(--fr)) scale(.6)}}
+.xt-intro--out .xt-iFade,.xt-intro--out .xt-win{transition:opacity .35s ease,transform .45s ease;opacity:0;transform:translateY(-20px) scale(.96)}
+.xt-intro--out .xt-win{animation:none}
+
+/* buttons */
+.xt-btn{position:relative;overflow:hidden;min-height:60px;padding:0 26px;border:0;border-radius:18px;background:#FF5436;color:#FFFFFF !important;font-family:'Pangolin',cursive !important;font-size:22px !important;box-shadow:0 6px 0 #C23A22,0 14px 26px rgba(194,58,34,0.3);display:inline-flex;align-items:center;justify-content:center;gap:10px;cursor:pointer;transition:transform .12s ease,box-shadow .12s ease}
+.xt-btn:active{transform:translateY(5px);box-shadow:0 1px 0 #C23A22,0 5px 12px rgba(194,58,34,0.3)}
+.xt-btn::after{content:'';position:absolute;left:50%;top:50%;width:360px;height:360px;margin:-180px 0 0 -180px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,0.5) 0,rgba(255,255,255,0) 60%);opacity:0;pointer-events:none;transition:transform .6s ease,opacity .7s ease}
+.xt-btn:active::after{transform:scale(.1);opacity:1;transition:0s}
+.xt-btn--done{background:#6FDDB0;color:#231942 !important;box-shadow:0 6px 0 #3FAE82,0 14px 26px rgba(63,174,130,0.3)}
+.xt-ghost{min-height:46px;padding:0 18px;border:0;border-radius:999px;background:none;font-size:14px !important;font-weight:600;color:#5C5287 !important;display:inline-flex;align-items:center;gap:8px;cursor:pointer;transition:transform .15s ease}
+.xt-ghost:active{transform:scale(.95)}
+.xt-music{position:absolute;right:16px;top:16px;z-index:6;width:48px;height:48px;border:0;border-radius:14px;background:#FFFFFF;box-shadow:0 4px 0 #D3C6F5;display:flex;align-items:center;justify-content:center;padding:0;cursor:pointer;transform:rotate(6deg)}
+.xt-music--on{background:#FFD75E;box-shadow:0 4px 0 #D9AE2C}
+
+/* page */
+.xt-page--in .xt-pin{animation:xt-pin .9s cubic-bezier(.25,1.3,.5,1) both;animation-delay:calc(.8s + var(--d, 0s))}
+@keyframes xt-pin{from{opacity:0;transform:translateY(30px) scale(.94)}to{opacity:1;transform:none}}
+.xt-fanC{position:absolute;left:105px;top:20px;width:180px;height:240px;transform-origin:50% 130%;transition:transform 1s cubic-bezier(.3,1.4,.5,1)}
+.xt-page--in .xt-fanC{animation:xt-fan 1.1s cubic-bezier(.3,1.35,.5,1) 1s both}
+@keyframes xt-fan{from{transform:rotate(0) translateY(60px) scale(.8)}}
+.xt-fanIn{width:180px;height:240px;animation:xt-sway 5s ease-in-out infinite alternate}
+@keyframes xt-sway{from{transform:translateY(0)}to{transform:translateY(-8px)}}
+.xt-pc{position:relative;width:100%;height:100%;border-radius:18px;background:#FFFFFF;box-shadow:0 6px 0 #CBBDF2,0 18px 34px rgba(35,25,66,0.22);padding:8px;box-sizing:border-box}
+.xt-idx{position:absolute;font-family:'Pangolin',cursive;line-height:1;text-align:center}
+/* timer */
+.xt-cell{position:relative;width:76px;height:100px;border-radius:16px;background:#FFFFFF;box-shadow:0 6px 0 #CBBDF2,0 14px 24px rgba(35,25,66,0.15);display:flex;align-items:center;justify-content:center;overflow:hidden;perspective:300px}
+.xt-cell::after{content:'';position:absolute;left:0;right:0;top:50px;height:1px;background:rgba(35,25,66,0.12)}
+.xt-num{display:block;font-family:'Pangolin',cursive;font-size:44px;line-height:1;color:#FF5436;font-variant-numeric:tabular-nums}
+.xt-num--a{animation:xt-flA .55s cubic-bezier(.3,1.4,.5,1) both}
+.xt-num--b{animation:xt-flB .55s cubic-bezier(.3,1.4,.5,1) both}
+@keyframes xt-flA{from{transform:rotateX(-95deg);opacity:.2}to{transform:none;opacity:1}}
+@keyframes xt-flB{from{transform:rotateX(-95deg);opacity:.2}to{transform:none;opacity:1}}
+/* cake */
+.xt-flame{position:absolute;left:50%;top:-32px;width:16px;height:28px;margin-left:-8px;border-radius:50% 50% 50% 50%/62% 62% 38% 38%;background:radial-gradient(circle at 50% 72%,#FFFFFF 0 18%,#FFD75E 42%,#FF8A3D 75%,rgba(255,84,54,0.4));box-shadow:0 0 18px 5px rgba(255,190,80,0.55);transform-origin:50% 100%;animation:xt-fl .7s ease-in-out infinite alternate}
+@keyframes xt-fl{from{transform:scale(1,1) rotate(-4deg)}to{transform:scale(.86,1.12) rotate(4deg)}}
+.xt-cake--out .xt-flame{animation:xt-fOut .45s ease-in both}
+@keyframes xt-fOut{to{opacity:0;transform:scale(.1,.3)}}
+.xt-smoke{position:absolute;left:50%;top:-34px;width:12px;height:12px;margin-left:-6px;border-radius:50%;background:rgba(120,110,160,0.45);opacity:0}
+.xt-cake--out .xt-smoke{animation:xt-smoke 2s ease-out .25s both}
+@keyframes xt-smoke{0%{opacity:0;transform:translate(0,0) scale(.4)}20%{opacity:.8}100%{opacity:0;transform:translate(var(--sx),-80px) scale(2.6)}}
+.xt-cakeBits .xt-bit{animation:none}
+.xt-cake--out .xt-cakeBits .xt-bit{animation:xt-bit 1.5s cubic-bezier(.15,.8,.3,1) .2s both}
+.xt-wline{opacity:0;transform:translateY(12px) scale(.94);transition:opacity .6s ease .5s,transform .7s cubic-bezier(.3,1.4,.5,1) .5s}
+.xt-cake--out .xt-wline{opacity:1;transform:none}
+.xt-burst .xt-bit{animation:none}
+.xt-burst--go .xt-bit{animation:xt-bit 1.5s cubic-bezier(.15,.8,.3,1) both}
+
+@media (prefers-reduced-motion: reduce){
+  .xt-root *,.xt-root *::before,.xt-root *::after{animation:none !important;transition:none !important}
+  .xt-intro--out{opacity:0;visibility:hidden}
+  .xt-cake--out .xt-flame{opacity:0}
+  .xt-sq path{stroke-dashoffset:0}
+}
+</style>
+</helmet>
+<div class="xt-root" style="width: 390px; min-height: var(--vh, 100vh); position: relative; overflow: hidden; background-color: #EDE5FF; background-image: radial-gradient(circle, rgba(35,25,66,0.08) 1.3px, rgba(35,25,66,0) 1.8px); background-size: 22px 22px; color: #231942">
+  <svg aria-hidden="true" width="0" height="0" style="position: absolute">
+    <defs>
+      <symbol id="xt-i0" viewBox="0 0 80 80"><path class="xt-ill-s" d="M40 57C34 65 46 69 40 77"></path><ellipse cx="40" cy="31" rx="19" ry="23" fill="#FF5436"></ellipse><path d="M35 56H45L40 50Z" fill="#FF5436"></path><ellipse cx="33" cy="23" rx="5" ry="8" fill="#FFFFFF" opacity="0.55"></ellipse></symbol>
+      <symbol id="xt-i1" viewBox="0 0 80 80"><rect x="16" y="34" width="48" height="34" rx="5" fill="#6FDDB0"></rect><rect x="12" y="25" width="56" height="13" rx="4" fill="#4FC596"></rect><rect x="36" y="25" width="8" height="43" fill="#FF5436"></rect><path d="M40 25C30 12 18 18 26 25Z" fill="#FF5436"></path><path d="M40 25C50 12 62 18 54 25Z" fill="#FF5436"></path></symbol>
+      <symbol id="xt-i2" viewBox="0 0 80 80"><ellipse cx="40" cy="68" rx="30" ry="5" fill="#CBBDF2"></ellipse><rect x="14" y="40" width="52" height="27" rx="7" fill="#FFD75E"></rect><path d="M14 48C14 42 18 40 22 40H58C62 40 66 42 66 48C60 48 60 55 54 55C48 55 48 47 42 47C36 47 36 56 30 56C24 56 24 48 14 48Z" fill="#FF8FB8"></path><rect x="37" y="22" width="6" height="18" rx="2" fill="#7FB8FF"></rect><path d="M40 8C45 14 45 20 40 20C35 20 35 14 40 8Z" fill="#FF8A3D"></path></symbol>
+      <symbol id="xt-i3" viewBox="0 0 80 80"><path d="M40 12L62 68H18Z" fill="#7FB8FF"></path><path class="xt-ill-w" d="M30 40L50 46M24 56L56 62"></path><circle cx="40" cy="11" r="7" fill="#FFD75E"></circle><path d="M14 70H66" class="xt-ill-s"></path></symbol>
+      <symbol id="xt-i4" viewBox="0 0 80 80"><path d="M40 8L49.4 28.6L72 31.2L55.2 46.4L59.8 68.6L40 57.4L20.2 68.6L24.8 46.4L8 31.2L30.6 28.6Z" fill="#FFD75E"></path><path class="xt-ill-s" d="M40 8L49.4 28.6L72 31.2L55.2 46.4L59.8 68.6L40 57.4L20.2 68.6L24.8 46.4L8 31.2L30.6 28.6Z"></path><circle cx="33" cy="40" r="2.5" fill="#231942"></circle><circle cx="47" cy="40" r="2.5" fill="#231942"></circle></symbol>
+      <symbol id="xt-i5" viewBox="0 0 80 80"><rect x="37" y="44" width="6" height="32" rx="3" fill="#CBBDF2"></rect><circle cx="40" cy="30" r="21" fill="#FF8FB8"></circle><path class="xt-ill-w" d="M40 30C40 26 46 26 46 31C46 37 36 38 34 31C32 22 46 18 51 27C56 37 46 47 36 44"></path></symbol>
+    </defs>
+  </svg>
+
+  <div aria-hidden="true" style="position: absolute; left: 0; top: 0; bottom: 0; width: 390px; pointer-events: none; overflow: hidden">
+    <sc-for list="{{ floats }}" as="f"><span class="xt-float" style="{{ f }}"></span></sc-for>
+  </div>
+
+  <div class="{{ pageCls }}" style="position: relative; z-index: 1; min-height: var(--vh, 100vh); display: flex; flex-direction: column">
+
+    <section style="position: relative; min-height: 844px; flex: none; padding: 54px 20px 44px; box-sizing: border-box; text-align: center; display: flex; flex-direction: column; justify-content: center">
+      <sc-if value="{{ has.music }}"><button type="button" class="{{ musicCls }}" onClick="{{ toggleMusic }}" aria-label="Musiqa" aria-pressed="{{ musicOn }}"><svg aria-hidden="true" width="18" height="20" viewBox="0 0 22 26"><path d="M8 3L20 0V17.5A3.5 3 0 1 1 17 14.6V5.2L10 7V20.5A3.5 3 0 1 1 7 17.6V3Z" fill="#FF5436"></path></svg></button></sc-if>
+      <p class="xt-hd xt-pin" style="--d: 0s; margin: 0; font-size: 24px; color: #FF5436">Tug’ilgan kuning muborak,</p>
+      <h1 class="xt-hd xt-pin" style="--d: .12s; margin: 6px 0 0; font-size: {{ nameFs }}px; line-height: 1.05; color: #231942; overflow-wrap: break-word">{{ name }}</h1>
+      <svg class="xt-pin" aria-hidden="true" width="180" height="18" viewBox="0 0 180 18" style="--d: .3s; display: block; margin: 6px auto 0"><path d="M4 12C24 2 40 2 60 10S96 18 116 8S152 2 176 10" fill="none" stroke="#FF5436" style="stroke-width: 5; stroke-linecap: round"></path></svg>
+
+      <div style="position: relative; width: 390px; height: 330px; margin: 22px -20px 0">
+        <sc-for list="{{ fan }}" as="f">
+          <div class="xt-fanC" style="{{ f.st }}">
+            <div class="xt-fanIn" style="{{ f.sw }}">
+              <div class="xt-pc" style="{{ f.bg }}">
+                <sc-if value="{{ f.img }}"><img src="{{ f.img }}" alt="" style="display: block; width: 164px; height: 224px; border-radius: 12px; object-fit: cover"></sc-if>
+                <sc-if value="{{ f.ref }}"><div class="xt-ill" style="{{ f.ib }}"><svg aria-hidden="true" width="120" height="120" viewBox="0 0 80 80"><use href="{{ f.ref }}"></use></svg></div></sc-if>
+                <sc-if value="{{ f.age }}">
+                  <div aria-hidden="true" style="position: absolute; left: 8px; top: 8px; width: 164px; height: 224px; border-radius: 12px; background-color: #FF5436; background-image: radial-gradient(circle, rgba(255,255,255,0.2) 0 2px, rgba(255,255,255,0) 2.5px); background-size: 14px 14px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #FFFFFF">
+                    <span class="xt-hd" style="font-size: {{ ageFs }}px; line-height: 1">{{ yosh }}</span>
+                    <span class="xt-hd" style="margin-top: 2px; font-size: 22px">yosh</span>
+                  </div>
+                  <span class="xt-idx" aria-hidden="true" style="left: 16px; top: 14px; font-size: 20px; color: #FFFFFF">{{ yosh }}</span>
+                  <span class="xt-idx" aria-hidden="true" style="right: 16px; bottom: 14px; font-size: 20px; color: #FFFFFF; transform: rotate(180deg)">{{ yosh }}</span>
+                </sc-if>
+              </div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+
+      <div class="xt-pin" style="--d: .9s; margin-top: 18px; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px">
+        <span class="xt-chip"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 80 80"><use href="#xt-i4"></use></svg>{{ heroDate }}</span>
+        <sc-if value="{{ winChip }}"><span class="xt-chip" style="background: #6FDDB0; box-shadow: 0 3px 0 #3FAE82">{{ winChip }}</span></sc-if>
+      </div>
+      <sc-if value="{{ from.line }}"><p class="xt-pin" style="--d: 1s; margin: 14px 0 0; padding: 0 16px; font-size: 14px; line-height: 1.45; color: #5C5287; overflow-wrap: anywhere">{{ from.line }}</p></sc-if>
+    </section>
+
+<sc-if value="{{ b.tabrik }}">
+    <section style="position: relative; padding: 40px 20px 44px">
+      <p class="xt-tag">{{ tab.tabrik }}</p>
+      <h2 class="xt-h2">Tabrik</h2>
+      <div class="xt-rise" style="position: relative; margin-top: 24px; padding: 54px 26px 54px; border-radius: 26px; background: #FFFFFF; box-shadow: 0 8px 0 #CBBDF2, 0 26px 44px rgba(35,25,66,0.16); transform: rotate(-1.2deg)">
+        <span class="xt-idx" aria-hidden="true" style="left: 18px; top: 16px; font-size: 30px; color: #FF5436">{{ ini }}<svg width="18" height="18" viewBox="0 0 80 80" style="display: block; margin: 2px auto 0"><path d="M40 8L49.4 28.6L72 31.2L55.2 46.4L59.8 68.6L40 57.4L20.2 68.6L24.8 46.4L8 31.2L30.6 28.6Z" fill="#FF5436"></path></svg></span>
+        <span class="xt-idx" aria-hidden="true" style="right: 18px; bottom: 16px; font-size: 30px; color: #FF5436; transform: rotate(180deg)">{{ ini }}<svg width="18" height="18" viewBox="0 0 80 80" style="display: block; margin: 2px auto 0"><path d="M40 8L49.4 28.6L72 31.2L55.2 46.4L59.8 68.6L40 57.4L20.2 68.6L24.8 46.4L8 31.2L30.6 28.6Z" fill="#FF5436"></path></svg></span>
+        <p style="margin: 0; font-size: 17px; line-height: 1.65; color: #2E2552; white-space: pre-line; overflow-wrap: anywhere">{{ d.matn }}</p>
+        <sc-if value="{{ d.kimdan }}">
+          <div style="margin-top: 20px; text-align: right">
+            <sc-if value="{{ from.label }}"><p style="margin: 0; font-size: 13px; font-weight: 600; color: #8A80B5">{{ from.label }}</p></sc-if>
+            <p class="xt-hd" style="margin: 2px 0 0; font-size: 24px; line-height: 1.2; color: #FF5436; overflow-wrap: anywhere">{{ from.names }}</p>
+          </div>
+        </sc-if>
+      </div>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.taymer }}">
+    <section style="position: relative; padding: 40px 20px 44px; text-align: center">
+      <p class="xt-tag">{{ tab.taymer }}</p>
+      <h2 class="xt-h2">{{ cdTitle }}</h2>
+      <p class="xt-lead">{{ cdDate }}</p>
+      <div class="xt-deal" style="display: flex; justify-content: center; gap: 10px; margin-top: 24px">
+        <sc-for list="{{ caps }}" as="t">
+          <div style="{{ t.wrap }}">
+            <div class="xt-cell"><span class="{{ t.cls }}">{{ t.v }}</span></div>
+            <span style="display: block; margin-top: 10px; font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #8A80B5">{{ t.l }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.tilaklar }}">
+    <section style="position: relative; padding: 40px 20px 44px">
+      <p class="xt-tag">{{ tab.tilaklar }}</p>
+      <h2 class="xt-h2">Tilaklar</h2>
+      <p class="xt-lead">Kartani bosing — ortida tilak yashiringan.</p>
+      <div style="display: flex; flex-wrap: wrap; justify-content: space-between; row-gap: 14px; margin-top: 22px">
+        <sc-for list="{{ wishes }}" as="w">
+          <div class="xt-deal" style="{{ w.box }}">
+            <button type="button" class="{{ w.cls }}" onClick="{{ w.tap }}" aria-pressed="{{ w.on }}" aria-label="{{ w.label }}" style="width: 100%; height: 124px">
+              <span class="xt-in">
+                <span class="xt-side xt-back"><span style="display: flex; flex-direction: column; align-items: center; gap: 6px"><span class="xt-q">?</span><span class="xt-hd" style="font-size: 17px; color: #FFFFFF">{{ w.n }}</span></span></span>
+                <span class="xt-side xt-face" style="{{ w.face }}"><span class="xt-hd" style="display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; padding: 6px 10px; box-sizing: border-box; font-size: {{ w.fs }}px; line-height: 1.15; color: #231942; text-align: center; overflow-wrap: anywhere">{{ w.text }}</span></span>
+              </span>
+            </button>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.sham }}">
+    <section style="position: relative; padding: 40px 20px 44px; text-align: center">
+      <p class="xt-tag">{{ tab.sham }}</p>
+      <h2 class="xt-h2">Niyat qiling</h2>
+      <p class="xt-lead">Ko’zingizni yuming, niyat qiling — va puflang!</p>
+      <div class="{{ cakeCls }}" style="position: relative; width: 330px; height: 360px; margin: 22px auto 0; border-radius: 28px; background: #FFFFFF; box-shadow: 0 8px 0 #CBBDF2, 0 26px 44px rgba(35,25,66,0.16); transform: rotate(1deg)">
+        <p class="xt-wline xt-hd" style="position: absolute; left: 20px; top: 26px; width: 290px; margin: 0; font-size: {{ wishFs }}px; line-height: 1.15; color: #FF5436; overflow-wrap: break-word">{{ wishLine }}</p>
+        <div style="position: absolute; left: 0; top: 160px; width: 330px; display: flex; justify-content: center; gap: 22px">
+          <sc-for list="{{ candles }}" as="cd">
+            <div style="position: relative; width: 14px; height: 60px">
+              <span aria-hidden="true" class="xt-flame" style="{{ cd.fd }}"></span>
+              <span aria-hidden="true" class="xt-smoke" style="{{ cd.sm }}"></span>
+              <span aria-hidden="true" style="position: absolute; left: 6px; top: -6px; width: 2px; height: 8px; background: #231942"></span>
+              <span aria-hidden="true" style="{{ cd.st }}"></span>
+            </div>
+          </sc-for>
+        </div>
+        <svg aria-hidden="true" width="330" height="140" viewBox="0 0 330 140" style="position: absolute; left: 0; top: 210px">
+          <ellipse cx="165" cy="120" rx="140" ry="14" fill="#E3D9FF"></ellipse>
+          <rect x="45" y="10" width="240" height="106" rx="20" fill="#FFD75E"></rect>
+          <rect x="45" y="70" width="240" height="16" fill="#7FB8FF"></rect>
+          <path d="M45 34C45 18 54 10 68 10H262C276 10 285 18 285 34C276 34 276 52 264 52C252 52 252 36 240 36C228 36 228 58 214 58C200 58 200 38 188 38C176 38 176 54 164 54C152 54 152 36 140 36C128 36 128 60 114 60C100 60 100 38 88 38C76 38 76 52 66 52C56 52 54 40 45 42Z" fill="#FF8FB8"></path>
+          <circle cx="80" cy="100" r="4" fill="#FF5436"></circle><circle cx="130" cy="104" r="4" fill="#6FDDB0"></circle><circle cx="180" cy="100" r="4" fill="#FF5436"></circle><circle cx="230" cy="104" r="4" fill="#231942"></circle>
+        </svg>
+        <div class="xt-cakeBits" aria-hidden="true" style="position: absolute; left: 165px; top: 140px; width: 0; height: 0">
+          <sc-for list="{{ cakeBits }}" as="c"><span class="xt-bit" style="{{ c }}"></span></sc-for>
+        </div>
+      </div>
+      <button type="button" class="xt-btn" onClick="{{ blow }}" style="margin-top: 26px; min-width: 240px"><span class="{{ blowIdle }}">Puflash</span><span class="{{ blowDone }}">Shamni qayta yoqish</span></button>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.sirli }}">
+    <section style="position: relative; padding: 40px 20px 44px; text-align: center">
+      <p class="xt-tag">{{ tab.sirli }}</p>
+      <h2 class="xt-h2">Sirli karta</h2>
+      <p class="xt-lead">Bu kartaning ortida senga atalgan sirli tilak bor.</p>
+      <div class="xt-deal" style="width: 270px; height: 360px; margin: 26px auto 0; transform: rotate(-2deg)">
+        <button type="button" class="{{ secCls }}" onClick="{{ toggleSec }}" aria-expanded="{{ secOn }}" aria-label="Sirli tilakni ochish" style="width: 270px; height: 360px">
+          <span class="xt-in">
+            <span class="xt-side xt-back" style="border-radius: 24px"><span style="display: flex; flex-direction: column; align-items: center; gap: 14px"><span class="xt-q" style="width: 96px; height: 96px; font-size: 64px">?</span><span class="xt-hd" style="font-size: 22px; color: #FFFFFF">Bosing</span></span></span>
+            <span class="xt-side xt-face" style="border-radius: 24px; background: #FFD75E; box-shadow: 0 5px 0 #D9AE2C; padding: 26px 22px; display: flex; flex-direction: column; align-items: center; justify-content: center">
+              <span class="xt-hd" style="font-size: 18px; color: #FF5436">Sirli tilak</span>
+              <span style="margin-top: 10px; font-size: {{ secFs }}px; font-weight: 600; line-height: 1.45; color: #231942; white-space: pre-line; overflow-wrap: anywhere">{{ d.sirli_tilak }}</span>
+            </span>
+          </span>
+        </button>
+      </div>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.galereya }}">
+    <section style="position: relative; padding: 40px 20px 44px">
+      <p class="xt-tag">{{ tab.galereya }}</p>
+      <h2 class="xt-h2">Suratlar</h2>
+      <div style="display: flex; flex-wrap: wrap; justify-content: space-between; row-gap: 16px; margin-top: 24px">
+        <sc-for list="{{ gal }}" as="g">
+          <div class="xt-deal" style="{{ g.box }}"><div class="xt-pc" style="{{ g.pc }}"><img src="{{ g.src }}" alt="" style="{{ g.img }}"></div></div>
+        </sc-for>
+      </div>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.xronika }}">
+    <section style="position: relative; padding: 40px 20px 44px">
+      <p class="xt-tag">{{ tab.xronika }}</p>
+      <h2 class="xt-h2">Yillar kolodasi</h2>
+      <p class="xt-lead">Har bir yil — bir karta. Hammasi birga — sening hikoyang.</p>
+      <div style="margin-top: 24px; display: flex; flex-direction: column; gap: 18px">
+        <sc-for list="{{ chron }}" as="c">
+          <div class="xt-deal" style="{{ c.wrap }}">
+            <div style="position: relative; display: flex; gap: 14px; align-items: center; padding: 12px; border-radius: 22px; background: #FFFFFF; box-shadow: 0 6px 0 #CBBDF2, 0 16px 30px rgba(35,25,66,0.14)">
+              <sc-if value="{{ has.photo }}"><img src="{{ c.src }}" alt="" style="flex: none; width: 92px; height: 112px; border-radius: 14px; object-fit: cover"></sc-if>
+              <sc-if value="{{ c.noPhoto }}"><span aria-hidden="true" style="{{ c.ib }}"><svg width="64" height="64" viewBox="0 0 80 80"><use href="{{ c.ref }}"></use></svg></span></sc-if>
+              <div style="flex: 1; min-width: 0; padding-right: 6px">
+                <p class="xt-hd" style="margin: 0; font-size: {{ c.fs }}px; line-height: 1; color: #FF5436; overflow-wrap: anywhere">{{ c.yosh }}<sc-if value="{{ c.num }}"><span style="font-size: 18px; color: #8A80B5"> yosh</span></sc-if></p>
+                <p style="margin: 8px 0 0; font-size: 16px; font-weight: 600; line-height: 1.35; color: #231942; overflow-wrap: anywhere">{{ c.matn }}</p>
+              </div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.mehmonlar }}">
+    <section style="position: relative; padding: 40px 20px 44px">
+      <p class="xt-tag">{{ tab.mehmonlar }}</p>
+      <h2 class="xt-h2">Yaqinlar</h2>
+      <p class="xt-lead">Har bir yaqining o’z kartasini qoldirdi.</p>
+      <div style="margin-top: 22px; display: flex; flex-direction: column; gap: 16px">
+        <sc-for list="{{ reviews }}" as="r">
+          <div class="xt-rise" style="{{ r.wrap }}">
+            <div style="{{ r.card }}">
+              <div style="display: flex; align-items: center; gap: 12px">
+                <span aria-hidden="true" class="xt-hd" style="{{ r.av }}">{{ r.ini }}</span>
+                <span class="xt-hd" style="flex: 1; min-width: 0; font-size: 21px; line-height: 1.2; color: #231942; overflow-wrap: anywhere">{{ r.ism }}</span>
+              </div>
+              <p style="margin: 10px 0 0; font-size: 16px; line-height: 1.5; color: #2E2552; overflow-wrap: anywhere">{{ r.matn }}</p>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.javob }}">
+    <section style="position: relative; padding: 40px 20px 48px; text-align: center">
+      <p class="xt-tag">{{ tab.javob }}</p>
+      <h2 class="xt-h2" style="font-size: 34px">{{ askName }}</h2>
+      <p class="xt-lead" style="margin-bottom: 26px">Bir bosishda tabrigingiz {{ toName }} yetib boradi.</p>
+      <div style="position: relative; width: 300px; margin: 0 auto">
+        <div class="{{ burstCls }}" aria-hidden="true" style="position: absolute; left: 150px; top: 30px; width: 0; height: 0; z-index: 3; pointer-events: none">
+          <sc-for list="{{ bits }}" as="c"><span class="xt-bit" style="{{ c }}"></span></sc-for>
+        </div>
+        <button type="button" class="{{ sendCls }}" onClick="{{ send }}" style="width: 300px; min-height: 68px">
+          <span class="{{ sendIdle }}" style="display: inline-flex; align-items: center; gap: 10px"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 80 80"><path d="M40 8L49.4 28.6L72 31.2L55.2 46.4L59.8 68.6L40 57.4L20.2 68.6L24.8 46.4L8 31.2L30.6 28.6Z" fill="#FFFFFF"></path></svg>Tabrikladim</span>
+          <span class="{{ sendDone }}">Rahmat, yetkazildi!</span>
+        </button>
+      </div>
+    </section>
+</sc-if>
+
+    <footer style="position: relative; flex: 1; min-height: 210px; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; padding: 0 20px 34px; box-sizing: border-box; text-align: center">
+      <div aria-hidden="true" style="position: relative; width: 120px; height: 70px">
+        <span style="position: absolute; left: 22px; top: 6px; width: 44px; height: 58px; border-radius: 9px; background: #FF5436; box-shadow: inset 0 0 0 3px #FF5436, inset 0 0 0 4px rgba(255,255,255,0.7); transform: rotate(-14deg)"></span>
+        <span style="position: absolute; left: 54px; top: 4px; width: 44px; height: 58px; border-radius: 9px; background: #FFFFFF; box-shadow: 0 3px 0 #CBBDF2; transform: rotate(10deg); display: flex; align-items: center; justify-content: center"><svg width="30" height="30" viewBox="0 0 80 80"><use href="#xt-i4"></use></svg></span>
+      </div>
+      <p class="xt-hd" style="margin: 10px 0 0; font-size: {{ footFs }}px; line-height: 1.1; color: #231942; overflow-wrap: break-word">{{ name }}</p>
+      <sc-if value="{{ footLine }}"><p style="margin: 6px 0 0; font-size: 13px; font-weight: 600; color: #8A80B5">{{ footLine }}</p></sc-if>
+    </footer>
+  </div>
+
+  <div data-intro class="{{ introCls }}" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; z-index: 20; overflow: hidden; background: #E6DCFF">
+    <div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; background-color: #E9E0FF; background-image: radial-gradient(circle, rgba(35,25,66,0.08) 1.3px, rgba(35,25,66,0) 1.8px), radial-gradient(60% 40% at 50% 55%, #F6F1FF 0%, rgba(246,241,255,0) 100%); background-size: 22px 22px, 100% 100%"></div>
+    <div aria-hidden="true" class="xt-iFade" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px">
+      <sc-for list="{{ iFloats }}" as="f"><span class="xt-float" style="{{ f }}"></span></sc-for>
+    </div>
+    <div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 390px; height: 0; z-index: 7">
+      <sc-for list="{{ confetti }}" as="c"><span class="xt-cf" style="{{ c }}"></span></sc-for>
+    </div>
+
+    <div class="xt-iFade" style="position: absolute; left: 20px; top: 30px; width: 350px; text-align: center">
+      <sc-if value="{{ has.music }}"><p aria-label="Musiqa bilan" style="margin: 0 0 6px; display: flex; justify-content: center"><svg aria-hidden="true" width="14" height="16" viewBox="0 0 22 26"><path d="M8 3L20 0V17.5A3.5 3 0 1 1 17 14.6V5.2L10 7V20.5A3.5 3 0 1 1 7 17.6V3Z" fill="#FF5436"></path></svg></p></sc-if>
+      <p class="xt-hd" style="margin: 0; font-size: 42px; line-height: 1; color: #231942">Juftini top!</p>
+      <p class="xt-phase" style="margin: 8px 0 0; font-size: 14px; line-height: 1.4; color: #5C5287; overflow-wrap: anywhere">{{ phaseLine }}</p>
+      <div style="margin-top: 12px; display: flex; align-items: center; justify-content: center; gap: 12px">
+        <span class="{{ movesCls }}" aria-live="polite">Yurish: {{ moves }}</span>
+        <span class="xt-chip" aria-label="{{ pairsLbl }}" style="gap: 5px"><sc-for list="{{ pips }}" as="pp"><span class="{{ pp }}"></span></sc-for></span>
+      </div>
+    </div>
+
+    <div class="{{ boardCls }}" style="position: absolute; left: 27px; top: 186px; width: 336px; height: 548px">
+      <sc-for list="{{ deck }}" as="c">
+        <button type="button" class="{{ c.cls }}" style="{{ c.st }}" onClick="{{ c.tap }}" aria-label="{{ c.label }}">
+          <span class="xt-in">
+            <span class="xt-side xt-back"><span class="xt-q">?</span></span>
+            <span class="xt-side xt-face">
+              <sc-if value="{{ c.img }}"><img src="{{ c.img }}" alt=""></sc-if>
+              <sc-if value="{{ c.ref }}"><span class="xt-ill" style="{{ c.ib }}"><svg aria-hidden="true" width="76" height="76" viewBox="0 0 80 80"><use href="{{ c.ref }}"></use></svg></span></sc-if>
+            </span>
+            <span class="xt-tick" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 28 28"><path d="M3 15L7 11L11 15L21 5L25 9L11 23Z" fill="#FFFFFF"></path></svg></span>
+          </span>
+          <sc-if value="{{ c.hit }}"><span class="xt-bits" aria-hidden="true"><sc-for list="{{ hitBits }}" as="hb"><span class="xt-bit" style="{{ hb }}"></span></sc-for></span></sc-if>
+        </button>
+      </sc-for>
+    </div>
+
+    <sc-if value="{{ skipOn }}">
+      <div class="xt-iFade" style="position: absolute; left: 0; top: 752px; width: 390px; display: flex; flex-direction: column; align-items: center; gap: 2px">
+        <sc-if value="{{ from.line }}"><p style="margin: 0; padding: 0 30px; font-size: 13px; line-height: 1.35; color: #8A80B5; text-align: center; overflow-wrap: anywhere">{{ from.line }}</p></sc-if>
+        <button type="button" class="xt-ghost" onClick="{{ open }}">O’yinsiz ochish<svg aria-hidden="true" width="12" height="12" viewBox="0 0 28 28"><path d="M6 3L24 14L6 25Z" fill="currentColor"></path></svg></button>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ s.win }}">
+      <div class="xt-win">
+        <p class="xt-hd" style="margin: 0; font-size: 46px; line-height: 1; color: #FF5436">Barakalla!</p>
+        <p style="margin: 10px 0 0; font-size: 15px; line-height: 1.45; color: #5C5287">{{ winLine }}</p>
+        <p class="xt-hd" style="margin: 16px 0 0; font-size: {{ winFs }}px; line-height: 1.15; color: #231942; overflow-wrap: break-word">{{ winName }}</p>
+        <button type="button" class="xt-btn" onClick="{{ open }}" style="width: 100%; margin-top: 22px">Tabrikni ochish</button>
+      </div>
+    </sc-if>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":7200}}'>
+const tkName = (d) => String(d.kimga || '').trim();
+const tkFrom = (d) => {
+  const kd = String(d.kimdan || '').trim(), ci = kd.indexOf(':');
+  const label = ci > 0 ? kd.slice(0, ci).trim() : '';
+  const names = ci > 0 ? kd.slice(ci + 1).trim() : kd;
+  return { label: label, names: names, line: !kd ? '' : (label ? label + 'dan: ' + names : names + 'dan') };
+};
+const tkFit = (text, max, min, width, k) => {
+  const longest = Math.max(1, ...String(text || '').split(/\s+/).map((x) => x.length));
+  return Math.max(min, Math.min(max, Math.floor(width / (longest * k))));
+};
+const rnd = (i, k) => { const x = Math.sin(i * 127.1 + k * 311.7) * 43758.5453; return x - Math.floor(x); };
+const PAST = ['#FFE7A8', '#C9F3E2', '#FFD3E3', '#D6E8FF', '#FFF2C2', '#FFDCD4'];
+const CONF = ['#FF5436', '#FFD75E', '#6FDDB0', '#7FB8FF', '#FF8FB8', '#231942'];
+const ORDER = ['tabrik', 'taymer', 'tilaklar', 'sham', 'sirli', 'galereya', 'xronika', 'mehmonlar', 'javob'];
+const PAIRS = 6, CW = 104, CH = 128, GAP = 12;
+const burst = (n, seed, r0, r1) => Array.from({ length: n }, (_, i) => {
+  const a = (i / n) * Math.PI * 2 + rnd(i, seed) * 0.4, r = r0 + rnd(i, seed + 1) * (r1 - r0);
+  const w = 8 + Math.round(rnd(i, seed + 2) * 6), h = i % 3 ? Math.round(w * 1.35) : w;
+  return 'width: ' + w + 'px; height: ' + h + 'px; margin: -' + (h / 2) + 'px 0 0 -' + (w / 2) + 'px; border-radius: ' + (i % 3 ? '3px' : '50%') + '; background: ' + CONF[i % 6] + '; --x: ' + Math.round(Math.cos(a) * r) + 'px; --y: ' + Math.round(Math.sin(a) * r) + 'px; --r: ' + Math.round(rnd(i, seed + 3) * 540 - 270) + 'deg; animation-delay: ' + (rnd(i, seed + 4) * 0.12).toFixed(2) + 's';
+});
+/* faces: customer photos first, illustrated cards fill the rest */
+const buildFaces = () => {
+  const n = Math.min(PAIRS, SITE.has.photos), out = [];
+  for (let i = 0; i < n; i++) out.push({ key: 'p' + i, img: SITE.p[i], ref: '' });
+  for (let i = 0; out.length < PAIRS; i++) out.push({ key: 'i' + i, img: '', ref: '#xt-i' + i, ib: 'background: ' + PAST[i % PAST.length] });
+  return out;
+};
+
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { opened: false, phase: 'deal', open: [], done: {}, miss: [], hit: [], moves: 0, win: false, lock: false, blown: false, sec: false, sent: false, wUp: {} };
+    this.tick = 0;
+    this.faces = buildFaces();
+    const ids = [];
+    this.faces.forEach((f, i) => { ids.push(i); ids.push(i); });
+    for (let i = ids.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); const t = ids[i]; ids[i] = ids[j]; ids[j] = t; }
+    this.ids = ids;
+    const fl = (n, seed, y0, y1) => Array.from({ length: n }, (_, i) => {
+      const s = 26 + Math.round(rnd(i, seed) * 26), edge = i % 2 ? 390 - s * 0.55 : -s * 0.45;
+      return 'left: ' + Math.round(edge) + 'px; top: ' + (y0 === null ? (3 + rnd(i, seed + 1) * 94).toFixed(1) + '%' : Math.round(y0 + rnd(i, seed + 1) * (y1 - y0)) + 'px') + '; width: ' + s + 'px; height: ' + Math.round(s * 1.3) + 'px; background: ' + PAST[i % 6] + '; box-shadow: 0 3px 0 rgba(35,25,66,0.08); --r0: ' + Math.round(rnd(i, seed + 2) * 60 - 30) + 'deg; --r1: ' + Math.round(rnd(i, seed + 3) * 60 - 30) + 'deg; animation-delay: -' + (rnd(i, seed + 4) * 8).toFixed(1) + 's';
+    });
+    this.deco = {
+      floats: fl(16, 3, null, 0),
+      iFloats: fl(6, 11, 60, 760),
+      hitBits: burst(12, 21, 50, 100),
+      cakeBits: burst(20, 31, 80, 150),
+      bits: burst(22, 41, 90, 170),
+      confetti: Array.from({ length: 34 }, (_, i) => {
+        const s = 7 + Math.round(rnd(i, 61) * 8);
+        return 'left: ' + Math.round(rnd(i, 62) * 390) + 'px; width: ' + s + 'px; height: ' + Math.round(s * (i % 3 ? 1.5 : 1)) + 'px; border-radius: ' + (i % 3 ? '2px' : '50%') + '; background: ' + CONF[i % 6] + '; --x: ' + Math.round((rnd(i, 63) - 0.5) * 120) + 'px; --r: ' + Math.round(rnd(i, 64) * 720 - 360) + 'deg; --t: ' + (2.6 + rnd(i, 65) * 1.6).toFixed(2) + 's; --d: ' + (rnd(i, 66) * 1.2).toFixed(2) + 's';
+      })
+    };
+  }
+  componentDidMount() {
+    this.timer = setInterval(() => { this.prevCd = this.lastCd; this.tick += 1; this.forceUpdate(); }, 1000);
+    this.t1 = setTimeout(() => { if (this.state.phase === 'deal') this.setState({ phase: 'peek' }); }, 1300);
+    this.t2 = setTimeout(() => { if (this.state.phase === 'peek') this.setState({ phase: 'play' }); }, 3000);
+  }
+  componentWillUnmount() {
+    clearInterval(this.timer); clearTimeout(this.t1); clearTimeout(this.t2); clearTimeout(this.t3); clearTimeout(this.t4);
+  }
+  flip(i) {
+    const s = this.state;
+    if (s.phase === 'deal' || s.win || s.opened || s.lock || s.done[i] || s.open.indexOf(i) >= 0) return;
+    if (s.phase === 'peek') { clearTimeout(this.t2); }
+    const open = s.open.concat([i]);
+    if (open.length < 2) { this.setState({ phase: 'play', open: open, hit: [] }); return; }
+    const moves = s.moves + 1;
+    if (this.ids[open[0]] === this.ids[open[1]]) {
+      const done = Object.assign({}, s.done);
+      done[open[0]] = true; done[open[1]] = true;
+      this.setState({ phase: 'play', open: [], done: done, moves: moves, hit: open });
+      if (Object.keys(done).length === this.ids.length) this.t3 = setTimeout(() => this.setState({ win: true }), 900);
+    } else {
+      this.setState({ phase: 'play', open: open, miss: open, moves: moves, lock: true, hit: [] });
+      this.t4 = setTimeout(() => this.setState({ open: [], miss: [], lock: false }), 1100);
+    }
+  }
+  open() {
+    if (this.state.opened) return;
+    this.setState({ opened: true });
+    SITE.opened();
+  }
+  renderVals() {
+    const s = this.state, D = SITE.d;
+    const name = tkName(D), from = tkFrom(D);
+    const w = SITE.when(D.sana), c = SITE.countdown(D.sana);
+    const yosh = String(D.yosh || '').trim();
+    const tab = {};
+    let k = 0;
+    ORDER.forEach((key) => { if (SITE.b[key]) { k += 1; tab[key] = key === 'javob' ? 'oxirgi karta' : k + '-karta'; } else tab[key] = ''; });
+
+    /* game */
+    const nDone = Object.keys(s.done).length / 2;
+    const deck = this.ids.map((fid, i) => {
+      const f = this.faces[fid], col = i % 3, row = Math.floor(i / 3);
+      const up = s.phase === 'peek' || s.open.indexOf(i) >= 0 || !!s.done[i];
+      const cx = col * (CW + GAP) + CW / 2 - 168, cy = row * (CH + GAP) + CH / 2 - 274;
+      return {
+        img: f.img, ref: f.ref, ib: f.ib || '', hit: s.hit.indexOf(i) >= 0,
+        cls: 'xt-card' + (up ? ' xt-card--up' : '') + (s.done[i] ? ' xt-card--done' : '') + (s.miss.indexOf(i) >= 0 ? ' xt-card--miss' : ''),
+        st: 'position: absolute; left: ' + (col * (CW + GAP)) + 'px; top: ' + (row * (CH + GAP)) + 'px; width: ' + CW + 'px; height: ' + CH + 'px; --i: ' + i + '; --dx: ' + Math.round(-cx) + 'px; --dr: ' + Math.round(rnd(i, 7) * 60 - 30) + 'deg; --wr: ' + [-6, 0, 6][col] + 'deg; --fx: ' + Math.round(cx * 2.4) + 'px; --fy: ' + Math.round(cy * 2.2 - 120) + 'px; --fr: ' + Math.round(rnd(i, 9) * 90 - 45) + 'deg',
+        label: 'Karta ' + (i + 1) + (s.done[i] ? ': jufti topildi' : up ? ': ochiq' : ''),
+        tap: () => this.flip(i)
+      };
+    });
+    const phaseLine = s.win ? 'Hamma juftlar topildi!' : s.phase === 'deal' ? 'Kartalar tarqatilmoqda…' : s.phase === 'peek' ? 'Eslab qoling — kartalar hozir yopiladi!' : 'Ikkita kartani oching: bir xil bo’lsa — juft topildi. Oxirida ' + SITE.ga(name || 'qahramon') + ' tabrik ochiladi.';
+
+    /* page */
+    const imgs = SITE.p.slice(0, Math.min(PAIRS, SITE.has.photos));
+    const pool = imgs.map((src) => ({ img: src, ref: '' })).concat([0, 1, 4].map((j) => ({ img: '', ref: '#xt-i' + j, ib: 'background: ' + PAST[j] })));
+    const center = yosh ? { age: true, img: '', ref: '' } : pool.shift();
+    const sides = [pool[0], pool[1] || pool[0]];
+    const fan = [sides[0], sides[1], center].map((f, i) => ({
+      img: f.img || '', ref: f.ref || '', age: !!f.age, ib: 'width: 164px; height: 224px; ' + (f.ib || ''),
+      st: 'transform: ' + ['rotate(-17deg) translate(-36px, 8px)', 'rotate(17deg) translate(36px, 8px)', 'rotate(-2deg) translateY(-6px)'][i] + '; z-index: ' + [1, 1, 2][i],
+      sw: 'animation-delay: -' + (i * 1.6).toFixed(1) + 's',
+      bg: f.age ? 'background: #FFFFFF' : ''
+    }));
+    const cur = [String(c.d), c.hh, c.mm, c.ss];
+    const prev = this.prevCd || cur;
+    this.lastCd = cur;
+    const L = ['kun', 'soat', 'daqiqa', 'soniya'];
+    const caps = cur.map((v, i) => ({ v: v, l: L[i], wrap: 'transform: rotate(' + [-3, 2, -2, 3][i] + 'deg)', cls: 'xt-num' + (v !== prev[i] ? (this.tick % 2 ? ' xt-num--a' : ' xt-num--b') : '') }));
+    const tl = D.tilaklar || [];
+    const wishes = tl.map((t, i) => {
+      const up = !!s.wUp[i], solo = tl.length % 2 === 1 && i === tl.length - 1, len = String(t).length;
+      return {
+        text: t, n: 'Tilak ' + (i + 1), on: up ? 'true' : 'false', label: up ? String(t) : 'Tilak ' + (i + 1) + ' — ochish',
+        cls: 'xt-card' + (up ? ' xt-up' : ''),
+        fs: len > 40 ? 17 : len > 22 ? 20 : 25,
+        face: 'background: ' + PAST[i % 6],
+        box: 'width: ' + (solo ? 350 : 168) + 'px; transform: rotate(' + (solo ? 1 : [-2, 2, 1.5, -1.5][i % 4]) + 'deg)',
+        tap: () => { const m = Object.assign({}, this.state.wUp); m[i] = !m[i]; this.setState({ wUp: m }); }
+      };
+    });
+    const candles = [0, 1, 2, 3, 4].map((i) => ({
+      fd: 'animation-delay: ' + (i * 0.13).toFixed(2) + 's',
+      sm: '--sx: ' + [-14, 10, -6, 12, -10][i] + 'px',
+      st: 'position: absolute; left: 0; top: 0; width: 14px; height: ' + [52, 60, 66, 60, 52][i] + 'px; border-radius: 5px; background: repeating-linear-gradient(160deg, ' + ['#7FB8FF', '#FF5436', '#6FDDB0', '#FF5436', '#7FB8FF'][i] + ' 0 8px, #FFFFFF 8px 14px); transform: translateY(' + [8, 2, -4, 2, 8][i] + 'px)'
+    }));
+    const n = Math.min(6, SITE.has.photos);
+    const gp = SITE.p.slice(0, Math.max(1, n));
+    const gal = gp.map((src, i) => {
+      const big = i === 0 || (gp.length % 2 === 0 && i === gp.length - 1);
+      const wd = big ? 350 : 166, ht = big ? 300 : 210;
+      return {
+        src: src,
+        box: 'flex: none; width: ' + wd + 'px; height: ' + ht + 'px; transform: rotate(' + (big ? [-1.5, 1.5][i % 2] : [3, -3, -2, 2][i % 4]) + 'deg)',
+        pc: 'padding: 8px',
+        img: 'display: block; width: ' + (wd - 16) + 'px; height: ' + (ht - 16) + 'px; border-radius: 12px; object-fit: cover'
+      };
+    });
+    const xr = D.xronika || [];
+    const chron = xr.map((x, i) => {
+      const y = String(x.yosh || '').trim();
+      return {
+        yosh: y, matn: x.matn || '', num: /^\d+$/.test(y), noPhoto: !SITE.has.photo,
+        fs: y.length > 5 ? 24 : 38, src: SITE.p[i % SITE.p.length], ref: '#xt-i' + (i % 6),
+        ib: 'flex: none; width: 92px; height: 112px; border-radius: 14px; display: flex; align-items: center; justify-content: center; background: ' + PAST[i % 6],
+        wrap: 'transform: rotate(' + [-1.5, 1.5][i % 2] + 'deg); ' + (i % 2 ? 'margin-left: 22px' : 'margin-right: 22px')
+      };
+    });
+    const reviews = (D.mehmon_tilaklari || []).map((r, i) => ({
+      ism: r.ism || '', matn: r.matn || '', ini: String(r.ism || '').trim().charAt(0).toLocaleUpperCase('uz'),
+      av: 'flex: none; width: 46px; height: 46px; border-radius: 14px; background: ' + PAST[i % 6] + '; color: #231942; display: flex; align-items: center; justify-content: center; font-size: 24px; transform: rotate(' + [-6, 5, -4, 6][i % 4] + 'deg)',
+      card: 'padding: 18px 18px 20px; border-radius: 22px; background: #FFFFFF; box-shadow: 0 6px 0 #CBBDF2, 0 16px 30px rgba(35,25,66,0.12); transform: rotate(' + [-1.2, 1.2, -0.8, 1][i % 4] + 'deg)',
+      wrap: i % 2 ? 'margin-left: 24px' : 'margin-right: 24px'
+    }));
+    const sec = String(D.sirli_tilak || '');
+    const wl = 'Niyating ushalsin, ' + name + '!';
+    const winName = name + ', tug’ilgan kuning muborak!';
+
+    return Object.assign({}, this.deco, {
+      s: s, name: name, from: from, tab: tab, yosh: yosh,
+      nameFs: tkFit(name, 76, 30, 350, 0.52),
+      footFs: tkFit(name, 44, 24, 340, 0.52),
+      ageFs: yosh.length > 3 ? 44 : yosh.length > 2 ? 64 : 96,
+      fan: fan, ini: name.charAt(0).toLocaleUpperCase('uz'),
+      heroDate: [w.date, w.weekday].filter(Boolean).join(' · ') || 'Tug’ilgan kun',
+      winChip: s.win ? PAIRS + ' juft · ' + s.moves + ' yurishda' : '',
+      musicCls: SITE.music.playing ? 'xt-music xt-music--on' : 'xt-music',
+      musicOn: SITE.music.playing ? 'true' : 'false',
+      toggleMusic: () => { SITE.music.toggle(); },
+      cdTitle: c.done ? 'Bayram boshlandi!' : 'Bayramgacha',
+      cdDate: [w.date, w.weekday].filter(Boolean).join(', '),
+      caps: caps, wishes: wishes, candles: candles,
+      cakeCls: s.blown ? 'xt-cake--out' : '',
+      wishLine: wl, wishFs: tkFit(wl, 34, 22, 290, 0.5),
+      blowIdle: s.blown ? 'is-hidden' : '', blowDone: s.blown ? '' : 'is-hidden',
+      blow: () => this.setState({ blown: !this.state.blown }),
+      secCls: 'xt-card' + (s.sec ? ' xt-up' : ''), secOn: s.sec ? 'true' : 'false',
+      secFs: sec.length > 160 ? 14 : sec.length > 100 ? 16 : 19,
+      toggleSec: () => this.setState({ sec: !this.state.sec }),
+      gal: gal, chron: chron, reviews: reviews,
+      askName: name + 'ni tabrikladingizmi?', toName: SITE.ga(name),
+      sendCls: s.sent ? 'xt-btn xt-btn--done' : 'xt-btn',
+      sendIdle: s.sent ? 'is-hidden' : '', sendDone: s.sent ? '' : 'is-hidden',
+      burstCls: s.sent ? 'xt-burst xt-burst--go' : 'xt-burst',
+      send: () => {
+        if (this.state.sent) return;
+        this.setState({ sent: true });
+        SITE.reply('Tabrikladim' + (this.state.win ? ' · xotira o’yini: ' + this.state.moves + ' yurish' : ''), '🥰');
+      },
+      footLine: [yosh ? yosh + ' yosh' : '', w.dots].filter(Boolean).join(' · '),
+      pageCls: s.opened ? 'xt-page xt-page--in' : 'xt-page',
+
+      /* intro */
+      introCls: 'xt-intro' + (s.win ? ' xt-intro--win' : '') + (s.opened ? ' xt-intro--out' : ''),
+      boardCls: 'xt-board' + (s.win ? ' xt-board--win' : ''),
+      deck: deck, phaseLine: phaseLine,
+      moves: s.moves, movesCls: 'xt-chip' + (s.moves ? (s.moves % 2 ? ' xt-chip--a' : ' xt-chip--b') : ''),
+      pips: Array.from({ length: PAIRS }, (_, i) => 'xt-pip' + (i < nDone ? ' xt-pip--on' : '')),
+      pairsLbl: 'Topilgan juftlar: ' + nDone + ' / ' + PAIRS,
+      winLine: PAIRS + ' juftning hammasini ' + s.moves + ' yurishda topdingiz.',
+      winName: winName, winFs: winName.length > 40 ? 24 : 30,
+      skipOn: !s.win,
+      open: () => this.open()
+    });
+  }
+}
+</script>
+</body>
+</html>

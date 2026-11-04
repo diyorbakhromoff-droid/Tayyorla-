@@ -1,0 +1,938 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<title>Sevgi maktubi: Viktorina</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Commissioner:wght@400;500;600;700;800&amp;family=Dela+Gothic+One&amp;display=swap">
+<style>
+body{margin:0}
+.vk{font-family:'Commissioner','Helvetica Neue',Arial,sans-serif}
+.dg{font-family:'Dela Gothic One','Arial Black',Impact,sans-serif;font-weight:400}
+.ico{fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.icf{fill:currentColor}
+button{font-family:inherit;-webkit-tap-highlight-color:transparent}
+button:focus-visible,input:focus-visible{outline:3px solid #FFD23F;outline-offset:3px}
+button:disabled{cursor:default}
+.vk-ground{background-color:#22195A;background-image:radial-gradient(rgba(255,246,233,.075) 1.2px,transparent 1.7px);background-size:26px 26px}
+.vk-glow{position:absolute;border-radius:50%;pointer-events:none;filter:blur(70px)}
+.vk-drift{animation:vkDrift 16s ease-in-out infinite}
+.vk-drift2{animation:vkDrift 19s ease-in-out -7s infinite reverse}
+@keyframes vkDrift{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(26px,-30px) scale(1.12)}}
+.vk-cf{position:absolute;pointer-events:none;animation:vkBob 7s ease-in-out infinite;animation-delay:var(--d,0s)}
+@keyframes vkBob{0%,100%{transform:translateY(0) rotate(var(--r,0deg))}50%{transform:translateY(-14px) rotate(calc(var(--r,0deg) + 20deg))}}
+.pill{display:inline-flex;align-items:center;gap:7px;padding:6px 13px;border-radius:999px;background:rgba(255,246,233,.1);border:1.5px solid rgba(255,246,233,.16);font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#FFE6A3}
+.card{position:relative;box-sizing:border-box;background:#FFF6E9;color:#1B1340;border:3px solid #120C38;border-radius:28px;box-shadow:0 8px 0 #120C38}
+.h2{margin:0;font-family:'Dela Gothic One','Arial Black',sans-serif;font-weight:400;font-size:30px;line-height:1.12;letter-spacing:-.01em;color:#FFF6E9;overflow-wrap:anywhere}
+.sub{margin:10px 0 0;font-size:16px;line-height:1.5;color:#C9C2F0;overflow-wrap:anywhere}
+
+/* ---------- intro ---------- */
+.vk-intro{transition:opacity .7s ease,transform .9s cubic-bezier(.5,0,.2,1),visibility 0s linear .9s}
+.vk-intro.is-gone{opacity:0;transform:scale(1.1);visibility:hidden;pointer-events:none}
+.vk-beam{position:absolute;top:-60px;width:220px;height:820px;margin-left:-110px;transform-origin:50% 0;clip-path:polygon(44% 0,56% 0,100% 100%,0 100%);animation:vkSweep 6.5s ease-in-out infinite}
+.vk-beam1{left:70px;background:linear-gradient(180deg,rgba(255,210,63,.34),rgba(255,210,63,0) 82%)}
+.vk-beam2{left:320px;background:linear-gradient(180deg,rgba(255,77,141,.36),rgba(255,77,141,0) 82%);animation-duration:7.8s;animation-direction:reverse}
+@keyframes vkSweep{0%,100%{transform:rotate(-17deg)}50%{transform:rotate(15deg)}}
+.vk-w{display:inline-block;animation:vkWord .8s cubic-bezier(.2,1.55,.4,1) both;animation-delay:var(--d)}
+@keyframes vkWord{from{opacity:0;transform:translateY(34px) scale(.55) rotate(-7deg)}to{opacity:1;transform:none}}
+.vk-fadeup{animation:vkFadeUp .8s cubic-bezier(.2,.9,.3,1) both;animation-delay:var(--d,0s)}
+@keyframes vkFadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+.vk-head,.vk-foot{transition:transform .55s cubic-bezier(.6,0,.4,1),opacity .4s ease}
+.vk-intro.is-go .vk-head{transform:translateY(-70px);opacity:0}
+.vk-intro.is-go .vk-foot{transform:translateY(80px);opacity:0}
+.vk-dkw{position:absolute;left:120px;top:0;width:150px;height:196px;transition:transform .65s cubic-bezier(.55,-.2,.4,1),opacity .5s ease .1s}
+.vk-dkin{width:150px;height:196px;animation:vkDeal .9s cubic-bezier(.2,1.35,.4,1) both;animation-delay:var(--d)}
+@keyframes vkDeal{from{opacity:0;transform:translateY(240px) rotate(0deg) scale(.7)}to{opacity:1;transform:translate(var(--x),var(--y)) rotate(var(--r))}}
+.vk-dkb{width:150px;height:196px;animation:vkHover 4.6s ease-in-out infinite;animation-delay:var(--b)}
+@keyframes vkHover{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.vk-dk{width:150px;height:196px;box-sizing:border-box;border-radius:24px;border:3px solid #120C38;box-shadow:0 10px 0 #120C38;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.vk-intro.is-go .vk-dkw1{transform:translate(-360px,-80px) rotate(-50deg);opacity:0}
+.vk-intro.is-go .vk-dkw2{transform:translate(0,-420px) rotate(20deg);opacity:0}
+.vk-intro.is-go .vk-dkw3{transform:translate(360px,-60px) rotate(50deg);opacity:0}
+.vk-qm{animation:vkQm 2.6s ease-in-out infinite}
+@keyframes vkQm{0%,100%{transform:rotate(-6deg) scale(1)}50%{transform:rotate(6deg) scale(1.08)}}
+.vk-go{position:relative;display:flex;align-items:center;justify-content:center;gap:12px;width:282px;height:66px;margin:0 auto;padding:0;border:3px solid #120C38;border-radius:999px;background:#FFD23F;color:#1B1340;box-shadow:0 7px 0 #120C38;font-family:'Dela Gothic One','Arial Black',sans-serif;font-size:21px;cursor:pointer;transition:transform .14s cubic-bezier(.3,1.6,.5,1),box-shadow .14s ease}
+.vk-go:active{transform:translateY(5px);box-shadow:0 2px 0 #120C38}
+.vk-ring{position:absolute;left:-3px;top:-3px;right:-3px;bottom:-3px;border-radius:999px;border:3px solid #FFD23F;animation:vkRing 2.2s ease-out infinite;pointer-events:none}
+@keyframes vkRing{0%{transform:scale(1);opacity:.85}100%{transform:scale(1.22,1.5);opacity:0}}
+.vk-arrow{animation:vkNudge 1.4s ease-in-out infinite}
+@keyframes vkNudge{0%,100%{transform:translateX(0)}50%{transform:translateX(5px)}}
+.vk-cd{position:absolute;left:0;top:300px;width:390px;text-align:center;font-family:'Dela Gothic One','Arial Black',sans-serif;font-size:150px;line-height:1;color:#FFD23F;opacity:0;pointer-events:none;text-shadow:0 8px 0 #120C38}
+.vk-intro.is-go .vk-cd{animation:vkCount .46s cubic-bezier(.2,1.4,.4,1) both;animation-delay:var(--d)}
+@keyframes vkCount{0%{opacity:0;transform:scale(2.3) rotate(-8deg)}30%{opacity:1;transform:scale(1) rotate(0)}72%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(.55)}}
+.vk-cd-go{font-size:64px;top:360px;color:#FF4D8D}
+.vk-intro.is-go .vk-cd-go{animation:vkGoTxt .7s cubic-bezier(.2,1.5,.4,1) both;animation-delay:var(--d)}
+@keyframes vkGoTxt{0%{opacity:0;transform:scale(.3)}45%{opacity:1;transform:scale(1.12)}100%{opacity:1;transform:scale(1)}}
+.vk-flash{position:absolute;left:50%;top:400px;width:40px;height:40px;margin:-20px 0 0 -20px;border-radius:50%;background:radial-gradient(closest-side,rgba(255,246,233,.9),rgba(255,210,63,.45) 55%,rgba(255,210,63,0));opacity:0;pointer-events:none}
+.vk-intro.is-go .vk-flash{animation:vkFlash .9s ease-out 1.3s both}
+@keyframes vkFlash{0%{opacity:0;transform:scale(.2)}35%{opacity:1}100%{opacity:0;transform:scale(26)}}
+
+/* ---------- reveal on scroll ---------- */
+.vk-sec{position:relative}
+.vk-sec .rv{opacity:0;transform:translateY(30px) scale(.97);transition:opacity .7s ease,transform .8s cubic-bezier(.2,1.25,.4,1);transition-delay:var(--i,0s)}
+.vk-sec.is-in .rv{opacity:1;transform:none}
+.vk-sec .rvl{opacity:0;transform:translateX(-44px) rotate(-3deg);transition:opacity .6s ease,transform .8s cubic-bezier(.2,1.3,.4,1);transition-delay:var(--i,0s)}
+.vk-sec .rvr{opacity:0;transform:translateX(44px) rotate(3deg);transition:opacity .6s ease,transform .8s cubic-bezier(.2,1.3,.4,1);transition-delay:var(--i,0s)}
+.vk-sec.is-in .rvl,.vk-sec.is-in .rvr{opacity:1;transform:none}
+
+/* ---------- hero lobby ---------- */
+.vk-root.is-on .vk-pop{animation:vkPopIn .8s cubic-bezier(.2,1.5,.4,1) backwards;animation-delay:var(--d,0s)}
+@keyframes vkPopIn{from{opacity:0;transform:scale(.4) rotate(-8deg)}to{opacity:1;transform:none}}
+.vk-root.is-on .vk-rise{animation:vkFadeUp .8s cubic-bezier(.2,.9,.3,1) backwards;animation-delay:var(--d,0s)}
+.vk-orb{animation:vkSpin 14s linear infinite}
+@keyframes vkSpin{to{transform:rotate(360deg)}}
+.vk-orb-i{animation:vkSpin 14s linear infinite reverse}
+.vk-beat{animation:vkBeat 1.7s ease-in-out infinite}
+@keyframes vkBeat{0%,100%{transform:scale(1)}14%{transform:scale(1.2)}28%{transform:scale(1)}42%{transform:scale(1.1)}}
+.vk-mus{position:absolute;right:16px;top:16px;z-index:8;width:46px;height:46px;padding:0;border-radius:50%;border:2.5px solid #120C38;background:#FFD23F;color:#1B1340;box-shadow:0 4px 0 #120C38;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .14s ease,box-shadow .14s ease}
+.vk-mus:active{transform:translateY(3px);box-shadow:0 1px 0 #120C38}
+
+/* ---------- quiz ---------- */
+.vk-bar{display:flex;align-items:center;gap:12px}
+.vk-seg{flex:1;height:10px;border-radius:999px;background:rgba(255,246,233,.16);transition:background-color .4s ease}
+.vk-seg.is-ok{background:#2ED3A2}
+.vk-seg.is-no{background:#FF7058}
+.vk-seg.is-cur{background:#FFD23F;animation:vkSegPulse 1.4s ease-in-out infinite}
+@keyframes vkSegPulse{0%,100%{opacity:1}50%{opacity:.45}}
+.vk-score{position:relative;flex:none;display:flex;align-items:center;gap:8px;height:40px;padding:0 14px 0 10px;border-radius:999px;background:#FFD23F;color:#1B1340;border:2.5px solid #120C38;box-shadow:0 4px 0 #120C38;font-weight:800;font-size:15px}
+.vk-bump{display:inline-block;animation:vkBump .55s cubic-bezier(.2,1.8,.4,1)}
+@keyframes vkBump{0%{transform:scale(1)}35%{transform:scale(1.6) rotate(-8deg)}100%{transform:scale(1)}}
+.vk-plus{position:absolute;right:6px;top:-6px;font-family:'Dela Gothic One',sans-serif;font-size:18px;color:#2ED3A2;text-shadow:0 2px 0 #120C38;animation:vkPlus 1.1s ease-out both;pointer-events:none}
+@keyframes vkPlus{0%{opacity:0;transform:translateY(6px) scale(.6)}25%{opacity:1;transform:translateY(-10px) scale(1.15)}100%{opacity:0;transform:translateY(-38px) scale(1)}}
+.vk-deck{position:relative;padding-bottom:34px}
+.vk-q{transition:transform .7s cubic-bezier(.3,1.25,.45,1),opacity .5s ease}
+.vk-q-cur{position:relative;z-index:6}
+.vk-q-next{position:absolute;left:0;right:0;top:0;bottom:34px;pointer-events:none}
+.vk-q-past{position:absolute;left:0;right:0;top:0;pointer-events:none;z-index:7;transition:transform .75s cubic-bezier(.55,-.25,.45,1),opacity .55s ease .15s}
+.vk-back{position:absolute;left:0;top:0;width:100%;height:100%;box-sizing:border-box;border-radius:28px;border:3px solid #120C38;box-shadow:0 8px 0 #120C38;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.vk-body{animation:vkBody .55s cubic-bezier(.2,.9,.3,1) .18s both}
+@keyframes vkBody{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.vk-opt{position:relative;display:flex;align-items:center;gap:12px;width:100%;min-height:58px;margin:0;padding:9px 14px 9px 10px;box-sizing:border-box;border:2.5px solid #120C38;border-radius:18px;background:#FFFFFF;color:#1B1340;box-shadow:0 5px 0 #120C38;text-align:left;font-size:17px;font-weight:600;line-height:1.3;cursor:pointer;transition:transform .16s cubic-bezier(.3,1.6,.5,1),box-shadow .16s ease,background-color .3s ease,opacity .3s ease}
+.vk-opt:active{transform:translateY(4px);box-shadow:0 1px 0 #120C38}
+.vk-opt.is-ok{background:#2ED3A2;animation:vkYes .6s cubic-bezier(.2,1.6,.4,1)}
+@keyframes vkYes{0%{transform:scale(1)}40%{transform:scale(1.05) rotate(-1deg)}100%{transform:scale(1)}}
+.vk-opt.is-no{background:#FF7058;animation:vkNo .5s ease}
+@keyframes vkNo{0%,100%{transform:translateX(0)}20%{transform:translateX(-9px) rotate(-1deg)}40%{transform:translateX(8px) rotate(1deg)}60%{transform:translateX(-6px)}80%{transform:translateX(4px)}}
+.vk-opt.is-show{background:#BDF3E1;animation:vkShow 1.2s ease-in-out 2}
+@keyframes vkShow{0%,100%{transform:scale(1)}50%{transform:scale(1.025)}}
+.vk-opt.is-dim{opacity:.5}
+.vk-shp{flex:none;width:38px;height:38px;border-radius:12px;border:2px solid #120C38;display:flex;align-items:center;justify-content:center;color:#120C38}
+.vk-st{flex:none;width:30px;height:30px;border-radius:50%;background:#120C38;color:#FFF6E9;display:flex;align-items:center;justify-content:center;animation:vkPopIn .5s cubic-bezier(.2,1.7,.4,1) both}
+.vk-burst{position:absolute;left:50%;top:50%;width:0;height:0;pointer-events:none;z-index:3}
+.vk-bp{position:absolute;left:-6px;top:-6px;width:12px;height:12px;animation:vkBurst .9s cubic-bezier(.15,.7,.3,1) both}
+@keyframes vkBurst{0%{opacity:1;transform:rotate(var(--a)) translateY(0) scale(.3)}70%{opacity:1}100%{opacity:0;transform:rotate(var(--a)) translateY(var(--l)) scale(1)}}
+.vk-fb{animation:vkFb .55s cubic-bezier(.2,1.4,.4,1) both}
+@keyframes vkFb{from{opacity:0;transform:translateY(12px) scale(.94)}to{opacity:1;transform:none}}
+.vk-next{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;height:56px;margin:0;padding:0;border:2.5px solid #120C38;border-radius:999px;background:#1B1340;color:#FFD23F;box-shadow:0 5px 0 #FF4D8D;font-family:'Dela Gothic One','Arial Black',sans-serif;font-size:17px;cursor:pointer;transition:transform .14s ease,box-shadow .14s ease}
+.vk-next:active{transform:translateY(4px);box-shadow:0 1px 0 #FF4D8D}
+
+/* result */
+.vk-res{animation:vkRes .8s cubic-bezier(.2,1.4,.4,1) both}
+@keyframes vkRes{from{opacity:0;transform:translateY(40px) scale(.85) rotate(-3deg)}to{opacity:1;transform:none}}
+.vk-rtrack{fill:none;stroke:#E9DFFF;stroke-width:14}
+.vk-rfill{fill:none;stroke:#2ED3A2;stroke-width:14;stroke-linecap:round;animation:vkRing2 1.4s cubic-bezier(.3,.8,.3,1) .35s both}
+@keyframes vkRing2{from{stroke-dashoffset:var(--c)}to{stroke-dashoffset:var(--o)}}
+.vk-cfall{position:absolute;top:-20px;width:10px;height:16px;border-radius:3px;pointer-events:none;animation:vkFall 2.6s cubic-bezier(.25,.4,.4,1) both;animation-delay:var(--d)}
+@keyframes vkFall{0%{opacity:0;transform:translate(0,0) rotate(0)}10%{opacity:1}100%{opacity:0;transform:translate(var(--x),560px) rotate(var(--r))}}
+.vk-btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;min-height:54px;margin:0;padding:0 18px;box-sizing:border-box;border:2.5px solid #120C38;border-radius:999px;font-size:16px;font-weight:800;cursor:pointer;box-shadow:0 5px 0 #120C38;transition:transform .14s ease,box-shadow .14s ease}
+.vk-btn:active{transform:translateY(4px);box-shadow:0 1px 0 #120C38}
+.vk-btn-y{background:#FFD23F;color:#1B1340}
+.vk-btn-p{background:#FF4D8D;color:#FFFFFF}
+.vk-btn-w{background:#FFFFFF;color:#1B1340}
+
+/* letter lock */
+.vk-letter{transition:filter 1.1s ease .45s,opacity 1.1s ease .45s}
+.vk-letter.is-locked{filter:blur(7px);opacity:.5;user-select:none;-webkit-user-select:none}
+.vk-lock{position:absolute;left:0;top:0;width:100%;height:100%;display:flex;flex-direction:column;align-items:center;padding-top:56px;box-sizing:border-box;transition:opacity .5s ease .55s,visibility 0s linear 1.1s}
+.vk-lock.is-open{opacity:0;visibility:hidden;pointer-events:none}
+.vk-padw{transition:transform .7s cubic-bezier(.5,-.3,.4,1) .2s}
+.vk-lock.is-open .vk-padw{transform:translateY(-30px) scale(1.25) rotate(12deg)}
+.vk-shack{transform-origin:76% 100%;transition:transform .45s cubic-bezier(.3,1.8,.5,1)}
+.vk-lock.is-open .vk-shack{transform:translateY(-7px) rotate(28deg)}
+.vk-padb{animation:vkWiggle 3.2s ease-in-out infinite}
+@keyframes vkWiggle{0%,82%,100%{transform:rotate(0)}86%{transform:rotate(-9deg)}90%{transform:rotate(8deg)}94%{transform:rotate(-4deg)}}
+.vk-seal{animation:vkSeal .9s cubic-bezier(.2,1.6,.4,1) .9s both}
+@keyframes vkSeal{from{opacity:0;transform:scale(2.4) rotate(-30deg)}to{opacity:1;transform:rotate(-8deg)}}
+
+/* reasons */
+.vk-rsn{position:relative;display:flex;align-items:center;gap:12px;width:100%;min-height:58px;margin:0;padding:10px 14px 10px 10px;box-sizing:border-box;border:2.5px solid #120C38;border-radius:18px;background:#FFF6E9;color:#1B1340;box-shadow:0 5px 0 #120C38;text-align:left;font-size:17px;font-weight:600;line-height:1.3;cursor:pointer;transition:transform .16s cubic-bezier(.3,1.6,.5,1),box-shadow .16s ease,background-color .3s ease}
+.vk-rsn:active{transform:translateY(4px);box-shadow:0 1px 0 #120C38}
+.vk-rsn.is-on{background:#FFD0E1}
+.vk-lt{flex:none;width:38px;height:38px;border-radius:12px;border:2px solid #120C38;display:flex;align-items:center;justify-content:center;font-family:'Dela Gothic One',sans-serif;font-size:15px;transition:transform .4s cubic-bezier(.2,1.7,.4,1)}
+.vk-rsn.is-on .vk-lt{transform:rotate(-12deg) scale(1.08)}
+.vk-hrt{flex:none;color:#C9BFE8;transition:color .3s ease,transform .45s cubic-bezier(.2,1.8,.4,1)}
+.vk-rsn.is-on .vk-hrt{color:#FF4D8D;transform:scale(1.3)}
+
+/* mystery block */
+.vk-mb{position:relative;display:block;width:150px;height:150px;margin:0 auto;padding:0;border:0;background:transparent;cursor:pointer}
+.vk-mbf{position:absolute;left:0;top:0;width:150px;height:150px;box-sizing:border-box;border-radius:26px;border:3px solid #120C38;background:#FFD23F;box-shadow:0 9px 0 #120C38,inset 0 -10px 0 rgba(176,115,0,.28),inset 0 8px 0 rgba(255,255,255,.4);display:flex;align-items:center;justify-content:center;animation:vkIdle 2.4s ease-in-out infinite}
+@keyframes vkIdle{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.vk-mb:active .vk-mbf{transform:translateY(5px) scale(.97);animation:none}
+.vk-mb.is-open .vk-mbf{animation:vkHit .7s cubic-bezier(.2,1.6,.4,1) both;background:#FF4D8D}
+@keyframes vkHit{0%{transform:translateY(0)}30%{transform:translateY(-30px) scale(1.06)}60%{transform:translateY(4px) scale(.98)}100%{transform:none}}
+.vk-rivet{position:absolute;width:9px;height:9px;border-radius:50%;background:#120C38;opacity:.55}
+.vk-pophrt{position:absolute;left:50%;top:-10px;width:56px;height:56px;margin-left:-28px;color:#FF4D8D;pointer-events:none;animation:vkHeartUp 1.2s cubic-bezier(.2,1.2,.4,1) .15s both}
+@keyframes vkHeartUp{0%{opacity:0;transform:translateY(40px) scale(.3)}40%{opacity:1;transform:translateY(-46px) scale(1.15)}100%{opacity:0;transform:translateY(-90px) scale(.9)}}
+.vk-scorepop{display:inline-block;animation:vkPopIn .8s cubic-bezier(.2,1.6,.4,1) .5s both}
+.vk-sec-t{animation:vkFb .7s cubic-bezier(.2,1.3,.4,1) .45s both}
+
+/* level map */
+.vk-path{fill:none;stroke:#FFD23F;stroke-width:5;stroke-linecap:round;stroke-dasharray:2 14}
+.vk-path2{fill:none;stroke:rgba(255,246,233,.12);stroke-width:18;stroke-linecap:round}
+.vk-node{position:absolute;width:74px;height:74px;margin:-37px 0 0 -37px;box-sizing:border-box;border-radius:50%;border:3px solid #120C38;background:#FFD23F;color:#1B1340;box-shadow:0 6px 0 #120C38;display:flex;align-items:center;justify-content:center;text-align:center;font-family:'Dela Gothic One',sans-serif;line-height:1.05;overflow:hidden;padding:0 6px}
+.vk-node-last{background:#FF4D8D;color:#FFFFFF}
+.vk-halo{position:absolute;width:74px;height:74px;margin:-37px 0 0 -37px;border-radius:50%;border:3px solid #FF4D8D;animation:vkHalo 2s ease-out infinite;pointer-events:none}
+@keyframes vkHalo{0%{transform:scale(1);opacity:.9}100%{transform:scale(1.7);opacity:0}}
+.vk-stars{position:absolute;display:flex;gap:2px;margin-left:-27px;color:#FFD23F}
+.vk-lvl{position:absolute;box-sizing:border-box;width:236px;padding:12px 14px 13px;border-radius:20px;background:#FFF6E9;color:#1B1340;border:2.5px solid #120C38;box-shadow:0 5px 0 #120C38}
+
+/* gallery */
+.vk-ph{position:relative;box-sizing:border-box;border:3px solid #120C38;border-radius:22px;background:#FFF6E9;box-shadow:0 7px 0 #120C38;overflow:hidden;padding:6px}
+.vk-ph img{display:block;width:100%;height:100%;object-fit:cover;border-radius:15px}
+.vk-tag{position:absolute;left:12px;top:12px;padding:5px 10px;border-radius:999px;border:2px solid #120C38;font-size:12px;font-weight:800;letter-spacing:.06em;color:#1B1340}
+
+/* scoreboard */
+.vk-tile{position:relative;width:58px;height:84px;border-radius:16px;background:#120C38;border:3px solid #120C38;box-shadow:0 6px 0 #0A0626,inset 0 0 0 2px rgba(255,210,63,.18);overflow:hidden}
+.vk-col{position:absolute;left:0;top:0;width:100%;transition:transform 1.6s cubic-bezier(.2,1.1,.3,1);transition-delay:var(--i,0s)}
+.vk-col span{display:block;height:84px;line-height:84px;text-align:center;font-family:'Dela Gothic One',sans-serif;font-size:46px;color:#FFD23F}
+.vk-tile:after{content:'';position:absolute;left:0;right:0;top:41px;height:2px;background:rgba(0,0,0,.35)}
+.vk-clk{width:88px;padding:11px 0 9px;border-radius:16px;background:rgba(255,246,233,.08);border:2px solid rgba(255,246,233,.14);text-align:center}
+
+/* answer */
+.vk-inp{flex:1;min-width:0;height:54px;box-sizing:border-box;padding:0 18px;border-radius:999px;border:2.5px solid #120C38;background:#FFFFFF;color:#1B1340;font-family:'Commissioner',Arial,sans-serif;font-size:16px;box-shadow:inset 0 3px 0 rgba(18,12,56,.08)}
+.vk-inp::placeholder{color:#8A82B0}
+.vk-send{flex:none;width:54px;height:54px;padding:0;border-radius:50%;border:2.5px solid #120C38;background:#FF4D8D;color:#FFFFFF;box-shadow:0 4px 0 #120C38;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .14s ease,box-shadow .14s ease,opacity .2s}
+.vk-send:active{transform:translateY(3px);box-shadow:0 1px 0 #120C38}
+.vk-stamp{display:inline-block;padding:8px 18px;border:3px solid #2ED3A2;border-radius:14px;color:#2ED3A2;font-family:'Dela Gothic One',sans-serif;font-size:22px;letter-spacing:.04em;animation:vkSeal .8s cubic-bezier(.2,1.6,.4,1) both}
+
+@media (prefers-reduced-motion: reduce){
+.vk-drift,.vk-drift2,.vk-cf,.vk-beam,.vk-w,.vk-fadeup,.vk-dkin,.vk-dkb,.vk-qm,.vk-ring,.vk-arrow,.vk-orb,.vk-orb-i,.vk-beat,.vk-seg.is-cur,.vk-bump,.vk-plus,.vk-body,.vk-opt.is-ok,.vk-opt.is-no,.vk-opt.is-show,.vk-st,.vk-bp,.vk-fb,.vk-res,.vk-rfill,.vk-cfall,.vk-padb,.vk-seal,.vk-mbf,.vk-pophrt,.vk-sec-t,.vk-halo,.vk-stamp{animation:none}
+.vk-root.is-on .vk-pop,.vk-root.is-on .vk-rise,.vk-intro.is-go .vk-cd,.vk-intro.is-go .vk-cd-go,.vk-intro.is-go .vk-flash{animation:none}
+.vk-dkin{transform:translate(var(--x),var(--y)) rotate(var(--r))}
+.vk-bp,.vk-plus,.vk-cfall,.vk-pophrt{display:none}
+.vk-intro,.vk-head,.vk-foot,.vk-dkw,.vk-q,.vk-q-past,.vk-letter,.vk-lock,.vk-padw,.vk-shack,.vk-col,.vk-sec .rv,.vk-sec .rvl,.vk-sec .rvr{transition:none}
+.vk-sec .rv,.vk-sec .rvl,.vk-sec .rvr{opacity:1;transform:none}
+}
+</style>
+</helmet>
+<div class="{{ rootCls }}" style="width: 390px; min-height: var(--vh, 100vh); position: relative; overflow: hidden; background: #22195A; color: #FFF6E9; font-family: 'Commissioner', 'Helvetica Neue', Arial, sans-serif; display: flex; flex-direction: column">
+
+  <!-- ============ INTRO: quiz show stage ============ -->
+  <div data-intro class="{{ introCls }}" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; z-index: 40; overflow: hidden; background: #1B1349">
+    <div class="vk-ground" aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; background-color: #1B1349"></div>
+    <div class="vk-glow vk-drift" aria-hidden="true" style="left: -120px; top: 420px; width: 360px; height: 360px; background: rgba(255, 77, 141, 0.42)"></div>
+    <div class="vk-glow vk-drift2" aria-hidden="true" style="left: 190px; top: 160px; width: 320px; height: 320px; background: rgba(91, 140, 255, 0.36)"></div>
+    <div class="vk-beam vk-beam1" aria-hidden="true"></div>
+    <div class="vk-beam vk-beam2" aria-hidden="true"></div>
+    <sc-for list="{{ introCf }}" as="c">
+    <svg class="vk-cf" aria-hidden="true" width="{{ c.s }}" height="{{ c.s }}" viewBox="0 0 24 24" style="left: {{ c.x }}px; top: {{ c.y }}px; color: {{ c.c }}; --d: {{ c.d }}; --r: {{ c.r }}"><path class="icf" d="{{ c.p }}"></path></svg>
+    </sc-for>
+
+    <div class="vk-head" style="position: absolute; left: 0; top: 74px; width: 390px; text-align: center">
+      <p class="vk-fadeup" style="margin: 0; --d: 0.1s"><span class="pill"><svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path class="icf" d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"></path></svg>Sevgi viktorinasi</span></p>
+      <h1 class="dg" style="margin: 20px 0 0; font-size: 46px; line-height: 1.02; letter-spacing: -0.01em; color: #FFF6E9; text-shadow: 0 5px 0 #120C38">
+        <span class="vk-w" style="--d: 0.25s">Bizni</span><br>
+        <span class="vk-w" style="--d: 0.4s; color: #FFD23F">qanchalik</span><br>
+        <span class="vk-w" style="--d: 0.55s">eslay</span><span class="vk-w" style="--d: 0.65s; color: #FF4D8D">san?</span>
+      </h1>
+    </div>
+
+    <div aria-hidden="true" style="position: absolute; left: 0; top: 352px; width: 390px; height: 240px">
+      <div class="vk-dkw vk-dkw1">
+        <div class="vk-dkin" style="--d: 0.55s; --x: -96px; --y: 22px; --r: -15deg">
+          <div class="vk-dkb" style="--b: 0s">
+            <div class="vk-dk" style="background: #FF4D8D"><svg width="70" height="70" viewBox="0 0 24 24" style="color: #FFF6E9"><path class="icf" d="M12 21s-7.5-4.6-9.6-9.3C1 8.4 3 4.8 6.6 4.8c2.2 0 3.7 1.3 5.4 3.4 1.7-2.1 3.2-3.4 5.4-3.4 3.6 0 5.6 3.6 4.2 6.9C19.5 16.4 12 21 12 21z"></path></svg></div>
+          </div>
+        </div>
+      </div>
+      <div class="vk-dkw vk-dkw3">
+        <div class="vk-dkin" style="--d: 0.68s; --x: 96px; --y: 22px; --r: 15deg">
+          <div class="vk-dkb" style="--b: -1.6s">
+            <div class="vk-dk" style="background: #5B8CFF"><svg width="66" height="66" viewBox="0 0 24 24" style="color: #FFF6E9"><path class="icf" d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"></path></svg></div>
+          </div>
+        </div>
+      </div>
+      <div class="vk-dkw vk-dkw2">
+        <div class="vk-dkin" style="--d: 0.82s; --x: 0px; --y: 0px; --r: 0deg">
+          <div class="vk-dkb" style="--b: -0.8s">
+            <div class="vk-dk" style="background: #FFF6E9">
+              <span class="dg vk-qm" style="display: block; font-size: 110px; line-height: 1; color: #1B1340">?</span>
+              <span style="position: absolute; left: 12px; top: 10px; font-weight: 800; font-size: 13px; letter-spacing: 0.08em; color: #FF4D8D">{{ qCountTxt }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="vk-foot" style="position: absolute; left: 0; top: 612px; width: 390px; text-align: center">
+      <p class="vk-fadeup" style="margin: 0 auto; width: 320px; font-size: 16px; line-height: 1.45; color: #D9D3FA; overflow-wrap: anywhere; --d: 1.0s">{{ introSub }}</p>
+      <div class="vk-fadeup" style="margin-top: 22px; --d: 1.15s">
+        <button type="button" class="vk-go" onClick="{{ start }}" aria-label="Viktorinani boshlash">
+          <span class="vk-ring" aria-hidden="true"></span>
+          Boshlash
+          <svg class="vk-arrow" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path class="ico" d="M5 12h13M13 6l6 6-6 6" style="stroke-width: 3"></path></svg>
+        </button>
+      </div>
+      <sc-if value="{{ has.music }}">
+      <p class="vk-fadeup" style="margin: 16px 0 0; display: flex; align-items: center; justify-content: center; gap: 7px; font-size: 13px; color: #A49CD6; --d: 1.3s"><svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path class="ico" d="M9 18V5l11-2v13"></path><circle class="ico" cx="6" cy="18" r="3"></circle><circle class="ico" cx="17" cy="16" r="3"></circle></svg>Musiqa bilan</p>
+      </sc-if>
+    </div>
+
+    <span class="vk-cd" aria-hidden="true" style="--d: 0.2s">3</span>
+    <span class="vk-cd" aria-hidden="true" style="--d: 0.58s">2</span>
+    <span class="vk-cd" aria-hidden="true" style="--d: 0.96s">1</span>
+    <span class="vk-cd vk-cd-go" aria-hidden="true" style="--d: 1.34s">Ketdik!</span>
+    <span class="vk-flash" aria-hidden="true"></span>
+  </div>
+
+  <div class="vk-ground" style="flex: 1; position: relative; display: flex; flex-direction: column">
+    <div class="vk-glow vk-drift" aria-hidden="true" style="left: -140px; top: 60px; width: 380px; height: 380px; background: rgba(255, 77, 141, 0.3)"></div>
+    <div class="vk-glow vk-drift2" aria-hidden="true" style="left: 210px; top: 520px; width: 340px; height: 340px; background: rgba(91, 140, 255, 0.28)"></div>
+    <div class="vk-glow vk-drift" aria-hidden="true" style="left: 160px; top: 44%; width: 320px; height: 320px; background: rgba(255, 210, 63, 0.16)"></div>
+    <div class="vk-glow vk-drift2" aria-hidden="true" style="left: -120px; top: 72%; width: 340px; height: 340px; background: rgba(255, 77, 141, 0.22)"></div>
+    <sc-for list="{{ pageCf }}" as="c">
+    <svg class="vk-cf" aria-hidden="true" width="{{ c.s }}" height="{{ c.s }}" viewBox="0 0 24 24" style="left: {{ c.x }}px; top: {{ c.y }}; color: {{ c.c }}; opacity: 0.55; --d: {{ c.d }}; --r: {{ c.r }}"><path class="icf" d="{{ c.p }}"></path></svg>
+    </sc-for>
+
+    <sc-if value="{{ has.music }}">
+    <button type="button" class="vk-mus" aria-label="Musiqa" aria-pressed="{{ musicOn }}" onClick="{{ toggleMusic }}">
+      <sc-if value="{{ musicOff }}"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path class="ico" d="M9 18V5l11-2v13"></path><circle class="ico" cx="6" cy="18" r="3"></circle><circle class="ico" cx="17" cy="16" r="3"></circle><path class="ico" d="M3 3l18 18"></path></svg></sc-if>
+      <sc-if value="{{ musicOn }}"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path class="ico" d="M9 18V5l11-2v13"></path><circle class="ico" cx="6" cy="18" r="3"></circle><circle class="ico" cx="17" cy="16" r="3"></circle></svg></sc-if>
+    </button>
+    </sc-if>
+
+    <!-- ============ HERO: lobby ============ -->
+    <header style="position: relative; padding: 56px 24px 10px; text-align: center">
+      <p class="vk-rise" style="margin: 0; --d: 0.1s"><span class="pill">Faqat {{ toName }} uchun</span></p>
+      <div class="vk-pop" style="position: relative; width: 176px; height: 176px; margin: 26px auto 0; --d: 0.2s">
+        <svg class="vk-orb" aria-hidden="true" width="176" height="176" viewBox="0 0 176 176" style="position: absolute; left: 0; top: 0"><circle cx="88" cy="88" r="84" style="fill: none; stroke: #FFD23F; stroke-width: 3; stroke-dasharray: 3 11; stroke-linecap: round"></circle></svg>
+        <div class="vk-orb" aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 176px; height: 176px">
+          <svg class="vk-orb-i" width="30" height="30" viewBox="0 0 24 24" style="position: absolute; left: 73px; top: -13px; color: #FF4D8D"><path class="icf" d="M12 21s-7.5-4.6-9.6-9.3C1 8.4 3 4.8 6.6 4.8c2.2 0 3.7 1.3 5.4 3.4 1.7-2.1 3.2-3.4 5.4-3.4 3.6 0 5.6 3.6 4.2 6.9C19.5 16.4 12 21 12 21z"></path></svg>
+          <svg class="vk-orb-i" width="24" height="24" viewBox="0 0 24 24" style="position: absolute; left: 76px; top: 166px; color: #FFD23F"><path class="icf" d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"></path></svg>
+        </div>
+        <div style="position: absolute; left: 18px; top: 18px; width: 140px; height: 140px; box-sizing: border-box; border-radius: 50%; border: 4px solid #120C38; box-shadow: 0 8px 0 #120C38; overflow: hidden; background: #FF4D8D; display: flex; align-items: center; justify-content: center">
+          <sc-if value="{{ has.photo }}"><img src="{{ p.0 }}" alt="" style="display: block; width: 132px; height: 132px; object-fit: cover"></sc-if>
+          <sc-if value="{{ noPhoto }}"><span class="dg" style="font-size: 52px; color: #FFF6E9; text-shadow: 0 4px 0 #120C38">{{ mono }}</span></sc-if>
+        </div>
+      </div>
+      <h1 class="dg vk-rise" style="margin: 28px 0 0; font-size: {{ titlePx }}px; line-height: 1.08; color: #FFF6E9; text-shadow: 0 4px 0 #120C38; overflow-wrap: anywhere; --d: 0.4s">{{ toName }}, <span style="color: #FFD23F">bizni eslaysanmi?</span></h1>
+      <div class="vk-rise" style="margin-top: 22px; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; --d: 0.55s">
+        <span style="display: inline-flex; align-items: center; gap: 8px; max-width: 330px; padding: 8px 14px 8px 8px; border-radius: 999px; background: #FFF6E9; color: #1B1340; border: 2.5px solid #120C38; box-shadow: 0 4px 0 #120C38; font-size: 14px; font-weight: 700; text-align: left">
+          <span style="flex: none; width: 28px; height: 28px; border-radius: 50%; background: #FFD23F; border: 2px solid #120C38; display: flex; align-items: center; justify-content: center; font-family: 'Dela Gothic One', sans-serif; font-size: 13px">{{ iniFrom }}</span>
+          <span style="min-width: 0; overflow-wrap: anywhere">Savollar: {{ fromName }}</span>
+        </span>
+        <span style="display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px 8px 8px; border-radius: 999px; background: #FF4D8D; color: #FFFFFF; border: 2.5px solid #120C38; box-shadow: 0 4px 0 #120C38; font-size: 14px; font-weight: 700">
+          <span style="flex: none; width: 28px; height: 28px; border-radius: 50%; background: #FFF6E9; color: #1B1340; border: 2px solid #120C38; display: flex; align-items: center; justify-content: center"><svg width="15" height="15" viewBox="0 0 24 24" aria-hidden="true"><path class="ico" d="M12 3v3M12 18v3M3 12h3M18 12h3"></path><circle class="ico" cx="12" cy="12" r="4"></circle></svg></span>
+          {{ qCountTxt }}
+        </span>
+      </div>
+    </header>
+
+    <!-- ============ QUIZ ============ -->
+    <section id="vk-quiz" data-rv="quiz" class="{{ rv.quiz }}" style="padding: 40px 18px 46px">
+      <sc-if value="{{ playing }}">
+      <div class="rv vk-bar" style="padding: 0 4px">
+        <div role="progressbar" aria-label="Savollar" aria-valuemin="0" aria-valuemax="{{ qN }}" aria-valuenow="{{ qNow }}" style="flex: 1; display: flex; gap: 6px">
+          <sc-for list="{{ segs }}" as="g"><span class="{{ g.c }}"></span></sc-for>
+        </div>
+        <span class="vk-score" aria-live="polite">
+          <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path class="icf" d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"></path></svg>
+          <span>Ball</span>
+          <span key="{{ scoreKey }}" class="{{ bumpCls }}" style="font-family: 'Dela Gothic One', sans-serif; font-size: 17px">{{ score }}</span>
+          <sc-if value="{{ plusOn }}"><span key="{{ plusKey }}" class="vk-plus" aria-hidden="true">+1</span></sc-if>
+        </span>
+      </div>
+
+      <div class="rv vk-deck" style="margin-top: 22px; --i: 0.12s">
+        <sc-for list="{{ cards }}" as="q">
+        <div class="{{ q.cls }}" style="{{ q.st }}">
+          <sc-if value="{{ q.back }}">
+          <div class="vk-back" style="background: {{ q.bk }}">
+            <span class="dg" aria-hidden="true" style="font-size: 120px; line-height: 1; color: rgba(18, 12, 56, 0.16)">?</span>
+          </div>
+          </sc-if>
+          <sc-if value="{{ q.front }}">
+          <div class="card" style="padding: 22px 18px 22px">
+            <div class="vk-body">
+              <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px">
+                <span style="display: inline-block; padding: 6px 12px; border-radius: 999px; background: #1B1340; color: #FFD23F; font-weight: 800; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase">{{ q.tag }}</span>
+                <span style="font-size: 13px; font-weight: 700; color: #7A70A8">{{ q.kind }}</span>
+              </div>
+              <h3 class="dg" style="margin: 16px 0 0; font-size: {{ q.px }}px; line-height: 1.18; color: #1B1340; overflow-wrap: anywhere">{{ q.q }}</h3>
+              <div role="group" aria-label="{{ q.q }}" style="margin-top: 18px; display: flex; flex-direction: column; gap: 12px">
+                <sc-for list="{{ q.opts }}" as="o">
+                <button type="button" class="{{ o.cls }}" onClick="{{ o.tap }}" aria-pressed="{{ o.pressed }}">
+                  <span class="vk-shp" aria-hidden="true" style="background: {{ o.bg }}"><svg width="20" height="20" viewBox="0 0 24 24"><path class="icf" d="{{ o.shape }}"></path></svg></span>
+                  <span style="flex: 1; min-width: 0; overflow-wrap: anywhere">{{ o.t }}</span>
+                  <sc-if value="{{ o.mark }}"><span class="vk-st" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24"><path class="ico" d="{{ o.mark }}" style="stroke-width: 3"></path></svg></span></sc-if>
+                  <sc-if value="{{ o.burst }}">
+                  <span class="vk-burst" aria-hidden="true">
+                    <sc-for list="{{ burst }}" as="u"><svg class="vk-bp" viewBox="0 0 24 24" style="--a: {{ u.a }}; --l: {{ u.l }}; color: {{ u.c }}"><path class="icf" d="{{ u.p }}"></path></svg></sc-for>
+                  </span>
+                  </sc-if>
+                </button>
+                </sc-for>
+              </div>
+              <sc-if value="{{ q.answered }}">
+              <div class="vk-fb" role="status" style="margin-top: 18px">
+                <div style="display: flex; align-items: flex-start; gap: 10px; padding: 12px 14px; border-radius: 16px; background: {{ q.fbBg }}">
+                  <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" style="flex: none; margin-top: 1px; color: #1B1340"><path class="icf" d="{{ q.fbIco }}"></path></svg>
+                  <p style="margin: 0; font-size: 15.5px; font-weight: 600; line-height: 1.45; color: #1B1340; overflow-wrap: anywhere">{{ q.fb }}</p>
+                </div>
+                <button type="button" class="vk-next" onClick="{{ next }}" style="margin-top: 16px">{{ q.nextTxt }}<svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path class="ico" d="M5 12h13M13 6l6 6-6 6" style="stroke-width: 3"></path></svg></button>
+              </div>
+              </sc-if>
+            </div>
+          </div>
+          </sc-if>
+        </div>
+        </sc-for>
+      </div>
+      </sc-if>
+
+      <sc-if value="{{ done }}">
+      <div class="card vk-res" style="padding: 30px 22px 26px; text-align: center; overflow: hidden">
+        <sc-if value="{{ perfect }}">
+        <div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; pointer-events: none">
+          <sc-for list="{{ fall }}" as="f"><span class="vk-cfall" style="left: {{ f.x }}px; background: {{ f.c }}; --d: {{ f.d }}; --x: {{ f.dx }}; --r: {{ f.r }}"></span></sc-for>
+        </div>
+        </sc-if>
+        <p style="margin: 0"><span style="display: inline-block; padding: 6px 12px; border-radius: 999px; background: #1B1340; color: #FFD23F; font-weight: 800; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase">Natija</span></p>
+        <div role="img" aria-label="{{ resLbl }}" style="position: relative; width: 170px; height: 170px; margin: 20px auto 0">
+          <svg width="170" height="170" viewBox="0 0 170 170" aria-hidden="true" style="transform: rotate(-90deg)">
+            <circle class="vk-rtrack" cx="85" cy="85" r="70"></circle>
+            <circle class="vk-rfill" cx="85" cy="85" r="70" style="stroke-dasharray: 439.8; stroke-dashoffset: {{ ringOff }}; --c: 439.8; --o: {{ ringOff }}"></circle>
+          </svg>
+          <div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 170px; height: 170px; display: flex; flex-direction: column; align-items: center; justify-content: center">
+            <span class="dg vk-scorepop" style="font-size: 50px; line-height: 1; color: #1B1340">{{ score }}<span style="font-size: 26px; color: #9A90C4">/{{ qN }}</span></span>
+          </div>
+        </div>
+        <h3 class="dg" style="margin: 20px 0 0; font-size: 28px; line-height: 1.15; color: #1B1340">{{ verdict }}</h3>
+        <p style="margin: 10px 0 0; font-size: 16px; line-height: 1.5; color: #4A4170; overflow-wrap: anywhere">{{ verdictSub }}</p>
+        <div style="margin-top: 22px; display: flex; flex-direction: column; gap: 12px">
+          <sc-if value="{{ b.maktub }}"><button type="button" class="vk-btn vk-btn-p" onClick="{{ toLetter }}"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><rect class="ico" x="3" y="5" width="18" height="14" rx="2"></rect><path class="ico" d="M3.5 6l8.5 7 8.5-7"></path></svg>Maktubni o’qish</button></sc-if>
+          <sc-if value="{{ canSend }}"><button type="button" class="vk-btn vk-btn-y" onClick="{{ sendScore }}" disabled="{{ scoreBusy }}"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path class="icf" d="M3.4 20.4 21 12 3.4 3.6 3.4 10l12 2-12 2z"></path></svg><span style="overflow-wrap: anywhere">{{ sendScoreTxt }}</span></button></sc-if>
+          <sc-if value="{{ scoreSent }}"><p class="vk-fb" role="status" style="margin: 0; font-size: 15px; font-weight: 700; color: #138A68">{{ scoreSentTxt }}</p></sc-if>
+          <sc-if value="{{ scoreErr }}"><p role="alert" style="margin: 0; font-size: 14px; color: #C2412D">{{ scoreErr }}</p></sc-if>
+          <button type="button" class="vk-btn vk-btn-w" onClick="{{ replay }}"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path class="ico" d="M4 12a8 8 0 1 0 2.4-5.7M4 4v4.5h4.5"></path></svg>Qaytadan o’ynash</button>
+        </div>
+      </div>
+      </sc-if>
+    </section>
+
+    <!-- ============ MAKTUB: the prize ============ -->
+    <sc-if value="{{ b.maktub }}">
+    <section id="vk-maktub" data-rv="maktub" class="{{ rv.maktub }}" style="padding: 34px 18px 46px">
+      <div class="rv" style="padding: 0 6px">
+        <span class="pill">Sovrin</span>
+        <h2 class="h2" style="margin-top: 14px">Senga maktub</h2>
+      </div>
+      <div class="rv card" style="margin-top: 22px; padding: 30px 24px 30px; overflow: hidden; --i: 0.1s">
+        <sc-if value="{{ unlocked }}"><span class="vk-seal" aria-hidden="true" style="position: absolute; right: 16px; top: 16px; padding: 5px 10px; border: 2.5px solid #FF4D8D; border-radius: 10px; color: #FF4D8D; font-family: 'Dela Gothic One', sans-serif; font-size: 13px; letter-spacing: 0.06em">OCHILDI</span></sc-if>
+        <div class="{{ letterCls }}" aria-hidden="{{ lockedStr }}">
+          <p class="dg" style="margin: 0; font-size: 24px; line-height: 1.2; color: #1B1340; overflow-wrap: anywhere">{{ greet }}</p>
+          <div style="margin-top: 18px; display: flex; flex-direction: column; gap: 14px">
+            <sc-for list="{{ paras }}" as="m">
+            <p style="margin: 0; font-size: 17.5px; line-height: 1.62; color: #2A2152; white-space: pre-line; overflow-wrap: anywhere">{{ m }}</p>
+            </sc-for>
+          </div>
+          <sc-if value="{{ fromRaw }}">
+          <div style="margin-top: 24px; display: flex; align-items: center; justify-content: flex-end; gap: 10px">
+            <span style="font-size: 16px; color: #6B6194">Seni sevuvchi</span>
+            <span class="dg" style="font-size: 22px; color: #FF4D8D; overflow-wrap: anywhere">{{ fromName }}</span>
+            <svg class="vk-beat" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" style="flex: none; color: #FF4D8D"><path class="icf" d="M12 21s-7.5-4.6-9.6-9.3C1 8.4 3 4.8 6.6 4.8c2.2 0 3.7 1.3 5.4 3.4 1.7-2.1 3.2-3.4 5.4-3.4 3.6 0 5.6 3.6 4.2 6.9C19.5 16.4 12 21 12 21z"></path></svg>
+          </div>
+          </sc-if>
+        </div>
+        <div class="{{ lockCls }}" aria-hidden="{{ unlockedStr }}">
+          <div class="vk-padw">
+            <svg class="vk-padb" width="96" height="110" viewBox="0 0 96 110" aria-hidden="true">
+              <g class="vk-shack"><path d="M26 52V34a22 22 0 0 1 44 0v18" style="fill: none; stroke: #120C38; stroke-width: 10; stroke-linecap: round"></path></g>
+              <rect x="10" y="48" width="76" height="58" rx="16" style="fill: #FFD23F; stroke: #120C38; stroke-width: 4"></rect>
+              <path d="M48 66a7 7 0 0 1 4 12.7V88h-8v-9.3A7 7 0 0 1 48 66z" style="fill: #120C38"></path>
+            </svg>
+          </div>
+          <p class="dg" style="margin: 18px 0 0; font-size: 24px; color: #1B1340">Maktub qulflangan</p>
+          <p style="margin: 8px 0 0; width: 270px; text-align: center; font-size: 15.5px; line-height: 1.45; font-weight: 600; color: #4A4170">{{ lockTxt }}</p>
+          <button type="button" class="vk-btn vk-btn-y" onClick="{{ toQuiz }}" style="width: auto; margin-top: 18px; padding: 0 24px">Viktorinaga qaytish</button>
+        </div>
+      </div>
+    </section>
+    </sc-if>
+
+    <!-- ============ SABABLAR: answer key ============ -->
+    <sc-if value="{{ b.sabablar }}">
+    <section data-rv="sabablar" class="{{ rv.sabablar }}" style="padding: 34px 18px 46px">
+      <div class="rv" style="padding: 0 6px">
+        <span class="pill">Javoblar kaliti</span>
+        <h2 class="h2" style="margin-top: 14px">Seni sevishimning sabablari</h2>
+        <p class="sub">{{ likeHint }}</p>
+      </div>
+      <div style="margin-top: 22px; display: flex; flex-direction: column; gap: 13px">
+        <sc-for list="{{ reasons }}" as="r">
+        <div class="{{ r.rvc }}" style="--i: {{ r.i }}">
+        <button type="button" class="{{ r.cls }}" onClick="{{ r.tap }}" aria-pressed="{{ r.on }}">
+          <span class="vk-lt" aria-hidden="true" style="background: {{ r.bg }}">{{ r.n }}</span>
+          <span style="flex: 1; min-width: 0; overflow-wrap: anywhere">{{ r.t }}</span>
+          <svg class="vk-hrt" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path class="icf" d="M12 21s-7.5-4.6-9.6-9.3C1 8.4 3 4.8 6.6 4.8c2.2 0 3.7 1.3 5.4 3.4 1.7-2.1 3.2-3.4 5.4-3.4 3.6 0 5.6 3.6 4.2 6.9C19.5 16.4 12 21 12 21z"></path></svg>
+          <sc-if value="{{ r.burst }}">
+          <span class="vk-burst" aria-hidden="true" style="left: auto; right: 26px">
+            <sc-for list="{{ burstH }}" as="u"><svg class="vk-bp" viewBox="0 0 24 24" style="--a: {{ u.a }}; --l: {{ u.l }}; color: {{ u.c }}"><path class="icf" d="{{ u.p }}"></path></svg></sc-for>
+          </span>
+          </sc-if>
+        </button>
+        </div>
+        </sc-for>
+      </div>
+    </section>
+    </sc-if>
+
+    <!-- ============ SIRLI: mystery block ============ -->
+    <sc-if value="{{ b.sirli }}">
+    <section data-rv="sirli" class="{{ rv.sirli }}" style="padding: 34px 18px 50px; text-align: center">
+      <div class="rv">
+        <span class="pill">Bonus savol</span>
+        <h2 class="h2" style="margin-top: 14px">Qutida nima bor?</h2>
+        <p class="sub">{{ secretHint }}</p>
+      </div>
+      <div class="rv" style="margin-top: 34px; --i: 0.12s">
+        <button type="button" class="{{ mbCls }}" onClick="{{ reveal }}" disabled="{{ secret }}" aria-label="{{ secretLbl }}">
+          <span class="vk-mbf">
+            <span class="vk-rivet" style="left: 14px; top: 14px"></span><span class="vk-rivet" style="right: 14px; top: 14px"></span>
+            <span class="vk-rivet" style="left: 14px; bottom: 14px"></span><span class="vk-rivet" style="right: 14px; bottom: 14px"></span>
+            <sc-if value="{{ noSecret }}"><span class="dg" aria-hidden="true" style="font-size: 92px; line-height: 1; color: #1B1340; text-shadow: 0 4px 0 rgba(255, 255, 255, 0.45)">?</span></sc-if>
+            <sc-if value="{{ secret }}"><svg width="70" height="70" viewBox="0 0 24 24" aria-hidden="true" style="color: #FFF6E9"><path class="icf" d="M12 21s-7.5-4.6-9.6-9.3C1 8.4 3 4.8 6.6 4.8c2.2 0 3.7 1.3 5.4 3.4 1.7-2.1 3.2-3.4 5.4-3.4 3.6 0 5.6 3.6 4.2 6.9C19.5 16.4 12 21 12 21z"></path></svg></sc-if>
+          </span>
+          <sc-if value="{{ secret }}"><svg class="vk-pophrt" viewBox="0 0 24 24" aria-hidden="true"><path class="icf" d="M12 21s-7.5-4.6-9.6-9.3C1 8.4 3 4.8 6.6 4.8c2.2 0 3.7 1.3 5.4 3.4 1.7-2.1 3.2-3.4 5.4-3.4 3.6 0 5.6 3.6 4.2 6.9C19.5 16.4 12 21 12 21z"></path></svg></sc-if>
+        </button>
+      </div>
+      <sc-if value="{{ secret }}">
+      <div class="card vk-sec-t" role="status" style="margin: 34px 4px 0; padding: 24px 22px; text-align: left; background: #FFFFFF">
+        <p style="margin: 0; font-size: 12px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: #FF4D8D">Yashirin so’z</p>
+        <p style="margin: 10px 0 0; font-size: 19px; line-height: 1.5; font-weight: 600; color: #1B1340; white-space: pre-line; overflow-wrap: anywhere">{{ d.sirli_soz }}</p>
+      </div>
+      </sc-if>
+    </section>
+    </sc-if>
+
+    <!-- ============ YOL: level map ============ -->
+    <sc-if value="{{ b.yol }}">
+    <section data-rv="yol" class="{{ rv.yol }}" style="padding: 34px 0 40px">
+      <div class="rv" style="padding: 0 24px">
+        <span class="pill">Bosqichlar</span>
+        <h2 class="h2" style="margin-top: 14px">Bizning yo’limiz</h2>
+        <p class="sub">Har bir bosqich — birga o’tgan bir daraja.</p>
+      </div>
+      <div style="position: relative; margin-top: 30px; width: 390px; height: {{ map.h }}px">
+        <svg aria-hidden="true" width="390" height="{{ map.h }}" viewBox="0 0 390 {{ map.h }}" style="position: absolute; left: 0; top: 0">
+          <path class="vk-path2" d="{{ map.d }}"></path>
+          <path class="vk-path" d="{{ map.d }}"></path>
+        </svg>
+        <sc-for list="{{ map.items }}" as="y">
+        <sc-if value="{{ y.last }}"><span class="vk-halo" aria-hidden="true" style="left: {{ y.x }}px; top: {{ y.y }}px"></span></sc-if>
+        <div class="{{ y.nodeCls }}" style="left: {{ y.x }}px; top: {{ y.y }}px; font-size: {{ y.fs }}px; --i: {{ y.i }}">
+          <span style="display: block; white-space: {{ y.ws }}; overflow-wrap: anywhere">{{ y.yil }}</span>
+        </div>
+        <div class="vk-stars" aria-hidden="true" style="left: {{ y.x }}px; top: {{ y.sy }}px">
+          <sc-for list="{{ y.stars }}" as="z"><svg width="16" height="16" viewBox="0 0 24 24" style="opacity: {{ z }}"><path class="icf" d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"></path></svg></sc-for>
+        </div>
+        <div class="vk-lvl {{ y.rvc }}" style="left: {{ y.cx }}px; top: {{ y.cy }}px; --i: {{ y.i }}">
+          <p style="margin: 0; font-size: 11.5px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: #FF4D8D">{{ y.lv }}</p>
+          <p style="margin: 4px 0 0; font-size: 18px; font-weight: 800; line-height: 1.25; overflow-wrap: anywhere; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden">{{ y.sarlavha }}</p>
+          <sc-if value="{{ y.matn }}"><p style="margin: 4px 0 0; font-size: 14.5px; line-height: 1.4; color: #4A4170; overflow-wrap: anywhere; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden">{{ y.matn }}</p></sc-if>
+        </div>
+        </sc-for>
+      </div>
+    </section>
+    </sc-if>
+
+    <!-- ============ GALEREYA ============ -->
+    <sc-if value="{{ b.galereya }}">
+    <section data-rv="galereya" class="{{ rv.galereya }}" style="padding: 34px 18px 50px">
+      <div class="rv" style="padding: 0 6px">
+        <span class="pill">Sovrinli kadrlar</span>
+        <h2 class="h2" style="margin-top: 14px">Lahzalarimiz</h2>
+      </div>
+      <div style="margin-top: 26px; display: grid; grid-template-columns: 1fr 1fr; gap: 18px 14px">
+        <sc-for list="{{ gal }}" as="g">
+        <div class="rv" style="grid-column: {{ g.col }}; --i: {{ g.i }}">
+          <div class="vk-ph" style="height: {{ g.h }}px; transform: rotate({{ g.r }}deg)">
+            <img src="{{ g.src }}" alt="">
+            <span class="vk-tag" style="background: {{ g.bg }}">{{ g.n }}</span>
+          </div>
+        </div>
+        </sc-for>
+      </div>
+    </section>
+    </sc-if>
+
+    <!-- ============ HISOB: scoreboard ============ -->
+    <sc-if value="{{ b.hisob }}">
+    <section data-rv="hisob" class="{{ rv.hisob }}" style="padding: 34px 18px 50px">
+      <div class="rv card" style="padding: 28px 18px 26px; text-align: center; background: #FF4D8D; color: #FFFFFF">
+        <span style="display: inline-block; padding: 6px 12px; border-radius: 999px; background: #120C38; color: #FFD23F; font-weight: 800; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase">Hisob taxtasi</span>
+        <p class="dg" style="margin: 14px 0 0; font-size: 24px; line-height: 1.2; color: #FFFFFF; text-shadow: 0 3px 0 #120C38">Birga o’tgan kunlar</p>
+        <div role="img" aria-label="{{ daysLbl }}" style="margin-top: 20px; display: flex; justify-content: center; gap: 7px">
+          <sc-for list="{{ digits }}" as="t">
+          <div class="vk-tile" aria-hidden="true" style="width: {{ t.w }}px">
+            <div class="vk-col" style="transform: translateY({{ t.y }}px); --i: {{ t.i }}">
+              <sc-for list="{{ t.col }}" as="n"><span>{{ n }}</span></sc-for>
+            </div>
+          </div>
+          </sc-for>
+        </div>
+        <p class="dg" style="margin: 14px 0 0; font-size: 18px; color: #FFF6E9">kun</p>
+        <div role="img" aria-label="{{ clockLbl }}" style="margin: 18px auto 0; display: flex; justify-content: center; gap: 8px">
+          <sc-for list="{{ clock }}" as="c">
+          <div class="vk-clk" aria-hidden="true" style="background: rgba(18, 12, 56, 0.22); border-color: rgba(18, 12, 56, 0.3)">
+            <span class="dg" style="display: block; font-size: 24px; line-height: 1; color: #FFFFFF">{{ c.v }}</span>
+            <span style="display: block; margin-top: 6px; font-size: 12px; font-weight: 700; color: #FFE1EC">{{ c.l }}</span>
+          </div>
+          </sc-for>
+        </div>
+        <sc-if value="{{ startLine }}"><p style="margin: 18px 0 0; font-size: 14.5px; font-weight: 600; color: #FFE8F0">{{ startLine }}</p></sc-if>
+      </div>
+    </section>
+    </sc-if>
+
+    <!-- ============ JAVOB: final round ============ -->
+    <sc-if value="{{ b.javob }}">
+    <section data-rv="javob" class="{{ rv.javob }}" style="padding: 34px 18px 30px">
+      <div class="rv card" style="padding: 28px 20px 24px; background: #FFD23F; text-align: center; overflow: hidden">
+        <span style="display: inline-block; padding: 6px 12px; border-radius: 999px; background: #120C38; color: #FFD23F; font-weight: 800; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase">Final raund</span>
+        <p class="dg" style="margin: 14px 0 0; font-size: 26px; line-height: 1.18; color: #1B1340">Endi navbat senda</p>
+        <p style="margin: 8px 0 0; font-size: 15.5px; line-height: 1.45; font-weight: 600; color: #4A3A10; overflow-wrap: anywhere">{{ askHint }}</p>
+        <sc-if value="{{ asking }}">
+        <div style="margin-top: 20px; display: flex; flex-direction: column; gap: 12px">
+          <button type="button" class="vk-btn vk-btn-p" onClick="{{ sayLove }}" disabled="{{ busy }}"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path class="icf" d="M12 21s-7.5-4.6-9.6-9.3C1 8.4 3 4.8 6.6 4.8c2.2 0 3.7 1.3 5.4 3.4 1.7-2.1 3.2-3.4 5.4-3.4 3.6 0 5.6 3.6 4.2 6.9C19.5 16.4 12 21 12 21z"></path></svg>Men ham seni sevaman</button>
+          <button type="button" class="vk-btn vk-btn-w" onClick="{{ sayThanks }}" disabled="{{ busy }}">Rahmat, juda ta’sirlandim</button>
+          <div style="display: flex; gap: 10px; align-items: center; margin-top: 4px">
+            <input class="vk-inp" type="text" maxlength="280" placeholder="O’z javobingni yoz…" aria-label="Javob yozing" onInput="{{ onDraft }}" onKeyDown="{{ onKey }}">
+            <button type="button" class="vk-send" aria-label="Yuborish" onClick="{{ sendDraft }}" disabled="{{ sendOff }}" style="{{ sendSt }}"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path class="icf" d="M3.4 20.4 21 12 3.4 3.6 3.4 10l12 2-12 2z"></path></svg></button>
+          </div>
+          <sc-if value="{{ err }}"><p role="alert" style="margin: 0; font-size: 14px; font-weight: 600; color: #A3271A">{{ err }}</p></sc-if>
+        </div>
+        </sc-if>
+        <sc-if value="{{ answered }}">
+        <div role="status" style="position: relative; margin-top: 22px">
+          <div aria-hidden="true" style="position: absolute; left: 50%; top: 30px; width: 0; height: 0">
+            <sc-for list="{{ burstBig }}" as="u"><svg class="vk-bp" viewBox="0 0 24 24" style="width: 16px; height: 16px; --a: {{ u.a }}; --l: {{ u.l }}; color: {{ u.c }}"><path class="icf" d="{{ u.p }}"></path></svg></sc-for>
+          </div>
+          <p style="margin: 0"><span class="vk-stamp" style="border-color: #120C38; color: #120C38; background: #FFF6E9">«{{ answer }}»</span></p>
+          <p class="vk-fb" style="margin: 16px 0 0; font-size: 15.5px; font-weight: 700; color: #1B1340; overflow-wrap: anywhere">{{ sentTxt }}</p>
+        </div>
+        </sc-if>
+      </div>
+    </section>
+    </sc-if>
+
+    <footer style="flex: 1; position: relative; padding: 30px 24px 44px; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; text-align: center">
+      <svg class="vk-beat" width="26" height="26" viewBox="0 0 24 24" aria-hidden="true" style="color: #FF4D8D"><path class="icf" d="M12 21s-7.5-4.6-9.6-9.3C1 8.4 3 4.8 6.6 4.8c2.2 0 3.7 1.3 5.4 3.4 1.7-2.1 3.2-3.4 5.4-3.4 3.6 0 5.6 3.6 4.2 6.9C19.5 16.4 12 21 12 21z"></path></svg>
+      <p class="dg" style="margin: 12px 0 0; font-size: 18px; line-height: 1.3; color: #FFF6E9">O’yin tugadi — sevgi davom etadi</p>
+      <sc-if value="{{ pair }}"><p style="margin: 8px 0 0; font-size: 13px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: #8F86C8; overflow-wrap: anywhere">{{ pair }}</p></sc-if>
+    </footer>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":4800}}'>
+const HEART = 'M12 21s-7.5-4.6-9.6-9.3C1 8.4 3 4.8 6.6 4.8c2.2 0 3.7 1.3 5.4 3.4 1.7-2.1 3.2-3.4 5.4-3.4 3.6 0 5.6 3.6 4.2 6.9C19.5 16.4 12 21 12 21z';
+const STAR = 'M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z';
+const DIAM = 'M12 2.5 21.5 12 12 21.5 2.5 12z';
+const DOT = 'M12 4a8 8 0 1 1 0 16 8 8 0 0 1 0-16z';
+const CHECK = 'M5 12.5l4.5 4.5L19 7.5';
+const CROSS = 'M6.5 6.5l11 11M17.5 6.5l-11 11';
+const SHAPES = [[HEART, '#FF4D8D'], [STAR, '#FFD23F'], [DIAM, '#5B8CFF']];
+const REDUCED = typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
+// under automation (screenshots, thumbnails) everything is shown at once
+const STILL = REDUCED || (typeof navigator !== 'undefined' && !!navigator.webdriver);
+const CAN_IO = typeof IntersectionObserver === 'function' && !STILL;
+const SECS = ['quiz', 'maktub', 'sabablar', 'sirli', 'yol', 'galereya', 'hisob', 'javob'];
+
+function rng(seed) { let a = seed; return () => { a = (a * 16807) % 2147483647; return a / 2147483647; }; }
+function txt(v) { return String(v == null ? '' : v).trim(); }
+function burstOf(seed, n, len, shapes) {
+  const r = rng(seed), cols = ['#FF4D8D', '#FFD23F', '#2ED3A2', '#5B8CFF', '#FFFFFF'];
+  const out = [];
+  for (let i = 0; i < n; i++) out.push({ a: Math.round(i * (360 / n) + r() * 18) + 'deg', l: '-' + Math.round(len * (0.65 + r() * 0.5)) + 'px', c: cols[i % cols.length], p: shapes[i % shapes.length] });
+  return out;
+}
+function isoShift(iso, days) {
+  const t = Date.UTC(+iso.slice(0, 4), +iso.slice(5, 7) - 1, +iso.slice(8, 10)) + days * 864e5;
+  return new Date(t).toISOString().slice(0, 10);
+}
+function place(correct, wrong, pos) {
+  const list = wrong.slice(0, 2).map((t) => ({ t, ok: false }));
+  const at = Math.min(pos, list.length);
+  list.splice(at, 0, { t: correct, ok: true });
+  return list;
+}
+
+function buildQuiz() {
+  const d = SITE.d, b = SITE.b, qs = [];
+  const to = txt(d.kimga), from = txt(d.kimdan);
+  const w = SITE.when(d.tanishgan_sana), hasDate = !!w.day && !!b.hisob;
+  const yol = (b.yol && Array.isArray(d.yol) ? d.yol : []).map((x) => ({ yil: txt(x && x.yil), s: txt(x && x.sarlavha) })).filter((x) => x.yil && x.s);
+  const rs = (b.sabablar && Array.isArray(d.sabablar) ? d.sabablar : []).map(txt).filter(Boolean);
+  const iso = hasDate ? String(d.tanishgan_sana).slice(0, 10) : '';
+  if (hasDate) {
+    qs.push({ kind: 'Sana', q: 'Biz qaysi kuni tanishganmiz?', opts: place(w.date, [SITE.when(isoShift(iso, 34)).date, SITE.when(isoShift(iso, -47)).date], 1),
+      ok: 'To’g’ri! ' + w.date + ' — hammasi o’sha kuni boshlangan.', no: 'Yo’q-yo’q! O’sha kun — ' + w.date + '.' });
+  }
+  let A = null;
+  if (yol.length >= 2) {
+    A = yol[1];
+    const years = [];
+    yol.forEach((x) => { if (x.yil !== A.yil && years.indexOf(x.yil) < 0) years.push(x.yil); });
+    if (/^\d{4}$/.test(A.yil)) { const n = +A.yil; [n - 1, n + 1, n + 2].forEach((y) => { const s = String(y); if (years.length < 2 && s !== A.yil && years.indexOf(s) < 0) years.push(s); }); }
+    if (years.length) {
+      qs.push({ kind: 'Yil', q: '«' + A.s + '» qaysi yili bo’lgan?', opts: place(A.yil, years, 2),
+        ok: 'Barakalla! Aynan ' + A.yil + ' — eslab qolibsan.', no: 'Unchalik emas… «' + A.s + '» — ' + A.yil + '.' });
+    } else A = null;
+  }
+  if (rs.length >= 2) {
+    qs.push({ kind: 'Sabab', q: 'Seni nimang uchun sevaman?', all: true, opts: rs.slice(0, 3).map((t) => ({ t, ok: true })),
+      ok: 'Hammasi to’g’ri! Ro’yxat esa bundan ham uzun.' });
+  }
+  let added = false;
+  if (yol.length >= 3) {
+    const B = yol.find((x, i) => i >= 2 && x !== A && yol.filter((y) => y.yil === x.yil).length === 1);
+    if (B) {
+      const others = yol.filter((x) => x !== B && x.s !== B.s).map((x) => x.s).filter((s, i, arr) => arr.indexOf(s) === i).reverse();
+      if (others.length) {
+        const q = /^\d{4}$/.test(B.yil) ? B.yil + '-yilda nima bo’lgan?' : '«' + B.yil + '» — bu qaysi voqea?';
+        qs.push({ kind: 'Voqea', q, opts: place(B.s, others, 0), ok: 'To’ppa-to’g’ri! «' + B.s + '».', no: 'Adashding! O’shanda — «' + B.s + '».' });
+        added = true;
+      }
+    }
+  }
+  if (!added && hasDate) {
+    const days = SITE.elapsed(d.tanishgan_sana).days || 0;
+    if (days >= 30) {
+      const f = (n) => SITE.num(n) + ' kun';
+      qs.push({ kind: 'Hisob', q: 'Birga necha kun bo’ldik?', opts: place(f(days), [f(Math.round(days * 0.63)), f(Math.round(days * 1.38))], 1),
+        ok: 'Aynan ' + f(days) + '! Va har biri sen bilan.', no: 'Aslida ' + f(days) + ' — sanab yuraman.' });
+    }
+  }
+  qs.push({ kind: 'Bahs', q: 'Kim ko’proq sevadi?', all: true, opts: [{ t: from || 'Men', ok: true }, { t: to || 'Sen', ok: true }, { t: 'Ikkalamiz teng', ok: true }],
+    ok: 'Durang! Bu bahsda yutqazgan yo’q.' });
+  if (qs.length < 3) qs.push({ kind: 'Mehr', q: 'Seni qanchalik sevaman?', all: true, opts: [{ t: 'Ko’p', ok: true }, { t: 'Juda ko’p', ok: true }, { t: 'Cheksiz', ok: true }], ok: 'Hammasi to’g’ri — cheksizdan ham ko’proq!' });
+  if (qs.length < 3) qs.push({ kind: 'Sir', q: 'Hozir kimni o’ylayapman?', all: true, opts: [{ t: 'Seni', ok: true }, { t: 'Faqat seni', ok: true }, { t: 'Doim seni', ok: true }], ok: 'Topding! Har doim faqat seni.' });
+  return qs.slice(0, 5);
+}
+
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { go: false, gone: false, qi: 0, picks: {}, done: false, unlocked: false, rv: {}, liked: {}, lastLike: -1,
+      secret: false, answer: null, busy: false, err: '', draft: '', sent: false, scoreBusy: false, scoreSent: false, scoreErr: '' };
+    this.Q = buildQuiz();
+    this.draft = '';
+    this.burst = burstOf(7, 12, 64, [HEART, STAR, DOT]);
+    this.burstH = burstOf(19, 9, 46, [HEART]);
+    this.burstBig = burstOf(31, 16, 120, [HEART, STAR, DOT, DIAM]);
+    const r = rng(5), cols = ['#FF4D8D', '#FFD23F', '#2ED3A2', '#5B8CFF', '#FFF6E9'];
+    this.fall = Array.from({ length: 26 }, (x, i) => ({ x: Math.round(10 + r() * 300), c: cols[i % 5], d: (r() * 0.9).toFixed(2) + 's', dx: Math.round(-60 + r() * 120) + 'px', r: Math.round(200 + r() * 520) + 'deg' }));
+    const sh = [HEART, STAR, DIAM, DOT];
+    const ic = [[30, 210], [330, 236], [52, 660], [318, 610], [22, 410], [350, 470], [180, 40], [290, 120], [70, 770], [250, 790]];
+    this.introCf = ic.map((p, i) => ({ x: p[0], y: p[1], s: 14 + (i * 7) % 16, c: cols[i % 5], p: sh[i % 4], d: (-i * 0.9).toFixed(1) + 's', r: (i * 37 % 60 - 30) + 'deg' }));
+    const pc = [[24, '8%'], [344, '14%'], [20, '27%'], [350, '35%'], [30, '49%'], [340, '58%'], [26, '70%'], [346, '81%'], [40, '93%']];
+    this.pageCf = pc.map((p, i) => ({ x: p[0], y: p[1], s: 14 + (i * 5) % 12, c: cols[(i + 2) % 5], p: sh[(i + 1) % 4], d: (-i * 1.3).toFixed(1) + 's', r: (i * 41 % 60 - 30) + 'deg' }));
+  }
+  componentDidMount() {
+    this.timer = setInterval(() => { if (SITE.b.hisob) this.forceUpdate(); }, 1000);
+    if (STILL) this.setState({ rv: SECS.reduce((o, k) => { o[k] = true; return o; }, {}) });
+  }
+  componentWillUnmount() { clearInterval(this.timer); clearTimeout(this.t1); clearTimeout(this.t2); clearTimeout(this.t3); if (this.io) this.io.disconnect(); }
+  watch() {
+    if (!CAN_IO || this.io) { if (!CAN_IO) this.setState({ rv: SECS.reduce((o, k) => { o[k] = true; return o; }, {}) }); return; }
+    this.io = new IntersectionObserver((es) => {
+      const add = {};
+      es.forEach((e) => { if (e.isIntersecting) { add[e.target.getAttribute('data-rv')] = true; this.io.unobserve(e.target); } });
+      if (Object.keys(add).length) this.setState((s) => ({ rv: Object.assign({}, s.rv, add) }));
+    }, { rootMargin: '0px 0px -10% 0px' });
+    document.querySelectorAll('[data-rv]').forEach((el) => this.io.observe(el));
+  }
+  start() {
+    if (this.state.go) return;
+    this.setState({ go: true });
+    const finish = () => { this.setState({ gone: true }); this.t2 = setTimeout(() => this.watch(), 350); };
+    if (REDUCED) { SITE.opened(); finish(); return; }
+    this.t3 = setTimeout(() => SITE.opened(), 1250);
+    this.t1 = setTimeout(finish, 1750);
+  }
+  scrollTo(id) {
+    const el = document.getElementById(id);
+    if (el && el.scrollIntoView) el.scrollIntoView({ behavior: REDUCED ? 'auto' : 'smooth', block: 'start' });
+  }
+  score() {
+    const p = this.state.picks;
+    return this.Q.reduce((n, q, i) => n + (p[i] != null && (q.all || q.opts[p[i]].ok) ? 1 : 0), 0);
+  }
+  pick(qi, oi) {
+    if (this.state.picks[qi] != null || qi !== this.state.qi) return;
+    this.setState({ picks: Object.assign({}, this.state.picks, { [qi]: oi }) });
+  }
+  next() {
+    const s = this.state;
+    if (s.picks[s.qi] == null) return;
+    if (s.qi < this.Q.length - 1) this.setState({ qi: s.qi + 1 });
+    else { this.setState({ done: true, unlocked: true }); this.t1 = setTimeout(() => this.scrollTo('vk-quiz'), 60); }
+  }
+  replay() { this.setState({ qi: 0, picks: {}, done: false, scoreSent: false, scoreErr: '' }); this.t1 = setTimeout(() => this.scrollTo('vk-quiz'), 60); }
+  answer(a) {
+    a = txt(a);
+    if (!a || this.state.busy || this.state.answer) return;
+    this.setState({ busy: true, err: '', answer: a });
+    SITE.reply(a, '❤️').then(
+      () => { this.setState({ busy: false }); this.t2 = setTimeout(() => this.setState({ sent: true }), 600); },
+      () => this.setState({ busy: false, answer: null, err: 'Javob yetib bormadi. Qayta yuborib ko’ring.' })
+    );
+  }
+  renderVals() {
+    const s = this.state, d = SITE.d, b = SITE.b, Q = this.Q, N = Q.length;
+    const to = txt(d.kimga), from = txt(d.kimdan);
+    const toName = to || 'Azizim', fromName = from || 'Sevgan insoning';
+    const ini = (n) => { const m = txt(n).match(/[A-Za-zÀ-ɏЀ-ӿ]/); return m ? m[0].toUpperCase() : ''; };
+    const score = this.score();
+    const qi = s.qi;
+    const backs = ['#FF4D8D', '#5B8CFF', '#FFD23F', '#2ED3A2', '#FF4D8D'];
+    const cards = Q.map((q, i) => {
+      const k = i - qi, pk = s.picks[i], answered = pk != null;
+      const cur = k === 0, past = k < 0;
+      let cls = 'vk-q ', st = '';
+      if (cur) { cls += 'vk-q-cur'; st = 'transform: none; opacity: 1'; }
+      else if (past) { cls += 'vk-q-past'; st = 'transform: translate(-125%, -40px) rotate(-22deg); opacity: 0'; }
+      else { cls += 'vk-q-next'; st = 'transform: translateY(' + (Math.min(k, 3) * 15) + 'px) scale(' + (1 - Math.min(k, 3) * 0.05).toFixed(2) + '); opacity: ' + (k > 2 ? 0 : 1) + '; z-index: ' + (5 - k); }
+      const right = answered && (q.all || q.opts[pk].ok);
+      const opts = (cur || (past && k === -1)) ? q.opts.map((o, j) => {
+        let c = 'vk-opt';
+        if (answered) {
+          if (q.all) c += ' is-ok';
+          else if (j === pk) c += o.ok ? ' is-ok' : ' is-no';
+          else if (o.ok) c += ' is-show';
+          else c += ' is-dim';
+        }
+        const chosen = answered && j === pk;
+        return { t: o.t, cls: c, shape: SHAPES[j % 3][0], bg: SHAPES[j % 3][1], pressed: chosen ? 'true' : 'false',
+          mark: answered && (q.all || o.ok || chosen) ? ((q.all || o.ok) ? CHECK : CROSS) : '',
+          burst: chosen && right && cur, tap: () => this.pick(i, j) };
+      }) : [];
+      return {
+        cls, st, back: !cur && !past, front: cur || k === -1, bk: backs[i % 5],
+        tag: (i + 1) + '-savol / ' + N, kind: q.kind, q: q.q, px: q.q.length > 34 ? 22 : 25, opts,
+        answered: answered && cur, fb: right ? q.ok : q.no, fbBg: right ? '#C9F5E6' : '#FFD9D1', fbIco: right ? STAR : DOT,
+        nextTxt: i < N - 1 ? 'Keyingi savol' : 'Natijani ko’rish'
+      };
+    });
+    const segs = Q.map((q, i) => {
+      const pk = s.picks[i];
+      if (pk != null) return { c: 'vk-seg ' + ((q.all || q.opts[pk].ok) ? 'is-ok' : 'is-no') };
+      return { c: 'vk-seg' + (i === qi && !s.done ? ' is-cur' : '') };
+    });
+    const lastPick = s.picks[qi], lastRight = lastPick != null && (Q[qi].all || Q[qi].opts[lastPick].ok);
+    const ratio = N ? score / N : 0, perfect = s.done && score === N;
+    const verdict = score === N ? 'Mukammal xotira!' : ratio >= 0.6 ? 'Juda yaxshi!' : 'Hechqisi yo’q!';
+    const verdictSub = score === N ? 'Sen bizning har bir kunimizni eslaysan.' + (b.maktub ? ' Sovrining — maktub.' : '') : ratio >= 0.6 ? 'Ba’zi sanalar unutilsa ham, muhimi — yuragingda.' : 'Esdaliklarni birga yangilaymiz' + (b.maktub ? ' — maktub bunga yordam beradi.' : '.');
+    const w = SITE.when(d.tanishgan_sana), hasDate = !!w.day, el = SITE.elapsed(d.tanishgan_sana);
+    const days = hasDate ? (el.days || 0) : 0, ds = String(days).split('');
+    const pad = (x) => String(x || 0).padStart(2, '0');
+    const digits = ds.map((ch, i) => {
+      const v = +ch, on = s.rv.hisob;
+      const col = []; for (let n = 0; n <= 9; n++) col.push(String(n));
+      return { col, y: on ? -v * 84 : 0, i: (0.15 + i * 0.12).toFixed(2) + 's', w: ds.length > 5 ? 48 : 58 };
+    });
+    const paras = txt(d.matn).split(/\n\s*\n/).map((x) => x.trim()).filter(Boolean);
+    const rs = (d.sabablar || []).map(txt).filter(Boolean);
+    const liked = s.liked || {}, nLiked = Object.keys(liked).filter((k) => liked[k]).length;
+    const rbg = ['#FFD23F', '#FF8DB5', '#8FE9CC', '#A9C2FF'];
+    const reasons = rs.map((t, i) => ({
+      t, n: i < 26 ? String.fromCharCode(65 + i) : String(i + 1), on: liked[i] ? 'true' : 'false', bg: rbg[i % 4], i: (0.06 * i + 0.1).toFixed(2) + 's',
+      rvc: i % 2 ? 'rvr' : 'rvl', cls: 'vk-rsn' + (liked[i] ? ' is-on' : ''), burst: !!liked[i] && s.lastLike === i,
+      tap: () => { const on = !this.state.liked[i]; this.setState({ liked: Object.assign({}, this.state.liked, { [i]: on }), lastLike: on ? i : -1 }); }
+    }));
+    // level map
+    const yl = (d.yol || []).map((x) => ({ yil: txt(x && x.yil), sarlavha: txt(x && x.sarlavha), matn: txt(x && x.matn) })).filter((x) => x.yil || x.sarlavha);
+    const RH = 150, map = { h: 0, d: '', items: [] };
+    if (yl.length) {
+      const pts = yl.map((x, i) => ({ x: i % 2 ? 318 : 72, y: 52 + i * RH }));
+      map.h = 52 + (yl.length - 1) * RH + 110;
+      map.d = 'M' + pts[0].x + ' ' + pts[0].y + pts.slice(1).map((p, i) => { const a = pts[i]; return ' C' + a.x + ' ' + (a.y + 80) + ' ' + p.x + ' ' + (p.y - 80) + ' ' + p.x + ' ' + p.y; }).join('');
+      map.items = yl.map((x, i) => {
+        const p = pts[i], L = x.yil.length, last = i === yl.length - 1;
+        return { yil: x.yil, sarlavha: x.sarlavha, matn: x.matn, x: p.x, y: p.y, sy: p.y + 42, last,
+          nodeCls: 'rv vk-node' + (last ? ' vk-node-last' : ''), fs: L <= 4 ? 16 : L <= 6 ? 12 : 10, ws: L <= 6 ? 'nowrap' : 'normal',
+          cx: i % 2 ? 30 : 126, cy: p.y - 40, lv: last ? 'Hozirgi bosqich' : (i + 1) + '-bosqich',
+          rvc: i % 2 ? 'rvr' : 'rvl', i: (0.1 + i * 0.12).toFixed(2) + 's', stars: last ? ['1', '0.35', '0.35'] : ['1', '1', '1'] };
+      });
+    }
+    const n = Math.min(6, SITE.has.photos), gtags = ['#FFD23F', '#FF8DB5', '#8FE9CC', '#A9C2FF'];
+    const gal = [];
+    for (let i = 0; i < n; i++) {
+      const wide = n % 2 === 1 && i === 0;
+      gal.push({ src: SITE.p[i], col: wide ? 'span 2' : 'auto', h: wide ? 250 : (i % 4 === 1 || i % 4 === 2 ? 230 : 196), r: wide ? '-1.2' : (i % 2 ? '2.2' : '-2.2'), i: (0.08 * i).toFixed(2) + 's', bg: gtags[i % 4], n: (i + 1) + '-kadr' });
+    }
+    const rv = {}; SECS.forEach((k) => { rv[k] = 'vk-sec' + (s.rv[k] ? ' is-in' : ''); });
+    const titleLen = (toName + ', bizni eslaysanmi?').length;
+    return {
+      rootCls: s.gone ? 'vk-root is-on' : 'vk-root',
+      introCls: 'vk-intro' + (s.go ? ' is-go' : '') + (s.gone ? ' is-gone' : ''),
+      start: () => this.start(),
+      introCf: this.introCf, pageCf: this.pageCf,
+      qCountTxt: N + ' ta savol',
+      introSub: (from ? fromName + ' ' + (to ? SITE.ga(to) : 'senga') + ' ' + N + ' ta savol tayyorladi.' : N + ' ta savol seni kutmoqda.') + (b.maktub ? ' Oxirida — maktub.' : ' Omad!'),
+      noPhoto: !SITE.has.photo, mono: [ini(from), ini(to)].filter(Boolean).join('') || 'S', iniFrom: ini(from) || 'S',
+      toName, fromName, fromRaw: from, titlePx: titleLen > 30 ? 28 : 34,
+      musicOn: !!SITE.music.playing, musicOff: !SITE.music.playing, toggleMusic: () => SITE.music.toggle(),
+      rv, playing: !s.done, done: s.done, qN: N, qNow: s.done ? N : qi,
+      segs, cards, burst: this.burst, burstH: this.burstH, burstBig: this.burstBig,
+      score, scoreKey: 's' + score, bumpCls: score ? 'vk-bump' : '', plusOn: lastRight && !s.done, plusKey: 'p' + qi,
+      next: () => this.next(),
+      perfect, fall: this.fall, verdict, verdictSub,
+      ringOff: (439.8 * (1 - ratio)).toFixed(1), resLbl: N + ' ta savoldan ' + score + ' ta to’g’ri',
+      toLetter: () => this.scrollTo('vk-maktub'), toQuiz: () => this.scrollTo('vk-quiz'),
+      replay: () => this.replay(),
+      canSend: s.done && !s.scoreSent, scoreBusy: s.scoreBusy, scoreSent: s.scoreSent, scoreErr: s.scoreErr,
+      sendScoreTxt: from ? 'Natijani ' + SITE.ga(from) + ' yuborish' : 'Natijani yuborish',
+      scoreSentTxt: from ? 'Natijang ' + SITE.ga(from) + ' yetkazildi' : 'Natijang yetkazildi',
+      sendScore: () => {
+        if (this.state.scoreBusy) return;
+        this.setState({ scoreBusy: true, scoreErr: '' });
+        SITE.reply('Viktorina natijasi: ' + score + '/' + N + ' — ' + verdict, '🥰').then(
+          () => this.setState({ scoreBusy: false, scoreSent: true }),
+          () => this.setState({ scoreBusy: false, scoreErr: 'Yuborilmadi. Qayta urinib ko’ring.' })
+        );
+      },
+      unlocked: s.unlocked, letterCls: s.unlocked ? 'vk-letter' : 'vk-letter is-locked',
+      lockCls: s.unlocked ? 'vk-lock is-open' : 'vk-lock', lockedStr: s.unlocked ? 'false' : 'true', unlockedStr: s.unlocked ? 'true' : 'false',
+      lockTxt: 'Viktorinani oxirigacha o’yna — maktub o’zi ochiladi.',
+      greet: to ? 'Azizim ' + to + ',' : 'Azizim,', paras,
+      reasons, likeHint: nLiked ? nLiked + ' ta javob belgilandi. Ro’yxat davom etadi…' : 'Yoqqan javobni bosib, yurakcha qo’y.',
+      secret: s.secret, noSecret: !s.secret, mbCls: s.secret ? 'vk-mb is-open' : 'vk-mb',
+      secretHint: s.secret ? 'Endi bu sir ikkimizniki.' : 'Qutini bos — ichida yashirin so’z bor.',
+      secretLbl: s.secret ? 'Yashirin so’z ochildi' : 'Qutini ochish',
+      reveal: () => this.setState({ secret: true }),
+      map, gal,
+      digits, daysLbl: days + ' kun birga',
+      clock: [{ v: pad(el.h), l: 'soat' }, { v: pad(el.m), l: 'daqiqa' }, { v: pad(el.s), l: 'soniya' }],
+      clockLbl: (el.h || 0) + ' soat ' + (el.m || 0) + ' daqiqa ' + (el.s || 0) + ' soniya',
+      startLine: hasDate ? 'Birinchi kun: ' + w.date + ', ' + w.weekday : '',
+      askHint: from ? 'Javobing to’g’ri ' + SITE.ga(from) + ' boradi.' : 'Javobing to’g’ri menga boradi.',
+      asking: !s.answer, answered: !!s.answer, answer: s.answer || '', busy: s.busy, err: s.err,
+      sentTxt: s.sent ? (from ? 'Javobing ' + SITE.ga(from) + ' yetkazildi' : 'Javobing yetkazildi') : 'Yuborilmoqda…',
+      sayLove: () => this.answer('Men ham seni sevaman'),
+      sayThanks: () => this.answer('Rahmat, juda ta’sirlandim'),
+      onDraft: (e) => { this.draft = e.target.value; const on = !!this.draft.trim(); if (on !== !!this.state.draft) this.setState({ draft: on ? 'y' : '' }); },
+      onKey: (e) => { if (e.key === 'Enter') { e.preventDefault(); this.answer(this.draft); } },
+      sendDraft: () => this.answer(this.draft),
+      sendOff: !s.draft || s.busy, sendSt: s.draft ? 'opacity: 1' : 'opacity: 0.45',
+      pair: [from, to].filter(Boolean).join(' + ')
+    };
+  }
+}
+</script>
+</body>
+</html>

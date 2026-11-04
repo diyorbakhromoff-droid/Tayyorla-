@@ -1,0 +1,1078 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<title>Farzand Premium: Hikoyalar</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Wix+Madefor+Display:wght@400;500;600;700;800&amp;family=Wix+Madefor+Text:wght@400;500;600;700&amp;display=swap">
+<style>
+html{scroll-behavior:smooth}
+body{margin:0;background:#FFF8F3}
+.st{--r1:#22CBB8;--r2:#3A7DF6;--r3:#7A5AF8;--a:#2763E3;--aS:#E8EFFF;--aT:#1C4DB5;--ink:#1D1923;--mut:#6B6474;--line:#EEE4DC;--grad:linear-gradient(135deg,var(--r1) 0%,var(--r2) 52%,var(--r3) 100%);--gradR:conic-gradient(from 210deg,var(--r1),var(--r2),var(--r3),var(--r1))}
+.st.is-qiz{--r1:#FFAE5E;--r2:#FF5A8E;--r3:#B65CF2;--a:#D2336C;--aS:#FFE8F0;--aT:#A8285A}
+.st-d{font-family:'Wix Madefor Display','Segoe UI',system-ui,sans-serif}
+.st-t{font-family:'Wix Madefor Text','Segoe UI',system-ui,sans-serif}
+.st-ic{fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.st-icf{fill:currentColor}
+.st-btn{cursor:pointer;border:0;-webkit-tap-highlight-color:transparent;transition:transform .18s cubic-bezier(.3,1.6,.5,1),filter .18s ease,box-shadow .2s ease}
+.st-btn:active{transform:scale(.95)}
+.st-btn:focus-visible{outline:3px solid var(--a);outline-offset:3px}
+.st-dk .st-btn:focus-visible{outline-color:#FFFFFF}
+.st-ring{fill:none;stroke:url(#stRingG);stroke-linecap:round}
+.st-g1{stop-color:var(--r1)}.st-g2{stop-color:var(--r2)}.st-g3{stop-color:var(--r3)}
+.st-trk{fill:none;stroke:rgba(255,255,255,.18)}
+.st-gtext{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+/* ---------- ambient ---------- */
+.am-spin{animation:amSpin 18s linear infinite;transform-origin:50% 50%}
+@keyframes amSpin{to{transform:rotate(360deg)}}
+.am-halo{animation:amHalo 2.8s cubic-bezier(.4,0,.2,1) infinite}
+@keyframes amHalo{0%{transform:scale(.92);opacity:.0}25%{opacity:.55}100%{transform:scale(1.32);opacity:0}}
+.am-blob{animation:amBlob 14s ease-in-out infinite alternate}
+.am-blob.b2{animation-duration:17s;animation-delay:-5s}
+.am-blob.b3{animation-duration:20s;animation-delay:-9s}
+@keyframes amBlob{0%{transform:translate(0,0) scale(1)}50%{transform:translate(40px,-30px) scale(1.12)}100%{transform:translate(-30px,36px) scale(.94)}}
+.am-dot{animation:amDot 1.6s ease-in-out infinite}
+@keyframes amDot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(.7)}}
+.am-bob{animation:amBob 3.6s ease-in-out infinite}
+@keyframes amBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+
+/* ---------- intro: cover ---------- */
+.cv{transition:opacity .5s ease,transform .7s cubic-bezier(.65,0,.25,1)}
+.cv-in{opacity:0;transform:translateY(16px)}
+.cv-on .cv-in{animation:cvIn .9s cubic-bezier(.2,.9,.25,1) forwards}
+.cv-on .cv-in.i2{animation-delay:.12s}.cv-on .cv-in.i3{animation-delay:.24s}.cv-on .cv-in.i4{animation-delay:.36s}.cv-on .cv-in.i5{animation-delay:.5s}
+@keyframes cvIn{to{opacity:1;transform:none}}
+.cv-av{opacity:0;transform:scale(.6)}
+.cv-on .cv-av{animation:cvAv 1s cubic-bezier(.3,1.5,.45,1) .05s forwards}
+@keyframes cvAv{to{opacity:1;transform:none}}
+.is-view .cv{opacity:0;pointer-events:none}
+.is-out .cv{opacity:0;transform:translateY(-40px) scale(.97);pointer-events:none}
+.is-view .cv-avw{transform:scale(1.5);transition:transform .7s cubic-bezier(.65,0,.25,1)}
+
+/* ---------- intro: viewer ---------- */
+.vw{clip-path:circle(0px at 195px 318px);opacity:0;pointer-events:none;transition:clip-path .75s cubic-bezier(.65,0,.25,1),opacity .25s ease}
+.is-view .vw{clip-path:circle(980px at 195px 318px);opacity:1;pointer-events:auto}
+.is-out .vw{clip-path:circle(0px at 195px 154px);opacity:0;transition:clip-path .8s cubic-bezier(.7,0,.25,1),opacity .3s ease .55s}
+.vw-in{transform:scale(1.08);transition:transform .9s cubic-bezier(.2,.8,.25,1)}
+.is-view .vw-in{transform:none}
+.bgd{transition:opacity .6s ease .1s}
+.is-out .bgd{opacity:0}
+
+.pb{position:relative;flex:1;height:3px;border-radius:2px;background:rgba(255,255,255,.32);overflow:hidden}
+.pb-f{position:absolute;left:0;top:0;width:100%;height:100%;border-radius:2px;background:#FFFFFF;transform-origin:0 50%;transform:scaleX(0)}
+.pb.done .pb-f{transform:none}
+.pb.run .pb-f{animation-timing-function:linear;animation-fill-mode:forwards}
+.pb.run.ga .pb-f{animation-name:pbA}
+.pb.run.gb .pb-f{animation-name:pbB}
+@keyframes pbA{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes pbB{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.is-hold .pb-f,.is-hold .sl *{animation-play-state:paused!important}
+.vw-ui{transition:opacity .25s ease,color .3s ease}
+.vw-top{color:#FFFFFF}
+.ui-lt .vw-top{color:#1D1923}
+.ui-lt .vw-shade{opacity:0}
+.vw-shade{transition:opacity .3s ease}
+.ui-lt .pb{background:rgba(29,25,35,.16)}
+.ui-lt .pb-f{background:#1D1923}
+.rp{background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.55);color:#FFFFFF}
+.ui-lt .rp{background:rgba(255,255,255,.7);border-color:rgba(29,25,35,.22);color:#1D1923}
+.ui-lt .hint-t{background:rgba(29,25,35,.72)}
+.is-hold .vw-ui{opacity:0}
+
+.sl{position:absolute;left:0;top:0;width:390px;height:844px;overflow:hidden;opacity:0;visibility:hidden;transition:opacity .35s ease,visibility 0s linear .35s}
+.sl.on{opacity:1;visibility:visible;z-index:2;transition:opacity .3s ease,visibility 0s}
+.sl.was{opacity:1;visibility:visible;z-index:1;transition:none}
+.sl.was .up,.sl.was .ch{opacity:1}
+.sl.was .pop,.sl.was .drop{opacity:1;transform:rotate(var(--rr,0deg))}
+.sl.was .kb{transform:scale(1.02)}
+.kb{transform-origin:50% 40%}
+.sl.on .kb{animation:kb 7s cubic-bezier(.25,.6,.3,1) both}
+@keyframes kb{from{transform:scale(1.16) translateY(10px)}to{transform:scale(1.02)}}
+.up{opacity:0}
+.sl.on .up{animation:up .8s cubic-bezier(.2,.9,.25,1) both}
+@keyframes up{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+.pop{opacity:0}
+.sl.on .pop{animation:pop .75s cubic-bezier(.3,1.6,.45,1) both}
+@keyframes pop{from{opacity:0;transform:scale(.4) rotate(var(--rz,0deg))}to{opacity:1;transform:rotate(var(--rr,0deg))}}
+.drop{opacity:0}
+.sl.on .drop{animation:drop .9s cubic-bezier(.25,1.45,.45,1) both}
+@keyframes drop{from{opacity:0;transform:translateY(-80px) rotate(calc(var(--rr,0deg) * -3)) scale(.9)}to{opacity:1;transform:rotate(var(--rr,0deg))}}
+.ch{display:inline-block;opacity:0}
+.sl.on .ch{animation:ch .7s cubic-bezier(.3,1.7,.45,1) both}
+@keyframes ch{from{opacity:0;transform:translateY(.55em) scale(.5) rotate(-12deg)}to{opacity:1;transform:none}}
+.spk{opacity:0;transform-origin:center;transform-box:fill-box}
+.sl.on .spk{animation:spk 1.6s cubic-bezier(.2,.8,.3,1) both}
+@keyframes spk{0%{opacity:0;transform:scale(0) rotate(0)}35%{opacity:1;transform:scale(1.2) rotate(60deg)}100%{opacity:0;transform:scale(.4) rotate(140deg)}}
+.hand{transform-box:view-box;transform-origin:60px 60px}
+.sl.on .hand{animation:hand 1.6s cubic-bezier(.3,1.25,.4,1) .5s both}
+@keyframes hand{from{transform:rotate(0deg)}}
+.sun{transform-box:view-box}
+.sl.on .sun{animation:sun 6s cubic-bezier(.2,.7,.3,1) both}
+@keyframes sun{from{transform:translateY(60px);opacity:.2}}
+.tw{animation:tw 3s ease-in-out infinite}
+.tw.t2{animation-delay:-1s}.tw.t3{animation-delay:-2s}
+@keyframes tw{0%,100%{opacity:.9}50%{opacity:.25}}
+.tick{transform:translateX(0)}
+.sl.on .tick{animation:tick 1.8s cubic-bezier(.2,.9,.25,1) .3s both}
+@keyframes tick{from{transform:translateX(-140px)}}
+
+.hint{opacity:0;pointer-events:none}
+.hint.go{animation:hint 3.6s ease .9s both}
+@keyframes hint{0%{opacity:0;transform:translateY(8px)}12%,78%{opacity:1;transform:none}100%{opacity:0}}
+.hint-r{animation:hintR 1.2s ease-out infinite}
+@keyframes hintR{0%{transform:scale(.6);opacity:.9}100%{transform:scale(1.8);opacity:0}}
+
+.lnk{animation:lnk .7s cubic-bezier(.3,1.6,.45,1) .9s both}
+@keyframes lnk{from{opacity:0;transform:translateY(20px) scale(.7) rotate(-6deg)}to{opacity:1;transform:rotate(-2deg)}}
+
+/* digit roller */
+.rl{display:inline-flex;align-items:flex-start;line-height:1}
+.rl-c{display:inline-block;height:1em;overflow:hidden}
+.rl-s{display:flex;flex-direction:column}
+.rl-s i{display:block;height:1em;line-height:1em;font-style:normal;text-align:center}
+.rl-t{display:inline-block;height:1em;line-height:1em}
+.sl.on .rl-s,.rv.in .rl-s{animation:rl 1.5s cubic-bezier(.2,1.12,.35,1) both}
+@keyframes rl{from{transform:translateY(0)}}
+
+/* heart burst */
+.hb{position:absolute;left:50%;top:50%;width:16px;height:16px;margin:-8px 0 0 -8px;opacity:0;pointer-events:none}
+.burst .hb{animation:hb 1.1s cubic-bezier(.15,.7,.3,1) both}
+@keyframes hb{0%{opacity:0;transform:translate(0,0) scale(.3)}20%{opacity:1}100%{opacity:0;transform:translate(var(--hx),var(--hy)) scale(1.1) rotate(var(--hr))}}
+.beat{animation:beat .6s cubic-bezier(.3,1.8,.45,1)}
+@keyframes beat{0%{transform:scale(1)}40%{transform:scale(1.35)}100%{transform:scale(1)}}
+
+/* ---------- page ---------- */
+.hv{opacity:0;transform:translateY(22px)}
+.is-on .hv{animation:up .9s cubic-bezier(.2,.9,.25,1) both}
+.is-on .hv.h2{animation-delay:.12s}.is-on .hv.h3{animation-delay:.22s}.is-on .hv.h4{animation-delay:.32s}.is-on .hv.h5{animation-delay:.42s}.is-on .hv.h6{animation-delay:.52s}
+.hav{transform:scale(.7);opacity:0}
+.is-on .hav{animation:cvAv 1s cubic-bezier(.3,1.5,.45,1) .2s both}
+.hl{opacity:0;transform:scale(.6)}
+.is-on .hl{animation:pop2 .7s cubic-bezier(.3,1.6,.45,1) both}
+@keyframes pop2{from{opacity:0;transform:scale(.6)}to{opacity:1;transform:none}}
+.rv{opacity:0;transform:translateY(34px)}
+.rv.in{opacity:1;transform:none;transition:opacity .8s ease,transform .9s cubic-bezier(.2,.9,.25,1)}
+.rv .ri{opacity:0;transform:translateY(16px) scale(.96)}
+.rv.in .ri{animation:ri .7s cubic-bezier(.25,1.3,.45,1) both}
+@keyframes ri{from{opacity:0;transform:translateY(16px) scale(.96)}to{opacity:1;transform:none}}
+.rv .rs{opacity:0}
+.rv.in .rs{animation:rs .7s cubic-bezier(.3,1.6,.45,1) both}
+@keyframes rs{from{opacity:0;transform:scale(.4) rotate(-10deg)}to{opacity:1;transform:rotate(var(--rr,0deg))}}
+.rv.in .bar{animation:bar 1.4s cubic-bezier(.2,.9,.25,1) .3s both;transform-origin:0 50%}
+@keyframes bar{from{transform:scaleX(0)}}
+.ph{transition:transform .35s cubic-bezier(.3,1.4,.5,1)}
+.ph:active{transform:scale(.97)}
+.card{background:#FFFFFF;border:1px solid var(--line);border-radius:28px;box-shadow:0 1px 0 rgba(255,255,255,.8) inset,0 18px 40px -30px rgba(60,30,40,.35)}
+.sec-h{display:flex;align-items:center;gap:10px;margin:0 0 14px;padding:0 4px;font-size:22px;line-height:1.15;font-weight:800;letter-spacing:-.02em;color:var(--ink)}
+.sec-d{flex:none;width:10px;height:10px;border-radius:50%;background:var(--grad)}
+
+@media (prefers-reduced-motion: reduce){
+html{scroll-behavior:auto}
+.am-spin,.am-halo,.am-blob,.am-dot,.am-bob,.tw,.hint-r{animation:none}
+.cv,.vw,.vw-in,.bgd,.sl,.is-view .cv-avw{transition:none}
+.cv-in,.cv-av,.hv,.hav,.hl,.rv,.rv .ri,.rv .rs,.up,.pop,.drop,.ch,.lnk{opacity:1;transform:none;animation:none!important}
+.cv-on .cv-in,.cv-on .cv-av,.is-on .hv,.is-on .hav,.is-on .hl,.sl.on .up,.sl.on .pop,.sl.on .drop,.sl.on .ch,.rv.in .ri,.rv.in .rs{animation:none}
+.sl.on .kb,.sl.on .spk,.sl.on .hand,.sl.on .sun,.sl.on .tick,.sl.on .rl-s,.rv.in .rl-s,.rv.in .bar,.burst .hb,.beat,.hint.go{animation:none}
+.spk{display:none}
+.rv.in{transition:none}
+.st-btn{transition:none}
+}
+</style>
+</helmet>
+<div class="st st-t {{ rootCls }}" style="width: 390px; min-height: var(--vh, 100vh); position: relative; overflow: hidden; background: #FFF8F3; color: #1D1923">
+
+  <svg aria-hidden="true" width="0" height="0" style="position: absolute">
+    <defs>
+      <linearGradient id="stRingG" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" class="st-g1"></stop>
+        <stop offset="0.55" class="st-g2"></stop>
+        <stop offset="1" class="st-g3"></stop>
+      </linearGradient>
+    </defs>
+  </svg>
+
+  <!-- ===================== KIRISH: HIKOYALAR ===================== -->
+  <div data-intro class="{{ introCls }}" style="display: {{ introDisp }}; position: absolute; left: 0; top: 0; width: 390px; height: 844px; z-index: 40; overflow: hidden">
+    <div class="bgd" aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; background: #0F0C14"></div>
+
+    <!-- hikoya ko'rgichi -->
+    <div class="vw st-dk {{ uiCls }}" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; background: #0F0C14; overflow: hidden">
+      <div class="vw-in {{ holdCls }}" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px">
+
+        <!-- 1. ilk surat -->
+        <div class="{{ sc.photo }}" style="background: #1B1622">
+          <sc-if value="{{ has.photo }}">
+            <img class="kb" src="{{ p.0 }}" alt="" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; object-fit: cover; object-position: 50% 42%">
+          </sc-if>
+          <sc-if value="{{ noPhoto }}">
+            <div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; background: var(--grad); opacity: 0.9"></div>
+            <div class="am-blob" aria-hidden="true" style="position: absolute; left: -60px; top: 120px; width: 340px; height: 340px; border-radius: 50%; background: radial-gradient(circle, rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0) 70%)"></div>
+            <div class="am-blob b2" aria-hidden="true" style="position: absolute; left: 150px; top: 330px; width: 300px; height: 300px; border-radius: 50%; background: radial-gradient(circle, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0) 70%)"></div>
+            <div class="pop st-d" aria-hidden="true" style="position: absolute; left: 95px; top: 180px; width: 200px; height: 200px; border-radius: 50%; background: rgba(255, 255, 255, 0.22); border: 2px solid rgba(255, 255, 255, 0.6); display: flex; align-items: center; justify-content: center; font-size: 96px; font-weight: 800; color: #FFFFFF; animation-delay: .2s">{{ initial }}</div>
+          </sc-if>
+          <div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; background: linear-gradient(180deg, rgba(10, 8, 14, 0.5) 0%, rgba(10, 8, 14, 0) 18%, rgba(10, 8, 14, 0) 46%, rgba(10, 8, 14, 0.82) 100%)"></div>
+          <div style="position: absolute; left: 26px; right: 26px; top: 470px">
+            <span class="pop st-d" style="--rr: -4deg; --rz: -20deg; display: inline-block; padding: 9px 16px; border-radius: 14px; background: #FFFFFF; color: var(--ink); font-size: 16px; font-weight: 700; box-shadow: 0 10px 24px -10px rgba(0, 0, 0, 0.5); animation-delay: .35s">{{ coverChip }}</span>
+            <h2 class="st-d" style="margin: 18px 0 0; font-size: 62px; line-height: 0.98; font-weight: 800; letter-spacing: -0.035em; color: #FFFFFF">
+              <span class="up" style="display: block; animation-delay: .55s">Salom,</span>
+              <span class="up" style="display: block; animation-delay: .7s">dunyo!</span>
+            </h2>
+            <p class="up" style="margin: 16px 0 0; font-size: 19px; line-height: 1.4; font-weight: 500; color: rgba(255, 255, 255, 0.92); animation-delay: .9s">Oilamizga yangi mehmon keldi</p>
+          </div>
+        </div>
+
+        <!-- 2. ism -->
+        <div class="{{ sc.name }}" style="background: #130F1B">
+          <div class="am-blob" aria-hidden="true" style="position: absolute; left: -120px; top: 40px; width: 420px; height: 420px; border-radius: 50%; background: radial-gradient(circle, var(--r1) 0%, rgba(0, 0, 0, 0) 68%); opacity: 0.55"></div>
+          <div class="am-blob b2" aria-hidden="true" style="position: absolute; left: 120px; top: 300px; width: 420px; height: 420px; border-radius: 50%; background: radial-gradient(circle, var(--r2) 0%, rgba(0, 0, 0, 0) 68%); opacity: 0.6"></div>
+          <div class="am-blob b3" aria-hidden="true" style="position: absolute; left: -80px; top: 520px; width: 380px; height: 380px; border-radius: 50%; background: radial-gradient(circle, var(--r3) 0%, rgba(0, 0, 0, 0) 68%); opacity: 0.55"></div>
+          <svg aria-hidden="true" viewBox="0 0 390 844" width="390" height="844" style="position: absolute; left: 0; top: 0">
+            <path class="spk" d="M70 250 l5 13 13 5 -13 5 -5 13 -5 -13 -13 -5 13 -5z" fill="#FFFFFF" style="animation-delay: .9s"></path>
+            <path class="spk" d="M320 300 l4 10 10 4 -10 4 -4 10 -4 -10 -10 -4 10 -4z" fill="#FFFFFF" style="animation-delay: 1.15s"></path>
+            <path class="spk" d="M300 540 l6 15 15 6 -15 6 -6 15 -6 -15 -15 -6 15 -6z" fill="#FFFFFF" style="animation-delay: 1.35s"></path>
+            <path class="spk" d="M90 560 l3 8 8 3 -8 3 -3 8 -3 -8 -8 -3 8 -3z" fill="#FFFFFF" style="animation-delay: 1.5s"></path>
+          </svg>
+          <div style="position: absolute; left: 24px; top: 250px; width: 342px; text-align: center">
+            <p class="up" style="margin: 0; font-size: 14px; font-weight: 700; letter-spacing: 0.24em; text-transform: uppercase; color: rgba(255, 255, 255, 0.75); animation-delay: .2s">Ismini qo’ydik</p>
+            <h2 class="st-d" aria-label="{{ d.chaqaloq }}" style="margin: 22px 0 0; font-size: {{ storyNameSize }}; line-height: 1.02; font-weight: 800; letter-spacing: -0.03em; color: #FFFFFF; overflow-wrap: anywhere">
+              <sc-for list="{{ nameChars }}" as="c"><span class="ch" aria-hidden="true" style="{{ c.st }}">{{ c.ch }}</span></sc-for>
+            </h2>
+            <div class="pop" style="margin-top: 26px; display: inline-flex; align-items: center; gap: 8px; height: 42px; padding: 0 20px; border-radius: 999px; background: #FFFFFF; color: var(--aT); font-size: 17px; font-weight: 700; animation-delay: {{ chipDelay }}">
+              <span aria-hidden="true" style="width: 10px; height: 10px; border-radius: 50%; background: var(--grad)"></span>{{ genderChip }}
+            </div>
+            <p class="up" style="margin: 22px 0 0; font-size: 17px; line-height: 1.45; color: rgba(255, 255, 255, 0.86); overflow-wrap: anywhere; animation-delay: {{ parDelay }}">{{ childOf }}</p>
+          </div>
+        </div>
+
+        <!-- 3. o'lchovlar -->
+        <sc-if value="{{ slOlchov }}">
+          <div class="{{ sc.olchov }}" style="background: #FFF8F3">
+            <div class="am-blob" aria-hidden="true" style="position: absolute; left: -100px; top: 90px; width: 360px; height: 360px; border-radius: 50%; background: radial-gradient(circle, var(--aS) 0%, rgba(255, 255, 255, 0) 70%)"></div>
+            <div class="am-blob b2" aria-hidden="true" style="position: absolute; left: 160px; top: 460px; width: 340px; height: 340px; border-radius: 50%; background: radial-gradient(circle, var(--aS) 0%, rgba(255, 255, 255, 0) 70%)"></div>
+            <p class="up st-d" style="position: absolute; left: 28px; top: 104px; margin: 0; font-size: 30px; line-height: 1.1; font-weight: 800; letter-spacing: -0.025em; color: var(--ink)">Ilk o’lchovlar</p>
+            <p class="up" style="position: absolute; left: 28px; top: 146px; margin: 0; font-size: 16px; color: var(--mut); animation-delay: .1s">Sog’-salomat dunyoga keldi</p>
+            <div class="drop" style="--rr: -3deg; position: absolute; left: 26px; top: {{ cardTop1 }}; width: 338px; padding: 22px 24px 24px; box-sizing: border-box; border-radius: 30px; background: #FFFFFF; box-shadow: 0 24px 50px -26px rgba(60, 30, 50, 0.45); animation-delay: .3s">
+              <div style="display: flex; align-items: center; justify-content: space-between">
+                <span style="font-size: 15px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mut)">Vazni</span>
+                <span style="width: 44px; height: 44px; border-radius: 14px; background: var(--aS); color: var(--a); display: flex; align-items: center; justify-content: center">
+                  <svg aria-hidden="true" viewBox="0 0 24 24" width="24" height="24" class="st-ic"><circle cx="12" cy="11" r="7.5"></circle><path d="M12 11l3.2-3.2M7 21h10M12 18.5V21"></path></svg>
+                </span>
+              </div>
+              <div class="st-d" style="margin-top: 12px; font-size: {{ kgBig }}; font-weight: 800; letter-spacing: -0.04em; color: var(--ink)">
+                <span class="rl">
+                  <sc-for list="{{ rollKg }}" as="c">
+                    <sc-if value="{{ c.d }}"><span class="rl-c"><span class="rl-s" style="{{ c.st }}"><sc-for list="{{ strip }}" as="n"><i>{{ n }}</i></sc-for></span></span></sc-if>
+                    <sc-if value="{{ c.t }}"><span class="rl-t">{{ c.ch }}</span></sc-if>
+                  </sc-for>
+                </span>
+              </div>
+            </div>
+            <sc-if value="{{ d.boy }}">
+              <div class="drop" style="--rr: 2.5deg; position: absolute; left: 26px; top: {{ cardTop2 }}; width: 338px; padding: 22px 24px 22px; box-sizing: border-box; border-radius: 30px; background: var(--grad); color: #FFFFFF; box-shadow: 0 24px 50px -26px rgba(40, 30, 90, 0.55); overflow: hidden; animation-delay: .55s">
+                <div style="display: flex; align-items: center; justify-content: space-between">
+                  <span style="font-size: 15px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255, 255, 255, 0.9)">Bo’yi</span>
+                  <span style="width: 44px; height: 44px; border-radius: 14px; background: rgba(255, 255, 255, 0.22); display: flex; align-items: center; justify-content: center">
+                    <svg aria-hidden="true" viewBox="0 0 24 24" width="24" height="24" class="st-ic"><rect x="3" y="8" width="18" height="8" rx="2"></rect><path d="M7 8v3M11 8v4M15 8v3M19 8v2"></path></svg>
+                  </span>
+                </div>
+                <div class="st-d" style="margin-top: 12px; font-size: {{ smBig }}; font-weight: 800; letter-spacing: -0.04em; color: #FFFFFF; text-shadow: 0 2px 14px rgba(20, 10, 50, 0.25)">
+                  <span class="rl">
+                    <sc-for list="{{ rollSm }}" as="c">
+                      <sc-if value="{{ c.d }}"><span class="rl-c"><span class="rl-s" style="{{ c.st }}"><sc-for list="{{ strip }}" as="n"><i>{{ n }}</i></sc-for></span></span></sc-if>
+                      <sc-if value="{{ c.t }}"><span class="rl-t">{{ c.ch }}</span></sc-if>
+                    </sc-for>
+                  </span>
+                </div>
+                <div style="position: relative; margin-top: 14px; height: 26px; overflow: hidden">
+                  <div class="tick" aria-hidden="true" style="display: flex; align-items: flex-end; gap: 6px; height: 26px">
+                    <sc-for list="{{ ruler }}" as="r"><span style="{{ r }}"></span></sc-for>
+                  </div>
+                </div>
+              </div>
+            </sc-if>
+          </div>
+        </sc-if>
+
+        <!-- 4. sana -->
+        <div class="{{ sc.date }}" style="{{ skyBg }}">
+          <sc-if value="{{ night }}">
+            <svg aria-hidden="true" viewBox="0 0 390 844" width="390" height="844" style="position: absolute; left: 0; top: 0">
+              <circle class="tw" cx="52" cy="120" r="1.6" fill="#FFFFFF"></circle>
+              <circle class="tw t2" cx="140" cy="76" r="1.2" fill="#FFFFFF"></circle>
+              <circle class="tw t3" cx="250" cy="130" r="1.8" fill="#FFFFFF"></circle>
+              <circle class="tw" cx="330" cy="90" r="1.3" fill="#FFFFFF"></circle>
+              <circle class="tw t2" cx="300" cy="230" r="1.5" fill="#FFFFFF"></circle>
+              <circle class="tw t3" cx="40" cy="300" r="1.2" fill="#FFFFFF"></circle>
+              <circle class="tw" cx="360" cy="380" r="1.6" fill="#FFFFFF"></circle>
+              <circle class="tw t2" cx="70" cy="690" r="1.4" fill="#FFFFFF"></circle>
+              <circle class="tw t3" cx="200" cy="620" r="1.1" fill="#FFFFFF"></circle>
+            </svg>
+          </sc-if>
+          <svg aria-hidden="true" viewBox="0 0 390 844" width="390" height="844" style="position: absolute; left: 0; top: 0">
+            <g class="sun">
+              <circle cx="300" cy="190" r="80" fill="{{ sunHalo }}" opacity="0.35"></circle>
+              <circle cx="300" cy="190" r="44" fill="{{ sunFill }}"></circle>
+              <sc-if value="{{ night }}"><circle cx="318" cy="176" r="38" fill="{{ moonCut }}"></circle></sc-if>
+            </g>
+          </svg>
+          <p class="up" style="position: absolute; left: 28px; top: 104px; margin: 0; font-size: 14px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(255, 255, 255, 0.85)">Tug’ilgan kuni</p>
+          <div class="drop" style="--rr: -4deg; position: absolute; left: 30px; top: 168px; width: 232px; border-radius: 26px; background: #FFFFFF; overflow: hidden; box-shadow: 0 30px 60px -28px rgba(0, 0, 0, 0.6); animation-delay: .2s">
+            <div style="height: 50px; background: var(--grad); display: flex; align-items: center; justify-content: center; gap: 36px">
+              <span aria-hidden="true" style="width: 10px; height: 10px; border-radius: 50%; background: rgba(255, 255, 255, 0.75)"></span>
+              <span class="st-d" style="font-size: 17px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; color: #FFFFFF">{{ w.month }}</span>
+              <span aria-hidden="true" style="width: 10px; height: 10px; border-radius: 50%; background: rgba(255, 255, 255, 0.75)"></span>
+            </div>
+            <div class="st-d" style="padding: 14px 0 0; text-align: center; font-size: 112px; font-weight: 800; letter-spacing: -0.05em; color: var(--ink)">
+              <span class="rl">
+                <sc-for list="{{ rollDay }}" as="c">
+                  <sc-if value="{{ c.d }}"><span class="rl-c"><span class="rl-s" style="{{ c.st }}"><sc-for list="{{ strip }}" as="n"><i>{{ n }}</i></sc-for></span></span></sc-if>
+                  <sc-if value="{{ c.t }}"><span class="rl-t">{{ c.ch }}</span></sc-if>
+                </sc-for>
+              </span>
+            </div>
+            <p style="margin: 10px 0 0; padding: 0 0 20px; text-align: center; font-size: 17px; font-weight: 600; color: var(--mut)">{{ w.Weekday }} · {{ w.year }}</p>
+          </div>
+          <sc-if value="{{ d.vaqt }}">
+            <div class="drop" style="--rr: 7deg; position: absolute; left: 196px; top: 420px; width: 164px; height: 164px; border-radius: 50%; background: #FFFFFF; box-shadow: 0 30px 60px -26px rgba(0, 0, 0, 0.6); animation-delay: .55s">
+              <svg aria-hidden="true" viewBox="0 0 120 120" width="164" height="164" style="position: absolute; left: 0; top: 0">
+                <circle cx="60" cy="60" r="52" fill="none" class="st-ring" style="stroke-width: 4"></circle>
+                <sc-for list="{{ clockTicks }}" as="t"><line x1="60" y1="{{ t.y }}" x2="60" y2="16" stroke="#C9C0CF" transform="{{ t.r }}" style="stroke-width: 2; stroke-linecap: round"></line></sc-for>
+                <g class="hand" style="{{ hourRot }}"><line x1="60" y1="60" x2="60" y2="34" stroke="#1D1923" style="stroke-width: 5; stroke-linecap: round"></line></g>
+                <g class="hand" style="{{ minRot }}"><line x1="60" y1="60" x2="60" y2="22" stroke="#1D1923" style="stroke-width: 3; stroke-linecap: round"></line></g>
+                <circle cx="60" cy="60" r="5" fill="#1D1923"></circle>
+              </svg>
+            </div>
+            <div class="pop st-d" style="--rr: -3deg; position: absolute; left: 152px; top: 596px; padding: 10px 18px; border-radius: 16px; background: #1D1923; color: #FFFFFF; font-size: 30px; font-weight: 800; letter-spacing: -0.02em; animation-delay: 1s">{{ d.vaqt }}</div>
+          </sc-if>
+          <p class="up st-d" style="position: absolute; left: 28px; right: 28px; top: {{ dateLineTop }}; margin: 0; font-size: 26px; line-height: 1.2; font-weight: 800; letter-spacing: -0.02em; color: #FFFFFF; text-shadow: 0 2px 16px rgba(0, 0, 0, 0.3); animation-delay: 1.15s">{{ dateLine }}</p>
+        </div>
+
+        <!-- 5. oila -->
+        <div class="{{ sc.oila }}" style="background: #1E1828">
+          <sc-if value="{{ photo2 }}">
+            <img class="kb" src="{{ p.1 }}" alt="" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; object-fit: cover; object-position: 50% 30%">
+          </sc-if>
+          <sc-if value="{{ noPhoto2 }}">
+            <div class="am-blob" aria-hidden="true" style="position: absolute; left: -90px; top: -40px; width: 440px; height: 440px; border-radius: 50%; background: radial-gradient(circle, var(--r2) 0%, rgba(0, 0, 0, 0) 68%); opacity: 0.6"></div>
+            <div class="am-blob b2" aria-hidden="true" style="position: absolute; left: 100px; top: 260px; width: 380px; height: 380px; border-radius: 50%; background: radial-gradient(circle, var(--r3) 0%, rgba(0, 0, 0, 0) 68%); opacity: 0.5"></div>
+          </sc-if>
+          <div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; background: linear-gradient(180deg, rgba(12, 9, 16, 0.55) 0%, rgba(12, 9, 16, 0.05) 22%, rgba(12, 9, 16, 0.2) 40%, rgba(12, 9, 16, 0.9) 78%, rgba(12, 9, 16, 0.94) 100%)"></div>
+          <div style="position: absolute; left: 26px; right: 26px; bottom: {{ famBottom }}">
+            <div class="pop" style="--rr: -3deg; display: inline-flex; align-items: center; gap: 0; animation-delay: .2s">
+              <sc-for list="{{ parAv }}" as="a"><span class="st-d" style="{{ a.st }}">{{ a.ch }}</span></sc-for>
+              <span style="margin-left: 10px; width: 38px; height: 38px; border-radius: 50%; background: #FFFFFF; color: var(--a); display: flex; align-items: center; justify-content: center">
+                <svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20" class="st-icf"><path d="M12 20.5s-7.5-4.6-7.5-10.4A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.7c0 5.8-7.5 10.4-7.5 10.4z"></path></svg>
+              </span>
+            </div>
+            <p class="up" style="margin: 18px 0 0; font-size: 14px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(255, 255, 255, 0.78); animation-delay: .35s">{{ parLabel }}</p>
+            <p class="up st-d" style="margin: 8px 0 0; font-size: {{ parSize }}; line-height: 1.08; font-weight: 800; letter-spacing: -0.03em; color: #FFFFFF; overflow-wrap: anywhere; animation-delay: .45s">{{ d.ota_ona }}</p>
+            <sc-if value="{{ famOn }}">
+              <p class="up" style="margin: 24px 0 10px; font-size: 14px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(255, 255, 255, 0.78); animation-delay: .7s">Bobo va buvilari</p>
+              <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 8px">
+                <sc-for list="{{ famPills }}" as="f">
+                  <span class="up" style="{{ f.st }}">{{ f.t }}</span>
+                </sc-for>
+              </div>
+            </sc-if>
+          </div>
+        </div>
+
+        <!-- 6. tilaklar -->
+        <sc-if value="{{ slTilak }}">
+          <div class="{{ sc.tilak }}" style="background: var(--aS)">
+            <div class="am-blob" aria-hidden="true" style="position: absolute; left: -110px; top: -60px; width: 420px; height: 420px; border-radius: 50%; background: radial-gradient(circle, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0) 70%)"></div>
+            <div class="am-blob b3" aria-hidden="true" style="position: absolute; left: 140px; top: 470px; width: 380px; height: 380px; border-radius: 50%; background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0) 70%)"></div>
+            <p class="up st-d" style="position: absolute; left: 28px; top: 104px; margin: 0; font-size: 34px; line-height: 1.08; font-weight: 800; letter-spacing: -0.03em; color: var(--ink)">Duo va<br>tilaklarimiz</p>
+            <div style="position: absolute; left: 22px; right: 22px; top: 210px; display: flex; flex-direction: column; align-items: flex-start; gap: {{ wishGap }}">
+              <sc-for list="{{ wishStk }}" as="t">
+                <span class="pop st-d" style="{{ t.st }}">{{ t.text }}</span>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+
+        <!-- 6b. xabar (tilaklar bo'lmasa) -->
+        <sc-if value="{{ slXabar }}">
+          <div class="{{ sc.xabar }}" style="background: #15111C">
+            <div class="am-blob" aria-hidden="true" style="position: absolute; left: -100px; top: 380px; width: 460px; height: 460px; border-radius: 50%; background: radial-gradient(circle, var(--r2) 0%, rgba(0, 0, 0, 0) 68%); opacity: 0.55"></div>
+            <svg aria-hidden="true" viewBox="0 0 60 48" width="60" height="48" class="up" style="position: absolute; left: 28px; top: 120px"><path d="M0 48V28C0 12 8 3 24 0l3 7C17 10 13 16 13 24h11v24zm33 0V28c0-16 8-25 24-28l3 7c-10 3-14 9-14 17h11v24z" fill="#FFFFFF" opacity="0.9"></path></svg>
+            <p class="up st-d" style="position: absolute; left: 28px; right: 28px; top: 200px; margin: 0; font-size: {{ quoteSize }}; line-height: 1.32; font-weight: 700; letter-spacing: -0.01em; color: #FFFFFF; white-space: pre-line; overflow-wrap: anywhere; animation-delay: .2s">{{ quote }}</p>
+          </div>
+        </sc-if>
+
+      </div>
+
+      <!-- yuqori: chiziqlar va sarlavha -->
+      <div class="vw-ui vw-shade" style="position: absolute; left: 0; top: 0; width: 390px; height: 130px; background: linear-gradient(180deg, rgba(8, 6, 12, 0.42) 0%, rgba(8, 6, 12, 0) 100%); pointer-events: none; z-index: 3"></div>
+      <div class="vw-ui" style="position: absolute; left: 10px; right: 10px; top: 12px; display: flex; gap: 4px; pointer-events: none; z-index: 3">
+        <sc-for list="{{ bars }}" as="x">
+          <span class="{{ x.c }}"><span class="pb-f" style="{{ x.st }}" onAnimationEnd="{{ x.end }}"></span></span>
+        </sc-for>
+      </div>
+      <div class="vw-ui vw-top" style="position: absolute; left: 14px; right: 8px; top: 24px; height: 48px; display: flex; align-items: center; gap: 10px; z-index: 5">
+        <span style="flex: none; width: 36px; height: 36px; border-radius: 50%; padding: 2px; background: var(--gradR); box-sizing: border-box">
+          <sc-if value="{{ has.photo }}"><img src="{{ p.0 }}" alt="" style="display: block; width: 32px; height: 32px; border-radius: 50%; object-fit: cover; border: 2px solid #0F0C14; box-sizing: border-box"></sc-if>
+          <sc-if value="{{ noPhoto }}"><span class="st-d" style="display: flex; width: 32px; height: 32px; border-radius: 50%; border: 2px solid #0F0C14; box-sizing: border-box; background: #FFFFFF; color: var(--a); align-items: center; justify-content: center; font-size: 14px; font-weight: 800">{{ initial }}</span></sc-if>
+        </span>
+        <span style="flex: 1; min-width: 0; display: flex; align-items: baseline; gap: 8px">
+          <span style="font-size: 15px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{ handle }}</span>
+          <span style="flex: none; font-size: 14px; opacity: 0.72">{{ w.dm }}</span>
+        </span>
+        <sc-if value="{{ has.music }}">
+          <button type="button" class="st-btn" onClick="{{ toggleMusic }}" aria-label="{{ musicLabel }}" style="flex: none; width: 44px; height: 44px; border-radius: 50%; background: transparent; color: inherit; display: flex; align-items: center; justify-content: center">
+            <sc-if value="{{ playing }}"><svg aria-hidden="true" viewBox="0 0 24 24" width="22" height="22" class="st-ic"><path d="M4 9v6h4l5 4V5L8 9z"></path><path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"></path></svg></sc-if>
+            <sc-if value="{{ notPlaying }}"><svg aria-hidden="true" viewBox="0 0 24 24" width="22" height="22" class="st-ic"><path d="M4 9v6h4l5 4V5L8 9z"></path><path d="M17 9.5l5 5M22 9.5l-5 5"></path></svg></sc-if>
+          </button>
+        </sc-if>
+        <button type="button" class="st-btn" onClick="{{ finish }}" aria-label="Hikoyani yopish" style="flex: none; width: 44px; height: 44px; border-radius: 50%; background: transparent; color: inherit; display: flex; align-items: center; justify-content: center">
+          <svg aria-hidden="true" viewBox="0 0 24 24" width="26" height="26" class="st-ic" style="stroke-width: 2.2"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+        </button>
+      </div>
+
+      <!-- bosish maydonlari -->
+      <button type="button" aria-label="Oldingi lavha" onClick="{{ prev }}" onPointerDown="{{ down }}" onPointerUp="{{ up }}" onPointerLeave="{{ up }}" onPointerCancel="{{ up }}" onContextMenu="{{ noMenu }}" style="position: absolute; left: 0; top: 76px; width: 130px; height: 666px; background: transparent; border: 0; padding: 0; cursor: pointer; -webkit-tap-highlight-color: transparent; -webkit-touch-callout: none; user-select: none; z-index: 3"></button>
+      <button type="button" aria-label="Keyingi lavha" onClick="{{ next }}" onPointerDown="{{ down }}" onPointerUp="{{ up }}" onPointerLeave="{{ up }}" onPointerCancel="{{ up }}" onContextMenu="{{ noMenu }}" style="position: absolute; left: 130px; top: 76px; width: 260px; height: 666px; background: transparent; border: 0; padding: 0; cursor: pointer; -webkit-tap-highlight-color: transparent; -webkit-touch-callout: none; user-select: none; z-index: 3"></button>
+
+      <div class="{{ hintCls }}" aria-hidden="true" style="position: absolute; right: 22px; top: 380px; z-index: 4; display: flex; align-items: center; gap: 10px">
+        <span class="hint-t" style="padding: 9px 14px; border-radius: 14px; background: rgba(15, 12, 20, 0.55); color: #FFFFFF; font-size: 14px; font-weight: 600">Bosing — keyingisi</span>
+        <span style="position: relative; width: 34px; height: 34px">
+          <span class="hint-r" style="position: absolute; left: 0; top: 0; width: 34px; height: 34px; border-radius: 50%; border: 2px solid #FFFFFF"></span>
+          <span style="position: absolute; left: 10px; top: 10px; width: 14px; height: 14px; border-radius: 50%; background: #FFFFFF"></span>
+        </span>
+      </div>
+
+      <sc-if value="{{ isLast }}">
+        <div class="lnk" style="position: absolute; left: 96px; top: {{ lnkTop }}; z-index: 5; width: 198px; height: 52px">
+        <button type="button" class="st-btn st-d" onClick="{{ finish }}" style="width: 198px; height: 52px; border-radius: 16px; background: #FFFFFF; color: var(--aT); font-size: 17px; font-weight: 800; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 16px 30px -14px rgba(0, 0, 0, 0.55)">
+          <svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20" class="st-ic" style="stroke-width: 2.4"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1.2 1.2M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1.2-1.2"></path></svg>
+          Sahifani ochish
+        </button>
+        </div>
+      </sc-if>
+
+      <!-- javob qatori -->
+      <sc-if value="{{ b.javob }}">
+        <div class="vw-ui vw-top" style="position: absolute; left: 14px; right: 14px; top: 764px; z-index: 5; display: flex; align-items: center; gap: 10px">
+          <button type="button" class="st-btn rp" onClick="{{ congratulate }}" disabled="{{ sent }}" style="flex: 1; min-width: 0; height: 52px; padding: 0 20px; border-radius: 26px; font-family: 'Wix Madefor Text', system-ui, sans-serif; font-size: 15px; font-weight: 600; text-align: left; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{ replyLabel }}</button>
+          <button type="button" class="st-btn" onClick="{{ congratulate }}" aria-label="Tabriklash" style="position: relative; flex: none; width: 52px; height: 52px; border-radius: 50%; background: transparent; color: {{ heartInk }}; display: flex; align-items: center; justify-content: center">
+            <span class="{{ burstCls }}" aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 52px; height: 52px">
+              <sc-for list="{{ burst }}" as="h"><svg viewBox="0 0 24 24" class="hb st-icf" style="{{ h }}"><path d="M12 20.5s-7.5-4.6-7.5-10.4A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.7c0 5.8-7.5 10.4-7.5 10.4z"></path></svg></sc-for>
+            </span>
+            <svg aria-hidden="true" viewBox="0 0 24 24" width="30" height="30" class="{{ heartCls }}"><path d="M12 20.5s-7.5-4.6-7.5-10.4A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.7c0 5.8-7.5 10.4-7.5 10.4z"></path></svg>
+          </button>
+        </div>
+      </sc-if>
+    </div>
+
+    <!-- muqova: hikoya halqasi -->
+    <div class="cv {{ cvCls }}" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; z-index: 6; background: #0F0C14; overflow: hidden">
+      <div class="am-blob" aria-hidden="true" style="position: absolute; left: -140px; top: -120px; width: 460px; height: 460px; border-radius: 50%; background: radial-gradient(circle, var(--r1) 0%, rgba(0, 0, 0, 0) 66%); opacity: 0.32"></div>
+      <div class="am-blob b2" aria-hidden="true" style="position: absolute; left: 110px; top: 160px; width: 440px; height: 440px; border-radius: 50%; background: radial-gradient(circle, var(--r2) 0%, rgba(0, 0, 0, 0) 66%); opacity: 0.32"></div>
+      <div class="am-blob b3" aria-hidden="true" style="position: absolute; left: -120px; top: 520px; width: 440px; height: 440px; border-radius: 50%; background: radial-gradient(circle, var(--r3) 0%, rgba(0, 0, 0, 0) 66%); opacity: 0.3"></div>
+
+      <p class="cv-in st-t" style="position: absolute; left: 0; top: 72px; width: 390px; margin: 0; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 14px; font-weight: 600; letter-spacing: 0.08em; color: rgba(255, 255, 255, 0.82)">
+        <span class="am-dot" aria-hidden="true" style="width: 8px; height: 8px; border-radius: 50%; background: var(--r2)"></span>Yangi hikoya
+      </p>
+
+      <div class="cv-avw" style="position: absolute; left: 77px; top: 200px; width: 236px; height: 236px">
+        <div class="cv-av" style="position: absolute; left: 0; top: 0; width: 236px; height: 236px">
+        <button type="button" class="st-btn" onClick="{{ start }}" aria-label="Hikoyani ko’rish" style="position: absolute; left: 0; top: 0; width: 236px; height: 236px; border-radius: 50%; padding: 0; background: transparent">
+          <span class="am-halo" aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 236px; height: 236px; border-radius: 50%; border: 3px solid var(--r2)"></span>
+          <svg aria-hidden="true" viewBox="0 0 236 236" width="236" height="236" style="position: absolute; left: 0; top: 0">
+            <g class="am-spin"><circle cx="118" cy="118" r="112" class="st-ring" pathLength="100" stroke-dasharray="{{ segDash }}" style="stroke-width: 7"></circle></g>
+          </svg>
+          <span style="position: absolute; left: 18px; top: 18px; width: 200px; height: 200px; border-radius: 50%; overflow: hidden; background: #221C2B">
+            <sc-if value="{{ has.photo }}"><img src="{{ p.0 }}" alt="" style="display: block; width: 200px; height: 200px; object-fit: cover; object-position: 50% 42%"></sc-if>
+            <sc-if value="{{ noPhoto }}"><span class="st-d" style="display: flex; width: 200px; height: 200px; align-items: center; justify-content: center; background: var(--grad); color: #FFFFFF; font-size: 92px; font-weight: 800">{{ initial }}</span></sc-if>
+          </span>
+          <span class="am-bob" aria-hidden="true" style="position: absolute; left: 172px; top: 170px; width: 52px; height: 52px; border-radius: 50%; background: #FFFFFF; color: #0F0C14; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 0 5px #0F0C14">
+            <svg viewBox="0 0 24 24" width="22" height="22" class="st-icf"><path d="M8 5.5v13l10.5-6.5z"></path></svg>
+          </span>
+        </button>
+        </div>
+      </div>
+
+      <div style="position: absolute; left: 24px; top: 470px; width: 342px; text-align: center">
+        <p class="cv-in i2 st-d" style="margin: 0; font-size: {{ handleSize }}; line-height: 1.15; font-weight: 800; letter-spacing: -0.02em; color: #FFFFFF; overflow-wrap: anywhere">{{ handle }}</p>
+        <p class="cv-in i3" style="margin: 8px 0 0; font-size: 15px; color: rgba(255, 255, 255, 0.66)">{{ coverMeta }}</p>
+      </div>
+      <h1 class="cv-in i4 st-d" style="position: absolute; left: 24px; top: 572px; width: 342px; margin: 0; text-align: center; font-size: 34px; line-height: 1.1; font-weight: 800; letter-spacing: -0.03em; color: #FFFFFF">Bizda katta<br><span class="st-gtext">xushxabar bor</span></h1>
+
+      <div class="cv-in i5" style="position: absolute; left: 34px; top: 694px; width: 322px">
+        <button type="button" class="st-btn st-d" onClick="{{ start }}" style="width: 322px; height: 60px; border-radius: 30px; background: #FFFFFF; color: #0F0C14; font-size: 18px; font-weight: 800; display: flex; align-items: center; justify-content: center; gap: 10px; box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.12), 0 18px 40px -14px var(--r2)">
+          <svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20" class="st-icf"><path d="M8 5.5v13l10.5-6.5z"></path></svg>
+          Hikoyani ko’rish
+        </button>
+        <button type="button" class="st-btn" onClick="{{ finish }}" style="display: block; margin: 12px auto 0; height: 44px; padding: 0 18px; border-radius: 22px; background: transparent; color: rgba(255, 255, 255, 0.7); font-family: 'Wix Madefor Text', system-ui, sans-serif; font-size: 15px; font-weight: 600">Sahifaga o’tish</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== SAHIFA ===================== -->
+  <div class="am-blob" aria-hidden="true" style="position: absolute; left: -150px; top: -120px; width: 440px; height: 440px; border-radius: 50%; background: radial-gradient(circle, var(--r1) 0%, rgba(255, 255, 255, 0) 68%); opacity: 0.2; pointer-events: none"></div>
+  <div class="am-blob b2" aria-hidden="true" style="position: absolute; left: 140px; top: 40px; width: 420px; height: 420px; border-radius: 50%; background: radial-gradient(circle, var(--r3) 0%, rgba(255, 255, 255, 0) 68%); opacity: 0.16; pointer-events: none"></div>
+  <div class="am-blob b3" aria-hidden="true" style="position: absolute; left: -60px; top: 330px; width: 380px; height: 380px; border-radius: 50%; background: radial-gradient(circle, var(--r2) 0%, rgba(255, 255, 255, 0) 68%); opacity: 0.12; pointer-events: none"></div>
+  <header class="hv" style="position: relative; padding: 18px 18px 0; height: 48px; display: flex; align-items: center; justify-content: space-between; gap: 12px">
+    <p class="st-d" style="margin: 0; min-width: 0; font-size: 18px; font-weight: 800; letter-spacing: -0.01em; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{ handle }}</p>
+    <sc-if value="{{ has.music }}">
+      <button type="button" class="st-btn" onClick="{{ toggleMusic }}" aria-label="{{ musicLabel }}" style="flex: none; width: 44px; height: 44px; border-radius: 50%; background: #FFFFFF; border: 1px solid var(--line); color: var(--a); display: flex; align-items: center; justify-content: center">
+        <sc-if value="{{ playing }}"><svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20" class="st-ic"><path d="M4 9v6h4l5 4V5L8 9z"></path><path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"></path></svg></sc-if>
+        <sc-if value="{{ notPlaying }}"><svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20" class="st-ic"><path d="M4 9v6h4l5 4V5L8 9z"></path><path d="M17 9.5l5 5M22 9.5l-5 5"></path></svg></sc-if>
+      </button>
+    </sc-if>
+  </header>
+
+  <section style="position: relative; padding: 10px 18px 0; text-align: center">
+    <div class="hav" style="position: relative; width: 156px; height: 156px; margin: 0 auto">
+      <button type="button" class="st-btn" onClick="{{ replay }}" aria-label="Hikoyani qayta ko’rish" style="position: absolute; left: 0; top: 0; width: 156px; height: 156px; border-radius: 50%; padding: 0; background: transparent">
+        <svg aria-hidden="true" viewBox="0 0 156 156" width="156" height="156" style="position: absolute; left: 0; top: 0">
+          <g class="am-spin"><circle cx="78" cy="78" r="74" class="st-ring" pathLength="100" stroke-dasharray="{{ segDash }}" style="stroke-width: 5"></circle></g>
+        </svg>
+        <span style="position: absolute; left: 12px; top: 12px; width: 132px; height: 132px; border-radius: 50%; overflow: hidden; background: var(--aS)">
+          <sc-if value="{{ has.photo }}"><img src="{{ p.0 }}" alt="" style="display: block; width: 132px; height: 132px; object-fit: cover; object-position: 50% 42%"></sc-if>
+          <sc-if value="{{ noPhoto }}"><span class="st-d" style="display: flex; width: 132px; height: 132px; align-items: center; justify-content: center; background: var(--grad); color: #FFFFFF; font-size: 60px; font-weight: 800">{{ initial }}</span></sc-if>
+        </span>
+        <span aria-hidden="true" style="position: absolute; left: 110px; top: 110px; width: 38px; height: 38px; border-radius: 50%; background: var(--a); color: #FFFFFF; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 0 4px #FFF8F3">
+          <svg viewBox="0 0 24 24" width="16" height="16" class="st-icf"><path d="M8 5.5v13l10.5-6.5z"></path></svg>
+        </span>
+      </button>
+    </div>
+    <h1 class="hv h2 st-d" style="margin: 18px 0 0; font-size: {{ heroNameSize }}; line-height: 1.04; font-weight: 800; letter-spacing: -0.035em; color: var(--ink); overflow-wrap: anywhere">{{ d.chaqaloq }}</h1>
+    <div class="hv h3" style="margin-top: 12px; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px">
+      <span style="display: inline-flex; align-items: center; gap: 7px; height: 32px; padding: 0 14px; border-radius: 999px; background: var(--aS); color: var(--aT); font-size: 14px; font-weight: 700">
+        <span aria-hidden="true" style="width: 8px; height: 8px; border-radius: 50%; background: var(--grad)"></span>{{ genderChip }}
+      </span>
+      <sc-if value="{{ w.dm }}"><span style="display: inline-flex; align-items: center; height: 32px; padding: 0 14px; border-radius: 999px; background: #FFFFFF; border: 1px solid var(--line); color: var(--ink); font-size: 14px; font-weight: 600">{{ w.date }}</span></sc-if>
+    </div>
+    <p class="hv h3" style="margin: 14px 8px 0; font-size: 16px; line-height: 1.5; color: var(--mut); overflow-wrap: anywhere">{{ bio }}</p>
+
+    <sc-if value="{{ hasStats }}">
+      <div class="hv h4" style="margin: 22px 0 0; display: grid; grid-template-columns: {{ statCols }}; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line)">
+        <sc-for list="{{ stats }}" as="x">
+          <div style="{{ x.st }}">
+            <span class="st-d" style="display: block; font-size: 22px; line-height: 1.1; font-weight: 800; letter-spacing: -0.02em; color: var(--ink); overflow-wrap: anywhere">{{ x.v }}</span>
+            <span style="display: block; margin-top: 4px; font-size: 13px; color: var(--mut)">{{ x.l }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </sc-if>
+
+    <div class="hv h5" style="margin-top: 18px; display: grid; grid-template-columns: {{ actCols }}; gap: 10px">
+      <button type="button" class="st-btn st-d" onClick="{{ replay }}" style="height: 50px; border-radius: 16px; background: var(--a); color: #FFFFFF; font-size: 16px; font-weight: 800; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 14px 28px -16px var(--a)">
+        <svg aria-hidden="true" viewBox="0 0 24 24" width="18" height="18" class="st-icf"><path d="M8 5.5v13l10.5-6.5z"></path></svg>
+        Hikoyani ko’rish
+      </button>
+      <sc-if value="{{ b.javob }}">
+        <a href="#st-javob" class="st-btn st-d" style="height: 50px; border-radius: 16px; background: #FFFFFF; border: 1.5px solid var(--line); box-sizing: border-box; color: var(--ink); font-size: 16px; font-weight: 800; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px">
+          <svg aria-hidden="true" viewBox="0 0 24 24" width="18" height="18" class="st-ic"><path d="M12 20.5s-7.5-4.6-7.5-10.4A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.7c0 5.8-7.5 10.4-7.5 10.4z"></path></svg>
+          Tabriklash
+        </a>
+      </sc-if>
+    </div>
+
+    <sc-if value="{{ hasHl }}">
+      <nav aria-label="Bo’limlar" style="margin: 24px -18px 0; padding: 0 18px 4px; display: flex; gap: {{ hlGap }}; overflow-x: auto; justify-content: {{ hlJustify }}">
+        <sc-for list="{{ highlights }}" as="h">
+          <a href="{{ h.href }}" class="hl st-btn" style="{{ h.st }}">
+            <span style="{{ h.o }}; border-radius: 50%; padding: 3px; box-sizing: border-box; background: #FFFFFF; border: 1.5px solid var(--line); display: flex; align-items: center; justify-content: center">
+              <span style="{{ h.i }}; border-radius: 50%; background: var(--aS); color: var(--a); display: flex; align-items: center; justify-content: center">
+                <svg aria-hidden="true" viewBox="0 0 24 24" width="24" height="24" class="st-ic"><path d="{{ h.icon }}"></path></svg>
+              </span>
+            </span>
+            <span style="display: block; margin-top: 7px; font-size: 12px; font-weight: 600; color: var(--ink); white-space: nowrap">{{ h.l }}</span>
+          </a>
+        </sc-for>
+      </nav>
+    </sc-if>
+  </section>
+
+  <sc-if value="{{ b.olchov }}">
+    <section id="st-olchov" data-rv="olchov" class="{{ rv.olchov }}" style="position: relative; padding: 40px 16px 0">
+      <h2 class="sec-h st-d"><span class="sec-d"></span>Tug’ilish kartochkasi</h2>
+      <div style="display: grid; grid-template-columns: {{ olCols }}; gap: 12px">
+        <div class="card ri" style="padding: 18px 18px 18px; min-width: 0; --rr: 0deg">
+          <span style="display: block; font-size: 13px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mut)">Vazni</span>
+          <span class="st-d" style="display: block; margin-top: 10px; font-size: {{ kgSmall }}; font-weight: 800; letter-spacing: -0.04em; color: var(--ink)">
+            <span class="rl">
+              <sc-for list="{{ rollKg }}" as="c">
+                <sc-if value="{{ c.d }}"><span class="rl-c"><span class="rl-s" style="{{ c.st }}"><sc-for list="{{ strip }}" as="n"><i>{{ n }}</i></sc-for></span></span></sc-if>
+                <sc-if value="{{ c.t }}"><span class="rl-t">{{ c.ch }}</span></sc-if>
+              </sc-for>
+            </span>
+          </span>
+          <sc-if value="{{ gramm }}"><span style="display: block; margin-top: 8px; font-size: 13px; color: var(--mut)">{{ gramm }}</span></sc-if>
+        </div>
+        <sc-if value="{{ d.boy }}">
+          <div class="card ri" style="padding: 18px 18px 18px; min-width: 0; background: var(--grad); border-color: transparent; color: #FFFFFF; animation-delay: .1s">
+            <span style="display: block; font-size: 13px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255, 255, 255, 0.92)">Bo’yi</span>
+            <span class="st-d" style="display: block; margin-top: 10px; font-size: {{ smSmall }}; font-weight: 800; letter-spacing: -0.04em; color: #FFFFFF; text-shadow: 0 2px 10px rgba(20, 10, 50, 0.2)">
+              <span class="rl">
+                <sc-for list="{{ rollSm }}" as="c">
+                  <sc-if value="{{ c.d }}"><span class="rl-c"><span class="rl-s" style="{{ c.st }}"><sc-for list="{{ strip }}" as="n"><i>{{ n }}</i></sc-for></span></span></sc-if>
+                  <sc-if value="{{ c.t }}"><span class="rl-t">{{ c.ch }}</span></sc-if>
+                </sc-for>
+              </span>
+            </span>
+            <span style="display: block; margin-top: 10px; height: 8px; border-radius: 4px; background: rgba(255, 255, 255, 0.3); overflow: hidden"><span class="bar" style="display: block; width: {{ smPct }}; height: 8px; border-radius: 4px; background: #FFFFFF"></span></span>
+          </div>
+        </sc-if>
+      </div>
+      <div class="card ri" style="margin-top: 12px; padding: 16px 18px; display: flex; align-items: center; gap: 14px; animation-delay: .2s">
+        <span style="flex: none; width: 48px; height: 48px; border-radius: 16px; background: var(--aS); color: var(--a); display: flex; align-items: center; justify-content: center">
+          <svg aria-hidden="true" viewBox="0 0 24 24" width="24" height="24" class="st-ic"><circle cx="12" cy="13" r="8"></circle><path d="M12 9v4l2.5 2M9.5 2.5h5"></path></svg>
+        </span>
+        <span style="flex: 1; min-width: 0">
+          <span style="display: block; font-size: 13px; color: var(--mut)">Dunyoga kelganiga</span>
+          <span class="st-d" style="display: block; margin-top: 2px; font-size: 19px; font-weight: 800; letter-spacing: -0.01em; color: var(--ink); font-variant-numeric: tabular-nums">{{ ageLine }}</span>
+        </span>
+      </div>
+    </section>
+  </sc-if>
+
+  <sc-if value="{{ b.xabar }}">
+    <section id="st-xabar" data-rv="xabar" class="{{ rv.xabar }}" style="position: relative; padding: 40px 16px 0">
+      <div class="card" style="overflow: hidden">
+        <div style="padding: 14px 16px; display: flex; align-items: center; gap: 12px">
+          <span style="flex: none; width: 42px; height: 42px; border-radius: 50%; padding: 2px; box-sizing: border-box; background: var(--gradR)">
+            <span class="st-d" style="display: flex; width: 38px; height: 38px; border-radius: 50%; border: 2px solid #FFFFFF; box-sizing: border-box; background: var(--aS); color: var(--aT); align-items: center; justify-content: center; font-size: 13px; font-weight: 800">{{ parIni }}</span>
+          </span>
+          <span style="flex: 1; min-width: 0">
+            <span style="display: block; font-size: 15px; font-weight: 700; color: var(--ink); overflow-wrap: anywhere">{{ handle }}</span>
+            <span style="display: block; font-size: 13px; color: var(--mut)">Xushxabar · {{ w.dm }}</span>
+          </span>
+        </div>
+        <sc-if value="{{ photo2 }}">
+          <div class="ri" style="height: 420px; overflow: hidden; background: var(--aS)">
+            <img src="{{ p.1 }}" alt="" style="display: block; width: 100%; height: 420px; object-fit: cover; object-position: 50% 30%">
+          </div>
+        </sc-if>
+        <div style="padding: 16px 18px 20px">
+          <p style="margin: 0; font-size: 16px; line-height: 1.62; color: var(--ink); white-space: pre-line; overflow-wrap: anywhere"><b class="st-d" style="font-weight: 800">{{ handleShort }}</b> {{ d.matn }}</p>
+        </div>
+      </div>
+    </section>
+  </sc-if>
+
+  <sc-if value="{{ b.oila }}">
+    <section id="st-oila" data-rv="oila" class="{{ rv.oila }}" style="position: relative; padding: 40px 16px 0">
+      <h2 class="sec-h st-d"><span class="sec-d"></span>Oila davrasi</h2>
+      <div class="card" style="padding: 8px 16px">
+        <div class="ri" style="display: flex; align-items: center; gap: 14px; padding: 12px 0; border-bottom: 1px solid var(--line)">
+          <span style="flex: none; width: 52px; height: 52px; border-radius: 50%; padding: 2px; box-sizing: border-box; background: var(--gradR)">
+            <span style="display: block; width: 48px; height: 48px; border-radius: 50%; border: 2px solid #FFFFFF; box-sizing: border-box; overflow: hidden; background: var(--aS)">
+              <sc-if value="{{ has.photo }}"><img src="{{ p.0 }}" alt="" style="display: block; width: 44px; height: 44px; object-fit: cover"></sc-if>
+              <sc-if value="{{ noPhoto }}"><span class="st-d" style="display: flex; width: 44px; height: 44px; align-items: center; justify-content: center; color: var(--aT); font-size: 18px; font-weight: 800">{{ initial }}</span></sc-if>
+            </span>
+          </span>
+          <span style="flex: 1; min-width: 0">
+            <span class="st-d" style="display: block; font-size: 17px; font-weight: 800; color: var(--ink); overflow-wrap: anywhere">{{ d.chaqaloq }}</span>
+            <span style="display: block; font-size: 13px; color: var(--mut)">{{ babyLabel }}</span>
+          </span>
+        </div>
+        <sc-for list="{{ famRows }}" as="f">
+          <div class="ri" style="{{ f.row }}">
+            <span class="st-d" style="{{ f.av }}">{{ f.ini }}</span>
+            <span style="flex: 1; min-width: 0">
+              <span style="display: block; font-size: 16px; line-height: 1.35; font-weight: 700; color: var(--ink); overflow-wrap: anywhere">{{ f.names }}</span>
+              <span style="display: block; margin-top: 2px; font-size: 13px; color: var(--mut)">{{ f.label }}</span>
+            </span>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+  </sc-if>
+
+  <sc-if value="{{ b.galereya }}">
+    <section id="st-galereya" data-rv="galereya" class="{{ rv.galereya }}" style="position: relative; padding: 40px 0 0">
+      <h2 class="sec-h st-d" style="padding: 0 20px"><span class="sec-d"></span>Suratlar<span style="margin-left: auto; font-size: 14px; font-weight: 600; color: var(--mut)">{{ photoCount }}</span></h2>
+      <div style="display: grid; grid-template-columns: repeat({{ gCols }}, 1fr); gap: 3px">
+        <sc-for list="{{ gallery }}" as="g">
+          <div class="ri ph" style="{{ g.box }}">
+            <img src="{{ g.src }}" alt="" style="display: block; width: 100%; height: 100%; object-fit: cover">
+          </div>
+        </sc-for>
+      </div>
+    </section>
+  </sc-if>
+
+  <sc-if value="{{ b.tilaklar }}">
+    <section id="st-tilaklar" data-rv="tilaklar" class="{{ rv.tilaklar }}" style="position: relative; padding: 40px 16px 0">
+      <h2 class="sec-h st-d"><span class="sec-d"></span>Tilaklarimiz</h2>
+      <div style="padding: 22px 16px 24px; border-radius: 28px; background: var(--aS); display: flex; flex-wrap: wrap; gap: 10px; justify-content: center">
+        <sc-for list="{{ wishPage }}" as="t">
+          <span class="rs st-d" style="{{ t.st }}">{{ t.text }}</span>
+        </sc-for>
+      </div>
+    </section>
+  </sc-if>
+
+  <sc-if value="{{ b.mehmonlar }}">
+    <section id="st-mehmonlar" data-rv="mehmonlar" class="{{ rv.mehmonlar }}" style="position: relative; padding: 40px 16px 0">
+      <h2 class="sec-h st-d"><span class="sec-d"></span>Yaqinlar yozdi<span style="margin-left: auto; font-size: 14px; font-weight: 600; color: var(--mut)">{{ guestCount }}</span></h2>
+      <div class="card" style="padding: 6px 16px">
+        <sc-for list="{{ guests }}" as="g">
+          <div class="ri" style="{{ g.row }}">
+            <span class="st-d" style="{{ g.av }}">{{ g.ini }}</span>
+            <span style="flex: 1; min-width: 0">
+              <span style="display: block; font-size: 15px; line-height: 1.5; color: var(--ink); overflow-wrap: anywhere"><b style="font-weight: 700">{{ g.who }}</b> {{ g.matn }}</span>
+              <sc-if value="{{ g.rel }}"><span style="display: block; margin-top: 3px; font-size: 13px; color: var(--mut)">{{ g.rel }}</span></sc-if>
+            </span>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+  </sc-if>
+
+  <sc-if value="{{ b.javob }}">
+    <section id="st-javob" data-rv="javob" class="{{ rv.javob }}" style="position: relative; padding: 40px 16px 0">
+      <div style="position: relative; padding: 3px; border-radius: 32px; background: var(--grad)">
+        <div style="padding: 30px 22px 26px; border-radius: 29px; background: #FFFFFF; text-align: center">
+          <button type="button" class="st-btn" onClick="{{ congratulate }}" aria-label="Tabriklash" style="position: relative; width: 96px; height: 96px; border-radius: 50%; background: {{ bigHeartBg }}; color: {{ bigHeartInk }}; display: inline-flex; align-items: center; justify-content: center; box-shadow: 0 18px 34px -16px var(--a)">
+            <span class="{{ burstCls }}" aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 96px; height: 96px">
+              <sc-for list="{{ burstBig }}" as="h"><svg viewBox="0 0 24 24" class="hb st-icf" style="{{ h }}"><path d="M12 20.5s-7.5-4.6-7.5-10.4A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.7c0 5.8-7.5 10.4-7.5 10.4z"></path></svg></sc-for>
+            </span>
+            <svg aria-hidden="true" viewBox="0 0 24 24" width="46" height="46" class="{{ heartCls }}"><path d="M12 20.5s-7.5-4.6-7.5-10.4A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.7c0 5.8-7.5 10.4-7.5 10.4z"></path></svg>
+          </button>
+          <h2 class="st-d" style="margin: 20px 0 0; font-size: 26px; line-height: 1.15; font-weight: 800; letter-spacing: -0.02em; color: var(--ink); overflow-wrap: anywhere">{{ congratsTitle }}</h2>
+          <p style="margin: 10px 0 20px; font-size: 15px; line-height: 1.55; color: var(--mut)">Yurakchani bosing — tabrigingiz {{ parentsTo }} darhol yetib boradi.</p>
+          <button type="button" class="st-btn st-d" onClick="{{ congratulate }}" disabled="{{ sent }}" style="width: 100%; height: 56px; border-radius: 18px; background: {{ btnBg }}; color: {{ btnInk }}; font-size: 17px; font-weight: 800; display: flex; align-items: center; justify-content: center; gap: 8px">
+            <sc-if value="{{ sent }}"><svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20" class="st-ic" style="stroke-width: 2.6"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></sc-if>
+            {{ btnLabel }}
+          </button>
+        </div>
+      </div>
+    </section>
+  </sc-if>
+
+  <footer style="position: relative; padding: 44px 20px 46px; text-align: center">
+    <div aria-hidden="true" style="width: 44px; height: 44px; margin: 0 auto 14px; border-radius: 50%; padding: 3px; box-sizing: border-box; background: var(--gradR)"><span style="display: block; width: 38px; height: 38px; border-radius: 50%; background: #FFF8F3"></span></div>
+    <sc-if value="{{ d.ota_ona }}"><p class="st-d" style="margin: 0; font-size: 18px; font-weight: 800; color: var(--ink); overflow-wrap: anywhere">{{ famLine }}</p></sc-if>
+    <sc-if value="{{ w.dots }}"><p style="margin: 6px 0 0; font-size: 13px; letter-spacing: 0.18em; color: var(--mut)">{{ w.dots }}</p></sc-if>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":3600}}'>
+const REDUCED = typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
+// avtomatik skrinshotlarda (navigator.webdriver) bo'limlar darhol ko'rinadi
+const CAN_IO = typeof IntersectionObserver === 'function' && !REDUCED && !(typeof navigator !== 'undefined' && navigator.webdriver);
+const STRIP = ['0','1','2','3','4','5','6','7','8','9','0','1','2','3','4','5','6','7','8','9','0'];
+
+function roll(text, base) {
+  // raqamlar g'altak bo'lib aylanadi, qolgan belgilar joyida turadi
+  let k = 0;
+  return Array.from(String(text || '')).map(ch => {
+    if (/[0-9]/.test(ch)) {
+      const n = +ch, i = k++;
+      return { d: true, t: false, ch, st: 'transform: translateY(-' + (10 + n) + 'em); animation-delay: ' + (base + i * 0.12).toFixed(2) + 's; animation-duration: ' + (1.3 + i * 0.18).toFixed(2) + 's' };
+    }
+    return { d: false, t: true, ch: ch === ' ' ? ' ' : ch, st: '' };
+  });
+}
+
+class Component extends DCLogic {
+  constructor(...args) {
+    super(...args);
+    this.state = { phase: 'cover', idx: 0, gen: 0, hold: false, rv: {}, sent: false, burst: 0, hinted: false, on: false, gone: false };
+    this.timers = [];
+  }
+  componentDidMount() {
+    this.tick = setInterval(() => { if (this.state.phase !== 'view') this.forceUpdate(); }, 1000);
+    if (CAN_IO) {
+      this.io = new IntersectionObserver((es) => {
+        const add = {};
+        es.forEach((e) => { if (e.isIntersecting) { add[e.target.getAttribute('data-rv')] = true; this.io.unobserve(e.target); } });
+        if (Object.keys(add).length) this.setState((s) => ({ rv: Object.assign({}, s.rv, add) }));
+      }, { rootMargin: '0px 0px -10% 0px' });
+      document.querySelectorAll('[data-rv]').forEach((el) => this.io.observe(el));
+    }
+  }
+  componentWillUnmount() {
+    clearInterval(this.tick);
+    if (this.io) this.io.disconnect();
+    this.timers.forEach(t => clearTimeout(t));
+  }
+  T(fn, ms) { this.timers.push(setTimeout(fn, ms)); }
+  slides() {
+    const d = SITE.d, b = SITE.b;
+    const out = ['photo', 'name'];
+    if (b.olchov && d.vazn) out.push('olchov');
+    out.push('date', 'oila');
+    if (b.tilaklar && (d.tilaklar || []).filter(Boolean).length) out.push('tilak');
+    else if (b.xabar && d.matn) out.push('xabar');
+    return out;
+  }
+  go(i) {
+    const n = this.slides().length;
+    if (i >= n) { this.finish(); return; }
+    this.setState((s) => ({ was: s.idx, idx: Math.max(0, i), gen: s.gen + 1 }));
+  }
+  start() {
+    if (this.state.phase === 'view') return;
+    if (SITE.has.music && !SITE.music.playing) SITE.music.play();
+    window.scrollTo(0, 0);
+    this.setState({ phase: 'view', idx: 0, was: -1, gen: this.state.gen + 1, gone: false, hold: false });
+    if (!this.state.hinted) this.T(() => this.setState({ hinted: true }), 5200);
+  }
+  finish() {
+    if (this.state.phase === 'out') return;
+    this.setState({ phase: 'out', hold: false, hinted: true });
+    SITE.opened();
+    this.T(() => this.setState({ on: true }), 450);
+    this.T(() => this.setState({ gone: true }), REDUCED ? 300 : 1300);
+  }
+  renderVals() {
+    const s = this.state;
+    const d = SITE.d, b = SITE.b, P = SITE.p, n = SITE.has.photos;
+    const qiz = d.jins === 'qiz';
+    const name = String(d.chaqaloq || '').trim();
+    const w = SITE.when(d.sana, d.vaqt);
+    const fit = (t, max, wd, k) => { const L = Math.max(1, Array.from(String(t || '')).length); return Math.min(max, Math.floor(wd / (L * k))) + 'px'; };
+    const ini = x => (String(x || '').replace(/^[^A-Za-zА-Яа-яЁёЎўҚқҒғҲҳ]+/, '').charAt(0) || '').toUpperCase();
+    const par = String(d.ota_ona || '').split(/\s+(?:va|ва|&|and)\s+|\s*[,&+]\s*/i).map(x => x.trim()).filter(Boolean);
+    const hr = /^(\d{1,2}):(\d{2})/.test(d.vaqt || '') ? +d.vaqt.split(':')[0] : -1;
+    const mn = hr < 0 ? 0 : +d.vaqt.split(':')[1];
+    const part = hr < 0 ? '' : hr < 4 ? 'tun' : hr < 7 ? 'tong' : hr < 12 ? 'ertalab' : hr < 17 ? 'kunduz' : hr < 21 ? 'kechqurun' : 'tun';
+    const partLoc = { tun: 'tunda', tong: 'tong saharda', ertalab: 'ertalab', kunduz: 'kunduzi', kechqurun: 'kechqurun' }[part] || '';
+
+    // ---- hikoyalar
+    const list = this.slides(), N = list.length;
+    const idx = Math.min(s.idx, N - 1);
+    const cur = s.phase === 'view' || s.phase === 'out' ? list[idx] : '';
+    const sc = {};
+    const wasKey = s.was >= 0 && s.was !== idx ? list[s.was] : '';
+    ['photo', 'name', 'olchov', 'date', 'oila', 'tilak', 'xabar'].forEach(k => { sc[k] = 'sl' + (cur === k ? ' on' : wasKey === k ? ' was' : ''); });
+    const dur = { photo: 5, name: 5, olchov: 5.5, date: 6, oila: 5.5, tilak: 6.5, xabar: 7 };
+    const view = s.phase === 'view';
+    const bars = list.map((k, i) => {
+      const run = view && i === idx;
+      return {
+        c: 'pb' + (i < idx || (s.phase === 'out') ? ' done' : '') + (run ? ' run ' + (s.gen % 2 ? 'ga' : 'gb') : ''),
+        st: run ? 'animation-duration: ' + (REDUCED ? dur[k] + 2 : dur[k]) + 's' : '',
+        end: run ? (e) => { if (e.target === e.currentTarget && this.state.phase === 'view' && this.state.idx === i) this.go(i + 1); } : null
+      };
+    });
+    const segs = Math.max(1, N);
+    const segLen = 100 / segs;
+    const segDash = segs > 1 ? (segLen - 2.2).toFixed(2) + ' 2.2' : '100 0';
+
+    const chars = Array.from(name);
+    const nameChars = chars.map((ch, i) => ({ ch: ch === ' ' ? ' ' : ch, st: 'animation-delay: ' + (0.45 + i * 0.07).toFixed(2) + 's' }));
+    const chipDelay = (0.55 + chars.length * 0.07 + 0.1).toFixed(2) + 's';
+
+    // o'lchov
+    const kgm = String(d.vazn || '').match(/(\d+(?:[.,]\d+)?)/);
+    const kgv = kgm ? parseFloat(kgm[1].replace(',', '.')) : 0;
+    const kg = kgv > 100 ? kgv / 1000 : kgv;
+    const smm = String(d.boy || '').match(/(\d+(?:[.,]\d+)?)/);
+    const sm = smm ? parseFloat(smm[1].replace(',', '.')) : 0;
+    const ruler = [];
+    for (let i = 0; i < 46; i++) ruler.push('flex: none; width: 2px; height: ' + (i % 5 === 0 ? 24 : 12) + 'px; border-radius: 1px; background: rgba(255, 255, 255, ' + (i % 5 === 0 ? 0.95 : 0.6) + ')');
+
+    // osmon (tug'ilgan vaqtiga qarab)
+    const sky = {
+      tun: ['#0E1433', '#2A2463', '#FFF3D6', 'rgba(255, 243, 214, 0.5)', '#1C1D4A'],
+      tong: ['#26245C', '#E7898A', '#FFE2B8', 'rgba(255, 210, 160, 0.7)', ''],
+      ertalab: ['#2E6FC6', '#F2B07C', '#FFE9A8', 'rgba(255, 233, 168, 0.75)', ''],
+      kunduz: ['#1E66C2', '#6FB2EC', '#FFF0A0', 'rgba(255, 240, 160, 0.7)', ''],
+      kechqurun: ['#2D2160', '#F08A62', '#FFC98A', 'rgba(255, 190, 130, 0.65)', '']
+    }[part || 'tong'];
+    const night = part === 'tun';
+    const clockTicks = [];
+    for (let i = 0; i < 12; i++) clockTicks.push({ y: i % 3 === 0 ? 10 : 12, r: 'rotate(' + (i * 30) + ' 60 60)' });
+    const hAng = hr < 0 ? 0 : ((hr % 12) + mn / 60) * 30, mAng = mn * 6;
+
+    // oila
+    const parAv = (par.length ? par : [d.ota_ona || '']).slice(0, 2).map((x, i) => ({
+      ch: ini(x) || '+',
+      st: 'width: 54px; height: 54px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 800; color: #FFFFFF; background: ' + (i ? 'linear-gradient(135deg, var(--r2), var(--r3))' : 'linear-gradient(135deg, var(--r1), var(--r2))') + '; box-shadow: 0 0 0 3px #FFFFFF' + (i ? '; margin-left: -14px' : '')
+    }));
+    const fl = (d.bobo_buvi || []).filter(Boolean);
+    const famOn = !!(b.oila && fl.length);
+    const famPills = fl.slice(0, 4).map((t, i) => ({ t, st: 'display: inline-block; max-width: 100%; box-sizing: border-box; padding: 10px 16px; border-radius: 16px; background: rgba(255, 255, 255, 0.14); border: 1px solid rgba(255, 255, 255, 0.28); color: #FFFFFF; font-size: 16px; font-weight: 600; line-height: 1.35; overflow-wrap: anywhere; animation-delay: ' + (0.85 + i * 0.14).toFixed(2) + 's' }));
+
+    // tilaklar
+    const tl = (d.tilaklar || []).filter(Boolean);
+    const tsl = tl.slice(0, 7);
+    const many = tsl.length > 5;
+    const tones = [['#FFFFFF', 'var(--ink)'], ['var(--grad)', '#FFFFFF'], ['#1D1923', '#FFFFFF'], ['#FFFFFF', 'var(--aT)']];
+    const rots = [-3, 2.5, -1.5, 3, -2.5, 1.5, -3];
+    const wishStk = tsl.map((text, i) => {
+      const tn = tones[i % 4];
+      return { text, st: '--rr: ' + rots[i % 7] + 'deg; --rz: ' + (rots[i % 7] * 4) + 'deg; display: inline-block; max-width: 100%; box-sizing: border-box; margin-left: ' + [0, 26, 8, 40, 14, 30, 4][i % 7] + 'px; padding: ' + (many ? '12px 18px' : '15px 22px') + '; border-radius: 20px; background: ' + tn[0] + '; color: ' + tn[1] + '; font-size: ' + (many ? 19 : 22) + 'px; line-height: 1.2; font-weight: 800; letter-spacing: -0.01em; box-shadow: 0 16px 30px -18px rgba(40, 20, 60, 0.5); overflow-wrap: anywhere; animation-delay: ' + (0.3 + i * 0.22).toFixed(2) + 's' };
+    });
+    const matn = String(d.matn || '');
+    const quote = matn.length > 260 ? matn.slice(0, 250).replace(/\s+\S*$/, '') + '…' : matn;
+
+    // sahifa
+    const handle = d.ota_ona ? d.ota_ona + ' oilasi' : 'Oilamizdan xushxabar';
+    const statsAll = [];
+    if (b.olchov && d.vazn) statsAll.push({ v: d.vazn, l: 'Vazni' });
+    if (b.olchov && d.boy) statsAll.push({ v: d.boy, l: 'Bo’yi' });
+    if (d.vaqt) statsAll.push({ v: d.vaqt, l: 'Vaqti' });
+    if (statsAll.length < 3 && w.day) statsAll.push({ v: w.day + '-' + w.month.slice(0, 3), l: 'Kuni' });
+    const stats = statsAll.slice(0, 3).map((x, i, all) => Object.assign(x, { st: 'min-width: 0; padding: 14px 6px; ' + (i < all.length - 1 ? 'border-right: 1px solid var(--line)' : '') }));
+
+    const ic = {
+      olchov: 'M12 3.5a7.5 7.5 0 1 1 0 15 7.5 7.5 0 0 1 0-15zM12 11l3.2-3.2M7 21h10M12 18.5V21',
+      xabar: 'M4 5h16v11H9l-5 4zM8 9.5h8M8 12.5h5',
+      oila: 'M8 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM16.5 12a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5zM2.5 20c.6-3.6 2.8-5.5 5.5-5.5s4.9 1.9 5.5 5.5M13.5 15.2c.9-.5 1.9-.7 3-.7 2.3 0 4.2 1.6 4.8 4.8',
+      galereya: 'M4 5h16v14H4zM4 15l4.5-4.5 4 4 2.5-2.5L20 17M15 9.2a.6.6 0 1 0 0 .1',
+      tilaklar: 'M12 3l2.4 5 5.4.6-4 3.7 1.1 5.4L12 15l-4.9 2.7 1.1-5.4-4-3.7 5.4-.6z',
+      mehmonlar: 'M12 20.5s-7.5-4.6-7.5-10.4A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.7c0 5.8-7.5 10.4-7.5 10.4z'
+    };
+    const hlNames = { olchov: 'O’lchov', xabar: 'Xabar', oila: 'Oila', galereya: 'Suratlar', tilaklar: 'Tilaklar', mehmonlar: 'Yaqinlar' };
+    const hls = ['olchov', 'xabar', 'oila', 'galereya', 'tilaklar', 'mehmonlar'].filter(k => b[k]);
+    const hw = hls.length > 5 ? 54 : 64;
+    const highlights = hls.map((k, i) => ({ href: '#st-' + k, l: hlNames[k], icon: ic[k], o: 'width: ' + hw + 'px; height: ' + hw + 'px', i: 'width: ' + (hw - 10) + 'px; height: ' + (hw - 10) + 'px', st: 'flex: none; width: ' + (hw + 2) + 'px; text-decoration: none; display: flex; flex-direction: column; align-items: center; animation-delay: ' + (0.6 + i * 0.07).toFixed(2) + 's' }));
+
+    const famRows = fl.map((line, i, all) => {
+      const nm = String(line).split(/\s+(?:va|ва|&)\s+|\s*[,&+]\s*/i).map(x => x.trim()).filter(Boolean);
+      return {
+        names: line, ini: (nm.length > 1 ? ini(nm[0]) + ini(nm[1]) : ini(line)) || '+',
+        label: all.length === 1 ? 'Bobo va buvisi' : i === 0 ? 'Dadasi tomondan bobo-buvisi' : i === 1 ? 'Oyisi tomondan bobo-buvisi' : 'Yaqinlari',
+        av: 'flex: none; width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 800; color: #FFFFFF; background: ' + ['linear-gradient(135deg, var(--r1), var(--r2))', 'linear-gradient(135deg, var(--r2), var(--r3))', 'linear-gradient(135deg, var(--r3), var(--r1))'][i % 3],
+        row: 'display: flex; align-items: center; gap: 14px; padding: 12px 0; ' + (i < all.length - 1 ? 'border-bottom: 1px solid var(--line); ' : '') + 'animation-delay: ' + (0.12 + i * 0.1).toFixed(2) + 's'
+      };
+    });
+    if (d.ota_ona) famRows.unshift({
+      names: d.ota_ona, ini: par.length > 1 ? ini(par[0]) + ini(par[1]) : ini(d.ota_ona), label: par.length > 1 ? 'Dadasi va oyisi' : 'Ota-onasi',
+      av: 'flex: none; width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 800; color: var(--aT); background: var(--aS)',
+      row: 'display: flex; align-items: center; gap: 14px; padding: 12px 0; ' + (fl.length ? 'border-bottom: 1px solid var(--line); ' : '') + 'animation-delay: .06s'
+    });
+
+    const gsrc = P.slice(0, Math.max(1, Math.min(6, n)));
+    const cnt = gsrc.length;
+    const gCols = cnt === 1 ? 1 : cnt === 2 || cnt === 4 ? 2 : 3;
+    const gallery = gsrc.map((src, i) => {
+      let span = '', ar = '1 / 1';
+      if (cnt === 1) ar = '4 / 5';
+      else if (cnt === 2) ar = '3 / 4';
+      else if (cnt !== 4 && i === 0) span = 'grid-column: span 2; grid-row: span 2; ';
+      if (cnt === 5 && i === 4) span = 'grid-column: span 2; ';
+      return { src, box: span + 'position: relative; overflow: hidden; background: var(--aS); ' + (span.indexOf('span 2') >= 0 && i === 4 ? 'aspect-ratio: 2 / 1; ' : 'aspect-ratio: ' + ar + '; ') + 'animation-delay: ' + (0.08 * i).toFixed(2) + 's' };
+    });
+
+    const wishPage = tl.map((text, i) => {
+      const tn = [['#FFFFFF', 'var(--ink)'], ['var(--grad)', '#FFFFFF'], ['#1D1923', '#FFFFFF']][i % 3];
+      return { text, st: '--rr: ' + [-2, 1.5, -1, 2][i % 4] + 'deg; display: inline-block; max-width: 100%; box-sizing: border-box; padding: 12px 18px; border-radius: 18px; background: ' + tn[0] + '; color: ' + tn[1] + '; font-size: 17px; line-height: 1.25; font-weight: 800; box-shadow: 0 12px 24px -16px rgba(40, 20, 60, 0.45); overflow-wrap: anywhere; animation-delay: ' + (0.1 + i * 0.1).toFixed(2) + 's' };
+    });
+
+    const avBg = ['linear-gradient(135deg, var(--r1), var(--r2))', 'linear-gradient(135deg, var(--r2), var(--r3))', 'linear-gradient(135deg, var(--r3), var(--r1))'];
+    const gl = (d.mehmon_tilaklari || []).filter(x => x && (x.matn || x.ism));
+    const guests = gl.map((x, i) => {
+      const bits = String(x.ism || '').split(/\s*[·•|]\s*/);
+      const who = bits[0] || 'Mehmon';
+      return {
+        who, rel: bits.slice(1).join(' · '), matn: x.matn || '', ini: ini(who) || '+',
+        av: 'flex: none; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 800; color: #FFFFFF; background: ' + avBg[i % 3],
+        row: 'display: flex; gap: 12px; padding: 14px 0; ' + (i < gl.length - 1 ? 'border-bottom: 1px solid var(--line); ' : '') + 'animation-delay: ' + (0.1 + i * 0.1).toFixed(2) + 's'
+      };
+    });
+
+    const e = SITE.elapsed(d.sana, d.vaqt);
+    const ageLine = (e.days ? SITE.num(e.days) + ' kun ' : '') + SITE.pad(e.h || 0) + ':' + SITE.pad(e.m || 0) + ':' + SITE.pad(e.s || 0);
+
+    const burstMk = (r) => [0, 1, 2, 3, 4, 5, 6, 7].map(i => {
+      const a = (i / 8) * Math.PI * 2 - Math.PI / 2, rr = r * (0.8 + (i % 3) * 0.18);
+      return '--hx: ' + Math.round(Math.cos(a) * rr) + 'px; --hy: ' + Math.round(Math.sin(a) * rr - 20) + 'px; --hr: ' + ((i % 2 ? 1 : -1) * 25) + 'deg; color: ' + ['var(--r1)', 'var(--r2)', 'var(--r3)'][i % 3] + '; animation-delay: ' + (i % 3 * 0.04).toFixed(2) + 's';
+    });
+
+    const rvc = (k) => (!CAN_IO || s.rv[k]) ? 'rv in' : 'rv';
+    const ph2 = n >= 2;
+    const oilaContent = 1 + (famOn ? Math.min(4, fl.length) : 0);
+    const lastKey = list[N - 1];
+
+    return {
+      rootCls: (qiz ? 'is-qiz' : 'is-ogil') + (s.on ? ' is-on' : ''),
+      introDisp: s.gone ? 'none' : 'block',
+      introCls: s.phase === 'view' ? 'is-view' : s.phase === 'out' ? 'is-out' : '',
+      cvCls: s.phase === 'cover' ? 'cv-on' : '',
+      holdCls: s.hold ? 'is-hold' : '',
+      uiCls: cur === 'olchov' || cur === 'tilak' ? 'ui-lt' : '',
+      hintCls: 'hint' + (view && idx === 0 && !s.hinted ? ' go' : ''),
+      sc, bars, segDash, w,
+      noPhoto: !SITE.has.photo, photo2: ph2, noPhoto2: !ph2,
+      initial: ini(name) || '+',
+      coverChip: w.dm ? w.dm + (w.year ? ', ' + w.year : '') : 'Bugun',
+      nameChars, chipDelay, parDelay: (parseFloat(chipDelay) + 0.15).toFixed(2) + 's',
+      storyNameSize: fit(name, 72, 340, 0.64),
+      genderChip: qiz ? 'Qizaloq' : 'O’g’il bola',
+      childOf: d.ota_ona ? d.ota_ona + 'ning ' + (qiz ? 'qizi' : 'o’g’li') : (qiz ? 'Bizning malikamiz' : 'Bizning polvonimiz'),
+      slOlchov: list.indexOf('olchov') >= 0,
+      cardTop1: d.boy ? '204px' : '300px', cardTop2: '440px',
+      kgBig: fit(d.vazn, 76, 290, 0.62), smBig: fit(d.boy, 76, 290, 0.62), kgSmall: fit(d.vazn, 40, d.boy ? 136 : 300, 0.62), smSmall: fit(d.boy, 40, 136, 0.62),
+      rollKg: roll(d.vazn, 0.6), rollSm: roll(d.boy, 0.85), rollDay: roll(w.day, 0.5), strip: STRIP,
+      ruler,
+      skyBg: 'background: linear-gradient(180deg, ' + sky[0] + ' 0%, ' + sky[1] + ' 100%)',
+      night, sunFill: sky[2], sunHalo: sky[3], moonCut: sky[4] || sky[0],
+      clockTicks, hourRot: 'transform: rotate(' + hAng.toFixed(1) + 'deg)', minRot: 'transform: rotate(' + mAng + 'deg)',
+      dateLine: [w.Weekday, partLoc].filter(Boolean).join(', ') || w.date,
+      dateLineTop: d.vaqt ? '690px' : '520px',
+      parAv, parLabel: par.length > 1 ? 'Baxtli ota-ona' : 'Ota-onasi', parSize: fit(d.ota_ona, 40, 338, 0.6),
+      famOn, famPills, famBottom: (b.javob ? 150 : 110) + 'px',
+      slTilak: list.indexOf('tilak') >= 0, slXabar: list.indexOf('xabar') >= 0,
+      wishStk, wishGap: many ? '10px' : '14px',
+      quote, quoteSize: quote.length > 160 ? '22px' : '26px',
+      isLast: view && idx === N - 1,
+      lnkTop: lastKey === 'oila' ? '108px' : '690px',
+      handle, handleShort: d.ota_ona || 'Oilamiz',
+      handleSize: fit(handle, 26, 342, 0.56),
+      coverMeta: N + ' ta lavha' + (w.dm ? ' · ' + w.dm : ''),
+      heroNameSize: fit(name, 46, 340, 0.62),
+      bio: [d.ota_ona ? d.ota_ona + 'ning ' + (qiz ? 'qizi' : 'o’g’li') : '', (d.vaqt ? d.vaqt + ', ' : '') + (partLoc ? partLoc + ' ' : '') + 'dunyoga keldi'].filter(Boolean).join(' · '),
+      stats, hasStats: stats.length > 0, statCols: 'repeat(' + Math.max(1, stats.length) + ', 1fr)',
+      actCols: b.javob ? '1fr 1fr' : '1fr',
+      hlGap: hls.length > 5 ? '4px' : '12px',
+      highlights, hasHl: highlights.length > 1, hlJustify: highlights.length <= 5 ? 'center' : 'flex-start',
+      rv: { olchov: rvc('olchov'), xabar: rvc('xabar'), oila: rvc('oila'), galereya: rvc('galereya'), tilaklar: rvc('tilaklar'), mehmonlar: rvc('mehmonlar'), javob: rvc('javob') },
+      olCols: d.boy ? '1fr 1fr' : '1fr',
+      gramm: kg > 0 && kg < 20 ? SITE.num(Math.round(kg * 1000)) + ' gramm' : '',
+      smPct: sm > 0 ? Math.max(4, Math.min(100, (sm / 65) * 100)).toFixed(1) + '%' : '0%',
+      ageLine,
+      parIni: par.length > 1 ? ini(par[0]) + ini(par[1]) : ini(d.ota_ona) || ini(name),
+      babyLabel: qiz ? 'Malikamiz' : 'Polvonimiz',
+      famRows, gallery, gCols, photoCount: cnt + ' ta',
+      wishPage, guests, guestCount: guests.length ? guests.length + ' ta' : '',
+      congratsTitle: name ? name + 'ni tabriklang' : 'Tabriklang',
+      parentsTo: d.ota_ona ? SITE.ga(d.ota_ona) : 'ota-onasiga',
+      famLine: d.ota_ona ? d.ota_ona + ' oilasi' : '',
+      sent: !!s.sent,
+      replyLabel: s.sent ? 'Tabrigingiz yetkazildi' : '«Muborak bo’lsin!» deb yozing',
+      heartInk: s.sent ? 'var(--r2)' : 'currentColor',
+      heartCls: s.sent ? 'st-icf beat' : 'st-ic',
+      burstCls: s.burst ? 'burst' : '', burst: burstMk(46), burstBig: burstMk(80),
+      bigHeartBg: s.sent ? 'var(--a)' : 'var(--aS)', bigHeartInk: s.sent ? '#FFFFFF' : 'var(--a)',
+      btnBg: s.sent ? 'var(--aS)' : 'var(--a)', btnInk: s.sent ? 'var(--aT)' : '#FFFFFF',
+      btnLabel: s.sent ? 'Tabriklandi' : 'Tabriklash',
+      congratulate: () => {
+        if (this.state.sent) return;
+        this.setState({ sent: true, burst: 1 });
+        SITE.reply((name ? name + ' tug’ilgani bilan' : 'Farzandingiz tug’ilgani bilan') + ' tabriklayman! Muborak bo’lsin!', '🥰');
+      },
+      start: () => this.start(),
+      finish: () => this.finish(),
+      replay: () => {
+        this.timers.forEach(t => clearTimeout(t)); this.timers = [];
+        this.setState({ phase: 'cover', gone: false, idx: 0 });
+        window.scrollTo(0, 0);
+        this.T(() => this.start(), 60);
+      },
+      next: () => { if (Date.now() - (this.downAt || 0) > 420 && this.downAt) { this.downAt = 0; return; } this.downAt = 0; this.setState({ hinted: true }); this.go(this.state.idx + 1); },
+      prev: () => { if (Date.now() - (this.downAt || 0) > 420 && this.downAt) { this.downAt = 0; return; } this.downAt = 0; this.go(this.state.idx - 1); },
+      down: () => { this.downAt = Date.now(); this.holdT = setTimeout(() => this.setState({ hold: true }), 220); },
+      up: () => { clearTimeout(this.holdT); if (this.state.hold) this.setState({ hold: false }); },
+      noMenu: (e) => { e.preventDefault(); },
+      playing: SITE.music.playing, notPlaying: !SITE.music.playing,
+      musicLabel: SITE.music.playing ? 'Musiqani to’xtatish' : 'Musiqani yoqish',
+      toggleMusic: () => { SITE.music.toggle(); this.forceUpdate(); }
+    };
+  }
+}
+</script>
+</body>
+</html>

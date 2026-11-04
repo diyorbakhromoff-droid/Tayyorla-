@@ -1,0 +1,759 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<title>Sevgi maktubi: Atir</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&amp;family=Comforter&amp;family=Piazzolla:ital,opsz,wght@0,8..30,400;0,8..30,500;1,8..30,400&amp;family=Tenor+Sans&amp;display=swap">
+<style>
+body{margin:0}
+.at-s{font-family:'Comforter','Brush Script MT',cursive;font-weight:400}
+.at-t{font-family:'Tenor Sans','Trebuchet MS',sans-serif;font-weight:400}
+.at-ar{font-family:'Aref Ruqaa','Amiri','Times New Roman',serif;font-weight:400}
+.at-sc{margin:0;font-family:'Tenor Sans','Trebuchet MS',sans-serif;font-size:12px;line-height:16px;letter-spacing:.3em;text-transform:uppercase}
+.at-foil{background:linear-gradient(100deg,#A8823A 0%,#F3DE9F 24%,#C9A250 44%,#FFF1C8 60%,#B48A3C 80%,#E8C878 100%);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent}
+.at-ico{fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+button{-webkit-tap-highlight-color:transparent}
+button:focus-visible{outline:3px solid #F3DE9F;outline-offset:3px}
+button:disabled{opacity:.7;cursor:default}
+
+.sR0{stop-color:#F6B7C0}.sR1{stop-color:#B8475E}.sR2{stop-color:#5E1129}
+.sK0{stop-color:#FFD9DE;stop-opacity:.95}.sK1{stop-color:#D9677F;stop-opacity:.9}
+.sG0{stop-color:#FFF1C8}.sG1{stop-color:#D8B36A}.sG2{stop-color:#8E6A2A}
+.sH0{stop-color:#FFE8C4;stop-opacity:.6}.sH1{stop-color:#F0C3BE;stop-opacity:.18}.sH2{stop-color:#F0C3BE;stop-opacity:0}
+.at-glass{fill:url(#atR)}.at-liq{fill:url(#atK)}.at-gf{fill:url(#atG)}.at-halo{fill:url(#atH)}
+.at-gl{fill:none;stroke:#D8B36A;stroke-width:1.2;stroke-linecap:round;stroke-linejoin:round}
+.at-gl2{fill:none;stroke:#D8B36A;stroke-width:.75;opacity:.7;stroke-linecap:round}
+.at-gd{fill:#E8C878}
+.at-hi{fill:none;stroke:rgba(255,255,255,.55);stroke-width:2.2;stroke-linecap:round}
+.at-hi2{fill:none;stroke:rgba(255,255,255,.3);stroke-width:1.2;stroke-linecap:round}
+.at-clip{clip-path:url(#atBody)}
+.at-wisp{fill:none;stroke:#F0C3BE;stroke-width:2.2;stroke-linecap:round}
+.at-wisp2{fill:none;stroke:#E8C878;stroke-width:1.2;stroke-linecap:round}
+
+/* velvet ground */
+.at-ground{background-color:#0D2B29;background-image:radial-gradient(120% 60% at 50% 0%,rgba(36,92,84,.55) 0%,rgba(13,43,41,0) 60%),radial-gradient(circle at 50% 50%,rgba(216,179,106,.10) 0 1.4px,rgba(216,179,106,0) 2px),repeating-linear-gradient(60deg,rgba(216,179,106,.045) 0 1px,rgba(216,179,106,0) 1px 22px),repeating-linear-gradient(-60deg,rgba(216,179,106,.045) 0 1px,rgba(216,179,106,0) 1px 22px);background-size:100% 100%,22px 22px,auto,auto}
+
+/* ---------- intro ---------- */
+.at-intro{transition:opacity 1s ease 3.1s,filter 1s ease 3.1s,transform 1.1s ease 3.1s,visibility 0s linear 4.2s}
+.at-intro.is-open{opacity:0;filter:blur(10px);transform:scale(1.05);visibility:hidden;pointer-events:none}
+.at-fade{transition:opacity .45s ease,transform .5s ease}
+.at-intro.is-open .at-fade{opacity:0;transform:translateY(12px)}
+.at-bis{clip-path:inset(0 0 0 100%);animation:atInk 1.8s cubic-bezier(.45,0,.2,1) .25s forwards}
+@keyframes atInk{to{clip-path:inset(0 0 0 0)}}
+.at-up{opacity:0;animation:atUp .9s cubic-bezier(.2,.8,.2,1) both}
+@keyframes atUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.at-lay{position:absolute;left:0;top:0;width:200px;height:340px}
+.at-lay svg{display:block;overflow:visible}
+.at-bottle{animation:atBob 6s ease-in-out infinite}
+@keyframes atBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.at-stop{transform-origin:50% 26%}
+.is-open .at-stop{animation:atStop 1.5s cubic-bezier(.45,0,.2,1) .05s both}
+@keyframes atStop{0%{transform:none}35%{transform:translateY(-58px) rotate(-4deg)}100%{transform:translate(74px,-24px) rotate(30deg)}}
+.at-stopH{transform-origin:50% 26%}
+.at-wave{animation:atWave 4s linear infinite}
+@keyframes atWave{from{transform:translateX(0)}to{transform:translateX(-80px)}}
+.at-shine{animation:atShine 6.5s ease-in-out 1.5s infinite}
+@keyframes atShine{0%{transform:translateX(-160px) skewX(-18deg);opacity:0}10%{opacity:1}45%,100%{transform:translateX(220px) skewX(-18deg);opacity:0}}
+.at-halo2{animation:atBreath 5s ease-in-out infinite}
+@keyframes atBreath{0%,100%{opacity:.55;transform:scale(.95)}50%{opacity:1;transform:scale(1.05)}}
+.at-cart{transition:opacity .6s ease .2s}
+.at-hint{transition:opacity .4s ease}
+.is-open .at-hint{opacity:0}
+.at-iw{stroke-dasharray:240 240;stroke-dashoffset:240;opacity:0}
+.is-open .at-iw{animation:atIW 2.6s cubic-bezier(.35,.1,.25,1) both}
+@keyframes atIW{0%{stroke-dashoffset:240;opacity:0}15%{opacity:.9}70%{opacity:.7}100%{stroke-dashoffset:-240;opacity:0}}
+.at-pt{position:absolute;left:0;top:0;width:4px;height:4px;margin:-2px 0 0 -2px;border-radius:50%;background:radial-gradient(circle,#FFF6DE 0,#F3DE9F 45%,rgba(240,195,190,0) 72%);opacity:0;animation:atPt 1.9s cubic-bezier(.35,.05,.2,1) both}
+@keyframes atPt{0%{opacity:0;transform:translate(0,0) scale(.4)}8%{opacity:1}30%{transform:translate(var(--ax),var(--ay)) scale(1.4)}62%{transform:translate(var(--bx),var(--by)) scale(1.1)}100%{opacity:1;transform:translate(var(--tx),var(--ty)) scale(.9)}}
+.at-pts{transition:opacity .8s ease 2.75s}
+.is-open .at-pts{opacity:0}
+.at-nm{opacity:0;filter:blur(6px);transition:opacity .9s ease 2.35s,filter .9s ease 2.35s}
+.is-open .at-nm{opacity:1;filter:none}
+
+/* ambient */
+.at-mote{position:absolute;width:4px;height:4px;border-radius:50%;background:radial-gradient(circle,#FFF6DE 0,#E8C878 50%,rgba(232,200,120,0) 72%);animation:atMote 10s ease-in-out infinite}
+@keyframes atMote{0%,100%{transform:translate(0,0);opacity:.1}50%{transform:translate(-12px,-40px);opacity:.9}}
+.at-aw{stroke-dasharray:90 260;animation:atAW 7s ease-in-out infinite}
+@keyframes atAW{0%{stroke-dashoffset:90;opacity:0;transform:translateY(16px)}25%{opacity:.85}100%{stroke-dashoffset:-260;opacity:0;transform:translateY(-30px)}}
+.at-spin{animation:atSpin 70s linear infinite}
+@keyframes atSpin{to{transform:rotate(360deg)}}
+
+/* hero entrance */
+.at-h{opacity:0;transform:translateY(16px);transition:opacity 1s ease,transform 1.1s cubic-bezier(.2,.8,.2,1)}
+.at-root.is-in .at-h{opacity:1;transform:none}
+
+/* scroll reveal */
+.at-io .at-sec .at-rv{opacity:0;transform:translateY(22px);filter:blur(4px);transition:opacity .9s ease,transform 1s cubic-bezier(.2,.8,.2,1),filter .9s ease}
+.at-io .at-sec.is-in .at-rv{opacity:1;transform:none;filter:none}
+.at-io .at-sec .at-draw{stroke-dasharray:600;stroke-dashoffset:600;transition:stroke-dashoffset 1.8s cubic-bezier(.4,0,.2,1) .15s}
+.at-io .at-sec.is-in .at-draw{stroke-dashoffset:0}
+
+/* notes */
+.at-note{position:relative;transition:transform .3s cubic-bezier(.3,1.5,.5,1),background-color .3s ease,box-shadow .3s ease}
+.at-note:active{transform:scale(.95)}
+.at-note.is-b{background-color:rgba(240,195,190,.16);box-shadow:0 0 0 1px #E8C878,0 0 24px rgba(240,195,190,.35)}
+.at-drop{transition:transform .5s cubic-bezier(.3,1.6,.5,1)}
+.is-b .at-drop{transform:translateY(-3px) scale(1.12)}
+.at-mist{position:absolute;left:24px;top:50%;width:5px;height:5px;margin:-2.5px 0 0 -2.5px;border-radius:50%;background:#F7D6D2;opacity:0;pointer-events:none}
+.is-b .at-mist{animation:atMist 1.1s cubic-bezier(.2,.7,.3,1) both}
+@keyframes atMist{0%{opacity:0;transform:translate(0,0) scale(.5)}15%{opacity:.95}100%{opacity:0;transform:translate(var(--x),var(--y)) scale(1.6)}}
+
+/* timeline */
+.at-node{transition:transform .8s cubic-bezier(.3,1.5,.5,1) .35s}
+.at-io .at-sec .at-node{transform:scale(.2)}
+.at-io .at-sec.is-in .at-node{transform:none}
+
+/* odometer */
+.at-odo{display:block;transition:transform 2.3s cubic-bezier(.16,.84,.24,1)}
+.at-flip{display:inline-block;animation:atFlip .5s cubic-bezier(.3,1.4,.5,1) both}
+@keyframes atFlip{from{transform:perspective(160px) rotateX(-90deg);opacity:.2}to{transform:none;opacity:1}}
+
+/* secret vial */
+.at-sealL,.at-sealR{transition:transform .9s cubic-bezier(.3,1.2,.4,1),opacity .6s ease .3s}
+.at-vial.is-open .at-sealL{transform:translate(-26px,30px) rotate(-50deg);opacity:0}
+.at-vial.is-open .at-sealR{transform:translate(26px,30px) rotate(50deg);opacity:0}
+.at-vw{stroke-dasharray:160 160;stroke-dashoffset:160;opacity:0}
+.at-vial.is-open .at-vw{animation:atIW 2.4s ease-out .2s both}
+.at-vbtn{transition:opacity .35s ease,transform .35s ease}
+.at-vial.is-open .at-vbtn{opacity:0;transform:scale(.85);pointer-events:none}
+.at-secret{filter:blur(8px);opacity:.35;transition:filter 1.2s ease .6s,opacity 1.2s ease .6s}
+.at-secret.is-shown{filter:none;opacity:1}
+
+/* buttons */
+.at-btn{position:relative;overflow:hidden;transition:transform .25s cubic-bezier(.3,1.5,.5,1),box-shadow .25s ease}
+.at-btn:active{transform:scale(.96)}
+.at-btn::after{content:'';position:absolute;left:50%;top:50%;width:240px;height:240px;margin:-120px 0 0 -120px;border-radius:50%;background:radial-gradient(circle,rgba(255,246,222,.55) 0,rgba(255,246,222,0) 62%);opacity:0;transform:scale(1.2);transition:opacity .6s ease,transform .6s ease;pointer-events:none}
+.at-btn:active::after{opacity:1;transform:scale(.25);transition:0s}
+.at-puff{position:absolute;left:0;top:0;width:7px;height:7px;margin:-3.5px 0 0 -3.5px;border-radius:50%;background:radial-gradient(circle,#FFF6DE 0,#F0C3BE 50%,rgba(240,195,190,0) 72%);opacity:0;animation:atPuff 2s cubic-bezier(.2,.7,.3,1) both}
+@keyframes atPuff{0%{opacity:0;transform:translate(0,0) scale(.4)}12%{opacity:1}100%{opacity:0;transform:translate(var(--dx),var(--dy)) scale(2)}}
+.at-in{animation:atUp .8s cubic-bezier(.2,.8,.2,1) both}
+
+@media (prefers-reduced-motion: reduce){
+.at-bis{animation:none;clip-path:none}
+.at-up,.at-in,.at-flip{animation:none;opacity:1}
+.is-open .at-stop,.at-bottle,.at-wave,.at-shine,.at-halo2,.at-mote,.at-aw,.at-spin,.at-pt,.at-puff,.is-open .at-iw,.is-b .at-mist,.at-vial.is-open .at-vw{animation:none}
+.at-shine,.at-pt,.at-puff,.at-mist,.at-iw,.at-vw{opacity:0}
+.at-aw{opacity:.6}
+.at-intro,.at-fade,.at-stop,.at-cart,.at-hint,.at-pts,.at-nm,.at-h,.at-odo,.at-node,.at-note,.at-drop,.at-sealL,.at-sealR,.at-vbtn,.at-secret{transition:none}
+}
+</style>
+</helmet>
+<div class="{{ rootCls }}" style="width: 390px; min-height: var(--vh, 100vh); position: relative; overflow: hidden; background-color: #0D2B29; color: #F4EBDA; font-family: 'Piazzolla', Georgia, 'Times New Roman', serif; display: flex; flex-direction: column">
+
+  <svg aria-hidden="true" width="0" height="0" style="position: absolute; left: 0; top: 0">
+    <defs>
+      <linearGradient id="atR" x1="0" y1="0" x2="1" y2="1"><stop offset="0" class="sR0"></stop><stop offset=".45" class="sR1"></stop><stop offset="1" class="sR2"></stop></linearGradient>
+      <linearGradient id="atK" x1="0" y1="0" x2="0" y2="1"><stop offset="0" class="sK0"></stop><stop offset="1" class="sK1"></stop></linearGradient>
+      <linearGradient id="atG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" class="sG0"></stop><stop offset=".5" class="sG1"></stop><stop offset="1" class="sG2"></stop></linearGradient>
+      <radialGradient id="atH" cx=".5" cy=".5" r=".5"><stop offset="0" class="sH0"></stop><stop offset=".5" class="sH1"></stop><stop offset="1" class="sH2"></stop></radialGradient>
+      <clipPath id="atBody"><path d="M91 150 C 91 166, 40 178, 34 232 C 28 290, 64 318, 100 318 C 136 318, 172 290, 166 232 C 160 178, 109 166, 109 150 Z"></path></clipPath>
+    </defs>
+  </svg>
+
+  <sc-if value="{{ has.music }}">
+  <button type="button" aria-label="Musiqa" aria-pressed="{{ musicOn }}" onClick="{{ toggleMusic }}" class="at-btn" style="position: absolute; top: 14px; right: 14px; z-index: 40; width: 46px; height: 46px; padding: 0; border-radius: 50%; border: 1px solid #D8B36A; background: rgba(13, 43, 41, 0.85); color: #F3DE9F; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 18px rgba(216, 179, 106, 0.3)">
+    <sc-if value="{{ musicOff }}" hint-placeholder-val="{{ true }}">
+      <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path class="at-ico" d="M9 18V5l11-2v13"></path><circle class="at-ico" cx="6" cy="18" r="3"></circle><circle class="at-ico" cx="17" cy="16" r="3"></circle><path class="at-ico" d="M3 3l18 18"></path></svg>
+    </sc-if>
+    <sc-if value="{{ musicOn }}" hint-placeholder-val="{{ false }}">
+      <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path class="at-ico" d="M9 18V5l11-2v13"></path><circle class="at-ico" cx="6" cy="18" r="3"></circle><circle class="at-ico" cx="17" cy="16" r="3"></circle></svg>
+    </sc-if>
+  </button>
+  </sc-if>
+
+  <!-- ================= INTRO ================= -->
+  <div data-intro class="{{ introCls }}" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; z-index: 30; overflow: hidden; background-color: #0D2B29">
+    <div class="at-ground" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px"></div>
+    <div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; background: radial-gradient(55% 32% at 50% 56%, rgba(240, 195, 190, 0.16) 0%, rgba(13, 43, 41, 0) 70%), radial-gradient(90% 50% at 50% 110%, rgba(4, 16, 15, 0.8) 0%, rgba(4, 16, 15, 0) 70%)"></div>
+    <svg aria-hidden="true" width="390" height="844" viewBox="0 0 390 844" style="position: absolute; left: 0; top: 0">
+      <path class="at-gl2" d="{{ frameD }}"></path>
+      <sc-for list="{{ frameDots }}" as="q"><circle class="at-gd" cx="{{ q.x }}" cy="{{ q.y }}" r="1.6"></circle></sc-for>
+    </svg>
+    <div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; pointer-events: none">
+      <span class="at-mote" style="left: 60px; top: 520px"></span>
+      <span class="at-mote" style="left: 320px; top: 470px; animation-delay: -3s"></span>
+      <span class="at-mote" style="left: 280px; top: 640px; animation-delay: -6s"></span>
+      <span class="at-mote" style="left: 90px; top: 360px; animation-delay: -4.5s"></span>
+      <span class="at-mote" style="left: 200px; top: 700px; animation-delay: -8s"></span>
+    </div>
+
+    <div class="at-fade" style="position: absolute; left: 0; top: 40px; width: 390px; display: flex; flex-direction: column; align-items: center; gap: 2px">
+      <p class="at-ar at-foil at-bis" dir="rtl" lang="ar" style="margin: 0; font-size: 35px; line-height: 64px">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p>
+      <p class="at-sc at-up" style="animation-delay: 1.2s; font-size: 11px; color: #D8B36A">Bismillahir Rohmanir Rohiym</p>
+    </div>
+
+    <!-- cartouche where the name forms -->
+    <div style="position: absolute; left: 25px; top: 140px; width: 340px; height: 120px">
+      <svg aria-hidden="true" class="at-up" width="340" height="120" viewBox="0 0 340 120" style="position: absolute; left: 0; top: 0; animation-delay: .9s"><path class="at-gl" d="{{ cartD }}"></path><path class="at-gl2" d="{{ cart2D }}"></path><circle class="at-gd" cx="4" cy="60" r="3"></circle><circle class="at-gd" cx="336" cy="60" r="3"></circle></svg>
+      <div class="at-hint" style="position: absolute; left: 0; top: 0; width: 340px; height: 120px"><p class="at-up" style="width: 340px; height: 120px; margin: 0; display: flex; align-items: center; justify-content: center; text-align: center; font-size: 17px; font-style: italic; color: #CFE0DA; animation-delay: 1.5s">Bu atirning nomi — sening isming</p></div>
+      <p class="at-s at-foil at-nm" aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 340px; height: 120px; margin: 0; display: flex; align-items: center; justify-content: center; text-align: center; font-size: {{ nmPx }}px; line-height: 1; white-space: nowrap">{{ d.kimga }}</p>
+    </div>
+
+    <!-- bottle -->
+    <div aria-hidden="true" style="position: absolute; left: 95px; top: 300px; width: 200px; height: 340px">
+      <div class="at-halo2" style="position: absolute; left: -60px; top: 60px; width: 320px; height: 320px; border-radius: 50%; background: radial-gradient(circle, rgba(240, 195, 190, 0.32) 0%, rgba(240, 195, 190, 0) 65%)"></div>
+      <svg width="320" height="40" viewBox="0 0 320 40" style="position: absolute; left: -60px; top: 312px"><ellipse cx="160" cy="20" rx="120" ry="12" style="fill: rgba(4, 16, 15, 0.65)"></ellipse><ellipse class="at-gl2" cx="160" cy="20" rx="130" ry="15"></ellipse></svg>
+      <div class="at-lay at-bottle">
+        <div class="at-lay"><svg width="200" height="340" viewBox="0 0 200 340">
+          <path class="at-glass" d="M91 150 C 91 166, 40 178, 34 232 C 28 290, 64 318, 100 318 C 136 318, 172 290, 166 232 C 160 178, 109 166, 109 150 Z"></path>
+          <g class="at-clip"><g class="at-wave"><path class="at-liq" d="M0 246 Q 20 238, 40 246 T 80 246 T 120 246 T 160 246 T 200 246 T 240 246 T 280 246 V340 H0Z"></path></g></g>
+          <path class="at-gl" d="M91 150 C 91 166, 40 178, 34 232 C 28 290, 64 318, 100 318 C 136 318, 172 290, 166 232 C 160 178, 109 166, 109 150 Z"></path>
+          <path class="at-gl" d="M100 196 C 120 206, 132 222, 132 248 C 132 274, 116 290, 100 298 C 84 290, 68 274, 68 248 C 68 222, 80 206, 100 196Z"></path>
+          <path class="at-gl2" d="M100 206 C 116 214, 124 228, 124 248 C 124 270, 112 282, 100 288 C 88 282, 76 270, 76 248 C 76 228, 84 214, 100 206Z"></path>
+          <path class="at-gl" d="{{ rosD }}"></path>
+          <circle class="at-gf" cx="100" cy="248" r="4"></circle>
+          <path class="at-gl2" d="M58 196 C 46 212, 52 230, 64 226 C 72 222, 68 212, 62 214 M142 196 C 154 212, 148 230, 136 226 C 128 222, 132 212, 138 214 M48 270 C 56 290, 72 300, 84 304 M152 270 C 144 290, 128 300, 116 304"></path>
+          <sc-for list="{{ beads }}" as="q"><circle class="at-gd" cx="{{ q.x }}" cy="{{ q.y }}" r="1.7"></circle></sc-for>
+          <path class="at-gf" d="M88 150 H112 L114 160 H86Z"></path>
+          <path class="at-glass" d="M91 100 H109 V150 H91Z"></path>
+          <path class="at-gl" d="M91 100 H109 V150 H91Z"></path>
+          <path class="at-gf" d="M89 112 H111 V117 H89Z M89 132 H111 V137 H89Z"></path>
+          <path class="at-gf" d="M84 94 H116 L112 102 H88Z"></path>
+          <path class="at-hi" d="M50 236 C 50 210, 64 192, 80 184"></path>
+          <path class="at-hi2" d="M58 262 C 60 280, 70 294, 82 300"></path>
+          <path class="at-hi2" d="M95 106 V144"></path>
+          <path class="at-gf" d="M70 318 H130 L137 331 H63Z"></path>
+        </svg></div>
+        <div style="position: absolute; left: 30px; top: 160px; width: 140px; height: 160px; overflow: hidden; border-radius: 50%">
+          <div class="at-shine" style="position: absolute; left: 0; top: -10px; width: 40px; height: 190px; background: linear-gradient(90deg, rgba(255, 246, 230, 0), rgba(255, 246, 230, 0.45), rgba(255, 246, 230, 0))"></div>
+        </div>
+        <div class="at-lay at-stop"><svg width="200" height="340" viewBox="0 0 200 340">
+          <path class="at-glass" d="M100 10 C 112 34, 124 52, 124 66 C 124 81, 113 90, 100 90 C 87 90, 76 81, 76 66 C 76 52, 88 34, 100 10Z"></path>
+          <path class="at-gl" d="M100 10 C 112 34, 124 52, 124 66 C 124 81, 113 90, 100 90 C 87 90, 76 81, 76 66 C 76 52, 88 34, 100 10Z"></path>
+          <path class="at-gl2" d="M100 26 C 108 42, 114 54, 114 66 C 114 76, 108 82, 100 82 C 92 82, 86 76, 86 66 C 86 54, 92 42, 100 26Z"></path>
+          <path class="at-hi" d="M88 56 C 88 46, 92 38, 96 32"></path>
+          <circle class="at-gf" cx="100" cy="66" r="4"></circle>
+          <path class="at-gf" d="M90 90 H110 L108 96 H92Z"></path>
+          <circle class="at-gf" cx="100" cy="8" r="3.5"></circle>
+        </svg></div>
+      </div>
+    </div>
+
+    <!-- fragrance -->
+    <svg aria-hidden="true" width="390" height="844" viewBox="0 0 390 844" style="position: absolute; left: 0; top: 0; pointer-events: none">
+      <path class="at-wisp at-iw" d="M195 398 C 170 370, 214 342, 190 310 C 168 282, 210 262, 196 236"></path>
+      <path class="at-wisp2 at-iw" d="M198 398 C 226 366, 176 340, 206 306 C 232 276, 180 254, 200 224" style="animation-delay: .25s"></path>
+      <path class="at-wisp at-iw" d="M192 400 C 150 384, 168 340, 132 320 C 104 304, 120 272, 96 252" style="animation-delay: .4s; opacity: .7"></path>
+      <path class="at-wisp at-iw" d="M200 400 C 240 384, 222 340, 258 320 C 286 304, 270 272, 294 252" style="animation-delay: .5s; opacity: .7"></path>
+    </svg>
+    <div class="at-pts" aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; pointer-events: none">
+      <sc-for list="{{ parts }}" as="q"><span class="at-pt" style="{{ q }}"></span></sc-for>
+    </div>
+
+    <div class="at-fade" style="position: absolute; left: 0; top: 664px; width: 390px; box-sizing: border-box; padding: 0 30px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 4px">
+      <p class="at-sc at-up" style="animation-delay: 1.7s; color: #F0C3BE">Jufti halolimga maktub</p>
+      <p class="at-up" style="animation-delay: 1.85s; margin: 2px 0 0; font-size: 17px; font-style: italic; color: #CFE0DA; overflow-wrap: anywhere">{{ fromLine }}</p>
+    </div>
+    <div class="at-fade" style="position: absolute; left: 0; top: 730px; width: 390px; display: flex; flex-direction: column; align-items: center; gap: 8px">
+      <button type="button" onClick="{{ open }}" class="at-btn at-up" style="animation-delay: 2s; min-height: 54px; padding: 0 30px; border-radius: 999px; border: 1px solid #F3DE9F; background: linear-gradient(110deg, #A8823A 0%, #F3DE9F 30%, #D8B36A 52%, #FFF1C8 68%, #B48A3C 100%); color: #0D2B29; font-family: 'Tenor Sans', 'Trebuchet MS', sans-serif; font-size: 17px; letter-spacing: 0.08em; cursor: pointer; display: flex; align-items: center; gap: 10px; box-shadow: 0 0 0 4px rgba(13, 43, 41, 0.9), 0 0 0 5px rgba(216, 179, 106, 0.55), 0 0 30px rgba(243, 222, 159, 0.35)">
+        <svg width="18" height="22" viewBox="0 0 18 22" aria-hidden="true"><path d="M9 1 C 12 5, 14 8, 14 10 C 14 13, 12 14, 9 14 C 6 14, 4 13, 4 10 C 4 8, 6 5, 9 1Z M7 14 V17 M11 14 V17 M3 21 C 3 18, 15 18, 15 21" style="fill: none; stroke: #0D2B29; stroke-width: 1.5; stroke-linejoin: round; stroke-linecap: round"></path></svg>
+        Atirni oching
+      </button>
+      <sc-if value="{{ has.music }}">
+      <p class="at-up" style="animation-delay: 2.2s; margin: 0; display: flex; align-items: center; gap: 6px; font-size: 14px; color: #9FBDB5"><svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true" style="color: #E8C878"><path class="at-ico" d="M9 18V5l11-2v13"></path><circle class="at-ico" cx="6" cy="18" r="3"></circle><circle class="at-ico" cx="17" cy="16" r="3"></circle></svg>Musiqa bilan ochiladi</p>
+      </sc-if>
+    </div>
+  </div>
+
+  <!-- ================= HERO ================= -->
+  <header class="at-ground" style="position: relative; padding: 52px 0 50px">
+    <div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 390px; height: 100%; background: radial-gradient(60% 30% at 50% 380px, rgba(240, 195, 190, 0.14) 0%, rgba(13, 43, 41, 0) 70%); pointer-events: none"></div>
+    <div style="position: relative; display: flex; flex-direction: column; align-items: center; text-align: center; padding: 0 22px">
+      <p class="at-sc at-h" style="color: #F0C3BE; transition-delay: .2s">Jufti halolim</p>
+      <h1 class="at-s at-foil at-h" style="margin: 6px 0 0; font-size: {{ h1px }}px; line-height: 1.05; font-weight: 400; overflow-wrap: break-word; max-width: 346px; transition-delay: .35s">{{ d.kimga }}</h1>
+      <p class="at-h" style="margin: 4px 0 0; font-size: 19px; font-style: italic; color: #CFE0DA; transition-delay: .5s">sen — hayotimning eng yoqimli bo’yi</p>
+    </div>
+    <div aria-hidden="true" class="at-h" style="position: relative; width: 390px; height: 360px; margin-top: 8px; transition-delay: .6s">
+      <svg width="390" height="200" viewBox="0 0 390 200" style="position: absolute; left: 0; top: 0">
+        <sc-for list="{{ heroWisps }}" as="w"><path class="{{ w.c }}" d="{{ w.d }}" style="{{ w.st }}"></path></sc-for>
+      </svg>
+      <div style="position: absolute; left: 125px; top: 70px; width: 200px; height: 340px; transform: scale(.7); transform-origin: 50% 0">
+        <div class="at-halo2" style="position: absolute; left: -60px; top: 60px; width: 320px; height: 320px; border-radius: 50%; background: radial-gradient(circle, rgba(240, 195, 190, 0.28) 0%, rgba(240, 195, 190, 0) 65%)"></div>
+        <div class="at-lay at-bottle"><svg width="200" height="340" viewBox="0 0 200 340">
+          <path class="at-glass" d="M91 150 C 91 166, 40 178, 34 232 C 28 290, 64 318, 100 318 C 136 318, 172 290, 166 232 C 160 178, 109 166, 109 150 Z"></path>
+          <g class="at-clip"><g class="at-wave"><path class="at-liq" d="M0 252 Q 20 244, 40 252 T 80 252 T 120 252 T 160 252 T 200 252 T 240 252 T 280 252 V340 H0Z"></path></g></g>
+          <path class="at-gl" d="M91 150 C 91 166, 40 178, 34 232 C 28 290, 64 318, 100 318 C 136 318, 172 290, 166 232 C 160 178, 109 166, 109 150 Z"></path>
+          <path class="at-gl" d="M100 196 C 120 206, 132 222, 132 248 C 132 274, 116 290, 100 298 C 84 290, 68 274, 68 248 C 68 222, 80 206, 100 196Z"></path>
+          <path class="at-gl" d="{{ rosD }}"></path>
+          <circle class="at-gf" cx="100" cy="248" r="4"></circle>
+          <sc-for list="{{ beads }}" as="q"><circle class="at-gd" cx="{{ q.x }}" cy="{{ q.y }}" r="1.7"></circle></sc-for>
+          <path class="at-gf" d="M88 150 H112 L114 160 H86Z"></path>
+          <path class="at-glass" d="M91 100 H109 V150 H91Z"></path>
+          <path class="at-gl" d="M91 100 H109 V150 H91Z"></path>
+          <path class="at-gf" d="M89 112 H111 V117 H89Z M89 132 H111 V137 H89Z"></path>
+          <path class="at-gf" d="M84 94 H116 L112 102 H88Z"></path>
+          <path class="at-hi" d="M50 236 C 50 210, 64 192, 80 184"></path>
+          <path class="at-gf" d="M70 318 H130 L137 331 H63Z"></path>
+        </svg></div>
+        <div class="at-lay" style="transform: translate(92px, 206px) rotate(78deg); transform-origin: 50% 26%"><svg width="200" height="340" viewBox="0 0 200 340">
+          <path class="at-glass" d="M100 10 C 112 34, 124 52, 124 66 C 124 81, 113 90, 100 90 C 87 90, 76 81, 76 66 C 76 52, 88 34, 100 10Z"></path>
+          <path class="at-gl" d="M100 10 C 112 34, 124 52, 124 66 C 124 81, 113 90, 100 90 C 87 90, 76 81, 76 66 C 76 52, 88 34, 100 10Z"></path>
+          <circle class="at-gf" cx="100" cy="66" r="4"></circle>
+          <path class="at-gf" d="M90 90 H110 L108 96 H92Z"></path>
+        </svg></div>
+      </div>
+      <span class="at-mote" style="left: 120px; top: 120px"></span>
+      <span class="at-mote" style="left: 260px; top: 90px; animation-delay: -4s"></span>
+      <span class="at-mote" style="left: 200px; top: 40px; animation-delay: -7s"></span>
+    </div>
+    <sc-if value="{{ hasDate }}">
+    <div class="at-h" style="position: relative; margin-top: 4px; display: flex; justify-content: center; align-items: center; gap: 12px; transition-delay: .75s">
+      <svg aria-hidden="true" width="44" height="10" viewBox="0 0 44 10"><path class="at-gl" d="M0 5 H34"></path><circle class="at-gd" cx="39" cy="5" r="3"></circle></svg>
+      <span class="at-t" style="font-size: 18px; letter-spacing: 0.2em; color: #F3DE9F">{{ dateDots }}</span>
+      <svg aria-hidden="true" width="44" height="10" viewBox="0 0 44 10"><path class="at-gl" d="M10 5 H44"></path><circle class="at-gd" cx="5" cy="5" r="3"></circle></svg>
+    </div>
+    </sc-if>
+    <div class="at-h" style="position: relative; margin: 30px 20px 0; padding: 26px 20px 22px; text-align: center; border-radius: 120px 120px 10px 10px; background: rgba(8, 30, 29, 0.6); box-shadow: inset 0 0 0 1px rgba(216, 179, 106, 0.55), inset 0 0 0 6px rgba(13, 43, 41, 0.9), inset 0 0 0 7px rgba(216, 179, 106, 0.3); transition-delay: .9s">
+      <svg aria-hidden="true" width="40" height="22" viewBox="0 0 40 22" style="display: block; margin: 0 auto 4px"><path class="at-gl" d="M20 2 C 26 8, 30 12, 30 15 C 30 19, 26 21, 20 21 C 14 21, 10 19, 10 15 C 10 12, 14 8, 20 2Z"></path><path class="at-gl2" d="M0 15 H6 M34 15 H40"></path></svg>
+      <p class="at-ar" dir="rtl" lang="ar" style="margin: 0; font-size: 23px; line-height: 48px; color: #F3DE9F">وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً</p>
+      <p style="margin: 10px 0 0; font-size: 16.5px; line-height: 1.5; font-style: italic; color: #DCE7E2">«Uning oyatlaridan biri — sizlar uchun o’zingizdan juftlar yaratgani, toki ular bilan orom topgaysiz. Va o’rtangizda muhabbat va rahmat paydo qildi»</p>
+      <p class="at-sc" style="margin-top: 10px; font-size: 11px; color: #D8B36A">Rum surasi, 21-oyat</p>
+    </div>
+  </header>
+
+  <!-- ================= MAKTUB ================= -->
+  <sc-if value="{{ b.maktub }}">
+  <section class="{{ rv.maktub }}" data-rv="maktub" style="position: relative; padding: 10px 16px 60px">
+    <div class="at-rv" style="position: relative; padding: 70px 24px 30px; color: #1E3532; background: linear-gradient(180deg, #FBF4E6 0%, #F2E6CF 100%); border-radius: 170px 170px 8px 8px; box-shadow: inset 0 0 0 1px rgba(142, 106, 42, 0.6), inset 0 0 0 7px #FBF4E6, inset 0 0 0 8px rgba(184, 71, 94, 0.35), 0 30px 60px -30px rgba(0, 0, 0, 0.8), 0 0 40px rgba(240, 195, 190, 0.12)">
+      <svg aria-hidden="true" width="120" height="40" viewBox="0 0 120 40" style="position: absolute; left: 50%; top: 22px; margin-left: -60px"><path d="M60 4 C 66 10, 70 14, 70 18 C 70 23, 66 26, 60 26 C 54 26, 50 23, 50 18 C 50 14, 54 10, 60 4Z" style="fill: #B8475E"></path><path d="M60 4 C 66 10, 70 14, 70 18 C 70 23, 66 26, 60 26 C 54 26, 50 23, 50 18 C 50 14, 54 10, 60 4Z" style="fill: none; stroke: #8E6A2A; stroke-width: 1"></path><path d="M2 20 C 18 12, 30 28, 44 18 M118 20 C 102 12, 90 28, 76 18" style="fill: none; stroke: #8E6A2A; stroke-width: 1; stroke-linecap: round"></path></svg>
+      <div style="display: flex; flex-direction: column; align-items: center; text-align: center; gap: 4px">
+        <p class="at-sc" style="color: #8E6A2A">Maktub</p>
+        <p class="at-t" style="margin: 0 0 16px; font-size: 22px; line-height: 1.3; color: #8E2C45; overflow-wrap: anywhere">{{ greet }}</p>
+      </div>
+      <div style="font-size: 18px; line-height: 1.7; white-space: pre-line; overflow-wrap: anywhere"><sc-if value="{{ capL }}"><span aria-hidden="true" style="float: left; position: relative; width: 58px; height: 64px; margin: 6px 12px 2px 0; border-radius: 29px 29px 4px 4px; background: linear-gradient(160deg, #1E4A45, #0D2B29); box-shadow: 0 0 0 1px #B48A3C, 0 0 0 4px #FBF4E6, 0 0 0 5px rgba(180, 138, 60, 0.6); display: flex; align-items: center; justify-content: center"><span class="at-t at-foil" style="font-size: 36px; line-height: 1; margin-top: 6px">{{ capL }}</span></span></sc-if>{{ capRest }}</div>
+      <sc-if value="{{ sign }}">
+      <div style="clear: both; margin-top: 22px; display: flex; flex-direction: column; align-items: flex-end; gap: 0">
+        <p style="margin: 0; font-size: 16px; font-style: italic; color: #5B6E69">Duolar bilan,</p>
+        <p class="at-s" style="margin: 0; font-size: 40px; line-height: 1.1; color: #8E2C45; overflow-wrap: anywhere; text-align: right">{{ sign }}</p>
+      </div>
+      </sc-if>
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- ================= SABABLAR ================= -->
+  <sc-if value="{{ b.sabablar }}">
+  <section class="{{ rv.sabablar }}" data-rv="sabablar" style="position: relative; padding: 0 16px 60px">
+    <div class="at-rv" style="display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center">
+      <svg aria-hidden="true" width="150" height="40" viewBox="0 0 150 40"><path class="at-wisp2 at-draw" d="M10 30 C 30 30, 34 14, 52 18 C 64 21, 60 34, 72 30 M140 30 C 120 30, 116 14, 98 18 C 86 21, 90 34, 78 30"></path><path class="at-gf" d="M75 6 C 80 12, 83 16, 83 19 C 83 23, 79 25, 75 25 C 71 25, 67 23, 67 19 C 67 16, 70 12, 75 6Z"></path></svg>
+      <p class="at-sc" style="color: #D8B36A">{{ reasonsLbl }}</p>
+      <h2 class="at-t" style="margin: 0; font-size: 28px; line-height: 1.2; font-weight: 400; color: #F4EBDA">Seni sevishimning sabablari</h2>
+      <p style="margin: 0; font-size: 17px; font-style: italic; color: #CFE0DA">Har biri — muhabbatimning bir notasi</p>
+    </div>
+    <div style="margin-top: 24px; display: flex; flex-direction: column; gap: 18px">
+      <sc-for list="{{ tiers }}" as="t">
+      <div class="at-rv" style="position: relative; transition-delay: {{ t.dl }}">
+        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px">
+          <span aria-hidden="true" style="flex: 1; height: 1px; background: linear-gradient(90deg, rgba(216, 179, 106, 0), rgba(216, 179, 106, 0.7))"></span>
+          <span class="at-sc" style="font-size: 11px; color: #F0C3BE">{{ t.lbl }}</span>
+          <span aria-hidden="true" style="flex: 1; height: 1px; background: linear-gradient(90deg, rgba(216, 179, 106, 0.7), rgba(216, 179, 106, 0))"></span>
+        </div>
+        <ul style="list-style: none; margin: 0 auto; padding: 0; display: flex; flex-direction: column; gap: 10px; width: {{ t.w }}">
+          <sc-for list="{{ t.items }}" as="r">
+          <li>
+            <button type="button" onClick="{{ r.tap }}" aria-pressed="{{ r.on }}" class="{{ r.cls }}" style="width: 100%; min-height: 58px; box-sizing: border-box; padding: 10px 16px 10px 52px; border: 0; border-radius: 999px; background-color: rgba(8, 30, 29, 0.55); box-shadow: 0 0 0 1px rgba(216, 179, 106, 0.55); color: #F4EBDA; font: inherit; font-size: 18px; line-height: 1.3; text-align: left; cursor: pointer; display: flex; align-items: center">
+              <span aria-hidden="true" class="at-drop" style="position: absolute; left: 14px; top: 50%; margin-top: -14px; width: 24px; height: 28px">
+                <svg width="24" height="28" viewBox="0 0 24 28"><path class="at-glass" d="M12 2 C 18 10, 21 15, 21 18.5 C 21 23.5, 17 26, 12 26 C 7 26, 3 23.5, 3 18.5 C 3 15, 6 10, 12 2Z"></path><path class="at-gl" d="M12 2 C 18 10, 21 15, 21 18.5 C 21 23.5, 17 26, 12 26 C 7 26, 3 23.5, 3 18.5 C 3 15, 6 10, 12 2Z"></path><path class="at-hi2" d="M8 17 C 8 14, 9 12, 10.5 10"></path></svg>
+              </span>
+              <sc-for list="{{ r.mist }}" as="m"><span class="at-mist" style="{{ m }}"></span></sc-for>
+              <span style="overflow-wrap: anywhere">{{ r.t }}</span>
+            </button>
+          </li>
+          </sc-for>
+        </ul>
+      </div>
+      </sc-for>
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- ================= YOL ================= -->
+  <sc-if value="{{ b.yol }}">
+  <section class="{{ rv.yol }}" data-rv="yol" style="position: relative; padding: 0 14px 56px">
+    <div class="at-rv" style="display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center">
+      <svg aria-hidden="true" width="150" height="40" viewBox="0 0 150 40"><path class="at-wisp2 at-draw" d="M10 30 C 30 30, 34 14, 52 18 C 64 21, 60 34, 72 30 M140 30 C 120 30, 116 14, 98 18 C 86 21, 90 34, 78 30"></path><circle class="at-gf" cx="75" cy="20" r="5"></circle></svg>
+      <sc-if value="{{ yolRange }}"><p class="at-sc" style="color: #D8B36A; letter-spacing: 0.24em">{{ yolRange }}</p></sc-if>
+      <h2 class="at-t" style="margin: 0; font-size: 28px; line-height: 1.2; font-weight: 400; color: #F4EBDA">Bizning yo’limiz</h2>
+      <p style="margin: 0; font-size: 17px; font-style: italic; color: #CFE0DA">Atir bo’yidek yuksalgan yillar</p>
+    </div>
+    <div style="position: relative; margin-top: 26px; height: {{ yolH }}px">
+      <svg aria-hidden="true" width="362" height="{{ yolH }}" viewBox="0 0 362 {{ yolH }}" style="position: absolute; left: 0; top: 0"><path class="at-wisp at-draw" d="{{ yolD }}" style="opacity: .6; stroke-dasharray: 3000; stroke-dashoffset: 0"></path><path class="at-wisp2" d="{{ yolD }}" style="opacity: .8"></path></svg>
+      <sc-for list="{{ yol }}" as="y">
+      <div class="at-rv" style="position: absolute; left: 0; top: {{ y.top }}px; width: 362px; height: 110px; transition-delay: {{ y.dl }}">
+        <span class="at-node" style="position: absolute; left: {{ y.nx }}px; top: 22px; width: 56px; height: 64px">
+          <svg aria-hidden="true" width="56" height="64" viewBox="0 0 56 64" style="position: absolute; left: 0; top: 0"><path class="at-glass" d="M28 2 C 42 20, 50 32, 50 40 C 50 53, 40 62, 28 62 C 16 62, 6 53, 6 40 C 6 32, 14 20, 28 2Z"></path><path class="at-gl" d="M28 2 C 42 20, 50 32, 50 40 C 50 53, 40 62, 28 62 C 16 62, 6 53, 6 40 C 6 32, 14 20, 28 2Z"></path><path class="at-hi2" d="M16 38 C 16 30, 20 24, 24 19"></path></svg>
+          <span class="at-t" style="position: absolute; left: 0; top: 30px; width: 56px; text-align: center; font-size: {{ y.fs }}px; line-height: 1.1; color: #FFF1C8; overflow-wrap: anywhere">{{ y.yil }}</span>
+        </span>
+        <div style="position: absolute; left: {{ y.cx }}px; top: 8px; width: 186px; box-sizing: border-box; padding: 12px 14px; text-align: {{ y.al }}; border-radius: 14px; background: rgba(8, 30, 29, 0.55); box-shadow: 0 0 0 1px rgba(216, 179, 106, 0.4)">
+          <p class="at-t" style="margin: 0; font-size: 17px; line-height: 1.25; color: #F3DE9F; overflow-wrap: anywhere">{{ y.sarlavha }}</p>
+          <sc-if value="{{ y.matn }}"><p style="margin: 4px 0 0; font-size: 15.5px; line-height: 1.35; font-style: italic; color: #CFE0DA; overflow-wrap: anywhere">{{ y.matn }}</p></sc-if>
+        </div>
+      </div>
+      </sc-for>
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- ================= GALEREYA ================= -->
+  <sc-if value="{{ b.galereya }}">
+  <section class="{{ rv.galereya }}" data-rv="galereya" style="position: relative; padding: 0 12px 60px">
+    <div class="at-rv" style="display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center">
+      <svg aria-hidden="true" width="150" height="40" viewBox="0 0 150 40"><path class="at-wisp2 at-draw" d="M10 30 C 30 30, 34 14, 52 18 C 64 21, 60 34, 72 30 M140 30 C 120 30, 116 14, 98 18 C 86 21, 90 34, 78 30"></path><path class="at-gf" d="M75 6 C 80 12, 83 16, 83 19 C 83 23, 79 25, 75 25 C 71 25, 67 23, 67 19 C 67 16, 70 12, 75 6Z"></path></svg>
+      <p class="at-sc" style="color: #D8B36A">{{ galLbl }}</p>
+      <h2 class="at-t" style="margin: 0; font-size: 28px; line-height: 1.2; font-weight: 400; color: #F4EBDA">Xotiralar vitrinasi</h2>
+    </div>
+    <div style="margin-top: 26px; display: flex; flex-direction: column; gap: 20px">
+      <sc-for list="{{ galRows }}" as="row">
+      <div style="position: relative; padding-bottom: 14px">
+        <div style="display: flex; justify-content: center; align-items: flex-end; gap: 12px">
+          <sc-for list="{{ row.items }}" as="g">
+          <div class="at-rv" style="position: relative; width: {{ g.w }}px; height: {{ g.h }}px; box-sizing: border-box; padding: 5px; border-radius: {{ g.rad }}; background: linear-gradient(160deg, #F3DE9F, #A8823A 50%, #E8C878); box-shadow: 0 20px 34px -20px rgba(0, 0, 0, 0.9), 0 0 26px rgba(240, 195, 190, 0.12); transition-delay: {{ g.dl }}">
+            <div style="position: relative; width: 100%; height: 100%; border-radius: {{ g.rad2 }}; overflow: hidden; background: #123B37">
+              <img src="{{ g.src }}" alt="" style="display: block; width: 100%; height: 100%; object-fit: cover">
+              <div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; background: linear-gradient(160deg, rgba(255, 240, 220, 0.22) 0%, rgba(255, 240, 220, 0) 35%), linear-gradient(0deg, rgba(8, 30, 29, 0.35), rgba(8, 30, 29, 0) 40%)"></div>
+            </div>
+          </div>
+          </sc-for>
+        </div>
+        <div aria-hidden="true" style="position: absolute; left: 8px; right: 8px; bottom: 0; height: 6px; border-radius: 3px; background: linear-gradient(90deg, rgba(216, 179, 106, 0), #D8B36A 20%, #F3DE9F 50%, #D8B36A 80%, rgba(216, 179, 106, 0)); box-shadow: 0 6px 14px rgba(0, 0, 0, 0.5)"></div>
+      </div>
+      </sc-for>
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- ================= HISOB ================= -->
+  <sc-if value="{{ b.hisob }}">
+  <section class="{{ rv.hisob }}" data-rv="hisob" style="position: relative; padding: 0 16px 60px; text-align: center">
+    <div class="at-rv" style="display: flex; flex-direction: column; align-items: center; gap: 6px">
+      <svg aria-hidden="true" width="150" height="40" viewBox="0 0 150 40"><path class="at-wisp2 at-draw" d="M10 30 C 30 30, 34 14, 52 18 C 64 21, 60 34, 72 30 M140 30 C 120 30, 116 14, 98 18 C 86 21, 90 34, 78 30"></path><circle class="at-gl" cx="75" cy="20" r="7"></circle><circle class="at-gf" cx="75" cy="20" r="3"></circle></svg>
+      <h2 class="at-t" style="margin: 0; font-size: 28px; line-height: 1.2; font-weight: 400; color: #F4EBDA">Birga o’tgan kunlarimiz</h2>
+    </div>
+    <div class="at-rv" style="position: relative; width: 280px; height: 280px; margin: 22px auto 0; transition-delay: .15s">
+      <svg aria-hidden="true" class="at-spin" width="280" height="280" viewBox="0 0 280 280" style="position: absolute; left: 0; top: 0">
+        <path id="atRing" d="M140 22 a118 118 0 1 1 0 236 a118 118 0 1 1 0 -236" style="fill: none"></path>
+        <text class="at-t" style="font-size: 12.5px; letter-spacing: 3.6px; fill: #D8B36A"><textPath href="#atRing">BIRGA O’TGAN KUNLARIMIZ · SHUKR BILAN · BIRGA O’TGAN KUNLARIMIZ · SHUKR BILAN ·</textPath></text>
+      </svg>
+      <svg aria-hidden="true" width="280" height="280" viewBox="0 0 280 280" style="position: absolute; left: 0; top: 0"><path class="at-gl" d="{{ scallopD }}"></path><circle class="at-gl2" cx="140" cy="140" r="132"></circle></svg>
+      <div style="position: absolute; left: 40px; top: 40px; width: 200px; height: 200px; border-radius: 50%; background: radial-gradient(circle at 40% 32%, #2A6A62 0%, #123B37 55%, #0A2523 100%); box-shadow: inset 0 0 0 1px rgba(243, 222, 159, 0.7), inset 0 0 0 6px rgba(13, 43, 41, 0.8), inset 0 0 0 7px rgba(216, 179, 106, 0.4), 0 0 40px rgba(240, 195, 190, 0.18)"></div>
+      <div style="position: absolute; left: 0; top: 0; width: 280px; height: 280px; display: flex; flex-direction: column; align-items: center; justify-content: center">
+        <div aria-label="{{ daysLbl }}" style="display: flex; gap: 1px">
+          <sc-for list="{{ odo }}" as="o">
+          <span aria-hidden="true" style="position: relative; width: {{ odoW }}px; height: 58px; overflow: hidden">
+            <span class="at-odo" style="transform: translateY({{ o.y }}px); transition-delay: {{ o.dl }}">
+              <sc-for list="{{ digits10 }}" as="n"><span class="at-t at-foil" style="display: block; height: 58px; font-size: {{ odoPx }}px; line-height: 58px">{{ n }}</span></sc-for>
+            </span>
+          </span>
+          </sc-for>
+        </div>
+        <p class="at-sc" style="margin-top: 4px; color: #F0C3BE">kun</p>
+      </div>
+    </div>
+    <div class="at-rv" style="margin-top: 18px; display: flex; justify-content: center; gap: 10px; transition-delay: .3s">
+      <sc-for list="{{ ymd }}" as="c">
+      <div style="min-width: 84px; padding: 10px 8px; box-sizing: border-box; border-radius: 14px; background: rgba(8, 30, 29, 0.55); box-shadow: 0 0 0 1px rgba(216, 179, 106, 0.45); display: flex; flex-direction: column; align-items: center">
+        <span class="at-t" style="font-size: 26px; line-height: 1; color: #F3DE9F">{{ c.v }}</span>
+        <span class="at-sc" style="margin-top: 5px; font-size: 11px; color: #CFE0DA">{{ c.l }}</span>
+      </div>
+      </sc-for>
+    </div>
+    <div class="at-rv" style="margin-top: 16px; display: flex; justify-content: center; align-items: baseline; gap: 4px; transition-delay: .45s">
+      <sc-for list="{{ clock }}" as="c">
+      <sc-if value="{{ c.sep }}"><span class="at-t" style="font-size: 20px; color: #D8B36A">:</span></sc-if>
+      <span style="display: inline-flex; flex-direction: column; align-items: center; min-width: 48px">
+        <span key="{{ c.k }}" class="at-t at-flip" style="font-size: 24px; color: #F4EBDA">{{ c.v }}</span>
+        <span style="font-size: 12px; letter-spacing: 0.14em; color: #9FBDB5">{{ c.l }}</span>
+      </span>
+      </sc-for>
+    </div>
+    <sc-if value="{{ hasDate }}"><p class="at-rv" style="margin: 14px 0 0; font-size: 18px; font-style: italic; color: #CFE0DA; transition-delay: .55s">{{ dateSince }}</p></sc-if>
+  </section>
+  </sc-if>
+
+  <!-- ================= SIRLI ================= -->
+  <sc-if value="{{ b.sirli }}">
+  <section class="{{ rv.sirli }}" data-rv="sirli" style="position: relative; padding: 0 20px 60px">
+    <div class="at-rv">
+      <div class="{{ vialCls }}" style="position: relative; padding: 30px 24px 32px; border-radius: 22px; background: radial-gradient(80% 60% at 50% 20%, rgba(240, 195, 190, 0.16) 0%, rgba(8, 30, 29, 0) 70%), rgba(8, 30, 29, 0.6); box-shadow: inset 0 0 0 1px rgba(216, 179, 106, 0.5); text-align: center">
+        <p class="at-sc" style="color: #D8B36A">Yashirin so’z</p>
+        <div aria-hidden="true" style="position: relative; width: 120px; height: 150px; margin: 14px auto 6px">
+          <svg width="120" height="150" viewBox="0 0 120 150" style="position: absolute; left: 0; top: 0; overflow: visible">
+            <path class="at-wisp at-vw" d="M60 30 C 44 10, 74 -8, 56 -30 C 42 -46, 66 -60, 58 -76"></path>
+            <path class="at-wisp2 at-vw" d="M62 30 C 80 12, 50 -6, 70 -28 C 84 -44, 58 -56, 66 -74" style="animation-delay: .5s"></path>
+            <path class="at-glass" d="M52 34 H68 V54 C 68 60, 98 70, 98 104 C 98 132, 82 144, 60 144 C 38 144, 22 132, 22 104 C 22 70, 52 60, 52 54Z"></path>
+            <path class="at-gl" d="M52 34 H68 V54 C 68 60, 98 70, 98 104 C 98 132, 82 144, 60 144 C 38 144, 22 132, 22 104 C 22 70, 52 60, 52 54Z"></path>
+            <path class="at-gl2" d="M36 100 C 36 116, 46 128, 60 130 C 74 128, 84 116, 84 100"></path>
+            <path class="at-hi" d="M32 100 C 32 86, 40 76, 48 72"></path>
+            <path class="at-gf" d="M48 30 H72 V36 H48Z"></path>
+          </svg>
+          <svg class="at-sealL" width="120" height="150" viewBox="0 0 120 150" style="position: absolute; left: 0; top: 0; overflow: visible; transform-origin: 50px 30px"><path d="M60 14 C 50 14, 44 20, 44 28 C 44 36, 50 42, 60 42 Z" style="fill: #8E2C45"></path><path d="M60 19 C 54 19, 49 23, 49 28 C 49 33, 54 37, 60 37" style="fill: none; stroke: #E8C878; stroke-width: 1"></path></svg>
+          <svg class="at-sealR" width="120" height="150" viewBox="0 0 120 150" style="position: absolute; left: 0; top: 0; overflow: visible; transform-origin: 70px 30px"><path d="M60 14 C 70 14, 76 20, 76 28 C 76 36, 70 42, 60 42 Z" style="fill: #A8384F"></path><path d="M60 19 C 66 19, 71 23, 71 28 C 71 33, 66 37, 60 37" style="fill: none; stroke: #E8C878; stroke-width: 1"></path></svg>
+        </div>
+        <p class="{{ secretCls }}" style="margin: 6px 0 0; font-size: 20px; line-height: 1.55; font-style: italic; color: #F4EBDA; white-space: pre-line; overflow-wrap: anywhere">{{ d.sirli_soz }}</p>
+        <sc-if value="{{ secretShown }}" hint-placeholder-val="{{ false }}"><p class="at-sc at-in" style="margin-top: 12px; color: #F0C3BE; animation-delay: 1s">Bu so’z faqat ikkimizniki</p></sc-if>
+        <div class="at-vbtn" style="margin-top: 16px; display: flex; justify-content: center">
+          <button type="button" onClick="{{ reveal }}" class="at-btn" style="min-height: 50px; padding: 0 26px; border-radius: 999px; border: 1px solid #F3DE9F; background: linear-gradient(110deg, #A8823A 0%, #F3DE9F 35%, #D8B36A 60%, #B48A3C 100%); color: #0D2B29; font-family: 'Tenor Sans', 'Trebuchet MS', sans-serif; font-size: 16px; letter-spacing: 0.06em; cursor: pointer">Muhrni oching</button>
+        </div>
+      </div>
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- ================= JAVOB ================= -->
+  <sc-if value="{{ b.javob }}">
+  <section class="{{ rv.javob }}" data-rv="javob" style="position: relative; padding: 0 20px 50px; text-align: center">
+    <div class="at-rv" style="position: relative; padding: 40px 22px 34px; border-radius: 26px; background: radial-gradient(90% 60% at 50% 0%, rgba(184, 71, 94, 0.3) 0%, rgba(8, 30, 29, 0) 70%), rgba(8, 30, 29, 0.55); box-shadow: inset 0 0 0 1px rgba(216, 179, 106, 0.55), 0 0 50px rgba(240, 195, 190, 0.1)">
+      <p class="at-s at-foil" style="margin: 0; font-size: 46px; line-height: 1; overflow-wrap: anywhere">{{ d.kimga }},</p>
+      <h2 class="at-t" style="margin: 8px 0 0; font-size: 27px; line-height: 1.2; font-weight: 400; color: #F4EBDA">javobingni kutaman</h2>
+      <sc-if value="{{ asking }}" hint-placeholder-val="{{ true }}"><p style="margin: 8px 0 0; font-size: 17px; font-style: italic; color: #CFE0DA">Bitta bosish — va javobing yetib boradi</p></sc-if>
+      <div style="position: relative; min-height: 128px; margin-top: 22px">
+        <sc-if value="{{ asking }}" hint-placeholder-val="{{ true }}">
+        <div style="display: flex; flex-direction: column; gap: 12px">
+          <div role="group" aria-label="Javobni tanlang" style="display: flex; flex-direction: column; gap: 12px">
+            <button type="button" onClick="{{ sayLove }}" disabled="{{ busy }}" class="at-btn" style="width: 100%; min-height: 56px; padding: 0 18px; border-radius: 999px; border: 1px solid #F3DE9F; background: linear-gradient(110deg, #A8823A 0%, #F3DE9F 30%, #D8B36A 52%, #FFF1C8 68%, #B48A3C 100%); color: #0D2B29; font-family: 'Tenor Sans', 'Trebuchet MS', sans-serif; font-size: 17px; letter-spacing: 0.03em; cursor: pointer; box-shadow: 0 0 26px rgba(243, 222, 159, 0.3)">Men ham seni yaxshi ko’raman</button>
+            <button type="button" onClick="{{ sayDua }}" disabled="{{ busy }}" class="at-btn" style="width: 100%; min-height: 56px; padding: 0 18px; border-radius: 999px; border: 1px solid #D8B36A; background: rgba(13, 43, 41, 0.9); color: #F3DE9F; font-family: 'Tenor Sans', 'Trebuchet MS', sans-serif; font-size: 17px; letter-spacing: 0.03em; cursor: pointer">Muhabbatimiz ziyoda bo’lsin</button>
+          </div>
+          <sc-if value="{{ err }}"><p role="alert" style="margin: 0; font-size: 16px; font-weight: 500; color: #F0C3BE">{{ err }}</p></sc-if>
+        </div>
+        </sc-if>
+        <sc-if value="{{ answered }}" hint-placeholder-val="{{ false }}">
+        <div style="position: relative; display: flex; flex-direction: column; align-items: center; gap: 8px">
+          <div aria-hidden="true" style="position: absolute; left: 50%; top: 40px; width: 0; height: 0">
+            <sc-for list="{{ puff }}" as="p"><span class="at-puff" style="{{ p }}"></span></sc-for>
+          </div>
+          <p class="at-t at-foil at-in" style="position: relative; margin: 0; font-size: 24px; line-height: 1.3">«{{ answer }}»</p>
+          <p class="at-in" style="position: relative; margin: 0; font-size: 17px; line-height: 1.45; color: #DCE7E2; overflow-wrap: anywhere; animation-delay: .2s">Javobing {{ fromGa }} yetib bordi. Bu bo’y umrbod qolsin.</p>
+        </div>
+        </sc-if>
+      </div>
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- ================= FOOTER ================= -->
+  <footer style="flex: 1; padding: 6px 24px 46px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 8px">
+    <svg aria-hidden="true" width="160" height="30" viewBox="0 0 160 30"><path class="at-wisp2" d="M0 20 C 24 20, 30 8, 50 12 C 64 15, 62 26, 72 22 M160 20 C 136 20, 130 8, 110 12 C 96 15, 98 26, 88 22"></path><path class="at-gf" d="M80 4 C 85 10, 88 14, 88 17 C 88 21, 84 23, 80 23 C 76 23, 72 21, 72 17 C 72 14, 75 10, 80 4Z"></path></svg>
+    <p class="at-ar" dir="rtl" lang="ar" style="margin: 4px 0 0; font-size: 24px; line-height: 50px; color: #F3DE9F">بَارَكَ اللَّهُ لَكُمَا وَبَارَكَ عَلَيْكُمَا وَجَمَعَ بَيْنَكُمَا فِي خَيْرٍ</p>
+    <p style="margin: 0; font-size: 16.5px; line-height: 1.5; font-style: italic; color: #DCE7E2">«Alloh sizlarga baraka bersin, ustingizga baraka yog’dirsin va ikkingizni yaxshilikda jamlasin»</p>
+    <p class="at-s at-foil" style="margin: 10px 0 0; font-size: 38px; line-height: 1.1; overflow-wrap: anywhere">{{ pair }}</p>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":5600}}'>
+const AT_RM = typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
+// avtomatlashtirilgan skrinshotlarda (navigator.webdriver) bo’limlar darhol ko’rinadi
+const AT_IO = typeof IntersectionObserver === 'function' && !AT_RM && !(typeof navigator !== 'undefined' && navigator.webdriver);
+const AT_KEYS = ['maktub', 'sabablar', 'yol', 'galereya', 'hisob', 'sirli', 'javob'];
+const AT_FONT = 'Comforter';
+
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { opened: false, entered: false, parts: [], rv: {}, note: {}, secret: false, answer: null, busy: false, err: '' };
+  }
+  componentDidMount() {
+    this.timer = setInterval(() => this.forceUpdate(), 1000);
+    try { if (document.fonts && document.fonts.load) document.fonts.load('80px "' + AT_FONT + '"', String(SITE.d.kimga || 'A')); } catch (e) { /* shrift keyin yuklanadi */ }
+    if (AT_IO) {
+      this.io = new IntersectionObserver((es) => {
+        const add = {};
+        es.forEach((e) => { if (e.isIntersecting) { add[e.target.getAttribute('data-rv')] = true; this.io.unobserve(e.target); } });
+        if (Object.keys(add).length) this.setState((s) => ({ rv: Object.assign({}, s.rv, add) }));
+      }, { rootMargin: '0px 0px -8% 0px', threshold: 0.01 });
+      this.watch();
+    }
+  }
+  componentDidUpdate() { this.watch(); }
+  componentWillUnmount() { clearInterval(this.timer); clearTimeout(this.t2); if (this.io) this.io.disconnect(); }
+  watch() {
+    if (!this.io) return;
+    document.querySelectorAll('[data-rv]').forEach((el) => { if (!el.__at) { el.__at = 1; this.io.observe(el); } });
+  }
+
+  nm(n) { return String(n || '').trim(); }
+  poss(n) { n = this.nm(n); return n ? n + (/[aeiouAEIOU’']$/.test(n) ? 'ng' : 'ing') : ''; }
+  fit(t, px, wpx, k) { const L = Math.max(1, ...String(t || '').split(/\s+/).map((x) => x.length)); return Math.max(18, Math.min(px, Math.floor(wpx / (L * (k || 0.5))))); }
+  numWord(n) { return ['', 'Bir', 'Ikki', 'Uch', 'To’rt', 'Besh', 'Olti', 'Yetti', 'Sakkiz', 'To’qqiz', 'O’n'][n] || ''; }
+  rnd(seed) { let a = seed >>> 0; return () => { a = (a + 0x6D2B79F5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+
+  // particles: sample the name drawn in the script font; each particle flies from the bottle neck to a pixel of the name
+  nameSize(name) {
+    let px = 78;
+    try {
+      const c = this.cv || (this.cv = document.createElement('canvas')), x = c.getContext('2d');
+      x.font = px + 'px "' + AT_FONT + '", cursive';
+      const w = x.measureText(name).width;
+      if (w > 320) px = Math.max(30, Math.floor(px * 320 / w));
+    } catch (e) { px = Math.min(78, Math.floor(600 / Math.max(4, name.length))); }
+    return px;
+  }
+  particles() {
+    const name = this.nm(SITE.d.kimga) || '-', px = this.nameSize(name), W = 340, H = 120, ox = 25, oy = 140;
+    let pts = [];
+    try {
+      const c = this.cv || (this.cv = document.createElement('canvas'));
+      c.width = W; c.height = H;
+      const x = c.getContext('2d');
+      x.clearRect(0, 0, W, H); x.fillStyle = '#000'; x.textAlign = 'center'; x.textBaseline = 'middle';
+      x.font = px + 'px "' + AT_FONT + '", cursive';
+      x.fillText(name, W / 2, H / 2 + px * 0.04);
+      const img = x.getImageData(0, 0, W, H).data, st = px > 56 ? 3 : 2;
+      for (let yy = 0; yy < H; yy += st) for (let xx = 0; xx < W; xx += st) if (img[(yy * W + xx) * 4 + 3] > 140) pts.push([xx, yy]);
+    } catch (e) { pts = []; }
+    const r = this.rnd(name.length * 7919 + 17);
+    if (pts.length < 20) { pts = []; for (let i = 0; i < 160; i++) pts.push([60 + r() * 220, 44 + r() * 32]); }
+    for (let i = pts.length - 1; i > 0; i--) { const j = Math.floor(r() * (i + 1)); const t = pts[i]; pts[i] = pts[j]; pts[j] = t; }
+    pts = pts.slice(0, 240);
+    const sx = 195, sy = 398;
+    return pts.map((p, i) => {
+      const tx = ox + p[0] - sx, ty = oy + p[1] - sy;
+      const ax = (r() - 0.5) * 70, ay = -40 - r() * 50;
+      const side = r() < 0.5 ? -1 : 1, bx = tx * 0.45 + side * (40 + r() * 70), by = ty * 0.6 + 10 - r() * 30;
+      return 'left: ' + sx + 'px; top: ' + sy + 'px; --ax: ' + ax.toFixed(0) + 'px; --ay: ' + ay.toFixed(0) + 'px; --bx: ' + bx.toFixed(0) + 'px; --by: ' + by.toFixed(0) + 'px; --tx: ' + tx.toFixed(1) + 'px; --ty: ' + ty.toFixed(1) + 'px; animation-delay: ' + (0.45 + (i / pts.length) * 0.75 + r() * 0.12).toFixed(2) + 's';
+    });
+  }
+
+  geo() {
+    if (this.g) return this.g;
+    const f = (v) => (+v).toFixed(1);
+    // intro frame: arched panel
+    const fr = 'M22 822 V170 C 22 90, 110 40, 195 26 C 280 40, 368 90, 368 170 V822 Z';
+    const fr2 = 'M30 814 V172 C 30 98, 114 50, 195 36 C 276 50, 360 98, 360 172 V814 Z';
+    const frameDots = []; for (let i = 0; i < 9; i++) frameDots.push({ x: 195 + (i - 4) * 18, y: 822 });
+    // cartouche 340x120
+    const cart = 'M20 60 C 20 36, 40 30, 60 30 C 80 30, 90 8, 120 8 H220 C 250 8, 260 30, 280 30 C 300 30, 320 36, 320 60 C 320 84, 300 90, 280 90 C 260 90, 250 112, 220 112 H120 C 90 112, 80 90, 60 90 C 40 90, 20 84, 20 60Z';
+    const cart2 = 'M30 60 C 30 42, 44 38, 60 38 C 82 38, 94 16, 122 16 H218 C 246 16, 258 38, 280 38 C 296 38, 310 42, 310 60 C 310 78, 296 82, 280 82 C 258 82, 246 104, 218 104 H122 C 94 104, 82 82, 60 82 C 44 82, 30 78, 30 60Z';
+    // rosette on bottle
+    let ros = '';
+    for (let i = 0; i < 8; i++) { const a = i * Math.PI / 4, a1 = a - 0.3, a2 = a + 0.3; ros += 'M' + f(100 + Math.cos(a1) * 6) + ' ' + f(248 + Math.sin(a1) * 6) + ' Q' + f(100 + Math.cos(a) * 26) + ' ' + f(248 + Math.sin(a) * 26) + ' ' + f(100 + Math.cos(a2) * 6) + ' ' + f(248 + Math.sin(a2) * 6) + ' '; }
+    const beads = []; for (let i = 0; i < 11; i++) { const t = i / 10, a = Math.PI * (0.08 + 0.84 * t); beads.push({ x: f(100 - Math.cos(a) * 64), y: f(184 + Math.sin(a) * 6 - 2) }); }
+    // scalloped seal 280
+    let sc = '';
+    for (let i = 0; i < 36; i++) { const a1 = i * Math.PI * 2 / 36, a2 = (i + 1) * Math.PI * 2 / 36, am = (a1 + a2) / 2; sc += (i ? ' ' : 'M' + f(140 + Math.cos(a1) * 102) + ' ' + f(140 + Math.sin(a1) * 102)) + ' Q' + f(140 + Math.cos(am) * 112) + ' ' + f(140 + Math.sin(am) * 112) + ' ' + f(140 + Math.cos(a2) * 102) + ' ' + f(140 + Math.sin(a2) * 102); }
+    const heroWisps = [];
+    const wd = ['M195 196 C 170 160, 214 128, 190 96 C 170 70, 206 44, 194 14', 'M198 196 C 228 164, 180 136, 210 104 C 236 76, 190 52, 204 20', 'M192 198 C 150 180, 166 140, 130 120 C 100 104, 118 70, 92 50', 'M200 198 C 240 180, 224 140, 260 120 C 290 104, 272 70, 298 50'];
+    wd.forEach((d, i) => heroWisps.push({ d, c: i % 2 ? 'at-wisp2 at-aw' : 'at-wisp at-aw', st: 'animation-delay: ' + (-i * 1.7).toFixed(1) + 's; animation-duration: ' + (6.5 + i * 0.8).toFixed(1) + 's' }));
+    this.g = { frameD: fr + ' ' + fr2, frameDots, cartD: cart, cart2D: cart2, rosD: ros, beads, scallopD: sc + ' Z', heroWisps };
+    return this.g;
+  }
+  yolGeo(n) {
+    if (this.yg && this.yg.n === n) return this.yg;
+    const step = 118, H = Math.max(140, n * step + 10), pts = [];
+    let d = 'M181 0';
+    for (let i = 0; i < n; i++) {
+      const left = i % 2 === 0, y = i * step + 54, x = left ? 68 : 294;
+      pts.push({ x, y, left });
+    }
+    let px = 181, py = 0;
+    pts.forEach((p) => { d += ' C ' + px + ' ' + (py + (p.y - py) * 0.6) + ', ' + p.x + ' ' + (p.y - (p.y - py) * 0.5) + ', ' + p.x + ' ' + p.y; px = p.x; py = p.y; });
+    d += ' C ' + px + ' ' + (py + 40) + ', 181 ' + (H - 30) + ', 181 ' + H;
+    this.yg = { n, H, d, pts };
+    return this.yg;
+  }
+  galRows() {
+    const n = Math.min(6, Math.max(1, SITE.has.photos)), plan = { 1: [1], 2: [2], 3: [1, 2], 4: [2, 2], 5: [2, 3], 6: [1, 2, 3] }[n];
+    const rows = []; let i = 0;
+    plan.forEach((c) => {
+      const items = [];
+      const dims = c === 1 ? [[300, 360]] : c === 2 ? [[168, 236], [168, 236]] : [[108, 170], [128, 200], [108, 170]];
+      dims.forEach(([w, h]) => { items.push({ src: SITE.p[i], w, h, rad: (w / 2) + 'px ' + (w / 2) + 'px 10px 10px', rad2: (w / 2 - 5) + 'px ' + (w / 2 - 5) + 'px 6px 6px', dl: (i * 0.08).toFixed(2) + 's' }); i++; });
+      rows.push({ items });
+    });
+    return rows;
+  }
+  answer(a, emo) {
+    if (this.state.busy || this.state.answer) return;
+    this.setState({ busy: true, err: '' });
+    SITE.reply(a, emo).then(
+      () => this.setState({ answer: a, busy: false }),
+      () => this.setState({ busy: false, err: 'Javob yetib bormadi. Qayta bosib ko’ring.' })
+    );
+  }
+  renderVals() {
+    const s = this.state, d = SITE.d, g = this.geo();
+    const to = this.nm(d.kimga), from = this.nm(d.kimdan);
+    const w = SITE.when(d.tanishgan_sana), hasDate = !!w.day;
+    const el = SITE.elapsed(d.tanishgan_sana);
+    const txt = String(d.matn || '').replace(/^\s+/, '');
+    const isL = /[A-Za-zÀ-ɏЀ-ӿ]/.test(txt.charAt(0));
+    const reasons = d.sabablar || [], rn = reasons.length, yol = d.yol || [];
+    const ys = yol.map((x) => (x && x.yil) || '').filter(Boolean);
+    const total = Math.min(6, Math.max(1, SITE.has.photos));
+    const on = (k) => !!(s.rv[k] && s.opened);
+    const rv = {}; AT_KEYS.forEach((k) => { rv[k] = 'at-sec' + (on(k) ? ' is-in' : ''); });
+
+    const days = el.days || 0, dStr = String(days), dLen = Math.max(3, dStr.length), pad = dStr.padStart(dLen, '0');
+    const show = on('hisob') || !AT_IO;
+    const odo = pad.split('').map((c, i) => ({ y: show ? -58 * (+c) : 0, dl: (i * 0.12).toFixed(2) + 's' }));
+
+    // notes pyramid: top / heart / base
+    const nTop = Math.ceil(rn / 3), nHeart = Math.ceil((rn - nTop) / 2);
+    const lbls = ['Bosh notalar', 'Yurak notalari', 'Asos notalari'], widths = ['78%', '89%', '100%'];
+    const groups = [[0, nTop], [nTop, nTop + nHeart], [nTop + nHeart, rn]];
+    const mist = (i) => { const o = []; for (let k = 0; k < 7; k++) { const a = -Math.PI / 2 + (k - 3) * 0.42; o.push('--x: ' + Math.round(Math.cos(a) * (28 + (k % 3) * 10)) + 'px; --y: ' + Math.round(Math.sin(a) * (30 + (k % 2) * 12)) + 'px; animation-delay: ' + (k * 0.03).toFixed(2) + 's'); } return o; };
+    const tiers = groups.filter((gr) => gr[1] > gr[0]).map((gr, ti) => ({
+      lbl: rn > 2 ? lbls[ti] : 'Muhabbat notalari', w: rn > 2 ? widths[ti] : '100%', dl: (ti * 0.12).toFixed(2) + 's',
+      items: reasons.slice(gr[0], gr[1]).map((t, k) => { const i = gr[0] + k, onB = !!s.note[i]; return { t, on: onB, cls: 'at-note' + (onB ? ' is-b' : ''), mist: onB ? mist(i) : [], tap: () => this.setState((st) => ({ note: Object.assign({}, st.note, { [i]: !st.note[i] }) })) }; })
+    }));
+    const yg = this.yolGeo(yol.length);
+    const puff = [];
+    for (let i = 0; i < 22; i++) { const a = -Math.PI / 2 + (i / 21 - 0.5) * Math.PI * 1.6, dist = 60 + (i % 5) * 22; puff.push('--dx: ' + Math.round(Math.cos(a) * dist) + 'px; --dy: ' + Math.round(Math.sin(a) * dist - 20) + 'px; animation-delay: ' + ((i % 6) * 0.05).toFixed(2) + 's'); }
+    const tl = to.length;
+
+    return {
+      to, from, hasDate,
+      rootCls: 'at-root' + (AT_IO ? ' at-io' : '') + (s.entered || AT_RM ? ' is-in' : ''),
+      introCls: s.opened ? 'at-intro is-open' : 'at-intro',
+      open: () => {
+        if (this.state.opened) return;
+        this.setState({ opened: true, parts: AT_RM ? [] : this.particles() });
+        SITE.opened();
+        this.t2 = setTimeout(() => this.setState({ entered: true }), AT_RM ? 0 : 3300);
+      },
+      parts: s.parts,
+      musicOn: !!SITE.music.playing, musicOff: !SITE.music.playing, toggleMusic: () => SITE.music.toggle(),
+      frameD: g.frameD, frameDots: g.frameDots, cartD: g.cartD, cart2D: g.cart2D, rosD: g.rosD, beads: g.beads, scallopD: g.scallopD, heroWisps: g.heroWisps,
+      nmPx: this.nameSize(to || '-'),
+      h1px: Math.min(this.fit(to, 84, 346, 0.4), tl > 16 ? 56 : 84),
+      fromLine: from ? from + 'dan — muhabbat va duo bilan' : 'muhabbat va duo bilan',
+      dateDots: hasDate ? w.dots.split('.').join(' · ') : '',
+      dateSince: hasDate ? w.dm + ' ' + w.year + '-yildan beri — har kuni shukr bilan' : '',
+      greet: 'Assalomu alaykum, azizim ' + to + '!',
+      sign: from ? (/\s/.test(from) ? from : 'sening ' + this.poss(from)) : '',
+      pair: [from, to].filter(Boolean).join(' va '),
+      fromGa: SITE.ga(from),
+      rv,
+      capL: isL ? txt.charAt(0) : '',
+      capRest: isL ? txt.slice(1) : txt,
+      reasonsLbl: rn <= 10 ? this.numWord(rn) + ' nota' : rn + ' nota',
+      tiers,
+      yolRange: ys.length > 1 && ys[0] !== ys[ys.length - 1] ? ys[0] + ' — ' + ys[ys.length - 1] : (ys[0] || ''),
+      yolH: yg.H, yolD: yg.d,
+      yol: yol.map((x, i) => { const p = yg.pts[i], yl = String(x.yil || ''); return { yil: yl, sarlavha: x.sarlavha || '', matn: x.matn || '', top: p.y - 54, nx: p.x - 28, cx: p.left ? 162 : 14, al: p.left ? 'left' : 'right', dl: (0.1 * Math.min(i, 6)).toFixed(2) + 's', fs: yl.length <= 4 ? 14 : yl.length <= 7 ? 11 : 9 }; }),
+      galLbl: total <= 10 ? this.numWord(total) + ' lahza' : total + ' lahza',
+      galRows: this.galRows(),
+      digits10: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'],
+      odo, odoPx: dLen > 5 ? 44 : 52, odoW: dLen > 5 ? 27 : 32, daysLbl: days + ' kun',
+      ymd: [{ v: el.years || 0, l: 'yil' }, { v: el.months || 0, l: 'oy' }, { v: el.rest || 0, l: 'kun' }],
+      clock: [
+        { sep: false, v: SITE.pad(el.h || 0), l: 'soat', k: 'h' + (el.h || 0) },
+        { sep: true, v: SITE.pad(el.m || 0), l: 'daqiqa', k: 'm' + (el.m || 0) },
+        { sep: true, v: SITE.pad(el.s || 0), l: 'soniya', k: 's' + (el.s || 0) }
+      ],
+      vialCls: s.secret ? 'at-vial is-open' : 'at-vial',
+      secretCls: s.secret ? 'at-secret is-shown' : 'at-secret',
+      secretShown: s.secret,
+      reveal: () => this.setState({ secret: true }),
+      asking: !s.answer, answered: !!s.answer, answer: s.answer || '', busy: s.busy, err: s.err, puff,
+      sayLove: () => this.answer('Men ham seni yaxshi ko’raman', '❤️'),
+      sayDua: () => this.answer('Muhabbatimiz ziyoda bo’lsin', '🤗')
+    };
+  }
+}
+</script>
+</body>
+</html>

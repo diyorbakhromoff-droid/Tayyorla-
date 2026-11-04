@@ -1,0 +1,944 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<title>To’y taklifnomasi: Eshiklar</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Unicase:wght@500;600;700&amp;family=Nunito:wght@400;500;600;700&amp;display=swap">
+<style>
+body{margin:0;background:#5E2417}
+.es-root{background:#5E2417;color:#F8EBDA;font-family:'Nunito','Helvetica Neue',Arial,sans-serif}
+.es-u{font-family:'Cormorant Unicase','Cormorant Garamond',Georgia,serif}
+.es-num{font-variant-numeric:lining-nums tabular-nums}
+.es-icon{fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.es-vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* devor */
+.es-wall{position:absolute;left:0;top:0;width:390px;pointer-events:none}
+.es-brk{fill:#6D2E1E}
+.es-brk2{fill:#682B1C}
+.es-mor{fill:#541F13}
+.es-vig{background:radial-gradient(ellipse 120% 70% at 50% 46%,rgba(255,180,110,.16),rgba(40,10,4,0) 55%,rgba(30,8,3,.55) 100%)}
+
+/* chiroqlar shodasi */
+.es-wire{fill:none;stroke:#2E120A;stroke-width:1.4}
+.es-bulb{fill:#FFF4D2}
+.es-halo{fill:url(#es-haloG)}
+.es-hg1{stop-color:#FFD98A;stop-opacity:.75}
+.es-hg0{stop-color:#FFB24A;stop-opacity:0}
+.es-tw{animation:es-tw 3.6s ease-in-out infinite}
+.es-tw2{animation:es-tw 3.6s ease-in-out -1.2s infinite}
+.es-tw3{animation:es-tw 3.6s ease-in-out -2.4s infinite}
+@keyframes es-tw{0%,100%{opacity:1}50%{opacity:.45}}
+
+/* koshin hoshiya */
+.es-tile{background-color:#2A8F8A;background-image:radial-gradient(circle at 50% 50%,#9BE3D6 0 1.5px,rgba(155,227,214,0) 2px),linear-gradient(45deg,rgba(255,255,255,.13) 25%,rgba(255,255,255,0) 25%,rgba(255,255,255,0) 75%,rgba(255,255,255,.13) 75%),linear-gradient(45deg,rgba(255,255,255,.13) 25%,rgba(255,255,255,0) 25%,rgba(255,255,255,0) 75%,rgba(255,255,255,.13) 75%);background-size:10px 10px,10px 10px,10px 10px;background-position:0 0,0 0,5px 5px;box-shadow:0 14px 22px -12px rgba(20,4,0,.75),inset 0 0 0 1px rgba(10,60,58,.6),inset 0 2px 0 rgba(255,255,255,.18)}
+.es-wood{background-color:#76401F;background-image:linear-gradient(90deg,rgba(30,10,2,.28),rgba(255,220,170,.06) 32%,rgba(30,10,2,.08) 70%,rgba(30,10,2,.34)),repeating-linear-gradient(90deg,#7B4324 0 3px,#713B1E 3px 5px,#80482A 5px 9px,#743E20 9px 12px)}
+.es-brass{background:linear-gradient(140deg,#FFF0C4 0,#E9BE6C 30%,#B98536 62%,#F2D394 82%,#A8792E 100%);color:#43200C}
+.es-pan{position:absolute;border:1.5px solid rgba(40,14,4,.75);box-shadow:inset 0 0 0 2px rgba(255,214,160,.1),inset 2px 3px 5px rgba(20,6,0,.45),0 1px 0 rgba(255,214,160,.14)}
+.es-carve{fill:none;stroke:rgba(40,14,4,.8);stroke-width:1.3}
+.es-carve2{fill:none;stroke:rgba(255,214,160,.2);stroke-width:1}
+.es-ring{fill:none;stroke:#E2B465;stroke-width:2.4}
+.es-ringd{fill:none;stroke:#7A5420;stroke-width:1}
+.es-stud{fill:#E8C179}
+
+/* kirish */
+.es-i{position:absolute;left:0;top:0;width:390px;height:844px;z-index:40;overflow:hidden;background:#63271A;-webkit-user-select:none;user-select:none}
+.es-i--gone{pointer-events:none;animation:es-iout .8s ease .1s forwards}
+@keyframes es-iout{to{opacity:0;visibility:hidden}}
+.es-fac{position:absolute;left:0;top:0;width:390px;height:844px;transform-origin:195px 488px;transition:transform 1s cubic-bezier(.6,0,.35,1)}
+.es-i--gone .es-fac{transform:scale(2.6)}
+.es-sides{transition:opacity .9s ease .3s,filter .9s ease .3s}
+.es-i--big .es-sides{opacity:.5;filter:saturate(.7)}
+.es-top{transition:opacity .6s ease}
+.es-i--big .es-top{opacity:0}
+.es-in{animation:es-in 1s cubic-bezier(.2,.8,.2,1) both}
+.es-in2{animation:es-in 1s cubic-bezier(.2,.8,.2,1) .15s both}
+.es-in3{animation:es-in 1s cubic-bezier(.2,.8,.2,1) .3s both}
+@keyframes es-in{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.es-rise{animation:es-rise 1.2s cubic-bezier(.2,.8,.2,1) both}
+@keyframes es-rise{from{opacity:0;transform:translateY(30px) scale(.96)}to{opacity:1;transform:none}}
+
+/* kichik eshiklar */
+.es-d{position:absolute;width:96px;height:140px;padding:0;border:0;background:none;cursor:pointer;perspective:520px;-webkit-tap-highlight-color:transparent;font-family:inherit;color:inherit}
+.es-d:focus-visible{outline:2px solid #FFE3A1;outline-offset:8px;border-radius:50px 50px 10px 10px}
+.es-sur{position:absolute;left:-5px;top:-5px;width:106px;height:150px;border-radius:53px 53px 9px 9px}
+.es-nich{position:absolute;left:0;top:0;width:96px;height:140px;border-radius:48px 48px 5px 5px;overflow:hidden;background:radial-gradient(ellipse 80% 70% at 50% 46%,#FFF6DE 0,#F8D894 42%,#D98F48 78%,#9E4E22 100%);box-shadow:inset 0 8px 16px rgba(80,24,6,.55),inset 0 -2px 6px rgba(80,24,6,.35)}
+.es-nich img{position:absolute;left:0;top:0;width:100%;height:100%;object-fit:cover}
+.es-leaf{position:absolute;left:0;top:0;width:96px;height:140px;border-radius:48px 48px 5px 5px;transform-origin:0 50%;transition:transform 1.05s cubic-bezier(.34,1.3,.5,1);box-shadow:inset 0 0 0 1px rgba(30,10,2,.6),inset 0 2px 0 rgba(255,220,170,.18)}
+.es-d--r .es-leaf{transform-origin:100% 50%}
+.es-d:not(.es-d--on):active .es-leaf{transform:rotateY(-16deg);transition-duration:.25s}
+.es-d--r:not(.es-d--on):active .es-leaf{transform:rotateY(16deg)}
+.es-d--on .es-leaf{transform:rotateY(-104deg)}
+.es-d--r.es-d--on .es-leaf{transform:rotateY(104deg)}
+.es-leaf::after{content:'';position:absolute;inset:0;border-radius:inherit;background:linear-gradient(90deg,rgba(20,6,2,.25),rgba(20,6,2,.7));opacity:0;transition:opacity 1s ease}
+.es-d--on .es-leaf::after{opacity:1}
+.es-plq{position:absolute;left:31px;top:20px;width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:21px;line-height:1;font-weight:700;box-shadow:0 3px 5px rgba(20,6,0,.5),inset 0 0 0 1px rgba(255,255,255,.35)}
+.es-knock{transform-origin:48px 82px;animation:es-knock 5s ease-in-out infinite}
+@keyframes es-knock{0%,86%,100%{transform:rotate(0)}90%{transform:rotate(9deg)}94%{transform:rotate(-6deg)}97%{transform:rotate(3deg)}}
+.es-nc{position:absolute;left:0;top:0;width:96px;height:140px;box-sizing:border-box;padding:24px 6px 10px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:#4A1E0E;opacity:0;transform:scale(.55);transition:opacity .4s ease .28s,transform .75s cubic-bezier(.34,1.56,.64,1) .28s}
+.es-d--on .es-nc{opacity:1;transform:none}
+.es-nl{font-size:9px;line-height:12px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#8A3E1C}
+.es-nv{margin-top:2px;font-weight:700;color:#4A1E0E}
+.es-ns{margin-top:2px;font-size:11px;line-height:14px;font-weight:600;color:#7A3A1C}
+.es-bu{position:absolute;left:48px;top:76px;width:0;height:0;pointer-events:none}
+.es-bu i{position:absolute;left:-3px;top:-3px;width:6px;height:6px;border-radius:50%;background:#FFF2C8;box-shadow:0 0 6px #FFD27A;opacity:0}
+.es-d--on .es-bu i{animation:es-spark 1s cubic-bezier(.15,.7,.3,1) .32s both}
+@keyframes es-spark{0%{opacity:0;transform:rotate(var(--a)) translateY(0) scale(.6)}15%{opacity:1}100%{opacity:0;transform:rotate(var(--a)) translateY(-64px) scale(.2)}}
+.es-glow{position:absolute;left:-30px;top:-30px;width:156px;height:200px;border-radius:50%;background:radial-gradient(closest-side,rgba(255,214,140,.55),rgba(255,214,140,0));opacity:0;transform:scale(.6);transition:opacity .9s ease .2s,transform 1.2s ease .2s;pointer-events:none}
+.es-d--on .es-glow{opacity:1;transform:none}
+
+/* katta eshik */
+.es-pt{position:absolute;left:118px;top:190px;width:154px;height:500px;border-radius:6px}
+.es-ptin{position:absolute;left:8px;top:8px;width:138px;height:484px;border-radius:3px;background:#4E1C10;box-shadow:inset 0 4px 12px rgba(10,2,0,.6)}
+.es-ty{position:absolute;left:8px;top:8px;width:138px;height:96px}
+.es-tyf{fill:#3C150B}
+.es-tyl{fill:none;stroke:#E2B465;stroke-width:1.2}
+.es-tyt{fill:#2A8F8A}
+.es-tyd{fill:#E8C179}
+.es-bd{position:absolute;left:132px;top:298px;width:126px;height:384px;padding:0;border:0;background:none;cursor:pointer;perspective:700px;-webkit-tap-highlight-color:transparent;font-family:inherit;color:inherit}
+.es-bd:focus-visible{outline:2px solid #FFE3A1;outline-offset:6px;border-radius:63px 63px 6px 6px}
+.es-bn{position:absolute;left:0;top:0;width:126px;height:384px;border-radius:63px 63px 4px 4px;overflow:hidden;background:radial-gradient(ellipse 90% 60% at 50% 44%,#FFFBEE 0,#FFE6AE 40%,#F0B762 75%,#B8642C 100%)}
+.es-rays{position:absolute;left:-137px;top:-108px;width:400px;height:400px;border-radius:50%;background:repeating-conic-gradient(from 0deg,rgba(255,255,255,.55) 0 6deg,rgba(255,255,255,0) 6deg 18deg);opacity:0;transition:opacity 1.2s ease .6s}
+.es-i--big .es-rays{opacity:.7;animation:es-spin 30s linear infinite}
+@keyframes es-spin{to{transform:rotate(360deg)}}
+.es-bl,.es-br{position:absolute;top:0;width:63px;height:384px;transition:transform 1.5s cubic-bezier(.3,1.22,.42,1) .35s;box-shadow:inset 0 0 0 1px rgba(30,10,2,.6),inset 0 2px 0 rgba(255,220,170,.18)}
+.es-bl{left:0;border-radius:63px 0 0 4px;transform-origin:0 50%}
+.es-br{left:63px;border-radius:0 63px 4px 0;transform-origin:100% 50%}
+.es-bd:active .es-bl{transform:rotateY(-6deg);transition-duration:.2s;transition-delay:0s}
+.es-bd:active .es-br{transform:rotateY(6deg);transition-duration:.2s;transition-delay:0s}
+.es-i--big .es-bl{transform:rotateY(-108deg)}
+.es-i--big .es-br{transform:rotateY(108deg)}
+.es-bl::after,.es-br::after{content:'';position:absolute;inset:0;border-radius:inherit;background:rgba(20,6,2,.62);opacity:0;transition:opacity 1.4s ease .6s}
+.es-i--big .es-bl::after,.es-i--big .es-br::after{opacity:1}
+.es-rib{position:absolute;top:178px;width:63px;height:16px;background:linear-gradient(180deg,#FFF7E6,#EFD9B4 55%,#D9BC8A);box-shadow:0 2px 3px rgba(20,6,0,.4);transition:transform .7s cubic-bezier(.5,0,.6,1),opacity .6s ease}
+.es-ribl{left:0}
+.es-ribr{left:63px}
+.es-i--big .es-ribl{transform:translate(-26px,40px) rotate(-24deg);opacity:0}
+.es-i--big .es-ribr{transform:translate(26px,40px) rotate(24deg);opacity:0}
+.es-bow{position:absolute;left:33px;top:160px;width:60px;height:52px;transition:transform .55s cubic-bezier(.5,-.4,.6,1),opacity .5s ease .1s}
+.es-i--big .es-bow{transform:translateY(60px) rotate(30deg) scale(.4);opacity:0}
+.es-jig .es-bow{animation:es-jig .5s ease}
+@keyframes es-jig{0%,100%{transform:none}25%{transform:rotate(-12deg)}55%{transform:rotate(9deg)}80%{transform:rotate(-4deg)}}
+.es-bowf{fill:#F6E6C8}
+.es-bows{fill:none;stroke:#C9A46A;stroke-width:1.2}
+.es-bowk{fill:#E9D2A6}
+
+/* yorug'lik va ismlar */
+.es-flood{position:absolute;left:-155px;top:138px;width:700px;height:700px;border-radius:50%;background:radial-gradient(closest-side,#FFF8E8 0,#FFF0D0 38%,rgba(252,222,160,.92) 58%,rgba(246,196,120,.5) 78%,rgba(246,196,120,0) 100%);opacity:0;transform:scale(.12);transition:transform 1.5s cubic-bezier(.2,.75,.2,1),opacity .7s ease;pointer-events:none}
+.es-i--flood .es-flood{opacity:1;transform:none}
+.es-inm{position:absolute;left:0;top:0;width:390px;height:844px;pointer-events:none}
+.es-inm .es-nmx{opacity:0;transform:translateY(22px);filter:blur(6px);transition:opacity .9s ease,transform 1.1s cubic-bezier(.2,.8,.2,1),filter .9s ease}
+.es-i--flood .es-inm .es-nmx{opacity:1;transform:none;filter:none}
+.es-i--flood .es-inm .es-nd1{transition-delay:.2s}
+.es-i--flood .es-inm .es-nd2{transition-delay:.35s}
+.es-i--flood .es-inm .es-nd3{transition-delay:.5s}
+.es-i--flood .es-inm .es-nd4{transition-delay:.65s}
+.es-pip{display:block;width:8px;height:8px;border-radius:50%;background:rgba(248,235,218,.22);box-shadow:inset 0 0 0 1px rgba(248,235,218,.35);transition:transform .45s cubic-bezier(.34,1.56,.64,1),background-color .3s}
+.es-pip--on{background:#E9BE6C;transform:scale(1.35);box-shadow:0 0 8px rgba(255,210,120,.8)}
+.es-hint{transition:opacity .4s ease}
+
+/* sahifa: bosh qism */
+.es-hall{position:absolute;left:26px;top:118px;width:338px;height:600px;border-radius:169px 169px 10px 10px}
+.es-hin{position:absolute;left:9px;top:9px;width:320px;height:582px;border-radius:160px 160px 4px 4px;overflow:hidden;perspective:600px;background:radial-gradient(ellipse 85% 62% at 50% 50%,#FFF8E8 0,#FFF0D0 42%,#F8D79A 72%,#E3A35A 100%)}
+.es-hrays{position:absolute;left:-90px;top:0;width:500px;height:500px;border-radius:50%;background:repeating-conic-gradient(from 0deg,rgba(255,255,255,.5) 0 5deg,rgba(255,255,255,0) 5deg 15deg);opacity:.55;animation:es-spin 60s linear infinite}
+.es-hl{position:absolute;top:0;width:160px;height:582px}
+.es-hl1{left:0;transform-origin:0 50%;transform:rotateY(-70deg);border-radius:160px 0 0 4px}
+.es-hl2{left:160px;transform-origin:100% 50%;transform:rotateY(70deg);border-radius:0 160px 4px 0}
+.es-hl::after{content:'';position:absolute;inset:0;border-radius:inherit;background:linear-gradient(90deg,rgba(20,6,2,.3),rgba(20,6,2,.6))}
+.es-nm{font-family:'Cormorant Unicase','Cormorant Garamond',Georgia,serif;font-weight:600;color:#4A1A0C;letter-spacing:.01em;white-space:nowrap;line-height:1}
+.es-amp{font-family:'Cormorant Unicase',Georgia,serif;font-weight:500;color:#1E7A75}
+.es-chip{display:inline-flex;align-items:center;gap:8px;height:36px;padding:0 15px;border-radius:18px;font-size:13px;line-height:16px;font-weight:600;letter-spacing:.06em;color:#F8EBDA;background:rgba(40,10,4,.35);box-shadow:inset 0 0 0 1px rgba(233,190,108,.55);white-space:nowrap}
+.es-cue{animation:es-cue 2.2s ease-in-out infinite}
+@keyframes es-cue{0%,100%{transform:translateY(0);opacity:.5}50%{transform:translateY(6px);opacity:1}}
+.es-mote{position:absolute;width:4px;height:4px;border-radius:50%;background:#FFE6A8;box-shadow:0 0 6px #FFC970;animation:es-mote 9s ease-in-out infinite}
+@keyframes es-mote{0%{transform:translate(0,0);opacity:0}20%{opacity:.9}100%{transform:translate(18px,-120px);opacity:0}}
+
+/* bo'limlar */
+.es-sec{position:relative;z-index:1;padding:88px 20px 0;display:flex;flex-direction:column;align-items:center;text-align:center}
+.es-mini{position:relative;width:70px;height:92px;perspective:420px}
+.es-msur{position:absolute;left:-5px;top:-5px;width:80px;height:102px;border-radius:40px 40px 7px 7px}
+.es-mn{position:absolute;left:0;top:0;width:70px;height:92px;border-radius:35px 35px 3px 3px;overflow:hidden;display:flex;align-items:center;justify-content:center;padding-top:10px;box-sizing:border-box;color:#8A3E1C;background:radial-gradient(ellipse 80% 70% at 50% 50%,#FFF6DE 0,#F8D894 48%,#D98F48 85%,#9E4E22 100%)}
+.es-ml{position:absolute;top:0;width:35px;height:92px;box-shadow:inset 0 0 0 1px rgba(30,10,2,.6)}
+.es-ml1{left:0;border-radius:35px 0 0 3px;transform-origin:0 50%;transform:rotateY(-100deg)}
+.es-ml2{left:35px;border-radius:0 35px 3px 0;transform-origin:100% 50%;transform:rotateY(100deg)}
+.es-ml::after{content:'';position:absolute;inset:0;border-radius:inherit;background:rgba(20,6,2,.6)}
+.es-no{display:inline-flex;align-items:center;justify-content:center;min-width:40px;height:22px;padding:0 8px;margin-bottom:12px;border-radius:11px;font-size:12px;line-height:1;font-weight:700;letter-spacing:.12em;box-shadow:0 4px 8px -4px rgba(0,0,0,.6)}
+.es-lbl{margin:18px 0 0;font-size:11px;line-height:16px;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:#E9BE6C}
+.es-h2{margin:8px 0 0;font-family:'Cormorant Unicase',Georgia,serif;font-weight:600;font-size:34px;line-height:40px;color:#F8EBDA;max-width:350px;overflow-wrap:anywhere;text-wrap:balance}
+.es-card{position:relative;width:100%;box-sizing:border-box;border-radius:26px;color:#3A1A0E;background-color:#F7EAD7;background-image:radial-gradient(circle at 20% 10%,rgba(255,255,255,.7),rgba(255,255,255,0) 40%),radial-gradient(circle at 90% 90%,rgba(214,170,120,.25),rgba(214,170,120,0) 50%);box-shadow:0 30px 50px -28px rgba(10,2,0,.8),inset 0 0 0 1px rgba(255,255,255,.6)}
+.es-card::after{content:'';position:absolute;left:8px;top:8px;right:8px;bottom:8px;border-radius:20px;border:1px solid rgba(168,121,46,.42);pointer-events:none}
+.es-txt{font-size:16px;line-height:26px;color:#5A3020}
+.es-clbl{margin:0;font-size:10px;line-height:14px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:#A0502A}
+.es-btn{position:relative;overflow:hidden;display:inline-flex;align-items:center;justify-content:center;gap:10px;height:54px;padding:0 26px;border-radius:27px;border:0;box-sizing:border-box;font-family:inherit;font-size:15px;font-weight:700;letter-spacing:.04em;text-decoration:none;cursor:pointer;color:#43200C;background:linear-gradient(140deg,#FFF0C4 0,#E9BE6C 34%,#C08A3A 70%,#EBC98A 100%);box-shadow:0 14px 24px -14px rgba(10,2,0,.9),inset 0 1px 0 rgba(255,255,255,.6);transition:transform .2s cubic-bezier(.3,1.5,.5,1),box-shadow .2s}
+.es-btn:active{transform:scale(.96)}
+.es-btn:disabled{opacity:.65;cursor:default}
+.es-btn::after{content:'';position:absolute;left:0;top:0;width:40%;height:100%;background:linear-gradient(100deg,rgba(255,255,255,0),rgba(255,255,255,.55),rgba(255,255,255,0));transform:translateX(-150%) skewX(-12deg);animation:es-sheen 5s ease-in-out infinite;pointer-events:none}
+@keyframes es-sheen{0%,70%{transform:translateX(-150%) skewX(-12deg)}100%{transform:translateX(320%) skewX(-12deg)}}
+.es-obtn{display:inline-flex;align-items:center;justify-content:center;gap:10px;height:50px;padding:0 22px;border-radius:25px;box-sizing:border-box;font-family:inherit;font-size:14px;font-weight:700;letter-spacing:.04em;text-decoration:none;cursor:pointer;color:#F8EBDA;background:rgba(40,10,4,.3);border:0;box-shadow:inset 0 0 0 1.5px rgba(233,190,108,.7);transition:transform .2s cubic-bezier(.3,1.5,.5,1)}
+.es-obtn:active{transform:scale(.96)}
+.es-photo{display:block;object-fit:cover;background:#D9B48A}
+
+/* taymer: varaqlar */
+.es-flip{position:relative;width:76px;height:96px;border-radius:12px;display:flex;align-items:center;justify-content:center;perspective:300px;box-shadow:0 16px 22px -14px rgba(10,2,0,.9),inset 0 0 0 1px rgba(30,10,2,.6)}
+.es-flip::before{content:'';position:absolute;left:6px;right:6px;top:47px;height:2px;background:rgba(30,10,2,.55);box-shadow:0 1px 0 rgba(255,214,160,.15);z-index:2}
+.es-hinge{position:absolute;top:-6px;width:8px;height:14px;border-radius:4px;z-index:3}
+.es-fd{display:block;font-family:'Cormorant Unicase',Georgia,serif;font-weight:700;font-size:46px;line-height:1;color:#F2CE85;text-shadow:0 2px 0 rgba(30,10,2,.6);transform-origin:50% 0}
+.es-fa{animation:es-fa .6s cubic-bezier(.3,1.35,.5,1)}
+.es-fb{animation:es-fb .6s cubic-bezier(.3,1.35,.5,1)}
+@keyframes es-fa{from{transform:rotateX(-88deg);opacity:.2}to{transform:none;opacity:1}}
+@keyframes es-fb{from{transform:rotateX(-88deg);opacity:.2}to{transform:none;opacity:1}}
+
+/* dastur */
+.es-row{display:grid;grid-template-columns:72px minmax(0,1fr);gap:16px;align-items:center;width:100%;text-align:left}
+.es-tp{width:72px;height:80px;border-radius:36px 36px 6px 6px;display:flex;align-items:flex-end;justify-content:center;padding-bottom:14px;box-sizing:border-box;box-shadow:0 12px 18px -12px rgba(10,2,0,.9),inset 0 0 0 1px rgba(30,10,2,.6)}
+
+/* galereya */
+.es-feat{position:relative;width:300px;height:400px;border-radius:150px 150px 14px 14px;overflow:hidden;touch-action:pan-y;box-shadow:0 30px 50px -26px rgba(10,2,0,.9)}
+.es-fimg{position:absolute;left:0;top:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.08);transition:opacity .8s ease,transform 1.2s cubic-bezier(.2,.8,.2,1);pointer-events:none;-webkit-user-drag:none}
+.es-fimg--on{opacity:1;transform:none}
+.es-th{position:relative;width:58px;height:76px;padding:0;border:0;border-radius:29px 29px 6px 6px;overflow:hidden;cursor:pointer;background:#3A150B;box-shadow:inset 0 0 0 1px rgba(233,190,108,.3);transition:transform .35s cubic-bezier(.34,1.56,.64,1),box-shadow .3s}
+.es-th img{display:block;width:100%;height:100%;object-fit:cover;opacity:.6;transition:opacity .3s}
+.es-th--on{transform:translateY(-6px);box-shadow:0 0 0 2px #E9BE6C,0 10px 18px -8px rgba(10,2,0,.9)}
+.es-th--on img{opacity:1}
+.es-th:active{transform:scale(.94)}
+
+/* javob */
+.es-ch{position:relative;flex:1 1 0;min-width:0;height:128px;padding:14px 8px 12px;border:0;border-radius:20px;box-sizing:border-box;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:10px;font-family:inherit;font-size:14px;line-height:18px;font-weight:700;color:#5A3020;cursor:pointer;background:rgba(160,80,42,.08);box-shadow:inset 0 0 0 1.5px rgba(160,80,42,.25);transition:transform .25s cubic-bezier(.34,1.56,.64,1),box-shadow .3s,background-color .3s}
+.es-ch:active{transform:scale(.95)}
+.es-ch--on{background:rgba(233,190,108,.22);box-shadow:inset 0 0 0 2px #C08A3A,0 10px 20px -12px rgba(120,60,20,.7)}
+.es-cd{position:relative;width:44px;height:58px;perspective:200px}
+.es-cdn{position:absolute;inset:0;border-radius:22px 22px 3px 3px;background:radial-gradient(ellipse at 50% 45%,#FFF6DE,#F3C46F 70%,#C9772F)}
+.es-cdl{position:absolute;inset:0;border-radius:22px 22px 3px 3px;transform-origin:0 50%;transition:transform .8s cubic-bezier(.34,1.4,.5,1)}
+.es-ch--on .es-cdo{transform:rotateY(-100deg)}
+.es-ch--on .es-cdx{animation:es-shake .5s ease}
+@keyframes es-shake{0%,100%{transform:none}25%{transform:translateX(-3px)}50%{transform:translateX(3px)}75%{transform:translateX(-2px)}}
+.es-flbl{display:block;text-align:left;font-size:10px;line-height:14px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#A0502A}
+.es-field{display:block;width:100%;box-sizing:border-box;border:0;border-radius:16px;background:rgba(255,255,255,.65);box-shadow:inset 0 0 0 1px rgba(160,80,42,.3);color:#3A1A0E;font-family:inherit;font-size:16px;outline:none;transition:box-shadow .2s}
+.es-field:focus{box-shadow:inset 0 0 0 2px #C08A3A}
+.es-field::placeholder{color:#A27B66}
+.es-in2{height:52px;margin:8px 0 18px;padding:0 18px}
+.es-ta{min-height:88px;margin-top:8px;padding:14px 18px;line-height:24px;resize:vertical}
+.es-step{width:46px;height:46px;border-radius:50%;border:0;padding:0;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#5A3020;background:rgba(255,255,255,.7);box-shadow:inset 0 0 0 1px rgba(160,80,42,.35);transition:transform .2s cubic-bezier(.3,1.5,.5,1)}
+.es-step:active{transform:scale(.9)}
+.es-step:disabled{opacity:.4;cursor:default}
+.es-stepper{display:flex;align-items:center;gap:12px;transition:opacity .2s}
+.es-stepper--off{opacity:.35}
+.es-okb{position:absolute;left:50%;top:50%;width:0;height:0;pointer-events:none}
+.es-okb i{position:absolute;left:-4px;top:-4px;width:8px;height:8px;border-radius:2px;background:#E9BE6C;opacity:0}
+.es-okb--on i{animation:es-conf 1.3s cubic-bezier(.15,.7,.3,1) both}
+@keyframes es-conf{0%{opacity:0;transform:rotate(var(--a)) translateY(0) rotate(0)}10%{opacity:1}100%{opacity:0;transform:rotate(var(--a)) translateY(-120px) rotate(220deg)}}
+.es-sw{position:relative;display:block;width:46px;height:46px;border-radius:50%;box-shadow:0 8px 14px -8px rgba(60,20,4,.7),inset 0 0 0 1px rgba(255,255,255,.6)}
+.es-sw::after{content:'';position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 32% 26%,rgba(255,255,255,.85) 0,rgba(255,255,255,.2) 26%,rgba(255,255,255,0) 50%)}
+.es-music{position:absolute;top:14px;right:14px;z-index:60;width:46px;height:46px;border-radius:50%;border:0;padding:0;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#43200C;background:linear-gradient(140deg,#FFF0C4,#E9BE6C 40%,#B98536);box-shadow:0 10px 18px -10px rgba(10,2,0,.9)}
+.es-eq{display:flex;align-items:flex-end;gap:2px;height:14px}
+.es-eq i{display:block;width:2px;height:100%;background:currentColor;transform-origin:50% 100%;animation:es-eq .9s ease-in-out infinite alternate}
+.es-eq i:nth-child(2){animation-delay:-.3s}.es-eq i:nth-child(3){animation-delay:-.6s}.es-eq i:nth-child(4){animation-delay:-.45s}
+@keyframes es-eq{from{transform:scaleY(.25)}to{transform:scaleY(1)}}
+/* bo'limlar sahifa aylantirilganda ochiladi (brauzer qo'llasa) */
+@keyframes es-upk{from{opacity:0;transform:translateY(30px) scale(.98)}to{opacity:1;transform:none}}
+@keyframes es-ml1k{0%,8%{transform:rotateY(0)}100%{transform:rotateY(-100deg)}}
+@keyframes es-ml2k{0%,8%{transform:rotateY(0)}100%{transform:rotateY(100deg)}}
+@keyframes es-shk{0%,20%{opacity:0}100%{opacity:1}}
+@keyframes es-icok{0%,45%{opacity:0;transform:scale(.3)}80%{opacity:1;transform:scale(1.15)}100%{opacity:1;transform:none}}
+@media (prefers-reduced-motion: no-preference){
+  @supports (animation-timeline: view()){
+    .es-up{animation:es-upk both cubic-bezier(.2,.7,.25,1);animation-timeline:view();animation-range:cover 0px cover 150px}
+    .es-ml1{animation:es-ml1k both cubic-bezier(.3,.7,.3,1);animation-timeline:view();animation-range:cover 20px cover 230px}
+    .es-ml2{animation:es-ml2k both cubic-bezier(.3,.7,.3,1);animation-timeline:view();animation-range:cover 20px cover 230px}
+    .es-ml::after{animation:es-shk both linear;animation-timeline:view();animation-range:cover 20px cover 230px}
+    .es-mico{animation:es-icok both ease-out;animation-timeline:view();animation-range:cover 20px cover 220px}
+  }
+}
+@media (prefers-reduced-motion: reduce){
+  .es-tw,.es-tw2,.es-tw3,.es-knock,.es-in,.es-in2,.es-in3,.es-rise,.es-hrays,.es-cue,.es-mote,.es-btn::after,.es-eq i,.es-fa,.es-fb,.es-i--big .es-rays,.es-d--on .es-bu i,.es-okb--on i,.es-ch--on .es-cdx,.es-jig .es-bow{animation:none !important}
+  .es-fac,.es-sides,.es-top,.es-leaf,.es-nc,.es-glow,.es-bl,.es-br,.es-rib,.es-bow,.es-flood,.es-inm .es-nmx,.es-fimg,.es-cdl,.es-leaf::after,.es-bl::after,.es-br::after{transition:none !important}
+  .es-i--gone{animation:none;opacity:0;visibility:hidden}
+  .es-i--gone .es-fac{transform:none}
+}
+</style>
+</helmet>
+<div class="es-root" style="width: 390px; min-height: var(--vh, 100vh); position: relative; overflow: hidden; display: flex; flex-direction: column">
+
+  <svg class="es-wall" width="390" height="100%" aria-hidden="true" style="height: 100%">
+    <defs>
+      <radialGradient id="es-haloG"><stop offset="0" class="es-hg1"></stop><stop offset="1" class="es-hg0"></stop></radialGradient>
+      <pattern id="es-brickP" width="44" height="26" patternUnits="userSpaceOnUse">
+        <rect x="0" y="0" width="44" height="26" class="es-mor"></rect>
+        <rect x="1" y="1" width="42" height="11" rx="1.5" class="es-brk"></rect>
+        <rect x="-21" y="14" width="42" height="11" rx="1.5" class="es-brk2"></rect>
+        <rect x="23" y="14" width="42" height="11" rx="1.5" class="es-brk"></rect>
+      </pattern>
+    </defs>
+    <rect x="0" y="0" width="390" height="100%" fill="url(#es-brickP)"></rect>
+  </svg>
+  <div class="es-wall es-vig" aria-hidden="true" style="height: 844px"></div>
+  <div class="es-wall" aria-hidden="true" style="top: 844px; bottom: 0; background: linear-gradient(180deg, rgba(74, 26, 14, 0.3), rgba(74, 26, 14, 0.62) 260px, rgba(74, 26, 14, 0.62))"></div>
+
+  <sc-if value="{{ has.music }}">
+  <button type="button" class="es-music" aria-label="{{ musicLabel }}" aria-pressed="{{ musicOn }}" onClick="{{ toggleMusic }}">
+    <sc-if value="{{ musicOn }}"><span class="es-eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span></sc-if>
+    <sc-if value="{{ musicOff }}"><svg class="es-icon" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V5.5l11-2.2v12.5"></path><circle cx="6.2" cy="18" r="2.8"></circle><circle cx="17.2" cy="15.8" r="2.8"></circle></svg></sc-if>
+  </button>
+  </sc-if>
+
+  <div data-intro class="{{ introCls }}" aria-hidden="{{ introHidden }}">
+    <div class="es-fac">
+      <svg width="390" height="844" viewBox="0 0 390 844" aria-hidden="true" style="position: absolute; left: 0; top: 0">
+        <rect x="0" y="0" width="390" height="844" fill="url(#es-brickP)"></rect>
+      </svg>
+      <div class="es-vig" aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px"></div>
+
+      <svg width="390" height="120" viewBox="0 0 390 120" aria-hidden="true" style="position: absolute; left: 0; top: 0">
+        <path class="es-wire" d="M-10 8 Q 97 70 195 18 Q 293 70 400 8"></path>
+        <sc-for list="{{ bulbs }}" as="u"><g class="{{ u.c }}"><circle class="es-halo" cx="{{ u.x }}" cy="{{ u.y }}" r="11"></circle><circle class="es-bulb" cx="{{ u.x }}" cy="{{ u.y }}" r="2.8"></circle></g></sc-for>
+      </svg>
+
+      <div class="es-top" style="position: absolute; left: 20px; right: 20px; top: 58px; text-align: center">
+        <p class="es-in" style="margin: 0; font-size: 11px; line-height: 16px; font-weight: 700; letter-spacing: 0.28em; text-transform: uppercase; color: #E9BE6C">Nikoh to’yiga taklifnoma</p>
+        <p class="es-in2" style="margin: 10px 0 0; font-size: 14px; line-height: 18px; color: rgba(248, 235, 218, 0.8)">Hurmatli</p>
+        <p class="es-u es-in3" style="margin: 2px 0 0; font-weight: 600; font-size: {{ fsGuest }}px; line-height: 1.15; color: #F8EBDA; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{ guestName }}</p>
+      </div>
+
+      <div class="es-sides">
+        <sc-for list="{{ doors }}" as="x">
+          <button type="button" class="{{ x.cls }}" style="{{ x.pos }}" aria-label="{{ x.aria }}" onClick="{{ x.tap }}">
+            <span class="es-sur es-tile" aria-hidden="true"></span>
+            <span class="es-glow" aria-hidden="true"></span>
+            <span class="es-nich" aria-hidden="true">
+              <sc-if value="{{ x.photo }}"><img src="{{ p.0 }}" alt=""></sc-if>
+            </span>
+            <span class="es-nc" aria-hidden="true">
+              <sc-if value="{{ x.photo }}"><span class="es-nl" style="position: absolute; left: 0; right: 0; bottom: 8px; color: #FFF6DE; text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6)">{{ x.l }}</span></sc-if>
+              <sc-if value="{{ x.plain }}">
+                <span class="es-nl">{{ x.l }}</span>
+                <span class="{{ x.vCls }}" style="{{ x.vSt }}">{{ x.v }}</span>
+                <sc-if value="{{ x.s }}"><span class="es-ns">{{ x.s }}</span></sc-if>
+              </sc-if>
+            </span>
+            <span class="es-bu" aria-hidden="true"><sc-for list="{{ sparks }}" as="k"><i style="{{ k }}"></i></sc-for></span>
+            <span class="es-leaf es-wood" aria-hidden="true">
+              <span class="es-pan" style="left: 10px; top: 10px; width: 76px; height: 62px; border-radius: 38px 38px 3px 3px"></span>
+              <span class="es-pan" style="left: 10px; top: 80px; width: 76px; height: 50px; border-radius: 3px"></span>
+              <span class="es-plq es-brass es-u">{{ x.n }}</span>
+              <svg width="96" height="140" viewBox="0 0 96 140" style="position: absolute; left: 0; top: 0">
+                <path class="es-carve" d="M48 96l6 9-6 9-6-9z M30 105h10 M56 105h10"></path>
+                <path class="es-carve2" d="M48 97.5l5 7.5-5 7.5-5-7.5z"></path>
+                <g class="es-knock"><circle class="es-stud" cx="48" cy="82" r="3"></circle><circle class="es-ring" cx="48" cy="93" r="9"></circle><circle class="es-ringd" cx="48" cy="93" r="10.4"></circle></g>
+                <circle class="es-stud" cx="16" cy="124" r="1.6"></circle><circle class="es-stud" cx="80" cy="124" r="1.6"></circle>
+              </svg>
+            </span>
+          </button>
+        </sc-for>
+      </div>
+
+      <div class="es-pt es-tile" aria-hidden="true">
+        <div class="es-ptin"></div>
+        <svg class="es-ty" width="138" height="96" viewBox="0 0 138 96">
+          <path class="es-tyf" d="M0 0h138v96H0z"></path>
+          <path class="es-tyl" d="M14 96V58a55 55 0 0 1 110 0v38"></path>
+          <path class="es-tyt" d="M69 20l6.5 11.3 13-.3-6.7 11.2 6.7 11.2-13-.3L69 64.4l-6.5-11.3-13 .3 6.7-11.2L49.5 31l13 .3z"></path>
+          <circle class="es-tyd" cx="69" cy="42.2" r="7"></circle>
+          <circle class="es-tyf" cx="69" cy="42.2" r="3"></circle>
+          <circle class="es-tyd" cx="22" cy="18" r="2.2"></circle><circle class="es-tyd" cx="116" cy="18" r="2.2"></circle>
+          <path class="es-tyl" d="M6 6h126v84H6z"></path>
+        </svg>
+      </div>
+
+      <div aria-hidden="true" style="position: absolute; left: 4px; top: 690px; width: 382px; height: 14px; border-radius: 3px; background: linear-gradient(180deg, #A9603E, #7C3D24 60%, #5A2716); box-shadow: 0 10px 16px -6px rgba(20, 4, 0, 0.7)"></div>
+      <button type="button" class="es-bd" aria-label="Katta eshikni ochish" onClick="{{ bigTap }}">
+        <span class="es-bn" aria-hidden="true"><span class="es-rays"></span></span>
+        <span class="es-bl es-wood" aria-hidden="true">
+          <span class="es-pan" style="left: 10px; top: 14px; width: 45px; height: 140px; border-radius: 45px 0 0 3px"></span>
+          <span class="es-pan" style="left: 10px; top: 214px; width: 45px; height: 156px; border-radius: 3px"></span>
+          <svg width="63" height="384" viewBox="0 0 63 384" style="position: absolute; left: 0; top: 0"><path class="es-carve" d="M32 96l8 12-8 12-8-12z M32 270l8 12-8 12-8-12z"></path><circle class="es-stud" cx="56" cy="250" r="2.6"></circle><circle class="es-ring" cx="52" cy="262" r="8"></circle></svg>
+        </span>
+        <span class="es-br es-wood" aria-hidden="true">
+          <span class="es-pan" style="left: 8px; top: 14px; width: 45px; height: 140px; border-radius: 0 45px 3px 0"></span>
+          <span class="es-pan" style="left: 8px; top: 214px; width: 45px; height: 156px; border-radius: 3px"></span>
+          <svg width="63" height="384" viewBox="0 0 63 384" style="position: absolute; left: 0; top: 0"><path class="es-carve" d="M31 96l8 12-8 12-8-12z M31 270l8 12-8 12-8-12z"></path><circle class="es-stud" cx="7" cy="250" r="2.6"></circle><circle class="es-ring" cx="11" cy="262" r="8"></circle></svg>
+        </span>
+        <span class="es-rib es-ribl" aria-hidden="true"></span>
+        <span class="es-rib es-ribr" aria-hidden="true"></span>
+        <span class="{{ bowCls }}" aria-hidden="true">
+          <svg width="60" height="52" viewBox="0 0 60 52"><path class="es-bowf" d="M30 22C20 8 4 6 4 18s14 14 26 6z"></path><path class="es-bowf" d="M30 22c10-14 26-16 26-4s-14 14-26 6z"></path><path class="es-bowf" d="M27 26l-9 24 7-3 4 5 1-26z"></path><path class="es-bowf" d="M33 26l9 24-7-3-4 5-1-26z"></path><path class="es-bows" d="M30 22C20 8 4 6 4 18s14 14 26 6c10-14 26-16 26-4s-14 14-26 6"></path><circle class="es-bowk" cx="30" cy="23" r="5"></circle></svg>
+        </span>
+      </button>
+
+      <div class="es-top es-hint" style="position: absolute; left: 20px; right: 20px; top: 714px; display: flex; flex-direction: column; align-items: center; text-align: center">
+        <div style="display: flex; gap: 8px; align-items: center" aria-hidden="true"><sc-for list="{{ pips }}" as="q"><i class="{{ q }}"></i></sc-for></div>
+        <p aria-live="polite" style="margin: 14px 0 0; font-size: 15px; line-height: 21px; font-weight: 600; color: #F8EBDA">{{ hint }}</p>
+        <p style="margin: 4px 0 0; font-size: 12px; line-height: 17px; color: rgba(248, 235, 218, 0.7)">{{ hint2 }}</p>
+        <sc-if value="{{ has.music }}"><p style="margin: 8px 0 0; display: flex; align-items: center; gap: 7px; font-size: 11px; line-height: 15px; letter-spacing: 0.08em; color: rgba(248, 235, 218, 0.7)"><svg class="es-icon" width="13" height="13" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V5.5l11-2.2v12.5"></path><circle cx="6.2" cy="18" r="2.8"></circle><circle cx="17.2" cy="15.8" r="2.8"></circle></svg>Musiqa bilan ochiladi</p></sc-if>
+      </div>
+    </div>
+
+    <div class="es-flood" aria-hidden="true"></div>
+    <div class="es-inm" aria-hidden="true">
+      <p class="es-nmx es-nd1" style="position: absolute; left: 0; right: 0; top: 262px; margin: 0; text-align: center; font-size: 11px; line-height: 16px; font-weight: 700; letter-spacing: 0.28em; text-transform: uppercase; color: #A0502A">Nikoh to’yiga taklifnoma</p>
+      <p class="es-nm es-nmx es-nd2" style="position: absolute; left: 0; right: 0; top: {{ nm.yK }}px; margin: 0; text-align: center; font-size: {{ nm.fsK }}px">{{ nm.k }}</p>
+      <p class="es-amp es-nmx es-nd3" style="position: absolute; left: 0; right: 0; top: {{ nm.yA }}px; margin: 0; text-align: center; font-size: 44px; line-height: 1">&amp;</p>
+      <p class="es-nm es-nmx es-nd3" style="position: absolute; left: 0; right: 0; top: {{ nm.yL }}px; margin: 0; text-align: center; font-size: {{ nm.fsL }}px">{{ nm.l }}</p>
+      <p class="es-nmx es-nd4 es-num" style="position: absolute; left: 0; right: 0; top: {{ nm.yD }}px; margin: 0; text-align: center; font-size: 14px; line-height: 18px; font-weight: 700; letter-spacing: 0.34em; color: #7A3A1C">{{ w.dots }}</p>
+    </div>
+  </div>
+
+  <header style="position: relative; z-index: 1; height: 844px; flex: none">
+    <svg width="390" height="120" viewBox="0 0 390 120" aria-hidden="true" style="position: absolute; left: 0; top: 0">
+      <path class="es-wire" d="M-10 8 Q 97 70 195 18 Q 293 70 400 8"></path>
+      <sc-for list="{{ bulbs }}" as="u"><g class="{{ u.c }}"><circle class="es-halo" cx="{{ u.x }}" cy="{{ u.y }}" r="11"></circle><circle class="es-bulb" cx="{{ u.x }}" cy="{{ u.y }}" r="2.8"></circle></g></sc-for>
+    </svg>
+    <div class="es-hall es-tile" aria-hidden="true">
+      <div class="es-hin">
+        <div class="es-hrays"></div>
+        <div class="es-hl es-hl1 es-wood"></div>
+        <div class="es-hl es-hl2 es-wood"></div>
+      </div>
+    </div>
+    <sc-for list="{{ motes }}" as="m"><i class="es-mote" aria-hidden="true" style="{{ m }}"></i></sc-for>
+    <h1 class="es-vh">{{ pair }}</h1>
+    <div aria-hidden="true">
+      <svg width="40" height="40" viewBox="0 0 40 40" style="position: absolute; left: 175px; top: 206px"><path class="es-tyt" d="M20 4l4.6 8 9.2-.2-4.7 7.9 4.7 7.9-9.2-.2-4.6 8-4.6-8-9.2.2 4.7-7.9-4.7-7.9 9.2.2z"></path><circle class="es-tyd" cx="20" cy="19.7" r="4.6"></circle></svg>
+      <p style="position: absolute; left: 0; right: 0; top: 262px; margin: 0; text-align: center; font-size: 11px; line-height: 16px; font-weight: 700; letter-spacing: 0.28em; text-transform: uppercase; color: #A0502A">Nikoh to’yiga taklifnoma</p>
+      <p class="es-nm" style="position: absolute; left: 0; right: 0; top: {{ nm.yK }}px; margin: 0; text-align: center; font-size: {{ nm.fsK }}px">{{ nm.k }}</p>
+      <p class="es-amp" style="position: absolute; left: 0; right: 0; top: {{ nm.yA }}px; margin: 0; text-align: center; font-size: 44px; line-height: 1">&amp;</p>
+      <p class="es-nm" style="position: absolute; left: 0; right: 0; top: {{ nm.yL }}px; margin: 0; text-align: center; font-size: {{ nm.fsL }}px">{{ nm.l }}</p>
+      <p class="es-num" style="position: absolute; left: 0; right: 0; top: {{ nm.yD }}px; margin: 0; text-align: center; font-size: 14px; line-height: 18px; font-weight: 700; letter-spacing: 0.34em; color: #7A3A1C">{{ w.dots }}</p>
+    </div>
+    <div style="position: absolute; left: 10px; right: 10px; top: 740px; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px">
+      <sc-for list="{{ chips }}" as="c"><span class="es-chip es-num">{{ c }}</span></sc-for>
+    </div>
+    <svg class="es-icon es-cue" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" style="position: absolute; left: 183px; top: 800px; color: #E9BE6C"><path d="M6 9l6 6 6-6"></path></svg>
+  </header>
+
+  <section class="es-sec" style="padding-top: 48px">
+    <span class="es-no es-brass es-num">{{ no.taklif }}</span>
+    <div class="es-mini" aria-hidden="true"><span class="es-msur es-tile"></span><span class="es-mn"><svg class="es-icon es-mico" width="24" height="24" viewBox="0 0 24 24"><rect x="3.5" y="6" width="17" height="12.5" rx="2"></rect><path d="M4 7l8 6 8-6"></path></svg></span><span class="es-ml es-ml1 es-wood"></span><span class="es-ml es-ml2 es-wood"></span></div>
+    <p class="es-lbl es-up es-u1">Assalomu alaykum</p>
+    <p class="es-h2 es-up es-u2" style="font-size: {{ fsHello }}px; line-height: 1.15">{{ guestHello }}</p>
+    <sc-if value="{{ has.photo }}">
+      <div class="es-up es-u3" style="position: relative; width: 268px; height: 344px; margin-top: 30px">
+        <div class="es-tile" style="position: absolute; left: 0; top: 0; width: 268px; height: 344px; border-radius: 134px 134px 12px 12px"></div>
+        <img class="es-photo" src="{{ p.0 }}" alt="" style="position: absolute; left: 8px; top: 8px; width: 252px; height: 328px; border-radius: 126px 126px 6px 6px">
+      </div>
+    </sc-if>
+    <sc-if value="{{ b.taklif }}">
+      <div class="es-card es-up es-u4" style="margin-top: 26px; padding: 34px 26px 32px">
+        <p style="margin: 0; font-size: 18px; line-height: 30px; color: #3A1A0E; text-wrap: pretty; white-space: pre-line; overflow-wrap: anywhere">{{ d.matn }}</p>
+        <sc-if value="{{ d.taklif_qiluvchilar }}">
+          <svg width="80" height="14" viewBox="0 0 80 14" aria-hidden="true" style="display: block; margin: 22px auto 16px"><path class="es-tyl" d="M0 7h30 M50 7h30"></path><path class="es-tyt" d="M40 1l5 6-5 6-5-6z"></path></svg>
+          <p class="es-clbl">Taklif qiluvchilar</p>
+          <p class="es-u" style="margin: 8px 0 0; font-weight: 600; font-size: 26px; line-height: 32px; color: #4A1A0C; overflow-wrap: anywhere">{{ d.taklif_qiluvchilar }}</p>
+        </sc-if>
+      </div>
+    </sc-if>
+    <sc-if value="{{ noTaklif }}">
+      <p class="es-up es-u4" style="margin: 24px 0 0; max-width: 330px; font-size: 18px; line-height: 29px; color: #F8EBDA; text-wrap: pretty">Sizni nikoh to’yimizga lutfan taklif etamiz.</p>
+    </sc-if>
+  </section>
+
+  <sc-if value="{{ b.kun }}">
+  <section class="es-sec">
+    <span class="es-no es-brass es-num">{{ no.kun }}</span>
+    <div class="es-mini" aria-hidden="true"><span class="es-msur es-tile"></span><span class="es-mn"><svg class="es-icon es-mico" width="24" height="24" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15" rx="3"></rect><path d="M3.5 10h17M8 3v4M16 3v4"></path></svg></span><span class="es-ml es-ml1 es-wood"></span><span class="es-ml es-ml2 es-wood"></span></div>
+    <p class="es-lbl es-up es-u1">Sana va vaqt</p>
+    <h2 class="es-h2 es-up es-u2">Baxtli kun</h2>
+    <div class="es-card es-up es-u3" style="margin-top: 28px; padding: 22px; display: grid; grid-template-columns: 138px minmax(0, 1fr); gap: 18px; align-items: center; text-align: left">
+      <div style="position: relative; width: 138px; height: 178px; border-radius: 69px 69px 10px 10px; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; padding-bottom: 18px; box-sizing: border-box; background: radial-gradient(ellipse 80% 70% at 50% 44%, #FFF6DE 0, #F8D894 52%, #E0A057 100%); box-shadow: inset 0 0 0 5px #2A8F8A, inset 0 0 0 6px rgba(10, 60, 58, 0.6)">
+        <span class="es-u es-num" style="font-weight: 700; font-size: 84px; line-height: 0.9; color: #4A1A0C">{{ w.day }}</span>
+        <span style="margin-top: 6px; font-size: 13px; line-height: 16px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: #8A3E1C">{{ w.month }}</span>
+      </div>
+      <div style="min-width: 0; display: flex; flex-direction: column; gap: 14px">
+        <div><p class="es-clbl">Hafta kuni</p><p style="margin: 4px 0 0; font-size: 19px; line-height: 24px; font-weight: 700; overflow-wrap: anywhere">{{ w.Weekday }}</p></div>
+        <div><p class="es-clbl">Boshlanishi</p><p class="es-num" style="margin: 4px 0 0; font-size: 24px; line-height: 28px; font-weight: 700">{{ timeTxt }}</p></div>
+        <div><p class="es-clbl">Yil</p><p class="es-num" style="margin: 4px 0 0; font-size: 19px; line-height: 24px; font-weight: 700">{{ w.year }}</p></div>
+      </div>
+    </div>
+    <sc-if value="{{ cal }}">
+      <a class="es-obtn es-up es-u4" href="{{ cal }}" target="_blank" rel="noopener" style="margin-top: 16px; width: 100%">
+        <svg class="es-icon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="3"></rect><path d="M3.5 10h17M8 3v4M16 3v4M12 13v4M10 15h4"></path></svg>
+        Taqvimga qo’shish
+      </a>
+    </sc-if>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.taymer }}">
+  <section class="es-sec">
+    <span class="es-no es-brass es-num">{{ no.taymer }}</span>
+    <div class="es-mini" aria-hidden="true"><span class="es-msur es-tile"></span><span class="es-mn"><svg class="es-icon es-mico" width="24" height="24" viewBox="0 0 24 24"><path d="M7 3.5h10M7 20.5h10M8 3.5c0 5 8 5 8 8.5s-8 3.5-8 8.5M16 3.5c0 5-8 5-8 8.5s8 3.5 8 8.5"></path></svg></span><span class="es-ml es-ml1 es-wood"></span><span class="es-ml es-ml2 es-wood"></span></div>
+    <p class="es-lbl es-up es-u1">To’ygacha</p>
+    <h2 class="es-h2 es-up es-u2">Qolgan vaqt</h2>
+    <div class="es-num es-up es-u3" role="timer" aria-label="{{ cdText }}" style="margin-top: 32px; display: flex; gap: 8px; justify-content: center">
+      <sc-for list="{{ tiles }}" as="t">
+        <div style="display: flex; flex-direction: column; align-items: center">
+          <div class="es-flip es-wood">
+            <span class="es-hinge es-brass" style="left: 14px"></span><span class="es-hinge es-brass" style="right: 14px"></span>
+            <span class="{{ t.cls }}">{{ t.n }}</span>
+          </div>
+          <span style="margin-top: 10px; font-size: 10px; line-height: 14px; font-weight: 700; letter-spacing: 0.18em; color: #E9BE6C">{{ t.l }}</span>
+        </div>
+      </sc-for>
+    </div>
+    <p class="es-up es-u4" style="margin: 20px 0 0; font-size: 14px; line-height: 22px; color: rgba(248, 235, 218, 0.82)">{{ wkLine }}</p>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.manzil }}">
+  <section class="es-sec">
+    <span class="es-no es-brass es-num">{{ no.manzil }}</span>
+    <div class="es-mini" aria-hidden="true"><span class="es-msur es-tile"></span><span class="es-mn"><svg class="es-icon es-mico" width="24" height="24" viewBox="0 0 24 24"><path d="M12 21s-6.5-6-6.5-11a6.5 6.5 0 0 1 13 0c0 5-6.5 11-6.5 11Z"></path><circle cx="12" cy="10" r="2.3"></circle></svg></span><span class="es-ml es-ml1 es-wood"></span><span class="es-ml es-ml2 es-wood"></span></div>
+    <p class="es-lbl es-up es-u1">Manzil</p>
+    <h2 class="es-h2 es-up es-u2">{{ d.manzil_nomi }}</h2>
+    <sc-if value="{{ d.joy_rasmi }}">
+      <div class="es-up es-u3" style="position: relative; width: 350px; height: 262px; margin-top: 28px">
+        <div class="es-tile" style="position: absolute; left: 0; top: 0; width: 350px; height: 262px; border-radius: 175px 175px 14px 14px / 130px 130px 14px 14px"></div>
+        <img class="es-photo" src="{{ d.joy_rasmi }}" alt="" style="position: absolute; left: 8px; top: 8px; width: 334px; height: 246px; border-radius: 167px 167px 8px 8px / 122px 122px 8px 8px">
+      </div>
+    </sc-if>
+    <div class="es-card es-up es-u4" style="{{ placeSt }}">
+      <div style="display: flex; gap: 14px; align-items: flex-start; text-align: left">
+        <span class="es-brass" aria-hidden="true" style="flex: none; width: 44px; height: 44px; border-radius: 22px 22px 6px 6px; display: flex; align-items: center; justify-content: center"><svg class="es-icon" width="20" height="20" viewBox="0 0 24 24"><path d="M12 21s-6.5-6-6.5-11a6.5 6.5 0 0 1 13 0c0 5-6.5 11-6.5 11Z"></path><circle cx="12" cy="10" r="2.3"></circle></svg></span>
+        <div style="min-width: 0">
+          <p class="es-clbl">To’y manzili</p>
+          <p style="margin: 6px 0 0; font-size: 16px; line-height: 24px; color: #3A1A0E; overflow-wrap: anywhere">{{ placeLine }}</p>
+        </div>
+      </div>
+      <sc-if value="{{ d.xarita }}">
+        <a class="es-btn" href="{{ d.xarita }}" target="_blank" rel="noopener" style="margin-top: 18px; width: 100%">
+          <svg class="es-icon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4 3.5 6v14L9 18l6 2 5.5-2V4L15 6 9 4Z"></path><path d="M9 4v14M15 6v14"></path></svg>
+          Xaritada ochish
+        </a>
+      </sc-if>
+    </div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.dastur }}">
+  <section class="es-sec">
+    <span class="es-no es-brass es-num">{{ no.dastur }}</span>
+    <div class="es-mini" aria-hidden="true"><span class="es-msur es-tile"></span><span class="es-mn"><svg class="es-icon es-mico" width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 7.5V12l3 2"></path></svg></span><span class="es-ml es-ml1 es-wood"></span><span class="es-ml es-ml2 es-wood"></span></div>
+    <p class="es-lbl es-up es-u1">Dastur</p>
+    <h2 class="es-h2 es-up es-u2">Kecha tartibi</h2>
+    <div style="position: relative; width: 100%; margin-top: 30px; display: flex; flex-direction: column; gap: 16px">
+      <span aria-hidden="true" style="position: absolute; left: 35px; top: 40px; bottom: 40px; width: 0; border-left: 2px dotted rgba(233, 190, 108, 0.6)"></span>
+      <sc-for list="{{ prog }}" as="x">
+        <div class="es-row es-up" style="{{ x.st }}">
+          <div class="es-tp es-wood" style="position: relative">
+            <span class="es-num" style="font-size: 17px; line-height: 20px; font-weight: 700; color: #F2CE85">{{ x.vaqt }}</span>
+            <span class="es-brass" aria-hidden="true" style="position: absolute; left: 28px; top: 12px; width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 700">{{ x.n }}</span>
+          </div>
+          <span style="min-width: 0; font-size: 17px; line-height: 24px; font-weight: 600; color: #F8EBDA; overflow-wrap: anywhere">{{ x.nomi }}</span>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.hikoya }}">
+  <section class="es-sec">
+    <span class="es-no es-brass es-num">{{ no.hikoya }}</span>
+    <div class="es-mini" aria-hidden="true"><span class="es-msur es-tile"></span><span class="es-mn"><svg class="es-icon es-mico" width="26" height="24" viewBox="0 0 26 24"><circle cx="9.5" cy="13" r="6"></circle><circle cx="16.5" cy="13" r="6"></circle><path d="M8 5.5l1.5-2 1.5 2"></path></svg></span><span class="es-ml es-ml1 es-wood"></span><span class="es-ml es-ml2 es-wood"></span></div>
+    <p class="es-lbl es-up es-u1">Sevgi tarixi</p>
+    <h2 class="es-h2 es-up es-u2">Bizning yo’limiz</h2>
+    <div style="width: 100%; margin-top: 30px; display: flex; flex-direction: column; gap: 18px">
+      <sc-for list="{{ story }}" as="h">
+        <div class="es-card es-up" style="{{ h.st }}">
+          <span class="es-brass es-u es-num" style="position: absolute; left: 50%; top: -18px; width: 86px; height: 36px; margin-left: -43px; border-radius: 18px; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 700; box-shadow: 0 8px 14px -8px rgba(10, 2, 0, 0.8)">{{ h.yil }}</span>
+          <p class="es-u" style="margin: 0; font-weight: 600; font-size: 24px; line-height: 30px; color: #4A1A0C; overflow-wrap: anywhere">{{ h.sarlavha }}</p>
+          <sc-if value="{{ h.matn }}"><p class="es-txt" style="margin: 8px 0 0; font-size: 15px; line-height: 23px; overflow-wrap: anywhere">{{ h.matn }}</p></sc-if>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.galereya }}">
+  <section class="es-sec">
+    <span class="es-no es-brass es-num">{{ no.galereya }}</span>
+    <div class="es-mini" aria-hidden="true"><span class="es-msur es-tile"></span><span class="es-mn"><svg class="es-icon es-mico" width="24" height="24" viewBox="0 0 24 24"><rect x="3.5" y="4.5" width="17" height="15" rx="2.5"></rect><circle cx="9" cy="10" r="1.8"></circle><path d="M4 17l5-4.5 4 3.5 3-2.5 4 3.5"></path></svg></span><span class="es-ml es-ml1 es-wood"></span><span class="es-ml es-ml2 es-wood"></span></div>
+    <p class="es-lbl es-up es-u1">Suratlar</p>
+    <h2 class="es-h2 es-up es-u2">Xotira derazalari</h2>
+    <div class="es-up es-u3" style="position: relative; width: 316px; height: 416px; margin-top: 30px">
+      <div class="es-tile" style="position: absolute; left: 0; top: 0; width: 316px; height: 416px; border-radius: 158px 158px 18px 18px"></div>
+      <div class="es-feat" style="position: absolute; left: 8px; top: 8px" onPointerDown="{{ galDown }}" onPointerUp="{{ galUp }}" onPointerCancel="{{ galCancel }}">
+        <sc-for list="{{ gal }}" as="g"><img class="{{ g.cls }}" src="{{ g.src }}" alt="{{ g.alt }}"></sc-for>
+      </div>
+    </div>
+    <sc-if value="{{ galMany }}">
+      <div class="es-up es-u4" style="margin-top: 22px; display: flex; gap: 10px; justify-content: center">
+        <sc-for list="{{ gal }}" as="g"><button type="button" class="{{ g.tcls }}" aria-label="{{ g.alt }}" aria-pressed="{{ g.on }}" onClick="{{ g.pick }}"><img src="{{ g.src }}" alt=""></button></sc-for>
+      </div>
+    </sc-if>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.dress }}">
+  <section class="es-sec">
+    <span class="es-no es-brass es-num">{{ no.dress }}</span>
+    <div class="es-mini" aria-hidden="true"><span class="es-msur es-tile"></span><span class="es-mn"><svg class="es-icon es-mico" width="24" height="24" viewBox="0 0 24 24"><path d="M12 6.5a2 2 0 1 1 2-2M12 6.5v2L3.5 15a1.5 1.5 0 0 0 1 2.6h15a1.5 1.5 0 0 0 1-2.6L12 8.5"></path></svg></span><span class="es-ml es-ml1 es-wood"></span><span class="es-ml es-ml2 es-wood"></span></div>
+    <p class="es-lbl es-up es-u1">Kiyinish uslubi</p>
+    <h2 class="es-h2 es-up es-u2">Libos</h2>
+    <div class="es-card es-up es-u3" style="margin-top: 26px; padding: 30px 24px">
+      <p style="margin: 0; font-size: 17px; line-height: 28px; color: #3A1A0E; white-space: pre-line; overflow-wrap: anywhere">{{ d.dress_kod }}</p>
+      <sc-if value="{{ sw.length }}"><div style="margin-top: 22px; display: grid; grid-template-columns: {{ swCols }}; gap: 16px 8px; justify-items: center">
+        <sc-for list="{{ sw }}" as="c"><div style="display: flex; flex-direction: column; align-items: center; gap: 8px"><span class="es-sw" style="background: {{ c.bg }}"></span><span style="font-size: 12px; line-height: 16px; color: #5A3020">{{ c.name }}</span></div></sc-for>
+      </div></sc-if>
+    </div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.rsvp }}">
+  <section class="es-sec">
+    <span class="es-no es-brass es-num">{{ no.rsvp }}</span>
+    <div class="es-mini" aria-hidden="true"><span class="es-msur es-tile"></span><span class="es-mn"><svg class="es-icon es-mico" width="24" height="24" viewBox="0 0 24 24"><path d="M5 12.5l4.2 4.2L19 7"></path></svg></span><span class="es-ml es-ml1 es-wood"></span><span class="es-ml es-ml2 es-wood"></span></div>
+    <p class="es-lbl es-up es-u1">Javobingiz</p>
+    <h2 class="es-h2 es-up es-u2">Tashrif buyurasizmi?</h2>
+    <p class="es-up es-u2" style="margin: 10px 0 0; font-size: 14px; line-height: 22px; color: rgba(248, 235, 218, 0.82)">{{ deadline }}</p>
+    <div class="es-card es-up es-u3" style="margin-top: 26px; padding: 26px 20px 22px">
+      <sc-if value="{{ askName }}"><label for="es-name" class="es-flbl">Ismingiz</label><input id="es-name" class="es-field es-in2" type="text" maxlength="100" autocomplete="name" placeholder="Masalan: Dilnoza opa" onInput="{{ onName }}"></sc-if>
+      <div style="display: flex; gap: 10px">
+        <button type="button" class="{{ optYesCls }}" aria-pressed="{{ isYes }}" onClick="{{ sayYes }}">
+          <span class="es-cd" aria-hidden="true"><span class="es-cdn"></span><span class="es-cdl es-cdo es-wood"></span></span>
+          Albatta boraman
+        </button>
+        <button type="button" class="{{ optNoCls }}" aria-pressed="{{ isNo }}" onClick="{{ sayNo }}">
+          <span class="es-cd es-cdx" aria-hidden="true"><span class="es-cdn"></span><span class="es-cdl es-wood"></span></span>
+          Kela olmayman
+        </button>
+      </div>
+      <div style="margin-top: 20px; display: flex; align-items: center; justify-content: space-between; gap: 12px; height: 48px">
+        <span class="es-flbl">Necha kishi</span>
+        <div class="{{ stepperCls }}">
+          <button type="button" class="es-step" aria-label="Kamaytirish" disabled="{{ minusOff }}" onClick="{{ dec }}"><svg class="es-icon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12"></path></svg></button>
+          <span class="es-num es-u" aria-live="polite" style="min-width: 28px; text-align: center; font-weight: 700; font-size: 30px; line-height: 32px; color: #4A1A0C">{{ guests }}</span>
+          <button type="button" class="es-step" aria-label="Ko’paytirish" disabled="{{ plusOff }}" onClick="{{ inc }}"><svg class="es-icon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12M12 6v12"></path></svg></button>
+        </div>
+      </div>
+      <label for="es-wish" class="es-flbl" style="margin-top: 18px">Tilaklaringiz</label>
+      <textarea id="es-wish" class="es-field es-ta" rows="2" maxlength="300" placeholder="Yoshlarga ezgu tilaklaringiz…" onInput="{{ onWish }}"></textarea>
+      <div style="position: relative; margin-top: 20px">
+        <button type="button" class="es-btn" style="width: 100%" disabled="{{ busy }}" onClick="{{ send }}">
+          <sc-if value="{{ sent }}"><svg class="es-icon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"></path></svg></sc-if>
+          {{ sendLabel }}
+        </button>
+        <span class="{{ okCls }}" aria-hidden="true"><sc-for list="{{ conf }}" as="k"><i style="{{ k }}"></i></sc-for></span>
+      </div>
+      <p aria-live="polite" style="margin: 10px 0 0; font-size: 14px; line-height: 22px; font-weight: 600; color: #7A3A1C">{{ rsvpNote }}</p>
+    </div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ anyRow }}">
+  <section class="es-sec">
+    <span class="es-no es-brass es-num">{{ no.aloqa }}</span>
+    <div class="es-mini" aria-hidden="true"><span class="es-msur es-tile"></span><span class="es-mn"><svg class="es-icon es-mico" width="24" height="24" viewBox="0 0 24 24"><path d="M5.2 3.5h3.1l1.6 4.2-2.1 1.5a12.2 12.2 0 0 0 7 7l1.5-2.1 4.2 1.6v3.1a1.9 1.9 0 0 1-2.1 1.9A16.6 16.6 0 0 1 3.3 5.6a1.9 1.9 0 0 1 1.9-2.1Z"></path></svg></span><span class="es-ml es-ml1 es-wood"></span><span class="es-ml es-ml2 es-wood"></span></div>
+    <p class="es-lbl es-up es-u1">Aloqa</p>
+    <div style="width: 100%; margin-top: 22px; display: flex; flex-direction: column; gap: 12px">
+      <sc-if value="{{ b.guruh }}">
+        <div class="es-card es-up es-u2" style="display: flex; align-items: center; gap: 14px; padding: 16px 16px 16px 18px; border-radius: 24px; text-align: left">
+          <span class="es-tile" aria-hidden="true" style="flex: none; width: 44px; height: 44px; border-radius: 22px 22px 6px 6px; display: flex; align-items: center; justify-content: center; color: #FFFFFF"><svg class="es-icon" width="20" height="20" viewBox="0 0 24 24"><path d="M21 4 3 11l6 2.2M21 4l-3 16-7.5-5.6M21 4 9 13.2v5.3l3-3.1"></path></svg></span>
+          <div style="flex: 1; min-width: 0">
+            <p style="margin: 0; font-size: 16px; line-height: 22px; font-weight: 700">Mehmonlar guruhi</p>
+            <p class="es-txt" style="margin: 2px 0 0; font-size: 13px; line-height: 18px">Yangiliklar va suratlar uchun</p>
+          </div>
+          <a class="es-btn" href="{{ d.telegram_guruh }}" target="_blank" rel="noopener" style="flex: none; height: 44px; padding: 0 16px; font-size: 14px">Qo’shilish</a>
+        </div>
+      </sc-if>
+      <sc-if value="{{ b.telefon }}">
+        <div class="es-card es-up es-u3" style="display: flex; align-items: center; gap: 14px; padding: 16px 16px 16px 18px; border-radius: 24px; text-align: left">
+          <span class="es-tile" aria-hidden="true" style="flex: none; width: 44px; height: 44px; border-radius: 22px 22px 6px 6px; display: flex; align-items: center; justify-content: center; color: #FFFFFF"><svg class="es-icon" width="20" height="20" viewBox="0 0 24 24"><path d="M5.2 3.5h3.1l1.6 4.2-2.1 1.5a12.2 12.2 0 0 0 7 7l1.5-2.1 4.2 1.6v3.1a1.9 1.9 0 0 1-2.1 1.9A16.6 16.6 0 0 1 3.3 5.6a1.9 1.9 0 0 1 1.9-2.1Z"></path></svg></span>
+          <div style="flex: 1; min-width: 0">
+            <p class="es-txt" style="margin: 0; font-size: 13px; line-height: 18px">Savollar uchun</p>
+            <p class="es-num" style="margin: 2px 0 0; font-size: 18px; line-height: 24px; font-weight: 700; white-space: nowrap">{{ d.telefon }}</p>
+          </div>
+          <a class="es-btn" href="{{ tel }}" aria-label="Qo’ng’iroq qilish" style="flex: none; width: 44px; height: 44px; padding: 0; border-radius: 50%"><svg class="es-icon" width="19" height="19" viewBox="0 0 24 24" aria-hidden="true"><path d="M5.2 3.5h3.1l1.6 4.2-2.1 1.5a12.2 12.2 0 0 0 7 7l1.5-2.1 4.2 1.6v3.1a1.9 1.9 0 0 1-2.1 1.9A16.6 16.6 0 0 1 3.3 5.6a1.9 1.9 0 0 1 1.9-2.1Z"></path></svg></a>
+        </div>
+      </sc-if>
+    </div>
+  </section>
+  </sc-if>
+
+  <footer style="position: relative; z-index: 1; margin-top: auto; padding: 100px 20px 64px; display: flex; flex-direction: column; align-items: center; text-align: center">
+    <div class="es-rise" aria-hidden="true" style="position: relative; width: 132px; height: 180px">
+      <div class="es-tile" style="position: absolute; left: 0; top: 0; width: 132px; height: 180px; border-radius: 66px 66px 10px 10px"></div>
+      <div class="es-wood" style="position: absolute; left: 8px; top: 8px; width: 116px; height: 164px; border-radius: 58px 58px 4px 4px; box-shadow: inset 0 0 0 1px rgba(30, 10, 2, 0.6)">
+        <span class="es-pan" style="left: 10px; top: 12px; width: 94px; height: 140px; border-radius: 47px 47px 3px 3px"></span>
+        <span class="es-brass es-u" style="position: absolute; left: 26px; top: 50px; width: 64px; height: 64px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 700; box-shadow: 0 6px 10px rgba(20, 6, 0, 0.55), inset 0 0 0 1px rgba(255, 255, 255, 0.4)">{{ mono }}</span>
+      </div>
+    </div>
+    <p class="es-h2" style="margin-top: 30px">Tashrifingizdan xursand bo’lamiz</p>
+    <p style="margin: 14px 0 0; max-width: 320px; font-size: 16px; line-height: 26px; color: rgba(248, 235, 218, 0.86); text-wrap: pretty">Alloh yoshlarga baxtli va saodatli hayot nasib etsin. Duolaringiz uchun rahmat.</p>
+    <sc-if value="{{ d.taklif_qiluvchilar }}"><p class="es-u" style="margin: 22px 0 0; max-width: 340px; font-weight: 600; font-size: 22px; line-height: 28px; color: #E9BE6C; overflow-wrap: anywhere">{{ d.taklif_qiluvchilar }}</p></sc-if>
+    <p class="es-num" style="margin: 16px 0 0; font-size: 12px; line-height: 18px; font-weight: 700; letter-spacing: 0.3em; color: rgba(248, 235, 218, 0.7)">{{ w.dots }}</p>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":6800}}'>
+const D = SITE.d;
+function hhmm(t) { t = String(t || ''); return /^\d:\d\d$/.test(t) ? '0' + t : t; }
+function stamp(iso, time) { const t = Date.parse(String(iso || '').slice(0, 10) + 'T' + (hhmm(time) || '12:00') + ':00+05:00'); return isNaN(t) ? null : t; }
+function ini(n) {
+  n = String(n || '').trim(); if (!n) return '';
+  if (/^(sh|ch)/i.test(n)) return n.charAt(0).toUpperCase() + n.charAt(1).toLowerCase();
+  if (/^[og][’'‘`ʻʼ]/i.test(n)) return n.charAt(0).toUpperCase() + '’';
+  return n.charAt(0).toUpperCase();
+}
+function fitPx(text, max, width, em) { const n = String(text || '').length || 1; return Math.max(Math.round(max * 0.42), Math.min(max, Math.floor(width / (n * em)))); }
+function fitWord(text, max, width, em) { const L = Math.max(1, ...String(text || '').split(/\s+/).map((x) => x.length)); return Math.max(Math.round(max * 0.45), Math.min(max, Math.floor(width / (L * em)))); }
+function telHref(t) { return 'tel:' + String(t || '').replace(/[^\d+]/g, ''); }
+const KUYOV = String(D.kuyov || '').trim();
+const KELIN = String(D.kelin || '').trim();
+const GUEST = String(D.mehmon || '').trim();
+function calUrl() {
+  const t = stamp(D.sana, D.vaqt); if (t == null) return '';
+  const f = (ms) => new Date(ms).toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
+  const title = [KUYOV, KELIN].filter(Boolean).join(' va ') + (KUYOV || KELIN ? ': ' : '') + 'nikoh to’yi';
+  const loc = [D.manzil_nomi, D.manzil].filter(Boolean).join(', ');
+  return 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + encodeURIComponent(title) + '&dates=' + f(t) + '/' + f(t + 5 * 3600e3) + (loc ? '&location=' + encodeURIComponent(loc) : '');
+}
+function deadlineText(tail) {
+  const t = stamp(D.sana, '12:00'); if (t == null) return 'Iltimos, ' + tail + '.';
+  const dl = t - 7 * 864e5;
+  if (dl < Date.now()) return 'Iltimos, imkon qadar tezroq ' + tail + '.';
+  return 'Iltimos, ' + SITE.when(new Date(dl + 5 * 3600e3).toISOString().slice(0, 10)).dm + 'gacha ' + tail + '.';
+}
+const SW = [
+  ['fil suyagi', 'radial-gradient(circle at 35% 30%, #FFFFFF, #F1E8D6 70%)'],
+  ['to\'q ko\'k', 'radial-gradient(circle at 35% 30%, #2B4A7A, #0F2140 70%)'],
+  ['to\'q yashil', 'radial-gradient(circle at 35% 30%, #1E6B57, #0B3229 70%)'],
+  ['zumrad', 'radial-gradient(circle at 35% 30%, #1E6B57, #0B3229 70%)'],
+  ['shampan', 'radial-gradient(circle at 35% 30%, #FFF6E4, #E6D2A8 70%)'],
+  ['oltin', 'linear-gradient(130deg, #A9822F, #F1D9A0 45%, #C9A24A 62%, #8A6A24)'],
+  ['kumush', 'linear-gradient(130deg, #8E9399, #F1F3F5 45%, #B8BDC2 62%, #7D8287)'],
+  ['marvarid', 'radial-gradient(circle at 35% 30%, #FFFFFF, #EADFE0 55%, #CDBBC3 85%)'],
+  ['bordo', 'linear-gradient(135deg, #5C1224, #8A2A3F 45%, #4A0C1B 75%, #7A1F33)'],
+  ['pudra', 'linear-gradient(135deg, #E9C7C0, #F8E4DF 45%, #DDB2AA 75%, #F1D3CD)'],
+  ['oq', 'radial-gradient(circle at 35% 30%, #FFFFFF, #E9E6E0 70%)'],
+  ['krem', 'radial-gradient(circle at 35% 30%, #FFF8EC, #EADBC0 70%)'],
+  ['bej', 'radial-gradient(circle at 35% 30%, #EFE2CC, #CDB48F 70%)'],
+  ['moviy', 'radial-gradient(circle at 35% 30%, #A9CFF2, #4F89C6 70%)'],
+  ['ko\'k', 'radial-gradient(circle at 35% 30%, #7FB2E5, #2F6DB0 70%)'],
+  ['yashil', 'radial-gradient(circle at 35% 30%, #7FBF8E, #2E7A47 70%)'],
+  ['pushti', 'radial-gradient(circle at 35% 30%, #F7C6D3, #E28FA6 70%)'],
+  ['qizil', 'radial-gradient(circle at 35% 30%, #E05A5A, #9E1F28 70%)'],
+  ['jigarrang', 'radial-gradient(circle at 35% 30%, #A27454, #5E3B26 70%)'],
+  ['kulrang', 'radial-gradient(circle at 35% 30%, #C9CCCF, #7D8287 70%)'],
+  ['lavanda', 'radial-gradient(circle at 35% 30%, #D9CCF0, #A794D2 70%)'],
+  ['binafsha', 'radial-gradient(circle at 35% 30%, #B79AD8, #5E3C8C 70%)'],
+  ['sariq', 'radial-gradient(circle at 35% 30%, #FBE38A, #D9A92A 70%)'],
+  ['qora', 'linear-gradient(135deg, #151012, #3A2E31 45%, #0E0A0B 75%, #2A2124)']
+];
+function swatches(text) {
+  let t = ' ' + String(text || '').toLowerCase().replace(/[’‘ʻʼ`]/g, '\'') + ' ';
+  const found = [];
+  SW.forEach(([k, bg]) => {
+    const re = new RegExp('(^|[^a-z\'])' + k + '(?![a-z])');
+    const m = re.exec(t);
+    if (m) {
+      found.push({ at: m.index, name: SITE.cap(k.replace(/'/g, '’')), bg });
+      t = t.slice(0, m.index + m[1].length) + ' '.repeat(k.length) + t.slice(m.index + m[1].length + k.length);
+    }
+  });
+  return found.sort((a, b) => a.at - b.at).slice(0, 8);
+}
+
+
+/* ismlar joylashuvi: kirish oxiri va bosh qism bir xil */
+const FSK = fitPx(KUYOV, 60, 236, 0.6), FSL = fitPx(KELIN, 60, 236, 0.6);
+const NM = { k: KUYOV, l: KELIN, fsK: FSK, fsL: FSL, yK: 0, yA: 0, yL: 0, yD: 0 };
+NM.yK = 318 + Math.round((60 - FSK) * 0.5);
+NM.yA = 392;
+NM.yL = 446 + Math.round((60 - FSL) * 0.3);
+NM.yD = NM.yL + FSL + 28;
+
+/* chiroqlar shodasi */
+const BULBS = [];
+for (let i = 0; i <= 16; i++) {
+  const x = -10 + i * 25.6, half = x < 195;
+  const t = half ? (x + 10) / 205 : (x - 195) / 205;
+  const y = half ? (1 - t) * (1 - t) * 8 + 2 * (1 - t) * t * 70 + t * t * 18 : (1 - t) * (1 - t) * 18 + 2 * (1 - t) * t * 70 + t * t * 8;
+  BULBS.push({ x: x.toFixed(1), y: (y + 5).toFixed(1), c: ['es-tw', 'es-tw2', 'es-tw3'][i % 3] });
+}
+const SPARKS = [0, 45, 90, 135, 180, 225, 270, 315].map((a, i) => '--a: ' + a + 'deg; animation-delay: ' + (0.3 + (i % 3) * 0.05).toFixed(2) + 's');
+const CONF = [];
+for (let i = 0; i < 14; i++) CONF.push('--a: ' + (i * 360 / 14 + (i % 2) * 9).toFixed(0) + 'deg; background: ' + ['#E9BE6C', '#2A8F8A', '#F8EBDA', '#C9772F'][i % 4] + '; animation-delay: ' + ((i % 4) * 0.04).toFixed(2) + 's');
+const MOTES = [[60, 600, 0], [300, 560, -3], [150, 700, -6], [250, 660, -1.5], [100, 520, -4.5], [330, 700, -7.5]].map((m) => 'left: ' + m[0] + 'px; top: ' + m[1] + 'px; animation-delay: ' + m[2] + 's');
+
+/* eshiklar joyi: chap ustun 1–3, o'ng ustun 4–6 */
+const DPOS = [[14, 232, 0], [14, 384, 0], [14, 536, 0], [280, 232, 1], [280, 384, 1], [280, 536, 1]];
+
+/* galereya: avval 2-5 suratlar, keyin birinchisi */
+const NPH = Math.max(1, Math.min(5, SITE.has.photos || 0));
+const GAL = [1, 2, 3, 4, 0].filter((i) => i < NPH).map((i) => SITE.p[i]);
+const ORDER = ['taklif', 'kun', 'taymer', 'manzil', 'dastur', 'hikoya', 'galereya', 'dress', 'rsvp', 'aloqa'];
+
+class Component extends DCLogic {
+  constructor(...args) {
+    super(...args);
+    this.state = { doors: [false, false, false, false, false, false], big: false, flood: false, gone: false, jig: false, gal: 0, rsvp: '', guests: 1, sent: false, busy: false, warn: '', boom: 0 };
+    this.nm = ''; this.wish = ''; this.timers = [];
+  }
+  componentDidMount() {
+    this.timer = setInterval(() => this.forceUpdate(), 1000);
+  }
+  componentWillUnmount() { clearInterval(this.timer); this.timers.forEach(clearTimeout); }
+  later(fn, ms) { this.timers.push(setTimeout(fn, ms)); }
+  openDoor(i) {
+    if (this.state.big || this.state.doors[i]) return;
+    const doors = this.state.doors.slice(); doors[i] = true;
+    this.setState({ doors });
+    if (doors.every(Boolean)) this.later(() => this.openBig(), this.cascading ? 380 : 700);
+  }
+  bigTap() {
+    const s = this.state;
+    if (s.big || this.cascading) return;
+    if (s.doors.every(Boolean)) { this.openBig(); return; }
+    this.cascading = true;
+    this.setState({ jig: true });
+    this.later(() => this.setState({ jig: false }), 520);
+    const rest = s.doors.map((v, i) => (v ? -1 : i)).filter((i) => i >= 0);
+    rest.forEach((i, k) => this.later(() => this.openDoor(i), 120 + k * 130));
+  }
+  openBig() {
+    if (this.state.big) return;
+    this.setState({ big: true });
+    SITE.opened();
+    this.later(() => this.setState({ flood: true }), 1000);
+    this.later(() => this.setState({ gone: true }), 2450);
+  }
+  doorList(w, cd) {
+    const s = this.state;
+    const prog = Array.isArray(D.dastur) ? D.dastur.filter((x) => x && (x.vaqt || x.nomi)) : [];
+    const place = SITE.b.manzil && D.manzil_nomi ? String(D.manzil_nomi) : '';
+    const big = (v) => ({ vCls: 'es-nv es-u es-num', vSt: 'font-size: ' + (String(v).length > 3 ? 30 : 42) + 'px; line-height: 1' });
+    const txt = (v) => ({ vCls: 'es-nv', vSt: 'font-size: ' + (String(v).length > 22 ? 12 : 14) + 'px; line-height: ' + (String(v).length > 22 ? 15 : 17) + 'px; overflow-wrap: anywhere; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden' });
+    const list = [
+      Object.assign({ l: 'Sana', v: w.day || '—', s: w.month }, big(w.day || '—')),
+      Object.assign({ l: 'Vaqt', v: hhmm(D.vaqt) || '—', s: w.Weekday }, big(hhmm(D.vaqt) || '—')),
+      place ? Object.assign({ l: 'Joy', v: place, s: '' }, txt(place)) : Object.assign({ l: 'Yil', v: w.year || '—', s: 'baxtli yil' }, big(w.year || '—')),
+      SITE.b.dastur && prog.length ? Object.assign({ l: 'Dastur', v: String(prog.length), s: 'go’zal lahza' }, big(prog.length)) : Object.assign({ l: 'Qoldi', v: String(cd.d), s: 'kun' }, big(cd.d)),
+      SITE.has.photo ? { l: 'Biz', photo: true } : Object.assign({ l: 'Biz', v: [ini(KUYOV), ini(KELIN)].filter(Boolean).join('&'), s: '' }, big('xxxx')),
+      SITE.b.rsvp ? Object.assign({ l: 'Javob', v: 'Sizni kutamiz', s: 'pastda javob bering' }, txt('Sizni kutamiz')) : Object.assign({ l: 'Duo', v: 'Duolaringizni kutamiz', s: '' }, txt('Duolaringizni kutamiz'))
+    ];
+    return list.map((x, i) => {
+      const on = !!s.doors[i], r = DPOS[i][2];
+      return Object.assign(x, {
+        n: i + 1, plain: !x.photo,
+        cls: 'es-d' + (r ? ' es-d--r' : '') + (on ? ' es-d--on' : ''),
+        pos: 'left: ' + DPOS[i][0] + 'px; top: ' + DPOS[i][1] + 'px',
+        aria: (i + 1) + '-eshik' + (on ? ': ' + x.l + (x.v ? ' — ' + x.v : '') : ''),
+        tap: () => this.openDoor(i)
+      });
+    });
+  }
+  galVals() {
+    const n = GAL.length, cur = (this.state.gal || 0) % n;
+    const go = (k) => this.setState({ gal: (k + n) % n });
+    return {
+      gal: GAL.map((src, k) => ({ src, alt: 'Surat ' + (k + 1), on: k === cur, cls: k === cur ? 'es-fimg es-fimg--on' : 'es-fimg', tcls: k === cur ? 'es-th es-th--on' : 'es-th', pick: () => go(k) })),
+      galMany: n > 1,
+      galDown: (e) => { this.gx = e.clientX; },
+      galCancel: () => { this.gx = null; },
+      galUp: (e) => { if (this.gx == null) return; const dx = e.clientX - this.gx; this.gx = null; if (n < 2) return; go(cur + (Math.abs(dx) > 36 && dx > 0 ? -1 : 1)); }
+    };
+  }
+  send() {
+    const s = this.state;
+    if (!s.rsvp) { this.setState({ warn: 'Iltimos, avval javobingizni tanlang.' }); return; }
+    const name = this.nm.trim();
+    if (!SITE.has.guest && !name) { this.setState({ warn: 'Iltimos, ismingizni yozing.' }); return; }
+    if (s.busy) return;
+    this.setState({ busy: true, warn: '' });
+    SITE.rsvp(s.rsvp === 'yes', s.rsvp === 'yes' ? s.guests : 1, name, this.wish.trim())
+      .then(() => this.setState({ sent: true, busy: false, boom: (this.state.boom || 0) + 1 }))
+      .catch(() => this.setState({ busy: false, warn: 'Javob yuborilmadi. Iltimos, qayta urinib ko’ring.' }));
+  }
+  rsvpVals() {
+    const s = this.state || {};
+    const isYes = s.rsvp === 'yes', isNo = s.rsvp === 'no', guests = s.guests || 1;
+    const who = (GUEST || this.nm.trim());
+    let note = '';
+    if (s.sent && isYes) note = (who ? 'Rahmat, ' + who + '! ' : 'Rahmat! ') + (guests > 1 ? 'Sizni ' + guests + ' kishi bilan kutamiz.' : 'Sizni intiqlik bilan kutamiz.');
+    else if (s.sent && isNo) note = (who ? 'Rahmat, ' + who + '! ' : 'Rahmat! ') + 'Duolaringiz biz bilan bo’lsin.';
+    else if (s.warn) note = s.warn;
+    return {
+      deadline: deadlineText('javob bering'),
+      askName: !SITE.has.guest,
+      onName: (e) => { this.nm = e.target.value; },
+      onWish: (e) => { this.wish = e.target.value; },
+      isYes, isNo, guests,
+      optYesCls: isYes ? 'es-ch es-ch--on' : 'es-ch',
+      optNoCls: isNo ? 'es-ch es-ch--on' : 'es-ch',
+      sayYes: () => this.setState({ rsvp: 'yes', sent: false, warn: '' }),
+      sayNo: () => this.setState({ rsvp: 'no', sent: false, warn: '' }),
+      stepperCls: isNo ? 'es-stepper es-stepper--off' : 'es-stepper',
+      minusOff: isNo || guests <= 1, plusOff: isNo || guests >= 10,
+      dec: () => this.setState({ guests: Math.max(1, guests - 1), sent: false }),
+      inc: () => this.setState({ guests: Math.min(10, guests + 1), sent: false }),
+      send: () => this.send(),
+      busy: !!s.busy, sent: !!s.sent,
+      sendLabel: s.busy ? 'Yuborilmoqda…' : (s.sent ? 'Javob yuborildi' : 'Javobni yuborish'),
+      rsvpNote: note,
+      okCls: s.sent && isYes ? 'es-okb es-okb--on' : 'es-okb',
+      conf: s.sent && isYes ? CONF : []
+    };
+  }
+  renderVals() {
+    const s = this.state || {};
+    const w = SITE.when(D.sana, D.vaqt);
+    const cd = SITE.countdown(D.sana, D.vaqt);
+    const music = SITE.music.playing;
+    const guestName = GUEST || 'mehmon';
+    const hello = 'Hurmatli ' + (GUEST || 'mehmon') + '!';
+    const sw = swatches(D.dress_kod);
+    const nOpen = (s.doors || []).filter(Boolean).length;
+    const flip = (v, l) => ({ n: SITE.pad(v), l, cls: 'es-fd ' + (v % 2 ? 'es-fa' : 'es-fb') });
+    const vis = { taklif: true, kun: SITE.b.kun, taymer: SITE.b.taymer, manzil: SITE.b.manzil, dastur: SITE.b.dastur, hikoya: SITE.b.hikoya, galereya: SITE.b.galereya, dress: SITE.b.dress, rsvp: SITE.b.rsvp, aloqa: !!(SITE.b.guruh || SITE.b.telefon) };
+    const no = {}; let k = 0;
+    ORDER.forEach((key) => { if (vis[key]) { k++; no[key] = SITE.pad(k); } });
+    const hasImg = !!D.joy_rasmi;
+    let hint = 'Eshiklarni birma-bir oching', hint2 = 'Har birining ortida taklifnomaning bir sirri bor';
+    if (nOpen > 0 && nOpen < 6) { hint = (6 - nOpen) + ' ta eshik qoldi'; hint2 = 'Yoki markazdagi katta eshikni bosing'; }
+    if (nOpen === 6) { hint = 'Katta eshik ochilmoqda…'; hint2 = ''; }
+    return Object.assign({
+      introCls: 'es-i' + (s.big ? ' es-i--big' : '') + (s.flood ? ' es-i--flood' : '') + (s.gone ? ' es-i--gone' : '') + (s.jig ? ' es-jig' : ''),
+      introHidden: !!s.gone,
+      bowCls: 'es-bow',
+      bigTap: () => this.bigTap(),
+      doors: this.doorList(w, cd),
+      sparks: SPARKS,
+      pips: [0, 1, 2, 3, 4, 5].map((i) => (s.doors[i] ? 'es-pip es-pip--on' : 'es-pip')),
+      hint, hint2,
+      bulbs: BULBS, motes: MOTES, nm: NM, w, no,
+      chips: [w.Weekday, w.dm, D.vaqt ? 'soat ' + hhmm(D.vaqt) : ''].filter(Boolean),
+      pair: [KUYOV, KELIN].filter(Boolean).join(' va '),
+      mono: [ini(KUYOV), ini(KELIN)].filter(Boolean).join('&'),
+      guestName, fsGuest: fitPx(guestName, 30, 330, 0.55),
+      guestHello: hello, fsHello: fitWord(hello, 34, 340, 0.58),
+      noTaklif: !SITE.b.taklif,
+      cal: calUrl(),
+      timeTxt: hhmm(D.vaqt) || '—',
+      tiles: [flip(cd.d, 'KUN'), flip(cd.h, 'SOAT'), flip(cd.m, 'DAQIQA'), flip(cd.s, 'SONIYA')],
+      cdText: cd.d + ' kun, ' + cd.h + ' soat, ' + cd.m + ' daqiqa qoldi',
+      wkLine: [w.Weekday, w.date, D.vaqt ? 'soat ' + hhmm(D.vaqt) : ''].filter(Boolean).join(' · '),
+      placeLine: D.manzil || D.manzil_nomi || '',
+      placeSt: hasImg ? 'width: calc(100% - 28px); margin-top: -34px; padding: 22px 20px' : 'margin-top: 26px; padding: 22px 20px',
+      prog: (Array.isArray(D.dastur) ? D.dastur.filter((x) => x && (x.vaqt || x.nomi)) : []).map((x, i) => ({ vaqt: hhmm(x.vaqt) || '', nomi: x.nomi || '', n: i + 1, st: 'transition-delay: ' + (0.3 + i * 0.12).toFixed(2) + 's' })),
+      story: (Array.isArray(D.hikoya) ? D.hikoya.filter((x) => x && (x.yil || x.sarlavha || x.matn)) : []).map((h, i) => Object.assign({}, h, { st: 'margin-top: 18px; padding: 34px 24px 26px; transition-delay: ' + (0.3 + i * 0.14).toFixed(2) + 's' })),
+      sw, swCols: 'repeat(' + Math.max(1, Math.min(4, sw.length)) + ', minmax(0, 1fr))',
+      anyRow: !!(SITE.b.guruh || SITE.b.telefon),
+      tel: telHref(D.telefon),
+      musicOn: music, musicOff: !music,
+      musicLabel: music ? 'Musiqani o’chirish' : 'Musiqani yoqish',
+      toggleMusic: () => { SITE.music.toggle(); }
+    }, this.galVals(), this.rsvpVals());
+  }
+}
+</script>
+</body>
+</html>

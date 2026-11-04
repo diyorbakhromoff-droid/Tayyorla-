@@ -1,0 +1,919 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<title>Tug’ilgan kun: Viktorina</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Days+One&amp;family=Ubuntu:wght@400;500;700&amp;display=swap">
+<style>
+body{margin:0}
+.vk-root{font-family:'Ubuntu',Arial,sans-serif;-webkit-tap-highlight-color:transparent}
+.vk-root button{-webkit-tap-highlight-color:transparent}
+.is-hidden{display:none !important}
+.vk-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.vk-hd{font-family:'Days One','Arial Black',Arial,sans-serif;font-weight:400}
+.vk-kick{margin:0;font-family:'Days One','Arial Black',Arial,sans-serif;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:#D7FF3A}
+.vk-h2{margin:8px 0 0;font-family:'Days One','Arial Black',Arial,sans-serif;font-weight:400;font-size:36px;line-height:1.12;color:#FFFFFF;overflow-wrap:break-word}
+.vk-lead{margin:10px 0 0;font-size:15px;line-height:1.5;color:#C9D0FF}
+.vk-bar{display:block;width:64px;height:6px;margin-top:14px;border-radius:3px;background:#D7FF3A;transform-origin:0 50%;animation:vk-grow 1s cubic-bezier(.2,.9,.2,1) both;animation-timeline:view();animation-range:entry 0% entry 70%}
+.vk-bar--c{margin-left:auto;margin-right:auto;transform-origin:50% 50%}
+@keyframes vk-grow{from{transform:scaleX(0)}to{transform:none}}
+.vk-rise{animation:vk-rise 1s cubic-bezier(.2,.85,.25,1.08) both;animation-timeline:view();animation-range:entry 0% entry 75%}
+@keyframes vk-rise{from{opacity:0;transform:translateY(36px) scale(.96)}to{opacity:1;transform:none}}
+.vk-pop{animation:vk-popV 1s cubic-bezier(.3,1.45,.5,1) both;animation-timeline:view();animation-range:entry 0% entry 70%}
+@keyframes vk-popV{from{opacity:0;transform:scale(.72) rotate(-4deg)}to{opacity:1;transform:none}}
+
+/* studio: beams, bulbs, floating shapes */
+.vk-beam{position:absolute;top:-60px;width:520px;height:1000px;margin-left:-260px;transform-origin:50% 0;background:conic-gradient(from 168deg at 50% 0,rgba(255,255,255,0) 0deg,rgba(214,226,255,0.2) 12deg,rgba(255,255,255,0) 24deg);animation:vk-sweep 7s ease-in-out infinite alternate;pointer-events:none}
+@keyframes vk-sweep{from{transform:rotate(-22deg)}to{transform:rotate(22deg)}}
+.vk-bulbs{position:absolute;pointer-events:none}
+.vk-bg{position:absolute;left:0;top:0;width:100%;height:100%;animation:vk-chase 1.2s ease-in-out infinite}
+@keyframes vk-chase{0%,100%{opacity:1}50%{opacity:.18}}
+.vk-bulb{position:absolute;display:block;width:8px;height:8px;margin:-4px 0 0 -4px;border-radius:50%;background:#FFF3C4;box-shadow:0 0 6px 2px rgba(255,214,110,0.85)}
+.vk-shape{position:absolute;display:block;animation:vk-drift 9s ease-in-out infinite alternate}
+@keyframes vk-drift{from{transform:translate(0,0) rotate(0deg)}to{transform:translate(14px,-26px) rotate(40deg)}}
+
+/* buttons */
+.vk-btn{position:relative;overflow:hidden;min-height:62px;padding:0 26px;border:0;border-radius:20px;background:#D7FF3A;color:#0C1462;font-family:'Days One','Arial Black',Arial,sans-serif;font-size:18px;letter-spacing:.03em;box-shadow:0 6px 0 #8DB000,0 16px 30px rgba(4,8,50,0.45);display:inline-flex;align-items:center;justify-content:center;gap:10px;cursor:pointer;transition:transform .12s ease,box-shadow .12s ease}
+.vk-btn:active{transform:translateY(5px);box-shadow:0 1px 0 #8DB000,0 6px 14px rgba(4,8,50,0.4)}
+.vk-btn::after,.vk-opt::after,.vk-wish::after{content:'';position:absolute;left:50%;top:50%;width:360px;height:360px;margin:-180px 0 0 -180px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,0.55) 0,rgba(255,255,255,0) 60%);opacity:0;transform:scale(1);pointer-events:none;transition:transform .6s ease,opacity .7s ease}
+.vk-btn:active::after,.vk-opt:active::after,.vk-wish:active::after{transform:scale(.1);opacity:1;transition:0s}
+.vk-btn--sm{min-height:54px;font-size:16px;border-radius:16px}
+.vk-shine{position:absolute;left:-60%;top:0;width:40%;height:100%;background:linear-gradient(100deg,rgba(255,255,255,0),rgba(255,255,255,0.55),rgba(255,255,255,0));transform:skewX(-14deg);animation:vk-sh 3.8s ease-in-out infinite;pointer-events:none}
+@keyframes vk-sh{0%,55%{transform:translateX(0) skewX(-14deg)}100%{transform:translateX(420%) skewX(-14deg)}}
+.vk-ghost{min-height:46px;padding:0 18px;border:0;border-radius:999px;background:none;color:rgba(255,255,255,0.72);font-family:'Ubuntu',Arial,sans-serif;font-size:14px;font-weight:500;letter-spacing:.02em;display:inline-flex;align-items:center;gap:8px;cursor:pointer;transition:color .2s ease,transform .15s ease}
+.vk-ghost:active{transform:scale(.95);color:#FFFFFF}
+.vk-chip{display:inline-flex;align-items:center;gap:8px;min-height:34px;padding:0 15px;border-radius:999px;background:rgba(255,255,255,0.1);box-shadow:inset 0 0 0 1.5px rgba(255,255,255,0.2);font-size:13px;font-weight:700;letter-spacing:.03em;color:#FFFFFF}
+.vk-music{position:absolute;right:16px;top:16px;z-index:6;width:48px;height:48px;border:0;border-radius:50%;background:#D7FF3A;box-shadow:0 5px 0 #8DB000,0 10px 20px rgba(0,0,0,0.35);display:flex;align-items:center;justify-content:center;padding:0;cursor:pointer;transition:transform .15s ease}
+.vk-music:active{transform:translateY(4px)}
+.vk-music--on{animation:vk-beat 1s ease-in-out infinite}
+@keyframes vk-beat{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+
+/* ---------- intro: quiz ---------- */
+.vk-intro{transition:opacity .2s ease}
+.vk-stage{position:absolute;left:20px;top:104px;width:350px;height:600px;border-radius:30px;background:linear-gradient(180deg,#2A41E8 0%,#1B2DC0 55%,#1626A6 100%);box-shadow:inset 0 0 0 2px rgba(255,255,255,0.14),0 30px 60px rgba(4,8,50,0.6);overflow:hidden}
+.vk-q{position:absolute;left:0;top:0;width:350px;height:600px;padding:22px 20px 20px;box-sizing:border-box;display:flex;flex-direction:column;transition:transform .75s cubic-bezier(.2,.9,.25,1.1),opacity .45s ease .1s,visibility 0s linear 0s}
+.vk-q--past,.vk-q--next{opacity:0;visibility:hidden;pointer-events:none;transition:transform .7s cubic-bezier(.6,0,.35,1),opacity .45s ease,visibility 0s linear .75s}
+.vk-q--past{transform:translateX(-112%) rotate(-7deg)}
+.vk-q--next{transform:translateX(112%) rotate(7deg)}
+.vk-seg{flex:1;height:7px;border-radius:4px;background:rgba(255,255,255,0.2);transition:background .4s ease,transform .4s ease}
+.vk-seg--cur{background:#FFFFFF;animation:vk-segP 1.2s ease-in-out infinite}
+@keyframes vk-segP{0%,100%{opacity:1}50%{opacity:.45}}
+.vk-seg--ok{background:#D7FF3A}
+.vk-seg--bad{background:#FF5A4E}
+.vk-score{display:inline-flex;align-items:center;gap:8px;min-height:40px;padding:0 16px 0 12px;border-radius:999px;background:#0C1462;box-shadow:inset 0 0 0 1.5px rgba(215,255,58,0.6);color:#D7FF3A;font-family:'Days One',Arial,sans-serif;font-size:16px}
+.vk-score--a{animation:vk-bumpA .6s cubic-bezier(.3,1.8,.5,1) both}
+.vk-score--b{animation:vk-bumpB .6s cubic-bezier(.3,1.8,.5,1) both}
+@keyframes vk-bumpA{0%{transform:scale(1)}40%{transform:scale(1.25) rotate(-4deg)}100%{transform:none}}
+@keyframes vk-bumpB{0%{transform:scale(1)}40%{transform:scale(1.25) rotate(4deg)}100%{transform:none}}
+/* start card */
+.vk-emb{position:relative;width:180px;height:180px;margin:18px auto 0}
+.vk-embRing{position:absolute;left:-12px;top:-12px;width:200px;height:200px;border-radius:50%;border:2px dashed rgba(215,255,58,0.6);box-sizing:border-box;animation:vk-spin 16s linear infinite}
+.vk-embGlow{position:absolute;left:-40px;top:-40px;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,rgba(215,255,58,0.42) 0,rgba(215,255,58,0) 62%);animation:vk-glow 2.6s ease-in-out infinite}
+@keyframes vk-glow{0%,100%{transform:scale(.9);opacity:.75}50%{transform:scale(1.08);opacity:1}}
+.vk-embCore{position:absolute;left:10px;top:10px;width:160px;height:160px;border-radius:50%;background:radial-gradient(circle at 34% 28%,#F2FFB8 0,#D7FF3A 40%,#A8D400 100%);box-shadow:0 8px 0 #7E9E00,0 22px 40px rgba(4,8,50,0.5);display:flex;align-items:center;justify-content:center;animation:vk-tilt 3.2s ease-in-out infinite alternate}
+@keyframes vk-tilt{from{transform:rotate(-7deg) translateY(2px)}to{transform:rotate(7deg) translateY(-4px)}}
+.vk-orbit{position:absolute;left:0;top:0;width:180px;height:180px;animation:vk-spin 5s linear infinite}
+.vk-orbit--b{animation-duration:8s;animation-direction:reverse}
+@keyframes vk-spin{to{transform:rotate(360deg)}}
+/* options */
+.vk-opt{position:relative;overflow:hidden;display:flex;align-items:center;gap:14px;width:100%;min-height:66px;padding:9px 14px 9px 10px;border:0;border-radius:18px;background:rgba(255,255,255,0.1);box-shadow:inset 0 0 0 1.5px rgba(255,255,255,0.2),0 4px 0 rgba(8,12,70,0.45);color:#FFFFFF;font-family:'Ubuntu',Arial,sans-serif;font-size:17px;font-weight:700;line-height:1.25;text-align:left;cursor:pointer;box-sizing:border-box;transition:transform .15s ease,background-color .35s ease,color .35s ease,opacity .35s ease,box-shadow .35s ease}
+.vk-opt:active{transform:scale(.97)}
+.vk-q--cur .vk-opt{animation:vk-optIn .6s cubic-bezier(.3,1.45,.5,1) both;animation-delay:calc(.3s + var(--i) * .09s)}
+@keyframes vk-optIn{from{opacity:0;transform:translateX(40px) scale(.92)}to{opacity:1;transform:none}}
+.vk-q .vk-opt--ok{background:#D7FF3A;color:#0C1462;box-shadow:0 0 0 3px rgba(215,255,58,0.35),0 0 34px rgba(215,255,58,0.55);animation:vk-okPop .65s cubic-bezier(.3,1.7,.5,1) both}
+.vk-q .vk-opt--bad{background:#FF5A4E;box-shadow:0 4px 0 #B8281F;animation:vk-shake .55s cubic-bezier(.36,.07,.19,.97) both}
+.vk-q .vk-opt--show{box-shadow:inset 0 0 0 3px #D7FF3A,0 0 24px rgba(215,255,58,0.35);animation:vk-showP 1s ease-in-out .4s 2 both}
+.vk-q .vk-opt--dim{opacity:.38;animation:none}
+@keyframes vk-okPop{0%{transform:scale(1)}35%{transform:scale(1.06)}100%{transform:none}}
+@keyframes vk-shake{0%,100%{transform:none}15%{transform:translateX(-10px) rotate(-1deg)}30%{transform:translateX(9px) rotate(1deg)}45%{transform:translateX(-7px)}60%{transform:translateX(5px)}75%{transform:translateX(-3px)}}
+@keyframes vk-showP{0%,100%{transform:none}50%{transform:scale(1.03)}}
+.vk-badge{position:relative;flex:none;width:46px;height:46px;border-radius:13px;display:flex;align-items:center;justify-content:center;box-shadow:inset 0 -3px 0 rgba(0,0,0,0.18)}
+.vk-opt--ok .vk-badge,.vk-opt--bad .vk-badge,.vk-opt--show .vk-badge{animation:vk-flipB .6s cubic-bezier(.3,1.5,.5,1) both}
+@keyframes vk-flipB{from{transform:rotate(-200deg) scale(.4)}to{transform:none}}
+.vk-otx{min-width:0;overflow-wrap:anywhere}
+.vk-bits{position:absolute;left:36px;top:50%;width:0;height:0;pointer-events:none}
+.vk-bit{position:absolute;left:0;top:0;opacity:0;animation:vk-bit 1.2s cubic-bezier(.15,.8,.3,1) both}
+@keyframes vk-bit{0%{opacity:1;transform:translate(0,0) rotate(0) scale(.3)}70%{opacity:1}100%{opacity:0;transform:translate(var(--x),var(--y)) rotate(var(--r)) scale(1)}}
+.vk-plus{position:absolute;right:22px;top:16px;font-family:'Days One',Arial,sans-serif;font-size:26px;color:#D7FF3A;text-shadow:0 3px 0 #0C1462;animation:vk-plus 1.4s cubic-bezier(.2,.8,.3,1) both;pointer-events:none}
+@keyframes vk-plus{0%{opacity:0;transform:translateY(20px) scale(.5)}25%{opacity:1;transform:translateY(0) scale(1.2)}70%{opacity:1;transform:translateY(-14px) scale(1)}100%{opacity:0;transform:translateY(-40px)}}
+.vk-hint{position:absolute;left:0;bottom:34px;width:350px;display:flex;align-items:center;justify-content:center;gap:12px;font-family:'Days One',Arial,sans-serif;font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,0.55);transition:opacity .3s ease}
+.vk-hint--off{opacity:0}
+.vk-hintDot{position:relative;width:14px;height:14px;border-radius:50%;background:#D7FF3A}
+.vk-hintDot::after{content:'';position:absolute;left:-8px;top:-8px;width:30px;height:30px;border-radius:50%;box-shadow:0 0 0 2px #D7FF3A;animation:vk-ping 1.6s ease-out infinite}
+@keyframes vk-ping{from{transform:scale(.4);opacity:1}to{transform:scale(1.3);opacity:0}}
+.vk-fb{margin-top:auto;padding:16px;border-radius:20px;background:#0C1462;box-shadow:inset 0 0 0 1.5px rgba(255,255,255,0.12);opacity:0;transform:translateY(30px) scale(.95);visibility:hidden;transition:opacity .35s ease,transform .55s cubic-bezier(.3,1.4,.5,1),visibility 0s linear .6s}
+.vk-fb--on{opacity:1;transform:none;visibility:visible;transition:opacity .35s ease .35s,transform .6s cubic-bezier(.3,1.4,.5,1) .35s,visibility 0s linear 0s}
+/* result */
+.vk-ring{transition:stroke-dashoffset 1.6s cubic-bezier(.3,.8,.3,1) .5s}
+.vk-res .vk-rIn{opacity:0;transform:translateY(20px) scale(.9)}
+.vk-q--cur .vk-rIn{animation:vk-rIn .8s cubic-bezier(.3,1.4,.5,1) both;animation-delay:var(--d)}
+@keyframes vk-rIn{from{opacity:0;transform:translateY(20px) scale(.9)}to{opacity:1;transform:none}}
+.vk-dot{display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:50%}
+.vk-cf{position:absolute;top:-30px;display:block;opacity:0}
+.vk-intro--res .vk-cf{animation:vk-fall var(--t) linear var(--d) 2 both}
+@keyframes vk-fall{0%{opacity:0;transform:translate(0,0) rotate(0)}8%{opacity:1}100%{opacity:1;transform:translate(var(--x),900px) rotate(var(--r))}}
+/* exit */
+.vk-flash{position:absolute;left:0;top:0;width:390px;height:844px;background:radial-gradient(circle at 50% 45%,#FFFFFF 0,rgba(215,255,58,0.6) 35%,rgba(215,255,58,0) 70%);opacity:0;pointer-events:none}
+.vk-intro--out{pointer-events:none;animation:vk-out .8s ease .55s both}
+.vk-intro--out .vk-stage{transition:transform .9s cubic-bezier(.5,0,.2,1),opacity .6s ease .25s;transform:scale(1.14) translateY(-8px);opacity:0}
+.vk-intro--out .vk-iFade{transition:opacity .4s ease,transform .5s ease;opacity:0;transform:translateY(16px)}
+.vk-intro--out .vk-flash{animation:vk-flash .9s ease .15s both}
+@keyframes vk-flash{0%{opacity:0;transform:scale(.6)}40%{opacity:1}100%{opacity:0;transform:scale(1.4)}}
+@keyframes vk-out{from{opacity:1}to{opacity:0;visibility:hidden}}
+
+/* ---------- page ---------- */
+.vk-page--in .vk-pin{animation:vk-pin 1s cubic-bezier(.2,.9,.25,1.1) both;animation-delay:calc(.75s + var(--d, 0s))}
+@keyframes vk-pin{from{opacity:0;transform:translateY(34px) scale(.95)}to{opacity:1;transform:none}}
+.vk-word{display:inline-block;white-space:nowrap}
+.vk-ch{display:inline-block}
+.vk-page--in .vk-ch{animation:vk-chIn .85s cubic-bezier(.3,1.6,.45,1) both;animation-delay:calc(.6s + var(--i) * .05s)}
+@keyframes vk-chIn{from{opacity:0;transform:translateY(46px) rotate(-14deg) scale(.5)}to{opacity:1;transform:none}}
+.vk-name{color:#D7FF3A;text-shadow:0 5px 0 #0A1150,0 14px 26px rgba(0,0,0,0.35)}
+.vk-age{position:absolute;right:-6px;bottom:-26px;width:118px;padding:12px 0 10px;border-radius:20px;background-color:#0A1150;background-image:radial-gradient(circle,rgba(215,255,58,0.16) 1.2px,rgba(215,255,58,0) 1.6px);background-size:7px 7px;box-shadow:0 0 0 3px #D7FF3A,0 16px 30px rgba(0,0,0,0.45);text-align:center;transform:rotate(-6deg)}
+.vk-led{font-family:'Days One',Arial,sans-serif;color:#D7FF3A;text-shadow:0 0 10px rgba(215,255,58,0.75),0 0 2px #F4FFC8}
+/* prize card */
+.vk-prize{position:relative;margin-top:26px;padding:30px 22px 24px;border-radius:28px;background:#FFFFFF;color:#141B66;box-shadow:0 10px 0 #B9C3FF,0 30px 50px rgba(4,8,50,0.45)}
+.vk-ribbon{position:absolute;left:22px;top:-16px;display:inline-flex;align-items:center;gap:8px;height:34px;padding:0 16px;border-radius:999px;background:#D7FF3A;color:#0C1462;font-family:'Days One',Arial,sans-serif;font-size:12px;letter-spacing:.14em;box-shadow:0 4px 0 #8DB000}
+.vk-seal{position:absolute;right:-12px;top:-26px;width:74px;height:74px;animation:vk-spin 20s linear infinite}
+/* timer */
+.vk-cell{position:relative;width:78px;height:104px;border-radius:18px;background-color:#0A1150;background-image:radial-gradient(circle,rgba(215,255,58,0.13) 1.2px,rgba(215,255,58,0) 1.6px);background-size:7px 7px;box-shadow:inset 0 0 0 2px rgba(255,255,255,0.12),0 6px 0 #070C3C,0 16px 26px rgba(0,0,0,0.35);display:flex;align-items:center;justify-content:center;overflow:hidden;perspective:300px}
+.vk-cell::after{content:'';position:absolute;left:0;right:0;top:51px;height:1px;background:rgba(5,8,40,0.55);box-shadow:0 1px 0 rgba(255,255,255,0.06)}
+.vk-num{display:block;font-size:38px;line-height:1;font-variant-numeric:tabular-nums}
+.vk-num--a{animation:vk-flipA .55s cubic-bezier(.3,1.4,.5,1) both}
+.vk-num--b{animation:vk-flipB2 .55s cubic-bezier(.3,1.4,.5,1) both}
+@keyframes vk-flipA{from{transform:rotateX(-95deg);opacity:.2}to{transform:none;opacity:1}}
+@keyframes vk-flipB2{from{transform:rotateX(-95deg);opacity:.2}to{transform:none;opacity:1}}
+/* wishes */
+.vk-wish{position:relative;overflow:hidden;display:flex;align-items:center;gap:14px;width:100%;min-height:64px;padding:9px 16px 9px 9px;border:0;border-radius:18px;background:rgba(255,255,255,0.09);box-shadow:inset 0 0 0 1.5px rgba(255,255,255,0.18),0 4px 0 rgba(6,10,60,0.5);color:#FFFFFF;font-family:'Ubuntu',Arial,sans-serif;font-size:19px;font-weight:700;line-height:1.25;text-align:left;cursor:pointer;box-sizing:border-box;transition:transform .15s ease,background-color .35s ease,color .35s ease,box-shadow .35s ease}
+.vk-wish:active{transform:scale(.97)}
+.vk-wish--on{background:#D7FF3A;color:#0C1462;box-shadow:0 0 0 3px rgba(215,255,58,0.3),0 0 28px rgba(215,255,58,0.45);animation:vk-okPop .6s cubic-bezier(.3,1.7,.5,1) both}
+.vk-wish--on .vk-badge{animation:vk-flipB .6s cubic-bezier(.3,1.5,.5,1) both}
+.vk-allOk{opacity:0;transform:scale(.6);transition:opacity .4s ease,transform .6s cubic-bezier(.3,1.6,.5,1)}
+.vk-allOk--on{opacity:1;transform:none}
+/* cake */
+.vk-flame{position:absolute;left:50%;top:-40px;width:20px;height:34px;margin-left:-10px;border-radius:50% 50% 50% 50%/62% 62% 38% 38%;background:radial-gradient(circle at 50% 72%,#FFFFFF 0 18%,#FFE36E 40%,#FF9A3C 72%,rgba(255,90,78,0.4));box-shadow:0 0 22px 6px rgba(255,200,80,0.55);transform-origin:50% 100%;animation:vk-fl .7s ease-in-out infinite alternate}
+@keyframes vk-fl{from{transform:scale(1,1) rotate(-4deg)}to{transform:scale(.86,1.12) rotate(4deg)}}
+.vk-cake--out .vk-flame{animation:vk-fOut .45s ease-in both}
+@keyframes vk-fOut{to{opacity:0;transform:scale(.1,.3)}}
+.vk-smoke{position:absolute;left:50%;top:-44px;width:14px;height:14px;margin-left:-7px;border-radius:50%;background:rgba(220,226,255,0.6);opacity:0}
+.vk-cake--out .vk-smoke{animation:vk-smoke 2s ease-out .25s both}
+@keyframes vk-smoke{0%{opacity:0;transform:translate(0,0) scale(.4)}20%{opacity:.85}100%{opacity:0;transform:translate(var(--sx),-90px) scale(2.6)}}
+.vk-cake--out .vk-bit{animation:vk-bit 1.5s cubic-bezier(.15,.8,.3,1) .2s both}
+.vk-cakeBits .vk-bit{animation:none}
+.vk-cake--out .vk-cakeBits .vk-bit{animation:vk-bit 1.5s cubic-bezier(.15,.8,.3,1) .2s both}
+.vk-wline{opacity:0;transform:translateY(14px) scale(.94);transition:opacity .6s ease .5s,transform .7s cubic-bezier(.3,1.4,.5,1) .5s}
+.vk-cake--out .vk-wline{opacity:1;transform:none}
+.vk-digit{display:block;font-family:'Days One',Arial,sans-serif;font-size:92px;line-height:1;background:repeating-linear-gradient(135deg,#FFFFFF 0 10px,#FF6FA5 10px 20px);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 4px 0 #0A1150)}
+/* doors */
+.vk-doors{position:relative;display:block;width:330px;height:330px;margin:0 auto;padding:0;border:0;border-radius:26px;overflow:hidden;background:#0A1150;color:inherit;font:inherit;cursor:pointer}
+.vk-door{position:absolute;top:0;width:165px;height:330px;overflow:hidden;transition:transform 1s cubic-bezier(.65,0,.25,1)}
+.vk-door--l{left:0;border-radius:26px 0 0 26px}
+.vk-door--r{left:165px;border-radius:0 26px 26px 0}
+.vk-doors--on .vk-door--l{transform:translateX(-104%)}
+.vk-doors--on .vk-door--r{transform:translateX(104%)}
+.vk-q2{position:absolute;top:60px;width:330px;text-align:center;font-family:'Days One',Arial,sans-serif;font-size:170px;line-height:1;color:#D7FF3A;text-shadow:0 8px 0 #0A1150}
+.vk-secret{opacity:0;transform:scale(.85);transition:opacity .6s ease .45s,transform .8s cubic-bezier(.3,1.4,.5,1) .4s}
+.vk-doors--on .vk-secret{opacity:1;transform:none}
+.vk-tapHint{transition:opacity .3s ease}
+.vk-doors--on .vk-tapHint{opacity:0}
+/* ladder */
+.vk-rung{position:relative;display:flex;align-items:center;gap:14px;padding:12px 14px 12px 12px;border-radius:20px;background:rgba(255,255,255,0.08);box-shadow:inset 0 0 0 1.5px rgba(255,255,255,0.16)}
+.vk-rung--top{background:#D7FF3A;color:#0C1462;box-shadow:0 0 0 3px rgba(215,255,58,0.3),0 0 30px rgba(215,255,58,0.4)}
+.vk-hex{flex:none;width:66px;height:58px;display:flex;flex-direction:column;align-items:center;justify-content:center;clip-path:polygon(18% 0,82% 0,100% 50%,82% 100%,18% 100%,0 50%);background:#0A1150}
+/* reviews */
+.vk-eq{display:flex;align-items:flex-end;gap:3px;height:22px}
+.vk-eq i{display:block;width:4px;height:22px;border-radius:2px;background:#D7FF3A;transform-origin:50% 100%;animation:vk-eq 1s ease-in-out infinite alternate}
+@keyframes vk-eq{from{transform:scaleY(.25)}to{transform:scaleY(1)}}
+/* buzzer */
+.vk-buzz{position:relative;display:block;width:210px;height:210px;margin:0 auto;padding:0;border:0;border-radius:50%;background:none;cursor:pointer}
+.vk-buzzBase{position:absolute;left:0;top:46px;width:210px;height:164px;border-radius:50%;background:linear-gradient(180deg,#4A55C8 0%,#232C8E 40%,#0A1150 100%);box-shadow:inset 0 3px 0 rgba(255,255,255,0.25),0 0 0 3px #0A1150,0 22px 40px rgba(0,0,0,0.5)}
+.vk-buzzTop{position:absolute;left:20px;top:0;width:170px;height:170px;border-radius:50%;background:radial-gradient(circle at 36% 30%,#FFE1DC 0,#FF5A4E 38%,#C92A20 100%);box-shadow:0 16px 0 #8E1A13,0 0 0 6px rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;transition:transform .12s ease,box-shadow .12s ease}
+.vk-buzz:active .vk-buzzTop{transform:translateY(12px);box-shadow:0 4px 0 #8E1A13,0 0 0 6px rgba(255,255,255,0.12)}
+.vk-buzz--done .vk-buzzTop{background:radial-gradient(circle at 36% 30%,#F6FFD0 0,#D7FF3A 40%,#9CC400 100%);box-shadow:0 16px 0 #6E8A00,0 0 0 6px rgba(215,255,58,0.3),0 0 50px rgba(215,255,58,0.55)}
+.vk-wave{position:absolute;left:20px;top:0;width:170px;height:170px;border-radius:50%;box-shadow:0 0 0 3px #D7FF3A;opacity:0}
+.vk-buzz--done .vk-wave{animation:vk-wave 1.4s ease-out both}
+@keyframes vk-wave{0%{opacity:.9;transform:scale(1)}100%{opacity:0;transform:scale(1.9)}}
+.vk-burst .vk-bit{animation:none}
+.vk-burst--go .vk-bit{animation:vk-bit 1.5s cubic-bezier(.15,.8,.3,1) both}
+
+@media (prefers-reduced-motion: reduce){
+  .vk-root *,.vk-root *::before,.vk-root *::after{animation:none !important;transition:none !important}
+  .vk-intro--out{opacity:0;visibility:hidden}
+  .vk-cake--out .vk-flame{opacity:0}
+}
+</style>
+</helmet>
+<div class="vk-root" style="width: 390px; min-height: var(--vh, 100vh); position: relative; overflow: hidden; background: linear-gradient(180deg, #1C2FBF 0%, #1727A8 30%, #12208F 62%, #0C1462 100%); color: #FFFFFF">
+
+  <div aria-hidden="true" style="position: absolute; left: 0; top: 0; bottom: 0; width: 390px; pointer-events: none; overflow: hidden">
+    <span class="vk-beam" style="left: 40px"></span>
+    <span class="vk-beam" style="left: 350px; animation-delay: -3.5s"></span>
+    <sc-for list="{{ shapes }}" as="sh"><svg class="vk-shape" width="30" height="30" viewBox="0 0 28 28" style="{{ sh.st }}"><path d="{{ sh.d }}" fill="{{ sh.c }}"></path></svg></sc-for>
+  </div>
+
+  <div class="{{ pageCls }}" style="position: relative; z-index: 1; min-height: var(--vh, 100vh); display: flex; flex-direction: column">
+
+    <section style="position: relative; min-height: 844px; flex: none; padding: 50px 20px 44px; box-sizing: border-box; text-align: center; display: flex; flex-direction: column; justify-content: center">
+      <sc-if value="{{ has.music }}"><button type="button" class="{{ musicCls }}" onClick="{{ toggleMusic }}" aria-label="Musiqa" aria-pressed="{{ musicOn }}"><svg aria-hidden="true" width="18" height="20" viewBox="0 0 22 26"><path d="M8 3L20 0V17.5A3.5 3 0 1 1 17 14.6V5.2L10 7V20.5A3.5 3 0 1 1 7 17.6V3Z" fill="#0C1462"></path></svg></button></sc-if>
+      <p class="vk-kick vk-pin" style="--d: 0s">Bugungi shou qahramoni</p>
+      <h1 class="vk-hd vk-name" style="margin: 14px 0 0; font-size: {{ nameFs }}px; line-height: 1.1; overflow-wrap: break-word"><span class="vk-sr">{{ name }}</span><span aria-hidden="true"><sc-for list="{{ nameWords }}" as="wd"><span class="vk-word"><sc-for list="{{ wd.ch }}" as="c"><span class="vk-ch" style="{{ c.st }}">{{ c.t }}</span></sc-for></span> </sc-for></span></h1>
+      <p class="vk-hd vk-pin" style="--d: .5s; margin: 12px 0 0; font-size: 20px; color: #FFFFFF">Tug’ilgan kuning muborak!</p>
+
+      <div class="vk-pin" style="--d: .7s; position: relative; width: 310px; height: 370px; margin: 34px auto 0">
+        <div class="vk-bulbs" style="left: -12px; top: -12px; width: 334px; height: 394px">
+          <sc-for list="{{ heroBulbs }}" as="g"><span class="vk-bg" style="{{ g.st }}"><sc-for list="{{ g.b }}" as="bb"><i class="vk-bulb" style="{{ bb }}"></i></sc-for></span></sc-for>
+        </div>
+        <div style="position: absolute; left: 0; top: 0; width: 310px; height: 370px; border-radius: 30px; overflow: hidden; background: linear-gradient(160deg, #2E46F0, #1625A0); box-shadow: 0 0 0 4px #0A1150, 0 24px 50px rgba(4,8,50,0.55)">
+          <sc-if value="{{ has.photo }}"><img src="{{ p.0 }}" alt="" style="display: block; width: 310px; height: 370px; object-fit: cover"></sc-if>
+          <sc-if value="{{ noPhoto }}">
+            <div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 310px; height: 370px; display: flex; align-items: center; justify-content: center">
+              <svg width="230" height="230" viewBox="0 0 100 100" style="animation: vk-spin 30s linear infinite"><path d="{{ starPath }}" fill="#D7FF3A"></path></svg>
+              <span class="vk-hd" style="position: absolute; font-size: 64px; color: #0C1462">{{ heroMark }}</span>
+            </div>
+          </sc-if>
+          <span aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 310px; height: 370px; background: linear-gradient(170deg, rgba(255,255,255,0.22), rgba(255,255,255,0) 28%, rgba(12,20,98,0) 70%, rgba(12,20,98,0.35))"></span>
+        </div>
+        <sc-if value="{{ yoshOn }}">
+          <div class="vk-age" aria-hidden="true">
+            <span class="vk-led" style="display: block; font-size: {{ ageFs }}px; line-height: 1">{{ yosh }}</span>
+            <span style="display: block; margin-top: 4px; font-family: 'Days One', Arial, sans-serif; font-size: 11px; letter-spacing: 0.24em; color: #FFFFFF">YOSH</span>
+          </div>
+        </sc-if>
+      </div>
+
+      <div class="vk-pin" style="--d: .95s; margin-top: 42px; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px">
+        <span class="vk-chip"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 28 28"><path d="M14 2L26 14L14 26L2 14Z" fill="#D7FF3A"></path></svg>{{ heroDate }}</span>
+        <sc-if value="{{ resChip }}"><span class="vk-chip" style="background: #D7FF3A; color: #0C1462; box-shadow: none">{{ resChip }}</span></sc-if>
+      </div>
+      <sc-if value="{{ from.line }}"><p class="vk-pin" style="--d: 1.05s; margin: 16px 0 0; padding: 0 20px; font-size: 14px; line-height: 1.45; color: #C9D0FF; overflow-wrap: anywhere">{{ from.line }}</p></sc-if>
+    </section>
+
+<sc-if value="{{ b.tabrik }}">
+    <section style="position: relative; padding: 40px 20px 44px">
+      <p class="vk-kick">{{ tab.tabrik }}</p>
+      <h2 class="vk-h2">Tabrik</h2>
+      <span class="vk-bar"></span>
+      <div class="vk-prize vk-rise" style="margin-top: 38px; transform: rotate(-1deg)">
+        <span class="vk-ribbon"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 28 28"><path d="M14 1L17.6 10.2L27 10.6L19.6 16.6L22.2 26L14 20.6L5.8 26L8.4 16.6L1 10.6L10.4 10.2Z" fill="#0C1462"></path></svg>Bosh sovrin</span>
+        <svg class="vk-seal" aria-hidden="true" viewBox="0 0 100 100"><path d="{{ starPath }}" fill="#FF5A4E"></path><circle cx="50" cy="50" r="27" fill="#FFFFFF"></circle><path d="M50 30L55.3 43.6L69.8 44.1L58.5 53.2L62.4 67.2L50 59L37.6 67.2L41.5 53.2L30.2 44.1L44.7 43.6Z" fill="#FF5A4E"></path></svg>
+        <div style="font-size: 17px; line-height: 1.65; overflow-wrap: anywhere">
+          <sc-if value="{{ dropCap }}"><span aria-hidden="true" class="vk-hd" style="float: left; margin: 4px 12px 0 0; width: 58px; height: 58px; border-radius: 16px; background: #1C2FBF; color: #D7FF3A; font-size: 36px; line-height: 58px; text-align: center">{{ dropCap }}</span></sc-if>
+          <span style="white-space: pre-line"><span class="vk-sr">{{ dropCap }}</span>{{ restText }}</span>
+        </div>
+        <sc-if value="{{ d.kimdan }}">
+          <div style="clear: both; margin-top: 22px; padding-top: 16px; border-top: 2px dashed #D5DAFF; display: flex; align-items: center; gap: 12px">
+            <span aria-hidden="true" class="vk-hd" style="flex: none; width: 42px; height: 42px; border-radius: 12px; background: #FF5A4E; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-size: 18px; transform: rotate(-6deg)">{{ fromIni }}</span>
+            <div style="min-width: 0">
+              <sc-if value="{{ from.label }}"><p class="vk-kick" style="font-size: 10px; color: #5B67C9">{{ from.label }}</p></sc-if>
+              <p class="vk-hd" style="margin: 3px 0 0; font-size: 17px; line-height: 1.3; color: #141B66; overflow-wrap: anywhere">{{ from.names }}</p>
+            </div>
+          </div>
+        </sc-if>
+      </div>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.taymer }}">
+    <section style="position: relative; padding: 40px 20px 44px; text-align: center">
+      <p class="vk-kick">{{ tab.taymer }}</p>
+      <h2 class="vk-h2">{{ cdTitle }}</h2>
+      <span class="vk-bar vk-bar--c"></span>
+      <p class="vk-lead">{{ cdDate }}</p>
+      <div class="vk-pop" style="display: flex; justify-content: center; gap: 9px; margin-top: 26px">
+        <sc-for list="{{ caps }}" as="t">
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 10px">
+            <div class="vk-cell"><span class="{{ t.cls }}">{{ t.v }}</span></div>
+            <span class="vk-kick" style="font-size: 10px; letter-spacing: 0.18em; color: #C9D0FF">{{ t.l }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.tilaklar }}">
+    <section style="position: relative; padding: 40px 20px 44px">
+      <p class="vk-kick">{{ tab.tilaklar }}</p>
+      <h2 class="vk-h2">Tilaklar</h2>
+      <span class="vk-bar"></span>
+      <p class="vk-lead">Har birini belgilang — bu savolda hamma javob to’g’ri!</p>
+      <div style="margin-top: 22px; display: flex; flex-direction: column; gap: 12px">
+        <sc-for list="{{ wishes }}" as="w">
+          <div class="vk-rise" style="{{ w.row }}">
+            <button type="button" class="{{ w.cls }}" onClick="{{ w.tap }}" aria-pressed="{{ w.on }}">
+              <span class="vk-badge" style="{{ w.bst }}"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 28 28"><path d="{{ w.icon }}" fill="{{ w.ifill }}"></path></svg></span>
+              <span class="vk-otx">{{ w.text }}</span>
+            </button>
+          </div>
+        </sc-for>
+      </div>
+      <p class="{{ allOkCls }}" style="margin: 20px 0 0; text-align: center"><span class="vk-chip" style="background: #D7FF3A; color: #0C1462; box-shadow: none">Barcha javoblar to’g’ri!</span></p>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.sham }}">
+    <section style="position: relative; padding: 40px 20px 44px; text-align: center">
+      <p class="vk-kick">{{ tab.sham }}</p>
+      <h2 class="vk-h2">Super raund</h2>
+      <span class="vk-bar vk-bar--c"></span>
+      <p class="vk-lead">Niyat qiling va shamlarni bir puflashda o’chiring.</p>
+      <div class="{{ cakeCls }}" style="position: relative; width: 330px; height: 390px; margin: 10px auto 0">
+        <p class="vk-wline vk-hd" style="position: absolute; left: 0; top: 6px; width: 330px; margin: 0; font-size: {{ wishFs }}px; line-height: 1.2; color: #D7FF3A; overflow-wrap: break-word">{{ wishLine }}</p>
+        <div style="position: absolute; left: 0; top: 118px; width: 330px; display: flex; justify-content: center; align-items: flex-end; gap: 6px">
+          <sc-for list="{{ candles }}" as="cd">
+            <div style="position: relative">
+              <span aria-hidden="true" class="vk-flame" style="{{ cd.fd }}"></span>
+              <span aria-hidden="true" class="vk-smoke" style="{{ cd.sm }}"></span>
+              <span aria-hidden="true" style="position: absolute; left: 50%; top: -8px; width: 3px; height: 10px; margin-left: -1.5px; border-radius: 2px; background: #2B2A40"></span>
+              <sc-if value="{{ cd.digit }}"><span aria-hidden="true" class="vk-digit">{{ cd.digit }}</span></sc-if>
+              <sc-if value="{{ cd.plain }}"><span aria-hidden="true" style="display: block; width: 20px; height: 84px; border-radius: 8px; background: repeating-linear-gradient(135deg, #FFFFFF 0 8px, #FF6FA5 8px 16px); box-shadow: 0 4px 0 #0A1150"></span></sc-if>
+            </div>
+          </sc-for>
+        </div>
+        <svg aria-hidden="true" width="330" height="190" viewBox="0 0 330 190" style="position: absolute; left: 0; top: 200px">
+          <ellipse cx="165" cy="168" rx="150" ry="20" fill="#0A1150"></ellipse>
+          <ellipse cx="165" cy="160" rx="146" ry="18" fill="#D7FF3A"></ellipse>
+          <rect x="40" y="30" width="250" height="128" rx="22" fill="#FFFFFF"></rect>
+          <rect x="40" y="96" width="250" height="22" fill="#9B6BFF"></rect>
+          <path d="M40 52C40 38 50 30 62 30H268C280 30 290 38 290 52V58C282 58 282 76 272 76C262 76 262 60 252 60C242 60 242 84 230 84C218 84 218 62 206 62C194 62 194 78 182 78C170 78 170 60 158 60C146 60 146 86 134 86C122 86 122 62 110 62C98 62 98 76 86 76C74 76 74 60 62 60C52 60 50 70 40 70Z" fill="#FF5A4E"></path>
+          <circle cx="78" cy="132" r="4" fill="#FFB524"></circle><circle cx="120" cy="140" r="4" fill="#2EE6A8"></circle><circle cx="170" cy="134" r="4" fill="#FF5A4E"></circle><circle cx="214" cy="142" r="4" fill="#1C2FBF"></circle><circle cx="254" cy="132" r="4" fill="#FFB524"></circle>
+        </svg>
+        <div class="vk-cakeBits" aria-hidden="true" style="position: absolute; left: 165px; top: 110px; width: 0; height: 0">
+          <sc-for list="{{ cakeBits }}" as="c"><span class="vk-bit" style="{{ c }}"></span></sc-for>
+        </div>
+      </div>
+      <button type="button" class="vk-btn vk-btn--sm" onClick="{{ blow }}" style="margin-top: 14px; min-width: 230px"><span class="{{ blowIdle }}">Puflash</span><span class="{{ blowDone }}">Shamni qayta yoqish</span></button>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.sirli }}">
+    <section style="position: relative; padding: 40px 20px 44px; text-align: center">
+      <p class="vk-kick">{{ tab.sirli }}</p>
+      <h2 class="vk-h2">Sirli eshik</h2>
+      <span class="vk-bar vk-bar--c"></span>
+      <p class="vk-lead">Eshikni oching — ortida senga atalgan sirli tilak bor.</p>
+      <div class="vk-pop" style="position: relative; width: 330px; height: 330px; margin: 30px auto 0">
+        <div class="vk-bulbs" style="left: -12px; top: -12px; width: 354px; height: 354px">
+          <sc-for list="{{ doorBulbs }}" as="g"><span class="vk-bg" style="{{ g.st }}"><sc-for list="{{ g.b }}" as="bb"><i class="vk-bulb" style="{{ bb }}"></i></sc-for></span></sc-for>
+        </div>
+        <button type="button" class="{{ secCls }}" onClick="{{ toggleSec }}" aria-expanded="{{ secOn }}" aria-label="Sirli tilakni ochish">
+          <div class="vk-secret" style="position: absolute; left: 0; top: 0; width: 330px; height: 330px; border-radius: 26px; background: radial-gradient(circle at 50% 30%, #2E46F0, #0A1150 80%); box-shadow: inset 0 0 0 2px rgba(255,255,255,0.14); padding: 30px 24px; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; justify-content: center">
+            <span class="vk-kick">Sirli tilak</span>
+            <span style="margin-top: 14px; font-size: {{ secFs }}px; font-weight: 700; line-height: 1.45; color: #FFFFFF; white-space: pre-line; overflow-wrap: anywhere">{{ d.sirli_tilak }}</span>
+          </div>
+          <span class="vk-door vk-door--l" aria-hidden="true" style="background: repeating-linear-gradient(135deg, #FF5A4E 0 22px, #F04A3F 22px 44px); box-shadow: inset -3px 0 0 rgba(10,17,80,0.5)">
+            <span class="vk-q2" style="left: 0">?</span>
+          </span>
+          <span class="vk-door vk-door--r" aria-hidden="true" style="background: repeating-linear-gradient(135deg, #FF5A4E 0 22px, #F04A3F 22px 44px); box-shadow: inset 3px 0 0 rgba(10,17,80,0.5)">
+            <span class="vk-q2" style="left: -165px">?</span>
+          </span>
+          <span class="vk-tapHint vk-hd" aria-hidden="true" style="position: absolute; left: 0; top: 262px; width: 330px; font-size: 16px; letter-spacing: 0.14em; color: #FFFFFF">BOSING</span>
+        </button>
+      </div>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.galereya }}">
+    <section style="position: relative; padding: 40px 20px 44px">
+      <p class="vk-kick">{{ tab.galereya }}</p>
+      <h2 class="vk-h2">Kadrlar</h2>
+      <span class="vk-bar"></span>
+      <div class="vk-rise" style="position: relative; width: 340px; height: 260px; margin: 34px auto 0">
+        <div class="vk-bulbs" style="left: -11px; top: -11px; width: 362px; height: 282px">
+          <sc-for list="{{ galBulbs }}" as="g"><span class="vk-bg" style="{{ g.st }}"><sc-for list="{{ g.b }}" as="bb"><i class="vk-bulb" style="{{ bb }}"></i></sc-for></span></sc-for>
+        </div>
+        <div style="position: absolute; left: 0; top: 0; width: 340px; height: 260px; border-radius: 24px; overflow: hidden; box-shadow: 0 0 0 4px #0A1150, 0 20px 40px rgba(4,8,50,0.5)">
+          <img src="{{ g0 }}" alt="" style="display: block; width: 340px; height: 260px; object-fit: cover">
+        </div>
+        <span class="vk-chip" style="position: absolute; left: 14px; top: 14px; background: #D7FF3A; color: #0C1462; box-shadow: none; font-family: 'Days One', Arial, sans-serif; font-size: 11px; letter-spacing: 0.14em">KADR 01</span>
+      </div>
+      <div style="display: flex; flex-wrap: wrap; justify-content: space-between; row-gap: 18px; margin-top: 30px">
+        <sc-for list="{{ gal }}" as="g">
+          <div class="vk-rise" style="{{ g.box }}">
+            <img src="{{ g.src }}" alt="" style="{{ g.img }}">
+            <span class="vk-chip" style="position: absolute; left: 10px; bottom: 10px; min-height: 28px; padding: 0 12px; background: #0A1150; box-shadow: none; font-family: 'Days One', Arial, sans-serif; font-size: 10px; letter-spacing: 0.14em; color: #D7FF3A">{{ g.tag }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.xronika }}">
+    <section style="position: relative; padding: 40px 20px 44px">
+      <p class="vk-kick">{{ tab.xronika }}</p>
+      <h2 class="vk-h2">Hayot bosqichlari</h2>
+      <span class="vk-bar"></span>
+      <p class="vk-lead">Har bir yil — yangi daraja. Eng yuqorisi — bugun.</p>
+      <div style="position: relative; margin-top: 24px; display: flex; flex-direction: column; gap: 10px">
+        <sc-for list="{{ chron }}" as="c">
+          <div class="vk-rise" style="{{ c.wrap }}">
+            <div class="{{ c.cls }}">
+              <div class="vk-hex" style="{{ c.hex }}">
+                <span class="vk-led" style="font-size: {{ c.fs }}px; line-height: 1">{{ c.yosh }}</span>
+                <sc-if value="{{ c.num }}"><span style="margin-top: 2px; font-family: 'Days One', Arial, sans-serif; font-size: 8px; letter-spacing: 0.2em; color: #FFFFFF">YOSH</span></sc-if>
+              </div>
+              <div style="flex: 1; min-width: 0">
+                <sc-if value="{{ c.top }}"><p class="vk-kick" style="font-size: 10px; color: #0C1462">Eng yuqori daraja</p></sc-if>
+                <p style="margin: 2px 0 0; font-size: 16px; font-weight: 700; line-height: 1.35; overflow-wrap: anywhere">{{ c.matn }}</p>
+              </div>
+              <sc-if value="{{ has.photo }}"><img src="{{ c.src }}" alt="" style="flex: none; width: 58px; height: 58px; border-radius: 16px; object-fit: cover; box-shadow: 0 0 0 3px rgba(255,255,255,0.85)"></sc-if>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.mehmonlar }}">
+    <section style="position: relative; padding: 40px 20px 44px">
+      <p class="vk-kick">{{ tab.mehmonlar }}</p>
+      <h2 class="vk-h2">Zal ovozi</h2>
+      <span class="vk-bar"></span>
+      <p class="vk-lead">Yaqinlar ham jonli efirda tabriklayapti.</p>
+      <div style="margin-top: 22px; display: flex; flex-direction: column; gap: 16px">
+        <sc-for list="{{ reviews }}" as="r">
+          <div class="vk-rise" style="{{ r.wrap }}">
+            <div style="position: relative; padding: 16px 16px 18px; border-radius: 22px; background: rgba(255,255,255,0.09); box-shadow: inset 0 0 0 1.5px rgba(255,255,255,0.16)">
+              <div style="display: flex; align-items: center; gap: 12px">
+                <span aria-hidden="true" class="vk-hd" style="{{ r.av }}">{{ r.ini }}</span>
+                <span class="vk-hd" style="flex: 1; min-width: 0; font-size: 15px; line-height: 1.3; color: #D7FF3A; overflow-wrap: anywhere">{{ r.ism }}</span>
+                <span class="vk-eq" aria-hidden="true"><sc-for list="{{ r.eq }}" as="q"><i style="{{ q }}"></i></sc-for></span>
+              </div>
+              <p style="margin: 12px 0 0; font-size: 16px; line-height: 1.5; color: #FFFFFF; overflow-wrap: anywhere">{{ r.matn }}</p>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.javob }}">
+    <section style="position: relative; padding: 40px 20px 48px; text-align: center">
+      <p class="vk-kick">{{ tab.javob }}</p>
+      <h2 class="vk-h2" style="font-size: 26px">{{ askName }}</h2>
+      <p class="vk-lead" style="margin-bottom: 30px">Tugmani bosing — tabrigingiz {{ toName }} yetib boradi.</p>
+      <div style="position: relative; width: 210px; margin: 0 auto">
+        <div class="{{ burstCls }}" aria-hidden="true" style="position: absolute; left: 105px; top: 80px; width: 0; height: 0; z-index: 3; pointer-events: none">
+          <sc-for list="{{ bits }}" as="c"><span class="vk-bit" style="{{ c }}"></span></sc-for>
+        </div>
+        <button type="button" class="{{ sendCls }}" onClick="{{ send }}" aria-label="Tabrikladim">
+          <span class="vk-buzzBase" aria-hidden="true"></span>
+          <span class="vk-wave" aria-hidden="true"></span>
+          <span class="vk-buzzTop" aria-hidden="true">
+            <sc-if value="{{ sentOn }}"><svg width="70" height="70" viewBox="0 0 28 28"><path d="M3 15L7 11L11 15L21 5L25 9L11 23Z" fill="#0C1462"></path></svg></sc-if>
+            <sc-if value="{{ sentOff }}"><svg width="62" height="62" viewBox="0 0 28 28"><path d="M14 1L17.6 10.2L27 10.6L19.6 16.6L22.2 26L14 20.6L5.8 26L8.4 16.6L1 10.6L10.4 10.2Z" fill="#FFFFFF"></path></svg></sc-if>
+          </span>
+        </button>
+      </div>
+      <p class="vk-hd" style="margin: 22px 0 0; font-size: 20px; color: {{ sendCol }}">{{ sendLbl }}</p>
+    </section>
+</sc-if>
+
+    <footer style="position: relative; flex: 1; min-height: 200px; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; padding: 0 20px 34px; box-sizing: border-box; text-align: center">
+      <p class="vk-kick" style="font-size: 11px; letter-spacing: 0.12em; color: #C9D0FF">O’yin tugadi — bayram davom etadi</p>
+      <p class="vk-hd vk-name" style="margin: 12px 0 0; font-size: {{ footFs }}px; line-height: 1.15; overflow-wrap: break-word">{{ name }}</p>
+      <sc-if value="{{ footLine }}"><p style="margin: 8px 0 0; font-size: 13px; letter-spacing: 0.06em; color: #C9D0FF">{{ footLine }}</p></sc-if>
+    </footer>
+  </div>
+
+  <div data-intro class="{{ introCls }}" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; z-index: 20; overflow: hidden; background: #0E176E">
+    <div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; background: radial-gradient(90% 60% at 50% 40%, #2236D0 0%, #16239E 50%, #0C1462 100%)"></div>
+    <div aria-hidden="true" class="vk-iFade" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; overflow: hidden">
+      <span class="vk-beam" style="left: 30px; opacity: 0.8"></span>
+      <span class="vk-beam" style="left: 360px; opacity: 0.8; animation-delay: -3.5s"></span>
+      <sc-for list="{{ iShapes }}" as="sh"><svg class="vk-shape" width="30" height="30" viewBox="0 0 28 28" style="{{ sh.st }}"><path d="{{ sh.d }}" fill="{{ sh.c }}"></path></svg></sc-for>
+      <span style="position: absolute; left: -40px; top: 760px; width: 470px; height: 160px; border-radius: 50%; background: radial-gradient(closest-side, rgba(215,255,58,0.22), rgba(215,255,58,0))"></span>
+    </div>
+    <div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 390px; height: 0">
+      <sc-for list="{{ confetti }}" as="c"><span class="vk-cf" style="{{ c }}"></span></sc-for>
+    </div>
+
+    <div class="vk-iFade" style="position: absolute; left: 20px; top: 24px; width: 350px; display: flex; align-items: center; justify-content: space-between">
+      <div style="display: flex; align-items: center; gap: 8px">
+        <span aria-hidden="true" class="vk-hd" style="width: 34px; height: 34px; border-radius: 10px; background: #D7FF3A; color: #0C1462; display: flex; align-items: center; justify-content: center; font-size: 20px; transform: rotate(-8deg)">?</span>
+        <span class="vk-hd" style="font-size: 15px; letter-spacing: 0.12em">VIKTORINA</span>
+        <sc-if value="{{ has.music }}"><svg aria-label="Musiqa bilan" width="13" height="15" viewBox="0 0 22 26" style="margin-left: 4px"><path d="M8 3L20 0V17.5A3.5 3 0 1 1 17 14.6V5.2L10 7V20.5A3.5 3 0 1 1 7 17.6V3Z" fill="#D7FF3A"></path></svg></sc-if>
+      </div>
+      <span class="{{ scoreCls }}" aria-live="polite"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 28 28"><path d="M14 1L17.6 10.2L27 10.6L19.6 16.6L22.2 26L14 20.6L5.8 26L8.4 16.6L1 10.6L10.4 10.2Z" fill="#D7FF3A"></path></svg>{{ score }} ball</span>
+    </div>
+    <div class="vk-iFade" aria-hidden="true" style="position: absolute; left: 20px; top: 80px; width: 350px; display: flex; gap: 6px">
+      <sc-for list="{{ segs }}" as="sg"><span class="{{ sg }}"></span></sc-for>
+    </div>
+
+    <div class="vk-bulbs vk-iFade" aria-hidden="true" style="left: 8px; top: 92px; width: 374px; height: 624px">
+      <sc-for list="{{ stageBulbs }}" as="g"><span class="vk-bg" style="{{ g.st }}"><sc-for list="{{ g.b }}" as="bb"><i class="vk-bulb" style="{{ bb }}"></i></sc-for></span></sc-for>
+    </div>
+
+    <div class="vk-stage">
+      <div class="{{ startCls }}" style="text-align: center; align-items: center">
+        <span class="vk-chip">{{ introCap }}</span>
+        <div class="vk-emb" aria-hidden="true">
+          <span class="vk-embGlow"></span>
+          <span class="vk-embRing"></span>
+          <div class="vk-embCore"><span class="vk-hd" style="font-size: 104px; line-height: 1; color: #0C1462; margin-top: 8px">?</span></div>
+          <div class="vk-orbit"><svg width="26" height="26" viewBox="0 0 28 28" style="position: absolute; left: 77px; top: -26px"><path d="M14 1L17.6 10.2L27 10.6L19.6 16.6L22.2 26L14 20.6L5.8 26L8.4 16.6L1 10.6L10.4 10.2Z" fill="#FFB524"></path></svg></div>
+          <div class="vk-orbit vk-orbit--b"><svg width="18" height="18" viewBox="0 0 28 28" style="position: absolute; left: 81px; top: 186px"><path d="M14 2L26 14L14 26L2 14Z" fill="#2EE6A8"></path></svg></div>
+        </div>
+        <p class="vk-hd" style="margin: 30px 0 0; font-size: {{ titleFs }}px; line-height: 1.16; overflow-wrap: break-word">{{ quizTitle }}</p>
+        <p style="margin: 12px 0 0; font-size: 15px; line-height: 1.45; color: #C9D0FF">{{ quizSub }}</p>
+        <button type="button" class="vk-btn" onClick="{{ start }}" style="width: 300px; margin-top: auto"><span class="vk-shine" aria-hidden="true"></span>{{ startLbl }}<svg aria-hidden="true" width="18" height="18" viewBox="0 0 28 28"><path d="M6 3L24 14L6 25Z" fill="#0C1462"></path></svg></button>
+      </div>
+
+      <sc-for list="{{ qs }}" as="q">
+        <div class="{{ q.cls }}">
+          <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px">
+            <p class="vk-kick" style="font-size: 12px">{{ q.num }}</p>
+            <span class="vk-chip" style="min-height: 30px; padding: 0 12px; font-size: 12px">{{ q.cat }}</span>
+          </div>
+          <p class="vk-hd" style="margin: 16px 0 18px; font-size: {{ q.qfs }}px; line-height: 1.24; overflow-wrap: break-word">{{ q.q }}</p>
+          <div style="display: flex; flex-direction: column; gap: 10px">
+            <sc-for list="{{ q.opts }}" as="o">
+              <button type="button" class="{{ o.cls }}" style="{{ o.st }}" onClick="{{ o.tap }}" disabled="{{ o.dis }}">
+                <span class="vk-badge" style="{{ o.bst }}"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 28 28"><path d="{{ o.icon }}" fill="{{ o.ifill }}"></path></svg></span>
+                <span class="vk-otx">{{ o.t }}</span>
+                <sc-if value="{{ o.burst }}"><span class="vk-bits" aria-hidden="true"><sc-for list="{{ okBits }}" as="c"><span class="vk-bit" style="{{ c }}"></span></sc-for></span></sc-if>
+              </button>
+            </sc-for>
+          </div>
+          <sc-if value="{{ q.plus }}"><span class="vk-plus" aria-hidden="true">+1</span></sc-if>
+          <div class="{{ q.hintCls }}" aria-hidden="true"><span class="vk-hintDot"></span>Javobni tanlang</div>
+          <div class="{{ q.fbCls }}" aria-live="polite">
+            <div style="display: flex; align-items: center; gap: 10px">
+              <span aria-hidden="true" style="{{ q.fbIco }}"><svg width="18" height="18" viewBox="0 0 28 28"><path d="{{ q.fbPath }}" fill="#0C1462"></path></svg></span>
+              <span class="vk-hd" style="font-size: 22px; color: {{ q.fbCol }}">{{ q.fbTitle }}</span>
+            </div>
+            <p style="margin: 8px 0 0; font-size: 14px; line-height: 1.45; color: #DDE2FF; overflow-wrap: anywhere">{{ q.fbText }}</p>
+            <button type="button" class="vk-btn vk-btn--sm" onClick="{{ q.next }}" style="width: 100%; margin-top: 12px">{{ q.nextLbl }}<svg aria-hidden="true" width="16" height="16" viewBox="0 0 28 28"><path d="M6 3L24 14L6 25Z" fill="#0C1462"></path></svg></button>
+          </div>
+        </div>
+      </sc-for>
+
+      <div class="{{ resCls }}" style="text-align: center; align-items: center">
+        <p class="vk-kick vk-rIn" style="--d: .2s">Natija</p>
+        <div class="vk-rIn" style="--d: .3s; position: relative; width: 190px; height: 190px; margin-top: 14px">
+          <svg aria-hidden="true" width="190" height="190" viewBox="0 0 190 190" style="transform: rotate(-90deg)">
+            <circle cx="95" cy="95" r="80" fill="#0C1462" stroke="rgba(255,255,255,0.14)" style="stroke-width: 14"></circle>
+            <circle class="vk-ring" cx="95" cy="95" r="80" fill="none" stroke="#D7FF3A" style="{{ ringSt }}"></circle>
+          </svg>
+          <div style="position: absolute; left: 0; top: 0; width: 190px; height: 190px; display: flex; flex-direction: column; align-items: center; justify-content: center">
+            <span class="vk-hd" style="font-size: 58px; line-height: 1; color: #D7FF3A">{{ score }}<span style="font-size: 28px; color: #FFFFFF">/{{ qN }}</span></span>
+            <span style="margin-top: 6px; font-size: 13px; font-weight: 700; letter-spacing: 0.12em; color: #C9D0FF">TO’G’RI JAVOB</span>
+          </div>
+        </div>
+        <p class="vk-hd vk-rIn" style="--d: .55s; margin: 20px 0 0; font-size: 28px; line-height: 1.15; color: #D7FF3A">{{ rank }}</p>
+        <p class="vk-rIn" style="--d: .7s; margin: 10px 0 0; font-size: 15px; line-height: 1.45; color: #DDE2FF; overflow-wrap: anywhere">{{ rankSub }}</p>
+        <div style="display: flex; justify-content: center; gap: 8px; margin-top: 18px">
+          <sc-for list="{{ dots }}" as="dt"><span class="vk-dot vk-rIn" style="{{ dt.st }}"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 28 28"><path d="{{ dt.d }}" fill="#0C1462"></path></svg></span></sc-for>
+        </div>
+        <button type="button" class="vk-btn vk-rIn" onClick="{{ open }}" style="--d: 1s; width: 300px; margin-top: auto"><span class="vk-shine" aria-hidden="true"></span>Tabrikni ochish</button>
+      </div>
+    </div>
+
+    <span class="vk-flash" aria-hidden="true"></span>
+    <sc-if value="{{ skipOn }}">
+      <div class="vk-iFade" style="position: absolute; left: 0; top: 730px; width: 390px; display: flex; flex-direction: column; align-items: center; gap: 4px">
+        <sc-if value="{{ from.line }}"><p style="margin: 0; padding: 0 30px; font-size: 13px; line-height: 1.35; color: #AEB8F5; text-align: center; overflow-wrap: anywhere">{{ from.line }}</p></sc-if>
+        <button type="button" class="vk-ghost" onClick="{{ open }}">Viktorinasiz ochish<svg aria-hidden="true" width="12" height="12" viewBox="0 0 28 28"><path d="M6 3L24 14L6 25Z" fill="currentColor"></path></svg></button>
+      </div>
+    </sc-if>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":7400}}'>
+const tkName = (d) => String(d.kimga || '').trim();
+const tkFrom = (d) => {
+  const kd = String(d.kimdan || '').trim(), ci = kd.indexOf(':');
+  const label = ci > 0 ? kd.slice(0, ci).trim() : '';
+  const names = ci > 0 ? kd.slice(ci + 1).trim() : kd;
+  return { label: label, names: names, line: !kd ? '' : (label ? label + 'dan: ' + names : names + 'dan') };
+};
+const tkFit = (text, max, min, width, k) => {
+  const longest = Math.max(1, ...String(text || '').split(/\s+/).map((x) => x.length));
+  return Math.max(min, Math.min(max, Math.floor(width / (longest * k))));
+};
+const rnd = (i, k) => { const x = Math.sin(i * 127.1 + k * 311.7) * 43758.5453; return x - Math.floor(x); };
+const shuffle = (arr, seed) => arr.map((v, i) => ({ v: v, r: rnd(i + 1, seed) })).sort((a, b) => a.r - b.r).map((x) => x.v);
+const OY = ['yanvar', 'fevral', 'mart', 'aprel', 'may', 'iyun', 'iyul', 'avgust', 'sentabr', 'oktabr', 'noyabr', 'dekabr'];
+const HAFTA = ['yakshanba', 'dushanba', 'seshanba', 'chorshanba', 'payshanba', 'juma', 'shanba'];
+const FASL = ['Qish', 'Qish', 'Bahor', 'Bahor', 'Bahor', 'Yoz', 'Yoz', 'Yoz', 'Kuz', 'Kuz', 'Kuz', 'Qish'];
+const FASL_GAP = { Qish: 'qorday pok va iliq qalbli', Bahor: 'gullardek go’zal va yangilikka oshno', Yoz: 'quyoshdek charaqlagan', Kuz: 'oltin barglardek yorqin' };
+const OPTC = ['#FF5A4E', '#FFB524', '#2EE6A8', '#9B6BFF'];
+const SHP = ['M14 3L26 24H2Z', 'M14 2L26 14L14 26L2 14Z', 'M14 3A11 11 0 1 0 14.01 3Z', 'M4 4H24V24H4Z'];
+const OK = 'M3 15L7 11L11 15L21 5L25 9L11 23Z';
+const BAD = 'M7 3L14 10L21 3L25 7L18 14L25 21L21 25L14 18L7 25L3 21L10 14L3 7Z';
+const FAKE_WISH = ['Dushanba kayfiyati', 'Uzun navbatlar', 'Tirbandlik', 'Erta turish', 'Sovib qolgan choy'];
+const FAKE_FROM = ['Qo’shni mushugi', 'Pochtachi amaki'];
+const FAKE_XR = ['Kosmosga uchdi', 'Sirkda chiqish qildi'];
+const ORDER = ['tabrik', 'taymer', 'tilaklar', 'sham', 'sirli', 'galereya', 'xronika', 'mehmonlar', 'javob'];
+
+/* marquee bulbs on a rounded rect, split in 4 groups (each group blinks as one layer) */
+const bulbs = (w, h, r, gap, off) => {
+  const sw = w - 2 * r, sh = h - 2 * r, arc = Math.PI * r / 2;
+  const segs = [sw, arc, sh, arc, sw, arc, sh, arc];
+  const L = segs.reduce((a, b) => a + b, 0), n = Math.max(8, Math.round(L / gap / 4) * 4);
+  const groups = [[], [], [], []];
+  for (let k = 0; k < n; k++) {
+    let t = k * L / n, i = 0;
+    while (i < 7 && t > segs[i]) { t -= segs[i]; i += 1; }
+    let x, y, a;
+    if (i === 0) { x = r + t; y = 0; }
+    else if (i === 1) { a = -Math.PI / 2 + t / r; x = w - r + Math.cos(a) * r; y = r + Math.sin(a) * r; }
+    else if (i === 2) { x = w; y = r + t; }
+    else if (i === 3) { a = t / r; x = w - r + Math.cos(a) * r; y = h - r + Math.sin(a) * r; }
+    else if (i === 4) { x = w - r - t; y = h; }
+    else if (i === 5) { a = Math.PI / 2 + t / r; x = r + Math.cos(a) * r; y = h - r + Math.sin(a) * r; }
+    else if (i === 6) { x = 0; y = h - r - t; }
+    else { a = Math.PI + t / r; x = r + Math.cos(a) * r; y = r + Math.sin(a) * r; }
+    groups[k % 4].push('left: ' + (x + off).toFixed(1) + 'px; top: ' + (y + off).toFixed(1) + 'px');
+  }
+  return groups.map((b, g) => ({ st: 'animation-delay: -' + (g * 0.3).toFixed(1) + 's', b: b }));
+};
+const burst = (n, seed, r0, r1, a0, a1) => Array.from({ length: n }, (_, i) => {
+  const a = (a0 + (a1 - a0) * (i / Math.max(1, n - 1)) + (rnd(i, seed) - 0.5) * 14) * Math.PI / 180, r = r0 + rnd(i, seed + 1) * (r1 - r0);
+  const s = 7 + Math.round(rnd(i, seed + 2) * 9), kind = i % 4;
+  const shp = kind === 0 ? 'border-radius: 50%; background: #D7FF3A' : kind === 1 ? 'border-radius: 2px; background: ' + OPTC[i % 4] : kind === 2 ? 'clip-path: polygon(50% 0, 100% 100%, 0 100%); background: #FFFFFF' : 'border-radius: 2px; background: #FFB524; transform: rotate(45deg)';
+  return 'width: ' + s + 'px; height: ' + s + 'px; margin: -' + (s / 2) + 'px 0 0 -' + (s / 2) + 'px; ' + shp + '; --x: ' + Math.round(Math.cos(a) * r) + 'px; --y: ' + Math.round(Math.sin(a) * r) + 'px; --r: ' + Math.round(rnd(i, seed + 3) * 540 - 270) + 'deg; animation-delay: ' + (rnd(i, seed + 4) * 0.12).toFixed(2) + 's';
+});
+const STAR = (() => { const p = []; for (let i = 0; i < 32; i++) { const a = (i / 32) * Math.PI * 2 - Math.PI / 2, r = i % 2 ? 40 : 50; p.push((i ? 'L' : 'M') + (50 + r * Math.cos(a)).toFixed(1) + ' ' + (50 + r * Math.sin(a)).toFixed(1)); } return p.join('') + 'Z'; })();
+
+/* 3–5 playful questions built from the customer data */
+const buildQuiz = (D) => {
+  const name = tkName(D) || 'Bayram qahramoni', from = tkFrom(D), out = [];
+  const POS = [1, 2, 0, 2, 1, 0, 1, 2];
+  const add = (cat, q, right, wrong, fact, tip, seed) => {
+    const opts = shuffle(wrong.slice(0, 2), seed);
+    opts.splice(Math.min(opts.length, POS[out.length % POS.length]), 0, right);
+    out.push({ cat: cat, q: q, opts: opts, ok: opts.indexOf(right), fact: fact, tip: tip });
+  };
+  const n = parseInt(String(D.yosh || '').replace(/\D/g, ''), 10);
+  const hasN = n >= 1 && n <= 120;
+  const sm = /^(\d{4})-(\d{2})-(\d{2})/.exec(String(D.sana || ''));
+  const Y = sm ? +sm[1] : 0, M = sm ? +sm[2] - 1 : 0, DD = sm ? +sm[3] : 0;
+  const dm = sm ? DD + '-' + OY[M] : '';
+  if (hasN) add('Yosh', name + ' bu yil nechchi yoshga to’lyapti?', n + ' yosh', [(n + 1) + ' yosh', (n > 1 ? n - 1 : n + 2) + ' yosh'], n + ' yosh — bu ' + SITE.num(n * 12) + ' oylik quvonch!', 'Endi ' + n + ' sonini unutmaysiz!', 3);
+  if (sm) {
+    const d2 = DD <= 19 ? DD + 9 : DD - 9;
+    add('Sana', name + 'ning tug’ilgan kuni qachon?', dm, [DD + '-' + OY[(M + 1) % 12], d2 + '-' + OY[M]], dm + ' — taqvimdagi eng yorqin kun.', 'Eslab qoling — bu kun taqvimdagi eng yorqin kun!', 5);
+  }
+  const xr = (D.xronika || []).filter((x) => x && String(x.yosh || '').trim() && String(x.matn || '').trim());
+  if (xr.length >= 2) {
+    const ti = Math.min(1, xr.length - 1), t = xr[ti], y = String(t.yosh).trim();
+    const others = xr.filter((_, i) => i !== ti).map((x) => String(x.matn).trim()).filter((m) => m !== String(t.matn).trim());
+    const q = /^\d+$/.test(y) ? y + ' yoshida ' + name + 'ning hayotida nima bo’lgan?' : '«' + y + '» bosqichida ' + name + 'ning hayotida nima bo’lgan?';
+    add('Xotira', q, String(t.matn).trim(), others.concat(FAKE_XR), 'Hayotidagi eng qadrli sahifalardan biri.', 'Bu — hayotidagi eng qadrli sahifalardan biri.', 7);
+  }
+  const tl = (D.tilaklar || []).map((x) => String(x || '').trim()).filter(Boolean);
+  if (tl.length >= 2) {
+    const low = tl.map((x) => x.toLowerCase()), fake = FAKE_WISH.find((f) => low.indexOf(f.toLowerCase()) < 0) || FAKE_WISH[0];
+    add('Tilaklar', 'Qaysi biri bugungi tilaklar ro’yxatida yo’q?', fake, [tl[0], tl[1]], 'Ro’yxatda faqat ezgu tilaklar: ' + tl.slice(0, 3).join(', ') + (tl.length > 3 ? ' va boshqalar.' : '.'), 'Bunday narsani hech kim tilamaydi!', 11);
+  }
+  if (from.names) add('Tabrik', 'Bu tabrikni kim tayyorladi?', from.names, FAKE_FROM, 'Eng iliq so’zlar — ' + from.names + 'dan.', 'Eng iliq so’zlarni aynan ular yozishdi.', 13);
+  if (hasN && n >= 2 && sm) {
+    const days = Math.round((Date.UTC(Y, M, DD) - Date.UTC(Y - n, M, DD)) / 864e5);
+    add('Hisob', n + ' yil — bu necha kun?', SITE.num(days) + ' kun', [SITE.num(Math.round(days * 0.87) + 3) + ' kun', SITE.num(Math.round(days * 1.14) - 7) + ' kun'], SITE.num(days) + ' kun — va har biri qadrli!', 'Har bir kuni — qadrli!', 17);
+  }
+  if (sm) {
+    const wd = new Date(Date.UTC(Y, M, DD)).getUTCDay(), cap = (s) => s.charAt(0).toUpperCase() + s.slice(1);
+    add('Taqvim', Y + '-yil ' + dm + ' haftaning qaysi kuni?', cap(HAFTA[wd]), [cap(HAFTA[(wd + 6) % 7]), cap(HAFTA[(wd + 1) % 7])], wd === 0 || wd === 6 ? 'Dam olish kuni — bayram uchun ayni muddao!' : 'Ish kuni bo’lsa ham, bayram kayfiyati kun bo’yi!', 'Bayram kayfiyati — kun bo’yi!', 19);
+    const fs = FASL[M], other = ['Qish', 'Bahor', 'Yoz', 'Kuz'].filter((x) => x !== fs);
+    add('Fasl', name + ' yilning qaysi faslida tug’ilgan?', fs, [other[(M + 1) % 3], other[(M + 2) % 3]], fs + ' farzandi — ' + FASL_GAP[fs] + '!', fs + ' farzandi — ' + FASL_GAP[fs] + '!', 23);
+  }
+  return out.slice(0, 5);
+};
+const RANKS = (score, n, name) => {
+  if (!n) return ['Tabrik tayyor!', name + 'ga atalgan tabrikni oching.'];
+  if (score === n) return ['Eng yaqin do’st!', 'Siz ' + name + 'ni juda yaxshi bilasiz. Bosh sovrin — tabrik — sizniki!'];
+  if (score / n >= 0.6) return ['Zo’r bilimdon!', 'Deyarli hammasini topdingiz. Endi — asosiy sovrin: tabrik.'];
+  if (score > 0) return ['Yaxshi urinish!', 'Tabrikni o’qib, ' + name + 'ni yanada yaqinroq tanishing.'];
+  return ['Tanishuv boshlanmoqda!', 'Hechqisi yo’q — tabrik ichida hamma javoblar bor.'];
+};
+
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { opened: false, step: 0, pick: {}, score: 0, blown: false, sec: false, sent: false, wOn: {} };
+    this.tick = 0;
+    this.Q = buildQuiz(SITE.d);
+    const fl = (n, seed, y0, y1) => Array.from({ length: n }, (_, i) => ({
+      d: SHP[i % 4], c: OPTC[(i + seed) % 4],
+      st: 'left: ' + Math.round(10 + rnd(i, seed) * 350) + 'px; top: ' + (y0 === null ? (3 + rnd(i, seed + 1) * 94).toFixed(1) + '%' : Math.round(y0 + rnd(i, seed + 1) * (y1 - y0)) + 'px') + '; opacity: ' + (0.35 + rnd(i, seed + 2) * 0.4).toFixed(2) + '; animation-delay: -' + (rnd(i, seed + 3) * 9).toFixed(1) + 's; animation-duration: ' + (7 + rnd(i, seed + 4) * 5).toFixed(1) + 's'
+    }));
+    const COL = ['#D7FF3A', '#FF5A4E', '#FFB524', '#2EE6A8', '#9B6BFF', '#FFFFFF'];
+    this.deco = {
+      shapes: fl(16, 2, null, 0).map((x, i) => ({ d: x.d, c: x.c, st: x.st.replace(/^left: \d+px/, 'left: ' + (i % 2 ? 362 + Math.round(rnd(i, 5) * 14) : -6 + Math.round(rnd(i, 5) * 12)) + 'px') })),
+      iShapes: [[16, 712, 0], [346, 726, 1], [34, 800, 2], [330, 806, 3], [-8, 420, 1], [372, 260, 2]].map((a, i) => ({ d: SHP[a[2]], c: OPTC[(a[2] + 1) % 4], st: 'left: ' + a[0] + 'px; top: ' + a[1] + 'px; opacity: 0.6; animation-delay: -' + (i * 1.7).toFixed(1) + 's' })),
+      starPath: STAR,
+      heroBulbs: bulbs(334, 394, 40, 24, 0),
+      stageBulbs: bulbs(374, 624, 40, 24, 0),
+      doorBulbs: bulbs(354, 354, 36, 24, 0),
+      galBulbs: bulbs(362, 282, 34, 24, 0),
+      okBits: burst(14, 31, 50, 120, -180, 180),
+      cakeBits: burst(22, 41, 90, 170, -170, -10),
+      bits: burst(24, 51, 100, 180, -175, -5),
+      confetti: Array.from({ length: 34 }, (_, i) => {
+        const s = 7 + Math.round(rnd(i, 61) * 8);
+        return 'left: ' + Math.round(rnd(i, 62) * 390) + 'px; width: ' + s + 'px; height: ' + Math.round(s * (i % 3 ? 1.6 : 1)) + 'px; border-radius: ' + (i % 3 ? '2px' : '50%') + '; background: ' + COL[i % 6] + '; --x: ' + Math.round((rnd(i, 63) - 0.5) * 120) + 'px; --r: ' + Math.round(rnd(i, 64) * 720 - 360) + 'deg; --t: ' + (2.6 + rnd(i, 65) * 1.6).toFixed(2) + 's; --d: ' + (rnd(i, 66) * 1.4).toFixed(2) + 's';
+      })
+    };
+  }
+  componentDidMount() {
+    this.timer = setInterval(() => { this.prevCd = this.lastCd; this.tick += 1; this.forceUpdate(); }, 1000);
+  }
+  componentWillUnmount() {
+    clearInterval(this.timer);
+  }
+  choose(qi, oi) {
+    if (this.state.pick[qi] != null) return;
+    const pick = Object.assign({}, this.state.pick);
+    pick[qi] = oi;
+    this.setState({ pick: pick, score: this.state.score + (oi === this.Q[qi].ok ? 1 : 0) });
+  }
+  renderVals() {
+    const s = this.state, D = SITE.d, Q = this.Q, N = Q.length;
+    const name = tkName(D), from = tkFrom(D);
+    const w = SITE.when(D.sana), c = SITE.countdown(D.sana);
+    const yosh = String(D.yosh || '').trim();
+    const st = s.step, finished = N > 0 && st > N;
+    const tab = {};
+    let k = 0;
+    ORDER.forEach((key) => { if (SITE.b[key]) { k += 1; tab[key] = key === 'javob' ? 'Final' : k + '-raund'; } else tab[key] = ''; });
+
+    /* quiz */
+    const qs = Q.map((q, qi) => {
+      const pk = s.pick[qi], done = pk != null, right = done && pk === q.ok;
+      return {
+        cls: 'vk-q ' + (st > qi + 1 ? 'vk-q--past' : st === qi + 1 ? 'vk-q--cur' : 'vk-q--next'),
+        num: 'Savol ' + (qi + 1) + ' / ' + N, cat: q.cat, q: q.q,
+        qfs: q.q.length > 62 ? 19 : q.q.length > 42 ? 21 : 23,
+        opts: q.opts.map((t, oi) => {
+          const isOk = oi === q.ok, mine = oi === pk;
+          const state = !done ? '' : mine ? (isOk ? 'ok' : 'bad') : isOk ? 'show' : 'dim';
+          return {
+            t: t, st: '--i: ' + oi, dis: done, burst: state === 'ok',
+            cls: 'vk-opt' + (state ? ' vk-opt--' + state : ''),
+            bst: 'background: ' + (state === 'ok' ? '#0C1462' : state === 'bad' ? '#FFFFFF' : state === 'show' ? '#D7FF3A' : OPTC[oi]),
+            icon: state === 'ok' || state === 'show' ? OK : state === 'bad' ? BAD : SHP[oi],
+            ifill: state === 'ok' ? '#D7FF3A' : state === 'bad' ? '#FF5A4E' : state === 'show' ? '#0C1462' : '#FFFFFF',
+            tap: () => this.choose(qi, oi)
+          };
+        }),
+        plus: right,
+        fbCls: done ? 'vk-fb vk-fb--on' : 'vk-fb',
+        fbTitle: right ? 'To’g’ri!' : 'Afsus!',
+        fbCol: right ? '#D7FF3A' : '#FF8A80',
+        fbIco: 'flex: none; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: ' + (right ? '#D7FF3A' : '#FF8A80'),
+        fbPath: right ? OK : BAD,
+        fbText: done ? (right ? q.fact : 'To’g’ri javob — «' + q.opts[q.ok] + '». ' + q.tip) : '',
+        hintCls: done ? 'vk-hint vk-hint--off' : 'vk-hint',
+        nextLbl: qi === N - 1 ? 'Natijani ko’rish' : 'Keyingi savol',
+        next: () => { if (this.state.step === qi + 1) this.setState({ step: qi + 2 }); }
+      };
+    });
+    const segs = Q.map((q, i) => {
+      const pk = s.pick[i];
+      return 'vk-seg' + (pk != null ? (pk === q.ok ? ' vk-seg--ok' : ' vk-seg--bad') : st === i + 1 ? ' vk-seg--cur' : '');
+    });
+    const rk = RANKS(s.score, N, name);
+    const C = 2 * Math.PI * 80;
+    const ringOff = st > N && N ? C * (1 - s.score / N) : C;
+
+    /* page */
+    const cur = [String(c.d), c.hh, c.mm, c.ss];
+    const prev = this.prevCd || cur;
+    this.lastCd = cur;
+    const L = ['kun', 'soat', 'daqiqa', 'soniya'];
+    const caps = cur.map((v, i) => ({ v: v, l: L[i], cls: 'vk-num vk-led' + (v !== prev[i] ? (this.tick % 2 ? ' vk-num--a' : ' vk-num--b') : '') }));
+    const matn = String(D.matn || '').trim();
+    const tl = D.tilaklar || [];
+    const wishes = tl.map((t, i) => {
+      const on = !!s.wOn[i], ci = i % 4;
+      return {
+        text: t, on: on ? 'true' : 'false', cls: on ? 'vk-wish vk-wish--on' : 'vk-wish',
+        bst: 'background: ' + (on ? '#0C1462' : OPTC[ci]), icon: on ? OK : SHP[ci], ifill: on ? '#D7FF3A' : '#FFFFFF',
+        row: 'padding: 0 ' + (i % 2 ? '0 0 22px' : '22px 0 0'),
+        tap: () => { const m = Object.assign({}, this.state.wOn); m[i] = !m[i]; this.setState({ wOn: m }); }
+      };
+    });
+    const allOk = tl.length > 0 && tl.every((_, i) => s.wOn[i]);
+    const digits = yosh.replace(/\D/g, '').slice(0, 3);
+    const candles = (digits ? Array.from(digits) : ['', '', '']).map((ch, i) => ({
+      digit: ch, plain: !ch,
+      fd: 'animation-delay: ' + (i * 0.17).toFixed(2) + 's',
+      sm: '--sx: ' + [-18, 12, -6][i % 3] + 'px'
+    }));
+    const n = Math.min(6, SITE.has.photos);
+    const gp = n > 1 ? SITE.p.slice(1, n) : SITE.p.slice(0, 1);
+    const rest = gp.slice(1);
+    const gal = rest.map((src, i) => {
+      const solo = rest.length % 2 === 1 && i === rest.length - 1;
+      const wd = solo ? 350 : 168, ht = solo ? 220 : 220;
+      return {
+        src: src, tag: 'KADR ' + (i < 8 ? '0' : '') + (i + 2),
+        box: 'position: relative; flex: none; width: ' + wd + 'px; height: ' + ht + 'px; border-radius: 22px; overflow: hidden; box-shadow: 0 0 0 4px #FFFFFF, 0 16px 30px rgba(4,8,50,0.45); transform: rotate(' + (solo ? 0 : [-2, 2, 1.5, -1.5][i % 4]) + 'deg)',
+        img: 'display: block; width: ' + wd + 'px; height: ' + ht + 'px; object-fit: cover'
+      };
+    });
+    const xr = D.xronika || [];
+    const chron = xr.map((x, i) => {
+      const y = String(x.yosh || '').trim(), top = i === xr.length - 1;
+      return {
+        i: i, yosh: y, matn: x.matn || '', num: /^\d+$/.test(y), top: top,
+        fs: y.length > 3 ? 15 : y.length > 2 ? 20 : 26,
+        src: SITE.p[i % SITE.p.length],
+        cls: top ? 'vk-rung vk-rung--top' : 'vk-rung',
+        hex: top ? 'background: #0C1462' : '',
+        wrap: 'padding: 0 ' + Math.round(Math.max(0, (xr.length - 1 - i)) * 6) + 'px'
+      };
+    }).reverse();
+    const reviews = (D.mehmon_tilaklari || []).map((r, i) => ({
+      ism: r.ism || '', matn: r.matn || '', ini: String(r.ism || '').trim().charAt(0).toLocaleUpperCase('uz'),
+      av: 'flex: none; width: 44px; height: 44px; border-radius: ' + ['50%', '14px', '50%', '14px'][i % 4] + '; background: ' + OPTC[i % 4] + '; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-size: 19px; transform: rotate(' + [-6, 5, -4, 6][i % 4] + 'deg)',
+      eq: [0, 1, 2, 3, 4].map((j) => 'animation-delay: -' + (rnd(i * 5 + j, 71) * 1).toFixed(2) + 's; animation-duration: ' + (0.6 + rnd(i * 5 + j, 72) * 0.6).toFixed(2) + 's'),
+      wrap: i % 2 ? 'margin-left: 26px' : 'margin-right: 26px'
+    }));
+    const sec = String(D.sirli_tilak || '');
+    const wl = 'Niyating ushalsin, ' + name + '!';
+    const words = name.split(/\s+/).filter(Boolean);
+    let ci = 0;
+    const nameWords = words.map((wd) => ({ ch: Array.from(wd).map((t) => ({ t: t, st: '--i: ' + (ci++) })) }));
+    const quizTitle = (name || 'Bayram qahramoni') + 'ni qanchalik bilasan?';
+
+    return Object.assign({}, this.deco, {
+      name: name, from: from, tab: tab, yosh: yosh, yoshOn: !!yosh,
+      nameWords: nameWords,
+      nameFs: tkFit(name, 62, 28, 340, 0.74),
+      footFs: tkFit(name, 40, 22, 340, 0.74),
+      ageFs: yosh.length > 3 ? 26 : yosh.length > 2 ? 36 : 46,
+      noPhoto: !SITE.has.photo,
+      heroMark: name.charAt(0).toLocaleUpperCase('uz') || '?',
+      heroDate: [w.date, w.weekday].filter(Boolean).join(' · ') || 'Tug’ilgan kun',
+      resChip: finished ? 'Viktorina: ' + s.score + '/' + N + ' · ' + rk[0].replace('!', '') : '',
+      musicCls: SITE.music.playing ? 'vk-music vk-music--on' : 'vk-music',
+      musicOn: SITE.music.playing ? 'true' : 'false',
+      toggleMusic: () => { SITE.music.toggle(); },
+      dropCap: matn.charAt(0), restText: matn.slice(1),
+      fromIni: (from.names || from.label).trim().charAt(0).toLocaleUpperCase('uz'),
+      cdTitle: c.done ? 'Bayram boshlandi!' : 'Bayramgacha',
+      cdDate: [w.date, w.weekday].filter(Boolean).join(', '),
+      caps: caps,
+      wishes: wishes, allOkCls: allOk ? 'vk-allOk vk-allOk--on' : 'vk-allOk',
+      candles: candles,
+      cakeCls: s.blown ? 'vk-cake--out' : '',
+      wishLine: wl, wishFs: tkFit(wl, 28, 18, 330, 0.72),
+      blowIdle: s.blown ? 'is-hidden' : '', blowDone: s.blown ? '' : 'is-hidden',
+      blow: () => this.setState({ blown: !this.state.blown }),
+      secCls: s.sec ? 'vk-doors vk-doors--on' : 'vk-doors', secOn: s.sec ? 'true' : 'false',
+      secFs: sec.length > 160 ? 15 : sec.length > 100 ? 17 : 20,
+      toggleSec: () => this.setState({ sec: !this.state.sec }),
+      g0: gp[0], gal: gal,
+      chron: chron, reviews: reviews,
+      askName: name + 'ni tabrikladingizmi?', toName: SITE.ga(name),
+      sendCls: s.sent ? 'vk-buzz vk-buzz--done' : 'vk-buzz',
+      sentOn: s.sent, sentOff: !s.sent,
+      sendLbl: s.sent ? 'Rahmat, yetkazildi!' : 'Tabrikladim',
+      sendCol: s.sent ? '#D7FF3A' : '#FFFFFF',
+      burstCls: s.sent ? 'vk-burst vk-burst--go' : 'vk-burst',
+      send: () => {
+        if (this.state.sent) return;
+        this.setState({ sent: true });
+        const fin = Q.length && this.state.step > Q.length;
+        SITE.reply('Tabrikladim' + (fin ? ' · viktorina: ' + this.state.score + '/' + Q.length : ''), '🥰');
+      },
+      footLine: [yosh ? yosh + ' yosh' : '', w.dots].filter(Boolean).join(' · '),
+      pageCls: s.opened ? 'vk-page vk-page--in' : 'vk-page',
+
+      /* intro */
+      introCls: 'vk-intro' + (finished ? ' vk-intro--res' : '') + (s.opened ? ' vk-intro--out' : ''),
+      introCap: [w.dm, 'tug’ilgan kun'].filter(Boolean).join(' · '),
+      quizTitle: quizTitle, titleFs: quizTitle.length > 44 ? 24 : quizTitle.length > 30 ? 28 : 32,
+      quizSub: N ? N + ' ta savol. Oxirida — ' + SITE.ga(name || 'qahramon') + ' atalgan tabrik ochiladi.' : 'Tabrik sizni kutmoqda.',
+      startLbl: N ? 'Boshladik' : 'Tabrikni ochish',
+      startCls: 'vk-q ' + (st === 0 ? 'vk-q--cur' : 'vk-q--past'),
+      start: () => { if (!N) { this.open(); return; } if (this.state.step === 0) this.setState({ step: 1 }); },
+      qs: qs, segs: segs, qN: N,
+      score: s.score,
+      scoreCls: 'vk-score' + (s.score ? (s.score % 2 ? ' vk-score--a' : ' vk-score--b') : ''),
+      resCls: 'vk-q vk-res ' + (finished ? 'vk-q--cur' : 'vk-q--next'),
+      ringSt: 'stroke-width: 14; stroke-linecap: round; stroke-dasharray: ' + C.toFixed(1) + '; stroke-dashoffset: ' + ringOff.toFixed(1),
+      rank: rk[0], rankSub: rk[1],
+      dots: Q.map((q, i) => {
+        const ok = s.pick[i] === q.ok;
+        return { d: ok ? OK : BAD, st: '--d: ' + (0.8 + i * 0.1).toFixed(2) + 's; background: ' + (ok ? '#D7FF3A' : '#FF8A80') };
+      }),
+      skipOn: !finished,
+      open: () => this.open()
+    });
+  }
+  open() {
+    if (this.state.opened) return;
+    this.setState({ opened: true });
+    SITE.opened();
+  }
+}
+</script>
+</body>
+</html>

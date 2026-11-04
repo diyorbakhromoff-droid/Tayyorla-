@@ -1,0 +1,877 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<title>Farzand VIP: Sirli shar</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:ital,wght@0,500;0,600;0,700;0,800;0,900;1,600&amp;family=Mulish:wght@400;500;600;700;800&amp;display=swap">
+<style>
+body{margin:0;background:#FFF8F1}
+.sh{--a:#2F7FE0;--ad:#1C57A8;--al:#D7E8FF;--tint:#DDEBFF;--c1:#2F7FE0;--c2:#7DB6FF;--c3:#BBD9FF;--c4:#FFFFFF;--c5:#E7C468;--c6:#1C57A8;--fa:#9CC3F2;--fb:#3B78C9;--fc:#EAF3FF;--fd:#5E95DD}
+.sh.is-qiz{--a:#E0508C;--ad:#AE2F66;--al:#FFDCEA;--tint:#FFE3EE;--c1:#E0508C;--c2:#FF8EBA;--c3:#FFC7DB;--c4:#FFFFFF;--c5:#E7C468;--c6:#AE2F66;--fa:#F6B3CD;--fb:#C9447D;--fc:#FFF0F6;--fd:#E27AA6}
+.sh-d{font-family:'Montserrat Alternates','Trebuchet MS',system-ui,sans-serif}
+.sh-btn{cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .18s cubic-bezier(.3,.7,.4,1.4)}
+.sh-btn:active{transform:scale(.95)}
+.sh-btn:focus-visible{outline:3px solid var(--ad);outline-offset:3px}
+.sh-ic{fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.sh-foil{background:linear-gradient(135deg,#A97A26 0%,#F3D98B 28%,#C99A3E 48%,#FFF0BF 64%,#B5852F 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.sh-afoil{background:linear-gradient(160deg,var(--ad) 0%,var(--a) 34%,var(--fa) 50%,var(--a) 62%,var(--ad) 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.sh-tag{display:flex;justify-content:center;margin:0}
+.sh-tag span{display:inline-flex;align-items:center;gap:8px;height:30px;padding:0 14px 0 10px;border-radius:15px;background:#FFFFFF;box-shadow:0 6px 16px rgba(36,32,43,.08);font-size:12px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--ad)}
+.sh-tag i{display:block;width:12px;height:14px;border-radius:50% 50% 50% 50%/58% 58% 42% 42%;background:radial-gradient(circle at 34% 30%,rgba(255,255,255,.8) 0 12%,transparent 14%),var(--a)}
+.sh-h2{margin:12px 0 0;text-align:center;font-family:'Montserrat Alternates','Trebuchet MS',sans-serif;font-weight:800;font-size:34px;line-height:1.1;color:#24202B}
+.sh-sub{margin:8px 0 0;text-align:center;font-size:15px;line-height:1.5;color:#6E6577}
+.sh-card{position:relative;box-sizing:border-box;border-radius:28px;background:#FFFFFF;box-shadow:0 18px 40px rgba(36,32,43,.07)}
+
+/* balloons */
+.sh-bl{position:absolute;box-sizing:border-box;border-radius:50% 50% 50% 50%/56% 56% 44% 44%;background:radial-gradient(ellipse 22% 15% at 31% 24%,rgba(255,255,255,.85),rgba(255,255,255,0) 100%),radial-gradient(circle at 36% 32%,var(--h,#9CC3F2),var(--m,#2F7FE0) 48%,var(--k,#1C57A8) 100%);box-shadow:inset -6px -10px 18px rgba(0,0,0,.12)}
+.sh-bl::after{content:"";position:absolute;left:50%;bottom:-6px;width:10px;height:8px;margin-left:-5px;background:var(--k,#1C57A8);clip-path:polygon(50% 0,100% 100%,0 100%)}
+.sh-bl--a{--h:var(--c2);--m:var(--a);--k:var(--ad)}
+.sh-bl--l{--h:#FFFFFF;--m:var(--c3);--k:var(--c2)}
+.sh-bl--g{--h:#FFF3C9;--m:#E2BD5C;--k:#B98B2C}
+.sh-bl--blue{--h:#B8D6FF;--m:#5C9BEA;--k:#2F6CC0}
+.sh-bl--pink{--h:#FFD0E2;--m:#F07AAA;--k:#C9467D}
+.sh-str{position:absolute;width:1.5px;background:rgba(36,32,43,.28);transform-origin:top center}
+
+/* confetti */
+.sh-cf{position:absolute;display:block}
+.sh-cf,.sh-cb,.sh-cb1,.sh-cfall,.sh-cf2,.sh-shard,.sh-puff,.sh-cannon,.sh-flash,.sh-shock,.sh-flood,.sh-post,.sh-rib,.sh-pin{pointer-events:none}
+.sh-cf-r{width:10px;height:16px;border-radius:2px}
+.sh-cf-c{width:11px;height:11px;border-radius:50%}
+.sh-cf-s{width:5px;height:22px;border-radius:3px}
+.sh-cf-t{width:14px;height:13px;clip-path:polygon(50% 0,100% 100%,0 100%)}
+
+/* ambient */
+.sh-sway{animation:shSway 5.5s ease-in-out infinite;transform-origin:50% 100%}
+@keyframes shSway{0%,100%{transform:rotate(-2.6deg)}50%{transform:rotate(2.6deg)}}
+.sh-bob{animation:shBob 6s ease-in-out infinite}
+@keyframes shBob{0%,100%{transform:translate(0,0)}50%{transform:translate(0,-12px)}}
+.sh-hang{animation:shHang 6.5s ease-in-out infinite;transform-origin:50% 0}
+@keyframes shHang{0%,100%{transform:rotate(-2deg)}50%{transform:rotate(2deg)}}
+.sh-tw{animation:shTw 7s ease-in-out infinite}
+@keyframes shTw{0%,100%{transform:rotate(var(--rz)) translateY(0)}50%{transform:rotate(calc(var(--rz) + 28deg)) translateY(-5px)}}
+.sh-poke{animation:shPoke 2.6s cubic-bezier(.5,0,.3,1) infinite}
+@keyframes shPoke{0%,55%,100%{transform:translate(0,0) rotate(0)}70%{transform:translate(-14px,-6px) rotate(-4deg)}78%{transform:translate(-4px,-2px) rotate(0)}}
+.sh-wav span{display:inline-block;animation:shWav 3.4s ease-in-out infinite}
+@keyframes shWav{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.sh-glow{animation:shGlow 3.2s ease-in-out infinite}
+@keyframes shGlow{0%,100%{opacity:.55;transform:scale(1)}50%{opacity:.9;transform:scale(1.06)}}
+
+/* reveal on scroll: content is visible by default; the entrance plays when the section approaches the viewport */
+.sh-rv.is-in{animation:shRvIn 1s cubic-bezier(.2,.8,.2,1) both}
+@keyframes shRvIn{0%{opacity:0;transform:translateY(46px) scale(.985)}100%{opacity:1;transform:none}}
+.sh-rv.is-in .sh-st{animation:shStIn .85s cubic-bezier(.25,1.35,.4,1) both}
+@keyframes shStIn{0%{opacity:0;transform:translateY(28px) scale(.96)}100%{opacity:1;transform:none}}
+
+/* micro interactions */
+.sh-boing{animation:shBoing .7s cubic-bezier(.3,.7,.4,1.4)}
+@keyframes shBoing{0%{transform:scale(1)}25%{transform:scale(1.08,.92)}50%{transform:scale(.95,1.06)}75%{transform:scale(1.02,.98)}100%{transform:scale(1)}}
+.sh-repop{animation:shRepop 1.1s cubic-bezier(.3,.7,.4,1) both}
+@keyframes shRepop{0%{transform:scale(1);opacity:1}16%{transform:scale(1.28);opacity:1}22%{transform:scale(1.5);opacity:0}58%{transform:scale(.1);opacity:0}82%{transform:scale(1.12);opacity:1}100%{transform:scale(1);opacity:1}}
+.sh-puff span{position:absolute;left:50%;top:50%;width:7px;height:7px;margin:-3.5px 0 0 -3.5px;border-radius:50%;opacity:0}
+.sh-puff.is-on span{animation:shPuff .8s cubic-bezier(.15,.7,.3,1) .1s forwards}
+@keyframes shPuff{0%{opacity:1;transform:rotate(var(--ang)) translateY(-6px) scale(1)}100%{opacity:0;transform:rotate(var(--ang)) translateY(var(--dist)) scale(.5)}}
+.sh-drop{animation:shDrop .8s cubic-bezier(.2,1.3,.4,1)}
+@keyframes shDrop{0%{opacity:0;transform:translateY(-40px) rotate(-8deg) scale(.9)}100%{opacity:1;transform:none}}
+.sh-flip{animation:shFlip .55s cubic-bezier(.3,.7,.3,1.3)}
+@keyframes shFlip{0%{transform:perspective(300px) rotateX(-70deg);opacity:.45}100%{transform:perspective(300px) rotateX(0);opacity:1}}
+.sh-pulse span{opacity:0}
+.sh-pulse.is-on span{animation:shRing 2.6s ease-out infinite}
+.sh-pulse.is-on span:nth-child(2){animation-delay:.85s}
+.sh-pulse.is-on span:nth-child(3){animation-delay:1.7s}
+@keyframes shRing{0%{opacity:.7;transform:scale(1)}100%{opacity:0;transform:scale(1.75)}}
+.sh-breath{animation:shBreath 1.6s ease-in-out infinite}
+@keyframes shBreath{0%,100%{transform:scale(1)}50%{transform:scale(1.06,1.04)}}
+.sh-cannon .sh-cb{opacity:0}
+.sh-cannon.is-on .sh-cb{animation:shCb 1.1s cubic-bezier(.12,.75,.3,1) forwards}
+.sh-cannon.is-on .sh-cf2{animation:shCf2 1.9s cubic-bezier(.45,0,.75,1) .75s forwards}
+@keyframes shCb{0%{opacity:1;transform:translate(0,0) scale(.3)}100%{opacity:1;transform:translate(var(--bx),var(--by)) scale(1)}}
+@keyframes shCf2{0%{transform:translate(0,0) rotate(0);opacity:1}100%{transform:translate(var(--sw),var(--fy)) rotate(260deg);opacity:0}}
+
+/* ---------- intro */
+.sh-intro{transition:opacity .9s ease}
+.sh-intro.is-fade{opacity:0;pointer-events:none}
+.sh-intro.is-pop{pointer-events:none}
+.sh-pre{transition:opacity .35s ease,transform .45s cubic-bezier(.4,0,.6,1)}
+.sh-intro.is-pop .sh-pre{opacity:0;transform:translateY(-14px)}
+.sh-intro.is-pop .sh-pre2{transform:translateY(16px)}
+.sh-big{transform-origin:50% 52%}
+.sh-intro.is-pop .sh-big{animation:shPopB .62s cubic-bezier(.5,0,.6,1) forwards}
+@keyframes shPopB{0%{transform:scale(1)}28%{transform:scale(1.07,.94)}52%{transform:scale(1.12,1.1)}62%{transform:scale(1.1,1.13) rotate(1.5deg)}72%{transform:scale(1.15,1.12) rotate(-1.5deg)}80%{transform:scale(1.17);opacity:1}100%{transform:scale(1.55);opacity:0}}
+.sh-intro.is-pop .sh-bigsw{animation:none}
+.sh-rib{transform-origin:50% 0}
+.sh-intro.is-pop .sh-rib{animation:shRib 1.1s cubic-bezier(.5,0,.8,.6) .48s forwards}
+@keyframes shRib{0%{transform:translateY(0) rotate(0);opacity:1}100%{transform:translateY(380px) rotate(22deg);opacity:0}}
+.sh-pin{transition:opacity .25s ease}
+.sh-intro.is-pop .sh-pin{opacity:0}
+.sh-flash{opacity:0}
+.sh-intro.is-pop .sh-flash{animation:shFlash .8s ease-out .48s forwards}
+@keyframes shFlash{0%{opacity:.95;transform:scale(.6)}100%{opacity:0;transform:scale(1.8)}}
+.sh-shock{opacity:0}
+.sh-intro.is-pop .sh-shock{animation:shShock .9s cubic-bezier(.1,.7,.3,1) .5s forwards}
+@keyframes shShock{0%{opacity:.9;transform:scale(.4)}100%{opacity:0;transform:scale(2.6)}}
+.sh-shard{opacity:0}
+.sh-intro.is-pop .sh-shard{animation:shShard .75s cubic-bezier(.1,.7,.3,1) .5s forwards}
+@keyframes shShard{0%{opacity:1;transform:translate(0,0) rotate(0) scale(1)}100%{opacity:0;transform:translate(var(--bx),var(--by)) rotate(var(--rot)) scale(.6)}}
+.sh-flood{transform:scale(0)}
+.sh-intro.is-pop .sh-flood{animation:shFlood 1.1s cubic-bezier(.3,.6,.2,1) .5s forwards}
+@keyframes shFlood{0%{transform:scale(0)}100%{transform:scale(1)}}
+.sh-post{opacity:0}
+.sh-intro.is-pop .sh-post{transition:opacity .9s ease 1.3s;opacity:1}
+.sh-cb1{opacity:0}
+.sh-intro.is-pop .sh-cb1{animation:shCb 1s cubic-bezier(.08,.8,.25,1) .48s forwards}
+.sh-intro.is-pop .sh-cfall{animation:shFall var(--fd) cubic-bezier(.4,.1,.7,1) var(--fdel) forwards}
+@keyframes shFall{0%{transform:translate(0,0)}25%{transform:translate(var(--sw),calc(var(--fy) * .2))}50%{transform:translate(calc(var(--sw) * -1),calc(var(--fy) * .48))}75%{transform:translate(var(--sw),calc(var(--fy) * .76))}100%{transform:translate(0,var(--fy))}}
+.sh-cspin{animation:shSpin var(--sd) linear infinite}
+@keyframes shSpin{0%{transform:rotate(var(--rz)) rotateX(0) rotateY(0)}100%{transform:rotate(var(--rz)) rotateX(360deg) rotateY(180deg)}}
+.sh-intro.is-pop .sh-away{animation:shAway 1.6s cubic-bezier(.5,0,.7,.4) .55s forwards}
+@keyframes shAway{0%{transform:translate(0,0) rotate(0);opacity:1}100%{transform:translate(var(--ax),-760px) rotate(var(--ar));opacity:.4}}
+.sh-intro.is-pop .sh-joy{animation:shJoy .9s cubic-bezier(.3,.7,.4,1.5) .6s}
+@keyframes shJoy{0%{transform:scale(1)}40%{transform:scale(1.25) translateY(-16px)}100%{transform:scale(1)}}
+.sh-wl{display:inline-block;opacity:0}
+.sh-intro.is-pop .sh-wl{animation:shWl .95s cubic-bezier(.2,1.5,.4,1) forwards}
+@keyframes shWl{0%{opacity:0;transform:translateY(70px) scale(.2) rotate(-16deg)}60%{opacity:1}100%{opacity:1;transform:none}}
+.sh-nl{display:inline-block;opacity:0}
+.sh-intro.is-pop .sh-nl{animation:shNl .8s cubic-bezier(.2,.8,.3,1) forwards}
+@keyframes shNl{0%{opacity:0;transform:translateY(18px);filter:blur(8px)}100%{opacity:1;transform:none;filter:blur(0)}}
+.sh-up{opacity:0}
+.sh-intro.is-pop .sh-up{animation:shUp .8s cubic-bezier(.2,.8,.3,1) forwards}
+@keyframes shUp{0%{opacity:0;transform:translateY(22px)}100%{opacity:1;transform:none}}
+.sh-rise{opacity:0}
+.sh-intro.is-pop .sh-rise{animation:shRise 1.6s cubic-bezier(.2,.9,.3,1.08) 2.2s forwards}
+@keyframes shRise{0%{opacity:0;transform:translateY(560px)}12%{opacity:1}100%{opacity:1;transform:none}}
+
+@media (prefers-reduced-motion: reduce){
+.sh-sway,.sh-bob,.sh-hang,.sh-tw,.sh-poke,.sh-wav span,.sh-glow,.sh-boing,.sh-repop,.sh-drop,.sh-flip,.sh-pulse.is-on span,.sh-breath,.sh-cspin{animation:none}
+.sh-rv.is-in,.sh-rv.is-in .sh-st{animation:none}
+.sh-puff.is-on span,.sh-cannon.is-on .sh-cb,.sh-cannon.is-on .sh-cf2{animation:none;opacity:0}
+.sh-intro,.sh-pre,.sh-pin,.sh-btn{transition:none}
+.sh-intro.is-pop .sh-big{animation:none;opacity:0}
+.sh-intro.is-pop .sh-rib,.sh-intro.is-pop .sh-away{animation:none;opacity:0}
+.sh-intro.is-pop .sh-flash,.sh-intro.is-pop .sh-shock,.sh-intro.is-pop .sh-shard,.sh-intro.is-pop .sh-cb1,.sh-intro.is-pop .sh-cfall,.sh-intro.is-pop .sh-joy{animation:none}
+.sh-intro.is-pop .sh-cb1{opacity:0}
+.sh-intro.is-pop .sh-flood{animation:none;transform:scale(1)}
+.sh-intro.is-pop .sh-post{transition:none;opacity:1}
+.sh-intro.is-pop .sh-wl,.sh-intro.is-pop .sh-nl,.sh-intro.is-pop .sh-up,.sh-intro.is-pop .sh-rise{animation:none;opacity:1;transform:none;filter:none}
+}
+</style>
+</helmet>
+<div class="sh {{ rootCls }}" style="width: 390px; min-height: var(--vh, 100vh); position: relative; overflow: hidden; background: #FFF8F1; color: #24202B; font-family: 'Mulish', 'Segoe UI', system-ui, sans-serif">
+
+  <div data-intro class="{{ introCls }}" aria-hidden="{{ introHidden }}" style="display: {{ introDisp }}; position: absolute; left: 0; top: 0; width: 390px; height: 844px; z-index: 30; overflow: hidden; background: radial-gradient(ellipse 70% 45% at 0% 18%, #C7DEFF, rgba(199, 222, 255, 0) 70%), radial-gradient(ellipse 75% 50% at 100% 82%, #FFCFE1, rgba(255, 207, 225, 0) 70%), linear-gradient(165deg, #E3ECFF 0%, #F1EAF6 50%, #FFE6EF 100%)">
+    <div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px">
+      <sc-for list="{{ iSpark }}" as="sp"><span class="sh-cf sh-tw" style="{{ sp.st }}"></span></sc-for>
+    </div>
+
+    <div class="sh-flood" aria-hidden="true" style="position: absolute; left: -655px; top: -484px; width: 1700px; height: 1700px; border-radius: 50%; background: var(--tint)"></div>
+    <div class="sh-post" aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; background: {{ heroBg }}">
+      <sc-for list="{{ rest }}" as="cf"><span class="{{ cf.cls }}" style="{{ cf.st }}"></span></sc-for>
+    </div>
+    <div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px">
+      <sc-for list="{{ iBalloons }}" as="ib">
+        <div class="{{ ib.cls }}" style="{{ ib.pos }}">
+          <div class="sh-bob" style="{{ ib.bob }}">
+            <span class="sh-str" style="{{ ib.str }}"></span>
+            <span class="{{ ib.bl }}" style="{{ ib.st }}"></span>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+
+    <p style="position: absolute; left: 24px; top: 40px; width: 342px; margin: 0; line-height: 16px; text-align: center; font-size: 12px; font-weight: 800; letter-spacing: 0.22em; text-transform: uppercase; color: #5E5668; overflow-wrap: anywhere">{{ fromFamily }}</p>
+
+    <div class="sh-pre" style="position: absolute; left: 20px; top: 72px; width: 350px; text-align: center">
+      <p class="sh-d" style="margin: 0; font-size: 46px; font-weight: 800; line-height: 1; color: #2F6CC0">O’g’ilmi</p>
+      <p style="margin: 6px 0 0; display: flex; align-items: center; justify-content: center; gap: 10px">
+        <span style="display: block; width: 34px; height: 1.5px; background: rgba(36, 32, 43, 0.25)"></span>
+        <span style="font-size: 13px; font-weight: 800; letter-spacing: 0.24em; text-transform: uppercase; color: #5E5668">yoki</span>
+        <span style="display: block; width: 34px; height: 1.5px; background: rgba(36, 32, 43, 0.25)"></span>
+      </p>
+      <p class="sh-d" style="margin: 6px 0 0; font-size: 46px; font-weight: 800; line-height: 1; color: #C9467D">qizmi?</p>
+    </div>
+
+    <div class="sh-rib" aria-hidden="true" style="position: absolute; left: 150px; top: 520px; width: 90px; height: 190px">
+      <svg viewBox="0 0 90 190" width="90" height="190" style="display: block; overflow: visible"><path d="M45 0 C 30 22, 62 38, 45 60 S 28 98, 46 120 S 64 158, 44 188" fill="none" stroke="#C99A3E" stroke-width="2.6" stroke-linecap="round"></path><path d="M45 0 C 56 16, 70 22, 78 40" fill="none" stroke="#E7C468" stroke-width="2" stroke-linecap="round"></path></svg>
+    </div>
+    <div class="sh-flash" aria-hidden="true" style="position: absolute; left: 75px; top: 256px; width: 240px; height: 240px; border-radius: 50%; background: radial-gradient(circle, #FFFFFF 0%, rgba(255, 255, 255, 0.85) 35%, rgba(255, 255, 255, 0) 70%)"></div>
+    <div class="sh-shock" aria-hidden="true" style="position: absolute; left: 95px; top: 276px; width: 200px; height: 200px; box-sizing: border-box; border-radius: 50%; border: 3px solid rgba(255, 255, 255, 0.95)"></div>
+
+    <div class="sh-big" style="position: absolute; left: 75px; top: 226px; width: 240px; height: 300px">
+      <div class="sh-sway sh-bigsw" style="position: absolute; left: 0; top: 0; width: 240px; height: 300px">
+        <button type="button" class="sh-btn" onClick="{{ pop }}" aria-label="Sharni yorish" style="position: absolute; left: 0; top: 0; width: 240px; height: 300px; padding: 0; border: 0; background: transparent">
+          <span aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 240px; height: 286px; border-radius: 50% 50% 50% 50% / 44% 44% 56% 56%; background: radial-gradient(ellipse 18% 11% at 30% 21%, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0) 100%), radial-gradient(circle at 34% 30%, #7C7588 0%, #3A3443 24%, #1F1B25 60%, #110F15 100%); box-shadow: inset -16px -22px 40px rgba(0, 0, 0, 0.45), inset 10px 8px 26px rgba(255, 255, 255, 0.06), 0 30px 50px rgba(36, 32, 43, 0.22)"></span>
+          <span aria-hidden="true" style="position: absolute; left: 110px; top: 280px; width: 20px; height: 16px; background: #1A171F; clip-path: polygon(50% 0, 100% 100%, 0 100%)"></span>
+          <span aria-hidden="true" class="sh-d sh-foil" style="position: absolute; left: 0; top: 46px; width: 240px; text-align: center; font-size: 150px; font-weight: 900; line-height: 1">?</span>
+          <span aria-hidden="true" class="sh-foil" style="position: absolute; left: 0; top: 214px; width: 240px; text-align: center; font-size: 12px; font-weight: 800; letter-spacing: 0.3em; text-transform: uppercase">bosing</span>
+        </button>
+      </div>
+    </div>
+    <div class="sh-pin" aria-hidden="true" style="position: absolute; left: 300px; top: 300px; width: 70px; height: 70px">
+      <div class="sh-poke" style="width: 70px; height: 70px">
+        <svg viewBox="0 0 70 70" width="70" height="70" style="display: block"><path d="M6 44 L44 22" stroke="#9A93A3" stroke-width="2.4" stroke-linecap="round"></path><circle cx="50" cy="19" r="9" fill="#C99A3E"></circle><circle cx="47" cy="16" r="3" fill="#FFF0BF"></circle></svg>
+      </div>
+    </div>
+
+    <div aria-hidden="true" style="position: absolute; left: 195px; top: 376px; width: 0; height: 0">
+      <sc-for list="{{ shards }}" as="sd"><span class="sh-shard" style="{{ sd }}"></span></sc-for>
+      <sc-for list="{{ burst }}" as="c">
+        <span class="sh-cb1" style="{{ c.b }}"><span class="sh-cfall" style="{{ c.f }}"><span class="{{ c.cls }}" style="{{ c.st }}"></span></span></span>
+      </sc-for>
+    </div>
+
+    <div style="position: absolute; left: 0; top: {{ L.word }}; width: 390px; text-align: center">
+      <p class="sh-d" style="margin: 0; font-size: {{ wordFs }}; font-weight: 900; line-height: 1; color: var(--a); text-shadow: 0 5px 0 var(--ad), 0 16px 26px rgba(36, 32, 43, 0.16); white-space: nowrap">
+        <sc-for list="{{ wordLs }}" as="l"><span class="sh-wl" style="{{ l.st }}">{{ l.ch }}</span></sc-for>
+      </p>
+    </div>
+    <p class="sh-up" style="position: absolute; left: 20px; top: {{ L.born }}; width: 350px; margin: 0; text-align: center; font-size: 19px; font-weight: 800; line-height: 1.3; color: #24202B; animation-delay: 1.25s">{{ bornLine }}</p>
+    <p class="sh-up" style="position: absolute; left: 20px; top: {{ L.lbl }}; width: 350px; margin: 0; text-align: center; font-size: 12px; font-weight: 800; letter-spacing: 0.24em; text-transform: uppercase; color: var(--ad); animation-delay: 1.5s">{{ nameLbl }}</p>
+    <div style="position: absolute; left: 20px; top: {{ L.name }}; width: 350px; text-align: center">
+      <p class="sh-d" style="margin: 0; font-size: {{ nameFs }}; font-weight: 800; line-height: 1.08; color: #24202B">
+        <sc-for list="{{ nameWords }}" as="wd"><span style="display: inline-block; white-space: nowrap; margin: 0 0.12em"><sc-for list="{{ wd.ls }}" as="l"><span class="sh-nl" style="{{ l.st }}">{{ l.ch }}</span></sc-for></span></sc-for>
+      </p>
+    </div>
+    <div class="sh-up" style="position: absolute; left: 0; top: {{ L.chips }}; width: 390px; display: flex; justify-content: center; gap: 8px; animation-delay: 2.05s">
+      <sc-for list="{{ chips }}" as="cp">
+        <span style="display: inline-flex; align-items: center; gap: 7px; height: 40px; padding: 0 16px; border-radius: 20px; background: rgba(255, 255, 255, 0.78); box-shadow: 0 8px 18px rgba(36, 32, 43, 0.07); font-size: 15px; font-weight: 700; color: #24202B; white-space: nowrap">{{ cp }}</span>
+      </sc-for>
+    </div>
+    <div class="sh-rise" aria-hidden="true" style="position: absolute; left: 0; top: {{ L.photo }}; width: 390px; height: 330px">
+      <div class="sh-hang" style="position: absolute; left: 0; top: 0; width: 390px; height: 330px; transform-origin: 195px 96px">
+        <svg viewBox="0 0 390 330" width="390" height="330" style="position: absolute; left: 0; top: 0"><path d="M148 80 Q 170 100 195 112 M195 72 L195 112 M244 80 Q 222 100 195 112" fill="none" stroke="rgba(36,32,43,0.3)" stroke-width="1.5"></path></svg>
+        <span class="sh-bl sh-bl--l" style="left: 106px; top: 4px; width: 78px; height: 88px"></span>
+        <span class="sh-bl sh-bl--g" style="left: 208px; top: 8px; width: 74px; height: 84px"></span>
+        <span class="sh-bl sh-bl--a" style="left: 154px; top: -14px; width: 82px; height: 94px"></span>
+        <div style="position: absolute; left: 92px; top: 112px; width: 206px; height: 214px; box-sizing: border-box; padding: 11px 11px 0; background: #FFFFFF; border-radius: 6px; box-shadow: 0 18px 36px rgba(36, 32, 43, 0.16); transform: rotate(-3deg)">
+          <sc-if value="{{ has.photo }}"><img src="{{ p.0 }}" alt="" style="display: block; width: 184px; height: 164px; object-fit: cover; object-position: 50% 30%; border-radius: 3px"></sc-if>
+          <sc-if value="{{ noPhoto }}"><span style="display: flex; align-items: center; justify-content: center; width: 184px; height: 164px; border-radius: 3px; background: var(--al); font-size: 96px; font-weight: 800; color: var(--a)">{{ initial }}</span></sc-if>
+          <span class="sh-d" style="display: block; margin-top: 8px; text-align: center; font-size: 15px; font-weight: 700; font-style: italic; color: #5E5668">Salom, dunyo!</span>
+        </div>
+      </div>
+    </div>
+
+    <sc-if value="{{ has.music }}">
+      <button type="button" class="sh-btn" onClick="{{ toggleMusic }}" aria-label="{{ musicLabel }}" style="position: absolute; left: 326px; top: 28px; width: 46px; height: 46px; border: 0; border-radius: 50%; background: rgba(255, 255, 255, 0.8); color: #24202B; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 18px rgba(36, 32, 43, 0.1)">
+        <svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20" class="sh-ic"><path d="M9 18V5.5l10-2V16"></path><circle cx="6.5" cy="18" r="2.5"></circle><circle cx="16.5" cy="16" r="2.5"></circle></svg>
+      </button>
+    </sc-if>
+
+    <div class="sh-pre sh-pre2" style="position: absolute; left: 0; top: 708px; width: 390px; display: flex; flex-direction: column; align-items: center; gap: 12px">
+      <button type="button" class="sh-btn" onClick="{{ pop }}" style="display: inline-flex; align-items: center; gap: 12px; height: 60px; padding: 0 28px 0 14px; border: 0; border-radius: 30px; background: #24202B; color: #FFFFFF; font-family: 'Mulish', system-ui, sans-serif; font-size: 18px; font-weight: 800; box-shadow: 0 16px 30px rgba(36, 32, 43, 0.28)">
+        <span aria-hidden="true" style="display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, #A97A26, #F3D98B 45%, #C99A3E)">
+          <svg viewBox="0 0 24 24" width="20" height="20"><path d="M5 19 L15 9" stroke="#24202B" stroke-width="2.2" stroke-linecap="round"></path><circle cx="17" cy="7" r="3.4" fill="#24202B"></circle></svg>
+        </span>
+        Sharni yorish
+      </button>
+      <span style="font-size: 14px; font-weight: 600; color: #5E5668">Ichida — eng katta sirimiz</span>
+    </div>
+  </div>
+
+  <header style="position: relative; height: {{ heroH }}; background: {{ heroBg }}">
+    <div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px">
+      <sc-for list="{{ rest }}" as="cf"><span class="{{ cf.cls }}" style="{{ cf.st }}"></span></sc-for>
+      <sc-for list="{{ winners }}" as="ib">
+        <div style="{{ ib.pos }}">
+          <div class="sh-bob" style="{{ ib.bob }}">
+            <span class="sh-str" style="{{ ib.str }}"></span>
+            <span class="{{ ib.bl }}" style="{{ ib.st }}"></span>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+    <p style="position: absolute; left: 24px; top: 40px; width: 342px; margin: 0; line-height: 16px; text-align: center; font-size: 12px; font-weight: 800; letter-spacing: 0.22em; text-transform: uppercase; color: #5E5668; overflow-wrap: anywhere">{{ fromFamily }}</p>
+    <div style="position: absolute; left: 0; top: {{ L.word }}; width: 390px; text-align: center">
+      <p class="sh-d sh-wav" style="margin: 0; font-size: {{ wordFs }}; font-weight: 900; line-height: 1; color: var(--a); text-shadow: 0 5px 0 var(--ad), 0 16px 26px rgba(36, 32, 43, 0.16); white-space: nowrap">
+        <sc-for list="{{ wordLs }}" as="l"><span style="{{ l.wav }}">{{ l.ch }}</span></sc-for>
+      </p>
+    </div>
+    <p style="position: absolute; left: 20px; top: {{ L.born }}; width: 350px; margin: 0; text-align: center; font-size: 19px; font-weight: 800; line-height: 1.3; color: #24202B">{{ bornLine }}</p>
+    <p style="position: absolute; left: 20px; top: {{ L.lbl }}; width: 350px; margin: 0; text-align: center; font-size: 12px; font-weight: 800; letter-spacing: 0.24em; text-transform: uppercase; color: var(--ad)">{{ nameLbl }}</p>
+    <h1 class="sh-d" style="position: absolute; left: 20px; top: {{ L.name }}; width: 350px; margin: 0; text-align: center; font-size: {{ nameFs }}; font-weight: 800; line-height: 1.08; color: #24202B">
+      <sc-for list="{{ nameWords }}" as="wd"><span style="display: inline-block; white-space: nowrap; margin: 0 0.12em">{{ wd.w }}</span></sc-for>
+    </h1>
+    <div style="position: absolute; left: 0; top: {{ L.chips }}; width: 390px; display: flex; justify-content: center; gap: 8px">
+      <sc-for list="{{ chips }}" as="cp">
+        <span style="display: inline-flex; align-items: center; gap: 7px; height: 40px; padding: 0 16px; border-radius: 20px; background: rgba(255, 255, 255, 0.78); box-shadow: 0 8px 18px rgba(36, 32, 43, 0.07); font-size: 15px; font-weight: 700; color: #24202B; white-space: nowrap">{{ cp }}</span>
+      </sc-for>
+    </div>
+    <div aria-hidden="true" style="position: absolute; left: 0; top: {{ L.photo }}; width: 390px; height: 330px">
+      <div class="sh-hang" style="position: absolute; left: 0; top: 0; width: 390px; height: 330px; transform-origin: 195px 96px">
+        <svg viewBox="0 0 390 330" width="390" height="330" style="position: absolute; left: 0; top: 0"><path d="M148 80 Q 170 100 195 112 M195 72 L195 112 M244 80 Q 222 100 195 112" fill="none" stroke="rgba(36,32,43,0.3)" stroke-width="1.5"></path></svg>
+        <span class="sh-bl sh-bl--l" style="left: 106px; top: 4px; width: 78px; height: 88px"></span>
+        <span class="sh-bl sh-bl--g" style="left: 208px; top: 8px; width: 74px; height: 84px"></span>
+        <span class="sh-bl sh-bl--a" style="left: 154px; top: -14px; width: 82px; height: 94px"></span>
+        <div style="position: absolute; left: 92px; top: 112px; width: 206px; height: 214px; box-sizing: border-box; padding: 11px 11px 0; background: #FFFFFF; border-radius: 6px; box-shadow: 0 18px 36px rgba(36, 32, 43, 0.16); transform: rotate(-3deg)">
+          <sc-if value="{{ has.photo }}"><img src="{{ p.0 }}" alt="" style="display: block; width: 184px; height: 164px; object-fit: cover; object-position: 50% 30%; border-radius: 3px"></sc-if>
+          <sc-if value="{{ noPhoto }}"><span style="display: flex; align-items: center; justify-content: center; width: 184px; height: 164px; border-radius: 3px; background: var(--al); font-size: 96px; font-weight: 800; color: var(--a)">{{ initial }}</span></sc-if>
+          <span class="sh-d" style="display: block; margin-top: 8px; text-align: center; font-size: 15px; font-weight: 700; font-style: italic; color: #5E5668">Salom, dunyo!</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <sc-if value="{{ showCount }}">
+    <section aria-label="Dunyoga kelganiga" class="{{ rv.count }}" data-rv="count" style="position: relative; margin: 34px 20px 0">
+      <p class="sh-tag"><span><i></i>Dunyoga kelganiga</span></p>
+      <div style="margin-top: 16px; display: flex; justify-content: center; gap: 10px">
+        <sc-for list="{{ flips }}" as="c">
+          <div class="sh-st" style="{{ c.dl }}">
+            <div style="position: relative; width: 76px; height: 84px; border-radius: 20px; background: #24202B; box-shadow: 0 14px 26px rgba(36, 32, 43, 0.18); overflow: hidden">
+              <span aria-hidden="true" style="position: absolute; left: 0; top: 41px; width: 76px; height: 2px; background: rgba(255, 255, 255, 0.12)"></span>
+              <span key="{{ c.key }}" class="sh-d sh-flip sh-foil" style="position: absolute; left: 0; top: 0; width: 76px; height: 84px; display: flex; align-items: center; justify-content: center; font-size: {{ c.fs }}; font-weight: 800">{{ c.v }}</span>
+            </div>
+            <span style="display: block; margin-top: 8px; text-align: center; font-size: 12px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: #6E6577">{{ c.l }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+  </sc-if>
+
+  <sc-if value="{{ b.olchov }}">
+    <section aria-label="Tug’ilish kartochkasi" class="{{ rv.olchov }}" data-rv="olchov" style="position: relative; margin: 80px 20px 0">
+      <p class="sh-tag"><span><i></i>Tug’ilish kartochkasi</span></p>
+      <h2 class="sh-h2">Ilk raqamlar</h2>
+      <p class="sh-sub">Folga sharlarni bosing</p>
+      <svg aria-hidden="true" viewBox="0 0 350 40" width="350" height="40" style="display: block; margin-top: 14px"><path d="M0 6 Q 175 34 350 6" fill="none" stroke="rgba(36,32,43,0.3)" stroke-width="1.5"></path>
+        <sc-for list="{{ flags }}" as="fg"><path d="{{ fg.d }}" fill="{{ fg.c }}"></path></sc-for>
+      </svg>
+      <div style="margin-top: 6px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px">
+        <sc-for list="{{ ms }}" as="m">
+          <div class="sh-st" style="{{ m.wrap }}">
+            <div class="sh-hang" style="{{ m.hang }}">
+              <button type="button" class="sh-btn" onClick="{{ m.tap }}" aria-label="{{ m.aria }}" style="display: block; width: 100%; padding: 0; border: 0; background: transparent; color: inherit; font-family: inherit">
+                <span key="{{ m.key }}" class="{{ m.cls }}" style="display: block; position: relative; box-sizing: border-box; min-height: 158px; padding: 18px 12px 16px; border-radius: 28px; background: #FFFFFF; box-shadow: 0 16px 34px rgba(36, 32, 43, 0.08); text-align: center">
+                  <span style="display: block; font-size: 12px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; color: #6E6577">{{ m.label }}</span>
+                  <span class="sh-d sh-afoil" style="display: block; margin-top: 6px; font-size: {{ m.fs }}; font-weight: 900; line-height: 1; white-space: nowrap; filter: drop-shadow(0 3px 0 rgba(36, 32, 43, 0.08))">{{ m.big }}</span>
+                  <sc-if value="{{ m.unit }}"><span class="sh-d" style="display: block; margin-top: 4px; font-size: 18px; font-weight: 800; color: var(--ad)">{{ m.unit }}</span></sc-if>
+                  <sc-if value="{{ m.sub }}"><span style="display: block; margin-top: 4px; font-size: 13px; font-weight: 600; color: #6E6577">{{ m.sub }}</span></sc-if>
+                </span>
+              </button>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+      <div class="sh-card sh-st" style="margin-top: 16px; padding: 18px 20px; text-align: center; background: #24202B; color: #FFFFFF">
+        <span style="display: block; font-size: 12px; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255, 255, 255, 0.7)">To’liq ismi</span>
+        <span class="sh-d sh-foil" style="display: block; margin-top: 6px; font-size: 24px; font-weight: 800; line-height: 1.25; overflow-wrap: anywhere">{{ nasab }}</span>
+      </div>
+    </section>
+  </sc-if>
+
+  <sc-if value="{{ b.xabar }}">
+    <section aria-label="Xushxabar" class="{{ rv.xabar }}" data-rv="xabar" style="position: relative; margin: 92px 20px 0">
+      <div class="sh-card" style="padding: 62px 26px 30px; text-align: center">
+        <div aria-hidden="true" style="position: absolute; left: 50%; top: -26px; width: 270px; height: 56px; margin-left: -135px">
+          <svg viewBox="0 0 270 56" width="270" height="56" style="display: block"><path d="M0 14 L34 14 L34 50 L18 40 L0 50 Z" fill="var(--ad)"></path><path d="M270 14 L236 14 L236 50 L252 40 L270 50 Z" fill="var(--ad)"></path><rect x="22" y="4" width="226" height="40" rx="8" fill="var(--a)"></rect></svg>
+          <span class="sh-d" style="position: absolute; left: 22px; top: 4px; width: 226px; height: 40px; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: #FFFFFF">Xushxabar</span>
+        </div>
+        <sc-for list="{{ cardDots }}" as="cf"><span class="{{ cf.cls }}" aria-hidden="true" style="{{ cf.st }}"></span></sc-for>
+        <h2 class="sh-h2 sh-st" style="margin: 0; font-size: 30px">Aziz yaqinlarimiz!</h2>
+        <p class="sh-st" style="margin: 16px 0 0; font-size: 18px; line-height: 1.65; color: #24202B; white-space: pre-line; overflow-wrap: anywhere">{{ d.matn }}</p>
+        <sc-if value="{{ d.ota_ona }}">
+          <p class="sh-d sh-st" style="margin: 20px 0 0; font-size: 21px; font-weight: 700; font-style: italic; color: var(--ad); overflow-wrap: anywhere">{{ d.ota_ona }}</p>
+        </sc-if>
+      </div>
+    </section>
+  </sc-if>
+
+  <sc-if value="{{ b.oila }}">
+    <section aria-label="Oila daraxti" class="{{ rv.oila }}" data-rv="oila" style="position: relative; margin: 80px 20px 0">
+      <p class="sh-tag"><span><i></i>Bizning oila</span></p>
+      <h2 class="sh-h2">Sharlar shodasi</h2>
+      <p class="sh-sub">Hamma iplar bitta quvonchga bog’langan</p>
+      <div style="position: relative; margin-top: 22px; height: {{ fam.h }}">
+        <svg aria-hidden="true" viewBox="{{ fam.vb }}" width="350" height="{{ fam.hp }}" style="position: absolute; left: 0; top: 0">
+          <sc-for list="{{ fam.lines }}" as="ln"><path d="{{ ln }}" fill="none" stroke="rgba(36,32,43,0.32)" stroke-width="1.5"></path></sc-for>
+        </svg>
+        <sc-for list="{{ fam.items }}" as="f">
+          <div class="sh-st" style="{{ f.pos }}">
+            <div class="sh-sway" style="{{ f.sw }}">
+              <div class="{{ f.bl }}" style="{{ f.st }}">
+                <div style="position: relative; box-sizing: border-box; width: 100%; padding: 0 {{ f.pad }}; text-align: center">
+                  <span style="display: block; font-size: 11px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: {{ f.lc }}">{{ f.label }}</span>
+                  <span style="display: block; margin-top: 4px; font-size: {{ f.fs }}; font-weight: 800; line-height: 1.25; color: {{ f.nc }}; white-space: pre-line; overflow-wrap: anywhere">{{ f.names }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </sc-for>
+        <div class="sh-st" style="{{ fam.baby }}">
+          <span style="display: block; font-size: 11px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255, 255, 255, 0.72)">{{ fam.babyLbl }}</span>
+          <span class="sh-d sh-foil" style="display: block; margin-top: 4px; font-size: {{ fam.babyFs }}; font-weight: 800; line-height: 1.15; overflow-wrap: break-word">{{ d.chaqaloq }}</span>
+        </div>
+      </div>
+    </section>
+  </sc-if>
+
+  <sc-if value="{{ b.galereya }}">
+    <section aria-label="Suratlar" class="{{ rv.galereya }}" data-rv="galereya" style="position: relative; margin: 84px 0 0">
+      <p class="sh-tag"><span><i></i>Ilk suratlar</span></p>
+      <h2 class="sh-h2">Quvonch lahzalari</h2>
+      <div style="position: relative; width: 390px; height: 400px; margin-top: 18px">
+        <svg aria-hidden="true" viewBox="0 0 390 60" width="390" height="60" style="position: absolute; left: 0; top: 0"><path d="M-10 8 Q 195 56 400 8" fill="none" stroke="rgba(36,32,43,0.3)" stroke-width="1.5"></path></svg>
+        <div class="sh-hang" style="position: absolute; left: 50px; top: 28px; width: 290px; height: 360px; transform-origin: 145px 0">
+          <span aria-hidden="true" style="position: absolute; left: 133px; top: -6px; width: 24px; height: 30px; border-radius: 5px; background: linear-gradient(135deg, #A97A26, #F3D98B 45%, #C99A3E); z-index: 2; box-shadow: 0 3px 6px rgba(36, 32, 43, 0.2)"></span>
+          <div key="{{ gKey }}" class="{{ gCls }}" style="position: absolute; left: 0; top: 10px; width: 290px; height: 340px; box-sizing: border-box; padding: 14px 14px 0; background: #FFFFFF; border-radius: 6px; box-shadow: 0 22px 44px rgba(36, 32, 43, 0.16); transform-origin: 145px 0">
+            <img src="{{ gBig }}" alt="" style="display: block; width: 262px; height: 262px; object-fit: cover; border-radius: 3px">
+            <span class="sh-d" style="display: block; margin-top: 12px; text-align: center; font-size: 16px; font-weight: 700; font-style: italic; color: #5E5668">{{ gCap }}</span>
+          </div>
+        </div>
+        <div class="sh-puff {{ gPuff }}" key="{{ gKey }}" aria-hidden="true" style="position: absolute; left: 195px; top: 190px; width: 0; height: 0">
+          <sc-for list="{{ puff }}" as="pf"><span style="{{ pf }}"></span></sc-for>
+        </div>
+      </div>
+      <sc-if value="{{ gMulti }}">
+        <div style="margin-top: 14px; display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; padding: 0 20px">
+          <sc-for list="{{ thumbs }}" as="th">
+            <button type="button" class="sh-btn" onClick="{{ th.tap }}" aria-label="{{ th.aria }}" style="{{ th.st }}"><img src="{{ th.src }}" alt="" style="display: block; width: 100%; height: 100%; object-fit: cover; border-radius: 12px"></button>
+          </sc-for>
+        </div>
+      </sc-if>
+    </section>
+  </sc-if>
+
+  <sc-if value="{{ b.albom }}">
+    <section aria-label="O’sish albomi" class="{{ rv.albom }}" data-rv="albom" style="position: relative; margin: 84px 20px 0">
+      <p class="sh-tag"><span><i></i>Oyma-oy</span></p>
+      <h2 class="sh-h2">O’sish albomi</h2>
+      <p class="sh-sub">Har oy — yangi raqamli shar</p>
+      <div style="margin-top: 22px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px">
+        <sc-for list="{{ months }}" as="m">
+          <div class="sh-st" style="{{ m.dl }}">
+            <div style="position: relative; height: 126px; border-radius: 22px; overflow: hidden; {{ m.box }}">
+              <sc-if value="{{ m.src }}"><img src="{{ m.src }}" alt="" style="display: block; width: 100%; height: 126px; object-fit: cover"></sc-if>
+              <sc-if value="{{ m.src }}"><span class="sh-bl sh-bl--a" style="left: 8px; top: 70px; width: 38px; height: 44px"></span><span class="sh-d" style="position: absolute; left: 8px; top: 70px; width: 38px; height: 40px; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 900; color: #FFFFFF">{{ m.n }}</span></sc-if>
+              <sc-if value="{{ m.empty }}"><span class="sh-d" style="position: absolute; left: 12px; bottom: 6px; font-size: 52px; font-weight: 900; line-height: 1; color: rgba(36, 32, 43, 0.14)">{{ m.n }}</span></sc-if>
+            </div>
+            <span style="display: block; margin-top: 8px; text-align: center; font-size: 15px; font-weight: 800">{{ m.label }}</span>
+            <span style="display: block; text-align: center; font-size: 13px; color: #6E6577">{{ m.note }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+  </sc-if>
+
+  <sc-if value="{{ b.alla }}">
+    <section aria-label="Alla" class="{{ rv.alla }}" data-rv="alla" style="position: relative; margin: 84px 20px 0; text-align: center">
+      <p class="sh-tag"><span><i></i>Beshik qo’shig’i</span></p>
+      <h2 class="sh-h2">Alla</h2>
+      <div class="sh-st" style="position: relative; width: 180px; height: 230px; margin: 24px auto 0">
+        <div class="{{ pulseCls }}" aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 180px; height: 200px">
+          <span style="position: absolute; left: 0; top: 0; width: 180px; height: 200px; box-sizing: border-box; border-radius: 50% 50% 50% 50% / 56% 56% 44% 44%; border: 2px solid var(--c2)"></span>
+          <span style="position: absolute; left: 0; top: 0; width: 180px; height: 200px; box-sizing: border-box; border-radius: 50% 50% 50% 50% / 56% 56% 44% 44%; border: 2px solid var(--c2)"></span>
+          <span style="position: absolute; left: 0; top: 0; width: 180px; height: 200px; box-sizing: border-box; border-radius: 50% 50% 50% 50% / 56% 56% 44% 44%; border: 2px solid var(--c2)"></span>
+        </div>
+        <span aria-hidden="true" class="sh-str" style="left: 90px; top: 206px; height: 26px"></span>
+        <button type="button" class="sh-btn" onClick="{{ toggleMusic }}" aria-label="{{ musicLabel }}" style="position: absolute; left: 0; top: 0; width: 180px; height: 206px; padding: 0; border: 0; background: transparent; color: #FFFFFF">
+          <span class="sh-bl sh-bl--a {{ breathCls }}" aria-hidden="true" style="left: 0; top: 0; width: 180px; height: 200px"></span>
+          <span style="position: absolute; left: 0; top: 0; width: 180px; height: 200px; display: flex; align-items: center; justify-content: center">
+            <sc-if value="{{ notPlaying }}"><svg aria-hidden="true" viewBox="0 0 24 24" width="50" height="50" style="margin-left: 6px"><path fill="currentColor" d="M8.5 5.5v13l10.5-6.5z"></path></svg></sc-if>
+            <sc-if value="{{ playing }}"><svg aria-hidden="true" viewBox="0 0 24 24" width="46" height="46"><rect x="6.5" y="5.5" width="3.8" height="13" rx="1.2" fill="currentColor"></rect><rect x="13.7" y="5.5" width="3.8" height="13" rx="1.2" fill="currentColor"></rect></svg></sc-if>
+          </span>
+        </button>
+      </div>
+      <p class="sh-st" style="margin: 14px 0 0; font-size: 16px; font-weight: 600; color: #6E6577">{{ playHint }}</p>
+    </section>
+  </sc-if>
+
+  <sc-if value="{{ b.tilaklar }}">
+    <section aria-label="Tilaklar" class="{{ rv.tilaklar }}" data-rv="tilaklar" style="position: relative; margin: 84px 20px 0">
+      <p class="sh-tag"><span><i></i>Duo va tilaklar</span></p>
+      <h2 class="sh-h2">Tilak sharlari</h2>
+      <p class="sh-sub">Sharni bosing — tilak osmonga yetadi</p>
+      <div style="margin-top: 22px; display: flex; flex-direction: column; gap: 14px">
+        <sc-for list="{{ wishes }}" as="t">
+          <div class="sh-st" style="{{ t.dl }}">
+            <button type="button" class="sh-btn" onClick="{{ t.tap }}" style="position: relative; display: flex; align-items: center; gap: 14px; width: 100%; min-height: 76px; padding: 12px 18px 12px 14px; border: 0; border-radius: 24px; background: #FFFFFF; box-shadow: 0 12px 28px rgba(36, 32, 43, 0.07); color: #24202B; font-family: inherit; text-align: left">
+              <span aria-hidden="true" style="position: relative; flex: none; width: 44px; height: 58px">
+                <span key="{{ t.key }}" class="{{ t.cls }}" style="position: absolute; left: 0; top: 0; width: 44px; height: 50px; transform-origin: 50% 60%">
+                  <span class="{{ t.bl }}" style="left: 0; top: 0; width: 44px; height: 50px"></span>
+                </span>
+                <span class="sh-puff {{ t.puffCls }}" key="{{ t.pkey }}" style="position: absolute; left: 22px; top: 25px; width: 0; height: 0">
+                  <sc-for list="{{ puff }}" as="pf"><span style="{{ pf }}"></span></sc-for>
+                </span>
+              </span>
+              <span style="font-size: 18px; font-weight: 700; line-height: 1.35; overflow-wrap: anywhere">{{ t.text }}</span>
+            </button>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+  </sc-if>
+
+  <sc-if value="{{ b.mehmonlar }}">
+    <section aria-label="Yaqinlar tilaklari" class="{{ rv.mehmonlar }}" data-rv="mehmonlar" style="position: relative; margin: 84px 20px 0">
+      <p class="sh-tag"><span><i></i>Yaqinlarimizdan</span></p>
+      <h2 class="sh-h2">Iliq so’zlar</h2>
+      <div style="margin-top: 22px; display: flex; flex-direction: column; gap: 14px">
+        <sc-for list="{{ guests }}" as="g">
+          <div class="sh-st" style="{{ g.wrap }}">
+            <div class="sh-card" style="{{ g.st }}">
+              <p style="margin: 0; font-size: 17px; line-height: 1.5; overflow-wrap: anywhere">{{ g.matn }}</p>
+              <div style="margin-top: 12px; display: flex; align-items: center; gap: 10px">
+                <span aria-hidden="true" style="flex: none; width: 36px; height: 36px; border-radius: 50%; background: {{ g.bg }}; display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 800; color: {{ g.fg }}">{{ g.ini }}</span>
+                <span style="font-size: 15px; overflow-wrap: anywhere"><b style="font-weight: 800">{{ g.who }}</b> <span style="color: #6E6577">{{ g.rel }}</span></span>
+              </div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+  </sc-if>
+
+  <sc-if value="{{ b.javob }}">
+    <section aria-label="Tabriklash" class="{{ rv.javob }}" data-rv="javob" style="position: relative; margin: 84px 20px 0; text-align: center">
+      <div class="sh-card" style="padding: 34px 22px 26px; background: #24202B; color: #FFFFFF; overflow: visible">
+        <sc-for list="{{ cardDots }}" as="cf"><span class="{{ cf.cls }}" aria-hidden="true" style="{{ cf.st }}"></span></sc-for>
+        <h2 class="sh-d sh-st" style="margin: 0; font-size: {{ ctFs }}; font-weight: 800; line-height: 1.15; color: #FFFFFF; overflow-wrap: break-word">{{ congratsTitle }}</h2>
+        <p class="sh-st" style="margin: 12px 4px 24px; font-size: 17px; line-height: 1.55; color: rgba(255, 255, 255, 0.78)">Bir og’iz iliq so’zingiz {{ parentsTo }} eng qimmatli sovg’a.</p>
+        <div style="position: relative">
+          <div class="sh-cannon {{ cannonCls }}" aria-hidden="true" style="position: absolute; left: 50%; top: 30px; width: 0; height: 0; z-index: 3">
+            <sc-for list="{{ cannon }}" as="c"><span class="sh-cb" style="{{ c.b }}"><span class="sh-cf2" style="{{ c.f }}"><span class="{{ c.cls }}" style="{{ c.st }}"></span></span></span></sc-for>
+          </div>
+          <button type="button" class="sh-btn" onClick="{{ congratulate }}" disabled="{{ sent }}" style="position: relative; display: inline-flex; align-items: center; justify-content: center; gap: 12px; width: 100%; height: 62px; border: 0; border-radius: 31px; background: var(--a); color: #FFFFFF; font-family: 'Mulish', system-ui, sans-serif; font-size: 18px; font-weight: 800; box-shadow: 0 14px 30px rgba(0, 0, 0, 0.3)">
+            <sc-if value="{{ notSent }}"><svg aria-hidden="true" viewBox="0 0 24 24" width="24" height="24" class="sh-ic"><path d="M4 20l5.5-13 7.5 7.5z"></path><path d="M14 4.5c.8 1.2.8 2.3 0 3.4M18.5 9.5c1.2-.8 2.3-.8 3.4 0M17 3.5l.6 1.4M20.5 6.5l-1.4.6"></path></svg></sc-if>
+            <sc-if value="{{ sent }}"><svg aria-hidden="true" viewBox="0 0 24 24" width="22" height="22" class="sh-ic"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></sc-if>
+            {{ btnLabel }}
+          </button>
+        </div>
+        <sc-if value="{{ sent }}">
+          <p role="status" style="margin: 14px 0 0; font-size: 16px; font-weight: 700; color: rgba(255, 255, 255, 0.85)">Rahmat! Tabrigingiz oilaga yetkazildi.</p>
+        </sc-if>
+      </div>
+    </section>
+  </sc-if>
+
+  <footer style="position: relative; padding: 80px 24px 48px; text-align: center">
+    <div aria-hidden="true" style="position: relative; width: 140px; height: 104px; margin: 0 auto">
+      <svg viewBox="0 0 140 104" width="140" height="104" style="position: absolute; left: 0; top: 0"><path d="M36 76 Q 44 92 70 102 M105 76 Q 96 92 70 102 M70 62 L70 102" fill="none" stroke="rgba(36,32,43,0.3)" stroke-width="1.5"></path></svg>
+      <div class="sh-sway" style="position: absolute; left: 0; top: 0; width: 140px; height: 96px; transform-origin: 70px 102px">
+        <span class="sh-bl sh-bl--l" style="left: 14px; top: 18px; width: 44px; height: 52px"></span>
+        <span class="sh-bl sh-bl--g" style="left: 84px; top: 20px; width: 42px; height: 50px"></span>
+        <span class="sh-bl sh-bl--a" style="left: 46px; top: 0; width: 48px; height: 56px"></span>
+      </div>
+    </div>
+    <p class="sh-d" style="margin: 16px 0 0; font-size: 24px; font-weight: 800; color: #24202B; overflow-wrap: anywhere">{{ famLine }}</p>
+    <sc-if value="{{ dotDate }}"><p style="margin: 6px 0 0; font-size: 14px; font-weight: 700; letter-spacing: 0.24em; color: #6E6577">{{ dotDate }}</p></sc-if>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":6200}}'>
+const REDUCED = typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
+const CAN_IO = typeof IntersectionObserver === 'function' && !REDUCED;
+const RND = (i, k) => { const x = Math.sin(i * 12.9898 + k * 78.233) * 43758.5453; return x - Math.floor(x); };
+const SHAPES = ['sh-cf-r', 'sh-cf-c', 'sh-cf-s', 'sh-cf-t', 'sh-cf-r', 'sh-cf-s'];
+const COLS = ['var(--c1)', 'var(--c2)', 'var(--c3)', 'var(--c4)', 'var(--c5)', 'var(--c6)'];
+class Component extends DCLogic {
+  componentDidMount() {
+    this.tick = setInterval(() => this.forceUpdate(), 1000);
+    if (CAN_IO) {
+      this.io = new IntersectionObserver((es) => {
+        const add = {};
+        es.forEach((e) => { if (e.isIntersecting) { add[e.target.getAttribute('data-rv')] = true; this.io.unobserve(e.target); } });
+        if (Object.keys(add).length) this.setState((s) => ({ rv: Object.assign({}, s.rv, add) }));
+      }, { rootMargin: '0px 0px 60px 0px' });
+      this.observe();
+    }
+  }
+  componentDidUpdate() { this.observe(); }
+  observe() {
+    if (!this.io) return;
+    const seen = (this.state && this.state.rv) || {};
+    document.querySelectorAll('[data-rv]').forEach((el) => {
+      const k = el.getAttribute('data-rv');
+      if (!seen[k] && !el.__rvo) { el.__rvo = 1; this.io.observe(el); }
+    });
+  }
+  componentWillUnmount() {
+    if (this.tick) clearInterval(this.tick);
+    if (this.io) this.io.disconnect();
+    [this.t1, this.t2, this.t3, this.t4].forEach(t => t && clearTimeout(t));
+  }
+  renderVals() {
+    const s = this.state || {};
+    const d = SITE.d;
+    const qiz = d.jins === 'qiz';
+    const name = String(d.chaqaloq || '').trim();
+    const w = SITE.when(d.sana, d.vaqt);
+    const pad = SITE.pad;
+    const playing = SITE.music.playing;
+    const n = SITE.has.photos, P = SITE.p, hasPh = SITE.has.photo;
+    const ini = x => (String(x || '').replace(/^[^A-Za-zА-Яа-яЁёЎўҚқҒғҲҳ]+/, '').charAt(0) || '').toUpperCase();
+    const par = String(d.ota_ona || '').split(/\s+(?:va|ва|&|and)\s+|\s*[,&+]\s*/i).map(x => x.trim()).filter(Boolean);
+    const hr = /^(\d{1,2}):/.test(d.vaqt || '') ? +d.vaqt.split(':')[0] : -1;
+    const part = hr < 0 ? '' : hr < 4 ? 'tun yarmida' : hr < 7 ? 'tong saharda' : hr < 12 ? 'ertalab' : hr < 17 ? 'kunduzi' : hr < 21 ? 'kechqurun' : 'tunda';
+    const fitFs = (t, max, wd, k) => Math.max(14, Math.min(max, Math.floor(wd / (Math.max(1, Array.from(String(t || '')).length) * k)))) + 'px';
+
+    // ---------- reveal word + name layout (shared by intro and hero)
+    const word = qiz ? 'Qiz!' : 'O’g’il!';
+    const wfs = qiz ? 124 : 96;
+    const wordLs = Array.from(word).map((ch, i) => ({ ch, st: 'animation-delay: ' + (0.7 + i * 0.075).toFixed(3) + 's', wav: 'animation-delay: ' + (-i * 0.28).toFixed(2) + 's' }));
+    const nm = name || 'Farzand';
+    const words = nm.split(/\s+/).filter(Boolean);
+    const LW = Math.max(1, ...words.map(x => Array.from(x).length));
+    const nfs = Math.max(28, Math.min(54, Math.floor(330 / (LW * 0.7))));
+    let lines = 1, cur = 0;
+    words.forEach((wd, i) => { const ww = (Array.from(wd).length + (i ? 1 : 0)) * 0.7 * nfs; if (cur && cur + ww > 340) { lines++; cur = Array.from(wd).length * 0.7 * nfs; } else cur += ww; });
+    let li = 0;
+    const LN = Array.from(nm).length;
+    const nameWords = words.map(wd => ({ w: wd, ls: Array.from(wd).map(ch => ({ ch, st: 'animation-delay: ' + (1.6 + (li++) * Math.min(0.06, 0.8 / LN)).toFixed(3) + 's' })) }));
+    const top = { word: 96 };
+    top.born = top.word + Math.round(wfs * 1.04) + 14;
+    top.lbl = top.born + 42;
+    top.name = top.lbl + 22;
+    top.chips = top.name + Math.round(lines * nfs * 1.08) + 16;
+    top.photo = top.chips + 64;
+    const heroHpx = Math.max(844, top.photo + 340);
+    const L = {}; Object.keys(top).forEach(k => { L[k] = top[k] + 'px'; });
+
+    // ---------- intro decor
+    const IB = [
+      { x: 6, y: 118, sz: 34, c: 'blue', ax: -30, ar: -14 }, { x: 348, y: 116, sz: 34, c: 'pink', ax: 26, ar: 14 },
+      { x: 14, y: 404, sz: 44, c: 'pink', ax: -36, ar: 16 }, { x: 334, y: 406, sz: 44, c: 'blue', ax: 34, ar: -12 },
+      { x: 22, y: 590, sz: 38, c: 'blue', ax: -24, ar: -10 }, { x: 330, y: 588, sz: 38, c: 'pink', ax: 28, ar: 12 }
+    ];
+    const mk = (b, i) => ({
+      pos: 'position: absolute; left: ' + b.x + 'px; top: ' + b.y + 'px; width: ' + b.sz + 'px; height: ' + Math.round(b.sz * 2.4) + 'px; --ax: ' + b.ax + 'px; --ar: ' + b.ar + 'deg',
+      bob: 'position: absolute; left: 0; top: 0; width: 100%; height: 100%; animation-duration: ' + (5 + (i % 3)) + 's; animation-delay: ' + (-i * 1.3) + 's',
+      str: 'left: ' + (b.sz / 2) + 'px; top: ' + Math.round(b.sz * 1.16 + 4) + 'px; height: ' + Math.round(b.sz * 1.2) + 'px',
+      st: 'left: 0; top: 0; width: ' + b.sz + 'px; height: ' + Math.round(b.sz * 1.16) + 'px'
+    });
+    const winC = qiz ? 'pink' : 'blue';
+    const iBalloons = IB.map((b, i) => Object.assign(mk(b, i), { cls: b.c === winC ? 'sh-joy' : 'sh-away', bl: 'sh-bl sh-bl--' + b.c }));
+    const winners = IB.map((b, i) => Object.assign(mk(b, i), { bl: 'sh-bl sh-bl--' + b.c })).filter((b, i) => IB[i].c === winC);
+    const iSpark = [];
+    for (let i = 0; i < 16; i++) {
+      iSpark.push({ st: 'left: ' + Math.round(12 + RND(i, 3) * 360) + 'px; top: ' + Math.round(150 + RND(i, 4) * 560) + 'px; width: 6px; height: 6px; border-radius: 50%; --rz: 0deg; background: ' + (i % 3 === 0 ? '#E7C468' : i % 3 === 1 ? '#8FB8F0' : '#F2A0C2') + '; opacity: .7; animation-duration: ' + (5 + i % 4) + 's; animation-delay: ' + (-i * 0.7).toFixed(1) + 's' });
+    }
+    const shards = [];
+    for (let i = 0; i < 12; i++) {
+      const a = i / 12 * Math.PI * 2 + RND(i, 5) * 0.4, dist = 110 + RND(i, 6) * 90, sz = 12 + Math.round(RND(i, 7) * 18);
+      shards.push('position: absolute; left: ' + (Math.cos(a) * 86 - sz / 2).toFixed(0) + 'px; top: ' + (Math.sin(a) * 100 - sz / 2).toFixed(0) + 'px; width: ' + sz + 'px; height: ' + Math.round(sz * 0.7) + 'px; border-radius: 40% 60% 30% 70%; background: #2A2530; --bx: ' + (Math.cos(a) * dist).toFixed(0) + 'px; --by: ' + (Math.sin(a) * dist).toFixed(0) + 'px; --rot: ' + Math.round(RND(i, 8) * 540 - 270) + 'deg');
+    }
+    const piece = (i, k) => {
+      const sh = SHAPES[i % SHAPES.length];
+      return { cls: 'sh-cf sh-cspin ' + sh, st: 'left: 0; top: 0; background: ' + COLS[Math.floor(RND(i, k) * 6)] + '; --rz: ' + Math.round(RND(i, k + 1) * 360) + 'deg; --sd: ' + (0.8 + RND(i, k + 2) * 1.1).toFixed(2) + 's' + (COLS[Math.floor(RND(i, k) * 6)] === 'var(--c4)' ? '; box-shadow: 0 0 0 1px rgba(36,32,43,.08)' : '') };
+    };
+    const burst = [];
+    for (let i = 0; i < 96; i++) {
+      const a = RND(i, 11) * Math.PI * 2, dist = 70 + RND(i, 12) * 190;
+      const bx = Math.cos(a) * dist, by = Math.sin(a) * dist * 0.9 - 70;
+      const fy = 560 - by + RND(i, 13) * 240;
+      const pc = piece(i, 14);
+      burst.push({ b: 'position: absolute; left: 0; top: 0; --bx: ' + bx.toFixed(0) + 'px; --by: ' + by.toFixed(0) + 'px; animation-delay: ' + (0.48 + RND(i, 15) * 0.06).toFixed(2) + 's',
+        f: 'position: absolute; left: 0; top: 0; --fy: ' + fy.toFixed(0) + 'px; --sw: ' + Math.round(10 + RND(i, 16) * 22) + 'px; --fd: ' + (2.6 + RND(i, 17) * 1.2).toFixed(2) + 's; --fdel: ' + (1.2 + RND(i, 18) * 0.3).toFixed(2) + 's',
+        cls: pc.cls, st: pc.st });
+    }
+    // resting confetti in the hero (and the intro post layer)
+    const rest = [];
+    for (let i = 0; i < 30; i++) {
+      const x = Math.round(8 + RND(i, 21) * 372), y = Math.round(80 + RND(i, 22) * 740);
+      if (x > 70 && x < 320 && y > top.photo && y < top.photo + 330) continue;
+      if (x > 30 && x < 356 && y > top.born - 6 && y < top.chips + 46) continue;
+      rest.push({ cls: 'sh-cf sh-tw ' + SHAPES[i % SHAPES.length], st: 'left: ' + x + 'px; top: ' + y + 'px; background: ' + COLS[i % 6] + '; opacity: .85; --rz: ' + Math.round(RND(i, 23) * 360) + 'deg; animation-duration: ' + (6 + i % 5) + 's; animation-delay: ' + (-i * 0.6).toFixed(1) + 's' + (i % 6 === 3 ? '; box-shadow: 0 0 0 1px rgba(36,32,43,.1)' : '') });
+    }
+    const heroBg = 'linear-gradient(180deg, var(--tint) 0%, var(--tint) 46%, #FFF8F1 100%)';
+
+    // ---------- counter
+    const el = SITE.elapsed(d.sana, d.vaqt);
+    const dayStr = String(el.days || 0);
+    const flips = [
+      { v: dayStr, l: 'kun', key: 'd' + dayStr, fs: dayStr.length > 3 ? '24px' : '32px' },
+      { v: pad(el.h || 0), l: 'soat', key: 'h' + el.h, fs: '32px' },
+      { v: pad(el.m || 0), l: 'daqiqa', key: 'm' + el.m, fs: '32px' },
+      { v: pad(el.s || 0), l: 'soniya', key: 's' + el.s, fs: '32px' }
+    ].map((c, i) => Object.assign(c, { dl: 'animation-delay: ' + (0.1 + i * 0.09).toFixed(2) + 's' }));
+
+    // ---------- measurements
+    const tapped = s.mt || {};
+    const split = v => { const m = String(v || '').trim().match(/^([\d.,]+)\s*(.*)$/); return m ? { big: m[1], unit: m[2] } : { big: String(v || ''), unit: '' }; };
+    const MI = [];
+    if (d.vazn) { const x = split(d.vazn); MI.push({ label: 'Vazni', big: x.big, unit: x.unit, sub: '' }); }
+    if (d.boy) { const x = split(d.boy); MI.push({ label: 'Bo’yi', big: x.big, unit: x.unit, sub: '' }); }
+    if (d.vaqt) MI.push({ label: 'Vaqti', big: d.vaqt, unit: '', sub: part });
+    if (w.day) MI.push({ label: 'Kuni', big: w.day, unit: w.month, sub: w.weekday });
+    const ms = MI.map((m, i) => {
+      const k = tapped[i] || 0;
+      const full = MI.length % 2 === 1 && i === MI.length - 1;
+      const bigLen = Array.from(String(m.big)).length;
+      return Object.assign(m, {
+        fs: Math.max(30, Math.min(64, Math.floor((full ? 260 : 140) / (bigLen * 0.68)))) + 'px',
+        key: 'm' + i + '-' + k, cls: k ? 'sh-boing' : '',
+        aria: m.label + ': ' + [m.big, m.unit].filter(Boolean).join(' '),
+        wrap: (full ? 'grid-column: 1 / -1; ' : '') + 'animation-delay: ' + (0.1 + i * 0.1).toFixed(2) + 's',
+        hang: 'transform-origin: 50% -20px; animation-duration: ' + (5.5 + i * 0.8) + 's; animation-delay: ' + (-i * 1.7) + 's',
+        tap: () => { const t = Object.assign({}, (this.state && this.state.mt) || {}); t[i] = (t[i] || 0) + 1; this.setState({ mt: t }); }
+      });
+    });
+    const flags = [];
+    const FC = ['var(--a)', '#E7C468', 'var(--c3)', '#24202B', 'var(--c2)'];
+    for (let i = 0; i < 11; i++) {
+      const x = 12 + i * 30, t = x / 350, y = 6 + 56 * t * (1 - t);
+      flags.push({ d: 'M' + (x - 10) + ' ' + (y - 1).toFixed(1) + ' L' + (x + 10) + ' ' + (y + 1).toFixed(1) + ' L' + x + ' ' + (y + 20).toFixed(1) + ' Z', c: FC[i % 5] });
+    }
+
+    // ---------- family: balloon bunch
+    const famL = (d.bobo_buvi || []).filter(Boolean);
+    const BC = [['sh-bl sh-bl--l', 'var(--ad)', '#24202B'], ['sh-bl sh-bl--g', '#6B4E12', '#24202B'], ['sh-bl', '#4E4560', '#24202B'], ['sh-bl', '#3F6150', '#24202B']];
+    const EXTRA = ['--h: #FFFFFF; --m: #E3DAF5; --k: #B9A8DE', '--h: #FFFFFF; --m: #D3F0E2; --k: #9ED2B9'];
+    const fitems = [], fl = [];
+    const bw = 158, bh = 180;
+    let y = 0;
+    const rowsG = [];
+    famL.forEach((ln, i) => { const r = Math.floor(i / 2); (rowsG[r] = rowsG[r] || []).push({ ln, i }); });
+    rowsG.forEach(row => {
+      row.forEach((it, j) => {
+        const x = row.length === 1 ? (350 - bw) / 2 : j === 0 ? 0 : 350 - bw;
+        const yy = y + (j ? 18 : 0);
+        const ps = String(it.ln).split(/\s+(?:va|ва|&)\s+|\s*[,&+]\s*/i).map(t => t.trim()).filter(Boolean);
+        const lbl = famL.length === 1 ? 'Bobo va buvisi' : it.i === 0 ? 'Dadasi tomondan' : it.i === 1 ? 'Oyisi tomondan' : 'Yaqinlari';
+        const longest = Math.max(1, ...ps.map(t => Array.from(t).length));
+        const bc = BC[it.i % 4];
+        fitems.push({ label: lbl, names: ps.join('\n'), pad: '20px', lc: bc[1], nc: bc[2], bl: bc[0],
+          fs: Math.max(12, Math.min(17, Math.floor(118 / (longest * 0.56)))) + 'px',
+          pos: 'position: absolute; left: ' + x + 'px; top: ' + yy + 'px; width: ' + bw + 'px; height: ' + bh + 'px; animation-delay: ' + (0.1 + it.i * 0.12).toFixed(2) + 's',
+          sw: 'position: absolute; left: 0; top: 0; width: ' + bw + 'px; height: ' + bh + 'px; animation-duration: ' + (5 + it.i % 3) + 's; animation-delay: ' + (-it.i * 1.4) + 's',
+          st: 'left: 0; top: 0; width: ' + bw + 'px; height: ' + bh + 'px; display: flex; align-items: center; justify-content: center; padding-bottom: 12px' + (bc[0] === 'sh-bl' ? '; ' + EXTRA[(it.i - 2) % 2] : '') });
+        fl.push({ x: x + bw / 2, y: yy + bh + 6 });
+      });
+      y += bh + 34;
+    });
+    const pw = 196, ph = 222, px = (350 - pw) / 2, py = famL.length ? y : 0;
+    fitems.push({ label: par.length > 1 ? 'Dadasi va oyisi' : 'Ota-onasi', names: par.length > 1 ? par.join('\n') : (d.ota_ona || ''), pad: '24px', lc: 'rgba(255,255,255,0.8)', nc: '#FFFFFF', bl: 'sh-bl sh-bl--a',
+      fs: Math.max(15, Math.min(22, Math.floor(150 / (Math.max(1, ...par.map(t => Array.from(t).length), 4) * 0.56)))) + 'px',
+      pos: 'position: absolute; left: ' + px + 'px; top: ' + py + 'px; width: ' + pw + 'px; height: ' + ph + 'px; animation-delay: .35s',
+      sw: 'position: absolute; left: 0; top: 0; width: ' + pw + 'px; height: ' + ph + 'px; animation-duration: 6.5s',
+      st: 'left: 0; top: 0; width: ' + pw + 'px; height: ' + ph + 'px; display: flex; align-items: center; justify-content: center; padding-bottom: 14px' });
+    const kx = 175, ky = py + ph + 70;
+    const lines2 = fl.map(p => 'M' + p.x + ' ' + p.y + ' C ' + p.x + ' ' + (p.y + 60) + ', ' + kx + ' ' + (ky - 120) + ', ' + kx + ' ' + ky);
+    lines2.push('M' + kx + ' ' + (py + ph + 6) + ' L ' + kx + ' ' + ky);
+    const babyW = 230, babyY = ky - 4;
+    const famH = babyY + 96;
+    const fam = { h: famH + 'px', hp: famH, vb: '0 0 350 ' + famH, lines: lines2, items: fitems,
+      baby: 'position: absolute; left: ' + ((350 - babyW) / 2) + 'px; top: ' + babyY + 'px; width: ' + babyW + 'px; box-sizing: border-box; padding: 14px 16px; border-radius: 22px; background: #24202B; text-align: center; box-shadow: 0 14px 30px rgba(36, 32, 43, 0.2); animation-delay: .5s',
+      babyLbl: qiz ? 'Hammaning malikasi' : 'Hammaning polvoni',
+      babyFs: Math.max(15, Math.min(26, Math.floor(194 / (LW * 0.8)))) + 'px' };
+
+    // ---------- gallery
+    const gcount = Math.max(1, Math.min(n || 1, 6));
+    const gsel = (s.gsel || 0) % gcount;
+    const gp = i => P[(i + (n > 1 ? 1 : 0)) % Math.max(1, n)];
+    const thumbs = [];
+    for (let i = 0; i < gcount; i++) {
+      const on = i === gsel;
+      thumbs.push({ src: gp(i), aria: (i + 1) + '-surat', tap: () => { const st = this.state || {}; if ((st.gsel || 0) % gcount === i) return; this.setState({ gsel: i, gk: (st.gk || 0) + 1 }); },
+        st: 'width: 48px; height: 48px; padding: 3px; border: 0; border-radius: 15px; background: ' + (on ? 'var(--a)' : '#FFFFFF') + '; box-shadow: 0 6px 14px rgba(36, 32, 43, 0.1); transform: ' + (on ? 'translateY(-4px)' : 'none') });
+    }
+    const puff = [];
+    for (let i = 0; i < 12; i++) puff.push('--ang: ' + (i * 30) + 'deg; --dist: -' + (34 + (i % 3) * 12) + 'px; background: ' + COLS[i % 6] + (i % 6 === 3 ? '; box-shadow: 0 0 0 1px rgba(36,32,43,.15)' : ''));
+
+    // ---------- album
+    const OY = ['yanvar', 'fevral', 'mart', 'aprel', 'may', 'iyun', 'iyul', 'avgust', 'sentabr', 'oktabr', 'noyabr', 'dekabr'];
+    const bm = /^(\d{4})-(\d{2})-(\d{2})/.exec(d.sana || '');
+    const filled = el.none ? 1 : Math.min(6, Math.max(1, (el.totalMonths || 0) + 1));
+    const months = [0, 1, 2, 3, 4, 5].map(i => {
+      let sub = '';
+      if (bm) { const t = new Date(Date.UTC(+bm[1], +bm[2] - 1 + i, 1)); sub = (+bm[3]) + '-' + OY[t.getUTCMonth()]; }
+      const has = i < filled;
+      return { n: String(i + 1), label: (i + 1) + '-oy', note: i === 0 ? (sub || 'tug’ilgan kun') : has ? sub : 'tez orada', src: has ? P[(1 + i) % P.length] : '',
+        box: has ? 'background: var(--al)' : 'box-sizing: border-box; border: 2px dashed rgba(36, 32, 43, 0.18); background: rgba(255, 255, 255, 0.6)',
+        empty: !has,
+        dl: 'animation-delay: ' + (0.08 + i * 0.08).toFixed(2) + 's' };
+    });
+
+    // ---------- wishes
+    const wl = (d.tilaklar || []).filter(Boolean);
+    const wt = s.wt || {};
+    const WB = ['sh-bl sh-bl--a', 'sh-bl sh-bl--g', 'sh-bl sh-bl--l', 'sh-bl sh-bl--a'];
+    const wishes = wl.map((text, i) => {
+      const k = wt[i] || 0;
+      return { text, key: 'w' + i + '-' + k, pkey: 'p' + i + '-' + k, cls: k ? 'sh-repop' : 'sh-sway', puffCls: k ? 'is-on' : '', bl: WB[i % 4],
+        dl: 'animation-delay: ' + (0.08 + i * 0.08).toFixed(2) + 's',
+        tap: () => { const t = Object.assign({}, (this.state && this.state.wt) || {}); t[i] = (t[i] || 0) + 1; this.setState({ wt: t }); } };
+    });
+
+    // ---------- guests
+    const GB = [['var(--al)', 'var(--ad)'], ['#F8EBC4', '#7A5A14'], ['#E7E0F5', '#4E4560'], ['#DDF1E7', '#2F5B47']];
+    const gl = (d.mehmon_tilaklari || []).filter(x => x && (x.matn || x.ism));
+    const guests = gl.map((x, i) => {
+      const nm2 = String(x.ism || '').trim(), m = nm2.match(/^(.+?)\s*(?:·|—|–| - |,|\()\s*(.+?)\)?$/);
+      const left = i % 2 === 0, who = m ? m[1] : nm2;
+      return { matn: x.matn || '', who, rel: m ? m[2] : '', ini: ini(who), bg: GB[i % 4][0], fg: GB[i % 4][1],
+        wrap: 'display: flex; justify-content: ' + (left ? 'flex-start' : 'flex-end') + '; animation-delay: ' + (0.08 + i * 0.1).toFixed(2) + 's',
+        st: 'max-width: 300px; padding: 18px 20px 16px; border-radius: ' + (left ? '26px 26px 26px 8px' : '26px 26px 8px 26px') };
+    });
+
+    // ---------- card confetti + cannon
+    const cardDots = [[12, 14, 0], [334, 22, 1], [8, 74, 2], [338, 96, 4], [296, 10, 5]].map((p, i) => ({ cls: 'sh-cf ' + SHAPES[i % 6], st: 'left: ' + p[0] + 'px; top: ' + p[1] + 'px; background: ' + COLS[p[2]] + '; transform: rotate(' + (i * 47) + 'deg); opacity: .9' }));
+    const cannon = [];
+    for (let i = 0; i < 46; i++) {
+      const a = -Math.PI / 2 + (RND(i, 31) - 0.5) * 1.9, dist = 150 + RND(i, 32) * 220;
+      const pc = piece(i, 33);
+      cannon.push({ b: 'position: absolute; left: 0; top: 0; --bx: ' + (Math.cos(a) * dist).toFixed(0) + 'px; --by: ' + (Math.sin(a) * dist).toFixed(0) + 'px; animation-delay: ' + (RND(i, 34) * 0.08).toFixed(2) + 's',
+        f: 'position: absolute; left: 0; top: 0; --fy: ' + Math.round(200 + RND(i, 35) * 200) + 'px; --sw: ' + Math.round((RND(i, 36) - 0.5) * 60) + 'px', cls: pc.cls, st: pc.st });
+    }
+
+    const rv = {};
+    ['count', 'olchov', 'xabar', 'oila', 'galereya', 'albom', 'alla', 'tilaklar', 'mehmonlar', 'javob'].forEach(k => { rv[k] = 'sh-rv' + (!CAN_IO || (s.rv && s.rv[k]) ? ' is-in' : ''); });
+
+    const chips = [];
+    if (w.date) chips.push(w.dm + ', ' + w.year);
+    if (d.vaqt) chips.push('soat ' + d.vaqt);
+
+    return {
+      rootCls: qiz ? 'is-qiz' : 'is-ogil',
+      introDisp: s.gone ? 'none' : 'block',
+      introCls: 'sh-intro' + (s.pop ? ' is-pop' : '') + (s.fade ? ' is-fade' : ''),
+      introHidden: s.pop ? 'true' : 'false',
+      pop: () => {
+        if (this.state && this.state.pop) return;
+        this.setState({ pop: true });
+        SITE.opened();
+        this.t1 = setTimeout(() => this.setState({ fade: true }), REDUCED ? 600 : 3900);
+        this.t2 = setTimeout(() => this.setState({ gone: true }), REDUCED ? 1600 : 4900);
+      },
+      iSpark, iBalloons, winners, shards, burst, rest, heroBg,
+      L, heroH: heroHpx + 'px',
+      wordLs, wordFs: wfs + 'px',
+      nameWords, nameFs: nfs + 'px',
+      nameLbl: qiz ? 'Qizimizning ismi' : 'O’g’limizning ismi',
+      bornLine: qiz ? 'Biz qizli bo’ldik!' : 'Biz o’g’illi bo’ldik!',
+      chips,
+      noPhoto: !hasPh,
+      initial: ini(name) || 'F',
+      fromFamily: d.ota_ona ? d.ota_ona + ' oilasidan' : 'Oilamizdan xushxabar',
+      showCount: !el.none,
+      flips, ms, flags,
+      nasab: par.length > 1 ? name + ' ' + par[0] + (qiz ? ' qizi' : ' o’g’li') : name,
+      fam,
+      gBig: gp(gsel), gKey: 'g' + (s.gk || 0), gCls: s.gk ? 'sh-drop' : '', gPuff: s.gk ? 'is-on' : '',
+      gCap: name ? name + ' · ' + (gsel + 1) + '-lahza' : (gsel + 1) + '-lahza',
+      gMulti: gcount > 1, thumbs, puff,
+      months, wishes, guests, cardDots, cannon, rv,
+      playing, notPlaying: !playing,
+      pulseCls: playing ? 'sh-pulse is-on' : 'sh-pulse',
+      breathCls: playing ? 'sh-breath' : '',
+      musicLabel: playing ? 'Musiqani to’xtatish' : 'Musiqani yoqish',
+      playHint: playing ? 'Alla yangramoqda' : 'Sharni bosing — alla yangraydi',
+      toggleMusic: () => SITE.music.toggle(),
+      congratsTitle: name ? name + 'ni tabriklang' : 'Tabriklang',
+      ctFs: Math.max(24, Math.min(34, Math.floor(300 / ((LW + 9) * 0.62)))) + 'px',
+      parentsTo: d.ota_ona ? SITE.ga(d.ota_ona) : 'ota-onasiga',
+      famLine: d.ota_ona ? d.ota_ona + ' oilasi' : '',
+      dotDate: w.dots ? w.dots.split('.').join(' · ') : '',
+      sent: !!s.sent, notSent: !s.sent,
+      cannonCls: s.sent ? 'is-on' : '',
+      btnLabel: s.sent ? 'Tabrik yetkazildi' : 'Konfetti otib tabriklash',
+      congratulate: () => { if (this.state && this.state.sent) return; this.setState({ sent: true }); SITE.reply(name + ' tug’ilgani bilan tabriklayman! Muborak bo’lsin!', '🤗'); }
+    };
+  }
+}
+</script>
+</body>
+</html>

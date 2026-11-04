@@ -1,0 +1,894 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<title>Osh va marosimlar taklifnomasi: Yo’l xaritasi</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;500;600;700&amp;family=Fira+Sans+Condensed:wght@600;700&amp;display=swap">
+<style>
+body{margin:0}
+.yl-root{font-family:'Fira Sans','Segoe UI',Arial,sans-serif;color:#16202E;background:#ECEFF4}
+.yl-cn{font-family:'Fira Sans Condensed','Fira Sans',Arial,sans-serif}
+.yl-num{font-variant-numeric:lining-nums tabular-nums}
+.yl-cap{margin:0;font-size:12px;line-height:16px;font-weight:600;letter-spacing:.14em;text-transform:uppercase}
+.yl-ic{fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.yl-mut{color:#5B6778}
+.yl-blue{color:#2563EB}
+
+/* xarita */
+.yl-map{position:relative;width:390px;height:470px;overflow:hidden;background:#E6EAF0}
+.yl-map>svg{position:absolute;left:0;top:0}
+.yl-ml{fill:#E6EAF0}.yl-mb{fill:#D8DEE6}.yl-mb2{fill:#DEE3EA}.yl-mp{fill:#CDE5CC}.yl-mt{fill:#B4D7B3}
+.yl-mw{fill:none;stroke:#BCD4EF;stroke-width:26;stroke-linecap:round}
+.yl-rdc{fill:none;stroke:#CBD3DD;stroke-linecap:round}
+.yl-rd{fill:none;stroke:#FFFFFF;stroke-linecap:round}
+.yl-rc{fill:none;stroke:#1D4ED8;stroke-width:11;stroke-linecap:round;stroke-linejoin:round}
+.yl-rl{fill:none;stroke:#3B7BFF;stroke-width:6;stroke-linecap:round;stroke-linejoin:round}
+.yl-rg{fill:none;stroke:#2563EB;stroke-width:3.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1 9;opacity:.55}
+.yl-dash{fill:none;stroke:rgba(255,255,255,.9);stroke-width:1.6;stroke-linecap:round;stroke-dasharray:2 10;animation:yl-flow 1.4s linear infinite}
+@keyframes yl-flow{to{stroke-dashoffset:-24}}
+.yl-siz{position:absolute;left:84px;top:394px;width:32px;height:32px}
+.yl-siz i{position:absolute;inset:0;border-radius:50%;background:rgba(37,99,235,.22);animation:yl-halo 2.4s ease-out infinite}
+.yl-siz b{position:absolute;left:7px;top:7px;width:18px;height:18px;border-radius:50%;background:#2563EB;box-shadow:0 0 0 3px #FFFFFF,0 4px 10px rgba(22,32,46,.35)}
+@keyframes yl-halo{0%{transform:scale(.6);opacity:1}100%{transform:scale(2.2);opacity:0}}
+.yl-sizl{position:absolute;left:84px;top:366px;padding:4px 10px;border-radius:8px;background:#16202E;color:#FFFFFF;font-weight:600;font-size:12px;line-height:16px}
+.yl-pin{position:absolute;left:298px;top:126px;width:44px;height:56px;transform-origin:50% 100%}
+.yl-pinb{position:absolute;inset:0}
+.yl-pinr{position:absolute;left:298px;top:170px;width:44px;height:24px;border-radius:50%;border:2px solid rgba(242,84,45,.7);opacity:0;animation:yl-ring 2.6s ease-out 1s infinite}
+@keyframes yl-ring{0%{transform:scale(.4);opacity:.9}100%{transform:scale(1.8);opacity:0}}
+.yl-lbl{position:absolute;right:100px;top:128px;max-width:200px;display:flex;align-items:center;gap:8px;padding:8px 12px 8px 8px;border-radius:14px;background:#FFFFFF;box-shadow:0 10px 24px -12px rgba(22,32,46,.5);transform-origin:100% 100%}
+.yl-lbl::after{content:"";position:absolute;right:-5px;top:50%;margin-top:-6px;width:12px;height:12px;background:#FFFFFF;transform:rotate(45deg);border-radius:2px}
+.yl-lbli{width:30px;height:30px;border-radius:9px;background:#FFF0EB;color:#F2542D;display:flex;align-items:center;justify-content:center;flex:none}
+.yl-ban{position:absolute;left:12px;right:12px;top:14px;display:flex;align-items:center;gap:12px;padding:12px 14px 12px 12px;border-radius:20px;background:rgba(22,32,46,.95);color:#FFFFFF;box-shadow:0 16px 30px -18px rgba(22,32,46,.8);z-index:3}
+.yl-bani{width:46px;height:46px;border-radius:14px;background:#2563EB;display:flex;align-items:center;justify-content:center;flex:none}
+.yl-zoom{position:absolute;right:12px;top:300px;display:flex;flex-direction:column;border-radius:14px;background:#FFFFFF;box-shadow:0 8px 20px -12px rgba(22,32,46,.5);overflow:hidden}
+.yl-zoom span{width:40px;height:40px;display:flex;align-items:center;justify-content:center;color:#16202E}
+.yl-zoom span+span{border-top:1px solid #E3E8EF}
+
+/* varaq (bottom sheet) */
+.yl-sheet{position:relative;z-index:2;margin-top:-30px;padding:12px 20px 24px;border-radius:28px;background:#FFFFFF;box-shadow:0 -10px 30px -20px rgba(22,32,46,.45)}
+.yl-grab{width:44px;height:5px;margin:0 auto 16px;border-radius:5px;background:#D3DAE3}
+.yl-eta{display:flex;align-items:center;gap:14px;margin-top:18px;padding:14px 16px;border-radius:18px;background:#F2F5FA}
+.yl-eta b{font-family:'Fira Sans Condensed',sans-serif;font-weight:700;font-size:50px;line-height:1;color:#2563EB;letter-spacing:-.01em}
+.yl-left{margin-left:auto;flex:none;padding:7px 11px;border-radius:999px;background:#E3F6EA;color:#0F7A3D;font-weight:600;font-size:13px;line-height:16px;white-space:nowrap}
+.yl-dest{display:flex;align-items:flex-start;gap:12px;margin-top:14px}
+.yl-desti{width:40px;height:40px;border-radius:12px;background:#FFF0EB;color:#F2542D;display:flex;align-items:center;justify-content:center;flex:none}
+.yl-btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:54px;padding:0 22px;border-radius:16px;box-sizing:border-box;font-family:'Fira Sans',sans-serif;font-weight:600;font-size:16px;text-decoration:none;cursor:pointer;border:0;position:relative;overflow:hidden;transition:transform .18s cubic-bezier(.2,1.4,.4,1),background-color .25s}
+.yl-btn:active{transform:scale(.96)}
+.yl-btn::after{content:"";position:absolute;left:50%;top:50%;width:200px;height:200px;margin:-100px 0 0 -100px;border-radius:50%;background:rgba(255,255,255,.35);transform:scale(0);opacity:0;transition:transform .5s ease,opacity .6s ease}
+.yl-btn:active::after{transform:scale(1);opacity:1;transition:none}
+.yl-btn--p{background:#2563EB;color:#FFFFFF;box-shadow:0 14px 26px -16px rgba(37,99,235,.95)}
+.yl-btn--s{background:#EAF0FB;color:#1D4ED8}
+.yl-btn:disabled{opacity:.6;cursor:default}
+.yl-btn:focus-visible,.yl-seg button:focus-visible,.yl-sb:focus-visible{outline:2px solid #F2542D;outline-offset:3px}
+
+/* ============ kirish */
+.yl-i{position:absolute;left:0;top:0;width:390px;height:844px;z-index:40;overflow:hidden;background:#ECEFF4}
+.yl-i .yl-sheet{position:absolute;left:0;right:0;top:440px;margin:0}
+.yl-cs{transition:transform .55s cubic-bezier(.5,0,.75,0) .1s,opacity .4s ease .25s}
+.yl-i--go .yl-cs{transform:translateY(105%);opacity:0}
+.yl-es{transform:translateY(110%)}
+.yl-i--go .yl-es{transform:none;transition:transform .9s cubic-bezier(.2,1.15,.3,1) 2.15s}
+.yl-i .yl-rc,.yl-i .yl-rl{stroke-dasharray:1 1;stroke-dashoffset:1}
+.yl-i--go .yl-rc,.yl-i--go .yl-rl{stroke-dashoffset:0;transition:stroke-dashoffset 1.8s cubic-bezier(.6,.05,.3,1) .35s}
+.yl-i .yl-dash{opacity:0}
+.yl-i--go .yl-dash{opacity:1;transition:opacity .4s ease 2.1s}
+.yl-i--go .yl-rg{opacity:0;transition:opacity .4s ease .3s}
+.yl-puck{position:absolute;left:0;top:0;width:34px;height:34px;margin:-17px 0 0 -17px;offset-path:path('M100 410H156Q168 410 168 398V312Q168 300 180 300H268Q280 300 280 288V194Q280 182 292 182H320');offset-rotate:auto;offset-distance:0%;opacity:0;z-index:2}
+.yl-i--go .yl-puck{animation:yl-drive 1.8s cubic-bezier(.6,.05,.3,1) .35s forwards}
+@keyframes yl-drive{0%{offset-distance:0%;opacity:1}88%{opacity:1}100%{offset-distance:100%;opacity:0}}
+.yl-i .yl-lbl{opacity:0;transform:scale(.5) translateY(10px)}
+.yl-i--go .yl-lbl{animation:yl-pop .7s cubic-bezier(.2,1.6,.35,1) 2.2s forwards}
+@keyframes yl-pop{to{opacity:1;transform:none}}
+.yl-i .yl-pin{animation:yl-bob 2.2s ease-in-out infinite}
+@keyframes yl-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.yl-i--go .yl-pin{animation:yl-land .8s cubic-bezier(.3,1.7,.4,1) 2.05s both}
+@keyframes yl-land{0%{transform:translateY(-26px) scaleY(1.06)}55%{transform:translateY(0) scale(1.08,.9)}100%{transform:none}}
+.yl-i .yl-pinr{animation-delay:2.2s}
+.yl-i .yl-sizl{transition:opacity .3s ease}
+.yl-i--go .yl-sizl{opacity:0}
+.yl-i--go{pointer-events:none;animation:yl-out .65s ease 3.55s forwards}
+@keyframes yl-out{to{opacity:0;visibility:hidden}}
+.yl-i .yl-ban{opacity:0;transform:translateY(-16px);animation:yl-pop .8s cubic-bezier(.2,1.3,.35,1) .3s forwards}
+.yl-i .yl-cs{animation:yl-sheetin .9s cubic-bezier(.2,1.1,.3,1) .5s both}
+@keyframes yl-sheetin{from{transform:translateY(60px);opacity:0}to{transform:none;opacity:1}}
+.yl-i--go .yl-cs{animation:none}
+.yl-mini{display:flex;align-items:center;gap:10px;margin-top:18px;padding:14px 16px;border-radius:18px;background:#F2F5FA}
+.yl-mini-l{position:relative;flex:1 1 auto;height:4px;min-width:30px}
+.yl-mini-l::before{content:"";position:absolute;left:0;right:0;top:1px;height:2px;background-image:linear-gradient(90deg,#2563EB 50%,transparent 50%);background-size:10px 2px;animation:yl-slide 1s linear infinite}
+@keyframes yl-slide{to{background-position:10px 0}}
+
+/* ============ sahifa */
+.yl-sec{padding:14px 16px 0}
+.yl-card{position:relative;padding:20px 20px 22px;border-radius:24px;background:#FFFFFF;box-shadow:0 1px 0 rgba(22,32,46,.04),0 18px 36px -28px rgba(22,32,46,.5);opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .9s cubic-bezier(.2,1,.3,1)}
+.yl-rv .yl-card{opacity:1;transform:none}
+.yl-ch{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.yl-chi{width:32px;height:32px;border-radius:10px;background:#EAF0FB;color:#2563EB;display:flex;align-items:center;justify-content:center;flex:none}
+.yl-ix{margin-left:auto;font-size:13px;font-weight:600;color:#9AA5B5}
+.yl-p{margin:0;font-size:19px;line-height:1.6;white-space:pre-line;overflow-wrap:anywhere;text-wrap:pretty}
+.yl-wk{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px;text-align:center}
+.yl-wd{padding:8px 0 10px;border-radius:14px}
+.yl-wd span{display:block;font-size:12px;font-weight:600;color:#8A95A6}
+.yl-wd b{display:block;margin-top:4px;font-family:'Fira Sans Condensed',sans-serif;font-size:22px;font-weight:700}
+.yl-wd--on{background:#2563EB;color:#FFFFFF;transform:scale(.6);opacity:0;transition:transform .7s cubic-bezier(.2,1.6,.35,1) .35s,opacity .3s ease .35s}
+.yl-wd--on span{color:#CFE0FF}
+.yl-rv .yl-wd--on{transform:none;opacity:1}
+.yl-cd{display:flex;align-items:flex-end;gap:4px}
+.yl-cdc{flex:1 1 0;min-width:0;text-align:center}
+.yl-cdc b{display:block;font-family:'Fira Sans Condensed',sans-serif;font-weight:700;font-size:50px;line-height:1;color:#16202E}
+.yl-cdc>span{display:block;margin-top:4px;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#8A95A6}
+.yl-cdx{font-family:'Fira Sans Condensed',sans-serif;font-weight:700;font-size:40px;line-height:1.1;color:#C5CDD8;padding-bottom:22px}
+.yl-tick{display:inline-block;animation:yl-tick .45s cubic-bezier(.2,1.4,.4,1)}
+@keyframes yl-tick{from{opacity:.2;transform:translateY(-8px)}to{opacity:1;transform:none}}
+.yl-trip{position:relative;height:34px;margin-top:22px}
+.yl-trip::before{content:"";position:absolute;left:8px;right:8px;top:15px;height:4px;border-radius:4px;background:#E3E8EF}
+.yl-trip i{position:absolute;left:8px;right:8px;top:15px;height:4px;border-radius:4px;background:#2563EB;transform-origin:0 50%;transition:transform 1s linear}
+.yl-trip b{position:absolute;top:5px;width:24px;height:24px;margin-left:-12px;border-radius:50%;background:#FFFFFF;box-shadow:0 0 0 3px #2563EB,0 4px 10px rgba(22,32,46,.25);transition:left 1s linear}
+.yl-trip em{position:absolute;right:0;top:3px;width:28px;height:28px;color:#F2542D}
+.yl-ph{position:relative;display:block;overflow:hidden;background:#DDE3EA;border-radius:18px}
+.yl-ph img{display:block;width:100%;height:100%;object-fit:cover}
+.yl-car{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 -20px;padding:0 20px 4px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.yl-car::-webkit-scrollbar{display:none}
+.yl-car .yl-ph{flex:none;width:268px;height:200px;scroll-snap-align:center;opacity:0;transform:translateX(40px);transition:opacity .7s ease,transform .9s cubic-bezier(.2,1,.3,1)}
+.yl-rv .yl-car .yl-ph{opacity:1;transform:none}
+.yl-rv .yl-car .yl-ph:nth-child(2){transition-delay:.12s}.yl-rv .yl-car .yl-ph:nth-child(3){transition-delay:.24s}.yl-rv .yl-car .yl-ph:nth-child(4){transition-delay:.36s}
+.yl-tb{display:flex;align-items:center;gap:14px;padding:16px;border-radius:18px;background:#2563EB;color:#FFFFFF}
+.yl-tbi{width:52px;height:52px;border-radius:14px;background:rgba(255,255,255,.16);display:flex;align-items:center;justify-content:center;flex:none}
+.yl-ts{position:relative;margin-top:6px}
+.yl-tr{position:relative;display:flex;align-items:center;gap:14px;padding:14px 0;opacity:0;transform:translateX(18px);transition:opacity .6s ease,transform .8s cubic-bezier(.2,1,.3,1)}
+.yl-rv .yl-tr{opacity:1;transform:none}
+.yl-tr+.yl-tr{border-top:1px solid #EDF0F5}
+.yl-tri{width:44px;height:44px;border-radius:12px;background:#F2F5FA;color:#16202E;display:flex;align-items:center;justify-content:center;flex:none}
+.yl-tr--end .yl-tri{background:#FFF0EB;color:#F2542D}
+.yl-seg{position:relative;display:flex;padding:4px;border-radius:16px;background:#EEF1F6}
+.yl-seg button{position:relative;z-index:1;flex:1 1 0;min-width:0;height:48px;border:0;background:transparent;border-radius:12px;cursor:pointer;font-family:'Fira Sans',sans-serif;font-weight:600;font-size:15px;color:#5B6778;transition:color .3s}
+.yl-seg button[aria-pressed="true"]{color:#FFFFFF}
+.yl-thumb{position:absolute;left:4px;top:4px;width:calc(50% - 4px);height:48px;border-radius:12px;background:#2563EB;box-shadow:0 8px 16px -10px rgba(37,99,235,.9);opacity:0;transform:translateX(0) scale(.9);transition:transform .45s cubic-bezier(.3,1.4,.4,1),opacity .2s,background-color .3s}
+.yl-thumb--yes{opacity:1;transform:none}
+.yl-thumb--no{opacity:1;transform:translateX(100%);background:#5B6778}
+.yl-sb{width:44px;height:44px;border-radius:12px;border:0;background:#EEF1F6;color:#16202E;font-size:22px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:'Fira Sans',sans-serif;transition:transform .18s cubic-bezier(.2,1.4,.4,1)}
+.yl-sb:active{transform:scale(.88)}
+.yl-sb:disabled{opacity:.4;cursor:default}
+.yl-step{display:flex;align-items:center;justify-content:space-between;margin-top:14px;padding:10px 10px 10px 16px;border-radius:16px;background:#F5F7FA;transition:opacity .3s}
+.yl-step--off{opacity:.4}
+.yl-seats{display:flex;gap:3px;margin-top:6px}
+.yl-seats i{width:8px;height:8px;border-radius:50%;background:#D3DAE3;transition:background-color .25s,transform .3s cubic-bezier(.2,1.6,.4,1)}
+.yl-seats i.on{background:#2563EB;transform:scale(1.2)}
+.yl-inp,.yl-ta{display:block;width:100%;box-sizing:border-box;border:0;border-radius:14px;background:#F5F7FA;color:#16202E;font-family:'Fira Sans',sans-serif;font-size:16px;outline:none;box-shadow:inset 0 0 0 1.5px transparent;transition:box-shadow .2s}
+.yl-inp{height:52px;padding:0 16px}
+.yl-ta{height:84px;padding:14px 16px;resize:none;line-height:1.45}
+.yl-inp:focus,.yl-ta:focus{box-shadow:inset 0 0 0 1.5px #2563EB}
+.yl-inp::placeholder,.yl-ta::placeholder{color:#8A95A6}
+.yl-toast{display:flex;align-items:center;gap:10px;margin-top:14px;padding:12px 14px;border-radius:14px;background:#E3F6EA;color:#0F5E31;font-weight:500;font-size:15px;line-height:1.4;animation:yl-pop .6s cubic-bezier(.2,1.5,.35,1) both}
+.yl-toast--w{background:#FFF0EB;color:#A3341A}
+.yl-music{position:absolute;right:16px;top:96px;z-index:30;width:46px;height:46px;border-radius:50%;border:0;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#16202E;background:#FFFFFF;box-shadow:0 8px 20px -12px rgba(22,32,46,.6)}
+.yl-music--on{background:#2563EB;color:#FFFFFF}
+.yl-eq{display:flex;align-items:flex-end;gap:3px;height:16px}
+.yl-eq i{display:block;width:3px;height:100%;border-radius:2px;background:currentColor;transform-origin:50% 100%;animation:yl-eq 1s ease-in-out infinite}
+.yl-eq i:nth-child(2){animation-delay:-.3s}.yl-eq i:nth-child(3){animation-delay:-.6s}
+@keyframes yl-eq{0%,100%{transform:scaleY(.3)}50%{transform:scaleY(1)}}
+
+@media (prefers-reduced-motion: reduce){
+  .yl-dash,.yl-siz i,.yl-pinr,.yl-tick,.yl-eq i,.yl-mini-l::before,.yl-i .yl-pin,.yl-i .yl-ban,.yl-i .yl-cs,.yl-toast{animation:none !important}
+  .yl-i .yl-ban{opacity:1;transform:none}
+  .yl-i .yl-rc,.yl-i .yl-rl{stroke-dashoffset:0}
+  .yl-i .yl-lbl,.yl-card,.yl-tr,.yl-car .yl-ph,.yl-wd--on{opacity:1;transform:none;transition:none !important}
+  .yl-i--go .yl-puck,.yl-i--go .yl-lbl{animation:none}
+  .yl-i--go .yl-es{transition:none}
+  .yl-i--go{animation:yl-out .01s linear forwards}
+}
+</style>
+</helmet>
+<div class="{{ rootCls }}" style="width: 390px; min-height: var(--vh, 100vh); position: relative; overflow: hidden; display: flex; flex-direction: column">
+
+  <svg width="0" height="0" aria-hidden="true" style="position: absolute">
+    <defs>
+      <symbol id="yl-motif" viewBox="0 0 24 24">
+        <sc-if value="{{ mk.nahorgi }}"><path d="M2.5 15c0 2 4.3 3.5 9.5 3.5s9.5-1.5 9.5-3.5M5 15a7 7 0 0 1 14 0M2.5 15h19M9 7.5c-.8-1 .8-1.8 0-3M12 7c-.8-1 .8-1.8 0-3M15 7.5c-.8-1 .8-1.8 0-3"></path></sc-if>
+        <sc-if value="{{ mk.osh_toyi }}"><path d="M4 11h16c0 4.4-3.6 8-8 8s-8-3.6-8-8ZM3 11h18M4.3 12.5c-1.6 0-2 2.2-.4 2.6M19.7 12.5c1.6 0 2 2.2.4 2.6M9 7.5c-.8-1 .8-1.8 0-3M12 7c-.8-1 .8-1.8 0-3M15 7.5c-.8-1 .8-1.8 0-3"></path></sc-if>
+        <sc-if value="{{ mk.sunnat }}"><path d="M4 17.5l1.3-8.2C8.2 7.2 15.8 7.2 18.7 9.3L20 17.5c-4.2 1.6-11.8 1.6-16 0ZM8.6 14c-1.3-.4-1.5-2.2 0-2.6M12 13.7c-1.3-.4-1.5-2.2 0-2.6M15.4 14c-1.3-.4-1.5-2.2 0-2.6M12 3.2v1.6"></path></sc-if>
+        <sc-if value="{{ mk.beshik }}"><path d="M3.5 6h17M5 6v12.5M19 6v12.5M5 11h14l-1 4.2c-.4 1.3-1.6 1.8-3 1.8H9c-1.4 0-2.6-.5-3-1.8ZM2.5 19.5c6.3 2 12.7 2 19 0M8 11c.8-1.6 2.3-2.3 4-2.3s3.2.7 4 2.3"></path></sc-if>
+      </symbol>
+    </defs>
+  </svg>
+
+  <sc-if value="{{ has.music }}">
+  <button type="button" class="{{ musicCls }}" aria-label="{{ musicLabel }}" aria-pressed="{{ musicOn }}" onClick="{{ toggleMusic }}">
+    <sc-if value="{{ musicOn }}"><span class="yl-eq" aria-hidden="true"><i></i><i></i><i></i></span></sc-if>
+    <sc-if value="{{ musicOff }}"><svg class="yl-ic" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V5.5l11-2.2v12.5"></path><circle cx="6.2" cy="18" r="2.8"></circle><circle cx="17.2" cy="15.8" r="2.8"></circle></svg></sc-if>
+  </button>
+  </sc-if>
+
+  <!-- ============ kirish: yo'l chiziladi ============ -->
+  <div data-intro class="{{ introCls }}" aria-hidden="{{ introHidden }}">
+    <div class="yl-map">
+      <svg width="390" height="470" viewBox="0 0 390 470" aria-hidden="true">
+<rect x="0" y="0" width="390" height="470" class="yl-ml"></rect>
+<rect class="yl-mb2" x="0" y="0" width="47" height="59" rx="4"></rect>
+<rect class="yl-mb2" x="0" y="81" width="47" height="42" rx="4"></rect>
+<rect class="yl-mb" x="0" y="129" width="47" height="42" rx="4"></rect>
+<rect class="yl-mb2" x="0" y="193" width="47" height="44" rx="4"></rect>
+<rect class="yl-mb" x="0" y="242" width="47" height="44" rx="4"></rect>
+<rect class="yl-mb" x="0" y="314" width="47" height="40" rx="4"></rect>
+<rect class="yl-mb2" x="0" y="360" width="47" height="40" rx="4"></rect>
+<rect class="yl-mb" x="0" y="421" width="47" height="49" rx="4"></rect>
+<rect class="yl-mb2" x="69" y="0" width="40" height="59" rx="4"></rect>
+<rect class="yl-mb" x="114" y="0" width="40" height="59" rx="4"></rect>
+<rect class="yl-mp" x="69" y="81" width="85" height="90" rx="8"></rect>
+<circle class="yl-mt" cx="84" cy="97" r="7"></circle>
+<circle class="yl-mt" cx="133" cy="100" r="6"></circle>
+<circle class="yl-mt" cx="120" cy="157" r="7"></circle>
+<circle class="yl-mt" cx="105" cy="159" r="5"></circle>
+<circle class="yl-mt" cx="135" cy="111" r="6"></circle>
+<rect class="yl-mb2" x="69" y="193" width="40" height="44" rx="4"></rect>
+<rect class="yl-mb2" x="69" y="242" width="40" height="44" rx="4"></rect>
+<rect class="yl-mb" x="114" y="193" width="40" height="44" rx="4"></rect>
+<rect class="yl-mb2" x="114" y="242" width="40" height="44" rx="4"></rect>
+<rect class="yl-mb" x="69" y="314" width="40" height="40" rx="4"></rect>
+<rect class="yl-mb" x="69" y="360" width="40" height="40" rx="4"></rect>
+<rect class="yl-mb" x="114" y="314" width="40" height="40" rx="4"></rect>
+<rect class="yl-mb" x="114" y="360" width="40" height="40" rx="4"></rect>
+<rect class="yl-mb2" x="69" y="421" width="40" height="49" rx="4"></rect>
+<rect class="yl-mb2" x="114" y="421" width="40" height="49" rx="4"></rect>
+<rect class="yl-mb2" x="182" y="0" width="40" height="59" rx="4"></rect>
+<rect class="yl-mb" x="228" y="0" width="40" height="59" rx="4"></rect>
+<rect class="yl-mb" x="182" y="81" width="40" height="42" rx="4"></rect>
+<rect class="yl-mb2" x="182" y="129" width="40" height="42" rx="4"></rect>
+<rect class="yl-mb" x="228" y="81" width="40" height="42" rx="4"></rect>
+<rect class="yl-mb" x="228" y="129" width="40" height="42" rx="4"></rect>
+<rect class="yl-mb2" x="182" y="193" width="40" height="44" rx="4"></rect>
+<rect class="yl-mb" x="182" y="242" width="40" height="44" rx="4"></rect>
+<rect class="yl-mb" x="228" y="193" width="40" height="44" rx="4"></rect>
+<rect class="yl-mb2" x="228" y="242" width="40" height="44" rx="4"></rect>
+<rect class="yl-mb" x="182" y="314" width="40" height="40" rx="4"></rect>
+<rect class="yl-mb" x="182" y="360" width="40" height="40" rx="4"></rect>
+<rect class="yl-mb" x="228" y="314" width="40" height="40" rx="4"></rect>
+<rect class="yl-mb" x="228" y="360" width="40" height="40" rx="4"></rect>
+<rect class="yl-mb2" x="182" y="421" width="40" height="49" rx="4"></rect>
+<rect class="yl-mb" x="228" y="421" width="40" height="49" rx="4"></rect>
+<rect class="yl-mb2" x="291" y="0" width="58" height="59" rx="4"></rect>
+<rect class="yl-mb" x="291" y="81" width="58" height="42" rx="4"></rect>
+<rect class="yl-mb" x="291" y="129" width="58" height="42" rx="4"></rect>
+<rect class="yl-mb2" x="291" y="193" width="58" height="44" rx="4"></rect>
+<rect class="yl-mb" x="291" y="242" width="58" height="44" rx="4"></rect>
+<rect class="yl-mp" x="291" y="314" width="58" height="85" rx="8"></rect>
+<circle class="yl-mt" cx="302" cy="367" r="8"></circle>
+<circle class="yl-mt" cx="323" cy="381" r="6"></circle>
+<circle class="yl-mt" cx="327" cy="363" r="7"></circle>
+<circle class="yl-mt" cx="318" cy="379" r="9"></circle>
+<circle class="yl-mt" cx="319" cy="367" r="5"></circle>
+<rect class="yl-mb" x="291" y="421" width="58" height="49" rx="4"></rect>
+<rect class="yl-mb" x="371" y="0" width="19" height="59" rx="4"></rect>
+<rect class="yl-mb" x="371" y="81" width="19" height="42" rx="4"></rect>
+<rect class="yl-mb" x="371" y="129" width="19" height="42" rx="4"></rect>
+<rect class="yl-mb2" x="371" y="193" width="19" height="44" rx="4"></rect>
+<rect class="yl-mb" x="371" y="242" width="19" height="44" rx="4"></rect>
+<rect class="yl-mb" x="371" y="314" width="19" height="40" rx="4"></rect>
+<rect class="yl-mb2" x="371" y="360" width="19" height="40" rx="4"></rect>
+<rect class="yl-mb" x="371" y="421" width="19" height="49" rx="4"></rect>
+<path class="yl-mw" d="M196 -20C214 26 262 52 318 40S382 18 410 30"></path>
+<path class="yl-rdc" style="stroke-width: 16" d="M-10 70H400"></path>
+<path class="yl-rdc" style="stroke-width: 16" d="M-10 182H400"></path>
+<path class="yl-rdc" style="stroke-width: 22" d="M-10 300H400"></path>
+<path class="yl-rdc" style="stroke-width: 16" d="M-10 410H400"></path>
+<path class="yl-rdc" style="stroke-width: 16" d="M58 -10V480"></path>
+<path class="yl-rdc" style="stroke-width: 22" d="M168 -10V480"></path>
+<path class="yl-rdc" style="stroke-width: 16" d="M280 -10V480"></path>
+<path class="yl-rdc" style="stroke-width: 16" d="M360 -10V480"></path>
+<path class="yl-rdc" style="stroke-width: 14" d="M-10 252L120 130L210 40L240 -10"></path>
+<path class="yl-rd" style="stroke-width: 12" d="M-10 70H400"></path>
+<path class="yl-rd" style="stroke-width: 12" d="M-10 182H400"></path>
+<path class="yl-rd" style="stroke-width: 18" d="M-10 300H400"></path>
+<path class="yl-rd" style="stroke-width: 12" d="M-10 410H400"></path>
+<path class="yl-rd" style="stroke-width: 12" d="M58 -10V480"></path>
+<path class="yl-rd" style="stroke-width: 18" d="M168 -10V480"></path>
+<path class="yl-rd" style="stroke-width: 12" d="M280 -10V480"></path>
+<path class="yl-rd" style="stroke-width: 12" d="M360 -10V480"></path>
+<path class="yl-rd" style="stroke-width: 10" d="M-10 252L120 130L210 40L240 -10"></path>
+
+<path class="yl-rg" d="M100 410H156Q168 410 168 398V312Q168 300 180 300H268Q280 300 280 288V194Q280 182 292 182H320"></path>
+<path class="yl-rc" pathLength="1" d="M100 410H156Q168 410 168 398V312Q168 300 180 300H268Q280 300 280 288V194Q280 182 292 182H320"></path>
+<path class="yl-rl" pathLength="1" d="M100 410H156Q168 410 168 398V312Q168 300 180 300H268Q280 300 280 288V194Q280 182 292 182H320"></path>
+<path class="yl-dash" d="M100 410H156Q168 410 168 398V312Q168 300 180 300H268Q280 300 280 288V194Q280 182 292 182H320"></path>
+      </svg>
+      <div class="yl-siz" aria-hidden="true"><i></i><b></b></div>
+      <span class="yl-sizl" aria-hidden="true">Siz</span>
+      <span class="yl-pinr" aria-hidden="true"></span>
+      <div class="yl-pin" aria-hidden="true"><svg class="yl-pinb" width="44" height="56" viewBox="0 0 44 56"><path d="M22 55C22 55 3 34 3 21a19 19 0 0 1 38 0c0 13-19 34-19 34Z" fill="#F2542D"></path><circle cx="22" cy="21" r="13.5" fill="#FFFFFF"></circle><svg x="11" y="10" width="22" height="22" viewBox="0 0 24 24" class="yl-ic" style="color: #F2542D"><use href="#yl-motif"></use></svg></svg></div>
+      <div class="yl-lbl"><span class="yl-lbli"><svg class="yl-ic" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><use href="#yl-motif"></use></svg></span><span style="min-width: 0; font-weight: 600; font-size: {{ pinFs }}px; line-height: 1.2; overflow-wrap: anywhere">{{ pinLabel }}</span></div>
+      <div class="yl-zoom" aria-hidden="true"><span><svg class="yl-ic" width="18" height="18" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"></path></svg></span><span><svg class="yl-ic" width="18" height="18" viewBox="0 0 24 24"><path d="M5 12h14"></path></svg></span></div>
+      <div class="yl-puck" aria-hidden="true">
+        <svg width="34" height="34" viewBox="0 0 34 34"><circle cx="17" cy="17" r="16" fill="#FFFFFF"></circle><circle cx="17" cy="17" r="12.5" fill="#2563EB"></circle><path d="M11 11.5 24.5 17 11 22.5 13.6 17Z" fill="#FFFFFF"></path></svg>
+      </div>
+      <div class="yl-ban">
+        <span class="yl-bani" aria-hidden="true"><svg class="yl-ic" width="24" height="24" viewBox="0 0 24 24" style="stroke-width: 2.2"><path d="M12 20V5M6 11l6-6 6 6"></path></svg></span>
+        <div style="min-width: 0">
+          <p class="yl-cap" style="font-size: 10.5px; letter-spacing: .16em; color: #A9B8D0">Bismillahir Rohmanir Rohiym</p>
+          <p style="margin: 3px 0 0; font-size: 14px; line-height: 18px; color: #C9D3E2">Assalomu alaykum,</p>
+          <p style="margin: 1px 0 0; font-weight: 700; font-size: {{ guestFs }}px; line-height: 1.2; overflow-wrap: anywhere">{{ guestLine }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="yl-sheet yl-cs">
+      <div class="yl-grab" aria-hidden="true"></div>
+      <p class="yl-cap yl-blue">Siz uchun yo’nalish</p>
+      <p style="margin: 10px 0 0; font-weight: 700; font-size: {{ inviteFs }}px; line-height: 1.25; overflow-wrap: anywhere">{{ mezbon }} sizni {{ taklifLow }} lutfan taklif etadi</p>
+      <div class="yl-mini">
+        <span style="width: 14px; height: 14px; border-radius: 50%; background: #2563EB; box-shadow: 0 0 0 3px #CFE0FF; flex: none"></span>
+        <span style="font-weight: 600; font-size: 15px; flex: none">Siz</span>
+        <span class="yl-mini-l" aria-hidden="true"></span>
+        <span style="min-width: 0; font-weight: 600; font-size: 15px; text-align: right; overflow-wrap: anywhere">{{ pinLabel }}</span>
+        <svg class="yl-ic" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" style="color: #F2542D"><path d="M12 21.5s-7-6.1-7-11.6a7 7 0 0 1 14 0c0 5.5-7 11.6-7 11.6Z"></path><circle cx="12" cy="9.8" r="2.6"></circle></svg>
+      </div>
+      <p class="yl-mut yl-num" style="margin: 14px 2px 0; font-size: 15px; line-height: 1.4">{{ w.Weekday }}, {{ w.date }} · soat {{ hhmm }}</p>
+      <button type="button" class="yl-btn yl-btn--p" onClick="{{ open }}" style="width: 100%; margin-top: 22px; height: 58px; font-size: 17px">
+        <svg class="yl-ic" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19 12 4l7 15-7-3.5Z"></path></svg>
+        Yo’nalishni ko’rsatish
+      </button>
+    </div>
+    <div class="yl-sheet yl-es" aria-hidden="true">
+      <div class="yl-grab" aria-hidden="true"></div>
+      <p class="yl-cap yl-blue">{{ taklifCap }}</p>
+      <sc-if value="{{ titleA }}"><p style="margin: 10px 0 0; font-weight: 500; font-style: italic; font-size: {{ titleAFs }}px; line-height: 1.15; overflow-wrap: anywhere">{{ titleA }}</p></sc-if>
+      <p style="margin: {{ titleMt }}px 0 0; font-weight: 700; font-size: {{ titleFs }}px; line-height: 1.08; letter-spacing: -0.01em; overflow-wrap: anywhere">{{ titleB }}</p>
+      <p style="margin: 10px 0 0; font-size: 16px; line-height: 1.5; overflow-wrap: anywhere"><b style="font-weight: 700">{{ mezbon }}</b> sizni lutfan taklif etadi</p>
+      <sc-if value="{{ sabab }}"><p class="yl-mut" style="margin: 6px 0 0; font-size: 15px; line-height: 1.45; overflow-wrap: anywhere">{{ sabab }}</p></sc-if>
+      <div class="yl-eta yl-num">
+        <div style="flex: none"><span class="yl-cap yl-mut" style="display: block; font-size: 10.5px">Boshlanish</span><b>{{ hhmm }}</b></div>
+        <div style="min-width: 0"><p style="margin: 0; font-weight: 700; font-size: 17px; line-height: 1.2">{{ w.dm }}</p><p class="yl-mut" style="margin: 3px 0 0; font-size: 14px">{{ w.Weekday }}</p></div>
+        <sc-if value="{{ daysLeft }}"><span class="yl-left">{{ daysLeft }}</span></sc-if>
+      </div>
+      <sc-if value="{{ timeNote }}"><p class="yl-mut" style="margin: 10px 2px 0; font-size: 14px; font-style: italic">{{ timeNote }}</p></sc-if>
+      <sc-if value="{{ place }}">
+      <div class="yl-dest">
+        <span class="yl-desti" aria-hidden="true"><svg class="yl-ic" width="20" height="20" viewBox="0 0 24 24"><path d="M12 21.5s-7-6.1-7-11.6a7 7 0 0 1 14 0c0 5.5-7 11.6-7 11.6Z"></path><circle cx="12" cy="9.8" r="2.6"></circle></svg></span>
+        <div style="min-width: 0"><p style="margin: 0; font-weight: 600; font-size: 17px; line-height: 1.3; overflow-wrap: anywhere">{{ d.manzil_nomi }}</p><sc-if value="{{ d.manzil }}"><p class="yl-mut" style="margin: 3px 0 0; font-size: 14px; line-height: 1.4; overflow-wrap: anywhere">{{ d.manzil }}</p></sc-if></div>
+      </div>
+      </sc-if>
+      <div style="display: flex; gap: 10px; margin-top: 18px">
+        <sc-if value="{{ startMap }}">
+        <span class="yl-btn yl-btn--p" style="flex: 1 1 0">
+          <svg class="yl-ic" width="19" height="19" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19 12 4l7 15-7-3.5Z"></path></svg>
+          Yo’lni boshlash
+        </span>
+        </sc-if>
+        <sc-if value="{{ calLink }}">
+        <span class="yl-btn yl-btn--s" style="{{ calStyle }}">
+          <svg class="yl-ic" width="19" height="19" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="3"></rect><path d="M3.5 10h17M8 3v4M16 3v4M12 13v5M9.5 15.5h5"></path></svg>
+          <sc-if value="{{ calWide }}">Kalendarga qo’shish</sc-if>
+        </span>
+        </sc-if>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ bosh qism: xarita + ETA ============ -->
+  <header style="position: relative">
+    <div class="yl-map">
+      <svg width="390" height="470" viewBox="0 0 390 470" aria-hidden="true">
+<rect x="0" y="0" width="390" height="470" class="yl-ml"></rect>
+<rect class="yl-mb2" x="0" y="0" width="47" height="59" rx="4"></rect>
+<rect class="yl-mb2" x="0" y="81" width="47" height="42" rx="4"></rect>
+<rect class="yl-mb" x="0" y="129" width="47" height="42" rx="4"></rect>
+<rect class="yl-mb2" x="0" y="193" width="47" height="44" rx="4"></rect>
+<rect class="yl-mb" x="0" y="242" width="47" height="44" rx="4"></rect>
+<rect class="yl-mb" x="0" y="314" width="47" height="40" rx="4"></rect>
+<rect class="yl-mb2" x="0" y="360" width="47" height="40" rx="4"></rect>
+<rect class="yl-mb" x="0" y="421" width="47" height="49" rx="4"></rect>
+<rect class="yl-mb2" x="69" y="0" width="40" height="59" rx="4"></rect>
+<rect class="yl-mb" x="114" y="0" width="40" height="59" rx="4"></rect>
+<rect class="yl-mp" x="69" y="81" width="85" height="90" rx="8"></rect>
+<circle class="yl-mt" cx="84" cy="97" r="7"></circle>
+<circle class="yl-mt" cx="133" cy="100" r="6"></circle>
+<circle class="yl-mt" cx="120" cy="157" r="7"></circle>
+<circle class="yl-mt" cx="105" cy="159" r="5"></circle>
+<circle class="yl-mt" cx="135" cy="111" r="6"></circle>
+<rect class="yl-mb2" x="69" y="193" width="40" height="44" rx="4"></rect>
+<rect class="yl-mb2" x="69" y="242" width="40" height="44" rx="4"></rect>
+<rect class="yl-mb" x="114" y="193" width="40" height="44" rx="4"></rect>
+<rect class="yl-mb2" x="114" y="242" width="40" height="44" rx="4"></rect>
+<rect class="yl-mb" x="69" y="314" width="40" height="40" rx="4"></rect>
+<rect class="yl-mb" x="69" y="360" width="40" height="40" rx="4"></rect>
+<rect class="yl-mb" x="114" y="314" width="40" height="40" rx="4"></rect>
+<rect class="yl-mb" x="114" y="360" width="40" height="40" rx="4"></rect>
+<rect class="yl-mb2" x="69" y="421" width="40" height="49" rx="4"></rect>
+<rect class="yl-mb2" x="114" y="421" width="40" height="49" rx="4"></rect>
+<rect class="yl-mb2" x="182" y="0" width="40" height="59" rx="4"></rect>
+<rect class="yl-mb" x="228" y="0" width="40" height="59" rx="4"></rect>
+<rect class="yl-mb" x="182" y="81" width="40" height="42" rx="4"></rect>
+<rect class="yl-mb2" x="182" y="129" width="40" height="42" rx="4"></rect>
+<rect class="yl-mb" x="228" y="81" width="40" height="42" rx="4"></rect>
+<rect class="yl-mb" x="228" y="129" width="40" height="42" rx="4"></rect>
+<rect class="yl-mb2" x="182" y="193" width="40" height="44" rx="4"></rect>
+<rect class="yl-mb" x="182" y="242" width="40" height="44" rx="4"></rect>
+<rect class="yl-mb" x="228" y="193" width="40" height="44" rx="4"></rect>
+<rect class="yl-mb2" x="228" y="242" width="40" height="44" rx="4"></rect>
+<rect class="yl-mb" x="182" y="314" width="40" height="40" rx="4"></rect>
+<rect class="yl-mb" x="182" y="360" width="40" height="40" rx="4"></rect>
+<rect class="yl-mb" x="228" y="314" width="40" height="40" rx="4"></rect>
+<rect class="yl-mb" x="228" y="360" width="40" height="40" rx="4"></rect>
+<rect class="yl-mb2" x="182" y="421" width="40" height="49" rx="4"></rect>
+<rect class="yl-mb" x="228" y="421" width="40" height="49" rx="4"></rect>
+<rect class="yl-mb2" x="291" y="0" width="58" height="59" rx="4"></rect>
+<rect class="yl-mb" x="291" y="81" width="58" height="42" rx="4"></rect>
+<rect class="yl-mb" x="291" y="129" width="58" height="42" rx="4"></rect>
+<rect class="yl-mb2" x="291" y="193" width="58" height="44" rx="4"></rect>
+<rect class="yl-mb" x="291" y="242" width="58" height="44" rx="4"></rect>
+<rect class="yl-mp" x="291" y="314" width="58" height="85" rx="8"></rect>
+<circle class="yl-mt" cx="302" cy="367" r="8"></circle>
+<circle class="yl-mt" cx="323" cy="381" r="6"></circle>
+<circle class="yl-mt" cx="327" cy="363" r="7"></circle>
+<circle class="yl-mt" cx="318" cy="379" r="9"></circle>
+<circle class="yl-mt" cx="319" cy="367" r="5"></circle>
+<rect class="yl-mb" x="291" y="421" width="58" height="49" rx="4"></rect>
+<rect class="yl-mb" x="371" y="0" width="19" height="59" rx="4"></rect>
+<rect class="yl-mb" x="371" y="81" width="19" height="42" rx="4"></rect>
+<rect class="yl-mb" x="371" y="129" width="19" height="42" rx="4"></rect>
+<rect class="yl-mb2" x="371" y="193" width="19" height="44" rx="4"></rect>
+<rect class="yl-mb" x="371" y="242" width="19" height="44" rx="4"></rect>
+<rect class="yl-mb" x="371" y="314" width="19" height="40" rx="4"></rect>
+<rect class="yl-mb2" x="371" y="360" width="19" height="40" rx="4"></rect>
+<rect class="yl-mb" x="371" y="421" width="19" height="49" rx="4"></rect>
+<path class="yl-mw" d="M196 -20C214 26 262 52 318 40S382 18 410 30"></path>
+<path class="yl-rdc" style="stroke-width: 16" d="M-10 70H400"></path>
+<path class="yl-rdc" style="stroke-width: 16" d="M-10 182H400"></path>
+<path class="yl-rdc" style="stroke-width: 22" d="M-10 300H400"></path>
+<path class="yl-rdc" style="stroke-width: 16" d="M-10 410H400"></path>
+<path class="yl-rdc" style="stroke-width: 16" d="M58 -10V480"></path>
+<path class="yl-rdc" style="stroke-width: 22" d="M168 -10V480"></path>
+<path class="yl-rdc" style="stroke-width: 16" d="M280 -10V480"></path>
+<path class="yl-rdc" style="stroke-width: 16" d="M360 -10V480"></path>
+<path class="yl-rdc" style="stroke-width: 14" d="M-10 252L120 130L210 40L240 -10"></path>
+<path class="yl-rd" style="stroke-width: 12" d="M-10 70H400"></path>
+<path class="yl-rd" style="stroke-width: 12" d="M-10 182H400"></path>
+<path class="yl-rd" style="stroke-width: 18" d="M-10 300H400"></path>
+<path class="yl-rd" style="stroke-width: 12" d="M-10 410H400"></path>
+<path class="yl-rd" style="stroke-width: 12" d="M58 -10V480"></path>
+<path class="yl-rd" style="stroke-width: 18" d="M168 -10V480"></path>
+<path class="yl-rd" style="stroke-width: 12" d="M280 -10V480"></path>
+<path class="yl-rd" style="stroke-width: 12" d="M360 -10V480"></path>
+<path class="yl-rd" style="stroke-width: 10" d="M-10 252L120 130L210 40L240 -10"></path>
+
+<path class="yl-rg" d="M100 410H156Q168 410 168 398V312Q168 300 180 300H268Q280 300 280 288V194Q280 182 292 182H320"></path>
+<path class="yl-rc" pathLength="1" d="M100 410H156Q168 410 168 398V312Q168 300 180 300H268Q280 300 280 288V194Q280 182 292 182H320"></path>
+<path class="yl-rl" pathLength="1" d="M100 410H156Q168 410 168 398V312Q168 300 180 300H268Q280 300 280 288V194Q280 182 292 182H320"></path>
+<path class="yl-dash" d="M100 410H156Q168 410 168 398V312Q168 300 180 300H268Q280 300 280 288V194Q280 182 292 182H320"></path>
+      </svg>
+      <div class="yl-siz" aria-hidden="true"><i></i><b></b></div>
+      <span class="yl-sizl" aria-hidden="true">Siz</span>
+      <span class="yl-pinr" aria-hidden="true"></span>
+      <div class="yl-pin" aria-hidden="true"><svg class="yl-pinb" width="44" height="56" viewBox="0 0 44 56"><path d="M22 55C22 55 3 34 3 21a19 19 0 0 1 38 0c0 13-19 34-19 34Z" fill="#F2542D"></path><circle cx="22" cy="21" r="13.5" fill="#FFFFFF"></circle><svg x="11" y="10" width="22" height="22" viewBox="0 0 24 24" class="yl-ic" style="color: #F2542D"><use href="#yl-motif"></use></svg></svg></div>
+      <div class="yl-lbl"><span class="yl-lbli"><svg class="yl-ic" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><use href="#yl-motif"></use></svg></span><span style="min-width: 0; font-weight: 600; font-size: {{ pinFs }}px; line-height: 1.2; overflow-wrap: anywhere">{{ pinLabel }}</span></div>
+      <div class="yl-zoom" aria-hidden="true"><span><svg class="yl-ic" width="18" height="18" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"></path></svg></span><span><svg class="yl-ic" width="18" height="18" viewBox="0 0 24 24"><path d="M5 12h14"></path></svg></span></div>
+      <div class="yl-ban">
+        <span class="yl-bani" aria-hidden="true"><svg class="yl-ic" width="24" height="24" viewBox="0 0 24 24" style="stroke-width: 2.2"><path d="M12 20V5M6 11l6-6 6 6"></path></svg></span>
+        <div style="min-width: 0">
+          <p class="yl-cap" style="font-size: 10.5px; letter-spacing: .16em; color: #A9B8D0">Bismillahir Rohmanir Rohiym</p>
+          <p style="margin: 3px 0 0; font-size: 14px; line-height: 18px; color: #C9D3E2">Assalomu alaykum,</p>
+          <p style="margin: 1px 0 0; font-weight: 700; font-size: {{ guestFs }}px; line-height: 1.2; overflow-wrap: anywhere">{{ guestLine }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="yl-sheet">
+      <div class="yl-grab" aria-hidden="true"></div>
+      <p class="yl-cap yl-blue">{{ taklifCap }}</p>
+      <sc-if value="{{ titleA }}"><p style="margin: 10px 0 0; font-weight: 500; font-style: italic; font-size: {{ titleAFs }}px; line-height: 1.15; overflow-wrap: anywhere">{{ titleA }}</p></sc-if>
+      <h1 style="margin: {{ titleMt }}px 0 0; font-weight: 700; font-size: {{ titleFs }}px; line-height: 1.08; letter-spacing: -0.01em; overflow-wrap: anywhere">{{ titleB }}</h1>
+      <p style="margin: 10px 0 0; font-size: 16px; line-height: 1.5; overflow-wrap: anywhere"><b style="font-weight: 700">{{ mezbon }}</b> sizni lutfan taklif etadi</p>
+      <sc-if value="{{ sabab }}"><p class="yl-mut" style="margin: 6px 0 0; font-size: 15px; line-height: 1.45; overflow-wrap: anywhere">{{ sabab }}</p></sc-if>
+      <div class="yl-eta yl-num">
+        <div style="flex: none"><span class="yl-cap yl-mut" style="display: block; font-size: 10.5px">Boshlanish</span><b>{{ hhmm }}</b></div>
+        <div style="min-width: 0"><p style="margin: 0; font-weight: 700; font-size: 17px; line-height: 1.2">{{ w.dm }}</p><p class="yl-mut" style="margin: 3px 0 0; font-size: 14px">{{ w.Weekday }}</p></div>
+        <sc-if value="{{ daysLeft }}"><span class="yl-left">{{ daysLeft }}</span></sc-if>
+      </div>
+      <sc-if value="{{ timeNote }}"><p class="yl-mut" style="margin: 10px 2px 0; font-size: 14px; font-style: italic">{{ timeNote }}</p></sc-if>
+      <sc-if value="{{ place }}">
+      <div class="yl-dest">
+        <span class="yl-desti" aria-hidden="true"><svg class="yl-ic" width="20" height="20" viewBox="0 0 24 24"><path d="M12 21.5s-7-6.1-7-11.6a7 7 0 0 1 14 0c0 5.5-7 11.6-7 11.6Z"></path><circle cx="12" cy="9.8" r="2.6"></circle></svg></span>
+        <div style="min-width: 0"><p style="margin: 0; font-weight: 600; font-size: 17px; line-height: 1.3; overflow-wrap: anywhere">{{ d.manzil_nomi }}</p><sc-if value="{{ d.manzil }}"><p class="yl-mut" style="margin: 3px 0 0; font-size: 14px; line-height: 1.4; overflow-wrap: anywhere">{{ d.manzil }}</p></sc-if></div>
+      </div>
+      </sc-if>
+      <div style="display: flex; gap: 10px; margin-top: 18px">
+        <sc-if value="{{ startMap }}">
+        <a class="yl-btn yl-btn--p" href="{{ d.xarita }}" target="_blank" rel="noopener" style="flex: 1 1 0">
+          <svg class="yl-ic" width="19" height="19" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19 12 4l7 15-7-3.5Z"></path></svg>
+          Yo’lni boshlash
+        </a>
+        </sc-if>
+        <sc-if value="{{ calLink }}">
+        <a class="yl-btn yl-btn--s" href="{{ calLink }}" target="_blank" rel="noopener" aria-label="Kalendarga qo’shish" style="{{ calStyle }}">
+          <svg class="yl-ic" width="19" height="19" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="3"></rect><path d="M3.5 10h17M8 3v4M16 3v4M12 13v5M9.5 15.5h5"></path></svg>
+          <sc-if value="{{ calWide }}">Kalendarga qo’shish</sc-if>
+        </a>
+        </sc-if>
+      </div>
+    </div>
+  </header>
+
+  <main style="display: flex; flex-direction: column; padding-top: 2px">
+    <!-- taklif -->
+    <sc-if value="{{ b.taklif }}">
+    <section class="{{ rv.taklif }}" data-rv="taklif">
+      <div class="yl-card">
+        <div class="yl-ch"><span class="yl-chi"><svg class="yl-ic" width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12a8 8 0 0 1-11.6 7.1L4 20l1-4.2A8 8 0 1 1 20 12Z"></path></svg></span><p class="yl-cap">Mezbondan xabar</p><span class="yl-ix yl-num">{{ ix.taklif }}</span></div>
+        <p class="yl-p">{{ d.matn }}</p>
+        <p class="yl-mut" style="margin: 16px 0 0; font-size: 16px; font-style: italic; overflow-wrap: anywhere">Hurmat bilan, {{ mezbon }}</p>
+      </div>
+    </section>
+    </sc-if>
+
+    <!-- kun -->
+    <sc-if value="{{ b.kun }}">
+    <section class="{{ rv.kun }}" data-rv="kun">
+      <div class="yl-card">
+        <div class="yl-ch"><span class="yl-chi"><svg class="yl-ic" width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="3"></rect><path d="M3.5 10h17M8 3v4M16 3v4"></path></svg></span><p class="yl-cap">Sana va vaqt</p><span class="yl-ix yl-num">{{ ix.kun }}</span></div>
+        <p style="margin: 0 0 14px; font-weight: 700; font-size: 26px; line-height: 1.2">{{ monthCap }} {{ w.year }}</p>
+        <div class="yl-wk yl-num" aria-hidden="true">
+          <sc-for list="{{ week }}" as="x"><div class="{{ x.cls }}"><span>{{ x.wd }}</span><b>{{ x.n }}</b></div></sc-for>
+        </div>
+        <div style="display: flex; align-items: center; gap: 14px; margin-top: 18px; padding-top: 16px; border-top: 1px solid #EDF0F5">
+          <div style="min-width: 0">
+            <p style="margin: 0; font-weight: 600; font-size: 17px">{{ w.Weekday }}, {{ w.dm }}</p>
+            <p class="yl-mut" style="margin: 4px 0 0; font-size: 15px">Boshlanish — soat {{ hhmm }}</p><sc-if value="{{ timeNote }}"><p class="yl-mut" style="margin: 2px 0 0; font-size: 14px; font-style: italic">{{ timeNote }}</p></sc-if>
+          </div>
+          <sc-if value="{{ calLink }}">
+          <a class="yl-btn yl-btn--s" href="{{ calLink }}" target="_blank" rel="noopener" aria-label="Kalendarga qo’shish" style="margin-left: auto; width: 54px; padding: 0; flex: none">
+            <svg class="yl-ic" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="3"></rect><path d="M3.5 10h17M8 3v4M16 3v4M12 13v5M9.5 15.5h5"></path></svg>
+          </a>
+          </sc-if>
+        </div>
+      </div>
+    </section>
+    </sc-if>
+
+    <!-- taymer -->
+    <sc-if value="{{ b.taymer }}">
+    <section class="{{ rv.taymer }}" data-rv="taymer">
+      <div class="yl-card">
+        <div class="yl-ch"><span class="yl-chi"><svg class="yl-ic" width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="13" r="7.5"></circle><path d="M12 9v4l2.5 1.5M9.5 3h5"></path></svg></span><p class="yl-cap">{{ untilText }}</p><span class="yl-ix yl-num">{{ ix.taymer }}</span></div>
+        <div class="yl-cd yl-num" role="timer" aria-label="{{ cdText }}">
+          <div class="yl-cdc"><b>{{ cd.dd }}</b><span>kun</span></div><span class="yl-cdx" aria-hidden="true">:</span>
+          <div class="yl-cdc"><b>{{ cd.hh }}</b><span>soat</span></div><span class="yl-cdx" aria-hidden="true">:</span>
+          <div class="yl-cdc"><b>{{ cd.mm }}</b><span>daqiqa</span></div><span class="yl-cdx" aria-hidden="true">:</span>
+          <div class="yl-cdc"><b style="color: #2563EB"><span class="yl-tick" key="{{ cdKey }}">{{ cd.ss }}</span></b><span>soniya</span></div>
+        </div>
+        <div class="yl-trip" aria-hidden="true">
+          <i style="{{ tripBar }}"></i><b style="{{ tripDot }}"></b>
+          <em><svg width="28" height="28" viewBox="0 0 24 24"><path d="M12 21.5s-7-6.1-7-11.6a7 7 0 0 1 14 0c0 5.5-7 11.6-7 11.6Z" fill="#F2542D"></path><circle cx="12" cy="9.8" r="2.8" fill="#FFFFFF"></circle></svg></em>
+        </div>
+        <p class="yl-mut" style="margin: 8px 0 0; font-size: 14px">{{ tripText }}</p>
+      </div>
+    </section>
+    </sc-if>
+
+    <!-- manzil -->
+    <sc-if value="{{ b.manzil }}">
+    <section class="{{ rv.manzil }}" data-rv="manzil">
+      <div class="yl-card">
+        <div class="yl-ch"><span class="yl-chi" style="background: #FFF0EB; color: #F2542D"><svg class="yl-ic" width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.5s-7-6.1-7-11.6a7 7 0 0 1 14 0c0 5.5-7 11.6-7 11.6Z"></path><circle cx="12" cy="9.8" r="2.6"></circle></svg></span><p class="yl-cap">Manzil</p><span class="yl-ix yl-num">{{ ix.manzil }}</span></div>
+        <sc-if value="{{ d.joy_rasmi }}"><div class="yl-ph" style="height: 200px; margin-bottom: 16px"><img src="{{ d.joy_rasmi }}" alt=""></div></sc-if>
+        <h2 style="margin: 0; font-weight: 700; font-size: 25px; line-height: 1.2; overflow-wrap: anywhere">{{ d.manzil_nomi }}</h2>
+        <sc-if value="{{ d.manzil }}"><p class="yl-mut" style="margin: 8px 0 0; font-size: 16px; line-height: 1.5; overflow-wrap: anywhere">{{ d.manzil }}</p></sc-if>
+        <div style="display: flex; gap: 10px; margin-top: 18px">
+          <sc-if value="{{ d.xarita }}">
+          <a class="yl-btn yl-btn--p" href="{{ d.xarita }}" target="_blank" rel="noopener" style="flex: 1 1 0">
+            <svg class="yl-ic" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19 12 4l7 15-7-3.5Z"></path></svg>
+            Yo’lni boshlash
+          </a>
+          </sc-if>
+          <sc-if value="{{ d.manzil }}">
+          <button type="button" class="yl-btn yl-btn--s" onClick="{{ copy }}" style="{{ copyStyle }}">
+            <sc-if value="{{ copied }}"><svg class="yl-ic" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"></path></svg></sc-if>
+            <sc-if value="{{ notCopied }}"><svg class="yl-ic" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2.5"></rect><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path></svg></sc-if>
+            {{ copyLabel }}
+          </button>
+          </sc-if>
+        </div>
+      </div>
+    </section>
+    </sc-if>
+
+    <!-- dastur: bosqichma-bosqich -->
+    <sc-if value="{{ b.dastur }}">
+    <section class="{{ rv.dastur }}" data-rv="dastur">
+      <div class="yl-card">
+        <div class="yl-ch"><span class="yl-chi"><svg class="yl-ic" width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 20V9a4 4 0 0 1 4-4h8M15 2l3 3-3 3"></path></svg></span><p class="yl-cap">Marosim tartibi</p><span class="yl-ix yl-num">{{ ix.dastur }}</span></div>
+        <sc-if value="{{ first }}">
+        <div class="yl-tb">
+          <span class="yl-tbi"><svg class="yl-ic" width="28" height="28" viewBox="0 0 24 24" aria-hidden="true" style="stroke-width: 2.2"><path d="M12 20V5M6 11l6-6 6 6"></path></svg></span>
+          <div style="min-width: 0">
+            <p class="yl-cn yl-num" style="margin: 0; font-weight: 700; font-size: 30px; line-height: 1">{{ first.vaqt }}</p>
+            <p style="margin: 4px 0 0; font-weight: 600; font-size: 17px; line-height: 1.3; overflow-wrap: anywhere">{{ first.nomi }}</p>
+          </div>
+        </div>
+        </sc-if>
+        <div class="yl-ts">
+          <sc-for list="{{ rest }}" as="x">
+          <div class="{{ x.cls }}" style="{{ x.st }}">
+            <span class="yl-tri">
+              <sc-if value="{{ x.i_r }}"><svg class="yl-ic" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 20v-6a4 4 0 0 1 4-4h8M15 6l4 4-4 4"></path></svg></sc-if>
+              <sc-if value="{{ x.i_s }}"><svg class="yl-ic" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20V5M7 10l5-5 5 5"></path></svg></sc-if>
+              <sc-if value="{{ x.i_l }}"><svg class="yl-ic" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M17 20v-6a4 4 0 0 0-4-4H5M9 6l-4 4 4 4"></path></svg></sc-if>
+              <sc-if value="{{ x.i_e }}"><svg class="yl-ic" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><use href="#yl-motif"></use></svg></sc-if>
+            </span>
+            <div style="min-width: 0">
+              <p class="yl-cn yl-num" style="margin: 0; font-weight: 700; font-size: 20px; line-height: 1.1">{{ x.vaqt }}</p>
+              <p style="margin: 3px 0 0; font-size: 16px; line-height: 1.35; overflow-wrap: anywhere">{{ x.nomi }}</p>
+            </div>
+          </div>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+    </sc-if>
+
+    <!-- galereya -->
+    <sc-if value="{{ b.galereya }}">
+    <section class="{{ rv.galereya }}" data-rv="galereya">
+      <div class="yl-card" style="padding-bottom: 20px">
+        <div class="yl-ch"><span class="yl-chi"><svg class="yl-ic" width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="14" rx="3"></rect><circle cx="9" cy="10" r="1.6"></circle><path d="M5 17l4.5-4 3 2.5 3-3 4 4"></path></svg></span><p class="yl-cap">Suratlar</p><span class="yl-ix yl-num">{{ ix.galereya }}</span></div>
+        <div class="yl-car">
+          <div class="yl-ph"><img src="{{ p.0 }}" alt=""></div>
+          <div class="yl-ph"><img src="{{ p.1 }}" alt=""></div>
+          <div class="yl-ph"><img src="{{ p.2 }}" alt=""></div>
+          <div class="yl-ph"><img src="{{ p.3 }}" alt=""></div>
+        </div>
+      </div>
+    </section>
+    </sc-if>
+
+    <!-- javob -->
+    <sc-if value="{{ b.rsvp }}">
+    <section class="{{ rv.rsvp }}" data-rv="rsvp">
+      <div class="yl-card">
+        <div class="yl-ch"><span class="yl-chi"><svg class="yl-ic" width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.5"></circle><path d="M5 20c.8-3.6 3.6-5.5 7-5.5s6.2 1.9 7 5.5"></path></svg></span><p class="yl-cap">Javobingiz</p><span class="yl-ix yl-num">{{ ix.rsvp }}</span></div>
+        <h2 style="margin: 0; font-weight: 700; font-size: 28px; line-height: 1.15">Tashrif buyurasizmi?</h2>
+        <p class="yl-mut" style="margin: 8px 0 18px; font-size: 15px; line-height: 1.5">{{ deadline }}</p>
+        <sc-if value="{{ askName }}"><input class="yl-inp" type="text" maxlength="100" autocomplete="name" placeholder="Ismingiz" aria-label="Ismingiz" onInput="{{ onName }}" style="margin-bottom: 12px"></sc-if>
+        <div class="yl-seg">
+          <span class="{{ thumbCls }}" aria-hidden="true"></span>
+          <button type="button" aria-pressed="{{ isYes }}" onClick="{{ sayYes }}">Boraman</button>
+          <button type="button" aria-pressed="{{ isNo }}" onClick="{{ sayNo }}">Bora olmayman</button>
+        </div>
+        <div class="{{ stepCls }}">
+          <div>
+            <span style="font-weight: 600; font-size: 16px">Necha kishi bo’lasiz?</span>
+            <span class="yl-seats" aria-hidden="true"><sc-for list="{{ seats }}" as="x"><i class="{{ x }}"></i></sc-for></span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 8px">
+            <button type="button" class="yl-sb" aria-label="Kamaytirish" disabled="{{ minusOff }}" onClick="{{ dec }}">−</button>
+            <span class="yl-cn yl-num" style="min-width: 28px; text-align: center; font-weight: 700; font-size: 24px" aria-live="polite">{{ guests }}</span>
+            <button type="button" class="yl-sb" aria-label="Ko’paytirish" disabled="{{ plusOff }}" onClick="{{ inc }}">+</button>
+          </div>
+        </div>
+        <textarea class="yl-ta" maxlength="300" placeholder="Tilagingiz yoki izoh (ixtiyoriy)" aria-label="Tilagingiz yoki izoh" onInput="{{ onWish }}" style="margin-top: 12px"></textarea>
+        <button type="button" class="yl-btn yl-btn--p" disabled="{{ busy }}" onClick="{{ send }}" style="width: 100%; margin-top: 16px; height: 56px">
+          <svg class="yl-ic" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12 20 4l-5 16-3.5-6.5Z"></path></svg>
+          {{ sendLabel }}
+        </button>
+        <div aria-live="polite">
+          <sc-if value="{{ okNote }}"><p class="yl-toast" key="{{ noteKey }}"><svg class="yl-ic" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M8 12.3l2.7 2.7 5.3-5.4"></path></svg><span>{{ okNote }}</span></p></sc-if>
+          <sc-if value="{{ warnNote }}"><p class="yl-toast yl-toast--w" key="{{ noteKey }}"><span>{{ warnNote }}</span></p></sc-if>
+        </div>
+      </div>
+    </section>
+    </sc-if>
+
+    <!-- telefon -->
+    <sc-if value="{{ b.telefon }}">
+    <section class="{{ rv.telefon }}" data-rv="telefon">
+      <div class="yl-card" style="display: flex; align-items: center; gap: 14px">
+        <div style="min-width: 0; flex: 1 1 auto">
+          <p class="yl-cap yl-mut">Aloqa · {{ ix.telefon }}</p>
+          <p class="yl-mut" style="margin: 8px 0 0; font-size: 15px">Yo’lda adashsangiz, qo’ng’iroq qiling</p>
+          <p class="yl-cn yl-num" style="margin: 4px 0 0; font-weight: 700; font-size: {{ telFs }}px; line-height: 1.2; white-space: nowrap">{{ d.telefon }}</p>
+        </div>
+        <a class="yl-btn yl-btn--p" href="{{ tel }}" aria-label="Qo’ng’iroq qilish" style="width: 58px; height: 58px; padding: 0; border-radius: 50%; flex: none">
+          <svg class="yl-ic" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M5.2 3.5h3.1l1.6 4.2-2.1 1.5a12.2 12.2 0 0 0 7 7l1.5-2.1 4.2 1.6v3.1a1.9 1.9 0 0 1-2.1 1.9A16.6 16.6 0 0 1 3.3 5.6a1.9 1.9 0 0 1 1.9-2.1Z"></path></svg>
+        </a>
+      </div>
+    </section>
+    </sc-if>
+  </main>
+
+  <!-- yakun -->
+  <footer style="margin-top: auto; padding: 54px 28px 46px; text-align: center">
+    <span style="display: inline-flex; width: 60px; height: 60px; border-radius: 50%; align-items: center; justify-content: center; background: #FFFFFF; color: #F2542D; box-shadow: 0 10px 24px -14px rgba(22,32,46,.5)">
+      <svg class="yl-ic" width="28" height="28" viewBox="0 0 24 24" aria-hidden="true"><use href="#yl-motif"></use></svg>
+    </span>
+    <p class="yl-cap yl-blue" style="margin-top: 18px">Yo’lingiz bexatar bo’lsin</p>
+    <p style="margin: 12px 0 0; font-weight: 700; font-size: 24px; line-height: 1.3">{{ duaA }}</p>
+    <p class="yl-mut" style="margin: 12px auto 0; max-width: 310px; font-size: 16px; line-height: 1.55">{{ duaB }}</p>
+    <p style="margin: 24px 0 0; font-weight: 700; font-size: 18px; line-height: 1.3; overflow-wrap: anywhere">{{ mezbon }}</p>
+    <p class="yl-cap yl-mut yl-num" style="margin-top: 8px">{{ footMeta }}</p>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":4300}}'>
+const D = SITE.d;
+const AP = (s) => String(s || '').replace(/'/g, '’').trim();
+const MKS = ['nahorgi', 'osh_toyi', 'sunnat', 'beshik'];
+const MK = MKS.indexOf(D.marosim) >= 0 ? D.marosim : 'nahorgi';
+const NOMI = AP(D.marosim_nomi) || 'Nahorgi osh';
+const TAKLIF = AP(D.marosim_taklif) || 'Nahorgi oshga taklifnoma';
+const TAKLIF_GA = TAKLIF.replace(/\s*taklifnoma$/i, '') || SITE.ga(NOMI);
+const low = (s) => s ? s.charAt(0).toLowerCase() + s.slice(1) : s;
+const GUEST = AP(D.mehmon);
+const MEZBON = AP(D.mezbon);
+const SABAB = AP(D.sababi);
+const ISM = AP(D.ism);
+const WITH_ISM = !!ISM && (MK === 'sunnat' || MK === 'beshik');
+const TITLE_A = WITH_ISM ? ISM + 'ning' : '';
+const TITLE_B = WITH_ISM ? low(NOMI) : NOMI;
+const TITLE = WITH_ISM ? TITLE_A + ' ' + TITLE_B : NOMI;
+const TAKLIF_LOW = WITH_ISM ? ISM + 'ning ' + low(TAKLIF_GA) : low(TAKLIF_GA);
+const UNTIL = { nahorgi: 'Nahorgi oshgacha', osh_toyi: 'Osh to’yigacha', sunnat: 'Sunnat to’yigacha', beshik: 'Beshik to’yigacha' }[MK];
+const DUA = {
+  nahorgi: ['Tashrifingiz — dasturxonimizga fayz va baraka.', 'Alloh barchamizni yaxshi kunlarga yetkazsin, duolaringiz ijobat bo’lsin.'],
+  osh_toyi: ['Tashrifingiz — dasturxonimizga fayz va baraka.', 'Alloh xonadonimiz quvonchini ziyoda qilsin, duolaringiz ijobat bo’lsin.'],
+  sunnat: ['Duolaringiz — farzandimizga eng katta sovg’a.', 'Alloh o’g’limizni sog’-salomat, umrini uzoq va baxtli qilsin.'],
+  beshik: ['Tashrifingiz — xonadonimizga quvonch va baraka.', 'Alloh farzandimizga sog’lik, uzoq va baxtli umr ato etsin.'],
+}[MK];
+const ORDER = ['taklif', 'kun', 'taymer', 'manzil', 'dastur', 'galereya', 'rsvp', 'telefon'];
+const WD = ['Ya', 'Du', 'Se', 'Ch', 'Pa', 'Ju', 'Sh'];
+function hhmm(t) { t = String(t || '').trim(); return /^\d:\d\d$/.test(t) ? '0' + t : (/^\d\d:\d\d$/.test(t) ? t : ''); }
+const HM = hhmm(D.vaqt);
+const H24 = HM ? parseInt(HM.slice(0, 2), 10) : -1;
+function stamp(iso, time) { const t = Date.parse(String(iso || '').slice(0, 10) + 'T' + (hhmm(time) || '12:00') + ':00+05:00'); return isNaN(t) ? null : t; }
+function fitPx(text, max, width, em, lines) { const t = String(text || ''); const n = t.length || 1; const lw = t.split(/\s+/).reduce((a, w) => Math.max(a, w.length), 1); return Math.max(Math.round(max * 0.5), Math.min(max, Math.floor(width * (lines || 1) / (n * em)), Math.floor(width / (lw * em * 1.08)))); }
+function telHref(t) { return 'tel:' + String(t || '').replace(/[^\d+]/g, ''); }
+function calUrl() {
+  const t = stamp(D.sana, D.vaqt); if (t == null) return '';
+  const f = (ms) => new Date(ms).toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
+  const title = TITLE + (MEZBON ? ' — ' + MEZBON : '');
+  const loc = [D.manzil_nomi, D.manzil].filter(Boolean).join(', ');
+  return 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + encodeURIComponent(title) + '&dates=' + f(t) + '/' + f(t + 2 * 3600e3) + (loc ? '&location=' + encodeURIComponent(loc) : '');
+}
+function deadlineText(tail) {
+  const t = stamp(D.sana, '12:00'); if (t == null) return 'Iltimos, ' + tail + '.';
+  const dl = t - 5 * 864e5;
+  if (dl < Date.now()) return 'Iltimos, imkon qadar tezroq ' + tail + '.';
+  return 'Iltimos, ' + SITE.when(new Date(dl + 5 * 3600e3).toISOString().slice(0, 10)).dm + 'gacha ' + tail + '.';
+}
+function weekStrip() {
+  const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(String(D.sana || ''));
+  if (!m) return [];
+  const base = Date.UTC(+m[1], +m[2] - 1, +m[3]);
+  const out = [];
+  for (let k = -3; k <= 3; k++) { const t = new Date(base + k * 864e5); out.push({ wd: WD[t.getUTCDay()], n: t.getUTCDate(), cls: k === 0 ? 'yl-wd yl-wd--on' : 'yl-wd' }); }
+  return out;
+}
+const WEEK = weekStrip();
+function timeNote() { return MK === 'nahorgi' && H24 >= 4 && H24 < 9 ? 'Bomdod namozidan so’ng' : ''; }
+const REDUCED = typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
+const CAN_IO = typeof IntersectionObserver === 'function' && !REDUCED;
+
+class Component extends DCLogic {
+  constructor(...args) {
+    super(...args);
+    this.state = { opened: false, rv: {}, rsvp: '', guests: 1, sent: false, busy: false, warn: '', n: 0, copied: false };
+    this.nm = ''; this.wish = '';
+  }
+  componentDidMount() {
+    this.timer = setInterval(() => this.forceUpdate(), 1000);
+    if (CAN_IO) {
+      this.io = new IntersectionObserver((es) => {
+        const add = {};
+        es.forEach((e) => { if (e.isIntersecting) { add[e.target.getAttribute('data-rv')] = true; this.io.unobserve(e.target); } });
+        if (Object.keys(add).length) this.setState((s) => ({ rv: Object.assign({}, s.rv, add) }));
+      }, { rootMargin: '0px 0px -10% 0px' });
+      document.querySelectorAll('[data-rv]').forEach((el) => this.io.observe(el));
+    }
+  }
+  componentWillUnmount() { clearInterval(this.timer); clearTimeout(this.ct); if (this.io) this.io.disconnect(); }
+  open() {
+    if (this.state.opened) return;
+    this.setState({ opened: true });
+    SITE.opened();
+  }
+  copy() {
+    const text = [D.manzil_nomi, D.manzil].filter(Boolean).join(', ');
+    const done = () => { this.setState({ copied: true }); clearTimeout(this.ct); this.ct = setTimeout(() => this.setState({ copied: false }), 2200); };
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(done, done);
+      else done();
+    } catch (e) { done(); }
+  }
+  send() {
+    const s = this.state;
+    if (!s.rsvp) { this.setState({ warn: 'Iltimos, avval javobingizni tanlang.', n: s.n + 1 }); return; }
+    const name = this.nm.trim();
+    if (!SITE.has.guest && !name) { this.setState({ warn: 'Iltimos, ismingizni yozing.', n: s.n + 1 }); return; }
+    if (s.busy) return;
+    this.setState({ busy: true, warn: '' });
+    SITE.rsvp(s.rsvp === 'yes', s.rsvp === 'yes' ? s.guests : 1, name, this.wish.trim())
+      .then(() => this.setState((st) => ({ sent: true, busy: false, n: st.n + 1 })))
+      .catch(() => this.setState((st) => ({ busy: false, warn: 'Javob yuborilmadi. Iltimos, qayta urinib ko’ring.', n: st.n + 1 })));
+  }
+  renderVals() {
+    const s = this.state || {};
+    const w = SITE.when(D.sana, D.vaqt);
+    const cd = SITE.countdown(D.sana, D.vaqt);
+    const isYes = s.rsvp === 'yes', isNo = s.rsvp === 'no', guests = s.guests || 1;
+    const who = GUEST || this.nm.trim();
+    let ok = '';
+    if (s.sent && isYes) ok = (who ? 'Rahmat, ' + who + '! ' : 'Rahmat! ') + 'Sizni ' + (guests > 1 ? guests + ' kishi bilan ' : '') + 'intizorlik bilan kutamiz.';
+    else if (s.sent && isNo) ok = (who ? 'Rahmat, ' + who + '! ' : 'Rahmat! ') + 'Javobingiz yetkazildi, duolaringiz biz bilan bo’ladi.';
+    const ix = {}; let n = 0;
+    ORDER.forEach((k) => { if (SITE.b[k]) { n += 1; ix[k] = SITE.pad(n); } });
+    const rv = {}; ORDER.forEach((k) => { rv[k] = 'yl-sec' + (!CAN_IO || (s.rv && s.rv[k]) ? ' yl-rv' : ''); });
+    const mk = {}; MKS.forEach((k) => { mk[k] = k === MK; });
+    const items = (D.dastur || []).filter((x) => x && (x.vaqt || x.nomi)).map((x) => ({ vaqt: hhmm(x.vaqt) || AP(x.vaqt) || '—', nomi: AP(x.nomi) }));
+    const turns = ['r', 's', 'l', 's'];
+    const rest = items.slice(1).map((x, i, arr) => {
+      const last = i === arr.length - 1, t = last ? 'e' : turns[i % turns.length];
+      return { vaqt: x.vaqt, nomi: x.nomi, cls: 'yl-tr' + (last ? ' yl-tr--end' : ''), st: 'transition-delay: ' + (0.2 + i * 0.12).toFixed(2) + 's', i_r: t === 'r', i_s: t === 's', i_l: t === 'l', i_e: t === 'e' };
+    });
+    const span = 30 * 864e5, left = cd.none ? 0 : cd.d * 864e5 + cd.h * 3600e3 + cd.m * 60e3 + cd.s * 1e3;
+    const frac = cd.none ? 0 : Math.max(0.03, Math.min(1, 1 - left / span));
+    const place = !!(SITE.b.manzil && D.manzil_nomi);
+    const music = SITE.music.playing;
+    const guestLine = GUEST ? 'Hurmatli ' + GUEST + '!' : 'Hurmatli mehmon!';
+    const seats = []; for (let i = 0; i < 10; i++) seats.push(i < guests && !isNo ? 'on' : '');
+    let daysLeft = '';
+    if (!cd.none) daysLeft = cd.done ? 'Vaqti keldi' : (cd.d > 0 ? cd.d + ' kun qoldi' : (cd.h > 0 ? cd.h + ' soat qoldi' : cd.m + ' daqiqa qoldi'));
+    const invite = MEZBON + ' sizni ' + TAKLIF_LOW + ' lutfan taklif etadi';
+    return {
+      w, cd, ix, mk, rv, rest, week: WEEK, monthCap: SITE.cap(w.month),
+      first: items[0] || null,
+      rootCls: s.opened || REDUCED ? 'yl-root yl-on' : 'yl-root',
+      introCls: 'yl-i' + (s.opened ? ' yl-i--go' : ''),
+      introHidden: !!s.opened,
+      open: () => this.open(),
+      guestLine, guestFs: fitPx(guestLine, 19, 270, 0.55, 2),
+      mezbon: MEZBON, taklifLow: TAKLIF_LOW, taklifCap: TAKLIF,
+      inviteFs: fitPx(invite, 23, 350, 0.55, 3),
+      titleA: TITLE_A, titleB: TITLE_B, titleAFs: fitPx(TITLE_A, 26, 340, 0.55, 1),
+      titleFs: fitPx(TITLE_B, 40, 350, 0.58, 2), titleMt: TITLE_A ? 0 : 8,
+      sabab: SABAB, hhmm: HM || '—', timeNote: timeNote(),
+      daysLeft, place, startMap: !!(place && D.xarita),
+      pinLabel: place ? AP(D.manzil_nomi) : NOMI, calWide: !(place && D.xarita), calStyle: place && D.xarita ? 'width: 56px; padding: 0; flex: none' : 'flex: 1 1 0',
+      pinFs: fitPx(place ? AP(D.manzil_nomi) : NOMI, 15, 150, 0.55, 2),
+      calLink: calUrl(),
+      untilText: cd.done ? 'Marosim vaqti keldi' : UNTIL + ' qoldi',
+      cdKey: 's' + cd.ss, cdText: cd.d + ' kun, ' + cd.h + ' soat, ' + cd.m + ' daqiqa qoldi',
+      tripBar: 'transform: scaleX(' + frac.toFixed(4) + ')',
+      tripDot: 'left: calc(8px + (100% - 16px) * ' + frac.toFixed(4) + ')',
+      tripText: cd.done ? 'Manzilga yetib keldik!' : 'So’nggi 30 kunlik yo’lning ' + Math.round(frac * 100) + '% i bosib o’tildi',
+      copy: () => this.copy(), copied: !!s.copied, notCopied: !s.copied,
+      copyLabel: s.copied ? 'Nusxalandi' : 'Nusxa',
+      copyStyle: D.xarita ? 'flex: none; padding: 0 18px' : 'flex: 1 1 0',
+      deadline: deadlineText('javobingizni bildiring'),
+      askName: !SITE.has.guest,
+      onName: (e) => { this.nm = e.target.value; },
+      onWish: (e) => { this.wish = e.target.value; },
+      isYes, isNo, guests, seats,
+      thumbCls: 'yl-thumb' + (isYes ? ' yl-thumb--yes' : (isNo ? ' yl-thumb--no' : '')),
+      sayYes: () => this.setState({ rsvp: 'yes', sent: false, warn: '' }),
+      sayNo: () => this.setState({ rsvp: 'no', sent: false, warn: '' }),
+      stepCls: isNo ? 'yl-step yl-step--off' : 'yl-step',
+      minusOff: isNo || guests <= 1, plusOff: isNo || guests >= 10,
+      dec: () => this.setState({ guests: Math.max(1, guests - 1), sent: false }),
+      inc: () => this.setState({ guests: Math.min(10, guests + 1), sent: false }),
+      send: () => this.send(),
+      busy: !!s.busy,
+      sendLabel: s.busy ? 'Yuborilmoqda…' : (s.sent ? 'Javob yuborildi' : 'Javobni yuborish'),
+      okNote: ok, warnNote: ok ? '' : s.warn, noteKey: 'n' + s.n,
+      tel: telHref(D.telefon), telFs: fitPx(AP(D.telefon), 28, 220, 0.5, 1),
+      duaA: DUA[0], duaB: DUA[1],
+      footMeta: [HM, w.dots].filter(Boolean).join(' · '),
+      musicOn: music, musicOff: !music,
+      musicCls: music ? 'yl-music yl-music--on' : 'yl-music',
+      musicLabel: music ? 'Musiqani o’chirish' : 'Musiqani yoqish',
+      toggleMusic: () => { SITE.music.toggle(); }
+    };
+  }
+}
+</script>
+</body>
+</html>

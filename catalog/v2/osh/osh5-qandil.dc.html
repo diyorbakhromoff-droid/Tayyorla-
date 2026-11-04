@@ -1,0 +1,684 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<title>Osh va marosimlar taklifnomasi: Qandil</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oranienbaum&amp;family=Commissioner:wght@300;400;500;600&amp;family=Aref+Ruqaa:wght@400;700&amp;display=swap">
+<style>
+body{margin:0}
+.qd-root{font-family:'Commissioner','Segoe UI',Arial,sans-serif;color:#F6E7D2;background:#241726}
+.qd-o{font-family:'Oranienbaum','Times New Roman',Georgia,serif;font-weight:400}
+.qd-ar{font-family:'Aref Ruqaa','Amiri','Noto Naskh Arabic',serif}
+.qd-num{font-variant-numeric:lining-nums tabular-nums}
+.qd-cap{margin:0;font-family:'Commissioner',sans-serif;font-size:11.5px;line-height:16px;font-weight:500;letter-spacing:.26em;text-transform:uppercase}
+.qd-mut{color:#C9B3BE}
+.qd-br{color:#EBB25A}
+.qd-icon{fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex:none}
+
+/* devor */
+.qd-wall{position:absolute;left:0;top:0;width:390px;height:844px;background:radial-gradient(ellipse 90% 55% at 50% 30%,#432A49 0%,#2C1B30 45%,#1B101D 100%)}
+.qd-plaster{position:absolute;left:0;top:0;width:390px;height:844px;opacity:.6;background:radial-gradient(circle at 20% 30%,rgba(255,255,255,.025) 0 1px,transparent 1.5px) 0 0/7px 7px,radial-gradient(circle at 70% 60%,rgba(0,0,0,.08) 0 1px,transparent 1.5px) 0 0/9px 9px}
+.qd-dado{position:absolute;left:0;top:700px;width:390px;height:144px;background:linear-gradient(180deg,rgba(36,23,38,0),#241726 90%)}
+.qd-dim{position:absolute;left:0;top:0;width:390px;height:844px;background:rgba(12,5,14,.55);pointer-events:none;transition:opacity 2.2s ease .3s}
+.qd-i--open .qd-dim{opacity:0}
+
+/* qandil */
+.qd-h{position:absolute;top:-8px;width:80px;margin-left:-40px;transform-origin:40px 0;animation:qd-sway var(--sw) ease-in-out infinite}
+@keyframes qd-sway{0%,100%{transform:rotate(-1.4deg)}50%{transform:rotate(1.4deg)}}
+.qd-chain{position:absolute;left:39px;top:0;width:2px;background:repeating-linear-gradient(180deg,#B48A4A 0 3px,rgba(180,138,74,.25) 3px 5px)}
+.qd-lan{position:absolute;left:0;width:80px;height:140px;transform-origin:40px 0}
+.qd-lan svg{position:relative;display:block}
+.qd-glow{position:absolute;left:-60px;top:-16px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(255,196,96,.62) 0%,rgba(255,170,70,.26) 34%,rgba(255,160,60,0) 68%)}
+.qd-glow i{display:block;width:100%;height:100%;border-radius:50%;background:radial-gradient(circle,rgba(255,226,150,.45) 0%,rgba(255,226,150,0) 40%);animation:qd-flick 3.4s ease-in-out infinite;animation-delay:var(--fd)}
+@keyframes qd-flick{0%,100%{opacity:.75}22%{opacity:1}41%{opacity:.82}63%{opacity:.97}80%{opacity:.86}}
+.qd-hole{fill:#1D0D08}
+.qd-holeL{fill:#FFE6A6}
+.qd-rib{fill:none;stroke:#5A3410;stroke-width:1;opacity:.7}
+.qd-rg{fill:none;stroke:#C89A52;stroke-width:1.8}
+.qd-b1{stop-color:#4E2C0C}.qd-b2{stop-color:#EAC27A}.qd-b3{stop-color:#B98232}.qd-b4{stop-color:#43250A}
+.qd-pf{fill:#FFD889}
+
+/* yorug' naqsh */
+.qd-cast{position:absolute;width:320px;height:320px;-webkit-mask-image:radial-gradient(circle,#000 0,rgba(0,0,0,.55) 34%,transparent 66%);mask-image:radial-gradient(circle,#000 0,rgba(0,0,0,.55) 34%,transparent 66%);opacity:.3}
+.qd-cast svg{display:block;animation:qd-rot 120s linear infinite}
+.qd-cast--b{width:420px;height:420px;opacity:.2}
+@keyframes qd-rot{to{transform:rotate(360deg)}}
+
+/* ---------- kirish */
+.qd-i{position:absolute;left:0;top:0;width:390px;height:844px;z-index:40;overflow:hidden;background:#241726}
+.qd-i .qd-holeL,.qd-i .qd-glow,.qd-i .qd-cast{opacity:0}
+.qd-i .qd-holeL{transition:opacity .35s ease var(--dl)}
+.qd-i .qd-glow{transform:scale(.6);transition:opacity .8s ease var(--dl),transform 1.1s cubic-bezier(.2,.9,.3,1.2) var(--dl)}
+.qd-i .qd-cast{transform:scale(.7) rotate(-12deg);transition:opacity 1.6s ease calc(var(--dl) + .25s),transform 2.2s cubic-bezier(.2,.8,.2,1) calc(var(--dl) + .25s)}
+.qd-i--open .qd-holeL,.qd-i--open .qd-glow{opacity:1;transform:none}
+.qd-i--open .qd-cast{opacity:.3;transform:none}
+.qd-i--open .qd-cast--b{opacity:.2}
+.qd-i--open .qd-lan{animation:qd-jolt .7s cubic-bezier(.3,1.6,.5,1) both;animation-delay:var(--dl)}
+@keyframes qd-jolt{0%{transform:scale(var(--s)) rotate(0)}35%{transform:scale(var(--s)) rotate(2.4deg)}70%{transform:scale(var(--s)) rotate(-1deg)}100%{transform:scale(var(--s)) rotate(0)}}
+.qd-i .qd-tw{opacity:0;transform:translateY(12px);filter:blur(5px);transition:opacity 1.1s ease,transform 1.2s cubic-bezier(.2,.9,.25,1.1),filter 1.1s ease}
+.qd-i--open .qd-tw{opacity:1;transform:none;filter:blur(0)}
+.qd-i--open .qd-tw1{transition-delay:2.3s}.qd-i--open .qd-tw2{transition-delay:2.45s}.qd-i--open .qd-tw3{transition-delay:2.6s}.qd-i--open .qd-tw4{transition-delay:2.85s}.qd-i--open .qd-tw5{transition-delay:3.05s}
+.qd-i .qd-tx{transition:opacity 1.4s ease .9s,color 1.4s ease .9s}
+.qd-i:not(.qd-i--open) .qd-tx{opacity:.72}
+.qd-i-ui{transition:opacity .45s ease,transform .5s ease}
+.qd-i--open .qd-i-ui{opacity:0;transform:translateY(-8px)}
+.qd-i--open{pointer-events:none;animation:qd-out .85s ease 4.05s forwards}
+@keyframes qd-out{to{opacity:0;visibility:hidden}}
+.qd-i-btn{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:12px;height:56px;padding:0 28px;border:0;border-radius:999px;cursor:pointer;background:linear-gradient(180deg,#F1C474,#C98B33);color:#2A160C;font-family:'Commissioner',sans-serif;font-weight:600;font-size:15.5px;letter-spacing:.04em;box-shadow:0 0 0 6px rgba(235,178,90,.12),0 16px 32px -12px rgba(235,160,60,.55),inset 0 1px 0 rgba(255,240,200,.6);transition:transform .2s cubic-bezier(.3,1.6,.5,1)}
+.qd-i-btn:active{transform:scale(.95)}
+.qd-i-btn:focus-visible{outline:2px solid #FFE6A6;outline-offset:6px}
+.qd-spark{display:block;width:10px;height:14px;border-radius:50% 50% 45% 45%/62% 62% 38% 38%;background:radial-gradient(circle at 50% 70%,#FFF4D6 0,#FFB648 60%,#E07A1E 100%);animation:qd-fl 1.4s ease-in-out infinite;transform-origin:50% 100%}
+@keyframes qd-fl{0%,100%{transform:scaleY(1) rotate(-3deg)}50%{transform:scaleY(1.15) rotate(3deg)}}
+
+/* ---------- sahifa */
+.qd-in{opacity:0;transform:translateY(16px)}
+.qd-on .qd-in{animation:qd-rise 1s cubic-bezier(.2,.8,.2,1) forwards}
+.qd-on .qd-d1{animation-delay:4.2s}.qd-on .qd-d2{animation-delay:4.35s}.qd-on .qd-d3{animation-delay:4.5s}
+@keyframes qd-rise{to{opacity:1;transform:none}}
+.qd-sec{position:relative;padding:72px 28px 0}
+.qd-up{opacity:0;transform:translateY(22px);transition:opacity .85s ease,transform 1s cubic-bezier(.2,.85,.25,1.08);transition-delay:calc(var(--d, 0) * 95ms)}
+.qd-rv .qd-up{opacity:1;transform:none}
+.qd-hd{position:relative;display:flex;align-items:center;gap:14px;margin-bottom:28px}
+.qd-hl{flex:none;display:block;overflow:visible}
+.qd-hl .qd-holeL{opacity:0;transition:opacity .6s ease .35s}
+.qd-rv .qd-hl .qd-holeL{opacity:1}
+.qd-hglow{position:absolute;left:-40px;top:-36px;width:120px;height:120px;border-radius:50%;background:radial-gradient(circle,rgba(255,196,96,.34) 0%,rgba(255,196,96,0) 62%);opacity:0;transform:scale(.6);transition:opacity 1s ease .3s,transform 1.2s cubic-bezier(.2,.9,.3,1.2) .3s;pointer-events:none}
+.qd-rv .qd-hglow{opacity:1;transform:none}
+.qd-hr{flex:1 1 auto;height:1px;background:linear-gradient(90deg,rgba(235,178,90,.55),rgba(235,178,90,0));transform-origin:0 50%;transform:scaleX(0);transition:transform 1.2s cubic-bezier(.6,0,.2,1) .25s}
+.qd-rv .qd-hr{transform:none}
+.qd-ix{font-family:'Oranienbaum',serif;font-size:18px;color:#EBB25A}
+.qd-p{margin:0;font-weight:300;font-size:18.5px;line-height:1.72;white-space:pre-line;overflow-wrap:anywhere;text-wrap:pretty}
+.qd-btn{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 26px;border-radius:999px;box-sizing:border-box;font-family:'Commissioner',sans-serif;font-weight:500;font-size:15.5px;letter-spacing:.03em;text-decoration:none;cursor:pointer;border:0;transition:transform .18s cubic-bezier(.3,1.6,.5,1),background-color .25s,color .25s}
+.qd-btn:active{transform:scale(.95)}
+.qd-btn--b{background:linear-gradient(180deg,#F1C474,#C98B33);color:#2A160C;box-shadow:0 14px 28px -16px rgba(235,160,60,.8),inset 0 1px 0 rgba(255,240,200,.55)}
+.qd-btn--o{background:transparent;color:#F3D39B;box-shadow:inset 0 0 0 1.5px rgba(235,178,90,.55)}
+.qd-btn:disabled{opacity:.6;cursor:default}
+.qd-btn:focus-visible,.qd-opt:focus-visible,.qd-sb:focus-visible{outline:2px solid #FFE6A6;outline-offset:3px}
+.qd-panel{position:relative;padding:28px 24px 26px;border-radius:2px;background:linear-gradient(180deg,rgba(255,216,137,.07),rgba(255,216,137,.02));box-shadow:inset 0 0 0 1px rgba(235,178,90,.4)}
+.qd-cor{position:absolute;width:20px;height:20px}
+.qd-corf{fill:#EBB25A}
+
+/* sana */
+.qd-st{fill:none;stroke:#EBB25A;stroke-width:1.4;stroke-dasharray:1 1;stroke-dashoffset:1;transition:stroke-dashoffset 2s cubic-bezier(.5,0,.2,1) .2s}
+.qd-st2{stroke:rgba(235,178,90,.4);transition-delay:.5s}
+.qd-rv .qd-st{stroke-dashoffset:0}
+.qd-sfill{fill:rgba(255,210,130,.06)}
+
+/* taymer */
+.qd-cd{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.qd-win{position:relative;height:118px;border-radius:38px 38px 4px 4px;background:linear-gradient(180deg,rgba(255,206,120,.16),rgba(255,206,120,.04) 70%);box-shadow:inset 0 0 0 1.3px rgba(235,178,90,.55);display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding-bottom:16px;overflow:hidden}
+.qd-win::before{content:"";position:absolute;left:50%;top:12px;width:12px;height:12px;margin-left:-6px;background:#EBB25A;clip-path:polygon(50% 0,64% 25%,95% 30%,72% 52%,80% 85%,50% 68%,20% 85%,28% 52%,5% 30%,36% 25%)}
+.qd-win--s{background:linear-gradient(180deg,rgba(255,206,120,.32),rgba(255,206,120,.08) 70%);box-shadow:inset 0 0 0 1.3px #EBB25A,0 0 26px -6px rgba(255,190,90,.6)}
+.qd-cdn{display:block;font-family:'Oranienbaum',serif;font-size:42px;line-height:1;color:#FFE6B8;text-shadow:0 0 14px rgba(255,190,90,.45)}
+.qd-cdl{display:block;margin-top:8px;font-size:10.5px;line-height:14px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:#C9B3BE}
+.qd-tick{display:inline-block;animation:qd-tick .6s ease}
+@keyframes qd-tick{0%{opacity:.2;filter:blur(3px)}100%{opacity:1;filter:blur(0)}}
+
+/* suratlar */
+.qd-ph{position:absolute;display:block;object-fit:cover;background:#3A2440}
+.qd-arch{border-radius:999px 999px 4px 4px}
+.qd-fr{position:absolute;border-radius:999px 999px 4px 4px;box-shadow:inset 0 0 0 1.4px #EBB25A;pointer-events:none}
+.qd-lace{position:absolute;pointer-events:none}
+
+/* dastur */
+.qd-prog{position:relative;padding-left:46px}
+.qd-prog::before{content:"";position:absolute;left:16px;top:-28px;bottom:24px;width:2px;background:repeating-linear-gradient(180deg,#B48A4A 0 3px,rgba(180,138,74,.25) 3px 5px)}
+.qd-pr{position:relative;padding:6px 0 26px}
+.qd-pr:last-child{padding-bottom:4px}
+.qd-pl{position:absolute;left:-41px;top:2px;width:22px;height:38px}
+.qd-pl .qd-holeL{opacity:0;transition:opacity .5s ease;transition-delay:calc(var(--d) * 260ms + .3s)}
+.qd-rv .qd-pl .qd-holeL{opacity:1}
+.qd-plg{position:absolute;left:-30px;top:-20px;width:82px;height:82px;border-radius:50%;background:radial-gradient(circle,rgba(255,196,96,.4) 0%,rgba(255,196,96,0) 62%);opacity:0;transition:opacity .8s ease;transition-delay:calc(var(--d) * 260ms + .3s)}
+.qd-rv .qd-plg{opacity:1}
+.qd-pt{display:block;font-family:'Oranienbaum',serif;font-size:22px;line-height:1.1;color:#EBB25A}
+.qd-pn{margin:4px 0 0;font-size:18px;line-height:1.45;overflow-wrap:anywhere}
+
+/* javob */
+.qd-opt{flex:1 1 0;min-width:0;height:56px;border-radius:999px;border:0;cursor:pointer;font-family:'Commissioner',sans-serif;font-size:16px;font-weight:500;display:flex;align-items:center;justify-content:center;gap:8px;padding:0 8px;white-space:nowrap;background:rgba(255,216,137,.05);color:#F6E7D2;box-shadow:inset 0 0 0 1.4px rgba(235,178,90,.45);transition:background-color .3s,color .3s,box-shadow .3s,transform .18s cubic-bezier(.3,1.6,.5,1)}
+.qd-opt:active{transform:scale(.95)}
+.qd-opt--on{background:linear-gradient(180deg,#F1C474,#C98B33);color:#2A160C;box-shadow:0 0 24px -4px rgba(255,190,90,.55);animation:qd-pop .45s cubic-bezier(.3,1.7,.5,1)}
+@keyframes qd-pop{0%{transform:scale(.9)}60%{transform:scale(1.05)}100%{transform:none}}
+.qd-step{display:flex;align-items:center;justify-content:space-between;margin-top:18px;padding:12px 0;border-bottom:1px solid rgba(235,178,90,.3);transition:opacity .25s}
+.qd-step--off{opacity:.4}
+.qd-sb{width:46px;height:46px;border-radius:50%;border:0;background:transparent;box-shadow:inset 0 0 0 1.4px rgba(235,178,90,.5);color:#F3D39B;font-size:22px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:'Commissioner',sans-serif;transition:transform .18s cubic-bezier(.3,1.6,.5,1)}
+.qd-sb:active{transform:scale(.88)}
+.qd-sb:disabled{opacity:.4;cursor:default}
+.qd-flames{display:flex;gap:5px;height:16px;align-items:flex-end;margin-top:12px}
+.qd-flames i{display:block;width:9px;height:13px;border-radius:50% 50% 45% 45%/62% 62% 38% 38%;background:radial-gradient(circle at 50% 70%,#FFF4D6 0,#FFB648 60%,#E07A1E 100%);box-shadow:0 0 8px rgba(255,180,80,.6);animation:qd-light .5s cubic-bezier(.3,1.6,.5,1)}
+@keyframes qd-light{from{opacity:0;transform:scale(.2) translateY(6px)}to{opacity:1;transform:none}}
+.qd-inp,.qd-ta{display:block;width:100%;box-sizing:border-box;border:0;border-radius:14px;background:rgba(255,216,137,.05);color:#F6E7D2;font-family:'Commissioner',sans-serif;font-size:17px;outline:none;box-shadow:inset 0 0 0 1px rgba(235,178,90,.32);transition:box-shadow .2s}
+.qd-inp{height:54px;padding:0 18px}
+.qd-ta{height:88px;padding:14px 18px;resize:none;line-height:1.45}
+.qd-inp:focus,.qd-ta:focus{box-shadow:inset 0 0 0 1.5px #EBB25A}
+.qd-inp::placeholder,.qd-ta::placeholder{color:#A8919D}
+.qd-burst{position:relative;height:0}
+.qd-burst i{position:absolute;left:50%;top:-28px;width:9px;height:9px;margin-left:-4.5px;background:#FFD889;clip-path:polygon(50% 0,62% 38%,100% 50%,62% 62%,50% 100%,38% 62%,0 50%,38% 38%);opacity:0;animation:qd-burst 1.1s cubic-bezier(.2,.8,.3,1) forwards}
+@keyframes qd-burst{0%{opacity:1;transform:rotate(var(--a)) translateY(0) scale(.6)}100%{opacity:0;transform:rotate(var(--a)) translateY(-76px) scale(1.2)}}
+
+.qd-music{position:absolute;right:16px;top:16px;z-index:30;width:46px;height:46px;border-radius:50%;border:0;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#F3D39B;background:rgba(36,23,38,.75);box-shadow:inset 0 0 0 1.4px rgba(235,178,90,.5);transition:transform .18s}
+.qd-music:active{transform:scale(.9)}
+.qd-music--on{background:linear-gradient(180deg,#F1C474,#C98B33);color:#2A160C}
+.qd-eq{display:flex;align-items:flex-end;gap:3px;height:16px}
+.qd-eq i{display:block;width:3px;height:100%;border-radius:2px;background:currentColor;transform-origin:50% 100%;animation:qd-eq 1s ease-in-out infinite}
+.qd-eq i:nth-child(2){animation-delay:-.3s}.qd-eq i:nth-child(3){animation-delay:-.6s}
+@keyframes qd-eq{0%,100%{transform:scaleY(.3)}50%{transform:scaleY(1)}}
+
+.qd-foot{position:relative;margin-top:96px;padding:0 28px 54px;text-align:center;overflow:hidden}
+
+@media (prefers-reduced-motion: reduce){
+  .qd-h,.qd-glow i,.qd-cast svg,.qd-spark,.qd-eq i,.qd-tick,.qd-opt--on,.qd-flames i,.qd-burst i{animation:none}
+  .qd-i--open .qd-lan{animation:none}
+  .qd-i .qd-holeL,.qd-i .qd-glow,.qd-i .qd-cast,.qd-i .qd-tw,.qd-i .qd-tx,.qd-dim{transition:none}
+  .qd-i--open{animation:qd-out .01s linear forwards}
+  .qd-in{opacity:1;transform:none}
+  .qd-on .qd-in{animation:none}
+  .qd-up,.qd-hr,.qd-hglow,.qd-hl .qd-holeL,.qd-pl .qd-holeL,.qd-plg{opacity:1;transform:none;transition:none}
+  .qd-st{stroke-dashoffset:0;transition:none}
+}
+</style>
+</helmet>
+<div class="{{ rootCls }}" style="width: 390px; min-height: var(--vh, 100vh); position: relative; overflow: hidden; display: flex; flex-direction: column">
+
+  <svg width="0" height="0" aria-hidden="true" style="position: absolute; left: 0; top: 0">
+    <defs>
+      <linearGradient id="qd-brass" x1="0" x2="1" y1="0" y2="0"><stop offset="0" class="qd-b1"></stop><stop offset=".36" class="qd-b2"></stop><stop offset=".64" class="qd-b3"></stop><stop offset="1" class="qd-b4"></stop></linearGradient>
+      <pattern id="qd-pat" width="32" height="32" patternUnits="userSpaceOnUse">
+        <path class="qd-pf" d="M16.0 8.0L18.3 10.3L21.7 10.3L21.7 13.7L24.0 16.0L21.7 18.3L21.7 21.7L18.3 21.7L16.0 24.0L13.7 21.7L10.3 21.7L10.3 18.3L8.0 16.0L10.3 13.7L10.3 10.3L13.7 10.3Z"></path>
+        <path class="qd-pf" d="M0 -2a2 2 0 1 0 0 4a2 2 0 1 0 0-4ZM32 -2a2 2 0 1 0 0 4a2 2 0 1 0 0-4ZM0 30a2 2 0 1 0 0 4a2 2 0 1 0 0-4ZM32 30a2 2 0 1 0 0 4a2 2 0 1 0 0-4ZM16 -1.6l1.6 1.6-1.6 1.6-1.6-1.6zM16 30.4l1.6 1.6-1.6 1.6-1.6-1.6zM-1.6 16l1.6-1.6 1.6 1.6-1.6 1.6zM30.4 16l1.6-1.6 1.6 1.6-1.6 1.6z"></path>
+      </pattern>
+    </defs>
+  </svg>
+
+  <sc-if value="{{ has.music }}">
+  <button type="button" class="{{ musicCls }}" aria-label="{{ musicLabel }}" aria-pressed="{{ musicOn }}" onClick="{{ toggleMusic }}">
+    <sc-if value="{{ musicOn }}"><span class="qd-eq" aria-hidden="true"><i></i><i></i><i></i></span></sc-if>
+    <sc-if value="{{ musicOff }}"><svg class="qd-icon" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V5.5l11-2.2v12.5"></path><circle cx="6.2" cy="18" r="2.8"></circle><circle cx="17.2" cy="15.8" r="2.8"></circle></svg></sc-if>
+  </button>
+  </sc-if>
+
+  <!-- ===== kirish: qandillar birin-ketin yonadi ===== -->
+  <div data-intro class="{{ introCls }}" aria-hidden="{{ introHidden }}">
+    <div class="qd-wall"></div><div class="qd-plaster"></div>
+    <sc-for list="{{ casts }}" as="c">
+    <div class="{{ c.cls }}" style="{{ c.st }}"><svg width="100%" height="100%" aria-hidden="true"><rect width="100%" height="100%" fill="url(#qd-pat)"></rect></svg></div>
+    </sc-for>
+    <div class="qd-dado"></div>
+    <svg width="390" height="18" viewBox="0 0 390 18" aria-hidden="true" style="position: absolute; left: 0; top: 772px; opacity: 0.55"><rect width="390" height="18" fill="url(#qd-pat)"></rect></svg>
+    <div class="qd-dim"></div>
+    <sc-for list="{{ lamps }}" as="l">
+    <div class="qd-h" style="{{ l.h }}">
+      <span class="qd-chain" style="{{ l.chain }}"></span>
+      <div class="qd-lan" style="{{ l.lan }}">
+        <div class="qd-glow"><i></i></div>
+        <svg width="80" height="140" viewBox="0 0 80 140" aria-hidden="true">
+          <circle class="qd-rg" cx="40" cy="5" r="3.6"></circle>
+          <path fill="url(#qd-brass)" d="M37 16h6l-3-7z"></path>
+          <path fill="url(#qd-brass)" d="M24 36Q26 20 40 16Q54 20 56 36Z"></path>
+          <rect fill="url(#qd-brass)" x="22" y="33" width="36" height="5" rx="1.5"></rect>
+          <path fill="url(#qd-brass)" d="M25 38L15 60Q11 84 25 104H55Q69 84 65 60L55 38Z"></path>
+          <path class="qd-rib" d="M15.6 60H64.4M13.6 84H66.4"></path>
+          <path class="qd-hole" d="{{ holes }}"></path>
+          <path class="qd-holeL" d="{{ holes }}"></path>
+          <path fill="url(#qd-brass)" d="M24 104H56L51 111H29Z"></path>
+          <path fill="url(#qd-brass)" d="M35 111Q40 127 45 111Z"></path>
+          <circle fill="url(#qd-brass)" cx="40" cy="131" r="3"></circle>
+        </svg>
+      </div>
+    </div>
+    </sc-for>
+
+    <div style="position: absolute; left: 24px; right: 24px; top: 340px; text-align: center">
+      <p class="qd-ar qd-br qd-tx" dir="rtl" lang="ar" style="margin: 0; font-size: 34px; line-height: 56px">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p>
+      <p class="qd-cap qd-mut" style="margin-top: 4px; font-size: 10.5px">Bismillahir Rohmanir Rohiym</p>
+      <p class="qd-o qd-mut" style="margin: 22px 0 0; font-size: 20px; line-height: 24px">Assalomu alaykum,</p>
+      <p class="qd-o" style="margin: 4px 0 0; font-size: {{ guestFs }}px; line-height: 1.1; overflow-wrap: anywhere">{{ guestLine }}</p>
+    </div>
+    <div style="position: absolute; left: 24px; right: 24px; top: 548px; text-align: center">
+      <p class="qd-cap qd-br qd-tw qd-tw1">{{ taklifCap }}</p>
+      <sc-if value="{{ titleA }}"><p class="qd-o qd-tw qd-tw2" style="margin: 10px 0 0; font-size: {{ titleAFs }}px; line-height: 1.1; overflow-wrap: anywhere">{{ titleA }}</p></sc-if>
+      <h2 class="qd-o qd-tw qd-tw3" style="margin: {{ titleMt }}px 0 0; font-size: {{ titleFs }}px; line-height: 1; color: #FFEBC8; text-shadow: 0 0 28px rgba(255,190,90,.35); overflow-wrap: anywhere">{{ titleB }}</h2>
+      <p class="qd-cap qd-mut qd-num qd-tw qd-tw4" style="margin-top: 16px; font-size: 11px; letter-spacing: 0.22em">{{ heroDate }}</p>
+      <p class="qd-tw qd-tw5" style="margin: 14px 0 0; font-size: 17px; line-height: 1.35; overflow-wrap: anywhere"><span class="qd-mut">Mezbonlar:</span> {{ mezbon }}</p>
+    </div>
+    <div class="qd-i-ui" style="position: absolute; left: 0; right: 0; top: 572px; display: flex; flex-direction: column; align-items: center">
+      <p class="qd-cap qd-br" style="padding: 0 24px; text-align: center">{{ taklifCap }}</p>
+      <button type="button" class="qd-i-btn" onClick="{{ open }}" style="margin-top: 26px">
+        <span class="qd-spark" aria-hidden="true"></span>
+        Qandillarni yoqish
+      </button>
+      <p class="qd-mut" style="margin: 18px 0 0; padding: 0 44px; font-size: 15px; line-height: 1.45; text-align: center">Nur devorga tushadi — taklif yorug’da ochiladi</p>
+    </div>
+  </div>
+
+  <!-- ===== bosh qism ===== -->
+  <header style="position: relative">
+    <div style="position: relative; height: 844px; overflow: hidden">
+      <div class="qd-wall"></div><div class="qd-plaster"></div>
+      <sc-for list="{{ casts }}" as="c">
+      <div class="{{ c.cls }}" style="{{ c.st }}"><svg width="100%" height="100%" aria-hidden="true"><rect width="100%" height="100%" fill="url(#qd-pat)"></rect></svg></div>
+      </sc-for>
+      <div class="qd-dado"></div>
+      <svg width="390" height="18" viewBox="0 0 390 18" aria-hidden="true" style="position: absolute; left: 0; top: 772px; opacity: 0.55"><rect width="390" height="18" fill="url(#qd-pat)"></rect></svg>
+      <sc-for list="{{ lamps }}" as="l">
+      <div class="qd-h" style="{{ l.h }}">
+        <span class="qd-chain" style="{{ l.chain }}"></span>
+        <div class="qd-lan" style="{{ l.lan }}">
+          <div class="qd-glow"><i></i></div>
+          <svg width="80" height="140" viewBox="0 0 80 140" aria-hidden="true">
+            <circle class="qd-rg" cx="40" cy="5" r="3.6"></circle>
+            <path fill="url(#qd-brass)" d="M37 16h6l-3-7z"></path>
+            <path fill="url(#qd-brass)" d="M24 36Q26 20 40 16Q54 20 56 36Z"></path>
+            <rect fill="url(#qd-brass)" x="22" y="33" width="36" height="5" rx="1.5"></rect>
+            <path fill="url(#qd-brass)" d="M25 38L15 60Q11 84 25 104H55Q69 84 65 60L55 38Z"></path>
+            <path class="qd-rib" d="M15.6 60H64.4M13.6 84H66.4"></path>
+            <path class="qd-hole" d="{{ holes }}"></path>
+            <path class="qd-holeL" d="{{ holes }}"></path>
+            <path fill="url(#qd-brass)" d="M24 104H56L51 111H29Z"></path>
+            <path fill="url(#qd-brass)" d="M35 111Q40 127 45 111Z"></path>
+            <circle fill="url(#qd-brass)" cx="40" cy="131" r="3"></circle>
+          </svg>
+        </div>
+      </div>
+      </sc-for>
+      <div style="position: absolute; left: 24px; right: 24px; top: 340px; text-align: center">
+        <p class="qd-ar qd-br" dir="rtl" lang="ar" style="margin: 0; font-size: 34px; line-height: 56px">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p>
+        <p class="qd-cap qd-mut" style="margin-top: 4px; font-size: 10.5px">Bismillahir Rohmanir Rohiym</p>
+        <p class="qd-o qd-mut" style="margin: 22px 0 0; font-size: 20px; line-height: 24px">Assalomu alaykum,</p>
+        <p class="qd-o" style="margin: 4px 0 0; font-size: {{ guestFs }}px; line-height: 1.1; overflow-wrap: anywhere">{{ guestLine }}</p>
+      </div>
+      <div style="position: absolute; left: 24px; right: 24px; top: 548px; text-align: center">
+        <p class="qd-cap qd-br">{{ taklifCap }}</p>
+        <sc-if value="{{ titleA }}"><p class="qd-o" style="margin: 10px 0 0; font-size: {{ titleAFs }}px; line-height: 1.1; overflow-wrap: anywhere">{{ titleA }}</p></sc-if>
+        <h1 class="qd-o" style="margin: {{ titleMt }}px 0 0; font-size: {{ titleFs }}px; line-height: 1; color: #FFEBC8; text-shadow: 0 0 28px rgba(255,190,90,.35); overflow-wrap: anywhere">{{ titleB }}</h1>
+        <p class="qd-cap qd-mut qd-num" style="margin-top: 16px; font-size: 11px; letter-spacing: 0.22em">{{ heroDate }}</p>
+        <p style="margin: 14px 0 0; font-size: 17px; line-height: 1.35; overflow-wrap: anywhere"><span class="qd-mut">Mezbonlar:</span> {{ mezbon }}</p>
+      </div>
+    </div>
+
+    <div style="padding: 44px 32px 0; text-align: center">
+      <p class="qd-o qd-in qd-d1" style="margin: 0; font-size: 23px; line-height: 1.4">{{ mezbon }} sizni {{ taklifLow }} lutfan taklif etadi</p>
+      <sc-if value="{{ sabab }}"><p class="qd-mut qd-in qd-d2" style="margin: 16px auto 0; max-width: 300px; font-size: 17px; line-height: 1.55; overflow-wrap: anywhere">{{ sabab }}</p></sc-if>
+      <sc-if value="{{ timeNote }}">
+      <p class="qd-in qd-d3 qd-br" style="display: flex; align-items: center; justify-content: center; gap: 10px; margin: 18px 0 0; font-size: 15px; line-height: 1.4">
+        <svg class="qd-icon" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 17h18M7 17a5 5 0 0 1 10 0M12 6v3M5.6 9.6l1.8 1.8M18.4 9.6l-1.8 1.8"></path></svg>
+        {{ timeNote }}
+      </p>
+      </sc-if>
+    </div>
+  </header>
+
+  <main style="display: flex; flex-direction: column">
+    <!-- ===== taklif ===== -->
+    <sc-if value="{{ b.taklif }}">
+    <section class="{{ rv.taklif }}" data-rv="taklif">
+      <div class="qd-hd"><span class="qd-hglow"></span><svg class="qd-hl" width="22" height="38" viewBox="0 0 80 140" aria-hidden="true"><path fill="url(#qd-brass)" d="M24 36Q26 20 40 16Q54 20 56 36ZM25 38L15 60Q11 84 25 104H55Q69 84 65 60L55 38ZM24 104H56L51 111H29Z"></path><path class="qd-hole" d="{{ holesS }}"></path><path class="qd-holeL" d="{{ holesS }}"></path></svg><p class="qd-cap">Taklif so’zi</p><span class="qd-hr"></span><span class="qd-ix qd-num">{{ ix.taklif }}</span></div>
+      <div class="qd-panel qd-up" style="--d: 2">
+        <svg class="qd-cor" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" style="left: -10px; top: -10px"><path class="qd-corf" d="M12.0 2.0L14.9 4.9L19.1 4.9L19.1 9.1L22.0 12.0L19.1 14.9L19.1 19.1L14.9 19.1L12.0 22.0L9.1 19.1L4.9 19.1L4.9 14.9L2.0 12.0L4.9 9.1L4.9 4.9L9.1 4.9Z"></path></svg>
+        <svg class="qd-cor" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" style="right: -10px; bottom: -10px"><path class="qd-corf" d="M12.0 2.0L14.9 4.9L19.1 4.9L19.1 9.1L22.0 12.0L19.1 14.9L19.1 19.1L14.9 19.1L12.0 22.0L9.1 19.1L4.9 19.1L4.9 14.9L2.0 12.0L4.9 9.1L4.9 4.9L9.1 4.9Z"></path></svg>
+        <p class="qd-p">{{ d.matn }}</p>
+        <p class="qd-o qd-br" style="margin: 18px 0 0; font-size: 19px; line-height: 1.35; overflow-wrap: anywhere">Hurmat bilan, {{ mezbon }}</p>
+      </div>
+    </section>
+    </sc-if>
+
+    <!-- ===== sana va vaqt ===== -->
+    <sc-if value="{{ b.kun }}">
+    <section class="{{ rv.kun }}" data-rv="kun">
+      <div class="qd-hd"><span class="qd-hglow"></span><svg class="qd-hl" width="22" height="38" viewBox="0 0 80 140" aria-hidden="true"><path fill="url(#qd-brass)" d="M24 36Q26 20 40 16Q54 20 56 36ZM25 38L15 60Q11 84 25 104H55Q69 84 65 60L55 38ZM24 104H56L51 111H29Z"></path><path class="qd-hole" d="{{ holesS }}"></path><path class="qd-holeL" d="{{ holesS }}"></path></svg><p class="qd-cap">Sana va vaqt</p><span class="qd-hr"></span><span class="qd-ix qd-num">{{ ix.kun }}</span></div>
+      <div class="qd-up" style="--d: 1; position: relative; width: 260px; height: 260px; margin: 0 auto">
+        <svg width="260" height="260" viewBox="0 0 260 260" aria-hidden="true" style="position: absolute; left: 0; top: 0">
+          <path class="qd-sfill" d="M130.0 6.0L166.3 42.3L217.7 42.3L217.7 93.7L254.0 130.0L217.7 166.3L217.7 217.7L166.3 217.7L130.0 254.0L93.7 217.7L42.3 217.7L42.3 166.3L6.0 130.0L42.3 93.7L42.3 42.3L93.7 42.3Z"></path>
+          <path class="qd-st" pathLength="1" d="M130.0 6.0L166.3 42.3L217.7 42.3L217.7 93.7L254.0 130.0L217.7 166.3L217.7 217.7L166.3 217.7L130.0 254.0L93.7 217.7L42.3 217.7L42.3 166.3L6.0 130.0L42.3 93.7L42.3 42.3L93.7 42.3Z"></path>
+          <path class="qd-st qd-st2" pathLength="1" d="M130.0 18.0L162.8 50.8L209.2 50.8L209.2 97.2L242.0 130.0L209.2 162.8L209.2 209.2L162.8 209.2L130.0 242.0L97.2 209.2L50.8 209.2L50.8 162.8L18.0 130.0L50.8 97.2L50.8 50.8L97.2 50.8Z"></path>
+        </svg>
+        <div style="position: absolute; left: 40px; right: 40px; top: 58px; text-align: center">
+          <p class="qd-cap qd-br" style="font-size: 10.5px">{{ w.Weekday }}</p>
+          <p class="qd-o qd-num" style="margin: 4px 0 0; font-size: 92px; line-height: 1; color: #FFEBC8; text-shadow: 0 0 24px rgba(255,190,90,.35)">{{ w.day }}</p>
+          <p class="qd-o" style="margin: 2px 0 0; font-size: 26px; line-height: 1.1">{{ w.month }} <span class="qd-mut qd-num" style="font-size: 20px">{{ w.year }}</span></p>
+        </div>
+      </div>
+      <p class="qd-o qd-num qd-up" style="--d: 3; margin: 18px 0 0; text-align: center; font-size: 26px; line-height: 1.2"><span class="qd-mut" style="font-size: 20px">soat</span> {{ hhmm }}</p>
+      <sc-if value="{{ calLink }}">
+      <div class="qd-up" style="--d: 4; margin-top: 22px; text-align: center">
+        <a class="qd-btn qd-btn--o" href="{{ calLink }}" target="_blank" rel="noopener">
+          <svg class="qd-icon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="3"></rect><path d="M3.5 10h17M8 3v4M16 3v4M12 13v5M9.5 15.5h5"></path></svg>
+          Kalendarga qo’shish
+        </a>
+      </div>
+      </sc-if>
+    </section>
+    </sc-if>
+
+    <!-- ===== taymer ===== -->
+    <sc-if value="{{ b.taymer }}">
+    <section class="{{ rv.taymer }}" data-rv="taymer">
+      <div class="qd-hd"><span class="qd-hglow"></span><svg class="qd-hl" width="22" height="38" viewBox="0 0 80 140" aria-hidden="true"><path fill="url(#qd-brass)" d="M24 36Q26 20 40 16Q54 20 56 36ZM25 38L15 60Q11 84 25 104H55Q69 84 65 60L55 38ZM24 104H56L51 111H29Z"></path><path class="qd-hole" d="{{ holesS }}"></path><path class="qd-holeL" d="{{ holesS }}"></path></svg><p class="qd-cap">{{ untilText }}</p><span class="qd-hr"></span><span class="qd-ix qd-num">{{ ix.taymer }}</span></div>
+      <div class="qd-cd qd-num qd-up" style="--d: 2" role="timer" aria-label="{{ cdText }}">
+        <div class="qd-win"><span class="qd-cdn"><span class="qd-tick" key="{{ cdKey.d }}">{{ cd.dd }}</span></span><span class="qd-cdl">kun</span></div>
+        <div class="qd-win"><span class="qd-cdn"><span class="qd-tick" key="{{ cdKey.h }}">{{ cd.hh }}</span></span><span class="qd-cdl">soat</span></div>
+        <div class="qd-win"><span class="qd-cdn"><span class="qd-tick" key="{{ cdKey.m }}">{{ cd.mm }}</span></span><span class="qd-cdl">daqiqa</span></div>
+        <div class="qd-win qd-win--s"><span class="qd-cdn"><span class="qd-tick" key="{{ cdKey.s }}">{{ cd.ss }}</span></span><span class="qd-cdl">soniya</span></div>
+      </div>
+    </section>
+    </sc-if>
+
+    <!-- ===== manzil ===== -->
+    <sc-if value="{{ b.manzil }}">
+    <section class="{{ rv.manzil }}" data-rv="manzil">
+      <div class="qd-hd"><span class="qd-hglow"></span><svg class="qd-hl" width="22" height="38" viewBox="0 0 80 140" aria-hidden="true"><path fill="url(#qd-brass)" d="M24 36Q26 20 40 16Q54 20 56 36ZM25 38L15 60Q11 84 25 104H55Q69 84 65 60L55 38ZM24 104H56L51 111H29Z"></path><path class="qd-hole" d="{{ holesS }}"></path><path class="qd-holeL" d="{{ holesS }}"></path></svg><p class="qd-cap">Manzil</p><span class="qd-hr"></span><span class="qd-ix qd-num">{{ ix.manzil }}</span></div>
+      <sc-if value="{{ d.joy_rasmi }}">
+      <div class="qd-up" style="--d: 1; position: relative; width: 334px; height: 260px; margin-bottom: 30px">
+        <img class="qd-ph qd-arch" src="{{ d.joy_rasmi }}" alt="" style="left: 0; top: 0; width: 334px; height: 260px">
+        <div class="qd-fr" style="left: 8px; top: 8px; width: 318px; height: 244px"></div>
+      </div>
+      </sc-if>
+      <h2 class="qd-o qd-up" style="--d: 2; margin: 0; font-size: 30px; line-height: 1.15; overflow-wrap: anywhere">{{ d.manzil_nomi }}</h2>
+      <sc-if value="{{ d.manzil }}"><p class="qd-mut qd-up" style="--d: 3; margin: 10px 0 0; font-size: 17px; line-height: 1.55; overflow-wrap: anywhere">{{ d.manzil }}</p></sc-if>
+      <sc-if value="{{ d.xarita }}">
+      <div class="qd-up" style="--d: 4; margin-top: 24px">
+        <a class="qd-btn qd-btn--b" href="{{ d.xarita }}" target="_blank" rel="noopener">
+          <svg class="qd-icon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.5s-7-6.1-7-11.6a7 7 0 0 1 14 0c0 5.5-7 11.6-7 11.6Z"></path><circle cx="12" cy="9.8" r="2.6"></circle></svg>
+          Xaritada ochish
+        </a>
+      </div>
+      </sc-if>
+    </section>
+    </sc-if>
+
+    <!-- ===== dastur ===== -->
+    <sc-if value="{{ b.dastur }}">
+    <section class="{{ rv.dastur }}" data-rv="dastur">
+      <div class="qd-hd"><span class="qd-hglow"></span><svg class="qd-hl" width="22" height="38" viewBox="0 0 80 140" aria-hidden="true"><path fill="url(#qd-brass)" d="M24 36Q26 20 40 16Q54 20 56 36ZM25 38L15 60Q11 84 25 104H55Q69 84 65 60L55 38ZM24 104H56L51 111H29Z"></path><path class="qd-hole" d="{{ holesS }}"></path><path class="qd-holeL" d="{{ holesS }}"></path></svg><p class="qd-cap">Marosim tartibi</p><span class="qd-hr"></span><span class="qd-ix qd-num">{{ ix.dastur }}</span></div>
+      <div class="qd-prog">
+        <sc-for list="{{ prog }}" as="x">
+        <div class="qd-pr" style="{{ x.st }}">
+          <span class="qd-plg"></span>
+          <svg class="qd-pl" width="22" height="38" viewBox="0 0 80 140" aria-hidden="true"><path fill="url(#qd-brass)" d="M24 36Q26 20 40 16Q54 20 56 36ZM25 38L15 60Q11 84 25 104H55Q69 84 65 60L55 38ZM24 104H56L51 111H29Z"></path><path class="qd-hole" d="{{ holesS }}"></path><path class="qd-holeL" d="{{ holesS }}"></path></svg>
+          <div class="qd-up" style="{{ x.st }}"><span class="qd-pt qd-num">{{ x.vaqt }}</span><p class="qd-pn">{{ x.nomi }}</p></div>
+        </div>
+        </sc-for>
+      </div>
+    </section>
+    </sc-if>
+
+    <!-- ===== suratlar ===== -->
+    <sc-if value="{{ b.galereya }}">
+    <section class="{{ rv.galereya }}" data-rv="galereya">
+      <div class="qd-hd"><span class="qd-hglow"></span><svg class="qd-hl" width="22" height="38" viewBox="0 0 80 140" aria-hidden="true"><path fill="url(#qd-brass)" d="M24 36Q26 20 40 16Q54 20 56 36ZM25 38L15 60Q11 84 25 104H55Q69 84 65 60L55 38ZM24 104H56L51 111H29Z"></path><path class="qd-hole" d="{{ holesS }}"></path><path class="qd-holeL" d="{{ holesS }}"></path></svg><p class="qd-cap">Suratlar</p><span class="qd-hr"></span><span class="qd-ix qd-num">{{ ix.galereya }}</span></div>
+      <div style="position: relative; width: 334px; height: 452px">
+        <div class="qd-up" style="--d: 1; position: absolute; left: 0; top: 0; width: 204px; height: 300px">
+          <img class="qd-ph qd-arch" src="{{ p.0 }}" alt="" style="left: 0; top: 0; width: 204px; height: 300px">
+          <div class="qd-fr" style="left: 7px; top: 7px; width: 190px; height: 286px"></div>
+        </div>
+        <div class="qd-up" style="--d: 3; position: absolute; right: 0; top: 70px; width: 118px; height: 180px">
+          <img class="qd-ph qd-arch" src="{{ p.1 }}" alt="" style="left: 0; top: 0; width: 118px; height: 180px">
+          <div class="qd-fr" style="left: 6px; top: 6px; width: 106px; height: 168px"></div>
+        </div>
+        <div class="qd-up" style="--d: 5; position: absolute; right: 0; top: 268px; width: 214px; height: 184px">
+          <img class="qd-ph qd-arch" src="{{ p.2 }}" alt="" style="left: 0; top: 0; width: 214px; height: 184px">
+          <div class="qd-fr" style="left: 7px; top: 7px; width: 200px; height: 170px"></div>
+        </div>
+        <svg class="qd-up" width="90" height="120" viewBox="0 0 90 120" aria-hidden="true" style="--d: 6; position: absolute; left: 12px; top: 318px; opacity: 0.7"><rect width="90" height="120" fill="url(#qd-pat)"></rect></svg>
+      </div>
+    </section>
+    </sc-if>
+
+    <!-- ===== javob ===== -->
+    <sc-if value="{{ b.rsvp }}">
+    <section class="{{ rv.rsvp }}" data-rv="rsvp">
+      <div class="qd-hd"><span class="qd-hglow"></span><svg class="qd-hl" width="22" height="38" viewBox="0 0 80 140" aria-hidden="true"><path fill="url(#qd-brass)" d="M24 36Q26 20 40 16Q54 20 56 36ZM25 38L15 60Q11 84 25 104H55Q69 84 65 60L55 38ZM24 104H56L51 111H29Z"></path><path class="qd-hole" d="{{ holesS }}"></path><path class="qd-holeL" d="{{ holesS }}"></path></svg><p class="qd-cap">Javobingiz</p><span class="qd-hr"></span><span class="qd-ix qd-num">{{ ix.rsvp }}</span></div>
+      <h2 class="qd-o qd-up" style="--d: 1; margin: 0; font-size: 36px; line-height: 1.1">Tashrif buyurasizmi?</h2>
+      <p class="qd-mut qd-up" style="--d: 2; margin: 12px 0 24px; font-size: 16px; line-height: 1.5">{{ deadline }}</p>
+      <div class="qd-up" style="--d: 3">
+        <sc-if value="{{ askName }}"><input class="qd-inp" type="text" maxlength="100" autocomplete="name" placeholder="Ismingiz" aria-label="Ismingiz" onInput="{{ onName }}" style="margin-bottom: 14px"></sc-if>
+        <div style="display: flex; gap: 10px">
+          <button type="button" class="{{ optYesCls }}" aria-pressed="{{ isYes }}" onClick="{{ sayYes }}">
+            <sc-if value="{{ isYes }}"><span class="qd-spark" aria-hidden="true" style="width: 8px; height: 12px"></span></sc-if>
+            Boraman
+          </button>
+          <button type="button" class="{{ optNoCls }}" aria-pressed="{{ isNo }}" onClick="{{ sayNo }}">
+            <sc-if value="{{ isNo }}"><svg class="qd-icon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"></path></svg></sc-if>
+            Bora olmayman
+          </button>
+        </div>
+        <div class="{{ stepCls }}">
+          <div>
+            <span style="font-size: 17px">Necha kishi bo’lasiz?</span>
+            <div class="qd-flames" aria-hidden="true"><sc-for list="{{ flames }}" as="g"><i key="{{ g }}"></i></sc-for></div>
+          </div>
+          <div style="display: flex; align-items: center; gap: 8px">
+            <button type="button" class="qd-sb" aria-label="Kamaytirish" disabled="{{ minusOff }}" onClick="{{ dec }}">−</button>
+            <span class="qd-o qd-num" style="min-width: 28px; text-align: center; font-size: 26px" aria-live="polite">{{ guests }}</span>
+            <button type="button" class="qd-sb" aria-label="Ko’paytirish" disabled="{{ plusOff }}" onClick="{{ inc }}">+</button>
+          </div>
+        </div>
+        <textarea class="qd-ta" maxlength="300" placeholder="Tilagingiz yoki izoh (ixtiyoriy)" aria-label="Tilagingiz yoki izoh" onInput="{{ onWish }}" style="margin-top: 18px"></textarea>
+        <sc-if value="{{ sentOk }}"><div class="qd-burst" aria-hidden="true"><sc-for list="{{ burst }}" as="q"><i style="{{ q }}"></i></sc-for></div></sc-if>
+        <button type="button" class="qd-btn qd-btn--b" disabled="{{ busy }}" onClick="{{ send }}" style="width: 100%; margin-top: 22px">{{ sendLabel }}</button>
+        <div aria-live="polite" style="min-height: 24px; margin-top: 14px; font-size: 16px; line-height: 1.5">
+          <sc-if value="{{ rsvpNote }}"><p class="qd-o" style="margin: 0; font-size: 19px; text-align: center">{{ rsvpNote }}</p></sc-if>
+        </div>
+      </div>
+    </section>
+    </sc-if>
+
+    <!-- ===== telefon ===== -->
+    <sc-if value="{{ b.telefon }}">
+    <section class="{{ rv.telefon }}" data-rv="telefon">
+      <div class="qd-hd"><span class="qd-hglow"></span><svg class="qd-hl" width="22" height="38" viewBox="0 0 80 140" aria-hidden="true"><path fill="url(#qd-brass)" d="M24 36Q26 20 40 16Q54 20 56 36ZM25 38L15 60Q11 84 25 104H55Q69 84 65 60L55 38ZM24 104H56L51 111H29Z"></path><path class="qd-hole" d="{{ holesS }}"></path><path class="qd-holeL" d="{{ holesS }}"></path></svg><p class="qd-cap">Aloqa</p><span class="qd-hr"></span><span class="qd-ix qd-num">{{ ix.telefon }}</span></div>
+      <div class="qd-up" style="--d: 1; display: flex; align-items: center; justify-content: space-between; gap: 16px">
+        <div style="min-width: 0">
+          <p class="qd-mut" style="margin: 0; font-size: 16px; line-height: 1.4">Savollar bo’lsa, qo’ng’iroq qiling</p>
+          <p class="qd-o qd-num" style="margin: 6px 0 0; font-size: {{ telFs }}px; line-height: 1.2; white-space: nowrap">{{ d.telefon }}</p>
+        </div>
+        <a class="qd-btn qd-btn--b" href="{{ tel }}" aria-label="Qo’ng’iroq qilish" style="width: 58px; height: 58px; padding: 0; flex: none">
+          <svg class="qd-icon" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M5.2 3.5h3.1l1.6 4.2-2.1 1.5a12.2 12.2 0 0 0 7 7l1.5-2.1 4.2 1.6v3.1a1.9 1.9 0 0 1-2.1 1.9A16.6 16.6 0 0 1 3.3 5.6a1.9 1.9 0 0 1 1.9-2.1Z"></path></svg>
+        </a>
+      </div>
+    </section>
+    </sc-if>
+  </main>
+
+  <!-- ===== yakun: shukr va duo ===== -->
+  <footer class="{{ footCls }}" data-rv="foot" style="margin-top: auto">
+    <div class="qd-cast" style="left: 35px; top: -30px; opacity: 0.22"><svg width="100%" height="100%" aria-hidden="true"><rect width="100%" height="100%" fill="url(#qd-pat)"></rect></svg></div>
+    <div style="position: relative; height: 150px">
+      <span class="qd-chain" style="left: 194px; top: 0; height: 40px"></span>
+      <div class="qd-hglow" style="left: 135px; top: 30px; width: 120px; height: 120px"></div>
+      <svg class="qd-hl" width="46" height="80" viewBox="0 0 80 140" aria-hidden="true" style="position: absolute; left: 172px; top: 36px"><path fill="url(#qd-brass)" d="M24 36Q26 20 40 16Q54 20 56 36ZM25 38L15 60Q11 84 25 104H55Q69 84 65 60L55 38ZM24 104H56L51 111H29ZM35 111Q40 127 45 111Z"></path><path class="qd-hole" d="{{ holes }}"></path><path class="qd-holeL" d="{{ holes }}"></path></svg>
+    </div>
+    <p class="qd-ar qd-br qd-up" dir="rtl" lang="ar" style="--d: 1; position: relative; margin: 14px 0 0; font-size: 36px; line-height: 1.7">لَئِن شَكَرْتُمْ لَأَزِيدَنَّكُمْ</p>
+    <p class="qd-o qd-up" style="--d: 2; position: relative; margin: 8px auto 0; max-width: 310px; font-size: 20px; line-height: 1.45">«Agar shukr qilsangiz, albatta sizlarga (ne’matimni) ziyoda qilurman»</p>
+    <p class="qd-cap qd-mut qd-up" style="--d: 2; margin-top: 10px; font-size: 10.5px">Ibrohim surasi, 7-oyat</p>
+    <p class="qd-o qd-up" style="--d: 3; margin: 36px 0 0; font-size: 27px; line-height: 1.3; color: #FFEBC8">{{ duaA }}</p>
+    <p class="qd-mut qd-up" style="--d: 4; margin: 14px auto 0; max-width: 300px; font-size: 16px; line-height: 1.6">{{ duaB }}</p>
+    <p class="qd-o qd-up" style="--d: 5; margin: 30px 0 0; font-size: 22px; line-height: 1.3; overflow-wrap: anywhere">{{ mezbon }}</p>
+    <p class="qd-cap qd-mut qd-num qd-up" style="--d: 5; margin-top: 8px; font-size: 10.5px; letter-spacing: 0.2em">{{ footMeta }}</p>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":4900}}'>
+const D = SITE.d;
+const AP = (s) => String(s || '').replace(/'/g, '’').trim();
+const MKS = ['nahorgi', 'osh_toyi', 'sunnat', 'beshik'];
+const MK = MKS.indexOf(D.marosim) >= 0 ? D.marosim : 'nahorgi';
+const NOMI = AP(D.marosim_nomi) || 'Nahorgi osh';
+const TAKLIF = AP(D.marosim_taklif) || 'Nahorgi oshga taklifnoma';
+const TAKLIF_GA = TAKLIF.replace(/\s*taklifnoma$/i, '') || SITE.ga(NOMI);
+const low = (s) => s ? s.charAt(0).toLowerCase() + s.slice(1) : s;
+const GUEST = AP(D.mehmon);
+const MEZBON = AP(D.mezbon);
+const SABAB = AP(D.sababi);
+const ISM = AP(D.ism);
+const WITH_ISM = !!ISM && (MK === 'sunnat' || MK === 'beshik');
+const TITLE_A = WITH_ISM ? ISM + 'ning' : '';
+const TITLE_B = WITH_ISM ? low(NOMI) : NOMI;
+const TITLE = WITH_ISM ? TITLE_A + ' ' + TITLE_B : NOMI;
+const TAKLIF_LOW = WITH_ISM ? ISM + 'ning ' + low(TAKLIF_GA) : low(TAKLIF_GA);
+const UNTIL = { nahorgi: 'Nahorgi oshgacha', osh_toyi: 'Osh to’yigacha', sunnat: 'Sunnat to’yigacha', beshik: 'Beshik to’yigacha' }[MK];
+const DUA = {
+  nahorgi: ['Tashrifingiz — dasturxonimizga fayz va baraka.', 'Alloh barchamizni yaxshi kunlarga yetkazsin, duolaringiz ijobat bo’lsin.'],
+  osh_toyi: ['Tashrifingiz — dasturxonimizga fayz va baraka.', 'Alloh xonadonimiz quvonchini ziyoda qilsin, duolaringiz ijobat bo’lsin.'],
+  sunnat: ['Duolaringiz — farzandimizga eng katta sovg’a.', 'Alloh o’g’limizni sog’-salomat, umrini uzoq va baxtli qilsin.'],
+  beshik: ['Tashrifingiz — xonadonimizga quvonch va baraka.', 'Alloh farzandimizga sog’lik, uzoq va baxtli umr ato etsin.'],
+}[MK];
+
+// ---- qandil teshiklari (80×140)
+const ci = (x, y, r) => 'M' + (x - r) + ' ' + y + 'a' + r + ' ' + r + ' 0 1 0 ' + (2 * r) + ' 0a' + r + ' ' + r + ' 0 1 0 ' + (-2 * r) + ' 0Z';
+const STAR_B = 'M40.0 62.0L42.9 64.9L47.1 64.9L47.1 69.1L50.0 72.0L47.1 74.9L47.1 79.1L42.9 79.1L40.0 82.0L37.1 79.1L32.9 79.1L32.9 74.9L30.0 72.0L32.9 69.1L32.9 64.9L37.1 64.9Z';
+const STAR_1 = 'M25.0 62.0L26.5 63.5L28.5 63.5L28.5 65.5L30.0 67.0L28.5 68.5L28.5 70.5L26.5 70.5L25.0 72.0L23.5 70.5L21.5 70.5L21.5 68.5L20.0 67.0L21.5 65.5L21.5 63.5L23.5 63.5Z';
+const STAR_2 = 'M55.0 62.0L56.5 63.5L58.5 63.5L58.5 65.5L60.0 67.0L58.5 68.5L58.5 70.5L56.5 70.5L55.0 72.0L53.5 70.5L51.5 70.5L51.5 68.5L50.0 67.0L51.5 65.5L51.5 63.5L53.5 63.5Z';
+const ARCH = (x) => 'M' + x + ' 57v-3.5a3 3 0 0 1 6 0V57Z';
+const HOLES = STAR_B + STAR_1 + STAR_2 + [27, 37, 47].map(ARCH).join('') + [30, 35, 40, 45, 50].map((x) => ci(x, 46, 1.4)).join('') + [26, 33, 40, 47, 54].map((x) => ci(x, 93, 1.6)).join('') + [33, 40, 47].map((x) => ci(x, 28, 1.3)).join('') + 'M38 87h4v3h-4zM23 86l3 1-1 3zM57 86l-3 1 1 3z';
+const HOLES_S = 'M40 52L46.4 65.6L60 72L46.4 78.4L40 92L33.6 78.4L20 72L33.6 65.6Z' + ci(40, 28, 3) + ci(28, 96, 3) + ci(40, 96, 3) + ci(52, 96, 3);
+// qandillar: x, zanjir uzunligi, kattalik, yonish vaqti
+const LAMPS = [[52, 64, 0.7, 0.3], [124, 128, 0.86, 1.05], [195, 168, 1.08, 1.8], [266, 128, 0.86, 1.4], [338, 64, 0.7, 0.65]];
+const LAMPS_V = LAMPS.map((l, i) => ({
+  h: 'left: ' + l[0] + 'px; --sw: ' + (5.6 + i * 0.7).toFixed(1) + 's; --dl: ' + l[3] + 's; --s: ' + l[2] + '; animation-delay: -' + (i * 1.3).toFixed(1) + 's',
+  chain: 'height: ' + (l[1] + 10) + 'px',
+  lan: 'top: ' + (l[1] + 6) + 'px; transform: scale(' + l[2] + '); --fd: -' + (i * 0.9).toFixed(1) + 's',
+}));
+const CASTS = LAMPS.map((l) => ({ cls: 'qd-cast', st: 'left: ' + (l[0] - 160) + 'px; top: ' + Math.round(l[1] + 6 + 72 * l[2] - 160) + 'px; --dl: ' + l[3] + 's' }))
+  .concat([{ cls: 'qd-cast qd-cast--b', st: 'left: -15px; top: 410px; --dl: 2s' }]);
+
+const ORDER = ['taklif', 'kun', 'taymer', 'manzil', 'dastur', 'galereya', 'rsvp', 'telefon'];
+function hhmm(t) { t = String(t || '').trim(); return /^\d:\d\d$/.test(t) ? '0' + t : (/^\d\d:\d\d$/.test(t) ? t : ''); }
+const HM = hhmm(D.vaqt);
+const H24 = HM ? parseInt(HM.slice(0, 2), 10) : -1;
+function stamp(iso, time) { const t = Date.parse(String(iso || '').slice(0, 10) + 'T' + (hhmm(time) || '12:00') + ':00+05:00'); return isNaN(t) ? null : t; }
+function fitPx(text, max, width, em, lines) { const t = String(text || ''); const n = t.length || 1; const lw = t.split(/\s+/).reduce((a, w) => Math.max(a, w.length), 1); return Math.max(Math.round(max * 0.52), Math.min(max, Math.floor(width * (lines || 1) / (n * em)), Math.floor(width / (lw * em * 1.12)))); }
+function telHref(t) { return 'tel:' + String(t || '').replace(/[^\d+]/g, ''); }
+function calUrl() {
+  const t = stamp(D.sana, D.vaqt); if (t == null) return '';
+  const f = (ms) => new Date(ms).toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
+  const title = TITLE + (MEZBON ? ' — ' + MEZBON : '');
+  const loc = [D.manzil_nomi, D.manzil].filter(Boolean).join(', ');
+  return 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + encodeURIComponent(title) + '&dates=' + f(t) + '/' + f(t + 2 * 3600e3) + (loc ? '&location=' + encodeURIComponent(loc) : '');
+}
+function deadlineText(tail) {
+  const t = stamp(D.sana, '12:00'); if (t == null) return 'Iltimos, ' + tail + '.';
+  const dl = t - 5 * 864e5;
+  if (dl < Date.now()) return 'Iltimos, imkon qadar tezroq ' + tail + '.';
+  return 'Iltimos, ' + SITE.when(new Date(dl + 5 * 3600e3).toISOString().slice(0, 10)).dm + 'gacha ' + tail + '.';
+}
+function timeNote() { return MK === 'nahorgi' && H24 >= 4 && H24 < 9 ? 'Bomdod namozidan so’ng, tong sahar' : ''; }
+const BURST = Array.from({ length: 12 }, (_, i) => '--a: ' + (i * 30) + 'deg; animation-delay: ' + (i % 3) * 40 + 'ms');
+const REDUCED = typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
+const CAN_IO = typeof IntersectionObserver === 'function' && !REDUCED;
+
+class Component extends DCLogic {
+  constructor(...args) {
+    super(...args);
+    this.state = { opened: false, rv: {}, rsvp: '', guests: 1, sent: false, busy: false, warn: '' };
+    this.nm = ''; this.wish = '';
+  }
+  componentDidMount() {
+    this.timer = setInterval(() => this.forceUpdate(), 1000);
+    if (CAN_IO) {
+      this.io = new IntersectionObserver((es) => {
+        const add = {};
+        es.forEach((e) => { if (e.isIntersecting) { add[e.target.getAttribute('data-rv')] = true; this.io.unobserve(e.target); } });
+        if (Object.keys(add).length) this.setState((s) => ({ rv: Object.assign({}, s.rv, add) }));
+      }, { rootMargin: '0px 0px -10% 0px' });
+      this.watch();
+    }
+  }
+  componentDidUpdate() { this.watch(); }
+  watch() {
+    if (!this.io) return;
+    document.querySelectorAll('[data-rv]').forEach((el) => { if (!el.__qdw) { el.__qdw = 1; this.io.observe(el); } });
+  }
+  componentWillUnmount() { clearInterval(this.timer); if (this.io) this.io.disconnect(); }
+  open() {
+    if (this.state.opened) return;
+    this.setState({ opened: true });
+    SITE.opened();
+  }
+  send() {
+    const s = this.state;
+    if (!s.rsvp) { this.setState({ warn: 'Iltimos, avval javobingizni tanlang.' }); return; }
+    const name = this.nm.trim();
+    if (!SITE.has.guest && !name) { this.setState({ warn: 'Iltimos, ismingizni yozing.' }); return; }
+    if (s.busy) return;
+    this.setState({ busy: true, warn: '' });
+    SITE.rsvp(s.rsvp === 'yes', s.rsvp === 'yes' ? s.guests : 1, name, this.wish.trim())
+      .then(() => this.setState({ sent: true, busy: false }))
+      .catch(() => this.setState({ busy: false, warn: 'Javob yuborilmadi. Iltimos, qayta urinib ko’ring.' }));
+  }
+  renderVals() {
+    const s = this.state || {};
+    const w = SITE.when(D.sana, D.vaqt);
+    const cd = SITE.countdown(D.sana, D.vaqt);
+    const isYes = s.rsvp === 'yes', isNo = s.rsvp === 'no', guests = s.guests || 1;
+    const who = GUEST || this.nm.trim();
+    let note = '';
+    if (s.sent && isYes) note = (who ? 'Rahmat, ' + who + '! ' : 'Rahmat! ') + 'Sizni ' + (guests > 1 ? guests + ' kishi bilan ' : '') + 'intizorlik bilan kutamiz.';
+    else if (s.sent && isNo) note = (who ? 'Rahmat, ' + who + '! ' : 'Rahmat! ') + 'Javobingiz yetkazildi, duolaringiz biz bilan bo’ladi.';
+    else if (s.warn) note = s.warn;
+    const ix = {}; let n = 0;
+    ORDER.forEach((k) => { if (SITE.b[k]) { n += 1; ix[k] = SITE.pad(n); } });
+    const seen = (k) => !CAN_IO || (s.rv && s.rv[k]);
+    const rv = {}; ORDER.forEach((k) => { rv[k] = 'qd-sec' + (seen(k) ? ' qd-rv' : ''); });
+    const music = SITE.music.playing;
+    const guestLine = GUEST ? 'Hurmatli ' + GUEST + '!' : 'Hurmatli mehmon!';
+    return {
+      w, cd, ix, rv,
+      lamps: LAMPS_V, casts: CASTS, holes: HOLES, holesS: HOLES_S,
+      rootCls: s.opened || REDUCED ? 'qd-root qd-on' : 'qd-root',
+      introCls: 'qd-i' + (s.opened ? ' qd-i--open' : ''),
+      introHidden: !!s.opened,
+      open: () => this.open(),
+      taklifCap: TAKLIF,
+      guestLine, guestFs: fitPx(guestLine, 36, 334, 0.47, 2),
+      mezbon: MEZBON, hostFs: fitPx(MEZBON, 26, 334, 0.5, 2),
+      taklifLow: TAKLIF_LOW,
+      titleA: TITLE_A, titleB: TITLE_B, titleAFs: fitPx(TITLE_A, 30, 330, 0.46, 1),
+      titleFs: fitPx(TITLE_B, 60, 340, 0.47, 1),
+      titleMt: TITLE_A ? 0 : 10,
+      heroDate: [w.Weekday, w.dm, HM].filter(Boolean).join(' · '),
+      sabab: SABAB,
+      hhmm: HM || '—', timeNote: timeNote(),
+      calLink: calUrl(),
+      untilText: cd.done ? 'Marosim vaqti keldi' : UNTIL + ' qoldi',
+      cdKey: { d: 'd' + cd.dd, h: 'h' + cd.hh, m: 'm' + cd.mm, s: 's' + cd.ss },
+      cdText: cd.d + ' kun, ' + cd.h + ' soat, ' + cd.m + ' daqiqa qoldi',
+      prog: (D.dastur || []).filter((x) => x && (x.vaqt || x.nomi)).map((x, i) => ({ vaqt: hhmm(x.vaqt) || AP(x.vaqt) || '—', nomi: AP(x.nomi), st: '--d: ' + (i + 1) })),
+      deadline: deadlineText('javobingizni bildiring'),
+      askName: !SITE.has.guest,
+      onName: (e) => { this.nm = e.target.value; },
+      onWish: (e) => { this.wish = e.target.value; },
+      isYes, isNo, guests,
+      flames: Array.from({ length: isNo ? 0 : guests }, (_, i) => 'f' + i),
+      optYesCls: isYes ? 'qd-opt qd-opt--on' : 'qd-opt',
+      optNoCls: isNo ? 'qd-opt qd-opt--on' : 'qd-opt',
+      sayYes: () => this.setState({ rsvp: 'yes', sent: false, warn: '' }),
+      sayNo: () => this.setState({ rsvp: 'no', sent: false, warn: '' }),
+      stepCls: isNo ? 'qd-step qd-step--off' : 'qd-step',
+      minusOff: isNo || guests <= 1, plusOff: isNo || guests >= 10,
+      dec: () => this.setState({ guests: Math.max(1, guests - 1), sent: false }),
+      inc: () => this.setState({ guests: Math.min(10, guests + 1), sent: false }),
+      send: () => this.send(),
+      busy: !!s.busy,
+      sentOk: !!s.sent && isYes, burst: BURST,
+      sendLabel: s.busy ? 'Yuborilmoqda…' : (s.sent ? 'Javob yuborildi' : 'Javobni yuborish'),
+      rsvpNote: note,
+      tel: telHref(D.telefon), telFs: fitPx(AP(D.telefon), 30, 240, 0.5, 1),
+      duaA: DUA[0], duaB: DUA[1],
+      footCls: 'qd-foot' + (seen('foot') ? ' qd-rv' : ''),
+      footMeta: [HM, w.dots].filter(Boolean).join(' · '),
+      musicOn: music, musicOff: !music,
+      musicCls: music ? 'qd-music qd-music--on' : 'qd-music',
+      musicLabel: music ? 'Musiqani o’chirish' : 'Musiqani yoqish',
+      toggleMusic: () => { SITE.music.toggle(); }
+    };
+  }
+}
+</script>
+</body>
+</html>

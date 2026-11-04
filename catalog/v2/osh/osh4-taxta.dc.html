@@ -1,0 +1,738 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<title>Osh va marosim taklifnomasi: Tablo</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600&amp;family=IBM+Plex+Sans+Condensed:ital,wght@0,400;0,500;0,600;1,400&amp;display=swap&amp;subset=cyrillic,cyrillic-ext,latin-ext">
+<style>
+body{margin:0}
+.tb-root{font-family:'IBM Plex Sans Condensed','Arial Narrow',Arial,sans-serif;color:#F4F1E8;background:#18242C}
+.tb-o{font-family:'Oswald','Arial Narrow',Arial,sans-serif}
+.tb-num{font-variant-numeric:tabular-nums}
+.tb-cap{margin:0;font-family:'IBM Plex Sans Condensed',sans-serif;font-weight:600;font-size:11px;line-height:16px;letter-spacing:.24em;text-transform:uppercase}
+.tb-amb{color:#FFB627}
+.tb-dim{color:rgba(244,241,232,.66)}
+.tb-ic{fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.tb-mo{fill:none;stroke:currentColor;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.tb-hall{position:absolute;inset:0;pointer-events:none;background:radial-gradient(90% 30% at 50% 0%,rgba(255,182,39,.10),rgba(255,182,39,0) 70%),repeating-linear-gradient(90deg,rgba(255,255,255,.018) 0 1px,rgba(255,255,255,0) 1px 64px)}
+
+/* ---------- varaqlanuvchi katak (split-flap) */
+.fr{display:flex;gap:3px}
+.fr + .fr{margin-top:3px}
+.fc{position:relative;flex:none;width:var(--w);height:var(--h);border-radius:3px;perspective:260px;font-family:'Oswald','Arial Narrow',sans-serif;font-weight:500;font-size:var(--fs);color:var(--fg,#F4F1E8);box-shadow:0 1px 0 rgba(0,0,0,.6),0 2px 4px rgba(0,0,0,.35)}
+.fh{position:absolute;left:0;right:0;height:50%;overflow:hidden;background:linear-gradient(180deg,#2A3239,#20272D)}
+.fh > span{display:block;height:var(--h);line-height:var(--h);text-align:center;text-transform:uppercase;white-space:pre}
+.ft{top:0;border-radius:3px 3px 0 0}
+.fb2{bottom:0;border-radius:0 0 3px 3px;background:linear-gradient(180deg,#1D2329,#171C21)}
+.fb2 > span,.fbk > span{transform:translateY(-50%)}
+.fc::after{content:"";position:absolute;left:0;right:0;top:50%;height:1px;margin-top:-.5px;background:rgba(0,0,0,.75);z-index:3}
+.fc::before{content:"";position:absolute;top:50%;left:-1px;width:2px;height:5px;margin-top:-2.5px;background:#0A0E11;z-index:4;box-shadow:calc(var(--w) - 1px) 0 0 #0A0E11}
+.ff{position:absolute;left:0;right:0;top:0;height:50%;transform-origin:50% 100%;transform-style:preserve-3d;transform:rotateX(-180deg);z-index:2}
+.ffr,.fbk{position:absolute;inset:0;overflow:hidden;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.ffr{background:linear-gradient(180deg,#2E363D,#232A30);border-radius:3px 3px 0 0}
+.fbk{transform:rotateX(180deg);background:linear-gradient(180deg,#1D2329,#171C21);border-radius:0 0 3px 3px}
+.ffr > span,.fbk > span{display:block;height:var(--h);line-height:var(--h);text-align:center;text-transform:uppercase;white-space:pre}
+.fa .ff{animation:fl-a .072s linear both}
+.fb .ff{animation:fl-b .072s linear both}
+.fa.fz .ff{animation:fl-z .34s cubic-bezier(.45,0,.6,1) both}
+.fb.fz .ff{animation:fl-y .34s cubic-bezier(.45,0,.6,1) both}
+@keyframes fl-a{from{transform:none}to{transform:rotateX(-180deg)}}
+@keyframes fl-b{from{transform:none}to{transform:rotateX(-180deg)}}
+@keyframes fl-z{0%{transform:none}70%{transform:rotateX(-186deg)}85%{transform:rotateX(-174deg)}100%{transform:rotateX(-180deg)}}
+@keyframes fl-y{0%{transform:none}70%{transform:rotateX(-186deg)}85%{transform:rotateX(-174deg)}100%{transform:rotateX(-180deg)}}
+.fg-amb{--fg:#FFB627}
+
+/* ---------- tablo */
+.tb-board{position:relative;margin:0 16px;padding:14px 12px 16px;border-radius:14px;background:linear-gradient(180deg,#10161A,#0C1114);box-shadow:inset 0 0 0 1px rgba(255,255,255,.06),inset 0 2px 0 rgba(255,255,255,.04),0 24px 50px rgba(5,10,14,.55),0 0 0 4px #222E36,0 0 0 5px rgba(255,255,255,.06)}
+.tb-screw{position:absolute;width:6px;height:6px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#8C979E,#3B454C);box-shadow:0 1px 1px rgba(0,0,0,.6)}
+.tb-lbl{display:flex;align-items:center;gap:8px;margin:0 0 7px;font-family:'IBM Plex Sans Condensed',sans-serif;font-weight:600;font-size:9.5px;letter-spacing:.24em;text-transform:uppercase;color:rgba(255,182,39,.85)}
+.tb-lbl i{flex:1;height:1px;background:rgba(255,255,255,.07)}
+.tb-grp + .tb-grp{margin-top:14px}
+.tb-led{display:inline-flex;align-items:center;gap:8px;font-family:'IBM Plex Sans Condensed',sans-serif;font-weight:600;font-size:11px;letter-spacing:.24em;text-transform:uppercase}
+.tb-led i{width:8px;height:8px;border-radius:50%;background:#56616A}
+.tb-led--on{color:#55D88E}
+.tb-led--on i{background:#55D88E;box-shadow:0 0 10px #55D88E;animation:tb-blink 1.6s ease-in-out infinite}
+@keyframes tb-blink{0%,100%{opacity:1}50%{opacity:.35}}
+.tb-colon{animation:tb-blink 1s steps(2,start) infinite}
+.tb-tile{display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:9px;background:#FFB627;color:#141B20;flex:none}
+
+/* ---------- kirish */
+.tb-i{position:absolute;left:0;top:0;width:390px;height:844px;z-index:40;overflow:hidden;background:#121A20}
+.tb-i--on{pointer-events:none}
+.tb-i--gone{animation:tb-out .7s ease forwards}
+@keyframes tb-out{to{opacity:0;visibility:hidden}}
+.tb-in{opacity:0;animation:tb-fade .9s cubic-bezier(.2,.7,.2,1) forwards}
+@keyframes tb-fade{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.tb-foot{position:relative;margin:0 24px;padding-top:34px;height:130px;text-align:center}
+.tb-cta{position:relative;display:inline-flex;align-items:center;gap:12px;height:56px;padding:0 28px 0 10px;border:0;border-radius:999px;cursor:pointer;background:#FFB627;color:#141B20;font-family:'Oswald',sans-serif;font-weight:500;font-size:16px;letter-spacing:.12em;text-transform:uppercase;box-shadow:0 10px 28px rgba(255,182,39,.28);transition:transform .2s cubic-bezier(.3,1.6,.5,1),opacity .4s}
+.tb-cta b{display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;background:#141B20;color:#FFB627}
+.tb-cta:active{transform:scale(.94)}
+.tb-cta::after{content:"";position:absolute;inset:-6px;border-radius:999px;box-shadow:0 0 0 1px rgba(255,182,39,.6);animation:tb-pulse 2.4s ease-out infinite}
+@keyframes tb-pulse{0%{opacity:.9;transform:scale(.96)}100%{opacity:0;transform:scale(1.16)}}
+.tb-i--on .tb-cta{opacity:0;transform:scale(.9)}
+.tb-msg{opacity:0;transition:opacity .5s}
+.tb-i--on .tb-msg{opacity:1}
+.tb-scan{position:absolute;left:0;right:0;top:0;height:120px;pointer-events:none;background:linear-gradient(180deg,rgba(255,182,39,0),rgba(255,182,39,.07),rgba(255,182,39,0));opacity:0}
+.tb-i--on .tb-scan{animation:tb-scan 1.8s ease-in-out .1s 2 both}
+@keyframes tb-scan{0%{opacity:0;transform:translateY(120px)}20%{opacity:1}100%{opacity:0;transform:translateY(700px)}}
+
+/* ---------- sahifa */
+.tb-up{opacity:0}
+.tb-go .tb-up{animation:tb-fade .9s cubic-bezier(.2,.7,.2,1) forwards}
+.tb-go .tb-d1{animation-delay:.05s}.tb-go .tb-d2{animation-delay:.2s}.tb-go .tb-d3{animation-delay:.35s}
+.tb-sec{position:relative;padding:84px 16px 0}
+.tb-head{display:flex;align-items:center;gap:12px;margin:0 0 20px}
+.tb-head b{display:flex;align-items:center;justify-content:center;min-width:34px;height:24px;padding:0 6px;border-radius:5px;background:#FFB627;color:#141B20;font-family:'Oswald',sans-serif;font-weight:600;font-size:13px;letter-spacing:.06em}
+.tb-head span{font-family:'Oswald',sans-serif;font-weight:500;font-size:14px;letter-spacing:.22em;text-transform:uppercase}
+.tb-head i{flex:1;height:1px;background:rgba(244,241,232,.14)}
+.tb-head em{font-style:normal;font-family:'IBM Plex Sans Condensed',sans-serif;font-weight:500;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:rgba(244,241,232,.55)}
+.tb-h2{margin:0;font-family:'Oswald',sans-serif;font-weight:500;font-size:40px;line-height:1.08;text-transform:uppercase;letter-spacing:.01em;overflow-wrap:anywhere}
+.tb-rv{opacity:0;transform:translateY(24px)}
+.tb-on .tb-rv{opacity:1;transform:none;transition:opacity .8s ease,transform .9s cubic-bezier(.2,1,.3,1)}
+.tb-on .tb-r2{transition-delay:.15s}.tb-on .tb-r3{transition-delay:.3s}.tb-on .tb-r4{transition-delay:.45s}
+.tb-panel{position:relative;border-radius:14px;background:linear-gradient(180deg,#10161A,#0C1114);box-shadow:inset 0 0 0 1px rgba(255,255,255,.06),0 18px 40px rgba(5,10,14,.45)}
+.tb-btn{position:relative;overflow:hidden;display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:54px;padding:0 24px;border-radius:12px;box-sizing:border-box;font-family:'Oswald',sans-serif;font-weight:500;font-size:15px;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;cursor:pointer;border:0;transition:transform .18s cubic-bezier(.3,1.6,.5,1);-webkit-tap-highlight-color:transparent}
+.tb-btn:active{transform:scale(.95)}
+.tb-btn::after{content:"";position:absolute;left:50%;top:50%;width:20px;height:20px;margin:-10px;border-radius:50%;background:rgba(255,255,255,.4);opacity:0;transform:scale(0)}
+.tb-btn:active::after{animation:tb-ripple .55s ease-out}
+@keyframes tb-ripple{0%{opacity:.7;transform:scale(0)}100%{opacity:0;transform:scale(16)}}
+.tb-btn--a{background:#FFB627;color:#141B20}
+.tb-btn--o{background:transparent;color:#F4F1E8;box-shadow:inset 0 0 0 1px rgba(244,241,232,.3)}
+.tb-btn:disabled{opacity:.6;cursor:default}
+.tb-btn:focus-visible,.tb-cta:focus-visible,.tb-ch:focus-visible,.tb-sb:focus-visible,.tb-music:focus-visible{outline:2px solid #FFB627;outline-offset:3px}
+.tb-wave{animation:tb-wave 1.6s ease-in-out infinite;transform-origin:0 50%}
+.tb-wave2{animation-delay:.25s}
+@keyframes tb-wave{0%,100%{opacity:.25}50%{opacity:1}}
+.tb-route{position:relative;height:2px;margin:0 6px;background:repeating-linear-gradient(90deg,rgba(255,182,39,.7) 0 6px,rgba(255,182,39,0) 6px 12px)}
+.tb-route i{position:absolute;top:-4px;left:0;width:10px;height:10px;border-radius:50%;background:#FFB627;box-shadow:0 0 10px #FFB627;animation:tb-go 3.2s cubic-bezier(.6,0,.4,1) infinite}
+@keyframes tb-go{0%{transform:translateX(0)}50%{transform:translateX(var(--rw))}100%{transform:translateX(0)}}
+.tb-photo{position:relative;overflow:hidden;border-radius:10px;background:#0C1114;box-shadow:0 0 0 1px rgba(255,255,255,.08)}
+.tb-photo img{display:block;width:100%;height:100%;object-fit:cover;transform:scale(1.1);transition:transform 2.6s cubic-bezier(.2,.7,.2,1)}
+.tb-on .tb-photo img{transform:scale(1)}
+.tb-plate{position:absolute;left:10px;bottom:10px;padding:4px 8px;border-radius:5px;background:rgba(12,17,20,.85);font-family:'Oswald',sans-serif;font-weight:500;font-size:12px;letter-spacing:.14em;color:#FFB627}
+.tb-row{padding:14px 14px 16px;border-bottom:1px solid rgba(255,255,255,.06)}
+.tb-row:last-child{border-bottom:0}
+.tb-st{display:inline-flex;align-items:center;gap:6px;font-family:'IBM Plex Sans Condensed',sans-serif;font-weight:600;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#55D88E}
+.tb-st i{width:6px;height:6px;border-radius:50%;background:#55D88E;animation:tb-blink 1.6s ease-in-out infinite}
+/* chipta */
+.tb-tk{position:relative;border-radius:16px;background:#F4F1E8;color:#141B20;overflow:hidden;box-shadow:0 24px 50px rgba(5,10,14,.5)}
+.tb-tk-top{padding:14px 18px;background:#FFB627;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.tb-perf{position:relative;height:22px;margin:0 -1px}
+.tb-perf::before,.tb-perf::after{content:"";position:absolute;top:0;width:22px;height:22px;border-radius:50%;background:#18242C}
+.tb-perf::before{left:-11px}.tb-perf::after{right:-11px}
+.tb-perf i{position:absolute;left:18px;right:18px;top:10px;border-top:2px dashed rgba(20,27,32,.2)}
+.tb-fl{margin:0;font-family:'IBM Plex Sans Condensed',sans-serif;font-weight:600;font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:rgba(20,27,32,.55)}
+.tb-fv{margin:4px 0 0;font-family:'Oswald',sans-serif;font-weight:500;font-size:19px;line-height:1.2;text-transform:uppercase;overflow-wrap:anywhere}
+.tb-ch{flex:1 1 0;min-width:0;height:56px;border:0;border-radius:10px;cursor:pointer;background:transparent;box-shadow:inset 0 0 0 1.5px rgba(20,27,32,.25);color:#141B20;font-family:'Oswald',sans-serif;font-weight:500;font-size:15px;letter-spacing:.08em;text-transform:uppercase;transition:background .25s,color .25s,transform .18s cubic-bezier(.3,1.6,.5,1)}
+.tb-ch:active{transform:scale(.95)}
+.tb-ch--on{background:#141B20;color:#FFB627;box-shadow:none}
+.tb-step{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:14px;transition:opacity .3s}
+.tb-step--off{opacity:.35}
+.tb-sb{width:46px;height:46px;border-radius:10px;border:0;cursor:pointer;background:rgba(20,27,32,.08);color:#141B20;font-size:22px;line-height:1;display:flex;align-items:center;justify-content:center;font-family:inherit;transition:transform .18s cubic-bezier(.3,1.6,.5,1)}
+.tb-sb:active{transform:scale(.88)}
+.tb-sb:disabled{opacity:.35;cursor:default}
+.tb-inp,.tb-ta{display:block;width:100%;box-sizing:border-box;border:0;border-radius:10px;background:rgba(20,27,32,.06);box-shadow:inset 0 0 0 1px rgba(20,27,32,.18);color:#141B20;font-family:'IBM Plex Sans Condensed',sans-serif;font-size:16px;outline:none}
+.tb-inp{height:50px;padding:0 14px}
+.tb-ta{height:80px;padding:12px 14px;resize:none;line-height:1.45}
+.tb-inp:focus,.tb-ta:focus{box-shadow:inset 0 0 0 2px #141B20}
+.tb-inp::placeholder,.tb-ta::placeholder{color:rgba(20,27,32,.45)}
+.tb-stamp{position:absolute;right:16px;top:70px;padding:6px 12px;border:2.5px solid #1E9E5A;border-radius:8px;color:#1E9E5A;font-family:'Oswald',sans-serif;font-weight:600;font-size:17px;letter-spacing:.14em;transform:rotate(-12deg);animation:tb-stamp .5s cubic-bezier(.3,1.6,.5,1) both;background:rgba(244,241,232,.85)}
+@keyframes tb-stamp{from{opacity:0;transform:rotate(-12deg) scale(2.2)}to{opacity:1;transform:rotate(-12deg) scale(1)}}
+.tb-bars{display:flex;align-items:stretch;gap:2px;height:40px}
+.tb-bars i{display:block;background:#141B20}
+.tb-music{position:absolute;right:14px;top:14px;z-index:45;width:46px;height:46px;border-radius:50%;border:0;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#F4F1E8;background:rgba(16,22,26,.8);box-shadow:inset 0 0 0 1px rgba(255,182,39,.5)}
+.tb-music--on{background:#FFB627;color:#141B20}
+.tb-eq{display:flex;align-items:flex-end;gap:3px;height:16px}
+.tb-eq i{display:block;width:3px;height:100%;background:currentColor;transform-origin:50% 100%;animation:tb-eq 1s ease-in-out infinite}
+.tb-eq i:nth-child(2){animation-delay:-.3s}.tb-eq i:nth-child(3){animation-delay:-.6s}
+@keyframes tb-eq{0%,100%{transform:scaleY(.3)}50%{transform:scaleY(1)}}
+
+@media (prefers-reduced-motion: reduce){
+  .tb-in,.tb-up,.tb-go .tb-up{animation:none;opacity:1}
+  .fa .ff,.fb .ff,.fa.fz .ff,.fb.fz .ff{animation:none}
+  .tb-cta::after,.tb-led--on i,.tb-colon,.tb-wave,.tb-route i,.tb-st i,.tb-eq i,.tb-stamp{animation:none}
+  .tb-i--on .tb-scan{animation:none}
+  .tb-rv,.tb-on .tb-rv{opacity:1;transform:none;transition:none}
+  .tb-photo img{transform:none;transition:none}
+  .tb-i--gone{animation:tb-out .01s linear forwards}
+}
+</style>
+</helmet>
+<div class="{{ rootCls }}" style="width: 390px; min-height: var(--vh, 100vh); position: relative; overflow: hidden; overflow: clip; display: flex; flex-direction: column">
+  <div class="tb-hall" aria-hidden="true"></div>
+
+  <sc-if value="{{ has.music }}">
+  <button type="button" class="{{ musicCls }}" aria-label="{{ musicLabel }}" aria-pressed="{{ musicOn }}" onClick="{{ toggleMusic }}">
+    <sc-if value="{{ musicOn }}"><span class="tb-eq" aria-hidden="true"><i></i><i></i><i></i></span></sc-if>
+    <sc-if value="{{ musicOff }}"><svg class="tb-ic" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V5.5l11-2.2v12.5"></path><circle cx="6.2" cy="18" r="2.8"></circle><circle cx="17.2" cy="15.8" r="2.8"></circle></svg></sc-if>
+  </button>
+  </sc-if>
+
+  <!-- ===== kirish: tablo yoqiladi ===== -->
+  <div data-intro class="{{ introCls }}" aria-hidden="{{ introHidden }}">
+    <div class="tb-hall"></div>
+    <div class="tb-scan"></div>
+    <div style="position: absolute; left: 0; right: 0; top: 0; padding-top: 18px">
+    <div class="tb-in" style="margin: 0 16px; height: 52px; display: flex; align-items: center; gap: 12px">
+      <span class="tb-tile" aria-hidden="true">
+        <svg width="26" height="26" viewBox="0 0 64 64">
+          <sc-if value="{{ isOsh }}"><ellipse class="tb-mo" cx="32" cy="42" rx="24" ry="8"></ellipse><path class="tb-mo" d="M12 41.5c1.6-11 10-17.6 20-17.6s18.4 6.6 20 17.6M28.8 23.6c-.2-3.2 1.1-5.4 3.2-6.8 2.1 1.4 3.4 3.6 3.2 6.8"></path></sc-if>
+          <sc-if value="{{ isSunnat }}"><path class="tb-mo" d="M13 43 15.3 27C20.4 21.2 26 19.2 32 19.2s11.6 2 16.7 7.8L51 43ZM12.5 43h39v5h-39ZM32 26.5c3.4 1.5 3.8 6.2 0 8.2"></path></sc-if>
+          <sc-if value="{{ isBeshik }}"><path class="tb-mo" d="M16 46 18 31h28l2 15ZM11 49.5c7 4.4 35 4.4 42 0M18 31V16.5M46 31V16.5M14 16.5h36"></path></sc-if>
+        </svg>
+      </span>
+      <div style="flex: 1; min-width: 0">
+        <p class="tb-o" style="margin: 0; font-weight: 500; font-size: 17px; letter-spacing: 0.14em; text-transform: uppercase; line-height: 1.1">Taklifnoma</p>
+        <p class="tb-cap tb-dim tb-num" style="margin-top: 3px; font-size: 10px">№ {{ code }}</p>
+      </div>
+      <div style="text-align: right">
+        <p class="tb-o tb-num tb-amb" style="margin: 0; font-weight: 500; font-size: 26px; line-height: 1">{{ clockH }}<span class="tb-colon">:</span>{{ clockM }}</p>
+        <p class="tb-cap tb-dim" style="margin-top: 3px; font-size: 9px">Toshkent</p>
+      </div>
+    </div>
+    <div class="tb-in" style="margin: 10px 16px 0; height: 64px; text-align: center; animation-delay: .15s">
+      <p class="tb-cap tb-amb" style="font-size: 9.5px">Bismillahir Rohmanir Rohiym</p>
+      <p class="tb-dim" style="margin: 6px 0 0; font-size: 14px; line-height: 1.2">Assalomu alaykum,</p>
+      <p class="tb-o" style="margin: 2px 0 0; font-weight: 500; font-size: {{ guestFs }}px; line-height: 1.2; overflow-wrap: anywhere">{{ guestHello }}</p>
+    </div>
+    <div class="tb-in" style="margin-top: 12px; animation-delay: .3s">
+      <div class="tb-board">
+        <i class="tb-screw" style="left: 7px; top: 7px"></i><i class="tb-screw" style="right: 7px; top: 7px"></i><i class="tb-screw" style="left: 7px; bottom: 7px"></i><i class="tb-screw" style="right: 7px; bottom: 7px"></i>
+        <sc-for list="{{ board }}" as="g">
+        <div class="tb-grp">
+          <p class="tb-lbl"><span>{{ g.label }}</span><i></i></p>
+          <div class="{{ g.cls }}" style="{{ g.css }}">
+            <sc-for list="{{ g.rows }}" as="r"><div class="fr"><sc-for list="{{ r }}" as="c"><span class="{{ c.k }}"><span class="fh ft"><span>{{ c.c }}</span></span><span class="fh fb2"><span>{{ c.p }}</span></span><span class="ff"><span class="ffr"><span>{{ c.p }}</span></span><span class="fbk"><span>{{ c.c }}</span></span></span></span></sc-for></div></sc-for>
+          </div>
+        </div>
+        </sc-for>
+      </div>
+    </div>
+    <div class="tb-foot">
+      <p class="tb-cap tb-dim tb-in" style="animation-delay: .5s">{{ footHint }}</p>
+      <div class="tb-msg" style="margin-top: 26px">
+        <span class="{{ ledCls }}"><i></i>{{ ledText }}</span>
+      </div>
+      <div class="tb-in" style="position: absolute; left: 0; right: 0; top: 62px; text-align: center; animation-delay: .65s">
+      <button type="button" class="tb-cta" onClick="{{ open }}">
+        <b><svg class="tb-ic" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5v8M7.2 6.6a7.5 7.5 0 1 0 9.6 0"></path></svg></b>
+        Tabloni yoqish
+      </button>
+      </div>
+    </div>
+  </div>
+    </div>
+  <!-- ===== bosh qism: o'sha tablo ===== -->
+  <header style="position: relative; padding-top: 18px">
+    <div style="margin: 0 16px; height: 52px; display: flex; align-items: center; gap: 12px">
+      <span class="tb-tile" aria-hidden="true">
+        <svg width="26" height="26" viewBox="0 0 64 64">
+          <sc-if value="{{ isOsh }}"><ellipse class="tb-mo" cx="32" cy="42" rx="24" ry="8"></ellipse><path class="tb-mo" d="M12 41.5c1.6-11 10-17.6 20-17.6s18.4 6.6 20 17.6M28.8 23.6c-.2-3.2 1.1-5.4 3.2-6.8 2.1 1.4 3.4 3.6 3.2 6.8"></path></sc-if>
+          <sc-if value="{{ isSunnat }}"><path class="tb-mo" d="M13 43 15.3 27C20.4 21.2 26 19.2 32 19.2s11.6 2 16.7 7.8L51 43ZM12.5 43h39v5h-39ZM32 26.5c3.4 1.5 3.8 6.2 0 8.2"></path></sc-if>
+          <sc-if value="{{ isBeshik }}"><path class="tb-mo" d="M16 46 18 31h28l2 15ZM11 49.5c7 4.4 35 4.4 42 0M18 31V16.5M46 31V16.5M14 16.5h36"></path></sc-if>
+        </svg>
+      </span>
+      <div style="flex: 1; min-width: 0">
+        <p class="tb-o" style="margin: 0; font-weight: 500; font-size: 17px; letter-spacing: 0.14em; text-transform: uppercase; line-height: 1.1">Taklifnoma</p>
+        <p class="tb-cap tb-dim tb-num" style="margin-top: 3px; font-size: 10px">№ {{ code }}</p>
+      </div>
+      <div style="text-align: right">
+        <p class="tb-o tb-num tb-amb" style="margin: 0; font-weight: 500; font-size: 26px; line-height: 1">{{ clockH }}<span class="tb-colon">:</span>{{ clockM }}</p>
+        <p class="tb-cap tb-dim" style="margin-top: 3px; font-size: 9px">Toshkent</p>
+      </div>
+    </div>
+    <div style="margin: 10px 16px 0; height: 64px; text-align: center">
+      <p class="tb-cap tb-amb" style="font-size: 9.5px">Bismillahir Rohmanir Rohiym</p>
+      <p class="tb-dim" style="margin: 6px 0 0; font-size: 14px; line-height: 1.2">Assalomu alaykum,</p>
+      <p class="tb-o" style="margin: 2px 0 0; font-weight: 500; font-size: {{ guestFs }}px; line-height: 1.2; overflow-wrap: anywhere">{{ guestHello }}</p>
+    </div>
+    <div style="margin-top: 12px">
+      <div class="tb-board">
+        <i class="tb-screw" style="left: 7px; top: 7px"></i><i class="tb-screw" style="right: 7px; top: 7px"></i><i class="tb-screw" style="left: 7px; bottom: 7px"></i><i class="tb-screw" style="right: 7px; bottom: 7px"></i>
+        <sc-for list="{{ board }}" as="g">
+        <div class="tb-grp">
+          <p class="tb-lbl"><span>{{ g.label }}</span><i></i></p>
+          <div class="{{ g.cls }}" style="{{ g.css }}">
+            <sc-for list="{{ g.rows }}" as="r"><div class="fr"><sc-for list="{{ r }}" as="c"><span class="{{ c.k }}"><span class="fh ft"><span>{{ c.c }}</span></span><span class="fh fb2"><span>{{ c.p }}</span></span><span class="ff"><span class="ffr"><span>{{ c.p }}</span></span><span class="fbk"><span>{{ c.c }}</span></span></span></span></sc-for></div></sc-for>
+          </div>
+        </div>
+        </sc-for>
+      </div>
+    </div>
+    <div style="margin: 0 24px; padding-top: 30px; text-align: center">
+      <div class="tb-up tb-d1"><span class="tb-led tb-led--on"><i></i>Sizni kutamiz</span></div>
+      <p class="tb-up tb-d2" style="margin: 22px 0 0; font-size: 18px; line-height: 1.5; color: rgba(244,241,232,.88); text-wrap: balance; overflow-wrap: anywhere"><b class="tb-o" style="font-weight: 500; letter-spacing: 0.04em">{{ mezbon }}</b> sizni <span class="tb-amb">{{ titleGa }}</span> lutfan taklif etadi.</p>
+      <sc-if value="{{ sabab }}"><p class="tb-dim tb-up tb-d3" style="margin: 12px 0 0; font-style: italic; font-size: 16px; line-height: 1.45; overflow-wrap: anywhere">{{ sabab }}</p></sc-if>
+    </div>
+  </header>
+
+  <!-- ===== taklif: e'lon ===== -->
+  <sc-if value="{{ b.taklif }}">
+  <section class="{{ sec.taklif }}" data-rv="taklif">
+    <div class="tb-head tb-rv"><b>{{ n.taklif }}</b><span>E’lon</span><i></i><em>Taklif</em></div>
+    <div class="tb-panel tb-rv tb-r2" style="padding: 22px 20px 22px">
+      <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 16px; color: #FFB627" aria-hidden="true">
+        <svg width="34" height="26" viewBox="0 0 34 26"><path class="tb-ic" d="M3 9.5h5l7-5.5v18l-7-5.5H3Z"></path><path class="tb-ic tb-wave" d="M19.5 8.5a6 6 0 0 1 0 9"></path><path class="tb-ic tb-wave tb-wave2" d="M23.5 5a11 11 0 0 1 0 16"></path></svg>
+        <span class="tb-cap" style="font-size: 10px">Hurmatli mehmon, diqqatingizni so’raymiz</span>
+      </div>
+      <p style="margin: 0; font-size: 19px; line-height: 1.55; white-space: pre-line; overflow-wrap: anywhere">{{ d.matn }}</p>
+      <p class="tb-cap tb-dim" style="margin-top: 18px; line-height: 1.7; overflow-wrap: anywhere">Hurmat bilan, <span class="tb-amb">{{ mezbon }}</span></p>
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- ===== sana va vaqt ===== -->
+  <sc-if value="{{ b.kun }}">
+  <section class="{{ sec.kun }}" data-rv="kun">
+    <div class="tb-head tb-rv"><b>{{ n.kun }}</b><span>Jadval</span><i></i><em>Sana va vaqt</em></div>
+    <div class="tb-panel tb-rv tb-r2" style="padding: 20px 16px">
+      <div style="display: flex; gap: 14px; align-items: flex-start">
+        <div>
+          <p class="tb-lbl">Kun</p>
+          <sc-for list="{{ kunA }}" as="g"><div class="{{ g.cls }}" style="{{ g.css }}"><sc-for list="{{ g.rows }}" as="r"><div class="fr"><sc-for list="{{ r }}" as="c"><span class="{{ c.k }}"><span class="fh ft"><span>{{ c.c }}</span></span><span class="fh fb2"><span>{{ c.p }}</span></span><span class="ff"><span class="ffr"><span>{{ c.p }}</span></span><span class="fbk"><span>{{ c.c }}</span></span></span></span></sc-for></div></sc-for></div></sc-for>
+        </div>
+        <div style="min-width: 0">
+          <p class="tb-lbl">Oy va yil</p>
+          <sc-for list="{{ kunB }}" as="g"><div class="{{ g.cls }}" style="{{ g.css }}"><sc-for list="{{ g.rows }}" as="r"><div class="fr"><sc-for list="{{ r }}" as="c"><span class="{{ c.k }}"><span class="fh ft"><span>{{ c.c }}</span></span><span class="fh fb2"><span>{{ c.p }}</span></span><span class="ff"><span class="ffr"><span>{{ c.p }}</span></span><span class="fbk"><span>{{ c.c }}</span></span></span></span></sc-for></div></sc-for></div></sc-for>
+        </div>
+      </div>
+      <p class="tb-lbl" style="margin-top: 16px">Hafta kuni va vaqt</p>
+      <sc-for list="{{ kunC }}" as="g"><div class="{{ g.cls }}" style="{{ g.css }}"><sc-for list="{{ g.rows }}" as="r"><div class="fr"><sc-for list="{{ r }}" as="c"><span class="{{ c.k }}"><span class="fh ft"><span>{{ c.c }}</span></span><span class="fh fb2"><span>{{ c.p }}</span></span><span class="ff"><span class="ffr"><span>{{ c.p }}</span></span><span class="fbk"><span>{{ c.c }}</span></span></span></span></sc-for></div></sc-for></div></sc-for>
+    </div>
+    <p class="tb-dim tb-rv tb-r3" style="margin: 18px 4px 0; font-size: 15px; line-height: 1.55; text-align: center">{{ kunNote }}</p>
+    <sc-if value="{{ calLink }}">
+    <div class="tb-rv tb-r4" style="margin-top: 18px; text-align: center">
+      <a class="tb-btn tb-btn--o" href="{{ calLink }}" target="_blank" rel="noopener">
+        <svg class="tb-ic" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 6.5h15v13h-15ZM4.5 10.5h15M8.5 4v4M15.5 4v4"></path></svg>
+        Kalendarga qo’shish
+      </a>
+    </div>
+    </sc-if>
+  </section>
+  </sc-if>
+
+  <!-- ===== taymer ===== -->
+  <sc-if value="{{ b.taymer }}">
+  <section class="{{ sec.taymer }}" data-rv="taymer">
+    <div class="tb-head tb-rv"><b>{{ n.taymer }}</b><span>{{ untilText }}</span><i></i></div>
+    <div class="tb-panel tb-rv tb-r2" role="timer" aria-label="{{ cdText }}" style="padding: 20px 16px; display: grid; grid-template-columns: 1fr 1fr; gap: 18px 12px">
+      <sc-for list="{{ units }}" as="u">
+      <div>
+        <div class="fg-amb" style="{{ u.css }}"><div class="fr"><sc-for list="{{ u.cells }}" as="c"><span class="{{ c.k }}"><span class="fh ft"><span>{{ c.c }}</span></span><span class="fh fb2"><span>{{ c.p }}</span></span><span class="ff"><span class="ffr"><span>{{ c.p }}</span></span><span class="fbk"><span>{{ c.c }}</span></span></span></span></sc-for></div></div>
+        <p class="tb-cap tb-dim" style="margin-top: 8px; font-size: 10px">{{ u.l }}</p>
+      </div>
+      </sc-for>
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- ===== manzil: yo'nalish ===== -->
+  <sc-if value="{{ b.manzil }}">
+  <section class="{{ sec.manzil }}" data-rv="manzil">
+    <div class="tb-head tb-rv"><b>{{ n.manzil }}</b><span>Yo’nalish</span><i></i><em>Manzil</em></div>
+    <div class="tb-panel tb-rv tb-r2" style="padding: 20px 18px 22px">
+      <div style="display: flex; align-items: center; gap: 10px">
+        <span class="tb-tile" style="width: 34px; height: 34px; border-radius: 8px" aria-hidden="true"><svg class="tb-ic" width="20" height="20" viewBox="0 0 24 24"><circle cx="12" cy="6" r="2.4"></circle><path d="M12 9v5M9 21l3-7 3 7M8 12l4-2 4 2"></path></svg></span>
+        <div class="tb-route" style="flex: 1; --rw: 150px"><i></i></div>
+        <span class="tb-tile" style="width: 34px; height: 34px; border-radius: 8px" aria-hidden="true"><svg class="tb-ic" width="20" height="20" viewBox="0 0 24 24"><path d="M12 21s-6.5-6.1-6.5-11a6.5 6.5 0 0 1 13 0c0 4.9-6.5 11-6.5 11Z"></path><circle cx="12" cy="10" r="2.4"></circle></svg></span>
+      </div>
+      <p class="tb-lbl" style="margin-top: 18px">Qayerga</p>
+      <h2 class="tb-h2" style="font-size: {{ placeFs }}px">{{ d.manzil_nomi }}</h2>
+      <sc-if value="{{ d.manzil }}"><p class="tb-dim" style="margin: 10px 0 0; font-size: 15.5px; line-height: 1.55; overflow-wrap: anywhere">{{ d.manzil }}</p></sc-if>
+    </div>
+    <sc-if value="{{ d.joy_rasmi }}">
+    <div class="tb-photo tb-rv tb-r3" style="margin-top: 14px; height: 230px"><img src="{{ d.joy_rasmi }}" alt=""><span class="tb-plate">Manzil</span></div>
+    </sc-if>
+    <sc-if value="{{ d.xarita }}">
+    <div class="tb-rv tb-r4" style="margin-top: 14px">
+      <a class="tb-btn tb-btn--a" href="{{ d.xarita }}" target="_blank" rel="noopener" style="width: 100%">
+        <svg class="tb-ic" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4.5 3.5 6.5v13l5.5-2 6 2 5.5-2v-13l-5.5 2Z"></path><path d="M9 4.5v13M15 6.5v13"></path></svg>
+        Xaritada ochish
+      </a>
+    </div>
+    </sc-if>
+  </section>
+  </sc-if>
+
+  <!-- ===== dastur: jo'nash taxtasi qatorlari ===== -->
+  <sc-if value="{{ b.dastur }}">
+  <section class="{{ sec.dastur }}" data-rv="dastur">
+    <div class="tb-head tb-rv"><b>{{ n.dastur }}</b><span>Dastur</span><i></i><em>Tartib</em></div>
+    <div class="tb-panel tb-rv tb-r2" style="padding: 6px 0">
+      <div style="display: flex; justify-content: space-between; padding: 10px 14px 8px; border-bottom: 1px solid rgba(255,255,255,.06)">
+        <span class="tb-lbl" style="margin: 0">Vaqt · Tadbir</span><span class="tb-lbl" style="margin: 0">Holat</span>
+      </div>
+      <sc-for list="{{ prog }}" as="x">
+      <div class="tb-row">
+        <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px">
+          <div class="fg-amb" style="{{ x.t.css }}"><sc-for list="{{ x.t.rows }}" as="r"><div class="fr"><sc-for list="{{ r }}" as="c"><span class="{{ c.k }}"><span class="fh ft"><span>{{ c.c }}</span></span><span class="fh fb2"><span>{{ c.p }}</span></span><span class="ff"><span class="ffr"><span>{{ c.p }}</span></span><span class="fbk"><span>{{ c.c }}</span></span></span></span></sc-for></div></sc-for></div>
+          <span class="tb-st"><i></i>{{ x.st }}</span>
+        </div>
+        <div style="margin-top: 8px; {{ x.n.css }}"><sc-for list="{{ x.n.rows }}" as="r"><div class="fr"><sc-for list="{{ r }}" as="c"><span class="{{ c.k }}"><span class="fh ft"><span>{{ c.c }}</span></span><span class="fh fb2"><span>{{ c.p }}</span></span><span class="ff"><span class="ffr"><span>{{ c.p }}</span></span><span class="fbk"><span>{{ c.c }}</span></span></span></span></sc-for></div></sc-for></div>
+      </div>
+      </sc-for>
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- ===== suratlar ===== -->
+  <sc-if value="{{ b.galereya }}">
+  <section class="{{ sec.galereya }}" data-rv="galereya">
+    <div class="tb-head tb-rv"><b>{{ n.galereya }}</b><span>Kadrlar</span><i></i><em>Suratlar</em></div>
+    <div class="tb-photo tb-rv tb-r2" style="height: 300px"><img src="{{ p.0 }}" alt=""><span class="tb-plate">Kadr 01</span></div>
+    <div class="tb-rv tb-r3" style="margin-top: 10px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px">
+      <div class="tb-photo" style="height: 220px"><img src="{{ p.1 }}" alt=""><span class="tb-plate">Kadr 02</span></div>
+      <div class="tb-photo" style="height: 220px"><img src="{{ p.2 }}" alt=""><span class="tb-plate">Kadr 03</span></div>
+    </div>
+    <div class="tb-photo tb-rv tb-r4" style="margin-top: 10px; height: 210px"><img src="{{ p.3 }}" alt=""><span class="tb-plate">Kadr 04</span></div>
+  </section>
+  </sc-if>
+
+  <!-- ===== javob: taklif chiptasi ===== -->
+  <sc-if value="{{ b.rsvp }}">
+  <section class="{{ sec.rsvp }}" data-rv="rsvp">
+    <div class="tb-head tb-rv"><b>{{ n.rsvp }}</b><span>Ro’yxatdan o’tish</span><i></i></div>
+    <p class="tb-dim tb-rv" style="margin: -6px 0 16px; font-size: 15px; line-height: 1.5">Kelishingizni bildiring. {{ deadline }}</p>
+    <div class="tb-tk tb-rv tb-r2">
+      <div class="tb-tk-top">
+        <span class="tb-o" style="font-weight: 600; font-size: 15px; letter-spacing: 0.16em; text-transform: uppercase">Taklif chiptasi</span>
+        <span class="tb-o tb-num" style="font-weight: 500; font-size: 14px; letter-spacing: 0.1em">{{ code }}</span>
+      </div>
+      <sc-if value="{{ sentYes }}"><span class="tb-stamp">Tasdiqlandi</span></sc-if>
+      <div style="padding: 16px 18px 4px">
+        <p class="tb-fl">Mehmon</p>
+        <sc-if value="{{ has.guest }}"><p class="tb-fv">{{ guest }}</p></sc-if>
+        <sc-if value="{{ askName }}"><input class="tb-inp" type="text" maxlength="100" autocomplete="name" placeholder="Ismingizni yozing" aria-label="Ismingiz" onInput="{{ onName }}" style="margin-top: 6px"></sc-if>
+        <div style="display: grid; grid-template-columns: 1.4fr 1fr 0.7fr; gap: 10px; margin-top: 14px">
+          <div style="min-width: 0"><p class="tb-fl">Marosim</p><p class="tb-fv" style="font-size: 15px">{{ nomiShort }}</p></div>
+          <div><p class="tb-fl">Sana</p><p class="tb-fv tb-num" style="font-size: 15px">{{ w.dots }}</p></div>
+          <div><p class="tb-fl">Vaqt</p><p class="tb-fv tb-num" style="font-size: 15px">{{ hmShow }}</p></div>
+        </div>
+      </div>
+      <div class="tb-perf" aria-hidden="true"><i></i></div>
+      <div style="padding: 0 18px 18px">
+        <div style="display: flex; gap: 10px">
+          <button type="button" class="{{ chYesCls }}" aria-pressed="{{ isYes }}" onClick="{{ sayYes }}">Boraman</button>
+          <button type="button" class="{{ chNoCls }}" aria-pressed="{{ isNo }}" onClick="{{ sayNo }}">Bora olmayman</button>
+        </div>
+        <div class="{{ stepCls }}">
+          <span style="font-size: 15px">Necha kishi bo’lasiz?</span>
+          <div style="display: flex; align-items: center; gap: 6px">
+            <button type="button" class="tb-sb" aria-label="Kamaytirish" disabled="{{ minusOff }}" onClick="{{ dec }}">−</button>
+            <span class="tb-o tb-num" style="min-width: 30px; text-align: center; font-size: 24px; font-weight: 500" aria-live="polite">{{ guests }}</span>
+            <button type="button" class="tb-sb" aria-label="Ko’paytirish" disabled="{{ plusOff }}" onClick="{{ inc }}">+</button>
+          </div>
+        </div>
+        <textarea class="tb-ta" maxlength="300" placeholder="Tilagingiz yoki izoh (ixtiyoriy)" aria-label="Tilagingiz yoki izoh" onInput="{{ onWish }}" style="margin-top: 14px"></textarea>
+        <button type="button" class="tb-btn tb-btn--a" disabled="{{ busy }}" onClick="{{ send }}" style="width: 100%; margin-top: 14px; background: #141B20; color: #FFB627">{{ sendLabel }}</button>
+        <div aria-live="polite" style="min-height: 20px; margin-top: 12px; text-align: center">
+          <sc-if value="{{ rsvpNote }}"><p style="margin: 0; font-size: 16px; line-height: 1.45; font-weight: 500">{{ rsvpNote }}</p></sc-if>
+        </div>
+        <div class="tb-bars" aria-hidden="true" style="margin-top: 8px"><sc-for list="{{ bars }}" as="z"><i style="{{ z }}"></i></sc-for></div>
+      </div>
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- ===== telefon ===== -->
+  <sc-if value="{{ b.telefon }}">
+  <section class="{{ sec.telefon }}" data-rv="telefon" style="padding-top: 56px">
+    <div class="tb-panel tb-rv" style="display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 18px 18px 18px 20px">
+      <div style="min-width: 0">
+        <p class="tb-lbl" style="margin: 0">Ma’lumot xizmati</p>
+        <p class="tb-o tb-num" style="margin: 6px 0 0; font-weight: 500; font-size: 26px; line-height: 1.15; overflow-wrap: anywhere">{{ d.telefon }}</p>
+        <p class="tb-dim" style="margin: 4px 0 0; font-size: 13.5px">Savollar bo’lsa, qo’ng’iroq qiling</p>
+      </div>
+      <a class="tb-btn tb-btn--a" href="{{ tel }}" aria-label="Qo’ng’iroq qilish" style="width: 58px; height: 58px; padding: 0; flex: none; border-radius: 50%">
+        <svg class="tb-ic" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M5.2 3.5h3.1l1.6 4.2-2.1 1.5a12.2 12.2 0 0 0 7 7l1.5-2.1 4.2 1.6v3.1a1.9 1.9 0 0 1-2.1 1.9A16.6 16.6 0 0 1 3.3 5.6a1.9 1.9 0 0 1 1.9-2.1Z"></path></svg>
+      </a>
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- ===== yakun ===== -->
+  <footer class="{{ sec.end }}" data-rv="end" style="position: relative; margin-top: auto; padding: 96px 24px 60px; text-align: center">
+    <div class="tb-rv"><span class="tb-led tb-led--on"><i></i>{{ endLed }}</span></div>
+    <p class="tb-o tb-rv tb-r2" style="margin: 22px 0 0; font-weight: 500; font-size: 30px; line-height: 1.2; text-transform: uppercase; letter-spacing: 0.02em; text-wrap: balance">{{ thanks }}</p>
+    <p class="tb-dim tb-rv tb-r3" style="margin: 16px auto 0; max-width: 320px; font-size: 16px; line-height: 1.6; text-wrap: pretty">{{ dua }}</p>
+    <div class="tb-rv tb-r3" style="margin: 30px auto 0; width: 48px; height: 3px; border-radius: 2px; background: #FFB627"></div>
+    <p class="tb-o tb-rv tb-r4" style="margin: 26px 0 0; font-weight: 500; font-size: 17px; line-height: 1.4; letter-spacing: 0.16em; text-transform: uppercase; overflow-wrap: anywhere">{{ mezbon }}</p>
+    <p class="tb-cap tb-dim tb-num tb-rv tb-r4" style="margin-top: 8px">{{ endDate }}</p>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":6400}}'>
+const D = SITE.d;
+const AP = (s) => String(s || '').replace(/'/g, '’').trim();
+const KIND = ['nahorgi', 'osh_toyi', 'sunnat', 'beshik'].indexOf(D.marosim) >= 0 ? D.marosim : 'nahorgi';
+const NOMI = AP(D.marosim_nomi) || 'Nahorgi osh';
+const TAKLIF = AP(D.marosim_taklif) || (NOMI + 'ga taklifnoma');
+const TAKLIF_GA = TAKLIF.replace(/\s*taklifnoma$/i, '') || SITE.ga(NOMI);
+const ISM = AP(D.ism);
+const CHILD = (KIND === 'sunnat' || KIND === 'beshik') && ISM ? ISM : '';
+const OSH = KIND === 'nahorgi' || KIND === 'osh_toyi';
+const TITLE = CHILD ? CHILD + 'ning ' + NOMI.toLowerCase() : NOMI;
+const TITLE_GA = CHILD ? CHILD + 'ning ' + TAKLIF_GA.toLowerCase() : TAKLIF_GA;
+const GUEST = AP(D.mehmon);
+const MEZBON = AP(D.mezbon);
+const SABAB = AP(D.sababi);
+function hhmm(t) { t = String(t || '').trim(); return /^\d:\d\d$/.test(t) ? '0' + t : (/^\d\d:\d\d$/.test(t) ? t : ''); }
+const HM = hhmm(D.vaqt);
+const DAWN = KIND === 'nahorgi' || (HM && +HM.slice(0, 2) < 9);
+function stamp(iso, time) { const t = Date.parse(String(iso || '').slice(0, 10) + 'T' + (hhmm(time) || '12:00') + ':00+05:00'); return isNaN(t) ? null : t; }
+const T0 = stamp(D.sana, D.vaqt);
+function telHref(t) { return 'tel:' + String(t || '').replace(/[^\d+]/g, ''); }
+function fsBy(text, steps) { const n = String(text || '').length; for (let i = 0; i < steps.length; i++) { if (n <= steps[i][0]) return steps[i][1]; } return steps[steps.length - 1][1]; }
+function calUrl() {
+  if (T0 == null) return '';
+  const f = (ms) => new Date(ms).toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
+  const loc = [D.manzil_nomi, D.manzil].filter(Boolean).join(', ');
+  return 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + encodeURIComponent(TITLE + (MEZBON ? ' — ' + MEZBON : '')) + '&dates=' + f(T0) + '/' + f(T0 + 3 * 3600e3) + (loc ? '&location=' + encodeURIComponent(loc) : '');
+}
+function deadlineText() {
+  const t = stamp(D.sana, '12:00'); if (t == null) return '';
+  const dl = t - 5 * 864e5;
+  if (dl < Date.now()) return 'Iltimos, imkon qadar tezroq javob bering.';
+  return 'Iltimos, ' + SITE.when(new Date(dl + 5 * 3600e3).toISOString().slice(0, 10)).dm + 'gacha javob bering.';
+}
+const REDUCED = typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
+const CAN_IO = typeof IntersectionObserver === 'function' && !REDUCED;
+
+// ---------------------------------------------------------------- varaqlanuvchi tablo
+const TICK = 80;
+const CH = 'ABDEFGHIJKLMNOPQRSTUVXYZ0123456789';
+const UP = (s) => String(s || '').toLocaleUpperCase('uz').replace(/[‘'`ʼ]/g, '’').replace(/\s+/g, ' ').trim();
+function hash(a, b) { let x = Math.imul(a + 1, 374761393) ^ Math.imul(b + 7, 668265263); x = Math.imul(x ^ (x >>> 13), 1274126177); return (x ^ (x >>> 16)) >>> 0; }
+const scr = (i, t) => CH[hash(i, t) % CH.length];
+/** matnni so'z bo'yicha qatorlarga bo'ladi (uzun so'z kesiladi) */
+function wrap(text, cols, max) {
+  const out = []; let cur = '';
+  UP(text).split(' ').filter(Boolean).forEach((wd) => {
+    while (wd.length > cols) { if (cur) { out.push(cur); cur = ''; } out.push(wd.slice(0, cols)); wd = wd.slice(cols); }
+    if (!cur) cur = wd; else if ((cur + ' ' + wd).length <= cols) cur += ' ' + wd; else { out.push(cur); cur = wd; }
+  });
+  if (cur) out.push(cur);
+  if (!out.length) out.push('');
+  if (out.length > max) { const cut = out.slice(0, max); cut[max - 1] = (cut[max - 1].slice(0, cols - 1) + '…'); return cut; }
+  return out;
+}
+function sizeFor(cols, width, ratio, fsr) {
+  const w = Math.floor((width + 3) / cols) - 3;
+  return { w, h: Math.round(w * ratio), fs: Math.round(w * fsr) };
+}
+function cssOf(z) { return '--w: ' + z.w + 'px; --h: ' + z.h + 'px; --fs: ' + z.fs + 'px'; }
+/** guruh kataklari: start (ms) yo'q bo'lsa — yopiq matn, bor bo'lsa — aylanib, joyiga tushadi */
+function cells(lines, cols, start, now, seed, closed, base) {
+  const rows = [];
+  for (let r = 0; r < lines.length; r++) {
+    const row = [], tl = lines[r] || '', cl = (closed && closed[r]) || '';
+    for (let c = 0; c < cols; c++) {
+      const tg = tl[c] || ' ', cc = cl[c] || ' ', idx = seed * 997 + r * 61 + c;
+      if (REDUCED || start === true) { row.push({ c: tg, p: tg, k: 'fc' }); continue; }
+      if (start == null) { row.push({ c: cc, p: cc, k: 'fc' }); continue; }
+      const t = Math.floor((now - start) / TICK);
+      const S = (base || 0) + (tg === ' ' && cc === ' ' ? 2 + hash(idx, 1) % 5 : 6 + r * 3 + Math.floor(c * 0.9) + hash(idx, 2) % 7);
+      if (t < 0) { row.push({ c: cc, p: cc, k: 'fc' }); continue; }
+      if (t >= S) row.push({ c: tg, p: S > 0 ? scr(idx, S - 1) : cc, k: 'fc fz ' + (S % 2 ? 'fa' : 'fb') });
+      else row.push({ c: scr(idx, t), p: t > 0 ? scr(idx, t - 1) : cc, k: 'fc ' + (t % 2 ? 'fa' : 'fb') });
+    }
+    rows.push(row);
+  }
+  return rows;
+}
+const BW = 334; // tablo ichki kengligi
+const titleWords = UP(TITLE).split(' ');
+const TCOLS = Math.min(20, Math.max(10, Math.min(14, UP(TITLE).length), ...titleWords.map((x) => x.length)));
+const TSZ = sizeFor(TCOLS, BW, 1.42, 1.02);
+const TLINES = wrap(TITLE, TCOLS, 3);
+const SSZ = sizeFor(18, BW, 1.45, 1.0);
+const MLINES = wrap(MEZBON, 18, 3);
+const PLACE = AP(D.manzil_nomi);
+const PLINES = PLACE ? wrap(PLACE, 18, 3) : [];
+const W0 = SITE.when(D.sana, D.vaqt);
+const DSZ = sizeFor(16, BW, 1.45, 1.0);
+const DLINES = [[W0.dots, HM].filter(Boolean).join(' '), UP(W0.weekday)];
+const CODE = ({ nahorgi: 'NO', osh_toyi: 'OT', sunnat: 'ST', beshik: 'BT' })[KIND] + '-' + (W0.dots ? W0.dots.slice(0, 2) + W0.dots.slice(3, 5) : '0000');
+const UNIT = { d: 'kun', h: 'soat', m: 'daqiqa', s: 'soniya' };
+const DUA = {
+  nahorgi: 'Alloh barchamizni yaxshi kunlarga yetkazsin, qilgan duolaringiz ijobat bo’lsin.',
+  osh_toyi: 'Alloh xonadonimizdagi quvonchni bardavom qilsin, duolaringiz ijobat bo’lsin.',
+  sunnat: 'Alloh farzandimizni sog’-salomat, umrini uzoq, o’zini solih farzand qilsin.',
+  beshik: 'Alloh farzandimizga sog’lik, baxtli va uzoq umr ato etsin.'
+};
+const ORDER = ['taklif', 'kun', 'taymer', 'manzil', 'dastur', 'galereya', 'rsvp'];
+const BARS = (() => { const o = []; for (let i = 0; i < 46; i++) o.push('width: ' + (1 + hash(i, 9) % 4) + 'px'); return o; })();
+function left(ms) { const s = Math.max(0, Math.floor(ms / 1000)); return { d: Math.floor(s / 86400), h: Math.floor(s / 3600) % 24, m: Math.floor(s / 60) % 60, s: s % 60 }; }
+
+class Component extends DCLogic {
+  constructor(...args) {
+    super(...args);
+    this.state = { opened: false, gone: false, rv: {}, rsvp: '', guests: 1, sent: false, busy: false, warn: '' };
+    this.nm = ''; this.wish = ''; this.go = {}; this.until = 0; this.tm = [];
+  }
+  componentDidMount() {
+    this.timer = setInterval(() => { if (!this.anim) this.forceUpdate(); }, 1000);
+    if (CAN_IO) {
+      this.io = new IntersectionObserver((es) => {
+        const add = {};
+        es.forEach((e) => { if (e.isIntersecting) { const k = e.target.getAttribute('data-rv'); add[k] = true; this.start(k); this.io.unobserve(e.target); } });
+        if (Object.keys(add).length) this.setState((s) => ({ rv: Object.assign({}, s.rv, add) }));
+      }, { rootMargin: '0px 0px -12% 0px' });
+      document.querySelectorAll('[data-rv]').forEach((el) => this.io.observe(el));
+    }
+  }
+  componentWillUnmount() { clearInterval(this.timer); clearInterval(this.anim); this.tm.forEach(clearTimeout); if (this.io) this.io.disconnect(); }
+  start(key, delay) {
+    if (this.go[key] || REDUCED) return;
+    this.go[key] = Date.now() + (delay || 0);
+    this.until = Math.max(this.until, this.go[key] + 4200);
+    if (!this.anim) this.anim = setInterval(() => {
+      if (Date.now() > this.until) { clearInterval(this.anim); this.anim = null; }
+      this.forceUpdate();
+    }, TICK);
+  }
+  open() {
+    if (this.state.opened) return;
+    this.setState({ opened: true });
+    SITE.opened();
+    this.start('board');
+    this.tm.push(setTimeout(() => this.setState({ gone: true }), REDUCED ? 0 : 3900));
+  }
+  send() {
+    const s = this.state;
+    if (!s.rsvp) { this.setState({ warn: 'Iltimos, avval javobingizni tanlang.' }); return; }
+    const name = this.nm.trim();
+    if (!SITE.has.guest && !name) { this.setState({ warn: 'Iltimos, ismingizni yozing.' }); return; }
+    if (s.busy) return;
+    this.setState({ busy: true, warn: '' });
+    SITE.rsvp(s.rsvp === 'yes', s.rsvp === 'yes' ? s.guests : 1, name, this.wish.trim())
+      .then(() => this.setState({ sent: true, busy: false }))
+      .catch(() => this.setState({ busy: false, warn: 'Javob yuborilmadi. Iltimos, qayta urinib ko’ring.' }));
+  }
+  renderVals() {
+    const s = this.state || {};
+    const now = Date.now();
+    const w = W0;
+    const st = (k) => (CAN_IO ? this.go[k] : true);
+    // tablo
+    const bs = REDUCED ? true : this.go.board;
+    const board = [
+      { label: 'Taklif qiladi', cls: '', css: cssOf(SSZ), rows: cells(MLINES, 18, bs, now, 1, ['XUSH KELIBSIZ'], 0) },
+      { label: 'Marosim', cls: 'fg-amb', css: cssOf(TSZ), rows: cells(TLINES, TCOLS, bs, now, 2, ['TAKLIFNOMA'], 4) },
+      { label: 'Sana · vaqt', cls: '', css: cssOf(DSZ), rows: cells(DLINES, 16, bs, now, 3, ['--.--.---- --:--'], 10) }
+    ];
+    if (PLINES.length) board.push({ label: 'Manzil', cls: '', css: cssOf(SSZ), rows: cells(PLINES, 18, bs, now, 4, ['TABLONI YOQING'], 14) });
+    const settled = s.opened && (REDUCED || now - (this.go.board || now) > 2900);
+    // sana bloki
+    const kz = sizeFor(2, 92, 1.4, 1.0), mz = sizeFor(7, 214, 1.42, 1.0), cz = sizeFor(16, 326, 1.42, 1.0);
+    const kunA = [{ cls: 'fg-amb', css: cssOf(kz), rows: cells([w.day.length < 2 ? '0' + w.day : w.day], 2, st('kun'), now, 5, null, 0) }];
+    const kunB = [{ cls: '', css: cssOf(mz), rows: cells([UP(w.month).slice(0, 7), w.year], 7, st('kun'), now, 6, null, 2) }];
+    const kunC = [{ cls: '', css: cssOf(cz), rows: cells([HM ? (UP(w.weekday) + '           ').slice(0, 11) + HM : UP(w.weekday)], 16, st('kun'), now, 7, null, 6) }];
+    // taymer: har soniyada haqiqiy varaq
+    const ms = T0 == null ? 0 : T0 - now;
+    const L = left(ms), Lp = left(ms + 1000);
+    const tz = sizeFor(3, 150, 1.4, 1.0);
+    const sec = Math.floor(Math.max(0, ms) / 1000);
+    const ts = st('taymer');
+    const intro = ts !== true && (ts == null || now - ts < 2400);
+    const units = ['d', 'h', 'm', 's'].map((u, ui) => {
+      const len = u === 'd' && L.d > 99 ? 3 : 2;
+      const cur = String(L[u]).padStart(len, '0'), prv = String(Lp[u]).padStart(len, '0');
+      let row;
+      if (intro) row = cells([cur], len, ts, now, 20 + ui, null, ui * 2)[0];
+      else row = cur.split('').map((ch, i) => {
+        const pv = prv[i] || ch;
+        return pv !== ch && !REDUCED ? { c: ch, p: pv, k: 'fc fz ' + (sec % 2 ? 'fa' : 'fb') } : { c: ch, p: ch, k: 'fc' };
+      });
+      return { cells: row, l: UNIT[u], css: cssOf(tz) };
+    });
+    // dastur
+    const nz = sizeFor(19, 310, 1.45, 1.0), vz = sizeFor(5, 110, 1.42, 1.0);
+    const prog = (D.dastur || []).filter((x) => x && (x.vaqt || x.nomi)).map((x, i) => {
+      const t = hhmm(x.vaqt) || AP(x.vaqt).slice(0, 5);
+      const at = stamp(D.sana, x.vaqt);
+      return {
+        t: { css: cssOf(vz), rows: cells([t], 5, st('dastur'), now, 30 + i, null, i * 5) },
+        n: { css: cssOf(nz), rows: cells(wrap(x.nomi, 19, 2), 19, st('dastur'), now, 40 + i, null, i * 5 + 3) },
+        st: at != null && now > at ? 'Bo’lib o’tdi' : 'O’z vaqtida'
+      };
+    });
+    const n = {}; let k = 0;
+    ORDER.forEach((key) => { if (SITE.b[key]) n[key] = SITE.pad(++k); });
+    const rvAll = !CAN_IO, secs = {};
+    ORDER.concat(['telefon']).forEach((key) => { secs[key] = (rvAll || s.rv[key]) ? 'tb-sec tb-on' : 'tb-sec'; });
+    secs.end = (rvAll || s.rv.end) ? 'tb-on' : '';
+    let introCls = 'tb-i';
+    if (s.gone) introCls = 'tb-i tb-i--on tb-i--gone';
+    else if (s.opened) introCls = 'tb-i tb-i--on';
+    const isYes = s.rsvp === 'yes', isNo = s.rsvp === 'no', guests = s.guests || 1;
+    const who = GUEST || this.nm.trim();
+    let note = '';
+    if (s.sent && isYes) note = (who ? 'Rahmat, ' + who + '! ' : 'Rahmat! ') + 'Sizni ' + (guests > 1 ? guests + ' kishi bilan ' : '') + 'intizorlik bilan kutamiz.';
+    else if (s.sent && isNo) note = (who ? 'Rahmat, ' + who + '! ' : 'Rahmat! ') + 'Javobingiz yetkazildi, duolaringiz biz bilan bo’ladi.';
+    else if (s.warn) note = s.warn;
+    const tk = new Date(now + 5 * 3600e3);
+    const music = SITE.music.playing;
+    const guestHello = GUEST ? 'Hurmatli ' + GUEST + '!' : 'Hurmatli mehmon!';
+    const cd = SITE.countdown(D.sana, D.vaqt);
+    return {
+      w, n, sec: secs,
+      rootCls: s.gone || REDUCED ? 'tb-root tb-go' : 'tb-root',
+      introCls, introHidden: !!s.opened,
+      open: () => this.open(),
+      isOsh: OSH, isSunnat: KIND === 'sunnat', isBeshik: KIND === 'beshik',
+      code: CODE,
+      clockH: SITE.pad(tk.getUTCHours()), clockM: SITE.pad(tk.getUTCMinutes()),
+      guestHello, guestFs: guestHello.length > 30 ? 17 : 21,
+      board,
+      footHint: 'Tablo sizga atalgan taklifni ko’rsatadi',
+      ledCls: settled ? 'tb-led tb-led--on' : 'tb-led',
+      ledText: settled ? 'Sizni kutamiz' : 'Ma’lumot yangilanmoqda…',
+      mezbon: MEZBON, sabab: SABAB, titleGa: TITLE_GA,
+      kunA, kunB, kunC,
+      kunNote: OSH && DAWN ? 'Osh tong sahar tortiladi — iltimos, belgilangan vaqtda yetib keling.' : 'Iltimos, belgilangan vaqtda yetib keling — sizni kutib olamiz.',
+      calLink: calUrl(),
+      untilText: cd.done ? 'Marosim vaqti keldi' : 'Marosimgacha',
+      units, cdText: cd.d + ' kun, ' + cd.h + ' soat, ' + cd.m + ' daqiqa qoldi',
+      placeFs: fsBy(PLACE, [[16, 40], [26, 32], [999, 26]]),
+      prog,
+      deadline: deadlineText(),
+      nomiShort: TITLE, hmShow: HM || '—',
+      askName: !SITE.has.guest,
+      onName: (e) => { this.nm = e.target.value; },
+      onWish: (e) => { this.wish = e.target.value; },
+      isYes, isNo, guests,
+      chYesCls: isYes ? 'tb-ch tb-ch--on' : 'tb-ch',
+      chNoCls: isNo ? 'tb-ch tb-ch--on' : 'tb-ch',
+      sayYes: () => this.setState({ rsvp: 'yes', sent: false, warn: '' }),
+      sayNo: () => this.setState({ rsvp: 'no', sent: false, warn: '' }),
+      stepCls: isNo ? 'tb-step tb-step--off' : 'tb-step',
+      minusOff: isNo || guests <= 1, plusOff: isNo || guests >= 10,
+      dec: () => this.setState({ guests: Math.max(1, guests - 1), sent: false }),
+      inc: () => this.setState({ guests: Math.min(10, guests + 1), sent: false }),
+      send: () => this.send(),
+      busy: !!s.busy,
+      sendLabel: s.busy ? 'Yuborilmoqda…' : (s.sent ? 'Javob yuborildi' : 'Ro’yxatdan o’tish'),
+      sentYes: !!s.sent && isYes,
+      rsvpNote: note, bars: BARS,
+      tel: telHref(D.telefon),
+      endLed: OSH ? 'Dasturxonimiz tayyor' : 'Sizni kutamiz',
+      thanks: OSH ? 'Tashrifingiz bilan dasturxonimizga fayz kiradi' : 'Tashrifingiz quvonchimizni ziyoda qiladi',
+      dua: DUA[KIND],
+      endDate: [w.dots, HM].filter(Boolean).join(' · '),
+      musicOn: music, musicOff: !music,
+      musicCls: music ? 'tb-music tb-music--on' : 'tb-music',
+      musicLabel: music ? 'Musiqani o’chirish' : 'Musiqani yoqish',
+      toggleMusic: () => { SITE.music.toggle(); }
+    };
+  }
+}
+</script>
+</body>
+</html>

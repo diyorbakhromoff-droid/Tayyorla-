@@ -1,0 +1,1078 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<title>Tug’ilgan kun: Hikoyalar</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mulish:wght@400;500;600;700;800;900&amp;family=Rubik+Mono+One&amp;family=Caveat:wght@600;700&amp;display=swap">
+<style>
+body{margin:0}
+.is-hidden{display:none !important}
+.st-mono{font-family:'Rubik Mono One','Arial Black',sans-serif;font-weight:400}
+.st-scr{font-family:'Caveat','Segoe Script',cursive;font-weight:700}
+.st-ringG{background:conic-gradient(from 210deg,#FF9F43,#E8336F 35%,#7B4DFF 60%,#E8336F 80%,#FF9F43)}
+.st-gtx{background:linear-gradient(90deg,#FF7A3D,#E8336F 50%,#7B4DFF);-webkit-background-clip:text;background-clip:text;color:transparent}
+.g-a{stop-color:#FF9F43}.g-b{stop-color:#E8336F}.g-c{stop-color:#7B4DFF}
+.st-ico{fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.st-ring{fill:none;stroke-width:5;stroke-linecap:round}
+.st-ringP{fill:none;stroke-width:3.4;stroke-linecap:round}
+.st-wick{fill:none;stroke:#3A2A1E;stroke-width:2.4;stroke-linecap:round}
+.st-smoke{fill:none;stroke:#B9AFC4;stroke-width:2.4;stroke-linecap:round;opacity:0}
+.st-dgt{font-family:'Rubik Mono One','Arial Black',sans-serif;font-size:104px;stroke:#FFFFFF;stroke-width:6;paint-order:stroke;stroke-linejoin:round}
+.st-btn{-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+.st-btn:active{transform:scale(.95)}
+
+/* ===== intro: story tray ===== */
+.st-intro{transition:opacity .55s ease,transform .6s cubic-bezier(.5,0,.2,1),visibility 0s linear 0s}
+.st-intro--gone{opacity:0;transform:translateY(70px) scale(.92);visibility:hidden;pointer-events:none;transition:opacity .55s ease .05s,transform .65s cubic-bezier(.55,0,.35,1),visibility 0s linear .7s}
+.st-tray{transform-origin:195px 318px;transition:transform .9s cubic-bezier(.6,0,.2,1),opacity .5s ease .15s}
+.st-intro--view .st-tray{transform:scale(1.9);opacity:0;pointer-events:none}
+.st-blob{position:absolute;border-radius:50%;filter:blur(46px);animation:st-drift 16s ease-in-out infinite alternate}
+@keyframes st-drift{0%{transform:translate(0,0) scale(1)}50%{transform:translate(26px,-30px) scale(1.12)}100%{transform:translate(-24px,22px) scale(.94)}}
+.st-twk{position:absolute;animation:st-twk 3s ease-in-out infinite}
+@keyframes st-twk{0%,100%{opacity:.15;transform:scale(.5) rotate(0)}50%{opacity:1;transform:scale(1) rotate(45deg)}}
+.st-ringWrap{animation:st-spinS 18s linear infinite}
+@keyframes st-spinS{to{transform:rotate(360deg)}}
+.st-ringIn{animation:st-ringIn 1.1s cubic-bezier(.2,1.3,.4,1) .2s both}
+@keyframes st-ringIn{from{opacity:0;transform:scale(.6) rotate(-120deg)}to{opacity:1;transform:none}}
+.st-load .st-twk{position:absolute;animation:st-twk 3s ease-in-out infinite}
+@keyframes st-twk{0%,100%{opacity:.15;transform:scale(.5) rotate(0)}50%{opacity:1;transform:scale(1) rotate(45deg)}}
+.st-ringWrap{animation:st-spinF .9s cubic-bezier(.5,0,.3,1) both}
+@keyframes st-spinF{to{transform:rotate(540deg)}}
+.st-glow{animation:st-glow 2.6s ease-in-out infinite}
+@keyframes st-glow{0%,100%{opacity:.45;transform:scale(.96)}50%{opacity:.85;transform:scale(1.06)}}
+.st-avIn{animation:st-pop .9s cubic-bezier(.2,1.4,.4,1) .35s both}
+@keyframes st-pop{from{opacity:0;transform:scale(.4)}to{opacity:1;transform:none}}
+.st-up{animation:st-up .8s cubic-bezier(.2,1,.3,1) both;animation-delay:var(--d,0s)}
+@keyframes st-up{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+.st-ch{display:inline-block;animation:st-ch .7s cubic-bezier(.2,1.3,.4,1) both;animation-delay:calc(.6s + var(--i) * 45ms)}
+@keyframes st-ch{from{opacity:0;transform:translateY(.6em) rotate(8deg)}to{opacity:1;transform:none}}
+.st-fr{animation:st-pop .6s cubic-bezier(.2,1.5,.4,1) both;animation-delay:var(--d,0s)}
+.st-cta{position:relative;overflow:hidden;display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:56px;padding:0 30px;border:0;border-radius:28px;background:linear-gradient(90deg,#FF7A3D,#E8336F 55%,#8A4DFF);color:#FFFFFF;font-family:'Mulish',system-ui,sans-serif;font-size:17px;font-weight:800;cursor:pointer;box-shadow:0 12px 30px rgba(232,51,111,0.42);transition:transform .18s cubic-bezier(.3,1.6,.5,1),box-shadow .2s ease}
+.st-cta:active{transform:scale(.94);box-shadow:0 6px 16px rgba(232,51,111,0.4)}
+.st-cta::after{content:"";position:absolute;left:-40%;top:0;width:30%;height:100%;background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,0.45),rgba(255,255,255,0));transform:skewX(-20deg);animation:st-shine 3.2s ease-in-out 1.8s infinite}
+@keyframes st-shine{0%{transform:translateX(0) skewX(-20deg)}40%,100%{transform:translateX(560%) skewX(-20deg)}}
+.st-skip{border:0;background:none;color:rgba(255,255,255,0.72);font-family:'Mulish',system-ui,sans-serif;font-size:14.5px;font-weight:700;min-height:44px;padding:0 18px;cursor:pointer;text-decoration:underline;text-underline-offset:4px;text-decoration-color:rgba(255,255,255,0.35)}
+.st-intro--view .st-skip{visibility:hidden}
+
+/* ===== viewer ===== */
+.st-view{clip-path:circle(0px at 195px 318px);visibility:hidden;transition:clip-path .8s cubic-bezier(.75,0,.2,1) .22s,visibility 0s linear 1s}
+.st-intro--view .st-view,.st-intro--gone .st-view{clip-path:circle(1000px at 195px 318px);visibility:visible;transition:clip-path .85s cubic-bezier(.75,0,.2,1) .22s,visibility 0s linear 0s}
+.st-card{position:absolute;left:0;top:0;width:390px;height:844px;overflow:hidden;opacity:0;visibility:hidden;pointer-events:none;transform:scale(1.04);transition:opacity .32s ease,transform .45s cubic-bezier(.2,.9,.3,1),visibility 0s linear .32s}
+.st-card--on{opacity:1;visibility:visible;transform:none;transition:opacity .32s ease,transform .45s cubic-bezier(.2,.9,.3,1),visibility 0s}
+.st-int,.st-card button,.st-card a,.st-card input{pointer-events:auto}
+.st-a{opacity:0}
+.st-card--on .st-a{animation:st-in .7s cubic-bezier(.2,1.2,.35,1) both;animation-delay:var(--d,.1s)}
+@keyframes st-in{from{opacity:0;transform:translateY(22px) scale(.96)}to{opacity:1;transform:none}}
+.st-card--on .st-aS{animation-name:st-inS}
+@keyframes st-inS{0%{opacity:0;transform:scale(.3) rotate(calc(var(--r,0deg) - 24deg))}70%{opacity:1;transform:scale(1.08) rotate(calc(var(--r,0deg) + 3deg))}100%{opacity:1;transform:rotate(var(--r,0deg))}}
+.st-card--on .st-kb{animation:st-kb 9s ease-out both}
+@keyframes st-kb{from{transform:scale(1.18) translate(10px,-8px)}to{transform:scale(1.02) translate(0,0)}}
+.st-wd{opacity:0}
+.st-card--on .st-wd{animation:st-wd .42s ease-out both;animation-delay:calc(.25s + var(--i) * 55ms)}
+@keyframes st-wd{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.st-hl{display:inline;padding:4px 0;background:#FFFFFF;color:#1F1530;box-shadow:7px 0 0 #FFFFFF,-7px 0 0 #FFFFFF;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.st-top{transition:opacity .25s ease}
+.st-hold .st-top{opacity:0}
+.st-bars{display:flex;gap:4px}
+.st-bar{position:relative;flex:1;height:3px;border-radius:2px;background:rgba(255,255,255,0.34);overflow:hidden}
+.st-fill{position:absolute;left:0;top:0;width:100%;height:100%;border-radius:2px;background:#FFFFFF;transform:scaleX(0);transform-origin:0 50%}
+.st-fill--done{transform:scaleX(1)}
+.st-fill--a{animation:st-fillA var(--dur,6s) linear both}
+.st-fill--b{animation:st-fillB var(--dur,6s) linear both}
+@keyframes st-fillA{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes st-fillB{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.st-paused .st-fill--a,.st-paused .st-fill--b,.st-hold .st-fill--a,.st-hold .st-fill--b{animation-play-state:paused}
+.st-zone{position:absolute;top:0;height:844px;border:0;padding:0;margin:0;background:transparent;cursor:pointer;-webkit-tap-highlight-color:transparent;z-index:1}
+.st-x{width:44px;height:44px;border:0;border-radius:22px;background:rgba(0,0,0,0.18);color:#FFFFFF;display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0}
+.st-x:active{transform:scale(.9)}
+.st-hint{animation:st-hintA 2.2s ease-in-out infinite}
+@keyframes st-hintA{0%,100%{opacity:.55;transform:translateX(0)}50%{opacity:1;transform:translateX(6px)}}
+
+/* stickers */
+.st-sk{display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:9px 20px;box-sizing:border-box;border:0;border-radius:14px;font-family:'Mulish',system-ui,sans-serif;font-size:19px;font-weight:900;line-height:1.15;text-align:center;cursor:pointer;max-width:330px;overflow-wrap:anywhere;transform:rotate(var(--r,0deg));box-shadow:0 8px 20px rgba(31,21,48,0.22)}
+.st-sk1{background:#FFFFFF;color:#E8336F}
+.st-sk2{background:linear-gradient(120deg,#FF7A3D,#E8336F);color:#FFFFFF}
+.st-sk3{background:#1F1530;color:#FFE3A8;border-radius:24px}
+.st-sk4{background:#FFE066;color:#1F1530;border-radius:4px;font-family:'Caveat',cursive;font-weight:700;font-size:28px}
+.st-sk5{background:rgba(255,255,255,0.16);color:#FFFFFF;border:2.5px dashed rgba(255,255,255,0.9);box-shadow:none}
+.st-sk6{background:linear-gradient(120deg,#8A4DFF,#C24DFF);color:#FFFFFF;border-radius:24px}
+.st-burst{animation:st-rot 14s linear infinite}
+@keyframes st-rot{to{transform:rotate(360deg)}}
+.st-card--on .st-tw{animation:st-in .7s cubic-bezier(.2,1.2,.35,1) both,st-twA 2.4s ease-in-out infinite;animation-delay:var(--d,.1s),0s}
+@keyframes st-twA{0%,100%{transform:scale(.8) rotate(0)}50%{transform:scale(1.15) rotate(20deg)}}
+.st-pop{animation:st-wig .55s cubic-bezier(.3,1.6,.5,1) !important}
+@keyframes st-wig{0%{transform:rotate(var(--r,0deg)) scale(1)}35%{transform:rotate(calc(var(--r,0deg) - 8deg)) scale(1.16)}70%{transform:rotate(calc(var(--r,0deg) + 5deg)) scale(.96)}100%{transform:rotate(var(--r,0deg)) scale(1)}}
+
+/* poll */
+.st-opt{position:relative;display:flex;align-items:center;width:100%;min-height:52px;padding:0 16px;box-sizing:border-box;border:2px solid #EDE6F2;border-radius:16px;background:#FFFFFF;color:#1F1530;font-family:'Mulish',system-ui,sans-serif;font-size:17px;font-weight:800;cursor:pointer;overflow:hidden;text-align:left;transition:border-color .3s ease,transform .18s cubic-bezier(.3,1.6,.5,1)}
+.st-opt:active{transform:scale(.97)}
+.st-optF{position:absolute;left:0;top:0;width:100%;height:100%;transform:scaleX(0);transform-origin:0 50%;background:linear-gradient(90deg,rgba(255,159,67,0.28),rgba(232,51,111,0.28));transition:transform .9s cubic-bezier(.2,1,.3,1)}
+.st-opt--me{border-color:#E8336F}
+.st-opt--me .st-optF{background:linear-gradient(90deg,rgba(255,122,61,0.5),rgba(232,51,111,0.55))}
+.st-pct{margin-left:auto;padding-left:10px;font-size:16px;font-weight:900;opacity:0;transform:translateX(10px);transition:opacity .4s ease .35s,transform .5s cubic-bezier(.2,1.3,.4,1) .35s}
+.st-voted .st-pct{opacity:1;transform:none}
+.st-oT{position:relative;min-width:0;overflow-wrap:anywhere;padding:10px 0}
+
+/* secret */
+.st-spoil{filter:blur(9px);opacity:.55;transition:filter 1s ease,opacity 1s ease}
+.st-sec--on .st-spoil{filter:blur(0);opacity:1}
+.st-secBtn{transition:opacity .4s ease,transform .4s ease}
+.st-sec--on .st-secBtn{opacity:0;transform:scale(.8);pointer-events:none}
+.st-spark{position:absolute;width:8px;height:8px;border-radius:50%;opacity:0}
+.st-sec--on .st-spark{animation:st-spark 1.1s cubic-bezier(.2,.8,.3,1) both;animation-delay:var(--d,0s)}
+@keyframes st-spark{0%{opacity:1;transform:translate(0,0) scale(.4)}100%{opacity:0;transform:translate(var(--x),var(--y)) scale(1)}}
+
+/* countdown digits */
+.st-tk{animation:st-tick .5s cubic-bezier(.2,1.4,.4,1)}
+.st-tk2{animation:st-tick2 .5s cubic-bezier(.2,1.4,.4,1)}
+@keyframes st-tick{from{transform:translateY(-40%);opacity:.2}}
+@keyframes st-tick2{from{transform:translateY(-40%);opacity:.2}}
+
+/* polaroids */
+.st-pol{position:absolute;padding:10px 10px 34px;background:#FFFFFF;box-shadow:0 18px 40px rgba(0,0,0,0.35);transform:rotate(var(--r,0deg))}
+.st-card--on .st-polIn{animation:st-polIn .8s cubic-bezier(.2,1.2,.35,1) both;animation-delay:var(--d,0s)}
+@keyframes st-polIn{from{opacity:0;transform:translateY(-120px) rotate(calc(var(--r,0deg) - 30deg)) scale(1.2)}to{opacity:1;transform:rotate(var(--r,0deg))}}
+
+/* reply */
+.st-rIn{flex:1;min-width:0;height:50px;box-sizing:border-box;border-radius:25px;border:1.5px solid rgba(255,255,255,0.7);background:rgba(255,255,255,0.08);padding:0 18px;font-family:'Mulish',system-ui,sans-serif;font-size:16px;color:#FFFFFF;outline:none}
+.st-rIn::placeholder{color:rgba(255,255,255,0.75)}
+.st-chip{flex:none;min-height:42px;padding:0 16px;border-radius:21px;border:0;background:rgba(255,255,255,0.18);color:#FFFFFF;font-family:'Mulish',system-ui,sans-serif;font-size:14.5px;font-weight:800;cursor:pointer;white-space:nowrap;transition:transform .18s cubic-bezier(.3,1.6,.5,1)}
+.st-chip:active{transform:scale(.92)}
+.st-heartB{flex:none;width:50px;height:50px;border-radius:25px;border:0;background:transparent;display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0}
+.st-heartB:active svg{transform:scale(.8)}
+.st-fh{position:absolute;bottom:0;width:30px;height:30px;opacity:0}
+.st-sentOn .st-fh{animation:st-fh 1.8s cubic-bezier(.2,.7,.3,1) both;animation-delay:var(--d,0s)}
+@keyframes st-fh{0%{opacity:0;transform:translate(0,0) scale(.3)}15%{opacity:1}100%{opacity:0;transform:translate(var(--x),-300px) scale(1.15) rotate(var(--r))}}
+.st-toast{opacity:0;transform:translateY(10px) scale(.95);transition:opacity .35s ease,transform .45s cubic-bezier(.2,1.4,.4,1)}
+.st-toast--on{opacity:1;transform:none}
+
+/* ===== page ===== */
+.st-page{opacity:0}
+.st-live .st-page{opacity:1;transition:opacity .5s ease .1s}
+.st-h{opacity:0}
+.st-live .st-h{animation:st-up .85s cubic-bezier(.2,1,.3,1) both;animation-delay:var(--d,0s)}
+.st-live .st-hP{animation:st-pop .9s cubic-bezier(.2,1.4,.4,1) both;animation-delay:var(--d,0s)}
+.st-rv{opacity:0;transform:translateY(34px);transition:opacity .7s ease,transform .9s cubic-bezier(.2,1,.3,1)}
+.st-rv--in{opacity:1;transform:none}
+.st-rv .st-rc{opacity:0;transform:translateY(16px) scale(.96);transition:opacity .5s ease,transform .6s cubic-bezier(.2,1.3,.4,1);transition-delay:var(--d,0s)}
+.st-rv--in .st-rc{opacity:1;transform:none}
+.st-rv .st-rS{opacity:0;transform:scale(.3) rotate(calc(var(--r,0deg) - 20deg));transition:opacity .4s ease,transform .7s cubic-bezier(.2,1.5,.4,1);transition-delay:var(--d,0s)}
+.st-rv--in .st-rS{opacity:1;transform:rotate(var(--r,0deg))}
+.st-postC{background:#FFFFFF;border-radius:28px;box-shadow:0 1px 0 rgba(31,21,48,0.04),0 18px 40px -18px rgba(31,21,48,0.22)}
+.st-hlB{display:flex;flex-direction:column;align-items:center;gap:7px;width:76px;flex:none;border:0;background:none;padding:0;cursor:pointer;font-family:'Mulish',system-ui,sans-serif;color:#1F1530}
+.st-hlB:active .st-hlR{transform:scale(.9)}
+.st-hlR{width:70px;height:70px;border-radius:50%;padding:3px;box-sizing:border-box;transition:transform .2s cubic-bezier(.3,1.6,.5,1)}
+.st-hlI{width:100%;height:100%;border-radius:50%;border:3px solid #F7F2EC;box-sizing:border-box;background:#FFFFFF;display:flex;align-items:center;justify-content:center;color:#E8336F}
+.st-like{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 14px 0 8px;border:0;border-radius:22px;background:#FBF1F5;color:#1F1530;font-family:'Mulish',system-ui,sans-serif;font-size:14.5px;font-weight:800;cursor:pointer;position:relative}
+.st-like svg{transition:transform .35s cubic-bezier(.3,1.8,.5,1)}
+.st-like--on svg{transform:scale(1.18)}
+.st-lb{position:absolute;left:22px;top:22px;width:6px;height:6px;border-radius:50%;opacity:0}
+.st-like--on .st-lb{animation:st-spark .7s cubic-bezier(.2,.8,.3,1) both}
+.st-psk{border:0;cursor:pointer;transition:transform .2s ease}
+.st-cdBox{display:flex;flex-direction:column;align-items:center;justify-content:center;width:68px;height:78px;border-radius:18px;background:#F7F2EC;overflow:hidden}
+.st-cake .st-flame{transform-box:fill-box;transform-origin:50% 100%;animation:st-flick .7s ease-in-out infinite alternate}
+@keyframes st-flick{0%{transform:scale(1,1) rotate(-4deg)}50%{transform:scale(.9,1.12) rotate(3deg)}100%{transform:scale(1.06,.94) rotate(-1deg)}}
+.st-out .st-flame{animation:st-fOut .35s ease-in both}
+.st-out .st-smoke{animation:st-smoke 2.2s ease-out .2s both}
+@keyframes st-fOut{to{opacity:0;transform:scale(.2,.1)}}
+@keyframes st-smoke{0%{opacity:0;transform:translateY(0)}20%{opacity:.9}100%{opacity:0;transform:translateY(-34px)}}
+.st-cf{position:absolute;left:50%;top:46%;width:9px;height:14px;border-radius:2px;opacity:0}
+.st-out .st-cf{animation:st-cf 1.5s cubic-bezier(.15,.7,.3,1) both;animation-delay:var(--d,0s)}
+@keyframes st-cf{0%{opacity:1;transform:translate(0,0) rotate(0)}100%{opacity:0;transform:translate(var(--x),var(--y)) rotate(var(--r))}}
+.st-wl{opacity:0;transform:translateY(8px);transition:opacity .5s ease .5s,transform .6s cubic-bezier(.2,1.3,.4,1) .5s}
+.st-out .st-wl{opacity:1;transform:none}
+.st-big{position:relative;width:342px;height:428px;border-radius:24px;overflow:hidden;background:#EDE3DA}
+.st-bigI{position:absolute;left:0;top:0;width:342px;height:428px;object-fit:cover;opacity:0;transform:scale(1.05);transition:opacity .5s ease,transform .8s cubic-bezier(.2,1,.3,1)}
+.st-bigI--on{opacity:1;transform:none}
+.st-th{position:relative;width:110px;height:110px;border:0;padding:0;border-radius:14px;overflow:hidden;cursor:pointer;background:#EDE3DA;transition:transform .2s cubic-bezier(.3,1.6,.5,1)}
+.st-th:active{transform:scale(.93)}
+.st-th::after{content:"";position:absolute;left:0;top:0;right:0;bottom:0;border-radius:14px;box-shadow:inset 0 0 0 3px rgba(232,51,111,0);transition:box-shadow .3s ease}
+.st-th--on::after{box-shadow:inset 0 0 0 3px #E8336F}
+.st-pIn{flex:1;min-width:0;height:52px;box-sizing:border-box;border-radius:26px;border:1.5px solid #E6DDD3;background:#FFFFFF;padding:0 20px;font-family:'Mulish',system-ui,sans-serif;font-size:16px;color:#1F1530;outline:none}
+.st-pIn:focus{border-color:#E8336F}
+.st-pIn::placeholder{color:#8A7F92}
+.st-send{flex:none;width:52px;height:52px;border-radius:26px;border:0;background:linear-gradient(135deg,#FF7A3D,#E8336F 60%,#8A4DFF);display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0;box-shadow:0 8px 18px rgba(232,51,111,0.35);transition:transform .18s cubic-bezier(.3,1.6,.5,1)}
+.st-send:active{transform:scale(.9)}
+.st-qc{flex:none;min-height:44px;padding:0 18px;border-radius:22px;border:1.5px solid #E6DDD3;background:#FFFFFF;color:#1F1530;font-family:'Mulish',system-ui,sans-serif;font-size:14.5px;font-weight:800;cursor:pointer;white-space:nowrap;transition:transform .18s cubic-bezier(.3,1.6,.5,1),border-color .2s ease}
+.st-qc:active{transform:scale(.92);border-color:#E8336F}
+.st-music{width:44px;height:44px;border-radius:22px;border:0;background:#FFFFFF;display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0;box-shadow:0 6px 14px rgba(31,21,48,0.12)}
+.st-music--on{background:#E8336F}
+.st-music--on path{fill:#FFFFFF}
+.st-eq{animation:st-eq .6s ease-in-out infinite alternate}
+@keyframes st-eq{from{transform:scaleY(.5)}to{transform:scaleY(1)}}
+
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation:none !important;transition:none !important}
+  .st-a,.st-wd,.st-h,.st-page{opacity:1 !important}
+  .st-rv,.st-rv .st-rc,.st-rv .st-rS{opacity:1 !important;transform:none !important}
+  .st-fill--a,.st-fill--b{transform:scaleX(1);opacity:.6}
+  .st-intro--view .st-view{clip-path:none}
+}
+</style>
+</helmet>
+<div class="{{ rootCls }}" style="width: 390px; min-height: var(--vh, 100vh); position: relative; overflow: hidden; background: #F7F2EC; color: #1F1530; font-family: 'Mulish', system-ui, -apple-system, sans-serif">
+
+  <!-- ================= PAGE ================= -->
+  <div class="st-page" style="position: relative; padding: 0 0 36px">
+    <div aria-hidden="true" style="position: absolute; left: -120px; top: -140px; width: 420px; height: 420px; border-radius: 50%; background: radial-gradient(closest-side, rgba(255,159,67,0.30), rgba(255,159,67,0))"></div>
+    <div aria-hidden="true" style="position: absolute; right: -150px; top: 120px; width: 420px; height: 420px; border-radius: 50%; background: radial-gradient(closest-side, rgba(123,77,255,0.18), rgba(123,77,255,0))"></div>
+
+    <header style="position: relative; display: flex; align-items: center; justify-content: space-between; height: 64px; padding: 0 20px">
+      <span class="st-h" style="--d: .15s; display: inline-flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 800; letter-spacing: 0.01em; min-width: 0">
+        <span aria-hidden="true" class="st-ringG" style="flex: none; width: 10px; height: 10px; border-radius: 50%"></span>
+        <span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 250px">{{ handle }}</span>
+      </span>
+      <sc-if value="{{ has.music }}"><button type="button" class="{{ musicCls }}" onClick="{{ toggleMusic }}" aria-label="Musiqa" aria-pressed="{{ musicOn }}"><svg aria-hidden="true" width="18" height="20" viewBox="0 0 22 26"><path d="M8 3L20 0V17.5A3.5 3 0 1 1 17 14.6V5.2L10 7V20.5A3.5 3 0 1 1 7 17.6V3Z" fill="#E8336F"></path></svg></button></sc-if>
+    </header>
+
+    <!-- profile -->
+    <section style="position: relative; padding: 6px 20px 0">
+      <div style="display: flex; align-items: center; gap: 18px">
+        <button type="button" class="st-btn st-h st-hP" onClick="{{ replay0 }}" aria-label="Hikoyalarni qayta ko’rish" style="--d: .2s; position: relative; flex: none; width: 124px; height: 124px; border: 0; padding: 0; background: none; cursor: pointer; border-radius: 50%">
+          <span aria-hidden="true" class="st-ringWrap" style="position: absolute; left: 0; top: 0; width: 124px; height: 124px">
+            <svg width="124" height="124" viewBox="0 0 124 124"><defs><linearGradient id="st-gP" x1="0" y1="1" x2="1" y2="0"><stop offset="0" class="g-a"></stop><stop offset=".55" class="g-b"></stop><stop offset="1" class="g-c"></stop></linearGradient></defs><circle class="st-ringP" cx="62" cy="62" r="59" stroke="url(#st-gP)" stroke-dasharray="{{ ringP }}" transform="rotate(-90 62 62)"></circle></svg>
+          </span>
+          <span style="position: absolute; left: 9px; top: 9px; width: 106px; height: 106px; border-radius: 50%; overflow: hidden; background: linear-gradient(135deg, #FF9F43, #E8336F 60%, #7B4DFF); display: flex; align-items: center; justify-content: center">
+            <sc-if value="{{ has.photo }}"><img src="{{ p.0 }}" alt="" style="width: 106px; height: 106px; object-fit: cover"></sc-if>
+            <sc-if value="{{ noPhoto }}"><span class="st-mono" style="font-size: 40px; color: #FFFFFF">{{ initial }}</span></sc-if>
+          </span>
+          <span aria-hidden="true" style="position: absolute; right: 0; bottom: 4px; width: 34px; height: 34px; border-radius: 50%; background: #FFFFFF; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(31,21,48,0.2)"><svg width="16" height="16" viewBox="0 0 20 20"><path d="M6 3.8v12.4c0 .8.9 1.3 1.6.9l9.6-6.2c.6-.4.6-1.4 0-1.8L7.6 2.9C6.9 2.5 6 3 6 3.8z" fill="#E8336F"></path></svg></span>
+        </button>
+        <div style="flex: 1; min-width: 0; display: flex; justify-content: space-around; text-align: center">
+          <sc-for list="{{ stats }}" as="x">
+            <div class="st-h" style="{{ x.st }}">
+              <p class="st-mono" style="margin: 0; font-size: 22px; line-height: 1.1">{{ x.v }}</p>
+              <p style="margin: 4px 0 0; font-size: 13px; font-weight: 700; color: #6E6478">{{ x.l }}</p>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+      <h1 style="margin: 22px 0 0; font-weight: 400; line-height: 1.04; overflow-wrap: anywhere">
+        <span class="st-h st-scr" style="--d: .35s; display: block; font-size: 30px; color: #E8336F">Tug’ilgan kuning muborak,</span>
+        <span class="st-h st-mono" style="--d: .45s; display: block; margin-top: 8px; font-size: {{ pageNameFs }}px; letter-spacing: -0.01em">{{ nameOr }}</span>
+      </h1>
+      <p class="st-h" style="--d: .6s; display: flex; align-items: center; gap: 8px; margin: 14px 0 0; font-size: 15.5px; font-weight: 700; color: #4A3F55">
+        <svg aria-hidden="true" width="18" height="18" viewBox="0 0 20 20" style="flex: none; color: #E8336F"><rect class="st-ico" x="3" y="4.5" width="14" height="12.5" rx="3"></rect><path class="st-ico" d="M3 8.5h14M7 2.5v4M13 2.5v4"></path></svg>
+        <span>{{ dateLine }}</span>
+      </p>
+      <sc-if value="{{ fromLine }}"><p class="st-h" style="--d: .7s; margin: 6px 0 0 26px; font-size: 15px; font-weight: 600; color: #6E6478; overflow-wrap: anywhere">{{ fromLine }}</p></sc-if>
+    </section>
+
+    <!-- highlights -->
+    <sc-if value="{{ anyHl }}">
+      <div class="st-h" style="--d: .8s; display: flex; gap: 10px; overflow-x: auto; padding: 24px 20px 4px; scrollbar-width: none">
+        <sc-for list="{{ hls }}" as="h">
+          <button type="button" class="st-hlB" onClick="{{ h.tap }}" aria-label="{{ h.aria }}">
+            <span class="st-hlR st-ringG"><span class="st-hlI"><svg aria-hidden="true" width="26" height="26" viewBox="0 0 24 24"><path class="st-ico" d="{{ h.ico }}"></path></svg></span></span>
+            <span style="font-size: 12.5px; font-weight: 800; white-space: nowrap">{{ h.l }}</span>
+          </button>
+        </sc-for>
+      </div>
+    </sc-if>
+
+    <div class="st-h" style="--d: .9s; padding: 18px 20px 0">
+      <button type="button" class="st-btn" onClick="{{ replay0 }}" style="display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; min-height: 50px; border: 0; border-radius: 16px; background: #1F1530; color: #FFFFFF; font-family: 'Mulish', system-ui, sans-serif; font-size: 15.5px; font-weight: 800; cursor: pointer">
+        <span aria-hidden="true" class="st-ringG" style="width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center"><svg width="12" height="12" viewBox="0 0 20 20"><path d="M6 3.8v12.4c0 .8.9 1.3 1.6.9l9.6-6.2c.6-.4.6-1.4 0-1.8L7.6 2.9C6.9 2.5 6 3 6 3.8z" fill="#FFFFFF"></path></svg></span>
+        Hikoyalarni qayta ko’rish
+      </button>
+    </div>
+
+<sc-if value="{{ b.tabrik }}">
+    <section data-rv="tabrik" class="{{ rv.tabrik }}" style="padding: 26px 16px 0">
+      <div class="st-postC" style="padding: 18px 18px 14px">
+        <div style="display: flex; align-items: center; gap: 12px">
+          <div aria-hidden="true" style="display: flex; flex: none">
+            <sc-for list="{{ avs }}" as="a"><span style="{{ a.st }}">{{ a.t }}</span></sc-for>
+          </div>
+          <div style="min-width: 0">
+            <p style="margin: 0; font-size: 15px; font-weight: 800; overflow-wrap: anywhere">{{ authorName }}</p>
+            <p style="margin: 2px 0 0; font-size: 13px; font-weight: 600; color: #8A7F92">tabrik yozdi</p>
+          </div>
+        </div>
+        <p class="st-rc" style="--d: .15s; margin: 16px 0 0; font-size: 18px; line-height: 1.6; font-weight: 600; white-space: pre-line; overflow-wrap: anywhere">{{ d.matn }}</p>
+        <sc-if value="{{ from.line }}"><p class="st-rc st-scr" style="--d: .3s; margin: 12px 0 0; font-size: 24px; color: #E8336F; overflow-wrap: anywhere">— {{ from.names }}</p></sc-if>
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 14px; padding-top: 12px; border-top: 1px solid #F0E9E2">
+          <button type="button" class="{{ likeCls }}" onClick="{{ like }}" aria-pressed="{{ likeOn }}" aria-label="Yoqdi">
+            <svg aria-hidden="true" width="26" height="26" viewBox="0 0 24 24"><path d="M12 20.3s-7.6-4.6-7.6-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.6 2.7c0 5.6-7.6 10.2-7.6 10.2z" fill="{{ likeFill }}" stroke="#E8336F" stroke-width="2"></path></svg>
+            <span>{{ likeCount }}</span>
+            <sc-for list="{{ likeSparks }}" as="k"><span class="st-lb" style="{{ k }}"></span></sc-for>
+          </button>
+          <span style="font-size: 13px; font-weight: 700; color: #8A7F92">{{ dateShort }}</span>
+        </div>
+      </div>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.tilaklar }}">
+    <section data-rv="tilaklar" class="{{ rv.tilaklar }}" style="padding: 40px 16px 0">
+      <p class="st-rc" style="margin: 0 4px; font-size: 13px; font-weight: 900; letter-spacing: 0.18em; color: #E8336F">STIKERLAR</p>
+      <h2 class="st-rc" style="--d: .05s; margin: 6px 4px 0; font-size: 28px; font-weight: 900; line-height: 1.15">Senga tilaklarimiz</h2>
+      <div style="position: relative; margin-top: 18px; padding: 30px 16px 34px; border-radius: 28px; background: linear-gradient(140deg, #FF9F43, #E8336F 52%, #7B4DFF); overflow: hidden">
+        <div aria-hidden="true" style="position: absolute; left: -60px; bottom: -80px; width: 240px; height: 240px; border-radius: 50%; background: radial-gradient(closest-side, rgba(255,255,255,0.28), rgba(255,255,255,0))"></div>
+        <div style="position: relative; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 16px 12px">
+          <sc-for list="{{ pwishes }}" as="w">
+            <button type="button" class="{{ w.cls }}" style="{{ w.st }}" onClick="{{ w.tap }}">{{ w.t }}</button>
+          </sc-for>
+        </div>
+      </div>
+      <sc-if value="{{ hasPoll }}">
+        <div class="st-postC st-rc {{ pollCls }}" style="--d: .2s; margin-top: 16px; padding: 20px 18px 18px">
+          <p style="margin: 0; font-size: 13px; font-weight: 900; letter-spacing: 0.18em; color: #7B4DFF">SO’ROVNOMA</p>
+          <p style="margin: 8px 0 14px; font-size: 20px; font-weight: 900; line-height: 1.3; overflow-wrap: anywhere">{{ pollQ }}</p>
+          <div style="display: flex; flex-direction: column; gap: 10px">
+            <sc-for list="{{ opts }}" as="o">
+              <button type="button" class="{{ o.cls }}" onClick="{{ o.tap }}" aria-pressed="{{ o.on }}"><span class="st-optF" style="{{ o.fill }}"></span><span class="st-oT">{{ o.t }}</span><span class="st-pct" style="position: relative">{{ o.pct }}</span></button>
+            </sc-for>
+          </div>
+          <p style="margin: 12px 2px 0; font-size: 13.5px; font-weight: 700; color: #8A7F92">{{ pollNote }}</p>
+        </div>
+      </sc-if>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.taymer }}">
+    <section data-rv="taymer" class="{{ rv.taymer }}" style="padding: 40px 16px 0">
+      <div class="st-postC" style="padding: 22px 18px 20px; text-align: center">
+        <p style="margin: 0; font-size: 13px; font-weight: 900; letter-spacing: 0.18em; color: #E8336F">{{ cdKicker }}</p>
+        <p class="st-gtx" style="margin: 8px 0 0; font-size: 23px; font-weight: 900; line-height: 1.25; overflow-wrap: anywhere">{{ cdTitle }}</p>
+        <sc-if value="{{ cdLive }}">
+          <div style="display: flex; justify-content: center; gap: 8px; margin-top: 18px">
+            <sc-for list="{{ tiles }}" as="x">
+              <div class="st-cdBox st-rc" style="{{ x.st }}"><span class="st-mono" style="font-size: 30px; line-height: 1"><span class="{{ x.cls }}" style="display: inline-block">{{ x.v }}</span></span><span style="margin-top: 6px; font-size: 12px; font-weight: 800; color: #6E6478">{{ x.l }}</span></div>
+            </sc-for>
+          </div>
+        </sc-if>
+        <sc-if value="{{ cdDone }}"><p class="st-mono" style="margin: 16px 0 0; font-size: 30px; color: #E8336F">Bugun!</p></sc-if>
+        <sc-if value="{{ calUrl }}"><a href="{{ calUrl }}" target="_blank" rel="noopener" style="display: flex; align-items: center; justify-content: center; gap: 8px; min-height: 48px; margin-top: 18px; border-radius: 24px; background: #1F1530; color: #FFFFFF; font-size: 15px; font-weight: 800; text-decoration: none"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24"><path class="st-ico" d="M6 9a6 6 0 0 1 12 0c0 6 2.5 7.5 2.5 7.5h-17S6 15 6 9zM10 20a2.2 2.2 0 0 0 4 0"></path></svg>Eslatma qo’yish</a></sc-if>
+      </div>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.sham }}">
+    <section data-rv="sham" class="{{ rv.sham }}" style="padding: 40px 16px 0">
+      <div class="st-postC {{ cakeCls }}" style="position: relative; padding: 22px 18px 20px; text-align: center; overflow: hidden">
+        <p style="margin: 0; font-size: 13px; font-weight: 900; letter-spacing: 0.18em; color: #E8336F">NIYAT QIL</p>
+        <h2 style="margin: 6px 0 0; font-size: 26px; font-weight: 900; line-height: 1.2">Shamlarni puflang</h2>
+        <div class="st-cake" style="position: relative; height: 250px; margin-top: 8px">
+          <svg aria-hidden="true" width="300" height="250" viewBox="0 0 300 250" style="position: absolute; left: 21px; top: 0">
+            <sc-for list="{{ candles }}" as="c">
+              <g transform="{{ c.tr }}">
+                <path class="st-smoke" d="M0 -6C-6 -14 6 -20 0 -28C-5 -34 4 -40 0 -46"></path>
+                <path class="st-flame" d="M0 -32C8 -20 10 -12 7.5 -5.5C5.5 -1 -5.5 -1 -7.5 -5.5C-10 -12 -8 -20 0 -32Z" fill="#FF9F43"></path>
+                <path class="st-flame" d="M0 -19C3.5 -13 4 -9 2.6 -5.8C1.6 -4 -1.6 -4 -2.6 -5.8C-4 -9 -3.5 -13 0 -19Z" fill="#FFF1C4"></path>
+                <path class="st-wick" d="M0 -3V6"></path>
+                <sc-if value="{{ c.dg }}"><text class="st-dgt" x="0" y="88" text-anchor="middle" fill="{{ c.col }}">{{ c.dg }}</text></sc-if>
+                <sc-if value="{{ c.stick }}"><rect x="-6" y="6" width="12" height="70" rx="4" fill="{{ c.col }}"></rect></sc-if>
+              </g>
+            </sc-for>
+            <rect x="40" y="148" width="220" height="62" rx="16" fill="#F8C9D6"></rect>
+            <path d="M40 166C40 154 48 148 58 148H242C252 148 260 154 260 166C254 182 244 166 236 178C228 190 218 166 208 180C198 194 188 166 178 180C168 194 158 166 148 180C138 194 128 166 118 180C108 194 98 166 88 180C78 192 66 168 58 182C50 192 44 178 40 186Z" fill="#FFFFFF"></path>
+            <rect x="18" y="206" width="264" height="14" rx="7" fill="#1F1530"></rect>
+            <circle cx="88" cy="196" r="5" fill="#E8336F"></circle><circle cx="150" cy="198" r="5" fill="#FF9F43"></circle><circle cx="212" cy="196" r="5" fill="#7B4DFF"></circle>
+          </svg>
+          <sc-for list="{{ confetti }}" as="f"><span class="st-cf" style="{{ f }}"></span></sc-for>
+        </div>
+        <p class="st-wl st-scr" style="margin: 0; min-height: 34px; font-size: 27px; color: #E8336F; overflow-wrap: anywhere">{{ wishLine }}</p>
+        <button type="button" class="st-cta" onClick="{{ blow }}" style="margin-top: 8px">
+          <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24"><path class="st-ico" d="M3 9c3-3 6 3 9 0s5-3 6-1M3 14c3-3 6 3 9 0s5-3 6-1M3 19c3-3 6 3 9 0s5-3 6-1"></path></svg>
+          <span>{{ blowLabel }}</span>
+        </button>
+      </div>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.sirli }}">
+    <section data-rv="sirli" class="{{ rv.sirli }}" style="padding: 40px 16px 0">
+      <div class="{{ secCls }}" style="position: relative; border-radius: 28px; padding: 22px 20px 22px; background: radial-gradient(120% 90% at 0% 0%, #1FB57F 0%, rgba(31,181,127,0) 60%), linear-gradient(160deg, #0F6B4E, #0A3A2E); color: #FFFFFF; overflow: hidden">
+        <div style="display: flex; align-items: center; gap: 10px">
+          <span aria-hidden="true" style="flex: none; width: 36px; height: 36px; border-radius: 50%; background: #2BD38E; display: flex; align-items: center; justify-content: center"><svg width="18" height="18" viewBox="0 0 20 20"><path d="M10 1.8l2.4 5 5.4.6-4 3.7 1.1 5.4L10 13.8l-4.9 2.7 1.1-5.4-4-3.7 5.4-.6z" fill="#FFFFFF"></path></svg></span>
+          <div>
+            <p style="margin: 0; font-size: 13px; font-weight: 900; letter-spacing: 0.16em; color: #A6F3D2">YAQINLAR UCHUN</p>
+            <p style="margin: 2px 0 0; font-size: 21px; font-weight: 900">Sirli tilak</p>
+          </div>
+        </div>
+        <div style="position: relative; margin-top: 16px; padding: 18px; border-radius: 20px; background: rgba(255,255,255,0.1); border: 1.5px solid rgba(255,255,255,0.22)">
+          <p class="st-spoil" style="margin: 0; font-size: 18px; line-height: 1.55; font-weight: 700; white-space: pre-line; overflow-wrap: anywhere">{{ d.sirli_tilak }}</p>
+          <sc-for list="{{ sparks }}" as="k"><span class="st-spark" style="{{ k }}"></span></sc-for>
+        </div>
+        <button type="button" class="st-secBtn st-cta" onClick="{{ openSec }}" style="width: 100%; margin-top: 14px; background: #FFFFFF; color: #0F6B4E; box-shadow: 0 10px 24px rgba(0,0,0,0.25)">
+          <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24"><path class="st-ico" d="M2.5 12s3.5-7 9.5-7 9.5 7 9.5 7-3.5 7-9.5 7-9.5-7-9.5-7z"></path><circle class="st-ico" cx="12" cy="12" r="3"></circle></svg>
+          <span>Bosing — sirni oching</span>
+        </button>
+      </div>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.galereya }}">
+    <section data-rv="galereya" class="{{ rv.galereya }}" style="padding: 40px 24px 0">
+      <p class="st-rc" style="margin: 0; font-size: 13px; font-weight: 900; letter-spacing: 0.18em; color: #E8336F">LAHZALAR</p>
+      <h2 class="st-rc" style="--d: .05s; margin: 6px 0 16px; font-size: 28px; font-weight: 900; line-height: 1.15">{{ galTitle }}</h2>
+      <div class="st-big st-rc" style="--d: .1s">
+        <sc-for list="{{ shots }}" as="g"><img class="{{ g.cls }}" src="{{ g.src }}" alt="{{ g.alt }}"></sc-for>
+        <sc-if value="{{ manyShots }}"><span style="position: absolute; right: 12px; top: 12px; height: 28px; padding: 0 11px; border-radius: 14px; background: rgba(31,21,48,0.6); color: #FFFFFF; font-size: 13px; font-weight: 800; display: flex; align-items: center">{{ shotNo }}</span></sc-if>
+      </div>
+      <sc-if value="{{ manyShots }}">
+        <div style="display: grid; grid-template-columns: repeat(3, 110px); gap: 6px; margin-top: 6px">
+          <sc-for list="{{ shots }}" as="g"><button type="button" class="{{ g.tcls }}" onClick="{{ g.pick }}" aria-label="{{ g.alt }}" style="{{ g.dl }}"><img src="{{ g.src }}" alt="" style="display: block; width: 110px; height: 110px; object-fit: cover"></button></sc-for>
+        </div>
+      </sc-if>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.mehmonlar }}">
+    <section data-rv="mehmonlar" class="{{ rv.mehmonlar }}" style="padding: 40px 16px 0">
+      <div class="st-postC" style="padding: 20px 18px 8px">
+        <p style="margin: 0; font-size: 13px; font-weight: 900; letter-spacing: 0.18em; color: #E8336F">IZOHLAR · {{ guestN }}</p>
+        <h2 style="margin: 6px 0 6px; font-size: 24px; font-weight: 900; line-height: 1.2">Yaqinlar nima deydi</h2>
+        <sc-for list="{{ guests }}" as="g">
+          <div class="st-rc" style="{{ g.row }}">
+            <span aria-hidden="true" style="{{ g.av }}">{{ g.ini }}</span>
+            <p style="flex: 1; min-width: 0; margin: 0; font-size: 15.5px; line-height: 1.5; overflow-wrap: anywhere"><b style="font-weight: 900">{{ g.name }}</b> {{ g.text }}</p>
+            <button type="button" class="st-btn" onClick="{{ g.tap }}" aria-pressed="{{ g.on }}" aria-label="{{ g.aria }}" style="flex: none; width: 44px; height: 44px; margin: -8px -10px 0 0; border: 0; background: none; padding: 0; cursor: pointer; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" style="{{ g.hst }}"><path d="M12 20.3s-7.6-4.6-7.6-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.6 2.7c0 5.6-7.6 10.2-7.6 10.2z" fill="{{ g.fill }}" stroke="{{ g.stroke }}" stroke-width="2"></path></svg></button>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.javob }}">
+    <section data-rv="javob" class="{{ rv.javob }}" style="padding: 40px 16px 0">
+      <div class="st-postC {{ sentCls }}" style="position: relative; padding: 22px 18px 18px">
+        <p style="margin: 0; font-size: 13px; font-weight: 900; letter-spacing: 0.18em; color: #E8336F">JAVOB</p>
+        <h2 style="margin: 6px 0 0; font-size: 24px; font-weight: 900; line-height: 1.25; overflow-wrap: anywhere">{{ askLine }}</h2>
+        <div style="display: flex; gap: 8px; overflow-x: auto; margin: 14px -18px 0; padding: 2px 18px 10px; scrollbar-width: none">
+          <sc-for list="{{ quick }}" as="q"><button type="button" class="st-qc" onClick="{{ q.tap }}">{{ q.t }}</button></sc-for>
+        </div>
+        <div style="display: flex; align-items: center; gap: 8px; margin-top: 4px">
+          <input class="st-pIn" type="text" maxlength="300" placeholder="Tabrigingizni yozing..." aria-label="Tabrik matni" value="{{ draft }}" onInput="{{ setDraft }}">
+          <button type="button" class="st-send" onClick="{{ sendDraft }}" aria-label="Yuborish"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24"><path d="M3.4 20.4L21 12 3.4 3.6 3.4 10.2 15 12 3.4 13.8Z" fill="#FFFFFF"></path></svg></button>
+        </div>
+        <p class="{{ toastCls }}" role="status" style="display: flex; align-items: center; gap: 8px; margin: 12px 2px 0; min-height: 22px; font-size: 14.5px; font-weight: 800; color: #0F8A5F"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24"><path class="st-ico" d="M4 12.5l5 5L20 6.5"></path></svg><span>{{ sentLine }}</span></p>
+        <sc-if value="{{ sendErr }}"><p role="alert" style="margin: 6px 2px 0; font-size: 13.5px; font-weight: 800; color: #B3261E">{{ sendErr }}</p></sc-if>
+        <div aria-hidden="true" style="position: absolute; right: 40px; bottom: 60px; width: 1px; height: 1px">
+          <sc-for list="{{ floatH }}" as="f"><svg class="st-fh" style="{{ f }}" viewBox="0 0 24 24"><path d="M12 20.3s-7.6-4.6-7.6-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.6 2.7c0 5.6-7.6 10.2-7.6 10.2z" fill="#E8336F"></path></svg></sc-for>
+        </div>
+      </div>
+    </section>
+</sc-if>
+
+    <footer style="display: flex; align-items: center; justify-content: center; gap: 10px; padding: 44px 20px 0; font-size: 13.5px; font-weight: 800; color: #8A7F92; text-align: center">
+      <span aria-hidden="true" class="st-ringG" style="flex: none; width: 8px; height: 8px; border-radius: 50%"></span>
+      <span style="overflow-wrap: anywhere">{{ footLine }}</span>
+      <span aria-hidden="true" class="st-ringG" style="flex: none; width: 8px; height: 8px; border-radius: 50%"></span>
+    </footer>
+  </div>
+
+  <!-- ================= INTRO: tray + story viewer ================= -->
+  <div data-intro class="{{ introCls }}" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; z-index: 30; overflow: hidden; background: #150D21">
+
+    <!-- tray -->
+    <div class="{{ trayCls }}" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; overflow: hidden">
+      <sc-if value="{{ has.photo }}"><img src="{{ p.0 }}" alt="" style="position: absolute; left: -20px; top: -20px; width: 430px; height: 884px; object-fit: cover; filter: blur(22px) saturate(1.2); opacity: 0.45"></sc-if>
+      <div aria-hidden="true" class="st-blob" style="left: -90px; top: 60px; width: 300px; height: 300px; background: #FF7A3D; opacity: 0.55"></div>
+      <div aria-hidden="true" class="st-blob" style="right: -110px; top: 300px; width: 320px; height: 320px; background: #E8336F; opacity: 0.5; animation-duration: 19s; animation-delay: -6s"></div>
+      <div aria-hidden="true" class="st-blob" style="left: 30px; bottom: -100px; width: 320px; height: 320px; background: #7B4DFF; opacity: 0.55; animation-duration: 22s; animation-delay: -11s"></div>
+      <div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; background: linear-gradient(180deg, rgba(21,13,33,0.35), rgba(21,13,33,0.1) 40%, rgba(21,13,33,0.7))"></div>
+
+      <p class="st-up" style="--d: .1s; position: absolute; left: 0; top: 64px; width: 390px; margin: 0; text-align: center; font-size: 13px; font-weight: 900; letter-spacing: 0.32em; color: rgba(255,255,255,0.82)">YANGI HIKOYALAR</p>
+
+      <sc-for list="{{ traySt }}" as="t"><svg aria-hidden="true" class="st-twk" viewBox="0 0 40 40" style="{{ t }}"><path d="M20 2C21.5 14 26 18.5 38 20C26 21.5 21.5 26 20 38C18.5 26 14 21.5 2 20C14 18.5 18.5 14 20 2Z" fill="#FFE3C4"></path></svg></sc-for>
+      <div style="position: absolute; left: 87px; top: 210px; width: 216px; height: 216px">
+        <div aria-hidden="true" class="st-glow st-ringG" style="position: absolute; left: 8px; top: 8px; width: 200px; height: 200px; border-radius: 50%; filter: blur(26px)"></div>
+        <div aria-hidden="true" class="st-ringIn" style="position: absolute; left: 0; top: 0; width: 216px; height: 216px">
+          <div class="st-ringWrap" style="width: 216px; height: 216px">
+            <svg width="216" height="216" viewBox="0 0 216 216"><defs><linearGradient id="st-gT" x1="0" y1="1" x2="1" y2="0"><stop offset="0" class="g-a"></stop><stop offset=".55" class="g-b"></stop><stop offset="1" class="g-c"></stop></linearGradient></defs><circle class="st-ring" cx="108" cy="108" r="102" stroke="url(#st-gT)" stroke-dasharray="{{ ringT }}" transform="rotate(-90 108 108)"></circle></svg>
+          </div>
+        </div>
+        <div class="st-avIn" style="position: absolute; left: 16px; top: 16px; width: 184px; height: 184px; border-radius: 50%; overflow: hidden; border: 5px solid #150D21; box-sizing: border-box; background: linear-gradient(135deg, #FF9F43, #E8336F 60%, #7B4DFF); display: flex; align-items: center; justify-content: center">
+          <sc-if value="{{ has.photo }}"><img src="{{ p.0 }}" alt="" style="width: 184px; height: 184px; object-fit: cover"></sc-if>
+          <sc-if value="{{ noPhoto }}"><span class="st-mono" style="font-size: 76px; color: #FFFFFF">{{ initial }}</span></sc-if>
+        </div>
+      </div>
+
+      <h1 style="position: absolute; left: 20px; top: 452px; width: 350px; margin: 0; text-align: center; color: #FFFFFF; font-weight: 400; line-height: 1.08; overflow-wrap: anywhere">
+        <span class="st-mono" style="display: block; font-size: {{ trayNameFs }}px"><sc-for list="{{ nameChars }}" as="c"><span class="st-ch" style="{{ c.st }}">{{ c.t }}</span></sc-for></span>
+      </h1>
+      <p class="st-up" style="--d: 1s; position: absolute; left: 24px; top: {{ traySubTop }}px; width: 342px; margin: 0; text-align: center; font-size: 16px; font-weight: 700; color: rgba(255,255,255,0.86)">{{ traySub }}</p>
+
+      <div style="position: absolute; left: 0; top: {{ trayFrTop }}px; width: 390px; display: flex; align-items: center; justify-content: center; gap: 10px">
+        <div aria-hidden="true" style="display: flex">
+          <sc-for list="{{ trayFr }}" as="a"><span class="st-fr" style="{{ a.st }}">{{ a.t }}</span></sc-for>
+        </div>
+        <span class="st-up" style="--d: 1.3s; max-width: 250px; line-height: 1.3; text-align: left"><span style="display: block; font-size: 14.5px; font-weight: 800; color: #FFFFFF; overflow-wrap: anywhere">{{ trayFrLine }}</span><span style="display: block; margin-top: 2px; font-size: 13px; font-weight: 700; color: rgba(255,255,255,0.7)">{{ trayFrSub }}</span></span>
+      </div>
+
+      <div class="st-up" style="--d: 1.45s; position: absolute; left: 0; top: 690px; width: 390px; display: flex; justify-content: center">
+        <button type="button" class="st-cta" onClick="{{ start }}">
+          <svg aria-hidden="true" width="18" height="18" viewBox="0 0 20 20"><path d="M6 3.8v12.4c0 .8.9 1.3 1.6.9l9.6-6.2c.6-.4.6-1.4 0-1.8L7.6 2.9C6.9 2.5 6 3 6 3.8z" fill="#FFFFFF"></path></svg>
+          <span>Hikoyani ko’rish</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- viewer -->
+    <div class="{{ viewCls }}" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; background: #0E0916">
+      <button type="button" class="st-zone" style="left: 0; width: 120px" aria-label="Oldingi hikoya" onPointerDown="{{ down }}" onPointerUp="{{ up }}" onPointerCancel="{{ up }}" onPointerLeave="{{ up }}" onClick="{{ prev }}"></button>
+      <button type="button" class="st-zone" style="left: 120px; width: 270px" aria-label="Keyingi hikoya" onPointerDown="{{ down }}" onPointerUp="{{ up }}" onPointerCancel="{{ up }}" onPointerLeave="{{ up }}" onClick="{{ next }}"></button>
+
+      <!-- 1. cover -->
+      <div class="{{ cc.cover }}" style="z-index: 2; background: linear-gradient(160deg, #FF9F43, #E8336F 50%, #6A3DF0)">
+        <sc-if value="{{ has.photo }}"><img class="st-kb" src="{{ p.0 }}" alt="" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; object-fit: cover"></sc-if>
+        <sc-if value="{{ noPhoto }}"><p aria-hidden="true" class="st-mono" style="position: absolute; left: -10px; top: 120px; width: 410px; margin: 0; text-align: center; font-size: 300px; line-height: 1; color: rgba(255,255,255,0.16)">{{ bigAge }}</p></sc-if>
+        <div style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; background: linear-gradient(180deg, rgba(14,9,22,0.5) 0%, rgba(14,9,22,0) 22%, rgba(14,9,22,0) 48%, rgba(14,9,22,0.82) 100%)"></div>
+        <span class="st-a st-aS" style="--d: .35s; --r: -4deg; position: absolute; left: 20px; top: 112px; display: inline-flex; align-items: center; gap: 8px; height: 42px; padding: 0 16px; border-radius: 12px; background: #FFFFFF; color: #1F1530; font-size: 15.5px; font-weight: 900; box-shadow: 0 8px 20px rgba(0,0,0,0.25)"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 20 20" style="color: #E8336F"><rect class="st-ico" x="3" y="4.5" width="14" height="12.5" rx="3"></rect><path class="st-ico" d="M3 8.5h14M7 2.5v4M13 2.5v4"></path></svg>{{ coverDate }}</span>
+        <sc-if value="{{ ageSticker }}">
+          <div class="st-a st-aS" style="--d: .9s; --r: 9deg; position: absolute; right: 22px; top: {{ ageTop }}px; width: 112px; height: 112px; border-radius: 50%; background: #FFFFFF; display: flex; align-items: center; justify-content: center; box-shadow: 0 12px 26px rgba(0,0,0,0.3)">
+            <div style="width: 100px; height: 100px; border-radius: 50%; background: linear-gradient(140deg, #FF9F43, #E8336F 55%, #7B4DFF); color: #FFFFFF; display: flex; flex-direction: column; align-items: center; justify-content: center">
+              <span class="st-mono" style="font-size: {{ ageFs }}px; line-height: 1">{{ d.yosh }}</span>
+              <span style="margin-top: 3px; font-size: 12px; font-weight: 900; letter-spacing: 0.2em">YOSH</span>
+            </div>
+          </div>
+        </sc-if>
+        <div style="position: absolute; left: 22px; bottom: 96px; width: 346px; color: #FFFFFF">
+          <p class="st-a st-scr" style="--d: .5s; margin: 0; font-size: 34px; line-height: 1.1; text-shadow: 0 2px 14px rgba(0,0,0,0.35)">Bugun — sening kuning,</p>
+          <p class="st-a st-mono" style="--d: .65s; margin: 10px 0 0; font-size: {{ coverNameFs }}px; line-height: 1.02; overflow-wrap: anywhere; text-shadow: 0 4px 24px rgba(0,0,0,0.35)">{{ nameOr }}</p>
+          <p class="st-a" style="--d: 1.1s; display: inline-flex; align-items: center; gap: 8px; margin: 16px 0 0; height: 36px; padding: 0 14px; border-radius: 18px; background: rgba(255,255,255,0.2); font-size: 14px; font-weight: 800"><span class="st-hint" style="display: inline-flex"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 20 20"><path class="st-ico" d="M7 4l6 6-6 6"></path></svg></span>Bosing — keyingi hikoya</p>
+        </div>
+      </div>
+
+      <!-- 2. tabrik -->
+      <sc-if value="{{ b.tabrik }}">
+        <div class="{{ cc.tabrik }}" style="z-index: 2; background: linear-gradient(170deg, #7B4DFF 0%, #C2378F 52%, #FF7A3D 100%)">
+          <div aria-hidden="true" class="st-blob" style="left: -80px; top: 80px; width: 260px; height: 260px; background: #FFB36B; opacity: 0.45"></div>
+          <svg aria-hidden="true" class="st-a" width="70" height="56" viewBox="0 0 70 56" style="--d: .1s; position: absolute; left: 22px; top: 110px"><path d="M4 52V32C4 14 14 5 30 3v10c-9 2-13 8-13 17h13v22zM40 52V32C40 14 50 5 66 3v10c-9 2-13 8-13 17h13v22z" fill="rgba(255,255,255,0.85)"></path></svg>
+          <div style="{{ msgBox }}">
+            <p style="{{ msgSt }}"><sc-for list="{{ words }}" as="w"><sc-if value="{{ w.br }}"><span style="display: block; height: 10px"></span></sc-if><sc-if value="{{ w.t }}"><span class="st-wd" style="{{ w.st }}"><span class="st-hl">{{ w.t }} </span></span></sc-if></sc-for></p>
+          </div>
+          <sc-if value="{{ from.names }}"><p class="st-a st-scr" style="--d: 1.2s; position: absolute; right: 22px; bottom: 74px; max-width: 320px; margin: 0; padding: 6px 16px 8px; background: #FFE066; color: #1F1530; font-size: 26px; line-height: 1.15; transform: rotate(-3deg); box-shadow: 0 8px 18px rgba(0,0,0,0.25); overflow-wrap: anywhere">— {{ from.names }}</p></sc-if>
+        </div>
+      </sc-if>
+
+      <!-- 3. stickers -->
+      <sc-if value="{{ b.tilaklar }}">
+        <div class="{{ cc.tilaklar }}" style="z-index: 2; background: radial-gradient(90% 60% at 80% 10%, #FFB36B 0%, rgba(255,179,107,0) 60%), linear-gradient(165deg, #FF7A3D, #E8336F 55%, #8E3FE0)">
+          <div class="st-a st-aS" style="--d: .15s; --r: -3deg; position: absolute; left: 50px; top: 118px; width: 290px; border-radius: 22px; background: #FFFFFF; overflow: hidden; box-shadow: 0 14px 30px rgba(0,0,0,0.25); text-align: center">
+            <p style="margin: 0; padding: 14px 16px 12px; font-size: 21px; font-weight: 900; color: #1F1530; line-height: 1.25">Senga tilaklarimiz</p>
+            <p class="st-gtx" style="margin: 0; padding: 0 16px 14px; font-size: 15px; font-weight: 800; overflow-wrap: anywhere">{{ wishSub }}</p>
+          </div>
+          <div aria-hidden="true" class="st-a st-aS" style="--d: 1.3s; --r: 12deg; position: absolute; right: 18px; bottom: 70px; width: 118px; height: 118px">
+            <div class="st-burst" style="position: absolute; left: 0; top: 0; width: 118px; height: 118px; background: #FFE066; clip-path: {{ burst }}"></div>
+            <div style="position: absolute; left: 0; top: 0; width: 118px; height: 118px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #1F1530; text-align: center"><span class="st-mono" style="font-size: 15px; line-height: 1.1">MUBO-</span><span class="st-mono" style="font-size: 15px; line-height: 1.1">RAK!</span></div>
+          </div>
+          <svg aria-hidden="true" class="st-a st-tw" width="40" height="40" viewBox="0 0 40 40" style="--d: 1s; position: absolute; left: 26px; top: 248px"><path d="M20 2C21.5 14 26 18.5 38 20C26 21.5 21.5 26 20 38C18.5 26 14 21.5 2 20C14 18.5 18.5 14 20 2Z" fill="#FFFFFF"></path></svg>
+          <svg aria-hidden="true" class="st-a st-tw" width="26" height="26" viewBox="0 0 40 40" style="--d: 1.15s; position: absolute; left: 60px; top: 720px; animation-delay: -1s"><path d="M20 2C21.5 14 26 18.5 38 20C26 21.5 21.5 26 20 38C18.5 26 14 21.5 2 20C14 18.5 18.5 14 20 2Z" fill="#FFE066"></path></svg>
+          <div style="position: absolute; left: 16px; top: 270px; width: 358px; height: 440px; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; align-content: center; gap: 26px 14px">
+            <sc-for list="{{ swishes }}" as="w">
+              <button type="button" class="{{ w.cls }}" style="{{ w.st }}" onClick="{{ w.tap }}">{{ w.t }}</button>
+            </sc-for>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- 4. poll -->
+      <sc-if value="{{ pollCard }}">
+        <div class="{{ cc.sorov }}" style="z-index: 2; background: linear-gradient(170deg, #2A1B4A, #5B2FC4 55%, #E8336F)">
+          <sc-if value="{{ has.photo }}"><img src="{{ p.1 }}" alt="" style="position: absolute; left: -20px; top: -20px; width: 430px; height: 884px; object-fit: cover; filter: blur(18px); opacity: 0.35"></sc-if>
+          <div class="st-a st-aS {{ pollCls }}" style="--d: .2s; --r: -2deg; position: absolute; left: 28px; top: 190px; width: 334px; border-radius: 26px; background: #FFFFFF; padding: 0 0 16px; box-shadow: 0 20px 44px rgba(0,0,0,0.35); overflow: hidden">
+            <div style="padding: 18px 20px 16px; background: linear-gradient(90deg, #FF7A3D, #E8336F 55%, #8A4DFF); color: #FFFFFF; text-align: center">
+              <p style="margin: 0; font-size: 12.5px; font-weight: 900; letter-spacing: 0.2em; opacity: 0.9">SO’ROVNOMA</p>
+              <p style="margin: 6px 0 0; font-size: 20px; font-weight: 900; line-height: 1.28; overflow-wrap: anywhere">{{ pollQ }}</p>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 10px; padding: 16px 16px 0">
+              <sc-for list="{{ opts }}" as="o">
+                <button type="button" class="{{ o.cls }}" onClick="{{ o.tap }}" aria-pressed="{{ o.on }}"><span class="st-optF" style="{{ o.fill }}"></span><span class="st-oT">{{ o.t }}</span><span class="st-pct" style="position: relative">{{ o.pct }}</span></button>
+              </sc-for>
+            </div>
+            <p style="margin: 12px 20px 0; font-size: 13.5px; font-weight: 700; color: #8A7F92; text-align: center">{{ pollNote }}</p>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- 5. secret -->
+      <sc-if value="{{ b.sirli }}">
+        <div class="{{ cc.sirli }}" style="z-index: 2; background: radial-gradient(100% 60% at 20% 15%, #22C487 0%, rgba(34,196,135,0) 60%), linear-gradient(170deg, #0F6B4E, #072A22)">
+          <div class="st-a" style="--d: .15s; position: absolute; left: 0; top: 200px; width: 390px; display: flex; justify-content: center">
+            <span style="display: inline-flex; align-items: center; gap: 8px; height: 38px; padding: 0 16px 0 6px; border-radius: 19px; background: #2BD38E; color: #053B2A; font-size: 14px; font-weight: 900; letter-spacing: 0.06em"><span style="width: 28px; height: 28px; border-radius: 50%; background: #FFFFFF; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="15" height="15" viewBox="0 0 20 20"><path d="M10 1.8l2.4 5 5.4.6-4 3.7 1.1 5.4L10 13.8l-4.9 2.7 1.1-5.4-4-3.7 5.4-.6z" fill="#14A56E"></path></svg></span>Faqat yaqinlar uchun</span>
+          </div>
+          <p class="st-a" style="--d: .3s; position: absolute; left: 24px; top: 262px; width: 342px; margin: 0; text-align: center; font-size: 32px; font-weight: 900; line-height: 1.2; color: #FFFFFF">Sirli tilak</p>
+          <div class="st-a {{ secCls }}" style="--d: .45s; position: absolute; left: 24px; top: 336px; width: 342px">
+            <div style="position: relative; padding: 24px 22px; border-radius: 24px; background: rgba(255,255,255,0.12); border: 1.5px solid rgba(255,255,255,0.3); color: #FFFFFF">
+              <p class="st-spoil" style="margin: 0; font-size: {{ secFs }}px; line-height: 1.5; font-weight: 800; white-space: pre-line; overflow-wrap: anywhere; text-align: center">{{ d.sirli_tilak }}</p>
+              <sc-for list="{{ sparks }}" as="k"><span class="st-spark" style="{{ k }}"></span></sc-for>
+            </div>
+            <div style="display: flex; justify-content: center; margin-top: 18px">
+              <button type="button" class="st-secBtn st-cta" onClick="{{ openSec }}" style="background: #FFFFFF; color: #0F6B4E; box-shadow: 0 10px 24px rgba(0,0,0,0.3)">
+                <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24"><path class="st-ico" d="M2.5 12s3.5-7 9.5-7 9.5 7 9.5 7-3.5 7-9.5 7-9.5-7-9.5-7z"></path><circle class="st-ico" cx="12" cy="12" r="3"></circle></svg>
+                <span>Sirni ochish</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- 6. countdown -->
+      <sc-if value="{{ b.taymer }}">
+        <div class="{{ cc.taymer }}" style="z-index: 2; background: linear-gradient(165deg, #FF9F43, #FF5A5F 45%, #E8336F 70%, #8A4DFF)">
+          <sc-if value="{{ has.photo }}"><img src="{{ p.2 }}" alt="" style="position: absolute; left: -20px; top: -20px; width: 430px; height: 884px; object-fit: cover; filter: blur(16px); opacity: 0.3"></sc-if>
+          <p aria-hidden="true" class="st-a st-mono" style="--d: .05s; position: absolute; left: 0; top: 120px; width: 390px; margin: 0; text-align: center; font-size: 150px; line-height: 1; color: rgba(255,255,255,0.18)">{{ cdBig }}</p>
+          <p class="st-a st-scr" style="--d: .8s; position: absolute; left: 0; top: 590px; width: 390px; margin: 0; text-align: center; font-size: 36px; color: #FFFFFF; text-shadow: 0 3px 14px rgba(0,0,0,0.25); transform: rotate(-3deg)">{{ cdCap }}</p>
+          <div class="st-a st-aS" style="--d: .2s; --r: 2deg; position: absolute; left: 30px; top: 300px; width: 330px; padding: 20px 16px 18px; box-sizing: border-box; border-radius: 26px; background: #FFFFFF; text-align: center; box-shadow: 0 20px 44px rgba(0,0,0,0.3)">
+            <p class="st-gtx" style="margin: 0; font-size: 20px; font-weight: 900; line-height: 1.25; overflow-wrap: anywhere">{{ cdTitle }}</p>
+            <sc-if value="{{ cdLive }}">
+              <div style="display: flex; justify-content: center; gap: 6px; margin-top: 14px">
+                <sc-for list="{{ tiles }}" as="x"><div class="st-cdBox" style="width: 68px; height: 74px"><span class="st-mono" style="font-size: 28px; line-height: 1; color: #1F1530"><span class="{{ x.cls }}" style="display: inline-block">{{ x.v }}</span></span><span style="margin-top: 6px; font-size: 12px; font-weight: 800; color: #6E6478">{{ x.l }}</span></div></sc-for>
+              </div>
+            </sc-if>
+            <sc-if value="{{ cdDone }}"><p class="st-mono" style="margin: 14px 0 0; font-size: 30px; color: #E8336F">Bugun!</p></sc-if>
+            <sc-if value="{{ calUrl }}"><a href="{{ calUrl }}" target="_blank" rel="noopener" style="display: flex; align-items: center; justify-content: center; gap: 8px; min-height: 46px; margin-top: 14px; border-radius: 23px; background: #F7F2EC; color: #1F1530; font-size: 15px; font-weight: 800; text-decoration: none"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24"><path class="st-ico" d="M6 9a6 6 0 0 1 12 0c0 6 2.5 7.5 2.5 7.5h-17S6 15 6 9zM10 20a2.2 2.2 0 0 0 4 0"></path></svg>Eslatma qo’yish</a></sc-if>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- 7. photo dump -->
+      <sc-if value="{{ dumpCard }}">
+        <div class="{{ cc.galereya }}" style="z-index: 2; background: #1F1530">
+          <img src="{{ p.0 }}" alt="" style="position: absolute; left: -20px; top: -20px; width: 430px; height: 884px; object-fit: cover; filter: blur(20px); opacity: 0.5">
+          <sc-for list="{{ dump }}" as="g">
+            <div class="st-pol st-polIn" style="{{ g.st }}"><img src="{{ g.src }}" alt="" style="{{ g.im }}"></div>
+          </sc-for>
+          <p class="st-a st-scr" style="--d: 1.2s; position: absolute; left: 0; bottom: 92px; width: 390px; margin: 0; text-align: center; font-size: 38px; color: #FFFFFF; text-shadow: 0 3px 16px rgba(0,0,0,0.5)">Eng yorqin lahzalar</p>
+        </div>
+      </sc-if>
+
+      <!-- 8. final -->
+      <div class="{{ cc.final }}" style="z-index: 2; background: linear-gradient(170deg, #1F1530, #3B1E6E 55%, #7A2A6E)">
+        <sc-if value="{{ has.photo }}"><img src="{{ p.0 }}" alt="" style="position: absolute; left: -20px; top: -20px; width: 430px; height: 884px; object-fit: cover; filter: blur(24px); opacity: 0.4"></sc-if>
+        <div class="st-a st-aS" style="--d: .1s; position: absolute; left: 135px; top: 140px; width: 120px; height: 120px; border-radius: 50%; padding: 4px; box-sizing: border-box" >
+          <div class="st-ringG" style="position: absolute; left: 0; top: 0; width: 120px; height: 120px; border-radius: 50%"></div>
+          <div style="position: absolute; left: 5px; top: 5px; width: 110px; height: 110px; border-radius: 50%; border: 4px solid #2A1B4A; box-sizing: border-box; overflow: hidden; background: linear-gradient(135deg, #FF9F43, #E8336F)">
+            <sc-if value="{{ has.photo }}"><img src="{{ p.0 }}" alt="" style="width: 102px; height: 102px; object-fit: cover"></sc-if>
+          </div>
+        </div>
+        <p class="st-a" style="--d: .25s; position: absolute; left: 24px; top: 286px; width: 342px; margin: 0; text-align: center; font-size: 28px; font-weight: 900; line-height: 1.2; color: #FFFFFF; overflow-wrap: anywhere">{{ finalTitle }}</p>
+        <p class="st-a" style="--d: .35s; position: absolute; left: 30px; top: {{ finalSubTop }}px; width: 330px; margin: 0; text-align: center; font-size: 16px; font-weight: 600; line-height: 1.5; color: rgba(255,255,255,0.82)">Tabrikning to’liq sahifasida: matn, tilaklar, suratlar va yana ko’p narsa.</p>
+        <div class="st-a" style="--d: .5s; position: absolute; left: 0; top: {{ finalCtaTop }}px; width: 390px; display: flex; justify-content: center">
+          <button type="button" class="st-cta" onClick="{{ close }}"><span>Sahifani ochish</span><svg aria-hidden="true" width="18" height="18" viewBox="0 0 20 20"><path class="st-ico" d="M4 10h11M11 5.5L15.5 10 11 14.5"></path></svg></button>
+        </div>
+        <sc-if value="{{ b.javob }}">
+          <div class="st-a {{ sentCls }}" style="--d: .7s; position: absolute; left: 0; bottom: 26px; width: 390px; padding: 0 14px; box-sizing: border-box">
+            <div aria-hidden="true" style="position: absolute; right: 36px; bottom: 30px; width: 1px; height: 1px">
+              <sc-for list="{{ floatH }}" as="f"><svg class="st-fh" style="{{ f }}" viewBox="0 0 24 24"><path d="M12 20.3s-7.6-4.6-7.6-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.6 2.7c0 5.6-7.6 10.2-7.6 10.2z" fill="#FF5C8D"></path></svg></sc-for>
+            </div>
+            <p class="{{ toastCls }}" role="status" style="margin: 0 0 10px; text-align: center; font-size: 14.5px; font-weight: 800; color: #A6F3D2">{{ sentLine }}</p>
+            <div style="display: flex; gap: 8px; overflow-x: auto; padding: 0 0 10px; scrollbar-width: none">
+              <sc-for list="{{ quick }}" as="q"><button type="button" class="st-chip" onClick="{{ q.tap }}">{{ q.t }}</button></sc-for>
+            </div>
+            <div style="display: flex; align-items: center; gap: 6px">
+              <input class="st-rIn" type="text" maxlength="300" placeholder="Javob yozing..." aria-label="Javob matni" value="{{ draft }}" onInput="{{ setDraft }}">
+              <button type="button" class="st-heartB" onClick="{{ sendHeart }}" aria-label="Yurak yuborish"><svg aria-hidden="true" width="30" height="30" viewBox="0 0 24 24" style="transition: transform .2s ease"><path d="M12 20.3s-7.6-4.6-7.6-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.6 2.7c0 5.6-7.6 10.2-7.6 10.2z" fill="none" stroke="#FFFFFF" stroke-width="2"></path></svg></button>
+              <button type="button" class="st-heartB" onClick="{{ sendDraft }}" aria-label="Yuborish"><svg aria-hidden="true" width="26" height="26" viewBox="0 0 24 24"><path d="M3.4 20.4L21 12 3.4 3.6 3.4 10.2 15 12 3.4 13.8Z" fill="#FFFFFF"></path></svg></button>
+            </div>
+            <sc-if value="{{ sendErr }}"><p role="alert" style="margin: 6px 0 0; text-align: center; font-size: 13.5px; font-weight: 800; color: #FFB4B4">{{ sendErr }}</p></sc-if>
+          </div>
+        </sc-if>
+      </div>
+
+      <!-- top overlay: bars + header -->
+      <div class="st-top" style="position: absolute; left: 0; top: 0; width: 390px; height: 110px; z-index: 4; pointer-events: none; background: linear-gradient(180deg, rgba(0,0,0,0.35), rgba(0,0,0,0))">
+        <div class="st-bars" style="position: absolute; left: 10px; top: 12px; width: 370px">
+          <sc-for list="{{ bars }}" as="x"><span class="st-bar"><span class="{{ x.cls }}" style="{{ x.st }}" onAnimationEnd="{{ x.end }}"></span></span></sc-for>
+        </div>
+        <div style="position: absolute; left: 14px; top: 26px; width: 362px; display: flex; align-items: center; gap: 10px; color: #FFFFFF">
+          <span aria-hidden="true" class="st-ringG" style="flex: none; width: 38px; height: 38px; border-radius: 50%; padding: 2px; box-sizing: border-box"><span style="display: flex; width: 34px; height: 34px; border-radius: 50%; border: 2px solid #1F1530; box-sizing: border-box; background: linear-gradient(135deg, #FFB36B, #E8336F); align-items: center; justify-content: center; font-size: 15px; font-weight: 900">{{ authorIni }}</span></span>
+          <span style="min-width: 0; flex: 1; display: flex; align-items: baseline; gap: 8px">
+            <span style="font-size: 15px; font-weight: 800; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-shadow: 0 1px 6px rgba(0,0,0,0.3)">{{ authorName }}</span>
+            <span style="flex: none; font-size: 13.5px; font-weight: 600; opacity: 0.8">{{ ago }}</span>
+          </span>
+          <button type="button" class="st-x" onClick="{{ close }}" aria-label="Hikoyalarni yopish" style="pointer-events: auto"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 20 20"><path class="st-ico" d="M5 5l10 10M15 5L5 15"></path></svg></button>
+        </div>
+      </div>
+    </div>
+
+    <div style="position: absolute; left: 0; top: 770px; width: 390px; display: flex; justify-content: center; z-index: 5">
+      <button type="button" class="st-skip" onClick="{{ close }}">Tabrik sahifasiga o’tish</button>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":4400}}'>
+const tkName = (d) => String(d.kimga || '').trim();
+const tkFrom = (d) => {
+  const kd = String(d.kimdan || '').trim(), ci = kd.indexOf(':');
+  const label = ci > 0 ? kd.slice(0, ci).trim() : '';
+  const names = ci > 0 ? kd.slice(ci + 1).trim() : kd;
+  return { label: label, names: names, line: !kd ? '' : (label ? label + 'dan: ' + names : names + 'dan') };
+};
+const REDUCED = typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
+const CAN_IO = typeof IntersectionObserver === 'function' && !REDUCED;
+const pad2 = (n) => (n < 10 ? '0' : '') + n;
+const GR = [['#FFB36B', '#FF7A3D'], ['#FF7AA6', '#E8336F'], ['#A98BFF', '#7B4DFF'], ['#5CD6A8', '#14A56E'], ['#6EC1FF', '#3A7BFF'], ['#FFD36B', '#F2A20C']];
+const rnd = (i, k) => { const x = Math.sin(i * 127.1 + k * 311.7) * 43758.5453; return x - Math.floor(x); };
+const ICO = {
+  tabrik: 'M4 5.5h16v10.5H9l-5 4zM8 9.5h8M8 12.5h5',
+  tilaklar: 'M12 3l2.6 5.6 6 .7-4.5 4.1 1.2 6L12 16.4l-5.3 3 1.2-6L3.4 9.3l6-.7z',
+  sorov: 'M5 20V11M12 20V4M19 20v-6',
+  sirli: 'M5 11h14v9H5zM8 11V8a4 4 0 0 1 8 0v3',
+  taymer: 'M12 21a8 8 0 1 0 0-16 8 8 0 0 0 0 16zM12 9v4l2.5 2M9.5 2.5h5',
+  galereya: 'M4 5h16v14H4zM4 15l4.5-4.5 4 4 2.5-2.5L20 17M15.5 9.5h.01'
+};
+const LABEL = { tabrik: 'Tabrik', tilaklar: 'Tilaklar', sorov: 'So’rovnoma', sirli: 'Sirli', taymer: 'Taymer', galereya: 'Suratlar' };
+
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { phase: 'tray', cur: 0, run: false, hold: false, tick: 0, vote: -1, sec: false, pop: -1, liked: false, cl: {}, blown: false, gi: 0, draft: '', sent: false, sentN: 0, sendErr: '', rv: {}, live: false };
+    this.sparks = Array.from({ length: 14 }, (_, i) => {
+      const a = (i / 14) * Math.PI * 2, r = 70 + rnd(i, 2) * 70;
+      return 'left: 50%; top: 50%; background: ' + ['#A6F3D2', '#FFFFFF', '#FFE066'][i % 3] + '; --x: ' + Math.round(Math.cos(a) * r * 1.4) + 'px; --y: ' + Math.round(Math.sin(a) * r) + 'px; --d: ' + (rnd(i, 3) * 0.25).toFixed(2) + 's';
+    });
+    this.likeSparks = Array.from({ length: 8 }, (_, i) => {
+      const a = (i / 8) * Math.PI * 2;
+      return 'background: ' + ['#E8336F', '#FF9F43', '#7B4DFF'][i % 3] + '; --x: ' + Math.round(Math.cos(a) * 26) + 'px; --y: ' + Math.round(Math.sin(a) * 26) + 'px';
+    });
+    this.confetti = Array.from({ length: 22 }, (_, i) => {
+      const a = -Math.PI / 2 + (rnd(i, 5) - 0.5) * Math.PI * 1.5, r = 110 + rnd(i, 6) * 120;
+      return 'background: ' + ['#FF9F43', '#E8336F', '#7B4DFF', '#FFE066', '#2BD38E'][i % 5] + '; --x: ' + Math.round(Math.cos(a) * r) + 'px; --y: ' + Math.round(Math.sin(a) * r + 60) + 'px; --r: ' + Math.round((rnd(i, 7) - 0.5) * 900) + 'deg; --d: ' + (rnd(i, 8) * 0.15).toFixed(2) + 's';
+    });
+    const pts = [];
+    for (let i = 0; i < 24; i++) { const a = (i / 24) * Math.PI * 2, r = i % 2 ? 43 : 50; pts.push((50 + r * Math.cos(a)).toFixed(1) + '% ' + (50 + r * Math.sin(a)).toFixed(1) + '%'); }
+    this.burst = 'polygon(' + pts.join(', ') + ')';
+    this.traySt = Array.from({ length: 16 }, (_, i) => {
+      const a = rnd(i, 11) * Math.PI * 2, r = 125 + rnd(i, 12) * 60, z = 6 + Math.round(rnd(i, 13) * 10);
+      return 'left: ' + Math.round(195 + Math.cos(a) * r * 1.15 - z / 2) + 'px; top: ' + Math.round(318 + Math.sin(a) * r - z / 2) + 'px; width: ' + z + 'px; height: ' + z + 'px; animation-delay: -' + (rnd(i, 14) * 3).toFixed(2) + 's; animation-duration: ' + (2.2 + rnd(i, 15) * 2).toFixed(2) + 's';
+    });
+    this.floatH = Array.from({ length: 7 }, (_, i) => 'left: ' + (-15 + (i % 3) * 6) + 'px; --x: ' + Math.round((rnd(i, 9) - 0.6) * 140) + 'px; --r: ' + Math.round((rnd(i, 10) - 0.5) * 60) + 'deg; --d: ' + (i * 0.12).toFixed(2) + 's');
+  }
+  componentDidMount() {
+    this.timer = setInterval(() => this.forceUpdate(), 1000);
+    if (CAN_IO) {
+      this.io = new IntersectionObserver((es) => {
+        const add = {};
+        es.forEach((e) => { if (e.isIntersecting) { add[e.target.getAttribute('data-rv')] = true; this.io.unobserve(e.target); } });
+        if (Object.keys(add).length) this.setState((s) => ({ rv: Object.assign({}, s.rv, add) }));
+      }, { rootMargin: '0px 0px -10% 0px' });
+      document.querySelectorAll('[data-rv]').forEach((el) => this.io.observe(el));
+    }
+  }
+  componentWillUnmount() {
+    clearInterval(this.timer); clearTimeout(this.runT); clearTimeout(this.popT); clearTimeout(this.sentT);
+    if (this.io) this.io.disconnect();
+  }
+  cards() {
+    const B = SITE.b, D = SITE.d, wl = (D.tilaklar || []).filter((x) => String(x || '').trim());
+    const c = ['cover'];
+    if (B.tabrik) c.push('tabrik');
+    if (B.tilaklar) c.push('tilaklar');
+    if (B.tilaklar && wl.length >= 2) c.push('sorov');
+    if (B.sirli) c.push('sirli');
+    if (B.taymer) c.push('taymer');
+    if (B.galereya && SITE.has.photos >= 2) c.push('galereya');
+    c.push('final');
+    return c;
+  }
+  go(i) {
+    const n = this.cards().length;
+    if (i < 0) i = 0;
+    if (i >= n) { this.close(); return; }
+    this.setState((s) => ({ cur: i, tick: s.tick + 1, pop: -1 }));
+  }
+  begin(at, replay) {
+    clearTimeout(this.runT);
+    if (SITE.has.music && !SITE.music.playing) SITE.music.play();
+    if (replay) {
+      this.scrollY = window.scrollY || 0;
+      window.scrollTo(0, 0);
+      document.documentElement.style.overflow = 'hidden';
+    }
+    this.setState((s) => ({ phase: 'view', cur: at || 0, run: false, tick: s.tick + 1 }));
+    this.runT = setTimeout(() => this.setState({ run: true }), replay ? 450 : 1050);
+  }
+  close() {
+    clearTimeout(this.runT);
+    const was = this.state.phase;
+    if (was === 'gone') return;
+    this.setState({ phase: 'gone', run: false, live: true });
+    if (this.replaying) {
+      document.documentElement.style.overflow = '';
+      const y = this.scrollY || 0;
+      setTimeout(() => window.scrollTo(0, y), 30);
+    } else {
+      SITE.opened();
+    }
+    this.replaying = true;
+  }
+  renderVals() {
+    const s = this.state, D = SITE.d, B = SITE.b;
+    const name = tkName(D), from = tkFrom(D);
+    const w = SITE.when(D.sana), cd = SITE.countdown(D.sana);
+    const yosh = String(D.yosh || '').trim();
+    const isAge = /^\d{1,3}$/.test(yosh);
+    const wl = (D.tilaklar || []).map((x) => String(x || '').trim()).filter(Boolean);
+    const cards = this.cards(), n = cards.length;
+    const cur = Math.min(s.cur, n - 1), curK = cards[cur];
+    const viewing = s.phase === 'view';
+
+    // card classes
+    const cc = {};
+    ['cover', 'tabrik', 'tilaklar', 'sorov', 'sirli', 'taymer', 'galereya', 'final'].forEach((k) => { cc[k] = 'st-card' + (k === curK && s.phase !== 'tray' ? ' st-card--on' : ''); });
+    const durOf = (k) => {
+      if (k === 'cover') return 6;
+      if (k === 'tabrik') return Math.max(8, Math.min(16, Math.round(String(D.matn || '').length / 20)));
+      if (k === 'tilaklar') return 7.5;
+      if (k === 'sorov') return 9;
+      if (k === 'sirli') return 9;
+      if (k === 'taymer') return 6.5;
+      if (k === 'galereya') return 7;
+      return 0;
+    };
+    const par = s.tick % 2 ? ' st-fill--a' : ' st-fill--b';
+    const bars = cards.map((k, i) => {
+      const on = i === cur && viewing && s.run;
+      const fin = k === 'final';
+      return {
+        cls: 'st-fill' + (i < cur ? ' st-fill--done' : (i === cur && fin && s.phase !== 'tray' ? ' st-fill--done' : (on && !fin ? par : ''))),
+        st: '--dur: ' + durOf(k) + 's',
+        end: on && !fin ? () => { if (this.state.phase === 'view' && this.state.cur === i) this.go(i + 1); } : null
+      };
+    });
+
+    // names
+    const nameOr = name || 'Do’stim';
+    const words1 = nameOr.split(/\s+/).filter(Boolean);
+    const longest = Math.max(1, ...words1.map((x) => x.length));
+    const fitMono = (max, min, width) => Math.max(min, Math.min(max, Math.floor(width / (longest * 0.84))));
+    let ci = 0;
+    const nameChars = Array.from(nameOr).map((ch) => ({ t: ch === ' ' ? ' ' : ch, st: '--i: ' + (ci++) }));
+    const trayNameFs = fitMono(52, 24, 340);
+    const trayLines = nameOr.length * trayNameFs * 0.84 > 345 ? 2 : 1;
+    const traySubTop = 452 + Math.round(trayNameFs * 1.08 * trayLines) + 14;
+
+    const pool = from.names.split(/\s*,\s*|\s+va\s+|\s+и\s+/).map((x) => x.trim()).filter(Boolean);
+    const avStyle = (i, z, extra) => 'width: ' + z + 'px; height: ' + z + 'px; border-radius: 50%; box-sizing: border-box; border: 3px solid ' + (extra || '#FFFFFF') + '; display: flex; align-items: center; justify-content: center; font-size: ' + Math.round(z * 0.4) + 'px; font-weight: 900; color: #FFFFFF; background: linear-gradient(135deg, ' + GR[i % GR.length][0] + ', ' + GR[i % GR.length][1] + ')' + (i ? '; margin-left: -' + Math.round(z * 0.3) + 'px' : '');
+    const trayFr = pool.slice(0, 4).map((x, i) => ({ t: x.charAt(0).toLocaleUpperCase('uz'), st: avStyle(i, 40, '#2A1B4A') + '; --d: ' + (1.1 + i * 0.1).toFixed(2) + 's; position: relative; z-index: ' + (5 - i) }));
+    const storyN = n - 1;
+    const trayFrLine = pool.length ? (pool.length === 1 ? pool[0] : pool.slice(0, -1).join(', ') + ' va ' + pool[pool.length - 1]) : 'Yaqinlaringizdan';
+    const trayFrSub = storyN + ' ta yangi hikoya joylashdi';
+
+    const C1 = 2 * Math.PI * 102, g1 = storyN > 1 ? 9 : 0;
+    const ringT = storyN > 1 ? ((C1 / storyN) - g1).toFixed(1) + ' ' + g1 : C1.toFixed(1) + ' 0';
+    const C2 = 2 * Math.PI * 59, g2 = storyN > 1 ? 6 : 0;
+    const ringP = storyN > 1 ? ((C2 / storyN) - g2).toFixed(1) + ' ' + g2 : C2.toFixed(1) + ' 0';
+
+    // tabrik words
+    const matn = String(D.matn || '');
+    const L = matn.length;
+    const mfs = L < 140 ? 25 : L < 230 ? 21 : L < 340 ? 19 : L < 480 ? 17 : 15;
+    const words = [];
+    let wi = 0;
+    matn.split(/\n/).forEach((line, li) => {
+      if (li > 0) words.push({ br: true, t: '' });
+      line.split(/\s+/).filter(Boolean).forEach((t) => { words.push({ t: t, br: false, st: '--i: ' + Math.min(wi++, 60) }); });
+    });
+
+    // stickers
+    const SK = ['st-sk1', 'st-sk2', 'st-sk4', 'st-sk3', 'st-sk5', 'st-sk6'];
+    const ROT = [-6, 5, -3, 7, -8, 4, -2, 6];
+    const mkWish = (t, i, base, page) => {
+      const r = ROT[i % ROT.length];
+      const cls = 'st-sk ' + SK[i % SK.length] + (page ? ' st-psk st-rS' : ' st-a st-aS') + (s.pop === i + base ? ' st-pop' : '');
+      const fs = page ? (t.length > 22 ? 16 : t.length > 14 ? 18 : 20) : (t.length > 22 ? 18 : t.length > 14 ? 21 : 24);
+      return {
+        t: t, cls: cls,
+        st: '--r: ' + r + 'deg; --d: ' + ((page ? 0.12 : 0.45) + i * 0.12).toFixed(2) + 's' + (SK[i % SK.length] === 'st-sk4' ? '' : '; font-size: ' + fs + 'px') + (page && SK[i % SK.length] === 'st-sk5' ? '; border-color: rgba(255,255,255,0.95)' : ''),
+        tap: () => {
+          clearTimeout(this.popT);
+          this.setState({ pop: -1 });
+          setTimeout(() => this.setState({ pop: i + base }), 20);
+          this.popT = setTimeout(() => this.setState({ pop: -1 }), 650);
+        }
+      };
+    };
+    const swishes = wl.slice(0, 8).map((t, i) => mkWish(t, i, 0, false));
+    const pwishes = wl.map((t, i) => mkWish(t, i, 100, true));
+
+    // poll
+    const ops = wl.slice(0, 4);
+    const W0 = { 2: [55, 45], 3: [42, 33, 25], 4: [34, 27, 22, 17] }[ops.length] || [100];
+    const voted = s.vote >= 0;
+    const raw = ops.map((_, i) => W0[i] + (s.vote === i ? 14 : 0));
+    const tot = raw.reduce((a, b) => a + b, 0) || 1;
+    const pcts = raw.map((x) => Math.round((x * 100) / tot));
+    if (pcts.length) pcts[0] += 100 - pcts.reduce((a, b) => a + b, 0);
+    const opts = ops.map((t, i) => ({
+      t: t, pct: pcts[i] + '%', on: s.vote === i ? 'true' : 'false',
+      cls: 'st-opt' + (s.vote === i ? ' st-opt--me' : ''),
+      fill: voted ? 'transform: scaleX(' + (pcts[i] / 100).toFixed(3) + ')' : '',
+      tap: () => { if (this.state.vote === i) return; this.setState((st) => ({ vote: i, tick: st.phase === 'view' ? st.tick + 1 : st.tick })); }
+    }));
+
+    // countdown
+    const tl = [[cd.dd, 'kun', cd.d], [cd.hh, 'soat', cd.h], [cd.mm, 'daqiqa', cd.m], [cd.ss, 'soniya', cd.s]];
+    const tiles = tl.map((x, i) => ({ v: x[0], l: x[1], cls: i === 3 ? (x[2] % 2 ? 'st-tk' : 'st-tk2') : '', st: '--d: ' + (0.1 + i * 0.08).toFixed(2) + 's' }));
+    const iso = String(D.sana || '');
+    let calUrl = '';
+    if (/^\d{4}-\d{2}-\d{2}/.test(iso) && !cd.done) {
+      const a = iso.slice(0, 10).replace(/-/g, '');
+      const nx = new Date(Date.UTC(+iso.slice(0, 4), +iso.slice(5, 7) - 1, +iso.slice(8, 10) + 1));
+      const bb = nx.getUTCFullYear() + pad2(nx.getUTCMonth() + 1) + pad2(nx.getUTCDate());
+      calUrl = 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + encodeURIComponent(nameOr + 'ning tug’ilgan kuni') + '&dates=' + a + '/' + bb;
+    }
+
+    // photos
+    const np = Math.max(1, Math.min(6, SITE.has.photos));
+    const order = np > 1 ? SITE.p.slice(1, np).concat([SITE.p[0]]) : SITE.p.slice(0, 1);
+    const gi = Math.min(s.gi, order.length - 1);
+    const shots = order.map((src, i) => ({
+      src: src, alt: (i + 1) + '-surat', cls: 'st-bigI' + (i === gi ? ' st-bigI--on' : ''),
+      tcls: 'st-th st-rc' + (i === gi ? ' st-th--on' : ''), dl: '--d: ' + (0.15 + i * 0.07).toFixed(2) + 's',
+      pick: () => this.setState({ gi: i })
+    }));
+    const DP = [{ x: 28, y: 150, w: 210, h: 250, r: -8 }, { x: 150, y: 260, w: 200, h: 240, r: 7 }, { x: 50, y: 420, w: 220, h: 200, r: -3 }];
+    const dumpSrc = SITE.p.slice(1, 4);
+    const dump = dumpSrc.map((src, i) => ({ src: src, st: 'left: ' + DP[i].x + 'px; top: ' + DP[i].y + 'px; --r: ' + DP[i].r + 'deg; --d: ' + (0.2 + i * 0.25).toFixed(2) + 's', im: 'display: block; width: ' + DP[i].w + 'px; height: ' + DP[i].h + 'px; object-fit: cover' }));
+
+    // candles
+    const digits = isAge && yosh.length <= 2 ? yosh.split('') : [];
+    const CC = ['#E8336F', '#7B4DFF', '#FF9F43'];
+    const candles = digits.length
+      ? digits.map((dg, i) => ({ tr: 'translate(' + (150 + (i - (digits.length - 1) / 2) * 84) + ' 60)', dg: dg, stick: false, col: CC[i % 3] }))
+      : [0, 1, 2].map((i) => ({ tr: 'translate(' + (110 + i * 40) + ' 74)', dg: '', stick: true, col: CC[i % 3] }));
+
+    // guests
+    const mt = (D.mehmon_tilaklari || []).filter((g) => g && (g.ism || g.matn));
+    const guests = mt.map((g, i) => {
+      const nm = String(g.ism || '').trim() || 'Mehmon', on = !!s.cl[i];
+      return {
+        name: nm, text: g.matn || '', ini: nm.charAt(0).toLocaleUpperCase('uz'),
+        av: 'flex: none; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 900; color: #FFFFFF; background: linear-gradient(135deg, ' + GR[(i + 1) % GR.length][0] + ', ' + GR[(i + 1) % GR.length][1] + ')',
+        row: '--d: ' + (0.1 + i * 0.1).toFixed(2) + 's; display: flex; align-items: flex-start; gap: 12px; padding: 14px 0; border-top: ' + (i ? '1px solid #F0E9E2' : '0'),
+        on: on ? 'true' : 'false', aria: (on ? 'Yoqdi: ' : 'Yoqtirish: ') + nm,
+        fill: on ? '#E8336F' : 'none', stroke: on ? '#E8336F' : '#B4AABD',
+        hst: on ? 'transform: scale(1.15); transition: transform .3s cubic-bezier(.3,1.8,.5,1)' : 'transition: transform .3s ease',
+        tap: () => { const cl = Object.assign({}, this.state.cl); cl[i] = !cl[i]; this.setState({ cl: cl }); }
+      };
+    });
+
+    // reply
+    const doSend = (text) => {
+      const msg = String(text || '').trim();
+      if (!msg || this.busy) return;
+      this.busy = true;
+      clearTimeout(this.sentT);
+      this.setState({ sendErr: '', sent: false });
+      SITE.reply(msg, '🥰').then(() => {
+        this.busy = false;
+        this.setState((st) => ({ sent: true, sentN: st.sentN + 1, draft: '', tick: st.phase === 'view' ? st.tick : st.tick }));
+        this.sentT = setTimeout(() => this.setState({ sent: false }), 2600);
+      }).catch(() => { this.busy = false; this.setState({ sendErr: 'Yuborilmadi, qayta urinib ko’ring' }); });
+    };
+    const quick = [name ? 'Muborak bo’lsin, ' + name + '!' : 'Muborak bo’lsin!', 'Tabrikladim', 'Baxtli bo’l!'];
+
+    // highlights
+    const hlK = cards.filter((k) => LABEL[k]);
+    const hls = hlK.map((k) => ({ l: LABEL[k], ico: ICO[k], aria: LABEL[k] + ' hikoyasini ko’rish', tap: () => this.begin(cards.indexOf(k), true) }));
+
+    const rv = {};
+    ['tabrik', 'tilaklar', 'taymer', 'sham', 'sirli', 'galereya', 'mehmonlar', 'javob'].forEach((k) => { rv[k] = 'st-rv' + (!CAN_IO || s.rv[k] ? ' st-rv--in' : ''); });
+
+    const stats = [];
+    if (isAge) stats.push({ v: yosh, l: 'yosh' });
+    if (wl.length) stats.push({ v: String(wl.length), l: 'tilak' });
+    if (SITE.has.photos) stats.push({ v: String(SITE.has.photos), l: 'surat' });
+    if (!stats.length || stats.length < 3) stats.push({ v: String(storyN), l: 'hikoya' });
+    stats.forEach((x, i) => { x.st = '--d: ' + (0.3 + i * 0.1).toFixed(2) + 's'; });
+
+    const ageFs = yosh.length > 2 ? 32 : 42;
+    const coverNameFs = fitMono(60, 26, 346);
+    const coverLines = nameOr.length * coverNameFs * 0.84 > 346 ? 2 : 1;
+    const dateNice = [w.dm, w.weekday].filter(Boolean).join(', ');
+    const finalTitle = name ? name + ', yana bir bor tabriklaymiz!' : 'Yana bir bor tabriklaymiz!';
+    const finalLines = finalTitle.length > 22 ? (finalTitle.length > 44 ? 3 : 2) : 1;
+    const finalSubTop = 286 + finalLines * 34 + 14;
+    const msgTop = 186;
+    const secLen = String(D.sirli_tilak || '').length;
+
+    return {
+      rootCls: s.live ? 'st-live' : 'st-shut',
+      introCls: 'st-intro' + (s.phase === 'view' ? ' st-intro--view' : s.phase === 'gone' ? ' st-intro--gone' : ''),
+      trayCls: 'st-tray' + (s.phase !== 'tray' ? '' : '') + (this.loading ? ' st-load' : ''),
+      viewCls: 'st-view' + (!s.run && viewing ? ' st-paused' : '') + (s.hold ? ' st-hold' : ''),
+      start: () => { if (this.state.phase !== 'tray') return; this.loading = true; this.forceUpdate(); this.begin(0, false); },
+      close: () => this.close(),
+      next: () => { if (this.pd && Date.now() - this.pd > 320) { this.pd = 0; return; } this.pd = 0; this.go(this.state.cur + 1); },
+      prev: () => { if (this.pd && Date.now() - this.pd > 320) { this.pd = 0; return; } this.pd = 0; this.go(this.state.cur - 1); },
+      down: () => { this.pd = Date.now(); clearTimeout(this.holdT); this.holdT = setTimeout(() => this.setState({ hold: true }), 200); },
+      up: () => { clearTimeout(this.holdT); if (this.state.hold) this.setState({ hold: false }); },
+      cc: cc, bars: bars,
+      name: name, nameOr: nameOr, from: from, initial: nameOr.charAt(0).toLocaleUpperCase('uz'), noPhoto: !SITE.has.photo,
+      nameChars: nameChars, trayNameFs: trayNameFs, traySubTop: traySubTop, trayFrTop: traySubTop + 40,
+      traySub: [isAge ? yosh + ' yosh' : '', dateNice || 'Tug’ilgan kun'].filter(Boolean).join(' · '),
+      traySt: this.traySt, trayFr: trayFr, trayFrLine: trayFrLine, trayFrSub: trayFrSub, burst: this.burst, ringT: ringT, ringP: ringP,
+      authorName: from.names || 'Yaqinlaring', authorIni: (pool[0] || 'Y').charAt(0).toLocaleUpperCase('uz'),
+      ago: 'hozir',
+      coverDate: dateNice || 'Bugun', coverNameFs: coverNameFs,
+      ageSticker: isAge, ageFs: ageFs, ageTop: 846 - 96 - Math.round(coverNameFs * 1.02 * coverLines) - 10 - 34 - 44 - 140, bigAge: isAge ? yosh : nameOr.charAt(0).toLocaleUpperCase('uz'),
+      words: words,
+      msgBox: 'position: absolute; left: 22px; top: ' + msgTop + 'px; width: 346px; height: ' + (844 - msgTop - 150) + 'px; overflow: hidden; -webkit-mask-image: linear-gradient(180deg, #000 88%, transparent); mask-image: linear-gradient(180deg, #000 88%, transparent)',
+      msgSt: 'margin: 0; font-size: ' + mfs + 'px; line-height: 1.72; font-weight: 800; overflow-wrap: anywhere',
+      swishes: swishes, pwishes: pwishes,
+      wishSub: name ? name + ', har biri — sen uchun' : 'Har biri — sen uchun',
+      pollCard: cards.indexOf('sorov') >= 0, hasPoll: ops.length >= 2,
+      pollQ: name ? 'Bu yil ' + SITE.ga(name) + ' eng avvalo nima tilaysiz?' : 'Bu yil eng avvalo nima tilaysiz?',
+      opts: opts, pollCls: voted ? 'st-voted' : '',
+      pollNote: voted ? 'Rahmat! Ovozingiz qo’shildi' : 'Bitta variantni tanlang',
+      secCls: s.sec ? 'st-sec--on' : '', secFs: secLen > 160 ? 17 : secLen > 90 ? 19 : 22,
+      sparks: this.sparks,
+      openSec: () => this.setState((st) => ({ sec: true, tick: st.phase === 'view' ? st.tick + 1 : st.tick })),
+      cdKicker: cd.done ? 'BAYRAM' : 'ORTGA SANOQ',
+      cdTitle: cd.done ? 'Bayram boshlandi!' : (name ? name + 'ning tug’ilgan kuni' : 'Tug’ilgan kun'),
+      cdLive: !cd.done && !cd.none, cdDone: cd.done, tiles: tiles, calUrl: calUrl,
+      cdBig: cd.done || cd.none ? '!' : String(cd.d), cdCap: cd.done ? 'Bugun — bayram!' : 'Sanoq boshlandi!',
+      dumpCard: cards.indexOf('galereya') >= 0, dump: dump,
+      finalTitle: finalTitle, finalSubTop: finalSubTop, finalCtaTop: finalSubTop + 70,
+      // page
+      handle: (name ? name : 'Tug’ilgan kun') + (isAge ? ' · ' + yosh : ''),
+      musicCls: SITE.music.playing ? 'st-music st-music--on' : 'st-music',
+      musicOn: SITE.music.playing ? 'true' : 'false',
+      toggleMusic: () => SITE.music.toggle(),
+      replay0: () => this.begin(0, true),
+      stats: stats,
+      pageNameFs: fitMono(48, 24, 350),
+      dateLine: dateNice ? dateNice + (w.year ? ', ' + w.year : '') : 'Bugun — bayram',
+      fromLine: from.line,
+      anyHl: hls.length > 0, hls: hls,
+      avs: (pool.length ? pool : ['Y']).slice(0, 3).map((x, i) => ({ t: x.charAt(0).toLocaleUpperCase('uz'), st: avStyle(i, 42) + '; position: relative; z-index: ' + (5 - i) })),
+      likeCls: 'st-like st-btn' + (s.liked ? ' st-like--on' : ''), likeOn: s.liked ? 'true' : 'false',
+      likeFill: s.liked ? '#E8336F' : 'none', likeCount: String(pool.length + (D.mehmon_tilaklari || []).length + (s.liked ? 1 : 0) + 3),
+      like: () => this.setState({ liked: !this.state.liked }), likeSparks: this.likeSparks,
+      dateShort: w.dots,
+      cakeCls: s.blown ? 'st-out' : '',
+      candles: candles, confetti: this.confetti,
+      wishLine: s.blown ? (name ? 'Niyating ushalsin, ' + name + '!' : 'Niyating ushalsin!') : '',
+      blowLabel: s.blown ? 'Shamni qayta yoqish' : 'Puflash',
+      blow: () => this.setState({ blown: !this.state.blown }),
+      galTitle: order.length > 1 ? order.length + ' ta lahza' : 'Bir lahza',
+      shots: shots, manyShots: order.length > 1, shotNo: (gi + 1) + ' / ' + order.length,
+      guestN: String(guests.length), guests: guests,
+      askLine: name ? name + 'ni tabriklang — xabaringiz unga yetadi' : 'Tabriklang — xabaringiz yetib boradi',
+      quick: quick.map((q) => ({ t: q, tap: () => doSend(q) })),
+      draft: s.draft, setDraft: (e) => this.setState({ draft: e.target.value }),
+      sendDraft: () => doSend(this.state.draft || 'Tabrikladim'),
+      sendHeart: () => doSend('Yurak yubordi'),
+      sendErr: s.sendErr,
+      sentCls: s.sent ? 'st-sentOn' : '', floatH: s.sent ? this.floatH : [],
+      toastCls: 'st-toast' + (s.sent ? ' st-toast--on' : ''),
+      sentLine: s.sent ? (name ? 'Yuborildi — ' + SITE.ga(name) + ' yetib boradi' : 'Yuborildi') : '',
+      rv: rv,
+      footLine: [nameOr, w.dots].filter(Boolean).join(' · ')
+    };
+  }
+}
+</script>
+</body>
+</html>

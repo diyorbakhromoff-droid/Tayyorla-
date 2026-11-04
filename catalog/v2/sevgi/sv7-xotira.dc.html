@@ -1,0 +1,965 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<title>Sevgi maktubi: Xotira o’yini</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&amp;family=Montserrat+Alternates:wght@500;600;700;800&amp;display=swap">
+<style>
+body{margin:0}
+.ma{font-family:'Montserrat Alternates','Trebuchet MS',Arial,sans-serif}
+.eb{font-family:'EB Garamond',Georgia,'Times New Roman',serif}
+.ico{fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+button{-webkit-tap-highlight-color:transparent}
+button:focus-visible{outline:2px solid #FF9F80;outline-offset:3px}
+button:disabled{opacity:.7;cursor:default}
+.x-ground{background-color:#0B3036;background-image:radial-gradient(ellipse 120% 60% at 50% 0,rgba(38,112,118,.55),rgba(11,48,54,0) 70%),radial-gradient(circle at 1px 1px,rgba(247,238,223,.05) 1px,transparent 1.4px);background-size:100% 100%,14px 14px}
+.x-lb{margin:0;font-family:'Montserrat Alternates',Arial,sans-serif;font-size:11px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#FF9F80}
+.x-h2{margin:10px 0 0;font-family:'EB Garamond',Georgia,serif;font-weight:500;font-style:italic;font-size:38px;line-height:1.08;color:#F7EEDF}
+.x-sub{margin:10px 0 0;font-family:'Montserrat Alternates',Arial,sans-serif;font-size:14px;font-weight:500;line-height:1.55;color:#A9CBC8}
+.x-chip{white-space:nowrap;display:inline-flex;align-items:center;gap:8px;padding:7px 13px;border-radius:999px;border:1px solid rgba(247,238,223,.22);background:rgba(7,34,38,.45);font-family:'Montserrat Alternates',Arial,sans-serif;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#F7EEDF}
+.x-btn{position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;gap:12px;width:100%;min-height:58px;padding:0 22px;border:0;border-radius:18px;background:linear-gradient(135deg,#FFB49A,#FF9F80 45%,#EE7D61);color:#0B3036;font-family:'Montserrat Alternates',Arial,sans-serif;font-size:15px;font-weight:800;letter-spacing:.01em;cursor:pointer;box-shadow:0 14px 30px -14px rgba(255,159,128,.8),inset 0 1px 0 rgba(255,255,255,.45);transition:transform .18s cubic-bezier(.3,1.5,.5,1),box-shadow .2s}
+.x-btn:active{transform:scale(.96)}
+.x-btn2{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;min-height:52px;padding:0 20px;border:1px solid rgba(247,238,223,.32);border-radius:18px;background:rgba(7,34,38,.35);color:#F7EEDF;font-family:'Montserrat Alternates',Arial,sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:transform .18s cubic-bezier(.3,1.5,.5,1),background .2s}
+.x-btn2:active{transform:scale(.96);background:rgba(7,34,38,.6)}
+.x-link{min-height:44px;padding:0 14px;border:0;background:none;color:#A9CBC8;font-family:'Montserrat Alternates',Arial,sans-serif;font-size:13px;font-weight:600;text-decoration:underline;text-underline-offset:4px;text-decoration-color:rgba(169,203,200,.45);cursor:pointer;transition:color .2s,transform .18s}
+.x-link:active{transform:scale(.95);color:#F7EEDF}
+.x-shine::after{content:'';position:absolute;top:0;bottom:0;left:-60%;width:40%;background:linear-gradient(100deg,rgba(255,255,255,0),rgba(255,255,255,.5),rgba(255,255,255,0));transform:skewX(-18deg);animation:xShine 3.6s ease-in-out 1.2s infinite}
+@keyframes xShine{0%,62%{transform:translateX(0) skewX(-18deg)}100%{transform:translateX(420px) skewX(-18deg)}}
+
+/* card back pattern (shared by intro, board, reasons, secret) */
+.x-back{background:radial-gradient(circle at 50% 50%,rgba(255,244,232,.2) 0 1.3px,transparent 1.6px) 0 0/11px 11px,linear-gradient(155deg,#FFB79F 0,#FF9F80 40%,#E97A60 100%)}
+.x-back::after{content:'';position:absolute;left:7px;top:7px;right:7px;bottom:7px;border:1px solid rgba(255,246,236,.75);border-radius:9px;pointer-events:none}
+.x-emb{position:absolute;left:50%;top:50%;width:40px;height:40px;margin:-20px 0 0 -20px;border-radius:50%;background:#0B3036;box-shadow:0 0 0 2px #E6C27A,0 0 0 5px rgba(11,48,54,.25);display:flex;align-items:center;justify-content:center}
+.x-hf{fill:#FF9F80}
+.x-hc{fill:#F7EEDF}
+.x-hg{fill:#E6C27A}
+
+/* icons on illustrated cards */
+.xi-f{fill:#FF8D6C}
+.xi-g{fill:#E2B866}
+.xi-s{fill:none;stroke:#0E3E44;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.xi-s2{fill:none;stroke:#0E3E44;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;opacity:.6}
+.xi-w{fill:none;stroke:#FFF4EA;stroke-width:2;stroke-linecap:round;opacity:.85}
+
+/* intro */
+.xi{transition:opacity .8s ease 1.95s,visibility 0s linear 2.8s}
+.xi.is-go{opacity:0;visibility:hidden;pointer-events:none}
+.xi-txt{transition:opacity .5s ease,transform .6s cubic-bezier(.5,0,.75,0)}
+.xi.is-go .xi-txt{opacity:0;transform:translateY(-18px)}
+.xi-txt2{transition:opacity .4s ease,transform .5s cubic-bezier(.5,0,.75,0)}
+.xi.is-go .xi-txt2{opacity:0;transform:translateY(18px)}
+.xi-in1{animation:xUp .9s cubic-bezier(.2,.8,.2,1) .15s both}
+.xi-in2{animation:xUp .9s cubic-bezier(.2,.8,.2,1) .35s both}
+.xi-in3{animation:xUp .9s cubic-bezier(.2,.8,.2,1) .9s both}
+.xi-in4{animation:xUp .9s cubic-bezier(.2,.8,.2,1) 1.1s both}
+@keyframes xUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+.xi-fan{position:absolute;left:0;top:0;width:390px;height:844px;animation:xFloat 6s ease-in-out infinite}
+@keyframes xFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.xi-cw{position:absolute;left:133px;top:352px;width:124px;height:166px;transform-origin:50% 150%;animation:xFanIn 1.1s cubic-bezier(.2,.9,.3,1.15) var(--fd) both}
+@keyframes xFanIn{from{opacity:0;transform:translateY(60px) rotate(0) scale(.8)}to{opacity:1;transform:rotate(var(--r))}}
+.xi-card{position:absolute;left:0;top:0;width:124px;height:166px;border-radius:16px;box-shadow:0 22px 36px -18px rgba(0,0,0,.65),0 0 0 1px rgba(255,255,255,.06)}
+.xi.is-go .xi-fan{animation:none}
+.xi.is-go .xi-cw{animation:xGo 2.15s cubic-bezier(.55,0,.25,1) var(--gd) both}
+@keyframes xGo{
+0%{transform:rotate(var(--r))}
+20%{transform:translateY(calc(var(--k) * -3px)) rotate(0)}
+34%{transform:translateX(calc(var(--s) * 82px)) translateY(-12px) rotate(calc(var(--s) * 9deg))}
+48%{transform:translateY(calc(var(--k) * -3px)) rotate(0)}
+62%{transform:translateX(calc(var(--s) * -82px)) translateY(-12px) rotate(calc(var(--s) * -9deg))}
+78%{transform:translateY(calc(var(--k) * -3px)) rotate(0);opacity:1}
+100%{transform:translateY(250px) scale(.42);opacity:0}}
+.xi-peek{position:absolute;left:0;top:0;width:124px;height:166px;transform-style:preserve-3d;animation:xPeek 6s cubic-bezier(.45,0,.2,1) 1.8s infinite}
+@keyframes xPeek{0%,38%{transform:perspective(700px) rotateY(0)}48%,86%{transform:perspective(700px) rotateY(180deg)}96%,100%{transform:perspective(700px) rotateY(360deg)}}
+.xi.is-go .xi-peek{animation:none}
+.xi-face{position:absolute;left:0;top:0;width:124px;height:166px;border-radius:16px;overflow:hidden;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.xi-front{transform:rotateY(180deg);background:#FBF4E8}
+.xi-burst{position:absolute;left:115px;top:351px;width:160px;height:160px;border-radius:50%;background:radial-gradient(circle,rgba(255,236,200,.75) 0,rgba(230,194,122,.28) 36%,rgba(11,48,54,0) 68%);opacity:0;transform:scale(.2)}
+.xi.is-go .xi-burst{animation:xBurst 1.1s ease-out 1.5s both}
+@keyframes xBurst{0%{opacity:0;transform:scale(.2)}35%{opacity:1}100%{opacity:0;transform:scale(2.4)}}
+.xi-sp{position:absolute;width:14px;height:14px;animation:xTw 3.2s ease-in-out var(--d) infinite}
+@keyframes xTw{0%,100%{opacity:.15;transform:scale(.6) rotate(0)}50%{opacity:1;transform:scale(1) rotate(45deg)}}
+.xi-ring{position:absolute;border-radius:50%;border:1px solid rgba(247,238,223,.08)}
+.xi-pulse{animation:xPulse 2.6s ease-in-out 2s infinite}
+@keyframes xPulse{0%,100%{box-shadow:0 14px 30px -14px rgba(255,159,128,.8),0 0 0 0 rgba(255,159,128,.45)}50%{box-shadow:0 14px 30px -14px rgba(255,159,128,.8),0 0 0 14px rgba(255,159,128,0)}}
+
+/* board */
+.xb{position:relative;display:grid;grid-template-columns:repeat(3,104px);gap:12px;width:336px;margin:0 auto}
+.xc{position:relative;display:block;width:104px;height:138px;padding:0;border:0;background:none;cursor:pointer;touch-action:manipulation}
+.xb--wait .xc{opacity:0}
+.xb--deal .xc{animation:xDeal .78s cubic-bezier(.18,.9,.28,1.14) var(--dl) both}
+@keyframes xDeal{0%{opacity:0;transform:translate(var(--dx),var(--dy)) rotate(var(--rt)) scale(.55)}16%{opacity:1}100%{opacity:1;transform:none}}
+.xc-sh{position:absolute;left:0;top:0;width:104px;height:138px;display:block;transition:transform .16s ease}
+.xc:active .xc-sh{transform:scale(.94)}
+.xc-in{position:absolute;left:0;top:0;width:104px;height:138px;display:block;transform-style:preserve-3d;transform:perspective(760px) rotateY(0);transition:transform .64s cubic-bezier(.3,1.3,.45,1)}
+.xc.is-up .xc-in{transform:perspective(760px) rotateY(180deg)}
+.xb--wave .xc-in{transition-delay:var(--pd)}
+.xc-f{position:absolute;left:0;top:0;width:104px;height:138px;border-radius:14px;overflow:hidden;backface-visibility:hidden;-webkit-backface-visibility:hidden;box-shadow:0 12px 22px -12px rgba(0,0,0,.6)}
+.xc-front{transform:rotateY(180deg);background:#FBF4E8;transition:box-shadow .4s ease}
+.xc.is-ok .xc-front{box-shadow:0 0 0 2px #E6C27A,0 0 26px rgba(230,194,122,.5)}
+.xc.is-ok .xc-sh{animation:xPop .7s cubic-bezier(.3,1.7,.5,1) .35s both}
+@keyframes xPop{0%{transform:scale(1)}40%{transform:scale(1.1) rotate(-2deg)}100%{transform:scale(1)}}
+.xc.is-bad .xc-sh{animation:xShake .48s cubic-bezier(.36,.07,.19,.97) both}
+@keyframes xShake{10%,90%{transform:translateX(-2px)}20%,80%{transform:translateX(4px)}30%,50%,70%{transform:translateX(-7px)}40%,60%{transform:translateX(7px)}}
+.xb--win .xc-sh{animation:xJump .8s cubic-bezier(.3,1.6,.45,1) var(--wd) both}
+@keyframes xJump{0%{transform:none}35%{transform:translateY(-16px) rotate(-3deg) scale(1.04)}70%{transform:translateY(2px)}100%{transform:none}}
+.xc-ph{position:absolute;left:6px;top:6px;width:92px;height:106px;border-radius:9px;object-fit:cover;display:block;background:#E8DCC8}
+.xc-ok{position:absolute;right:6px;top:6px;width:24px;height:24px;border-radius:50%;background:#0B3036;box-shadow:0 0 0 2px #E6C27A;display:flex;align-items:center;justify-content:center;opacity:0;transform:scale(.3);transition:opacity .3s ease .5s,transform .5s cubic-bezier(.3,1.8,.5,1) .5s}
+.xc.is-ok .xc-ok{opacity:1;transform:none}
+
+/* toast */
+.xt-a{animation:xToastA .6s cubic-bezier(.2,.9,.3,1.2) both}
+.xt-b{animation:xToastB .6s cubic-bezier(.2,.9,.3,1.2) both}
+@keyframes xToastA{from{opacity:0;transform:translateY(14px) scale(.96)}to{opacity:1;transform:none}}
+@keyframes xToastB{from{opacity:0;transform:translateY(14px) scale(.96)}to{opacity:1;transform:none}}
+.x-pip{width:17px;height:6px;border-radius:3px;background:rgba(247,238,223,.16);transition:background .4s ease,transform .5s cubic-bezier(.3,1.8,.5,1)}
+.x-pip.is-on{background:#E6C27A;transform:scaleY(1.35)}
+
+/* celebration */
+.xk{position:absolute;left:168px;top:294px;width:0;height:0;pointer-events:none;z-index:5}
+.xk-p{position:absolute;left:-8px;top:-8px;width:16px;height:16px;opacity:0;animation:xK var(--du) cubic-bezier(.15,.7,.3,1) var(--dl) both}
+@keyframes xK{0%{opacity:0;transform:translate(0,0) scale(.3) rotate(0)}10%{opacity:1}75%{opacity:1}100%{opacity:0;transform:translate(var(--tx),var(--ty)) scale(1) rotate(var(--rt))}}
+.xk-ring{position:absolute;left:-170px;top:-170px;width:340px;height:340px;border-radius:50%;border:2px solid rgba(230,194,122,.7);opacity:0;animation:xRing 1.4s ease-out both}
+@keyframes xRing{0%{opacity:.9;transform:scale(.1)}100%{opacity:0;transform:scale(1.4)}}
+
+/* reveal on scroll */
+.rv .rvc{transition:opacity .8s ease var(--d,0s),transform .9s cubic-bezier(.2,.85,.25,1) var(--d,0s)}
+.rv:not(.is-in) .rvc{opacity:0;transform:translateY(30px)}
+.rv:not(.is-in) .rvl{opacity:0;transform:translateX(-36px) rotate(-3deg)}
+.rv:not(.is-in) .rvr{opacity:0;transform:translateX(36px) rotate(3deg)}
+.rv:not(.is-in) .rvs{opacity:0;transform:scale(.88)}
+
+/* letter */
+.xe{position:relative;width:300px;height:200px;margin:0 auto}
+.xe-back{position:absolute;left:0;top:0;width:300px;height:200px;border-radius:12px;background:#E3CFB1;z-index:1}
+.xe-flap{position:absolute;left:0;top:0;width:300px;height:118px;z-index:5;transform-origin:50% 0;transform:perspective(900px) rotateX(0);transition:transform .9s cubic-bezier(.5,0,.2,1),z-index 0s linear .45s}
+.xe.is-open .xe-flap{z-index:2;transform:perspective(900px) rotateX(178deg)}
+.xe-pocket{position:absolute;left:0;top:0;z-index:4}
+.xe-sheet{position:absolute;left:22px;top:22px;width:256px;height:160px;z-index:3;border-radius:8px;background:#FFFBF4;box-shadow:0 6px 18px -8px rgba(0,0,0,.35);transition:transform 1s cubic-bezier(.2,.9,.3,1.1) .7s}
+.xe.is-open .xe-sheet{transform:translateY(-86px)}
+.xe-seal{z-index:6;transition:opacity .3s ease,transform .5s cubic-bezier(.5,0,.75,0)}
+.xe.is-open .xe-seal{opacity:0;transform:scale(1.6)}
+.xe-lock{animation:xBob 2.8s ease-in-out infinite}
+@keyframes xBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+.xl-in{animation:xUp 1s cubic-bezier(.2,.8,.2,1) var(--d,0s) both}
+
+/* flip tiles */
+.xf{position:relative;display:flex;align-items:center;justify-content:center;width:50px;height:70px;border-radius:10px;background:linear-gradient(#FBF4E8 0,#FBF4E8 49.5%,#EADFCB 50%,#F4EBDC 100%);color:#0B3036;font-family:'Montserrat Alternates',Arial,sans-serif;font-size:40px;font-weight:700;box-shadow:0 10px 18px -10px rgba(0,0,0,.6)}
+.xf::after{content:'';position:absolute;left:0;right:0;top:50%;height:1px;background:rgba(11,48,54,.22)}
+.rv:not(.is-in) .xf{transform:perspective(300px) rotateX(-90deg);opacity:0}
+.rv .xf{transition:transform .8s cubic-bezier(.3,1.4,.5,1) var(--d,0s),opacity .3s ease var(--d,0s)}
+.xs{display:inline-flex;align-items:center;justify-content:center;width:26px;height:38px;border-radius:7px;background:#FBF4E8;color:#0B3036;font-family:'Montserrat Alternates',Arial,sans-serif;font-size:19px;font-weight:700;box-shadow:0 6px 12px -8px rgba(0,0,0,.6)}
+.xs-a{animation:xTickA .5s cubic-bezier(.3,1.4,.5,1)}
+.xs-b{animation:xTickB .5s cubic-bezier(.3,1.4,.5,1)}
+@keyframes xTickA{from{transform:perspective(200px) rotateX(-80deg)}to{transform:none}}
+@keyframes xTickB{from{transform:perspective(200px) rotateX(-80deg)}to{transform:none}}
+
+/* reason / secret flip (stacked faces) */
+.xr{position:relative;display:block;width:100%;padding:0;border:0;background:none;text-align:left;cursor:pointer;color:inherit}
+.xr-in{display:grid;transform-style:preserve-3d;transform:perspective(900px) rotateY(0);transition:transform .7s cubic-bezier(.3,1.25,.45,1)}
+.xr.is-up .xr-in{transform:perspective(900px) rotateY(180deg)}
+.xr-f{grid-area:1/1;position:relative;border-radius:16px;overflow:hidden;backface-visibility:hidden;-webkit-backface-visibility:hidden;box-shadow:0 12px 24px -14px rgba(0,0,0,.6)}
+.xr-front{transform:rotateY(180deg);background:#FBF4E8;color:#0E3E44}
+.xr:active .xr-in{transition-duration:.25s}
+.x-blink{animation:xBlink 1.6s ease-in-out infinite}
+@keyframes xBlink{0%,100%{opacity:.35}50%{opacity:1}}
+.x-heart{animation:xBeat 1.8s ease-in-out infinite}
+@keyframes xBeat{0%,100%{transform:scale(1)}12%{transform:scale(1.16)}24%{transform:scale(1)}36%{transform:scale(1.1)}48%{transform:scale(1)}}
+.x-st{fill:#F7EEDF}
+.x-cl{fill:none;stroke:rgba(247,238,223,.32);stroke-width:.8}
+.x-ring{fill:none;stroke:rgba(247,238,223,.18);stroke-width:1}
+.x-ringd{fill:none;stroke:rgba(247,238,223,.18);stroke-width:1;stroke-dasharray:2 5}
+.x-pair{fill:none;stroke:#FF9F80;stroke-width:1.2;stroke-dasharray:3 4}
+.x-car{font-family:'Montserrat Alternates',Arial,sans-serif;font-size:9px;font-weight:700;letter-spacing:.18em;fill:#A9CBC8}
+.x-ini{font-family:'EB Garamond',Georgia,serif;font-size:15px;font-style:italic;fill:#F7EEDF}
+
+@media (prefers-reduced-motion: reduce){
+.xi-in1,.xi-in2,.xi-in3,.xi-in4,.xi-fan,.xi-cw,.xi-peek,.xi-sp,.xi-pulse,.x-shine::after,.xe-lock,.x-blink,.x-heart,.xl-in,.xt-a,.xt-b,.xs-a,.xs-b{animation:none}
+.xi,.xi-txt,.xi-txt2,.xc-in,.xe-flap,.xe-sheet,.xe-seal,.xr-in,.rv .rvc,.rv .xf,.x-pip,.xc-ok{transition:none}
+.xi.is-go .xi-cw,.xi.is-go .xi-burst,.xb--deal .xc,.xc.is-ok .xc-sh,.xc.is-bad .xc-sh,.xb--win .xc-sh{animation:none}
+.xb--wait .xc{opacity:1}
+.xk{display:none}
+.rv:not(.is-in) .rvc,.rv:not(.is-in) .rvl,.rv:not(.is-in) .rvr,.rv:not(.is-in) .rvs,.rv:not(.is-in) .xf{opacity:1;transform:none}
+}
+</style>
+</helmet>
+<div ref="{{ rootRef }}" class="x-ground" style="width: 390px; min-height: var(--vh, 100vh); position: relative; overflow: hidden; background-color: #0B3036; color: #F7EEDF; font-family: 'Montserrat Alternates', 'Trebuchet MS', Arial, sans-serif; display: flex; flex-direction: column">
+
+  <sc-if value="{{ has.music }}">
+  <button type="button" aria-label="Musiqa" aria-pressed="{{ musicOn }}" onClick="{{ toggleMusic }}" style="position: absolute; top: 16px; right: 16px; z-index: 40; width: 46px; height: 46px; padding: 0; border-radius: 50%; border: 1px solid rgba(247, 238, 223, 0.35); background: rgba(7, 34, 38, 0.7); color: #F7EEDF; cursor: pointer; display: flex; align-items: center; justify-content: center">
+    <sc-if value="{{ musicOff }}">
+      <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path class="ico" d="M9 18V5l11-2v13"></path><circle class="ico" cx="6" cy="18" r="3"></circle><circle class="ico" cx="17" cy="16" r="3"></circle><path class="ico" d="M3 3l18 18"></path></svg>
+    </sc-if>
+    <sc-if value="{{ musicOn }}">
+      <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path class="ico" d="M9 18V5l11-2v13"></path><circle class="ico" cx="6" cy="18" r="3"></circle><circle class="ico" cx="17" cy="16" r="3"></circle></svg>
+    </sc-if>
+  </button>
+  </sc-if>
+
+  <!-- ============ INTRO: card fan, riffle shuffle, deal ============ -->
+  <div data-intro class="{{ introCls }}" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; z-index: 30; overflow: hidden">
+    <div class="x-ground" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; background-color: #0B3036">
+      <div aria-hidden="true" class="xi-ring" style="left: -60px; top: 250px; width: 510px; height: 510px"></div>
+      <div aria-hidden="true" class="xi-ring" style="left: 25px; top: 335px; width: 340px; height: 340px; border-style: dashed"></div>
+      <sc-for list="{{ sparks }}" as="sp">
+        <svg class="xi-sp" aria-hidden="true" style="{{ sp.st }}" viewBox="0 0 14 14"><path class="x-hg" d="M7 0L8.4 5.6 14 7 8.4 8.4 7 14 5.6 8.4 0 7 5.6 5.6z"></path></svg>
+      </sc-for>
+
+      <div class="xi-txt" style="position: absolute; left: 24px; top: 58px; width: 342px; text-align: center">
+        <p class="xi-in1" style="margin: 0"><span class="x-chip"><svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><rect class="ico" x="3" y="5" width="11" height="15" rx="2"></rect><path class="ico" d="M10 4.5l7.5-1.5 2.5 14-4 .8"></path></svg>Xotira o’yini</span></p>
+        <p class="eb xi-in2" style="margin: 22px 0 0; font-size: {{ introPx }}px; font-style: italic; font-weight: 500; line-height: 1.02; overflow-wrap: anywhere">{{ toName }},</p>
+        <p class="ma xi-in2" style="margin: 14px auto 0; width: 300px; font-size: 16px; font-weight: 500; line-height: 1.5; color: #A9CBC8">lahzalarimizni eslaysanmi? Juftini top — oxirida seni maktub kutadi.</p>
+      </div>
+
+      <div class="xi-burst" aria-hidden="true"></div>
+      <div class="xi-fan" aria-hidden="true">
+        <sc-for list="{{ fan }}" as="f">
+        <div class="xi-cw" style="{{ f.st }}">
+          <sc-if value="{{ f.back }}">
+          <div class="xi-card x-back" style="overflow: hidden"><span class="x-emb"><svg width="18" height="18" viewBox="0 0 48 48"><path class="x-hf" d="M24 41C10.5 31.5 5 23.5 5 16.5 5 10.8 9.3 6.5 14.6 6.5c3.9 0 7.1 2.2 9.4 5.8 2.3-3.6 5.5-5.8 9.4-5.8 5.3 0 9.6 4.3 9.6 10 0 7-5.5 15-19 24.5z"></path></svg></span></div>
+          </sc-if>
+          <sc-if value="{{ f.peek }}">
+          <div class="xi-peek">
+            <div class="xi-face x-back xi-card"><span class="x-emb"><svg width="18" height="18" viewBox="0 0 48 48"><path class="x-hf" d="M24 41C10.5 31.5 5 23.5 5 16.5 5 10.8 9.3 6.5 14.6 6.5c3.9 0 7.1 2.2 9.4 5.8 2.3-3.6 5.5-5.8 9.4-5.8 5.3 0 9.6 4.3 9.6 10 0 7-5.5 15-19 24.5z"></path></svg></span></div>
+            <div class="xi-face xi-front xi-card">
+              <sc-if value="{{ has.photo }}">
+              <img src="{{ p.0 }}" alt="" style="position: absolute; left: 7px; top: 7px; width: 110px; height: 128px; border-radius: 10px; object-fit: cover; display: block">
+              <svg width="12" height="12" viewBox="0 0 48 48" style="position: absolute; left: 56px; top: 145px"><path class="x-hf" d="M24 41C10.5 31.5 5 23.5 5 16.5 5 10.8 9.3 6.5 14.6 6.5c3.9 0 7.1 2.2 9.4 5.8 2.3-3.6 5.5-5.8 9.4-5.8 5.3 0 9.6 4.3 9.6 10 0 7-5.5 15-19 24.5z"></path></svg>
+              </sc-if>
+              <sc-if value="{{ noPhoto }}">
+              <svg width="64" height="64" viewBox="0 0 48 48" style="position: absolute; left: 30px; top: 40px"><path class="xi-f" d="M24 41C10.5 31.5 5 23.5 5 16.5 5 10.8 9.3 6.5 14.6 6.5c3.9 0 7.1 2.2 9.4 5.8 2.3-3.6 5.5-5.8 9.4-5.8 5.3 0 9.6 4.3 9.6 10 0 7-5.5 15-19 24.5z"></path><path class="xi-w" d="M14.5 13.5c-2 .5-3.4 2.2-3.6 4.3"></path></svg>
+              <p class="ma" style="position: absolute; left: 0; top: 122px; width: 124px; margin: 0; text-align: center; font-size: 10px; font-weight: 700; letter-spacing: 0.2em; color: #0E3E44">YURAK</p>
+              </sc-if>
+            </div>
+          </div>
+          </sc-if>
+        </div>
+        </sc-for>
+      </div>
+
+      <div class="xi-txt2" style="position: absolute; left: 24px; top: 600px; width: 342px; text-align: center">
+        <p class="ma xi-in3" style="margin: 0; display: flex; align-items: center; justify-content: center; gap: 12px; font-size: 12px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: #E6C27A"><span>12 karta</span><span style="width: 4px; height: 4px; border-radius: 50%; background: #E6C27A"></span><span>6 juft</span><span style="width: 4px; height: 4px; border-radius: 50%; background: #E6C27A"></span><span>1 maktub</span></p>
+      </div>
+      <sc-if value="{{ has.music }}">
+      <p class="ma xi-txt2" style="position: absolute; left: 0; top: 806px; width: 390px; margin: 0; display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 12px; font-weight: 500; color: #A9CBC8"><svg width="13" height="13" viewBox="0 0 24 24" aria-hidden="true"><path class="ico" d="M9 18V5l11-2v13"></path><circle class="ico" cx="6" cy="18" r="3"></circle><circle class="ico" cx="17" cy="16" r="3"></circle></svg>Qo’shiq bilan ochiladi</p>
+      </sc-if>
+      <div class="xi-txt2" style="position: absolute; left: 32px; top: 712px; width: 326px">
+        <div class="xi-in4">
+          <button type="button" class="x-btn x-shine xi-pulse" onClick="{{ open }}">
+            <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><rect class="ico" x="3" y="6" width="10" height="14" rx="2"></rect><rect class="ico" x="11" y="4" width="10" height="14" rx="2" style="fill: rgba(11, 48, 54, 0.15)"></rect></svg>
+            Kartalarni aralashtirish
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ HERO: the game ============ -->
+  <header style="position: relative; padding: 44px 27px 0">
+    <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px">
+      <span class="x-chip"><svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><rect class="ico" x="3" y="5" width="11" height="15" rx="2"></rect><path class="ico" d="M10 4.5l7.5-1.5 2.5 14-4 .8"></path></svg>Xotira o’yini</span>
+      <span class="ma" style="font-size: 12px; font-weight: 600; color: #A9CBC8">{{ fromLine }}</span>
+    </div>
+    <h1 class="eb" style="margin: 22px 0 0; font-size: {{ heroPx }}px; font-style: italic; font-weight: 500; line-height: 1.02; overflow-wrap: anywhere">{{ toName }},</h1>
+    <p class="ma" style="margin: 10px 0 0; font-size: 17px; font-weight: 600; line-height: 1.4; color: #F7EEDF">juftini top — har bir juft bizning bir lahzamiz.</p>
+
+    <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 22px; padding: 12px 14px; border-radius: 16px; background: rgba(7, 34, 38, 0.5); border: 1px solid rgba(247, 238, 223, 0.1)">
+      <div role="img" aria-label="{{ foundLbl }}" style="display: flex; align-items: center; gap: 6px">
+        <sc-for list="{{ pips }}" as="pp"><span class="{{ pp }}"></span></sc-for>
+      </div>
+      <p class="ma" style="margin: 0; white-space: nowrap; font-size: 12px; font-weight: 700; letter-spacing: 0.04em; color: #A9CBC8"><span style="color: #F7EEDF">{{ foundTxt }}</span> · {{ movesTxt }}</p>
+    </div>
+  </header>
+
+  <div style="position: relative; margin-top: 18px">
+    <div class="{{ boardCls }}" role="group" aria-label="O’yin taxtasi: 12 karta">
+      <sc-for list="{{ cards }}" as="c">
+      <button type="button" class="{{ c.cls }}" style="{{ c.st }}" onClick="{{ c.tap }}" aria-label="{{ c.lbl }}">
+        <span class="xc-sh">
+          <span class="xc-in">
+            <span class="xc-f x-back"><span class="x-emb"><svg width="18" height="18" viewBox="0 0 48 48" aria-hidden="true"><path class="x-hf" d="M24 41C10.5 31.5 5 23.5 5 16.5 5 10.8 9.3 6.5 14.6 6.5c3.9 0 7.1 2.2 9.4 5.8 2.3-3.6 5.5-5.8 9.4-5.8 5.3 0 9.6 4.3 9.6 10 0 7-5.5 15-19 24.5z"></path></svg></span></span>
+            <span class="xc-f xc-front">
+              <sc-if value="{{ c.photo }}">
+                <img class="xc-ph" src="{{ c.src }}" alt="">
+                <svg width="11" height="11" viewBox="0 0 48 48" aria-hidden="true" style="position: absolute; left: 46px; top: 119px"><path class="x-hf" d="M24 41C10.5 31.5 5 23.5 5 16.5 5 10.8 9.3 6.5 14.6 6.5c3.9 0 7.1 2.2 9.4 5.8 2.3-3.6 5.5-5.8 9.4-5.8 5.3 0 9.6 4.3 9.6 10 0 7-5.5 15-19 24.5z"></path></svg>
+              </sc-if>
+              <sc-if value="{{ c.icon }}">
+                <span aria-hidden="true" style="position: absolute; left: 10px; top: 10px; width: 84px; height: 92px; border-radius: 10px; background: radial-gradient(circle at 50% 45%, #FFE6D9 0, #F6E8D6 70%)"></span>
+                <svg width="58" height="58" viewBox="0 0 48 48" aria-hidden="true" style="position: absolute; left: 23px; top: 27px">
+                  <sc-for list="{{ c.paths }}" as="ip"><path class="{{ ip.c }}" d="{{ ip.d }}"></path></sc-for>
+                </svg>
+                <span class="ma" style="position: absolute; left: 0; top: 112px; width: 104px; text-align: center; font-size: 9px; font-weight: 800; letter-spacing: 0.2em; color: #0E3E44">{{ c.name }}</span>
+              </sc-if>
+              <span class="xc-ok" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 48 48"><path class="x-hg" d="M24 41C10.5 31.5 5 23.5 5 16.5 5 10.8 9.3 6.5 14.6 6.5c3.9 0 7.1 2.2 9.4 5.8 2.3-3.6 5.5-5.8 9.4-5.8 5.3 0 9.6 4.3 9.6 10 0 7-5.5 15-19 24.5z"></path></svg></span>
+            </span>
+          </span>
+        </span>
+      </button>
+      </sc-for>
+    </div>
+    <sc-if value="{{ party }}">
+    <div class="xk" aria-hidden="true">
+      <span class="xk-ring"></span>
+      <sc-for list="{{ confetti }}" as="k">
+      <span class="xk-p" style="{{ k.st }}">
+        <sc-if value="{{ k.heart }}"><svg width="16" height="16" viewBox="0 0 48 48" style="display: block"><path class="{{ k.c }}" d="M24 41C10.5 31.5 5 23.5 5 16.5 5 10.8 9.3 6.5 14.6 6.5c3.9 0 7.1 2.2 9.4 5.8 2.3-3.6 5.5-5.8 9.4-5.8 5.3 0 9.6 4.3 9.6 10 0 7-5.5 15-19 24.5z"></path></svg></sc-if>
+        <sc-if value="{{ k.bit }}"><span style="{{ k.bs }}"></span></sc-if>
+      </span>
+      </sc-for>
+    </div>
+    </sc-if>
+  </div>
+
+  <!-- status / toast -->
+  <div aria-live="polite" style="position: relative; min-height: 98px; margin: 18px 27px 0">
+    <sc-if value="{{ toastIdle }}">
+    <div class="{{ toastCls }}" style="display: flex; align-items: center; gap: 14px; padding: 16px 18px; border-radius: 18px; border: 1px dashed rgba(247, 238, 223, 0.25)">
+      <svg width="30" height="30" viewBox="0 0 24 24" aria-hidden="true" style="flex: none; color: #E6C27A"><path class="ico" d="M8 13V5.5a1.5 1.5 0 0 1 3 0V12M11 11.5V4a1.5 1.5 0 0 1 3 0v7.5M14 11.5V6a1.5 1.5 0 0 1 3 0v8c0 4-2.5 7-6.5 7S5 18.5 4.5 16L3 12.5a1.4 1.4 0 0 1 2.4-1.4L8 14"></path></svg>
+      <p class="ma" style="margin: 0; font-size: 14px; font-weight: 500; line-height: 1.5; color: #A9CBC8">{{ idleTxt }}</p>
+    </div>
+    </sc-if>
+    <sc-if value="{{ toastFound }}">
+    <div class="{{ toastCls }}" style="display: flex; align-items: center; gap: 14px; padding: 15px 18px; border-radius: 18px; background: #FBF4E8; color: #0E3E44; box-shadow: 0 16px 30px -18px rgba(0, 0, 0, 0.7)">
+      <span style="flex: none; width: 42px; height: 42px; border-radius: 12px; background: #0B3036; display: flex; align-items: center; justify-content: center"><svg class="x-heart" width="20" height="20" viewBox="0 0 48 48" aria-hidden="true"><path class="x-hf" d="M24 41C10.5 31.5 5 23.5 5 16.5 5 10.8 9.3 6.5 14.6 6.5c3.9 0 7.1 2.2 9.4 5.8 2.3-3.6 5.5-5.8 9.4-5.8 5.3 0 9.6 4.3 9.6 10 0 7-5.5 15-19 24.5z"></path></svg></span>
+      <div style="min-width: 0">
+        <p class="ma" style="margin: 0; font-size: 10px; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; color: #D2694E">{{ toastHead }}</p>
+        <p class="eb" style="margin: 3px 0 0; font-size: 20px; font-weight: 500; line-height: 1.25; overflow-wrap: anywhere">{{ toastTxt }}</p>
+      </div>
+    </div>
+    </sc-if>
+    <sc-if value="{{ toastWin }}">
+    <div class="xt-a" style="padding: 20px 20px 18px; border-radius: 20px; background: linear-gradient(140deg, #FBF4E8, #F6E6CF); color: #0E3E44; text-align: center; box-shadow: 0 0 0 2px #E6C27A, 0 20px 40px -20px rgba(0, 0, 0, 0.8)">
+      <p class="ma" style="margin: 0; font-size: 10px; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: #D2694E">{{ winHead }}</p>
+      <p class="eb" style="margin: 6px 0 0; font-size: 27px; font-style: italic; font-weight: 500; line-height: 1.15">{{ winTxt }}</p>
+      <sc-if value="{{ b.maktub }}">
+      <button type="button" class="x-btn" onClick="{{ goLetter }}" style="margin-top: 16px; min-height: 52px; background: #0B3036; color: #F7EEDF; box-shadow: none">
+        <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><rect class="ico" x="3" y="5" width="18" height="14" rx="2"></rect><path class="ico" d="M3 7l9 6 9-6"></path></svg>
+        Maktubni o’qish
+      </button>
+      </sc-if>
+    </div>
+    </sc-if>
+  </div>
+  <div style="display: flex; justify-content: center; margin-top: 8px">
+    <sc-if value="{{ canSkip }}">
+    <button type="button" class="x-link" onClick="{{ skip }}">{{ skipTxt }}</button>
+    </sc-if>
+    <sc-if value="{{ canReplay }}">
+    <button type="button" class="x-link" onClick="{{ replay }}" style="display: flex; align-items: center; gap: 8px"><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path class="ico" d="M3 12a9 9 0 1 0 3-6.7L3 8"></path><path class="ico" d="M3 3v5h5"></path></svg>Qaytadan o’ynash</button>
+    </sc-if>
+  </div>
+
+  <!-- ============ MAKTUB ============ -->
+  <sc-if value="{{ b.maktub }}">
+  <section ref="{{ letterRef }}" data-rv="maktub" class="{{ rv.maktub }}" style="position: relative; padding: 84px 27px 0">
+    <p class="x-lb rvc">Sovrin</p>
+    <h2 class="x-h2 rvc" style="--d: .08s">Senga maktub</h2>
+    <sc-if value="{{ letterLocked }}">
+    <p class="x-sub rvc" style="--d: .16s">Barcha juftlarni topganingda konvert o’zi ochiladi.</p>
+    </sc-if>
+    <div class="rvc rvs" style="--d: .2s; margin-top: {{ envTop }}px">
+      <div class="{{ envCls }}">
+        <div class="xe-back" aria-hidden="true"></div>
+        <div class="xe-sheet">
+          <p class="eb" style="margin: 0; padding: 16px 18px 0; font-size: 18px; font-style: italic; color: #0E3E44; overflow-wrap: anywhere">{{ greet }}</p>
+          <div aria-hidden="true" style="margin: 12px 18px 0; height: 6px; border-radius: 3px; background: rgba(14, 62, 68, 0.12)"></div>
+          <div aria-hidden="true" style="margin: 9px 18px 0; width: 170px; height: 6px; border-radius: 3px; background: rgba(14, 62, 68, 0.12)"></div>
+          <div aria-hidden="true" style="margin: 9px 18px 0; width: 120px; height: 6px; border-radius: 3px; background: rgba(14, 62, 68, 0.12)"></div>
+        </div>
+        <svg class="xe-pocket" aria-hidden="true" width="300" height="200" viewBox="0 0 300 200">
+          <path d="M0 10 L150 128 L300 10 V188 Q300 200 288 200 H12 Q0 200 0 188Z" style="fill: #F1E2CB"></path>
+          <path d="M0 196 L128 112 M300 196 L172 112" style="fill: none; stroke: rgba(14, 62, 68, 0.12); stroke-width: 1.2"></path>
+        </svg>
+        <div class="xe-flap">
+          <svg aria-hidden="true" width="300" height="118" viewBox="0 0 300 118" style="display: block"><path d="M0 12 Q0 0 12 0 H288 Q300 0 300 12 V2 L150 116 L0 2Z" style="fill: #FF9F80"></path><path d="M0 2 L150 116 L300 2" style="fill: none; stroke: rgba(255, 246, 236, 0.7); stroke-width: 1"></path></svg>
+        </div>
+        <div class="xe-seal" style="position: absolute; left: 124px; top: 90px; width: 52px; height: 52px; border-radius: 50%; background: radial-gradient(circle at 38% 32%, #F3D89A, #D8A84E 70%, #B7862F); box-shadow: 0 6px 14px -6px rgba(0, 0, 0, 0.6); display: flex; align-items: center; justify-content: center">
+          <sc-if value="{{ letterLocked }}">
+          <svg class="xe-lock" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" style="color: #0B3036"><rect class="ico" x="5" y="11" width="14" height="10" rx="2"></rect><path class="ico" d="M8 11V8a4 4 0 0 1 8 0v3"></path></svg>
+          </sc-if>
+          <sc-if value="{{ letterOpen }}">
+          <svg width="22" height="22" viewBox="0 0 48 48" aria-hidden="true"><path style="fill: #0B3036" d="M24 41C10.5 31.5 5 23.5 5 16.5 5 10.8 9.3 6.5 14.6 6.5c3.9 0 7.1 2.2 9.4 5.8 2.3-3.6 5.5-5.8 9.4-5.8 5.3 0 9.6 4.3 9.6 10 0 7-5.5 15-19 24.5z"></path></svg>
+          </sc-if>
+        </div>
+      </div>
+    </div>
+    <sc-if value="{{ letterLocked }}">
+    <div class="rvc" style="--d: .3s; margin-top: 22px; display: flex; flex-direction: column; align-items: center; gap: 4px">
+      <p class="ma" style="margin: 0; font-size: 13px; font-weight: 600; color: #A9CBC8">{{ lockTxt }}</p>
+      <sc-if value="{{ canSkip2 }}"><button type="button" class="x-link" onClick="{{ skip }}">O’yinsiz ochish</button></sc-if>
+    </div>
+    </sc-if>
+    <sc-if value="{{ letterOpen }}">
+    <div class="xl-in" style="--d: 1.2s; position: relative; margin-top: 26px; padding: 30px 24px 28px; border-radius: 6px 6px 22px 22px; background: #FFFBF4; color: #173C40; box-shadow: 0 24px 50px -28px rgba(0, 0, 0, 0.9)">
+      <div aria-hidden="true" style="position: absolute; left: 0; right: 0; top: 0; height: 5px; background: repeating-linear-gradient(90deg, #FF9F80 0 18px, #0B3036 18px 36px, #E6C27A 36px 54px)"></div>
+      <p class="eb" style="margin: 0; font-size: {{ greetPx }}px; font-style: italic; font-weight: 500; line-height: 1.2; overflow-wrap: anywhere">{{ greet }}</p>
+      <div class="eb" style="margin-top: 16px; font-size: 19px; line-height: 1.62; white-space: pre-line; overflow-wrap: anywhere">{{ d.matn }}</div>
+      <sc-if value="{{ sign }}">
+      <div style="margin-top: 24px; padding-top: 16px; border-top: 1px dashed rgba(23, 60, 64, 0.25); display: flex; align-items: center; justify-content: flex-end; gap: 10px">
+        <p class="eb" style="margin: 0; font-size: 21px; font-style: italic; text-align: right; overflow-wrap: anywhere">{{ sign }}</p>
+        <svg width="18" height="18" viewBox="0 0 48 48" aria-hidden="true" style="flex: none"><path class="x-hf" d="M24 41C10.5 31.5 5 23.5 5 16.5 5 10.8 9.3 6.5 14.6 6.5c3.9 0 7.1 2.2 9.4 5.8 2.3-3.6 5.5-5.8 9.4-5.8 5.3 0 9.6 4.3 9.6 10 0 7-5.5 15-19 24.5z"></path></svg>
+      </div>
+      </sc-if>
+    </div>
+    </sc-if>
+  </section>
+  </sc-if>
+
+  <!-- ============ SIRLI: one face-down card ============ -->
+  <sc-if value="{{ b.sirli }}">
+  <section data-rv="sirli" class="{{ rv.sirli }}" style="position: relative; padding: 84px 27px 0">
+    <p class="x-lb rvc">Bitta karta qoldi</p>
+    <h2 class="x-h2 rvc" style="--d: .08s">Yashirin so’z</h2>
+    <p class="x-sub rvc" style="--d: .16s">Bu kartani faqat sen ochasan.</p>
+    <div class="rvc rvs" style="--d: .24s; margin: 26px auto 0; width: 290px">
+      <button type="button" class="{{ secCls }}" onClick="{{ reveal }}" aria-label="{{ secLbl }}">
+        <span class="xr-in">
+          <span class="xr-f x-back" style="display: block; min-height: 250px">
+            <span class="x-emb" style="width: 58px; height: 58px; margin: -29px 0 0 -29px"><svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true" style="color: #E6C27A"><rect class="ico" x="5" y="11" width="14" height="10" rx="2"></rect><path class="ico" d="M8 11V8a4 4 0 0 1 8 0v3"></path></svg></span>
+            <span class="ma x-blink" style="position: absolute; left: 0; right: 0; bottom: 22px; text-align: center; font-size: 11px; font-weight: 800; letter-spacing: 0.2em; color: #FFF6EC">BOSIB OCHING</span>
+          </span>
+          <span class="xr-f xr-front" style="display: flex; flex-direction: column; justify-content: center; min-height: 250px; padding: 30px 26px; box-sizing: border-box">
+            <svg width="22" height="22" viewBox="0 0 48 48" aria-hidden="true"><path class="x-hf" d="M24 41C10.5 31.5 5 23.5 5 16.5 5 10.8 9.3 6.5 14.6 6.5c3.9 0 7.1 2.2 9.4 5.8 2.3-3.6 5.5-5.8 9.4-5.8 5.3 0 9.6 4.3 9.6 10 0 7-5.5 15-19 24.5z"></path></svg>
+            <span class="eb" style="display: block; margin-top: 14px; font-size: {{ secPx }}px; font-style: italic; line-height: 1.4; overflow-wrap: anywhere; white-space: pre-line">{{ d.sirli_soz }}</span>
+          </span>
+        </span>
+      </button>
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- ============ SABABLAR: each pair opens a reason ============ -->
+  <sc-if value="{{ b.sabablar }}">
+  <section data-rv="sabablar" class="{{ rv.sabablar }}" style="position: relative; padding: 84px 27px 0">
+    <p class="x-lb rvc">Har bir juft — bir sabab</p>
+    <h2 class="x-h2 rvc" style="--d: .08s">Seni sevishimning sabablari</h2>
+    <p class="x-sub rvc" style="--d: .16s">{{ reasonHint }}</p>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 24px">
+      <sc-for list="{{ reasons }}" as="r">
+      <div class="rvc" style="{{ r.wrap }}">
+        <button type="button" class="{{ r.cls }}" onClick="{{ r.tap }}" aria-label="{{ r.lbl }}">
+          <span class="xr-in">
+            <span class="xr-f x-back" style="display: block; min-height: 118px">
+              <span class="ma" style="position: absolute; left: 14px; top: 14px; font-size: 12px; font-weight: 800; color: #FFF6EC">{{ r.n }}</span>
+              <span class="x-emb" style="width: 34px; height: 34px; margin: -17px 0 0 -17px"><svg width="15" height="15" viewBox="0 0 48 48" aria-hidden="true"><path class="x-hg" d="M24 41C10.5 31.5 5 23.5 5 16.5 5 10.8 9.3 6.5 14.6 6.5c3.9 0 7.1 2.2 9.4 5.8 2.3-3.6 5.5-5.8 9.4-5.8 5.3 0 9.6 4.3 9.6 10 0 7-5.5 15-19 24.5z"></path></svg></span>
+            </span>
+            <span class="xr-f xr-front" style="display: block; min-height: 118px; padding: 14px 15px 16px; box-sizing: border-box">
+              <span class="ma" style="display: block; font-size: 11px; font-weight: 800; letter-spacing: 0.1em; color: #D2694E">{{ r.n }}</span>
+              <span class="eb" style="display: block; margin-top: 8px; font-size: 20px; font-weight: 500; line-height: 1.22; overflow-wrap: anywhere">{{ r.t }}</span>
+            </span>
+          </span>
+        </button>
+      </div>
+      </sc-for>
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- ============ XARITA ============ -->
+  <sc-if value="{{ b.xarita }}">
+  <section data-rv="xarita" class="{{ rv.xarita }}" style="position: relative; padding: 84px 27px 0">
+    <p class="x-lb rvc">Birinchi karta</p>
+    <h2 class="x-h2 rvc" style="--d: .08s">O’sha kungi osmon</h2>
+    <div class="rvc rvs" style="--d: .2s; position: relative; box-sizing: border-box; margin: 26px auto 0; width: 316px; padding: 14px; border-radius: 24px; background: #FBF4E8; box-shadow: 0 24px 44px -24px rgba(0, 0, 0, 0.8)">
+      <div style="position: relative; border-radius: 14px; overflow: hidden; background: radial-gradient(circle at 50% 40%, #134950, #072226 75%)">
+        <svg role="img" aria-label="{{ mapLbl }}" width="288" height="288" viewBox="0 0 288 288" style="display: block">
+          <circle class="x-ring" cx="144" cy="144" r="132"></circle>
+          <circle class="x-ringd" cx="144" cy="144" r="90"></circle>
+          <circle class="x-ringd" cx="144" cy="144" r="46"></circle>
+          <path class="x-ring" d="M12 144 H276 M144 12 V276" style="stroke: rgba(247, 238, 223, 0.07)"></path>
+          <sc-for list="{{ sky.stars }}" as="s"><circle class="x-st" cx="{{ s.x }}" cy="{{ s.y }}" r="{{ s.r }}" style="opacity: {{ s.o }}"></circle></sc-for>
+          <polyline class="x-cl" points="{{ sky.clA }}"></polyline>
+          <polyline class="x-cl" points="{{ sky.clB }}"></polyline>
+          <path class="x-pair" d="{{ sky.pairD }}"></path>
+          <circle cx="{{ sky.sa.x }}" cy="{{ sky.sa.y }}" r="9" style="fill: none; stroke: rgba(255, 159, 128, 0.6); stroke-width: 1"></circle>
+          <circle cx="{{ sky.sa.x }}" cy="{{ sky.sa.y }}" r="3.6" style="fill: #FF9F80"></circle>
+          <circle cx="{{ sky.sb.x }}" cy="{{ sky.sb.y }}" r="9" style="fill: none; stroke: rgba(230, 194, 122, 0.6); stroke-width: 1"></circle>
+          <circle cx="{{ sky.sb.x }}" cy="{{ sky.sb.y }}" r="3.6" style="fill: #E6C27A"></circle>
+          <text class="x-ini" x="{{ sky.sa.lx }}" y="{{ sky.sa.ly }}">{{ iniFrom }}</text>
+          <text class="x-ini" x="{{ sky.sb.lx }}" y="{{ sky.sb.ly }}">{{ iniTo }}</text>
+          <text class="x-car" x="144" y="30" text-anchor="middle">SH</text>
+          <text class="x-car" x="144" y="266" text-anchor="middle">J</text>
+          <text class="x-car" x="262" y="147" text-anchor="middle">SHQ</text>
+          <text class="x-car" x="26" y="147" text-anchor="middle">G’</text>
+        </svg>
+      </div>
+      <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding: 14px 4px 2px; color: #0E3E44">
+        <p class="eb" style="margin: 0; font-size: 19px; font-style: italic; line-height: 1.3">{{ mapCap }}</p>
+        <p class="ma" style="margin: 0; flex: none; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; color: #D2694E">{{ w.dots }}</p>
+      </div>
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- ============ YOL ============ -->
+  <sc-if value="{{ b.yol }}">
+  <section data-rv="yol" class="{{ rv.yol }}" style="position: relative; padding: 84px 27px 0">
+    <p class="x-lb rvc">Qo’ldagi kartalar</p>
+    <h2 class="x-h2 rvc" style="--d: .08s">Bizning yo’limiz</h2>
+    <div style="position: relative; margin-top: 28px">
+      <div aria-hidden="true" style="position: absolute; left: 40px; top: 20px; bottom: 20px; width: 0; border-left: 2px dotted rgba(230, 194, 122, 0.5)"></div>
+      <sc-for list="{{ yol }}" as="y">
+      <div class="{{ y.anim }}" style="{{ y.st }}">
+        <div style="display: flex; gap: 16px; align-items: stretch; padding: 16px 18px 16px 14px; border-radius: 18px; background: #FBF4E8; color: #0E3E44; box-shadow: 0 16px 30px -20px rgba(0, 0, 0, 0.8)">
+          <div style="flex: none; width: 54px; padding: 8px 0; border-radius: 12px; background: {{ y.bg }}; color: {{ y.fg }}; text-align: center">
+            <p class="ma" style="margin: 0; font-size: 14px; font-weight: 800; line-height: 1.1; overflow-wrap: anywhere">{{ y.yil }}</p>
+            <svg width="12" height="12" viewBox="0 0 48 48" aria-hidden="true" style="margin-top: 6px"><path style="fill: currentColor" d="M24 41C10.5 31.5 5 23.5 5 16.5 5 10.8 9.3 6.5 14.6 6.5c3.9 0 7.1 2.2 9.4 5.8 2.3-3.6 5.5-5.8 9.4-5.8 5.3 0 9.6 4.3 9.6 10 0 7-5.5 15-19 24.5z"></path></svg>
+          </div>
+          <div style="min-width: 0; align-self: center">
+            <p class="eb" style="margin: 0; font-size: 22px; font-weight: 600; line-height: 1.2; overflow-wrap: anywhere">{{ y.sarlavha }}</p>
+            <sc-if value="{{ y.matn }}"><p class="ma" style="margin: 4px 0 0; font-size: 13px; font-weight: 500; line-height: 1.5; color: #4D6B6C; overflow-wrap: anywhere">{{ y.matn }}</p></sc-if>
+          </div>
+        </div>
+      </div>
+      </sc-for>
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- ============ GALEREYA ============ -->
+  <sc-if value="{{ b.galereya }}">
+  <section data-rv="galereya" class="{{ rv.galereya }}" style="position: relative; padding: 84px 27px 0">
+    <p class="x-lb rvc">Kartalardagi suratlar</p>
+    <h2 class="x-h2 rvc" style="--d: .08s">Lahzalarimiz</h2>
+    <div class="rvc rvs" style="--d: .18s; box-sizing: border-box; margin-top: 26px; padding: 10px 10px 40px; border-radius: 10px; background: #FBF4E8; transform: rotate(-1.4deg); box-shadow: 0 26px 44px -26px rgba(0, 0, 0, 0.85)">
+      <img src="{{ gal.first }}" alt="" style="display: block; width: 100%; height: 300px; border-radius: 4px; object-fit: cover">
+    </div>
+    <sc-if value="{{ gal.more }}">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px 14px; margin-top: 18px">
+      <sc-for list="{{ gal.rest }}" as="g">
+      <div class="rvc" style="{{ g.st }}">
+        <div style="padding: 7px 7px 26px; border-radius: 8px; background: #FBF4E8; transform: rotate({{ g.r }}deg); box-shadow: 0 18px 30px -20px rgba(0, 0, 0, 0.85)">
+          <img src="{{ g.src }}" alt="" style="display: block; width: 100%; height: {{ g.h }}px; border-radius: 3px; object-fit: cover">
+        </div>
+      </div>
+      </sc-for>
+    </div>
+    </sc-if>
+  </section>
+  </sc-if>
+
+  <!-- ============ HISOB: flip tiles ============ -->
+  <sc-if value="{{ b.hisob }}">
+  <section data-rv="hisob" class="{{ rv.hisob }}" style="position: relative; padding: 84px 27px 0">
+    <p class="x-lb rvc">Hisob</p>
+    <h2 class="x-h2 rvc" style="--d: .08s">Birga o’tgan kunlar</h2>
+    <div role="img" aria-label="{{ daysLbl }}" style="display: flex; justify-content: center; gap: {{ tileGap }}px; margin-top: 28px">
+      <sc-for list="{{ tiles }}" as="t">
+      <span class="xf" style="--d: {{ t.d }}s; width: {{ tileW }}px">{{ t.v }}</span>
+      </sc-for>
+    </div>
+    <p class="ma rvc" style="--d: .5s; margin: 14px 0 0; text-align: center; font-size: 12px; font-weight: 800; letter-spacing: 0.28em; color: #E6C27A">KUN BIRGA</p>
+    <div class="rvc" style="--d: .6s; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 26px">
+      <sc-for list="{{ ymd }}" as="c">
+      <div style="padding: 14px 8px 12px; border-radius: 16px; background: rgba(7, 34, 38, 0.5); border: 1px solid rgba(247, 238, 223, 0.1); text-align: center">
+        <p class="ma" style="margin: 0; font-size: 26px; font-weight: 700">{{ c.v }}</p>
+        <p class="ma" style="margin: 4px 0 0; font-size: 11px; font-weight: 600; color: #A9CBC8">{{ c.l }}</p>
+      </div>
+      </sc-for>
+    </div>
+    <div class="rvc" style="--d: .7s; display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 12px; padding: 12px 14px; border-radius: 16px; border: 1px dashed rgba(247, 238, 223, 0.22)">
+      <span class="ma" style="display: flex; align-items: center; gap: 8px; white-space: nowrap; font-size: 11px; font-weight: 700; letter-spacing: 0.14em; color: #A9CBC8"><span class="x-blink" style="width: 7px; height: 7px; border-radius: 50%; background: #FF9F80"></span>HOZIR HAM</span>
+      <span role="img" aria-label="{{ clockLbl }}" style="display: flex; align-items: center; gap: 3px">
+        <span aria-hidden="true" class="xs">{{ clk.h1 }}</span><span aria-hidden="true" class="xs">{{ clk.h2 }}</span>
+        <span aria-hidden="true" class="ma" style="width: 6px; text-align: center; font-weight: 700; color: #A9CBC8">:</span>
+        <span aria-hidden="true" class="xs">{{ clk.m1 }}</span><span aria-hidden="true" class="xs">{{ clk.m2 }}</span>
+        <span aria-hidden="true" class="ma" style="width: 6px; text-align: center; font-weight: 700; color: #A9CBC8">:</span>
+        <span aria-hidden="true" class="{{ clk.c1 }}">{{ clk.s1 }}</span><span aria-hidden="true" class="{{ clk.c2 }}">{{ clk.s2 }}</span>
+      </span>
+    </div>
+    <sc-if value="{{ sinceTxt }}">
+    <p class="eb rvc" style="--d: .8s; margin: 16px 0 0; text-align: center; font-size: 19px; font-style: italic; color: #A9CBC8">{{ sinceTxt }}</p>
+    </sc-if>
+  </section>
+  </sc-if>
+
+  <!-- ============ JAVOB ============ -->
+  <sc-if value="{{ b.javob }}">
+  <section data-rv="javob" class="{{ rv.javob }}" style="position: relative; padding: 84px 27px 0">
+    <p class="x-lb rvc">Sening yurishing</p>
+    <h2 class="x-h2 rvc" style="--d: .08s">Javobingni kutaman</h2>
+    <div style="position: relative; margin-top: 24px; min-height: 170px">
+      <sc-if value="{{ asking }}">
+      <div class="rvc" role="group" aria-label="Javobni tanlang" style="--d: .16s; display: flex; flex-direction: column; gap: 12px">
+        <button type="button" class="x-btn" onClick="{{ sayLove }}" disabled="{{ busy }}">
+          <svg width="20" height="20" viewBox="0 0 48 48" aria-hidden="true"><path style="fill: #0B3036" d="M24 41C10.5 31.5 5 23.5 5 16.5 5 10.8 9.3 6.5 14.6 6.5c3.9 0 7.1 2.2 9.4 5.8 2.3-3.6 5.5-5.8 9.4-5.8 5.3 0 9.6 4.3 9.6 10 0 7-5.5 15-19 24.5z"></path></svg>
+          Men ham seni sevaman
+        </button>
+        <button type="button" class="x-btn2" onClick="{{ sayThanks }}" disabled="{{ busy }}">Rahmat, juda ta’sirlandim</button>
+        <p class="ma" style="margin: 4px 0 0; font-size: 13px; font-weight: 500; color: #A9CBC8; text-align: center">{{ askHint }}</p>
+        <sc-if value="{{ err }}"><p role="alert" class="ma" style="margin: 0; font-size: 13px; color: #FFC0AC; text-align: center">{{ err }}</p></sc-if>
+      </div>
+      </sc-if>
+      <sc-if value="{{ answered }}">
+      <div style="position: relative; padding: 26px 22px; border-radius: 22px; background: #FBF4E8; color: #0E3E44; text-align: center">
+        <div class="xk" aria-hidden="true" style="left: 50%; top: 40px">
+          <sc-for list="{{ confettiS }}" as="k">
+          <span class="xk-p" style="{{ k.st }}"><svg width="12" height="12" viewBox="0 0 48 48" style="display: block"><path class="{{ k.c }}" d="M24 41C10.5 31.5 5 23.5 5 16.5 5 10.8 9.3 6.5 14.6 6.5c3.9 0 7.1 2.2 9.4 5.8 2.3-3.6 5.5-5.8 9.4-5.8 5.3 0 9.6 4.3 9.6 10 0 7-5.5 15-19 24.5z"></path></svg></span>
+          </sc-for>
+        </div>
+        <svg class="x-heart xl-in" width="40" height="40" viewBox="0 0 48 48" aria-hidden="true"><path class="x-hf" d="M24 41C10.5 31.5 5 23.5 5 16.5 5 10.8 9.3 6.5 14.6 6.5c3.9 0 7.1 2.2 9.4 5.8 2.3-3.6 5.5-5.8 9.4-5.8 5.3 0 9.6 4.3 9.6 10 0 7-5.5 15-19 24.5z"></path></svg>
+        <p class="eb xl-in" style="--d: .15s; margin: 10px 0 0; font-size: 26px; font-style: italic; line-height: 1.25">«{{ answer }}»</p>
+        <p class="ma xl-in" style="--d: .3s; margin: 10px 0 0; font-size: 14px; font-weight: 500; line-height: 1.5; color: #4D6B6C; overflow-wrap: anywhere">Javobing {{ fromGa }} yetib bordi.</p>
+      </div>
+      </sc-if>
+    </div>
+  </section>
+  </sc-if>
+
+  <footer style="flex: 1; position: relative; padding: 90px 27px 48px; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; gap: 14px; text-align: center">
+    <div aria-hidden="true" style="position: relative; width: 92px; height: 70px">
+      <div class="x-back" style="position: absolute; left: 10px; top: 4px; width: 44px; height: 60px; border-radius: 8px; transform: rotate(-10deg)"></div>
+      <div style="position: absolute; left: 38px; top: 4px; width: 44px; height: 60px; border-radius: 8px; background: #FBF4E8; transform: rotate(9deg); display: flex; align-items: center; justify-content: center"><svg width="18" height="18" viewBox="0 0 48 48"><path class="x-hf" d="M24 41C10.5 31.5 5 23.5 5 16.5 5 10.8 9.3 6.5 14.6 6.5c3.9 0 7.1 2.2 9.4 5.8 2.3-3.6 5.5-5.8 9.4-5.8 5.3 0 9.6 4.3 9.6 10 0 7-5.5 15-19 24.5z"></path></svg></div>
+    </div>
+    <p class="eb" style="margin: 0; font-size: 22px; font-style: italic; overflow-wrap: anywhere">{{ pair }}</p>
+    <p class="ma" style="margin: 0; font-size: 10px; font-weight: 800; letter-spacing: 0.24em; color: #A9CBC8">BIR JUFT</p>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":5200}}'>
+const HEART = 'M24 41C10.5 31.5 5 23.5 5 16.5 5 10.8 9.3 6.5 14.6 6.5c3.9 0 7.1 2.2 9.4 5.8 2.3-3.6 5.5-5.8 9.4-5.8 5.3 0 9.6 4.3 9.6 10 0 7-5.5 15-19 24.5z';
+const ICONS = [
+  { n: 'YURAK', p: [{ d: HEART, c: 'xi-f' }, { d: 'M14.5 13.5c-2 .5-3.4 2.2-3.6 4.3', c: 'xi-w' }] },
+  { n: 'UZUK', p: [{ d: 'M12 31a12 12 0 1 0 24 0a12 12 0 1 0-24 0', c: 'xi-s' }, { d: 'M24 4.5l6.5 6.5-6.5 8-6.5-8z', c: 'xi-g' }, { d: 'M17.5 11h13', c: 'xi-s2' }] },
+  { n: 'CHOY', p: [{ d: 'M9 21h26v6c0 7-5.4 11.5-13 11.5S9 34 9 27z', c: 'xi-f' }, { d: 'M35 23.5c5.5 0 5.5 8.5-1 8.5', c: 'xi-s' }, { d: 'M6 42.5h32', c: 'xi-s' }, { d: 'M17 6.5c-2.2 3 2.2 5 0 9M25 6.5c-2.2 3 2.2 5 0 9', c: 'xi-s2' }] },
+  { n: 'KITOB', p: [{ d: 'M5 12c6.5-3 13-3 19 1.5 6-4.5 12.5-4.5 19-1.5v26c-6.5-3-13-3-19 1.5C18 35 11.5 35 5 38z', c: 'xi-s' }, { d: 'M24 13.5v26', c: 'xi-s' }, { d: 'M10 19c3-1 6-1 9 .5M10 25c3-1 6-1 9 .5M29 19c3-1.5 6-1.5 9-.5', c: 'xi-s2' }, { d: 'M33 30.5c-2.4-1.6-3.4-2.9-3.4-4.1 0-1 .8-1.7 1.6-1.7.8 0 1.4.4 1.8 1.1.4-.7 1-1.1 1.8-1.1.9 0 1.6.7 1.6 1.7 0 1.2-1 2.5-3.4 4.1z', c: 'xi-f' }] },
+  { n: 'KALIT', p: [{ d: 'M6 24a9 9 0 1 0 18 0a9 9 0 1 0-18 0', c: 'xi-s' }, { d: 'M24 24h19M37 24v7M42 24v5', c: 'xi-s' }, { d: 'M15 28c-3.2-2.1-4.5-3.8-4.5-5.3 0-1.3 1-2.3 2.2-2.3 1 0 1.8.6 2.3 1.4.5-.8 1.3-1.4 2.3-1.4 1.2 0 2.2 1 2.2 2.3 0 1.5-1.3 3.2-4.5 5.3z', c: 'xi-f' }] },
+  { n: 'OY', p: [{ d: 'M29 6.5A17.5 17.5 0 1 0 41.5 33 14.5 14.5 0 0 1 29 6.5z', c: 'xi-g' }, { d: 'M37 8l1.5 3.8L42.3 13l-3.8 1.4L37 18.3l-1.5-3.9L31.7 13l3.8-1.2z', c: 'xi-f' }, { d: 'M42 23l.8 1.9 1.9.7-1.9.7-.8 1.9-.7-1.9-1.9-.7 1.9-.7z', c: 'xi-f' }] }
+];
+const DONE_TXT = ['Birinchi juft topildi', 'Ikkinchisi ham — zo’r!', 'Yarim yo’l bosib o’tildi', 'Yana ikkitasi qoldi', 'Oxirgi juft qoldi', 'Hammasi topildi!'];
+
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = {
+      opened: false, dealt: false, wave: false, peek: false, ready: false,
+      order: this.shuffle(), up: [], ok: {}, found: 0, moves: 0, bad: [], won: false, skipped: false, party: false, env: false,
+      revR: {}, secret: false, answer: null, busy: false, err: '', rv: false, seen: {}, round: 0
+    };
+    this.timers = [];
+    this.lock = false;
+    this.rootRef = (el) => { this.rootEl = el; };
+    this.letterRef = (el) => { this.letterEl = el; };
+  }
+
+  nm(n) { return String(n || '').trim(); }
+  poss(n) { n = this.nm(n); return n ? n + (/[aeiouAEIOU’']$/.test(n) ? 'ng' : 'ing') : ''; }
+  ini(n) { const m = this.nm(n).match(/[A-Za-zÀ-ɏЀ-ӿ]/); return m ? m[0].toUpperCase() : ''; }
+  later(fn, ms) { const t = setTimeout(fn, ms); this.timers.push(t); return t; }
+  shuffle() {
+    const a = [];
+    for (let p = 0; p < 6; p++) a.push(p, p);
+    for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); const t = a[i]; a[i] = a[j]; a[j] = t; }
+    return a;
+  }
+
+  componentDidMount() {
+    let reduce = false;
+    try { reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) { reduce = false; }
+    this.reduce = reduce;
+    this.tick = setInterval(() => { if (SITE.b.hisob) this.forceUpdate(); }, 1000);
+    try {
+      // avtomatik skrinshotlarda (navigator.webdriver) butun sahifa ko’rinib tursin
+      if (!reduce && !navigator.webdriver && this.rootEl && typeof IntersectionObserver !== 'undefined') {
+        this.watched = typeof WeakSet !== 'undefined' ? new WeakSet() : null;
+        this.io = new IntersectionObserver((list) => {
+          const add = {};
+          list.forEach((en) => {
+            if (en.isIntersecting || en.boundingClientRect.top < 0) { add[en.target.getAttribute('data-rv')] = true; this.io.unobserve(en.target); }
+          });
+          if (Object.keys(add).length) this.setState((s) => ({ seen: Object.assign({}, s.seen, add) }));
+        }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+        this.setState({ rv: true });
+        this.observe();
+      }
+    } catch (e) { this.io = null; }
+  }
+  componentDidUpdate() { this.observe(); }
+  observe() {
+    if (!this.io || !this.rootEl) return;
+    const els = this.rootEl.querySelectorAll('[data-rv]');
+    for (let i = 0; i < els.length; i++) {
+      const el = els[i];
+      if (this.watched ? this.watched.has(el) : el.__rv) continue;
+      if (this.watched) this.watched.add(el); else el.__rv = true;
+      this.io.observe(el);
+    }
+  }
+  componentWillUnmount() {
+    clearInterval(this.tick);
+    this.timers.forEach((t) => clearTimeout(t));
+    if (this.io) this.io.disconnect();
+  }
+
+  open() {
+    if (this.state.opened) return;
+    this.setState({ opened: true });
+    SITE.opened();
+    if (this.reduce) { this.setState({ dealt: true, ready: true }); return; }
+    this.later(() => this.deal(), 2050);
+  }
+  deal() {
+    this.lock = true;
+    this.setState({ dealt: true, ready: false });
+    // deal ends ≈ 11 × 0.06 + 0.78 s; then the cards show themselves once
+    this.later(() => this.setState({ wave: true, peek: true }), 1700);
+    this.later(() => this.setState({ peek: false }), 3500);
+    this.later(() => { this.lock = false; this.setState({ wave: false, ready: true }); }, 4500);
+  }
+  tap(i) {
+    const s = this.state, pid = s.order[i];
+    if (this.lock || !s.ready || s.won || s.ok[pid] || s.up.indexOf(i) >= 0) return;
+    const up = s.up.concat([i]);
+    if (up.length < 2) { this.setState({ up }); return; }
+    const moves = s.moves + 1, a = up[0];
+    if (s.order[a] === pid) {
+      const ok = Object.assign({}, s.ok); ok[pid] = true;
+      const found = s.found + 1;
+      this.setState({ up: [], ok, found, moves });
+      if (found === 6) this.win();
+      return;
+    }
+    this.lock = true;
+    this.setState({ up, moves });
+    this.later(() => this.setState({ bad: up }), 560);
+    this.later(() => { this.lock = false; this.setState({ up: [], bad: [] }); }, 1150);
+  }
+  win() {
+    this.setState({ won: true, party: !this.reduce });
+    this.later(() => this.setState({ party: false }), 3200);
+    if (SITE.b.maktub) this.later(() => this.goLetter(), 2700);
+    this.later(() => this.setState({ env: true }), this.reduce ? 0 : 3400);
+  }
+  skip() {
+    const ok = {};
+    for (let p = 0; p < 6; p++) ok[p] = true;
+    this.timers.forEach((t) => clearTimeout(t));
+    this.timers = [];
+    this.lock = false;
+    this.setState({ skipped: true, won: true, ok, found: 6, up: [], bad: [], dealt: true, ready: true, wave: false, peek: false });
+    if (SITE.b.maktub) this.later(() => this.goLetter(), 350);
+    this.later(() => this.setState({ env: true }), this.reduce ? 0 : 1000);
+  }
+  replay() {
+    this.timers.forEach((t) => clearTimeout(t));
+    this.timers = [];
+    this.lock = false;
+    this.setState({ order: this.shuffle(), up: [], ok: {}, found: 0, moves: 0, bad: [], won: false, skipped: false, party: false, dealt: false, ready: false, wave: false, peek: false, round: this.state.round + 1 });
+    if (this.reduce) { this.setState({ dealt: true, ready: true }); return; }
+    this.later(() => this.deal(), 60);
+  }
+  goLetter() {
+    if (!this.letterEl) return;
+    try { this.letterEl.scrollIntoView({ behavior: this.reduce ? 'auto' : 'smooth', block: 'start' }); } catch (e) { this.letterEl.scrollIntoView(); }
+  }
+
+  statics() {
+    if (this.st) return this.st;
+    const sparks = [[42, 214, 0], [330, 180, .8], [304, 300, 1.6], [64, 540, .4], [338, 560, 2.1], [182, 286, 1.2], [26, 690, 2.6], [360, 660, .2], [118, 610, 1.9], [270, 640, 1]].map((a) => ({ st: 'left: ' + a[0] + 'px; top: ' + a[1] + 'px; --d: ' + a[2] + 's' }));
+    const colors = ['x-hf', 'x-hg', 'x-hc'];
+    const bits = ['#FF9F80', '#E6C27A', '#F7EEDF', '#FFC9B6'];
+    const confetti = [];
+    for (let i = 0; i < 34; i++) {
+      const a = (i / 34) * Math.PI * 2 + (i % 3) * 0.21, r = 130 + (i * 37) % 120;
+      const heart = i % 3 !== 2;
+      confetti.push({
+        heart, bit: !heart, c: colors[i % 3],
+        bs: 'display: block; width: ' + (6 + i % 3 * 2) + 'px; height: ' + (10 - i % 3) + 'px; border-radius: 2px; background: ' + bits[i % 4],
+        st: '--tx: ' + (Math.cos(a) * r).toFixed(0) + 'px; --ty: ' + (Math.sin(a) * r * 1.25 - 40).toFixed(0) + 'px; --rt: ' + ((i % 2 ? 1 : -1) * (160 + i * 23)) + 'deg; --dl: ' + ((i % 7) * 0.05).toFixed(2) + 's; --du: ' + (1.5 + (i % 5) * 0.18).toFixed(2) + 's'
+      });
+    }
+    const confettiS = confetti.filter((x) => x.heart).slice(0, 16).map((x, i) => {
+      const a = (i / 16) * Math.PI * 2, r = 70 + (i * 29) % 70;
+      return { c: x.c, st: '--tx: ' + (Math.cos(a) * r).toFixed(0) + 'px; --ty: ' + (Math.sin(a) * r - 20).toFixed(0) + 'px; --rt: ' + ((i % 2 ? 1 : -1) * (120 + i * 17)) + 'deg; --dl: ' + ((i % 5) * 0.05).toFixed(2) + 's; --du: ' + (1.3 + (i % 4) * 0.15).toFixed(2) + 's' };
+    });
+    const R = [-26, -13, 0, 13, 26], S = [-1, 1, -1, 1, 1];
+    const fan = [0, 4, 1, 3, 2].map((idx, z) => ({
+      back: idx !== 2, peek: idx === 2,
+      st: '--r: ' + R[idx] + 'deg; --s: ' + S[idx] + '; --k: ' + z + '; --fd: ' + (0.35 + z * 0.09).toFixed(2) + 's; --gd: ' + (z * 0.03).toFixed(2) + 's; z-index: ' + (z + 1)
+    }));
+    this.st = { sparks, confetti, confettiS, fan };
+    return this.st;
+  }
+  sky() {
+    const d = SITE.d, key = (d.tanishgan_sana || '') + '|' + this.nm(d.kimdan) + '|' + this.nm(d.kimga);
+    if (this.skyC && this.skyC.key === key) return this.skyC.val;
+    let h = 2166136261;
+    for (let i = 0; i < key.length; i++) { h ^= key.charCodeAt(i); h = Math.imul(h, 16777619); }
+    let a = h >>> 0;
+    const rnd = () => { a = (a + 0x6D2B79F5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
+    const C = 144, T = Math.PI * 2, stars = [];
+    for (let i = 0; i < 100; i++) {
+      const r = Math.sqrt(rnd()) * 126, t = rnd() * T, big = rnd();
+      stars.push({ x: (C + r * Math.cos(t)).toFixed(1), y: (C + r * Math.sin(t)).toFixed(1), r: big > 0.95 ? 1.9 : big > 0.75 ? 1.2 : 0.7, o: big > 0.75 ? 1 : 0.5 });
+    }
+    const chain = (n, x, y, sp) => { const o = []; for (let i = 0; i < n; i++) { o.push(x.toFixed(1) + ',' + y.toFixed(1)); const an = rnd() * T; x = Math.max(44, Math.min(244, x + Math.cos(an) * sp)); y = Math.max(44, Math.min(244, y + Math.sin(an) * sp)); } return o.join(' '); };
+    const clA = chain(6, 62 + rnd() * 26, 58 + rnd() * 26, 24), clB = chain(5, 182 + rnd() * 26, 182 + rnd() * 18, 22);
+    const ang = rnd() * Math.PI, dist = 48 + rnd() * 12;
+    const sa = { x: +(C - Math.cos(ang) * dist).toFixed(1), y: +(C - Math.sin(ang) * dist * 0.6).toFixed(1) };
+    const sb = { x: +(C + Math.cos(ang) * dist).toFixed(1), y: +(C + Math.sin(ang) * dist * 0.6).toFixed(1) };
+    sa.lx = sa.x - 5; sa.ly = sa.y - 15; sb.lx = sb.x - 5; sb.ly = sb.y + 25;
+    const val = { stars, clA, clB, sa, sb, pairD: 'M' + sa.x + ' ' + sa.y + ' Q' + C + ' ' + (C - 54) + ' ' + sb.x + ' ' + sb.y };
+    this.skyC = { key, val };
+    return val;
+  }
+  gallery() {
+    const n = Math.min(6, Math.max(1, SITE.has.photos)), rest = [];
+    for (let i = 1; i < n; i++) {
+      const wide = i === n - 1 && (n - 1) % 2 === 1;
+      rest.push({ src: SITE.p[i], r: wide ? 1.2 : (i % 2 ? -2.2 : 2), h: wide ? 190 : (i % 4 < 2 ? 170 : 140), st: (wide ? 'grid-column: 1 / -1; ' : '') + '--d: ' + (0.1 + i * 0.08).toFixed(2) + 's' });
+    }
+    for (let i = 0; i + 1 < rest.length; i += 2) { if (!rest[i].st.startsWith('grid') && !rest[i + 1].st.startsWith('grid')) { const hh = i % 4 === 0 ? 170 : 140; rest[i].h = hh; rest[i + 1].h = hh; } }
+    return { first: SITE.p[0], rest, more: rest.length > 0 };
+  }
+  answer(a) {
+    if (this.state.busy || this.state.answer) return;
+    this.setState({ busy: true, err: '' });
+    SITE.reply(a, '❤️').then(
+      () => this.setState({ answer: a, busy: false }),
+      () => this.setState({ busy: false, err: 'Javob yetib bormadi. Qayta bosib ko’ring.' })
+    );
+  }
+
+  renderVals() {
+    const s = this.state, d = SITE.d, b = SITE.b, st = this.statics();
+    const to = this.nm(d.kimga), from = this.nm(d.kimdan);
+    const toName = to || 'Azizim', fromName = from || 'Men';
+    const w = SITE.when(d.tanishgan_sana), hasDate = !!w.day;
+    const el = SITE.elapsed(d.tanishgan_sana);
+    const longest = Math.max(1, ...(toName + ',').split(/\s+/).map((x) => x.length));
+    const fitPx = (max) => Math.max(30, Math.min(max, Math.floor(330 / (longest * 0.47)), toName.length > 18 ? 40 : max));
+    const reasonsAll = (d.sabablar || []).map((x) => this.nm(x)).filter(Boolean);
+    const k = Math.min(6, SITE.has.photos);
+
+    // board
+    const cards = s.order.map((pid, i) => {
+      const col = i % 3, row = Math.floor(i / 3);
+      const cx = 52 + col * 116, cy = 69 + row * 150;
+      const isOk = !!s.ok[pid], isUp = s.peek || isOk || s.up.indexOf(i) >= 0;
+      const photo = pid < k, ic = photo ? null : ICONS[pid - k];
+      let cls = 'xc';
+      if (isUp) cls += ' is-up';
+      if (isOk) cls += ' is-ok';
+      if (s.bad.indexOf(i) >= 0) cls += ' is-bad';
+      return {
+        cls, photo, icon: !photo, src: photo ? SITE.p[pid] : '', paths: ic ? ic.p : [], name: ic ? ic.n : '',
+        st: '--dx: ' + (168 - cx) + 'px; --dy: ' + (240 - cy) + 'px; --rt: ' + ((i % 2 ? 1 : -1) * (8 + (i % 3) * 5)) + 'deg; --dl: ' + (i * 0.06).toFixed(2) + 's; --pd: ' + ((col + row) * 0.08).toFixed(2) + 's; --wd: ' + ((row * 3 + col) * 0.05).toFixed(2) + 's',
+        lbl: 'Karta ' + (i + 1) + (isOk ? ', topilgan' : isUp ? ', ochiq' : ''),
+        tap: () => this.tap(i)
+      };
+    });
+    let boardCls = 'xb ' + (s.dealt ? 'xb--deal' : 'xb--wait');
+    if (s.wave) boardCls += ' xb--wave';
+    if (s.won && !s.skipped) boardCls += ' xb--win';
+    const pips = [0, 1, 2, 3, 4, 5].map((i) => (i < s.found ? 'x-pip is-on' : 'x-pip'));
+
+    // toast
+    const lastReason = s.found > 0 && b.sabablar ? reasonsAll[s.found - 1] : '';
+    const toastIdle = !s.won && s.found === 0;
+    const toastFound = !s.won && s.found > 0;
+    let idleTxt = 'Ikkita kartani oching — bir xilini toping.';
+    if (s.opened && !s.ready && s.dealt) idleTxt = s.peek || s.wave ? 'Yaxshilab qarang — kartalar eslab qolinadi…' : 'Kartalar tarqatilmoqda…';
+    const winTxt = s.skipped ? 'Kartalar ochildi' : 'Barchasini topding!';
+    const winHead = s.skipped ? 'Maktub sizni kutmoqda' : '6 juft · ' + s.moves + ' urinishda';
+
+    // reasons — n-th found pair opens n-th reason
+    const nR = reasonsAll.length;
+    const reasons = reasonsAll.map((t, i) => {
+      const open = s.won || i < s.found || !!s.revR[i];
+      const wide = i === nR - 1 && nR % 2 === 1;
+      return {
+        t, n: '№' + (i + 1), cls: open ? 'xr is-up' : 'xr',
+        wrap: (wide ? 'grid-column: 1 / -1; ' : '') + '--d: ' + (0.16 + (i % 6) * 0.07).toFixed(2) + 's',
+        lbl: open ? 'Sabab ' + (i + 1) + ': ' + t : 'Sabab ' + (i + 1) + ' — ochish uchun bosing',
+        tap: () => { if (!open) this.setState((x) => { const r = Object.assign({}, x.revR); r[i] = true; return { revR: r }; }); }
+      };
+    });
+
+    // yol
+    const yolList = (d.yol || []).filter((x) => x && (x.yil || x.sarlavha || x.matn));
+    const yol = yolList.map((x, i) => {
+      const last = i === yolList.length - 1, rot = i % 2 ? 1.2 : -1.2;
+      return {
+        yil: String(x.yil || ''), sarlavha: x.sarlavha || '', matn: x.matn || '',
+        bg: last ? '#FF9F80' : '#0B3036', fg: last ? '#0B3036' : '#F7EEDF',
+        anim: 'rvc ' + (i % 2 ? 'rvr' : 'rvl'),
+        st: '--d: ' + (0.12 + i * 0.1).toFixed(2) + 's; position: relative; margin: ' + (i ? '14px' : '0') + ' 0 0; transform: rotate(' + rot + 'deg)'
+      };
+    });
+
+    // hisob
+    const days = hasDate ? el.days || 0 : 0, daysTxt = String(days);
+    const tileW = daysTxt.length > 5 ? 40 : 50;
+    const tiles = daysTxt.split('').map((v, i) => ({ v, d: (0.15 + i * 0.12).toFixed(2) }));
+    const p2 = (x) => String(x || 0).padStart(2, '0');
+    const hh = p2(el.h), mm = p2(el.m), ss = p2(el.s);
+    const sec = el.s || 0;
+    const clk = { h1: hh[0], h2: hh[1], m1: mm[0], m2: mm[1], s1: ss[0], s2: ss[1], c1: 'xs ' + (Math.floor(sec / 10) % 2 ? 'xs-a' : 'xs-b'), c2: 'xs ' + (sec % 2 ? 'xs-a' : 'xs-b') };
+
+    const greet = 'Azizim ' + toName + ',';
+    const secret = this.nm(d.sirli_soz);
+    const letterOpen = !!s.env;
+    const rvc = (key) => (!s.rv || s.seen[key] ? 'rv is-in' : 'rv');
+
+    return {
+      rootRef: this.rootRef, letterRef: this.letterRef,
+      w, toName, fromName,
+      noPhoto: !SITE.has.photo,
+      introCls: s.opened ? 'xi is-go' : 'xi',
+      open: () => this.open(),
+      musicOn: !!SITE.music.playing, musicOff: !SITE.music.playing,
+      toggleMusic: () => SITE.music.toggle(),
+      sparks: st.sparks, fan: st.fan, confetti: st.confetti, confettiS: st.confettiS,
+      introPx: fitPx(58), heroPx: fitPx(54),
+      fromLine: from ? 'Kimdan: ' + (from.length > 22 ? from.slice(0, 21) + '…' : from) : '',
+      cards, boardCls, pips, party: s.party,
+      foundLbl: s.found + ' juft topildi, 6 tadan',
+      foundTxt: s.found + ' / 6 juft', movesTxt: s.moves + ' urinish',
+      toastIdle, toastFound, toastWin: s.won, idleTxt,
+      toastCls: s.found % 2 ? 'xt-a' : 'xt-b',
+      toastHead: 'Juft topildi · ' + s.found + '/6',
+      toastTxt: lastReason || DONE_TXT[Math.max(0, s.found - 1)],
+      winHead, winTxt,
+      goLetter: () => this.goLetter(),
+      canSkip: !s.won && s.opened, skipTxt: b.maktub ? 'O’yinsiz maktubni ochish' : 'Barcha kartalarni ochish',
+      canReplay: s.won, canSkip2: !s.won,
+      skip: () => this.skip(), replay: () => this.replay(),
+      rv: { maktub: rvc('maktub'), sirli: rvc('sirli'), sabablar: rvc('sabablar'), xarita: rvc('xarita'), yol: rvc('yol'), galereya: rvc('galereya'), hisob: rvc('hisob'), javob: rvc('javob') },
+      letterOpen, letterLocked: !letterOpen,
+      envCls: letterOpen ? 'xe is-open' : 'xe', envTop: letterOpen ? 124 : 30,
+      lockTxt: s.found ? 'Topildi: ' + s.found + ' / 6 juft' : 'Hali birorta juft topilmadi',
+      greet, greetPx: greet.length > 26 ? 24 : 30,
+      sign: from ? 'Sening ' + this.poss(from) : '',
+      secCls: s.secret ? 'xr is-up' : 'xr',
+      secLbl: s.secret ? 'Yashirin so’z ochildi' : 'Yashirin so’zni ochish',
+      secPx: secret.length > 150 ? 18 : secret.length > 80 ? 21 : 25,
+      reveal: () => this.setState({ secret: true }),
+      reasons, reasonHint: b.sabablar && nR ? 'Har bir topilgan juft navbatdagi kartani ochadi. Sabrsiz bo’lsang — bosib ochaver.' : '',
+      sky: b.xarita ? this.sky() : { stars: [], clA: '', clB: '', sa: {}, sb: {}, pairD: '' },
+      iniFrom: this.ini(from), iniTo: this.ini(to),
+      mapLbl: 'Yulduzlar xaritasi' + (hasDate ? ': ' + w.date : ''),
+      mapCap: hasDate ? w.Weekday + ', ' + w.dm + ' — ikki yulduz uchrashgan kun' : 'Ikki yulduz uchrashgan kun',
+      yol,
+      gal: b.galereya ? this.gallery() : { first: '', rest: [], more: false },
+      tiles, tileW, tileGap: daysTxt.length > 5 ? 6 : 8,
+      daysLbl: days + ' kun birga',
+      ymd: [{ v: el.years || 0, l: 'yil' }, { v: el.months || 0, l: 'oy' }, { v: el.rest || 0, l: 'kun' }],
+      clk, clockLbl: (el.h || 0) + ' soat ' + (el.m || 0) + ' daqiqa ' + (el.s || 0) + ' soniya',
+      sinceTxt: hasDate ? w.date + '-yildan beri har kuni' : '',
+      asking: !s.answer, answered: !!s.answer, answer: s.answer || '',
+      busy: s.busy, err: s.err,
+      sayLove: () => this.answer('Men ham seni sevaman'),
+      sayThanks: () => this.answer('Rahmat, juda ta’sirlandim'),
+      askHint: from ? 'Javobing ' + SITE.ga(from) + ' yetib boradi' : 'Javobing menga yetib boradi',
+      fromGa: from ? SITE.ga(from) : 'menga',
+      pair: [from, to].filter(Boolean).join(' va ')
+    };
+  }
+}
+</script>
+</body>
+</html>

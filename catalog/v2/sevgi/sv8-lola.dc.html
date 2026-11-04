@@ -1,0 +1,775 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<title>Sevgi maktubi: Lola</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&amp;family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&amp;family=Kurale&amp;display=swap">
+<style>
+body{margin:0}
+.lo-k{font-family:'Kurale',Georgia,'Times New Roman',serif;font-weight:400}
+.lo-ar{font-family:'Amiri','Times New Roman',serif;font-weight:400}
+.lo-sc{margin:0;font-size:12px;line-height:16px;font-weight:600;letter-spacing:.3em;text-transform:uppercase}
+.lo-foil{background:linear-gradient(100deg,#9C6E24 0%,#E6C982 26%,#B98A35 46%,#F3E2B0 62%,#A97A2C 82%,#D8B567 100%);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent}
+.lo-rose{background:linear-gradient(170deg,#C35F75 0%,#9E3A55 55%,#7E2A44 100%);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent}
+.lo-ico{fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+button{-webkit-tap-highlight-color:transparent}
+button:focus-visible{outline:3px solid #B5506A;outline-offset:3px}
+button:disabled{opacity:.7;cursor:default}
+
+/* svg paints */
+.sP0{stop-color:#F8DCDD}.sP1{stop-color:#E39AA6}.sP2{stop-color:#B5506A}
+.sQ0{stop-color:#EFC3C7}.sQ1{stop-color:#C97086}.sQ2{stop-color:#8E3550}
+.sL0{stop-color:#A9C09B}.sL1{stop-color:#6F8E68}.sL2{stop-color:#4C6A4A}
+.sG0{stop-color:#F6E6B8}.sG1{stop-color:#D2AE5E}.sG2{stop-color:#A3772B}
+.sW0{stop-color:#FFF4D6;stop-opacity:1}.sW1{stop-color:#F6C9A0;stop-opacity:.55}.sW2{stop-color:#F6C9A0;stop-opacity:0}
+.lo-pf{fill:url(#loP)}.lo-pb{fill:url(#loQ)}.lo-lf{fill:url(#loL)}.lo-gf{fill:url(#loG)}.lo-wf{fill:url(#loW)}
+.lo-pe{fill:none;stroke:#B98A35;stroke-width:1;stroke-linejoin:round}
+.lo-vein{fill:none;stroke:rgba(255,240,220,.75);stroke-width:.9;stroke-linecap:round}
+.lo-veinL{fill:none;stroke:rgba(236,244,226,.7);stroke-width:.9;stroke-linecap:round}
+.lo-stem{fill:none;stroke:#5E7D58;stroke-width:4.5;stroke-linecap:round}
+.lo-gl{fill:none;stroke:#C49A4C;stroke-width:1.1}
+.lo-gl2{fill:none;stroke:#C49A4C;stroke-width:.7;opacity:.7}
+.lo-gd{fill:#C49A4C}
+.lo-rl{fill:none;stroke:#C97086;stroke-width:1.1;stroke-linecap:round}
+.lo-stam{fill:none;stroke:#B98A35;stroke-width:1.2;stroke-linecap:round}
+
+/* ground */
+.lo-ground{background-color:#FBF5EA;background-image:radial-gradient(circle at 50% 50%,rgba(196,154,76,.13) 0 1.6px,rgba(196,154,76,0) 2.2px),radial-gradient(circle at 0 0,rgba(201,112,134,.08) 0 1.4px,rgba(201,112,134,0) 2px);background-size:26px 26px,26px 26px;background-position:0 0,13px 13px}
+
+/* ---------- intro ---------- */
+.lo-intro{transition:background-color .5s ease 1.55s,opacity .8s ease 2.2s,visibility 0s linear 3.05s}
+.lo-intro.is-open{background-color:rgba(247,237,224,0)!important}
+.lo-intro.is-open{opacity:0;visibility:hidden;pointer-events:none}
+.lo-half{position:absolute;top:0;width:195px;height:844px;overflow:hidden;transition:transform 1.25s cubic-bezier(.7,0,.25,1) 1.45s,opacity .9s ease 1.75s}
+.lo-half-l{left:0;transform-origin:0 100%}
+.lo-half-r{left:195px;transform-origin:100% 100%}
+.lo-intro.is-open .lo-half-l{transform:translateX(-102%) rotate(-7deg);opacity:.2}
+.lo-intro.is-open .lo-half-r{transform:translateX(102%) rotate(7deg);opacity:.2}
+.lo-fade{transition:opacity .45s ease,transform .5s ease}
+.lo-intro.is-open .lo-fade{opacity:0;transform:translateY(14px)}
+.lo-stage{transform-origin:195px 332px;transition:transform 1.1s cubic-bezier(.55,0,.25,1) 1.45s,opacity .6s ease 2.15s}
+.lo-intro.is-open .lo-stage{transform:translateY(-62px) scale(.8333);opacity:0}
+.is-open .lo-stage .lo-letter{animation:loLetter 1.9s cubic-bezier(.25,1.2,.45,1) .55s both;transition:none}
+@keyframes loLetter{0%{opacity:0;transform:translateY(22px) scale(.3)}25%{opacity:1}60%{opacity:1;transform:translateY(-58px) scale(1.75)}100%{opacity:0;transform:translateY(-90px) scale(2.1)}}
+.lo-hf{opacity:0;transition:opacity .5s ease 2s}
+.lo-root.is-in .lo-hf{opacity:1}
+
+.lo-bis{clip-path:inset(0 0 0 100%);animation:loInk 1.8s cubic-bezier(.45,0,.2,1) .25s forwards}
+@keyframes loInk{to{clip-path:inset(0 0 0 0)}}
+.lo-up{opacity:0;animation:loUp .9s cubic-bezier(.2,.8,.2,1) both}
+@keyframes loUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+/* tulip */
+.lo-tul{position:absolute;width:220px;height:330px}
+.lo-l{position:absolute;left:0;top:0;width:220px;height:330px;transform-origin:50% 45.4545%}
+.lo-l svg{display:block;overflow:visible}
+.lo-grow .lo-stem{stroke-dasharray:190;stroke-dashoffset:190;animation:loDraw 1.3s cubic-bezier(.4,0,.2,1) .15s forwards}
+@keyframes loDraw{to{stroke-dashoffset:0}}
+.lo-leafL{transform-origin:50% 81.8%}
+.lo-leafR{transform-origin:50% 74.2%}
+.lo-grow .lo-leafL{animation:loLeafL 1.1s cubic-bezier(.3,1.35,.5,1) .75s both}
+.lo-grow .lo-leafR{animation:loLeafR 1.1s cubic-bezier(.3,1.35,.5,1) .95s both}
+@keyframes loLeafL{from{transform:rotate(38deg) scale(.1);opacity:0}to{transform:none;opacity:1}}
+@keyframes loLeafR{from{transform:rotate(-38deg) scale(.1);opacity:0}to{transform:none;opacity:1}}
+.lo-side{fill:none;stroke:#6F8E68;stroke-width:3;stroke-linecap:round}
+.lo-grow .lo-side{stroke-dasharray:160;stroke-dashoffset:160;animation:loDraw 1.1s cubic-bezier(.4,0,.2,1) .7s forwards}
+.lo-sbL{transform-origin:11.8% 70.9%}.lo-sbR{transform-origin:89.1% 66.7%}
+.lo-grow .lo-sbL{animation:loBud .9s cubic-bezier(.3,1.5,.5,1) 1.45s both}
+.lo-grow .lo-sbR{animation:loBud .9s cubic-bezier(.3,1.5,.5,1) 1.6s both}
+.lo-head{position:absolute;left:0;top:0;width:220px;height:330px;transform-origin:50% 97%}
+.lo-grow .lo-bud{animation:loBud 1s cubic-bezier(.3,1.5,.5,1) 1.25s both}
+@keyframes loBud{from{transform:translateY(26px) scale(.15);opacity:0}to{transform:none;opacity:1}}
+.lo-bud{transform-origin:50% 45.4545%}
+.lo-sway{animation:loSway 5.5s ease-in-out 2.3s infinite}
+@keyframes loSway{0%,100%{transform:rotate(0)}30%{transform:rotate(1.6deg)}70%{transform:rotate(-1.3deg)}}
+.lo-p{transition:transform 1.05s cubic-bezier(.3,1.25,.45,1),opacity .6s ease}
+.is-open .lo-pFL,.lo-opened .lo-pFL{transform:rotate(-24deg)}
+.is-open .lo-pFR,.lo-opened .lo-pFR{transform:rotate(24deg)}
+.is-open .lo-pBL,.lo-opened .lo-pBL{transform:rotate(-11deg)}
+.is-open .lo-pBR,.lo-opened .lo-pBR{transform:rotate(11deg)}
+.is-open .lo-pC{transform:translateY(8px) scale(.55);opacity:0}
+.lo-opened .lo-pC{opacity:0}
+.lo-glow{transform:scale(.1);opacity:0;transition:transform 1s cubic-bezier(.2,1.2,.4,1) .2s,opacity .6s ease .2s}
+.is-open .lo-glow,.lo-opened .lo-glow{transform:none;opacity:1}
+.lo-letter{opacity:0;transform:translateY(22px) scale(.3);transition:transform 1s cubic-bezier(.25,1.3,.45,1) .6s,opacity .5s ease .6s}
+.is-open .lo-letter{opacity:1;transform:translateY(-58px) scale(1.75)}
+.lo-pollen{position:absolute;left:50%;top:31%;width:6px;height:6px;margin:-3px 0 0 -3px;border-radius:50%;background:radial-gradient(circle,#FFF4D6 0,#E6C982 55%,rgba(230,201,130,0) 70%);opacity:0}
+.is-open .lo-pollen{animation:loPollen 1.5s cubic-bezier(.15,.7,.3,1) both}
+@keyframes loPollen{0%{opacity:0;transform:translate(0,0) scale(.4)}15%{opacity:1}100%{opacity:0;transform:translate(var(--x),var(--y)) scale(1.2)}}
+.lo-breath{animation:loBreath 4.5s ease-in-out infinite}
+@keyframes loBreath{0%,100%{opacity:.55;transform:scale(.96)}50%{opacity:1;transform:scale(1.04)}}
+
+/* ambient */
+.lo-mote{position:absolute;width:5px;height:5px;border-radius:50%;background:radial-gradient(circle,#FFF4D6 0,#E6C982 50%,rgba(230,201,130,0) 72%);animation:loMote 9s ease-in-out infinite}
+@keyframes loMote{0%,100%{transform:translate(0,0);opacity:.15}50%{transform:translate(10px,-34px);opacity:.95}}
+.lo-fall{position:absolute;top:-30px;animation:loFall 14s linear infinite}
+@keyframes loFall{0%{transform:translate(0,0) rotate(0);opacity:0}8%{opacity:.85}92%{opacity:.85}100%{transform:translate(-50px,900px) rotate(320deg);opacity:0}}
+.lo-spin{animation:loSpin 60s linear infinite}
+@keyframes loSpin{to{transform:rotate(360deg)}}
+
+/* hero entrance */
+.lo-h{opacity:0;transform:translateY(16px);transition:opacity .9s ease,transform 1s cubic-bezier(.2,.8,.2,1)}
+.lo-root.is-in .lo-h{opacity:1;transform:none}
+
+/* scroll reveal */
+.lo-io .lo-sec .lo-rv{opacity:0;transform:translateY(22px);transition:opacity .8s ease,transform .9s cubic-bezier(.2,.8,.2,1)}
+.lo-io .lo-sec.is-in .lo-rv{opacity:1;transform:none}
+.lo-sec .lo-draw{stroke-dasharray:400;stroke-dashoffset:0}
+.lo-io .lo-sec .lo-draw{stroke-dashoffset:400;transition:stroke-dashoffset 1.6s cubic-bezier(.4,0,.2,1) .2s}
+.lo-io .lo-sec.is-in .lo-draw{stroke-dashoffset:0}
+
+/* reasons */
+.lo-card{transition:transform .35s cubic-bezier(.3,1.4,.5,1),box-shadow .35s ease}
+.lo-card:active{transform:scale(.96)}
+.lo-card.is-b{transform:translateY(-4px);box-shadow:0 18px 30px -18px rgba(142,53,80,.55),0 0 0 1px rgba(196,154,76,.55)}
+.lo-mini{position:absolute;left:0;top:0;width:44px;height:56px;transform-origin:50% 86%;transition:transform .7s cubic-bezier(.3,1.5,.5,1)}
+.is-b .lo-mL{transform:rotate(-30deg)}
+.is-b .lo-mR{transform:rotate(30deg)}
+.is-b .lo-mC{transform:translateY(4px) scale(.6);opacity:0}
+.lo-mC{transition:transform .5s ease,opacity .4s ease}
+.lo-ring{position:absolute;left:50%;top:50%;width:80px;height:80px;margin:-40px 0 0 -40px;border-radius:50%;border:2px solid rgba(196,154,76,.7);opacity:0;pointer-events:none}
+.is-b .lo-ring{animation:loRing .8s ease-out both}
+@keyframes loRing{from{transform:scale(.2);opacity:.9}to{transform:scale(2.4);opacity:0}}
+
+/* timeline bud */
+.lo-node{transition:transform .8s cubic-bezier(.3,1.5,.5,1) .3s}
+.lo-io .lo-sec .lo-node{transform:scale(.3)}
+.lo-io .lo-sec.is-in .lo-node{transform:none}
+
+/* odometer */
+.lo-odo{display:block;transition:transform 2.2s cubic-bezier(.16,.84,.24,1)}
+.lo-flip{display:inline-block;animation:loFlip .5s cubic-bezier(.3,1.4,.5,1) both}
+@keyframes loFlip{from{transform:perspective(160px) rotateX(-90deg);opacity:.2}to{transform:none;opacity:1}}
+
+/* secret */
+.lo-door{transition:transform 1.1s cubic-bezier(.65,0,.25,1)}
+.lo-veil.is-open .lo-dl{transform:translateX(-101%)}
+.lo-veil.is-open .lo-dr{transform:translateX(101%)}
+.lo-veil.is-open .lo-dbtn{opacity:0;transform:scale(.8);pointer-events:none}
+.lo-dbtn{transition:opacity .35s ease,transform .35s ease}
+.lo-lat{background-image:radial-gradient(circle at 50% 50%,rgba(246,230,184,.55) 0 2px,rgba(246,230,184,0) 2.6px),repeating-linear-gradient(45deg,rgba(246,230,184,.3) 0 1px,rgba(246,230,184,0) 1px 17px),repeating-linear-gradient(-45deg,rgba(246,230,184,.3) 0 1px,rgba(246,230,184,0) 1px 17px);background-size:24px 24px,auto,auto}
+.lo-secret{filter:blur(7px);opacity:.5;transition:filter 1s ease .5s,opacity 1s ease .5s}
+.lo-secret.is-shown{filter:none;opacity:1}
+
+/* answer */
+.lo-btn{position:relative;overflow:hidden;transition:transform .25s cubic-bezier(.3,1.5,.5,1),box-shadow .25s ease}
+.lo-btn::after{content:'';position:absolute;left:50%;top:50%;width:240px;height:240px;margin:-120px 0 0 -120px;border-radius:50%;background:radial-gradient(circle,rgba(255,246,230,.55) 0,rgba(255,246,230,0) 62%);opacity:0;transform:scale(1.2);transition:opacity .6s ease,transform .6s ease;pointer-events:none}
+.lo-btn:active::after{opacity:1;transform:scale(.25);transition:0s}
+.lo-btn:active{transform:scale(.96)}
+.lo-burst{position:absolute;left:0;top:0;opacity:0;animation:loBurst 1.7s cubic-bezier(.2,.7,.3,1) both}
+@keyframes loBurst{0%{transform:translate(0,0) rotate(0) scale(.3);opacity:0}12%{opacity:1}100%{transform:translate(var(--dx),var(--dy)) rotate(var(--rot)) scale(1);opacity:0}}
+.lo-in{animation:loUp .7s cubic-bezier(.2,.8,.2,1) both}
+
+@media (prefers-reduced-motion: reduce){
+.lo-bis{animation:none;clip-path:none}
+.lo-up,.lo-in,.lo-flip{animation:none;opacity:1}
+.lo-grow .lo-stem,.lo-grow .lo-leafL,.lo-grow .lo-leafR,.lo-grow .lo-bud,.lo-sway,.lo-breath,.lo-mote,.lo-fall,.lo-spin,.lo-burst{animation:none}
+.lo-grow .lo-stem{stroke-dashoffset:0}
+.lo-fall,.lo-burst,.is-open .lo-pollen{opacity:0;animation:none}
+.lo-grow .lo-side,.lo-grow .lo-sbL,.lo-grow .lo-sbR,.is-open .lo-stage .lo-letter{animation:none}
+.lo-grow .lo-side{stroke-dashoffset:0}
+.lo-intro,.lo-half,.lo-fade,.lo-stage,.lo-hf,.lo-p,.lo-glow,.lo-letter,.lo-h,.lo-door,.lo-dbtn,.lo-secret,.lo-odo,.lo-node,.lo-card,.lo-mini,.lo-mC{transition:none}
+.lo-ring{display:none}
+}
+</style>
+</helmet>
+<div class="{{ rootCls }}" style="width: 390px; min-height: var(--vh, 100vh); position: relative; overflow: hidden; background-color: #FBF5EA; color: #4A2A2E; font-family: 'EB Garamond', Georgia, 'Times New Roman', serif; display: flex; flex-direction: column">
+
+  <svg aria-hidden="true" width="0" height="0" style="position: absolute; left: 0; top: 0">
+    <defs>
+      <linearGradient id="loP" x1="0" y1="1" x2="0" y2="0"><stop offset="0" class="sP2"></stop><stop offset=".55" class="sP1"></stop><stop offset="1" class="sP0"></stop></linearGradient>
+      <linearGradient id="loQ" x1="0" y1="1" x2="0" y2="0"><stop offset="0" class="sQ2"></stop><stop offset=".6" class="sQ1"></stop><stop offset="1" class="sQ0"></stop></linearGradient>
+      <linearGradient id="loL" x1="0" y1="1" x2="1" y2="0"><stop offset="0" class="sL2"></stop><stop offset=".5" class="sL1"></stop><stop offset="1" class="sL0"></stop></linearGradient>
+      <linearGradient id="loG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" class="sG0"></stop><stop offset=".5" class="sG1"></stop><stop offset="1" class="sG2"></stop></linearGradient>
+      <radialGradient id="loW" cx=".5" cy=".5" r=".5"><stop offset="0" class="sW0"></stop><stop offset=".55" class="sW1"></stop><stop offset="1" class="sW2"></stop></radialGradient>
+    </defs>
+  </svg>
+
+  <sc-if value="{{ has.music }}">
+  <button type="button" aria-label="Musiqa" aria-pressed="{{ musicOn }}" onClick="{{ toggleMusic }}" class="lo-btn" style="position: absolute; top: 14px; right: 14px; z-index: 40; width: 46px; height: 46px; padding: 0; border-radius: 50%; border: 1px solid #C49A4C; background: #FFFBF3; color: #9E3A55; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 16px -8px rgba(142, 53, 80, 0.5)">
+    <sc-if value="{{ musicOff }}" hint-placeholder-val="{{ true }}">
+      <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path class="lo-ico" d="M9 18V5l11-2v13"></path><circle class="lo-ico" cx="6" cy="18" r="3"></circle><circle class="lo-ico" cx="17" cy="16" r="3"></circle><path class="lo-ico" d="M3 3l18 18"></path></svg>
+    </sc-if>
+    <sc-if value="{{ musicOn }}" hint-placeholder-val="{{ false }}">
+      <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path class="lo-ico" d="M9 18V5l11-2v13"></path><circle class="lo-ico" cx="6" cy="18" r="3"></circle><circle class="lo-ico" cx="17" cy="16" r="3"></circle></svg>
+    </sc-if>
+  </button>
+  </sc-if>
+
+  <!-- ================= INTRO ================= -->
+  <div data-intro class="{{ introCls }}" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; z-index: 30; overflow: hidden; background: #F7EDE0">
+    <div class="lo-half lo-half-l">
+      <div class="lo-ground" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px">
+        <svg aria-hidden="true" width="390" height="844" viewBox="0 0 390 844" style="position: absolute; left: 0; top: 0">
+          <rect class="lo-gl" x="14" y="14" width="362" height="816" rx="2"></rect>
+          <rect class="lo-gl2" x="20" y="20" width="350" height="804" rx="1"></rect>
+          <sc-for list="{{ corners }}" as="c"><path class="lo-gl" d="{{ c.d }}"></path><path class="lo-pf" d="{{ c.t }}"></path></sc-for>
+          <path class="lo-gl2" d="{{ archD }}"></path>
+          <path class="lo-gl2" d="{{ starD }}"></path>
+        </svg>
+      </div>
+    </div>
+    <div class="lo-half lo-half-r">
+      <div class="lo-ground" style="position: absolute; left: -195px; top: 0; width: 390px; height: 844px">
+        <svg aria-hidden="true" width="390" height="844" viewBox="0 0 390 844" style="position: absolute; left: 0; top: 0">
+          <rect class="lo-gl" x="14" y="14" width="362" height="816" rx="2"></rect>
+          <rect class="lo-gl2" x="20" y="20" width="350" height="804" rx="1"></rect>
+          <sc-for list="{{ corners }}" as="c"><path class="lo-gl" d="{{ c.d }}"></path><path class="lo-pf" d="{{ c.t }}"></path></sc-for>
+          <path class="lo-gl2" d="{{ archD }}"></path>
+          <path class="lo-gl2" d="{{ starD }}"></path>
+        </svg>
+      </div>
+    </div>
+
+    <div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; pointer-events: none">
+      <span class="lo-mote" style="left: 70px; top: 470px"></span>
+      <span class="lo-mote" style="left: 300px; top: 420px; animation-delay: -3s"></span>
+      <span class="lo-mote" style="left: 250px; top: 560px; animation-delay: -6s"></span>
+      <span class="lo-mote" style="left: 110px; top: 300px; animation-delay: -4.5s"></span>
+    </div>
+
+    <div class="lo-fade" style="position: absolute; left: 0; top: 50px; width: 390px; display: flex; flex-direction: column; align-items: center; gap: 4px">
+      <p class="lo-ar lo-foil lo-bis" dir="rtl" lang="ar" style="margin: 0; font-size: 31px; line-height: 56px">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p>
+      <p class="lo-sc lo-up" style="animation-delay: 1.2s; font-size: 11px; color: #A3772B">Bismillahir Rohmanir Rohiym</p>
+    </div>
+
+    <div class="lo-stage" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; pointer-events: none">
+      <div aria-hidden="true" class="lo-breath" style="position: absolute; left: 75px; top: 170px; width: 240px; height: 240px; border-radius: 50%; background: radial-gradient(circle, rgba(246, 201, 160, 0.5) 0%, rgba(246, 201, 160, 0) 68%)"></div>
+      <div aria-hidden="true" class="lo-tul lo-grow" style="left: 63px; top: 152px; transform: scale(1.2); transform-origin: 50% 0">
+        <div class="lo-l"><svg width="220" height="330" viewBox="-110 -150 220 330"><path class="lo-gl2" d="M-70 176 C -40 166, -18 168, 0 174 C 18 168, 40 166, 70 176"></path><path class="lo-gd" d="M-4 176 L0 170 L4 176 L0 182Z"></path></svg></div>
+        <div class="lo-head lo-sway">
+          <div class="lo-l"><svg width="220" height="330" viewBox="-110 -150 220 330"><path class="lo-side" d="M0 170 C -8 140, -60 120, -84 84"></path><path class="lo-side" d="M0 170 C 8 136, 62 108, 86 70"></path></svg></div>
+          <div class="lo-l lo-sbL"><svg width="220" height="330" viewBox="-110 -150 220 330"><g transform="translate(-84 84) rotate(-30) scale(.46)"><path class="lo-pb" d="M0 0 C -22 -6, -36 -46, -30 -100 C -20 -70, -8 -50, 2 -42 Z"></path><path class="lo-pb" d="M0 0 C 22 -6, 36 -46, 30 -100 C 20 -70, 8 -50, -2 -42 Z"></path><path class="lo-pf" d="M0 3 C -25 -8, -30 -60, 0 -116 C 30 -60, 25 -8, 0 3 Z"></path><path class="lo-pe" d="M0 3 C -25 -8, -30 -60, 0 -116 C 30 -60, 25 -8, 0 3 Z"></path><path class="lo-lf" d="M-16 -4 C -10 10, 10 10, 16 -4 C 8 2, -8 2, -16 -4 Z"></path></g></svg></div>
+          <div class="lo-l lo-sbR"><svg width="220" height="330" viewBox="-110 -150 220 330"><g transform="translate(86 70) rotate(30) scale(.46)"><path class="lo-pb" d="M0 0 C -22 -6, -36 -46, -30 -100 C -20 -70, -8 -50, 2 -42 Z"></path><path class="lo-pb" d="M0 0 C 22 -6, 36 -46, 30 -100 C 20 -70, 8 -50, -2 -42 Z"></path><path class="lo-pf" d="M0 3 C -25 -8, -30 -60, 0 -116 C 30 -60, 25 -8, 0 3 Z"></path><path class="lo-pe" d="M0 3 C -25 -8, -30 -60, 0 -116 C 30 -60, 25 -8, 0 3 Z"></path><path class="lo-lf" d="M-16 -4 C -10 10, 10 10, 16 -4 C 8 2, -8 2, -16 -4 Z"></path></g></svg></div>
+          <div class="lo-l"><svg width="220" height="330" viewBox="-110 -150 220 330"><path class="lo-stem" d="M0 172 C -7 128, 9 78, 0 4"></path></svg></div>
+          <div class="lo-l lo-leafL"><svg width="220" height="330" viewBox="-110 -150 220 330"><path class="lo-lf" d="M-1 124 C -42 112, -74 62, -66 4 C -50 44, -28 88, -1 104 Z"></path><path class="lo-veinL" d="M-4 114 C -30 96, -50 64, -60 18"></path></svg></div>
+          <div class="lo-l lo-leafR"><svg width="220" height="330" viewBox="-110 -150 220 330"><path class="lo-lf" d="M1 98 C 38 82, 64 42, 72 -10 C 48 28, 26 60, 1 78 Z"></path><path class="lo-veinL" d="M4 88 C 28 72, 50 42, 66 0"></path></svg></div>
+          <div class="lo-l lo-bud">
+            <div class="lo-l lo-glow"><svg width="220" height="330" viewBox="-110 -150 220 330"><circle class="lo-wf" cx="0" cy="-48" r="74"></circle><path class="lo-stam" d="M0 -6 C -2 -24, -8 -34, -12 -46 M0 -6 C 2 -24, 8 -34, 12 -46 M0 -6 V-52"></path><circle class="lo-gf" cx="-12" cy="-48" r="3"></circle><circle class="lo-gf" cx="12" cy="-48" r="3"></circle><circle class="lo-gf" cx="0" cy="-55" r="3.4"></circle></svg></div>
+            <div class="lo-l lo-p lo-pBL"><svg width="220" height="330" viewBox="-110 -150 220 330"><path class="lo-pb" d="M0 0 C -22 -6, -36 -46, -30 -100 C -20 -70, -8 -50, 2 -42 Z"></path><path class="lo-pe" d="M0 0 C -22 -6, -36 -46, -30 -100 C -20 -70, -8 -50, 2 -42 Z"></path></svg></div>
+            <div class="lo-l lo-p lo-pBR"><svg width="220" height="330" viewBox="-110 -150 220 330"><path class="lo-pb" d="M0 0 C 22 -6, 36 -46, 30 -100 C 20 -70, 8 -50, -2 -42 Z"></path><path class="lo-pe" d="M0 0 C 22 -6, 36 -46, 30 -100 C 20 -70, 8 -50, -2 -42 Z"></path></svg></div>
+            <div class="lo-l lo-letter"><svg width="220" height="330" viewBox="-110 -150 220 330"><rect x="-24" y="-58" width="48" height="34" rx="2" style="fill: #FFFBF3; stroke: #C49A4C; stroke-width: 1"></rect><path d="M-24 -58 L0 -38 L24 -58" style="fill: none; stroke: #C49A4C; stroke-width: 1"></path><circle cx="0" cy="-38" r="6.5" style="fill: #B5506A"></circle><path d="M0 -42.5 C -2 -40, -2.5 -37, 0 -34.5 C 2.5 -37, 2 -40, 0 -42.5Z" style="fill: #F6E6B8"></path></svg></div>
+            <div class="lo-l lo-p lo-pFL"><svg width="220" height="330" viewBox="-110 -150 220 330"><path class="lo-pf" d="M3 0 C -30 -2, -52 -40, -44 -106 C -30 -78, -12 -58, 9 -36 Z"></path><path class="lo-pe" d="M3 0 C -30 -2, -52 -40, -44 -106 C -30 -78, -12 -58, 9 -36 Z"></path><path class="lo-vein" d="M-2 -8 C -22 -26, -34 -56, -40 -92"></path></svg></div>
+            <div class="lo-l lo-p lo-pFR"><svg width="220" height="330" viewBox="-110 -150 220 330"><path class="lo-pf" d="M-3 0 C 30 -2, 52 -40, 44 -106 C 30 -78, 12 -58, -9 -36 Z"></path><path class="lo-pe" d="M-3 0 C 30 -2, 52 -40, 44 -106 C 30 -78, 12 -58, -9 -36 Z"></path><path class="lo-vein" d="M2 -8 C 22 -26, 34 -56, 40 -92"></path></svg></div>
+            <div class="lo-l lo-p lo-pC"><svg width="220" height="330" viewBox="-110 -150 220 330"><path class="lo-pf" d="M0 3 C -25 -8, -30 -60, 0 -116 C 30 -60, 25 -8, 0 3 Z"></path><path class="lo-pe" d="M0 3 C -25 -8, -30 -60, 0 -116 C 30 -60, 25 -8, 0 3 Z"></path><path class="lo-vein" d="M0 -6 V-100"></path><circle class="lo-gd" cx="0" cy="-20" r="2"></circle><circle class="lo-gd" cx="-6" cy="-30" r="1.4"></circle><circle class="lo-gd" cx="6" cy="-30" r="1.4"></circle></svg></div>
+            <div class="lo-l"><svg width="220" height="330" viewBox="-110 -150 220 330"><path class="lo-lf" d="M-16 -4 C -10 10, 10 10, 16 -4 C 8 2, -8 2, -16 -4 Z"></path></svg></div>
+            <sc-for list="{{ pollen }}" as="q"><span class="lo-pollen" style="{{ q.st }}"></span></sc-for>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="lo-fade" style="position: absolute; left: 0; top: 584px; width: 390px; box-sizing: border-box; padding: 0 34px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 4px">
+      <p class="lo-sc lo-up" style="animation-delay: 1.7s; color: #9E3A55">Jufti halolimga maktub</p>
+      <p class="lo-k lo-rose lo-up" style="animation-delay: 1.85s; margin: 2px 0 0; font-size: {{ introPx }}px; line-height: 1.1; overflow-wrap: break-word; max-width: 322px">{{ d.kimga }}</p>
+      <p class="lo-up" style="animation-delay: 2s; margin: 2px 0 0; font-size: 17px; font-style: italic; color: #7A5A50; overflow-wrap: anywhere; max-width: 322px">{{ fromLine }}</p>
+    </div>
+    <div class="lo-fade" style="position: absolute; left: 0; top: 724px; width: 390px; display: flex; flex-direction: column; align-items: center; gap: 8px">
+      <button type="button" onClick="{{ open }}" class="lo-btn lo-up" style="animation-delay: 2.15s; min-height: 54px; padding: 0 30px; border-radius: 999px; border: 1px solid #C49A4C; background: linear-gradient(170deg, #C35F75 0%, #9E3A55 100%); color: #FFF4E6; font-family: 'Kurale', Georgia, serif; font-size: 19px; letter-spacing: 0.03em; cursor: pointer; display: flex; align-items: center; gap: 10px; box-shadow: 0 0 0 4px rgba(251, 245, 234, 0.9), 0 0 0 5px rgba(196, 154, 76, 0.6), 0 16px 30px -12px rgba(142, 53, 80, 0.6)">
+        <svg width="20" height="22" viewBox="0 0 20 22" aria-hidden="true"><path d="M10 21 V11" style="fill: none; stroke: #F6E6B8; stroke-width: 1.6; stroke-linecap: round"></path><path d="M10 12 C 4 12, 2 6, 3 1 C 6 4, 8 5, 10 7 C 12 5, 14 4, 17 1 C 18 6, 16 12, 10 12 Z" style="fill: none; stroke: #F6E6B8; stroke-width: 1.6; stroke-linejoin: round"></path></svg>
+        Lolani oching
+      </button>
+      <sc-if value="{{ has.music }}">
+      <p class="lo-up" style="animation-delay: 2.3s; margin: 0; display: flex; align-items: center; gap: 6px; font-size: 14px; color: #8A6A5E"><svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true" style="color: #B5506A"><path class="lo-ico" d="M9 18V5l11-2v13"></path><circle class="lo-ico" cx="6" cy="18" r="3"></circle><circle class="lo-ico" cx="17" cy="16" r="3"></circle></svg>Musiqa bilan ochiladi</p>
+      </sc-if>
+    </div>
+  </div>
+
+  <!-- ================= HERO ================= -->
+  <header class="lo-ground" style="position: relative; padding: 0 0 46px">
+    <div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 390px; height: 900px; pointer-events: none; overflow: hidden">
+      <sc-for list="{{ falls }}" as="f">
+      <svg class="lo-fall" width="16" height="22" viewBox="0 0 16 22" style="{{ f.st }}"><path class="lo-pf" d="M8 21 C 1 16, 0 7, 8 0 C 16 7, 15 16, 8 21Z"></path></svg>
+      </sc-for>
+    </div>
+    <div aria-hidden="true" class="lo-h" style="position: relative; height: 46px; display: flex; justify-content: center; align-items: flex-end; gap: 10px; transition-delay: 1.7s">
+      <sc-for list="{{ frieze }}" as="z">
+      <svg width="26" height="30" viewBox="0 0 26 30" style="{{ z.st }}"><path d="M13 29 V18" style="fill: none; stroke: #6F8E68; stroke-width: 1.4"></path><path class="lo-pf" d="M13 19 C 6 18, 4 10, 6 3 C 9 7, 11 9, 13 11 C 15 9, 17 7, 20 3 C 22 10, 20 18, 13 19Z"></path><path class="lo-pe" d="M13 19 C 6 18, 4 10, 6 3 C 9 7, 11 9, 13 11 C 15 9, 17 7, 20 3 C 22 10, 20 18, 13 19Z"></path></svg>
+      </sc-for>
+    </div>
+    <div aria-hidden="true" style="position: relative; width: 390px; height: 420px; margin-top: 8px">
+      <div class="lo-h" style="position: absolute; left: 45px; top: 0; width: 300px; height: 410px; transition-delay: 1.5s">
+        <div style="{{ heroArchSt }}position: absolute; left: 0; top: 0; width: 300px; height: 410px; background: radial-gradient(70% 55% at 50% 52%, #FFF6E8 0%, #F7E2DA 55%, #EFCFCB 100%)">
+          <div class="lo-spin" style="position: absolute; left: 10px; top: 70px; width: 280px; height: 280px">
+            <svg width="280" height="280" viewBox="-140 -140 280 280"><sc-for list="{{ rays }}" as="r"><path class="lo-gl2" d="{{ r }}"></path></sc-for><circle class="lo-gl2" cx="0" cy="0" r="118"></circle><circle class="lo-gl2" cx="0" cy="0" r="132"></circle></svg>
+          </div>
+        </div>
+        <svg width="300" height="410" viewBox="0 0 300 410" style="position: absolute; left: 0; top: 0"><path class="lo-gl" d="{{ heroArchD }}"></path><path class="lo-gl2" d="{{ heroArch2D }}"></path></svg>
+        <div class="lo-hf" style="position: absolute; left: 0; top: 0; width: 300px; height: 410px">
+        <div class="{{ heroTulCls }}" style="left: 40px; top: 66px">
+          <div class="lo-head lo-sway">
+          <div class="lo-l"><svg width="220" height="330" viewBox="-110 -150 220 330"><path class="lo-side" d="M0 170 C -8 140, -60 120, -84 84"></path><path class="lo-side" d="M0 170 C 8 136, 62 108, 86 70"></path></svg></div>
+          <div class="lo-l lo-sbL"><svg width="220" height="330" viewBox="-110 -150 220 330"><g transform="translate(-84 84) rotate(-30) scale(.46)"><path class="lo-pb" d="M0 0 C -22 -6, -36 -46, -30 -100 C -20 -70, -8 -50, 2 -42 Z"></path><path class="lo-pb" d="M0 0 C 22 -6, 36 -46, 30 -100 C 20 -70, 8 -50, -2 -42 Z"></path><path class="lo-pf" d="M0 3 C -25 -8, -30 -60, 0 -116 C 30 -60, 25 -8, 0 3 Z"></path><path class="lo-pe" d="M0 3 C -25 -8, -30 -60, 0 -116 C 30 -60, 25 -8, 0 3 Z"></path><path class="lo-lf" d="M-16 -4 C -10 10, 10 10, 16 -4 C 8 2, -8 2, -16 -4 Z"></path></g></svg></div>
+          <div class="lo-l lo-sbR"><svg width="220" height="330" viewBox="-110 -150 220 330"><g transform="translate(86 70) rotate(30) scale(.46)"><path class="lo-pb" d="M0 0 C -22 -6, -36 -46, -30 -100 C -20 -70, -8 -50, 2 -42 Z"></path><path class="lo-pb" d="M0 0 C 22 -6, 36 -46, 30 -100 C 20 -70, 8 -50, -2 -42 Z"></path><path class="lo-pf" d="M0 3 C -25 -8, -30 -60, 0 -116 C 30 -60, 25 -8, 0 3 Z"></path><path class="lo-pe" d="M0 3 C -25 -8, -30 -60, 0 -116 C 30 -60, 25 -8, 0 3 Z"></path><path class="lo-lf" d="M-16 -4 C -10 10, 10 10, 16 -4 C 8 2, -8 2, -16 -4 Z"></path></g></svg></div>
+          <div class="lo-l"><svg width="220" height="330" viewBox="-110 -150 220 330"><path class="lo-stem" d="M0 172 C -7 128, 9 78, 0 4"></path></svg></div>
+          <div class="lo-l lo-leafL"><svg width="220" height="330" viewBox="-110 -150 220 330"><path class="lo-lf" d="M-1 124 C -42 112, -74 62, -66 4 C -50 44, -28 88, -1 104 Z"></path><path class="lo-veinL" d="M-4 114 C -30 96, -50 64, -60 18"></path></svg></div>
+          <div class="lo-l lo-leafR"><svg width="220" height="330" viewBox="-110 -150 220 330"><path class="lo-lf" d="M1 98 C 38 82, 64 42, 72 -10 C 48 28, 26 60, 1 78 Z"></path><path class="lo-veinL" d="M4 88 C 28 72, 50 42, 66 0"></path></svg></div>
+            <div class="lo-l lo-glow lo-breath"><svg width="220" height="330" viewBox="-110 -150 220 330"><circle class="lo-wf" cx="0" cy="-48" r="78"></circle></svg></div>
+            <div class="lo-l lo-glow"><svg width="220" height="330" viewBox="-110 -150 220 330"><path class="lo-stam" d="M0 -6 C -2 -24, -8 -34, -12 -46 M0 -6 C 2 -24, 8 -34, 12 -46 M0 -6 V-52"></path><circle class="lo-gf" cx="-12" cy="-48" r="3"></circle><circle class="lo-gf" cx="12" cy="-48" r="3"></circle><circle class="lo-gf" cx="0" cy="-55" r="3.4"></circle></svg></div>
+            <div class="lo-l lo-p lo-pBL"><svg width="220" height="330" viewBox="-110 -150 220 330"><path class="lo-pb" d="M0 0 C -22 -6, -36 -46, -30 -100 C -20 -70, -8 -50, 2 -42 Z"></path><path class="lo-pe" d="M0 0 C -22 -6, -36 -46, -30 -100 C -20 -70, -8 -50, 2 -42 Z"></path></svg></div>
+            <div class="lo-l lo-p lo-pBR"><svg width="220" height="330" viewBox="-110 -150 220 330"><path class="lo-pb" d="M0 0 C 22 -6, 36 -46, 30 -100 C 20 -70, 8 -50, -2 -42 Z"></path><path class="lo-pe" d="M0 0 C 22 -6, 36 -46, 30 -100 C 20 -70, 8 -50, -2 -42 Z"></path></svg></div>
+            <div class="lo-l lo-p lo-pFL"><svg width="220" height="330" viewBox="-110 -150 220 330"><path class="lo-pf" d="M3 0 C -30 -2, -52 -40, -44 -106 C -30 -78, -12 -58, 9 -36 Z"></path><path class="lo-pe" d="M3 0 C -30 -2, -52 -40, -44 -106 C -30 -78, -12 -58, 9 -36 Z"></path><path class="lo-vein" d="M-2 -8 C -22 -26, -34 -56, -40 -92"></path></svg></div>
+            <div class="lo-l lo-p lo-pFR"><svg width="220" height="330" viewBox="-110 -150 220 330"><path class="lo-pf" d="M-3 0 C 30 -2, 52 -40, 44 -106 C 30 -78, 12 -58, -9 -36 Z"></path><path class="lo-pe" d="M-3 0 C 30 -2, 52 -40, 44 -106 C 30 -78, 12 -58, -9 -36 Z"></path><path class="lo-vein" d="M2 -8 C 22 -26, 34 -56, 40 -92"></path></svg></div>
+            <div class="lo-l"><svg width="220" height="330" viewBox="-110 -150 220 330"><path class="lo-lf" d="M-16 -4 C -10 10, 10 10, 16 -4 C 8 2, -8 2, -16 -4 Z"></path></svg></div>
+          </div>
+        </div>
+        </div>
+        <span class="lo-mote" style="left: 60px; top: 150px"></span>
+        <span class="lo-mote" style="left: 220px; top: 120px; animation-delay: -4s"></span>
+        <span class="lo-mote" style="left: 180px; top: 230px; animation-delay: -7s"></span>
+      </div>
+    </div>
+    <div style="position: relative; padding: 18px 26px 0; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 6px">
+      <p class="lo-sc lo-h" style="color: #9E3A55; transition-delay: 1.9s">Jufti halolim</p>
+      <h1 class="lo-k lo-rose lo-h" style="margin: 0; font-size: {{ h1px }}px; line-height: 1.08; font-weight: 400; overflow-wrap: break-word; max-width: 338px; transition-delay: 2s">{{ d.kimga }}</h1>
+      <p class="lo-h" style="margin: 2px 0 0; font-size: 20px; font-style: italic; color: #7A5A50; transition-delay: 2.1s">hayotimdagi eng go’zal ne’mat</p>
+      <sc-if value="{{ hasDate }}">
+      <div class="lo-h" style="margin-top: 10px; display: flex; align-items: center; gap: 12px; transition-delay: 2.2s">
+        <svg aria-hidden="true" width="44" height="10" viewBox="0 0 44 10"><path class="lo-gl" d="M0 5 H34"></path><path class="lo-gf" d="M39 1 L43 5 L39 9 L35 5Z"></path></svg>
+        <span class="lo-k" style="font-size: 20px; letter-spacing: 0.12em; color: #A3772B">{{ dateDots }}</span>
+        <svg aria-hidden="true" width="44" height="10" viewBox="0 0 44 10"><path class="lo-gl" d="M10 5 H44"></path><path class="lo-gf" d="M5 1 L9 5 L5 9 L1 5Z"></path></svg>
+      </div>
+      </sc-if>
+    </div>
+    <div class="lo-h" style="position: relative; margin: 30px 22px 0; padding: 22px 18px 20px; border-radius: 4px; background: rgba(255, 251, 243, 0.8); box-shadow: 0 0 0 1px rgba(196, 154, 76, 0.55), 0 0 0 5px rgba(251, 245, 234, 0.9), 0 0 0 6px rgba(196, 154, 76, 0.35); text-align: center; transition-delay: 2.35s">
+      <svg aria-hidden="true" width="60" height="16" viewBox="0 0 60 16" style="position: absolute; left: 50%; top: -9px; margin-left: -30px"><rect x="0" y="0" width="60" height="16" style="fill: #FBF5EA"></rect><path class="lo-pf" d="M30 15 C 24 14, 22 8, 24 2 C 26 5, 28 6, 30 8 C 32 6, 34 5, 36 2 C 38 8, 36 14, 30 15Z"></path><path class="lo-gl" d="M2 8 H18 M42 8 H58"></path></svg>
+      <p class="lo-ar" dir="rtl" lang="ar" style="margin: 0; font-size: 22px; line-height: 46px; color: #8E3550">وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً</p>
+      <p style="margin: 10px 0 0; font-size: 16.5px; line-height: 1.5; font-style: italic; color: #5E4038">«Uning oyatlaridan biri — sizlar uchun o’zingizdan juftlar yaratgani, toki ular bilan orom topgaysiz. Va o’rtangizda muhabbat va rahmat paydo qildi»</p>
+      <p class="lo-sc" style="margin-top: 10px; font-size: 11px; color: #A3772B">Rum surasi, 21-oyat</p>
+    </div>
+  </header>
+
+  <!-- ================= MAKTUB ================= -->
+  <sc-if value="{{ b.maktub }}">
+  <section class="{{ rv.maktub }}" data-rv="maktub" style="position: relative; padding: 18px 16px 58px">
+    <div class="lo-rv" style="position: relative; padding: 34px 24px 30px; background: #FFFBF3; box-shadow: 0 0 0 1px rgba(196, 154, 76, 0.7), 0 0 0 7px #FFFBF3, 0 0 0 8px rgba(201, 112, 134, 0.45), 0 30px 50px -30px rgba(142, 53, 80, 0.45)">
+      <sc-for list="{{ cardCorners }}" as="c">
+      <svg aria-hidden="true" width="40" height="40" viewBox="0 0 40 40" style="{{ c }}position: absolute"><path class="lo-gl" d="M2 38 V14 C 2 7, 7 2, 14 2 H38"></path><path class="lo-pf" d="M8 32 C 4 26, 5 17, 11 12 C 12 17, 14 20, 17 22 C 18 18, 21 15, 25 14 C 24 22, 17 30, 8 32Z"></path><path class="lo-pe" d="M8 32 C 4 26, 5 17, 11 12 C 12 17, 14 20, 17 22 C 18 18, 21 15, 25 14 C 24 22, 17 30, 8 32Z"></path></svg>
+      </sc-for>
+      <div style="display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center">
+        <p class="lo-sc" style="color: #A3772B">Maktub</p>
+        <p class="lo-k" style="margin: 0 0 18px; font-size: 26px; line-height: 1.2; color: #8E3550; overflow-wrap: anywhere">{{ greet }}</p>
+      </div>
+      <div style="font-size: 18.5px; line-height: 1.68; color: #4A2A2E; white-space: pre-line; overflow-wrap: anywhere"><sc-if value="{{ capL }}"><span aria-hidden="true" style="float: left; position: relative; width: 60px; height: 64px; margin: 6px 12px 2px 0; box-sizing: border-box; background: linear-gradient(170deg, #C35F75, #8E3550); box-shadow: 0 0 0 1px #C49A4C, 0 0 0 4px #FFFBF3, 0 0 0 5px rgba(196, 154, 76, 0.7); display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="60" height="64" viewBox="0 0 60 64" style="position: absolute; left: 0; top: 0"><path d="M4 60 V16 C 4 9, 9 4, 16 4 H44 C 51 4, 56 9, 56 16 V60" style="fill: none; stroke: rgba(246, 230, 184, 0.55); stroke-width: 1"></path></svg><span class="lo-k lo-foil" style="position: relative; font-size: 42px; line-height: 1">{{ capL }}</span></span></sc-if>{{ capRest }}</div>
+      <sc-if value="{{ sign }}">
+      <div style="clear: both; margin-top: 22px; display: flex; flex-direction: column; align-items: flex-end; gap: 2px">
+        <p style="margin: 0; font-size: 16px; font-style: italic; color: #8A6A5E">Duolar bilan,</p>
+        <p class="lo-k" style="margin: 0; font-size: 25px; color: #8E3550; overflow-wrap: anywhere; text-align: right">{{ sign }}</p>
+      </div>
+      </sc-if>
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- ================= SABABLAR ================= -->
+  <sc-if value="{{ b.sabablar }}">
+  <section class="{{ rv.sabablar }}" data-rv="sabablar" style="position: relative; padding: 0 16px 60px">
+    <div class="lo-rv" style="display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center">
+      <svg aria-hidden="true" width="120" height="30" viewBox="0 0 120 30"><path class="lo-gl lo-draw" d="M0 22 C 20 22, 34 14, 50 18 M120 22 C 100 22, 86 14, 70 18"></path><path class="lo-pf" d="M60 28 C 52 27, 49 17, 52 7 C 55 12, 57 14, 60 16 C 63 14, 65 12, 68 7 C 71 17, 68 27, 60 28Z"></path><path class="lo-pe" d="M60 28 C 52 27, 49 17, 52 7 C 55 12, 57 14, 60 16 C 63 14, 65 12, 68 7 C 71 17, 68 27, 60 28Z"></path></svg>
+      <p class="lo-sc" style="color: #A3772B">{{ reasonsLbl }}</p>
+      <h2 class="lo-k lo-rose" style="margin: 0; font-size: 33px; line-height: 1.12; font-weight: 400">Seni sevishimning sabablari</h2>
+      <p style="margin: 0; font-size: 17px; font-style: italic; color: #7A5A50">Har bir lolani bosing — gullaydi</p>
+    </div>
+    <ul style="list-style: none; margin: 26px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 12px">
+      <sc-for list="{{ reasons }}" as="r">
+      <li class="lo-rv" style="{{ r.w }}transition-delay: {{ r.dl }}">
+        <button type="button" onClick="{{ r.tap }}" aria-pressed="{{ r.on }}" class="{{ r.cls }}" style="position: relative; width: 100%; min-height: 150px; box-sizing: border-box; padding: 64px 12px 18px; border: 0; cursor: pointer; font: inherit; color: inherit; background: linear-gradient(180deg, #FFFBF3 0%, #FBEDE6 100%); clip-path: {{ r.clip }}; box-shadow: 0 0 0 1px rgba(196, 154, 76, 0.4); display: flex; flex-direction: column; align-items: center; justify-content: flex-start; text-align: center">
+          <svg aria-hidden="true" width="{{ r.bw }}" height="150" viewBox="0 0 {{ r.bw }} 150" preserveAspectRatio="none" style="position: absolute; left: 0; top: 0; width: 100%; height: 100%"><path class="lo-gl" d="{{ r.d }}"></path></svg>
+          <span aria-hidden="true" style="position: absolute; left: 50%; top: 10px; width: 44px; height: 56px; margin-left: -22px">
+            <span class="lo-ring"></span>
+            <svg class="lo-mini" width="44" height="56" viewBox="0 0 44 56"><path d="M22 55 V40" style="fill: none; stroke: #6F8E68; stroke-width: 1.8; stroke-linecap: round"></path></svg>
+            <svg class="lo-mini lo-mL" width="44" height="56" viewBox="0 0 44 56"><path class="lo-pf" d="M23 48 C 10 47, 6 32, 9 16 C 14 26, 19 32, 25 36 Z"></path><path class="lo-pe" d="M23 48 C 10 47, 6 32, 9 16 C 14 26, 19 32, 25 36 Z"></path></svg>
+            <svg class="lo-mini lo-mR" width="44" height="56" viewBox="0 0 44 56"><path class="lo-pf" d="M21 48 C 34 47, 38 32, 35 16 C 30 26, 25 32, 19 36 Z"></path><path class="lo-pe" d="M21 48 C 34 47, 38 32, 35 16 C 30 26, 25 32, 19 36 Z"></path></svg>
+            <svg class="lo-mini" width="44" height="56" viewBox="0 0 44 56"><circle class="lo-gf" cx="22" cy="30" r="3"></circle></svg>
+            <svg class="lo-mini lo-mC" width="44" height="56" viewBox="0 0 44 56"><path class="lo-pf" d="M22 49 C 13 45, 12 26, 22 10 C 32 26, 31 45, 22 49Z"></path><path class="lo-pe" d="M22 49 C 13 45, 12 26, 22 10 C 32 26, 31 45, 22 49Z"></path></svg>
+          </span>
+          <span class="lo-k" style="font-size: 13px; letter-spacing: 0.2em; color: #A3772B">{{ r.n }}</span>
+          <span style="margin-top: 4px; font-size: 18px; line-height: 1.3; color: #4A2A2E; overflow-wrap: anywhere">{{ r.t }}</span>
+        </button>
+      </li>
+      </sc-for>
+    </ul>
+  </section>
+  </sc-if>
+
+  <!-- ================= YOL ================= -->
+  <sc-if value="{{ b.yol }}">
+  <section class="{{ rv.yol }}" data-rv="yol" style="position: relative; padding: 0 20px 56px">
+    <div class="lo-rv" style="display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center">
+      <svg aria-hidden="true" width="120" height="30" viewBox="0 0 120 30"><path class="lo-gl lo-draw" d="M0 22 C 20 22, 34 14, 50 18 M120 22 C 100 22, 86 14, 70 18"></path><path class="lo-lf" d="M60 28 C 50 24, 48 14, 54 4 C 58 12, 60 18, 60 28Z M60 28 C 70 24, 72 14, 66 4 C 62 12, 60 18, 60 28Z"></path></svg>
+      <sc-if value="{{ yolRange }}"><p class="lo-sc" style="color: #A3772B; letter-spacing: 0.24em">{{ yolRange }}</p></sc-if>
+      <h2 class="lo-k lo-rose" style="margin: 0; font-size: 33px; line-height: 1.12; font-weight: 400">Bizning yo’limiz</h2>
+      <p style="margin: 0; font-size: 17px; font-style: italic; color: #7A5A50">Bir novdada ochilgan kurtaklar</p>
+    </div>
+    <ol style="position: relative; list-style: none; margin: 28px 0 0; padding: 0">
+      <span aria-hidden="true" style="position: absolute; left: 31px; top: 20px; bottom: 30px; width: 3px; border-radius: 2px; background: linear-gradient(180deg, #6F8E68, #A9C09B 50%, #6F8E68)"></span>
+      <sc-for list="{{ yol }}" as="y">
+      <li class="lo-rv" style="position: relative; display: flex; align-items: flex-start; gap: 16px; padding-bottom: 22px; transition-delay: {{ y.dl }}">
+        <span aria-hidden="true" style="position: absolute; left: 33px; top: 46px; width: 22px; height: 16px">
+          <svg width="22" height="16" viewBox="0 0 22 16"><path class="lo-lf" d="M0 14 C 6 4, 14 0, 22 2 C 16 8, 8 14, 0 14Z"></path></svg>
+        </span>
+        <span class="lo-node" style="position: relative; flex: none; width: 64px; height: 64px; display: flex; align-items: center; justify-content: center">
+          <svg aria-hidden="true" width="64" height="64" viewBox="0 0 64 64" style="position: absolute; left: 0; top: 0"><circle cx="32" cy="32" r="30" style="fill: #FFFBF3"></circle><circle class="lo-gl" cx="32" cy="32" r="30"></circle><circle class="lo-gl2" cx="32" cy="32" r="25"></circle><path class="lo-pf" d="M32 22 C 27 20, 26 14, 28 9 C 30 12, 31 13, 32 14 C 33 13, 34 12, 36 9 C 38 14, 37 20, 32 22Z" style="opacity: .9"></path></svg>
+          <span class="lo-k" style="position: relative; margin-top: 16px; font-size: {{ y.fs }}px; line-height: 1; color: #8E3550; text-align: center; padding: 0 6px; overflow-wrap: anywhere">{{ y.yil }}</span>
+        </span>
+        <div style="flex: 1; min-width: 0; padding: 12px 14px 14px; background: rgba(255, 251, 243, 0.85); box-shadow: 0 0 0 1px rgba(196, 154, 76, 0.35); border-radius: 2px 18px 2px 18px; display: flex; flex-direction: column; gap: 3px">
+          <span class="lo-k" style="font-size: 21px; line-height: 1.2; color: #4A2A2E; overflow-wrap: anywhere">{{ y.sarlavha }}</span>
+          <sc-if value="{{ y.matn }}"><span style="font-size: 17px; line-height: 1.4; font-style: italic; color: #7A5A50; overflow-wrap: anywhere">{{ y.matn }}</span></sc-if>
+        </div>
+      </li>
+      </sc-for>
+    </ol>
+  </section>
+  </sc-if>
+
+  <!-- ================= GALEREYA ================= -->
+  <sc-if value="{{ b.galereya }}">
+  <section class="{{ rv.galereya }}" data-rv="galereya" style="position: relative; padding: 0 12px 60px">
+    <div class="lo-rv" style="display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center">
+      <svg aria-hidden="true" width="120" height="30" viewBox="0 0 120 30"><path class="lo-gl lo-draw" d="M0 22 C 20 22, 34 14, 50 18 M120 22 C 100 22, 86 14, 70 18"></path><path class="lo-pf" d="M60 28 C 52 27, 49 17, 52 7 C 55 12, 57 14, 60 16 C 63 14, 65 12, 68 7 C 71 17, 68 27, 60 28Z"></path></svg>
+      <p class="lo-sc" style="color: #A3772B">{{ galLbl }}</p>
+      <h2 class="lo-k lo-rose" style="margin: 0; font-size: 33px; line-height: 1.12; font-weight: 400">Xotira gulzori</h2>
+    </div>
+    <div style="margin-top: 26px; display: flex; flex-direction: column; gap: 16px">
+      <sc-for list="{{ galRows }}" as="row">
+      <div style="display: flex; justify-content: center; align-items: flex-end; gap: 12px">
+        <sc-for list="{{ row.items }}" as="g">
+        <div class="lo-rv" style="position: relative; width: {{ g.w }}px; height: {{ g.h }}px; transition-delay: {{ g.dl }}">
+          <div style="position: absolute; left: 0; top: 0; width: {{ g.w }}px; height: {{ g.h }}px; clip-path: {{ g.clip }}; background: #EFCFCB">
+            <img src="{{ g.src }}" alt="" style="display: block; width: 100%; height: 100%; object-fit: cover">
+          </div>
+          <svg aria-hidden="true" width="{{ g.w }}" height="{{ g.h }}" viewBox="0 0 {{ g.w }} {{ g.h }}" style="position: absolute; left: 0; top: 0; overflow: visible"><path class="lo-gl" d="{{ g.d }}" style="stroke-width: 2"></path><path class="lo-gl2" d="{{ g.d2 }}"></path></svg>
+        </div>
+        </sc-for>
+      </div>
+      </sc-for>
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- ================= HISOB ================= -->
+  <sc-if value="{{ b.hisob }}">
+  <section class="{{ rv.hisob }}" data-rv="hisob" style="position: relative; padding: 0 16px 60px; text-align: center">
+    <div class="lo-rv" style="display: flex; flex-direction: column; align-items: center; gap: 6px">
+      <svg aria-hidden="true" width="120" height="30" viewBox="0 0 120 30"><path class="lo-gl lo-draw" d="M0 22 C 20 22, 34 14, 50 18 M120 22 C 100 22, 86 14, 70 18"></path><circle class="lo-gf" cx="60" cy="18" r="6"></circle><circle class="lo-gl" cx="60" cy="18" r="10"></circle></svg>
+      <h2 class="lo-k lo-rose" style="margin: 0; font-size: 33px; line-height: 1.12; font-weight: 400">Birga o’tgan kunlarimiz</h2>
+    </div>
+    <div class="lo-rv" style="position: relative; margin: 22px auto 0; width: 330px; height: 250px; transition-delay: .15s">
+      <svg aria-hidden="true" class="lo-spin" width="250" height="250" viewBox="-125 -125 250 250" style="position: absolute; left: 40px; top: 0; animation-duration: 90s"><sc-for list="{{ rosette }}" as="r"><path class="lo-gl2" d="{{ r }}"></path></sc-for><circle class="lo-gl" cx="0" cy="0" r="98"></circle></svg>
+      <div style="position: absolute; left: 65px; top: 25px; width: 200px; height: 200px; border-radius: 50%; background: radial-gradient(circle at 50% 40%, #FFFBF3 0%, #FBEDE6 70%, #F3D9D6 100%); box-shadow: 0 0 0 1px rgba(196, 154, 76, 0.6), 0 20px 40px -24px rgba(142, 53, 80, 0.6)"></div>
+      <div style="position: absolute; left: 0; top: 0; width: 330px; height: 250px; display: flex; flex-direction: column; align-items: center; justify-content: center">
+        <div aria-label="{{ daysLbl }}" style="display: flex; gap: 2px">
+          <sc-for list="{{ odo }}" as="o">
+          <span aria-hidden="true" style="position: relative; width: {{ odoW }}px; height: 60px; overflow: hidden">
+            <span class="lo-odo" style="transform: translateY({{ o.y }}px); transition-delay: {{ o.dl }}">
+              <sc-for list="{{ digits10 }}" as="n"><span class="lo-k lo-rose" style="display: block; height: 60px; font-size: {{ odoPx }}px; line-height: 60px">{{ n }}</span></sc-for>
+            </span>
+          </span>
+          </sc-for>
+        </div>
+        <p class="lo-sc" style="margin-top: 2px; color: #A3772B">kun</p>
+      </div>
+    </div>
+    <div class="lo-rv" style="margin-top: 14px; display: flex; justify-content: center; gap: 8px; transition-delay: .3s">
+      <sc-for list="{{ ymd }}" as="c">
+      <div style="min-width: 86px; padding: 10px 8px 9px; box-sizing: border-box; background: #FFFBF3; box-shadow: 0 0 0 1px rgba(196, 154, 76, 0.45); border-radius: 22px 22px 4px 4px; display: flex; flex-direction: column; align-items: center">
+        <span class="lo-k" style="font-size: 28px; line-height: 1; color: #8E3550">{{ c.v }}</span>
+        <span style="margin-top: 4px; font-size: 13px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: #8A6A5E">{{ c.l }}</span>
+      </div>
+      </sc-for>
+    </div>
+    <div class="lo-rv" style="margin-top: 16px; display: flex; justify-content: center; align-items: baseline; gap: 4px; transition-delay: .45s">
+      <sc-for list="{{ clock }}" as="c">
+      <sc-if value="{{ c.sep }}"><span class="lo-k" style="font-size: 22px; color: #C49A4C">:</span></sc-if>
+      <span style="display: inline-flex; flex-direction: column; align-items: center; min-width: 46px">
+        <span key="{{ c.k }}" class="lo-k lo-flip" style="font-size: 26px; color: #4A2A2E">{{ c.v }}</span>
+        <span style="font-size: 12px; letter-spacing: 0.16em; color: #8A6A5E">{{ c.l }}</span>
+      </span>
+      </sc-for>
+    </div>
+    <sc-if value="{{ hasDate }}"><p class="lo-rv" style="margin: 14px 0 0; font-size: 18px; font-style: italic; color: #7A5A50; transition-delay: .55s">{{ dateSince }}</p></sc-if>
+  </section>
+  </sc-if>
+
+  <!-- ================= SIRLI ================= -->
+  <sc-if value="{{ b.sirli }}">
+  <section class="{{ rv.sirli }}" data-rv="sirli" style="position: relative; padding: 0 20px 60px">
+    <div class="lo-rv" style="position: relative">
+      <div class="{{ veilCls }}" style="position: relative; overflow: hidden; clip-path: {{ secretClip }}; background: linear-gradient(180deg, #FFF6E8 0%, #F7E2DA 100%)">
+        <div style="position: relative; height: {{ secretH }}px; box-sizing: border-box; padding: 100px 30px 30px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 12px">
+          <p class="lo-sc" style="color: #A3772B">Yashirin so’z</p>
+          <p class="{{ secretCls }}" style="margin: 0; font-size: 20px; line-height: 1.55; font-style: italic; color: #4A2A2E; white-space: pre-line; overflow-wrap: anywhere">{{ d.sirli_soz }}</p>
+          <sc-if value="{{ secretShown }}" hint-placeholder-val="{{ false }}"><p class="lo-sc lo-in" style="margin-top: 4px; color: #9E3A55; animation-delay: .9s">Bu so’z faqat ikkimizniki</p></sc-if>
+        </div>
+        <div class="lo-door lo-dl" style="position: absolute; left: 0; top: 0; width: 50%; height: 100%; overflow: hidden; background: linear-gradient(170deg, #C35F75 0%, #8E3550 100%)">
+          <div class="lo-lat" style="position: absolute; left: 0; top: 0; width: 350px; height: 100%"></div>
+        </div>
+        <div class="lo-door lo-dr" style="position: absolute; left: 50%; top: 0; width: 50%; height: 100%; overflow: hidden; background: linear-gradient(190deg, #C35F75 0%, #8E3550 100%)">
+          <div class="lo-lat" style="position: absolute; right: 0; top: 0; width: 350px; height: 100%"></div>
+        </div>
+        <div class="lo-dbtn" style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; padding-top: 60px; box-sizing: border-box; text-align: center">
+          <p class="lo-k" style="margin: 0; font-size: 27px; line-height: 1.15; color: #FFF4E6">Yopiq eshikcha</p>
+          <p style="margin: 0 30px; font-size: 16px; font-style: italic; color: #F8DCDD">Ortida faqat sen uchun so’z bor</p>
+          <button type="button" onClick="{{ reveal }}" class="lo-btn" style="min-height: 50px; padding: 0 26px; border-radius: 999px; border: 1px solid #E6C982; background: #FFFBF3; color: #8E3550; font-family: 'Kurale', Georgia, serif; font-size: 18px; cursor: pointer; box-shadow: 0 10px 22px -10px rgba(60, 10, 30, 0.6)">Eshikchani oching</button>
+        </div>
+      </div>
+      <svg aria-hidden="true" width="350" height="{{ secretH }}" viewBox="0 0 350 {{ secretH }}" style="position: absolute; left: 0; top: 0; pointer-events: none; overflow: visible"><path class="lo-gl" d="{{ secretD }}" style="stroke-width: 2"></path></svg>
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- ================= JAVOB ================= -->
+  <sc-if value="{{ b.javob }}">
+  <section class="{{ rv.javob }}" data-rv="javob" style="position: relative; padding: 0 20px 50px; text-align: center">
+    <div class="lo-rv" style="position: relative; padding: 40px 22px 34px; background: #FFFBF3; border-radius: 160px 160px 6px 6px; box-shadow: 0 0 0 1px rgba(196, 154, 76, 0.6), 0 0 0 6px #FFFBF3, 0 0 0 7px rgba(201, 112, 134, 0.4), 0 30px 50px -30px rgba(142, 53, 80, 0.5)">
+      <svg aria-hidden="true" width="70" height="86" viewBox="-35 -60 70 86" style="display: block; margin: 0 auto"><path d="M0 26 V4" style="fill: none; stroke: #6F8E68; stroke-width: 2"></path><path class="lo-pb" d="M0 0 C -12 -3, -18 -22, -15 -48 C -10 -34, -4 -24, 1 -20 Z"></path><path class="lo-pb" d="M0 0 C 12 -3, 18 -22, 15 -48 C 10 -34, 4 -24, -1 -20 Z"></path><path class="lo-pf" d="M2 0 C -15 -1, -26 -20, -22 -52 C -15 -38, -6 -28, 5 -17 Z"></path><path class="lo-pf" d="M-2 0 C 15 -1, 26 -20, 22 -52 C 15 -38, 6 -28, -5 -17 Z"></path><path class="lo-pf" d="M0 2 C -12 -4, -15 -30, 0 -58 C 15 -30, 12 -4, 0 2Z"></path><path class="lo-pe" d="M0 2 C -12 -4, -15 -30, 0 -58 C 15 -30, 12 -4, 0 2Z"></path></svg>
+      <p class="lo-k" style="margin: 10px 0 0; font-size: 25px; color: #A3772B; overflow-wrap: anywhere">{{ d.kimga }},</p>
+      <h2 class="lo-k lo-rose" style="margin: 4px 0 0; font-size: 34px; line-height: 1.12; font-weight: 400">Javobingni kutaman</h2>
+      <sc-if value="{{ asking }}" hint-placeholder-val="{{ true }}"><p style="margin: 8px 0 0; font-size: 17px; font-style: italic; color: #7A5A50">Bitta bosish — va javobing yetib boradi</p></sc-if>
+      <div style="position: relative; min-height: 128px; margin-top: 22px">
+        <sc-if value="{{ asking }}" hint-placeholder-val="{{ true }}">
+        <div style="display: flex; flex-direction: column; gap: 12px">
+          <div role="group" aria-label="Javobni tanlang" style="display: flex; flex-direction: column; gap: 12px">
+            <button type="button" onClick="{{ sayLove }}" disabled="{{ busy }}" class="lo-btn" style="width: 100%; min-height: 56px; padding: 0 18px; border-radius: 999px; border: 1px solid #C49A4C; background: linear-gradient(170deg, #C35F75 0%, #9E3A55 100%); color: #FFF4E6; font-family: 'Kurale', Georgia, serif; font-size: 18px; cursor: pointer; box-shadow: 0 14px 26px -14px rgba(142, 53, 80, 0.8)">Men ham seni yaxshi ko’raman</button>
+            <button type="button" onClick="{{ sayDua }}" disabled="{{ busy }}" class="lo-btn" style="width: 100%; min-height: 56px; padding: 0 18px; border-radius: 999px; border: 1px solid #C49A4C; background: #FFFBF3; color: #8E3550; font-family: 'Kurale', Georgia, serif; font-size: 18px; cursor: pointer">Alloh bizni ayirmasin</button>
+          </div>
+          <sc-if value="{{ err }}"><p role="alert" style="margin: 0; font-size: 16px; font-weight: 600; color: #9E3A55">{{ err }}</p></sc-if>
+        </div>
+        </sc-if>
+        <sc-if value="{{ answered }}" hint-placeholder-val="{{ false }}">
+        <div style="position: relative; display: flex; flex-direction: column; align-items: center; gap: 8px">
+          <div aria-hidden="true" style="position: absolute; left: 50%; top: 24px; width: 0; height: 0">
+            <sc-for list="{{ burst }}" as="p"><svg class="lo-burst" width="{{ p.w }}" height="{{ p.h }}" viewBox="0 0 16 22" style="{{ p.st }}"><path class="{{ p.c }}" d="M8 21 C 1 16, 0 7, 8 0 C 16 7, 15 16, 8 21Z"></path></svg></sc-for>
+          </div>
+          <p class="lo-k lo-rose lo-in" style="position: relative; margin: 0; font-size: 28px; line-height: 1.2">«{{ answer }}»</p>
+          <p class="lo-in" style="position: relative; margin: 0; font-size: 17px; line-height: 1.45; color: #5E4038; overflow-wrap: anywhere; animation-delay: .2s">Javobing {{ fromGa }} yetib bordi. Alloh muhabbatingizni ziyoda qilsin.</p>
+        </div>
+        </sc-if>
+      </div>
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- ================= FOOTER ================= -->
+  <footer style="flex: 1; padding: 10px 24px 46px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 8px">
+    <svg aria-hidden="true" width="160" height="20" viewBox="0 0 160 20"><path class="lo-gl" d="M0 10 H64 M96 10 H160"></path><path class="lo-gf" d="M80 2 L88 10 L80 18 L72 10Z"></path><circle class="lo-gd" cx="68" cy="10" r="1.8"></circle><circle class="lo-gd" cx="92" cy="10" r="1.8"></circle></svg>
+    <p class="lo-ar" dir="rtl" lang="ar" style="margin: 4px 0 0; font-size: 23px; line-height: 48px; color: #8E3550">بَارَكَ اللَّهُ لَكُمَا وَبَارَكَ عَلَيْكُمَا وَجَمَعَ بَيْنَكُمَا فِي خَيْرٍ</p>
+    <p style="margin: 0; font-size: 16.5px; line-height: 1.5; font-style: italic; color: #5E4038">«Alloh sizlarga baraka bersin, ustingizga baraka yog’dirsin va ikkingizni yaxshilikda jamlasin»</p>
+    <p class="lo-k" style="margin: 12px 0 0; font-size: 21px; color: #8E3550; overflow-wrap: anywhere">{{ pair }}</p>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":5200}}'>
+const LO_RM = typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
+// avtomatlashtirilgan skrinshotlarda (navigator.webdriver) bo’limlar darhol ko’rinadi
+const LO_IO = typeof IntersectionObserver === 'function' && !LO_RM && !(typeof navigator !== 'undefined' && navigator.webdriver);
+const LO_KEYS = ['maktub', 'sabablar', 'yol', 'galereya', 'hisob', 'sirli', 'javob'];
+
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { opened: false, entered: false, rv: {}, bloom: {}, secret: false, answer: null, busy: false, err: '' };
+  }
+  componentDidMount() {
+    this.timer = setInterval(() => this.forceUpdate(), 1000);
+    if (LO_IO) {
+      this.io = new IntersectionObserver((es) => {
+        const add = {};
+        es.forEach((e) => { if (e.isIntersecting) { add[e.target.getAttribute('data-rv')] = true; this.io.unobserve(e.target); } });
+        if (Object.keys(add).length) this.setState((s) => ({ rv: Object.assign({}, s.rv, add) }));
+      }, { rootMargin: '0px 0px -8% 0px', threshold: 0.01 });
+      this.watch();
+    }
+  }
+  componentDidUpdate() { this.watch(); }
+  componentWillUnmount() { clearInterval(this.timer); clearTimeout(this.t2); if (this.io) this.io.disconnect(); }
+  watch() {
+    if (!this.io) return;
+    document.querySelectorAll('[data-rv]').forEach((el) => { if (!el.__lo) { el.__lo = 1; this.io.observe(el); } });
+  }
+
+  nm(n) { return String(n || '').trim(); }
+  poss(n) { n = this.nm(n); return n ? n + (/[aeiouAEIOU’']$/.test(n) ? 'ng' : 'ing') : ''; }
+  fit(t, px, wpx, k) { const L = Math.max(1, ...String(t || '').split(/\s+/).map((x) => x.length)); return Math.max(18, Math.min(px, Math.floor(wpx / (L * (k || 0.5))))); }
+  numWord(n) { return ['', 'Bir', 'Ikki', 'Uch', 'To’rt', 'Besh', 'Olti', 'Yetti', 'Sakkiz', 'To’qqiz', 'O’n'][n] || ''; }
+  ordWord(n) { return ['', 'Birinchi', 'Ikkinchi', 'Uchinchi', 'To’rtinchi', 'Beshinchi', 'Oltinchi', 'Yettinchi', 'Sakkizinchi', 'To’qqizinchi', 'O’ninchi'][n] || n + '-sabab'; }
+
+  // Ottoman keel arch: apex at top centre, shoulders at s, straight sides down to h
+  arch(w, h, s, inset, ox, oy) {
+    const i = inset || 0, W = w - 2 * i, x0 = i + (ox || 0), y0 = i + (oy || 0), H = h - i + (oy || 0), S = s;
+    const bz = (p0, p1, p2, p3, t) => { const u = 1 - t; return u * u * u * p0 + 3 * u * u * t * p1 + 3 * u * t * t * p2 + t * t * t * p3; };
+    const pts = [];
+    const ax = x0 + W / 2, ay = y0;
+    const L = [[ax, ay], [x0 + W * 0.40, y0 + S * 0.34], [x0, y0 + S * 0.30], [x0, y0 + S]];
+    const R = [[ax, ay], [x0 + W * 0.60, y0 + S * 0.34], [x0 + W, y0 + S * 0.30], [x0 + W, y0 + S]];
+    pts.push([x0, H]);
+    for (let k = 14; k >= 0; k--) { const t = k / 14; pts.push([bz(L[0][0], L[1][0], L[2][0], L[3][0], t), bz(L[0][1], L[1][1], L[2][1], L[3][1], t)]); }
+    for (let k = 1; k <= 14; k++) { const t = k / 14; pts.push([bz(R[0][0], R[1][0], R[2][0], R[3][0], t), bz(R[0][1], R[1][1], R[2][1], R[3][1], t)]); }
+    pts.push([x0 + W, H]);
+    const f = (v) => (+v).toFixed(1);
+    const d = 'M' + f(x0) + ' ' + f(H) + ' V' + f(y0 + S) + ' C' + f(L[2][0]) + ' ' + f(L[2][1]) + ' ' + f(L[1][0]) + ' ' + f(L[1][1]) + ' ' + f(ax) + ' ' + f(ay) +
+      ' C' + f(R[1][0]) + ' ' + f(R[1][1]) + ' ' + f(R[2][0]) + ' ' + f(R[2][1]) + ' ' + f(x0 + W) + ' ' + f(y0 + S) + ' V' + f(H) + (i ? '' : ' Z');
+    return { poly: 'polygon(' + pts.map((p) => f(p[0]) + 'px ' + f(p[1]) + 'px').join(', ') + ')', d };
+  }
+  tulipPath(T) {
+    const P = [[0, 10], [-7, 9], [-9, 1], [-7, -9], [-5, -4], [-2, -2], [0, -2], [2, -2], [5, -4], [7, -9], [9, 1], [7, 9], [0, 10]];
+    const q = P.map((p) => T(p[0], p[1]));
+    return 'M' + q[0] + ' C' + q[1] + ' ' + q[2] + ' ' + q[3] + ' C' + q[4] + ' ' + q[5] + ' ' + q[6] + ' C' + q[7] + ' ' + q[8] + ' ' + q[9] + ' C' + q[10] + ' ' + q[11] + ' ' + q[12] + 'Z';
+  }
+  geo() {
+    if (this.g) return this.g;
+    const corners = [];
+    const C = (x, y, sx, sy) => {
+      const tf = (px, py) => (x + sx * px).toFixed(1) + ' ' + (y + sy * py).toFixed(1);
+      corners.push({
+        d: 'M' + tf(0, 70) + ' C' + tf(0, 30) + ' ' + tf(30, 0) + ' ' + tf(70, 0) + ' M' + tf(10, 46) + ' C' + tf(14, 26) + ' ' + tf(26, 14) + ' ' + tf(46, 10),
+        t: this.tulipPath((px, py) => { const c = Math.SQRT1_2, rx = (px - py) * c, ry = (px + py) * c; return tf(26 - rx * 1.5, 26 - ry * 1.5); })
+      });
+    };
+    C(26, 26, 1, 1); C(364, 26, -1, 1); C(26, 818, 1, -1); C(364, 818, -1, -1);
+    const big = this.arch(300, 520, 210, 0, 45, 196);
+    const hero = this.arch(300, 410, 170, 0), hero2 = this.arch(300, 410, 170, 8);
+    const rays = [], rosette = [];
+    const sq = (r, a0) => { let d = ''; for (let k = 0; k < 4; k++) { const a = a0 + k * Math.PI / 2; d += (k ? ' L' : 'M') + (195 + Math.cos(a) * r).toFixed(1) + ' ' + (330 + Math.sin(a) * r).toFixed(1); } return d + 'Z'; };
+    const circ = (r) => 'M' + (195 - r) + ' 330 a' + r + ' ' + r + ' 0 1 0 ' + (2 * r) + ' 0 a' + r + ' ' + r + ' 0 1 0 ' + (-2 * r) + ' 0';
+    const starD = sq(134, Math.PI / 8) + ' ' + sq(134, Math.PI * 3 / 8) + ' ' + circ(124) + ' ' + circ(146);
+    for (let i = 0; i < 24; i++) { const a = i * Math.PI / 12; rays.push('M' + (Math.cos(a) * 60).toFixed(1) + ' ' + (Math.sin(a) * 60).toFixed(1) + ' L' + (Math.cos(a) * 112).toFixed(1) + ' ' + (Math.sin(a) * 112).toFixed(1)); }
+    for (let i = 0; i < 16; i++) {
+      const a = i * Math.PI / 8, a1 = a - Math.PI / 16, a2 = a + Math.PI / 16;
+      const P = (r, t) => (Math.cos(t) * r).toFixed(1) + ' ' + (Math.sin(t) * r).toFixed(1);
+      rosette.push('M' + P(100, a1) + ' Q' + P(126, a) + ' ' + P(100, a2) + ' M' + P(104, a) + ' L' + P(116, a));
+    }
+    this.g = { starD, corners, archD: big.d.replace(/ Z$/, ''), heroArchSt: 'clip-path: ' + hero.poly + '; ', heroArchD: hero.d, heroArch2D: hero2.d, rays, rosette };
+    return this.g;
+  }
+  secretGeo(h) {
+    if (this.sg && this.sg.h === h) return this.sg;
+    const a = this.arch(350, h, 120, 0);
+    this.sg = { h, clip: a.poly, d: a.d };
+    return this.sg;
+  }
+  galRows() {
+    const n = Math.min(6, Math.max(1, SITE.has.photos)), plan = { 1: [1], 2: [2], 3: [1, 2], 4: [2, 2], 5: [2, 3], 6: [1, 2, 3] }[n];
+    const rows = []; let i = 0;
+    plan.forEach((c) => {
+      const items = [];
+      const dims = c === 1 ? [[300, 380]] : c === 2 ? [[170, 250], [170, 250]] : [[108, 200], [130, 240], [108, 200]];
+      dims.forEach(([w, h]) => {
+        const a = this.arch(w, h, Math.round(w * 0.55), 0), a2 = this.arch(w, h, Math.round(w * 0.55), 6);
+        items.push({ src: SITE.p[i], w, h, clip: a.poly, d: a.d, d2: a2.d, dl: (i * 0.08).toFixed(2) + 's' }); i++;
+      });
+      rows.push({ items });
+    });
+    return rows;
+  }
+  answer(a, emo) {
+    if (this.state.busy || this.state.answer) return;
+    this.setState({ busy: true, err: '' });
+    SITE.reply(a, emo).then(
+      () => this.setState({ answer: a, busy: false }),
+      () => this.setState({ busy: false, err: 'Javob yetib bormadi. Qayta bosib ko’ring.' })
+    );
+  }
+  renderVals() {
+    const s = this.state, d = SITE.d, b = SITE.b, g = this.geo();
+    const to = this.nm(d.kimga), from = this.nm(d.kimdan);
+    const w = SITE.when(d.tanishgan_sana), hasDate = !!w.day;
+    const el = SITE.elapsed(d.tanishgan_sana);
+    const txt = String(d.matn || '').replace(/^\s+/, '');
+    const isL = /[A-Za-zÀ-ɏЀ-ӿ]/.test(txt.charAt(0));
+    const reasons = d.sabablar || [], rn = reasons.length, yol = d.yol || [];
+    const ys = yol.map((x) => (x && x.yil) || '').filter(Boolean);
+    const total = Math.min(6, Math.max(1, SITE.has.photos));
+    const on = (k) => !!(s.rv[k] && s.opened);
+    const rv = {}; LO_KEYS.forEach((k) => { rv[k] = 'lo-sec' + (on(k) ? ' is-in' : ''); });
+
+    const days = el.days || 0, dStr = String(days), dLen = Math.max(3, dStr.length), pad = dStr.padStart(dLen, '0');
+    const show = on('hisob') || !LO_IO;
+    const odoPx = dLen > 5 ? 46 : 54, odoW = dLen > 5 ? 30 : 34;
+    const odo = pad.split('').map((c, i) => ({ y: show ? -60 * (+c) : 0, dl: (i * 0.12).toFixed(2) + 's' }));
+    const pollen = [];
+    for (let i = 0; i < 14; i++) { const a = (i / 14) * Math.PI * 2, r = 70 + (i % 3) * 26; pollen.push({ st: '--x: ' + Math.round(Math.cos(a) * r) + 'px; --y: ' + Math.round(Math.sin(a) * r * 0.9 - 30) + 'px; animation-delay: ' + (0.45 + (i % 4) * 0.06).toFixed(2) + 's' }); }
+    const falls = [];
+    for (let i = 0; i < 6; i++) falls.push({ st: 'left: ' + (30 + i * 62) + 'px; animation-delay: ' + (-(i * 2.3)).toFixed(1) + 's; animation-duration: ' + (13 + (i % 3) * 3) + 's' });
+    const frieze = [];
+    for (let i = 0; i < 9; i++) frieze.push({ st: 'opacity: ' + (i === 4 ? 1 : 0.55 + (i % 2) * 0.2).toFixed(2) + '; transform: scale(' + (i === 4 ? 1.25 : 0.85) + ')' });
+    const burst = [];
+    for (let i = 0; i < 18; i++) {
+      const a = (i / 18) * Math.PI * 2 + (i % 3) * 0.15, dist = 80 + (i % 4) * 24;
+      burst.push({ c: i % 3 ? 'lo-pf' : 'lo-gf', w: 10 + (i % 3) * 3, h: 14 + (i % 3) * 4, st: '--dx: ' + Math.round(Math.cos(a) * dist) + 'px; --dy: ' + Math.round(Math.sin(a) * dist * 0.75 + 40) + 'px; --rot: ' + ((i % 2 ? 1 : -1) * (140 + i * 13)) + 'deg; animation-delay: ' + ((i % 5) * 0.04).toFixed(2) + 's' });
+    }
+    const sl = String(d.sirli_soz || '').split('\n').reduce((n, x) => n + Math.max(1, Math.ceil(x.length / 27)), 0);
+    const secretH = Math.max(340, 210 + sl * 31);
+    const sg = this.secretGeo(secretH);
+    const tl = String(to).length;
+
+    return {
+      to, from, hasDate,
+      rootCls: 'lo-root' + (LO_IO ? ' lo-io' : '') + (s.entered || LO_RM ? ' is-in' : ''),
+      introCls: s.opened ? 'lo-intro is-open' : 'lo-intro',
+      open: () => {
+        if (this.state.opened) return;
+        this.setState({ opened: true });
+        SITE.opened();
+        this.t2 = setTimeout(() => this.setState({ entered: true }), 300);
+      },
+      musicOn: !!SITE.music.playing, musicOff: !SITE.music.playing, toggleMusic: () => SITE.music.toggle(),
+      heroTulCls: 'lo-tul' + (s.entered || LO_RM ? ' lo-opened' : ''),
+      corners: g.corners, archD: g.archD, starD: g.starD, heroArchSt: g.heroArchSt, heroArchD: g.heroArchD, heroArch2D: g.heroArch2D, rays: g.rays, rosette: g.rosette,
+      pollen, falls, frieze,
+      introPx: Math.min(this.fit(to, 50, 322, 0.5), tl > 16 ? 36 : 50),
+      h1px: Math.min(this.fit(to, 56, 338, 0.5), tl > 16 ? 40 : 56),
+      fromLine: from ? from + 'dan, muhabbat va duo bilan' : 'muhabbat va duo bilan',
+      dateDots: hasDate ? w.dots.split('.').join(' · ') : '',
+      dateSince: hasDate ? w.dm + ' ' + w.year + '-yildan beri — har kuni shukr bilan' : '',
+      greet: 'Assalomu alaykum, azizim ' + to + '!',
+      sign: from ? (/\s/.test(from) ? from : 'sening ' + this.poss(from)) : '',
+      pair: [from, to].filter(Boolean).join(' va '),
+      fromGa: SITE.ga(from),
+      rv,
+      cardCorners: ['left: 6px; top: 6px; ', 'right: 6px; top: 6px; transform: scaleX(-1); ', 'left: 6px; bottom: 6px; transform: scaleY(-1); ', 'right: 6px; bottom: 6px; transform: scale(-1, -1); '],
+      capL: isL ? txt.charAt(0) : '',
+      capRest: isL ? txt.slice(1) : txt,
+      reasonsLbl: rn <= 10 ? this.numWord(rn) + ' sabab' : rn + ' sabab',
+      reasons: reasons.map((t, i) => {
+        const full = rn % 2 === 1 && i === rn - 1, bw = full ? 358 : 173;
+        const a = this.arch(bw, 150, 46, 0), a2 = this.arch(bw, 150, 46, 5); a2.d += ' Z';
+        const onB = !!s.bloom[i];
+        return {
+          t, n: this.ordWord(i + 1), on: onB, w: full ? 'width: 100%; ' : 'width: calc(50% - 6px); ', dl: (0.06 * (i % 6)).toFixed(2) + 's',
+          bw, clip: a.poly.replace(/(\d+(\.\d+)?)px (\d+(\.\d+)?)px/g, (m, x, x2, y) => (+x / bw * 100).toFixed(2) + '% ' + (y == 150 ? '100%' : y + 'px')), d: a2.d,
+          cls: 'lo-card' + (onB ? ' is-b' : ''),
+          tap: () => this.setState((st) => ({ bloom: Object.assign({}, st.bloom, { [i]: !st.bloom[i] }) }))
+        };
+      }),
+      yolRange: ys.length > 1 && ys[0] !== ys[ys.length - 1] ? ys[0] + ' — ' + ys[ys.length - 1] : (ys[0] || ''),
+      yol: yol.map((x, i) => { const yl = String(x.yil || ''); return { yil: yl, sarlavha: x.sarlavha || '', matn: x.matn || '', dl: (0.1 * Math.min(i, 6)).toFixed(2) + 's', fs: yl.length <= 4 ? 17 : yl.length <= 7 ? 13 : 11 }; }),
+      galLbl: total <= 10 ? this.numWord(total) + ' lahza' : total + ' lahza',
+      galRows: this.galRows(),
+      digits10: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'],
+      odo, odoPx, odoW, daysLbl: days + ' kun',
+      ymd: [{ v: el.years || 0, l: 'yil' }, { v: el.months || 0, l: 'oy' }, { v: el.rest || 0, l: 'kun' }],
+      clock: [
+        { sep: false, v: SITE.pad(el.h || 0), l: 'soat', k: 'h' + (el.h || 0) },
+        { sep: true, v: SITE.pad(el.m || 0), l: 'daqiqa', k: 'm' + (el.m || 0) },
+        { sep: true, v: SITE.pad(el.s || 0), l: 'soniya', k: 's' + (el.s || 0) }
+      ],
+      veilCls: s.secret ? 'lo-veil is-open' : 'lo-veil',
+      secretCls: s.secret ? 'lo-secret is-shown' : 'lo-secret',
+      secretShown: s.secret,
+      secretClip: sg.clip, secretD: sg.d, secretH,
+      reveal: () => this.setState({ secret: true }),
+      asking: !s.answer, answered: !!s.answer, answer: s.answer || '', busy: s.busy, err: s.err, burst,
+      sayLove: () => this.answer('Men ham seni yaxshi ko’raman', '❤️'),
+      sayDua: () => this.answer('Alloh bizni ayirmasin', '🤗')
+    };
+  }
+}
+</script>
+</body>
+</html>

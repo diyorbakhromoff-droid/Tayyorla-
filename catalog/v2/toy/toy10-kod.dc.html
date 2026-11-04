@@ -1,0 +1,723 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<title>To’y taklifnomasi: Maxfiy kod</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Unicase:wght@500;600;700&amp;family=Nunito+Sans:ital,wght@0,400;0,600;0,700;1,400&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap">
+<style>
+body{margin:0;background:#1F2124}
+.kd-root{background:#1F2124;color:#F4EEE6;font-family:'Nunito Sans','Helvetica Neue',Arial,sans-serif}
+.kd-d{font-family:'Cormorant Unicase','Cormorant Garamond',Georgia,serif}
+.kd-m{font-family:'JetBrains Mono','SFMono-Regular',Menlo,Consolas,monospace}
+.kd-num{font-variant-numeric:tabular-nums}
+.kd-cu{color:#D08A6A}
+.kd-icon{fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.kd-brush{background:repeating-linear-gradient(90deg,rgba(255,255,255,.018) 0 1px,rgba(0,0,0,.02) 1px 3px),radial-gradient(120% 70% at 50% 0%,#33363B 0%,#222428 55%,#1A1C1F 100%)}
+.kd-glow{position:absolute;border-radius:50%;filter:blur(50px);pointer-events:none}
+.kd-breath{animation:kd-breath 7s ease-in-out infinite alternate}
+@keyframes kd-breath{from{opacity:.35;transform:scale(.9)}to{opacity:.7;transform:scale(1.08)}}
+.kd-g1{stop-color:#F3C3A4}.kd-g2{stop-color:#D08A6A}.kd-g3{stop-color:#8E5038}
+.kd-g4{stop-color:#4A2A1E}.kd-g5{stop-color:#B06A4A}
+.kd-shkp{fill:none;stroke:url(#kdShk);stroke-width:17;stroke-linecap:butt}
+.kd-shkh{fill:none;stroke:rgba(255,236,220,.55);stroke-width:2.2;stroke-linecap:round}
+.kd-eng{fill:none;stroke:rgba(70,36,22,.55);stroke-width:1.4}
+.kd-mono{font-family:'Cormorant Unicase',Georgia,serif;font-weight:700;font-size:30px;letter-spacing:.04em;fill:#5A2F1F}
+.kd-mono2{font-family:'Cormorant Unicase',Georgia,serif;font-weight:700;font-size:30px;letter-spacing:.04em;fill:rgba(255,226,206,.55)}
+
+/* ===== kirish ===== */
+.kd-i{position:absolute;left:0;top:0;width:390px;height:844px;z-index:40;overflow:hidden;background:#1F2124}
+.kd-i--ok{pointer-events:none;animation:kd-iout .6s ease 3.3s forwards}
+@keyframes kd-iout{to{opacity:0;visibility:hidden}}
+.kd-up{animation:kd-up .8s cubic-bezier(.2,.85,.25,1) both}
+@keyframes kd-up{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+.kd-lockw{position:absolute;left:115px;top:118px;width:160px;height:190px}
+.kd-lock{animation:kd-lockin 1s cubic-bezier(.3,1.4,.5,1) .15s both}
+@keyframes kd-lockin{from{opacity:0;transform:translateY(-30px) scale(.85)}to{opacity:1;transform:none}}
+.kd-shk{transform-box:view-box;transform-origin:44px 96px}
+.kd-i--bad .kd-lock{animation:kd-rattle .5s ease}
+@keyframes kd-rattle{0%,100%{transform:none}20%{transform:rotate(-5deg)}40%{transform:rotate(4deg)}60%{transform:rotate(-3deg)}80%{transform:rotate(2deg)}}
+.kd-i--ok .kd-shk{animation:kd-shk 1s cubic-bezier(.3,1.6,.5,1) .3s forwards}
+@keyframes kd-shk{0%{transform:none}30%{transform:translateY(-26px)}55%{transform:translateY(-18px)}100%{transform:translateY(-20px) rotate(-26deg)}}
+.kd-i--ok .kd-lockw{animation:kd-lockout .7s cubic-bezier(.5,0,.7,.4) 1.2s forwards}
+@keyframes kd-lockout{to{opacity:0;transform:translateY(-40px) scale(.7)}}
+.kd-sweep{transform:translateX(-160px)}
+.kd-i--ok .kd-sweep{animation:kd-sweep .9s ease .45s forwards}
+@keyframes kd-sweep{to{transform:translateX(200px)}}
+.kd-sweep0{animation:kd-sweep0 5s ease-in-out 1.6s infinite}
+@keyframes kd-sweep0{0%{transform:translateX(-160px)}30%,100%{transform:translateX(200px)}}
+.kd-burst{position:absolute;left:115px;top:205px;width:160px;height:160px;border-radius:50%;border:2px solid #EBB596;opacity:0;pointer-events:none}
+.kd-i--ok .kd-burst{animation:kd-burst .9s cubic-bezier(.2,.8,.2,1) .4s forwards}
+.kd-i--ok .kd-burst2{animation-delay:.55s}
+@keyframes kd-burst{0%{opacity:.9;transform:scale(.5)}100%{opacity:0;transform:scale(1.9)}}
+.kd-disp{position:absolute;left:45px;top:318px;width:300px;height:76px;border-radius:20px;background:linear-gradient(#141518,#1B1D20);box-shadow:inset 0 2px 6px rgba(0,0,0,.6),inset 0 -1px 0 rgba(255,255,255,.06),0 1px 0 rgba(255,255,255,.05);display:flex;align-items:center;justify-content:center;gap:10px}
+.kd-i--bad .kd-disp{animation:kd-shake .55s cubic-bezier(.36,.07,.19,.97)}
+@keyframes kd-shake{10%,90%{transform:translateX(-2px)}20%,80%{transform:translateX(4px)}30%,50%,70%{transform:translateX(-8px)}40%,60%{transform:translateX(8px)}}
+.kd-cell{position:relative;width:46px;height:52px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.03);box-shadow:inset 0 0 0 1px rgba(255,255,255,.06);font-family:'JetBrains Mono',Menlo,monospace;font-size:30px;font-weight:500;color:#F4EEE6}
+.kd-cell::after{content:'';position:absolute;left:12px;right:12px;bottom:8px;height:2px;border-radius:1px;background:rgba(244,238,230,.18)}
+.kd-cell--cur::after{background:#D08A6A;animation:kd-blink 1.1s steps(1) infinite}
+@keyframes kd-blink{50%{opacity:0}}
+.kd-cell--on::after{opacity:0}
+.kd-cell--on > span{display:block;animation:kd-dig .45s cubic-bezier(.3,1.7,.5,1) both}
+@keyframes kd-dig{from{opacity:0;transform:translateY(10px) scale(.6)}to{opacity:1;transform:none}}
+.kd-i--bad .kd-cell{color:#F08A78;box-shadow:inset 0 0 0 1px rgba(240,138,120,.5)}
+.kd-i--ok .kd-cell{color:#F3C3A4;box-shadow:inset 0 0 0 1px rgba(208,138,106,.7),0 0 18px -4px rgba(235,181,150,.7);transition:box-shadow .3s,color .3s}
+.kd-sep{font-family:'JetBrains Mono',Menlo,monospace;font-size:26px;color:#6B6660}
+.kd-leds{position:absolute;left:0;right:0;top:404px;display:flex;justify-content:center;gap:10px}
+.kd-led{width:7px;height:7px;border-radius:50%;background:#3A3C40;box-shadow:inset 0 1px 1px rgba(0,0,0,.5);transition:background .2s,box-shadow .2s}
+.kd-led--on{background:#D08A6A;box-shadow:0 0 8px rgba(208,138,106,.9)}
+.kd-i--bad .kd-led{background:#E0685A;box-shadow:0 0 8px rgba(224,104,90,.9)}
+.kd-i--ok .kd-led{animation:kd-ledok .35s ease forwards}
+@keyframes kd-ledok{to{background:#9FD9A8;box-shadow:0 0 10px rgba(159,217,168,.95)}}
+.kd-pad{position:absolute;left:51px;top:470px;width:288px;display:grid;grid-template-columns:repeat(3,88px);gap:12px}
+.kd-key{position:relative;height:58px;border:0;padding:0;border-radius:18px;cursor:pointer;color:#F4EEE6;font-family:'JetBrains Mono',Menlo,monospace;font-size:24px;font-weight:500;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,#3A3D42 0%,#2B2E32 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.12),inset 0 -2px 0 rgba(0,0,0,.35),0 8px 14px -8px rgba(0,0,0,.8);transition:transform .12s ease,box-shadow .12s ease,background .2s;-webkit-tap-highlight-color:transparent}
+.kd-key:active{transform:translateY(2px) scale(.96);box-shadow:inset 0 1px 0 rgba(255,255,255,.08),inset 0 -1px 0 rgba(0,0,0,.3),0 3px 6px -4px rgba(0,0,0,.8)}
+.kd-key::after{content:'';position:absolute;inset:0;border-radius:18px;box-shadow:0 0 0 2px #D08A6A,0 0 22px rgba(208,138,106,.6);opacity:0;pointer-events:none}
+.kd-key--a::after{animation:kd-kfa .5s ease-out}
+.kd-key--b::after{animation:kd-kfb .5s ease-out}
+@keyframes kd-kfa{from{opacity:1}to{opacity:0}}
+@keyframes kd-kfb{from{opacity:1}to{opacity:0}}
+.kd-key--fn{color:#D08A6A;background:linear-gradient(180deg,#2E3034 0%,#25272B 100%)}
+.kd-key:disabled{cursor:default;opacity:.45}
+.kd-pad .kd-key{animation:kd-keyin .6s cubic-bezier(.3,1.5,.5,1) both}
+.kd-i--ok .kd-pad .kd-key{animation:kd-fly .6s cubic-bezier(.5,0,.75,0) forwards}
+@keyframes kd-keyin{from{opacity:0;transform:translateY(18px) scale(.9)}to{opacity:1;transform:none}}
+@keyframes kd-fly{to{opacity:0;transform:translateY(60px) scale(.7) rotate(var(--fr,0deg))}}
+.kd-i--ok .kd-disp,.kd-i--ok .kd-leds,.kd-i--ok .kd-hint,.kd-i--ok .kd-top,.kd-i--ok .kd-skipw{animation:kd-fade .5s ease 1s forwards}
+@keyframes kd-fade{to{opacity:0;transform:translateY(-8px)}}
+.kd-hint{position:absolute;left:24px;right:24px;top:422px;text-align:center}
+.kd-msg--a{animation:kd-msga .35s ease}
+.kd-msg--b{animation:kd-msgb .35s ease}
+@keyframes kd-msga{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+@keyframes kd-msgb{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+.kd-skip{height:46px;padding:0 20px;border:0;border-radius:23px;background:transparent;color:#B7AFA8;font-family:'Nunito Sans',Arial,sans-serif;font-size:14.5px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:8px;text-decoration:underline;text-decoration-color:rgba(208,138,106,.55);text-underline-offset:5px}
+.kd-skip:active{background:rgba(255,255,255,.06)}
+
+/* ===== taklif kartasi (buklangan) ===== */
+.kd-card{position:absolute;left:24px;top:132px;width:342px;height:564px;perspective:1500px;color:#2A2522;text-align:center}
+.kd-pn{position:absolute;left:0;width:342px;height:188px;transform-style:preserve-3d}
+.kd-pn1{top:0;transform-origin:50% 100%}
+.kd-pn2{top:188px}
+.kd-pn3{top:376px;transform-origin:50% 0}
+.kd-face{position:absolute;inset:0;padding:26px 24px 0;box-sizing:border-box;background:linear-gradient(180deg,#F7F2EB,#EFE7DD);-webkit-backface-visibility:hidden;backface-visibility:hidden}
+.kd-pn2 .kd-face{padding:0 22px;background:linear-gradient(180deg,#EFE7DD,#F6F0E8 45%,#EEE5DA)}
+.kd-pn3 .kd-face{padding-top:30px;background:linear-gradient(180deg,#ECE3D8,#F6F0E8 30%,#F2EBE2)}
+.kd-pn1 .kd-face{border-radius:18px 18px 0 0}
+.kd-pn3 .kd-face{border-radius:0 0 18px 18px}
+.kd-face::before{content:'';position:absolute;left:10px;right:10px;top:0;bottom:0;border-left:1px solid rgba(176,106,74,.45);border-right:1px solid rgba(176,106,74,.45);pointer-events:none}
+.kd-pn1 .kd-face::before{top:10px;border-top:1px solid rgba(176,106,74,.45);border-radius:10px 10px 0 0}
+.kd-pn3 .kd-face::before{bottom:10px;border-bottom:1px solid rgba(176,106,74,.45);border-radius:0 0 10px 10px}
+.kd-pn2 .kd-face::after,.kd-pn3 .kd-face::after{content:'';position:absolute;left:0;right:0;top:0;height:14px;background:linear-gradient(rgba(90,60,40,.12),rgba(90,60,40,0));pointer-events:none}
+.kd-back{position:absolute;inset:0;border-radius:0 0 18px 18px;background:linear-gradient(180deg,#E9DFD2,#DED2C3);transform:rotateX(180deg);-webkit-backface-visibility:hidden;backface-visibility:hidden;display:flex;align-items:center;justify-content:center}
+.kd-seal{width:76px;height:76px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#FBE9DC;font-size:26px;font-weight:700;letter-spacing:.02em;background:radial-gradient(circle at 35% 30%,#E7A988,#B5694A 55%,#7E3F2A);box-shadow:0 6px 14px -6px rgba(80,30,15,.8),inset 0 0 0 4px rgba(255,220,200,.18)}
+.kd-names{margin:0;line-height:1.02;font-weight:600;color:#2A2522;letter-spacing:.01em;overflow-wrap:anywhere}
+.kd-orn{display:block;width:120px;height:14px;margin:6px 0;background:radial-gradient(circle,#B06A4A 2px,transparent 2.6px) center/14px 14px no-repeat,linear-gradient(90deg,transparent,#C99073 30%,transparent 46%,transparent 54%,#C99073 70%,transparent) center/100% 1px no-repeat}
+.kd-dc{width:34px;height:42px;border-radius:9px;background:#2A2522;color:#F4D5C2;font-size:22px;font-weight:600;display:flex;align-items:center;justify-content:center}
+.kd-dc--s{width:auto;background:transparent;color:#B06A4A;font-size:20px;padding:0 1px}
+.kd-dc--y{width:24px;font-size:17px}
+.kd-card--i{opacity:0;pointer-events:none}
+.kd-i--ok .kd-card--i{animation:kd-cardin .6s cubic-bezier(.2,.9,.3,1.1) 1.35s forwards}
+@keyframes kd-cardin{from{opacity:0;transform:translateY(40px) scale(.94)}to{opacity:1;transform:none}}
+.kd-card--i .kd-pn1{transform:translateZ(1px) rotateX(-180deg)}
+.kd-card--i .kd-pn3{transform:translateZ(2px) rotateX(180deg)}
+.kd-i--ok .kd-card--i .kd-pn3{animation:kd-unf3 .85s cubic-bezier(.35,1.25,.45,1) 2s forwards}
+.kd-i--ok .kd-card--i .kd-pn1{animation:kd-unf1 .85s cubic-bezier(.35,1.25,.45,1) 2.5s forwards}
+@keyframes kd-unf3{from{transform:translateZ(2px) rotateX(180deg)}to{transform:translateZ(0) rotateX(0deg)}}
+@keyframes kd-unf1{from{transform:translateZ(1px) rotateX(-180deg)}to{transform:translateZ(0) rotateX(0deg)}}
+.kd-card--p{box-shadow:0 40px 60px -30px rgba(0,0,0,.8);border-radius:18px}
+
+/* ===== sahifa ===== */
+.kd-hd--in > *{animation:kd-up .8s cubic-bezier(.2,.85,.25,1) both}
+.kd-sec{position:relative;margin:16px 16px 0;border-radius:24px;padding:22px 20px 22px;background:linear-gradient(180deg,#2C2F33,#25272B);box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 24px 34px -26px rgba(0,0,0,.9)}
+.kd-rvx{opacity:0;transform:translateY(34px)}
+.kd-rvx.kd-rv{opacity:1;transform:none;transition:opacity .8s cubic-bezier(.2,.8,.2,1),transform .9s cubic-bezier(.2,.8,.2,1)}
+.kd-rvx .kd-rvi{opacity:0;transform:translateY(14px)}
+.kd-rvx.kd-rv .kd-rvi{opacity:1;transform:none;transition:opacity .7s ease,transform .8s cubic-bezier(.2,.8,.2,1)}
+.kd-sh{display:flex;align-items:center;gap:12px}
+.kd-tag{flex:none;height:26px;min-width:40px;padding:0 9px;box-sizing:border-box;border-radius:8px;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,#E4A988,#B9714F);color:#2A1A12;font-family:'JetBrains Mono',Menlo,monospace;font-size:12px;font-weight:600;box-shadow:inset 0 1px 0 rgba(255,240,230,.5)}
+.kd-sh b{font-family:'Cormorant Unicase',Georgia,serif;font-size:24px;line-height:28px;font-weight:600;letter-spacing:.01em;color:#F4EEE6}
+.kd-sh i{flex:1 1 auto;height:1px;background:linear-gradient(90deg,rgba(208,138,106,.6),rgba(208,138,106,0))}
+.kd-p{margin:0;font-size:16px;line-height:26px;color:rgba(244,238,230,.84);white-space:pre-line;overflow-wrap:anywhere;text-wrap:pretty}
+.kd-k{font-family:'JetBrains Mono',Menlo,monospace;font-size:10.5px;line-height:14px;letter-spacing:.18em;text-transform:uppercase;color:#9B948D}
+.kd-btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;height:52px;padding:0 22px;border-radius:16px;border:0;box-sizing:border-box;font-family:'Nunito Sans',Arial,sans-serif;font-size:15px;font-weight:700;text-decoration:none;cursor:pointer;color:#2A1A12;background:linear-gradient(180deg,#EDB596,#C27B58);box-shadow:inset 0 1px 0 rgba(255,240,230,.55),inset 0 -2px 0 rgba(90,40,20,.3),0 12px 20px -12px rgba(0,0,0,.8);transition:transform .12s ease}
+.kd-btn:active{transform:translateY(2px) scale(.97)}
+.kd-btn--d{color:#F4EEE6;background:linear-gradient(180deg,#3A3D42,#2B2E32);box-shadow:inset 0 1px 0 rgba(255,255,255,.12),inset 0 -2px 0 rgba(0,0,0,.35),0 10px 16px -10px rgba(0,0,0,.8)}
+.kd-btn--w{width:100%}
+.kd-btn:disabled{opacity:.6;cursor:default}
+.kd-btn--off{opacity:.4}
+.kd-lcd{border-radius:16px;background:linear-gradient(#141518,#1B1D20);box-shadow:inset 0 2px 6px rgba(0,0,0,.6),0 1px 0 rgba(255,255,255,.05);padding:14px 10px}
+.kd-ld{width:30px;height:42px;border-radius:8px;background:rgba(255,255,255,.04);box-shadow:inset 0 0 0 1px rgba(255,255,255,.06);display:flex;align-items:center;justify-content:center;color:#F3C3A4;font-family:'JetBrains Mono',Menlo,monospace;font-size:22px;font-weight:500}
+.kd-ld--s{width:auto;background:transparent;box-shadow:none;color:#6B6660;padding:0 1px}
+.kd-whl{position:relative;width:30px;height:46px;overflow:hidden;border-radius:8px;background:linear-gradient(#0F1012,#1E2023 30%,#1E2023 70%,#0F1012);box-shadow:inset 0 0 0 1px rgba(255,255,255,.06)}
+.kd-whl::after{content:'';position:absolute;inset:0;background:linear-gradient(rgba(15,16,18,.85),rgba(15,16,18,0) 30%,rgba(15,16,18,0) 70%,rgba(15,16,18,.85));pointer-events:none}
+.kd-strip{display:block;transition:transform .7s cubic-bezier(.3,1.35,.5,1)}
+.kd-strip span{display:flex;height:46px;align-items:center;justify-content:center;font-family:'JetBrains Mono',Menlo,monospace;font-size:24px;font-weight:500;color:#F3C3A4}
+.kd-tl{position:relative;display:grid;grid-template-columns:64px minmax(0,1fr);gap:16px;padding:0 0 18px}
+.kd-tl::before{content:'';position:absolute;left:79px;top:20px;bottom:0;width:1px;background:repeating-linear-gradient(rgba(208,138,106,.5) 0 4px,transparent 4px 8px)}
+.kd-tl:last-child::before{display:none}
+.kd-tl:last-child{padding-bottom:0}
+.kd-tl > i{position:absolute;left:74px;top:7px;width:11px;height:11px;border-radius:50%;background:#1F2124;box-shadow:0 0 0 2px #D08A6A}
+.kd-dr{display:block;width:100%;border:0;padding:0;background:transparent;color:inherit;text-align:left;cursor:pointer;font-family:inherit}
+.kd-drw{border-radius:16px;background:linear-gradient(180deg,#34373C,#2A2D31);box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 10px 16px -12px rgba(0,0,0,.9);overflow:hidden}
+.kd-drh{display:flex;align-items:center;gap:12px;min-height:56px;padding:0 16px}
+.kd-drh svg{margin-left:auto;transition:transform .35s cubic-bezier(.3,1.4,.5,1);color:#D08A6A}
+.kd-drw--on .kd-drh svg{transform:rotate(180deg)}
+.kd-drb{padding:0 16px 16px 16px;animation:kd-drop .45s cubic-bezier(.2,.9,.3,1) both}
+@keyframes kd-drop{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
+.kd-car{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding:0 16px 6px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.kd-car::-webkit-scrollbar{display:none}
+.kd-ph{position:relative;flex:none;width:264px;height:340px;scroll-snap-align:center;border-radius:20px;padding:6px;box-sizing:border-box;background:linear-gradient(140deg,#EBB596,#8E5038 50%,#D08A6A);box-shadow:0 22px 30px -20px rgba(0,0,0,.9)}
+.kd-ph img{display:block;width:100%;height:100%;object-fit:cover;border-radius:15px}
+.kd-paper{position:relative;margin:16px 16px 0;border-radius:22px;padding:22px 20px 22px;background:linear-gradient(180deg,#F7F2EB,#EFE7DD);color:#2A2522;box-shadow:0 30px 40px -28px rgba(0,0,0,.9)}
+.kd-paper::before{content:'';position:absolute;inset:9px;border:1px solid rgba(176,106,74,.4);border-radius:15px;pointer-events:none}
+.kd-ans{position:relative;height:58px;width:100%;border:0;border-radius:16px;cursor:pointer;font-family:'Nunito Sans',Arial,sans-serif;font-size:16px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:10px;color:#F4EEE6;background:linear-gradient(180deg,#3A3D42,#2B2E32);box-shadow:inset 0 1px 0 rgba(255,255,255,.12),inset 0 -2px 0 rgba(0,0,0,.35),0 10px 16px -10px rgba(0,0,0,.7);transition:transform .12s ease,opacity .3s}
+.kd-ans:active{transform:translateY(2px) scale(.98)}
+.kd-ans--on{color:#2A1A12;background:linear-gradient(180deg,#EDB596,#C27B58);box-shadow:inset 0 1px 0 rgba(255,240,230,.55),inset 0 -2px 0 rgba(90,40,20,.3),0 0 0 3px rgba(208,138,106,.35),0 12px 20px -12px rgba(0,0,0,.6)}
+.kd-ans--off{opacity:.45}
+.kd-ans:disabled{cursor:default}
+.kd-step{flex:none;width:46px;height:46px;border-radius:14px;border:0;padding:0;cursor:pointer;color:#F4EEE6;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,#3A3D42,#2B2E32);box-shadow:inset 0 1px 0 rgba(255,255,255,.12),inset 0 -2px 0 rgba(0,0,0,.35);transition:transform .12s ease}
+.kd-step:active{transform:translateY(2px) scale(.94)}
+.kd-step:disabled{opacity:.35;cursor:default}
+.kd-field{display:block;width:100%;height:52px;box-sizing:border-box;padding:0 16px;border-radius:14px;border:1.5px solid #DCCFC2;background:#FFFCF8;color:#2A2522;font-family:inherit;font-size:16px;outline:none}
+.kd-field:focus{border-color:#C27B58}
+.kd-field::placeholder{color:#A39890}
+.kd-ok{animation:kd-ok .6s cubic-bezier(.2,.9,.3,1.2) both}
+@keyframes kd-ok{from{opacity:0;transform:translateY(10px) scale(.96)}to{opacity:1;transform:none}}
+.kd-chev{animation:kd-chev 1.8s ease-in-out infinite}
+@keyframes kd-chev{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
+.kd-music{position:absolute;top:14px;right:14px;z-index:30;width:44px;height:44px;border-radius:50%;border:0;padding:0;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#D08A6A;background:linear-gradient(180deg,#3A3D42,#2B2E32);box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 8px 14px -8px rgba(0,0,0,.8)}
+.kd-music--on{color:#2A1A12;background:linear-gradient(180deg,#EDB596,#C27B58)}
+.kd-eq{display:flex;align-items:flex-end;gap:2px;height:14px}
+.kd-eq i{display:block;width:2.5px;height:100%;border-radius:1px;background:currentColor;transform-origin:50% 100%;animation:kd-eq .9s ease-in-out infinite alternate}
+.kd-eq i:nth-child(2){animation-delay:-.3s}.kd-eq i:nth-child(3){animation-delay:-.6s}
+@keyframes kd-eq{from{transform:scaleY(.25)}to{transform:scaleY(1)}}
+@media (prefers-reduced-motion: reduce){
+  .kd-breath,.kd-up,.kd-lock,.kd-sweep0,.kd-cell--cur::after,.kd-cell--on > span,.kd-pad .kd-key,.kd-chev,.kd-eq i,.kd-ok,.kd-drb,.kd-hd--in > *,.kd-msg--a,.kd-msg--b{animation:none !important}
+  .kd-i--bad .kd-disp,.kd-i--bad .kd-lock{animation:none}
+  .kd-i--ok{animation:none;opacity:0;visibility:hidden}
+  .kd-strip{transition:none}
+  .kd-rvx,.kd-rvx .kd-rvi{opacity:1;transform:none;transition:none}
+}
+</style>
+</helmet>
+<div class="kd-root kd-brush" style="width: 390px; min-height: var(--vh, 100vh); position: relative; overflow: hidden; display: flex; flex-direction: column">
+
+  <div class="kd-glow kd-breath" aria-hidden="true" style="left: 60px; top: 60px; width: 270px; height: 270px; background: #7A4A36"></div>
+
+  <!-- ===================== KIRISH: kodli qulf ===================== -->
+  <div data-intro class="{{ introCls }}" aria-hidden="{{ introHidden }}">
+    <div class="kd-brush" style="position: absolute; inset: 0"></div>
+    <div class="kd-glow kd-breath" aria-hidden="true" style="left: 70px; top: 90px; width: 250px; height: 250px; background: #7A4A36"></div>
+
+    <div class="kd-top kd-up" style="position: absolute; left: 24px; right: 24px; top: 34px; text-align: center; animation-delay: .1s">
+      <p style="margin: 0; font-size: 14.5px; line-height: 19px; color: #A79F98; overflow-wrap: anywhere">Hurmatli <b style="font-weight: 700; color: #F4EEE6">{{ guestName }}</b>,</p>
+      <p class="kd-d" style="margin: 4px 0 0; font-size: 27px; line-height: 32px; font-weight: 600; color: #F4EEE6">sizga maxfiy taklifnoma</p>
+    </div>
+
+    <span class="kd-burst" aria-hidden="true"></span>
+    <span class="kd-burst kd-burst2" aria-hidden="true"></span>
+    <div class="kd-lockw" aria-hidden="true">
+      <svg class="kd-lock" width="160" height="190" viewBox="0 0 160 190">
+        <defs>
+          <linearGradient id="kdShk" x1="0" y1="0" x2="1" y2="0"><stop offset="0" class="kd-g3"></stop><stop offset=".35" class="kd-g1"></stop><stop offset=".6" class="kd-g2"></stop><stop offset="1" class="kd-g3"></stop></linearGradient>
+          <linearGradient id="kdBody" x1="0" y1="0" x2="0" y2="1"><stop offset="0" class="kd-g1"></stop><stop offset=".45" class="kd-g2"></stop><stop offset="1" class="kd-g3"></stop></linearGradient>
+          <linearGradient id="kdHole" x1="0" y1="0" x2="0" y2="1"><stop offset="0" class="kd-g4"></stop><stop offset="1" class="kd-g5"></stop></linearGradient>
+          <linearGradient id="kdSw" x1="0" y1="0" x2="1" y2="0"><stop offset="0" class="kd-g1" stop-opacity="0"></stop><stop offset=".5" class="kd-g1"></stop><stop offset="1" class="kd-g1" stop-opacity="0"></stop></linearGradient>
+          <clipPath id="kdClip"><rect x="14" y="88" width="132" height="98" rx="24"></rect></clipPath>
+        </defs>
+        <g class="kd-shk">
+          <path class="kd-shkp" d="M44 98V60a36 36 0 0 1 72 0v38"></path>
+          <path class="kd-shkh" d="M40 92V60a40 40 0 0 1 17-32.5"></path>
+        </g>
+        <rect x="14" y="88" width="132" height="98" rx="24" fill="url(#kdBody)"></rect>
+        <rect x="20" y="94" width="120" height="86" rx="19" class="kd-eng"></rect>
+        <g clip-path="url(#kdClip)">
+          <rect class="kd-sweep kd-sweep0" x="0" y="80" width="60" height="120" fill="url(#kdSw)" opacity=".55"></rect>
+          <rect class="kd-sweep" x="0" y="80" width="60" height="120" fill="url(#kdSw)" opacity=".8"></rect>
+        </g>
+        <text class="kd-mono2" x="80" y="134" text-anchor="middle">{{ mono }}</text>
+        <text class="kd-mono" x="80" y="133" text-anchor="middle">{{ mono }}</text>
+        <circle cx="80" cy="152" r="7" fill="url(#kdHole)"></circle>
+        <path d="M77.5 155h5l-1.2 12h-2.6Z" fill="url(#kdHole)"></path>
+      </svg>
+    </div>
+
+    <div class="kd-card kd-card--i">
+        <div class="kd-pn kd-pn1">
+          <div class="kd-face">
+            <p class="kd-m kd-cu" style="margin: 0; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 10.5px; letter-spacing: .22em"><svg class="kd-icon" width="15" height="15" viewBox="0 0 24 24" aria-hidden="true"><rect x="4.5" y="10.5" width="15" height="10" rx="2.5"></rect><path d="M8 10.5V7a4 4 0 0 1 7.6-1.7"></path><path d="M12 14.5v2"></path></svg>OCHILDI · {{ codeDots }}</p>
+            <p style="margin: 18px 0 0; font-size: 14.5px; line-height: 20px; color: #7C716B">Assalomu alaykum,</p>
+            <p class="kd-d" style="margin: 2px 0 0; font-size: {{ fsGuest }}px; line-height: 1.15; font-weight: 600; color: #2A2522; overflow-wrap: anywhere">hurmatli {{ guestName }}!</p>
+            <p style="margin: 10px auto 0; max-width: 280px; font-size: 14px; line-height: 20px; color: #6E645E; text-wrap: pretty; overflow-wrap: anywhere">{{ inviteLine }}</p>
+          </div>
+        </div>
+        <div class="kd-pn kd-pn2">
+          <div class="kd-face" style="display: flex; flex-direction: column; align-items: center; justify-content: center">
+            <span class="kd-orn" aria-hidden="true"></span>
+            <h1 class="kd-d kd-names" style="font-size: {{ fsName }}px">{{ name1 }}</h1>
+            <sc-if value="{{ two }}">
+              <span class="kd-m kd-cu" style="display: block; margin: 4px 0; font-size: 12px; letter-spacing: .3em">VA</span>
+              <p class="kd-d kd-names" style="font-size: {{ fsName }}px">{{ name2 }}</p>
+            </sc-if>
+            <span class="kd-orn" aria-hidden="true" style="transform: scaleY(-1)"></span>
+          </div>
+        </div>
+        <div class="kd-pn kd-pn3">
+          <div class="kd-face">
+            <div class="kd-m kd-num" style="display: flex; align-items: center; justify-content: center; gap: 5px">
+              <sc-for list="{{ dateCells }}" as="c"><span class="{{ c.cls }}">{{ c.v }}</span></sc-for>
+            </div>
+            <p style="margin: 12px 0 0; font-size: 15px; line-height: 21px; color: #4A403A">{{ w.Weekday }}, soat <b style="font-weight: 700; color: #2A2522">{{ vaqt }}</b></p>
+            <sc-if value="{{ venueOn }}"><p class="kd-d" style="margin: 10px auto 0; max-width: 290px; font-size: 19px; line-height: 23px; font-weight: 600; color: #2A2522; overflow-wrap: anywhere">{{ d.manzil_nomi }}</p></sc-if>
+            <sc-if value="{{ hostsOn }}"><p class="kd-m" style="margin: 10px auto 0; max-width: 290px; font-size: 10.5px; line-height: 15px; letter-spacing: .12em; text-transform: uppercase; color: #9A6A52; overflow-wrap: anywhere">{{ d.taklif_qiluvchilar }}</p></sc-if>
+          </div>
+          <div class="kd-back" aria-hidden="true"><span class="kd-seal kd-d">{{ mono }}</span></div>
+        </div>
+      </div>
+
+    <div class="kd-disp" role="status" aria-live="polite" aria-label="{{ dispLabel }}">
+      <sc-for list="{{ cellsA }}" as="c"><span class="{{ c.cls }}"><span>{{ c.v }}</span></span></sc-for>
+      <span class="kd-sep" aria-hidden="true">·</span>
+      <sc-for list="{{ cellsB }}" as="c"><span class="{{ c.cls }}"><span>{{ c.v }}</span></span></sc-for>
+    </div>
+    <div class="kd-leds" aria-hidden="true"><sc-for list="{{ leds }}" as="x"><i class="{{ x.cls }}" style="{{ x.st }}"></i></sc-for></div>
+    <div class="kd-hint">
+      <p class="{{ msgCls }}" style="margin: 0; font-size: 15px; line-height: 20px; font-weight: 600; color: {{ msgColor }}">{{ msg }}</p>
+      <p class="kd-m" style="margin: 4px 0 0; font-size: 10.5px; line-height: 14px; letter-spacing: .16em; color: #8D867F">{{ sub }}</p>
+    </div>
+
+    <div class="kd-pad">
+      <sc-for list="{{ keys }}" as="k">
+        <button type="button" class="{{ k.cls }}" style="{{ k.st }}" aria-label="{{ k.al }}" disabled="{{ k.dis }}" onClick="{{ k.go }}">
+          <sc-if value="{{ k.t }}">{{ k.t }}</sc-if>
+          <sc-if value="{{ k.back }}"><svg class="kd-icon" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5.5h10.5a1.5 1.5 0 0 1 1.5 1.5v10a1.5 1.5 0 0 1-1.5 1.5H9L3 12l6-6.5ZM12.5 9.5l5 5M17.5 9.5l-5 5"></path></svg></sc-if>
+          <sc-if value="{{ k.bulb }}"><svg class="kd-icon" width="23" height="23" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.6 10.8c.7.5 1.1 1.3 1.1 2.2h5c0-.9.4-1.7 1.1-2.2A6 6 0 0 0 12 3Z"></path></svg></sc-if>
+        </button>
+      </sc-for>
+    </div>
+
+    <div class="kd-skipw" style="position: absolute; left: 0; right: 0; top: 764px; display: flex; flex-direction: column; align-items: center">
+      <sc-if value="{{ has.music }}"><p class="kd-k" style="margin: 0 0 2px">musiqa bilan ochiladi</p></sc-if>
+      <button type="button" class="kd-skip" disabled="{{ unlocked }}" onClick="{{ auto }}">Bilmayman — ochish<svg class="kd-icon" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></button>
+    </div>
+  </div>
+
+  <!-- ===================== BOSH QISM: ochilgan taklif ===================== -->
+  <header class="{{ hdCls }}" style="position: relative; height: 780px; flex: none">
+    <sc-if value="{{ has.music }}">
+      <button type="button" class="{{ musicCls }}" aria-label="{{ musicLabel }}" aria-pressed="{{ musicOn }}" onClick="{{ toggleMusic }}">
+        <sc-if value="{{ musicOn }}"><span class="kd-eq" aria-hidden="true"><i></i><i></i><i></i></span></sc-if>
+        <sc-if value="{{ musicOff }}"><svg class="kd-icon" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V5.5l11-2.2v12.5"></path><circle cx="6.2" cy="18" r="2.8"></circle><circle cx="17.2" cy="15.8" r="2.8"></circle></svg></sc-if>
+      </button>
+    </sc-if>
+    <div style="position: absolute; left: 24px; right: 70px; top: 34px">
+      <p class="kd-k" style="margin: 0; display: flex; align-items: center; gap: 8px; color: #D08A6A"><svg class="kd-icon" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><rect x="4.5" y="10.5" width="15" height="10" rx="2.5"></rect><path d="M8 10.5V7a4 4 0 0 1 7.6-1.7"></path><path d="M12 14.5v2"></path></svg>Maxfiy taklifnoma</p>
+      <p class="kd-d" style="margin: 6px 0 0; font-size: 24px; line-height: 28px; font-weight: 600; color: #F4EEE6">Qulf ochildi</p>
+    </div>
+    <div class="kd-card kd-card--p">
+        <div class="kd-pn kd-pn1">
+          <div class="kd-face">
+            <p class="kd-m kd-cu" style="margin: 0; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 10.5px; letter-spacing: .22em"><svg class="kd-icon" width="15" height="15" viewBox="0 0 24 24" aria-hidden="true"><rect x="4.5" y="10.5" width="15" height="10" rx="2.5"></rect><path d="M8 10.5V7a4 4 0 0 1 7.6-1.7"></path><path d="M12 14.5v2"></path></svg>OCHILDI · {{ codeDots }}</p>
+            <p style="margin: 18px 0 0; font-size: 14.5px; line-height: 20px; color: #7C716B">Assalomu alaykum,</p>
+            <p class="kd-d" style="margin: 2px 0 0; font-size: {{ fsGuest }}px; line-height: 1.15; font-weight: 600; color: #2A2522; overflow-wrap: anywhere">hurmatli {{ guestName }}!</p>
+            <p style="margin: 10px auto 0; max-width: 280px; font-size: 14px; line-height: 20px; color: #6E645E; text-wrap: pretty; overflow-wrap: anywhere">{{ inviteLine }}</p>
+          </div>
+        </div>
+        <div class="kd-pn kd-pn2">
+          <div class="kd-face" style="display: flex; flex-direction: column; align-items: center; justify-content: center">
+            <span class="kd-orn" aria-hidden="true"></span>
+            <h1 class="kd-d kd-names" style="font-size: {{ fsName }}px">{{ name1 }}</h1>
+            <sc-if value="{{ two }}">
+              <span class="kd-m kd-cu" style="display: block; margin: 4px 0; font-size: 12px; letter-spacing: .3em">VA</span>
+              <p class="kd-d kd-names" style="font-size: {{ fsName }}px">{{ name2 }}</p>
+            </sc-if>
+            <span class="kd-orn" aria-hidden="true" style="transform: scaleY(-1)"></span>
+          </div>
+        </div>
+        <div class="kd-pn kd-pn3">
+          <div class="kd-face">
+            <div class="kd-m kd-num" style="display: flex; align-items: center; justify-content: center; gap: 5px">
+              <sc-for list="{{ dateCells }}" as="c"><span class="{{ c.cls }}">{{ c.v }}</span></sc-for>
+            </div>
+            <p style="margin: 12px 0 0; font-size: 15px; line-height: 21px; color: #4A403A">{{ w.Weekday }}, soat <b style="font-weight: 700; color: #2A2522">{{ vaqt }}</b></p>
+            <sc-if value="{{ venueOn }}"><p class="kd-d" style="margin: 10px auto 0; max-width: 290px; font-size: 19px; line-height: 23px; font-weight: 600; color: #2A2522; overflow-wrap: anywhere">{{ d.manzil_nomi }}</p></sc-if>
+            <sc-if value="{{ hostsOn }}"><p class="kd-m" style="margin: 10px auto 0; max-width: 290px; font-size: 10.5px; line-height: 15px; letter-spacing: .12em; text-transform: uppercase; color: #9A6A52; overflow-wrap: anywhere">{{ d.taklif_qiluvchilar }}</p></sc-if>
+          </div>
+          <div class="kd-back" aria-hidden="true"><span class="kd-seal kd-d">{{ mono }}</span></div>
+        </div>
+      </div>
+    <div style="position: absolute; left: 0; right: 0; top: 720px; display: flex; flex-direction: column; align-items: center; color: #9B948D">
+      <span class="kd-k">batafsil</span>
+      <svg class="kd-icon kd-chev" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" style="margin-top: 6px; color: #D08A6A"><path d="M6 9l6 6 6-6"></path></svg>
+    </div>
+  </header>
+
+  <!-- ===================== TAKLIF ===================== -->
+  <sc-if value="{{ b.taklif }}">
+  <section class="{{ rv.taklif }}" data-rv="taklif">
+    <div class="kd-sh"><span class="kd-tag">{{ no.taklif }}</span><b>Taklif</b><i></i></div>
+    <p class="kd-p kd-rvi" style="margin-top: 16px; transition-delay: .15s">{{ d.matn }}</p>
+    <sc-if value="{{ d.taklif_qiluvchilar }}">
+      <div class="kd-rvi" style="margin-top: 18px; display: flex; align-items: center; gap: 12px; transition-delay: .25s">
+        <span class="kd-tag" style="width: 40px; height: 40px; border-radius: 50%; padding: 0"><svg class="kd-icon" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><rect x="4.5" y="10.5" width="15" height="10" rx="2.5"></rect><path d="M8 10.5V7a4 4 0 0 1 7.6-1.7"></path><path d="M12 14.5v2"></path></svg></span>
+        <div style="min-width: 0"><p class="kd-k" style="margin: 0">Taklif qiluvchilar</p><p style="margin: 3px 0 0; font-size: 16px; line-height: 22px; font-weight: 700; color: #F4EEE6; overflow-wrap: anywhere">{{ d.taklif_qiluvchilar }}</p></div>
+      </div>
+    </sc-if>
+  </section>
+  </sc-if>
+
+  <!-- ===================== SANA ===================== -->
+  <sc-if value="{{ b.kun }}">
+  <section class="{{ rv.kun }}" data-rv="kun">
+    <div class="kd-sh"><span class="kd-tag">{{ no.kun }}</span><b>Sana va vaqt</b><i></i></div>
+    <div class="kd-lcd kd-rvi" style="margin-top: 18px; display: flex; justify-content: center; gap: 4px; transition-delay: .12s">
+      <sc-for list="{{ lcd }}" as="c"><span class="{{ c.cls }}">{{ c.v }}</span></sc-for>
+    </div>
+    <div class="kd-rvi" style="margin-top: 16px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; transition-delay: .22s">
+      <div style="min-width: 0"><p class="kd-k" style="margin: 0">Hafta kuni</p><p class="kd-d" style="margin: 4px 0 0; font-size: 24px; line-height: 28px; font-weight: 600; color: #F4EEE6">{{ w.Weekday }}</p></div>
+      <div style="min-width: 0"><p class="kd-k" style="margin: 0">Boshlanish</p><p class="kd-m kd-num" style="margin: 4px 0 0; font-size: 22px; line-height: 28px; font-weight: 500; color: #F3C3A4">{{ vaqt }}</p></div>
+    </div>
+    <sc-if value="{{ cal }}">
+      <a class="kd-btn kd-btn--d kd-btn--w kd-rvi" href="{{ cal }}" target="_blank" rel="noopener" style="margin-top: 18px; transition-delay: .3s"><svg class="kd-icon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" style="color: #D08A6A"><rect x="3.5" y="5" width="17" height="15" rx="2.5"></rect><path d="M3.5 10h17M8 3v4M16 3v4M12 13v4M10 15h4"></path></svg>Taqvimga qo’shish</a>
+    </sc-if>
+  </section>
+  </sc-if>
+
+  <!-- ===================== TAYMER ===================== -->
+  <sc-if value="{{ b.taymer }}">
+  <section class="{{ rv.taymer }}" data-rv="taymer">
+    <div class="kd-sh"><span class="kd-tag">{{ no.taymer }}</span><b>{{ cdTitle }}</b><i></i></div>
+    <div class="kd-rvi" style="margin-top: 18px; display: flex; justify-content: space-between; transition-delay: .12s">
+      <sc-for list="{{ wheels }}" as="g">
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 8px">
+          <div style="display: flex; gap: 3px">
+            <sc-for list="{{ g.ds }}" as="x"><span class="kd-whl"><span class="kd-strip" style="{{ x }}"><sc-for list="{{ digits }}" as="n"><span>{{ n }}</span></sc-for></span></span></sc-for>
+          </div>
+          <span class="kd-k">{{ g.l }}</span>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- ===================== MANZIL ===================== -->
+  <sc-if value="{{ b.manzil }}">
+  <section class="{{ rv.manzil }}" data-rv="manzil">
+    <div class="kd-sh"><span class="kd-tag">{{ no.manzil }}</span><b>Manzil</b><i></i></div>
+    <sc-if value="{{ d.joy_rasmi }}"><div class="kd-ph kd-rvi" style="margin-top: 18px; width: 100%; height: 200px; transition-delay: .1s"><img src="{{ d.joy_rasmi }}" alt=""></div></sc-if>
+    <p class="kd-d kd-rvi" style="margin: 18px 0 0; font-size: 27px; line-height: 31px; font-weight: 600; color: #F4EEE6; overflow-wrap: anywhere; transition-delay: .2s">{{ d.manzil_nomi }}</p>
+    <sc-if value="{{ d.manzil }}"><p class="kd-rvi" style="margin: 8px 0 0; font-size: 15px; line-height: 23px; color: rgba(244,238,230,.7); overflow-wrap: anywhere; transition-delay: .26s">{{ d.manzil }}</p></sc-if>
+    <sc-if value="{{ d.xarita }}">
+      <a class="kd-btn kd-btn--w kd-rvi" href="{{ d.xarita }}" target="_blank" rel="noopener" style="margin-top: 18px; transition-delay: .32s"><svg class="kd-icon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l18-8-8 18-2-8-8-2Z"></path></svg>Xaritada ochish</a>
+    </sc-if>
+  </section>
+  </sc-if>
+
+  <!-- ===================== DASTUR ===================== -->
+  <sc-if value="{{ b.dastur }}">
+  <section class="{{ rv.dastur }}" data-rv="dastur">
+    <div class="kd-sh"><span class="kd-tag">{{ no.dastur }}</span><b>To’y dasturi</b><i></i></div>
+    <div style="margin-top: 20px">
+      <sc-for list="{{ prog }}" as="x">
+        <div class="kd-tl kd-rvi" style="{{ x.td }}">
+          <span class="kd-m kd-num" style="font-size: 15px; line-height: 24px; font-weight: 500; text-align: right; color: #F3C3A4">{{ x.vaqt }}</span>
+          <i></i>
+          <span style="display: block; padding-left: 14px; font-size: 16px; line-height: 24px; color: rgba(244,238,230,.9); overflow-wrap: anywhere">{{ x.nomi }}</span>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- ===================== HIKOYA ===================== -->
+  <sc-if value="{{ b.hikoya }}">
+  <section class="{{ rv.hikoya }}" data-rv="hikoya">
+    <div class="kd-sh"><span class="kd-tag">{{ no.hikoya }}</span><b>Xotiralar seyfi</b><i></i></div>
+    <p class="kd-k kd-rvi" style="margin: 10px 0 0; transition-delay: .1s">har bir yacheykani oching</p>
+    <div style="margin-top: 16px; display: flex; flex-direction: column; gap: 10px">
+      <sc-for list="{{ story }}" as="x">
+        <div class="{{ x.cls }}" style="{{ x.td }}">
+          <button type="button" class="kd-dr" aria-expanded="{{ x.open }}" onClick="{{ x.go }}">
+            <span class="kd-drh">
+              <span class="kd-m kd-num" style="flex: none; font-size: 15px; font-weight: 600; color: #F3C3A4">{{ x.yil }}</span>
+              <span style="min-width: 0; font-size: 16px; line-height: 21px; font-weight: 700; color: #F4EEE6; overflow-wrap: anywhere">{{ x.sarlavha }}</span>
+              <svg class="kd-icon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg>
+            </span>
+          </button>
+          <sc-if value="{{ x.show }}"><p class="kd-drb" style="margin: 0; font-size: 15px; line-height: 23px; color: rgba(244,238,230,.78); overflow-wrap: anywhere">{{ x.matn }}</p></sc-if>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- ===================== SURATLAR ===================== -->
+  <sc-if value="{{ b.galereya }}">
+  <section class="{{ rv.galereya }}" data-rv="galereya" style="padding-left: 0; padding-right: 0">
+    <div class="kd-sh" style="padding: 0 20px"><span class="kd-tag">{{ no.galereya }}</span><b>Lahzalar</b><i></i><span class="kd-k kd-num" style="color: #D08A6A">{{ galNo }}</span></div>
+    <div class="kd-car kd-rvi" style="margin-top: 18px; transition-delay: .12s" onScroll="{{ galScroll }}">
+      <sc-for list="{{ gal }}" as="g"><div class="kd-ph"><img src="{{ g }}" alt=""></div></sc-for>
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- ===================== JAVOB ===================== -->
+  <sc-if value="{{ b.rsvp }}">
+  <section class="{{ rv.rsvp }}" data-rv="rsvp" style="padding: 0; background: none; box-shadow: none">
+    <div class="kd-paper">
+      <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px"><span class="kd-tag">{{ no.rsvp }}</span><span class="kd-m" style="font-size: 10.5px; letter-spacing: .16em; color: #9A6A52">{{ dlShort }}</span></div>
+      <p class="kd-d" style="margin: 14px 0 0; font-size: 30px; line-height: 34px; font-weight: 600">Tashrif buyurasizmi?</p>
+      <p style="margin: 8px 0 0; font-size: 15px; line-height: 22px; color: #6E645E">{{ deadline }}</p>
+      <sc-if value="{{ askName }}"><input class="kd-field" type="text" maxlength="100" autocomplete="name" placeholder="Ismingiz, masalan: Dilnoza opa" aria-label="Ismingiz" style="margin-top: 16px" onInput="{{ onName }}"></sc-if>
+      <div style="margin-top: 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px">
+        <div><p style="margin: 0; font-size: 15px; line-height: 20px; font-weight: 700">Mehmonlar soni</p><p style="margin: 2px 0 0; font-size: 13px; line-height: 18px; color: #7C716B">siz bilan birga</p></div>
+        <div style="display: flex; align-items: center; gap: 10px">
+          <button type="button" class="kd-step" aria-label="Kamaytirish" disabled="{{ minDis }}" onClick="{{ dec }}"><svg class="kd-icon" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12"></path></svg></button>
+          <span class="kd-m kd-num" aria-live="polite" style="min-width: 26px; text-align: center; font-size: 22px; font-weight: 600">{{ guests }}</span>
+          <button type="button" class="kd-step" aria-label="Ko’paytirish" disabled="{{ maxDis }}" onClick="{{ inc }}"><svg class="kd-icon" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12M12 6v12"></path></svg></button>
+        </div>
+      </div>
+      <div style="margin-top: 18px; display: flex; flex-direction: column; gap: 10px">
+        <button type="button" class="{{ yesCls }}" aria-pressed="{{ isYes }}" disabled="{{ busy }}" onClick="{{ sayYes }}"><svg class="kd-icon" width="19" height="19" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"></path></svg>Albatta boraman</button>
+        <button type="button" class="{{ noCls }}" aria-pressed="{{ isNo }}" disabled="{{ busy }}" onClick="{{ sayNo }}">Afsuski, kela olmayman</button>
+      </div>
+      <div aria-live="polite">
+        <sc-if value="{{ isYes }}"><p class="kd-ok" style="margin: 14px 0 0; text-align: center; font-size: 15px; line-height: 22px; font-weight: 700; color: #9A5A3C">Rahmat! Sizni intiqlik bilan kutamiz{{ okN }}.</p></sc-if>
+        <sc-if value="{{ isNo }}"><p class="kd-ok" style="margin: 14px 0 0; text-align: center; font-size: 15px; line-height: 22px">Javobingiz uchun rahmat. Duolaringiz biz bilan bo’lsin.</p></sc-if>
+        <sc-if value="{{ err }}"><p style="margin: 14px 0 0; text-align: center; font-size: 14px; line-height: 20px; color: #B0341F">{{ err }}</p></sc-if>
+      </div>
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- ===================== GURUH ===================== -->
+  <sc-if value="{{ b.guruh }}">
+  <a class="{{ rv.guruh }}" data-rv="guruh" href="{{ d.telegram_guruh }}" target="_blank" rel="noopener" style="display: flex; align-items: center; gap: 14px; padding: 16px 18px; color: #F4EEE6; text-decoration: none">
+    <span class="kd-tag" style="width: 48px; height: 48px; border-radius: 14px; padding: 0"><svg class="kd-icon" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 4L3 11l6 2 2 6 3-4 4 3 3-14Z"></path><path d="M9 13l9-7"></path></svg></span>
+    <span style="min-width: 0; flex: 1 1 auto"><b style="display: block; font-weight: 700; font-size: 16px; line-height: 21px">Mehmonlar guruhi</b><span style="display: block; font-size: 14px; line-height: 20px; color: rgba(244,238,230,.65)">Telegramda yangiliklar va suratlar</span></span>
+    <svg class="kd-icon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" style="color: #D08A6A"><path d="M9 6l6 6-6 6"></path></svg>
+  </a>
+  </sc-if>
+
+  <!-- ===================== TELEFON ===================== -->
+  <sc-if value="{{ b.telefon }}">
+  <div class="{{ rv.telefon }}" data-rv="telefon" style="display: flex; align-items: center; gap: 14px; padding: 16px 18px">
+    <div style="min-width: 0; flex: 1 1 auto">
+      <p class="kd-k" style="margin: 0">Savollar bo’lsa</p>
+      <p class="kd-m kd-num" style="margin: 6px 0 0; font-size: 18px; line-height: 24px; font-weight: 500; color: #F3C3A4; white-space: nowrap">{{ d.telefon }}</p>
+    </div>
+    <a class="kd-btn" href="{{ tel }}" aria-label="Qo’ng’iroq qilish" style="flex: none; width: 54px; height: 54px; padding: 0; border-radius: 50%"><svg class="kd-icon" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M5.2 3.5h3.1l1.6 4.2-2.1 1.5a12.2 12.2 0 0 0 7 7l1.5-2.1 4.2 1.6v3.1a1.9 1.9 0 0 1-2.1 1.9A16.6 16.6 0 0 1 3.3 5.6a1.9 1.9 0 0 1 1.9-2.1Z"></path></svg></a>
+  </div>
+  </sc-if>
+
+  <!-- ===================== YAKUN ===================== -->
+  <footer style="position: relative; margin-top: auto; padding: 70px 28px 40px; text-align: center; display: flex; flex-direction: column; align-items: center">
+    <span class="kd-seal kd-d" style="width: 64px; height: 64px; font-size: 21px">{{ mono }}</span>
+    <p class="kd-d" style="margin: 20px 0 0; font-size: 30px; line-height: 34px; font-weight: 600; color: #F4EEE6">Tashrifingizdan<br>xursand bo’lamiz</p>
+    <p style="margin: 12px 0 0; max-width: 300px; font-size: 15px; line-height: 23px; color: rgba(244,238,230,.68); text-wrap: pretty">Alloh ikki yoshga baxtli, totuv va barakali hayot nasib etsin.</p>
+    <sc-if value="{{ hostsOn }}"><p class="kd-k" style="margin: 18px 0 0; color: #D08A6A; overflow-wrap: anywhere">{{ d.taklif_qiluvchilar }}</p></sc-if>
+    <p class="kd-m kd-num" style="margin: 22px 0 0; font-size: 11px; letter-spacing: .3em; color: #6B6660">{{ codeDots }} · {{ w.year }}</p>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":4400}}'>
+const D = SITE.d, B = SITE.b;
+function hhmm(t) { t = String(t || ''); return /^\d:\d\d$/.test(t) ? '0' + t : t; }
+function stamp(iso, time) { const t = Date.parse(String(iso || '').slice(0, 10) + 'T' + (hhmm(time) || '12:00') + ':00+05:00'); return isNaN(t) ? null : t; }
+function telHref(t) { return 'tel:' + String(t || '').replace(/[^\d+]/g, ''); }
+const KUYOV = String(D.kuyov || '').trim();
+const KELIN = String(D.kelin || '').trim();
+const GUEST = String(D.mehmon || '').trim();
+const QIZ = D.marosim === 'qizlar';
+const N1 = QIZ ? (KELIN || KUYOV) : (KUYOV || KELIN);
+const N2 = QIZ ? '' : (KUYOV && KELIN ? KELIN : '');
+const NAMES = [N1, N2].filter(Boolean).join(' va ');
+const MONO = [N1, N2].filter(Boolean).map((x) => x.charAt(0).toLocaleUpperCase('uz')).join('·') || 'T';
+const ISO = /^\d{4}-\d{2}-\d{2}/.test(String(D.sana || '')) ? String(D.sana) : '';
+const CODE = ISO ? ISO.slice(8, 10) + ISO.slice(5, 7) : '';
+const REDUCED = typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
+const CAN_IO = typeof IntersectionObserver === 'function' && !REDUCED;
+const DIGITS = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+const PROG = Array.isArray(D.dastur) ? D.dastur.filter((x) => x && (x.vaqt || x.nomi)) : [];
+const STORY = Array.isArray(D.hikoya) ? D.hikoya.filter((x) => x && (x.yil || x.sarlavha || x.matn)) : [];
+const ORDER = ['taklif', 'kun', 'taymer', 'manzil', 'dastur', 'hikoya', 'galereya', 'rsvp'];
+const NO = {}; let ni = 0;
+ORDER.forEach((k) => { if (B[k]) NO[k] = SITE.pad(++ni); });
+const FLY = [-14, 6, 12, -8, 10, -12, 8, -6, 14, -10, 4, 9];
+function calUrl() {
+  const t = stamp(D.sana, D.vaqt); if (t == null) return '';
+  const f = (ms) => new Date(ms).toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
+  const title = NAMES + ' — nikoh to’yi';
+  const loc = [D.manzil_nomi, D.manzil].filter(Boolean).join(', ');
+  return 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + encodeURIComponent(title) + '&dates=' + f(t) + '/' + f(t + 5 * 3600e3) + (loc ? '&location=' + encodeURIComponent(loc) : '');
+}
+function deadlineDm() {
+  const t = stamp(D.sana, '12:00'); if (t == null) return '';
+  const dl = t - 5 * 864e5;
+  if (dl < Date.now()) return '';
+  return SITE.when(new Date(dl + 5 * 3600e3).toISOString().slice(0, 10)).dm;
+}
+const CAL = calUrl();
+
+class Component extends DCLogic {
+  constructor(...args) {
+    super(...args);
+    this.state = { ph: 'lock', ent: '', tries: 0, hint: false, fx: '', fg: 0, mg: 0, rsvp: '', busy: false, err: '', n: 1, rv: {}, arm: {}, hk: 0, gi: 0 };
+    this.nm = '';
+  }
+  componentDidMount() { this.timer = setInterval(() => this.forceUpdate(), 1000); }
+  componentWillUnmount() { clearInterval(this.timer); (this.ts || []).forEach(clearTimeout); if (this.io) this.io.disconnect(); if (this.onScr) window.removeEventListener('scroll', this.onScr); }
+  later(fn, ms) { (this.ts = this.ts || []).push(setTimeout(fn, ms)); }
+  press(dg) {
+    const s = this.state;
+    if (s.ph !== 'lock' || s.ent.length >= 4) return;
+    const ent = s.ent + dg;
+    this.setState({ ent, fx: dg, fg: s.fg + 1 });
+    if (ent.length === 4) this.later(() => this.check(), 280);
+  }
+  back() { const s = this.state; if (s.ph === 'lock' && s.ent) this.setState({ ent: s.ent.slice(0, -1), fx: 'b', fg: s.fg + 1 }); }
+  bulb() { const s = this.state; if (s.ph === 'lock') this.setState({ hint: true, fx: 'h', fg: s.fg + 1, mg: s.mg + 1 }); }
+  check() {
+    const s = this.state;
+    if (!CODE || s.ent === CODE) { this.unlock(); return; }
+    this.setState({ ph: 'bad', tries: s.tries + 1, mg: s.mg + 1 });
+    this.later(() => this.setState((st) => ({ ph: 'lock', ent: '', hint: st.hint || st.tries >= 2, mg: st.mg + 1 })), 900);
+  }
+  auto() {
+    const s = this.state;
+    if (s.ph === 'ok' || s.ph === 'gone' || s.ph === 'auto') return;
+    const code = CODE || '0000';
+    this.setState({ ph: 'auto', ent: '' });
+    for (let i = 0; i < 4; i++) this.later(() => this.setState((st) => ({ ent: code.slice(0, i + 1), fx: code.charAt(i), fg: st.fg + 1 })), 120 + i * 140);
+    this.later(() => this.unlock(), 120 + 4 * 140 + 120);
+  }
+  unlock() {
+    if (this.state.ph === 'ok' || this.state.ph === 'gone') return;
+    this.setState({ ph: 'ok', ent: CODE || this.state.ent, mg: this.state.mg + 1 });
+    SITE.opened();
+    this.later(() => { this.setState({ ph: 'gone' }); this.observe(); }, 4000);
+  }
+  /* birinchi aylantirishda: ekrandan pastdagi bo'limlar yashirinadi va ko'ringanda chiqib keladi */
+  observe() {
+    if (!CAN_IO || this.onScr) return;
+    this.onScr = () => {
+      window.removeEventListener('scroll', this.onScr);
+      const vh = window.innerHeight || 800, arm = {}, els = [];
+      document.querySelectorAll('[data-rv]').forEach((el) => { if (el.getBoundingClientRect().top > vh) { arm[el.getAttribute('data-rv')] = true; els.push(el); } });
+      if (!els.length) return;
+      this.setState({ arm });
+      this.io = new IntersectionObserver((es) => {
+        const add = {};
+        es.forEach((e) => { if (e.isIntersecting) { add[e.target.getAttribute('data-rv')] = true; this.io.unobserve(e.target); } });
+        if (Object.keys(add).length) this.setState((st) => ({ rv: Object.assign({}, st.rv, add) }));
+      }, { rootMargin: '0px 0px -8% 0px' });
+      els.forEach((el) => this.io.observe(el));
+    };
+    window.addEventListener('scroll', this.onScr, { passive: true });
+  }
+  answer(going) {
+    const name = this.nm.trim();
+    if (!SITE.has.guest && !name) { this.setState({ err: 'Iltimos, avval ismingizni yozing.' }); return; }
+    const prev = this.state.rsvp;
+    this.setState({ rsvp: going ? 'yes' : 'no', busy: true, err: '' });
+    SITE.rsvp(going, this.state.n || 1, name).then(() => this.setState({ busy: false }))
+      .catch(() => this.setState({ rsvp: prev, busy: false, err: 'Javob yuborilmadi. Iltimos, qayta urinib ko’ring.' }));
+  }
+  renderVals() {
+    const s = this.state || {};
+    const w = SITE.when(D.sana, D.vaqt);
+    const cd = SITE.countdown(D.sana, D.vaqt);
+    const music = SITE.music.playing;
+    const ok = s.ph === 'ok' || s.ph === 'gone', bad = s.ph === 'bad';
+    const typing = s.ph === 'lock' || s.ph === 'auto';
+    const on = s.rsvp === 'yes', off = s.rsvp === 'no';
+    const n = s.n || 1;
+    const dm = deadlineDm();
+    const guestName = GUEST || 'mehmon';
+    const cell = (i) => ({ v: s.ent.charAt(i), cls: 'kd-cell' + (s.ent.charAt(i) ? ' kd-cell--on' : '') + (s.ph === 'lock' && i === s.ent.length ? ' kd-cell--cur' : '') });
+    const fxc = (id) => (s.fx === id ? ' kd-key--' + (s.fg % 2 ? 'a' : 'b') : '');
+    const kd = !typing || s.ph === 'auto';
+    const keys = ['1', '2', '3', '4', '5', '6', '7', '8', '9', 'h', '0', 'b'].map((id, i) => ({
+      t: /\d/.test(id) ? id : '', back: id === 'b', bulb: id === 'h',
+      al: id === 'b' ? 'Oxirgi raqamni o’chirish' : id === 'h' ? 'Maslahat' : id,
+      cls: 'kd-key' + (/\d/.test(id) ? '' : ' kd-key--fn') + fxc(id),
+      st: '--fr: ' + FLY[i] + 'deg; animation-delay: ' + (ok ? (0.85 + i * 0.035) : (0.45 + i * 0.04)).toFixed(2) + 's',
+      dis: kd,
+      go: id === 'b' ? () => this.back() : id === 'h' ? () => this.bulb() : () => this.press(id)
+    }));
+    const leds = [0, 1, 2, 3].map((i) => ({ cls: 'kd-led' + (i < s.ent.length ? ' kd-led--on' : ''), st: ok ? 'animation-delay: ' + (i * 0.09).toFixed(2) + 's' : '' }));
+    let msg = 'To’y sanasini kiriting', sub = 'KUN · OY — 4 RAQAM', msgColor = '#F4EEE6';
+    if (bad) { msg = 'Kod noto’g’ri. Yana urinib ko’ring'; msgColor = '#F08A78'; sub = s.tries >= 2 ? 'MASLAHAT PASTDA' : 'KUN · OY — 4 RAQAM'; }
+    else if (ok) { msg = 'Qulf ochildi!'; msgColor = '#F3C3A4'; sub = 'XUSH KELIBSIZ'; }
+    else if (s.hint && w.month) { msg = 'Maslahat: to’y ' + w.month + ' oyida'; msgColor = '#F3C3A4'; }
+    const dd = w.day ? SITE.pad(+w.day) : '--', mo = w.monthNum || '--', yr = w.year || '----';
+    const dateCells = [].concat(dd.split('').map((v) => ({ v, cls: 'kd-dc' })), [{ v: '·', cls: 'kd-dc kd-dc--s' }], mo.split('').map((v) => ({ v, cls: 'kd-dc' })), [{ v: '·', cls: 'kd-dc kd-dc--s' }], yr.split('').map((v) => ({ v, cls: 'kd-dc kd-dc--y' })));
+    const lcd = [].concat(dd.split('').map((v) => ({ v, cls: 'kd-ld' })), [{ v: '.', cls: 'kd-ld kd-ld--s' }], mo.split('').map((v) => ({ v, cls: 'kd-ld' })), [{ v: '.', cls: 'kd-ld kd-ld--s' }], yr.split('').map((v) => ({ v, cls: 'kd-ld' })));
+    const wheel = (v, min) => { const str = String(v).padStart(min, '0'); return str.split('').map((c) => 'transform: translateY(' + (-46 * (+c)) + 'px)'); };
+    const fsName = Math.max(28, Math.min(50, Math.floor(296 / (Math.max(N1.length, N2.length, 4) * 0.62))));
+    const rv = {};
+    ['taklif', 'kun', 'taymer', 'manzil', 'dastur', 'hikoya', 'galereya', 'rsvp', 'guruh', 'telefon'].forEach((k) => {
+      rv[k] = 'kd-sec' + (s.arm && s.arm[k] ? (s.rv && s.rv[k] ? ' kd-rvx kd-rv' : ' kd-rvx') : '');
+    });
+    const hostsOn = !!(B.taklif && D.taklif_qiluvchilar);
+    const gal = SITE.p.slice(0, Math.min(6, Math.max(1, SITE.has.photos || 0)));
+    return {
+      introCls: 'kd-i' + (ok ? ' kd-i--ok' : '') + (bad ? ' kd-i--bad' : ''),
+      introHidden: s.ph === 'gone',
+      hdCls: ok ? 'kd-hd--in' : '',
+      unlocked: ok,
+      cellsA: [cell(0), cell(1)], cellsB: [cell(2), cell(3)],
+      dispLabel: s.ent.length + ' ta raqam kiritildi', leds, keys,
+      msg, sub, msgColor, msgCls: 'kd-msg--' + (s.mg % 2 ? 'a' : 'b'),
+      auto: () => this.auto(),
+      mono: MONO, guestName,
+      fsGuest: guestName.length > 22 ? 18 : 22,
+      inviteLine: hostsOn ? D.taklif_qiluvchilar + ' sizni nikoh to’yiga lutfan taklif etadi' : 'Sizni nikoh to’yimizga lutfan taklif etamiz',
+      name1: N1, name2: N2, two: !!N2, fsName,
+      codeDots: (dd + '·' + mo),
+      dateCells, lcd, w, vaqt: hhmm(D.vaqt), cal: CAL,
+      venueOn: !!(B.manzil && D.manzil_nomi), hostsOn,
+      no: NO,
+      cdTitle: cd.done || cd.none ? 'To’y muborak!' : 'To’ygacha qoldi',
+      digits: DIGITS,
+      wheels: [{ l: 'kun', ds: wheel(cd.d, cd.d > 99 ? 3 : 2) }, { l: 'soat', ds: wheel(cd.h, 2) }, { l: 'daqiqa', ds: wheel(cd.m, 2) }, { l: 'soniya', ds: wheel(cd.s, 2) }],
+      prog: PROG.map((x, i) => ({ vaqt: hhmm(x.vaqt), nomi: x.nomi, td: 'transition-delay: ' + (0.12 + i * 0.1).toFixed(2) + 's' })),
+      story: STORY.map((x, i) => {
+        const open = i === (s.hk || 0) && !!x.matn;
+        return { yil: x.yil, sarlavha: x.sarlavha || '', matn: x.matn, open, show: open,
+          cls: 'kd-drw kd-rvi' + (open ? ' kd-drw--on' : ''), td: 'transition-delay: ' + (0.12 + i * 0.1).toFixed(2) + 's',
+          go: () => this.setState({ hk: (s.hk === i ? -1 : i) }) };
+      }),
+      gal, galNo: SITE.pad((s.gi || 0) + 1) + ' / ' + SITE.pad(gal.length),
+      galScroll: (e) => { const el = e.currentTarget; const max = el.scrollWidth - el.clientWidth; const i = max > 0 ? Math.round(el.scrollLeft / max * (gal.length - 1)) : 0; if (i !== this.state.gi) this.setState({ gi: i }); },
+      rv,
+      deadline: dm ? 'Iltimos, ' + dm + 'gacha javob bering.' : 'Iltimos, imkon qadar tezroq javob bering.',
+      dlShort: dm ? dm.toUpperCase() + 'GACHA' : 'JAVOBINGIZNI KUTAMIZ',
+      askName: !SITE.has.guest,
+      onName: (e) => { this.nm = e.target.value; if (s.err) this.setState({ err: '' }); },
+      guests: String(n), minDis: n <= 1 || !!s.busy, maxDis: n >= 10 || !!s.busy,
+      dec: () => this.setState({ n: Math.max(1, n - 1) }),
+      inc: () => this.setState({ n: Math.min(10, n + 1) }),
+      okN: n > 1 ? ' (' + n + ' kishi)' : '',
+      busy: !!s.busy, err: s.err,
+      isYes: on && !s.busy, isNo: off && !s.busy,
+      yesCls: 'kd-ans' + (on ? ' kd-ans--on' : off ? ' kd-ans--off' : ''),
+      noCls: 'kd-ans' + (off ? ' kd-ans--on' : on ? ' kd-ans--off' : ''),
+      sayYes: () => this.answer(true),
+      sayNo: () => this.answer(false),
+      tel: telHref(D.telefon),
+      musicOn: music, musicOff: !music,
+      musicCls: music ? 'kd-music kd-music--on' : 'kd-music',
+      musicLabel: music ? 'Musiqani o’chirish' : 'Musiqani yoqish',
+      toggleMusic: () => { SITE.music.toggle(); }
+    };
+  }
+}
+</script>
+</body>
+</html>

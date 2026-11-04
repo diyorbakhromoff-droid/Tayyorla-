@@ -1,0 +1,801 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<title>To’y taklifnomasi: Muqarnas</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&amp;family=Cormorant+SC:wght@300;400;500;600&amp;family=Mulish:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;display=swap&amp;subset=arabic,cyrillic,cyrillic-ext,latin-ext">
+<style>
+body{margin:0;background:#1A120F}
+.mq-root{background:#1A120F;color:#F2E9DB;font-family:'Mulish','Helvetica Neue',Arial,sans-serif}
+.mq-uni{font-family:'Cormorant SC','Cormorant Garamond',Georgia,serif}
+.mq-ar{font-family:'Amiri','Noto Naskh Arabic','Times New Roman',serif;direction:rtl}
+.mq-num{font-variant-numeric:lining-nums tabular-nums}
+.mq-icon{fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.mq-vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* gradientlar */
+.mq-d0{stop-color:#3B2819}.mq-d1{stop-color:#21160F}.mq-d2{stop-color:#140D0A}.mq-d3{stop-color:#1A120F}
+.mq-a0{stop-color:#7A5A33}.mq-a1{stop-color:#3F2C1B}.mq-a2{stop-color:#1E140D}
+.mq-b0{stop-color:#7A6C5A}.mq-b1{stop-color:#3D3229}.mq-b2{stop-color:#1C1611}
+.mq-la0{stop-color:#FFE9B8}.mq-la1{stop-color:#E3AB52}.mq-la2{stop-color:#9A6325}.mq-la3{stop-color:#4A2D12}
+.mq-lb0{stop-color:#FFF3DA}.mq-lb1{stop-color:#E2CBA0}.mq-lb2{stop-color:#A3845A}.mq-lb3{stop-color:#4F3B25}
+.mq-fl0{stop-color:#7A5634}.mq-fl1{stop-color:#3A2717}
+.mq-fr0{stop-color:#3C2919}.mq-fr1{stop-color:#160E0A}
+.mq-g0{stop-color:#FFF4D6}.mq-g1{stop-color:#F0C46F}.mq-g2{stop-color:#B57A31}.mq-g3{stop-color:#7C501F}
+.mq-o0{stop-color:#FFE7B0;stop-opacity:.75}.mq-o1{stop-color:#FFD58A;stop-opacity:.2}.mq-o2{stop-color:#FFD58A;stop-opacity:0}
+.mq-t0{stop-color:#7ED6CC}.mq-t1{stop-color:#2F8C86}
+
+/* gumbaz */
+.mq-cam{position:absolute;left:0;top:0;width:390px;height:844px;overflow:hidden}
+.mq-domeW{position:absolute;left:-293px;top:-64px;width:976px;height:976px;transform-origin:50% 50%;will-change:transform}
+.mq-domeW--end{transform:perspective(760px) translateY(-236px) rotateX(-56deg)}
+.mq-spin{position:absolute;inset:0;animation:mq-spin 220s linear infinite}
+@keyframes mq-spin{to{transform:rotate(360deg)}}
+.mq-edge{stroke:#E8B866;stroke-opacity:.55}
+.mq-edge2{stroke:#FFE3A8;stroke-opacity:.7}
+.mq-sw{stroke-width:1.1}
+.mq-lt{opacity:0}
+.mq-ring{fill:none;stroke:#FFE6AE;stroke-width:3;opacity:0}
+.mq-rose{transform-origin:0 0}
+.mq-sweep{position:absolute;inset:0;border-radius:50%;background:conic-gradient(from 0deg,rgba(255,214,150,0) 0deg,rgba(255,214,150,.2) 26deg,rgba(255,214,150,0) 60deg,rgba(255,214,150,0) 180deg,rgba(255,214,150,.14) 214deg,rgba(255,214,150,0) 250deg);animation:mq-spin 14s linear infinite reverse}
+.mq-vig{position:absolute;inset:0;background:radial-gradient(ellipse 72% 58% at 50% 46%,rgba(26,18,15,0) 52%,rgba(17,11,9,.82) 92%)}
+
+/* kirish */
+.mq-i{position:absolute;left:0;top:0;width:390px;height:844px;z-index:40;overflow:hidden;background:#140D0A}
+.mq-i--open{pointer-events:none;animation:mq-out .7s ease 4.75s forwards}
+@keyframes mq-out{to{opacity:0;visibility:hidden}}
+.mq-i--open .mq-domeW{animation:mq-descend 2.1s cubic-bezier(.62,0,.22,1) 2.55s both}
+@keyframes mq-descend{from{transform:perspective(760px) translateY(0) rotateX(0deg)}to{transform:perspective(760px) translateY(-236px) rotateX(-56deg)}}
+.mq-i--open .mq-lt{animation:mq-lit .9s cubic-bezier(.3,.7,.3,1) both}
+@keyframes mq-lit{0%{opacity:0}55%{opacity:1}100%{opacity:1}}
+.mq-i--open .mq-ring{animation:mq-ring 1.1s ease-out both}
+@keyframes mq-ring{0%{opacity:0;stroke-width:1}35%{opacity:.95;stroke-width:4}100%{opacity:0;stroke-width:1}}
+.mq-i--open .mq-rose{animation:mq-bloom 1.1s cubic-bezier(.3,1.5,.5,1) 2.1s both}
+@keyframes mq-bloom{0%{transform:scale(.55) rotate(-30deg)}100%{transform:scale(1) rotate(0deg)}}
+.mq-i--open .mq-oc{animation:mq-oc 3s ease .2s both}
+@keyframes mq-oc{from{opacity:.25}to{opacity:1}}
+.mq-oc{opacity:.25}
+.mq-iui{transition:opacity .45s ease,transform .6s ease}
+.mq-i--open .mq-iui{opacity:0;transform:translateY(10px)}
+.mq-iname{opacity:0}
+.mq-i--open .mq-iname{animation:mq-up .9s cubic-bezier(.2,.8,.2,1) both}
+@keyframes mq-up{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+.mq-cta{position:relative;height:56px;padding:0 30px;border-radius:28px;border:1px solid rgba(255,226,170,.55);display:inline-flex;align-items:center;gap:12px;font-family:inherit;font-size:15px;font-weight:600;letter-spacing:.04em;color:#2A1A0E;cursor:pointer;background:linear-gradient(180deg,#F6D58F,#D9A04E 55%,#B07A33);box-shadow:0 18px 30px -14px rgba(0,0,0,.9),inset 0 1px 0 rgba(255,250,230,.8);transition:transform .18s cubic-bezier(.3,1.6,.5,1);animation:mq-halo 2.8s ease-out infinite}
+.mq-cta:active{transform:scale(.95)}
+@keyframes mq-halo{0%{box-shadow:0 18px 30px -14px rgba(0,0,0,.9),0 0 0 0 rgba(240,196,111,.45)}70%,100%{box-shadow:0 18px 30px -14px rgba(0,0,0,.9),0 0 0 16px rgba(240,196,111,0)}}
+.mq-twk{position:absolute;width:3px;height:3px;border-radius:50%;background:#FFE7B8;opacity:0;animation:mq-twk 5s ease-in-out infinite}
+@keyframes mq-twk{0%,100%{opacity:0;transform:translateY(0)}50%{opacity:.85;transform:translateY(-26px)}}
+.mq-cue{animation:mq-cue 2.2s ease-in-out infinite}
+@keyframes mq-cue{0%,100%{transform:translateY(0);opacity:.5}50%{transform:translateY(6px);opacity:1}}
+
+/* sahifa */
+.mq-sec{position:relative;padding:84px 20px 0;display:flex;flex-direction:column;align-items:center;text-align:center}
+.mq-lbl{margin:0;font-size:11px;line-height:16px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:#E0A752}
+.mq-h2{margin:12px 0 0;font-family:'Cormorant SC','Cormorant Garamond',Georgia,serif;font-weight:400;font-size:36px;line-height:42px;color:#F6EDDF;text-wrap:balance}
+.mq-txt{font-size:16px;line-height:26px;color:#D6C8B3}
+.mq-s1{fill:url(#mqSG1)}.mq-s2{fill:url(#mqSG2)}.mq-s3{fill:#E0A752}
+.mq-r{opacity:1}
+.is-in .mq-r{animation:mq-up .95s cubic-bezier(.2,.8,.2,1) both}
+.is-in .mq-strip{animation:mq-strip 1.1s cubic-bezier(.2,.8,.2,1) both}
+@keyframes mq-strip{from{opacity:0;transform:scaleX(.4)}to{opacity:1;transform:none}}
+.mq-stucco{position:relative;box-sizing:border-box;background:linear-gradient(180deg,#F4EBDD,#E9DCC6);color:#2B1D14;border-radius:4px;box-shadow:0 30px 50px -30px rgba(0,0,0,.9),inset 0 0 0 1px rgba(160,110,50,.25)}
+.mq-panel{position:relative;box-sizing:border-box;background:linear-gradient(180deg,#2A1C15,#22170F);border:1px solid rgba(224,167,82,.35);border-radius:4px;box-shadow:0 26px 40px -28px rgba(0,0,0,.95)}
+.mq-photo{display:block;width:100%;height:100%;object-fit:cover;background:#3A2A20}
+.mq-btn{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:10px;height:54px;padding:0 26px;border-radius:27px;border:0;box-sizing:border-box;background:linear-gradient(180deg,#F2CF88,#D9A04E 55%,#B07A33);color:#2A1A0E;font-family:inherit;font-size:15px;font-weight:700;letter-spacing:.02em;text-decoration:none;cursor:pointer;box-shadow:0 14px 24px -14px rgba(0,0,0,.9),inset 0 1px 0 rgba(255,250,230,.7);transition:transform .18s cubic-bezier(.3,1.6,.5,1),filter .2s}
+.mq-btn:active{transform:scale(.95);filter:brightness(1.08)}
+.mq-btn:disabled{opacity:.6;cursor:default}
+.mq-out{display:inline-flex;align-items:center;justify-content:center;gap:10px;height:50px;padding:0 22px;border-radius:25px;border:1px solid rgba(224,167,82,.6);box-sizing:border-box;color:#F3D08C;font-family:inherit;font-size:14px;font-weight:600;text-decoration:none;background:rgba(224,167,82,.06);cursor:pointer;transition:transform .18s cubic-bezier(.3,1.6,.5,1),background-color .2s}
+.mq-out:active{transform:scale(.95);background:rgba(224,167,82,.16)}
+
+/* taymer: varaqlanuvchi kartalar */
+.mq-flip{position:relative;width:76px;height:96px;perspective:300px}
+.mq-flipc{position:absolute;inset:0;border-radius:6px;background:linear-gradient(180deg,#F5ECDF 0,#E9DCC6 49.6%,#D9C9AE 50.4%,#EADDC8 100%);box-shadow:0 18px 26px -16px rgba(0,0,0,.95),inset 0 0 0 1px rgba(160,110,50,.3);display:flex;align-items:center;justify-content:center;overflow:hidden}
+.mq-flipc::after{content:'';position:absolute;left:0;right:0;top:50%;height:1px;background:rgba(90,60,30,.35)}
+.mq-fa{display:block;animation:mq-fa .7s cubic-bezier(.3,1.4,.5,1)}
+.mq-fb{display:block;animation:mq-fb .7s cubic-bezier(.3,1.4,.5,1)}
+@keyframes mq-fa{from{transform:rotateX(88deg);opacity:.3}to{transform:none;opacity:1}}
+@keyframes mq-fb{from{transform:rotateX(88deg);opacity:.3}to{transform:none;opacity:1}}
+
+/* galereya: asal ari uyasi */
+.mq-hex{clip-path:polygon(25% 0,75% 0,100% 50%,75% 100%,25% 100%,0 50%)}
+.mq-hexv{clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%)}
+.mq-gimg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.06);transition:opacity .9s ease,transform 1.8s cubic-bezier(.2,.8,.2,1)}
+.mq-gimg--on{opacity:1;transform:none}
+.mq-th{position:relative;width:62px;height:70px;padding:0;border:0;cursor:pointer;background:linear-gradient(180deg,#F0C46F,#9A6A2C);transition:transform .35s cubic-bezier(.3,1.5,.5,1),filter .3s;filter:saturate(.6) brightness(.78)}
+.mq-th img{position:absolute;left:3px;top:3px;width:56px;height:64px;object-fit:cover}
+.mq-th--on{transform:translateY(-8px) scale(1.06);filter:none}
+.mq-th:active{transform:scale(.92)}
+
+/* javob */
+.mq-opt{position:relative;flex:1 1 0;min-width:0;height:54px;border-radius:27px;border:1px solid #CDB896;background:#FBF6EE;color:#4A3424;font-family:inherit;font-size:14px;font-weight:600;cursor:pointer;padding:0 8px;white-space:nowrap;transition:background-color .25s,color .25s,border-color .25s,transform .18s cubic-bezier(.3,1.6,.5,1)}
+.mq-opt:active{transform:scale(.95)}
+.mq-opt--on{background:#2A1C15;border-color:#2A1C15;color:#F3D08C;animation:mq-pop .45s cubic-bezier(.3,1.6,.5,1)}
+@keyframes mq-pop{0%{transform:scale(.94)}100%{transform:scale(1)}}
+.mq-flbl{display:block;text-align:left;font-size:11px;line-height:16px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#7A5E44}
+.mq-field{display:block;width:100%;box-sizing:border-box;border:1px solid #D6C4A6;background:#FBF6EE;color:#2B1D14;font-family:inherit;font-size:16px;outline:none;transition:border-color .2s,box-shadow .2s}
+.mq-field:focus{border-color:#B07A33;box-shadow:0 0 0 3px rgba(224,167,82,.25)}
+.mq-field::placeholder{color:#A08C76}
+.mq-in2{height:54px;margin:8px 0 18px;padding:0 20px;border-radius:27px}
+.mq-ta{min-height:86px;margin-top:8px;padding:14px 20px;line-height:24px;border-radius:20px;resize:vertical}
+.mq-stepper{display:flex;align-items:center;gap:14px;transition:opacity .2s}
+.mq-stepper--off{opacity:.35}
+.mq-step{width:46px;height:46px;border-radius:50%;border:1px solid #CDB896;background:#FBF6EE;color:#8A5A26;display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0;transition:transform .18s cubic-bezier(.3,1.6,.5,1)}
+.mq-step:active{transform:scale(.88)}
+.mq-step:disabled{opacity:.4;cursor:default}
+.mq-burst{position:absolute;left:50%;top:50%;width:0;height:0;pointer-events:none}
+.mq-burst i{position:absolute;left:-3px;top:-3px;width:6px;height:6px;border-radius:50%;background:#F0C46F;opacity:0}
+.mq-burst--on i{animation:mq-spark .9s cubic-bezier(.2,.8,.3,1) both}
+@keyframes mq-spark{0%{opacity:1;transform:rotate(var(--a)) translateX(0) scale(1)}100%{opacity:0;transform:rotate(var(--a)) translateX(var(--r)) scale(.3)}}
+.mq-music{position:absolute;top:14px;right:14px;z-index:60;width:44px;height:44px;border-radius:50%;border:1px solid rgba(240,196,111,.6);background:rgba(26,18,15,.75);color:#F3D08C;display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0;transition:transform .18s}
+.mq-music:active{transform:scale(.9)}
+.mq-music--on{background:#F0C46F;color:#2A1A0E}
+.mq-eq{display:flex;align-items:flex-end;gap:2px;height:14px}
+.mq-eq i{display:block;width:2px;height:100%;background:currentColor;transform-origin:50% 100%;animation:mq-eq .9s ease-in-out infinite alternate}
+.mq-eq i:nth-child(2){animation-delay:-.3s}.mq-eq i:nth-child(3){animation-delay:-.6s}.mq-eq i:nth-child(4){animation-delay:-.45s}
+@keyframes mq-eq{from{transform:scaleY(.25)}to{transform:scaleY(1)}}
+.mq-swc{display:block;width:40px;height:52px;clip-path:path('M0 52L0 22A30 30 0 0 1 20 0A30 30 0 0 1 40 22L40 52Z');box-shadow:inset 0 0 0 1px rgba(255,255,255,.2)}
+.mq-glint{animation:mq-glint 6s ease-in-out infinite}
+@keyframes mq-glint{0%,100%{opacity:.55}50%{opacity:1}}
+@media (prefers-reduced-motion: reduce){
+  .mq-spin,.mq-sweep,.mq-cta,.mq-twk,.mq-cue,.mq-eq i,.mq-fa,.mq-fb,.mq-glint,.is-in .mq-r,.is-in .mq-strip,.mq-opt--on,.mq-burst--on i{animation:none !important}
+  .mq-i--open{animation:none;opacity:0;visibility:hidden}
+  .mq-gimg,.mq-th,.mq-iui{transition:none}
+}
+</style>
+</helmet>
+<div class="mq-root" style="width: 390px; min-height: var(--vh, 100vh); position: relative; overflow: hidden; display: flex; flex-direction: column">
+  <svg width="0" height="0" aria-hidden="true" style="position: absolute">
+    <defs>
+      <radialGradient id="mqDisc" cx="0" cy="0" r="488" gradientUnits="userSpaceOnUse"><stop offset="0" class="mq-d0"></stop><stop offset=".55" class="mq-d1"></stop><stop offset=".9" class="mq-d2"></stop><stop offset="1" class="mq-d3"></stop></radialGradient>
+      <radialGradient id="mqCA" cx=".5" cy=".95" r="1"><stop offset="0" class="mq-a0"></stop><stop offset=".6" class="mq-a1"></stop><stop offset="1" class="mq-a2"></stop></radialGradient>
+      <radialGradient id="mqCB" cx=".5" cy=".95" r="1"><stop offset="0" class="mq-b0"></stop><stop offset=".6" class="mq-b1"></stop><stop offset="1" class="mq-b2"></stop></radialGradient>
+      <radialGradient id="mqLA" cx=".62" cy=".92" r="1.05"><stop offset="0" class="mq-la0"></stop><stop offset=".35" class="mq-la1"></stop><stop offset=".75" class="mq-la2"></stop><stop offset="1" class="mq-la3"></stop></radialGradient>
+      <radialGradient id="mqLB" cx=".62" cy=".92" r="1.05"><stop offset="0" class="mq-lb0"></stop><stop offset=".35" class="mq-lb1"></stop><stop offset=".75" class="mq-lb2"></stop><stop offset="1" class="mq-lb3"></stop></radialGradient>
+      <linearGradient id="mqFL" x1="0" y1="0" x2="0" y2="1"><stop offset="0" class="mq-fl1"></stop><stop offset="1" class="mq-fl0"></stop></linearGradient>
+      <linearGradient id="mqFR" x1="0" y1="0" x2="0" y2="1"><stop offset="0" class="mq-fr1"></stop><stop offset="1" class="mq-fr0"></stop></linearGradient>
+      <linearGradient id="mqGold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" class="mq-g0"></stop><stop offset=".35" class="mq-g1"></stop><stop offset=".7" class="mq-g2"></stop><stop offset="1" class="mq-g3"></stop></linearGradient>
+      <linearGradient id="mqSG1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" class="mq-g1"></stop><stop offset="1" class="mq-g3"></stop></linearGradient>
+      <linearGradient id="mqSG2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" class="mq-g0"></stop><stop offset="1" class="mq-g2"></stop></linearGradient>
+      <linearGradient id="mqTq" x1="0" y1="0" x2="1" y2="1"><stop offset="0" class="mq-t0"></stop><stop offset="1" class="mq-t1"></stop></linearGradient>
+      <radialGradient id="mqOc" cx="0" cy="0" r="300" gradientUnits="userSpaceOnUse"><stop offset="0" class="mq-o0"></stop><stop offset=".4" class="mq-o1"></stop><stop offset="1" class="mq-o2"></stop></radialGradient>
+      <sc-for list="{{ tierDefs }}" as="t">
+        <path id="{{ t.cid }}" d="{{ t.cell }}"></path>
+        <path id="{{ t.lid }}" d="{{ t.fl }}"></path>
+        <path id="{{ t.rid }}" d="{{ t.fr }}"></path>
+      </sc-for>
+      <g id="mqRose">
+        <polygon points="{{ rose.outer }}" fill="url(#mqGold)"></polygon>
+        <polygon points="{{ rose.inner }}" fill="url(#mqTq)" opacity=".9"></polygon>
+        <circle r="31" fill="#1E140F"></circle>
+        <circle r="27" fill="none" class="mq-edge2 mq-sw"></circle>
+      </g>
+    </defs>
+  </svg>
+
+  <sc-if value="{{ has.music }}">
+  <button type="button" class="{{ musicCls }}" aria-label="{{ musicLabel }}" aria-pressed="{{ musicOn }}" onClick="{{ toggleMusic }}">
+    <sc-if value="{{ musicOn }}"><span class="mq-eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span></sc-if>
+    <sc-if value="{{ musicOff }}"><svg class="mq-icon" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V5.5l11-2.2v12.5"></path><circle cx="6.2" cy="18" r="2.8"></circle><circle cx="17.2" cy="15.8" r="2.8"></circle></svg></sc-if>
+  </button>
+  </sc-if>
+
+  <div data-intro class="{{ introCls }}" aria-hidden="{{ introHidden }}">
+    <div class="mq-cam" aria-hidden="true">
+      <div class="mq-domeW">
+        <div class="mq-spin">
+          <svg width="976" height="976" viewBox="-488 -488 976 976" style="position: absolute; left: 0; top: 0">
+            <circle r="488" fill="url(#mqDisc)"></circle>
+            <sc-for list="{{ tiers }}" as="t">
+              <g transform="{{ t.off }}">
+                <sc-for list="{{ rots }}" as="r"><use href="{{ t.lref }}" transform="{{ r }}" fill="url(#mqFL)"></use><use href="{{ t.rref }}" transform="{{ r }}" fill="url(#mqFR)"></use><use href="{{ t.cref }}" transform="{{ r }}" fill="{{ t.base }}" class="mq-edge mq-sw"></use></sc-for>
+              </g>
+            </sc-for>
+            <sc-for list="{{ tiers }}" as="t">
+              <g class="mq-lt" style="{{ t.dl }}" transform="{{ t.off }}">
+                <sc-for list="{{ rots }}" as="r"><use href="{{ t.cref }}" transform="{{ r }}" fill="{{ t.lit }}" class="mq-edge2 mq-sw"></use></sc-for>
+              </g>
+              <circle class="mq-ring" r="{{ t.r1 }}" style="{{ t.dl }}"></circle>
+            </sc-for>
+            <circle class="mq-oc" r="300" fill="url(#mqOc)"></circle>
+            <g class="mq-rose"><use href="#mqRose"></use></g>
+          </svg>
+          <div class="mq-sweep" style="left: 0; top: 0; width: 976px; height: 976px"></div>
+        </div>
+        <p class="mq-uni" style="position: absolute; left: 0; right: 0; top: 466px; margin: 0; text-align: center; font-weight: 500; font-size: 26px; line-height: 44px; color: #F3D08C; letter-spacing: 0.06em">{{ mono }}</p>
+      </div>
+      <div class="mq-vig"></div>
+      <sc-for list="{{ motes }}" as="m"><i class="mq-twk" style="{{ m }}"></i></sc-for>
+      <div class="mq-iname" style="position: absolute; left: 0; right: 0; top: 446px; height: 398px; animation-delay: 3.75s">
+        <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(26, 18, 15, 0) 0, #1A120F 18%)"></div>
+      </div>
+      <div class="mq-iname" style="position: absolute; left: 0; right: 0; top: 446px; animation-delay: 3.85s">
+        <div style="display: flex; flex-direction: column; align-items: center; text-align: center; padding: 0 20px">
+          <p class="mq-ar" dir="rtl" lang="ar" style="margin: 0; font-size: 27px; line-height: 46px; color: #F0C46F">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p>
+          <p style="margin: 2px 0 0; font-size: 11px; line-height: 16px; letter-spacing: 0.26em; text-transform: uppercase; color: #BFAE98">Bismillahir Rohmanir Rohiym</p>
+        </div>
+      </div>
+      <div class="mq-iname" style="position: absolute; left: 20px; right: 20px; top: 556px; animation-delay: 4.05s">
+        <div style="display: flex; flex-direction: column; align-items: center; text-align: center">
+          <p class="mq-lbl" style="letter-spacing: 0.32em">Nikoh to’yiga taklifnoma</p>
+          <p class="mq-uni" style="margin: 12px 0 0; font-weight: 400; font-size: {{ fsK }}px; line-height: 1.04; color: #F8F0E3; overflow-wrap: anywhere">{{ kuyov }}</p>
+          <p class="mq-uni" style="margin: 2px 0; font-weight: 300; font-size: 24px; line-height: 30px; color: #E0A752">va</p>
+          <p class="mq-uni" style="margin: 0; font-weight: 400; font-size: {{ fsL }}px; line-height: 1.04; color: #F8F0E3; overflow-wrap: anywhere">{{ kelin }}</p>
+          <p class="mq-num" style="margin: 18px 0 0; font-size: 13px; line-height: 20px; font-weight: 600; letter-spacing: 0.16em; color: #D6C8B3">{{ heroLine }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="mq-iui" style="position: absolute; left: 24px; right: 24px; top: 46px; text-align: center">
+      <p class="mq-lbl" style="color: #F0C46F">Nikoh to’yiga taklifnoma</p>
+      <p style="margin: 18px 0 0; font-style: italic; font-size: 15px; line-height: 20px; color: #E7D9C4">Hurmatli</p>
+      <p class="mq-uni" style="margin: 2px 0 0; font-weight: 500; font-size: {{ fsGuest }}px; line-height: 1.15; color: #FFF6E6; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{ guestName }}</p>
+    </div>
+    <div class="mq-iui" style="position: absolute; left: 24px; right: 24px; top: 668px; display: flex; flex-direction: column; align-items: center; text-align: center">
+      <p style="margin: 0 0 18px; max-width: 300px; font-size: 14px; line-height: 21px; color: #E7D9C4">Gumbaz ostida sizni quvonchli xabar kutmoqda</p>
+      <button type="button" class="mq-cta" onClick="{{ open }}">
+        <svg class="mq-icon" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M5.3 18.7l2.1-2.1M16.6 7.4l2.1-2.1"></path><circle cx="12" cy="12" r="3.4"></circle></svg>
+        Gumbazni yoritish
+      </button>
+      <sc-if value="{{ has.music }}"><p style="margin: 12px 0 0; display: flex; align-items: center; gap: 8px; font-size: 12px; line-height: 16px; color: #BFAE98"><svg class="mq-icon" width="15" height="15" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V5.5l11-2.2v12.5"></path><circle cx="6.2" cy="18" r="2.8"></circle><circle cx="17.2" cy="15.8" r="2.8"></circle></svg>Musiqa bilan ochiladi</p></sc-if>
+    </div>
+  </div>
+
+  <header style="position: relative; height: 844px; flex: none; overflow: hidden; background: #1A120F">
+    <h1 class="mq-vh">{{ pair }}</h1>
+    <div class="mq-cam" aria-hidden="true">
+      <div class="mq-domeW mq-domeW--end">
+        <div class="mq-spin">
+          <svg width="976" height="976" viewBox="-488 -488 976 976" style="position: absolute; left: 0; top: 0">
+            <circle r="488" fill="url(#mqDisc)"></circle>
+            <sc-for list="{{ tiers }}" as="t">
+              <g transform="{{ t.off }}">
+                <sc-for list="{{ rots }}" as="r"><use href="{{ t.lref }}" transform="{{ r }}" fill="url(#mqFL)"></use><use href="{{ t.rref }}" transform="{{ r }}" fill="url(#mqFR)"></use><use href="{{ t.cref }}" transform="{{ r }}" fill="{{ t.lit }}" class="mq-edge2 mq-sw"></use></sc-for>
+              </g>
+            </sc-for>
+            <circle r="300" fill="url(#mqOc)"></circle>
+            <use href="#mqRose"></use>
+          </svg>
+          <div class="mq-sweep" style="left: 0; top: 0; width: 976px; height: 976px"></div>
+        </div>
+        <p class="mq-uni" style="position: absolute; left: 0; right: 0; top: 466px; margin: 0; text-align: center; font-weight: 500; font-size: 26px; line-height: 44px; color: #F3D08C; letter-spacing: 0.06em">{{ mono }}</p>
+      </div>
+      <div class="mq-vig"></div>
+      <sc-for list="{{ motes }}" as="m"><i class="mq-twk" style="{{ m }}"></i></sc-for>
+      <div style="position: absolute; left: 0; right: 0; top: 446px; height: 398px; background: linear-gradient(180deg, rgba(26, 18, 15, 0) 0, #1A120F 18%)"></div>
+    </div>
+    <div style="position: absolute; left: 0; right: 0; top: 446px; display: flex; flex-direction: column; align-items: center; text-align: center; padding: 0 20px">
+      <p class="mq-ar" dir="rtl" lang="ar" style="margin: 0; font-size: 27px; line-height: 46px; color: #F0C46F">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p>
+      <p style="margin: 2px 0 0; font-size: 11px; line-height: 16px; letter-spacing: 0.26em; text-transform: uppercase; color: #BFAE98">Bismillahir Rohmanir Rohiym</p>
+    </div>
+    <div aria-hidden="true" style="position: absolute; left: 20px; right: 20px; top: 556px; display: flex; flex-direction: column; align-items: center; text-align: center">
+      <p class="mq-lbl" style="letter-spacing: 0.32em">Nikoh to’yiga taklifnoma</p>
+      <p class="mq-uni" style="margin: 12px 0 0; font-weight: 400; font-size: {{ fsK }}px; line-height: 1.04; color: #F8F0E3; overflow-wrap: anywhere">{{ kuyov }}</p>
+      <p class="mq-uni" style="margin: 2px 0; font-weight: 300; font-size: 24px; line-height: 30px; color: #E0A752">va</p>
+      <p class="mq-uni" style="margin: 0; font-weight: 400; font-size: {{ fsL }}px; line-height: 1.04; color: #F8F0E3; overflow-wrap: anywhere">{{ kelin }}</p>
+      <p class="mq-num" style="margin: 18px 0 0; font-size: 13px; line-height: 20px; font-weight: 600; letter-spacing: 0.16em; color: #D6C8B3">{{ heroLine }}</p>
+    </div>
+    <svg class="mq-icon mq-cue" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" style="position: absolute; left: 183px; top: 800px; color: #E0A752"><path d="M6 9l6 6 6-6"></path></svg>
+  </header>
+
+  <section ref="{{ rf.hello }}" class="{{ sc.hello }}" style="padding-top: 40px">
+    <svg class="mq-strip" width="350" height="40" viewBox="0 0 350 40" aria-hidden="true"><sc-for list="{{ strip }}" as="s"><path d="{{ s.d }}" class="{{ s.c }}"></path></sc-for></svg>
+    <p class="mq-lbl mq-r" style="margin-top: 26px">Assalomu alaykum</p>
+    <p class="mq-uni mq-r" style="margin: 14px 0 0; max-width: 350px; font-weight: 400; font-size: {{ fsHello }}px; line-height: 1.12; color: #F8F0E3; overflow-wrap: anywhere; animation-delay: .1s">{{ guestHello }}</p>
+    <sc-if value="{{ has.photo }}">
+      <div class="mq-r" style="position: relative; width: 290px; height: 400px; margin-top: 34px; animation-delay: .2s">
+        <div style="position: absolute; inset: 0; background: linear-gradient(160deg, #F6D58F, #B07A33 50%, #7C501F); clip-path: path('{{ arch.big }}')"></div>
+        <div style="position: absolute; left: 7px; top: 7px; width: 276px; height: 393px; clip-path: path('{{ arch.bigIn }}'); overflow: hidden">
+          <img class="mq-photo" src="{{ p.0 }}" alt="">
+          <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(26, 18, 15, 0.35), rgba(26, 18, 15, 0) 30%, rgba(26, 18, 15, 0) 75%, rgba(26, 18, 15, 0.45))"></div>
+        </div>
+        <svg width="120" height="26" viewBox="0 0 120 26" aria-hidden="true" style="position: absolute; left: 85px; bottom: -13px"><path d="M0 13H40M80 13H120" stroke="#E0A752" stroke-width="1"></path><path d="M60 1L72 13L60 25L48 13Z" fill="url(#mqGold)"></path><circle cx="60" cy="13" r="3" fill="#1A120F"></circle></svg>
+      </div>
+    </sc-if>
+  </section>
+
+  <sc-if value="{{ b.taklif }}">
+  <section ref="{{ rf.taklif }}" class="{{ sc.taklif }}" style="padding-top: 56px">
+    <div class="mq-stucco mq-r" style="width: 100%; padding: 62px 24px 34px">
+      <svg width="350" height="40" viewBox="0 0 350 40" aria-hidden="true" style="position: absolute; left: 0; top: 0"><sc-for list="{{ strip }}" as="s"><path d="{{ s.d }}" class="{{ s.c }}"></path></sc-for></svg>
+      <p style="margin: 0; font-size: 18px; line-height: 30px; color: #3A2A1E; text-wrap: pretty; white-space: pre-line; overflow-wrap: anywhere">{{ d.matn }}</p>
+      <sc-if value="{{ d.taklif_qiluvchilar }}">
+        <svg width="120" height="16" viewBox="0 0 120 16" aria-hidden="true" style="display: block; margin: 24px auto 16px"><path d="M0 8H44M76 8H120" stroke="#B07A33" stroke-width="1"></path><path d="M60 0L68 8L60 16L52 8Z" fill="#B07A33"></path></svg>
+        <p class="mq-flbl" style="text-align: center; color: #8A5A26">Taklif qiluvchilar</p>
+        <p class="mq-uni" style="margin: 8px 0 0; font-weight: 600; font-size: 25px; line-height: 31px; color: #2B1D14; overflow-wrap: anywhere">{{ d.taklif_qiluvchilar }}</p>
+      </sc-if>
+    </div>
+  </section>
+  </sc-if>
+  <sc-if value="{{ noTaklif }}">
+    <p style="margin: 30px 20px 0; text-align: center; font-size: 18px; line-height: 30px; color: #D6C8B3">Sizni nikoh to’yimizga lutfan taklif etamiz.</p>
+  </sc-if>
+
+  <section ref="{{ rf.oyat }}" class="{{ sc.oyat }}" style="padding-top: 72px">
+    <div class="mq-r" style="position: relative; width: 100%; display: flex; flex-direction: column; align-items: center">
+      <svg width="74" height="74" viewBox="-37 -37 74 74" aria-hidden="true" class="mq-glint"><polygon points="{{ star8 }}" fill="none" stroke="#E0A752" stroke-width="1.2"></polygon><circle r="6" fill="#E0A752"></circle></svg>
+      <p class="mq-ar" dir="rtl" lang="ar" style="margin: 18px 0 0; max-width: 340px; font-size: 25px; line-height: 50px; color: #F3D08C">وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً</p>
+      <p style="margin: 18px 0 0; max-width: 320px; font-style: italic; font-size: 15px; line-height: 25px; color: #D6C8B3">«Uning oyatlaridan biri — sizlar uchun o’zingizdan juftlar yaratgani, toki ular bilan orom topgaysiz. Va o’rtangizda muhabbat va rahmat paydo qildi»</p>
+      <p class="mq-lbl" style="margin-top: 14px; font-size: 10px; color: #BFAE98">Rum surasi, 21-oyat</p>
+    </div>
+  </section>
+
+  <sc-if value="{{ b.kun }}">
+  <section ref="{{ rf.kun }}" class="{{ sc.kun }}">
+    <svg class="mq-strip" width="350" height="40" viewBox="0 0 350 40" aria-hidden="true"><sc-for list="{{ strip }}" as="s"><path d="{{ s.d }}" class="{{ s.c }}"></path></sc-for></svg>
+    <p class="mq-lbl mq-r" style="margin-top: 26px">Sana va vaqt</p>
+    <h2 class="mq-h2 mq-r" style="animation-delay: .08s">Baxtli kunimiz</h2>
+    <div class="mq-r" style="position: relative; width: 280px; height: 280px; margin-top: 28px; animation-delay: .16s">
+      <svg width="280" height="280" viewBox="-140 -140 280 280" aria-hidden="true" style="position: absolute; left: 0; top: 0">
+        <polygon points="{{ star8big }}" fill="url(#mqGold)"></polygon>
+        <polygon points="{{ star8in }}" fill="#F2E8D8"></polygon>
+        <polygon points="{{ star8in2 }}" fill="none" stroke="#B07A33" stroke-width="1"></polygon>
+      </svg>
+      <div style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center">
+        <p class="mq-uni mq-num" style="margin: 0; font-weight: 500; font-size: 78px; line-height: 70px; color: #2B1D14">{{ w.day }}</p>
+        <p class="mq-uni" style="margin: 4px 0 0; font-weight: 600; font-size: 24px; line-height: 28px; color: #6E4520">{{ w.month }}</p>
+        <p class="mq-num" style="margin: 6px 0 0; font-size: 12px; line-height: 16px; font-weight: 700; letter-spacing: 0.3em; color: #8A5A26">{{ w.year }}</p>
+      </div>
+    </div>
+    <div class="mq-r" style="margin-top: 18px; display: flex; gap: 12px; animation-delay: .24s">
+      <div class="mq-panel" style="width: 150px; padding: 14px 10px 16px">
+        <p class="mq-flbl" style="text-align: center; color: #BFAE98; font-size: 10px">Hafta kuni</p>
+        <p style="margin: 6px 0 0; font-size: 17px; line-height: 22px; font-weight: 700; color: #F6EDDF; overflow-wrap: anywhere">{{ w.Weekday }}</p>
+      </div>
+      <div class="mq-panel" style="width: 150px; padding: 14px 10px 16px">
+        <p class="mq-flbl" style="text-align: center; color: #BFAE98; font-size: 10px">Boshlanishi</p>
+        <p class="mq-num" style="margin: 6px 0 0; font-size: 17px; line-height: 22px; font-weight: 700; color: #F6EDDF">{{ timeTxt }}</p>
+      </div>
+    </div>
+    <sc-if value="{{ cal }}">
+      <a class="mq-out mq-r" href="{{ cal }}" target="_blank" rel="noopener" style="margin-top: 24px; animation-delay: .3s">
+        <svg class="mq-icon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="2"></rect><path d="M3.5 10h17M8 3v4M16 3v4"></path></svg>
+        Taqvimga qo’shish
+      </a>
+    </sc-if>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.taymer }}">
+  <section ref="{{ rf.taymer }}" class="{{ sc.taymer }}">
+    <svg class="mq-strip" width="350" height="40" viewBox="0 0 350 40" aria-hidden="true"><sc-for list="{{ strip }}" as="s"><path d="{{ s.d }}" class="{{ s.c }}"></path></sc-for></svg>
+    <p class="mq-lbl mq-r" style="margin-top: 26px">To’ygacha</p>
+    <h2 class="mq-h2 mq-r" style="animation-delay: .08s">Qolgan vaqt</h2>
+    <div class="mq-num mq-r" role="timer" aria-label="{{ cdText }}" style="margin-top: 28px; display: flex; gap: 10px; justify-content: center; animation-delay: .16s">
+      <sc-for list="{{ tiles }}" as="t">
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 10px">
+          <div class="mq-flip">
+            <div class="mq-flipc"><span class="{{ t.cls }}" style="font-family: 'Cormorant SC', Georgia, serif; font-weight: 500; font-size: 44px; line-height: 50px; color: #2B1D14">{{ t.n }}</span></div>
+          </div>
+          <span style="font-size: 10px; line-height: 12px; font-weight: 700; letter-spacing: 0.18em; color: #E0A752">{{ t.l }}</span>
+        </div>
+      </sc-for>
+    </div>
+    <p class="mq-txt mq-r" style="margin: 22px 0 0; font-size: 14px; line-height: 22px; animation-delay: .24s">{{ wkLine }}</p>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.manzil }}">
+  <section ref="{{ rf.manzil }}" class="{{ sc.manzil }}">
+    <svg class="mq-strip" width="350" height="40" viewBox="0 0 350 40" aria-hidden="true"><sc-for list="{{ strip }}" as="s"><path d="{{ s.d }}" class="{{ s.c }}"></path></sc-for></svg>
+    <p class="mq-lbl mq-r" style="margin-top: 26px">Manzil</p>
+    <sc-if value="{{ d.joy_rasmi }}">
+      <div class="mq-r" style="position: relative; width: 260px; height: 320px; margin-top: 26px; animation-delay: .08s">
+        <div style="position: absolute; inset: 0; background: linear-gradient(160deg, #F6D58F, #B07A33 50%, #7C501F); clip-path: path('{{ arch.mid }}')"></div>
+        <div style="position: absolute; left: 6px; top: 6px; width: 248px; height: 314px; clip-path: path('{{ arch.midIn }}'); overflow: hidden"><img class="mq-photo" src="{{ d.joy_rasmi }}" alt=""></div>
+      </div>
+    </sc-if>
+    <h2 class="mq-h2 mq-r" style="max-width: 350px; overflow-wrap: anywhere; animation-delay: .14s">{{ d.manzil_nomi }}</h2>
+    <sc-if value="{{ d.manzil }}"><p class="mq-txt mq-r" style="margin: 12px 0 0; max-width: 310px; overflow-wrap: anywhere; animation-delay: .2s">{{ d.manzil }}</p></sc-if>
+    <sc-if value="{{ d.xarita }}">
+      <a class="mq-btn mq-r" href="{{ d.xarita }}" target="_blank" rel="noopener" style="margin-top: 24px; animation-delay: .26s">
+        <svg class="mq-icon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6.5-6-6.5-11a6.5 6.5 0 0 1 13 0c0 5-6.5 11-6.5 11Z"></path><circle cx="12" cy="10" r="2.3"></circle></svg>
+        Xaritada ochish
+      </a>
+    </sc-if>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.dastur }}">
+  <section ref="{{ rf.dastur }}" class="{{ sc.dastur }}">
+    <svg class="mq-strip" width="350" height="40" viewBox="0 0 350 40" aria-hidden="true"><sc-for list="{{ strip }}" as="s"><path d="{{ s.d }}" class="{{ s.c }}"></path></sc-for></svg>
+    <p class="mq-lbl mq-r" style="margin-top: 26px">Dastur</p>
+    <h2 class="mq-h2 mq-r" style="animation-delay: .08s">Oqshom tartibi</h2>
+    <div style="margin-top: 26px; display: flex; flex-direction: column; align-items: center">
+      <sc-for list="{{ prog }}" as="x">
+        <div class="mq-r" style="{{ x.st }}">
+          <span aria-hidden="true" style="display: block; width: 1px; height: 26px; margin: 0 auto; background: linear-gradient(180deg, rgba(224, 167, 82, 0), #E0A752)"></span>
+          <div style="position: relative; width: 76px; height: 88px; margin: 0 auto">
+            <svg width="76" height="88" viewBox="0 0 76 88" aria-hidden="true" style="position: absolute; left: 0; top: 0"><path d="M2 2H74Q74 52 38 86Q2 52 2 2Z" fill="url(#mqGold)"></path><path d="M8 7H68Q67 48 38 78Q9 48 8 7Z" fill="#22170F"></path></svg>
+            <span class="mq-num" style="position: absolute; left: 0; right: 0; top: 24px; text-align: center; font-size: 15px; line-height: 18px; font-weight: 700; color: #F3D08C">{{ x.vaqt }}</span>
+          </div>
+          <p class="mq-uni" style="margin: 10px 0 0; max-width: 300px; font-weight: 500; font-size: 23px; line-height: 28px; color: #F6EDDF; overflow-wrap: anywhere">{{ x.nomi }}</p>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.hikoya }}">
+  <section ref="{{ rf.hikoya }}" class="{{ sc.hikoya }}">
+    <svg class="mq-strip" width="350" height="40" viewBox="0 0 350 40" aria-hidden="true"><sc-for list="{{ strip }}" as="s"><path d="{{ s.d }}" class="{{ s.c }}"></path></sc-for></svg>
+    <p class="mq-lbl mq-r" style="margin-top: 26px">Bizning yo’limiz</p>
+    <h2 class="mq-h2 mq-r" style="animation-delay: .08s">Qatma-qat taqdir</h2>
+    <div style="width: 100%; margin-top: 26px; display: flex; flex-direction: column; gap: 14px">
+      <sc-for list="{{ story }}" as="h">
+        <div class="mq-panel mq-r" style="{{ h.st }}">
+          <div style="flex: none; width: 64px; height: 74px; position: relative">
+            <svg width="64" height="74" viewBox="0 0 64 74" aria-hidden="true" style="position: absolute; left: 0; top: 0"><path d="M0 74V30A44 44 0 0 1 32 0A44 44 0 0 1 64 30V74Z" fill="url(#mqGold)"></path></svg>
+            <span class="mq-uni mq-num" style="position: absolute; left: 0; right: 0; bottom: 12px; text-align: center; font-weight: 600; font-size: 19px; line-height: 22px; color: #2B1D14">{{ h.yil }}</span>
+          </div>
+          <div style="flex: 1; min-width: 0; text-align: left">
+            <p class="mq-uni" style="margin: 0; font-weight: 600; font-size: 22px; line-height: 27px; color: #F6EDDF; overflow-wrap: anywhere">{{ h.sarlavha }}</p>
+            <sc-if value="{{ h.matn }}"><p class="mq-txt" style="margin: 4px 0 0; font-size: 14px; line-height: 22px; overflow-wrap: anywhere">{{ h.matn }}</p></sc-if>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.galereya }}">
+  <section ref="{{ rf.galereya }}" class="{{ sc.galereya }}">
+    <svg class="mq-strip" width="350" height="40" viewBox="0 0 350 40" aria-hidden="true"><sc-for list="{{ strip }}" as="s"><path d="{{ s.d }}" class="{{ s.c }}"></path></sc-for></svg>
+    <p class="mq-lbl mq-r" style="margin-top: 26px">Suratlar</p>
+    <h2 class="mq-h2 mq-r" style="animation-delay: .08s">Yorug’ lahzalar</h2>
+    <div class="mq-r" style="position: relative; width: 320px; height: 370px; margin-top: 28px; animation-delay: .16s">
+      <div class="mq-hexv" style="position: absolute; inset: 0; background: linear-gradient(160deg, #F6D58F, #B07A33 50%, #7C501F)"></div>
+      <div class="mq-hexv" style="position: absolute; left: 7px; top: 8px; right: 7px; bottom: 8px; overflow: hidden; background: #3A2A20">
+        <sc-for list="{{ gal }}" as="g"><img class="{{ g.cls }}" src="{{ g.src }}" alt="{{ g.alt }}"></sc-for>
+      </div>
+    </div>
+    <sc-if value="{{ galMany }}">
+      <div class="mq-r" style="margin-top: 22px; display: flex; gap: 6px; justify-content: center; align-items: flex-start; height: 96px; animation-delay: .24s">
+        <sc-for list="{{ gal }}" as="g"><button type="button" class="{{ g.th }}" aria-label="{{ g.alt }}" aria-pressed="{{ g.on }}" onClick="{{ g.pick }}" style="{{ g.st }}"><img class="mq-hexv" src="{{ g.src }}" alt=""></button></sc-for>
+      </div>
+    </sc-if>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.dress }}">
+  <section ref="{{ rf.dress }}" class="{{ sc.dress }}">
+    <svg class="mq-strip" width="350" height="40" viewBox="0 0 350 40" aria-hidden="true"><sc-for list="{{ strip }}" as="s"><path d="{{ s.d }}" class="{{ s.c }}"></path></sc-for></svg>
+    <p class="mq-lbl mq-r" style="margin-top: 26px">Kiyinish uslubi</p>
+    <p class="mq-r" style="margin: 18px 0 0; max-width: 330px; font-size: 17px; line-height: 28px; color: #E7D9C4; white-space: pre-line; overflow-wrap: anywhere; animation-delay: .08s">{{ d.dress_kod }}</p>
+    <sc-if value="{{ sw.length }}"><div class="mq-r" style="margin-top: 24px; width: 100%; display: grid; grid-template-columns: {{ swCols }}; gap: 18px 8px; justify-items: center; animation-delay: .16s">
+      <sc-for list="{{ sw }}" as="c"><div style="display: flex; flex-direction: column; align-items: center; gap: 8px"><span class="mq-swc" style="background: {{ c.bg }}"></span><span style="font-size: 12px; line-height: 16px; color: #BFAE98">{{ c.name }}</span></div></sc-for>
+    </div></sc-if>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.rsvp }}">
+  <section ref="{{ rf.rsvp }}" class="{{ sc.rsvp }}">
+    <p class="mq-lbl mq-r">Javobingiz</p>
+    <h2 class="mq-h2 mq-r" style="animation-delay: .08s">Tashrif buyurasizmi?</h2>
+    <p class="mq-txt mq-r" style="margin: 10px 0 0; font-size: 14px; line-height: 22px; animation-delay: .12s">{{ deadline }}</p>
+    <div class="mq-stucco mq-r" style="width: 100%; margin-top: 26px; padding: 64px 18px 24px; text-align: left; animation-delay: .18s">
+      <svg width="350" height="40" viewBox="0 0 350 40" aria-hidden="true" style="position: absolute; left: 0; top: 0"><sc-for list="{{ strip }}" as="s"><path d="{{ s.d }}" class="{{ s.c }}"></path></sc-for></svg>
+      <sc-if value="{{ askName }}"><label for="mq-name" class="mq-flbl">Ismingiz</label><input id="mq-name" class="mq-field mq-in2" type="text" maxlength="100" autocomplete="name" placeholder="Masalan: Dilnoza opa" onInput="{{ onName }}"></sc-if>
+      <div style="display: flex; gap: 8px">
+        <button type="button" class="{{ optYesCls }}" aria-pressed="{{ isYes }}" onClick="{{ sayYes }}">Albatta boraman</button>
+        <button type="button" class="{{ optNoCls }}" aria-pressed="{{ isNo }}" onClick="{{ sayNo }}">Kela olmayman</button>
+      </div>
+      <div style="margin-top: 20px; display: flex; align-items: center; justify-content: space-between; gap: 12px; height: 48px">
+        <span class="mq-flbl">Necha kishi</span>
+        <div class="{{ stepperCls }}">
+          <button type="button" class="mq-step" aria-label="Kamaytirish" disabled="{{ minusOff }}" onClick="{{ dec }}"><svg class="mq-icon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12"></path></svg></button>
+          <span class="mq-uni mq-num" aria-live="polite" style="min-width: 28px; text-align: center; font-weight: 500; font-size: 32px; line-height: 34px; color: #2B1D14">{{ guests }}</span>
+          <button type="button" class="mq-step" aria-label="Ko’paytirish" disabled="{{ plusOff }}" onClick="{{ inc }}"><svg class="mq-icon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12M12 6v12"></path></svg></button>
+        </div>
+      </div>
+      <label for="mq-wish" class="mq-flbl" style="margin-top: 20px">Tilaklaringiz</label>
+      <textarea id="mq-wish" class="mq-field mq-ta" rows="2" maxlength="300" placeholder="Yoshlarga ezgu tilaklaringiz…" onInput="{{ onWish }}"></textarea>
+      <div style="position: relative; margin-top: 20px">
+        <button type="button" class="mq-btn" style="width: 100%" disabled="{{ busy }}" onClick="{{ send }}">
+          <sc-if value="{{ sent }}"><svg class="mq-icon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"></path></svg></sc-if>
+          {{ sendLabel }}
+        </button>
+        <span class="{{ burstCls }}" aria-hidden="true"><sc-for list="{{ sparks }}" as="k"><i style="{{ k }}"></i></sc-for></span>
+      </div>
+      <p aria-live="polite" style="margin: 10px 0 0; font-size: 14px; line-height: 22px; color: #4A3424">{{ rsvpNote }}</p>
+    </div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ anyRow }}">
+  <section ref="{{ rf.aloqa }}" class="{{ sc.aloqa }}" style="padding-top: 56px">
+    <div style="width: 100%; display: flex; flex-direction: column; gap: 10px">
+      <sc-if value="{{ b.guruh }}">
+        <div class="mq-panel mq-r" style="display: flex; align-items: center; gap: 14px; padding: 14px 14px 14px 16px; text-align: left">
+          <span aria-hidden="true" style="flex: none; width: 42px; height: 48px; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 9px; box-sizing: border-box; color: #2A1A0E; background: linear-gradient(160deg, #F6D58F, #B07A33); clip-path: path('M0 48V20A28 28 0 0 1 21 0A28 28 0 0 1 42 20V48Z')"><svg class="mq-icon" width="18" height="18" viewBox="0 0 24 24"><path d="M21 4 3 11l6 2.2M21 4l-3 16-7.5-5.6M21 4 9 13.2v5.3l3-3.1"></path></svg></span>
+          <div style="flex: 1; min-width: 0">
+            <p style="margin: 0; font-size: 16px; line-height: 22px; font-weight: 700; color: #F6EDDF">Mehmonlar guruhi</p>
+            <p class="mq-txt" style="margin: 2px 0 0; font-size: 13px; line-height: 18px">Telegram’dagi to’y guruhi</p>
+          </div>
+          <a class="mq-btn" href="{{ d.telegram_guruh }}" target="_blank" rel="noopener" style="flex: none; height: 46px; padding: 0 18px; font-size: 14px">Qo’shilish</a>
+        </div>
+      </sc-if>
+      <sc-if value="{{ b.telefon }}">
+        <div class="mq-panel mq-r" style="display: flex; align-items: center; gap: 14px; padding: 14px 14px 14px 16px; text-align: left; animation-delay: .08s">
+          <span aria-hidden="true" style="flex: none; width: 42px; height: 48px; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 9px; box-sizing: border-box; color: #2A1A0E; background: linear-gradient(160deg, #F4EBDD, #CDB896); clip-path: path('M0 48V20A28 28 0 0 1 21 0A28 28 0 0 1 42 20V48Z')"><svg class="mq-icon" width="18" height="18" viewBox="0 0 24 24"><path d="M5.2 3.5h3.1l1.6 4.2-2.1 1.5a12.2 12.2 0 0 0 7 7l1.5-2.1 4.2 1.6v3.1a1.9 1.9 0 0 1-2.1 1.9A16.6 16.6 0 0 1 3.3 5.6a1.9 1.9 0 0 1 1.9-2.1Z"></path></svg></span>
+          <div style="flex: 1; min-width: 0">
+            <p class="mq-txt" style="margin: 0; font-size: 13px; line-height: 18px">Savollar uchun</p>
+            <p class="mq-num" style="margin: 2px 0 0; font-size: 18px; line-height: 24px; font-weight: 700; color: #F6EDDF; white-space: nowrap">{{ d.telefon }}</p>
+          </div>
+          <a class="mq-btn" href="{{ tel }}" aria-label="Qo’ng’iroq qilish" style="flex: none; width: 46px; height: 46px; padding: 0; border-radius: 50%"><svg class="mq-icon" width="19" height="19" viewBox="0 0 24 24" aria-hidden="true"><path d="M5.2 3.5h3.1l1.6 4.2-2.1 1.5a12.2 12.2 0 0 0 7 7l1.5-2.1 4.2 1.6v3.1a1.9 1.9 0 0 1-2.1 1.9A16.6 16.6 0 0 1 3.3 5.6a1.9 1.9 0 0 1 1.9-2.1Z"></path></svg></a>
+        </div>
+      </sc-if>
+    </div>
+  </section>
+  </sc-if>
+
+  <footer ref="{{ rf.foot }}" class="{{ sc.foot }}" style="margin-top: auto; padding: 96px 0 0">
+    <div class="mq-r" style="position: relative; width: 390px; height: 210px; overflow: hidden">
+      <svg width="390" height="210" viewBox="-292 -300 584 315" aria-hidden="true" style="position: absolute; left: 0; top: 0">
+        <circle r="300" fill="url(#mqDisc)"></circle>
+        <sc-for list="{{ hood }}" as="t">
+          <g transform="{{ t.off }}">
+            <sc-for list="{{ t.rots }}" as="r"><use href="{{ t.lref }}" transform="{{ r }}" fill="url(#mqFL)"></use><use href="{{ t.rref }}" transform="{{ r }}" fill="url(#mqFR)"></use><use href="{{ t.cref }}" transform="{{ r }}" fill="{{ t.lit }}" class="mq-edge2 mq-sw"></use></sc-for>
+          </g>
+        </sc-for>
+        <circle r="200" fill="url(#mqOc)"></circle>
+        <use href="#mqRose"></use>
+        <rect x="-292" y="0" width="584" height="20" fill="#1A120F"></rect>
+        <rect x="-292" y="-1" width="584" height="2" fill="#E0A752"></rect>
+      </svg>
+    </div>
+    <div style="padding: 30px 24px 64px; display: flex; flex-direction: column; align-items: center; text-align: center; background: linear-gradient(180deg, #1A120F, #120C0A)">
+      <p class="mq-ar mq-r" dir="rtl" lang="ar" style="margin: 0; max-width: 350px; font-size: 22px; line-height: 44px; color: #F0C46F">بَارَكَ اللَّهُ لَكُمَا وَبَارَكَ عَلَيْكُمَا وَجَمَعَ بَيْنَكُمَا فِي خَيْرٍ</p>
+      <p class="mq-r" style="margin: 12px 0 0; max-width: 320px; font-style: italic; font-size: 15px; line-height: 24px; color: #D6C8B3; animation-delay: .08s">«Alloh sizlarga baraka bersin, ustingizga baraka yog’dirsin va ikkingizni yaxshilikda jamlasin»</p>
+      <p class="mq-uni mq-r" style="margin: 30px 0 0; font-weight: 400; font-size: 32px; line-height: 38px; color: #F8F0E3; animation-delay: .14s">Tashrifingizdan xursand bo’lamiz</p>
+      <sc-if value="{{ d.taklif_qiluvchilar }}"><p class="mq-lbl mq-r" style="margin-top: 22px; line-height: 19px; color: #F0C46F; overflow-wrap: anywhere; animation-delay: .2s">{{ d.taklif_qiluvchilar }}</p></sc-if>
+      <p class="mq-num mq-r" style="margin: 14px 0 0; font-size: 12px; line-height: 18px; letter-spacing: 0.3em; color: #BFAE98; animation-delay: .24s">{{ w.dots }}</p>
+    </div>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":7600}}'>
+const D = SITE.d;
+function hhmm(t) { t = String(t || ''); return /^\d:\d\d$/.test(t) ? '0' + t : t; }
+function stamp(iso, time) { const t = Date.parse(String(iso || '').slice(0, 10) + 'T' + (hhmm(time) || '12:00') + ':00+05:00'); return isNaN(t) ? null : t; }
+function ini(n) {
+  n = String(n || '').trim(); if (!n) return '';
+  if (/^(sh|ch)/i.test(n)) return n.charAt(0).toUpperCase() + n.charAt(1).toLowerCase();
+  if (/^[og][’'‘`ʻʼ]/i.test(n)) return n.charAt(0).toUpperCase() + '’';
+  return n.charAt(0).toUpperCase();
+}
+function fitPx(text, max, width, em) { const n = String(text || '').length || 1; return Math.max(Math.round(max * 0.42), Math.min(max, Math.floor(width / (n * em)))); }
+function fitWord(text, max, width, em) { const L = Math.max(1, ...String(text || '').split(/\s+/).map((x) => x.length)); return Math.max(Math.round(max * 0.45), Math.min(max, Math.floor(width / (L * em)))); }
+function telHref(t) { return 'tel:' + String(t || '').replace(/[^\d+]/g, ''); }
+const KUYOV = String(D.kuyov || '').trim();
+const KELIN = String(D.kelin || '').trim();
+const GUEST = String(D.mehmon || '').trim();
+function calUrl() {
+  const t = stamp(D.sana, D.vaqt); if (t == null) return '';
+  const f = (ms) => new Date(ms).toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
+  const title = [KUYOV, KELIN].filter(Boolean).join(' va ') + (KUYOV || KELIN ? ': ' : '') + 'nikoh to’yi';
+  const loc = [D.manzil_nomi, D.manzil].filter(Boolean).join(', ');
+  return 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + encodeURIComponent(title) + '&dates=' + f(t) + '/' + f(t + 5 * 3600e3) + (loc ? '&location=' + encodeURIComponent(loc) : '');
+}
+function deadlineText(tail) {
+  const t = stamp(D.sana, '12:00'); if (t == null) return 'Iltimos, ' + tail + '.';
+  const dl = t - 7 * 864e5;
+  if (dl < Date.now()) return 'Iltimos, imkon qadar tezroq ' + tail + '.';
+  return 'Iltimos, ' + SITE.when(new Date(dl + 5 * 3600e3).toISOString().slice(0, 10)).dm + 'gacha ' + tail + '.';
+}
+const SW = [
+  ['fil suyagi', '#F1E8D6'], ['to\'q ko\'k', '#1C3358'], ['to\'q yashil', '#17463A'], ['zumrad', '#1B5E50'],
+  ['shampan', '#EEDDB8'], ['oltin', 'linear-gradient(160deg, #F6D58F, #C9A24A 55%, #8A6A24)'],
+  ['kumush', 'linear-gradient(160deg, #F1F3F5, #B8BDC2 55%, #7D8287)'], ['marvarid', '#EEE5E3'],
+  ['bordo', '#74202F'], ['pudra', '#EBCBC3'], ['oq', '#F7F5F1'], ['krem', '#F1E4CC'], ['bej', '#DCC7A6'],
+  ['moviy', '#8DB7DF'], ['ko\'k', '#4A7FBC'], ['yashil', '#5A9A68'], ['pushti', '#E9AABA'], ['qizil', '#B83A33'],
+  ['jigarrang', '#80583C'], ['kulrang', '#A5A8AB'], ['lavanda', '#C2B0E0'], ['binafsha', '#745AA2'], ['sariq', '#E8C455'], ['qora', '#1C1816']
+];
+function swatches(text) {
+  let t = ' ' + String(text || '').toLowerCase().replace(/[’‘ʻʼ`]/g, '\'') + ' ';
+  const found = [];
+  SW.forEach(([k, bg]) => {
+    const re = new RegExp('(^|[^a-z\'])' + k + '(?![a-z])');
+    const m = re.exec(t);
+    if (m) {
+      found.push({ at: m.index, name: SITE.cap(k.replace(/'/g, '’')), bg });
+      t = t.slice(0, m.index + m[1].length) + ' '.repeat(k.length) + t.slice(m.index + m[1].length + k.length);
+    }
+  });
+  return found.sort((a, b) => a.at - b.at).slice(0, 8);
+}
+
+/* muqarnas gumbazi: 24 bo'lakli halqalar, har qatlam yarim katakka suriladi */
+const N = 24, HA = Math.PI / N, STEP = 360 / N;
+const fx = (v) => Math.round(v * 10) / 10;
+const RR = [];
+for (let k = 0, r = 488; k < 10; k++, r *= 0.775) RR.push(r);
+function cellPath(r0, r1) {
+  const sx = r0 * Math.sin(HA), sy = -r0 * Math.cos(HA);
+  const cy = -r1 - (r0 * Math.cos(HA) - r1) * 0.42;
+  return 'M' + fx(-sx) + ' ' + fx(sy) + 'A' + fx(r0) + ' ' + fx(r0) + ' 0 0 1 ' + fx(sx) + ' ' + fx(sy) + 'Q' + fx(sx * 0.98) + ' ' + fx(cy) + ' 0 ' + fx(-r1) + 'Q' + fx(-sx * 0.98) + ' ' + fx(cy) + ' ' + fx(-sx) + ' ' + fx(sy) + 'Z';
+}
+function facets(r0, r1) {
+  /* katak chegarasidagi devor: chap (yorug') va o'ng (soya) uchburchak */
+  const ax = r1 * Math.sin(HA), ay = -r1 * Math.cos(HA);
+  const top = 'M0 ' + fx(-r0 - 1);
+  return [top + 'L' + fx(-ax - 1) + ' ' + fx(ay) + 'L0 ' + fx(ay + 2) + 'Z', top + 'L0 ' + fx(ay + 2) + 'L' + fx(ax + 1) + ' ' + fx(ay) + 'Z'];
+}
+const TIER_DEFS = [], TIERS = [];
+for (let k = 0; k < 9; k++) {
+  const f = facets(RR[k], RR[k + 1]);
+  const cid = 'mqC' + k, lid = 'mqL' + k, rid = 'mqR' + k;
+  TIER_DEFS.push({ cid, lid, rid, cell: cellPath(RR[k], RR[k + 1]), fl: f[0], fr: f[1] });
+  TIERS.push({
+    cref: '#' + cid, lref: '#' + lid, rref: '#' + rid,
+    off: 'rotate(' + (k % 2 ? STEP / 2 : 0) + ')',
+    base: k % 2 ? 'url(#mqCB)' : 'url(#mqCA)', lit: k % 2 ? 'url(#mqLB)' : 'url(#mqLA)',
+    dl: 'animation-delay: ' + (0.35 + k * 0.2).toFixed(2) + 's', r1: fx(RR[k + 1])
+  });
+}
+/* facetlar katak chegarasida: tier burilishiga yarim qadam qo'shiladi */
+const ROTS = [];
+for (let i = 0; i < N; i++) ROTS.push('rotate(' + (i * STEP) + ')');
+/* facet ham, katak ham bir xil burilishda chiziladi: facet uchi katak o'rtasida emas, chegarada bo'lishi uchun facet yo'lini yarim qadamga burib saqlaymiz */
+TIER_DEFS.forEach((t) => {
+  const c = Math.cos(-HA), s = Math.sin(-HA);
+  const rot = (d) => d.replace(/(-?\d+(?:\.\d+)?) (-?\d+(?:\.\d+)?)/g, (m, x, y) => { x = +x; y = +y; return fx(x * c - y * s) + ' ' + fx(x * s + y * c); });
+  t.fl = rot(t.fl); t.fr = rot(t.fr);
+});
+/* footer: gumbazning yuqori yarmi (old ko'rinish — peshtoq qubbasi) */
+const HOOD = [];
+for (let k = 2; k < 9; k++) {
+  const off = k % 2 ? STEP / 2 : 0, rots = [];
+  for (let i = 0; i < N; i++) { const a = ((i * STEP + off) % 360 + 360) % 360; if (a <= 100 || a >= 260) rots.push('rotate(' + (i * STEP) + ')'); }
+  HOOD.push({ cref: '#mqC' + k, lref: '#mqL' + k, rref: '#mqR' + k, off: 'rotate(' + off + ')', rots, lit: k % 2 ? 'url(#mqLB)' : 'url(#mqLA)' });
+}
+function star(n, ro, ri, rot) {
+  const pts = [];
+  for (let i = 0; i < n * 2; i++) { const r = i % 2 ? ri : ro, a = (i * 180 / n + (rot || 0) - 90) * Math.PI / 180; pts.push(fx(r * Math.cos(a)) + ',' + fx(r * Math.sin(a))); }
+  return pts.join(' ');
+}
+const ROSE = { outer: star(12, 47, 33), inner: star(12, 36, 30, 15) };
+function down(x, y, w, h) { return 'M' + x + ' ' + y + 'H' + (x + w) + 'Q' + (x + w) + ' ' + fx(y + h * 0.55) + ' ' + (x + w / 2) + ' ' + (y + h) + 'Q' + x + ' ' + fx(y + h * 0.55) + ' ' + x + ' ' + y + 'Z'; }
+const STRIP = [{ d: 'M0 0H350V3H0Z', c: 'mq-s3' }];
+for (let i = 0; i < 10; i++) STRIP.push({ d: down(i * 35 + 1, 3, 33, 19), c: 'mq-s1' });
+for (let i = 0; i < 9; i++) STRIP.push({ d: down(i * 35 + 18.5, 14, 33, 17), c: 'mq-s2' });
+for (let i = 0; i < 8; i++) STRIP.push({ d: down(i * 35 + 36, 26, 33, 13), c: 'mq-s1' });
+function arch(W, H) { const s = Math.round(W * 0.58), r = Math.round(W * 0.78); return 'M0 ' + H + 'L0 ' + s + 'A' + r + ' ' + r + ' 0 0 1 ' + (W / 2) + ' 0A' + r + ' ' + r + ' 0 0 1 ' + W + ' ' + s + 'L' + W + ' ' + H + 'Z'; }
+const ARCH = { big: arch(290, 400), bigIn: arch(276, 393), mid: arch(260, 320), midIn: arch(248, 314) };
+
+let seed = 11;
+function rnd() { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; }
+const MOTES = [];
+for (let i = 0; i < 14; i++) MOTES.push('left: ' + Math.round(40 + rnd() * 310) + 'px; top: ' + Math.round(140 + rnd() * 300) + 'px; animation-delay: ' + (-rnd() * 5).toFixed(2) + 's; animation-duration: ' + (4 + rnd() * 3).toFixed(2) + 's');
+const SPARKS = [];
+for (let i = 0; i < 12; i++) SPARKS.push('--a: ' + (i * 30) + 'deg; --r: ' + (70 + (i % 3) * 22) + 'px; animation-delay: ' + ((i % 4) * 0.03).toFixed(2) + 's');
+
+const NPH = Math.max(1, Math.min(5, SITE.has.photos || 0));
+const GAL = [1, 2, 3, 4, 0].filter((i) => i < NPH).map((i) => SITE.p[i]);
+const KEYS = ['hello', 'taklif', 'oyat', 'kun', 'taymer', 'manzil', 'dastur', 'hikoya', 'galereya', 'dress', 'rsvp', 'aloqa', 'foot'];
+
+class Component extends DCLogic {
+  constructor(...args) {
+    super(...args);
+    this.state = { opened: false, g: 0, rsvp: '', guests: 1, sent: false, busy: false, warn: '', seen: {} };
+    this.nm = ''; this.wish = ''; this.n = 0; this.picked = false;
+    this.els = {}; this.rf = {};
+    KEYS.forEach((k) => { this.rf[k] = (el) => { this.els[k] = el; }; });
+  }
+  componentDidMount() {
+    this.timer = setInterval(() => {
+      this.n++;
+      if (!this.picked && GAL.length > 1 && this.n % 6 === 0) this.setState({ g: (this.state.g + 1) % GAL.length });
+      else this.forceUpdate();
+    }, 1000);
+    try {
+      if (typeof IntersectionObserver === 'undefined') return;
+      this.io = new IntersectionObserver((list) => {
+        const add = {};
+        list.forEach((en) => { if (en.isIntersecting) { add[en.target.getAttribute('data-k')] = true; this.io.unobserve(en.target); } });
+        if (Object.keys(add).length) this.setState({ seen: Object.assign({}, this.state.seen, add) });
+      }, { rootMargin: '0px 0px -8% 0px', threshold: 0.01 });
+      KEYS.forEach((k) => { const el = this.els[k]; if (el) { el.setAttribute('data-k', k); this.io.observe(el); } });
+    } catch (e) { this.io = null; }
+  }
+  componentWillUnmount() { clearInterval(this.timer); if (this.io) this.io.disconnect(); }
+  open() { if (this.state.opened) return; this.setState({ opened: true }); SITE.opened(); }
+  send() {
+    const s = this.state;
+    if (!s.rsvp) { this.setState({ warn: 'Iltimos, avval javobingizni tanlang.' }); return; }
+    const name = this.nm.trim();
+    if (!SITE.has.guest && !name) { this.setState({ warn: 'Iltimos, ismingizni yozing.' }); return; }
+    if (s.busy) return;
+    this.setState({ busy: true, warn: '' });
+    SITE.rsvp(s.rsvp === 'yes', s.rsvp === 'yes' ? s.guests : 1, name, this.wish.trim())
+      .then(() => this.setState({ sent: true, busy: false }))
+      .catch(() => this.setState({ busy: false, warn: 'Javob yuborilmadi. Iltimos, qayta urinib ko’ring.' }));
+  }
+  rsvpVals() {
+    const s = this.state || {};
+    const isYes = s.rsvp === 'yes', isNo = s.rsvp === 'no', guests = s.guests || 1;
+    const who = (GUEST || this.nm.trim());
+    let note = '';
+    if (s.sent && isYes) note = (who ? 'Rahmat, ' + who + '! ' : 'Rahmat! ') + (guests > 1 ? 'Sizni ' + guests + ' kishi bilan kutamiz.' : 'Sizni intiqlik bilan kutamiz.');
+    else if (s.sent && isNo) note = (who ? 'Rahmat, ' + who + '! ' : 'Rahmat! ') + 'Duolaringiz biz bilan bo’lsin.';
+    else if (s.warn) note = s.warn;
+    return {
+      deadline: deadlineText('javob bering'),
+      askName: !SITE.has.guest,
+      onName: (e) => { this.nm = e.target.value; },
+      onWish: (e) => { this.wish = e.target.value; },
+      isYes, isNo, guests,
+      optYesCls: isYes ? 'mq-opt mq-opt--on' : 'mq-opt',
+      optNoCls: isNo ? 'mq-opt mq-opt--on' : 'mq-opt',
+      sayYes: () => this.setState({ rsvp: 'yes', sent: false, warn: '' }),
+      sayNo: () => this.setState({ rsvp: 'no', sent: false, warn: '' }),
+      stepperCls: isNo ? 'mq-stepper mq-stepper--off' : 'mq-stepper',
+      minusOff: isNo || guests <= 1, plusOff: isNo || guests >= 10,
+      dec: () => this.setState({ guests: Math.max(1, guests - 1), sent: false }),
+      inc: () => this.setState({ guests: Math.min(10, guests + 1), sent: false }),
+      send: () => this.send(),
+      busy: !!s.busy, sent: !!s.sent,
+      burstCls: s.sent ? 'mq-burst mq-burst--on' : 'mq-burst', sparks: SPARKS,
+      sendLabel: s.busy ? 'Yuborilmoqda…' : (s.sent ? 'Javob yuborildi' : 'Javobni yuborish'),
+      rsvpNote: note
+    };
+  }
+  renderVals() {
+    const s = this.state || {};
+    const seen = s.seen || {};
+    const w = SITE.when(D.sana, D.vaqt);
+    const cd = SITE.countdown(D.sana, D.vaqt);
+    const music = SITE.music.playing;
+    const guestName = GUEST || 'mehmon';
+    const hello = 'Hurmatli ' + (GUEST || 'mehmon') + '!';
+    const sw = swatches(D.dress_kod);
+    const tile = (v, l) => ({ n: SITE.pad(v), l, cls: v % 2 ? 'mq-fa' : 'mq-fb' });
+    const story = Array.isArray(D.hikoya) ? D.hikoya.filter((x) => x && (x.yil || x.sarlavha || x.matn)) : [];
+    const prog = Array.isArray(D.dastur) ? D.dastur.filter((x) => x && (x.vaqt || x.nomi)) : [];
+    const cur = (s.g || 0) % GAL.length;
+    const sc = {};
+    KEYS.forEach((k) => { sc[k] = 'mq-sec' + (seen[k] ? ' is-in' : ''); });
+    return Object.assign({
+      introCls: s.opened ? 'mq-i mq-i--open' : 'mq-i',
+      introHidden: !!s.opened,
+      open: () => this.open(),
+      tierDefs: TIER_DEFS, tiers: TIERS, rots: ROTS, hood: HOOD, rose: ROSE, strip: STRIP, arch: ARCH, motes: MOTES,
+      star8: star(8, 34, 26), star8big: star(8, 138, 106), star8in: star(8, 130, 99.5), star8in2: star(8, 120, 92),
+      rf: this.rf, sc, w,
+      kuyov: KUYOV, kelin: KELIN,
+      fsK: fitPx(KUYOV, 56, 330, 0.66), fsL: fitPx(KELIN, 56, 330, 0.66),
+      heroLine: [w.Weekday, w.dm, D.vaqt ? 'soat ' + D.vaqt : ''].filter(Boolean).join(' · '),
+      pair: [KUYOV, KELIN].filter(Boolean).join(' va '),
+      mono: [ini(KUYOV), ini(KELIN)].filter(Boolean).join(' · '),
+      guestName, fsGuest: fitPx(guestName, 30, 330, 0.62),
+      guestHello: hello, fsHello: fitWord(hello, 40, 340, 0.62),
+      noTaklif: !SITE.b.taklif,
+      cal: calUrl(),
+      timeTxt: D.vaqt ? 'soat ' + D.vaqt : '—',
+      tiles: [tile(cd.d, 'KUN'), tile(cd.h, 'SOAT'), tile(cd.m, 'DAQIQA'), tile(cd.s, 'SONIYA')],
+      cdText: cd.d + ' kun, ' + cd.h + ' soat, ' + cd.m + ' daqiqa qoldi',
+      wkLine: [w.Weekday, w.date, D.vaqt ? 'soat ' + D.vaqt : ''].filter(Boolean).join(' · '),
+      prog: prog.map((x, i) => ({ vaqt: x.vaqt || '', nomi: x.nomi || '', st: 'display: flex; flex-direction: column; align-items: center; animation-delay: ' + (0.1 + i * 0.12).toFixed(2) + 's' })),
+      story: story.map((x, i) => ({
+        yil: x.yil || '', sarlavha: x.sarlavha || '', matn: x.matn || '',
+        st: 'display: flex; align-items: center; gap: 16px; padding: 14px 16px 14px 14px; margin-left: ' + Math.min(i, 4) * 12 + 'px; margin-right: ' + Math.max(0, 4 - Math.min(i, 4)) * 12 + 'px; animation-delay: ' + (0.1 + i * 0.12).toFixed(2) + 's'
+      })),
+      gal: GAL.map((src, k) => ({ src, alt: 'Surat ' + (k + 1), on: k === cur, cls: k === cur ? 'mq-gimg mq-gimg--on' : 'mq-gimg', th: k === cur ? 'mq-th mq-hexv mq-th--on' : 'mq-th mq-hexv', st: 'margin-top: ' + (k % 2 ? 22 : 0) + 'px', pick: () => { this.picked = true; this.setState({ g: k }); } })),
+      galMany: GAL.length > 1,
+      sw, swCols: 'repeat(' + Math.max(1, Math.min(4, sw.length)) + ', minmax(0, 1fr))',
+      anyRow: !!(SITE.b.guruh || SITE.b.telefon),
+      tel: telHref(D.telefon),
+      musicOn: music, musicOff: !music,
+      musicCls: music ? 'mq-music mq-music--on' : 'mq-music',
+      musicLabel: music ? 'Musiqani o’chirish' : 'Musiqani yoqish',
+      toggleMusic: () => { SITE.music.toggle(); }
+    }, this.rsvpVals());
+  }
+}
+</script>
+</body>
+</html>
