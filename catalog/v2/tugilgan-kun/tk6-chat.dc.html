@@ -41,11 +41,14 @@ body{margin:0}
 .ct-shut .ct-arr{opacity:0}
 .ct-live .ct-arr{animation:ct-arr .55s cubic-bezier(.2,1.25,.4,1) both;animation-delay:var(--ad,0s)}
 @keyframes ct-arr{from{opacity:0;transform:translateY(18px) scale(.9)}to{opacity:1;transform:none}}
-.ct-tH{position:absolute;left:54px;bottom:0;opacity:0;pointer-events:none}
+.ct-tH{position:absolute;left:54px;top:0;opacity:0;pointer-events:none}
 .ct-live .ct-tH{animation:ct-tH 1s ease both;animation-delay:calc(var(--ad,0s) - 1s)}
 @keyframes ct-tH{0%{opacity:0;transform:scale(.7)}15%,82%{opacity:1;transform:none}100%{opacity:0;transform:scale(.9)}}
 
 /* further down: typing, then the message, as you scroll */
+.ct-shut .ct-late{opacity:0}
+.ct-live .ct-late{animation:ct-late .5s ease 3.4s both}
+@keyframes ct-late{from{opacity:0}to{opacity:1}}
 .ct-m{position:relative;view-timeline-name:--ctm;view-timeline-axis:block}
 .ct-m > .ct-tV{position:absolute;left:54px;top:10px;opacity:0;pointer-events:none;animation:ct-tV 1ms linear both;animation-timeline:--ctm;animation-range:entry 0% entry 190px}
 .ct-m > .ct-body{transform-origin:0 0;animation:ct-bV 1ms linear both;animation-timeline:--ctm;animation-range:entry 0% entry 190px}
@@ -209,6 +212,7 @@ body{margin:0}
       </div>
     </div>
 
+<div class="ct-late">
 <sc-if value="{{ b.tabrik }}">
     <div class="ct-m">
       <div class="ct-tV"><span class="ct-typ"><i></i><i></i><i></i></span></div>
@@ -244,7 +248,7 @@ body{margin:0}
     <div class="ct-sys"><span class="ct-chip">Tilaklar — ovozli xabarlarda</span></div>
     <sc-for list="{{ voices }}" as="v">
       <div class="ct-m">
-        <div class="ct-tV"><span class="ct-typ" style="gap: 7px"><svg aria-hidden="true" width="14" height="16" viewBox="0 0 14 16"><rect x="4" y="1" width="6" height="9" rx="3" fill="#0E9F7E"></rect><path class="ct-icoG" d="M1.5 7.5a5.5 5.5 0 0 0 11 0M7 13v2"></path></svg><span style="font-size: 13px; font-weight: 600; color: #0B7F64">yozmoqda</span></span></div>
+        <div class="ct-tV"><span class="ct-typ" style="gap: 7px"><svg aria-hidden="true" width="14" height="16" viewBox="0 0 14 16"><rect x="4" y="1" width="6" height="9" rx="3" fill="#0E9F7E"></rect><path class="ct-icoG" d="M1.5 7.5a5.5 5.5 0 0 0 11 0M7 13v2"></path></svg><span style="font-size: 13px; font-weight: 600; color: #0B7F64">ovoz yozmoqda</span></span></div>
         <div class="ct-body ct-rowIn">
           <span aria-hidden="true" class="ct-av" style="{{ v.av }}">{{ v.ini }}</span>
           <div class="ct-bIn" style="width: 286px">
@@ -389,6 +393,7 @@ body{margin:0}
     </div>
 </sc-if>
 
+</div>
     <div aria-hidden="true" style="flex: 1; min-height: 40px"></div>
     <div aria-hidden="true" style="display: flex; justify-content: center; padding: 0 20px">
       <span class="ct-chip" style="font-weight: 500">{{ footLine }}</span>

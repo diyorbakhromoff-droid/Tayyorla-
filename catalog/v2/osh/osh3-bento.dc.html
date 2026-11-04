@@ -531,7 +531,7 @@ function hhmm(t) { t = String(t || '').trim(); return /^\d:\d\d$/.test(t) ? '0' 
 const HM = hhmm(D.vaqt);
 const H24 = HM ? parseInt(HM.slice(0, 2), 10) : -1;
 function stamp(iso, time) { const t = Date.parse(String(iso || '').slice(0, 10) + 'T' + (hhmm(time) || '12:00') + ':00+05:00'); return isNaN(t) ? null : t; }
-function fitPx(text, max, width, em, lines) { const n = String(text || '').length || 1; return Math.max(Math.round(max * 0.52), Math.min(max, Math.floor(width * (lines || 1) / (n * em)))); }
+function fitPx(text, max, width, em, lines) { const t = String(text || ''); const n = t.length || 1; const lw = t.split(/\s+/).reduce((a, w) => Math.max(a, w.length), 1); return Math.max(Math.round(max * 0.52), Math.min(max, Math.floor(width * (lines || 1) / (n * em)), Math.floor(width / (lw * em * 1.12)))); }
 function telHref(t) { return 'tel:' + String(t || '').replace(/[^\d+]/g, ''); }
 function calUrl() {
   const t = stamp(D.sana, D.vaqt); if (t == null) return '';
@@ -610,10 +610,10 @@ class Component extends DCLogic {
       introHidden: !!s.opened,
       open: () => this.open(),
       guestHello: GUEST ? 'Hurmatli ' + GUEST : 'Hurmatli mehmon',
-      introGuestFs: fitPx(GUEST ? 'Hurmatli ' + GUEST : 'Hurmatli mehmon', 32, 334, 0.55, 2),
+      introGuestFs: fitPx(GUEST ? 'Hurmatli ' + GUEST : 'Hurmatli mehmon', 32, 334, 0.62, 1),
       introFrom: MEZBON ? MEZBON + ' taklifi' : TAKLIF,
       introTitleFs: fitPx(TITLE, 40, 300, 0.56, 2),
-      introHostFs: fitPx(MEZBON, 19, 186, 0.56, 2),
+      introHostFs: fitPx(MEZBON, 19, 186, 0.6, 2),
       taklifCap: TAKLIF,
       title: TITLE, titleA: TITLE_A, titleB: TITLE_B, titleAFs: fitPx(TITLE_A, 26, 310, 0.56, 1),
       titleFs: fitPx(TITLE_B, 50, 300, 0.58, 2),
