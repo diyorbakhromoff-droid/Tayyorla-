@@ -326,7 +326,7 @@ a{color:#3D6BFF}
         <sc-for list="{{ chron }}" as="c">
           <div class="pz-rise" style="position: relative; padding-bottom: 26px">
             <span aria-hidden="true" style="{{ c.node }}"></span>
-            <p class="pz-s pz-ab" style="margin: 0; font-size: {{ c.fs }}px; font-weight: 200; font-style: italic; line-height: 1; color: {{ c.col }}">{{ c.yosh }} <span style="font-family: 'Sofia Sans', Arial, sans-serif; font-style: normal; font-size: 12px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: #5B6070">yosh</span></p>
+            <p style="margin: 0; line-height: 1"><span class="pz-s pz-ab" style="font-size: {{ c.fs }}px; font-weight: 200; font-style: italic; color: {{ c.col }}">{{ c.yosh }}</span> <span style="font-family: 'Sofia Sans', Arial, sans-serif; font-style: normal; font-size: 12px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: #5B6070">yosh</span></p>
             <div class="pz-glass" style="position: relative; margin-top: 10px; padding: 12px 14px; border-radius: 18px; display: flex; align-items: center; gap: 12px">
               <sc-if value="{{ has.photo }}"><img src="{{ c.src }}" alt="" style="flex: none; display: block; width: 64px; height: 64px; border-radius: 14px; object-fit: cover"></sc-if>
               <p style="margin: 0; min-width: 0; font-size: 16px; font-weight: 600; line-height: 1.35; overflow-wrap: anywhere">{{ c.matn }}</p>
@@ -345,8 +345,8 @@ a{color:#3D6BFF}
         <sc-for list="{{ reviews }}" as="r">
           <div class="pz-glass pz-rise" style="{{ r.st }}">
             <span aria-hidden="true" style="{{ r.bar }}"></span>
-            <p class="pz-s" aria-hidden="true" style="position: absolute; right: 16px; top: -6px; margin: 0; font-size: 80px; font-weight: 200; line-height: 1; color: {{ r.col }}; opacity: 0.45">”</p>
-            <p style="position: relative; margin: 0; font-size: 16px; line-height: 1.55; color: #1E2230; overflow-wrap: anywhere">{{ r.matn }}</p>
+            <svg aria-hidden="true" width="34" height="28" viewBox="0 0 34 28" style="position: absolute; right: 16px; top: 14px; opacity: 0.5"><path d="M0 20C0 9 6 2 14 0L15 4C10 6 8 10 8 13C12 13 15 16 15 20C15 25 11 28 7.5 28C3 28 0 25 0 20ZM19 20C19 9 25 2 33 0L34 4C29 6 27 10 27 13C31 13 34 16 34 20C34 25 30 28 26.5 28C22 28 19 25 19 20Z" fill="{{ r.col }}"></path></svg>
+            <p style="position: relative; margin: 0; padding-right: 34px; font-size: 16px; line-height: 1.55; color: #1E2230; overflow-wrap: anywhere">{{ r.matn }}</p>
             <p class="pz-s" style="position: relative; margin: 10px 0 0; font-size: 19px; font-weight: 400; font-style: italic; color: #11141C; overflow-wrap: anywhere">{{ r.ism }}</p>
           </div>
         </sc-for>
@@ -497,7 +497,7 @@ class Component extends DCLogic {
     const prev = this.prevCd || cur;
     this.lastCd = cur;
     const L = ['kun', 'soat', 'daqiqa', 'soniya'];
-    const tiles = cur.map((v, i) => ({ v: v, l: L[i], edge: 'position: absolute; left: 14px; right: 14px; top: -1px; height: 2px; border-radius: 2px; background: ' + [SPEC[0], SPEC[2], SPEC[4], SPEC[6]][i], cls: v !== prev[i] ? (this.tick % 2 ? 'pz-num pz-num--a' : 'pz-num pz-num--b') : 'pz-num' }));
+    const tiles = cur.map((v, i) => ({ v: v, l: L[i], edge: 'position: absolute; left: 18px; right: 18px; top: 0; height: 3px; border-radius: 0 0 3px 3px; background: ' + [SPEC[0], SPEC[2], SPEC[4], SPEC[6]][i], cls: v !== prev[i] ? (this.tick % 2 ? 'pz-num pz-num--a' : 'pz-num pz-num--b') : 'pz-num' }));
     const matn = String(D.matn || '').trim();
     const list = D.tilaklar || [];
     const nW = list.length;
