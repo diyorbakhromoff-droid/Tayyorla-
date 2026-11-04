@@ -17,6 +17,8 @@ body{margin:0;background:#F5E2D2}
 .ch-icon{fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex:none}
 .ch-k{font-family:'Martian Mono',Menlo,monospace;font-weight:500;font-size:9.5px;line-height:14px;letter-spacing:.12em;text-transform:uppercase;color:#6E6A7C}
 .ch-v{margin:4px 0 0;font-weight:600;font-size:16px;line-height:21px;color:#1A1B33;overflow-wrap:anywhere}
+.ch-dash{fill:none;stroke:#2A44C4;stroke-width:1.6;stroke-dasharray:3 4;stroke-linecap:round}
+.ch-ring2{fill:none;stroke:#FFFDF9;stroke-width:1.3}
 .ch-blob{position:absolute;border-radius:50%;filter:blur(36px);pointer-events:none}
 .ch-float{animation:ch-float 12s ease-in-out infinite alternate}
 .ch-float2{animation:ch-float 15s ease-in-out -5s infinite alternate-reverse}
@@ -24,8 +26,8 @@ body{margin:0;background:#F5E2D2}
 
 /* chipta */
 .ch-tw{position:absolute;left:28px;width:334px;filter:drop-shadow(0 22px 26px rgba(26,27,51,.16)) drop-shadow(0 2px 3px rgba(26,27,51,.08))}
-.ch-main{position:relative;height:454px;background:#FFFDF9;border-radius:22px 22px 0 0;clip-path:ZIGMAIN}
-.ch-stub{position:absolute;left:0;top:448px;width:334px;height:142px;background:#FFFDF9;border-radius:0 0 22px 22px;clip-path:ZIGSTUB;transform-origin:100% 0}
+.ch-main{position:relative;height:454px;background:#FFFDF9;border-radius:22px 22px 0 0;clip-path:polygon(0 0, 100% 0, 334.0px calc(100% - 6px), 325.6px calc(100% - 0px), 317.3px calc(100% - 6px), 308.9px calc(100% - 0px), 300.6px calc(100% - 6px), 292.2px calc(100% - 0px), 283.9px calc(100% - 6px), 275.6px calc(100% - 0px), 267.2px calc(100% - 6px), 258.8px calc(100% - 0px), 250.5px calc(100% - 6px), 242.1px calc(100% - 0px), 233.8px calc(100% - 6px), 225.4px calc(100% - 0px), 217.1px calc(100% - 6px), 208.8px calc(100% - 0px), 200.4px calc(100% - 6px), 192.0px calc(100% - 0px), 183.7px calc(100% - 6px), 175.3px calc(100% - 0px), 167.0px calc(100% - 6px), 158.7px calc(100% - 0px), 150.3px calc(100% - 6px), 141.9px calc(100% - 0px), 133.6px calc(100% - 6px), 125.2px calc(100% - 0px), 116.9px calc(100% - 6px), 108.5px calc(100% - 0px), 100.2px calc(100% - 6px), 91.8px calc(100% - 0px), 83.5px calc(100% - 6px), 75.1px calc(100% - 0px), 66.8px calc(100% - 6px), 58.4px calc(100% - 0px), 50.1px calc(100% - 6px), 41.8px calc(100% - 0px), 33.4px calc(100% - 6px), 25.0px calc(100% - 0px), 16.7px calc(100% - 6px), 8.3px calc(100% - 0px), 0.0px calc(100% - 6px))}
+.ch-stub{position:absolute;left:0;top:448px;width:334px;height:142px;background:#FFFDF9;border-radius:0 0 22px 22px;clip-path:polygon(0.0px 0px, 8.3px 6px, 16.7px 0px, 25.0px 6px, 33.4px 0px, 41.8px 6px, 50.1px 0px, 58.4px 6px, 66.8px 0px, 75.1px 6px, 83.5px 0px, 91.8px 6px, 100.2px 0px, 108.5px 6px, 116.9px 0px, 125.2px 6px, 133.6px 0px, 141.9px 6px, 150.3px 0px, 158.7px 6px, 167.0px 0px, 175.3px 6px, 183.7px 0px, 192.0px 6px, 200.4px 0px, 208.8px 6px, 217.1px 0px, 225.4px 6px, 233.8px 0px, 242.1px 6px, 250.5px 0px, 258.8px 6px, 267.2px 0px, 275.6px 6px, 283.9px 0px, 292.2px 6px, 300.6px 0px, 308.9px 6px, 317.3px 0px, 325.6px 6px, 334.0px 0px, 100% 100%, 0 100%);transform-origin:100% 0}
 .ch-band{position:relative;height:96px;background:#2A44C4;color:#FFFDF9;border-radius:22px 22px 0 0;overflow:hidden}
 .ch-band::after{content:'';position:absolute;inset:0;background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.22) 45%,transparent 60%);transform:translateX(-120%);animation:ch-shine 5.5s ease-in-out 1.2s infinite}
 @keyframes ch-shine{0%{transform:translateX(-120%)}35%,100%{transform:translateX(120%)}}
@@ -153,7 +155,7 @@ body{margin:0;background:#F5E2D2}
         <div style="padding: 18px 20px 0">
           <div style="display: grid; grid-template-columns: minmax(0, 1fr) 76px minmax(0, 1fr); align-items: end">
             <div style="min-width: 0"><p class="ch-k" style="margin: 0">Kuyov</p><p class="ch-code" style="margin: 2px 0 0">{{ codeK }}</p><p style="margin: 0; font-size: 13px; line-height: 18px; color: #6E6A7C; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{ d.kuyov }}</p></div>
-            <svg width="76" height="40" viewBox="0 0 76 40" aria-hidden="true" style="margin-bottom: 22px"><path class="ch-dash" d="M4 30C20 6 56 6 72 30"></path><circle cx="38" cy="12" r="9" fill="#2A44C4"></circle><path class="ch-ring2" d="M34.5 12a3 3 0 1 0 0 .01M41.5 12a3 3 0 1 0 0 .01"></path></svg>
+            <svg width="76" height="40" viewBox="0 0 76 40" aria-hidden="true" style="margin-bottom: 22px"><path class="ch-dash" d="M4 30C20 6 56 6 72 30"></path><circle cx="38" cy="12" r="9" fill="#2A44C4"></circle><circle class="ch-ring2" cx="35.8" cy="12" r="3.2"></circle><circle class="ch-ring2" cx="40.2" cy="12" r="3.2"></circle></svg>
             <div style="min-width: 0; text-align: right"><p class="ch-k" style="margin: 0">Kelin</p><p class="ch-code" style="margin: 2px 0 0">{{ codeM }}</p><p style="margin: 0; font-size: 13px; line-height: 18px; color: #6E6A7C; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{ d.kelin }}</p></div>
           </div>
           <div style="height: 0; margin: 16px 0 0; border-top: 1.5px dashed #E3D3C6"></div>
@@ -211,7 +213,7 @@ body{margin:0;background:#F5E2D2}
         <div style="padding: 18px 20px 0">
           <h1 style="margin: 0; display: grid; grid-template-columns: minmax(0, 1fr) 76px minmax(0, 1fr); align-items: end; font-size: inherit; font-weight: inherit">
             <span style="display: block; min-width: 0"><span class="ch-k" style="display: block">Kuyov</span><span class="ch-code" style="display: block; margin-top: 2px">{{ codeK }}</span><span style="display: block; font-size: 13px; line-height: 18px; color: #6E6A7C; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{ d.kuyov }}</span></span>
-            <svg width="76" height="40" viewBox="0 0 76 40" aria-hidden="true" style="margin-bottom: 22px"><path class="ch-dash" d="M4 30C20 6 56 6 72 30"></path><circle cx="38" cy="12" r="9" fill="#2A44C4"></circle><path class="ch-ring2" d="M34.5 12a3 3 0 1 0 0 .01M41.5 12a3 3 0 1 0 0 .01"></path></svg>
+            <svg width="76" height="40" viewBox="0 0 76 40" aria-hidden="true" style="margin-bottom: 22px"><path class="ch-dash" d="M4 30C20 6 56 6 72 30"></path><circle cx="38" cy="12" r="9" fill="#2A44C4"></circle><circle class="ch-ring2" cx="35.8" cy="12" r="3.2"></circle><circle class="ch-ring2" cx="40.2" cy="12" r="3.2"></circle></svg>
             <span style="display: block; min-width: 0; text-align: right"><span class="ch-k" style="display: block">Kelin</span><span class="ch-code" style="display: block; margin-top: 2px">{{ codeM }}</span><span style="display: block; font-size: 13px; line-height: 18px; color: #6E6A7C; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{ d.kelin }}</span></span>
           </h1>
           <div style="height: 0; margin: 16px 0 0; border-top: 1.5px dashed #E3D3C6"></div>
@@ -430,7 +432,7 @@ body{margin:0;background:#F5E2D2}
 
   <!-- ============ YAKUN ============ -->
   <footer style="position: relative; margin-top: auto; padding: 72px 28px 34px; text-align: center; display: flex; flex-direction: column; align-items: center">
-    <svg width="92" height="40" viewBox="0 0 76 40" aria-hidden="true"><path class="ch-dash" d="M4 30C20 6 56 6 72 30"></path><circle cx="38" cy="12" r="9" fill="#2A44C4"></circle><path class="ch-ring2" d="M34.5 12a3 3 0 1 0 0 .01M41.5 12a3 3 0 1 0 0 .01"></path></svg>
+    <svg width="92" height="40" viewBox="0 0 76 40" aria-hidden="true"><path class="ch-dash" d="M4 30C20 6 56 6 72 30"></path><circle cx="38" cy="12" r="9" fill="#2A44C4"></circle><circle class="ch-ring2" cx="35.8" cy="12" r="3.2"></circle><circle class="ch-ring2" cx="40.2" cy="12" r="3.2"></circle></svg>
     <p style="margin: 14px 0 0; font-weight: 600; font-size: 30px; line-height: 36px; letter-spacing: -0.025em">Baxt sari<br>xayrli yo’l!</p>
     <p style="margin: 12px 0 0; max-width: 300px; font-size: 15px; line-height: 23px; color: #5A5870; text-wrap: pretty">Tashrifingizdan xursand bo’lamiz. Alloh ikki yoshga baxtli va totuv hayot nasib etsin.</p>
     <sc-if value="{{ d.taklif_qiluvchilar }}"><p class="ch-k" style="margin: 18px 0 0; color: #1A1B33; overflow-wrap: anywhere">{{ d.taklif_qiluvchilar }}</p></sc-if>

@@ -1,0 +1,497 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<title>Uzr VIP: Shovqin tindi</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#B14A34}
+.g-it{font-family:'Inter Tight','Helvetica Neue',Arial,sans-serif}
+.g-mo{font-family:'JetBrains Mono','SFMono-Regular',Menlo,Consolas,monospace}
+.g-ic{fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.g-ic2{fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.g-grid{background-image:linear-gradient(rgba(43,33,28,.05) 1px,rgba(43,33,28,0) 1px),linear-gradient(90deg,rgba(43,33,28,.05) 1px,rgba(43,33,28,0) 1px);background-size:26px 26px}
+.g-full{position:absolute;left:0;top:0;width:390px;height:844px}
+.g-warmbg{background:radial-gradient(70% 40% at 50% 46%,rgba(244,165,138,.42) 0%,rgba(244,165,138,0) 100%),radial-gradient(60% 30% at 10% 90%,rgba(214,180,220,.35) 0%,rgba(214,180,220,0) 100%),linear-gradient(180deg,#F7EEE6 0%,#F3E7DD 100%)}
+/* kirish: buzilgan ekran */
+.g-intro{transition:opacity .9s ease 3.1s,visibility 0s linear 4s}
+.g-intro--open{opacity:0;visibility:hidden;pointer-events:none}
+.g-jit{animation:gJit 3.2s steps(1) infinite}
+@keyframes gJit{0%,100%{transform:none}8%{transform:translate(4px,-2px) skewX(-4deg)}9%{transform:translate(-3px,1px)}10%{transform:none}52%{transform:translate(-5px,0) skewX(3deg)}53%{transform:translate(2px,2px)}54%{transform:none}77%{transform:translateX(6px)}78%{transform:none}}
+.g-ok .g-jit{animation:gSurge .6s steps(6) 1}
+@keyframes gSurge{0%{transform:translate(8px,-3px) skewX(-8deg)}33%{transform:translate(-10px,2px) skewX(6deg)}66%{transform:translate(5px,1px)}100%{transform:none}}
+.g-rgb{position:relative;display:block}
+.g-c,.g-m,.g-sl{position:absolute;left:0;top:0;width:100%;pointer-events:none;transition:opacity .8s ease .5s,transform .8s cubic-bezier(.2,.9,.3,1) .3s}
+.g-c{color:#3FE6FF;mix-blend-mode:screen;opacity:.9;animation:gC 1.1s steps(3) infinite}
+.g-m{color:#FF3D9A;mix-blend-mode:screen;opacity:.9;animation:gM 1.3s steps(3) infinite}
+@keyframes gC{0%{transform:translate(-5px,1px)}33%{transform:translate(-2px,-1px)}66%{transform:translate(-7px,0)}100%{transform:translate(-4px,2px)}}
+@keyframes gM{0%{transform:translate(5px,-1px)}33%{transform:translate(3px,1px)}66%{transform:translate(7px,0)}100%{transform:translate(4px,-2px)}}
+.g-sl{color:#FFFFFF;-webkit-clip-path:inset(34% 0 44% 0);clip-path:inset(34% 0 44% 0);animation:gSl 1.7s steps(5) infinite}
+.g-sl2{-webkit-clip-path:inset(68% 0 12% 0);clip-path:inset(68% 0 12% 0);animation-duration:2.3s;animation-direction:reverse}
+@keyframes gSl{0%{transform:translateX(14px)}20%{transform:translateX(-9px)}40%{transform:translateX(4px)}60%{transform:translateX(-16px)}80%{transform:translateX(7px)}100%{transform:translateX(0)}}
+.g-ok .g-c,.g-ok .g-m,.g-ok .g-sl{animation:none;opacity:0;transform:none}
+.g-base{color:#F4F6FF;transition:color 1s ease 1.2s}
+.g-ok .g-base{color:#2B211C}
+.g-dim{color:#9AA3C7;transition:color 1s ease 1.2s}
+.g-ok .g-dim{color:#6E5D53}
+.g-scan{background:repeating-linear-gradient(180deg,rgba(255,255,255,.07) 0 1px,rgba(255,255,255,0) 1px 4px);transition:opacity .8s ease .5s}
+.g-roll{position:absolute;left:0;width:390px;height:70px;background:linear-gradient(180deg,rgba(120,240,255,0),rgba(120,240,255,.09),rgba(255,60,154,.06),rgba(255,60,154,0));animation:gRoll 3.6s linear infinite;transition:opacity .6s ease .4s}
+@keyframes gRoll{from{transform:translateY(-80px)}to{transform:translateY(880px)}}
+.g-ok .g-scan,.g-ok .g-roll,.g-ok .g-blkw{opacity:0}
+.g-blkw{transition:opacity .5s ease .4s}
+.g-blk{position:absolute;display:block;animation:gBlk 2.2s steps(1) infinite}
+@keyframes gBlk{0%,100%{opacity:0}12%{opacity:.85}18%{opacity:0}46%{opacity:.7}49%{opacity:0}71%{opacity:.9}73%{opacity:0}}
+.g-warm{opacity:0;transition:opacity 1.2s ease .9s}
+.g-ok .g-warm{opacity:1}
+.g-flash{position:absolute;left:0;top:0;width:390px;height:844px;background:#FFFFFF;opacity:0;pointer-events:none}
+.g-ok .g-flash{animation:gFlash .8s ease .35s both}
+@keyframes gFlash{0%{opacity:0}25%{opacity:.85}100%{opacity:0}}
+.g-frame{position:absolute;left:12px;top:12px;width:366px;height:820px;box-sizing:border-box;border-radius:30px;border:1px solid rgba(160,180,255,.22);transition:border-color 1s ease 1.2s}
+.g-ok .g-frame{border-color:rgba(43,33,28,.12)}
+/* shar */
+.g-orb{position:absolute;width:220px;height:220px;border-radius:50%}
+.g-orbD{background:radial-gradient(circle at 40% 34%,#2C3350 0%,#151A2C 60%,#0C0F1A 100%);box-shadow:inset 0 0 0 1px rgba(160,180,255,.25);transition:opacity .8s ease 1s}
+.g-orbC{border:3px solid #3FE6FF;mix-blend-mode:screen;animation:gC 1.1s steps(3) infinite}
+.g-orbM{border:3px solid #FF3D9A;mix-blend-mode:screen;animation:gM 1.3s steps(3) infinite}
+.g-orbS{background:linear-gradient(90deg,#3FE6FF,#FFFFFF,#FF3D9A);-webkit-clip-path:inset(46% 0 46% 0);clip-path:inset(46% 0 46% 0);opacity:.75;animation:gSl 1.5s steps(5) infinite}
+.g-orbC,.g-orbM,.g-orbS{transition:opacity .7s ease .4s}
+.g-ok .g-orbC,.g-ok .g-orbM,.g-ok .g-orbS{animation:none;opacity:0}
+.g-ok .g-orbD{opacity:0}
+.g-orbW{background:radial-gradient(circle at 42% 36%,#FFF1E4 0%,#FBC9AE 38%,#F09A86 72%,#E3857F 100%);box-shadow:0 30px 70px -20px rgba(227,133,127,.55),0 0 90px 10px rgba(251,201,174,.45);opacity:0;transform:scale(.86);transition:opacity 1.1s ease 1.1s,transform 1.4s cubic-bezier(.2,.9,.3,1) 1s}
+.g-ok .g-orbW{opacity:1;transform:none}
+.g-breath{animation:gBreath 6s ease-in-out infinite}
+@keyframes gBreath{0%,100%{transform:scale(1)}50%{transform:scale(1.04)}}
+/* oyna */
+.g-cardA{transition:opacity .4s ease .2s,transform .4s ease .2s}
+.g-ok .g-cardA{opacity:0;transform:translateY(-10px);pointer-events:none}
+.g-cardB{opacity:0;transform:translateY(10px);transition:opacity .6s ease 2s,transform .6s ease 2s}
+.g-ok .g-cardB{opacity:1;transform:none}
+.g-bar{height:4px;border-radius:2px;background:rgba(255,255,255,.12);overflow:hidden}
+.g-bar i{display:block;width:0;height:100%;background:linear-gradient(90deg,#3FE6FF,#FF3D9A);transition:width 1.6s cubic-bezier(.4,0,.2,1) .1s}
+.g-ok .g-bar i{width:100%}
+.g-blink{animation:gBlink 1s steps(1) infinite}
+@keyframes gBlink{0%,100%{opacity:1}50%{opacity:.2}}
+.g-st1{transition:opacity .3s ease .9s}
+.g-ok .g-st1{opacity:0}
+.g-st2{opacity:0;transition:opacity .4s ease 1.9s}
+.g-ok .g-st2{opacity:1}
+.g-bob{animation:gBob 2.4s ease-in-out infinite}
+@keyframes gBob{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+/* bloklar */
+.g-win{position:relative;margin:0 16px;border-radius:24px;background:rgba(255,255,255,.72);border:1px solid rgba(43,33,28,.1);box-shadow:0 26px 50px -34px rgba(120,70,50,.5);overflow:hidden}
+.g-tbar{display:flex;align-items:center;gap:7px;height:40px;padding:0 16px;border-bottom:1px solid rgba(43,33,28,.08);background:rgba(255,248,242,.7)}
+.g-tbar i{display:block;width:10px;height:10px;border-radius:50%}
+.g-tag{font-family:'JetBrains Mono',Menlo,monospace;font-size:12px;font-weight:500;letter-spacing:.04em;color:#6E5D53}
+.g-initial{float:left;width:58px;height:58px;margin:4px 14px 0 0;border-radius:14px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#FBC9AE,#F09A86);color:#2B211C;font-family:'Inter Tight',Arial,sans-serif;font-size:32px;font-weight:700;line-height:1;box-shadow:-4px 0 0 rgba(120,200,220,.4),4px 0 0 rgba(240,120,160,.35)}
+.g-ph{position:absolute;overflow:hidden;border-radius:18px;background:#EAD8CB;box-shadow:-5px 0 0 rgba(120,200,220,.35),5px 0 0 rgba(240,120,160,.3),0 20px 34px -22px rgba(90,50,40,.6)}
+.g-ph img{width:100%;height:100%;object-fit:cover;display:block}
+.g-row{display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-top:1px dashed rgba(43,33,28,.14)}
+.g-box{position:relative;flex:none;width:24px;height:24px;margin-top:1px;box-sizing:border-box;border-radius:7px;border:1.5px solid rgba(43,33,28,.35);background:#FFFFFF;transition:background .3s ease,border-color .3s ease}
+.g-box svg{position:absolute;left:3px;top:3px;opacity:0;transform:scale(.6);transition:opacity .25s ease,transform .3s cubic-bezier(.3,1.5,.5,1)}
+.g-inst .g-box{background:#2B211C;border-color:#2B211C}
+.g-inst .g-box svg{opacity:1;transform:none}
+.g-pbar{height:6px;border-radius:3px;background:rgba(43,33,28,.1);overflow:hidden}
+.g-pbar i{display:block;width:0;height:100%;border-radius:3px;background:linear-gradient(90deg,#F2B8A0,#E3857F)}
+.g-inst .g-pbar i{width:100%}
+.g-btn{transition:transform .15s ease}
+.g-btn:active{transform:scale(.98)}
+.g-btn:focus-visible{outline:3px solid #3FE6FF;outline-offset:3px}
+.g-btnW:focus-visible{outline-color:#2B211C}
+.g-pop{animation:gPop .55s cubic-bezier(.2,1.3,.4,1) both}
+@keyframes gPop{from{opacity:0;transform:scale(.95) translateY(8px)}to{opacity:1;transform:none}}
+.g-ta::placeholder{color:#8A7A70}
+.g-ta:focus{outline:2px solid #E3857F;outline-offset:1px}
+.g-eq{display:flex;align-items:flex-end;gap:3px;height:16px}
+.g-eq span{width:3px;height:16px;border-radius:2px;background:#2B211C;transform-origin:50% 100%;animation:gEq 1s ease-in-out infinite}
+@keyframes gEq{0%,100%{transform:scaleY(.3)}50%{transform:scaleY(1)}}
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{animation:none !important;transition:none !important}.g-c,.g-m,.g-sl,.g-orbC,.g-orbM,.g-orbS{opacity:.5}.g-ok .g-c,.g-ok .g-m,.g-ok .g-sl,.g-ok .g-orbC,.g-ok .g-orbM,.g-ok .g-orbS{opacity:0}.g-inst .g-pbar i{width:100%}}
+</style>
+</helmet>
+<div style="width: 390px; min-height: var(--vh, 100vh); position: relative; overflow: hidden; color: #2B211C; font-family: 'Inter Tight', 'Helvetica Neue', Arial, sans-serif; display: flex; flex-direction: column; background-color: #F3E9E0">
+
+  <sc-if value="{{ has.music }}">
+  <button type="button" class="g-btn g-btnW" onClick="{{ toggleMusic }}" aria-label="Musiqa" aria-pressed="{{ musicOn }}" style="position: absolute; right: 22px; top: 52px; z-index: 30; width: 44px; height: 44px; padding: 0; border: 1px solid rgba(43, 33, 28, 0.14); border-radius: 14px; background: rgba(255, 255, 255, 0.75); display: flex; align-items: center; justify-content: center; cursor: pointer">
+    <sc-if value="{{ musicOff }}">
+      <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 17.5V6l10-2v11.5" stroke="#2B211C" class="g-ic"></path><circle cx="6.8" cy="17.5" r="2.2" stroke="#2B211C" class="g-ic"></circle><circle cx="16.8" cy="15.5" r="2.2" stroke="#2B211C" class="g-ic"></circle></svg>
+    </sc-if>
+    <sc-if value="{{ musicOn }}">
+      <span class="g-eq" aria-hidden="true"><span></span><span style="animation-delay: -0.3s"></span><span style="animation-delay: -0.6s"></span><span style="animation-delay: -0.15s"></span></span>
+    </sc-if>
+  </button>
+  </sc-if>
+
+  <!-- KIRISH: buzilgan ekran -->
+  <div class="{{ introCls }}" data-intro style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; z-index: 20; overflow: hidden; background-color: #07080D">
+    <div class="g-full" aria-hidden="true" style="background: radial-gradient(70% 45% at 50% 44%, rgba(60, 70, 140, 0.35) 0%, rgba(60, 70, 140, 0) 100%)"></div>
+    <div class="g-full g-warm g-warmbg" aria-hidden="true"></div>
+    <div class="g-full g-warm g-grid" aria-hidden="true"></div>
+
+    <div class="g-jit" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px">
+      <div class="g-frame" aria-hidden="true"></div>
+      <div class="g-mo" style="position: absolute; left: 30px; right: 30px; top: 30px; height: 20px; font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase">
+        <span class="g-st1" style="position: absolute; left: 0; top: 0; color: #FF5AA8"><span class="g-blink">●</span> Signal yo’q</span>
+        <span class="g-st1" style="position: absolute; right: 0; top: 0; color: #7E88B8">ERR 0x2F</span>
+        <span class="g-st2" style="position: absolute; left: 0; top: 0; color: #2B211C"><span style="color: #E3857F">●</span> Ulandi</span>
+        <span class="g-st2" style="position: absolute; right: 0; top: 0; color: #6E5D53">100%</span>
+      </div>
+
+      <div style="position: absolute; left: 30px; right: 30px; top: 92px">
+        <p class="g-mo g-dim" style="margin: 0; font-size: 12px; font-weight: 500; letter-spacing: 0.08em; overflow-wrap: anywhere">{{ fromTo }}</p>
+        <div class="g-it" style="margin-top: 12px; font-size: {{ h1Size }}; font-weight: 800; line-height: 1.02; letter-spacing: -0.04em" aria-hidden="true">
+          <span class="g-rgb"><span class="g-base" style="overflow-wrap: anywhere">{{ d.kimga }},</span><span class="g-c" style="overflow-wrap: anywhere">{{ d.kimga }},</span><span class="g-m" style="overflow-wrap: anywhere">{{ d.kimga }},</span><span class="g-sl" style="overflow-wrap: anywhere">{{ d.kimga }},</span></span>
+          <span class="g-rgb" style="margin-top: 4px"><span class="g-base">{{ line2 }}</span><span class="g-c">{{ line2 }}</span><span class="g-m">{{ line2 }}</span><span class="g-sl g-sl2">{{ line2 }}</span></span>
+        </div>
+      </div>
+
+      <div aria-hidden="true" style="position: absolute; left: 85px; top: 300px; width: 220px; height: 220px">
+        <span class="g-orb g-orbD" style="left: 0; top: 0"></span>
+        <span class="g-orb g-orbC" style="left: 0; top: 0; box-sizing: border-box"></span>
+        <span class="g-orb g-orbM" style="left: 0; top: 0; box-sizing: border-box"></span>
+        <span class="g-orb g-orbS" style="left: 0; top: 0"></span>
+        <span class="g-orb g-orbW" style="left: 0; top: 0"></span>
+      </div>
+
+      <div class="g-blkw" aria-hidden="true">
+        <span class="g-blk" style="left: 30px; top: 266px; width: 140px; height: 8px; background: #3FE6FF"></span>
+        <span class="g-blk" style="left: 210px; top: 330px; width: 120px; height: 14px; background: #FF3D9A; animation-delay: -0.7s"></span>
+        <span class="g-blk" style="left: 60px; top: 470px; width: 90px; height: 6px; background: #FFFFFF; animation-delay: -1.3s"></span>
+        <span class="g-blk" style="left: 250px; top: 196px; width: 70px; height: 22px; background: rgba(63, 230, 255, 0.6); animation-delay: -1.8s"></span>
+        <span class="g-blk" style="left: 0; top: 410px; width: 390px; height: 3px; background: rgba(255, 255, 255, 0.7); animation-delay: -0.4s"></span>
+        <span class="g-blk" style="left: 150px; top: 560px; width: 180px; height: 10px; background: rgba(255, 61, 154, 0.7); animation-delay: -1s"></span>
+      </div>
+
+      <div class="g-cardA" style="position: absolute; left: 30px; right: 30px; top: 566px; padding: 20px 20px 20px; border-radius: 22px; background: rgba(18, 20, 32, 0.88); border: 1px solid rgba(160, 180, 255, 0.2); box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.8)">
+        <div style="display: flex; align-items: center; gap: 10px">
+          <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5 L21.5 20 H2.5 Z" stroke="#FF5AA8" class="g-ic"></path><path d="M12 10v4.5M12 17.4v.1" stroke="#FF5AA8" class="g-ic2"></path></svg>
+          <p class="g-it" style="margin: 0; font-size: 19px; font-weight: 700; color: #F4F6FF">Aloqa uzildi</p>
+          <span class="g-mo" style="margin-left: auto; font-size: 11px; color: #7E88B8">{{ glitchCode }}</span>
+        </div>
+        <p class="g-mo" style="margin: 10px 0 0; font-size: 13px; line-height: 1.6; color: #B7BEE0">Oramizdagi signal buzildi. Hammasi mening xatoim. Qayta ulashga ruxsat ber.</p>
+        <div class="g-bar" aria-hidden="true" style="margin-top: 14px"><i></i></div>
+        <button type="button" class="g-btn g-mo" onClick="{{ heal }}" aria-label="Qayta ulash" style="margin-top: 14px; width: 100%; height: 52px; border: 1.5px solid #3FE6FF; border-radius: 26px; background: rgba(63, 230, 255, 0.08); color: #CFFAFF; font-size: 14px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; pointer-events: {{ healPe }}">
+          <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M19.5 12a7.5 7.5 0 1 1-2.2-5.3M19.5 4.5v4.2h-4.2" stroke="#3FE6FF" class="g-ic2"></path></svg>
+          <span>{{ healLabel }}</span>
+        </button>
+      </div>
+
+      <div class="g-cardB" aria-hidden="true" style="position: absolute; left: 30px; right: 30px; top: 566px">
+        <p class="g-mo" style="margin: 0; font-size: 12px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: #B14A34">// holat: barqaror</p>
+        <p class="g-it" style="margin: 10px 0 0; font-size: 19px; font-weight: 500; line-height: 1.5; color: #2B211C">Oramizdagi shovqin tindi. Endi gapimni tinch va aniq aytaman.</p>
+      </div>
+
+      <div class="g-full g-scan" aria-hidden="true"></div>
+      <div class="g-roll" aria-hidden="true"></div>
+      <div class="g-flash" aria-hidden="true"></div>
+    </div>
+  </div>
+
+  <!-- BOSH QISM: tinch ekran -->
+  <header style="flex: none; position: relative; height: 844px; overflow: hidden">
+    <div class="g-full g-warmbg" aria-hidden="true"></div>
+    <div class="g-full g-grid" aria-hidden="true"></div>
+    <div class="g-frame" aria-hidden="true" style="border-color: rgba(43, 33, 28, 0.12)"></div>
+    <div class="g-mo" style="position: absolute; left: 30px; right: 30px; top: 30px; height: 20px; font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: #2B211C">
+      <span style="position: absolute; left: 0; top: 0"><span style="color: #E3857F">●</span> Ulandi</span>
+      <span style="position: absolute; right: 0; top: 0; color: #6E5D53">100%</span>
+    </div>
+    <div style="position: absolute; left: 30px; right: 30px; top: 92px">
+      <p class="g-mo" style="margin: 0; font-size: 12px; font-weight: 500; letter-spacing: 0.08em; color: #6E5D53; overflow-wrap: anywhere">{{ fromTo }}</p>
+      <h1 class="g-it" style="margin: 12px 0 0; font-size: {{ h1Size }}; font-weight: 800; line-height: 1.02; letter-spacing: -0.04em">
+        <span style="display: block; overflow-wrap: anywhere">{{ d.kimga }},</span>
+        <span style="display: block; margin-top: 4px">kechir meni.</span>
+      </h1>
+    </div>
+    <div aria-hidden="true" style="position: absolute; left: 85px; top: 300px; width: 220px; height: 220px">
+      <span class="g-orb g-breath" style="left: 0; top: 0; background: radial-gradient(circle at 42% 36%, #FFF1E4 0%, #FBC9AE 38%, #F09A86 72%, #E3857F 100%); box-shadow: 0 30px 70px -20px rgba(227, 133, 127, 0.55), 0 0 90px 10px rgba(251, 201, 174, 0.45)"></span>
+    </div>
+    <div style="position: absolute; left: 30px; right: 30px; top: 566px">
+      <p class="g-mo" style="margin: 0; font-size: 12px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: #B14A34">// holat: barqaror</p>
+      <p class="g-it" style="margin: 10px 0 0; font-size: 19px; font-weight: 500; line-height: 1.5; color: #2B211C">Oramizdagi shovqin tindi. Endi gapimni tinch va aniq aytaman.</p>
+    </div>
+    <svg class="g-bob" width="28" height="28" viewBox="0 0 24 24" aria-hidden="true" style="position: absolute; left: 181px; top: 772px"><path d="M6 9.5 L12 15.5 L18 9.5" stroke="#2B211C" class="g-ic2"></path></svg>
+  </header>
+
+  <div class="g-grid" style="flex: none; display: flex; flex-direction: column; gap: 24px; padding: 6px 0 34px">
+
+  <sc-if value="{{ b.maktub }}">
+  <section class="g-win">
+    <div class="g-tbar"><i style="background: #F09A86"></i><i style="background: #F2C9A0"></i><i style="background: #CDBFD6"></i><span class="g-tag" style="margin-left: 8px">{{ k1 }}_maktub.txt</span></div>
+    <div style="padding: 24px 22px 24px">
+      <h2 class="g-it" style="margin: 0; font-size: 30px; font-weight: 800; line-height: 1.1; letter-spacing: -0.035em">Yuragimdagi gaplar</h2>
+      <p class="g-it" style="margin: 18px 0 0; font-size: 17px; line-height: 1.68; color: #3A2E27; white-space: pre-line; overflow-wrap: anywhere"><span class="g-initial" aria-hidden="true">{{ dropCap }}</span>{{ dropRest }}</p>
+      <div style="margin-top: 20px; padding-top: 14px; border-top: 1px dashed rgba(43, 33, 28, 0.2); display: flex; align-items: center; justify-content: space-between; gap: 12px">
+        <span class="g-mo" style="flex: none; height: 30px; padding: 0 10px; border-radius: 8px; background: #2B211C; color: #FBE3D4; display: inline-flex; align-items: center; font-size: 12px; font-weight: 700; letter-spacing: 0.08em">{{ iniFrom }}/{{ iniTo }}</span>
+        <span class="g-it" style="font-size: {{ sigSize }}; font-weight: 700; line-height: 1.25; text-align: right; overflow-wrap: anywhere">{{ d.kimdan }}</span>
+      </div>
+    </div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.galereya }}">
+  <section class="g-win">
+    <div class="g-tbar"><i style="background: #F09A86"></i><i style="background: #F2C9A0"></i><i style="background: #CDBFD6"></i><span class="g-tag" style="margin-left: 8px">{{ k2 }}_xotiralar/</span></div>
+    <div style="padding: 24px 20px 22px">
+      <h2 class="g-it" style="margin: 0; font-size: 30px; font-weight: 800; line-height: 1.1; letter-spacing: -0.035em">Toza kadrlar</h2>
+      <p class="g-it" style="margin: 6px 0 0; font-size: 15px; line-height: 1.5; color: #6E5D53">Hech qanday shovqin ularni o’chirolmaydi.</p>
+      <div style="position: relative; margin-top: 20px; height: {{ galH }}">
+        <div class="g-ph" style="left: 5px; top: 0; width: {{ g0w }}; height: {{ g0h }}"><img src="{{ p.0 }}" alt="" loading="lazy"></div>
+        <sc-if value="{{ g2 }}">
+        <div class="g-ph" style="left: {{ g1x }}; top: {{ g1y }}; width: {{ g1w }}; height: {{ g1h }}"><img src="{{ p.1 }}" alt="" loading="lazy"></div>
+        </sc-if>
+        <sc-if value="{{ g3 }}">
+        <div class="g-ph" style="left: 168px; top: 214px; width: 140px; height: 150px"><img src="{{ p.2 }}" alt="" loading="lazy"></div>
+        </sc-if>
+      </div>
+      <p class="g-mo" style="margin: 16px 0 0; font-size: 12px; letter-spacing: 0.06em; color: #6E5D53; text-align: right">{{ galCount }}</p>
+    </div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.vadalar }}">
+  <section class="{{ vowCls }}">
+    <div class="g-tbar"><i style="background: #F09A86"></i><i style="background: #F2C9A0"></i><i style="background: #CDBFD6"></i><span class="g-tag" style="margin-left: 8px">{{ k3 }}_yangilanish.log</span></div>
+    <div style="padding: 24px 20px 22px">
+      <span class="g-mo" style="font-size: 12px; font-weight: 500; letter-spacing: 0.08em; color: #B14A34">munosabat · yangi versiya</span>
+      <h2 class="g-it" style="margin: 8px 0 0; font-size: 30px; font-weight: 800; line-height: 1.1; letter-spacing: -0.035em">Nimalar o’zgaradi</h2>
+      <div style="margin-top: 16px">
+        <sc-for list="{{ promises }}" as="v">
+        <div class="g-row">
+          <span class="g-box" aria-hidden="true" style="transition-delay: {{ v.dl }}"><svg width="15" height="15" viewBox="0 0 24 24" style="transition-delay: {{ v.dl }}"><path d="M5 12.5 L10 17.5 L19 7" stroke="#FBE3D4" class="g-ic2" style="stroke-width: 3"></path></svg></span>
+          <span class="g-it" style="flex: 1; min-width: 0; font-size: 16.5px; line-height: 1.45; color: #2B211C; overflow-wrap: anywhere">{{ v.text }}</span>
+          <span class="g-mo" aria-hidden="true" style="flex: none; font-size: 11px; color: #8A7A70; margin-top: 4px">+{{ v.n }}</span>
+        </div>
+        </sc-for>
+      </div>
+      <div style="padding-top: 14px; border-top: 1px dashed rgba(43, 33, 28, 0.14)">
+        <sc-if value="{{ notAccepted }}">
+          <button type="button" class="g-btn g-btnW g-mo" onClick="{{ accept }}" style="width: 100%; height: 54px; border: 0; border-radius: 16px; background: #2B211C; color: #FBE3D4; font-size: 14px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px">
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 10.5l5 5 5-5M5 20h14" stroke="#F2B8A0" class="g-ic2"></path></svg>
+            <span>Yangilanishni o’rnatish</span>
+          </button>
+        </sc-if>
+        <sc-if value="{{ accepted }}">
+          <div class="g-pop" role="status" style="display: flex; flex-direction: column; gap: 10px">
+            <div class="g-pbar" aria-hidden="true"><i style="transition: width {{ instDur }} cubic-bezier(.4, 0, .2, 1)"></i></div>
+            <p class="g-mo" style="margin: 0; font-size: 13px; line-height: 1.5; color: #2B211C">O’rnatildi. Har birini bajaraman.</p>
+          </div>
+        </sc-if>
+      </div>
+    </div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.taklif }}">
+  <section class="g-win">
+    <div class="g-tbar"><i style="background: #F09A86"></i><i style="background: #F2C9A0"></i><i style="background: #CDBFD6"></i><span class="g-tag" style="margin-left: 8px">{{ k4 }}_taklif.ics</span></div>
+    <div style="padding: 22px 20px 22px">
+      <div style="display: flex; gap: 14px; align-items: flex-start">
+        <span aria-hidden="true" style="flex: none; width: 56px; height: 60px; border-radius: 14px; overflow: hidden; background: #FFFFFF; border: 1px solid rgba(43, 33, 28, 0.12); display: flex; flex-direction: column">
+          <span style="height: 18px; background: linear-gradient(90deg, #F2B8A0, #E3857F)"></span>
+          <svg width="56" height="40" viewBox="0 0 56 40"><path d="M18 21 L25 28 L38 14" stroke="#2B211C" class="g-ic2"></path></svg>
+        </span>
+        <div style="flex: 1; min-width: 0">
+          <span class="g-mo" style="font-size: 12px; font-weight: 500; letter-spacing: 0.08em; color: #B14A34">yangi uchrashuv</span>
+          <p class="g-it" style="margin: 6px 0 0; font-size: {{ offerSize }}; font-weight: 800; line-height: 1.18; letter-spacing: -0.03em; overflow-wrap: anywhere">{{ d.taklif }}</p>
+        </div>
+      </div>
+      <sc-if value="{{ hasChips }}">
+      <div style="margin-top: 16px; border-radius: 16px; background: rgba(243, 233, 224, 0.8); padding: 4px 14px">
+        <sc-if value="{{ d.taklif_vaqt }}">
+        <div style="display: flex; align-items: center; gap: 12px; min-height: 46px">
+          <span class="g-mo" style="flex: none; width: 72px; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: #6E5D53">Qachon</span>
+          <span class="g-it" style="flex: 1; min-width: 0; font-size: 16px; font-weight: 600; overflow-wrap: anywhere">{{ d.taklif_vaqt }}</span>
+        </div>
+        </sc-if>
+        <sc-if value="{{ bothChips }}"><span aria-hidden="true" style="display: block; height: 1px; background: rgba(43, 33, 28, 0.1)"></span></sc-if>
+        <sc-if value="{{ d.taklif_joy }}">
+        <div style="display: flex; align-items: center; gap: 12px; min-height: 46px">
+          <span class="g-mo" style="flex: none; width: 72px; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: #6E5D53">Qayerda</span>
+          <span class="g-it" style="flex: 1; min-width: 0; font-size: 16px; font-weight: 600; overflow-wrap: anywhere">{{ d.taklif_joy }}</span>
+        </div>
+        </sc-if>
+      </div>
+      </sc-if>
+      <div style="margin-top: 16px">
+        <sc-if value="{{ notAgreed }}">
+          <button type="button" class="g-btn g-btnW g-it" onClick="{{ agree }}" style="width: 100%; height: 56px; border: 0; border-radius: 28px; background: linear-gradient(90deg, #F2B8A0, #E3857F); color: #2B211C; font-size: 17px; font-weight: 700; cursor: pointer">Roziman, boraman</button>
+        </sc-if>
+        <sc-if value="{{ agreed }}">
+          <div class="g-pop" role="status" style="display: flex; align-items: center; gap: 12px; padding: 14px 16px; border-radius: 18px; background: #2B211C">
+            <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" style="flex: none"><circle cx="12" cy="12" r="10.5" fill="#F2B8A0"></circle><path d="M7.6 12.4 L10.6 15.4 L16.4 9" stroke="#2B211C" class="g-ic2"></path></svg>
+            <p class="g-it" style="margin: 0; font-size: 15px; line-height: 1.45; color: #FBE3D4; overflow-wrap: anywhere">{{ agreedText }}</p>
+          </div>
+        </sc-if>
+      </div>
+    </div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ showAnswer }}">
+  <section class="g-win">
+    <div class="g-tbar"><i style="background: #F09A86"></i><i style="background: #F2C9A0"></i><i style="background: #CDBFD6"></i><span class="g-tag" style="margin-left: 8px">{{ k5 }}_javob</span></div>
+    <div style="padding: 28px 20px 22px; display: flex; flex-direction: column; gap: 14px">
+      <div style="text-align: center">
+        <h2 class="g-it" style="margin: 0; font-size: 40px; font-weight: 800; line-height: 1.05; letter-spacing: -0.045em">Kechirasanmi?</h2>
+        <p class="g-it" style="margin: 10px 0 0; font-size: 15.5px; line-height: 1.5; color: #6E5D53">{{ askSub }}</p>
+      </div>
+      <sc-if value="{{ b.javob }}">
+      <sc-if value="{{ waiting }}">
+        <button type="button" class="g-btn g-btnW g-it" onClick="{{ forgive }}" style="width: 100%; height: 62px; border: 0; border-radius: 31px; background: #2B211C; color: #FBE3D4; font-size: 19px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 12px; box-shadow: -4px 0 0 rgba(120, 200, 220, 0.35), 4px 0 0 rgba(240, 120, 160, 0.3)">
+          <span aria-hidden="true" style="width: 12px; height: 12px; border-radius: 50%; background: #F2B8A0; box-shadow: 0 0 10px 3px rgba(242, 184, 160, 0.7)"></span>
+          <span>Kechirdim</span>
+        </button>
+      </sc-if>
+      <sc-if value="{{ forgiven }}">
+        <div class="g-pop" role="status" style="display: flex; align-items: center; gap: 14px; padding: 16px; border-radius: 20px; background: linear-gradient(120deg, #FBE3D4, #F6CDBD)">
+          <span aria-hidden="true" style="flex: none; width: 46px; height: 46px; border-radius: 50%; background: radial-gradient(circle at 42% 36%, #FFF1E4 0%, #FBC9AE 40%, #E3857F 100%); box-shadow: 0 0 18px 4px rgba(251, 201, 174, 0.8)"></span>
+          <div style="min-width: 0; display: flex; flex-direction: column; gap: 3px">
+            <p class="g-it" style="margin: 0; font-size: 19px; font-weight: 700; line-height: 1.3; overflow-wrap: anywhere">Rahmat, {{ d.kimga }}.</p>
+            <p class="g-it" style="margin: 0; font-size: 15px; line-height: 1.5; color: #4E3F37; white-space: pre-line; overflow-wrap: anywhere">{{ thanks }}</p>
+          </div>
+        </div>
+      </sc-if>
+      </sc-if>
+      <sc-if value="{{ both }}">
+      <div style="display: flex; align-items: center; gap: 10px">
+        <span aria-hidden="true" style="flex: 1; height: 1px; background: rgba(43, 33, 28, 0.16)"></span>
+        <span class="g-mo" style="font-size: 12px; color: #6E5D53">yoki o’z so’zlaring bilan</span>
+        <span aria-hidden="true" style="flex: 1; height: 1px; background: rgba(43, 33, 28, 0.16)"></span>
+      </div>
+      </sc-if>
+      <sc-if value="{{ b.sorov }}">
+      <sc-if value="{{ notSent }}">
+        <div style="display: flex; flex-direction: column; gap: 10px">
+          <label for="gReply" class="g-mo" style="font-size: 12px; font-weight: 500; letter-spacing: 0.08em; color: #6E5D53">&gt; javob yozish</label>
+          <textarea id="gReply" class="g-ta g-it" rows="3" placeholder="Bir-ikki so’z ham kifoya" style="width: 100%; height: 92px; box-sizing: border-box; resize: none; padding: 13px 15px; border: 1px solid rgba(43, 33, 28, 0.16); border-radius: 16px; background: #FFFFFF; color: #2B211C; font-size: 16px; line-height: 1.45"></textarea>
+          <sc-if value="{{ sendErr }}"><p role="alert" style="margin: -2px 0 0; font-size: 14px; line-height: 1.4; color: #A23B22">{{ sendErr }}</p></sc-if>
+          <button type="button" class="g-btn g-btnW g-mo" onClick="{{ send }}" disabled="{{ sending }}" style="width: 100%; height: 54px; border: 1.5px solid #2B211C; border-radius: 27px; background: transparent; color: #2B211C; font-size: 14px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px">
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12l16-8-6 16-2.5-6.5L4 12z M11.5 13.5L20 4" stroke="#2B211C" class="g-ic"></path></svg>
+            <span>{{ sendLabel }}</span>
+          </button>
+        </div>
+      </sc-if>
+      <sc-if value="{{ sent }}">
+        <div class="g-pop" role="status" style="display: flex; align-items: center; gap: 12px; padding: 14px 16px; border-radius: 16px; background: #FFFFFF; border: 1px solid rgba(43, 33, 28, 0.12)">
+          <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" style="flex: none"><path d="M4 12l16-8-6 16-2.5-6.5L4 12z M11.5 13.5L20 4" stroke="#B14A34" class="g-ic"></path></svg>
+          <p class="g-it" style="margin: 0; font-size: 15px; line-height: 1.45; overflow-wrap: anywhere">Xating {{ toFrom }} yetib bordi.</p>
+        </div>
+      </sc-if>
+      </sc-if>
+    </div>
+  </section>
+  </sc-if>
+  </div>
+
+  <footer style="flex: 1 0 auto; position: relative; min-height: 420px; overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; padding: 0 24px 64px; box-sizing: border-box; text-align: center; background: radial-gradient(70% 50% at 50% 40%, rgba(244, 165, 138, 0.35) 0%, rgba(244, 165, 138, 0) 100%)">
+    <span class="g-orb g-breath" aria-hidden="true" style="left: 135px; top: 50px; width: 120px; height: 120px; background: radial-gradient(circle at 42% 36%, #FFF1E4 0%, #FBC9AE 38%, #F09A86 72%, #E3857F 100%); box-shadow: 0 0 60px 8px rgba(251, 201, 174, 0.55)"></span>
+    <p class="g-mo" style="position: relative; margin: 0; font-size: 12px; letter-spacing: 0.1em; color: #6E5D53">ulanish: barqaror · 100%</p>
+    <p class="g-it" style="position: relative; margin: 10px 0 0; font-size: 34px; font-weight: 800; line-height: 1.1; letter-spacing: -0.04em">Shovqin tindi.<br>Biz yana bir-birimizni eshitamiz.</p>
+    <p class="g-it" style="position: relative; margin: 16px 0 0; font-size: {{ footSig }}; font-weight: 600; line-height: 1.3; color: #B14A34; overflow-wrap: anywhere">{{ d.kimdan }}</p>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":4300}}'>
+class Component extends DCLogic {
+  constructor(...args) {
+    super(...args);
+    this.state = { tick: 0, healed: false, clean: false, accepted: false, agreed: false, forgiven: false, sent: false };
+    this.timers = [];
+  }
+  componentDidMount() {
+    this.iv = setInterval(() => { if (!this.state.clean) this.setState({ tick: (this.state.tick || 0) + 1 }); }, 170);
+  }
+  componentWillUnmount() { this.gone = true; clearInterval(this.iv); this.timers.forEach((t) => clearTimeout(t)); }
+  renderVals() {
+    const s = this.state || {};
+    const d = SITE.d, b = SITE.b;
+    const ok = !!s.healed;
+    const ini = (x) => (String(x || '').trim().charAt(0) || '').toUpperCase();
+    const glyph = '#%&@$*!?<>/=+01';
+    let seed = (s.tick || 0) * 7919 + 13;
+    const rnd = () => { seed = (seed * 16807) % 2147483647; return seed / 2147483647; };
+    const scramble = (txt) => txt.split('').map((ch) => (ch !== ' ' && rnd() < 0.38 ? glyph.charAt(Math.floor(rnd() * glyph.length)) : ch)).join('');
+    const vows = d.vadalar || [];
+    const matn = String(d.matn || '').replace(/^\s+/, '');
+    const n = SITE.has.photos;
+    const nameLen = String(d.kimga || '').length;
+    const fromLen = String(d.kimdan || '').length;
+    const tv = String(d.taklif_vaqt || '').trim();
+    const offerLen = String(d.taklif || '').length;
+    const seq = [b.maktub, b.galereya, b.vadalar, b.taklif, b.javob || b.sorov];
+    const kk = {}; let c = 0;
+    seq.forEach((v, i) => { if (v) c++; kk['k' + (i + 1)] = (c < 10 ? '0' : '') + c; });
+    const step = Math.min(0.35, 1.4 / Math.max(1, vows.length));
+    return Object.assign(kk, {
+      fromTo: (d.kimdan || '') + ' → ' + SITE.ga(d.kimga),
+      introCls: ok ? 'g-intro g-ok g-intro--open' : 'g-intro',
+      h1Size: nameLen > 18 ? '34px' : nameLen > 11 ? '42px' : '50px',
+      line2: s.clean ? 'kechir meni.' : scramble('kechir meni.'),
+      glitchCode: '0x' + (((s.tick || 0) * 37 + 47) % 255).toString(16).toUpperCase().padStart(2, '0'),
+      healLabel: ok ? 'Ulanmoqda…' : 'Qayta ulash',
+      healPe: ok ? 'none' : 'auto',
+      heal: () => {
+        if (this.state.healed) return;
+        this.setState({ healed: true });
+        SITE.opened();
+        this.timers.push(setTimeout(() => { if (!this.gone) { this.setState({ clean: true }); clearInterval(this.iv); } }, 1300));
+      },
+      musicOn: !!SITE.music.playing,
+      musicOff: !SITE.music.playing,
+      toggleMusic: () => SITE.music.toggle(),
+      dropCap: matn.charAt(0), dropRest: matn.slice(1),
+      iniFrom: ini(d.kimdan), iniTo: ini(d.kimga),
+      sigSize: fromLen > 16 ? '17px' : '22px',
+      footSig: fromLen > 16 ? '18px' : '24px',
+      g2: n >= 2, g3: n >= 3,
+      g0w: n >= 2 ? '200px' : '308px', g0h: n >= 2 ? '250px' : '320px',
+      g1x: n >= 3 ? '218px' : '150px', g1y: n >= 3 ? '24px' : '150px',
+      g1w: n >= 3 ? '90px' : '158px', g1h: n >= 3 ? '170px' : '190px',
+      galH: n >= 3 ? '364px' : n === 2 ? '340px' : '320px',
+      galCount: n + ' ta kadr · 0 ta shovqin',
+      vowCls: s.accepted ? 'g-win g-inst' : 'g-win',
+      promises: vows.map((text, i) => ({ text, n: String(i + 1), dl: (0.25 + i * step).toFixed(2) + 's' })),
+      instDur: (0.25 + vows.length * step).toFixed(2) + 's',
+      accepted: !!s.accepted,
+      notAccepted: !s.accepted,
+      accept: () => { if (this.state.accepted) return; this.setState({ accepted: true }); SITE.reply('Va’dalaringga ishonaman', '🥹'); },
+      offerSize: offerLen > 60 ? '19px' : offerLen > 34 ? '22px' : '25px',
+      hasChips: !!(tv || d.taklif_joy),
+      bothChips: !!(tv && d.taklif_joy),
+      agreedText: tv ? 'Kelishdik. ' + tv + ' — seni kutaman.' : 'Kelishdik. Seni kutaman.',
+      agreed: !!s.agreed,
+      notAgreed: !s.agreed,
+      agree: () => { if (this.state.agreed) return; this.setState({ agreed: true }); SITE.reply('Roziman: ' + (d.taklif || ''), '🥰'); },
+      showAnswer: !!(b.javob || b.sorov),
+      both: !!(b.javob && b.sorov),
+      askSub: b.javob && b.sorov ? 'Bitta tugma yoki bir necha so’z — qanday bo’lsa ham, kutaman.' : b.javob ? 'Bitta so’zing kifoya — kutaman.' : 'Bir necha so’z yozsang ham kifoya — kutaman.',
+      thanks: d.javob_matni || 'Endi oramizda shovqin yo’q. Seni har doim oxirigacha tinglayman.',
+      waiting: !s.forgiven,
+      forgiven: !!s.forgiven,
+      forgive: () => { if (this.state.forgiven) return; this.setState({ forgiven: true }); SITE.reply('Kechirdim', '🤗'); },
+      toFrom: SITE.ga(d.kimdan),
+      sent: !!s.sent,
+      notSent: !s.sent,
+      sending: !!s.sending,
+      sendLabel: s.sending ? 'Yuborilmoqda…' : 'Yuborish',
+      sendErr: s.err || '',
+      send: () => {
+        const el = document.getElementById('gReply');
+        const text = el ? el.value.trim() : '';
+        if (!text) { this.setState({ err: 'Avval bir-ikki so’z yozing.' }); if (el) el.focus(); return; }
+        this.setState({ sending: true, err: '' });
+        SITE.reply(text, '❤️').then(() => { if (!this.gone) this.setState({ sent: true, sending: false }); })
+          .catch(() => { if (!this.gone) this.setState({ sending: false, err: 'Yuborilmadi. Qaytadan urinib ko’ring.' }); });
+      }
+    });
+  }
+}
+</script>
+</body>
+</html>
