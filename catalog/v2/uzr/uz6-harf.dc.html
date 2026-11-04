@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<title>Uzr Premium: Kechir harflari</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&amp;family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#C2410C}
+.h-un{font-family:'Dela Gothic One','Arial Black',system-ui,sans-serif}
+.h-lb{margin:0;font-size:12px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:#4A4741}
+.h-ic{fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.h-ic2{fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+/* so’z */
+.h-word{font-family:'Dela Gothic One','Arial Black',system-ui,sans-serif;font-weight:900;font-size:124px;line-height:.92;letter-spacing:-.035em;color:#151515}
+.h-row{display:flex;align-items:flex-end;height:118px}
+.h-L{display:inline-block;position:relative}
+.h-disc{display:inline-block;width:34px;height:34px;border-radius:50%;background:#EE5A24;margin:0 0 14px 10px;flex:none}
+/* kirish: tarqalgan harflar */
+.h-intro{transition:opacity .7s ease,visibility 0s linear .7s}
+.h-intro--open{opacity:0;visibility:hidden;pointer-events:none}
+.h-x{display:inline-block;transition:transform 1.05s cubic-bezier(.2,1.22,.35,1),color .6s ease;color:#151515}
+.h-x.h-g{color:#CDC9C1}
+.h-x.h-g2{color:#8E8A83}
+.is-set .h-x{transform:none !important;color:#151515}
+.h-f{display:inline-block;animation:hDrift 6s ease-in-out infinite alternate}
+.is-set .h-f{animation:none}
+@keyframes hDrift{from{transform:translate(0,0) rotate(0deg)}to{transform:translate(9px,-12px) rotate(4deg)}}
+.h-idisc{transform:scale(0);transition:transform .6s cubic-bezier(.2,1.6,.4,1) 1.25s}
+.is-set .h-idisc{transform:none}
+.h-iline{opacity:0;transform:translateY(14px);transition:opacity .6s ease 1.45s,transform .7s cubic-bezier(.2,.9,.3,1) 1.45s}
+.is-set .h-iline{opacity:1;transform:none}
+.h-ui{transition:opacity .35s ease,transform .4s ease}
+.is-set .h-ui{opacity:0;transform:translateY(10px);pointer-events:none}
+.h-hint{animation:hHint 2.4s ease-in-out infinite}
+@keyframes hHint{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.35);opacity:.55}}
+/* lenta */
+.h-tick{display:flex;width:max-content;animation:hTick 22s linear infinite}
+.h-tick span{font-family:'Dela Gothic One','Arial Black',sans-serif;font-weight:800;font-size:40px;line-height:64px;letter-spacing:-.02em;padding-right:26px;color:#151515;white-space:nowrap}
+.h-tick span b{font-weight:800;color:#CDC9C1}
+.h-tick span i{font-style:normal;color:#EE5A24}
+@keyframes hTick{to{transform:translateX(-50%)}}
+/* sahifa */
+.h-go .h-up{animation:hUp .9s cubic-bezier(.2,.9,.3,1) both}
+@keyframes hUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+.h-sec{position:relative;padding:56px 24px 0}
+.h-head{display:flex;align-items:center;gap:12px;padding-top:14px;border-top:1.5px solid #151515}
+.h-num{font-family:'Dela Gothic One','Arial Black',sans-serif;font-weight:700;font-size:13px;color:#C2410C}
+.h-title{margin:18px 0 0;font-family:'Dela Gothic One','Arial Black',sans-serif;font-weight:800;font-size:46px;line-height:1;letter-spacing:-.04em;color:#151515;overflow:hidden;padding-bottom:4px}
+.h-title span{display:inline-block}
+.h-play .h-title span{animation:hRise .8s cubic-bezier(.2,1.1,.3,1) both}
+@keyframes hRise{0%{opacity:0;transform:translateY(70%) rotate(8deg)}100%{opacity:1;transform:none}}
+.h-play .h-in{animation:hUp .8s cubic-bezier(.2,.9,.3,1) both}
+.h-vrow{display:flex;align-items:flex-start;gap:16px;padding:16px 0;border-bottom:1px solid rgba(21,21,21,.16)}
+.h-vn{flex:none;width:76px;font-family:'Dela Gothic One','Arial Black',sans-serif;font-weight:800;font-size:46px;line-height:.9;letter-spacing:-.05em;color:rgba(21,21,21,0);-webkit-text-stroke:1.4px #151515}
+.h-play .h-vrow{animation:hSlide .8s cubic-bezier(.2,.9,.3,1) both}
+@keyframes hSlide{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:none}}
+.h-mono{filter:grayscale(1) contrast(1.06)}
+.h-btn{transition:transform .15s ease,background-color .2s ease}
+.h-btn:active{transform:scale(.97)}
+.h-btn:focus-visible{outline:3px solid #EE5A24;outline-offset:4px}
+.h-pill{height:58px;border:0;border-radius:29px;background:#151515;color:#EFEDE8;font-family:'IBM Plex Sans',system-ui,sans-serif;font-size:17px;font-weight:500;letter-spacing:.02em;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:12px;padding:0 30px}
+.h-big{width:184px;height:184px;border:0;border-radius:50%;background:#EE5A24;color:#151515;font-family:'Dela Gothic One','Arial Black',sans-serif;font-weight:800;font-size:19px;letter-spacing:-.01em;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;box-shadow:0 26px 40px -22px rgba(238,90,36,.9)}
+.h-spin{animation:hSpin 16s linear infinite}
+@keyframes hSpin{to{transform:rotate(360deg)}}
+.h-drop{display:inline-block;animation:hDrop .9s cubic-bezier(.25,1.5,.4,1) both}
+@keyframes hDrop{0%{opacity:0;transform:translateY(-120px) rotate(-12deg)}60%{opacity:1}100%{opacity:1;transform:none}}
+.h-fade{animation:hUp .8s cubic-bezier(.2,.9,.3,1) both}
+/* Dela Gothic One — bitta qalin chizma: soxta qalinlashtirmaslik uchun */
+.h-un,.h-word,.h-title,.h-num,.h-vn,.h-big,.h-tick span,.h-tick span b{font-weight:400 !important}
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{animation:none !important;transition:none !important}}
+</style>
+</helmet>
+<div class="{{ rootCls }}" style="width: 390px; min-height: var(--vh, 100vh); position: relative; overflow: hidden; background: #EFEDE8; color: #151515; font-family: 'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; display: flex; flex-direction: column">
+
+  <!-- ============ KIRISH: tarqalgan harflar ============ -->
+  <div class="{{ introCls }}" data-intro style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; z-index: 30; overflow: hidden; background: #EFEDE8">
+    <div style="position: absolute; left: 24px; right: 24px; top: 40px; display: flex; justify-content: space-between; gap: 16px">
+      <p class="h-lb" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{ fromTo }}</p>
+      <p class="h-lb" style="flex: none">1 so’z</p>
+    </div>
+    <div class="h-word" aria-hidden="true" style="position: absolute; left: 24px; top: 150px; width: 342px">
+      <div class="h-row"><sc-for list="{{ row1 }}" as="x"><span class="h-L"><span class="{{ x.cls }}" style="transform: {{ x.tr }}; transition-delay: {{ x.dl }}"><span class="h-f" style="animation-duration: {{ x.fd }}; animation-delay: {{ x.fdl }}">{{ x.ch }}</span></span></span></sc-for></div>
+      <div class="h-row"><sc-for list="{{ row2 }}" as="x"><span class="h-L"><span class="{{ x.cls }}" style="transform: {{ x.tr }}; transition-delay: {{ x.dl }}"><span class="h-f" style="animation-duration: {{ x.fd }}; animation-delay: {{ x.fdl }}">{{ x.ch }}</span></span></span></sc-for><span class="h-disc h-idisc"></span></div>
+    </div>
+    <p class="h-iline" style="position: absolute; left: 24px; right: 24px; top: 420px; margin: 0; font-size: {{ h1Size }}; line-height: 1.15; font-weight: 500; letter-spacing: -0.02em; overflow-wrap: anywhere">{{ msg }}</p>
+
+    <div class="h-ui" style="position: absolute; left: 24px; right: 24px; top: 664px; display: flex; flex-direction: column; gap: 22px">
+      <p style="margin: 0; max-width: 300px; font-size: 17px; line-height: 1.5; font-weight: 300; color: #2B2925">Bu so’zni aytish qiyin edi — harflari tarqalib ketdi. Ularni joyiga qo’yib ber.</p>
+      <div style="display: flex; align-items: center; gap: 16px">
+        <button type="button" class="h-pill h-btn" onClick="{{ settle }}"><span aria-hidden="true" style="width: 10px; height: 10px; border-radius: 50%; background: #EE5A24"></span>So’zni yig’ish</button>
+        <span class="h-hint" aria-hidden="true" style="width: 8px; height: 8px; border-radius: 50%; border: 1.5px solid #151515"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ SAHIFA ============ -->
+  <section style="flex: none; position: relative; height: 844px">
+    <div style="position: absolute; left: 24px; right: 24px; top: 40px; display: flex; justify-content: space-between; gap: 16px">
+      <p class="h-lb" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{ fromTo }}</p>
+      <p class="h-lb" style="flex: none">1 so’z</p>
+    </div>
+    <sc-if value="{{ has.music }}">
+      <button type="button" class="h-btn" onClick="{{ toggleMusic }}" aria-label="Musiqa" aria-pressed="{{ musicOn }}" style="position: absolute; right: 16px; top: 74px; width: 44px; height: 44px; padding: 0; border: 1.5px solid #151515; border-radius: 50%; background: transparent; display: flex; align-items: center; justify-content: center; cursor: pointer">
+        <sc-if value="{{ musicOff }}"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 17.5 V6.5 L19 4.5 V15.5" stroke="#151515" class="h-ic"></path><circle cx="7" cy="17.5" r="2.2" stroke="#151515" class="h-ic"></circle><circle cx="17" cy="15.5" r="2.2" stroke="#151515" class="h-ic"></circle></svg></sc-if>
+        <sc-if value="{{ musicOn }}"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 6.5 V17.5 M16 6.5 V17.5" stroke="#151515" class="h-ic2"></path></svg></sc-if>
+      </button>
+    </sc-if>
+    <div class="h-word" aria-hidden="true" style="position: absolute; left: 24px; top: 150px; width: 342px">
+      <div class="h-row"><span class="h-L">K</span><span class="h-L">E</span><span class="h-L">C</span></div>
+      <div class="h-row"><span class="h-L">H</span><span class="h-L">I</span><span class="h-L">R</span><span class="h-disc"></span></div>
+    </div>
+    <h1 style="position: absolute; left: 24px; right: 24px; top: 420px; margin: 0; font-size: {{ h1Size }}; line-height: 1.15; font-weight: 500; letter-spacing: -0.02em; overflow-wrap: anywhere">{{ msg }}</h1>
+    <div class="h-up" style="position: absolute; left: 24px; right: 24px; top: 512px; animation-delay: .25s">
+      <p style="margin: 0; max-width: 310px; font-size: 17px; line-height: 1.5; font-weight: 300; color: #2B2925">Senga aytishim kerak bo’lgan gap — bitta so’z. Qolgani quyida, harfma-harf.</p>
+      <p class="h-lb" style="margin-top: 150px; display: flex; align-items: center; gap: 10px"><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4 V20 M5.5 13.5 L12 20 L18.5 13.5" stroke="#151515" class="h-ic2"></path></svg>Pastga</p>
+    </div>
+  </section>
+
+  <div aria-hidden="true" style="flex: none; overflow: hidden; border-top: 1.5px solid #151515; border-bottom: 1.5px solid #151515">
+    <div class="h-tick"><span>KECHIR <i>●</i> <b>KECHIR</b> <i>●</i> KECHIR <i>●</i> <b>KECHIR</b> <i>●</i></span><span>KECHIR <i>●</i> <b>KECHIR</b> <i>●</i> KECHIR <i>●</i> <b>KECHIR</b> <i>●</i></span></div>
+  </div>
+
+  <main style="flex: 1 0 auto; display: flex; flex-direction: column">
+
+    <!-- maktub -->
+    <sc-if value="{{ b.maktub }}">
+      <section ref="{{ refMaktub }}" class="h-sec {{ cls.maktub }}">
+        <div class="h-head"><span class="h-num">{{ n.maktub }}</span><span class="h-lb">Chin dildan</span></div>
+        <h2 class="h-title"><sc-for list="{{ tMaktub }}" as="c"><span style="animation-delay: {{ c.dl }}">{{ c.ch }}</span></sc-for></h2>
+        <div class="h-in" style="margin-top: 26px; animation-delay: .35s">
+          <p style="margin: 0; font-size: 18px; line-height: 1.66; font-weight: 300; color: #1F1D1A; white-space: pre-line; overflow-wrap: anywhere"><span class="h-un" style="float: left; font-size: 64px; line-height: 56px; font-weight: 900; margin: 6px 12px 0 0; color: #151515">{{ dropCap }}</span>{{ dropRest }}</p>
+          <p class="h-un" style="margin: 26px 0 0; font-size: 20px; font-weight: 700; letter-spacing: -0.02em; overflow-wrap: anywhere"><span style="color: #EE5A24">—</span> {{ d.kimdan }}</p>
+        </div>
+      </section>
+    </sc-if>
+
+    <!-- va’dalar -->
+    <sc-if value="{{ b.vadalar }}">
+      <section ref="{{ refVadalar }}" class="h-sec {{ cls.vadalar }}">
+        <div class="h-head"><span class="h-num">{{ n.vadalar }}</span><span class="h-lb">So’z beraman</span></div>
+        <h2 class="h-title"><sc-for list="{{ tVadalar }}" as="c"><span style="animation-delay: {{ c.dl }}">{{ c.ch }}</span></sc-for></h2>
+        <div style="margin-top: 18px">
+          <sc-for list="{{ promises }}" as="v">
+            <div class="h-vrow" style="animation-delay: {{ v.dl }}">
+              <span class="h-vn" aria-hidden="true">{{ v.n }}</span>
+              <span style="padding-top: 4px; font-size: 19px; line-height: 1.38; font-weight: 500; letter-spacing: -0.01em; overflow-wrap: anywhere">{{ v.text }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </section>
+    </sc-if>
+
+    <!-- galereya -->
+    <sc-if value="{{ b.galereya }}">
+      <section ref="{{ refGalereya }}" class="h-sec {{ cls.galereya }}" style="padding-left: 0; padding-right: 0">
+        <div style="padding: 0 24px">
+          <div class="h-head"><span class="h-num">{{ n.galereya }}</span><span class="h-lb">Biz</span></div>
+          <h2 class="h-title"><sc-for list="{{ tGalereya }}" as="c"><span style="animation-delay: {{ c.dl }}">{{ c.ch }}</span></sc-for></h2>
+        </div>
+        <div class="h-in" style="position: relative; margin-top: 26px; animation-delay: .3s; padding-bottom: {{ galPad }}">
+          <div class="h-mono" style="width: 390px; height: 420px"><img src="{{ p.0 }}" alt="" style="width: 390px; height: 420px; object-fit: cover; display: block"></div>
+          <sc-if value="{{ g2 }}">
+            <div class="h-mono" style="position: absolute; right: 24px; top: 330px; width: 190px; height: 240px; box-shadow: 0 0 0 8px #EFEDE8"><img src="{{ p.1 }}" alt="" style="width: 190px; height: 240px; object-fit: cover; display: block"></div>
+          </sc-if>
+          <span aria-hidden="true" style="position: absolute; left: 24px; top: 396px; width: 48px; height: 48px; border-radius: 50%; background: #EE5A24"></span>
+        </div>
+        <p style="margin: 22px 24px 0; max-width: {{ capW }}; font-size: 15.5px; line-height: 1.55; font-style: italic; font-weight: 300; color: #2B2925">Biz shunday edik. Yana shunday bo’lishimizni istayman.</p>
+      </section>
+    </sc-if>
+
+    <!-- taklif -->
+    <sc-if value="{{ b.taklif }}">
+      <section ref="{{ refTaklif }}" class="h-sec {{ cls.taklif }}">
+        <div class="h-head"><span class="h-num">{{ n.taklif }}</span><span class="h-lb">Yarashamizmi?</span></div>
+        <h2 class="h-title"><sc-for list="{{ tTaklif }}" as="c"><span style="animation-delay: {{ c.dl }}">{{ c.ch }}</span></sc-for></h2>
+        <div class="h-in" style="animation-delay: .3s">
+          <p class="h-un" style="margin: 24px 0 0; font-size: 30px; line-height: 1.12; font-weight: 700; letter-spacing: -0.035em; overflow-wrap: anywhere">{{ d.taklif }}</p>
+          <sc-if value="{{ hasMeta }}">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 24px; padding-top: 16px; border-top: 1px solid rgba(21, 21, 21, 0.16)">
+              <sc-if value="{{ d.taklif_vaqt }}"><div style="min-width: 0"><p class="h-lb" style="color: #77736C">Qachon</p><p style="margin: 8px 0 0; font-size: 18px; line-height: 1.3; font-weight: 500; overflow-wrap: anywhere">{{ d.taklif_vaqt }}</p></div></sc-if>
+              <sc-if value="{{ d.taklif_joy }}"><div style="min-width: 0"><p class="h-lb" style="color: #77736C">Qayerda</p><p style="margin: 8px 0 0; font-size: 18px; line-height: 1.3; font-weight: 500; overflow-wrap: anywhere">{{ d.taklif_joy }}</p></div></sc-if>
+            </div>
+          </sc-if>
+          <sc-if value="{{ notAgreed }}">
+            <button type="button" class="h-pill h-btn" onClick="{{ agree }}" style="margin-top: 28px"><span aria-hidden="true" style="width: 10px; height: 10px; border-radius: 50%; background: #EE5A24"></span>Roziman</button>
+          </sc-if>
+          <sc-if value="{{ agreed }}">
+            <div class="h-fade" role="status" style="margin-top: 28px; display: flex; align-items: center; gap: 14px">
+              <span aria-hidden="true" style="flex: none; width: 44px; height: 44px; border-radius: 50%; background: #EE5A24; display: flex; align-items: center; justify-content: center"><svg width="20" height="20" viewBox="0 0 24 24"><path d="M5.5 12.5 L10 17 L18.5 8" stroke="#151515" class="h-ic2"></path></svg></span>
+              <p style="margin: 0; font-size: 17px; line-height: 1.4; font-weight: 500; overflow-wrap: anywhere">{{ agreedText }}</p>
+            </div>
+          </sc-if>
+        </div>
+      </section>
+    </sc-if>
+
+    <!-- javob -->
+    <sc-if value="{{ b.javob }}">
+      <section ref="{{ refJavob }}" class="h-sec {{ cls.javob }}">
+        <div class="h-head"><span class="h-num">{{ n.javob }}</span><span class="h-lb">Javobing</span></div>
+        <h2 class="h-title" style="font-size: 31px"><sc-for list="{{ tJavob }}" as="c"><span style="animation-delay: {{ c.dl }}">{{ c.ch }}</span></sc-for></h2>
+        <p class="h-in" style="margin: 16px 0 0; max-width: 300px; font-size: 17px; line-height: 1.5; font-weight: 300; color: #2B2925; animation-delay: .3s">Bitta so’zing kifoya. Harflari allaqachon joyida.</p>
+        <sc-if value="{{ waiting }}">
+          <div style="position: relative; width: 220px; height: 220px; margin: 30px 0 0 -18px">
+            <svg class="h-spin" width="220" height="220" viewBox="0 0 220 220" aria-hidden="true" style="position: absolute; left: 0; top: 0">
+              <defs><path id="hCirc" d="M110 110 m-98 0 a98 98 0 1 1 196 0 a98 98 0 1 1 -196 0"></path></defs>
+              <text class="h-un" style="font-size: 12.5px; font-weight: 700; letter-spacing: 0.3em; fill: #151515"><textPath href="#hCirc">KECHIRASANMI · KECHIRASANMI · KECHIRASANMI ·</textPath></text>
+            </svg>
+            <button type="button" class="h-big h-btn" onClick="{{ forgive }}" style="position: absolute; left: 18px; top: 18px">
+              <svg width="30" height="30" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20 C5.5 15.6 3.5 12.4 3.5 9.4 C3.5 6.8 5.5 5 7.8 5 C9.6 5 11.1 6 12 7.6 C12.9 6 14.4 5 16.2 5 C18.5 5 20.5 6.8 20.5 9.4 C20.5 12.4 18.5 15.6 12 20 Z" stroke="#151515" class="h-ic2"></path></svg>Kechirdim
+            </button>
+          </div>
+        </sc-if>
+        <sc-if value="{{ forgiven }}">
+          <div role="status" style="margin-top: 28px">
+            <p class="h-un" aria-label="Kechirdim" style="margin: 0; display: flex; align-items: flex-end; font-size: 42px; line-height: 1; font-weight: 900; letter-spacing: -0.045em"><sc-for list="{{ kd }}" as="c"><span class="h-drop" aria-hidden="true" style="animation-delay: {{ c.dl }}">{{ c.ch }}</span></sc-for><span class="h-drop" aria-hidden="true" style="width: 16px; height: 16px; margin: 0 0 6px 6px; border-radius: 50%; background: #EE5A24; animation-delay: .75s"></span></p>
+            <p class="h-fade" style="margin: 22px 0 0; font-size: 20px; font-weight: 500; animation-delay: .9s; overflow-wrap: anywhere">Rahmat, {{ d.kimga }}.</p>
+            <p class="h-fade" style="margin: 8px 0 0; font-size: 17px; line-height: 1.6; font-weight: 300; color: #2B2925; white-space: pre-line; overflow-wrap: anywhere; animation-delay: 1.05s">{{ thanks }}</p>
+          </div>
+        </sc-if>
+      </section>
+    </sc-if>
+
+    <footer style="flex: 1 0 auto; display: flex; flex-direction: column; justify-content: flex-end; padding: 72px 24px 36px">
+      <div style="display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; padding-top: 14px; border-top: 1.5px solid #151515">
+        <p class="h-un" style="margin: 0; font-size: 20px; font-weight: 800; letter-spacing: -0.03em; overflow-wrap: anywhere; min-width: 0">{{ d.kimdan }}</p>
+        <p class="h-un" aria-hidden="true" style="flex: none; margin: 0; display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 800; letter-spacing: -0.01em">KECHIR<span style="width: 7px; height: 7px; border-radius: 50%; background: #EE5A24"></span></p>
+      </div>
+    </footer>
+  </main>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":3600}}'>
+class Component extends DCLogic {
+  constructor(...args) {
+    super(...args);
+    this.state = { set: false, gone: false, seen: {}, agreed: false, forgiven: false };
+    this.els = {};
+    this.vis = {};
+    const mk = (k) => (el) => { this.els[k] = el; };
+    this.refMaktub = mk('maktub');
+    this.refVadalar = mk('vadalar');
+    this.refGalereya = mk('galereya');
+    this.refTaklif = mk('taklif');
+    this.refJavob = mk('javob');
+  }
+  componentDidMount() {
+    try {
+      if (typeof IntersectionObserver === 'undefined') return;
+      this.io = new IntersectionObserver((list) => {
+        list.forEach((en) => {
+          const k = en.target.getAttribute('data-k');
+          this.vis[k] = en.isIntersecting;
+          if (en.isIntersecting && this.state.gone) this.see(k);
+        });
+      }, { rootMargin: '0px 0px 4% 0px', threshold: 0.01 });
+      Object.keys(this.els).forEach((k) => { const el = this.els[k]; if (el) { el.setAttribute('data-k', k); this.io.observe(el); } });
+    } catch (e) { this.io = null; }
+  }
+  componentWillUnmount() { this.dead = true; clearTimeout(this.t1); clearTimeout(this.t2); if (this.io) this.io.disconnect(); }
+  see(k) {
+    if (this.state.seen[k]) return;
+    this.setState({ seen: Object.assign({}, this.state.seen, { [k]: true }) });
+  }
+  renderVals() {
+    const s = this.state || {};
+    const d = SITE.d, b = SITE.b;
+    const kimga = String(d.kimga || '').trim();
+    const msg = (kimga ? kimga + ', k' : 'K') + 'echirasanmi?';
+    // tarqalgan holat: siljish, burilish, kattalik (joyiga tushganda hammasi nolga qaytadi)
+    const SC = [
+      ['K', 186, -38, 18, 1.2], ['E', -92, 150, -24, 1], ['C', 22, 268, 32, 0.86],
+      ['H', 40, 226, -11, 1.06], ['I', -40, -140, -9, 1.2], ['R', 44, 262, -17, 0.94]
+    ];
+    const L = SC.map((x, i) => ({
+      ch: x[0],
+      tr: 'translate(' + x[1] + 'px,' + x[2] + 'px) rotate(' + x[3] + 'deg) scale(' + x[4] + ')',
+      dl: (i * 0.08).toFixed(2) + 's',
+      fd: (5 + (i % 3) * 1.3).toFixed(1) + 's',
+      fdl: (-i * 0.9).toFixed(1) + 's',
+      cls: 'h-x' + (i === 1 || i === 4 ? ' h-g' : i === 3 ? ' h-g2' : '')
+    }));
+    const split = (w) => w.split('').map((ch, i) => ({ ch, dl: (i * 0.045).toFixed(3) + 's' }));
+    const order = ['maktub', 'vadalar', 'galereya', 'taklif', 'javob'];
+    const n = {};
+    let k = 1;
+    order.forEach((key) => { if (b[key]) n[key] = String(k++).padStart(2, '0'); });
+    const seen = s.seen || {};
+    const play = (key) => (seen[key] ? 'h-play' : '');
+    const matn = String(d.matn || '').replace(/^\s+/, '');
+    const vad = d.vadalar || [];
+    const tv = String(d.taklif_vaqt || '').trim();
+    const g2 = SITE.has.photos >= 2;
+    return {
+      rootCls: s.gone ? 'h-go' : '',
+      introCls: 'h-intro' + (s.set ? ' is-set' : '') + (s.gone ? ' h-intro--open' : ''),
+      settle: () => {
+        if (this.state.set) return;
+        this.setState({ set: true });
+        this.t1 = setTimeout(() => {
+          if (this.dead) return;
+          this.setState({ gone: true });
+          SITE.opened();
+          this.t2 = setTimeout(() => { if (!this.dead) Object.keys(this.vis).forEach((x) => { if (this.vis[x]) this.see(x); }); }, 600);
+        }, 2400);
+      },
+      row1: L.slice(0, 3), row2: L.slice(3),
+      fromTo: (d.kimdan || '') + 'dan ' + SITE.ga(kimga),
+      msg,
+      h1Size: msg.length > 34 ? '24px' : msg.length > 24 ? '27px' : '30px',
+      musicOn: !!SITE.music.playing,
+      musicOff: !SITE.music.playing,
+      toggleMusic: () => SITE.music.toggle(),
+      n,
+      cls: { maktub: play('maktub'), vadalar: play('vadalar'), galereya: play('galereya'), taklif: play('taklif'), javob: play('javob') },
+      tMaktub: split('Maktub'), tVadalar: split('Va’dalar'), tGalereya: split('Xotira'), tTaklif: split('Taklif'), tJavob: split('Kechirasanmi?'),
+      dropCap: matn.charAt(0), dropRest: matn.slice(1),
+      promises: vad.map((text, i) => ({ text, n: String(i + 1).padStart(2, '0'), dl: (0.25 + i * 0.12).toFixed(2) + 's' })),
+      g2,
+      galPad: g2 ? '150px' : '0px',
+      capW: g2 ? '342px' : '300px',
+      hasMeta: !!(tv || d.taklif_joy),
+      agreed: !!s.agreed,
+      notAgreed: !s.agreed,
+      agreedText: tv ? 'Kelishdik. ' + tv + ' — kutaman.' : 'Kelishdik. Kutaman.',
+      agree: () => { if (this.state.agreed) return; this.setState({ agreed: true }); SITE.reply('Roziman: ' + (d.taklif || ''), '🥰'); },
+      kd: 'KECHIRDIM'.split('').map((ch, i) => ({ ch, dl: (i * 0.06).toFixed(2) + 's' })),
+      thanks: d.javob_matni || 'So’zimda turaman. Bu safar harflar emas, ishlarim gapiradi.',
+      waiting: !s.forgiven,
+      forgiven: !!s.forgiven,
+      forgive: () => { if (this.state.forgiven) return; this.setState({ forgiven: true }); SITE.reply('Kechirdim', '🤗'); }
+    };
+  }
+}
+</script>
+</body>
+</html>

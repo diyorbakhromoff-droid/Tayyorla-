@@ -1,0 +1,451 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<title>Uzr Premium: Tiklash</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Commissioner:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#0B7A6B}
+.t-mo{font-family:'JetBrains Mono','SFMono-Regular',Menlo,Consolas,monospace}
+.t-ic{fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.t-ic2{fill:none;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.t-ringbg{fill:none;stroke-width:9}
+.t-ring{fill:none;stroke-width:9;stroke-linecap:round;transition:stroke-dashoffset .12s linear}
+.t-g1{stop-color:#0E9F8A}.t-g2{stop-color:#7EE0B5}
+.t-grid{background-color:#F2F1EC;background-image:linear-gradient(rgba(16,32,30,.045) 1px,rgba(16,32,30,0) 1px),linear-gradient(90deg,rgba(16,32,30,.045) 1px,rgba(16,32,30,0) 1px);background-size:26px 26px}
+.t-glow{position:absolute;border-radius:50%;pointer-events:none;background:radial-gradient(circle,rgba(94,214,180,.42) 0%,rgba(94,214,180,0) 66%)}
+.t-glow2{background:radial-gradient(circle,rgba(170,220,240,.5) 0%,rgba(170,220,240,0) 66%)}
+.t-breathe{animation:tBreathe 7s ease-in-out infinite}
+@keyframes tBreathe{0%,100%{transform:scale(1);opacity:.85}50%{transform:scale(1.12);opacity:1}}
+.t-glass{background:rgba(255,255,255,.66);-webkit-backdrop-filter:blur(14px) saturate(1.3);backdrop-filter:blur(14px) saturate(1.3);border:1px solid rgba(255,255,255,.9);box-shadow:0 1px 0 rgba(16,32,30,.04),0 22px 40px -28px rgba(16,60,52,.45)}
+.t-disc{position:absolute;border-radius:50%;background:radial-gradient(circle at 36% 30%,#FFFFFF 0%,#EEF4F1 45%,#D3E2DC 100%);box-shadow:inset 0 -10px 18px rgba(16,60,52,.14),inset 0 3px 0 rgba(255,255,255,.9),0 34px 54px -26px rgba(14,140,120,.6)}
+.t-orbit{position:absolute;border-radius:50%;border:1px dashed rgba(14,159,138,.35);animation:tSpin 26s linear infinite}
+.t-orbit i{position:absolute;left:50%;top:-4px;width:8px;height:8px;margin-left:-4px;border-radius:50%;background:#0E9F8A;box-shadow:0 0 10px 2px rgba(14,159,138,.45)}
+@keyframes tSpin{to{transform:rotate(360deg)}}
+.t-spinslow{transform-origin:50% 50%;animation:tSpin 14s linear infinite}
+.t-pulse{animation:tPulse 1.8s ease-in-out infinite}
+@keyframes tPulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.45;transform:scale(.8)}}
+.t-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#0E9F8A;box-shadow:0 0 0 4px rgba(14,159,138,.16)}
+/* kirish */
+.t-intro{transition:opacity .7s ease,visibility 0s linear .7s}
+.t-intro--open{opacity:0;visibility:hidden;pointer-events:none}
+.t-idle,.t-run{transition:opacity .45s ease,transform .5s ease}
+.t-run{opacity:0;transform:translateY(14px);pointer-events:none}
+.is-run .t-idle{opacity:0;transform:translateY(-10px);pointer-events:none}
+.is-run .t-run{opacity:1;transform:none}
+.t-icon{transition:opacity .35s ease,transform .5s cubic-bezier(.3,1.4,.5,1)}
+.is-run .t-icon{opacity:0;transform:scale(.6)}
+.t-pct{opacity:0;transform:scale(.8);transition:opacity .35s ease .15s,transform .5s ease .15s}
+.is-run .t-pct{opacity:1;transform:none}
+.is-done .t-pct{opacity:0;transform:scale(.8);transition-delay:0s}
+.t-ok{opacity:0;transform:scale(.4) rotate(-20deg);transition:opacity .3s ease,transform .55s cubic-bezier(.2,1.6,.4,1)}
+.is-done .t-ok{opacity:1;transform:none}
+.t-bar{height:8px;border-radius:4px;background:rgba(16,32,30,.08);overflow:hidden}
+.t-bar i{display:block;height:100%;border-radius:4px;background:linear-gradient(90deg,#0E9F8A,#7EE0B5);transition:width .12s linear}
+.t-step{display:flex;align-items:center;gap:11px;height:30px;font-size:14px;transition:color .3s ease,opacity .3s ease}
+.t-sp{flex:none;width:18px;height:18px;box-sizing:border-box;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.t-s0{color:#9AA6A2}.t-s0 .t-sp{border:2px solid #CBD5D1}
+.t-s1{color:#10201E}.t-s1 .t-sp{border:2px solid rgba(14,159,138,.25);border-top-color:#0E9F8A;animation:tSpin .8s linear infinite}
+.t-s2{color:#33504A}.t-s2 .t-sp{background:#0E9F8A}
+/* sahifa */
+.t-go .t-up{animation:tUp .8s cubic-bezier(.2,.9,.3,1) both}
+@keyframes tUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+.t-go .t-grow{transform-origin:50% 100%;animation:tGrow .9s cubic-bezier(.2,.9,.3,1) both}
+@keyframes tGrow{from{transform:scaleY(.1)}to{transform:none}}
+.t-tile{box-sizing:border-box;border-radius:24px;padding:16px 16px 14px;display:flex;flex-direction:column}
+.t-k{margin:0;font-size:11.5px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#4E625D}
+.t-h2{margin:0;font-size:29px;line-height:1.1;font-weight:600;letter-spacing:-.025em;color:#10201E}
+.t-chg{display:flex;align-items:flex-start;gap:12px;padding:14px 0;border-top:1px solid rgba(16,32,30,.08)}
+.t-chg:first-child{border-top:0}
+.t-plus{flex:none;width:28px;height:28px;border-radius:9px;background:linear-gradient(135deg,#0E9F8A,#5CCFA2);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 12px -6px rgba(14,159,138,.8)}
+.t-tag{flex:none;margin-left:auto;margin-top:3px;padding:3px 8px;border-radius:6px;background:#E3F4EE;font-size:10.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#0B6E61}
+.t-play .t-chg{animation:tUp .6s cubic-bezier(.2,.9,.3,1) both}
+.t-phw{position:relative;overflow:hidden;border-radius:20px;background:#DCE6E2}
+.t-play .t-phf{animation:tRestore 1.9s ease both}
+@keyframes tRestore{0%{filter:blur(14px) grayscale(1) contrast(.7)}65%{filter:blur(3px) grayscale(.4)}100%{filter:blur(0) grayscale(0)}}
+.t-scan{position:absolute;left:0;right:0;top:0;height:60px;opacity:0;background:linear-gradient(180deg,rgba(126,224,181,0) 0%,rgba(126,224,181,.35) 85%,rgba(255,255,255,.95) 100%);pointer-events:none}
+.t-play .t-scan{animation:tScan 1.7s ease-in-out both}
+@keyframes tScan{0%{opacity:1;transform:translateY(-60px)}90%{opacity:1}100%{opacity:0;transform:translateY(330px)}}
+.t-play .t-badge{animation:tPop .5s cubic-bezier(.2,1.5,.4,1) 1.6s both}
+@keyframes tPop{from{opacity:0;transform:scale(.6)}to{opacity:1;transform:none}}
+.t-btn{transition:transform .15s ease,box-shadow .2s ease}
+.t-btn:active{transform:scale(.97)}
+.t-btn:focus-visible{outline:3px solid #7EE0B5;outline-offset:3px}
+.t-cta{height:56px;border:0;border-radius:18px;background:linear-gradient(135deg,#0B8F7C 0%,#12A88E 55%,#46C79C 100%);color:#FFFFFF;font-family:inherit;font-size:17px;font-weight:600;letter-spacing:.01em;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 16px 28px -14px rgba(11,143,124,.9)}
+.t-pop{animation:tPop .55s cubic-bezier(.2,1.4,.4,1) both}
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{animation:none !important;transition:none !important}}
+</style>
+</helmet>
+<div class="t-grid {{ rootCls }}" style="width: 390px; min-height: var(--vh, 100vh); position: relative; overflow: hidden; color: #10201E; font-family: 'Commissioner', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; display: flex; flex-direction: column">
+
+  <div aria-hidden="true" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; pointer-events: none">
+    <div class="t-glow t-breathe" style="width: 520px; height: 520px; left: -70px; top: -120px"></div>
+    <div class="t-glow t-glow2" style="width: 460px; height: 460px; left: -220px; top: 900px"></div>
+    <div class="t-glow" style="width: 460px; height: 460px; left: 170px; top: 1600px"></div>
+    <div class="t-glow t-glow2" style="width: 460px; height: 460px; left: -200px; top: 2400px"></div>
+    <div class="t-glow" style="width: 460px; height: 460px; left: 160px; top: 3100px"></div>
+  </div>
+
+  <!-- ============ KIRISH: tiklash oynasi ============ -->
+  <div class="{{ introCls }}" data-intro style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; z-index: 30; overflow: hidden; background-color: #F2F1EC; background-image: linear-gradient(rgba(16, 32, 30, 0.045) 1px, rgba(16, 32, 30, 0) 1px), linear-gradient(90deg, rgba(16, 32, 30, 0.045) 1px, rgba(16, 32, 30, 0) 1px); background-size: 26px 26px">
+    <div aria-hidden="true">
+      <div class="t-glow t-breathe" style="width: 560px; height: 560px; left: -85px; top: -60px"></div>
+      <div class="t-glow t-glow2" style="width: 420px; height: 420px; left: -180px; top: 520px"></div>
+    </div>
+
+    <div style="position: absolute; left: 0; right: 0; top: 64px; display: flex; justify-content: center">
+      <span class="t-mo t-glass" style="display: inline-flex; align-items: center; gap: 9px; height: 34px; padding: 0 14px; border-radius: 17px; font-size: 12px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: #2C4842"><span class="t-dot t-pulse"></span>{{ chipText }}</span>
+    </div>
+
+    <!-- 3D disk va halqa -->
+    <div aria-hidden="true" style="position: absolute; left: 95px; top: 136px; width: 200px; height: 200px">
+      <div class="t-orbit" style="left: -14px; top: -14px; width: 226px; height: 226px"><i></i></div>
+      <div class="t-disc" style="left: 16px; top: 16px; width: 168px; height: 168px"></div>
+      <svg width="200" height="200" viewBox="0 0 200 200" style="position: absolute; left: 0; top: 0">
+        <defs><linearGradient id="tRg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" class="t-g1"></stop><stop offset="1" class="t-g2"></stop></linearGradient></defs>
+        <circle cx="100" cy="100" r="70" stroke="rgba(16,32,30,0.07)" class="t-ringbg"></circle>
+        <circle cx="100" cy="100" r="70" stroke="url(#tRg)" class="t-ring" stroke-dasharray="439.8" stroke-dashoffset="{{ ringOff }}" transform="rotate(-90 100 100)"></circle>
+      </svg>
+      <svg class="t-icon" width="200" height="200" viewBox="0 0 200 200" style="position: absolute; left: 0; top: 0">
+        <g class="t-spinslow"><path d="M72 88 A30 30 0 0 1 124 78" stroke="#0E9F8A" class="t-ic2"></path><path d="M126 66 L125 80 L111 79" stroke="#0E9F8A" class="t-ic2"></path><path d="M128 112 A30 30 0 0 1 76 122" stroke="#0E9F8A" class="t-ic2"></path><path d="M74 134 L75 120 L89 121" stroke="#0E9F8A" class="t-ic2"></path></g>
+        <path d="M100 112 C91 106 88 101 88 97 C88 93.6 90.6 91 93.8 91 C96.4 91 98.5 92.5 100 94.8 C101.5 92.5 103.6 91 106.2 91 C109.4 91 112 93.6 112 97 C112 101 109 106 100 112 Z" fill="#0E9F8A"></path>
+      </svg>
+      <div class="t-pct t-mo" style="position: absolute; left: 0; top: 0; width: 200px; height: 200px; display: flex; flex-direction: column; align-items: center; justify-content: center"><span style="font-size: 40px; font-weight: 600; letter-spacing: -0.04em; color: #10201E; line-height: 1">{{ pct }}<span style="font-size: 20px; color: #4E625D">%</span></span></div>
+      <svg class="t-ok" width="200" height="200" viewBox="0 0 200 200" style="position: absolute; left: 0; top: 0"><path d="M76 101 L93 118 L126 84" stroke="#0E9F8A" class="t-ic2" style="stroke-width: 7"></path></svg>
+    </div>
+
+    <!-- boshlang’ich holat -->
+    <div class="t-idle" style="position: absolute; left: 28px; right: 28px; top: 372px; display: flex; flex-direction: column; align-items: center; text-align: center">
+      <p style="margin: 0; font-size: 34px; line-height: 1.08; font-weight: 600; letter-spacing: -0.03em">Do’stlikni tiklash</p>
+      <p style="margin: 12px 0 0; font-size: 16px; line-height: 1.55; color: #3E524D; overflow-wrap: anywhere">{{ idleText }}</p>
+      <div class="t-glass t-mo" style="width: 334px; box-sizing: border-box; margin-top: 20px; padding: 6px 16px; border-radius: 18px; font-size: 13px; text-align: left">
+        <div style="display: flex; justify-content: space-between; gap: 12px; padding: 8px 0; border-bottom: 1px solid rgba(16, 32, 30, 0.07)"><span style="color: #5C6E69">Versiya</span><span style="font-weight: 600">2.0 · kechirim</span></div>
+        <div style="display: flex; justify-content: space-between; gap: 12px; padding: 8px 0; border-bottom: 1px solid rgba(16, 32, 30, 0.07)"><span style="color: #5C6E69">Hajmi</span><span style="font-weight: 600">cheksiz</span></div>
+        <div style="display: flex; justify-content: space-between; gap: 12px; padding: 8px 0"><span style="flex: none; color: #5C6E69">Kimga</span><span style="font-weight: 600; text-align: right; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{ d.kimga }}</span></div>
+      </div>
+    </div>
+
+    <!-- tiklanish jarayoni -->
+    <div class="t-run" aria-live="polite" style="position: absolute; left: 28px; right: 28px; top: 372px; display: flex; flex-direction: column; align-items: center; text-align: center">
+      <p style="margin: 0; font-size: 34px; line-height: 1.08; font-weight: 600; letter-spacing: -0.03em">{{ runTitle }}</p>
+      <p style="margin: 12px 0 0; font-size: 16px; line-height: 1.55; color: #3E524D">{{ runSub }}</p>
+      <div class="t-glass t-mo" style="width: 334px; box-sizing: border-box; margin-top: 20px; padding: 10px 16px 12px; border-radius: 18px; text-align: left">
+        <sc-for list="{{ steps }}" as="x">
+          <div class="{{ x.cls }}"><span class="t-sp"><sc-if value="{{ x.done }}"><svg width="12" height="12" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5 L10 17.5 L19 7.5" stroke="#FFFFFF" class="t-ic2" style="stroke-width: 3.4"></path></svg></sc-if></span><span>{{ x.text }}</span></div>
+        </sc-for>
+        <div class="t-bar" style="margin-top: 10px"><i style="width: {{ pctW }}"></i></div>
+      </div>
+    </div>
+
+    <div class="t-idle" style="position: absolute; left: 28px; right: 28px; top: 712px; display: flex; flex-direction: column; align-items: center; gap: 12px">
+      <button type="button" class="t-cta t-btn" onClick="{{ start }}" style="width: 334px">
+        <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 11 A7.5 7.5 0 0 1 18 7.5 M18.5 3.5 V8 H14 M19 13 A7.5 7.5 0 0 1 6 16.5 M5.5 20.5 V16 H10" stroke="#FFFFFF" class="t-ic"></path></svg>Tiklash
+      </button>
+      <p class="t-mo" style="margin: 0; font-size: 12px; letter-spacing: 0.04em; color: #5C6E69">Taxminiy vaqt: bir necha soniya</p>
+    </div>
+  </div>
+
+  <!-- ============ SAHIFA ============ -->
+  <header style="flex: none; position: relative; z-index: 2; display: flex; align-items: center; justify-content: space-between; gap: 12px; height: 64px; padding: 0 16px 0 20px">
+    <span class="t-mo" style="font-size: 12.5px; font-weight: 600; letter-spacing: 0.14em; color: #10201E">DO’STLIK 2.0</span>
+    <span style="display: flex; align-items: center; gap: 8px">
+      <span class="t-mo t-glass" style="display: inline-flex; align-items: center; gap: 8px; height: 30px; padding: 0 12px; border-radius: 15px; font-size: 11.5px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: #0B6E61"><span class="t-dot" style="width: 7px; height: 7px"></span>Tiklandi</span>
+      <sc-if value="{{ has.music }}">
+        <button type="button" class="t-btn t-glass" onClick="{{ toggleMusic }}" aria-label="Musiqa" aria-pressed="{{ musicOn }}" style="width: 44px; height: 44px; padding: 0; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer">
+          <sc-if value="{{ musicOff }}"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 17.5 V6.5 L19 4.5 V15.5" stroke="#0B7A6B" class="t-ic"></path><circle cx="7" cy="17.5" r="2.2" stroke="#0B7A6B" class="t-ic"></circle><circle cx="17" cy="15.5" r="2.2" stroke="#0B7A6B" class="t-ic"></circle></svg></sc-if>
+          <sc-if value="{{ musicOn }}"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 6.5 V17.5 M16 6.5 V17.5" stroke="#0B7A6B" class="t-ic2"></path></svg></sc-if>
+        </button>
+      </sc-if>
+    </span>
+  </header>
+
+  <main style="flex: 1 0 auto; position: relative; z-index: 1; display: flex; flex-direction: column">
+
+    <!-- bosh qism -->
+    <section style="padding: 18px 24px 8px">
+      <div class="t-up" aria-hidden="true" style="position: relative; width: 150px; height: 150px; margin: 0 0 22px -6px; animation-delay: .05s">
+        <div class="t-orbit" style="left: -8px; top: -8px; width: 166px; height: 166px"><i></i></div>
+        <div class="t-disc" style="left: 13px; top: 13px; width: 124px; height: 124px"></div>
+        <svg width="150" height="150" viewBox="0 0 150 150" style="position: absolute; left: 0; top: 0">
+          <defs><linearGradient id="tRg2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" class="t-g1"></stop><stop offset="1" class="t-g2"></stop></linearGradient></defs>
+          <circle cx="75" cy="75" r="52" stroke="url(#tRg2)" class="t-ring" style="stroke-width: 7"></circle>
+          <path d="M57 76 L70 89 L94 64" stroke="#0E9F8A" class="t-ic2" style="stroke-width: 5.5"></path>
+        </svg>
+      </div>
+      <p class="t-mo t-k t-up" style="animation-delay: .15s; overflow-wrap: anywhere">{{ fromTo }}</p>
+      <h1 class="t-up" style="margin: 12px 0 0; font-size: {{ h1Size }}; line-height: 1.04; font-weight: 600; letter-spacing: -0.035em; color: #10201E; overflow-wrap: anywhere; animation-delay: .25s">{{ d.kimga }}, <span style="color: #0B7A6B">kechirasanmi?</span></h1>
+      <p class="t-up" style="margin: 16px 0 0; font-size: 17px; line-height: 1.6; font-weight: 300; color: #2E423E; animation-delay: .35s">Bir xatoim oramizdagi ko’p narsani buzdi. Endi uni qayta tiklamoqchiman — sabr bilan, qadam-baqadam.</p>
+
+      <!-- bento -->
+      <div style="display: grid; grid-template-columns: 167px 167px; grid-template-rows: 108px 108px auto; gap: 8px; margin-top: 26px">
+        <div class="t-tile t-up" style="grid-row: 1 / span 2; background: linear-gradient(160deg, #0E9F8A 0%, #0B7A6B 100%); color: #FFFFFF; animation-delay: .45s; box-shadow: 0 24px 40px -24px rgba(11, 122, 107, 0.9)">
+          <p class="t-mo" style="margin: 0; font-size: 11.5px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255, 255, 255, 0.8)">Holat</p>
+          <p class="t-mo" style="margin: 8px 0 0; font-size: 44px; line-height: 1; font-weight: 600; letter-spacing: -0.05em">100<span style="font-size: 22px">%</span></p>
+          <p style="margin: 4px 0 0; font-size: 15px; color: rgba(255, 255, 255, 0.88)">tiklandi</p>
+          <div aria-hidden="true" style="margin-top: auto; display: flex; align-items: flex-end; gap: 5px; height: 58px">
+            <span class="t-grow" style="flex: 1; height: 22%; border-radius: 4px; background: rgba(255, 255, 255, 0.35); animation-delay: .6s"></span>
+            <span class="t-grow" style="flex: 1; height: 34%; border-radius: 4px; background: rgba(255, 255, 255, 0.4); animation-delay: .66s"></span>
+            <span class="t-grow" style="flex: 1; height: 30%; border-radius: 4px; background: rgba(255, 255, 255, 0.45); animation-delay: .72s"></span>
+            <span class="t-grow" style="flex: 1; height: 52%; border-radius: 4px; background: rgba(255, 255, 255, 0.55); animation-delay: .78s"></span>
+            <span class="t-grow" style="flex: 1; height: 66%; border-radius: 4px; background: rgba(255, 255, 255, 0.65); animation-delay: .84s"></span>
+            <span class="t-grow" style="flex: 1; height: 84%; border-radius: 4px; background: rgba(255, 255, 255, 0.8); animation-delay: .9s"></span>
+            <span class="t-grow" style="flex: 1; height: 100%; border-radius: 4px; background: #B9F3D6; animation-delay: .96s"></span>
+          </div>
+        </div>
+        <div class="t-tile t-glass t-up" style="animation-delay: .52s">
+          <p class="t-mo t-k">Xato</p>
+          <p class="t-mo" style="margin: auto 0 0; font-size: 26px; font-weight: 600; letter-spacing: -0.04em; line-height: 1">1 ta</p>
+          <p style="margin: 4px 0 0; font-size: 13.5px; color: #3E524D">tan olindi</p>
+        </div>
+        <div class="t-tile t-glass t-up" style="animation-delay: .59s">
+          <p class="t-mo t-k">{{ tileK }}</p>
+          <p class="t-mo" style="margin: auto 0 0; font-size: 26px; font-weight: 600; letter-spacing: -0.04em; line-height: 1">{{ tileV }}</p>
+          <p style="margin: 4px 0 0; font-size: 13.5px; color: #3E524D">{{ tileS }}</p>
+        </div>
+        <div class="t-tile t-glass t-up" style="grid-column: 1 / span 2; flex-direction: row; align-items: center; gap: 12px; padding: 14px 16px; animation-delay: .66s">
+          <span class="t-dot t-pulse" style="flex: none"></span>
+          <p style="margin: 0; font-size: 14.5px; line-height: 1.4; color: #2E423E; overflow-wrap: anywhere">{{ statusText }}</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- maktub -->
+    <sc-if value="{{ b.maktub }}">
+      <section style="padding: 52px 24px 0">
+        <p class="t-mo t-k">{{ n.maktub }} · Izoh</p>
+        <h2 class="t-h2" style="margin-top: 8px">Chin dildan</h2>
+        <article class="t-glass" style="margin-top: 18px; padding: 24px 22px 22px; border-radius: 24px">
+          <p style="margin: 0; font-size: 17px; line-height: 1.68; font-weight: 300; color: #1C302C; white-space: pre-line; overflow-wrap: anywhere">{{ d.matn }}</p>
+          <div style="display: flex; align-items: center; gap: 12px; margin-top: 20px; padding-top: 16px; border-top: 1px solid rgba(16, 32, 30, 0.08)">
+            <span aria-hidden="true" style="flex: none; width: 40px; height: 40px; border-radius: 13px; background: linear-gradient(135deg, #0E9F8A, #5CCFA2); color: #FFFFFF; font-size: 17px; font-weight: 600; display: flex; align-items: center; justify-content: center">{{ iniFrom }}</span>
+            <span style="display: flex; flex-direction: column; min-width: 0"><span style="font-size: 17px; font-weight: 600; overflow-wrap: anywhere">{{ d.kimdan }}</span><span class="t-mo" style="font-size: 11.5px; letter-spacing: 0.08em; color: #5C6E69">imzo · tasdiqlangan</span></span>
+          </div>
+        </article>
+      </section>
+    </sc-if>
+
+    <!-- va’dalar -->
+    <sc-if value="{{ b.vadalar }}">
+      <section ref="{{ refVadalar }}" class="{{ cls.vadalar }}" style="padding: 52px 24px 0">
+        <p class="t-mo t-k">{{ n.vadalar }} · Yangi versiyada</p>
+        <h2 class="t-h2" style="margin-top: 8px">Nimalar o’zgaradi</h2>
+        <div class="t-glass" style="margin-top: 18px; padding: 6px 18px; border-radius: 24px">
+          <sc-for list="{{ promises }}" as="v">
+            <div class="t-chg" style="animation-delay: {{ v.dl }}">
+              <span class="t-plus" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24"><path d="M12 5 V19 M5 12 H19" stroke="#FFFFFF" class="t-ic2" style="stroke-width: 3.2"></path></svg></span>
+              <span style="font-size: 16.5px; line-height: 1.45; color: #10201E; padding-top: 2px; overflow-wrap: anywhere">{{ v.text }}</span>
+              <span class="t-tag t-mo">{{ v.tag }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </section>
+    </sc-if>
+
+    <!-- galereya -->
+    <sc-if value="{{ b.galereya }}">
+      <section ref="{{ refGalereya }}" class="{{ cls.galereya }}" style="padding: 52px 24px 0">
+        <p class="t-mo t-k">{{ n.galereya }} · Xotiralar</p>
+        <h2 class="t-h2" style="margin-top: 8px">Tiklangan xotiralar</h2>
+        <sc-if value="{{ g1 }}">
+          <div class="t-phw" style="margin-top: 18px; width: 342px; height: 300px">
+            <div class="t-phf" style="width: 342px; height: 300px"><img src="{{ p.0 }}" alt="" style="width: 342px; height: 300px; object-fit: cover; display: block"></div>
+            <span class="t-scan"></span>
+            <span class="t-badge t-mo t-glass" style="position: absolute; left: 12px; bottom: 12px; display: inline-flex; align-items: center; gap: 7px; height: 30px; padding: 0 12px; border-radius: 15px; font-size: 11.5px; font-weight: 600; letter-spacing: 0.08em; color: #0B6E61"><svg width="13" height="13" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5 L10 17.5 L19 7.5" stroke="#0B7A6B" class="t-ic2" style="stroke-width: 3.2"></path></svg>TIKLANDI · 100%</span>
+          </div>
+        </sc-if>
+        <sc-if value="{{ g2 }}">
+          <div style="margin-top: 18px; display: flex; gap: 8px">
+            <div class="t-phw" style="width: 167px; height: 240px">
+              <div class="t-phf" style="width: 167px; height: 240px"><img src="{{ p.0 }}" alt="" style="width: 167px; height: 240px; object-fit: cover; display: block"></div>
+              <span class="t-scan"></span>
+            </div>
+            <div class="t-phw" style="width: 167px; height: 240px">
+              <div class="t-phf" style="width: 167px; height: 240px; animation-delay: .3s"><img src="{{ p.1 }}" alt="" style="width: 167px; height: 240px; object-fit: cover; display: block"></div>
+              <span class="t-scan" style="animation-delay: .3s"></span>
+            </div>
+          </div>
+          <span class="t-badge t-mo t-glass" style="margin-top: 10px; display: inline-flex; align-items: center; gap: 7px; height: 30px; padding: 0 12px; border-radius: 15px; font-size: 11.5px; font-weight: 600; letter-spacing: 0.08em; color: #0B6E61"><svg width="13" height="13" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5 L10 17.5 L19 7.5" stroke="#0B7A6B" class="t-ic2" style="stroke-width: 3.2"></path></svg>{{ galBadge }}</span>
+        </sc-if>
+        <p style="margin: 14px 0 0; font-size: 15.5px; line-height: 1.55; font-weight: 300; color: #2E423E">Hech biri o’chmagan ekan. Hammasi joyida — men ularni ehtiyot qilaman.</p>
+      </section>
+    </sc-if>
+
+    <!-- taklif -->
+    <sc-if value="{{ b.taklif }}">
+      <section style="padding: 52px 24px 0">
+        <p class="t-mo t-k">{{ n.taklif }} · Reja</p>
+        <h2 class="t-h2" style="margin-top: 8px">Rejalashtirilgan uchrashuv</h2>
+        <div class="t-glass" style="margin-top: 18px; padding: 20px 20px 20px; border-radius: 24px; display: flex; flex-direction: column; gap: 14px">
+          <div style="display: flex; align-items: flex-start; gap: 14px">
+            <span aria-hidden="true" style="flex: none; width: 48px; height: 48px; border-radius: 15px; background: #E3F4EE; display: flex; align-items: center; justify-content: center"><svg width="26" height="26" viewBox="0 0 24 24"><rect x="4" y="5.5" width="16" height="14" rx="3" stroke="#0B7A6B" class="t-ic"></rect><path d="M4 10 H20 M8.5 3.5 V7 M15.5 3.5 V7" stroke="#0B7A6B" class="t-ic"></path><path d="M9.5 14.5 L11.3 16.2 L14.8 12.6" stroke="#0B7A6B" class="t-ic"></path></svg></span>
+            <p style="margin: 2px 0 0; font-size: 22px; line-height: 1.25; font-weight: 500; letter-spacing: -0.02em; overflow-wrap: anywhere">{{ d.taklif }}</p>
+          </div>
+          <sc-if value="{{ hasMeta }}">
+            <div class="t-mo" style="display: flex; flex-direction: column; border-radius: 16px; background: rgba(16, 32, 30, 0.035); padding: 4px 14px">
+              <sc-if value="{{ d.taklif_vaqt }}"><div style="display: flex; justify-content: space-between; gap: 12px; padding: 10px 0; font-size: 13.5px"><span style="flex: none; color: #5C6E69">Qachon</span><span style="font-weight: 600; text-align: right; overflow-wrap: anywhere">{{ d.taklif_vaqt }}</span></div></sc-if>
+              <sc-if value="{{ both }}"><div style="height: 1px; background: rgba(16, 32, 30, 0.08)"></div></sc-if>
+              <sc-if value="{{ d.taklif_joy }}"><div style="display: flex; justify-content: space-between; gap: 12px; padding: 10px 0; font-size: 13.5px"><span style="flex: none; color: #5C6E69">Qayerda</span><span style="font-weight: 600; text-align: right; overflow-wrap: anywhere">{{ d.taklif_joy }}</span></div></sc-if>
+            </div>
+          </sc-if>
+          <sc-if value="{{ notAgreed }}">
+            <button type="button" class="t-cta t-btn" onClick="{{ agree }}" style="width: 100%">Roziman</button>
+          </sc-if>
+          <sc-if value="{{ agreed }}">
+            <div class="t-pop" role="status" style="min-height: 56px; box-sizing: border-box; padding: 10px 16px; border-radius: 18px; background: #E3F4EE; color: #0B6E61; display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 16px; font-weight: 600; text-align: center"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" style="flex: none"><path d="M5.5 12.5 L10 17 L18.5 8" stroke="#0B6E61" class="t-ic2"></path></svg>{{ agreedText }}</div>
+          </sc-if>
+        </div>
+      </section>
+    </sc-if>
+
+    <!-- javob -->
+    <sc-if value="{{ b.javob }}">
+      <section style="padding: 52px 24px 0">
+        <p class="t-mo t-k">{{ n.javob }} · Tasdiqlash</p>
+        <h2 class="t-h2" style="margin-top: 8px">Kechirasanmi?</h2>
+        <p style="margin: 10px 0 0; font-size: 16px; line-height: 1.55; font-weight: 300; color: #2E423E">Tiklashni yakunlash uchun bitta tasdiq yetarli.</p>
+        <sc-if value="{{ waiting }}">
+          <button type="button" class="t-cta t-btn" onClick="{{ forgive }}" style="width: 342px; height: 62px; margin-top: 20px; border-radius: 20px; font-size: 18px">
+            <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20 C5.5 15.6 3.5 12.4 3.5 9.4 C3.5 6.8 5.5 5 7.8 5 C9.6 5 11.1 6 12 7.6 C12.9 6 14.4 5 16.2 5 C18.5 5 20.5 6.8 20.5 9.4 C20.5 12.4 18.5 15.6 12 20 Z" stroke="#FFFFFF" class="t-ic"></path></svg>Kechirdim
+          </button>
+        </sc-if>
+        <sc-if value="{{ forgiven }}">
+          <div class="t-glass t-pop" role="status" style="margin-top: 20px; padding: 22px 20px; border-radius: 24px; display: flex; flex-direction: column; gap: 10px">
+            <span class="t-mo" style="display: inline-flex; align-self: flex-start; align-items: center; gap: 8px; height: 28px; padding: 0 12px; border-radius: 14px; background: #E3F4EE; font-size: 11.5px; font-weight: 600; letter-spacing: 0.1em; color: #0B6E61"><svg width="13" height="13" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5 L10 17.5 L19 7.5" stroke="#0B6E61" class="t-ic2" style="stroke-width: 3.2"></path></svg>TASDIQLANDI</span>
+            <p style="margin: 4px 0 0; font-size: 22px; font-weight: 600; letter-spacing: -0.02em; overflow-wrap: anywhere">Rahmat, {{ d.kimga }}.</p>
+            <p style="margin: 0; font-size: 16px; line-height: 1.6; font-weight: 300; color: #2E423E; white-space: pre-line; overflow-wrap: anywhere">{{ thanks }}</p>
+          </div>
+        </sc-if>
+      </section>
+    </sc-if>
+
+    <footer style="flex: 1 0 auto; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; gap: 8px; padding: 56px 24px 40px; text-align: center">
+      <span aria-hidden="true" style="display: flex; gap: 5px"><span style="width: 18px; height: 4px; border-radius: 2px; background: #0E9F8A"></span><span style="width: 10px; height: 4px; border-radius: 2px; background: #7EE0B5"></span><span style="width: 6px; height: 4px; border-radius: 2px; background: #C7EBDD"></span></span>
+      <p class="t-mo" style="margin: 0; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: #4E625D">Barcha o’zgarishlar saqlandi</p>
+      <p style="margin: 0; font-size: 19px; font-weight: 600; color: #0B7A6B; overflow-wrap: anywhere">{{ d.kimdan }}</p>
+    </footer>
+  </main>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":3300}}'>
+class Component extends DCLogic {
+  constructor(...args) {
+    super(...args);
+    this.state = { phase: 'idle', pct: 0, gone: false, seen: {}, agreed: false, forgiven: false };
+    this.els = {};
+    this.vis = {};
+    const mk = (k) => (el) => { this.els[k] = el; };
+    this.refVadalar = mk('vadalar');
+    this.refGalereya = mk('galereya');
+  }
+  componentDidMount() {
+    try {
+      if (typeof IntersectionObserver === 'undefined') return;
+      this.io = new IntersectionObserver((list) => {
+        list.forEach((en) => {
+          const k = en.target.getAttribute('data-k');
+          this.vis[k] = en.isIntersecting;
+          if (en.isIntersecting && this.state.gone) this.see(k);
+        });
+      }, { rootMargin: '0px 0px 4% 0px', threshold: 0.01 });
+      Object.keys(this.els).forEach((k) => { const el = this.els[k]; if (el) { el.setAttribute('data-k', k); this.io.observe(el); } });
+    } catch (e) { this.io = null; }
+  }
+  componentWillUnmount() { this.dead = true; clearInterval(this.tick); clearTimeout(this.t1); clearTimeout(this.t2); if (this.io) this.io.disconnect(); }
+  see(k) {
+    if (this.state.seen[k]) return;
+    this.setState({ seen: Object.assign({}, this.state.seen, { [k]: true }) });
+  }
+  start() {
+    if (this.state.phase !== 'idle') return;
+    const P = [[0, 0], [0.2, 22], [0.42, 41], [0.55, 62], [0.72, 66], [0.86, 88], [1, 100]];
+    const T = 3000, t0 = Date.now();
+    this.setState({ phase: 'run', pct: 0 });
+    this.tick = setInterval(() => {
+      if (this.dead) return;
+      const f = Math.min(1, (Date.now() - t0) / T);
+      let pct = 100;
+      for (let i = 1; i < P.length; i++) {
+        if (f <= P[i][0]) { const a = P[i - 1], b = P[i]; pct = a[1] + (b[1] - a[1]) * (f - a[0]) / (b[0] - a[0]); break; }
+      }
+      if (f >= 1) {
+        clearInterval(this.tick);
+        this.setState({ pct: 100, phase: 'done' });
+        this.t1 = setTimeout(() => {
+          if (this.dead) return;
+          this.setState({ gone: true });
+          SITE.opened();
+          this.t2 = setTimeout(() => { if (!this.dead) Object.keys(this.vis).forEach((k) => { if (this.vis[k]) this.see(k); }); }, 700);
+        }, 750);
+      } else {
+        this.setState({ pct: Math.round(pct) });
+      }
+    }, 50);
+  }
+  renderVals() {
+    const s = this.state || {};
+    const d = SITE.d, b = SITE.b;
+    const kimga = String(d.kimga || '').trim();
+    const pct = s.pct || 0;
+    const ST = [[18, 'Xotiralar yuklanmoqda'], [40, 'Ishonch qayta tiklanmoqda'], [64, 'Tushunmovchiliklar o’chirilmoqda'], [86, 'Iliq so’zlar qaytarilmoqda'], [100, 'Do’stlik ishga tushirilmoqda']];
+    const vad = d.vadalar || [];
+    const order = ['maktub', 'vadalar', 'galereya', 'taklif', 'javob'];
+    const n = {};
+    let k = 1;
+    order.forEach((key) => { if (b[key]) n[key] = String(k++).padStart(2, '0'); });
+    const seen = s.seen || {};
+    const tv = String(d.taklif_vaqt || '').trim();
+    const nLen = kimga.length;
+    return {
+      rootCls: s.gone ? 't-go' : '',
+      introCls: 't-intro' + (s.phase !== 'idle' ? ' is-run' : '') + (s.phase === 'done' ? ' is-done' : '') + (s.gone ? ' t-intro--open' : ''),
+      chipText: s.phase === 'done' ? 'Tayyor' : s.phase === 'run' ? 'O’rnatilmoqda' : 'Yangilanish tayyor',
+      idleText: (d.kimdan || '') + ' sen bilan do’stlikni qayta tiklamoqchi. Boshlash uchun «Tiklash»ni bos.',
+      runTitle: s.phase === 'done' ? 'Do’stlik tiklandi' : 'Do’stlik tiklanmoqda',
+      runSub: s.phase === 'done' ? 'Barcha xotiralar joyida.' : 'Iltimos, kuting. Hech narsa yo’qolmaydi.',
+      pct: String(pct),
+      pctW: pct + '%',
+      ringOff: (439.8 * (1 - pct / 100)).toFixed(1),
+      steps: ST.map((x, i) => {
+        const prev = i ? ST[i - 1][0] : 0;
+        const st = pct >= x[0] ? 2 : pct >= prev && s.phase !== 'idle' ? 1 : 0;
+        return { text: x[1], done: st === 2, cls: 't-step t-s' + st };
+      }),
+      start: () => this.start(),
+      musicOn: !!SITE.music.playing,
+      musicOff: !SITE.music.playing,
+      toggleMusic: () => SITE.music.toggle(),
+      fromTo: (d.kimdan || '') + 'dan ' + SITE.ga(kimga),
+      h1Size: nLen > 18 ? '34px' : nLen > 10 ? '40px' : '46px',
+      iniFrom: (String(d.kimdan || '').trim().charAt(0) || '').toUpperCase(),
+      tileK: b.vadalar ? 'Va’da' : 'Sabr',
+      tileV: b.vadalar ? vad.length + ' ta' : 'cheksiz',
+      tileS: b.vadalar ? 'yangi qo’shildi' : 'har doim yetarli',
+      statusText: s.forgiven ? 'Kechirilding. Rahmat, ' + kimga + '!' : b.javob ? kimga + 'ning javobi kutilmoqda' : 'Barqaror. Yangi sahifa ochildi.',
+      n,
+      cls: { vadalar: seen.vadalar ? 't-play' : '', galereya: seen.galereya ? 't-play' : '' },
+      promises: vad.map((text, i) => ({ text, tag: i === 0 ? 'yangi' : i % 3 === 1 ? 'tuzatildi' : 'yangi', dl: (i * 0.14).toFixed(2) + 's' })),
+      g1: SITE.has.photos < 2, g2: SITE.has.photos >= 2,
+      galBadge: 'TIKLANDI · ' + Math.max(2, SITE.has.photos) + ' TA XOTIRA',
+      hasMeta: !!(tv || d.taklif_joy),
+      both: !!(tv && d.taklif_joy),
+      agreed: !!s.agreed,
+      notAgreed: !s.agreed,
+      agreedText: tv ? 'Rejaga qo’shildi: ' + tv : 'Rejaga qo’shildi. Kutaman!',
+      agree: () => { if (this.state.agreed) return; this.setState({ agreed: true }); SITE.reply('Roziman: ' + (d.taklif || ''), '🥰'); },
+      thanks: d.javob_matni || 'Bu safar hammasini to’g’ri qilaman. Ishonching — eng katta yangilanish.',
+      waiting: !s.forgiven,
+      forgiven: !!s.forgiven,
+      forgive: () => { if (this.state.forgiven) return; this.setState({ forgiven: true }); SITE.reply('Kechirdim', '🤗'); }
+    };
+  }
+}
+</script>
+</body>
+</html>

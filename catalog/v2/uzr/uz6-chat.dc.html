@@ -1,0 +1,472 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<title>Uzr Premium: Yozilmoqda</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&amp;family=Montserrat+Alternates:wght@500;600;700&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#4F46E5}
+.c-ma{font-family:'Montserrat Alternates','Golos Text',system-ui,sans-serif}
+.c-ic{fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.c-ic2{fill:none;stroke-width:2.3;stroke-linecap:round;stroke-linejoin:round}
+/* fon: avrora va nuqtalar */
+.c-wall{position:absolute;left:0;top:0;right:0;bottom:0;background-color:#EEF0F7;background-image:radial-gradient(circle at 1px 1px,rgba(27,30,51,.075) 1px,rgba(27,30,51,0) 1.6px);background-size:22px 22px;pointer-events:none}
+.c-blob{position:absolute;border-radius:50%;pointer-events:none}
+.c-bv{background:radial-gradient(circle,rgba(150,128,255,.5) 0%,rgba(150,128,255,0) 68%)}
+.c-bp{background:radial-gradient(circle,rgba(255,170,140,.5) 0%,rgba(255,170,140,0) 68%)}
+.c-bm{background:radial-gradient(circle,rgba(120,220,195,.42) 0%,rgba(120,220,195,0) 68%)}
+.c-drift{animation:cDrift 17s ease-in-out infinite alternate}
+.c-drift2{animation:cDrift2 21s ease-in-out infinite alternate}
+@keyframes cDrift{from{transform:translate(0,0) scale(1)}to{transform:translate(40px,30px) scale(1.12)}}
+@keyframes cDrift2{from{transform:translate(0,0) scale(1.08)}to{transform:translate(-36px,-24px) scale(.94)}}
+.c-glass{background:rgba(255,255,255,.62);-webkit-backdrop-filter:blur(16px) saturate(1.4);backdrop-filter:blur(16px) saturate(1.4);border:1px solid rgba(255,255,255,.75)}
+/* kirish: bildirishnoma */
+.c-intro{transition:opacity .7s ease .25s,visibility 0s linear 1s}
+.c-intro--open{opacity:0;visibility:hidden;pointer-events:none}
+.c-notif{transition:transform .55s cubic-bezier(.3,1.3,.5,1),opacity .45s ease .1s}
+.c-intro--open .c-notif{transform:translateY(-26px) scale(1.06);opacity:0}
+.c-sheen{position:absolute;left:0;top:0;right:0;bottom:0;border-radius:26px;overflow:hidden;pointer-events:none}
+.c-sheen::after{content:'';position:absolute;top:0;left:-45%;width:40%;height:100%;background:linear-gradient(100deg,rgba(255,255,255,0),rgba(255,255,255,.7),rgba(255,255,255,0));animation:cShine 4.2s ease-in-out infinite}
+.c-gl{animation:cFloat 4.4s ease-in-out infinite}
+@keyframes cFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.c-ghost{transition:transform .5s ease,opacity .4s ease}
+.c-intro--open .c-ghost{transform:translateY(30px) scale(.9);opacity:0}
+.c-ititle{transition:transform .6s ease,opacity .5s ease}
+.c-intro--open .c-ititle{transform:translateY(-20px);opacity:0}
+.c-ring{position:absolute;left:0;top:0;width:56px;height:56px;border-radius:50%;border:2px solid rgba(79,70,229,.5);animation:cRing 2.2s ease-out infinite}
+.c-ring2{animation-delay:1.1s}
+@keyframes cRing{0%{transform:scale(.55);opacity:.9}100%{transform:scale(1.5);opacity:0}}
+.c-badge{animation:cBadge 2.2s ease-in-out infinite}
+@keyframes cBadge{0%,100%{transform:scale(1)}50%{transform:scale(1.12)}}
+/* xabarlar */
+.c-row{position:relative;display:flex;padding:0 12px}
+.c-in{justify-content:flex-start}
+.c-out{justify-content:flex-end}
+.c-bub{position:relative;box-sizing:border-box;max-width:290px;padding:9px 14px 8px;border-radius:20px;font-size:16.5px;line-height:1.45;overflow-wrap:anywhere;transform-origin:0 100%}
+.c-in .c-bub{background:rgba(255,255,255,.94);color:#1B1E33;border-bottom-left-radius:7px;box-shadow:0 1px 1px rgba(27,30,51,.05),0 10px 22px -16px rgba(60,50,150,.45)}
+.c-out .c-bub{background:linear-gradient(135deg,#4F46E5 0%,#7C3AED 100%);color:#FFFFFF;border-bottom-right-radius:7px;transform-origin:100% 100%;box-shadow:0 12px 24px -14px rgba(79,70,229,.8)}
+.c-time{float:right;margin:7px -2px -3px 12px;font-size:11.5px;line-height:1;color:#8A8DA6;display:inline-flex;align-items:center;gap:3px}
+.c-out .c-time{color:rgba(255,255,255,.78)}
+.c-del{display:inline-flex;align-items:center;gap:8px;padding:9px 14px;border-radius:20px;border-bottom-left-radius:7px;border:1.5px dashed rgba(27,30,51,.22);background:rgba(255,255,255,.42);font-size:15px;font-style:italic;color:#62667F}
+.c-chip{align-self:center;display:inline-flex;align-items:center;gap:7px;padding:6px 14px;border-radius:999px;font-size:13px;font-weight:600;color:#474B68;letter-spacing:.01em}
+.c-key{background:linear-gradient(#FFFFFF,#FFFFFF) padding-box,linear-gradient(135deg,#4F46E5 0%,#C084FC 55%,#FB923C 100%) border-box !important;border:2px solid transparent;padding:12px 16px 10px !important;box-shadow:0 18px 36px -18px rgba(124,58,237,.6) !important}
+.c-react{position:absolute;right:-8px;bottom:-14px;width:30px;height:30px;border-radius:50%;background:#FFFFFF;box-shadow:0 4px 12px -4px rgba(60,50,150,.45);display:flex;align-items:center;justify-content:center;animation:cReact .6s cubic-bezier(.2,1.6,.4,1) .4s both}
+@keyframes cReact{from{transform:scale(0)}to{transform:scale(1)}}
+/* yozish: yozdi, o’chirdi, yana yozdi */
+.c-draft{position:absolute;left:12px;top:0;visibility:hidden;opacity:0;box-sizing:border-box;max-width:290px;padding:12px 16px 10px;border-radius:20px;border-bottom-left-radius:7px;border:2px dashed rgba(124,58,237,.45);background:rgba(255,255,255,.7);color:#1B1E33}
+.c-w{display:inline-block;white-space:nowrap}
+.c-ch{display:inline-block;white-space:pre;overflow:hidden;vertical-align:bottom;max-width:0;opacity:0}
+.c-caret{display:inline-block;width:2px;height:1.05em;margin-left:1px;vertical-align:-.12em;background:#7C3AED;animation:cCaret .9s steps(1) infinite}
+@keyframes cCaret{50%{opacity:0}}
+.c-go .c-draft{animation:cVis .3s ease forwards,cGone .25s ease forwards}
+.c-go .c-r1{animation:cOn .01s linear forwards,cOff .01s linear forwards}
+.c-go .c-r2{animation:cOn .01s linear forwards}
+.c-go .c-keyb{animation:cSend .55s cubic-bezier(.2,1.25,.4,1) both}
+.c-go .c-st-on{animation:cHide .01s linear forwards,cShow .01s linear forwards}
+.c-go .c-st-ty{animation:cShow .01s linear forwards,cHide .01s linear forwards}
+.c-st-ty{opacity:0}
+@keyframes cOn{to{max-width:1em;opacity:1}}
+@keyframes cOff{to{max-width:0;opacity:0}}
+@keyframes cVis{from{visibility:visible;opacity:0;transform:translateY(8px)}to{visibility:visible;opacity:1;transform:none}}
+@keyframes cGone{from{visibility:visible;opacity:1}to{visibility:hidden;opacity:0}}
+@keyframes cShow{to{opacity:1}}
+@keyframes cHide{to{opacity:0}}
+@keyframes cSend{0%{opacity:0;transform:translateY(14px) scale(.9)}100%{opacity:1;transform:none}}
+.c-dots{display:inline-flex;gap:5px;align-items:center;height:20px}
+.c-dots i{display:block;width:7px;height:7px;border-radius:50%;background:#8A8DA6;animation:cDot 1.1s ease-in-out infinite}
+.c-dots i:nth-child(2){animation-delay:.15s}.c-dots i:nth-child(3){animation-delay:.3s}
+@keyframes cDot{0%,60%,100%{transform:translateY(0);opacity:.45}30%{transform:translateY(-5px);opacity:1}}
+/* ko’rinishga kirganda: oldin «yozmoqda», keyin xabarlar birin-ketin */
+.c-typing{position:absolute;left:12px;top:0;visibility:hidden;padding:12px 16px;border-radius:20px;border-bottom-left-radius:7px;background:rgba(255,255,255,.94);box-shadow:0 10px 22px -16px rgba(60,50,150,.45)}
+.c-play .c-typing{animation:cBlip 1s ease both}
+@keyframes cBlip{0%{visibility:visible;opacity:0;transform:scale(.8)}15%{visibility:visible;opacity:1;transform:none}80%{visibility:visible;opacity:1}100%{visibility:hidden;opacity:0}}
+.c-play .c-pop{animation:cPop .5s cubic-bezier(.2,1.25,.4,1) both}
+.c-pop2{animation:cPop .5s cubic-bezier(.2,1.25,.4,1) both}
+@keyframes cPop{0%{opacity:0;transform:translateY(12px) scale(.94)}100%{opacity:1;transform:none}}
+.c-blip2{position:absolute;left:12px;top:0;padding:12px 16px;border-radius:20px;border-bottom-left-radius:7px;background:rgba(255,255,255,.94);animation:cBlip 1.3s ease both}
+/* va’dalar */
+.c-pr{display:flex;align-items:flex-start;gap:11px;text-align:left;font-family:inherit;cursor:pointer;border:0;min-height:44px;padding:10px 14px 10px 10px !important;transition:transform .15s ease}
+.c-pr:active{transform:scale(.98)}
+.c-pr:focus-visible{outline:3px solid #A5B4FC;outline-offset:2px}
+.c-num{flex:none;width:26px;height:26px;border-radius:9px;background:linear-gradient(135deg,#4F46E5,#7C3AED);color:#fff;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:-1px}
+.c-heart{position:absolute;right:-13px;top:50%;margin-top:-13px;width:26px;height:26px;border-radius:50%;background:#FFFFFF;box-shadow:0 4px 10px -4px rgba(60,50,150,.5);display:flex;align-items:center;justify-content:center;animation:cReact .45s cubic-bezier(.2,1.6,.4,1) both}
+/* surat */
+.c-ph{display:block;object-fit:cover;border-radius:16px}
+/* taklif kartasi */
+.c-card{width:290px;box-sizing:border-box;border-radius:22px;border-bottom-left-radius:7px;overflow:hidden;background:#FFFFFF;box-shadow:0 1px 1px rgba(27,30,51,.05),0 18px 34px -20px rgba(60,50,150,.55)}
+.c-band{position:relative;height:84px;overflow:hidden;background:linear-gradient(120deg,#4F46E5 0%,#7C3AED 50%,#F97362 100%)}
+.c-band::after{content:'';position:absolute;left:-40%;top:0;width:40%;height:100%;background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,.35),rgba(255,255,255,0));animation:cShine 4.5s ease-in-out infinite}
+@keyframes cShine{0%,55%{transform:translateX(0)}100%{transform:translateX(380%)}}
+.c-meta{display:flex;align-items:center;gap:10px;font-size:15px;color:#33374F}
+.c-meta b{font-weight:600}
+.c-mi{flex:none;width:32px;height:32px;border-radius:10px;background:#EEF0FB;display:flex;align-items:center;justify-content:center}
+.c-btn{transition:transform .15s ease,box-shadow .2s ease}
+.c-btn:active{transform:scale(.97)}
+.c-btn:focus-visible{outline:3px solid #A5B4FC;outline-offset:3px}
+.c-cta{height:52px;border:0;border-radius:26px;background:linear-gradient(135deg,#4F46E5 0%,#7C3AED 100%);color:#FFFFFF;font-family:inherit;font-size:16.5px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:9px;box-shadow:0 14px 26px -14px rgba(79,70,229,.9)}
+.c-compose{display:flex;align-items:center;gap:10px;padding:8px 8px 8px 18px;border-radius:30px}
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{animation:none !important;transition:none !important}.c-draft,.c-typing{visibility:hidden !important}}
+</style>
+</helmet>
+<div class="{{ rootCls }}" style="width: 390px; min-height: var(--vh, 100vh); position: relative; overflow: hidden; background: #EEF0F7; color: #1B1E33; font-family: 'Golos Text', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; display: flex; flex-direction: column">
+
+  <div class="c-wall" aria-hidden="true">
+    <div class="c-blob c-bv c-drift" style="width: 460px; height: 460px; left: -190px; top: -150px"></div>
+    <div class="c-blob c-bp c-drift2" style="width: 400px; height: 400px; left: 170px; top: 120px"></div>
+    <div class="c-blob c-bm c-drift" style="width: 420px; height: 420px; left: -200px; top: 620px"></div>
+    <div class="c-blob c-bv c-drift2" style="width: 440px; height: 440px; left: 160px; top: 1150px"></div>
+    <div class="c-blob c-bp c-drift" style="width: 420px; height: 420px; left: -180px; top: 1750px"></div>
+    <div class="c-blob c-bm c-drift2" style="width: 440px; height: 440px; left: 150px; top: 2350px"></div>
+    <div class="c-blob c-bv c-drift" style="width: 440px; height: 440px; left: -170px; top: 2950px"></div>
+    <div class="c-blob c-bp c-drift2" style="width: 420px; height: 420px; left: 160px; top: 3550px"></div>
+  </div>
+
+  <!-- ============ KIRISH: bildirishnoma ============ -->
+  <div class="{{ introCls }}" data-intro style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; z-index: 30; overflow: hidden; background-color: #E7E6F5; background-image: radial-gradient(circle at 1px 1px, rgba(27, 30, 51, 0.07) 1px, rgba(27, 30, 51, 0) 1.6px); background-size: 22px 22px">
+    <div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; overflow: hidden">
+      <div class="c-blob c-drift" style="width: 520px; height: 520px; left: -220px; top: -160px; background: radial-gradient(circle, rgba(124, 92, 255, 0.62) 0%, rgba(124, 92, 255, 0) 66%)"></div>
+      <div class="c-blob c-drift2" style="width: 480px; height: 480px; left: 120px; top: 260px; background: radial-gradient(circle, rgba(255, 150, 120, 0.6) 0%, rgba(255, 150, 120, 0) 66%)"></div>
+      <div class="c-blob c-drift" style="width: 500px; height: 500px; left: -200px; top: 520px; background: radial-gradient(circle, rgba(90, 210, 185, 0.5) 0%, rgba(90, 210, 185, 0) 66%)"></div>
+    </div>
+
+    <div class="c-ititle" style="position: absolute; left: 24px; right: 24px; top: 104px; text-align: center">
+      <p style="margin: 0 0 14px; font-size: 13px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: #4B4F75">{{ fromTo }}</p>
+      <p class="c-ma" style="margin: 0; font-size: 46px; line-height: 1.04; font-weight: 700; letter-spacing: -0.02em; color: #1B1E33">1 ta yangi<br>xabar</p>
+    </div>
+
+    <div style="position: absolute; left: 24px; top: 318px; width: 342px">
+      <div class="c-ghost c-glass" aria-hidden="true" style="position: absolute; left: 24px; right: 24px; top: 128px; height: 64px; border-radius: 22px; opacity: 0.6; background: rgba(255, 255, 255, 0.72); display: flex; align-items: flex-end; justify-content: center; padding-bottom: 9px; box-sizing: border-box; font-size: 12.5px; font-style: italic; color: #5A5E7A">Yana bir xabar o’chirildi</div>
+      <div class="c-ghost c-glass" aria-hidden="true" style="position: absolute; left: 12px; right: 12px; top: 100px; height: 64px; border-radius: 22px; opacity: 0.92; background: rgba(255, 255, 255, 0.8); display: flex; align-items: flex-end; justify-content: center; padding-bottom: 9px; box-sizing: border-box; font-size: 12.5px; font-style: italic; color: #5A5E7A">Xabar o’chirildi</div>
+      <div class="c-notif">
+        <div>
+          <button type="button" onClick="{{ open }}" aria-label="{{ notifLabel }}" class="c-glass c-btn" style="position: relative; width: 342px; min-height: 118px; box-sizing: border-box; padding: 14px 16px 16px; border-radius: 26px; background: rgba(255, 255, 255, 0.8); text-align: left; font-family: inherit; color: #1B1E33; cursor: pointer; display: flex; gap: 13px; box-shadow: 0 26px 50px -24px rgba(50, 40, 140, 0.55)">
+            <span class="c-sheen" aria-hidden="true"></span>
+            <span style="flex: none; position: relative; width: 44px; height: 44px; border-radius: 14px; background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 60%, #F97362 100%); display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 16px -8px rgba(79, 70, 229, 0.9)">
+              <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 11.2 C4.5 7.2 7.9 4.5 12 4.5 C16.1 4.5 19.5 7.2 19.5 11.2 C19.5 15.2 16.1 17.9 12 17.9 C11.1 17.9 10.2 17.8 9.4 17.5 L5.6 19.3 L6.6 15.9 C5.3 14.6 4.5 13 4.5 11.2 Z" stroke="#FFFFFF" class="c-ic"></path></svg>
+              <span class="c-badge" style="position: absolute; right: -5px; top: -5px; min-width: 20px; height: 20px; border-radius: 10px; background: #F97362; color: #FFFFFF; font-size: 11.5px; font-weight: 700; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 0 2px #FFFFFF">1</span>
+            </span>
+            <span style="flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; gap: 3px">
+              <span style="display: flex; align-items: center; justify-content: space-between; gap: 8px; font-size: 12.5px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #6A6E8C"><span>Xabarlar</span><span style="font-weight: 500; letter-spacing: 0.02em; text-transform: none">hozir</span></span>
+              <span style="font-size: 17px; font-weight: 700; line-height: 1.3; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{ d.kimdan }}</span>
+              <span style="font-size: 15px; line-height: 1.42; color: #3A3E5A; overflow-wrap: anywhere">{{ notifBody }}</span>
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="c-ititle" aria-hidden="true" style="position: absolute; left: 0; right: 0; top: 590px; display: flex; flex-direction: column; align-items: center; gap: 14px">
+      <div style="position: relative; width: 56px; height: 56px">
+        <span class="c-ring"></span><span class="c-ring c-ring2"></span>
+        <span style="position: absolute; left: 14px; top: 14px; width: 28px; height: 28px; border-radius: 50%; background: linear-gradient(135deg, #4F46E5, #7C3AED); box-shadow: 0 6px 14px -6px rgba(79, 70, 229, 0.9)"></span>
+      </div>
+      <p style="margin: 0; font-size: 15px; font-weight: 500; color: #3F4363">O’qish uchun xabarni bosing</p>
+    </div>
+  </div>
+
+  <!-- ============ SAHIFA: yozishma ============ -->
+  <header class="c-glass" style="flex: none; position: relative; z-index: 2; display: flex; align-items: center; gap: 11px; height: 66px; padding: 0 12px 0 8px; border-width: 0 0 1px; border-radius: 0; background: rgba(255, 255, 255, 0.55)">
+    <svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true" style="flex: none"><path d="M14.5 6 L8.5 12 L14.5 18" stroke="#4F46E5" class="c-ic2"></path></svg>
+    <div aria-hidden="true" style="flex: none; position: relative; width: 42px; height: 42px; border-radius: 50%; background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 60%, #F97362 100%); color: #FFFFFF; font-size: 18px; font-weight: 700; display: flex; align-items: center; justify-content: center">{{ iniFrom }}<span style="position: absolute; right: 0; bottom: 1px; width: 11px; height: 11px; border-radius: 50%; background: #34D399; box-shadow: 0 0 0 2px #FFFFFF"></span></div>
+    <div style="flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; gap: 1px">
+      <p style="margin: 0; font-size: 17px; font-weight: 700; line-height: 1.25; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{ d.kimdan }}</p>
+      <p style="margin: 0; position: relative; height: 18px; font-size: 13.5px; line-height: 18px">
+        <span class="c-st-on" style="position: absolute; left: 0; top: 0; color: #6A6E8C; animation-delay: {{ t.st }}">onlayn</span>
+        <span class="c-st-ty" style="position: absolute; left: 0; top: 0; color: #6D28D9; font-weight: 600; white-space: nowrap; animation-delay: {{ t.st }}">yozmoqda…</span>
+      </p>
+    </div>
+    <sc-if value="{{ has.music }}">
+      <button type="button" class="c-btn" onClick="{{ toggleMusic }}" aria-label="Musiqa" aria-pressed="{{ musicOn }}" style="flex: none; width: 44px; height: 44px; padding: 0; border: 0; border-radius: 50%; background: rgba(79, 70, 229, 0.1); display: flex; align-items: center; justify-content: center; cursor: pointer">
+        <sc-if value="{{ musicOff }}">
+          <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 17.5 V6.5 L19 4.5 V15.5" stroke="#4F46E5" class="c-ic"></path><circle cx="7" cy="17.5" r="2.2" stroke="#4F46E5" class="c-ic"></circle><circle cx="17" cy="15.5" r="2.2" stroke="#4F46E5" class="c-ic"></circle></svg>
+        </sc-if>
+        <sc-if value="{{ musicOn }}">
+          <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 6.5 V17.5 M16 6.5 V17.5" stroke="#4F46E5" class="c-ic2"></path></svg>
+        </sc-if>
+      </button>
+    </sc-if>
+  </header>
+
+  <main style="flex: 1 0 auto; position: relative; z-index: 1; display: flex; flex-direction: column; gap: 6px; padding: 22px 0 0">
+
+    <!-- suhbat boshi -->
+    <div class="c-glass" style="align-self: center; width: 342px; box-sizing: border-box; padding: 24px 22px 22px; border-radius: 28px; display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center; margin-bottom: 14px">
+      <div aria-hidden="true" style="display: flex; align-items: center">
+        <span style="width: 54px; height: 54px; border-radius: 50%; background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 60%, #F97362 100%); color: #FFFFFF; font-size: 22px; font-weight: 700; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 0 3px #FFFFFF">{{ iniFrom }}</span>
+        <span style="width: 54px; height: 54px; margin-left: -14px; border-radius: 50%; background: #FFFFFF; color: #4F46E5; font-size: 22px; font-weight: 700; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 0 3px #EEF0F7, 0 8px 18px -10px rgba(60, 50, 150, 0.6)">{{ iniTo }}</span>
+      </div>
+      <p style="margin: 2px 0 0; font-size: 12.5px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: #5B5F80; overflow-wrap: anywhere">{{ fromTo }}</p>
+      <p class="c-ma" style="margin: 0; font-size: 29px; line-height: 1.12; font-weight: 700; letter-spacing: -0.015em; color: #1B1E33">Yozdim. O’chirdim. Yana yozdim.</p>
+      <p style="margin: 0; font-size: 15.5px; line-height: 1.55; color: #464A66">Bu so’zni yuborish uchun ancha jur’at yig’dim. Mana, nihoyat.</p>
+    </div>
+
+    <span class="c-chip c-glass">Bugun</span>
+
+    <div class="c-row c-in" style="margin-top: 6px">
+      <div class="c-del"><svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5" stroke="#8A8DA6" class="c-ic"></circle><path d="M6 6 L18 18" stroke="#8A8DA6" class="c-ic"></path></svg>Bu xabar o’chirildi<span style="font-style: normal; font-size: 11.5px; color: #8A8DA6">23:41</span></div>
+    </div>
+    <div class="c-row c-in">
+      <div class="c-del"><svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5" stroke="#8A8DA6" class="c-ic"></circle><path d="M6 6 L18 18" stroke="#8A8DA6" class="c-ic"></path></svg>Bu xabar o’chirildi<span style="font-style: normal; font-size: 11.5px; color: #8A8DA6">23:48</span></div>
+    </div>
+
+    <!-- asosiy xabar: avval qoralama yoziladi, o’chiriladi, qayta yozilib yuboriladi -->
+    <div class="c-row c-in" style="margin-top: 2px; margin-bottom: 18px">
+      <div class="c-bub c-key c-keyb" style="animation-delay: {{ t.send }}">
+        <h1 style="margin: 0; display: inline; font-size: {{ keySize }}; line-height: 1.3; font-weight: 600; letter-spacing: -0.01em">{{ msg }}</h1>
+        <span class="c-time">hozir</span>
+        <sc-if value="{{ forgiven }}">
+          <span class="c-react" aria-label="Kechirildi"><svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20 C5.5 15.6 3.5 12.4 3.5 9.4 C3.5 6.8 5.5 5 7.8 5 C9.6 5 11.1 6 12 7.6 C12.9 6 14.4 5 16.2 5 C18.5 5 20.5 6.8 20.5 9.4 C20.5 12.4 18.5 15.6 12 20 Z" fill="#F43F5E"></path></svg></span>
+        </sc-if>
+      </div>
+      <div class="c-draft" aria-hidden="true" style="animation-delay: {{ t.draft }}; font-size: {{ keySize }}; line-height: 1.3; font-weight: 600; letter-spacing: -0.01em"><sc-for list="{{ run1 }}" as="c"><span class="c-ch c-r1" style="animation-delay: {{ c.dl }}">{{ c.ch }}</span></sc-for><sc-for list="{{ run2 }}" as="w"><span class="c-w"><sc-for list="{{ w.chars }}" as="c"><span class="c-ch c-r2" style="animation-delay: {{ c.dl }}">{{ c.ch }}</span></sc-for></span><sc-if value="{{ w.sp }}"><span class="c-ch c-r2" style="animation-delay: {{ w.spDl }}"> </span></sc-if></sc-for><span class="c-caret"></span></div>
+    </div>
+
+    <!-- maktub -->
+    <sc-if value="{{ b.maktub }}">
+      <section ref="{{ refMaktub }}" class="{{ cls.maktub }}" style="display: flex; flex-direction: column; gap: 6px; padding: 10px 0 12px">
+        <span class="c-chip c-glass" style="margin-bottom: 6px">Ko’nglimdagi gaplar</span>
+        <sc-for list="{{ paras }}" as="x">
+          <div class="c-row c-in">
+            <sc-if value="{{ x.first }}"><span class="c-typing" aria-hidden="true"><span class="c-dots"><i></i><i></i><i></i></span></span></sc-if>
+            <div class="c-bub c-pop" style="animation-delay: {{ x.dl }}; white-space: pre-line"><span>{{ x.text }}</span><sc-if value="{{ x.last }}"><span class="c-time">hozir</span></sc-if></div>
+          </div>
+        </sc-for>
+        <div class="c-row c-in">
+          <div class="c-bub c-pop" style="animation-delay: {{ sigDl }}; padding: 8px 14px"><span class="c-ma" style="font-size: 17px; font-weight: 600; color: #4F46E5">— {{ d.kimdan }}</span></div>
+        </div>
+      </section>
+    </sc-if>
+
+    <!-- va’dalar -->
+    <sc-if value="{{ b.vadalar }}">
+      <section ref="{{ refVadalar }}" class="{{ cls.vadalar }}" style="display: flex; flex-direction: column; gap: 8px; padding: 10px 0 12px">
+        <span class="c-chip c-glass" style="margin-bottom: 4px">Va’dalarim</span>
+        <div class="c-row c-in">
+          <span class="c-typing" aria-hidden="true"><span class="c-dots"><i></i><i></i><i></i></span></span>
+          <div class="c-bub c-pop" style="animation-delay: .9s">Endi senga so’z beraman:</div>
+        </div>
+        <sc-for list="{{ promises }}" as="v">
+          <div class="c-row c-in">
+            <button type="button" class="{{ v.cls }}" onClick="{{ v.tap }}" aria-pressed="{{ v.on }}" style="animation-delay: {{ v.dl }}">
+              <span class="c-num">{{ v.n }}</span>
+              <span style="font-size: 16.5px; line-height: 1.42; color: #1B1E33; padding-top: 1px">{{ v.text }}</span>
+              <sc-if value="{{ v.on }}"><span class="c-heart" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24"><path d="M12 20 C5.5 15.6 3.5 12.4 3.5 9.4 C3.5 6.8 5.5 5 7.8 5 C9.6 5 11.1 6 12 7.6 C12.9 6 14.4 5 16.2 5 C18.5 5 20.5 6.8 20.5 9.4 C20.5 12.4 18.5 15.6 12 20 Z" fill="#F43F5E"></path></svg></span></sc-if>
+            </button>
+          </div>
+        </sc-for>
+        <p style="margin: 6px 0 0; text-align: center; font-size: 13px; color: #5B5F80">{{ likeHint }}</p>
+      </section>
+    </sc-if>
+
+    <!-- galereya -->
+    <sc-if value="{{ b.galereya }}">
+      <section ref="{{ refGalereya }}" class="{{ cls.galereya }}" style="display: flex; flex-direction: column; gap: 6px; padding: 10px 0 12px">
+        <span class="c-chip c-glass" style="margin-bottom: 6px">Xotira</span>
+        <div class="c-row c-in">
+          <span class="c-typing" aria-hidden="true"><span class="c-dots"><i></i><i></i><i></i></span></span>
+          <div class="c-bub c-pop" style="animation-delay: .9s; padding: 4px 4px 10px; width: 290px">
+            <sc-if value="{{ g1 }}">
+              <img class="c-ph" src="{{ p.0 }}" alt="" style="width: 282px; height: 330px">
+            </sc-if>
+            <sc-if value="{{ g2 }}">
+              <div style="display: flex; gap: 4px">
+                <img class="c-ph" src="{{ p.0 }}" alt="" style="width: 139px; height: 230px; border-radius: 16px 6px 6px 16px">
+                <img class="c-ph" src="{{ p.1 }}" alt="" style="width: 139px; height: 230px; border-radius: 6px 16px 16px 6px">
+              </div>
+            </sc-if>
+            <p style="margin: 9px 10px 0; font-size: 16px; line-height: 1.45">Shu kunni eslaysanmi? Yana shunday kunlarimiz bo’lishini juda istayman.<span class="c-time">hozir</span></p>
+          </div>
+        </div>
+      </section>
+    </sc-if>
+
+    <!-- taklif -->
+    <sc-if value="{{ b.taklif }}">
+      <section ref="{{ refTaklif }}" class="{{ cls.taklif }}" style="display: flex; flex-direction: column; gap: 8px; padding: 10px 0 12px">
+        <span class="c-chip c-glass" style="margin-bottom: 4px">Taklif</span>
+        <div class="c-row c-in">
+          <span class="c-typing" aria-hidden="true"><span class="c-dots"><i></i><i></i><i></i></span></span>
+          <div class="c-card c-pop" style="animation-delay: .9s">
+            <div class="c-band" aria-hidden="true">
+              <svg width="290" height="84" viewBox="0 0 290 84" style="position: absolute; left: 0; top: 0"><circle cx="250" cy="10" r="46" fill="#FFFFFF" opacity="0.12"></circle><circle cx="40" cy="96" r="52" fill="#FFFFFF" opacity="0.1"></circle></svg>
+              <div style="position: absolute; left: 16px; top: 18px; width: 48px; height: 48px; border-radius: 15px; background: rgba(255, 255, 255, 0.22); display: flex; align-items: center; justify-content: center">
+                <svg width="26" height="26" viewBox="0 0 24 24"><rect x="4" y="5.5" width="16" height="14" rx="3" stroke="#FFFFFF" class="c-ic"></rect><path d="M4 10 H20 M8.5 3.5 V7 M15.5 3.5 V7" stroke="#FFFFFF" class="c-ic"></path><path d="M12 17.2 C9.6 15.6 9 14.6 9 13.6 C9 12.8 9.6 12.2 10.4 12.2 C11 12.2 11.6 12.6 12 13.2 C12.4 12.6 13 12.2 13.6 12.2 C14.4 12.2 15 12.8 15 13.6 C15 14.6 14.4 15.6 12 17.2 Z" fill="#FFFFFF"></path></svg>
+              </div>
+              <p style="position: absolute; left: 78px; top: 22px; margin: 0; font-size: 12px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255, 255, 255, 0.82)">Taklifnoma</p>
+              <p style="position: absolute; left: 78px; top: 40px; margin: 0; font-size: 17px; font-weight: 700; color: #FFFFFF">Uchrashuvga taklif</p>
+            </div>
+            <div style="padding: 16px 16px 16px; display: flex; flex-direction: column; gap: 12px">
+              <p class="c-ma" style="margin: 0; font-size: 21px; line-height: 1.25; font-weight: 600; color: #1B1E33; overflow-wrap: anywhere">{{ d.taklif }}</p>
+              <sc-if value="{{ d.taklif_vaqt }}">
+                <div class="c-meta"><span class="c-mi"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5" stroke="#4F46E5" class="c-ic"></circle><path d="M12 7.5 V12 L15 14" stroke="#4F46E5" class="c-ic"></path></svg></span><b style="overflow-wrap: anywhere">{{ d.taklif_vaqt }}</b></div>
+              </sc-if>
+              <sc-if value="{{ d.taklif_joy }}">
+                <div class="c-meta"><span class="c-mi"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.5 C12 20.5 5.5 14.6 5.5 10 C5.5 6.4 8.4 3.5 12 3.5 C15.6 3.5 18.5 6.4 18.5 10 C18.5 14.6 12 20.5 12 20.5 Z" stroke="#4F46E5" class="c-ic"></path><circle cx="12" cy="10" r="2.4" stroke="#4F46E5" class="c-ic"></circle></svg></span><b style="overflow-wrap: anywhere">{{ d.taklif_joy }}</b></div>
+              </sc-if>
+              <sc-if value="{{ notAgreed }}">
+                <button type="button" class="c-cta c-btn" onClick="{{ agree }}" style="width: 100%; margin-top: 2px">Roziman</button>
+              </sc-if>
+              <sc-if value="{{ agreed }}">
+                <div role="status" style="height: 52px; border-radius: 26px; background: #ECFDF5; color: #047857; font-size: 16px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 8px"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M5.5 12.5 L10 17 L18.5 8" stroke="#047857" class="c-ic2"></path></svg>Kelishdik</div>
+              </sc-if>
+            </div>
+          </div>
+        </div>
+        <sc-if value="{{ agreed }}">
+          <div class="c-row c-out c-pop2" style="margin-top: 6px">
+            <div class="c-bub">{{ agreedText }}<span class="c-time">hozir <svg width="16" height="12" viewBox="0 0 18 12" aria-hidden="true"><path d="M1.5 6.5 L4.5 9.5 L10.5 2.5 M7.5 9.5 L13.5 2.5" stroke="#FFFFFF" class="c-ic"></path></svg></span></div>
+          </div>
+        </sc-if>
+      </section>
+    </sc-if>
+
+    <!-- javob -->
+    <sc-if value="{{ b.javob }}">
+      <section ref="{{ refJavob }}" class="{{ cls.javob }}" style="display: flex; flex-direction: column; gap: 8px; padding: 10px 0 8px">
+        <span class="c-chip c-glass" style="margin-bottom: 4px">Javobing</span>
+        <div class="c-row c-in">
+          <span class="c-typing" aria-hidden="true"><span class="c-dots"><i></i><i></i><i></i></span></span>
+          <div class="c-bub c-pop" style="animation-delay: .9s">Kechirasanmi? Bitta so’zing kifoya — kutaman.<span class="c-time">hozir</span></div>
+        </div>
+        <sc-if value="{{ forgiven }}">
+          <div class="c-row c-out c-pop2" style="margin-top: 8px">
+            <div class="c-bub" style="font-size: 18px; font-weight: 600">Kechirdim<span class="c-time">hozir <svg width="16" height="12" viewBox="0 0 18 12" aria-hidden="true"><path d="M1.5 6.5 L4.5 9.5 L10.5 2.5 M7.5 9.5 L13.5 2.5" stroke="#FFFFFF" class="c-ic"></path></svg></span></div>
+          </div>
+          <div class="c-row c-in" style="margin-top: 8px">
+            <span class="c-blip2" aria-hidden="true" style="animation-delay: .5s"><span class="c-dots"><i></i><i></i><i></i></span></span>
+            <div class="c-bub c-pop2" role="status" style="animation-delay: 1.75s"><span style="display: block; font-weight: 600; margin-bottom: 3px">Rahmat, {{ d.kimga }}.</span><span style="white-space: pre-line">{{ thanks }}</span><span class="c-time">hozir</span></div>
+          </div>
+        </sc-if>
+        <sc-if value="{{ waiting }}">
+          <div class="c-compose c-glass" style="margin: 14px 12px 0; background: rgba(255, 255, 255, 0.78); box-shadow: 0 16px 34px -22px rgba(50, 40, 140, 0.6)">
+            <span style="flex: 1 1 auto; font-size: 15.5px; color: #7A7E99">Javob yozish…</span>
+            <button type="button" class="c-cta c-btn" onClick="{{ forgive }}" style="flex: none; padding: 0 22px 0 24px">Kechirdim<svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 12 L19 5 L15.5 19.5 L11.5 13 Z M11.5 13 L19 5" stroke="#FFFFFF" class="c-ic"></path></svg></button>
+          </div>
+        </sc-if>
+      </section>
+    </sc-if>
+
+    <footer style="flex: 1 0 auto; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; gap: 8px; padding: 34px 24px 40px; text-align: center">
+      <span aria-hidden="true" style="width: 34px; height: 4px; border-radius: 2px; background: linear-gradient(90deg, #4F46E5, #7C3AED, #F97362)"></span>
+      <p style="margin: 0; font-size: 14px; line-height: 1.5; color: #555A78; overflow-wrap: anywhere">Bu yozishma faqat sen uchun, {{ d.kimga }}.</p>
+      <p class="c-ma" style="margin: 0; font-size: 20px; font-weight: 600; color: #4F46E5; overflow-wrap: anywhere">{{ d.kimdan }}</p>
+    </footer>
+  </main>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":3100}}'>
+class Component extends DCLogic {
+  constructor(...args) {
+    super(...args);
+    this.state = { opened: false, seen: {}, likes: {}, agreed: false, forgiven: false };
+    this.els = {};
+    this.vis = {};
+    const mk = (k) => (el) => { this.els[k] = el; };
+    this.refMaktub = mk('maktub');
+    this.refVadalar = mk('vadalar');
+    this.refGalereya = mk('galereya');
+    this.refTaklif = mk('taklif');
+    this.refJavob = mk('javob');
+  }
+  componentDidMount() {
+    try {
+      if (typeof IntersectionObserver === 'undefined') return;
+      this.io = new IntersectionObserver((list) => {
+        list.forEach((en) => {
+          const k = en.target.getAttribute('data-k');
+          this.vis[k] = en.isIntersecting;
+          if (en.isIntersecting && this.state.opened) this.see(k);
+        });
+      }, { rootMargin: '0px 0px 6% 0px', threshold: 0.01 });
+      Object.keys(this.els).forEach((k) => { const el = this.els[k]; if (el) { el.setAttribute('data-k', k); this.io.observe(el); } });
+    } catch (e) { this.io = null; }
+  }
+  componentWillUnmount() { if (this.io) this.io.disconnect(); clearTimeout(this.t1); this.gone = true; }
+  see(k) {
+    if (this.state.seen[k]) return;
+    this.setState({ seen: Object.assign({}, this.state.seen, { [k]: true }) });
+  }
+  renderVals() {
+    const s = this.state || {};
+    const d = SITE.d;
+    const ini = (n) => (String(n || '').trim().charAt(0) || '').toUpperCase();
+    const kimga = String(d.kimga || '').trim();
+    const msg = (kimga ? kimga + ', k' : 'K') + 'echirasanmi?';
+    // vaqt jadvali (soniya, ochilgan paytdan)
+    const r1 = 'Kechir'.split('');
+    const t0 = 0.7, a1 = 0.9, st1 = 0.1, del = a1 + r1.length * st1 + 0.35, std = 0.05;
+    const a2 = del + r1.length * std + 0.2;
+    const st2 = Math.min(0.06, 1.4 / Math.max(1, msg.length));
+    let i2 = 0;
+    const run2 = msg.split(' ').map((w, wi, arr) => {
+      const chars = w.split('').map((ch) => ({ ch, dl: (a2 + (i2++) * st2).toFixed(2) + 's' }));
+      const sp = wi < arr.length - 1;
+      const spDl = (a2 + (i2++) * st2).toFixed(2) + 's';
+      return { chars, sp, spDl };
+    });
+    const tSend = a2 + i2 * st2 + 0.35;
+    const fs = (x) => x.toFixed(2) + 's';
+    const paras = String(d.matn || '').split(/\n\s*\n/).map((x) => x.trim()).filter(Boolean);
+    const vad = d.vadalar || [];
+    const likes = s.likes || {};
+    const nLiked = vad.filter((x, i) => likes[i]).length;
+    const seen = s.seen || {};
+    const play = (k) => (seen[k] ? 'c-play' : '');
+    const tv = String(d.taklif_vaqt || '').trim();
+    return {
+      rootCls: s.opened ? 'c-go' : '',
+      introCls: s.opened ? 'c-intro c-intro--open' : 'c-intro',
+      open: () => {
+        if (this.state.opened) return;
+        this.setState({ opened: true });
+        SITE.opened();
+        this.t1 = setTimeout(() => { if (!this.gone) Object.keys(this.vis).forEach((k) => { if (this.vis[k]) this.see(k); }); }, 900);
+      },
+      fromTo: (d.kimdan || '') + 'dan ' + SITE.ga(kimga),
+      notifBody: (kimga ? kimga + ', s' : 'S') + 'enga ko’pdan beri aytmoqchi bo’lgan gapim bor…',
+      notifLabel: 'Xabarni ochish: ' + (d.kimdan || ''),
+      iniFrom: ini(d.kimdan), iniTo: ini(kimga),
+      msg,
+      keySize: msg.length > 30 ? '19px' : '22px',
+      t: {
+        st: fs(t0) + ', ' + fs(tSend),
+        draft: fs(t0) + ', ' + fs(tSend),
+        send: fs(tSend)
+      },
+      run1: r1.map((ch, i) => ({ ch, dl: fs(a1 + i * st1) + ', ' + fs(del + (r1.length - 1 - i) * std) })),
+      run2,
+      musicOn: !!SITE.music.playing,
+      musicOff: !SITE.music.playing,
+      toggleMusic: () => SITE.music.toggle(),
+      cls: { maktub: play('maktub'), vadalar: play('vadalar'), galereya: play('galereya'), taklif: play('taklif'), javob: play('javob') },
+      paras: paras.map((text, i) => ({ text, first: i === 0, last: i === paras.length - 1, dl: fs(0.9 + i * 0.55) })),
+      sigDl: fs(0.9 + paras.length * 0.55),
+      promises: vad.map((text, i) => ({
+        text, n: String(i + 1), on: !!likes[i],
+        cls: 'c-bub c-pr c-pop',
+        dl: fs(1.4 + i * 0.4),
+        tap: () => { const l = Object.assign({}, this.state.likes); l[i] = !l[i]; this.setState({ likes: l }); }
+      })),
+      likeHint: nLiked ? (nLiked === vad.length ? 'Hammasiga ishonding. Rahmat.' : 'Ishonganing ' + nLiked + ' ta. Qolganini ham isbotlayman.') : 'Ishongan va’dangni bosib, belgilab qo’y',
+      g1: SITE.has.photos < 2, g2: SITE.has.photos >= 2,
+      agreed: !!s.agreed,
+      notAgreed: !s.agreed,
+      agreedText: tv ? 'Roziman. ' + tv + ' — kelishdik.' : 'Roziman, kelishdik.',
+      agree: () => { if (this.state.agreed) return; this.setState({ agreed: true }); SITE.reply('Roziman: ' + (d.taklif || ''), '🥰'); },
+      thanks: d.javob_matni || 'Ishonchingni oqlayman. Bu safar so’z bilan emas, ishim bilan.',
+      waiting: !s.forgiven,
+      forgiven: !!s.forgiven,
+      forgive: () => { if (this.state.forgiven) return; this.setState({ forgiven: true }); SITE.reply('Kechirdim', '🤗'); }
+    };
+  }
+}
+</script>
+</body>
+</html>
