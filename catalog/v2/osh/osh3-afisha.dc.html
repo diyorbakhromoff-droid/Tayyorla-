@@ -512,7 +512,7 @@ function titleWords() {
   const ws = TITLE.split(/\s+/).filter(Boolean);
   return ws.map((t) => {
     const n = t.replace(/[’']/g, '').length + (/[’']/.test(t) ? 0.3 : 0);
-    const fs = Math.max(40, Math.min(128, Math.floor(350 / (n * 0.54))));
+    const fs = Math.max(24, Math.min(128, Math.floor(350 / (n * 0.54))));
     return { t, s: 'font-size: ' + fs + 'px' };
   });
 }

@@ -177,12 +177,11 @@ body{margin:0}
     <div class="ct-rowIn" style="margin-top: 12px">
       <div class="ct-tH" style="--ad: 2.3s"><span class="ct-typ"><i></i><i></i><i></i></span></div>
       <span aria-hidden="true" class="ct-av ct-arr" style="{{ s0.av }}; --ad: 2.3s">{{ s0.ini }}</span>
-      <div class="ct-bIn ct-arr" style="--ad: 2.3s; padding: 4px 4px 7px; width: 268px">
+      <div class="ct-bIn ct-arr" style="{{ heroBub }}">
         <p class="ct-name" style="{{ s0.col }}; padding: 4px 9px 0">{{ s0.name }}</p>
-        <div style="position: relative; width: 260px; height: 300px; border-radius: 16px; overflow: hidden; background: linear-gradient(150deg, #12B88F, #0B5E4B)">
-          <sc-if value="{{ has.photo }}"><img src="{{ p.0 }}" alt="" style="display: block; width: 260px; height: 300px; object-fit: cover"></sc-if>
-          <sc-if value="{{ noPhoto }}"><div aria-hidden="true" class="ct-pac" style="position: absolute; left: 0; top: 0; width: 260px; height: 300px; display: flex; align-items: center; justify-content: center; font-size: 120px; line-height: 1; color: rgba(255,255,255,0.92)">{{ initial }}</div></sc-if>
-        </div>
+        <sc-if value="{{ has.photo }}">
+          <div style="position: relative; width: 260px; height: 300px; border-radius: 16px; overflow: hidden; background: #CFE9DE"><img src="{{ p.0 }}" alt="" style="display: block; width: 260px; height: 300px; object-fit: cover"></div>
+        </sc-if>
         <p class="ct-txt" style="padding: 7px 9px 0; font-weight: 600">{{ heroCaption }}</p>
         <div style="display: flex; align-items: center; justify-content: space-between; padding: 6px 9px 0">
           <span style="display: inline-flex; align-items: center; gap: 5px; height: 26px; padding: 0 10px; border-radius: 13px; background: #E3F5EE; font-size: 13px; font-weight: 700; color: #0B7F64"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 20 20"><path d="M10 17s-6.5-4.1-6.5-8.6A3.6 3.6 0 0 1 10 6.3a3.6 3.6 0 0 1 6.5 2.1C16.5 12.9 10 17 10 17z" fill="#E0445E"></path></svg>{{ heartCount }}</span>
@@ -574,6 +573,7 @@ class Component extends DCLogic {
       sysLine: pool[0] + ' «' + gt + '» guruhini yaratdi',
       s0: P(0), s1: P(1), s2: P(2), s3: P(0), s4: P(2),
       sFrom: Object.assign(P(0), { name: from.names || pool[0] }),
+      heroBub: '--ad: 2.3s; padding: 4px 4px 7px; ' + (SITE.has.photo ? 'width: 268px' : 'max-width: 290px'),
       heroCaption: name ? 'Tug’ilgan kuning muborak, ' + name + '!' : 'Tug’ilgan kuning muborak!',
       heartCount: String(memberN - 1),
       stkCut: 'position: absolute; left: 0; top: 0; width: 168px; height: 168px; background: #FFFFFF; clip-path: ' + this.burst,

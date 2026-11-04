@@ -196,7 +196,7 @@ body{margin:0}
       </div>
       <div class="cz-up cz-d2" style="margin-top: 40px">
         <p class="cz-cap" style="color: #B4532E">{{ taklifCap }}</p>
-        <sc-if value="{{ titleA }}"><p class="cz-s" style="margin: 16px 0 0; font-style: italic; font-weight: 300; font-size: 30px; line-height: 1.1; overflow-wrap: anywhere">{{ titleA }}</p></sc-if>
+        <sc-if value="{{ titleA }}"><p class="cz-s" style="margin: 16px 0 0; font-style: italic; font-weight: 300; font-size: {{ titleAFs }}px; line-height: 1.1; overflow-wrap: anywhere">{{ titleA }}</p></sc-if>
         <h1 class="cz-s" style="margin: {{ titleMt }}px 0 0; font-weight: 300; font-size: {{ titleFs }}px; line-height: 1.05; letter-spacing: -0.015em; overflow-wrap: anywhere">{{ titleB }}</h1>
         <sc-if value="{{ sabab }}"><p class="cz-s cz-mut" style="margin: 16px auto 0; max-width: 300px; font-style: italic; font-weight: 300; font-size: 18px; line-height: 1.5; overflow-wrap: anywhere">{{ sabab }}</p></sc-if>
       </div>
@@ -496,7 +496,7 @@ class Component extends DCLogic {
       guestLine, guestFs: fitPx(guestLine, 36, 334, 0.5, 2),
       mezbon: MEZBON, hostFs: fitPx(MEZBON, 24, 334, 0.52, 2),
       taklifLow: TAKLIF_LOW,
-      titleA: TITLE_A, titleB: TITLE_B,
+      titleA: TITLE_A, titleB: TITLE_B, titleAFs: fitPx(TITLE_A, 30, 330, 0.5, 1),
       titleFs: fitPx(TITLE_B, 54, 334, 0.5, 2),
       titleMt: TITLE_A ? 2 : 16,
       sabab: SABAB,

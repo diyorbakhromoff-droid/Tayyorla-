@@ -88,7 +88,7 @@ body{margin:0;background:#173A8A}
 .ob-post{opacity:0;transform:translateY(12px);transition:opacity .7s ease,transform .7s ease}
 .ob-intro.is-named .ob-post{opacity:1;transform:none}
 .ob-bar{transform-origin:0 50%;transform:scaleX(0)}
-.ob-intro.is-go .ob-bar{transition:transform 1.25s cubic-bezier(.5,0,.3,1);transform:scaleX(1)}
+.ob-intro.is-go .ob-bar{transition:transform 1.05s cubic-bezier(.5,0,.3,1);transform:scaleX(1)}
 .ob-barw{opacity:0;transition:opacity .3s ease}
 .ob-intro.is-go .ob-barw{opacity:1}
 .ob-intro.is-sun .ob-barw{opacity:0;transition-delay:.3s}
@@ -766,10 +766,10 @@ class Component extends DCLogic {
           this.setState({ sun: true });
           let v = 0;
           this.cnt = setInterval(() => { v = Math.min(100, v + 4); this.setState({ pct: v }); if (v >= 100) { clearInterval(this.cnt); this.cnt = null; } }, 32);
-        }, 1300);
-        this.t2 = setTimeout(() => this.setState({ named: true }), 2300);
-        this.t3 = setTimeout(() => this.setState({ fade: true }), 5200);
-        this.t4 = setTimeout(() => this.setState({ gone: true }), 6200);
+        }, 1100);
+        this.t2 = setTimeout(() => this.setState({ named: true }), 2000);
+        this.t3 = setTimeout(() => this.setState({ fade: true }), 3900);
+        this.t4 = setTimeout(() => this.setState({ gone: true }), 4800);
       },
       letters: letters,
       nameFs: nameFs,

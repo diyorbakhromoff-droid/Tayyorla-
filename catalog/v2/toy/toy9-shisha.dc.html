@@ -516,6 +516,7 @@ function ini(n) {
   return n.charAt(0).toUpperCase();
 }
 function fitPx(text, max, width, em) { const n = String(text || '').length || 1; return Math.max(Math.round(max * 0.42), Math.min(max, Math.floor(width / (n * em)))); }
+function fitWord(text, max, width, em) { const L = Math.max(1, ...String(text || '').split(/\s+/).map((x) => x.length)); return Math.max(Math.round(max * 0.45), Math.min(max, Math.floor(width / (L * em)))); }
 function telHref(t) { return 'tel:' + String(t || '').replace(/[^\d+]/g, ''); }
 const KUYOV = String(D.kuyov || '').trim();
 const KELIN = String(D.kelin || '').trim();
@@ -543,7 +544,7 @@ for (let i = 0; i < 70; i++) {
   DROPS.push({ x: x.toFixed(1), y: y.toFixed(1), r: r.toFixed(2), hx: (x - r * 0.35).toFixed(1), hy: (y - r * 0.4).toFixed(1), hr: Math.max(0.4, r * 0.28).toFixed(2) });
 }
 /* ismlar joylashuvi */
-const FSK = fitPx(KUYOV, 74, 300, 0.47), FSL = fitPx(KELIN, 74, 300, 0.47);
+const FSK = fitPx(KUYOV, 74, 296, 0.55), FSL = fitPx(KELIN, 74, 296, 0.55);
 const NM = { k: KUYOV, l: KELIN, fsK: FSK, fsL: FSL, yK: 382 - Math.round((74 - FSK) * 0.2), yA: 446, yL: 488 + Math.round(FSL * 0.62), yD: 0 };
 NM.yD = NM.yL + 56;
 /* artish maydoni: ismlar atrofidagi kataklar */
@@ -718,7 +719,7 @@ class Component extends DCLogic {
       pairAmp: [KUYOV, KELIN].filter(Boolean).join(' & '),
       mono: [ini(KUYOV), ini(KELIN)].filter(Boolean).join('&'),
       guestName, fsGuest: fitPx(guestName, 30, 330, 0.5),
-      guestHello: hello, fsHello: fitPx(hello, 40, 350, 0.5),
+      guestHello: hello, fsHello: fitWord(hello, 40, 340, 0.52),
       noTaklif: !SITE.b.taklif,
       cal: calUrl(),
       tiles: [tile(cd.d, 'KUN'), tile(cd.h, 'SOAT'), tile(cd.m, 'DAQIQA'), tile(cd.s, 'SONIYA', true)],

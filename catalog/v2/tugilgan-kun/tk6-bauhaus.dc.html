@@ -67,8 +67,10 @@ a{color:#2346B5}
 @keyframes bh-fl{0%{transform:scale(1,1) rotate(-4deg)}100%{transform:scale(.86,1.12) rotate(4deg)}}
 .bh-cake--out .bh-flame{animation:bh-fOut .9s cubic-bezier(.5,0,.7,.4) both}
 @keyframes bh-fOut{0%{opacity:1;transform:none}100%{opacity:0;transform:translateY(-70px) rotate(200deg) scale(.4)}}
-.bh-wcirc{position:absolute;left:50%;top:50%;width:300px;height:300px;margin:-150px 0 0 -150px;border-radius:50%;background:#2346B5;transform:scale(0);transition:transform .9s cubic-bezier(.3,1.3,.5,1) .35s}
+.bh-wcirc{position:absolute;left:50%;top:50%;width:300px;height:300px;margin:-150px 0 0 -150px;border-radius:50%;background:#141414;transform:scale(0);transition:transform .9s cubic-bezier(.3,1.3,.5,1) .35s}
 .bh-cake--out .bh-wcirc{transform:scale(1)}
+.bh-stick{transition:opacity .4s ease .3s}
+.bh-cake--out .bh-stick{opacity:0}
 .bh-wline{opacity:0;transform:translateY(12px);transition:opacity .6s ease .8s,transform .6s ease .8s}
 .bh-cake--out .bh-wline{opacity:1;transform:none}
 
@@ -79,10 +81,10 @@ a{color:#2346B5}
 .bh-q2{left:150px;top:0;border-radius:0 150px 0 0;transform-origin:100% 0}
 .bh-q3{left:0;top:150px;border-radius:0 0 0 150px;transform-origin:0 100%}
 .bh-q4{left:150px;top:150px;border-radius:0 0 150px 0;transform-origin:100% 100%}
-.bh-sec--on .bh-q1{transform:scale(.24) rotate(-90deg)}
-.bh-sec--on .bh-q2{transform:scale(.24) rotate(90deg);transition-delay:.06s}
-.bh-sec--on .bh-q3{transform:scale(.24) rotate(90deg);transition-delay:.12s}
-.bh-sec--on .bh-q4{transform:scale(.24) rotate(-90deg);transition-delay:.18s}
+.bh-sec--on .bh-q1{transform:scale(.22)}
+.bh-sec--on .bh-q2{transform:scale(.22);transition-delay:.06s}
+.bh-sec--on .bh-q3{transform:scale(.22);transition-delay:.12s}
+.bh-sec--on .bh-q4{transform:scale(.22);transition-delay:.18s}
 .bh-stxt{opacity:0;transform:scale(.9);transition:opacity .6s ease .6s,transform .6s ease .6s}
 .bh-sec--on .bh-stxt{opacity:1;transform:none}
 .bh-shint{transition:opacity .3s ease}
@@ -241,11 +243,11 @@ a{color:#2346B5}
           <span style="position: absolute; left: 75px; top: 172px; width: 170px; height: 20px; background: #141414; border-radius: 0 0 85px 85px / 0 0 20px 20px"></span>
           <span style="position: absolute; left: 100px; top: 124px; width: 120px; height: 48px; background: #DE3A22"></span>
           <sc-for list="{{ candles }}" as="cd">
-            <span style="{{ cd.st }}"></span>
+            <span class="bh-stick" style="{{ cd.st }}"></span>
             <span class="bh-flame" style="{{ cd.fl }}"></span>
           </sc-for>
         </div>
-        <p class="bh-wline" style="position: absolute; left: 30px; top: 18px; width: 260px; margin: 0; font-size: 24px; font-weight: 900; line-height: 1.05; letter-spacing: -0.02em; color: #FAF9F6; overflow-wrap: anywhere">{{ wishLine }}</p>
+        <p class="bh-wline" style="position: absolute; left: 50px; top: 52px; width: 220px; text-align: center; margin: 0; font-size: 24px; font-weight: 900; line-height: 1.05; letter-spacing: -0.02em; color: #FAF9F6; overflow-wrap: anywhere">{{ wishLine }}</p>
       </div>
       <button type="button" class="bh-btnL" onClick="{{ blow }}" style="margin-top: 22px"><span class="{{ blowIdle }}">Puflash</span><span class="{{ blowDone }}">Shamlarni qayta yoqish</span></button>
     </section>

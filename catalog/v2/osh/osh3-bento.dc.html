@@ -316,7 +316,7 @@ body{margin:0}
           </svg>
         </div>
       </div>
-      <sc-if value="{{ titleA }}"><p class="bn-g" style="position: relative; margin: 18px 0 0; font-weight: 400; font-size: 26px; line-height: 1.1; color: #F2A65A; overflow-wrap: anywhere">{{ titleA }}</p></sc-if>
+      <sc-if value="{{ titleA }}"><p class="bn-g" style="position: relative; margin: 18px 0 0; font-weight: 400; font-size: {{ titleAFs }}px; line-height: 1.1; color: #F2A65A; overflow-wrap: anywhere">{{ titleA }}</p></sc-if>
       <h1 class="bn-g" style="position: relative; margin: {{ titleMt }}px 0 0; font-weight: 600; font-size: {{ titleFs }}px; line-height: 1.02; letter-spacing: -0.03em; overflow-wrap: anywhere">{{ titleB }}</h1>
       <sc-if value="{{ sabab }}"><p style="position: relative; margin: 14px 0 0; font-size: 17px; line-height: 1.45; color: rgba(243,247,244,.82); overflow-wrap: anywhere">{{ sabab }}</p></sc-if>
     </div>
@@ -615,7 +615,7 @@ class Component extends DCLogic {
       introTitleFs: fitPx(TITLE, 40, 300, 0.56, 2),
       introHostFs: fitPx(MEZBON, 19, 186, 0.56, 2),
       taklifCap: TAKLIF,
-      title: TITLE, titleA: TITLE_A, titleB: TITLE_B,
+      title: TITLE, titleA: TITLE_A, titleB: TITLE_B, titleAFs: fitPx(TITLE_A, 26, 310, 0.56, 1),
       titleFs: fitPx(TITLE_B, 50, 300, 0.58, 2),
       titleMt: TITLE_A ? 4 : 18,
       guestLine, guestFs: fitPx(guestLine, 32, 300, 0.56, 2),
