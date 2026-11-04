@@ -532,7 +532,7 @@ function swatches(text) {
 }
 
 /* titr ketma-ketligi: harflar navbat bilan */
-const T0 = 3.5, STEP = 0.075;
+const T0 = 3.5, STEP = Math.min(0.075, 0.6 / Math.max(1, KUYOV.length, KELIN.length));
 function letters(s, start) { return Array.from(String(s || '').toUpperCase()).map((c, i) => ({ c: c === ' ' ? '\u00A0' : c, st: 'animation-delay: ' + (start + i * STEP).toFixed(3) + 's' })); }
 const KL = letters(KUYOV, T0);
 const VA_AT = T0 + KL.length * STEP + 0.25;
