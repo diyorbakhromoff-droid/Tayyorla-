@@ -67,6 +67,7 @@ button:disabled{opacity:.7;cursor:default}
 @keyframes tcIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 .tc-wave{animation:tcWave 5s linear infinite}
 @keyframes tcWave{to{transform:translateX(-280px)}}
+.tc-wobf{filter:url(#tcWobF) blur(1.5px)}
 .tc-wob{transition:opacity 1.4s ease}
 .tc-wob.is-calm{opacity:0}
 .tc-calm{opacity:0;filter:blur(6px);transition:opacity 1.4s ease .3s,filter 1.6s ease .3s}
@@ -339,7 +340,7 @@ button:disabled{opacity:.7;cursor:default}
     <div class="tc-blob2" style="position: relative; margin-top: 26px; overflow: hidden; background: linear-gradient(160deg, #BDE8EE, #7FD0DB 60%, #4FB6C5); box-shadow: 0 30px 50px -34px rgba(8, 50, 59, 0.6)">
       <svg aria-hidden="true" class="tc-drift" style="position: absolute; left: -30px; top: -30px; opacity: 0.6" width="420" height="420" viewBox="0 0 420 420"><rect x="0" y="0" width="420" height="420" filter="url(#tcCau)"></rect></svg>
       <div style="position: relative; display: grid; padding: 64px 38px 66px">
-        <p class="cf {{ wobCls }}" aria-hidden="true" style="grid-area: 1 / 1; margin: 0; text-align: center; font-size: {{ secPx }}px; font-weight: 400; line-height: 1.45; color: #08323B; overflow-wrap: anywhere; filter: url(#tcWobF) blur(1.5px)">{{ d.sirli_soz }}</p>
+        <p class="cf tc-wobf {{ wobCls }}" aria-hidden="true" style="grid-area: 1 / 1; margin: 0; text-align: center; font-size: {{ secPx }}px; font-weight: 400; line-height: 1.45; color: #08323B; overflow-wrap: anywhere">{{ d.sirli_soz }}</p>
         <p class="cf {{ calmCls }}" style="grid-area: 1 / 1; margin: 0; text-align: center; font-size: {{ secPx }}px; font-weight: 400; line-height: 1.45; color: #08323B; overflow-wrap: anywhere">{{ d.sirli_soz }}</p>
       </div>
     </div>

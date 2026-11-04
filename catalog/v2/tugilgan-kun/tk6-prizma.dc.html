@@ -142,13 +142,14 @@ a{color:#3D6BFF}
         <svg width="390" height="470" viewBox="0 0 390 470" style="position: absolute; left: 0; top: 0">
           <defs>
             <linearGradient id="pz-hp" x1="0" y1="0" x2="1" y2="1"><stop offset="0" style="stop-color: #FFFFFF; stop-opacity: 0.95"></stop><stop offset="0.55" style="stop-color: #E4E8F3; stop-opacity: 0.6"></stop><stop offset="1" style="stop-color: #C9D0E2; stop-opacity: 0.75"></stop></linearGradient>
-            <linearGradient id="pz-hb" x1="0" y1="0" x2="1" y2="1"><stop offset="0" style="stop-color: #FFFFFF; stop-opacity: 0"></stop><stop offset="1" style="stop-color: #FFFFFF; stop-opacity: 1"></stop></linearGradient>
+            <linearGradient id="pz-hb" gradientUnits="userSpaceOnUse" x1="0" y1="250" x2="0" y2="470"><stop offset="0" style="stop-color: #FFFFFF"></stop><stop offset="0.55" style="stop-color: #FFFFFF; stop-opacity: 0.7"></stop><stop offset="1" style="stop-color: #FFFFFF; stop-opacity: 0"></stop></linearGradient>
+            <mask id="pz-hm"><rect x="0" y="0" width="390" height="470" fill="url(#pz-hb)"></rect></mask>
           </defs>
           <path d="M-10 54L159 173" stroke="#FFFFFF" style="stroke-width: 14; opacity: 0.8"></path>
           <path d="M-10 54L159 173" stroke="#B6BCCB" style="stroke-width: 1.4"></path>
-          <g class="pz-shim" style="mix-blend-mode: multiply">
-            <sc-for list="{{ heroFan }}" as="f"><path d="{{ f.d }}" fill="{{ f.c }}" opacity="0.32"></path></sc-for>
-          </g>
+          <g mask="url(#pz-hm)"><g class="pz-shim" style="mix-blend-mode: multiply">
+            <sc-for list="{{ heroFan }}" as="f"><path d="{{ f.d }}" fill="{{ f.c }}" opacity="0.3"></path></sc-for>
+          </g></g>
           <path d="M195 110L115 250L275 250Z" fill="url(#pz-hp)"></path>
           <path class="pz-pD" d="M195 110L115 250L275 250Z"></path>
           <path d="M195 116L121 246" stroke="#FFFFFF" style="stroke-width: 2.4; opacity: 0.95"></path>
@@ -398,10 +399,11 @@ a{color:#3D6BFF}
     <svg aria-hidden="true" width="390" height="844" viewBox="0 0 390 844" style="position: absolute; left: 0; top: 0">
       <defs>
         <linearGradient id="pz-ig" x1="0" y1="0" x2="1" y2="1"><stop offset="0" style="stop-color: #FFFFFF; stop-opacity: 0.22"></stop><stop offset="1" style="stop-color: #9FB0FF; stop-opacity: 0.06"></stop></linearGradient>
+        <linearGradient id="pz-iw" x1="0" y1="0" x2="1" y2="0"><stop offset="0" style="stop-color: #FF3B5C"></stop><stop offset="0.33" style="stop-color: #F5C21B"></stop><stop offset="0.5" style="stop-color: #2FCB78"></stop><stop offset="0.7" style="stop-color: #22B5F0"></stop><stop offset="1" style="stop-color: #8A4DFF"></stop></linearGradient>
         <linearGradient id="pz-igl" x1="0" y1="0" x2="1" y2="1"><stop offset="0" style="stop-color: #FFFFFF; stop-opacity: 0.55"></stop><stop offset="1" style="stop-color: #C8D2FF; stop-opacity: 0.18"></stop></linearGradient>
       </defs>
       <g class="pz-iFan" style="mix-blend-mode: screen">
-        <sc-for list="{{ introFan }}" as="f"><path d="{{ f.d }}" fill="{{ f.c }}" opacity="0.62"></path></sc-for>
+        <sc-for list="{{ introFan }}" as="f"><path d="{{ f.d }}" fill="{{ f.c }}" opacity="0.5"></path></sc-for>
       </g>
       <path class="pz-iBeam" pathLength="1" d="M-10 140L159 253" stroke="#FFFFFF" style="stroke-width: 12; opacity: 0.18"></path>
       <path class="pz-iBeam" pathLength="1" d="M-10 140L159 253" stroke="#FFFFFF" style="stroke-width: 2.6"></path>
@@ -410,10 +412,11 @@ a{color:#3D6BFF}
       <path class="pz-pS" d="M195 190L115 330L275 330Z" style="opacity: 0.7"></path>
       <path class="pz-pL" d="M195 204L130 318M195 204L260 318"></path>
       <path class="pz-iIn" pathLength="1" d="M159 253L215 330" stroke="#FFFFFF" style="stroke-width: 2.4"></path>
-      <path d="M90 640H300" stroke="#FFFFFF" style="stroke-width: 1; opacity: 0.12"></path>
+      <path d="M14 600H376" stroke="#FFFFFF" style="stroke-width: 1; opacity: 0.12"></path>
+      <rect class="pz-iFan" x="14" y="598" width="362" height="4" fill="url(#pz-iw)" style="filter: blur(1.5px)"></rect>
     </svg>
 
-    <div aria-hidden="true" style="position: absolute; left: 10px; top: 520px; width: 370px; text-align: center">
+    <div aria-hidden="true" style="position: absolute; left: 10px; top: 616px; width: 370px; text-align: center">
       <p class="pz-s pz-sp pz-iName" style="margin: 0; font-size: {{ iNameFs }}px; font-weight: 300; font-style: italic; line-height: 1.1; overflow-wrap: break-word; filter: drop-shadow(0 0 14px rgba(255,255,255,0.25))">{{ name }}</p>
       <p class="pz-iSub" style="margin: 12px 0 0; font-size: 13px; font-weight: 700; letter-spacing: 0.24em; text-transform: uppercase; color: #C9CEDC">{{ introSub }}</p>
     </div>
@@ -466,7 +469,7 @@ class Component extends DCLogic {
     this.deco = {
       caus: [[-120, 520, 300, 0.22], [230, 1500, 260, 0.2], [-130, 2600, 300, 0.2], [240, 3600, 280, 0.18], [-110, 4700, 280, 0.2], [220, 5700, 260, 0.18]].map((c, i) => 'left: ' + c[0] + 'px; top: ' + c[1] + 'px; width: ' + c[2] + 'px; height: ' + c[2] + 'px; opacity: ' + c[3] + '; animation-delay: -' + (i * 4) + 's'),
       motes: Array.from({ length: 26 }, (_, i) => 'left: ' + Math.round(10 + rnd(i, 3) * 370) + 'px; top: ' + Math.round(30 + rnd(i, 4) * 780) + 'px; --dx: ' + Math.round((rnd(i, 5) - 0.5) * 40) + 'px; --dy: ' + Math.round((rnd(i, 6) - 0.5) * 40) + 'px; animation-duration: ' + (4 + rnd(i, 7) * 4).toFixed(1) + 's; animation-delay: -' + (rnd(i, 8) * 4).toFixed(1) + 's'),
-      introFan: fan(215, 330, 14, 376, 640, 1.5),
+      introFan: fan(215, 330, 14, 376, 600, 1.5),
       heroFan: fan(215, 250, 6, 384, 470, 1.5),
       miniFan: fan(210, 200, 250, 344, 250, 0.5).map((f, i) => ({ c: f.c, d: 'M210 200L' + (262 + i * 11) + ' 250L' + (273 + i * 11) + ' 250Z' })),
       footFan: SPEC.map((c, i) => ({ c: c, d: 'M70 30L120 ' + (16 + i * 5) + 'L120 ' + (21 + i * 5) + 'Z' }))

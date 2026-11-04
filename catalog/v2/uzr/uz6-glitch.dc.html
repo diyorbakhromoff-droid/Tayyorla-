@@ -17,7 +17,7 @@ a{color:#B14A34}
 .g-ic{fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 .g-ic2{fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
 .g-grid{background-image:linear-gradient(rgba(43,33,28,.05) 1px,rgba(43,33,28,0) 1px),linear-gradient(90deg,rgba(43,33,28,.05) 1px,rgba(43,33,28,0) 1px);background-size:26px 26px}
-.g-full{position:absolute;left:0;top:0;width:390px;height:844px}
+.g-full{position:absolute;left:0;top:0;width:390px;height:844px;pointer-events:none}
 .g-warmbg{background:radial-gradient(70% 40% at 50% 46%,rgba(244,165,138,.42) 0%,rgba(244,165,138,0) 100%),radial-gradient(60% 30% at 10% 90%,rgba(214,180,220,.35) 0%,rgba(214,180,220,0) 100%),linear-gradient(180deg,#F7EEE6 0%,#F3E7DD 100%)}
 /* kirish: buzilgan ekran */
 .g-intro{transition:opacity .9s ease 3.1s,visibility 0s linear 4s}
@@ -41,10 +41,10 @@ a{color:#B14A34}
 .g-dim{color:#9AA3C7;transition:color 1s ease 1.2s}
 .g-ok .g-dim{color:#6E5D53}
 .g-scan{background:repeating-linear-gradient(180deg,rgba(255,255,255,.07) 0 1px,rgba(255,255,255,0) 1px 4px);transition:opacity .8s ease .5s}
-.g-roll{position:absolute;left:0;width:390px;height:70px;background:linear-gradient(180deg,rgba(120,240,255,0),rgba(120,240,255,.09),rgba(255,60,154,.06),rgba(255,60,154,0));animation:gRoll 3.6s linear infinite;transition:opacity .6s ease .4s}
+.g-roll{position:absolute;pointer-events:none;left:0;width:390px;height:70px;background:linear-gradient(180deg,rgba(120,240,255,0),rgba(120,240,255,.09),rgba(255,60,154,.06),rgba(255,60,154,0));animation:gRoll 3.6s linear infinite;transition:opacity .6s ease .4s}
 @keyframes gRoll{from{transform:translateY(-80px)}to{transform:translateY(880px)}}
 .g-ok .g-scan,.g-ok .g-roll,.g-ok .g-blkw{opacity:0}
-.g-blkw{transition:opacity .5s ease .4s}
+.g-blkw{pointer-events:none;transition:opacity .5s ease .4s}
 .g-blk{position:absolute;display:block;animation:gBlk 2.2s steps(1) infinite}
 @keyframes gBlk{0%,100%{opacity:0}12%{opacity:.85}18%{opacity:0}46%{opacity:.7}49%{opacity:0}71%{opacity:.9}73%{opacity:0}}
 .g-warm{opacity:0;transition:opacity 1.2s ease .9s}
@@ -52,7 +52,7 @@ a{color:#B14A34}
 .g-flash{position:absolute;left:0;top:0;width:390px;height:844px;background:#FFFFFF;opacity:0;pointer-events:none}
 .g-ok .g-flash{animation:gFlash .8s ease .35s both}
 @keyframes gFlash{0%{opacity:0}25%{opacity:.85}100%{opacity:0}}
-.g-frame{position:absolute;left:12px;top:12px;width:366px;height:820px;box-sizing:border-box;border-radius:30px;border:1px solid rgba(160,180,255,.22);transition:border-color 1s ease 1.2s}
+.g-frame{position:absolute;pointer-events:none;left:12px;top:12px;width:366px;height:820px;box-sizing:border-box;border-radius:30px;border:1px solid rgba(160,180,255,.22);transition:border-color 1s ease 1.2s}
 .g-ok .g-frame{border-color:rgba(43,33,28,.12)}
 /* shar */
 .g-orb{position:absolute;width:220px;height:220px;border-radius:50%}
@@ -98,7 +98,8 @@ a{color:#B14A34}
 .g-inst .g-box svg{opacity:1;transform:none}
 .g-pbar{height:6px;border-radius:3px;background:rgba(43,33,28,.1);overflow:hidden}
 .g-pbar i{display:block;width:0;height:100%;border-radius:3px;background:linear-gradient(90deg,#F2B8A0,#E3857F)}
-.g-inst .g-pbar i{width:100%}
+.g-inst .g-pbar i{width:100%;animation:gFill 1.6s cubic-bezier(.4,0,.2,1) both}
+@keyframes gFill{from{width:0}to{width:100%}}
 .g-btn{transition:transform .15s ease}
 .g-btn:active{transform:scale(.98)}
 .g-btn:focus-visible{outline:3px solid #3FE6FF;outline-offset:3px}
@@ -110,7 +111,8 @@ a{color:#B14A34}
 .g-eq{display:flex;align-items:flex-end;gap:3px;height:16px}
 .g-eq span{width:3px;height:16px;border-radius:2px;background:#2B211C;transform-origin:50% 100%;animation:gEq 1s ease-in-out infinite}
 @keyframes gEq{0%,100%{transform:scaleY(.3)}50%{transform:scaleY(1)}}
-@media (prefers-reduced-motion: reduce){*,*::before,*::after{animation:none !important;transition:none !important}.g-c,.g-m,.g-sl,.g-orbC,.g-orbM,.g-orbS{opacity:.5}.g-ok .g-c,.g-ok .g-m,.g-ok .g-sl,.g-ok .g-orbC,.g-ok .g-orbM,.g-ok .g-orbS{opacity:0}.g-inst .g-pbar i{width:100%}}
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{animation:none !important;transition:none !important}.g-c,.g-m,.g-sl,.g-orbC,.g-orbM,.g-orbS{opacity:.5}.g-ok .g-c,.g-ok .g-m,.g-ok .g-sl,.g-ok .g-orbC,.g-ok .g-orbM,.g-ok .g-orbS{opacity:0}.g-inst .g-pbar i{width:100%;animation:gFill 1.6s cubic-bezier(.4,0,.2,1) both}
+@keyframes gFill{from{width:0}to{width:100%}}}
 </style>
 </helmet>
 <div style="width: 390px; min-height: var(--vh, 100vh); position: relative; overflow: hidden; color: #2B211C; font-family: 'Inter Tight', 'Helvetica Neue', Arial, sans-serif; display: flex; flex-direction: column; background-color: #F3E9E0">
@@ -277,7 +279,7 @@ a{color:#B14A34}
         </sc-if>
         <sc-if value="{{ accepted }}">
           <div class="g-pop" role="status" style="display: flex; flex-direction: column; gap: 10px">
-            <div class="g-pbar" aria-hidden="true"><i style="transition: width {{ instDur }} cubic-bezier(.4, 0, .2, 1)"></i></div>
+            <div class="g-pbar" aria-hidden="true"><i style="animation-duration: {{ instDur }}"></i></div>
             <p class="g-mo" style="margin: 0; font-size: 13px; line-height: 1.5; color: #2B211C">O’rnatildi. Har birini bajaraman.</p>
           </div>
         </sc-if>
