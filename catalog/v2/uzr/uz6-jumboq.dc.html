@@ -1,0 +1,504 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<title>Uzr VIP: Jumboq</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800&amp;family=Onest:wght@400;500;600;700&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#3B4CE0}
+.j-un{font-family:'Unbounded','Arial Black','Helvetica Neue',sans-serif}
+.j-on{font-family:'Onest','Helvetica Neue',Arial,sans-serif}
+.j-ic{fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.j-ic3{fill:none;stroke-width:2.8;stroke-linecap:round;stroke-linejoin:round}
+.j-dots{background-image:radial-gradient(circle,rgba(28,27,34,.13) 1.1px,rgba(28,27,34,0) 1.6px);background-size:18px 18px}
+/* yig'iladigan rasm (300x300) */
+.j-art{position:absolute;left:0;top:0;width:300px;height:300px;overflow:hidden;background:#3B4CE0}
+.j-art span{position:absolute;display:block}
+.j-a1{left:-104px;top:196px;width:208px;height:208px;border-radius:50%;background:#FFC845}
+.j-a2{left:188px;top:188px;width:124px;height:124px;border-radius:50%;background:#FF6A4D}
+.j-a3{left:228px;top:-72px;width:144px;height:144px;border-radius:50%;background:#3CC79A}
+.j-a4{left:150px;top:238px;width:30px;height:30px;border-radius:50%;background:#F7A8C8}
+.j-a5{left:206px;top:142px;width:74px;height:30px;background:repeating-linear-gradient(90deg,#FFFFFF 0 5px,rgba(255,255,255,0) 5px 13px)}
+.j-a6{left:118px;top:206px;width:0;height:0;border-left:16px solid rgba(255,255,255,0);border-right:16px solid rgba(255,255,255,0);border-bottom:26px solid #1C1B22;transform:rotate(-18deg)}
+.j-an{position:absolute;left:20px;top:24px;width:200px;margin:0;font-family:'Onest','Helvetica Neue',Arial,sans-serif;font-weight:700;line-height:1.15;color:#FFFFFF;overflow-wrap:anywhere}
+.j-ak{position:absolute;left:18px;top:72px;margin:0;font-family:'Unbounded','Arial Black',sans-serif;font-weight:800;font-size:57px;line-height:1;letter-spacing:-.025em;color:#FFFFFF}
+.j-am{position:absolute;left:18px;top:131px;margin:0;font-family:'Unbounded','Arial Black',sans-serif;font-weight:800;font-size:57px;line-height:1;letter-spacing:-.025em;color:#FFC845}
+.j-h1{margin:0;font-weight:inherit}
+/* kirish */
+.j-intro{transition:opacity .9s ease 2.3s,visibility 0s linear 3.2s}
+.j-intro--open{opacity:0;visibility:hidden;pointer-events:none}
+.j-pc{position:absolute;width:152px;height:152px;padding:0;margin:0;border:0;background:transparent;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .62s cubic-bezier(.22,1.35,.42,1),filter .4s ease}
+.j-pc:focus-visible{outline:none}
+.j-pc:focus-visible .j-cut{filter:drop-shadow(0 0 0 #1C1B22) drop-shadow(0 0 3px #1C1B22)}
+.j-cut{position:absolute;left:0;top:0;width:152px;height:152px;overflow:hidden}
+.j-loose{filter:drop-shadow(0 10px 10px rgba(28,27,34,.22))}
+.j-loose .j-cut{animation:jWob 3.6s ease-in-out infinite}
+.j-in{z-index:2;pointer-events:none}
+@keyframes jWob{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+.j-ghost{fill:rgba(59,76,224,.05);stroke:#3B4CE0;stroke-width:1.4;stroke-dasharray:5 5;opacity:.55;transition:opacity .5s ease}
+.j-done .j-ghost{opacity:0}
+.j-seal{position:absolute;opacity:0;transition:opacity .45s ease .55s}
+.j-done .j-seal{opacity:1}
+.j-done .j-board{animation:jPop .7s cubic-bezier(.3,1.5,.5,1) .9s both}
+@keyframes jPop{0%{transform:scale(1)}45%{transform:scale(1.045)}100%{transform:scale(1)}}
+.j-ring{position:absolute;border:3px solid #3B4CE0;opacity:0}
+.j-done .j-ring{animation:jRing 1.1s ease-out 1s both}
+@keyframes jRing{0%{opacity:.8;transform:scale(1)}100%{opacity:0;transform:scale(1.22)}}
+.j-swapA{transition:opacity .35s ease,transform .35s ease}
+.j-swapB{opacity:0;transform:translateY(8px);transition:opacity .45s ease .5s,transform .45s ease .5s}
+.j-done .j-swapA{opacity:0;transform:translateY(-8px)}
+.j-done .j-swapB{opacity:1;transform:none}
+.j-seg{flex:1;height:8px;border-radius:4px;background:rgba(28,27,34,.12);transition:background .3s ease}
+.j-seg--on{background:#3B4CE0}
+/* bezak */
+.j-fl{animation:jFloat 6s ease-in-out infinite}
+@keyframes jFloat{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-9px) rotate(8deg)}}
+.j-bob{animation:jBob 2.4s ease-in-out infinite}
+@keyframes jBob{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+/* kartalar: jumboq tishlari */
+.j-card{position:relative;margin:0 16px;border-radius:30px}
+.j-card::before{content:'';position:absolute;left:50%;top:-16px;width:44px;height:36px;margin-left:-22px;border-radius:50%;background:inherit}
+.j-card::after{content:'';position:absolute;left:50%;bottom:-24px;width:58px;height:46px;margin-left:-29px;border-radius:50%;background:#F3EFE7}
+.j-chip{display:inline-flex;align-items:center;gap:8px;height:30px;padding:0 12px 0 4px;border-radius:15px;font-family:'Onest',Arial,sans-serif;font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase}
+.j-chip b{display:flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:11px;font-family:'Unbounded',Arial,sans-serif;font-size:10px;font-weight:700;letter-spacing:0}
+.j-initial{float:left;width:58px;height:58px;margin:4px 12px 0 0;border-radius:16px;background:#FF6A4D;color:#FFFFFF;display:flex;align-items:center;justify-content:center;font-family:'Unbounded',Arial,sans-serif;font-size:32px;font-weight:800;line-height:1}
+.j-gp{position:absolute;overflow:hidden}
+.j-gp img{width:100%;height:100%;object-fit:cover;display:block}
+.j-vow{width:100%;min-height:64px;box-sizing:border-box;padding:12px 14px;border:0;border-radius:20px;background:#FFFFFF;color:#1C1B22;display:flex;align-items:center;gap:14px;text-align:left;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .5s cubic-bezier(.22,1.4,.42,1),background .3s ease,box-shadow .3s ease}
+.j-vow:focus-visible{outline:3px solid #1C1B22;outline-offset:2px}
+.j-vow i{flex:none;width:36px;height:36px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-style:normal;font-family:'Unbounded',Arial,sans-serif;font-size:14px;font-weight:700;background:#3B4CE0;color:#FFFFFF;transition:background .3s ease}
+.j-vow--on{background:#1C1B22;color:#FFFFFF;box-shadow:0 0 0 2px #1C1B22}
+.j-vow--on i{background:#FFC845;color:#1C1B22}
+.j-btn{transition:transform .15s ease}
+.j-btn:active{transform:translateY(2px) scale(.99)}
+.j-btn:focus-visible{outline:3px solid #1C1B22;outline-offset:3px}
+.j-pop{animation:jPopIn .55s cubic-bezier(.2,1.35,.4,1) both}
+@keyframes jPopIn{from{opacity:0;transform:scale(.94) translateY(8px)}to{opacity:1;transform:none}}
+.j-ta::placeholder{color:#5D5A66}
+.j-ta:focus{outline:3px solid #1C1B22;outline-offset:1px}
+.j-lock1{animation:jLockA 3.4s cubic-bezier(.5,0,.3,1) infinite}
+.j-lock2{animation:jLockB 3.4s cubic-bezier(.5,0,.3,1) infinite}
+@keyframes jLockA{0%,15%{transform:translateX(-26px) rotate(-8deg)}45%,85%{transform:none}100%{transform:translateX(-26px) rotate(-8deg)}}
+@keyframes jLockB{0%,15%{transform:translateX(26px) rotate(8deg)}45%,85%{transform:none}100%{transform:translateX(26px) rotate(8deg)}}
+.j-eq{display:flex;align-items:flex-end;gap:3px;height:16px}
+.j-eq span{width:3px;height:16px;border-radius:2px;background:#FFFFFF;transform-origin:50% 100%;animation:jEq 1s ease-in-out infinite}
+@keyframes jEq{0%,100%{transform:scaleY(.3)}50%{transform:scaleY(1)}}
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{animation:none !important;transition:none !important}.j-swapB{opacity:1}.j-done .j-swapA{opacity:0}}
+</style>
+</helmet>
+<div style="width: 390px; min-height: var(--vh, 100vh); position: relative; overflow: hidden; color: #1C1B22; font-family: 'Onest', 'Helvetica Neue', Arial, sans-serif; display: flex; flex-direction: column; background-color: #F3EFE7">
+
+  <sc-if value="{{ has.music }}">
+  <button type="button" class="j-btn" onClick="{{ toggleMusic }}" aria-label="Musiqa" aria-pressed="{{ musicOn }}" style="position: absolute; right: 16px; top: 16px; z-index: 30; width: 44px; height: 44px; padding: 0; border: 0; border-radius: 14px; background: #1C1B22; display: flex; align-items: center; justify-content: center; cursor: pointer">
+    <sc-if value="{{ musicOff }}">
+      <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 17.5V6l10-2v11.5" stroke="#FFFFFF" class="j-ic"></path><circle cx="6.8" cy="17.5" r="2.2" stroke="#FFFFFF" class="j-ic"></circle><circle cx="16.8" cy="15.5" r="2.2" stroke="#FFFFFF" class="j-ic"></circle></svg>
+    </sc-if>
+    <sc-if value="{{ musicOn }}">
+      <span class="j-eq" aria-hidden="true"><span></span><span style="animation-delay: -0.3s"></span><span style="animation-delay: -0.6s"></span><span style="animation-delay: -0.15s"></span></span>
+    </sc-if>
+  </button>
+  </sc-if>
+
+  <!-- KIRISH: sochilgan jumboq bo'laklari -->
+  <div class="{{ introCls }}" data-intro style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; z-index: 20; overflow: hidden; background-color: #F3EFE7">
+    <div class="j-dots" aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px"></div>
+
+    <div style="position: absolute; left: 24px; right: 24px; top: 38px; text-align: center">
+      <p class="j-on" style="margin: 0; font-size: 12px; font-weight: 700; letter-spacing: {{ fromLs }}; text-transform: uppercase; color: #5D5A66; overflow-wrap: anywhere">{{ fromTo }}</p>
+      <div style="position: relative; height: 70px; margin-top: 10px">
+        <p class="j-un j-swapA" style="position: absolute; left: 0; right: 0; top: 0; margin: 0; font-size: 26px; font-weight: 800; line-height: 1.18; letter-spacing: -0.02em">Bo’laklarni<br>birlashtir</p>
+        <p class="j-un j-swapB" style="position: absolute; left: 0; right: 0; top: 0; margin: 0; font-size: 26px; font-weight: 800; line-height: 1.18; letter-spacing: -0.02em">Endi hammasi<br>o’z joyida</p>
+      </div>
+    </div>
+
+    <div class="j-board" style="position: absolute; left: 45px; top: 262px; width: 300px; height: 300px">
+      <span class="j-ring" aria-hidden="true" style="left: 0; top: 0; width: 294px; height: 294px"></span>
+      <svg width="352" height="352" viewBox="-26 -26 352 352" aria-hidden="true" style="position: absolute; left: -26px; top: -26px">
+        <sc-for list="{{ pieces }}" as="g"><path d="{{ g.d }}" transform="{{ g.tr }}" class="j-ghost"></path></sc-for>
+      </svg>
+      <div class="j-seal" aria-hidden="true" style="left: 0; top: 0; width: 300px; height: 300px">
+        <div class="j-art"><span class="j-a1"></span><span class="j-a2"></span><span class="j-a3"></span><span class="j-a4"></span><span class="j-a5"></span><span class="j-a6"></span><p class="j-an" style="font-size: {{ nameSize }}">{{ nameLine }}</p><p class="j-ak">kechir</p><p class="j-am">meni</p></div>
+      </div>
+    </div>
+
+    <sc-for list="{{ pieces }}" as="pc">
+    <button type="button" class="{{ pc.cls }}" onClick="{{ pc.tap }}" aria-label="{{ pc.label }}" style="left: {{ pc.x }}; top: {{ pc.y }}; z-index: {{ pc.z }}; transform: {{ pc.tf }}">
+      <span class="j-cut" style="clip-path: {{ pc.clip }}; -webkit-clip-path: {{ pc.clip }}">
+        <span style="position: absolute; left: {{ pc.ox }}; top: {{ pc.oy }}; width: 300px; height: 300px">
+          <span class="j-art"><span class="j-a1"></span><span class="j-a2"></span><span class="j-a3"></span><span class="j-a4"></span><span class="j-a5"></span><span class="j-a6"></span><span class="j-an" style="display: block; font-size: {{ nameSize }}">{{ nameLine }}</span><span class="j-ak">kechir</span><span class="j-am">meni</span></span>
+        </span>
+      </span>
+    </button>
+    </sc-for>
+
+    <div class="j-swapA" style="position: absolute; left: 24px; right: 24px; top: 726px; display: flex; flex-direction: column; align-items: center; gap: 10px">
+      <div style="width: 100%; display: flex; align-items: center; gap: 12px">
+        <span class="j-un" style="flex: none; min-width: 52px; font-size: 18px; font-weight: 700">{{ count }}<span style="color: #5D5A66">/9</span></span>
+        <div aria-hidden="true" style="flex: 1; display: flex; gap: 4px"><sc-for list="{{ segs }}" as="sg"><span class="{{ sg }}"></span></sc-for></div>
+      </div>
+      <p class="j-on" style="margin: 0; font-size: 14px; line-height: 1.45; color: #5D5A66; text-align: center">Har bir bo’lakni bosing — o’z joyiga tushadi</p>
+      <button type="button" class="j-btn j-on" onClick="{{ all }}" style="height: 44px; padding: 0 20px; border: 2px solid #1C1B22; border-radius: 22px; background: transparent; color: #1C1B22; font-size: 14px; font-weight: 700; letter-spacing: 0.06em; cursor: pointer">Birdaniga yig’ish</button>
+    </div>
+  </div>
+
+  <!-- BOSH QISM -->
+  <header class="j-dots" style="flex: none; position: relative; height: 844px; overflow: hidden">
+    <div style="position: absolute; left: 24px; right: 24px; top: 38px; text-align: center">
+      <p class="j-on" style="margin: 0; font-size: 12px; font-weight: 700; letter-spacing: {{ fromLs }}; text-transform: uppercase; color: #5D5A66; overflow-wrap: anywhere">{{ fromTo }}</p>
+      <p class="j-un" style="margin: 10px 0 0; font-size: 26px; font-weight: 800; line-height: 1.18; letter-spacing: -0.02em">Endi hammasi<br>o’z joyida</p>
+    </div>
+    <div aria-hidden="true">
+      <span class="j-fl" style="position: absolute; left: 22px; top: 196px; width: 38px; height: 38px; border-radius: 50%; background: #FF6A4D"></span>
+      <span class="j-fl" style="position: absolute; left: 330px; top: 214px; width: 34px; height: 34px; border-radius: 10px; background: #FFC845; animation-delay: -2s"></span>
+      <span class="j-fl" style="position: absolute; left: 349px; top: 528px; width: 0; height: 0; border-left: 17px solid rgba(0, 0, 0, 0); border-right: 17px solid rgba(0, 0, 0, 0); border-bottom: 28px solid #3CC79A; animation-delay: -3.4s"></span>
+      <span class="j-fl" style="position: absolute; left: 0px; top: 540px; width: 44px; height: 22px; border-radius: 22px 22px 0 0; background: #3B4CE0; animation-delay: -1.2s"></span>
+    </div>
+    <div style="position: absolute; left: 45px; top: 262px; width: 300px; height: 300px">
+      <div class="j-art"><span class="j-a1"></span><span class="j-a2"></span><span class="j-a3"></span><span class="j-a4"></span><span class="j-a5"></span><span class="j-a6"></span><h1 class="j-h1"><span class="j-an" style="display: block; font-size: {{ nameSize }}">{{ nameLine }}</span><span class="j-ak">kechir</span><span class="j-am">meni</span></h1></div>
+    </div>
+    <div style="position: absolute; left: 32px; right: 32px; top: 598px; display: flex; flex-direction: column; align-items: center; gap: 14px; text-align: center">
+      <p class="j-on" style="margin: 0; font-size: 17px; line-height: 1.55; color: #1C1B22">Oramizdagi har bir bo’lak — sen bilan o’tgan kunlarimiz. Ularni qayta birlashtirmoqchiman.</p>
+      <div style="display: flex; gap: 8px">
+        <span class="j-on" style="height: 32px; padding: 0 14px; border-radius: 16px; background: #1C1B22; color: #FFFFFF; display: inline-flex; align-items: center; font-size: 13px; font-weight: 600">9 bo’lak</span>
+        <span class="j-on" style="height: 32px; padding: 0 14px; border-radius: 16px; background: #FFC845; color: #1C1B22; display: inline-flex; align-items: center; font-size: 13px; font-weight: 600">1 butun</span>
+      </div>
+    </div>
+    <svg class="j-bob" width="28" height="28" viewBox="0 0 24 24" aria-hidden="true" style="position: absolute; left: 181px; top: 772px"><path d="M6 9.5 L12 15.5 L18 9.5" stroke="#1C1B22" class="j-ic3"></path></svg>
+  </header>
+
+  <div style="flex: none; display: flex; flex-direction: column; gap: 30px; padding: 14px 0 34px">
+
+  <sc-if value="{{ b.maktub }}">
+  <section class="j-card" style="background: #FFFFFF; padding: 30px 22px 30px">
+    <span class="j-chip" style="background: #F3EFE7; color: #1C1B22"><b style="background: #3B4CE0; color: #FFFFFF">{{ no.n1 }}</b>Maktub</span>
+    <h2 class="j-un" style="margin: 14px 0 0; font-size: 27px; font-weight: 800; line-height: 1.18; letter-spacing: -0.02em">Yuragimdagi gaplar</h2>
+    <p class="j-on" style="margin: 20px 0 0; font-size: 17px; line-height: 1.68; color: #2A2930; white-space: pre-line; overflow-wrap: anywhere"><span class="j-initial" aria-hidden="true">{{ dropCap }}</span>{{ dropRest }}</p>
+    <div style="margin-top: 22px; padding-top: 18px; border-top: 2px solid #1C1B22; display: flex; align-items: center; justify-content: space-between; gap: 12px">
+      <span class="j-on" style="font-size: 13px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #5D5A66">Uzr bilan</span>
+      <span class="j-un" style="font-size: {{ sigSize }}; font-weight: 700; line-height: 1.25; text-align: right; overflow-wrap: anywhere">{{ d.kimdan }}</span>
+    </div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.galereya }}">
+  <section class="j-card" style="background: #3B4CE0; padding: 30px 20px 30px; color: #FFFFFF">
+    <span class="j-chip" style="background: rgba(255, 255, 255, 0.14); color: #FFFFFF"><b style="background: #FFC845; color: #1C1B22">{{ no.n2 }}</b>Xotiralar</span>
+    <h2 class="j-un" style="margin: 14px 0 0; font-size: 27px; font-weight: 800; line-height: 1.18; letter-spacing: -0.02em">Bir-biriga mos bo’laklar</h2>
+    <div style="position: relative; width: 300px; height: {{ galH }}; margin: 22px auto 0">
+      <sc-for list="{{ gal }}" as="g">
+      <div class="j-gp" style="left: {{ g.x }}; top: {{ g.y }}; width: {{ g.w }}; height: {{ g.h }}; border-radius: {{ g.r }}; clip-path: {{ g.clip }}; -webkit-clip-path: {{ g.clip }}; background: #FFC845">
+        <sc-if value="{{ g.img }}"><img src="{{ g.src }}" alt="" loading="lazy"></sc-if>
+        <sc-if value="{{ g.fill }}"><span class="j-un" style="position: absolute; left: {{ g.tx }}; top: {{ g.ty }}; width: 120px; font-size: 15px; font-weight: 700; line-height: 1.3; color: #1C1B22">Davomi hali oldinda</span></sc-if>
+      </div>
+      </sc-for>
+    </div>
+    <p class="j-on" style="margin: 18px 0 0; font-size: 15px; line-height: 1.55; color: rgba(255, 255, 255, 0.86); text-align: center">Har bir surat — faqat sen bilan to’ladigan bo’lak.</p>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.vadalar }}">
+  <section class="j-card" style="background: #FFC845; padding: 30px 20px 28px">
+    <span class="j-chip" style="background: rgba(28, 27, 34, 0.1); color: #1C1B22"><b style="background: #1C1B22; color: #FFFFFF">{{ no.n3 }}</b>Va’dalar</span>
+    <h2 class="j-un" style="margin: 14px 0 0; font-size: 27px; font-weight: 800; line-height: 1.18; letter-spacing: -0.02em">Har biri — o’z joyida</h2>
+    <p class="j-on" style="margin: 8px 0 0; font-size: 15px; line-height: 1.5; color: #3A3520">Ishonganingni bosib, joyiga qo’y.</p>
+    <div style="margin-top: 18px; display: flex; flex-direction: column; gap: 10px">
+      <sc-for list="{{ promises }}" as="v">
+      <button type="button" class="{{ v.cls }}" onClick="{{ v.tap }}" aria-pressed="{{ v.on }}" style="transform: {{ v.tf }}">
+        <i aria-hidden="true"><sc-if value="{{ v.on }}"><svg width="18" height="18" viewBox="0 0 24 24"><path d="M5.5 12.5 L10 17 L18.5 7.5" stroke="#1C1B22" class="j-ic3"></path></svg></sc-if><sc-if value="{{ v.off }}">{{ v.n }}</sc-if></i>
+        <span class="j-on" style="flex: 1; min-width: 0; font-size: 16.5px; font-weight: 500; line-height: 1.4; overflow-wrap: anywhere">{{ v.text }}</span>
+      </button>
+      </sc-for>
+    </div>
+    <div style="margin-top: 16px; min-height: 52px; display: flex; align-items: center">
+      <sc-if value="{{ notAccepted }}">
+        <div style="width: 100%; display: flex; align-items: center; gap: 12px">
+          <span class="j-un" style="flex: none; font-size: 16px; font-weight: 700">{{ vowCount }}</span>
+          <button type="button" class="j-btn j-on" onClick="{{ accept }}" style="flex: 1; height: 52px; border: 0; border-radius: 26px; background: #1C1B22; color: #FFFFFF; font-size: 15px; font-weight: 700; letter-spacing: 0.04em; cursor: pointer">Hammasiga ishonaman</button>
+        </div>
+      </sc-if>
+      <sc-if value="{{ accepted }}">
+        <p class="j-pop j-on" role="status" style="margin: 0; width: 100%; display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 16px; font-weight: 600">
+          <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" style="flex: none"><path d="M5.5 12.5 L10 17 L18.5 7.5" stroke="#1C1B22" class="j-ic3"></path></svg>
+          <span>Hammasi joyida. Har birini bajaraman.</span>
+        </p>
+      </sc-if>
+    </div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.taklif }}">
+  <section class="j-card" style="background: #FF6A4D; padding: 30px 20px 26px">
+    <span class="j-chip" style="background: rgba(28, 27, 34, 0.12); color: #1C1B22"><b style="background: #FFFFFF; color: #1C1B22">{{ no.n4 }}</b>Taklif</span>
+    <p class="j-un" style="margin: 16px 0 0; font-size: {{ offerSize }}; font-weight: 800; line-height: 1.2; letter-spacing: -0.02em; color: #1C1B22; overflow-wrap: anywhere">{{ d.taklif }}</p>
+    <sc-if value="{{ hasChips }}">
+    <div style="margin-top: 18px; display: grid; grid-template-columns: {{ chipCols }}; gap: 8px">
+      <sc-if value="{{ d.taklif_vaqt }}">
+      <div style="padding: 12px 14px; border-radius: 18px; background: #FFFFFF; display: flex; flex-direction: column; gap: 4px; min-width: 0">
+        <span class="j-on" style="font-size: 11px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: #5D5A66">Qachon</span>
+        <span class="j-on" style="font-size: 16px; font-weight: 700; line-height: 1.3; overflow-wrap: anywhere">{{ d.taklif_vaqt }}</span>
+      </div>
+      </sc-if>
+      <sc-if value="{{ d.taklif_joy }}">
+      <div style="padding: 12px 14px; border-radius: 18px; background: #FFFFFF; display: flex; flex-direction: column; gap: 4px; min-width: 0">
+        <span class="j-on" style="font-size: 11px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: #5D5A66">Qayerda</span>
+        <span class="j-on" style="font-size: 16px; font-weight: 700; line-height: 1.3; overflow-wrap: anywhere">{{ d.taklif_joy }}</span>
+      </div>
+      </sc-if>
+    </div>
+    </sc-if>
+    <div style="margin-top: 16px">
+      <sc-if value="{{ notAgreed }}">
+        <button type="button" class="j-btn j-on" onClick="{{ agree }}" style="width: 100%; height: 56px; border: 0; border-radius: 28px; background: #1C1B22; color: #FFFFFF; font-size: 16px; font-weight: 700; letter-spacing: 0.04em; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px">
+          <span>Roziman</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" stroke="#FFFFFF" class="j-ic3"></path></svg>
+        </button>
+      </sc-if>
+      <sc-if value="{{ agreed }}">
+        <div class="j-pop" role="status" style="display: flex; align-items: center; gap: 12px; padding: 14px 16px; border-radius: 20px; background: #1C1B22">
+          <span aria-hidden="true" style="flex: none; width: 30px; height: 30px; border-radius: 10px; background: #FFC845; display: flex; align-items: center; justify-content: center"><svg width="18" height="18" viewBox="0 0 24 24"><path d="M5.5 12.5 L10 17 L18.5 7.5" stroke="#1C1B22" class="j-ic3"></path></svg></span>
+          <p class="j-on" style="margin: 0; font-size: 15px; line-height: 1.45; color: #FFFFFF; overflow-wrap: anywhere">{{ agreedText }}</p>
+        </div>
+      </sc-if>
+    </div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ showAnswer }}">
+  <section class="j-card" style="background: #3CC79A; padding: 32px 20px 26px">
+    <div style="text-align: center">
+      <span class="j-chip" style="background: rgba(28, 27, 34, 0.1); color: #1C1B22"><b style="background: #1C1B22; color: #FFFFFF">{{ no.n5 }}</b>Javob</span>
+      <h2 class="j-un" style="margin: 14px 0 0; font-size: 31px; font-weight: 800; line-height: 1.15; letter-spacing: -0.02em">Kechirasanmi?</h2>
+      <p class="j-on" style="margin: 8px 0 0; font-size: 15px; line-height: 1.5; color: #173B2E">{{ askSub }}</p>
+    </div>
+    <div style="margin-top: 18px; display: flex; flex-direction: column; gap: 14px">
+      <sc-if value="{{ b.javob }}">
+      <sc-if value="{{ waiting }}">
+        <button type="button" class="j-btn j-un" onClick="{{ forgive }}" style="width: 100%; height: 62px; border: 0; border-radius: 31px; background: #1C1B22; color: #FFFFFF; font-size: 18px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 12px">
+          <svg width="26" height="26" viewBox="0 0 26 26" aria-hidden="true"><path d="M4 4h7a3 3 0 1 1 4 0h7v7a3 3 0 1 0 0 4v7H4z" fill="#FFC845"></path></svg>
+          <span>Kechirdim</span>
+        </button>
+      </sc-if>
+      <sc-if value="{{ forgiven }}">
+        <div class="j-pop" role="status" style="display: flex; align-items: center; gap: 14px; padding: 16px; border-radius: 22px; background: #1C1B22; color: #FFFFFF">
+          <svg width="44" height="44" viewBox="0 0 26 26" aria-hidden="true" style="flex: none"><path d="M4 4h7a3 3 0 1 1 4 0h7v7a3 3 0 1 0 0 4v7H4z" fill="#FFC845"></path><path d="M8.5 13.5 L11.5 16.5 L17.5 10" stroke="#1C1B22" class="j-ic3"></path></svg>
+          <div style="min-width: 0; display: flex; flex-direction: column; gap: 4px">
+            <p class="j-un" style="margin: 0; font-size: 17px; font-weight: 700; line-height: 1.3; overflow-wrap: anywhere">Rahmat, {{ d.kimga }}!</p>
+            <p class="j-on" style="margin: 0; font-size: 15px; line-height: 1.5; color: rgba(255, 255, 255, 0.86); white-space: pre-line; overflow-wrap: anywhere">{{ thanks }}</p>
+          </div>
+        </div>
+      </sc-if>
+      </sc-if>
+      <sc-if value="{{ both }}">
+      <div style="display: flex; align-items: center; gap: 10px">
+        <span aria-hidden="true" style="flex: 1; height: 2px; background: rgba(28, 27, 34, 0.25)"></span>
+        <span class="j-on" style="font-size: 13.5px; font-weight: 600; color: #173B2E">yoki o’z so’zlaring bilan</span>
+        <span aria-hidden="true" style="flex: 1; height: 2px; background: rgba(28, 27, 34, 0.25)"></span>
+      </div>
+      </sc-if>
+      <sc-if value="{{ b.sorov }}">
+      <sc-if value="{{ notSent }}">
+        <div style="display: flex; flex-direction: column; gap: 10px">
+          <label for="jReply" class="j-on" style="font-size: 12px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: #173B2E">Javob yozish</label>
+          <textarea id="jReply" class="j-ta j-on" rows="3" placeholder="Bir-ikki so’z ham kifoya" style="width: 100%; height: 92px; box-sizing: border-box; resize: none; padding: 13px 15px; border: 0; border-radius: 18px; background: #FFFFFF; color: #1C1B22; font-size: 16px; line-height: 1.45"></textarea>
+          <sc-if value="{{ sendErr }}"><p role="alert" style="margin: -2px 0 0; font-size: 14px; font-weight: 600; line-height: 1.4; color: #5A1408">{{ sendErr }}</p></sc-if>
+          <button type="button" class="j-btn j-on" onClick="{{ send }}" disabled="{{ sending }}" style="width: 100%; height: 54px; border: 2px solid #1C1B22; border-radius: 27px; background: transparent; color: #1C1B22; font-size: 15px; font-weight: 700; letter-spacing: 0.04em; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px">
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12l16-8-6 16-2.5-6.5L4 12z M11.5 13.5L20 4" stroke="#1C1B22" class="j-ic"></path></svg>
+            <span>{{ sendLabel }}</span>
+          </button>
+        </div>
+      </sc-if>
+      <sc-if value="{{ sent }}">
+        <div class="j-pop" role="status" style="display: flex; align-items: center; gap: 12px; padding: 14px 16px; border-radius: 18px; background: #FFFFFF">
+          <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" style="flex: none"><path d="M4 12l16-8-6 16-2.5-6.5L4 12z M11.5 13.5L20 4" stroke="#3B4CE0" class="j-ic"></path></svg>
+          <p class="j-on" style="margin: 0; font-size: 15px; line-height: 1.45; overflow-wrap: anywhere">Xating {{ toFrom }} yetib bordi.</p>
+        </div>
+      </sc-if>
+      </sc-if>
+    </div>
+  </section>
+  </sc-if>
+
+  </div>
+
+  <footer style="flex: 1 0 auto; position: relative; min-height: 380px; overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; padding: 0 24px 64px; box-sizing: border-box; text-align: center">
+    <div aria-hidden="true" style="position: absolute; left: 95px; top: 40px; width: 200px; height: 120px">
+      <svg class="j-lock1" width="120" height="120" viewBox="0 0 120 120" style="position: absolute; left: 0; top: 0"><path d="M10 20 H96 V48 C86 40 74 46 74 60 C74 74 86 80 96 72 V100 H10 Z" fill="#3B4CE0"></path></svg>
+      <svg class="j-lock2" width="120" height="120" viewBox="0 0 120 120" style="position: absolute; left: 86px; top: 0"><path d="M10 20 H110 V100 H10 V72 C20 80 32 74 32 60 C32 46 20 40 10 48 Z" fill="#FF6A4D"></path></svg>
+    </div>
+    <p class="j-un" style="margin: 0; font-size: 30px; font-weight: 800; line-height: 1.18; letter-spacing: -0.02em">Biz — bir butun.</p>
+    <p class="j-on" style="margin: 10px 0 0; max-width: 300px; font-size: 16px; line-height: 1.55; color: #5D5A66">Bitta bo’lak yetishmasa ham, rasm to’lmaydi. O’sha bo’lak — sensan.</p>
+    <p class="j-un" style="margin: 18px 0 0; font-size: {{ footSig }}; font-weight: 700; line-height: 1.3; color: #3B4CE0; overflow-wrap: anywhere">{{ d.kimdan }}</p>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":4200}}'>
+class Component extends DCLogic {
+  constructor(...args) {
+    super(...args);
+    this.state = { placed: [false, false, false, false, false, false, false, false, false], done: false, vows: {}, accepted: false, agreed: false, forgiven: false, sent: false };
+    this.timers = [];
+  }
+  componentWillUnmount() { this.gone = true; this.timers.forEach((t) => clearTimeout(t)); }
+  place(k) {
+    if (this.state.done || this.state.placed[k]) return;
+    const placed = this.state.placed.slice();
+    placed[k] = true;
+    const done = placed.every(Boolean);
+    this.setState({ placed, done });
+    if (done) SITE.opened();
+  }
+  renderVals() {
+    const s = this.state || {};
+    const d = SITE.d, b = SITE.b;
+    const f = (n) => (Math.round(n * 10) / 10).toString();
+    // jumboq tishi: A nuqtadan u yo'nalishda La uzunlikda, n tomonga Ld chuqurlikda (sg: +1 bo'rtiq, -1 chuqurcha)
+    const ed = (ax, ay, ux, uy, nx, ny, sg, La, Ld) => {
+      if (!sg) return ' L' + f(ax + ux * La) + ' ' + f(ay + uy * La);
+      const P = (t, q) => f(ax + ux * t * La + nx * q * Ld * sg) + ' ' + f(ay + uy * t * La + ny * q * Ld * sg);
+      return ' C' + P(0.36, 0) + ' ' + P(0.44, 0.02) + ' ' + P(0.42, 0.08) + ' C' + P(0.36, 0.14) + ' ' + P(0.38, 0.24) + ' ' + P(0.5, 0.24) +
+        ' C' + P(0.62, 0.24) + ' ' + P(0.64, 0.14) + ' ' + P(0.58, 0.08) + ' C' + P(0.56, 0.02) + ' ' + P(0.64, 0) + ' ' + P(1, 0);
+    };
+    const shape = (r, c, rows, cols, W, H, M, hz, vt) => {
+      const D = Math.min(W, H);
+      const top = r > 0 ? -hz[r - 1][c] : 0, bot = r < rows - 1 ? hz[r][c] : 0;
+      const rgt = c < cols - 1 ? vt[r][c] : 0, lft = c > 0 ? -vt[r][c - 1] : 0;
+      return 'M' + M + ' ' + M + ed(M, M, 1, 0, 0, -1, top, W, D) + ed(M + W, M, 0, 1, 1, 0, rgt, H, D) +
+        ed(M + W, M + H, -1, 0, 0, 1, bot, W, D) + ed(M, M + H, 0, -1, -1, 0, lft, H, D) + ' Z';
+    };
+    // kirish jumbog'i: 3x3, katak 100px
+    const L = 100, M = 26, BX = 45, BY = 262;
+    const hz = [[1, -1, 1], [-1, 1, -1]], vt = [[-1, 1], [1, -1], [-1, 1]];
+    const slot = [[62, 190], [150, 172], [240, 194], [328, 176], [52, 648], [124, 676], [196, 650], [268, 680], [338, 652]];
+    const rot = [-14, 9, -6, 12, 8, -11, 15, -7, 10];
+    const order = [4, 0, 7, 2, 8, 5, 1, 6, 3];
+    const placed = s.placed || [];
+    const done = !!s.done;
+    const pieces = [];
+    for (let k = 0; k < 9; k++) {
+      const r = Math.floor(k / 3), c = k % 3;
+      const x = BX + c * L - M, y = BY + r * L - M;
+      const si = order.indexOf(k), sp = slot[si];
+      const pth = shape(r, c, 3, 3, L, L, M, hz, vt);
+      const tf = placed[k] ? 'translate(0px, 0px) rotate(0deg) scale(1)' :
+        'translate(' + (sp[0] - (x + 76)) + 'px, ' + (sp[1] - (y + 76)) + 'px) rotate(' + rot[si] + 'deg) scale(0.66)';
+      pieces.push({
+        d: pth, tr: 'translate(' + (c * L - M) + ' ' + (r * L - M) + ')',
+        x: x + 'px', y: y + 'px', z: placed[k] ? 2 : 4 + si, tf,
+        clip: 'path("' + pth + '")', ox: (M - c * L) + 'px', oy: (M - r * L) + 'px',
+        cls: placed[k] ? 'j-pc j-in' : 'j-pc j-loose',
+        label: placed[k] ? 'Bo’lak ' + (k + 1) + ' joyida' : 'Bo’lak ' + (k + 1) + ' — joyiga qo’yish',
+        tap: () => this.place(k),
+      });
+    }
+    const count = placed.filter(Boolean).length;
+    // galereya: suratlar ham bir-biriga tishlashgan jumboq bo'laklari
+    const n = SITE.has.photos;
+    const gal = [];
+    if (n <= 1) {
+      gal.push({ x: '0px', y: '0px', w: '300px', h: '240px', r: '24px', clip: 'none', img: true, src: SITE.p[0], fill: false });
+    } else {
+      const two = n === 2;
+      const rows = two ? 1 : 2, cols = 2, W = 150, H = two ? 220 : 150, Mg = 40;
+      const ghz = [[1, -1]], gvt = two ? [[1]] : [[1], [-1]];
+      for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++) {
+        const i = r * cols + c;
+        const pth = shape(r, c, rows, cols, W, H, Mg, ghz, gvt);
+        const dx = c ? 4 : -4, dy = rows > 1 ? (r ? 4 : -4) : 0;
+        gal.push({ x: (c * W - Mg + dx) + 'px', y: (r * H - Mg + dy + 4) + 'px', w: (W + 2 * Mg) + 'px', h: (H + 2 * Mg) + 'px', r: '0px',
+          clip: 'path("' + pth + '")', img: i < 3, src: SITE.p[i % SITE.p.length], fill: i >= 3, tx: (Mg + 16) + 'px', ty: (Mg + 52) + 'px' });
+      }
+    }
+    const vows = d.vadalar || [];
+    const vs = s.vows || {};
+    const vOn = vows.filter((x, i) => vs[i]).length;
+    const allV = !!s.accepted;
+    const matn = String(d.matn || '').replace(/^\s+/, '');
+    const nameLen = String(d.kimga || '').length;
+    const fromLen = String(d.kimdan || '').length;
+    const tv = String(d.taklif_vaqt || '').trim();
+    const offerLen = String(d.taklif || '').length;
+    const finishVows = (vsx) => { if (this.state.accepted) return; this.setState({ vows: vsx, accepted: true }); SITE.reply('Va’dalaringga ishonaman', '🥹'); };
+    const seq = [b.maktub, b.galereya, b.vadalar, b.taklif, b.javob || b.sorov];
+    const no = {}; let cnt = 0;
+    seq.forEach((v, i) => { if (v) cnt++; no['n' + (i + 1)] = (cnt < 10 ? '0' : '') + cnt; });
+    return {
+      no,
+      fromTo: (d.kimdan || '') + 'dan ' + SITE.ga(d.kimga),
+      fromLs: (String(d.kimdan || '') + String(d.kimga || '')).length > 26 ? '0.1em' : '0.24em',
+      introCls: done ? 'j-intro j-done j-intro--open' : 'j-intro',
+      nameLine: String(d.kimga || '').trim() + ',',
+      nameSize: nameLen > 18 ? '15px' : nameLen > 11 ? '18px' : '21px',
+      pieces,
+      count: String(count),
+      segs: placed.map((x) => (x ? 'j-seg j-seg--on' : 'j-seg')),
+      all: () => {
+        if (this.state.done) return;
+        const left = [0, 1, 2, 3, 4, 5, 6, 7, 8].filter((k) => !this.state.placed[k]);
+        left.forEach((k, i) => this.timers.push(setTimeout(() => { if (!this.gone) this.place(k); }, i * 140)));
+      },
+      musicOn: !!SITE.music.playing,
+      musicOff: !SITE.music.playing,
+      toggleMusic: () => SITE.music.toggle(),
+      dropCap: matn.charAt(0), dropRest: matn.slice(1),
+      sigSize: fromLen > 16 ? '17px' : '22px',
+      footSig: fromLen > 16 ? '18px' : '24px',
+      gal,
+      galH: n <= 1 ? '240px' : n === 2 ? '228px' : '308px',
+      promises: vows.map((text, i) => {
+        const on = allV || !!vs[i];
+        return {
+          text, on, off: !on, n: String(i + 1),
+          cls: on ? 'j-vow j-vow--on' : 'j-vow',
+          tf: on ? 'none' : 'translateX(' + (i % 2 ? 10 : -6) + 'px) rotate(' + (i % 2 ? 1.6 : -1.4) + 'deg)',
+          tap: () => {
+            if (this.state.accepted) return;
+            const nv = Object.assign({}, this.state.vows || {}, { [i]: true });
+            if (vows.every((x, j) => nv[j])) finishVows(nv); else this.setState({ vows: nv });
+          },
+        };
+      }),
+      vowCount: vOn + '/' + vows.length,
+      accepted: allV,
+      notAccepted: !allV,
+      accept: () => { const nv = {}; vows.forEach((x, i) => { nv[i] = true; }); finishVows(nv); },
+      offerSize: offerLen > 60 ? '20px' : offerLen > 34 ? '23px' : '26px',
+      hasChips: !!(tv || d.taklif_joy),
+      chipCols: tv && d.taklif_joy ? '1fr 1fr' : '1fr',
+      agreedText: tv ? 'Kelishdik! ' + tv + ' — seni kutaman.' : 'Kelishdik! Seni kutaman.',
+      agreed: !!s.agreed,
+      notAgreed: !s.agreed,
+      agree: () => { if (this.state.agreed) return; this.setState({ agreed: true }); SITE.reply('Roziman: ' + (d.taklif || ''), '🥰'); },
+      showAnswer: !!(b.javob || b.sorov),
+      both: !!(b.javob && b.sorov),
+      askSub: b.javob && b.sorov ? 'Bitta tugma yoki bir necha so’z — qanday bo’lsa ham, kutaman.' : b.javob ? 'Bitta so’zing kifoya — kutaman.' : 'Bir necha so’z yozsang ham kifoya — kutaman.',
+      thanks: d.javob_matni || 'Oxirgi bo’lak joyiga tushdi. Endi rasmimiz yana to’liq.',
+      waiting: !s.forgiven,
+      forgiven: !!s.forgiven,
+      forgive: () => { if (this.state.forgiven) return; this.setState({ forgiven: true }); SITE.reply('Kechirdim', '🤗'); },
+      toFrom: SITE.ga(d.kimdan),
+      sent: !!s.sent,
+      notSent: !s.sent,
+      sending: !!s.sending,
+      sendLabel: s.sending ? 'Yuborilmoqda…' : 'Yuborish',
+      sendErr: s.err || '',
+      send: () => {
+        const el = document.getElementById('jReply');
+        const text = el ? el.value.trim() : '';
+        if (!text) { this.setState({ err: 'Avval bir-ikki so’z yozing.' }); if (el) el.focus(); return; }
+        this.setState({ sending: true, err: '' });
+        SITE.reply(text, '❤️').then(() => { if (!this.gone) this.setState({ sent: true, sending: false }); })
+          .catch(() => { if (!this.gone) this.setState({ sending: false, err: 'Yuborilmadi. Qaytadan urinib ko’ring.' }); });
+      }
+    };
+  }
+}
+</script>
+</body>
+</html>

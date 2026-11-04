@@ -1,0 +1,566 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<title>To’y taklifnomasi: Baxt chiptasi</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Onest:wght@300;400;500;600;700&amp;family=Martian+Mono:wght@300;400;500;600&amp;display=swap">
+<style>
+body{margin:0;background:#F5E2D2}
+.ch-root{background:#F5E2D2;color:#1A1B33;font-family:'Onest','Helvetica Neue',Arial,sans-serif}
+.ch-m{font-family:'Martian Mono','SFMono-Regular',Menlo,Consolas,monospace}
+.ch-num{font-variant-numeric:tabular-nums}
+.ch-icon{fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.ch-k{font-family:'Martian Mono',Menlo,monospace;font-weight:500;font-size:9.5px;line-height:14px;letter-spacing:.12em;text-transform:uppercase;color:#6E6A7C}
+.ch-v{margin:4px 0 0;font-weight:600;font-size:16px;line-height:21px;color:#1A1B33;overflow-wrap:anywhere}
+.ch-blob{position:absolute;border-radius:50%;filter:blur(36px);pointer-events:none}
+.ch-float{animation:ch-float 12s ease-in-out infinite alternate}
+.ch-float2{animation:ch-float 15s ease-in-out -5s infinite alternate-reverse}
+@keyframes ch-float{from{transform:translate(0,0) scale(1)}to{transform:translate(-24px,18px) scale(1.12)}}
+
+/* chipta */
+.ch-tw{position:absolute;left:28px;width:334px;filter:drop-shadow(0 22px 26px rgba(26,27,51,.16)) drop-shadow(0 2px 3px rgba(26,27,51,.08))}
+.ch-main{position:relative;height:454px;background:#FFFDF9;border-radius:22px 22px 0 0;clip-path:ZIGMAIN}
+.ch-stub{position:absolute;left:0;top:448px;width:334px;height:142px;background:#FFFDF9;border-radius:0 0 22px 22px;clip-path:ZIGSTUB;transform-origin:100% 0}
+.ch-band{position:relative;height:96px;background:#2A44C4;color:#FFFDF9;border-radius:22px 22px 0 0;overflow:hidden}
+.ch-band::after{content:'';position:absolute;inset:0;background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.22) 45%,transparent 60%);transform:translateX(-120%);animation:ch-shine 5.5s ease-in-out 1.2s infinite}
+@keyframes ch-shine{0%{transform:translateX(-120%)}35%,100%{transform:translateX(120%)}}
+.ch-notch{position:absolute;width:22px;height:22px;border-radius:50%;background:#F5E2D2}
+.ch-holes{position:absolute;left:18px;right:18px;height:2px;background-image:radial-gradient(circle,#E3D3C6 1.2px,transparent 1.6px);background-size:8px 2px;background-repeat:repeat-x}
+.ch-code{font-family:'Martian Mono',Menlo,monospace;font-weight:600;font-size:40px;line-height:44px;letter-spacing:-.02em;color:#1A1B33}
+.ch-bars{display:flex;align-items:stretch;height:52px}
+.ch-bars i{display:block;flex:none;background:#1A1B33}
+.ch-stamp{position:absolute;right:20px;top:300px;width:118px;height:118px;border-radius:50%;border:2.5px solid #2A44C4;color:#2A44C4;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;transform:rotate(-14deg);mix-blend-mode:multiply}
+.ch-stamp::before{content:'';position:absolute;inset:5px;border-radius:50%;border:1px dashed #2A44C4}
+.ch-stamp b{font-family:'Martian Mono',Menlo,monospace;font-weight:600;font-size:11px;line-height:15px;letter-spacing:.08em;text-transform:uppercase}
+.ch-stamp span{font-family:'Martian Mono',Menlo,monospace;font-size:9px;line-height:13px;letter-spacing:.06em;margin-top:3px}
+
+/* kirish: chipta qoldig'ini yirtish */
+.ch-i{position:absolute;left:0;top:0;width:390px;height:844px;z-index:40;overflow:hidden;background:#F5E2D2}
+.ch-i--open{animation:ch-out .8s ease 2.6s forwards;pointer-events:none}
+@keyframes ch-out{to{opacity:0;visibility:hidden}}
+.ch-i .ch-stub{animation:ch-wiggle 3.2s ease-in-out 1s infinite}
+@keyframes ch-wiggle{0%,82%,100%{transform:none}86%{transform:rotate(1.6deg)}90%{transform:rotate(-.8deg)}94%{transform:rotate(.8deg)}}
+.ch-i--open .ch-stub{animation:ch-tear 1.35s cubic-bezier(.5,0,.6,1) forwards}
+@keyframes ch-tear{0%{transform:none}22%{transform:translateY(5px) rotate(4deg)}38%{transform:translate(6px,14px) rotate(7deg);opacity:1}100%{transform:translate(70px,520px) rotate(24deg);opacity:0}}
+.ch-i--open .ch-tw--i{animation:ch-recoil .7s cubic-bezier(.3,1.6,.5,1) .3s both}
+@keyframes ch-recoil{0%{transform:none}40%{transform:translateY(-8px) rotate(-.6deg)}100%{transform:none}}
+.ch-i .ch-stamp{opacity:0;transform:rotate(-30deg) scale(1.8)}
+.ch-i--open .ch-stamp{animation:ch-stampin .45s cubic-bezier(.2,.9,.3,1.2) 1.15s forwards}
+@keyframes ch-stampin{to{opacity:1;transform:rotate(-14deg) scale(1)}}
+.ch-i .ch-pre{transition:opacity .35s ease}
+.ch-i--open .ch-pre{opacity:0}
+.ch-cta{height:56px;padding:0 28px;border:0;border-radius:28px;background:#2A44C4;color:#FFFDF9;font-family:'Onest',Arial,sans-serif;font-size:16px;font-weight:600;letter-spacing:.01em;display:inline-flex;align-items:center;gap:10px;cursor:pointer;box-shadow:0 16px 26px -14px rgba(42,68,196,.8)}
+.ch-cta:hover{background:#2339A8}
+.ch-pull{animation:ch-pull 1.8s ease-in-out infinite}
+@keyframes ch-pull{0%,100%{transform:translateY(-2px)}50%{transform:translateY(3px)}}
+
+/* bo'limlar */
+.ch-sec{position:relative;padding:22px 20px 0}
+.ch-card{position:relative;background:#FFFDF9;border-radius:22px;padding:22px 22px 24px;box-shadow:0 18px 30px -24px rgba(26,27,51,.35)}
+.ch-hd{display:flex;align-items:center;gap:10px;min-height:28px}
+.ch-ic{flex:none;width:30px;height:30px;border-radius:9px;background:#E8ECFB;color:#2A44C4;display:flex;align-items:center;justify-content:center}
+.ch-hd b{font-weight:600;font-size:15px;line-height:20px}
+.ch-hd span{margin-left:auto}
+.ch-h2{margin:18px 0 0;font-weight:600;font-size:30px;line-height:35px;letter-spacing:-.025em}
+.ch-tile{background:#F7F1EB;border-radius:14px;padding:12px 14px 14px;min-width:0}
+.ch-chip{border-radius:16px;background:#2A44C4;color:#FFFDF9;padding:14px 0 12px;text-align:center;min-width:0}
+.ch-tn{display:block;font-family:'Martian Mono',Menlo,monospace;font-weight:500;font-size:28px;line-height:34px}
+.ch-tn--a{animation:ch-tA .5s cubic-bezier(.2,.7,.2,1)}
+.ch-tn--b{animation:ch-tB .5s cubic-bezier(.2,.7,.2,1)}
+@keyframes ch-tA{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@keyframes ch-tB{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.ch-live{display:inline-flex;align-items:center;gap:8px;height:28px;padding:0 12px;border-radius:14px;background:#E3F3EA;color:#1F6B45;font-size:12px;font-weight:600}
+.ch-live i{display:block;width:7px;height:7px;border-radius:50%;background:#2E9B63;animation:ch-ping 1.8s ease-out infinite}
+@keyframes ch-ping{0%{box-shadow:0 0 0 0 rgba(46,155,99,.5)}100%{box-shadow:0 0 0 9px rgba(46,155,99,0)}}
+.ch-btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;height:52px;padding:0 22px;border-radius:26px;border:1.5px solid #2A44C4;background:transparent;color:#2A44C4;text-decoration:none;font-family:'Onest',Arial,sans-serif;font-size:15px;font-weight:600;box-sizing:border-box;cursor:pointer}
+.ch-btn:hover{background:#EEF1FC}
+.ch-btn--fill{background:#2A44C4;color:#FFFDF9}
+.ch-btn--fill:hover{background:#2339A8}
+.ch-btn--w{width:100%}
+.ch-btn:disabled{opacity:.6;cursor:default}
+.ch-btn--off{border-color:#D9CFC6;color:#8B8695;background:transparent}
+.ch-stop{position:relative;display:grid;grid-template-columns:62px minmax(0,1fr);gap:14px;padding:0 0 22px}
+.ch-stop::before{content:'';position:absolute;left:73px;top:20px;bottom:-2px;border-left:2px dashed #C9D1F2}
+.ch-stop:last-child::before{display:none}
+.ch-node{position:absolute;left:67px;top:5px;width:14px;height:14px;border-radius:50%;box-sizing:border-box;border:3px solid #2A44C4;background:#FFFDF9}
+.ch-stop:first-child .ch-node,.ch-stop:last-child .ch-node{background:#2A44C4}
+.ch-car{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 20px 8px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.ch-car::-webkit-scrollbar{display:none}
+.ch-ph{position:relative;flex:none;width:252px;height:330px;border-radius:20px;overflow:hidden;scroll-snap-align:center;background:#EAD8C9;box-shadow:0 18px 30px -24px rgba(26,27,51,.45)}
+.ch-ph img{display:block;width:100%;height:100%;object-fit:cover}
+.ch-ph span{position:absolute;left:12px;top:12px;height:24px;padding:0 10px;border-radius:12px;background:rgba(255,253,249,.92);display:flex;align-items:center;font-family:'Martian Mono',Menlo,monospace;font-size:10px;font-weight:500;letter-spacing:.06em;color:#1A1B33}
+.ch-psp{position:relative;border:2px solid #2A44C4;border-radius:16px;padding:14px 16px 16px;color:#1A1B33;background:#FFFDF9}
+.ch-psp::before{content:'';position:absolute;inset:4px;border:1px dashed rgba(42,68,196,.45);border-radius:12px;pointer-events:none}
+.ch-step{flex:none;width:44px;height:44px;border-radius:50%;border:1.5px solid #2A44C4;background:#FFFDF9;color:#2A44C4;display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0}
+.ch-step:disabled{border-color:#D9CFC6;color:#B9B2AB;cursor:default}
+.ch-field{display:block;width:100%;height:52px;box-sizing:border-box;margin:18px 0 0;padding:0 16px;border-radius:14px;border:1.5px solid #E2D6CB;background:#FFFFFF;color:#1A1B33;font-family:inherit;font-size:16px;outline:none}
+.ch-field:focus{border-color:#2A44C4}
+.ch-field::placeholder{color:#958F9E}
+.ch-ok{animation:ch-okin .6s cubic-bezier(.2,.9,.3,1.2) both}
+@keyframes ch-okin{from{opacity:0;transform:translateY(10px) scale(.97)}to{opacity:1;transform:none}}
+.ch-music{position:absolute;top:14px;right:14px;z-index:60;width:44px;height:44px;border-radius:50%;border:0;background:#FFFDF9;color:#2A44C4;display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0;box-shadow:0 8px 18px -10px rgba(26,27,51,.5)}
+.ch-music--on{background:#2A44C4;color:#FFFDF9}
+.ch-eq{display:flex;align-items:flex-end;gap:2px;height:14px}
+.ch-eq i{display:block;width:2px;height:100%;background:currentColor;transform-origin:50% 100%;animation:ch-eq .9s ease-in-out infinite alternate}
+.ch-eq i:nth-child(2){animation-delay:-.3s}.ch-eq i:nth-child(3){animation-delay:-.6s}
+@keyframes ch-eq{from{transform:scaleY(.25)}to{transform:scaleY(1)}}
+@media (prefers-reduced-motion: reduce){
+  .ch-float,.ch-float2,.ch-band::after,.ch-pull,.ch-tn--a,.ch-tn--b,.ch-live i,.ch-ok,.ch-eq i{animation:none !important}
+  .ch-i .ch-stub{animation:none}
+  .ch-i--open{animation:none;opacity:0;visibility:hidden}
+  .ch-i--open .ch-stub,.ch-i--open .ch-tw--i,.ch-i--open .ch-stamp{animation:none}
+  .ch-i .ch-pre{transition:none}
+}
+</style>
+</helmet>
+<div class="ch-root" style="width: 390px; min-height: var(--vh, 100vh); position: relative; overflow: hidden; display: flex; flex-direction: column">
+
+  <div class="ch-blob ch-float" aria-hidden="true" style="left: 200px; top: -90px; width: 300px; height: 260px; background: #F0BFA2; opacity: 0.8"></div>
+  <div class="ch-blob ch-float2" aria-hidden="true" style="left: -120px; top: 170px; width: 230px; height: 260px; background: #E4D4F1; opacity: 0.75"></div>
+
+  <sc-if value="{{ has.music }}">
+  <button type="button" class="{{ musicCls }}" aria-label="{{ musicLabel }}" aria-pressed="{{ musicOn }}" onClick="{{ toggleMusic }}">
+    <sc-if value="{{ musicOn }}"><span class="ch-eq" aria-hidden="true"><i></i><i></i><i></i></span></sc-if>
+    <sc-if value="{{ musicOff }}"><svg class="ch-icon" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V5.5l11-2.2v12.5"></path><circle cx="6.2" cy="18" r="2.8"></circle><circle cx="17.2" cy="15.8" r="2.8"></circle></svg></sc-if>
+  </button>
+  </sc-if>
+
+  <!-- ============ KIRISH: chipta ============ -->
+  <div data-intro class="{{ introCls }}" aria-hidden="{{ introHidden }}">
+    <div class="ch-blob ch-float" aria-hidden="true" style="left: 200px; top: -90px; width: 300px; height: 260px; background: #F0BFA2; opacity: 0.8"></div>
+    <div class="ch-blob ch-float2" aria-hidden="true" style="left: -120px; top: 170px; width: 230px; height: 260px; background: #E4D4F1; opacity: 0.75"></div>
+    <div class="ch-blob" aria-hidden="true" style="left: 150px; top: 760px; width: 300px; height: 180px; background: #EFC2A6; opacity: 0.7"></div>
+
+    <div style="position: absolute; left: 28px; right: 28px; top: 30px">
+      <p style="margin: 0; font-size: 14px; line-height: 20px; color: #6E6A7C">Hurmatli <b style="font-weight: 600; color: #1A1B33">{{ guestName }}</b>,</p>
+      <p style="margin: 2px 0 0; font-weight: 600; font-size: 22px; line-height: 28px; letter-spacing: -0.02em">sizga to’y chiptasi keldi</p>
+    </div>
+
+    <div class="ch-tw ch-tw--i" style="top: 112px">
+      <div class="ch-main">
+        <div class="ch-band">
+          <div style="position: absolute; left: 20px; right: 20px; top: 16px; display: flex; align-items: center; justify-content: space-between">
+            <span style="display: flex; align-items: center; gap: 8px"><svg width="26" height="16" viewBox="0 0 26 16" aria-hidden="true"><circle class="ch-icon" cx="8" cy="8" r="6.2"></circle><circle class="ch-icon" cx="18" cy="8" r="6.2"></circle></svg><span class="ch-m" style="font-size: 9.5px; letter-spacing: 0.14em; font-weight: 500">{{ topCode }}</span></span>
+            <span class="ch-m" style="font-size: 11px; font-weight: 600; letter-spacing: 0.08em">{{ flight }}</span>
+          </div>
+          <p style="position: absolute; left: 20px; bottom: 14px; margin: 0; font-size: 26px; line-height: 32px; font-weight: 300; letter-spacing: -0.02em">Yo’nalish: <b style="font-weight: 700">Baxt</b></p>
+        </div>
+        <div style="padding: 18px 20px 0">
+          <div style="display: grid; grid-template-columns: minmax(0, 1fr) 76px minmax(0, 1fr); align-items: end">
+            <div style="min-width: 0"><p class="ch-k" style="margin: 0">Kuyov</p><p class="ch-code" style="margin: 2px 0 0">{{ codeK }}</p><p style="margin: 0; font-size: 13px; line-height: 18px; color: #6E6A7C; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{ d.kuyov }}</p></div>
+            <svg width="76" height="40" viewBox="0 0 76 40" aria-hidden="true" style="margin-bottom: 22px"><path class="ch-dash" d="M4 30C20 6 56 6 72 30"></path><circle cx="38" cy="12" r="9" fill="#2A44C4"></circle><path class="ch-ring2" d="M34.5 12a3 3 0 1 0 0 .01M41.5 12a3 3 0 1 0 0 .01"></path></svg>
+            <div style="min-width: 0; text-align: right"><p class="ch-k" style="margin: 0">Kelin</p><p class="ch-code" style="margin: 2px 0 0">{{ codeM }}</p><p style="margin: 0; font-size: 13px; line-height: 18px; color: #6E6A7C; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{ d.kelin }}</p></div>
+          </div>
+          <div style="height: 0; margin: 16px 0 0; border-top: 1.5px dashed #E3D3C6"></div>
+          <div style="padding-top: 14px"><p class="ch-k" style="margin: 0">O’rindiq</p><p class="ch-v" style="font-size: {{ fsSeat }}px; line-height: 1.2">{{ seat }}</p></div>
+          <div style="padding-top: 12px"><p class="ch-k" style="margin: 0">Darvoza</p><p class="ch-v" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{ gate }}</p></div>
+          <div style="padding-top: 12px; display: grid; grid-template-columns: 1.3fr 1fr 1fr; gap: 8px">
+            <div style="min-width: 0"><p class="ch-k" style="margin: 0">Sana</p><p class="ch-v ch-m ch-num" style="font-size: 13px; font-weight: 500">{{ w.dots }}</p></div>
+            <div style="min-width: 0"><p class="ch-k" style="margin: 0">Vaqt</p><p class="ch-v ch-m ch-num" style="font-size: 13px; font-weight: 500">{{ vaqt }}</p></div>
+            <div style="min-width: 0"><p class="ch-k" style="margin: 0">Sinf</p><p class="ch-v" style="font-size: 14px">Aziz mehmon</p></div>
+          </div>
+        </div>
+        <div class="ch-stamp"><b>Xush<br>kelibsiz</b><span>{{ w.dots }}</span></div>
+        <div class="ch-holes" style="bottom: 2px"></div>
+        <div class="ch-notch" style="left: -11px; bottom: -8px"></div>
+        <div class="ch-notch" style="right: -11px; bottom: -8px"></div>
+      </div>
+      <div class="ch-stub">
+        <div class="ch-notch" style="left: -11px; top: -14px"></div>
+        <div class="ch-notch" style="right: -11px; top: -14px"></div>
+        <div style="position: absolute; left: 20px; right: 20px; top: 22px; display: flex; align-items: center; justify-content: space-between">
+          <p class="ch-k" style="margin: 0">Chipta qoldig’i</p>
+          <p class="ch-k ch-pre" style="margin: 0; color: #2A44C4">yirting ↓</p>
+        </div>
+        <div class="ch-bars" style="position: absolute; left: 20px; top: 46px">
+          <sc-for list="{{ bars }}" as="x"><i style="{{ x }}"></i></sc-for>
+        </div>
+        <p class="ch-m ch-num" style="position: absolute; left: 20px; top: 104px; margin: 0; font-size: 9.5px; line-height: 14px; letter-spacing: 0.18em; color: #6E6A7C">{{ barText }}</p>
+      </div>
+    </div>
+
+    <div class="ch-pre" style="position: absolute; left: 0; right: 0; top: 728px; display: flex; flex-direction: column; align-items: center">
+      <button type="button" class="ch-cta" onClick="{{ open }}">
+        <svg class="ch-icon ch-pull" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><circle cx="6" cy="6" r="3"></circle><circle cx="6" cy="18" r="3"></circle><path d="M8.6 7.6L20 18M8.6 16.4L20 6"></path></svg>
+        Chiptani yirtish
+      </button>
+      <sc-if value="{{ has.music }}"><p class="ch-k" style="margin: 12px 0 0">musiqa bilan ochiladi</p></sc-if>
+    </div>
+  </div>
+
+  <!-- ============ BOSH QISM: yirtilgan chipta ============ -->
+  <header style="position: relative; height: 622px; flex: none">
+    <div style="position: absolute; left: 28px; right: 28px; top: 30px">
+      <p style="margin: 0; font-size: 14px; line-height: 20px; color: #6E6A7C">Hurmatli <b style="font-weight: 600; color: #1A1B33">{{ guestName }}</b>,</p>
+      <p style="margin: 2px 0 0; font-weight: 600; font-size: 22px; line-height: 28px; letter-spacing: -0.02em">sizga to’y chiptasi keldi</p>
+    </div>
+    <div class="ch-tw" style="top: 112px">
+      <div class="ch-main">
+        <div class="ch-band">
+          <div style="position: absolute; left: 20px; right: 20px; top: 16px; display: flex; align-items: center; justify-content: space-between">
+            <span style="display: flex; align-items: center; gap: 8px"><svg width="26" height="16" viewBox="0 0 26 16" aria-hidden="true"><circle class="ch-icon" cx="8" cy="8" r="6.2"></circle><circle class="ch-icon" cx="18" cy="8" r="6.2"></circle></svg><span class="ch-m" style="font-size: 9.5px; letter-spacing: 0.14em; font-weight: 500">{{ topCode }}</span></span>
+            <span class="ch-m" style="font-size: 11px; font-weight: 600; letter-spacing: 0.08em">{{ flight }}</span>
+          </div>
+          <p style="position: absolute; left: 20px; bottom: 14px; margin: 0; font-size: 26px; line-height: 32px; font-weight: 300; letter-spacing: -0.02em">Yo’nalish: <b style="font-weight: 700">Baxt</b></p>
+        </div>
+        <div style="padding: 18px 20px 0">
+          <h1 style="margin: 0; display: grid; grid-template-columns: minmax(0, 1fr) 76px minmax(0, 1fr); align-items: end; font-size: inherit; font-weight: inherit">
+            <span style="display: block; min-width: 0"><span class="ch-k" style="display: block">Kuyov</span><span class="ch-code" style="display: block; margin-top: 2px">{{ codeK }}</span><span style="display: block; font-size: 13px; line-height: 18px; color: #6E6A7C; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{ d.kuyov }}</span></span>
+            <svg width="76" height="40" viewBox="0 0 76 40" aria-hidden="true" style="margin-bottom: 22px"><path class="ch-dash" d="M4 30C20 6 56 6 72 30"></path><circle cx="38" cy="12" r="9" fill="#2A44C4"></circle><path class="ch-ring2" d="M34.5 12a3 3 0 1 0 0 .01M41.5 12a3 3 0 1 0 0 .01"></path></svg>
+            <span style="display: block; min-width: 0; text-align: right"><span class="ch-k" style="display: block">Kelin</span><span class="ch-code" style="display: block; margin-top: 2px">{{ codeM }}</span><span style="display: block; font-size: 13px; line-height: 18px; color: #6E6A7C; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{ d.kelin }}</span></span>
+          </h1>
+          <div style="height: 0; margin: 16px 0 0; border-top: 1.5px dashed #E3D3C6"></div>
+          <div style="padding-top: 14px"><p class="ch-k" style="margin: 0">O’rindiq</p><p class="ch-v" style="font-size: {{ fsSeat }}px; line-height: 1.2">{{ seat }}</p></div>
+          <div style="padding-top: 12px"><p class="ch-k" style="margin: 0">Darvoza</p><p class="ch-v" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{ gate }}</p></div>
+          <div style="padding-top: 12px; display: grid; grid-template-columns: 1.3fr 1fr 1fr; gap: 8px">
+            <div style="min-width: 0"><p class="ch-k" style="margin: 0">Sana</p><p class="ch-v ch-m ch-num" style="font-size: 13px; font-weight: 500">{{ w.dots }}</p></div>
+            <div style="min-width: 0"><p class="ch-k" style="margin: 0">Vaqt</p><p class="ch-v ch-m ch-num" style="font-size: 13px; font-weight: 500">{{ vaqt }}</p></div>
+            <div style="min-width: 0"><p class="ch-k" style="margin: 0">Sinf</p><p class="ch-v" style="font-size: 14px">Aziz mehmon</p></div>
+          </div>
+        </div>
+        <div class="ch-stamp"><b>Xush<br>kelibsiz</b><span>{{ w.dots }}</span></div>
+        <div class="ch-holes" style="bottom: 2px"></div>
+        <div class="ch-notch" style="left: -11px; bottom: -8px"></div>
+        <div class="ch-notch" style="right: -11px; bottom: -8px"></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ TAKLIF ============ -->
+  <section class="ch-sec" style="padding-top: 0">
+    <div class="ch-card">
+      <div class="ch-hd"><span class="ch-ic" style="margin-left: 0"><svg class="ch-icon" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5"></rect><path d="M3.5 6.5L12 13l8.5-6.5"></path></svg></span><b>Taklif</b><span class="ch-k">{{ initials }}</span></div>
+      <p class="ch-h2">Assalomu alaykum, <span style="color: #2A44C4; overflow-wrap: anywhere">{{ guestHello }}</span></p>
+      <sc-if value="{{ b.taklif }}">
+        <p style="margin: 16px 0 0; font-size: 17px; line-height: 27px; color: #33344D; text-wrap: pretty; white-space: pre-line; overflow-wrap: anywhere">{{ d.matn }}</p>
+        <sc-if value="{{ d.taklif_qiluvchilar }}">
+          <div class="ch-tile" style="margin-top: 18px; display: flex; align-items: center; gap: 12px">
+            <span class="ch-m" style="flex: none; width: 40px; height: 40px; border-radius: 50%; background: #2A44C4; color: #FFFDF9; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600">{{ hostIni }}</span>
+            <div style="min-width: 0"><p class="ch-k" style="margin: 0">Taklif qiluvchilar</p><p style="margin: 2px 0 0; font-weight: 600; font-size: 15px; line-height: 20px; overflow-wrap: anywhere">{{ d.taklif_qiluvchilar }}</p></div>
+          </div>
+        </sc-if>
+      </sc-if>
+      <sc-if value="{{ noTaklif }}">
+        <p style="margin: 16px 0 0; font-size: 17px; line-height: 27px; color: #33344D; text-wrap: pretty">Sizni nikoh to’yimizga lutfan taklif etamiz. Tashrifingiz biz uchun katta sharaf.</p>
+      </sc-if>
+    </div>
+  </section>
+
+  <!-- ============ SANA ============ -->
+  <sc-if value="{{ b.kun }}">
+  <section class="ch-sec">
+    <div class="ch-card">
+      <div class="ch-hd"><span class="ch-ic"><svg class="ch-icon" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="2.5"></rect><path d="M3.5 10h17M8 3v4M16 3v4"></path></svg></span><b>Reys ma’lumoti</b><span class="ch-k">{{ flight }}</span></div>
+      <div style="margin-top: 18px; display: grid; grid-template-columns: 1fr 1fr; gap: 8px">
+        <div class="ch-tile" style="grid-column: 1 / span 2; display: flex; align-items: flex-end; justify-content: space-between; gap: 10px">
+          <div style="min-width: 0"><p class="ch-k" style="margin: 0">Sana</p><p style="margin: 4px 0 0; font-weight: 600; font-size: 30px; line-height: 34px; letter-spacing: -0.02em">{{ w.dm }}</p></div>
+          <p class="ch-m" style="margin: 0 0 4px; font-size: 13px; font-weight: 500">{{ w.year }}</p>
+        </div>
+        <div class="ch-tile"><p class="ch-k" style="margin: 0">Hafta kuni</p><p class="ch-v">{{ w.Weekday }}</p></div>
+        <div class="ch-tile"><p class="ch-k" style="margin: 0">Boshlanish</p><p class="ch-v ch-m ch-num">{{ vaqt }}</p></div>
+      </div>
+      <sc-if value="{{ cal }}">
+        <a class="ch-btn ch-btn--w" href="{{ cal }}" target="_blank" rel="noopener" style="margin-top: 16px">
+          <svg class="ch-icon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="2.5"></rect><path d="M3.5 10h17M8 3v4M16 3v4M12 13v4M10 15h4"></path></svg>
+          Taqvimga qo’shish
+        </a>
+      </sc-if>
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- ============ TAYMER ============ -->
+  <sc-if value="{{ b.taymer }}">
+  <section class="ch-sec">
+    <div class="ch-card">
+      <div class="ch-hd"><span class="ch-ic"><svg class="ch-icon" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="13" r="8"></circle><path d="M12 9v4l2.5 2.5M9.5 2.5h5"></path></svg></span><b>To’ygacha qoldi</b><span class="ch-live"><i></i>{{ status }}</span></div>
+      <div class="ch-num" style="margin-top: 18px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px">
+        <sc-for list="{{ ticks }}" as="t">
+          <div class="{{ t.box }}">
+            <span class="{{ t.cls }}">{{ t.v }}</span>
+            <span style="display: block; margin-top: 2px; font-size: 11px; line-height: 14px; font-weight: 500; opacity: 0.82">{{ t.l }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- ============ MANZIL ============ -->
+  <sc-if value="{{ b.manzil }}">
+  <section class="ch-sec">
+    <div class="ch-card">
+      <div class="ch-hd"><span class="ch-ic"><svg class="ch-icon" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6.5-6-6.5-11a6.5 6.5 0 0 1 13 0c0 5-6.5 11-6.5 11Z"></path><circle cx="12" cy="10" r="2.3"></circle></svg></span><b>Darvoza</b><span class="ch-k">manzil</span></div>
+      <p class="ch-h2" style="overflow-wrap: anywhere">{{ d.manzil_nomi }}</p>
+      <sc-if value="{{ d.manzil }}"><p style="margin: 8px 0 0; font-size: 15px; line-height: 23px; color: #5A5870; text-wrap: pretty; overflow-wrap: anywhere">{{ d.manzil }}</p></sc-if>
+      <sc-if value="{{ d.joy_rasmi }}"><img src="{{ d.joy_rasmi }}" alt="" style="display: block; width: 100%; height: 180px; margin-top: 16px; border-radius: 14px; object-fit: cover; background: #EAD8C9"></sc-if>
+      <sc-if value="{{ d.xarita }}">
+        <a class="ch-btn ch-btn--fill ch-btn--w" href="{{ d.xarita }}" target="_blank" rel="noopener" style="margin-top: 16px">
+          <svg class="ch-icon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l18-8-8 18-2-8-8-2Z"></path></svg>
+          Yo’l ko’rsatkichi
+        </a>
+      </sc-if>
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- ============ DASTUR ============ -->
+  <sc-if value="{{ b.dastur }}">
+  <section class="ch-sec">
+    <div class="ch-card">
+      <div class="ch-hd"><span class="ch-ic"><svg class="ch-icon" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><circle cx="6" cy="6" r="2.5"></circle><circle cx="18" cy="18" r="2.5"></circle><path d="M8.5 6H15a3 3 0 0 1 0 6H9a3 3 0 0 0 0 6h6.5"></path></svg></span><b>Marshrut</b><span class="ch-k">{{ progCount }}</span></div>
+      <div style="margin-top: 20px">
+        <sc-for list="{{ prog }}" as="x">
+          <div class="ch-stop">
+            <span class="ch-m ch-num" style="font-size: 14px; line-height: 24px; font-weight: 600; text-align: right">{{ x.vaqt }}</span>
+            <span class="ch-node"></span>
+            <span style="display: block; padding-left: 22px; font-size: 16px; line-height: 24px; overflow-wrap: anywhere">{{ x.nomi }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- ============ HIKOYA ============ -->
+  <sc-if value="{{ b.hikoya }}">
+  <section class="ch-sec">
+    <div class="ch-card">
+      <div class="ch-hd"><span class="ch-ic"><svg class="ch-icon" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2"></rect><circle cx="12" cy="10" r="3"></circle><path d="M9 16h6"></path></svg></span><b>Yo’l tarixi</b><span class="ch-k">muhrlar</span></div>
+      <div style="margin-top: 18px; display: flex; flex-direction: column; gap: 12px">
+        <sc-for list="{{ story }}" as="x">
+          <div class="ch-psp" style="{{ x.st }}">
+            <p class="ch-m" style="margin: 0; font-size: 22px; line-height: 28px; font-weight: 600; color: #2A44C4">{{ x.yil }}</p>
+            <sc-if value="{{ x.sarlavha }}"><p class="ch-k" style="margin: 4px 0 0; color: #2A44C4">{{ x.sarlavha }}</p></sc-if>
+            <sc-if value="{{ x.matn }}"><p style="margin: 6px 0 0; font-size: 15px; line-height: 22px; overflow-wrap: anywhere">{{ x.matn }}</p></sc-if>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- ============ GALEREYA ============ -->
+  <sc-if value="{{ b.galereya }}">
+  <section style="position: relative; padding-top: 36px">
+    <div style="display: flex; align-items: baseline; justify-content: space-between; padding: 0 28px">
+      <p style="margin: 0; font-weight: 600; font-size: 22px; line-height: 28px; letter-spacing: -0.02em">Yo’l lavhalari</p>
+      <p class="ch-k" style="margin: 0">surib ko’ring →</p>
+    </div>
+    <div class="ch-car" style="margin-top: 14px">
+      <sc-for list="{{ gal }}" as="g">
+        <div class="ch-ph"><img src="{{ g.src }}" alt=""><span>{{ g.n }}</span></div>
+      </sc-for>
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- ============ JAVOB: ro'yxatdan o'tish ============ -->
+  <sc-if value="{{ b.rsvp }}">
+  <section class="ch-sec" style="padding-top: 30px">
+    <div class="ch-card" style="padding: 0; filter: none">
+      <div style="padding: 22px 22px 18px">
+        <div class="ch-hd"><span class="ch-ic"><svg class="ch-icon" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"></path></svg></span><b>Ro’yxatdan o’tish</b><span class="ch-k">{{ dlShort }}</span></div>
+        <p class="ch-h2">Tashrif buyurasizmi?</p>
+        <p style="margin: 8px 0 0; font-size: 15px; line-height: 22px; color: #5A5870">{{ deadline }}</p>
+        <sc-if value="{{ askName }}"><input class="ch-field" type="text" maxlength="100" autocomplete="name" placeholder="Ismingiz, masalan: Dilnoza opa" aria-label="Ismingiz" onInput="{{ onName }}"></sc-if>
+        <div style="margin-top: 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px">
+          <div><p class="ch-k" style="margin: 0">Mehmonlar soni</p><p style="margin: 2px 0 0; font-size: 14px; line-height: 20px; color: #5A5870">siz bilan birga</p></div>
+          <div style="display: flex; align-items: center; gap: 10px">
+            <button type="button" class="ch-step" aria-label="Kamaytirish" disabled="{{ minDis }}" onClick="{{ dec }}"><svg class="ch-icon" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12"></path></svg></button>
+            <span class="ch-m ch-num" aria-live="polite" style="min-width: 28px; text-align: center; font-size: 20px; font-weight: 600">{{ guests }}</span>
+            <button type="button" class="ch-step" aria-label="Ko’paytirish" disabled="{{ maxDis }}" onClick="{{ inc }}"><svg class="ch-icon" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12M12 6v12"></path></svg></button>
+          </div>
+        </div>
+      </div>
+      <div style="position: relative; height: 22px">
+        <div class="ch-notch" style="left: -11px; top: 0"></div>
+        <div class="ch-notch" style="right: -11px; top: 0"></div>
+        <div style="position: absolute; left: 20px; right: 20px; top: 10px; border-top: 1.5px dashed #E3D3C6"></div>
+      </div>
+      <div style="padding: 10px 22px 22px; display: flex; flex-direction: column; gap: 10px">
+        <button type="button" class="{{ yesCls }}" aria-pressed="{{ isYes }}" disabled="{{ busy }}" onClick="{{ sayYes }}">
+          <svg class="ch-icon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"></path></svg>
+          Albatta boraman
+        </button>
+        <button type="button" class="{{ noCls }}" aria-pressed="{{ isNo }}" disabled="{{ busy }}" onClick="{{ sayNo }}">Afsuski, kela olmayman</button>
+        <div aria-live="polite">
+          <sc-if value="{{ isYes }}">
+            <div class="ch-ok ch-tile" style="margin-top: 4px; display: flex; align-items: center; gap: 14px">
+              <div class="ch-bars" style="height: 40px; flex: none"><sc-for list="{{ barsS }}" as="x"><i style="{{ x }}"></i></sc-for></div>
+              <div style="min-width: 0"><p style="margin: 0; font-weight: 600; font-size: 15px; line-height: 20px">O’rindiq tasdiqlandi</p><p style="margin: 2px 0 0; font-size: 13px; line-height: 18px; color: #5A5870">{{ okText }}</p></div>
+            </div>
+          </sc-if>
+          <sc-if value="{{ isNo }}"><p class="ch-ok" style="margin: 4px 0 0; font-size: 15px; line-height: 22px; text-align: center">Javobingiz uchun rahmat. Duolaringiz biz bilan bo’lsin.</p></sc-if>
+          <sc-if value="{{ err }}"><p style="margin: 4px 0 0; font-size: 14px; line-height: 20px; text-align: center; color: #B0341F">{{ err }}</p></sc-if>
+        </div>
+      </div>
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- ============ GURUH ============ -->
+  <sc-if value="{{ b.guruh }}">
+  <section class="ch-sec">
+    <a class="ch-card" href="{{ d.telegram_guruh }}" target="_blank" rel="noopener" style="display: flex; align-items: center; gap: 14px; color: #1A1B33; text-decoration: none">
+      <span style="flex: none; width: 48px; height: 48px; border-radius: 14px; background: #2A44C4; color: #FFFDF9; display: flex; align-items: center; justify-content: center"><svg class="ch-icon" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 4L3 11l6 2 2 6 3-4 4 3 3-14Z"></path><path d="M9 13l9-7"></path></svg></span>
+      <span style="min-width: 0; flex: 1 1 auto"><b style="display: block; font-weight: 600; font-size: 16px; line-height: 21px">Mehmonlar guruhi</b><span style="display: block; font-size: 14px; line-height: 20px; color: #5A5870">Telegramda yangiliklar va suratlar</span></span>
+      <svg class="ch-icon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" style="color: #2A44C4"><path d="M9 6l6 6-6 6"></path></svg>
+    </a>
+  </section>
+  </sc-if>
+
+  <!-- ============ TELEFON ============ -->
+  <sc-if value="{{ b.telefon }}">
+  <section class="ch-sec">
+    <div class="ch-card" style="display: flex; align-items: center; gap: 14px">
+      <div style="min-width: 0; flex: 1 1 auto">
+        <p class="ch-k" style="margin: 0">Savollar bo’lsa</p>
+        <p class="ch-m ch-num" style="margin: 4px 0 0; font-size: 18px; line-height: 24px; font-weight: 600; white-space: nowrap">{{ d.telefon }}</p>
+      </div>
+      <a class="ch-btn ch-btn--fill" href="{{ tel }}" aria-label="Qo’ng’iroq qilish" style="flex: none; width: 52px; height: 52px; padding: 0; border-radius: 50%"><svg class="ch-icon" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M5.2 3.5h3.1l1.6 4.2-2.1 1.5a12.2 12.2 0 0 0 7 7l1.5-2.1 4.2 1.6v3.1a1.9 1.9 0 0 1-2.1 1.9A16.6 16.6 0 0 1 3.3 5.6a1.9 1.9 0 0 1 1.9-2.1Z"></path></svg></a>
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- ============ YAKUN ============ -->
+  <footer style="position: relative; margin-top: auto; padding: 72px 28px 34px; text-align: center; display: flex; flex-direction: column; align-items: center">
+    <svg width="92" height="40" viewBox="0 0 76 40" aria-hidden="true"><path class="ch-dash" d="M4 30C20 6 56 6 72 30"></path><circle cx="38" cy="12" r="9" fill="#2A44C4"></circle><path class="ch-ring2" d="M34.5 12a3 3 0 1 0 0 .01M41.5 12a3 3 0 1 0 0 .01"></path></svg>
+    <p style="margin: 14px 0 0; font-weight: 600; font-size: 30px; line-height: 36px; letter-spacing: -0.025em">Baxt sari<br>xayrli yo’l!</p>
+    <p style="margin: 12px 0 0; max-width: 300px; font-size: 15px; line-height: 23px; color: #5A5870; text-wrap: pretty">Tashrifingizdan xursand bo’lamiz. Alloh ikki yoshga baxtli va totuv hayot nasib etsin.</p>
+    <sc-if value="{{ d.taklif_qiluvchilar }}"><p class="ch-k" style="margin: 18px 0 0; color: #1A1B33; overflow-wrap: anywhere">{{ d.taklif_qiluvchilar }}</p></sc-if>
+    <div class="ch-bars" style="height: 30px; margin-top: 28px; opacity: 0.85"><sc-for list="{{ barsS }}" as="x"><i style="{{ x }}"></i></sc-for></div>
+    <p class="ch-m ch-num" style="margin: 8px 0 0; font-size: 9.5px; line-height: 14px; letter-spacing: 0.18em; color: #6E6A7C">{{ barText }}</p>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":5200}}'>
+const D = SITE.d;
+function hhmm(t) { t = String(t || ''); return /^\d:\d\d$/.test(t) ? '0' + t : t; }
+function stamp(iso, time) { const t = Date.parse(String(iso || '').slice(0, 10) + 'T' + (hhmm(time) || '12:00') + ':00+05:00'); return isNaN(t) ? null : t; }
+function telHref(t) { return 'tel:' + String(t || '').replace(/[^\d+]/g, ''); }
+const KUYOV = String(D.kuyov || '').trim();
+const KELIN = String(D.kelin || '').trim();
+const GUEST = String(D.mehmon || '').trim();
+const letters = (s) => String(s || '').toLocaleUpperCase('uz').replace(/[^A-ZА-ЯЁЎҚҒҲ0-9]/g, '');
+const code = (s) => (letters(s) + '———').slice(0, 3);
+function calUrl() {
+  const t = stamp(D.sana, D.vaqt); if (t == null) return '';
+  const f = (ms) => new Date(ms).toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
+  const title = [KUYOV, KELIN].filter(Boolean).join(' va ') + ' — to’y';
+  const loc = [D.manzil_nomi, D.manzil].filter(Boolean).join(', ');
+  return 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + encodeURIComponent(title) + '&dates=' + f(t) + '/' + f(t + 5 * 3600e3) + (loc ? '&location=' + encodeURIComponent(loc) : '');
+}
+function deadlineDm() {
+  const t = stamp(D.sana, '12:00'); if (t == null) return '';
+  const dl = t - 5 * 864e5;
+  if (dl < Date.now()) return '';
+  return SITE.when(new Date(dl + 5 * 3600e3).toISOString().slice(0, 10)).dm;
+}
+function bars(seed, n, unit) {
+  let h = 2166136261;
+  const s = String(seed || 'baxt');
+  for (let i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619) >>> 0; }
+  const out = [];
+  for (let i = 0; i < n; i++) {
+    h ^= h << 13; h >>>= 0; h ^= h >>> 17; h ^= h << 5; h >>>= 0;
+    const w = 1 + (h % 3), g = 1 + ((h >>> 8) % 3);
+    out.push('width: ' + (w * unit) + 'px; margin-right: ' + (g * unit) + 'px');
+  }
+  return out;
+}
+const SEED = [KUYOV, KELIN, D.sana].join('|');
+const BARS = bars(SEED, 46, 1.25);
+const BARS_S = bars(SEED, 28, 1);
+
+class Component extends DCLogic {
+  constructor(...args) {
+    super(...args);
+    this.state = { opened: false, rsvp: '', busy: false, err: '', n: 1 };
+    this.nm = '';
+  }
+  componentDidMount() { this.timer = setInterval(() => this.forceUpdate(), 1000); }
+  componentWillUnmount() { clearInterval(this.timer); }
+  open() { if (this.state.opened) return; this.setState({ opened: true }); SITE.opened(); }
+  answer(going) {
+    const name = this.nm.trim();
+    if (!SITE.has.guest && !name) { this.setState({ err: 'Iltimos, avval ismingizni yozing.' }); return; }
+    const prev = this.state.rsvp;
+    this.setState({ rsvp: going ? 'yes' : 'no', busy: true, err: '' });
+    SITE.rsvp(going, this.state.n || 1, name).then(() => this.setState({ busy: false }))
+      .catch(() => this.setState({ rsvp: prev, busy: false, err: 'Javob yuborilmadi. Iltimos, qayta urinib ko’ring.' }));
+  }
+  renderVals() {
+    const s = this.state || {};
+    const w = SITE.when(D.sana, D.vaqt);
+    const cd = SITE.countdown(D.sana, D.vaqt);
+    const music = SITE.music.playing;
+    const on = s.rsvp === 'yes', off = s.rsvp === 'no';
+    const n = s.n || 1;
+    const dm = deadlineDm();
+    const guestName = GUEST || 'mehmon';
+    const seat = GUEST || 'Aziz mehmon';
+    const tick = (v, l, i) => ({
+      v: SITE.pad(v), l,
+      cls: 'ch-tn ' + (v % 2 ? 'ch-tn--a' : 'ch-tn--b'),
+      box: i === 3 ? 'ch-chip' : 'ch-chip',
+    });
+    const hosts = String(D.taklif_qiluvchilar || '').trim();
+    const flight = (code(KUYOV).charAt(0) + code(KELIN).charAt(0)) + ' ' + (w.day ? SITE.pad(+w.day) + w.monthNum : '');
+    const story = (Array.isArray(D.hikoya) ? D.hikoya.filter((x) => x && (x.yil || x.sarlavha || x.matn)) : []).map((x, i) => Object.assign({}, x, {
+      st: (i % 2 ? 'margin-left: 34px; transform: rotate(1.6deg)' : 'margin-right: 34px; transform: rotate(-1.4deg)')
+    }));
+    return {
+      introCls: s.opened ? 'ch-i ch-i--open' : 'ch-i',
+      introHidden: !!s.opened,
+      open: () => this.open(),
+      w, vaqt: hhmm(D.vaqt),
+      codeK: code(KUYOV), codeM: code(KELIN),
+      flight: flight.trim(),
+      topCode: 'NIKOH TO’YI',
+      seat, fsSeat: seat.length > 30 ? 14 : (seat.length > 20 ? 16 : 19),
+      gate: D.manzil_nomi || 'To’yxona',
+      bars: BARS, barsS: BARS_S,
+      barText: [flight.replace(' ', ''), w.dots].filter(Boolean).join(' · '),
+      initials: [KUYOV.charAt(0), KELIN.charAt(0)].filter(Boolean).join(' + '),
+      hostIni: hosts ? letters(hosts).slice(0, 2) : '',
+      guestName, guestHello: 'hurmatli ' + guestName + '!',
+      noTaklif: !SITE.b.taklif,
+      cal: calUrl(),
+      status: cd.done ? 'Bugun' : 'O’z vaqtida',
+      ticks: [tick(cd.d, 'kun', 0), tick(cd.h, 'soat', 1), tick(cd.m, 'daqiqa', 2), tick(cd.s, 'soniya', 3)],
+      prog: Array.isArray(D.dastur) ? D.dastur.filter((x) => x && (x.vaqt || x.nomi)) : [],
+      progCount: (Array.isArray(D.dastur) ? D.dastur.length : 0) + ' bekat',
+      story,
+      gal: SITE.p.slice(1, 5).map((src, i) => ({ src, n: SITE.pad(i + 1) + ' / ' + SITE.pad(Math.min(4, SITE.p.length - 1)) })),
+      deadline: dm ? 'Iltimos, ' + dm + 'gacha javob bering.' : 'Iltimos, imkon qadar tezroq javob bering.',
+      dlShort: dm ? dm + 'gacha' : '',
+      askName: !SITE.has.guest,
+      onName: (e) => { this.nm = e.target.value; if (s.err) this.setState({ err: '' }); },
+      guests: String(n), minDis: n <= 1 || !!s.busy, maxDis: n >= 10 || !!s.busy,
+      dec: () => this.setState({ n: Math.max(1, n - 1) }),
+      inc: () => this.setState({ n: Math.min(10, n + 1) }),
+      okText: (n > 1 ? n + ' kishi · ' : '') + 'sizni kutamiz',
+      busy: !!s.busy, err: s.err,
+      isYes: on && !s.busy, isNo: off && !s.busy,
+      yesCls: 'ch-btn ch-btn--w ' + (off ? 'ch-btn--off' : 'ch-btn--fill'),
+      noCls: 'ch-btn ch-btn--w' + (on ? ' ch-btn--off' : ''),
+      sayYes: () => this.answer(true),
+      sayNo: () => this.answer(false),
+      tel: telHref(D.telefon),
+      musicOn: music, musicOff: !music,
+      musicCls: music ? 'ch-music ch-music--on' : 'ch-music',
+      musicLabel: music ? 'Musiqani o’chirish' : 'Musiqani yoqish',
+      toggleMusic: () => { SITE.music.toggle(); }
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,518 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<title>Sevgi maktubi: Muzey</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700&amp;family=Noto+Serif+Display:ital,wght@0,300;0,400;1,300;1,400&amp;display=swap">
+<style>
+body{margin:0}
+.it{font-family:'Inter Tight','Helvetica Neue',Arial,sans-serif}
+.ns{font-family:'Noto Serif Display',Georgia,'Times New Roman',serif}
+.ico{fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+button:focus-visible{outline:2px solid #2340D8;outline-offset:3px}
+button:disabled{opacity:.7;cursor:default}
+.mz-lb{margin:0;font-family:'Inter Tight',Arial,sans-serif;font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:#6E6E73}
+.mz-sign{display:flex;align-items:center;gap:10px}
+.mz-room{flex:none;display:flex;align-items:center;justify-content:center;width:30px;height:30px;background:#111214;color:#FFFFFF;font-family:'Inter Tight',Arial,sans-serif;font-size:14px;font-weight:600}
+.mz-rule{flex:1;height:1px;background:#DEDED9}
+.mz-h2{margin:18px 0 0;font-family:'Noto Serif Display',Georgia,serif;font-weight:300;font-size:40px;line-height:1.08;letter-spacing:-.015em;color:#111214}
+.mz-frame{position:relative;background:#FFFFFF;border:2px solid #111214;box-shadow:0 26px 34px -26px rgba(17,18,20,.45),0 2px 4px rgba(17,18,20,.08)}
+.mz-pool{position:absolute;pointer-events:none;background:radial-gradient(closest-side,rgba(255,236,200,.5) 0,rgba(255,236,200,.16) 55%,rgba(255,255,255,0) 100%)}
+.mz-plac{background:#FFFFFF;border:1px solid #DEDED9;padding:12px 14px 13px}
+.mz-ag{display:inline-flex;align-items:center;gap:10px;min-height:44px;padding:0 16px 0 6px;border-radius:999px;background:#F2F2EF;color:#111214;font-family:'Inter Tight',Arial,sans-serif;font-size:13px;font-weight:500}
+.mz-agn{display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:50%;background:#2340D8;color:#FFFFFF;font-size:12px;font-weight:600}
+.mz-wave{display:inline-flex;align-items:center;gap:2px;height:16px}
+.mz-wave i{display:block;width:2px;border-radius:1px;background:#2340D8}
+.mz-art1{background:#2340D8}
+.mz-art2{background:radial-gradient(circle at 50% 46%,#111214 0,#111214 28%,#EDE9E0 28.5%)}
+.mz-art3{background:radial-gradient(circle at 38% 50%,rgba(35,64,216,.9) 0,rgba(35,64,216,.9) 24%,rgba(35,64,216,0) 24.5%),radial-gradient(circle at 62% 50%,rgba(17,18,20,.85) 0,rgba(17,18,20,.85) 24%,rgba(17,18,20,0) 24.5%),#EDE9E0}
+.mz-st{fill:#FFFFFF}
+.mz-cl{fill:none;stroke:rgba(255,255,255,.35);stroke-width:.8}
+.mz-ring{fill:none;stroke:rgba(255,255,255,.3);stroke-width:.8}
+.mz-ringd{fill:none;stroke:rgba(255,255,255,.22);stroke-width:.8;stroke-dasharray:2 4}
+.mz-pair{fill:none;stroke:#8EA0FF;stroke-width:1.2}
+.mz-ini{font-family:'Noto Serif Display',serif;font-style:italic;font-size:15px;fill:#FFFFFF}
+
+/* intro */
+.mz-intro{transition:opacity .5s ease 3.8s,visibility 0s linear 4.3s}
+.mz-intro.is-on{opacity:0;visibility:hidden;pointer-events:none}
+.mz-cone{position:absolute;top:118px;width:200px;height:440px;margin-left:-100px;clip-path:polygon(46% 0,54% 0,100% 100%,0 100%);background:linear-gradient(rgba(255,244,222,.34),rgba(255,244,222,.06) 70%,rgba(255,244,222,0));opacity:0}
+.mz-wpool{position:absolute;margin-left:-120px;width:240px;height:300px;background:radial-gradient(closest-side,rgba(255,240,210,.4) 0,rgba(255,240,210,.12) 55%,rgba(255,240,210,0) 100%);opacity:0}
+.mz-dark{position:absolute;left:-3px;top:-3px;right:-3px;bottom:-3px;background:#0D0D0F;opacity:.84}
+.mz-fix{position:absolute;top:94px;width:14px;height:24px;margin-left:-7px;border-radius:2px 2px 6px 6px;background:#2A2A2F}
+.mz-fixl{position:absolute;top:116px;width:10px;height:4px;margin-left:-5px;border-radius:50%;background:#FFF4DE;opacity:0;box-shadow:0 0 12px 4px rgba(255,244,222,.8)}
+.mz-intro.is-on .mz-l1{animation:mzFlick .5s steps(1) .25s forwards}
+.mz-intro.is-on .mz-l2{animation:mzFlick .5s steps(1) .95s forwards}
+.mz-intro.is-on .mz-l3{animation:mzFlick .5s steps(1) 1.65s forwards}
+@keyframes mzFlick{0%{opacity:.6}20%{opacity:.1}40%{opacity:.9}55%{opacity:.25}70%,100%{opacity:1}}
+.mz-intro.is-on .mz-d1{animation:mzUnveil .5s steps(1) .25s forwards}
+.mz-intro.is-on .mz-d2{animation:mzUnveil .5s steps(1) .95s forwards}
+.mz-intro.is-on .mz-d3{animation:mzUnveil .5s steps(1) 1.65s forwards}
+@keyframes mzUnveil{0%{opacity:.5}20%{opacity:.8}40%{opacity:.15}55%{opacity:.6}70%,100%{opacity:0}}
+.mz-pre{transition:opacity .4s ease}
+.mz-intro.is-on .mz-pre{opacity:0}
+.mz-ttl{opacity:0;transform:translateY(10px);transition:opacity .9s ease 2.25s,transform .9s ease 2.25s}
+.mz-intro.is-on .mz-ttl{opacity:1;transform:none}
+.mz-flood{position:absolute;left:0;top:0;width:390px;height:844px;background:#FFFFFF;opacity:0;pointer-events:none;transition:opacity .8s ease 3.05s}
+.mz-intro.is-on .mz-flood{opacity:1}
+.mz-glow{animation:mzGlow 2.6s ease-in-out infinite}
+@keyframes mzGlow{0%,100%{box-shadow:0 0 0 0 rgba(255,255,255,.35)}50%{box-shadow:0 0 0 10px rgba(255,255,255,0)}}
+
+/* page */
+.mz-in{animation:mzIn .8s ease-out both}
+@keyframes mzIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.mz-glass{transition:transform 1.3s cubic-bezier(.6,0,.25,1)}
+.mz-glass.is-up{transform:translateY(-104%)}
+.mz-sec{filter:blur(6px);opacity:.35;transition:filter 1s ease .5s,opacity 1s ease .5s}
+.mz-sec.is-shown{filter:none;opacity:1}
+.mz-play i{animation:mzBar 1s ease-in-out infinite}
+.mz-play i:nth-child(2){animation-delay:.15s}.mz-play i:nth-child(3){animation-delay:.3s}.mz-play i:nth-child(4){animation-delay:.45s}.mz-play i:nth-child(5){animation-delay:.6s}
+@keyframes mzBar{0%,100%{transform:scaleY(.4)}50%{transform:scaleY(1)}}
+
+@media (prefers-reduced-motion: reduce){
+.mz-glow,.mz-in,.mz-play i{animation:none}
+.mz-intro,.mz-pre,.mz-ttl,.mz-flood,.mz-glass,.mz-sec{transition:none}
+.mz-intro.is-on .mz-l1,.mz-intro.is-on .mz-l2,.mz-intro.is-on .mz-l3{animation:none;opacity:1}
+.mz-intro.is-on .mz-d1,.mz-intro.is-on .mz-d2,.mz-intro.is-on .mz-d3{animation:none;opacity:0}
+}
+</style>
+</helmet>
+<div style="width: 390px; min-height: var(--vh, 100vh); position: relative; overflow: hidden; background: #FFFFFF; color: #111214; font-family: 'Inter Tight', 'Helvetica Neue', Arial, sans-serif; display: flex; flex-direction: column">
+
+  <sc-if value="{{ has.music }}">
+  <button type="button" aria-label="Musiqa" aria-pressed="{{ musicOn }}" onClick="{{ toggleMusic }}" style="position: absolute; top: 14px; right: 14px; z-index: 40; width: 46px; height: 46px; padding: 0; border-radius: 50%; border: 1px solid #DEDED9; background: #FFFFFF; color: #111214; cursor: pointer; display: flex; align-items: center; justify-content: center">
+    <sc-if value="{{ musicOff }}">
+      <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path class="ico" d="M9 18V5l11-2v13"></path><circle class="ico" cx="6" cy="18" r="3"></circle><circle class="ico" cx="17" cy="16" r="3"></circle><path class="ico" d="M3 3l18 18"></path></svg>
+    </sc-if>
+    <sc-if value="{{ musicOn }}">
+      <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path class="ico" d="M9 18V5l11-2v13"></path><circle class="ico" cx="6" cy="18" r="3"></circle><circle class="ico" cx="17" cy="16" r="3"></circle></svg>
+    </sc-if>
+  </button>
+  </sc-if>
+
+  <!-- ============ INTRO: gallery lights switch on one by one ============ -->
+  <div data-intro class="{{ introCls }}" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; z-index: 30; overflow: hidden; background: #0D0D0F">
+    <div style="position: absolute; left: 0; top: 560px; width: 390px; height: 284px; background: linear-gradient(#18181B, #0D0D0F 70%)"></div>
+    <div style="position: absolute; left: 0; top: 560px; width: 390px; height: 1px; background: #26262B"></div>
+    <div style="position: absolute; left: 0; top: 58px; width: 390px; box-sizing: border-box; padding: 0 32px; display: flex; justify-content: space-between">
+      <p class="mz-lb" style="color: #5E5E66">Ko’rgazma</p>
+      <p class="mz-lb" style="color: #5E5E66">{{ yearLb }}</p>
+    </div>
+    <div style="position: absolute; left: 20px; top: 94px; width: 350px; height: 2px; background: #222226"></div>
+
+    <div class="mz-wpool mz-l1" style="left: 67px; top: 242px"></div>
+    <div class="mz-wpool mz-l3" style="left: 195px; top: 222px"></div>
+    <div class="mz-wpool mz-l2" style="left: 323px; top: 242px"></div>
+
+    <div class="mz-frame" style="position: absolute; left: 19px; top: 330px; width: 92px; height: 120px; padding: 7px; box-sizing: border-box">
+      <sc-if value="{{ has.photo }}"><img src="{{ p.1 }}" alt="" style="display: block; width: 74px; height: 102px; object-fit: cover"></sc-if>
+      <sc-if value="{{ noPhoto }}"><div class="mz-art2" style="width: 74px; height: 102px"></div></sc-if>
+      <div class="mz-dark mz-d1"></div>
+    </div>
+    <div class="mz-frame" style="position: absolute; left: 127px; top: 296px; width: 136px; height: 178px; padding: 9px; box-sizing: border-box">
+      <sc-if value="{{ has.photo }}"><img src="{{ p.0 }}" alt="" style="display: block; width: 114px; height: 156px; object-fit: cover"></sc-if>
+      <sc-if value="{{ noPhoto }}"><div class="mz-art3" style="width: 114px; height: 156px"></div></sc-if>
+      <div class="mz-dark mz-d3"></div>
+    </div>
+    <div class="mz-frame" style="position: absolute; left: 279px; top: 330px; width: 92px; height: 120px; padding: 7px; box-sizing: border-box">
+      <sc-if value="{{ has.photo }}"><img src="{{ p.2 }}" alt="" style="display: block; width: 74px; height: 102px; object-fit: cover"></sc-if>
+      <sc-if value="{{ noPhoto }}"><div class="mz-art1" style="width: 74px; height: 102px"></div></sc-if>
+      <div class="mz-dark mz-d2"></div>
+    </div>
+    <div style="position: absolute; left: 43px; top: 466px; width: 48px; height: 3px; background: #1E1E22"></div>
+    <div style="position: absolute; left: 299px; top: 466px; width: 48px; height: 3px; background: #1E1E22"></div>
+    <div style="position: absolute; left: 167px; top: 490px; width: 56px; height: 3px; background: #1E1E22"></div>
+
+    <div class="mz-cone mz-l1" style="left: 67px"></div>
+    <div class="mz-cone mz-l3" style="left: 195px"></div>
+    <div class="mz-cone mz-l2" style="left: 323px"></div>
+    <div class="mz-fix" style="left: 67px"></div>
+    <div class="mz-fix" style="left: 195px"></div>
+    <div class="mz-fix" style="left: 323px"></div>
+    <div class="mz-fixl mz-l1" style="left: 67px"></div>
+    <div class="mz-fixl mz-l3" style="left: 195px"></div>
+    <div class="mz-fixl mz-l2" style="left: 323px"></div>
+
+    <div class="mz-pre" style="position: absolute; left: 32px; top: 596px; width: 326px">
+      <p class="ns" style="margin: 0; font-size: 30px; font-weight: 300; font-style: italic; line-height: 1.15; color: #8A8A93">Zal hali qorong’i.</p>
+      <p class="it" style="margin: 10px 0 0; font-size: 15px; line-height: 1.5; color: #6E6E78">Bu ko’rgazma faqat bir kishi uchun ochiladi — {{ toGa }}.</p>
+    </div>
+    <div class="mz-ttl" style="position: absolute; left: 24px; top: 590px; width: 342px; text-align: center">
+      <p class="mz-lb" style="color: #A4A4AE">Doimiy ekspozitsiya</p>
+      <p class="ns" style="margin: 10px 0 0; font-size: 44px; font-weight: 300; font-style: italic; line-height: 1.05; color: #FFFFFF">Bizning sevgimiz</p>
+      <p class="it" style="margin: 14px 0 0; font-size: 14px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: #D7D7DE; overflow-wrap: anywhere">{{ pairVa }}</p>
+    </div>
+    <sc-if value="{{ has.music }}">
+    <p class="mz-pre it" style="position: absolute; left: 0; top: 816px; width: 390px; margin: 0; display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 12px; color: #6E6E78"><svg width="13" height="13" viewBox="0 0 24 24" aria-hidden="true"><path class="ico" d="M9 18V5l11-2v13"></path><circle class="ico" cx="6" cy="18" r="3"></circle><circle class="ico" cx="17" cy="16" r="3"></circle></svg>Audiogid bilan ochiladi</p>
+    </sc-if>
+    <div class="mz-flood"></div>
+    <button type="button" class="mz-pre mz-glow" onClick="{{ open }}" style="position: absolute; left: 32px; top: 738px; width: 326px; min-height: 56px; padding: 0 20px; border: 0; border-radius: 999px; background: #FFFFFF; color: #111214; font-family: 'Inter Tight', Arial, sans-serif; font-size: 16px; font-weight: 600; letter-spacing: 0.02em; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 12px">
+      <svg width="30" height="18" viewBox="0 0 30 18" aria-hidden="true"><rect x="1" y="1" width="28" height="16" rx="8" style="fill: none; stroke: currentColor; stroke-width: 1.6"></rect><circle cx="21" cy="9" r="5" style="fill: #2340D8"></circle></svg>
+      Chiroqlarni yoqing
+    </button>
+  </div>
+
+  <!-- ============ HERO ============ -->
+  <header style="position: relative; padding: 60px 32px 0">
+    <div class="mz-sign"><span class="mz-room">0</span><p class="mz-lb" style="color: #111214">Kirish</p><span class="mz-rule"></span><svg width="22" height="14" viewBox="0 0 22 14" aria-hidden="true"><path class="ico" d="M1 7 H20 M14 1 L20 7 L14 13"></path></svg></div>
+    <p class="mz-lb" style="margin-top: 34px">Doimiy ekspozitsiya</p>
+    <h1 class="ns" style="margin: 10px 0 0; font-size: 62px; font-weight: 300; line-height: 0.98; letter-spacing: -0.025em">Bizning<br><span style="font-style: italic">sevgimiz</span></h1>
+    <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 16px; margin-top: 20px; padding-top: 14px; border-top: 1px solid #111214">
+      <p class="it" style="margin: 0; min-width: 0; font-size: 17px; font-weight: 600; line-height: 1.3; overflow-wrap: anywhere">{{ pairVa }}</p>
+      <sc-if value="{{ hasDate }}"><p class="it" style="margin: 0; flex: none; font-size: 13px; color: #6E6E73">{{ w.year }} — davom etadi</p></sc-if>
+    </div>
+
+    <div style="position: relative; margin-top: 44px; display: flow-root">
+      <div class="mz-pool" style="left: -32px; top: -40px; width: 390px; height: 380px"></div>
+      <div class="mz-frame" style="position: absolute; left: 22px; top: 0; width: 282px; height: 350px; padding: 20px; box-sizing: border-box">
+        <sc-if value="{{ has.photo }}"><img src="{{ p.0 }}" alt="" style="display: block; width: 238px; height: 306px; object-fit: cover"></sc-if>
+        <sc-if value="{{ noPhoto }}"><div class="mz-art3" style="width: 238px; height: 306px"></div></sc-if>
+      </div>
+      <div class="mz-plac" style="position: relative; margin: 318px 0 0 auto; width: 210px; box-sizing: border-box">
+        <p class="it" style="margin: 0; font-size: 12px; font-weight: 700; overflow-wrap: anywhere">{{ artist }}</p>
+        <p class="ns" style="margin: 4px 0 0; font-size: 19px; font-style: italic; font-weight: 400; line-height: 1.2; overflow-wrap: anywhere">«{{ toName }}»</p>
+        <p class="it" style="margin: 6px 0 0; font-size: 11px; line-height: 1.45; color: #6E6E73">Mehr, sabr va har kungi kichik g’amxo’rlik. Muallifning shaxsiy to’plamidan.</p>
+        <p class="it" style="margin: 8px 0 0; font-size: 10px; font-weight: 600; letter-spacing: 0.12em; color: #9A9A9F">{{ invNo }}</p>
+      </div>
+    </div>
+    <div style="margin-top: 22px">
+      <sc-if value="{{ has.music }}">
+      <button type="button" class="mz-ag" onClick="{{ toggleMusic }}" aria-pressed="{{ musicOn }}" style="border: 0; cursor: pointer">
+        <span class="mz-agn">01</span>
+        <span>Audiogid · {{ agTxt }}</span>
+        <span class="{{ waveCls }}"><i style="height: 6px"></i><i style="height: 12px"></i><i style="height: 16px"></i><i style="height: 10px"></i><i style="height: 6px"></i></span>
+      </button>
+      </sc-if>
+      <sc-if value="{{ musicNone }}">
+      <p class="it" style="margin: 0; font-size: 13px; line-height: 1.5; color: #6E6E73">Ko’rgazma xonama-xona davom etadi. Sekin yuring — har bir eksponat siz uchun.</p>
+      </sc-if>
+    </div>
+  </header>
+
+  <!-- ============ MAKTUB: curator's wall text ============ -->
+  <sc-if value="{{ b.maktub }}">
+  <section style="position: relative; padding: 90px 32px 0">
+    <div class="mz-sign"><span class="mz-room">{{ n.maktub }}</span><p class="mz-lb" style="color: #111214">Kurator so’zi</p><span class="mz-rule"></span></div>
+    <h2 class="mz-h2">Senga maktub</h2>
+    <div style="margin-top: 26px; padding-left: 18px; border-left: 3px solid #2340D8">
+      <p class="ns" style="margin: 0; font-size: {{ greetPx }}px; font-style: italic; font-weight: 400; line-height: 1.2; overflow-wrap: anywhere">{{ greet }}</p>
+      <div class="ns" style="margin-top: 16px; font-size: 19px; font-weight: 300; line-height: 1.62; white-space: pre-line; overflow-wrap: anywhere">{{ d.matn }}</div>
+      <sc-if value="{{ sign }}">
+      <p class="it" style="margin: 22px 0 0; font-size: 14px; font-weight: 600; overflow-wrap: anywhere">— {{ sign }}</p>
+      </sc-if>
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- ============ GALEREYA ============ -->
+  <sc-if value="{{ b.galereya }}">
+  <section style="position: relative; padding: 90px 32px 0">
+    <div class="mz-sign"><span class="mz-room">{{ n.galereya }}</span><p class="mz-lb" style="color: #111214">Fotosuratlar zali</p><span class="mz-rule"></span></div>
+    <h2 class="mz-h2">Lahzalarimiz</h2>
+    <div style="display: flex; flex-wrap: wrap; justify-content: space-between; row-gap: 40px; margin-top: 40px">
+      <sc-for list="{{ gal }}" as="g">
+      <div style="position: relative; width: {{ g.w }}px">
+        <div class="mz-pool" style="left: -30px; top: -34px; right: -30px; height: 70%"></div>
+        <div class="mz-frame" style="padding: {{ g.mat }}px">
+          <img src="{{ g.src }}" alt="" style="display: block; width: 100%; height: {{ g.h }}px; object-fit: cover">
+        </div>
+        <p class="it" style="margin: 12px 0 0; font-size: 11px; font-weight: 700; letter-spacing: 0.04em">№ {{ g.n }}</p>
+        <p class="it" style="margin: 2px 0 0; font-size: 11px; color: #6E6E73">{{ g.cap }}</p>
+      </div>
+      </sc-for>
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- ============ YOL: chronology wall ============ -->
+  <sc-if value="{{ b.yol }}">
+  <section style="position: relative; padding: 90px 32px 0">
+    <div class="mz-sign"><span class="mz-room">{{ n.yol }}</span><p class="mz-lb" style="color: #111214">Xronologiya</p><span class="mz-rule"></span></div>
+    <h2 class="mz-h2">Bizning yo’limiz</h2>
+    <div style="margin-top: 28px">
+      <sc-for list="{{ yol }}" as="y">
+      <div style="display: grid; grid-template-columns: 96px 1fr; column-gap: 16px; padding: 18px 0 20px; border-top: 1px solid #111214">
+        <p class="ns" style="margin: 0; font-size: {{ y.px }}px; font-weight: 300; line-height: 1; color: #2340D8; overflow-wrap: anywhere">{{ y.yil }}</p>
+        <div style="min-width: 0">
+          <p class="it" style="margin: 0; font-size: 18px; font-weight: 600; line-height: 1.25; overflow-wrap: anywhere">{{ y.sarlavha }}</p>
+          <sc-if value="{{ y.matn }}"><p class="it" style="margin: 5px 0 0; font-size: 14px; line-height: 1.5; color: #6E6E73; overflow-wrap: anywhere">{{ y.matn }}</p></sc-if>
+        </div>
+      </div>
+      </sc-for>
+      <div style="border-top: 1px solid #111214"></div>
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- ============ SABABLAR: permanent collection ============ -->
+  <sc-if value="{{ b.sabablar }}">
+  <section style="position: relative; margin-top: 90px; padding: 64px 32px 70px; background: #F2F2EF">
+    <div class="mz-sign"><span class="mz-room">{{ n.sabablar }}</span><p class="mz-lb" style="color: #111214">Doimiy kolleksiya</p><span class="mz-rule" style="background: #D4D4CE"></span></div>
+    <h2 class="mz-h2">Seni sevishimning sabablari</h2>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 28px">
+      <sc-for list="{{ reasons }}" as="r">
+      <div style="{{ r.st }}position: relative; min-height: 132px; box-sizing: border-box; padding: 16px 16px 18px; background: #FFFFFF; box-shadow: 0 1px 0 #D4D4CE, 0 18px 24px -22px rgba(17, 18, 20, 0.35); display: flex; flex-direction: column; justify-content: space-between; gap: 18px">
+        <p class="it" style="margin: 0; font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #2340D8">Eksponat {{ r.n }}</p>
+        <p class="ns" style="margin: 0; font-size: {{ r.px }}px; font-weight: 400; line-height: 1.22; overflow-wrap: anywhere">{{ r.t }}</p>
+      </div>
+      </sc-for>
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- ============ XARITA: main exhibit ============ -->
+  <sc-if value="{{ b.xarita }}">
+  <section style="position: relative; padding: 90px 32px 0">
+    <div class="mz-sign"><span class="mz-room">{{ n.xarita }}</span><p class="mz-lb" style="color: #111214">Asosiy eksponat</p><span class="mz-rule"></span></div>
+    <h2 class="mz-h2">O’sha kungi osmon</h2>
+    <div style="position: relative; margin-top: 40px">
+      <div class="mz-pool" style="left: -32px; top: -40px; width: 390px; height: 360px"></div>
+      <div class="mz-frame" style="padding: 22px; background: #FFFFFF">
+        <div style="background: #141936; padding: 18px 0 20px">
+          <svg role="img" aria-label="{{ mapLbl }}" style="display: block; margin: 0 auto" width="238" height="238" viewBox="0 0 316 316">
+            <circle class="mz-ring" cx="158" cy="158" r="150"></circle>
+            <circle class="mz-ringd" cx="158" cy="158" r="100"></circle>
+            <circle class="mz-ringd" cx="158" cy="158" r="50"></circle>
+            <sc-for list="{{ sky.stars }}" as="s"><circle class="mz-st" cx="{{ s.x }}" cy="{{ s.y }}" r="{{ s.r }}" style="opacity: {{ s.o }}"></circle></sc-for>
+            <polyline class="mz-cl" points="{{ sky.clA }}"></polyline>
+            <polyline class="mz-cl" points="{{ sky.clB }}"></polyline>
+            <path class="mz-pair" d="{{ sky.pairD }}"></path>
+            <circle cx="{{ sky.sa.x }}" cy="{{ sky.sa.y }}" r="4" style="fill: #8EA0FF"></circle>
+            <circle cx="{{ sky.sb.x }}" cy="{{ sky.sb.y }}" r="4" style="fill: #8EA0FF"></circle>
+            <text class="mz-ini" x="{{ sky.sa.lx }}" y="{{ sky.sa.ly }}">{{ iniFrom }}</text>
+            <text class="mz-ini" x="{{ sky.sb.lx }}" y="{{ sky.sb.ly }}">{{ iniTo }}</text>
+          </svg>
+          <p class="ns" style="margin: 14px 0 0; text-align: center; font-size: 15px; font-style: italic; font-weight: 300; color: #FFFFFF">{{ mapTitle }}</p>
+        </div>
+      </div>
+      <div class="mz-plac" style="margin: 18px 0 0 auto; width: 230px; box-sizing: border-box">
+        <p class="it" style="margin: 0; font-size: 12px; font-weight: 700">Osmon xaritasi</p>
+        <p class="it" style="margin: 4px 0 0; font-size: 11px; line-height: 1.45; color: #6E6E73">{{ mapCap }}</p>
+      </div>
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- ============ SIRLI: closed vitrine ============ -->
+  <sc-if value="{{ b.sirli }}">
+  <section style="position: relative; padding: 90px 32px 0">
+    <div class="mz-sign"><span class="mz-room">{{ n.sirli }}</span><p class="mz-lb" style="color: #111214">Maxfiy vitrina</p><span class="mz-rule"></span></div>
+    <h2 class="mz-h2">Yashirin so’z</h2>
+    <div style="position: relative; margin-top: 30px">
+      <div style="position: relative; overflow: hidden; border: 1px solid #C9CDD8; background: linear-gradient(#FAFAF8, #F0F0EC)">
+        <div style="padding: 44px 26px 46px">
+          <p class="ns {{ secCls }}" style="margin: 0; font-size: {{ secPx }}px; font-style: italic; font-weight: 300; line-height: 1.45; overflow-wrap: anywhere">{{ d.sirli_soz }}</p>
+        </div>
+        <div class="{{ glassCls }}" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; background: linear-gradient(135deg, rgba(229, 234, 245, 0.97) 0, rgba(244, 246, 251, 0.94) 45%, rgba(222, 228, 241, 0.97) 100%); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px">
+          <svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true" style="color: #111214"><rect class="ico" x="5" y="11" width="14" height="10" rx="1.5"></rect><path class="ico" d="M8 11V8a4 4 0 0 1 8 0v3"></path></svg>
+          <p class="it" style="margin: 0; font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: #111214">Faqat bir kishi uchun</p>
+          <span aria-hidden="true" style="position: absolute; left: 22px; top: 0; width: 40px; height: 100%; background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0)); transform: skewX(-12deg)"></span>
+        </div>
+      </div>
+      <div style="height: 16px; margin: 0 14px; background: linear-gradient(#DADAD4, #F2F2EF)"></div>
+    </div>
+    <sc-if value="{{ secretHidden }}">
+    <button type="button" onClick="{{ reveal }}" style="margin-top: 22px; width: 100%; min-height: 54px; padding: 0 20px; border: 0; border-radius: 999px; background: #111214; color: #FFFFFF; font-family: 'Inter Tight', Arial, sans-serif; font-size: 15px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px">
+      <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path class="ico" d="M12 19V5 M6 11l6-6 6 6"></path></svg>
+      Vitrinani oching
+    </button>
+    </sc-if>
+    <sc-if value="{{ secretShown }}">
+    <p class="it mz-in" style="margin: 20px 0 0; font-size: 14px; color: #6E6E73">Bu eksponat katalogga kiritilmaydi. U faqat siz uchun.</p>
+    </sc-if>
+  </section>
+  </sc-if>
+
+  <!-- ============ HISOB: exhibition banner ============ -->
+  <sc-if value="{{ b.hisob }}">
+  <section style="position: relative; margin-top: 90px; padding: 56px 32px 58px; background: #2340D8; color: #FFFFFF">
+    <div class="mz-sign"><span class="mz-room" style="background: #FFFFFF; color: #2340D8">{{ n.hisob }}</span><p class="mz-lb" style="color: #FFFFFF">Ko’rgazma davom etmoqda</p><span class="mz-rule" style="background: rgba(255, 255, 255, 0.4)"></span></div>
+    <div role="img" aria-label="{{ daysLbl }}">
+      <p aria-hidden="true" class="it" style="margin: 30px 0 0; font-size: {{ dPx }}px; font-weight: 300; line-height: 0.92; letter-spacing: -0.045em">{{ daysTxt }}</p>
+      <p aria-hidden="true" class="ns" style="margin: 6px 0 0; font-size: 30px; font-style: italic; font-weight: 300">kun birga</p>
+    </div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; margin-top: 34px; border-top: 1px solid rgba(255, 255, 255, 0.4)">
+      <sc-for list="{{ ymd }}" as="c">
+      <div style="padding-top: 12px"><p class="it" style="margin: 0; font-size: 30px; font-weight: 300; line-height: 1">{{ c.v }}</p><p class="it" style="margin: 6px 0 0; font-size: 11px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255, 255, 255, 0.75)">{{ c.l }}</p></div>
+      </sc-for>
+    </div>
+    <div role="img" aria-label="{{ clockLbl }}" style="display: flex; align-items: center; justify-content: space-between; margin-top: 30px; padding: 14px 0 0; border-top: 1px solid rgba(255, 255, 255, 0.4)">
+      <span class="it" style="font-size: 12px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255, 255, 255, 0.75)">Bugun ham ochiq</span>
+      <span aria-hidden="true" class="it" style="font-size: 24px; font-weight: 300; letter-spacing: 0.02em">{{ clock }}</span>
+    </div>
+    <sc-if value="{{ hasDate }}"><p class="it" style="margin: 18px 0 0; font-size: 14px; color: rgba(255, 255, 255, 0.8)">Ochilgan sana: {{ w.date }}</p></sc-if>
+  </section>
+  </sc-if>
+
+  <!-- ============ JAVOB: guest book ============ -->
+  <sc-if value="{{ b.javob }}">
+  <section style="position: relative; padding: 90px 32px 0">
+    <div class="mz-sign"><span class="mz-room">{{ n.javob }}</span><p class="mz-lb" style="color: #111214">Mehmonlar kitobi</p><span class="mz-rule"></span></div>
+    <h2 class="mz-h2">{{ qTitle }}</h2>
+    <div style="margin-top: 26px; padding: 26px 22px 24px; background: #FFFFFF; border: 1px solid #DEDED9; box-shadow: 0 24px 30px -28px rgba(17, 18, 20, 0.4); background-image: repeating-linear-gradient(#FFFFFF 0, #FFFFFF 33px, #ECECE8 33px, #ECECE8 34px)">
+      <p class="it" style="margin: 0; font-size: 11px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: #6E6E73">{{ todayLb }}</p>
+      <sc-if value="{{ asking }}">
+      <p class="ns" style="margin: 12px 0 0; font-size: 19px; font-style: italic; font-weight: 300; line-height: 1.5; color: #6E6E73; overflow-wrap: anywhere">{{ toName }}, ko’rgazma haqida bir so’z qoldiring:</p>
+      <div role="group" aria-label="Javobni tanlang" style="display: flex; flex-direction: column; gap: 10px; margin-top: 18px">
+        <button type="button" onClick="{{ sayLove }}" disabled="{{ busy }}" style="width: 100%; min-height: 56px; padding: 0 18px; border: 0; border-radius: 999px; background: #2340D8; color: #FFFFFF; font-family: 'Inter Tight', Arial, sans-serif; font-size: 16px; font-weight: 600; cursor: pointer">Men ham seni sevaman</button>
+        <button type="button" onClick="{{ sayThanks }}" disabled="{{ busy }}" style="width: 100%; min-height: 56px; padding: 0 18px; border: 1px solid #111214; border-radius: 999px; background: #FFFFFF; color: #111214; font-family: 'Inter Tight', Arial, sans-serif; font-size: 16px; font-weight: 500; cursor: pointer">Rahmat, juda ta’sirlandim</button>
+      </div>
+      <p class="it" style="margin: 14px 0 0; font-size: 13px; color: #6E6E73; text-align: center">{{ askHint }}</p>
+      <sc-if value="{{ err }}"><p role="alert" class="it" style="margin: 8px 0 0; font-size: 14px; color: #B3261E; text-align: center">{{ err }}</p></sc-if>
+      </sc-if>
+      <sc-if value="{{ answered }}">
+      <p class="ns mz-in" style="margin: 14px 0 0; font-size: 28px; font-style: italic; font-weight: 300; line-height: 1.22; overflow-wrap: anywhere">«{{ answer }}»</p>
+      <p class="it mz-in" style="margin: 12px 0 0; text-align: right; font-size: 14px; font-weight: 600; overflow-wrap: anywhere">— {{ toName }}</p>
+      <p class="it mz-in" style="margin: 18px 0 0; font-size: 14px; line-height: 1.5; color: #6E6E73; overflow-wrap: anywhere">Yozuvingiz {{ fromGa }} yetkazildi. Tashrifingiz uchun rahmat.</p>
+      </sc-if>
+    </div>
+  </section>
+  </sc-if>
+
+  <footer style="flex: 1; position: relative; padding: 90px 32px 44px; display: flex; flex-direction: column; justify-content: flex-end; gap: 10px">
+    <div style="border-top: 1px solid #111214; padding-top: 16px; display: flex; justify-content: space-between; align-items: flex-start; gap: 16px">
+      <div style="min-width: 0">
+        <p class="ns" style="margin: 0; font-size: 22px; font-style: italic; font-weight: 300; overflow-wrap: anywhere">{{ pairVa }}</p>
+        <p class="it" style="margin: 6px 0 0; font-size: 12px; line-height: 1.5; color: #6E6E73">Ko’rgazma har kuni ochiq. Kirish — faqat ikki kishi uchun.</p>
+      </div>
+      <span class="mz-room" style="width: 34px; height: 34px; background: #2340D8"><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path class="ico" d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"></path></svg></span>
+    </div>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":6400}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { opened: false, secret: false, answer: null, busy: false, err: '' };
+  }
+
+  nm(n) { return String(n || '').trim(); }
+  poss(n) { n = this.nm(n); return n ? n + (/[aeiouAEIOU]$/.test(n) ? 'ng' : 'ing') : ''; }
+  ini(n) { const m = this.nm(n).match(/[A-Za-zÀ-ɏЀ-ӿ]/); return m ? m[0].toUpperCase() : ''; }
+  componentDidMount() { this.timer = setInterval(() => this.forceUpdate(), 1000); }
+  componentWillUnmount() { clearInterval(this.timer); }
+
+  sky() {
+    const d = SITE.d, key = (d.tanishgan_sana || '') + '|' + this.nm(d.kimdan) + '|' + this.nm(d.kimga);
+    if (this.skyC && this.skyC.key === key) return this.skyC.val;
+    let h = 2166136261;
+    for (let i = 0; i < key.length; i++) { h ^= key.charCodeAt(i); h = Math.imul(h, 16777619); }
+    let a = h >>> 0;
+    const rnd = () => { a = (a + 0x6D2B79F5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
+    const C = 158, T = Math.PI * 2, stars = [];
+    for (let i = 0; i < 100; i++) {
+      const r = Math.sqrt(rnd()) * 144, t = rnd() * T, big = rnd();
+      stars.push({ x: (C + r * Math.cos(t)).toFixed(1), y: (C + r * Math.sin(t)).toFixed(1), r: big > 0.95 ? 2.2 : big > 0.75 ? 1.4 : 0.8, o: big > 0.75 ? 1 : 0.6 });
+    }
+    const chain = (n, x, y, sp) => { const o = []; for (let i = 0; i < n; i++) { o.push(x.toFixed(1) + ',' + y.toFixed(1)); const an = rnd() * T; x = Math.max(50, Math.min(266, x + Math.cos(an) * sp)); y = Math.max(50, Math.min(266, y + Math.sin(an) * sp)); } return o.join(' '); };
+    const clA = chain(6, 70 + rnd() * 30, 70 + rnd() * 30, 28), clB = chain(5, 200 + rnd() * 30, 200 + rnd() * 20, 26);
+    const ang = rnd() * Math.PI, dist = 54 + rnd() * 12;
+    const sa = { x: +(C - Math.cos(ang) * dist).toFixed(1), y: +(C - Math.sin(ang) * dist * 0.6).toFixed(1) };
+    const sb = { x: +(C + Math.cos(ang) * dist).toFixed(1), y: +(C + Math.sin(ang) * dist * 0.6).toFixed(1) };
+    sa.lx = sa.x - 5; sa.ly = sa.y - 14; sb.lx = sb.x - 5; sb.ly = sb.y + 26;
+    const val = { stars, clA, clB, sa, sb, pairD: 'M' + sa.x + ' ' + sa.y + ' Q' + C + ' ' + (C + 50) + ' ' + sb.x + ' ' + sb.y };
+    this.skyC = { key, val };
+    return val;
+  }
+  gallery(year) {
+    const n = Math.max(1, SITE.has.photos), idx = [];
+    if (n === 1) idx.push(0); else for (let i = 1; i < Math.min(6, n); i++) idx.push(i);
+    if (n >= 7) idx.push(0);
+    const caps = ['Lahza, fotosurat', 'Kundalik baxt', 'Yo’lda', 'Ikkimiz', 'Kechki yorug’lik', 'Shu kun'];
+    const k = idx.length, out = [];
+    // W — katta gorizontal ramka, P — yonma-yon ikki tik ramka
+    const plan = { 1: 'W', 2: 'P', 3: 'WP', 4: 'WPW', 5: 'WPP', 6: 'WPWP' }[Math.min(6, k)];
+    let i = 0;
+    plan.split('').forEach((c) => {
+      if (c === 'W') { out.push({ src: SITE.p[idx[i]], w: 326, h: 200, mat: 18 }); i += 1; }
+      else { out.push({ src: SITE.p[idx[i]], w: 155, h: 190, mat: 12 }); out.push({ src: SITE.p[idx[i + 1]], w: 155, h: 190, mat: 12 }); i += 2; }
+    });
+    return out.map((g, j) => Object.assign(g, { n: String(j + 2).padStart(2, '0'), cap: caps[j % caps.length] + (year ? ', ' + year : '') }));
+  }
+  answer(a) {
+    if (this.state.busy || this.state.answer) return;
+    this.setState({ busy: true, err: '' });
+    SITE.reply(String(SITE.d.savol || '').trim() ? a + ' — «' + String(SITE.d.savol).trim() + '»' : a, '❤️').then(
+      () => this.setState({ answer: a, busy: false }),
+      () => this.setState({ busy: false, err: 'Yozuv yetib bormadi. Qayta bosib ko’ring.' })
+    );
+  }
+  renderVals() {
+    const s = this.state, d = SITE.d, b = SITE.b;
+    const to = this.nm(d.kimga), from = this.nm(d.kimdan);
+    const fromName = from || 'Men', toName = to || 'Sen';
+    const w = SITE.when(d.tanishgan_sana), hasDate = !!w.day;
+    const el = SITE.elapsed(d.tanishgan_sana);
+    const days = hasDate ? el.days || 0 : 0, daysTxt = SITE.num(days);
+    const pad = (x) => String(x || 0).padStart(2, '0');
+    const order = ['maktub', 'galereya', 'yol', 'sabablar', 'xarita', 'sirli', 'hisob', 'javob'], n = {};
+    let k = 0;
+    order.forEach((key) => { if (b[key]) { k++; n[key] = String(k); } });
+    const rs = (d.sabablar || []).filter((x) => String(x || '').trim());
+    const reasons = rs.map((t, i) => {
+      const wide = (i === 0 && rs.length % 2 === 1) || String(t).length > 34;
+      return { n: String(i + 1).padStart(2, '0'), t, px: wide ? 24 : (String(t).length > 18 ? 18 : 21), st: wide ? 'grid-column: 1 / -1; ' : '' };
+    });
+    // keng bo’lmaganlar juft bo’lib tursin
+    let run = 0;
+    reasons.forEach((r, i) => { if (r.st) { if (run % 2 === 1) reasons[i - 1].st = 'grid-column: 1 / -1; '; run = 0; } else run++; });
+    if (run % 2 === 1) reasons[reasons.length - 1].st = 'grid-column: 1 / -1; ';
+    const yol = (d.yol || []).filter((x) => x && (x.yil || x.sarlavha || x.matn)).map((x) => { const y = String(x.yil || ''); return { yil: y, sarlavha: x.sarlavha || '', matn: x.matn || '', px: y.length > 6 ? 22 : y.length > 4 ? 28 : 38 }; });
+    const greet = 'Azizim ' + toName + ',';
+    const secret = this.nm(d.sirli_soz);
+    const pairVa = [to, from].filter(Boolean).join(' va ') || 'Ikkimiz';
+    const today = new Date(Date.now() + 5 * 3600e3);
+    const tw = SITE.when(today.getUTCFullYear() + '-' + pad(today.getUTCMonth() + 1) + '-' + pad(today.getUTCDate()));
+    const playing = !!SITE.music.playing;
+    return {
+      to, from, w, hasDate, fromName, toName, n, pairVa,
+      introCls: s.opened ? 'mz-intro is-on' : 'mz-intro',
+      open: () => { if (!this.state.opened) { this.setState({ opened: true }); SITE.opened(); } },
+      musicOn: playing, musicOff: !playing, musicNone: !SITE.has.music,
+      toggleMusic: () => SITE.music.toggle(),
+      agTxt: playing ? 'tinglanmoqda' : 'tinglash',
+      waveCls: playing ? 'mz-wave mz-play' : 'mz-wave',
+      noPhoto: !SITE.has.photo,
+      yearLb: hasDate ? w.year + ' — hozirgacha' : 'Doimiy',
+      toGa: to ? SITE.ga(to) : 'senga',
+      artist: fromName + (hasDate ? ' (' + w.year + ' – )' : ''),
+      invNo: 'Inv. № ' + (hasDate ? w.dots : 'SV-01'),
+      greet, greetPx: greet.length > 26 ? 22 : 28,
+      sign: from ? 'Sening ' + this.poss(from) : '',
+      gal: b.galereya ? this.gallery(hasDate ? w.year : '') : [],
+      yol, reasons,
+      sky: b.xarita ? this.sky() : { stars: [], clA: '', clB: '', sa: {}, sb: {}, pairD: '' },
+      iniFrom: this.ini(from), iniTo: this.ini(to),
+      mapLbl: 'Osmon xaritasi' + (hasDate ? ': ' + w.date : ''),
+      mapTitle: hasDate ? w.date : 'Ikki yulduz',
+      mapCap: (hasDate ? w.Weekday + ', ' + w.date + '. ' : '') + 'Ikki yulduz bir-biriga eng yaqin turgan tun. Nusxasi yo’q.',
+      secCls: s.secret ? 'mz-sec is-shown' : 'mz-sec',
+      secPx: secret.length > 160 ? 18 : secret.length > 90 ? 21 : 24,
+      glassCls: s.secret ? 'mz-glass is-up' : 'mz-glass',
+      secretShown: s.secret, secretHidden: !s.secret,
+      reveal: () => this.setState({ secret: true }),
+      daysTxt, dPx: daysTxt.length > 6 ? 76 : 104,
+      daysLbl: days + ' kun birga',
+      ymd: [{ v: el.years || 0, l: 'yil' }, { v: el.months || 0, l: 'oy' }, { v: el.rest || 0, l: 'kun' }],
+      clock: pad(el.h) + ':' + pad(el.m) + ':' + pad(el.s),
+      clockLbl: (el.h || 0) + ' soat ' + (el.m || 0) + ' daqiqa ' + (el.s || 0) + ' soniya',
+      qTitle: String(d.savol || '').trim() || 'Javobingni kutaman',
+      todayLb: 'Mehmon yozuvi · ' + tw.dots,
+      askHint: from ? 'Yozuvingiz ' + SITE.ga(from) + ' yetkaziladi' : 'Yozuvingiz menga yetkaziladi',
+      asking: !s.answer, answered: !!s.answer, answer: s.answer || '',
+      busy: s.busy, err: s.err,
+      sayLove: () => this.answer('Men ham seni sevaman'),
+      sayThanks: () => this.answer('Rahmat, juda ta’sirlandim'),
+      fromGa: from ? SITE.ga(from) : 'menga'
+    };
+  }
+}
+</script>
+</body>
+</html>

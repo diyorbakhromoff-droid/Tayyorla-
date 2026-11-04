@@ -1,0 +1,404 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<title>Sevgi maktubi: Gradient</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;700;800;900&amp;family=Literata:ital,opsz,wght@0,7..72,400;1,7..72,300;1,7..72,400&amp;display=swap">
+<style>
+body{margin:0}
+.un{font-family:'Unbounded','Arial Black',Arial,sans-serif}
+.li{font-family:'Literata',Georgia,'Times New Roman',serif}
+.ico{fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.icf{fill:currentColor}
+button{font-family:inherit}
+button:focus-visible{outline:2px solid #FFF3EC;outline-offset:4px}
+button:disabled{cursor:default}
+.grain{position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none;z-index:20;opacity:.13;background-size:180px 180px;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='180' height='180' filter='url(%23n)'/></svg>")}
+.meta{margin:0;font-family:'Unbounded',Arial,sans-serif;font-size:10px;font-weight:500;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,243,236,.82)}
+.meta-d{color:rgba(20,18,122,.75)}
+.num{font-family:'Unbounded',Arial,sans-serif;font-weight:900;line-height:.8;letter-spacing:-.06em}
+.cross{position:absolute;width:14px;height:14px}
+.gr-ring{fill:none;stroke:rgba(255,243,236,.28);stroke-width:1}
+.cross:before,.cross:after{content:'';position:absolute;background:rgba(255,243,236,.6)}
+.cross:before{left:6px;top:0;width:1.5px;height:14px}
+.cross:after{left:0;top:6px;width:14px;height:1.5px}
+.bloom{position:absolute;border-radius:50%;pointer-events:none}
+.breathe{animation:grBreathe 9s ease-in-out infinite}
+.breathe2{animation:grBreathe 12s ease-in-out -4s infinite reverse}
+@keyframes grBreathe{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(14px,-18px) scale(1.08)}}
+
+/* intro */
+.gr-intro{transition:opacity .8s ease 1.35s,visibility 0s linear 2.2s}
+.gr-intro.is-on{opacity:0;visibility:hidden;pointer-events:none}
+.gr-bl{transform:scale(.015);opacity:0}
+.gr-intro.is-on .gr-bl{animation:grBloom 1.8s cubic-bezier(.22,.7,.15,1) forwards}
+@keyframes grBloom{0%{transform:scale(.015);opacity:1}100%{transform:scale(1);opacity:1}}
+.gr-dot{animation:grPulse 2.4s ease-in-out infinite}
+@keyframes grPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.25)}}
+.gr-halo{animation:grHalo 2.4s ease-out infinite}
+@keyframes grHalo{0%{transform:scale(.3);opacity:.8}100%{transform:scale(1.6);opacity:0}}
+.gr-out{transition:opacity .45s ease,transform .6s ease}
+.gr-intro.is-on .gr-out{opacity:0;transform:translateY(-10px)}
+.gr-intro.is-on .gr-dot,.gr-intro.is-on .gr-halo{animation:none;opacity:0;transition:opacity .3s}
+
+/* hero: words settle */
+.gr-root.is-on .lt{animation:grSettle 1.1s cubic-bezier(.2,.8,.2,1) backwards;animation-delay:var(--d)}
+@keyframes grSettle{from{opacity:0;transform:translateY(-46px) scale(1.5);filter:blur(14px)}to{opacity:1;transform:none;filter:none}}
+.gr-root.is-on .st{animation:grFade 1.2s ease backwards;animation-delay:var(--d)}
+@keyframes grFade{from{opacity:0;transform:translateY(14px);filter:blur(6px)}to{opacity:1;transform:none;filter:none}}
+.gr-root.is-on .gi{animation:grGiant 2.2s cubic-bezier(.2,.8,.2,1) 1.2s backwards}
+@keyframes grGiant{from{opacity:0;transform:scale(1.25);filter:blur(20px)}to{opacity:1;transform:none;filter:none}}
+
+/* blocks */
+.rr{display:flex;align-items:baseline;gap:14px;width:100%;margin:0;padding:16px 0;border:0;border-top:1px solid rgba(20,18,122,.22);background:transparent;color:#14127A;text-align:left;cursor:pointer;position:relative}
+.rr-b{position:absolute;left:-40px;top:50%;width:160px;height:160px;margin-top:-80px;border-radius:50%;background:radial-gradient(closest-side,rgba(43,46,255,.38),rgba(43,46,255,0));transform:scale(0);transition:transform .7s cubic-bezier(.2,.8,.2,1);pointer-events:none}
+.rr.is-on .rr-b{transform:scale(1)}
+.sec-t{filter:blur(11px);opacity:.75;transition:filter 1.2s ease .2s,opacity 1.2s ease .2s}
+.sec-t.is-on{filter:none;opacity:1}
+.sec-bl{transform:scale(.2);opacity:.6;transition:transform 1.6s cubic-bezier(.2,.8,.2,1),opacity 1.2s}
+.sec-bl.is-on{transform:scale(1);opacity:1}
+.yr{font-family:'Unbounded',Arial,sans-serif;font-weight:900;font-size:58px;line-height:.9;letter-spacing:-.05em;color:transparent;-webkit-text-stroke:1.4px #FFF3EC}
+.duo{position:relative;overflow:hidden;background:#FF7A8A;margin:0;padding:0;border:0;cursor:pointer;display:block}
+.duo img{display:block;width:100%;height:100%;object-fit:cover;mix-blend-mode:multiply;transition:filter .8s ease}
+#dc-root .duo img{filter:grayscale(1) contrast(1.15) brightness(1.08)}
+#dc-root .duo.is-c img{filter:none;mix-blend-mode:normal}
+.duo-o{position:absolute;left:0;top:0;width:100%;height:100%;background:#2B2EFF;mix-blend-mode:lighten;transition:opacity .8s ease;pointer-events:none}
+.duo.is-c .duo-o{opacity:0}
+.gr-in{animation:grFade .9s ease both}
+.ans-bl{transform:scale(.8);transition:transform 1.8s cubic-bezier(.2,.8,.2,1)}
+.ans-bl.is-on{transform:scale(1.5)}
+.pill{min-height:56px;width:100%;padding:0 22px;border-radius:999px;font-family:'Unbounded',Arial,sans-serif;font-size:15px;font-weight:700;letter-spacing:.01em;cursor:pointer}
+
+@media (prefers-reduced-motion: reduce){
+.breathe,.breathe2,.gr-dot,.gr-halo,.gr-in{animation:none}
+.gr-intro.is-on .gr-bl{animation:none;transform:none;opacity:1}
+.gr-root.is-on .lt,.gr-root.is-on .st,.gr-root.is-on .gi{animation:none}
+.gr-intro,.gr-out,.rr-b,.sec-t,.sec-bl,.duo img,.duo-o,.ans-bl{transition:none}
+}
+</style>
+</helmet>
+<div class="{{ rootCls }}" style="width: 390px; min-height: var(--vh, 100vh); position: relative; overflow: hidden; background: #2B2EFF; color: #FFF3EC; font-family: 'Literata', Georgia, serif; display: flex; flex-direction: column">
+  <div class="grain" aria-hidden="true"></div>
+
+  <sc-if value="{{ has.music }}">
+  <button type="button" aria-label="Musiqa" aria-pressed="{{ musicOn }}" onClick="{{ toggleMusic }}" style="position: absolute; top: 58px; right: 18px; z-index: 25; width: 46px; height: 46px; padding: 0; border-radius: 50%; border: 1px solid rgba(255, 243, 236, 0.6); background: rgba(43, 46, 255, 0.35); color: #FFF3EC; cursor: pointer; display: flex; align-items: center; justify-content: center">
+    <sc-if value="{{ musicOff }}"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path class="ico" d="M9 18V5l11-2v13"></path><circle class="ico" cx="6" cy="18" r="3"></circle><circle class="ico" cx="17" cy="16" r="3"></circle><path class="ico" d="M3 3l18 18"></path></svg></sc-if>
+    <sc-if value="{{ musicOn }}"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path class="ico" d="M9 18V5l11-2v13"></path><circle class="ico" cx="6" cy="18" r="3"></circle><circle class="ico" cx="17" cy="16" r="3"></circle></svg></sc-if>
+  </button>
+  </sc-if>
+
+  <!-- ============ INTRO: a single point blooms ============ -->
+  <div data-intro class="{{ introCls }}" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; z-index: 30; overflow: hidden; background: #2B2EFF">
+    <div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; background: radial-gradient(120% 80% at 50% 56%, rgba(27, 23, 168, 0) 40%, rgba(16, 13, 110, 0.75) 100%)"></div>
+    <div class="bloom gr-bl" aria-hidden="true" style="left: -335px; top: -100px; width: 1060px; height: 1060px; background: radial-gradient(closest-side, #FFD3C2 0%, #FF9AA2 16%, #FF7A8A 30%, rgba(255, 122, 138, 0.55) 48%, rgba(255, 122, 138, 0) 72%)"></div>
+    <svg class="gr-out" aria-hidden="true" style="position: absolute; left: 0; top: 0" width="390" height="844" viewBox="0 0 390 844">
+      <circle class="gr-ring" cx="195" cy="470" r="70"></circle>
+      <circle class="gr-ring" cx="195" cy="470" r="130" style="opacity: 0.7"></circle>
+      <circle class="gr-ring" cx="195" cy="470" r="200" style="opacity: 0.45"></circle>
+      <circle class="gr-ring" cx="195" cy="470" r="280" style="opacity: 0.25"></circle>
+      <path class="gr-ring" d="M195 330 V380 M195 560 V610 M55 470 H105 M285 470 H335" style="opacity: 0.6"></path>
+    </svg>
+    <div class="grain" aria-hidden="true"></div>
+    <span class="cross gr-out" aria-hidden="true" style="left: 18px; top: 18px"></span>
+    <span class="cross gr-out" aria-hidden="true" style="right: 18px; top: 18px"></span>
+    <span class="cross gr-out" aria-hidden="true" style="left: 18px; bottom: 18px"></span>
+    <span class="cross gr-out" aria-hidden="true" style="right: 18px; bottom: 18px"></span>
+    <div class="gr-out" style="position: absolute; left: 44px; right: 44px; top: 24px; display: flex; justify-content: space-between">
+      <p class="meta">Sevgi maktubi</p>
+      <p class="meta">{{ metaR }}</p>
+    </div>
+    <div class="gr-out" style="position: absolute; left: 0; top: 150px; width: 390px; box-sizing: border-box; padding: 0 36px; text-align: center">
+      <p class="li" style="margin: 0; font-size: 26px; font-style: italic; font-weight: 300; line-height: 1.35">Hammasi bitta nuqtadan boshlanadi.</p>
+      <p class="meta" style="margin-top: 22px">{{ introFrom }}</p>
+    </div>
+    <div class="gr-out" style="position: absolute; left: 0; top: 650px; width: 390px; text-align: center">
+      <p class="un" style="margin: 0; font-size: 13px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase">Nuqtaga bosing</p>
+      <sc-if value="{{ has.music }}"><p class="li" style="margin: 10px 0 0; font-size: 15px; font-style: italic; color: rgba(255, 243, 236, 0.72)">qo’shiq bilan ochiladi</p></sc-if>
+    </div>
+    <button type="button" onClick="{{ open }}" aria-label="Maktubni ochish" style="position: absolute; left: 145px; top: 420px; width: 100px; height: 100px; margin: 0; padding: 0; border: 0; border-radius: 50%; background: transparent; cursor: pointer">
+      <span class="gr-halo" aria-hidden="true" style="position: absolute; left: 10px; top: 10px; width: 80px; height: 80px; border-radius: 50%; border: 1.5px solid rgba(255, 194, 176, 0.8)"></span>
+      <span class="gr-dot" aria-hidden="true" style="position: absolute; left: 38px; top: 38px; width: 24px; height: 24px; border-radius: 50%; background: radial-gradient(circle, #FFE3D6 0%, #FF7A8A 60%, rgba(255, 122, 138, 0) 100%); box-shadow: 0 0 30px 10px rgba(255, 122, 138, 0.55)"></span>
+    </button>
+  </div>
+
+  <!-- ============ HERO: poster ============ -->
+  <header style="position: relative; height: 844px; overflow: hidden">
+    <div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; background: radial-gradient(120% 80% at 50% 56%, rgba(27, 23, 168, 0) 40%, rgba(16, 13, 110, 0.75) 100%)"></div>
+    <div class="bloom breathe" aria-hidden="true" style="left: -335px; top: -100px; width: 1060px; height: 1060px; background: radial-gradient(closest-side, #FFD3C2 0%, #FF9AA2 16%, #FF7A8A 30%, rgba(255, 122, 138, 0.55) 48%, rgba(255, 122, 138, 0) 72%)"></div>
+    <p class="num gi" aria-hidden="true" style="position: absolute; left: -24px; top: 150px; margin: 0; font-size: 560px; color: transparent; -webkit-text-stroke: 1.5px rgba(255, 243, 236, 0.5)">{{ iniTo }}</p>
+    <span class="cross" aria-hidden="true" style="left: 18px; top: 18px"></span>
+    <span class="cross" aria-hidden="true" style="right: 18px; top: 18px"></span>
+    <span class="cross" aria-hidden="true" style="left: 18px; bottom: 18px"></span>
+    <span class="cross" aria-hidden="true" style="right: 18px; bottom: 18px"></span>
+    <div style="position: absolute; left: 44px; right: 44px; top: 24px; display: flex; justify-content: space-between">
+      <p class="meta">Sevgi maktubi</p>
+      <p class="meta">{{ metaR }}</p>
+    </div>
+    <div style="position: absolute; left: 20px; right: 20px; top: 92px">
+      <p class="li st" style="--d: 1.5s; margin: 0; font-size: 22px; font-style: italic; font-weight: 300; line-height: 1.3; color: #FFF3EC; overflow-wrap: anywhere">{{ heroFrom }}</p>
+    </div>
+    <div style="position: absolute; left: 20px; right: 20px; top: 300px; height: 330px; display: flex; flex-direction: column; justify-content: center">
+      <h1 class="un" aria-label="{{ toName }}" style="margin: 0; font-size: {{ namePx }}px; font-weight: 800; line-height: 0.92; letter-spacing: -0.04em; text-transform: uppercase; color: #14127A">
+        <sc-for list="{{ nameWords }}" as="w"><span aria-hidden="true" style="display: inline-block; white-space: nowrap; margin-right: 0.22em"><sc-for list="{{ w.l }}" as="c"><span class="lt" style="display: inline-block; --d: {{ c.d }}">{{ c.c }}</span></sc-for></span></sc-for>
+      </h1>
+      <p class="li st" style="--d: 2.3s; margin: 4px 0 0; align-self: flex-end; font-size: 76px; font-style: italic; font-weight: 300; line-height: 1; letter-spacing: -0.03em; color: #14127A">uchun</p>
+    </div>
+    <div class="st" style="--d: 2.6s; position: absolute; left: 20px; right: 20px; top: 704px; display: flex; justify-content: space-between; align-items: flex-end; border-top: 1px solid rgba(255, 243, 236, 0.5); padding-top: 14px">
+      <p class="meta" style="line-height: 1.8">№ 001<br>{{ sinceMeta }}</p>
+      <p class="meta" style="text-align: right; line-height: 1.8">Pastga<br>suring</p>
+    </div>
+  </header>
+
+  <!-- ============ MAKTUB ============ -->
+  <sc-if value="{{ b.maktub }}">
+  <section style="position: relative; padding: 70px 26px 84px; overflow: hidden">
+    <div class="bloom breathe2" aria-hidden="true" style="right: -260px; top: -220px; width: 560px; height: 560px; background: radial-gradient(closest-side, rgba(255, 122, 138, 0.75), rgba(255, 122, 138, 0))"></div>
+    <p class="num" aria-hidden="true" style="position: absolute; left: 14px; top: 26px; margin: 0; font-size: 170px; color: transparent; -webkit-text-stroke: 1.2px rgba(255, 243, 236, 0.28)">01</p>
+    <p class="meta" style="position: relative">Maktub</p>
+    <p class="li" style="position: relative; margin: 22px 0 0; font-size: {{ greetPx }}px; font-style: italic; font-weight: 300; line-height: 1.12; overflow-wrap: anywhere">{{ greet }}</p>
+    <p class="li" style="position: relative; margin: 26px 0 0; font-size: 19px; font-weight: 400; line-height: 1.66; white-space: pre-line; overflow-wrap: anywhere">{{ d.matn }}</p>
+    <sc-if value="{{ sign }}">
+    <div style="position: relative; margin-top: 34px; display: flex; align-items: center; gap: 14px">
+      <span aria-hidden="true" style="flex: 1; height: 1px; background: rgba(255, 243, 236, 0.5)"></span>
+      <p class="un" style="margin: 0; font-size: 14px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; overflow-wrap: anywhere; text-align: right">{{ sign }}</p>
+    </div>
+    </sc-if>
+  </section>
+  </sc-if>
+
+  <!-- ============ SABABLAR: inverted duotone ============ -->
+  <sc-if value="{{ b.sabablar }}">
+  <section style="position: relative; padding: 70px 26px 70px; overflow: hidden; background: #FF7A8A; color: #14127A">
+    <div class="bloom" aria-hidden="true" style="left: -200px; top: -240px; width: 640px; height: 640px; background: radial-gradient(closest-side, rgba(255, 227, 214, 0.95), rgba(255, 227, 214, 0))"></div>
+    <div class="bloom breathe" aria-hidden="true" style="right: -300px; bottom: -300px; width: 600px; height: 600px; background: radial-gradient(closest-side, rgba(43, 46, 255, 0.55), rgba(43, 46, 255, 0))"></div>
+    <p class="meta meta-d" style="position: relative">02 — Sabablar</p>
+    <p class="li" style="position: relative; margin: 22px 0 0; font-size: 30px; font-style: italic; font-weight: 300; line-height: 1.1">Seni sevishimning</p>
+    <p class="un" style="position: relative; margin: 4px 0 0; font-size: 44px; font-weight: 900; line-height: 0.95; letter-spacing: -0.045em; text-transform: uppercase">Sabablari</p>
+    <div style="position: relative; margin-top: 30px; border-bottom: 1px solid rgba(20, 18, 122, 0.22)">
+      <sc-for list="{{ reasons }}" as="r">
+      <button type="button" class="{{ r.cls }}" aria-pressed="{{ r.on }}" onClick="{{ r.tap }}">
+        <span class="rr-b" aria-hidden="true"></span>
+        <span class="un" style="position: relative; flex: none; width: 30px; font-size: 12px; font-weight: 700; letter-spacing: 0.06em">{{ r.n }}</span>
+        <span class="un" style="position: relative; flex: 1; min-width: 0; font-size: {{ r.px }}px; font-weight: 700; line-height: 1.12; letter-spacing: -0.03em; overflow-wrap: anywhere">{{ r.t }}</span>
+      </button>
+      </sc-for>
+    </div>
+    <p class="li" style="position: relative; margin: 18px 0 0; font-size: 16px; font-style: italic">{{ reasonHint }}</p>
+  </section>
+  </sc-if>
+
+  <!-- ============ YOL ============ -->
+  <sc-if value="{{ b.yol }}">
+  <section style="position: relative; padding: 70px 26px 76px; overflow: hidden">
+    <div class="bloom breathe2" aria-hidden="true" style="left: -300px; top: 30%; width: 600px; height: 600px; background: radial-gradient(closest-side, rgba(255, 122, 138, 0.7), rgba(255, 122, 138, 0))"></div>
+    <p class="meta" style="position: relative">03 — Yo’limiz</p>
+    <p class="un" style="position: relative; margin: 22px 0 0; font-size: 40px; font-weight: 900; line-height: 0.95; letter-spacing: -0.045em; text-transform: uppercase">Bizning<br>yo’limiz</p>
+    <div style="position: relative; margin-top: 34px">
+      <sc-for list="{{ yol }}" as="y">
+      <div style="padding: 22px 0; border-top: 1px solid rgba(255, 243, 236, 0.35)">
+        <p class="yr" style="margin: 0; font-size: {{ y.px }}px; overflow-wrap: anywhere">{{ y.yil }}</p>
+        <p class="un" style="margin: 14px 0 0; font-size: 18px; font-weight: 700; line-height: 1.25; letter-spacing: -0.02em; overflow-wrap: anywhere">{{ y.sarlavha }}</p>
+        <sc-if value="{{ y.matn }}"><p class="li" style="margin: 6px 0 0; font-size: 18px; font-style: italic; font-weight: 300; line-height: 1.45; color: rgba(255, 243, 236, 0.86); overflow-wrap: anywhere">{{ y.matn }}</p></sc-if>
+      </div>
+      </sc-for>
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- ============ SIRLI: comes into focus ============ -->
+  <sc-if value="{{ b.sirli }}">
+  <section style="position: relative; padding: 76px 26px 80px; overflow: hidden; background: #1B17A8; text-align: center">
+    <div class="{{ secBlCls }}" aria-hidden="true" style="position: absolute; left: -125px; top: 40px; width: 640px; height: 640px; border-radius: 50%; background: radial-gradient(closest-side, rgba(255, 211, 194, 0.95) 0%, rgba(255, 122, 138, 0.75) 38%, rgba(255, 122, 138, 0) 100%)"></div>
+    <p class="meta" style="position: relative">04 — Yashirin so’z</p>
+    <p class="li" style="position: relative; margin: 20px 0 0; font-size: 28px; font-style: italic; font-weight: 300">Diqqat bilan qara</p>
+    <div style="position: relative; margin: 34px auto 0; max-width: 330px; min-height: 140px; display: flex; align-items: center; justify-content: center">
+      <p class="{{ secTCls }}" style="margin: 0; font-family: 'Unbounded', Arial, sans-serif; font-size: 22px; font-weight: 700; line-height: 1.35; letter-spacing: -0.02em; overflow-wrap: anywhere; white-space: pre-line; color: {{ secInk }}">{{ d.sirli_soz }}</p>
+    </div>
+    <sc-if value="{{ secretHidden }}">
+    <button type="button" onClick="{{ reveal }}" style="position: relative; margin-top: 30px; min-height: 52px; padding: 0 28px; border-radius: 999px; border: 1px solid #FFF3EC; background: transparent; color: #FFF3EC; font-family: 'Unbounded', Arial, sans-serif; font-size: 14px; font-weight: 700; letter-spacing: 0.06em; cursor: pointer">Aniq ko’rish</button>
+    </sc-if>
+    <sc-if value="{{ secret }}"><p class="li gr-in" style="position: relative; margin: 30px 0 0; font-size: 18px; font-style: italic; color: #14127A">Endi bu sir ikkimizniki.</p></sc-if>
+  </section>
+  </sc-if>
+
+  <!-- ============ GALEREYA: duotone ============ -->
+  <sc-if value="{{ b.galereya }}">
+  <section style="position: relative; padding: 70px 20px 70px; overflow: hidden">
+    <p class="meta" style="position: relative; padding: 0 6px">05 — Lahzalar</p>
+    <p class="un" style="position: relative; margin: 22px 0 0; padding: 0 6px; font-size: 40px; font-weight: 900; line-height: 0.95; letter-spacing: -0.045em; text-transform: uppercase">Ikki rang,<br>bir lahza</p>
+    <p class="li" style="position: relative; margin: 12px 0 0; padding: 0 6px; font-size: 17px; font-style: italic; color: rgba(255, 243, 236, 0.86)">Suratni bossang — asl rangi qaytadi</p>
+    <div style="position: relative; margin-top: 28px; height: {{ gal.h }}px">
+      <sc-for list="{{ gal.items }}" as="g">
+      <button type="button" class="{{ g.cls }}" aria-pressed="{{ g.on }}" aria-label="{{ g.lbl }}" onClick="{{ g.tap }}" style="position: absolute; left: {{ g.l }}px; top: {{ g.t }}px; width: {{ g.w }}px; height: {{ g.h }}px">
+        <img src="{{ g.src }}" alt="">
+        <span class="duo-o" aria-hidden="true"></span>
+        <span class="un" aria-hidden="true" style="position: absolute; left: 10px; bottom: 9px; font-size: 10px; font-weight: 700; letter-spacing: 0.2em; color: #FFF3EC">{{ g.n }}</span>
+      </button>
+      </sc-for>
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- ============ HISOB ============ -->
+  <sc-if value="{{ b.hisob }}">
+  <section style="position: relative; padding: 76px 20px 84px; overflow: hidden; text-align: center">
+    <div class="bloom breathe" aria-hidden="true" style="left: -155px; top: -40px; width: 700px; height: 700px; background: radial-gradient(closest-side, #FFD3C2 0%, #FF7A8A 34%, rgba(255, 122, 138, 0.4) 60%, rgba(255, 122, 138, 0) 100%)"></div>
+    <p class="meta meta-d" style="position: relative">06 — Birga</p>
+    <div role="img" aria-label="{{ daysLbl }}" style="position: relative; margin-top: 30px">
+      <p class="num" aria-hidden="true" style="margin: 0; font-size: {{ dPx }}px; color: #14127A; white-space: nowrap">{{ daysTxt }}</p>
+      <p class="li" aria-hidden="true" style="margin: 8px 0 0; font-size: 34px; font-style: italic; font-weight: 300; color: #14127A">kun birga</p>
+    </div>
+    <div role="img" aria-label="{{ clockLbl }}" style="position: relative; margin: 34px auto 0; display: flex; justify-content: center; gap: 22px; color: #14127A">
+      <sc-for list="{{ clock }}" as="c">
+      <div aria-hidden="true">
+        <span class="un" style="display: block; font-size: 34px; font-weight: 500; line-height: 1; letter-spacing: -0.03em; font-variant-numeric: tabular-nums">{{ c.v }}</span>
+        <span class="meta meta-d" style="display: block; margin-top: 8px; font-size: 9px">{{ c.l }}</span>
+      </div>
+      </sc-for>
+    </div>
+    <sc-if value="{{ hasDate }}"><p class="li" style="position: relative; margin: 30px 0 0; font-size: 17px; font-style: italic; color: #14127A">{{ sinceLine }}</p></sc-if>
+  </section>
+  </sc-if>
+
+  <!-- ============ JAVOB ============ -->
+  <sc-if value="{{ b.javob }}">
+  <section style="position: relative; padding: 76px 26px 70px; overflow: hidden; background: #1B17A8">
+    <div class="{{ ansBlCls }}" aria-hidden="true" style="position: absolute; left: -165px; top: 120px; width: 720px; height: 720px; border-radius: 50%; background: radial-gradient(closest-side, #FFD3C2 0%, #FF7A8A 36%, rgba(255, 122, 138, 0) 100%)"></div>
+    <p class="meta" style="position: relative">07 — Javob</p>
+    <p class="li" style="position: relative; margin: 20px 0 0; font-size: 26px; font-style: italic; font-weight: 300; overflow-wrap: anywhere">{{ toComma }}</p>
+    <h2 class="un" style="position: relative; margin: 6px 0 0; font-size: {{ qPx }}px; font-weight: 900; line-height: 0.98; letter-spacing: -0.045em; text-transform: uppercase; overflow-wrap: break-word">{{ qTitle }}</h2>
+    <sc-if value="{{ asking }}">
+    <div role="group" aria-label="Javobni tanlang" style="position: relative; margin-top: 150px; display: flex; flex-direction: column; gap: 12px">
+      <button type="button" class="pill" onClick="{{ sayLove }}" disabled="{{ busy }}" style="border: 0; background: #14127A; color: #FFF3EC">Men ham seni sevaman</button>
+      <button type="button" class="pill" onClick="{{ sayThanks }}" disabled="{{ busy }}" style="border: 1.5px solid #14127A; background: rgba(255, 243, 236, 0.25); color: #14127A">Rahmat, juda ta’sirlandim</button>
+      <p class="li" style="margin: 6px 0 0; text-align: center; font-size: 16px; font-style: italic; color: #14127A">{{ askHint }}</p>
+      <sc-if value="{{ err }}"><p role="alert" class="un" style="margin: 0; text-align: center; font-size: 13px; font-weight: 500; color: #14127A">{{ err }}</p></sc-if>
+    </div>
+    </sc-if>
+    <sc-if value="{{ answered }}">
+    <div class="gr-in" role="status" style="position: relative; margin-top: 120px; text-align: center; color: #14127A">
+      <p class="li" style="margin: 0; font-size: 46px; font-style: italic; font-weight: 300; line-height: 1.08">«{{ answer }}»</p>
+      <p class="un" style="margin: 22px 0 0; font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; overflow-wrap: anywhere">{{ sentTxt }}</p>
+    </div>
+    </sc-if>
+  </section>
+  </sc-if>
+
+  <footer style="flex: 1; position: relative; padding: 60px 20px 40px; display: flex; flex-direction: column; justify-content: flex-end; overflow: hidden">
+    <div class="bloom" aria-hidden="true" style="left: -120px; bottom: -380px; width: 630px; height: 630px; background: radial-gradient(closest-side, rgba(255, 122, 138, 0.8), rgba(255, 122, 138, 0))"></div>
+    <p class="num" style="position: relative; margin: 0; font-size: {{ monoPx }}px; color: #FFF3EC">{{ mono }}</p>
+    <div style="position: relative; margin-top: 18px; display: flex; justify-content: space-between; border-top: 1px solid rgba(255, 243, 236, 0.5); padding-top: 14px; gap: 12px">
+      <p class="meta" style="overflow-wrap: anywhere">{{ pair }}</p>
+      <p class="meta" style="flex: none">{{ metaR }}</p>
+    </div>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":6200}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { opened: false, secret: false, picked: {}, colored: {}, answer: null, busy: false, err: '' };
+  }
+  nm(n) { return String(n || '').trim(); }
+  poss(n) { n = this.nm(n); return n ? n + (/[aeiouAEIOU]$/.test(n) ? 'ng' : 'ing') : ''; }
+  ini(n) { const m = this.nm(n).match(/[A-Za-zÀ-ɏЀ-ӿ]/); return m ? m[0].toUpperCase() : ''; }
+  componentDidMount() { this.timer = setInterval(() => this.forceUpdate(), 1000); }
+  componentWillUnmount() { clearInterval(this.timer); }
+  gallery() {
+    const n = Math.min(6, Math.max(1, SITE.has.photos)), P = SITE.p, W = 350, g = 8, half = (W - g) / 2;
+    const items = []; let y = 0;
+    const col = this.state.colored || {};
+    const add = (i, l, t, w, h) => items.push({
+      src: P[i], l, t, w, h, n: String(i + 1).padStart(2, '0'), on: col[i] ? 'true' : 'false',
+      cls: col[i] ? 'duo is-c' : 'duo', lbl: (i + 1) + '-surat: ' + (col[i] ? 'ikki rangga qaytarish' : 'asl rangini ko’rish'),
+      tap: () => this.setState({ colored: Object.assign({}, this.state.colored, { [i]: !this.state.colored[i] }) })
+    });
+    add(0, 0, 0, W, n === 1 ? 460 : 420); y = (n === 1 ? 460 : 420) + g;
+    let i = 1;
+    while (i < n) {
+      if (n - i === 1) { add(i, 0, y, W, 260); y += 260 + g; i++; }
+      else { const tall = (i % 4 === 1); add(i, 0, y, half, tall ? 240 : 200); add(i + 1, half + g, y + (tall ? 40 : 0), half, tall ? 240 : 200); y += (tall ? 280 : 200) + g; i += 2; }
+    }
+    return { h: y - g, items };
+  }
+  answer(a) {
+    if (this.state.busy || this.state.answer) return;
+    this.setState({ busy: true, err: '' });
+    const q = String(SITE.d.savol || '').trim();
+    SITE.reply(q ? a + ' — «' + q + '»' : a, '❤️').then(
+      () => this.setState({ answer: a, busy: false }),
+      () => this.setState({ busy: false, err: 'Javob yetib bormadi. Qayta bosib ko’ring.' })
+    );
+  }
+  renderVals() {
+    const s = this.state, d = SITE.d, b = SITE.b;
+    const to = this.nm(d.kimga), from = this.nm(d.kimdan);
+    const toName = to || 'Sen';
+    const w = SITE.when(d.tanishgan_sana), hasDate = !!w.day, el = SITE.elapsed(d.tanishgan_sana);
+    const words = toName.toUpperCase().split(/\s+/).filter(Boolean);
+    const cw = (wd) => wd.split('').reduce((a, c) => a + (/[MWШЩЖМЮ]/.test(c) ? 1.2 : /[I1’'.,-]/.test(c) ? 0.4 : 0.9), 0);
+    const longest = Math.max.apply(null, words.map(cw).concat([1]));
+    const namePx = Math.max(20, Math.min(84, Math.floor(346 / longest), Math.floor(240 / (words.length * 0.95))));
+    let k = 0;
+    const nameWords = words.map((wd) => ({ l: wd.split('').map((c) => ({ c, d: (1.45 + 0.07 * (k++)).toFixed(2) + 's' })) }));
+    const greet = (to ? 'Azizim ' + to : 'Azizim') + ',';
+    const rs = (d.sabablar || []).filter((x) => String(x || '').trim());
+    const picked = s.picked || {};
+    const nP = Object.keys(picked).filter((x) => picked[x]).length;
+    const reasons = rs.map((t, i) => ({
+      t, n: String(i + 1).padStart(2, '0'), on: picked[i] ? 'true' : 'false',
+      cls: picked[i] ? 'rr is-on' : 'rr', px: t.length > 26 ? 21 : t.length > 14 ? 25 : 30,
+      tap: () => this.setState({ picked: Object.assign({}, this.state.picked, { [i]: !this.state.picked[i] }) })
+    }));
+    const days = el.days || 0, daysTxt = SITE.num(days);
+    const pad = (x) => String(x || 0).padStart(2, '0');
+    const q = String(d.savol || '').trim();
+    const mono = [this.ini(from), this.ini(to)].filter(Boolean).join('+') || '+';
+    return {
+      rootCls: s.opened ? 'gr-root is-on' : 'gr-root',
+      introCls: s.opened ? 'gr-intro is-on' : 'gr-intro',
+      open: () => { if (!this.state.opened) { this.setState({ opened: true }); SITE.opened(); } },
+      musicOn: !!SITE.music.playing, musicOff: !SITE.music.playing,
+      toggleMusic: () => SITE.music.toggle(),
+      metaR: hasDate ? w.dots : '№ 001',
+      introFrom: from ? from + 'dan' : 'Sen uchun',
+      heroFrom: from ? from + 'dan — bitta nuqtadan boshlangan sevgi haqida' : 'Bitta nuqtadan boshlangan sevgi haqida',
+      toName, namePx, nameWords, iniTo: this.ini(to) || 'S',
+      sinceMeta: hasDate ? w.year + '-yildan beri' : 'Sevgi bilan',
+      greet, greetPx: Math.max(26, Math.min(40, Math.floor(330 / (greet.length * 0.42)))),
+      sign: from ? 'Sening ' + this.poss(from) : '',
+      reasons, reasonHint: nP ? nP + ' ta sababni belgilading' : 'Yoqqan sababni bosib belgila',
+      yol: (d.yol || []).map((x) => { const yil = String((x && x.yil) || ''); return { yil, px: yil.length > 6 ? 36 : 58, sarlavha: (x && x.sarlavha) || '', matn: (x && x.matn) || '' }; }),
+      secret: s.secret, secretHidden: !s.secret,
+      secTCls: s.secret ? 'sec-t is-on' : 'sec-t',
+      secBlCls: s.secret ? 'sec-bl is-on' : 'sec-bl',
+      secInk: s.secret ? '#14127A' : '#FFF3EC',
+      reveal: () => this.setState({ secret: true }),
+      gal: b.galereya ? this.gallery() : { h: 0, items: [] },
+      daysTxt, dPx: Math.min(150, Math.floor(350 / (daysTxt.length * 0.8))), daysLbl: days + ' kun birga',
+      clock: [{ v: pad(el.h), l: 'soat' }, { v: pad(el.m), l: 'daqiqa' }, { v: pad(el.s), l: 'soniya' }],
+      clockLbl: (el.h || 0) + ' soat ' + (el.m || 0) + ' daqiqa ' + (el.s || 0) + ' soniya',
+      hasDate, sinceLine: hasDate ? w.date + '-yildan beri' : '',
+      toComma: to ? to + ',' : 'Azizim,',
+      qTitle: q || 'Javobingni kutaman', qPx: q.length > 26 ? 30 : 42,
+      ansBlCls: s.answer ? 'ans-bl is-on' : 'ans-bl',
+      asking: !s.answer, answered: !!s.answer, answer: s.answer || '',
+      busy: s.busy, err: s.err,
+      askHint: from ? 'Javobing ' + SITE.ga(from) + ' yetib boradi' : 'Javobing menga yetib boradi',
+      sentTxt: from ? 'Javobing ' + SITE.ga(from) + ' yetib bordi' : 'Javobing yetib bordi',
+      sayLove: () => this.answer('Men ham seni sevaman'),
+      sayThanks: () => this.answer('Rahmat, juda ta’sirlandim'),
+      mono, monoPx: mono.length > 2 ? 150 : 120,
+      pair: [from, to].filter(Boolean).join(' · ') || 'Sevgi maktubi'
+    };
+  }
+}
+</script>
+</body>
+</html>

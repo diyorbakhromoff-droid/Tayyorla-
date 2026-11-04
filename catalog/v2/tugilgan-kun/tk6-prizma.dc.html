@@ -1,0 +1,591 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<title>Tug’ilgan kun: Prizma</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,200;0,300;0,400;0,500;1,200;1,300;1,400&amp;family=Sofia+Sans:wght@400;500;600;700;800&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#3D6BFF}
+.is-hidden{display:none}
+.pz-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.pz-s{font-family:'Spectral','Georgia','Times New Roman',serif}
+.pz-sp{background:linear-gradient(90deg,#FF3B5C 0%,#FF8A3D 17%,#F5C21B 33%,#2FCB78 50%,#22B5F0 66%,#3D6BFF 83%,#8A4DFF 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.pz-ab{filter:drop-shadow(-2px 0 rgba(255,59,92,0.45)) drop-shadow(2px 0 rgba(34,181,240,0.5))}
+.pz-kick{display:flex;align-items:center;gap:10px;margin:0;font-family:'Sofia Sans',Arial,sans-serif;font-size:12px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#5B6070}
+.pz-dot{flex:none;width:10px;height:10px;border-radius:50%}
+.pz-h2{margin:10px 0 0;font-family:'Spectral',Georgia,serif;font-weight:300;font-size:42px;line-height:1.05;letter-spacing:-.01em;color:#11141C;overflow-wrap:break-word}
+.pz-h2 i{font-weight:300}
+.pz-lead{margin:10px 0 0;font-size:15px;line-height:1.5;color:#5B6070}
+.pz-glass{background:linear-gradient(135deg,rgba(255,255,255,0.82),rgba(255,255,255,0.46));-webkit-backdrop-filter:blur(16px) saturate(1.4);backdrop-filter:blur(16px) saturate(1.4);border:1px solid rgba(255,255,255,0.95);box-shadow:0 24px 50px rgba(40,50,90,0.12),inset 0 1px 0 #FFFFFF}
+.pz-edge{position:absolute;left:18px;right:18px;top:-1px;height:2px;border-radius:2px;background:linear-gradient(90deg,#FF3B5C,#FF8A3D,#F5C21B,#2FCB78,#22B5F0,#3D6BFF,#8A4DFF)}
+.pz-caus{position:absolute;display:block;border-radius:50%;filter:blur(42px);background:conic-gradient(from 90deg,#FF3B5C,#F5C21B,#2FCB78,#22B5F0,#8A4DFF,#FF3B5C);animation:pz-rot 26s linear infinite}
+@keyframes pz-rot{to{transform:rotate(360deg)}}
+.pz-reed{position:absolute;top:0;bottom:0;background:repeating-linear-gradient(90deg,rgba(255,255,255,0.42) 0 2px,rgba(255,255,255,0.08) 2px 7px,rgba(20,24,40,0.10) 7px 9px,rgba(255,255,255,0.05) 9px 12px);-webkit-backdrop-filter:blur(5px) saturate(1.3);backdrop-filter:blur(5px) saturate(1.3)}
+.pz-mote{position:absolute;display:block;width:3px;height:3px;border-radius:50%;background:#FFFFFF;opacity:.3;animation:pz-mote ease-in-out infinite alternate}
+@keyframes pz-mote{from{transform:translate(0,0);opacity:.1}to{transform:translate(var(--dx),var(--dy));opacity:.55}}
+.pz-shim{animation:pz-shim 6s ease-in-out infinite alternate}
+@keyframes pz-shim{from{opacity:.55}to{opacity:.9}}
+.pz-rise{animation:pz-rise 1s cubic-bezier(.2,.8,.2,1) both;animation-timeline:view();animation-range:entry 5% entry 85%}
+@keyframes pz-rise{from{opacity:0;transform:translateY(28px);filter:blur(6px)}to{opacity:1;transform:none;filter:none}}
+.pz-wipe{animation:pz-wipe 1.3s cubic-bezier(.3,.7,.2,1) both;animation-timeline:view();animation-range:entry 0% entry 75%}
+@keyframes pz-wipe{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
+@keyframes pz-out{from{opacity:1}to{opacity:0}}
+.pz-pS{fill:none;stroke:#FFFFFF;stroke-width:1.4;stroke-linejoin:round}
+.pz-pL{fill:none;stroke:#FFFFFF;stroke-width:.8;opacity:.5}
+.pz-pD{fill:none;stroke:#2A3042;stroke-width:1.2;stroke-linejoin:round;opacity:.55}
+
+/* countdown */
+.pz-tile{position:relative;flex:1;min-width:0;height:118px;border-radius:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;overflow:hidden}
+.pz-num{display:block;font-family:'Spectral',Georgia,serif;font-weight:300;font-size:46px;line-height:1;color:#11141C;font-variant-numeric:lining-nums tabular-nums}
+.pz-num--a{animation:pz-splitA .7s cubic-bezier(.2,.8,.2,1) both}
+.pz-num--b{animation:pz-splitB .7s cubic-bezier(.2,.8,.2,1) both}
+@keyframes pz-splitA{from{opacity:.3;transform:translateY(-8px);filter:drop-shadow(-7px 0 rgba(255,59,92,0.9)) drop-shadow(7px 0 rgba(34,181,240,0.9))}to{opacity:1;transform:none;filter:drop-shadow(0 0 0 rgba(255,59,92,0)) drop-shadow(0 0 0 rgba(34,181,240,0))}}
+@keyframes pz-splitB{from{opacity:.3;transform:translateY(-8px);filter:drop-shadow(-7px 0 rgba(255,59,92,0.9)) drop-shadow(7px 0 rgba(34,181,240,0.9))}to{opacity:1;transform:none;filter:drop-shadow(0 0 0 rgba(255,59,92,0)) drop-shadow(0 0 0 rgba(34,181,240,0))}}
+
+/* wishes: spectral lines */
+.pz-wish{position:relative;display:flex;align-items:center;gap:14px;width:100%;min-height:68px;margin:0;padding:10px 16px 10px 0;border:0;border-bottom:1px solid rgba(17,20,28,0.12);background:transparent;color:#11141C;font:inherit;text-align:left;cursor:pointer;overflow:hidden;box-sizing:border-box}
+.pz-wBar{flex:none;width:6px;align-self:stretch;border-radius:3px;transition:width .6s cubic-bezier(.3,1,.3,1)}
+.pz-wGlow{position:absolute;left:0;top:0;bottom:0;width:100%;opacity:0;transform:scaleX(.1);transform-origin:0 50%;transition:opacity .5s ease,transform .8s cubic-bezier(.3,.8,.2,1)}
+.pz-wish--on .pz-wGlow{opacity:1;transform:none}
+.pz-wish--on .pz-wBar{width:12px}
+.pz-wTx{position:relative;flex:1;min-width:0;font-family:'Spectral',Georgia,serif;font-size:26px;font-weight:300;line-height:1.15;overflow-wrap:anywhere}
+.pz-wNm{position:relative;flex:none;font-size:12px;font-weight:700;letter-spacing:.08em;color:#5B6070;font-variant-numeric:tabular-nums}
+
+/* candle + prism */
+.pz-flame{transform-box:fill-box;transform-origin:50% 100%;animation:pz-fl .8s ease-in-out infinite alternate}
+@keyframes pz-fl{0%{transform:scale(1,1) rotate(-3deg)}100%{transform:scale(.9,1.1) rotate(3deg)}}
+.pz-lit{transition:opacity .6s ease}
+.pz-cake--out .pz-flame{animation:pz-fOut .4s ease-in both}
+@keyframes pz-fOut{to{opacity:0;transform:scale(.2,.1)}}
+.pz-cake--out .pz-lit{opacity:0}
+.pz-smoke{fill:none;stroke:#8A90A2;stroke-width:1.6;stroke-linecap:round;opacity:0}
+.pz-cake--out .pz-smoke{animation:pz-smoke 2.4s ease-out .2s both}
+@keyframes pz-smoke{0%{opacity:0;transform:translateY(0)}20%{opacity:.8}100%{opacity:0;transform:translateY(-34px)}}
+.pz-wline{opacity:0;transform:translateY(10px);transition:opacity .8s ease .5s,transform .8s ease .5s}
+.pz-cake--out .pz-wline{opacity:1;transform:none}
+
+/* secret: frosted glass */
+.pz-sec{position:relative;display:block;width:350px;min-height:250px;margin:0;padding:0;border:0;border-radius:26px;background:none;color:inherit;font:inherit;cursor:pointer;text-align:center}
+.pz-frost{position:absolute;inset:0;border-radius:26px;overflow:hidden;transition:opacity .9s ease .2s,transform 1.1s cubic-bezier(.6,0,.2,1)}
+.pz-sec--on .pz-frost{opacity:0;transform:translateX(110%) skewX(-12deg)}
+.pz-sweep{position:absolute;top:-20%;left:-60%;width:40%;height:140%;background:linear-gradient(100deg,rgba(255,255,255,0),rgba(255,255,255,0.9),rgba(255,255,255,0));transform:skewX(-16deg);opacity:0}
+.pz-sec--on .pz-sweep{animation:pz-sweep 1s ease both}
+@keyframes pz-sweep{0%{opacity:1;transform:translateX(0) skewX(-16deg)}100%{opacity:0;transform:translateX(480%) skewX(-16deg)}}
+
+/* buttons */
+.pz-btn{position:relative;min-height:58px;padding:0 28px;border:0;border-radius:999px;background:#11141C;color:#F7F8FB;font-family:'Sofia Sans',Arial,sans-serif;font-size:16px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;display:inline-flex;align-items:center;justify-content:center;gap:12px;cursor:pointer;box-shadow:0 16px 30px rgba(17,20,28,0.25)}
+.pz-btn::before{content:"";position:absolute;inset:-2px;z-index:-1;border-radius:999px;background:linear-gradient(90deg,#FF3B5C,#FF8A3D,#F5C21B,#2FCB78,#22B5F0,#3D6BFF,#8A4DFF);filter:blur(6px);opacity:.7}
+.pz-btn--done{background:#FFFFFF;color:#11141C;cursor:default}
+.pz-btnL{min-height:52px;padding:0 24px;border:1px solid rgba(17,20,28,0.25);border-radius:999px;background:rgba(255,255,255,0.6);color:#11141C;font-family:'Sofia Sans',Arial,sans-serif;font-size:14px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;display:inline-flex;align-items:center;justify-content:center;gap:10px;cursor:pointer}
+.pz-music{position:absolute;right:16px;top:12px;z-index:5;width:46px;height:46px;border:1px solid rgba(255,255,255,0.95);border-radius:50%;background:rgba(255,255,255,0.6);box-shadow:0 8px 20px rgba(40,50,90,0.12);display:flex;align-items:center;justify-content:center;padding:0;cursor:pointer}
+.pz-music--on{box-shadow:0 0 0 2px #8A4DFF,0 8px 20px rgba(138,77,255,0.3)}
+.pz-row{display:flex;align-items:center;gap:10px}
+.pz-ring{position:absolute;left:50%;top:50%;width:40px;height:40px;margin:-20px 0 0 -20px;border-radius:50%;border:3px solid transparent;background:conic-gradient(#FF3B5C,#F5C21B,#2FCB78,#22B5F0,#8A4DFF,#FF3B5C) border-box;-webkit-mask:radial-gradient(circle,transparent 62%,#000 64%);mask:radial-gradient(circle,transparent 62%,#000 64%);opacity:0;pointer-events:none}
+.pz-burst--go .pz-ring{animation:pz-ring 1.3s cubic-bezier(.2,.8,.2,1) both}
+@keyframes pz-ring{0%{opacity:1;transform:scale(.5)}100%{opacity:0;transform:scale(9)}}
+
+/* intro: switch on the beam */
+.pz-sw{display:flex;align-items:center;gap:16px;width:300px;min-height:64px;padding:0 24px 0 10px;border:1px solid rgba(255,255,255,0.3);border-radius:999px;background:rgba(255,255,255,0.06);color:#F3F4F8;font-family:'Sofia Sans',Arial,sans-serif;font-size:16px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;cursor:pointer;box-sizing:border-box}
+.pz-track{position:relative;flex:none;width:72px;height:42px;border-radius:999px;background:rgba(255,255,255,0.12);box-shadow:inset 0 0 0 1px rgba(255,255,255,0.25);transition:background .4s ease}
+.pz-knob{position:absolute;left:5px;top:5px;width:32px;height:32px;border-radius:50%;background:#7C8194;transition:transform .35s cubic-bezier(.4,1.4,.5,1),background .3s ease,box-shadow .3s ease}
+.pz-intro--on .pz-track{background:linear-gradient(90deg,#FF3B5C,#F5C21B,#2FCB78,#22B5F0,#8A4DFF)}
+.pz-intro--on .pz-knob{transform:translateX(30px);background:#FFFFFF;box-shadow:0 0 18px 4px rgba(255,255,255,0.8)}
+.pz-iBeam{stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset .55s cubic-bezier(.5,0,.6,1) .3s}
+.pz-iIn{stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset .3s linear .85s}
+.pz-intro--on .pz-iBeam,.pz-intro--on .pz-iIn{stroke-dashoffset:0}
+.pz-iFan{transform-origin:215px 330px;transform:scale(0);opacity:0;transition:transform 1s cubic-bezier(.3,.7,.2,1) 1.1s,opacity .4s ease 1.1s}
+.pz-intro--on .pz-iFan{transform:none;opacity:1}
+.pz-iGlow{opacity:0;transition:opacity .6s ease .8s}
+.pz-intro--on .pz-iGlow{opacity:1}
+.pz-iName{clip-path:inset(0 100% 0 0);transition:clip-path 1.2s cubic-bezier(.4,.1,.2,1) 1.75s}
+.pz-intro--on .pz-iName{clip-path:inset(0 -10% 0 0)}
+.pz-iSub{opacity:0;transform:translateY(10px);transition:opacity .6s ease 2.5s,transform .6s ease 2.5s}
+.pz-intro--on .pz-iSub{opacity:1;transform:none}
+.pz-iHide{transition:opacity .4s ease}
+.pz-intro--on .pz-iHide{opacity:0}
+.pz-iSwHide{transition:opacity .5s ease 1s}
+.pz-intro--on .pz-iSwHide{opacity:0}
+.pz-flash{position:absolute;left:195px;top:270px;width:1900px;height:1900px;margin:-950px 0 0 -950px;border-radius:50%;background:radial-gradient(circle,#FFFFFF 0%,#F3F4F8 45%,#F3F4F8 100%);transform:scale(0);pointer-events:none}
+.pz-intro--on .pz-flash{transform:scale(1);transition:transform .9s cubic-bezier(.6,0,.4,1) 3s}
+.pz-intro--on{pointer-events:none;animation:pz-out .6s ease 3.75s both}
+.pz-page--in .pz-pv1{animation:pz-pv 1.1s cubic-bezier(.2,.8,.2,1) 3.7s both}
+.pz-page--in .pz-pv2{animation:pz-pv 1.1s cubic-bezier(.2,.8,.2,1) 3.9s both}
+@keyframes pz-pv{from{opacity:0;transform:translateY(24px);filter:blur(8px)}}
+
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation:none !important;transition:none !important}
+  .pz-intro--on{opacity:0}
+}
+</style>
+</helmet>
+<div style="width: 390px; min-height: var(--vh, 100vh); position: relative; overflow: hidden; background: linear-gradient(180deg, #F7F8FB 0%, #EEF0F6 40%, #F3F4F8 70%, #ECEEF5 100%); color: #11141C; font-family: 'Sofia Sans', Arial, sans-serif">
+
+  <div aria-hidden="true" style="position: absolute; left: 0; top: 0; bottom: 0; width: 390px; pointer-events: none; overflow: hidden">
+    <sc-for list="{{ caus }}" as="c"><span class="pz-caus" style="{{ c }}"></span></sc-for>
+  </div>
+
+  <div class="{{ pageCls }}" style="position: relative; z-index: 1; min-height: var(--vh, 100vh); display: flex; flex-direction: column">
+
+    <section style="position: relative; min-height: 844px; flex: none; padding-bottom: 40px; box-sizing: border-box">
+      <div style="position: relative; height: 60px; padding: 0 20px; display: flex; align-items: center">
+        <p class="pz-kick" style="font-size: 11px"><span class="pz-dot" style="background: conic-gradient(#FF3B5C, #F5C21B, #2FCB78, #22B5F0, #8A4DFF, #FF3B5C)"></span>{{ heroDate }}</p>
+      </div>
+      <sc-if value="{{ has.music }}"><button type="button" class="{{ musicCls }}" onClick="{{ toggleMusic }}" aria-label="Musiqa" aria-pressed="{{ musicOn }}"><svg aria-hidden="true" width="18" height="20" viewBox="0 0 22 26"><path d="M8 3L20 0V17.5A3.5 3 0 1 1 17 14.6V5.2L10 7V20.5A3.5 3 0 1 1 7 17.6V3Z" fill="#11141C"></path></svg></button></sc-if>
+
+      <div class="pz-pv1" aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 390px; height: 470px">
+        <svg width="390" height="470" viewBox="0 0 390 470" style="position: absolute; left: 0; top: 0">
+          <defs>
+            <linearGradient id="pz-hp" x1="0" y1="0" x2="1" y2="1"><stop offset="0" style="stop-color: #FFFFFF; stop-opacity: 0.95"></stop><stop offset="0.55" style="stop-color: #E4E8F3; stop-opacity: 0.6"></stop><stop offset="1" style="stop-color: #C9D0E2; stop-opacity: 0.75"></stop></linearGradient>
+            <linearGradient id="pz-hb" x1="0" y1="0" x2="1" y2="1"><stop offset="0" style="stop-color: #FFFFFF; stop-opacity: 0"></stop><stop offset="1" style="stop-color: #FFFFFF; stop-opacity: 1"></stop></linearGradient>
+          </defs>
+          <path d="M-10 54L159 173" stroke="#FFFFFF" style="stroke-width: 14; opacity: 0.8"></path>
+          <path d="M-10 54L159 173" stroke="#B6BCCB" style="stroke-width: 1.4"></path>
+          <g class="pz-shim" style="mix-blend-mode: multiply">
+            <sc-for list="{{ heroFan }}" as="f"><path d="{{ f.d }}" fill="{{ f.c }}" opacity="0.32"></path></sc-for>
+          </g>
+          <path d="M195 110L115 250L275 250Z" fill="url(#pz-hp)"></path>
+          <path class="pz-pD" d="M195 110L115 250L275 250Z"></path>
+          <path d="M195 116L121 246" stroke="#FFFFFF" style="stroke-width: 2.4; opacity: 0.95"></path>
+          <path class="pz-pD" d="M195 128L150 236M195 128L240 236" style="opacity: 0.18"></path>
+          <path d="M159 173L215 250" stroke="#FFFFFF" style="stroke-width: 2; opacity: 0.9"></path>
+        </svg>
+      </div>
+
+      <div style="position: relative; padding: 290px 20px 0; text-align: center">
+        <sc-if value="{{ yosh }}">
+          <p class="pz-s pz-sp pz-ab" style="margin: 0; font-size: {{ ageFs }}px; font-weight: 200; line-height: 0.9; letter-spacing: -0.02em; font-variant-numeric: lining-nums">{{ yosh }}</p>
+          <p class="pz-kick" style="justify-content: center; margin-top: 4px">yosh</p>
+        </sc-if>
+        <sc-if value="{{ noAge }}"><p class="pz-s pz-sp pz-ab" style="margin: 0; font-size: 92px; font-weight: 200; font-style: italic; line-height: 1">Muborak</p></sc-if>
+        <h1 class="pz-s" style="margin: 18px 0 0; font-size: {{ nameFs }}px; font-weight: 300; font-style: italic; line-height: 1.05; color: #11141C; overflow-wrap: break-word"><span class="pz-sr">{{ srAge }}</span>{{ name }}</h1>
+        <p class="pz-kick" style="justify-content: center; margin-top: 12px; color: #11141C">Tug’ilgan kuning muborak</p>
+      </div>
+
+      <div class="pz-pv2" style="position: relative; margin-top: 28px; padding: 0 20px">
+        <sc-if value="{{ has.photo }}">
+          <div style="position: relative; width: 350px; height: 300px; border-radius: 26px; overflow: hidden; box-shadow: 0 30px 60px rgba(40,50,90,0.18)">
+            <img src="{{ p.0 }}" alt="" style="display: block; width: 350px; height: 300px; object-fit: cover">
+            <span class="pz-reed" aria-hidden="true" style="left: 0; width: 118px"></span>
+            <span aria-hidden="true" style="position: absolute; left: 117px; top: 0; bottom: 0; width: 2px; background: linear-gradient(180deg, #FF3B5C, #F5C21B, #2FCB78, #22B5F0, #8A4DFF); opacity: 0.8"></span>
+          </div>
+        </sc-if>
+        <sc-if value="{{ from.line }}">
+          <div class="pz-glass" style="position: relative; margin: {{ fromMt }} 16px 0; padding: 14px 18px; border-radius: 18px; text-align: center">
+            <span class="pz-edge" aria-hidden="true"></span>
+            <p style="margin: 0; font-size: 14px; font-weight: 600; line-height: 1.4; color: #2A3042; overflow-wrap: anywhere">{{ from.line }}</p>
+          </div>
+        </sc-if>
+      </div>
+    </section>
+
+<sc-if value="{{ b.tabrik }}">
+    <section style="position: relative; padding: 40px 20px 44px">
+      <p class="pz-kick"><span class="pz-dot" style="{{ hd.tabrik.dot }}"></span>{{ hd.tabrik.t }}</p>
+      <h2 class="pz-h2">Nurdan <i>maktub</i></h2>
+      <div class="pz-glass pz-rise" style="position: relative; margin-top: 24px; padding: 28px 22px 26px; border-radius: 26px">
+        <span class="pz-edge" aria-hidden="true"></span>
+        <div style="font-size: 17px; line-height: 1.7; color: #1E2230; overflow-wrap: anywhere">
+          <sc-if value="{{ dropCap }}"><span aria-hidden="true" class="pz-s pz-sp pz-ab" style="float: left; margin: 0 12px 0 0; font-size: 76px; font-weight: 300; font-style: italic; line-height: 0.85">{{ dropCap }}</span></sc-if>
+          <span style="white-space: pre-line"><span class="pz-sr">{{ dropCap }}</span>{{ restText }}</span>
+        </div>
+        <sc-if value="{{ d.kimdan }}">
+          <div style="clear: both; margin-top: 22px; text-align: right">
+            <sc-if value="{{ from.label }}"><p class="pz-kick" style="justify-content: flex-end; font-size: 11px">{{ from.label }}</p></sc-if>
+            <p class="pz-s" style="margin: 4px 0 0; font-size: 26px; font-weight: 300; font-style: italic; line-height: 1.2; overflow-wrap: anywhere">{{ from.names }}</p>
+          </div>
+        </sc-if>
+      </div>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.taymer }}">
+    <section style="position: relative; padding: 40px 20px 44px">
+      <p class="pz-kick"><span class="pz-dot" style="{{ hd.taymer.dot }}"></span>{{ hd.taymer.t }}</p>
+      <h2 class="pz-h2">{{ cdTitle }}</h2>
+      <p class="pz-lead">{{ cdDate }}</p>
+      <div class="pz-rise" style="display: flex; gap: 8px; margin-top: 24px">
+        <sc-for list="{{ tiles }}" as="t">
+          <div class="pz-tile pz-glass">
+            <span aria-hidden="true" style="{{ t.edge }}"></span>
+            <span class="{{ t.cls }}">{{ t.v }}</span>
+            <span style="font-size: 11px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: #5B6070">{{ t.l }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.tilaklar }}">
+    <section style="position: relative; padding: 40px 20px 44px">
+      <p class="pz-kick"><span class="pz-dot" style="{{ hd.tilaklar.dot }}"></span>{{ hd.tilaklar.t }}</p>
+      <h2 class="pz-h2">Tilaklar <i>spektri</i></h2>
+      <p class="pz-lead">Har bir tilak — o’z to’lqin uzunligidagi nur. Teging, u yonadi.</p>
+      <div class="pz-wipe" aria-hidden="true" style="position: relative; margin-top: 22px; height: 46px">
+        <div style="position: absolute; left: 0; right: 0; top: 0; height: 16px; border-radius: 8px; background: linear-gradient(90deg, #8A4DFF, #3D6BFF, #22B5F0, #2FCB78, #F5C21B, #FF8A3D, #FF3B5C)"></div>
+        <sc-for list="{{ ticks }}" as="tk"><span style="{{ tk.st }}">{{ tk.l }}</span></sc-for>
+      </div>
+      <div style="margin-top: 8px; border-top: 1px solid rgba(17,20,28,0.12)">
+        <sc-for list="{{ wishes }}" as="w">
+          <button type="button" class="{{ w.cls }}" onClick="{{ w.tap }}" aria-pressed="{{ w.on }}">
+            <span aria-hidden="true" class="pz-wGlow" style="{{ w.glow }}"></span>
+            <span aria-hidden="true" class="pz-wBar" style="{{ w.bar }}"></span>
+            <span class="pz-wTx">{{ w.text }}</span>
+            <span aria-hidden="true" class="pz-wNm">{{ w.nm }}</span>
+          </button>
+        </sc-for>
+      </div>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.sham }}">
+    <section style="position: relative; padding: 40px 20px 44px; text-align: center">
+      <p class="pz-kick"><span class="pz-dot" style="{{ hd.sham.dot }}"></span>{{ hd.sham.t }}</p>
+      <h2 class="pz-h2" style="text-align: left">Sham va <i>kamalak</i></h2>
+      <p class="pz-lead" style="text-align: left">Sham nuri prizmadan o’tib, kamalak bo’ladi. Niyat qiling va puflang.</p>
+      <div class="{{ cakeCls }}" style="position: relative; width: 350px; height: 300px; margin-top: 14px">
+        <svg aria-hidden="true" width="350" height="300" viewBox="0 0 350 300" style="position: absolute; left: 0; top: 0">
+          <defs>
+            <radialGradient id="pz-cg"><stop offset="0" style="stop-color: #FFE7A8; stop-opacity: 0.9"></stop><stop offset="1" style="stop-color: #FFE7A8; stop-opacity: 0"></stop></radialGradient>
+            <linearGradient id="pz-wax" x1="0" y1="0" x2="1" y2="0"><stop offset="0" style="stop-color: #D9DDE8"></stop><stop offset="0.4" style="stop-color: #FFFFFF"></stop><stop offset="1" style="stop-color: #C3C9D8"></stop></linearGradient>
+          </defs>
+          <path d="M10 250H340" stroke="#11141C" style="stroke-width: 1; opacity: 0.25"></path>
+          <g class="pz-lit">
+            <circle cx="80" cy="128" r="54" fill="url(#pz-cg)"></circle>
+            <path d="M84 132L170 176" stroke="#FFF3D0" style="stroke-width: 6; opacity: 0.6"></path>
+            <path d="M84 132L170 176" stroke="#E8B54A" style="stroke-width: 1.2"></path>
+            <g style="mix-blend-mode: multiply"><sc-for list="{{ miniFan }}" as="f"><path d="{{ f.d }}" fill="{{ f.c }}" opacity="0.5"></path></sc-for></g>
+          </g>
+          <rect x="62" y="150" width="36" height="100" rx="4" fill="url(#pz-wax)" stroke="#AEB4C4" style="stroke-width: 1"></rect>
+          <path d="M80 150V138" stroke="#2A3042" style="stroke-width: 1.6"></path>
+          <path class="pz-flame" d="M80 104C88 116 91 126 87 134C84 140 76 140 73 134C69 126 72 116 80 104Z" fill="#FFC94A"></path>
+          <path class="pz-flame" d="M80 118C83 124 84 128 82 132C81 134 79 134 78 132C76 128 77 124 80 118Z" fill="#FF7A2B"></path>
+          <path class="pz-smoke" d="M80 136C74 126 86 120 80 110C75 102 83 96 80 86"></path>
+          <path d="M190 150L150 250H230Z" fill="rgba(255,255,255,0.7)" stroke="#2A3042" style="stroke-width: 1.1; opacity: 0.9"></path>
+          <path d="M190 156L156 246" stroke="#FFFFFF" style="stroke-width: 2"></path>
+        </svg>
+        <p class="pz-wline pz-s pz-sp pz-ab" style="position: absolute; left: 0; top: 0; width: 350px; margin: 0; font-size: {{ wishFs }}px; font-weight: 300; font-style: italic; line-height: 1.15; text-align: left; overflow-wrap: break-word">{{ wishLine }}</p>
+      </div>
+      <button type="button" class="pz-btnL" onClick="{{ blow }}" style="margin-top: 10px"><span class="{{ blowIdle }}">Puflash</span><span class="{{ blowDone }}">Shamni qayta yoqish</span></button>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.sirli }}">
+    <section style="position: relative; padding: 40px 20px 44px">
+      <p class="pz-kick"><span class="pz-dot" style="{{ hd.sirli.dot }}"></span>{{ hd.sirli.t }}</p>
+      <h2 class="pz-h2">Xira oyna <i>ortida</i></h2>
+      <p class="pz-lead" style="margin-bottom: 22px">Oynaga teging — u tiniqlashib, sirli tilakni ko’rsatadi.</p>
+      <button type="button" class="{{ secCls }}" onClick="{{ toggleSec }}" aria-label="Sirli tilakni ochish">
+        <div class="pz-glass" style="position: relative; min-height: 250px; padding: 34px 26px; border-radius: 26px; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden">
+          <span class="pz-edge" aria-hidden="true"></span>
+          <span aria-hidden="true" class="pz-caus" style="left: -60px; top: -40px; width: 200px; height: 200px; opacity: 0.35"></span>
+          <span class="pz-kick" style="position: relative; justify-content: center">Sirli tilak</span>
+          <span class="pz-s" style="position: relative; margin-top: 12px; font-size: {{ secFs }}px; font-weight: 300; font-style: italic; line-height: 1.35; color: #11141C; white-space: pre-line; overflow-wrap: anywhere">{{ d.sirli_tilak }}</span>
+        </div>
+        <div class="pz-frost" aria-hidden="true">
+          <span style="position: absolute; inset: 0; background: rgba(240,242,248,0.55); -webkit-backdrop-filter: blur(14px) saturate(1.3); backdrop-filter: blur(14px) saturate(1.3)"></span>
+          <span class="pz-reed" style="left: 0; right: 0"></span>
+          <span style="position: absolute; left: 0; right: 0; top: 50%; margin-top: -26px; display: flex; flex-direction: column; align-items: center; gap: 8px">
+            <svg width="34" height="30" viewBox="0 0 34 30"><path d="M17 2L32 28H2Z" fill="none" stroke="#11141C" style="stroke-width: 1.6"></path><path d="M0 14L13 17" stroke="#11141C" style="stroke-width: 1.4"></path></svg>
+            <span style="font-size: 13px; font-weight: 800; letter-spacing: 0.24em; text-transform: uppercase; color: #11141C">Bosing</span>
+          </span>
+        </div>
+        <span aria-hidden="true" class="pz-sweep"></span>
+      </button>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.galereya }}">
+    <section style="position: relative; padding: 40px 20px 44px">
+      <p class="pz-kick"><span class="pz-dot" style="{{ hd.galereya.dot }}"></span>{{ hd.galereya.t }}</p>
+      <h2 class="pz-h2">Yorug’lik <i>suratlari</i></h2>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 24px">
+        <sc-for list="{{ gal }}" as="g">
+          <div class="pz-rise" style="{{ g.box }}">
+            <img src="{{ g.src }}" alt="" style="{{ g.img }}">
+            <sc-if value="{{ g.reed }}"><span class="pz-reed" aria-hidden="true" style="{{ g.reed }}"></span></sc-if>
+            <span aria-hidden="true" style="position: absolute; left: 0; right: 0; bottom: 0; height: 3px; background: linear-gradient(90deg, #FF3B5C, #F5C21B, #2FCB78, #22B5F0, #8A4DFF); opacity: 0.85"></span>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.xronika }}">
+    <section style="position: relative; padding: 40px 20px 44px">
+      <p class="pz-kick"><span class="pz-dot" style="{{ hd.xronika.dot }}"></span>{{ hd.xronika.t }}</p>
+      <h2 class="pz-h2">Yillar <i>nuri</i></h2>
+      <div style="position: relative; margin-top: 26px; padding-left: 34px">
+        <div aria-hidden="true" style="position: absolute; left: 10px; top: 6px; bottom: 6px; width: 3px; border-radius: 2px; background: linear-gradient(180deg, #FF3B5C, #FF8A3D, #F5C21B, #2FCB78, #22B5F0, #3D6BFF, #8A4DFF); box-shadow: 0 0 14px rgba(138,77,255,0.35)"></div>
+        <sc-for list="{{ chron }}" as="c">
+          <div class="pz-rise" style="position: relative; padding-bottom: 26px">
+            <span aria-hidden="true" style="{{ c.node }}"></span>
+            <p class="pz-s pz-ab" style="margin: 0; font-size: {{ c.fs }}px; font-weight: 200; font-style: italic; line-height: 1; color: {{ c.col }}">{{ c.yosh }} <span style="font-family: 'Sofia Sans', Arial, sans-serif; font-style: normal; font-size: 12px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: #5B6070">yosh</span></p>
+            <div class="pz-glass" style="position: relative; margin-top: 10px; padding: 12px 14px; border-radius: 18px; display: flex; align-items: center; gap: 12px">
+              <sc-if value="{{ has.photo }}"><img src="{{ c.src }}" alt="" style="flex: none; display: block; width: 64px; height: 64px; border-radius: 14px; object-fit: cover"></sc-if>
+              <p style="margin: 0; min-width: 0; font-size: 16px; font-weight: 600; line-height: 1.35; overflow-wrap: anywhere">{{ c.matn }}</p>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.mehmonlar }}">
+    <section style="position: relative; padding: 40px 20px 44px">
+      <p class="pz-kick"><span class="pz-dot" style="{{ hd.mehmonlar.dot }}"></span>{{ hd.mehmonlar.t }}</p>
+      <h2 class="pz-h2">Yaqinlar <i>so’zi</i></h2>
+      <div style="margin-top: 24px; display: flex; flex-direction: column; gap: 14px">
+        <sc-for list="{{ reviews }}" as="r">
+          <div class="pz-glass pz-rise" style="{{ r.st }}">
+            <span aria-hidden="true" style="{{ r.bar }}"></span>
+            <p class="pz-s" aria-hidden="true" style="position: absolute; right: 16px; top: -6px; margin: 0; font-size: 80px; font-weight: 200; line-height: 1; color: {{ r.col }}; opacity: 0.45">”</p>
+            <p style="position: relative; margin: 0; font-size: 16px; line-height: 1.55; color: #1E2230; overflow-wrap: anywhere">{{ r.matn }}</p>
+            <p class="pz-s" style="position: relative; margin: 10px 0 0; font-size: 19px; font-weight: 400; font-style: italic; color: #11141C; overflow-wrap: anywhere">{{ r.ism }}</p>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.javob }}">
+    <section style="position: relative; padding: 40px 20px 50px; text-align: center">
+      <p class="pz-kick" style="justify-content: center"><span class="pz-dot" style="{{ hd.javob.dot }}"></span>{{ hd.javob.t }}</p>
+      <h2 class="pz-h2" style="font-size: 34px">{{ askName }}</h2>
+      <p class="pz-lead" style="margin-bottom: 30px">Bir bosishda tabrigingizni yetkazing</p>
+      <div style="position: relative; width: 300px; margin: 0 auto">
+        <div class="{{ burstCls }}" aria-hidden="true" style="position: absolute; left: 150px; top: 29px; width: 0; height: 0">
+          <span class="pz-ring"></span><span class="pz-ring" style="animation-delay: 0.18s"></span><span class="pz-ring" style="animation-delay: 0.36s"></span>
+        </div>
+        <button type="button" class="{{ sendCls }}" onClick="{{ send }}" style="width: 300px">
+          <span class="{{ sendIdle }}"><svg aria-hidden="true" width="22" height="20" viewBox="0 0 22 20"><path d="M11 2L20 18H2Z" fill="none" stroke="#F7F8FB" style="stroke-width: 1.6"></path></svg>Tabrikladim</span>
+          <span class="{{ sendDone }}"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 20 20"><path d="M4 10.5l4 4 8-9" fill="none" stroke="#11141C" style="stroke-width: 2; stroke-linecap: round; stroke-linejoin: round"></path></svg>Rahmat, yetkazildi</span>
+        </button>
+      </div>
+    </section>
+</sc-if>
+
+    <footer style="position: relative; flex: 1; min-height: 190px; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; padding: 0 20px 30px; box-sizing: border-box; text-align: center">
+      <svg aria-hidden="true" width="120" height="60" viewBox="0 0 120 60" style="position: relative; margin-bottom: 14px">
+        <path d="M0 26L44 30" stroke="#B6BCCB" style="stroke-width: 1.4"></path>
+        <path d="M60 6L38 50H82Z" fill="rgba(255,255,255,0.8)" stroke="#2A3042" style="stroke-width: 1"></path>
+        <sc-for list="{{ footFan }}" as="f"><path d="{{ f.d }}" fill="{{ f.c }}" opacity="0.7"></path></sc-for>
+      </svg>
+      <p class="pz-s" style="position: relative; margin: 0; font-size: {{ footFs }}px; font-weight: 300; font-style: italic; line-height: 1.1; overflow-wrap: break-word">{{ name }}</p>
+      <p class="pz-kick" style="position: relative; justify-content: center; margin-top: 10px; font-size: 11px">{{ footLine }}</p>
+    </footer>
+  </div>
+
+  <div data-intro class="{{ introCls }}" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; z-index: 20; overflow: hidden; background: #07080D">
+    <div aria-hidden="true" style="position: absolute; inset: 0; background: radial-gradient(70% 45% at 50% 34%, #161A2A 0%, #0B0D16 60%, #06070B 100%)"></div>
+    <div aria-hidden="true" class="pz-iGlow" style="position: absolute; inset: 0; background: radial-gradient(40% 26% at 50% 32%, rgba(220,230,255,0.16), rgba(220,230,255,0) 70%)"></div>
+    <div aria-hidden="true">
+      <sc-for list="{{ motes }}" as="m"><span class="pz-mote" style="{{ m }}"></span></sc-for>
+    </div>
+    <sc-if value="{{ has.music }}"><div aria-hidden="true" class="pz-iHide" style="position: absolute; right: 20px; top: 22px; display: flex; align-items: center; gap: 6px"><svg width="12" height="14" viewBox="0 0 22 26"><path d="M8 3L20 0V17.5A3.5 3 0 1 1 17 14.6V5.2L10 7V20.5A3.5 3 0 1 1 7 17.6V3Z" fill="#9AA0B4"></path></svg><span style="font-size: 10px; font-weight: 700; letter-spacing: 0.24em; text-transform: uppercase; color: #9AA0B4">Musiqa bilan</span></div></sc-if>
+    <div class="pz-iHide" style="position: absolute; left: 24px; top: 22px; width: 260px">
+      <p class="pz-kick" style="font-size: 11px; color: #9AA0B4">{{ introCap }}</p>
+    </div>
+    <div class="pz-iHide" style="position: absolute; left: 24px; top: 70px; width: 342px">
+      <p class="pz-s" style="margin: 0; font-size: 40px; font-weight: 300; line-height: 1.05; color: #E9ECF5">Qorong’i xona,<br><i>bitta prizma.</i></p>
+    </div>
+
+    <svg aria-hidden="true" width="390" height="844" viewBox="0 0 390 844" style="position: absolute; left: 0; top: 0">
+      <defs>
+        <linearGradient id="pz-ig" x1="0" y1="0" x2="1" y2="1"><stop offset="0" style="stop-color: #FFFFFF; stop-opacity: 0.22"></stop><stop offset="1" style="stop-color: #9FB0FF; stop-opacity: 0.06"></stop></linearGradient>
+        <linearGradient id="pz-igl" x1="0" y1="0" x2="1" y2="1"><stop offset="0" style="stop-color: #FFFFFF; stop-opacity: 0.55"></stop><stop offset="1" style="stop-color: #C8D2FF; stop-opacity: 0.18"></stop></linearGradient>
+      </defs>
+      <g class="pz-iFan" style="mix-blend-mode: screen">
+        <sc-for list="{{ introFan }}" as="f"><path d="{{ f.d }}" fill="{{ f.c }}" opacity="0.62"></path></sc-for>
+      </g>
+      <path class="pz-iBeam" pathLength="1" d="M-10 140L159 253" stroke="#FFFFFF" style="stroke-width: 12; opacity: 0.18"></path>
+      <path class="pz-iBeam" pathLength="1" d="M-10 140L159 253" stroke="#FFFFFF" style="stroke-width: 2.6"></path>
+      <path d="M195 190L115 330L275 330Z" fill="url(#pz-ig)"></path>
+      <path class="pz-iGlow" d="M195 190L115 330L275 330Z" fill="url(#pz-igl)"></path>
+      <path class="pz-pS" d="M195 190L115 330L275 330Z" style="opacity: 0.7"></path>
+      <path class="pz-pL" d="M195 204L130 318M195 204L260 318"></path>
+      <path class="pz-iIn" pathLength="1" d="M159 253L215 330" stroke="#FFFFFF" style="stroke-width: 2.4"></path>
+      <path d="M90 640H300" stroke="#FFFFFF" style="stroke-width: 1; opacity: 0.12"></path>
+    </svg>
+
+    <div aria-hidden="true" style="position: absolute; left: 10px; top: 520px; width: 370px; text-align: center">
+      <p class="pz-s pz-sp pz-iName" style="margin: 0; font-size: {{ iNameFs }}px; font-weight: 300; font-style: italic; line-height: 1.1; overflow-wrap: break-word; filter: drop-shadow(0 0 14px rgba(255,255,255,0.25))">{{ name }}</p>
+      <p class="pz-iSub" style="margin: 12px 0 0; font-size: 13px; font-weight: 700; letter-spacing: 0.24em; text-transform: uppercase; color: #C9CEDC">{{ introSub }}</p>
+    </div>
+
+    <div class="pz-iSwHide" style="position: absolute; left: 45px; top: 708px; width: 300px; display: flex; flex-direction: column; align-items: center; gap: 12px">
+      <p class="pz-iHide" style="margin: 0 0 4px; font-size: 14px; line-height: 1.4; color: #9AA0B4; text-align: center">Nurni yoqing — prizmadan o’tgan spektr ismingni yozadi</p>
+      <button type="button" class="pz-sw" onClick="{{ open }}">
+        <span aria-hidden="true" class="pz-track"><span class="pz-knob"></span></span>
+        Nurni yoqing
+      </button>
+    </div>
+    <div class="pz-flash" aria-hidden="true"></div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":6600}}'>
+const tkName = (d) => String(d.kimga || '').trim();
+const tkFrom = (d) => {
+  const kd = String(d.kimdan || '').trim(), ci = kd.indexOf(':');
+  const label = ci > 0 ? kd.slice(0, ci).trim() : '';
+  const names = ci > 0 ? kd.slice(ci + 1).trim() : kd;
+  return { label: label, names: names, line: !kd ? '' : (label ? label + 'dan: ' + names : names + 'dan') };
+};
+const tkFit = (text, max, min, width, k) => {
+  const longest = Math.max(1, ...String(text || '').split(/\s+/).map((x) => x.length));
+  return Math.max(min, Math.min(max, Math.floor(width / (longest * k))));
+};
+const ORDER = ['tabrik', 'taymer', 'tilaklar', 'sham', 'sirli', 'galereya', 'xronika', 'mehmonlar', 'javob'];
+const TABN = { tabrik: 'Tabrik', taymer: 'Taymer', tilaklar: 'Tilaklar', sham: 'Sham', sirli: 'Sirli tilak', galereya: 'Suratlar', xronika: 'Xronika', mehmonlar: 'Yaqinlar', javob: 'Tabrik' };
+const SPEC = ['#FF3B5C', '#FF8A3D', '#F5C21B', '#2FCB78', '#22B5F0', '#3D6BFF', '#8A4DFF'];
+const rnd = (i, k) => { const x = Math.sin(i * 127.1 + k * 311.7) * 43758.5453; return x - Math.floor(x); };
+/* wavelength (nm) to a display colour */
+const wl = (l) => {
+  let r = 0, g = 0, b = 0;
+  if (l < 440) { r = (440 - l) / 60; b = 1; } else if (l < 490) { g = (l - 440) / 50; b = 1; } else if (l < 510) { g = 1; b = (510 - l) / 20; } else if (l < 580) { r = (l - 510) / 70; g = 1; } else if (l < 645) { r = 1; g = (645 - l) / 65; } else { r = 1; }
+  const h = (v) => Math.round(Math.max(0, Math.min(1, v)) * 225 + 20).toString(16).padStart(2, '0');
+  return '#' + h(r) + h(g) + h(b);
+};
+/* a dispersion fan from point q to a line y = wy spanning x0..x1 */
+const fan = (qx, qy, x0, x1, wy, spread) => SPEC.map((c, i) => {
+  const a = x0 + (x1 - x0) * i / 7, b = x0 + (x1 - x0) * (i + 1) / 7;
+  return { c: c, d: 'M' + qx + ' ' + qy + 'L' + (a - spread).toFixed(1) + ' ' + wy + 'L' + (b + spread).toFixed(1) + ' ' + wy + 'Z' };
+});
+
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { opened: false, blown: false, sec: false, sent: false, wOn: {} };
+    this.tick = 0;
+    this.deco = {
+      caus: [[-120, 520, 300, 0.22], [230, 1500, 260, 0.2], [-130, 2600, 300, 0.2], [240, 3600, 280, 0.18], [-110, 4700, 280, 0.2], [220, 5700, 260, 0.18]].map((c, i) => 'left: ' + c[0] + 'px; top: ' + c[1] + 'px; width: ' + c[2] + 'px; height: ' + c[2] + 'px; opacity: ' + c[3] + '; animation-delay: -' + (i * 4) + 's'),
+      motes: Array.from({ length: 26 }, (_, i) => 'left: ' + Math.round(10 + rnd(i, 3) * 370) + 'px; top: ' + Math.round(30 + rnd(i, 4) * 780) + 'px; --dx: ' + Math.round((rnd(i, 5) - 0.5) * 40) + 'px; --dy: ' + Math.round((rnd(i, 6) - 0.5) * 40) + 'px; animation-duration: ' + (4 + rnd(i, 7) * 4).toFixed(1) + 's; animation-delay: -' + (rnd(i, 8) * 4).toFixed(1) + 's'),
+      introFan: fan(215, 330, 14, 376, 640, 1.5),
+      heroFan: fan(215, 250, 6, 384, 470, 1.5),
+      miniFan: fan(210, 200, 250, 344, 250, 0.5).map((f, i) => ({ c: f.c, d: 'M210 200L' + (262 + i * 11) + ' 250L' + (273 + i * 11) + ' 250Z' })),
+      footFan: SPEC.map((c, i) => ({ c: c, d: 'M70 30L120 ' + (16 + i * 5) + 'L120 ' + (21 + i * 5) + 'Z' }))
+    };
+  }
+  componentDidMount() {
+    this.timer = setInterval(() => { this.prevCd = this.lastCd; this.tick += 1; this.forceUpdate(); }, 1000);
+  }
+  componentWillUnmount() {
+    clearInterval(this.timer);
+  }
+  renderVals() {
+    const s = this.state;
+    const D = SITE.d;
+    const name = tkName(D), from = tkFrom(D);
+    const w = SITE.when(D.sana);
+    const c = SITE.countdown(D.sana);
+    const yosh = String(D.yosh || '').trim();
+    const hd = {};
+    let k = 0;
+    ORDER.forEach((key) => {
+      if (SITE.b[key]) { const nm = 700 - (k % 7) * 50; hd[key] = { t: '0' + (k + 1) + ' · ' + TABN[key] + ' · ' + nm + ' nm', dot: 'background: ' + SPEC[k % 7] + '; box-shadow: 0 0 10px ' + SPEC[k % 7] }; k += 1; } else hd[key] = { t: '', dot: '' };
+    });
+    const cur = [String(c.d), c.hh, c.mm, c.ss];
+    const prev = this.prevCd || cur;
+    this.lastCd = cur;
+    const L = ['kun', 'soat', 'daqiqa', 'soniya'];
+    const tiles = cur.map((v, i) => ({ v: v, l: L[i], edge: 'position: absolute; left: 14px; right: 14px; top: -1px; height: 2px; border-radius: 2px; background: ' + [SPEC[0], SPEC[2], SPEC[4], SPEC[6]][i], cls: v !== prev[i] ? (this.tick % 2 ? 'pz-num pz-num--a' : 'pz-num pz-num--b') : 'pz-num' }));
+    const matn = String(D.matn || '').trim();
+    const list = D.tilaklar || [];
+    const nW = list.length;
+    const lam = list.map((_, i) => Math.round((nW > 1 ? 690 - i * (270 / (nW - 1)) : 560) / 5) * 5);
+    const wishes = list.map((t, i) => {
+      const on = !!s.wOn[i], col = wl(lam[i]);
+      return {
+        text: t, nm: lam[i] + ' nm', on: on ? 'true' : 'false', cls: on ? 'pz-wish pz-wish--on' : 'pz-wish',
+        bar: 'background: ' + col + '; box-shadow: 0 0 ' + (on ? 18 : 8) + 'px ' + col,
+        glow: 'background: linear-gradient(90deg, ' + col + '55, ' + col + '1A 60%, rgba(255,255,255,0))',
+        tap: () => { const m = Object.assign({}, this.state.wOn); m[i] = !m[i]; this.setState({ wOn: m }); }
+      };
+    });
+    const ticks = lam.map((l, i) => {
+      const x = (l - 400) / 300 * 350;
+      return { l: l, st: 'position: absolute; left: ' + Math.round(Math.min(332, Math.max(0, x - 12))) + 'px; top: 20px; width: 24px; text-align: center; font-size: 10px; font-weight: 700; color: #5B6070; border-top: 2px solid #11141C; padding-top: 4px; font-variant-numeric: tabular-nums' };
+    });
+    const n = Math.min(6, SITE.has.photos);
+    const gp = n > 1 ? SITE.p.slice(1, n).concat([SITE.p[0]]) : SITE.p.slice(0, 1);
+    const gal = gp.map((src, i) => {
+      const big = i === 0 || (i === gp.length - 1 && gp.length % 2 === 0);
+      const ht = big ? 260 : (i % 4 === 1 || i % 4 === 2 ? 210 : 170);
+      return {
+        src: src,
+        box: 'position: relative; border-radius: 20px; overflow: hidden; box-shadow: 0 20px 40px rgba(40,50,90,0.14)' + (big ? '; grid-column: 1 / -1' : ''),
+        img: 'display: block; width: 100%; height: ' + ht + 'px; object-fit: cover',
+        reed: big ? (i === 0 ? 'right: 0; width: 34%' : 'left: 0; width: 30%') : ''
+      };
+    });
+    const chron = (D.xronika || []).map((x, i, arr) => {
+      const y = String(x.yosh || '').trim(), col = SPEC[Math.round(i * 6 / Math.max(1, arr.length - 1))];
+      return {
+        yosh: y, matn: x.matn || '', col: col, fs: y.length > 3 ? 34 : 52, src: SITE.p[i % SITE.p.length],
+        node: 'position: absolute; left: -31px; top: 16px; width: 14px; height: 14px; border-radius: 50%; background: #FFFFFF; box-shadow: 0 0 0 3px ' + col + ', 0 0 16px ' + col
+      };
+    });
+    const reviews = (D.mehmon_tilaklari || []).map((r, i) => {
+      const col = SPEC[(i * 2) % 7];
+      return {
+        ism: r.ism || '', matn: r.matn || '', col: col,
+        st: 'position: relative; padding: 20px 20px 18px 24px; border-radius: 22px; overflow: hidden; ' + (i % 2 ? 'margin-left: 20px' : 'margin-right: 20px'),
+        bar: 'position: absolute; left: 0; top: 16px; bottom: 16px; width: 4px; border-radius: 0 4px 4px 0; background: ' + col + '; box-shadow: 0 0 12px ' + col
+      };
+    });
+    const sec = String(D.sirli_tilak || '');
+    const wline = 'Niyating ushalsin, ' + name + '!';
+    return Object.assign({}, this.deco, {
+      name: name, from: from, hd: hd, yosh: yosh, noAge: !yosh,
+      srAge: yosh ? yosh + ' yosh. ' : '',
+      ageFs: yosh.length > 2 ? 140 : 190,
+      nameFs: tkFit(name, 60, 28, 350, 0.52),
+      iNameFs: tkFit(name, 66, 30, 360, 0.52),
+      footFs: tkFit(name, 44, 24, 340, 0.52),
+      heroDate: [w.date, w.weekday].filter(Boolean).join(' · '),
+      fromMt: SITE.has.photo ? '-34px' : '0',
+      musicCls: SITE.music.playing ? 'pz-music pz-music--on' : 'pz-music',
+      musicOn: SITE.music.playing ? 'true' : 'false',
+      toggleMusic: () => { SITE.music.toggle(); },
+      dropCap: matn.charAt(0),
+      restText: matn.slice(1),
+      cdTitle: c.done ? 'Bayram boshlandi!' : 'Bayramgacha',
+      cdDate: [w.date, w.weekday].filter(Boolean).join(', '),
+      tiles: tiles,
+      wishes: wishes, ticks: ticks,
+      cakeCls: s.blown ? 'pz-cake--out' : '',
+      wishLine: wline,
+      wishFs: tkFit(wline, 34, 22, 350, 0.5),
+      blowIdle: s.blown ? 'is-hidden' : '',
+      blowDone: s.blown ? '' : 'is-hidden',
+      blow: () => this.setState({ blown: !this.state.blown }),
+      secCls: s.sec ? 'pz-sec pz-sec--on' : 'pz-sec',
+      secFs: sec.length > 160 ? 17 : sec.length > 100 ? 19 : 23,
+      toggleSec: () => this.setState({ sec: !this.state.sec }),
+      gal: gal,
+      chron: chron,
+      reviews: reviews,
+      askName: name + 'ni tabrikladingizmi?',
+      sendCls: s.sent ? 'pz-btn pz-btn--done' : 'pz-btn',
+      sendIdle: s.sent ? 'is-hidden' : 'pz-row',
+      sendDone: s.sent ? 'pz-row' : 'is-hidden',
+      burstCls: s.sent ? 'pz-burst pz-burst--go' : 'pz-burst',
+      send: () => { if (this.state.sent) return; this.setState({ sent: true }); SITE.reply('Tabrikladim', '🥰'); },
+      footLine: [yosh ? yosh + ' yosh' : '', w.dots].filter(Boolean).join(' · '),
+      introCap: [w.dm, w.weekday].filter(Boolean).join(' · ') || 'Tug’ilgan kun',
+      introSub: yosh ? yosh + ' yoshing muborak' : 'Tug’ilgan kuning muborak',
+      introCls: s.opened ? 'pz-intro pz-intro--on' : 'pz-intro',
+      pageCls: s.opened ? 'pz-page pz-page--in' : 'pz-page',
+      open: () => { if (this.state.opened) return; this.setState({ opened: true }); SITE.opened(); }
+    });
+  }
+}
+</script>
+</body>
+</html>

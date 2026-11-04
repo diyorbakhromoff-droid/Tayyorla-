@@ -1,0 +1,829 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<title>Farzand VIP: Baxt ob-havosi</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geologica:wght@200;300;400;500;600&amp;family=Inter:wght@400;500;600&amp;display=swap">
+<style>
+body{margin:0;background:#173A8A}
+.ob{--s1:#163785;--s2:#2253B9;--s3:#2E66CC;--s4:#3A58B4;--s5:#55479A;--s6:#1C1F4D;--acc:#FFC94A;--acc2:#FF9F5A;--tint:#8EC2FF}
+.ob.is-qiz{--s1:#5A2266;--s2:#86367A;--s3:#9E4387;--s4:#8A4796;--s5:#663D92;--s6:#281C4C;--acc:#FFC66B;--acc2:#FF8FA3;--tint:#FFB8D6}
+.ob-sky{background:linear-gradient(180deg,var(--s1) 0%,var(--s2) 12%,var(--s3) 34%,var(--s4) 62%,var(--s5) 84%,var(--s6) 100%)}
+.ob-dawn{background:radial-gradient(ellipse 80% 38% at 50% 42%,rgba(255,214,140,.28) 0%,rgba(255,214,140,0) 70%),linear-gradient(180deg,var(--s1) 0%,var(--s2) 70%,var(--s3) 100%)}
+.ob-disp{font-family:'Geologica','Inter',system-ui,sans-serif}
+.ob-card{position:relative;box-sizing:border-box;border-radius:26px;background:rgba(8,20,62,.24);border:1px solid rgba(255,255,255,.17);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+.ob-lbl{display:flex;align-items:center;gap:8px;margin:0;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.82)}
+.ob-lbl svg{flex:none}
+.ob-h2{margin:6px 0 0;font-family:'Geologica','Inter',system-ui,sans-serif;font-weight:300;font-size:34px;line-height:1.1;letter-spacing:-.01em;color:#FFFFFF}
+.ob-ic{fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.ob-sun{fill:var(--acc)}
+.ob-sunr{fill:none;stroke:var(--acc);stroke-width:5;stroke-linecap:round}
+.ob-cl{fill:#FFFFFF}
+.ob-cl2{fill:#DCE8FF}
+.ob-rb{fill:none;stroke-width:10;stroke-linecap:round;opacity:.9}
+.ob-rb1{stroke:#FF8E86}.ob-rb2{stroke:#FFBE6E}.ob-rb3{stroke:#FFE58C}.ob-rb4{stroke:#A6E7B4}.ob-rb5{stroke:#94CFFF}.ob-rb6{stroke:#BFAEFF}
+.ob-arc{fill:none;stroke:rgba(255,255,255,.35);stroke-width:2;stroke-dasharray:3 6;stroke-linecap:round}
+.ob-arcf{fill:none;stroke:var(--acc);stroke-width:3;stroke-linecap:round}
+.ob-gtr{fill:none;stroke:rgba(255,255,255,.18);stroke-width:12;stroke-linecap:round}
+.ob-gfl{fill:none;stroke:var(--acc);stroke-width:12;stroke-linecap:round}
+.ob-tk{fill:none;stroke:rgba(255,255,255,.55);stroke-width:1.4}
+.ob-nd{fill:none;stroke:#FFFFFF;stroke-width:3;stroke-linecap:round}
+.ob-wh{fill:#FFFFFF}
+.ob-st{fill:#FFFFFF}
+.ob-btn{cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .15s ease,background-color .2s ease,opacity .2s ease}
+.ob-btn:active{transform:scale(.97)}
+.ob-btn:focus-visible{outline:3px solid var(--acc);outline-offset:3px}
+.ob-scroll{scrollbar-width:none}
+.ob-scroll::-webkit-scrollbar{display:none}
+
+.ob-rays{transform-origin:195px 245px;animation:obSpin 60s linear infinite}
+@keyframes obSpin{to{transform:rotate(360deg)}}
+.ob-drift{animation:obDrift 14s ease-in-out infinite}
+.ob-drift2{animation:obDrift 18s ease-in-out -6s infinite reverse}
+@keyframes obDrift{0%,100%{transform:translateX(0)}50%{transform:translateX(16px)}}
+.ob-glow{animation:obGlow 4.5s ease-in-out infinite}
+@keyframes obGlow{0%,100%{opacity:.55;transform:scale(1)}50%{opacity:.85;transform:scale(1.06)}}
+.ob-tw{animation:obTw 3.2s ease-in-out infinite}
+@keyframes obTw{0%,100%{opacity:.3}50%{opacity:1}}
+.ob-flip{animation:obFlip .5s cubic-bezier(.3,.7,.4,1)}
+@keyframes obFlip{from{opacity:.2;transform:translateY(-10px)}to{opacity:1;transform:none}}
+.ob-wave span{transform-origin:50% 50%}
+.ob-wave.is-playing span{animation:obWave 1.1s ease-in-out infinite}
+.ob-wave.is-playing span:nth-child(3n){animation-delay:.18s}
+.ob-wave.is-playing span:nth-child(3n+1){animation-delay:.36s}
+.ob-wave.is-playing span:nth-child(4n){animation-delay:.54s}
+@keyframes obWave{0%,100%{transform:scaleY(.45)}50%{transform:scaleY(1)}}
+.ob-burst span{position:absolute;left:50%;top:50%;display:block;opacity:0}
+.ob-burst.is-on span{animation:obBurst 1.2s cubic-bezier(.2,.7,.3,1) forwards}
+@keyframes obBurst{0%{opacity:1;transform:translate(-50%,-50%) rotate(var(--a)) translateY(0) scaleY(.4)}100%{opacity:0;transform:translate(-50%,-50%) rotate(var(--a)) translateY(-120px) scaleY(1)}}
+
+/* intro */
+.ob-intro{transition:opacity .9s ease,transform .9s ease}
+.ob-intro.is-fade{opacity:0;transform:scale(1.04);pointer-events:none}
+.ob-intro.is-go{pointer-events:none}
+.ob-i-sun{transform-origin:195px 245px;transform:translateY(46px) scale(.62);opacity:.55;transition:transform 1.3s cubic-bezier(.2,.8,.2,1),opacity 1s ease}
+.ob-intro.is-sun .ob-i-sun{transform:none;opacity:1}
+.ob-i-rays{opacity:0;transition:opacity 1s ease .5s}
+.ob-intro.is-sun .ob-i-rays{opacity:1}
+.ob-i-rb{stroke-dasharray:480;stroke-dashoffset:480}
+.ob-intro.is-sun .ob-i-rb{transition:stroke-dashoffset 1.4s cubic-bezier(.4,0,.2,1);stroke-dashoffset:0}
+.ob-intro.is-sun .ob-i-rb.d2{transition-delay:.08s}.ob-intro.is-sun .ob-i-rb.d3{transition-delay:.16s}.ob-intro.is-sun .ob-i-rb.d4{transition-delay:.24s}.ob-intro.is-sun .ob-i-rb.d5{transition-delay:.32s}.ob-intro.is-sun .ob-i-rb.d6{transition-delay:.4s}
+.ob-i-cl1,.ob-i-cl2,.ob-i-cl3{transition:transform 1.5s cubic-bezier(.3,.7,.2,1),opacity 1.5s ease}
+.ob-i-cl1{transform:translateX(64px)}
+.ob-i-cl2{transform:translateX(-70px)}
+.ob-i-cl3{transform:translate(-60px,40px) scale(1.2)}
+.ob-intro.is-sun .ob-i-cl1{transform:translateX(-10px)}
+.ob-intro.is-sun .ob-i-cl2{transform:translateX(12px)}
+.ob-intro.is-sun .ob-i-cl3{transform:none}
+.ob-shim{position:relative;overflow:hidden;background:rgba(255,255,255,.16)}
+.ob-shim::after{content:"";position:absolute;left:0;top:0;width:100%;height:100%;background:linear-gradient(100deg,rgba(255,255,255,0) 20%,rgba(255,255,255,.35) 50%,rgba(255,255,255,0) 80%);transform:translateX(-100%);animation:obShim 1.6s ease-in-out infinite}
+@keyframes obShim{to{transform:translateX(100%)}}
+.ob-pre{transition:opacity .45s ease,transform .45s ease}
+.ob-intro.is-go .ob-pre{opacity:0;transform:translateY(8px)}
+.ob-post{opacity:0;transform:translateY(12px);transition:opacity .7s ease,transform .7s ease}
+.ob-intro.is-named .ob-post{opacity:1;transform:none}
+.ob-bar{transform-origin:0 50%;transform:scaleX(0)}
+.ob-intro.is-go .ob-bar{transition:transform 1.25s cubic-bezier(.5,0,.3,1);transform:scaleX(1)}
+.ob-barw{opacity:0;transition:opacity .3s ease}
+.ob-intro.is-go .ob-barw{opacity:1}
+.ob-intro.is-sun .ob-barw{opacity:0;transition-delay:.3s}
+.ob-ltr{display:inline-block;opacity:0;transform:translateY(.4em)}
+.ob-intro.is-named .ob-ltr{animation:obLtr .6s cubic-bezier(.2,.8,.3,1) forwards}
+@keyframes obLtr{to{opacity:1;transform:none}}
+.ob-spin{transform-origin:12px 12px}
+.ob-intro.is-go .ob-spin{animation:obSpin 1s linear infinite}
+.ob-num{transition:color .6s ease}
+
+@media (prefers-reduced-motion: reduce){
+.ob-rays,.ob-drift,.ob-drift2,.ob-glow,.ob-tw,.ob-flip,.ob-wave.is-playing span,.ob-shim::after,.ob-intro.is-go .ob-spin{animation:none}
+.ob-burst.is-on span{animation:none}
+.ob-intro,.ob-i-sun,.ob-i-rays,.ob-i-cl1,.ob-i-cl2,.ob-i-cl3,.ob-pre,.ob-post,.ob-bar,.ob-barw,.ob-btn{transition:none}
+.ob-intro.is-sun .ob-i-rb{transition:none}
+.ob-intro.is-named .ob-ltr{animation:none;opacity:1;transform:none}
+}
+</style>
+</helmet>
+<div class="ob ob-sky {{ rootCls }}" style="width: 390px; min-height: var(--vh, 100vh); position: relative; overflow: hidden; color: #FFFFFF; font-family: 'Inter', 'Segoe UI', system-ui, sans-serif">
+
+  <div data-intro class="{{ introCls }}" aria-hidden="{{ introHidden }}" style="display: {{ introDisp }}; position: absolute; left: 0; top: 0; width: 390px; height: 844px; z-index: 30; overflow: hidden">
+    <div class="ob-dawn" aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px"></div>
+    <svg aria-hidden="true" viewBox="0 0 390 844" width="390" height="844" style="position: absolute; left: 0; top: 0">
+      <circle class="ob-st ob-tw" cx="40" cy="132" r="1.4"></circle>
+      <circle class="ob-st ob-tw" cx="352" cy="96" r="1.2" style="animation-delay: -1s"></circle>
+      <circle class="ob-st ob-tw" cx="318" cy="150" r="1" style="animation-delay: -2s"></circle>
+      <circle class="ob-st ob-tw" cx="70" cy="64" r="1" style="animation-delay: -1.6s"></circle>
+    </svg>
+
+    <div style="position: absolute; left: 20px; top: 44px; width: 350px; text-align: center">
+      <p style="margin: 0; display: flex; align-items: center; justify-content: center; gap: 7px; font-size: 13px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255, 255, 255, 0.9); overflow-wrap: anywhere">
+        <svg aria-hidden="true" viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M12 2.5a7 7 0 0 0-7 7c0 5 7 12 7 12s7-7 7-12a7 7 0 0 0-7-7zm0 9.6a2.6 2.6 0 1 1 0-5.2 2.6 2.6 0 0 1 0 5.2z"></path></svg>
+        {{ home }}
+      </p>
+      <p style="margin: 6px 0 0; font-size: 14px; color: rgba(255, 255, 255, 0.82)">{{ dateLine }}</p>
+    </div>
+
+    <svg aria-hidden="true" viewBox="0 0 390 380" width="390" height="380" style="position: absolute; left: 0; top: 0; overflow: visible">
+      <path class="ob-rb ob-rb1 ob-i-rb" d="M45 330 A150 150 0 0 1 345 330"></path>
+      <path class="ob-rb ob-rb2 ob-i-rb d2" d="M57 330 A138 138 0 0 1 333 330"></path>
+      <path class="ob-rb ob-rb3 ob-i-rb d3" d="M69 330 A126 126 0 0 1 321 330"></path>
+      <path class="ob-rb ob-rb4 ob-i-rb d4" d="M81 330 A114 114 0 0 1 309 330"></path>
+      <path class="ob-rb ob-rb5 ob-i-rb d5" d="M93 330 A102 102 0 0 1 297 330"></path>
+      <path class="ob-rb ob-rb6 ob-i-rb d6" d="M105 330 A90 90 0 0 1 285 330"></path>
+    </svg>
+    <div class="ob-i-sun" aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 390px; height: 380px">
+      <div class="ob-glow" style="position: absolute; left: 75px; top: 125px; width: 240px; height: 240px; border-radius: 50%; background: radial-gradient(circle, rgba(255, 216, 120, 0.75) 0%, rgba(255, 200, 90, 0.25) 45%, rgba(255, 200, 90, 0) 70%)"></div>
+      <svg class="ob-i-rays" viewBox="0 0 390 380" width="390" height="380" style="position: absolute; left: 0; top: 0; overflow: visible">
+        <g class="ob-rays">
+          <sc-for list="{{ rays }}" as="r"><path class="ob-sunr" d="{{ r }}"></path></sc-for>
+        </g>
+      </svg>
+      <div style="position: absolute; left: 121px; top: 171px; width: 148px; height: 148px; border-radius: 50%; overflow: hidden; background: radial-gradient(circle at 38% 34%, #FFF1B8 0%, var(--acc) 55%, var(--acc2) 100%); box-shadow: 0 0 0 7px rgba(255, 214, 110, 0.55), 0 0 44px rgba(255, 196, 80, 0.7)">
+        <sc-if value="{{ has.photo }}">
+          <img src="{{ p.0 }}" alt="" style="display: block; width: 148px; height: 148px; object-fit: cover; object-position: 50% 32%">
+        </sc-if>
+      </div>
+    </div>
+    <svg aria-hidden="true" viewBox="0 0 390 380" width="390" height="380" style="position: absolute; left: 0; top: 0; overflow: visible">
+      <g class="ob-i-cl3"><path class="ob-cl" opacity=".85" transform="translate(268 128) scale(.62)" d="{{ cloud }}"></path></g>
+      <g class="ob-i-cl1"><path class="ob-cl2" transform="translate(-4 262) scale(1.42)" d="{{ cloud }}"></path></g>
+      <g class="ob-i-cl2"><path class="ob-cl" transform="translate(186 280) scale(1.36)" d="{{ cloud }}"></path></g>
+    </svg>
+
+    <div style="position: absolute; left: 0; top: 384px; width: 390px; text-align: center">
+      <p style="margin: 0; font-size: 15px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255, 255, 255, 0.9)">{{ introEyebrow }}</p>
+      <p class="ob-disp ob-num" style="margin: 0; font-size: 116px; font-weight: 200; line-height: 1.02; letter-spacing: -0.04em; color: {{ numColor }}">{{ pctLabel }}</p>
+      <p class="ob-post" style="margin: 2px 0 0; font-size: 15px; color: rgba(255, 255, 255, 0.86)">Quvonch: cheksiz · Tashvish: 0</p>
+    </div>
+
+    <div style="position: absolute; left: 20px; top: 578px; width: 350px; text-align: center">
+      <div class="ob-pre" aria-hidden="true" style="display: flex; flex-direction: column; align-items: center; gap: 12px; padding-top: 10px">
+        <span class="ob-shim" style="display: block; width: 230px; height: 30px; border-radius: 15px"></span>
+        <span class="ob-shim" style="display: block; width: 170px; height: 16px; border-radius: 8px"></span>
+      </div>
+      <div class="ob-post" style="position: absolute; left: 0; top: 0; width: 350px">
+        <p class="ob-disp" style="margin: 0; font-size: {{ nameFs }}; font-weight: 400; line-height: 1.08; letter-spacing: -0.02em; color: #FFFFFF; overflow-wrap: break-word">
+          <sc-for list="{{ letters }}" as="l"><span class="ob-ltr" style="{{ l.st }}">{{ l.ch }}</span></sc-for>
+        </p>
+        <p style="margin: 10px 0 0; font-size: 17px; color: rgba(255, 255, 255, 0.92)">{{ condLine }}</p>
+      </div>
+    </div>
+
+    <sc-if value="{{ has.music }}">
+      <button type="button" class="ob-btn" onClick="{{ toggleMusic }}" aria-label="{{ musicLabel }}" style="position: absolute; left: 326px; top: 100px; width: 46px; height: 46px; border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 50%; background: rgba(8, 20, 62, 0.25); color: #FFFFFF; display: flex; align-items: center; justify-content: center">
+        <svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20" class="ob-ic"><path d="M9 18V5.5l10-2V16"></path><circle cx="6.5" cy="18" r="2.5"></circle><circle cx="16.5" cy="16" r="2.5"></circle></svg>
+      </button>
+    </sc-if>
+
+    <div class="ob-barw" aria-hidden="true" style="position: absolute; left: 60px; top: 760px; width: 270px; text-align: center">
+      <span style="display: block; height: 6px; border-radius: 3px; background: rgba(255, 255, 255, 0.2); overflow: hidden"><span class="ob-bar" style="display: block; height: 6px; border-radius: 3px; background: var(--acc)"></span></span>
+      <span style="display: block; margin-top: 10px; font-size: 13px; color: rgba(255, 255, 255, 0.86)">Prognoz yangilanmoqda…</span>
+    </div>
+    <div class="ob-pre" style="position: absolute; left: 0; top: 724px; width: 390px; display: flex; flex-direction: column; align-items: center; gap: 12px">
+      <button type="button" class="ob-btn" onClick="{{ load }}" style="display: inline-flex; align-items: center; gap: 12px; height: 60px; padding: 0 30px 0 24px; border: 0; border-radius: 30px; background: #FFFFFF; color: #1C2C5E; font-family: 'Inter', system-ui, sans-serif; font-size: 17px; font-weight: 600; box-shadow: 0 14px 30px rgba(6, 16, 50, 0.32)">
+        <svg aria-hidden="true" viewBox="0 0 24 24" width="22" height="22" class="ob-ic"><g class="ob-spin"><path d="M20 12a8 8 0 1 1-2.4-5.7"></path><path d="M20 4.5V9h-4.5"></path></g></svg>
+        Bugungi ob-havoni ko’rish
+      </button>
+      <span style="font-size: 13px; color: rgba(255, 255, 255, 0.82)">Prognoz yuklanmoqda — bosing</span>
+    </div>
+  </div>
+
+  <header style="position: relative; padding-bottom: 6px">
+    <div style="position: relative; width: 390px; height: 578px">
+      <div style="position: absolute; left: 20px; top: 44px; width: 350px; text-align: center">
+        <p style="margin: 0; display: flex; align-items: center; justify-content: center; gap: 7px; font-size: 13px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255, 255, 255, 0.9); overflow-wrap: anywhere">
+          <svg aria-hidden="true" viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M12 2.5a7 7 0 0 0-7 7c0 5 7 12 7 12s7-7 7-12a7 7 0 0 0-7-7zm0 9.6a2.6 2.6 0 1 1 0-5.2 2.6 2.6 0 0 1 0 5.2z"></path></svg>
+          {{ home }}
+        </p>
+        <p style="margin: 6px 0 0; font-size: 14px; color: rgba(255, 255, 255, 0.82)">{{ dateLine }}</p>
+      </div>
+      <svg aria-hidden="true" viewBox="0 0 390 380" width="390" height="380" style="position: absolute; left: 0; top: 0; overflow: visible">
+        <path class="ob-rb ob-rb1" d="M45 330 A150 150 0 0 1 345 330"></path>
+        <path class="ob-rb ob-rb2" d="M57 330 A138 138 0 0 1 333 330"></path>
+        <path class="ob-rb ob-rb3" d="M69 330 A126 126 0 0 1 321 330"></path>
+        <path class="ob-rb ob-rb4" d="M81 330 A114 114 0 0 1 309 330"></path>
+        <path class="ob-rb ob-rb5" d="M93 330 A102 102 0 0 1 297 330"></path>
+        <path class="ob-rb ob-rb6" d="M105 330 A90 90 0 0 1 285 330"></path>
+      </svg>
+      <div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 390px; height: 380px">
+        <div class="ob-glow" style="position: absolute; left: 75px; top: 125px; width: 240px; height: 240px; border-radius: 50%; background: radial-gradient(circle, rgba(255, 216, 120, 0.75) 0%, rgba(255, 200, 90, 0.25) 45%, rgba(255, 200, 90, 0) 70%)"></div>
+        <svg viewBox="0 0 390 380" width="390" height="380" style="position: absolute; left: 0; top: 0; overflow: visible">
+          <g class="ob-rays">
+            <sc-for list="{{ rays }}" as="r"><path class="ob-sunr" d="{{ r }}"></path></sc-for>
+          </g>
+        </svg>
+        <div style="position: absolute; left: 121px; top: 171px; width: 148px; height: 148px; border-radius: 50%; overflow: hidden; background: radial-gradient(circle at 38% 34%, #FFF1B8 0%, var(--acc) 55%, var(--acc2) 100%); box-shadow: 0 0 0 7px rgba(255, 214, 110, 0.55), 0 0 44px rgba(255, 196, 80, 0.7)">
+          <sc-if value="{{ has.photo }}">
+            <img src="{{ p.0 }}" alt="" style="display: block; width: 148px; height: 148px; object-fit: cover; object-position: 50% 32%">
+          </sc-if>
+        </div>
+      </div>
+      <svg aria-hidden="true" viewBox="0 0 390 380" width="390" height="380" style="position: absolute; left: 0; top: 0; overflow: visible">
+        <g class="ob-drift2"><path class="ob-cl" opacity=".85" transform="translate(268 128) scale(.62)" d="{{ cloud }}"></path></g>
+        <g class="ob-drift"><path class="ob-cl2" transform="translate(-14 262) scale(1.42)" d="{{ cloud }}"></path></g>
+        <g class="ob-drift2"><path class="ob-cl" transform="translate(198 280) scale(1.36)" d="{{ cloud }}"></path></g>
+      </svg>
+      <div style="position: absolute; left: 0; top: 384px; width: 390px; text-align: center">
+        <p style="margin: 0; font-size: 15px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255, 255, 255, 0.9)">Bugun: baxt</p>
+        <p class="ob-disp" style="margin: 0; font-size: 116px; font-weight: 200; line-height: 1.02; letter-spacing: -0.04em; color: #FFFFFF">100%</p>
+        <p style="margin: 2px 0 0; font-size: 15px; color: rgba(255, 255, 255, 0.86)">Quvonch: cheksiz · Tashvish: 0</p>
+      </div>
+    </div>
+    <div style="padding: 0 20px; text-align: center">
+      <h1 class="ob-disp" style="margin: 0; font-size: {{ nameFs }}; font-weight: 400; line-height: 1.08; letter-spacing: -0.02em; color: #FFFFFF; overflow-wrap: break-word">{{ d.chaqaloq }}</h1>
+      <p style="margin: 10px 0 0; font-size: 17px; color: rgba(255, 255, 255, 0.92)">{{ condLine }}</p>
+      <div style="margin-top: 22px; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px">
+        <sc-if value="{{ w.date }}">
+          <span class="ob-card" style="display: inline-flex; align-items: center; gap: 8px; height: 44px; padding: 0 16px; border-radius: 22px; font-size: 15px; font-weight: 500">
+            <svg aria-hidden="true" viewBox="0 0 24 24" width="18" height="18" class="ob-ic"><rect x="4" y="5.5" width="16" height="14" rx="3"></rect><path d="M4 10h16M8.5 3.5v4M15.5 3.5v4"></path></svg>{{ fullDate }}
+          </span>
+        </sc-if>
+        <sc-if value="{{ d.vaqt }}">
+          <span class="ob-card" style="display: inline-flex; align-items: center; gap: 8px; height: 44px; padding: 0 16px; border-radius: 22px; font-size: 15px; font-weight: 500">
+            <svg aria-hidden="true" viewBox="0 0 24 24" width="18" height="18" class="ob-ic"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 7.5V12l3 2"></path></svg>{{ timeLine }}
+          </span>
+        </sc-if>
+      </div>
+    </div>
+
+    <div class="ob-card" style="margin: 34px 20px 0; padding: 16px 0 14px">
+      <p class="ob-lbl" style="padding: 0 18px">
+        <svg aria-hidden="true" viewBox="0 0 24 24" width="16" height="16" class="ob-ic"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 7.5V12l3 2"></path></svg>
+        Soatlik prognoz
+      </p>
+      <p style="margin: 8px 18px 12px; font-size: 15px; line-height: 1.4; color: rgba(255, 255, 255, 0.92)">Keyingi soatlarda ham {{ homeShort }} baxt 100%.</p>
+      <span aria-hidden="true" style="display: block; height: 1px; margin: 0 18px; background: rgba(255, 255, 255, 0.16)"></span>
+      <div class="ob-scroll" style="display: flex; gap: 4px; padding: 12px 10px 0; overflow-x: auto">
+        <sc-for list="{{ hours }}" as="hr">
+          <div style="flex: none; width: 58px; display: flex; flex-direction: column; align-items: center; gap: 8px">
+            <span style="font-size: 14px; font-weight: {{ hr.fw }}; color: #FFFFFF">{{ hr.t }}</span>
+            <svg aria-hidden="true" viewBox="0 0 32 32" width="30" height="30">
+              <sc-if value="{{ hr.day }}">
+                <circle class="ob-sun" cx="16" cy="16" r="7"></circle>
+                <path class="ob-sunr" style="stroke-width: 2.4" d="M16 3.5v3M16 25.5v3M3.5 16h3M25.5 16h3M7.2 7.2l2.1 2.1M22.7 22.7l2.1 2.1M7.2 24.8l2.1-2.1M22.7 9.3l2.1-2.1"></path>
+              </sc-if>
+              <sc-if value="{{ hr.cloud }}">
+                <path class="ob-cl" transform="translate(4 15) scale(.2)" d="{{ cloud }}"></path>
+              </sc-if>
+              <sc-if value="{{ hr.night }}">
+                <path class="ob-sun" d="M20.5 5.5a10.5 10.5 0 1 0 6 18 9 9 0 0 1-6-18z"></path>
+                <circle class="ob-wh" cx="8" cy="8" r="1.3"></circle>
+              </sc-if>
+            </svg>
+            <span style="font-size: 14px; font-weight: 600; color: #FFFFFF">100%</span>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+
+    <sc-if value="{{ showCount }}">
+      <div class="ob-card" style="margin: 14px 20px 0; padding: 16px 18px 18px">
+        <p class="ob-lbl">
+          <svg aria-hidden="true" viewBox="0 0 24 24" width="16" height="16" class="ob-ic"><path d="M12 3v3M12 18v3M3 12h3M18 12h3"></path><circle cx="12" cy="12" r="4"></circle></svg>
+          Dunyoga kelganiga
+        </p>
+        <div style="margin-top: 12px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px">
+          <sc-for list="{{ flips }}" as="c">
+            <div style="padding: 12px 0 10px; border-radius: 16px; background: rgba(255, 255, 255, 0.1); text-align: center">
+              <span key="{{ c.key }}" class="ob-disp ob-flip" style="display: block; font-size: {{ c.fs }}; font-weight: 300; line-height: 1.05; color: #FFFFFF">{{ c.v }}</span>
+              <span style="display: block; margin-top: 4px; font-size: 12px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255, 255, 255, 0.82)">{{ c.l }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </sc-if>
+  </header>
+
+  <sc-if value="{{ b.olchov }}">
+    <section aria-label="Tug’ilish ko’rsatkichlari" style="position: relative; margin: 60px 20px 0">
+      <p class="ob-lbl">
+        <svg aria-hidden="true" viewBox="0 0 24 24" width="16" height="16" class="ob-ic"><path d="M4 19h16M7 16V9M12 16V5M17 16v-4"></path></svg>
+        Tug’ilish ko’rsatkichlari
+      </p>
+      <h2 class="ob-h2">Ilk o’lchovlar</h2>
+      <div style="margin-top: 20px; display: flex; flex-wrap: wrap; gap: 12px">
+        <div class="ob-card" style="flex: 1 1 160px; min-width: 0; padding: 16px 16px 18px">
+          <p class="ob-lbl" style="font-size: 11px">Vazni</p>
+          <svg aria-hidden="true" viewBox="0 0 140 84" width="100%" height="84" style="display: block; margin-top: 10px">
+            <path class="ob-gtr" d="M18 74 A52 52 0 0 1 122 74"></path>
+            <path class="ob-gfl" d="M18 74 A52 52 0 0 1 122 74" style="stroke-dasharray: {{ gauge.dash }}"></path>
+            <sc-for list="{{ gaugeTicks }}" as="t"><path class="ob-tk" d="{{ t }}"></path></sc-for>
+            <path class="ob-nd" d="M70 74 L70 34" style="transform-origin: 70px 74px; transform: rotate({{ gauge.rot }})"></path>
+            <circle class="ob-wh" cx="70" cy="74" r="5"></circle>
+          </svg>
+          <span class="ob-disp" style="display: block; margin-top: 6px; text-align: center; font-size: 30px; font-weight: 400; line-height: 1.1; overflow-wrap: anywhere">{{ d.vazn }}</span>
+          <sc-if value="{{ gramm }}"><span style="display: block; margin-top: 2px; text-align: center; font-size: 13px; color: rgba(255, 255, 255, 0.82)">{{ gramm }}</span></sc-if>
+        </div>
+        <sc-if value="{{ d.vaqt }}">
+          <div class="ob-card" style="flex: 1 1 160px; min-width: 0; padding: 16px 16px 18px">
+            <p class="ob-lbl" style="font-size: 11px">Tug’ilgan vaqti</p>
+            <svg aria-hidden="true" viewBox="0 0 140 84" width="100%" height="84" style="display: block; margin-top: 10px">
+              <path class="ob-arc" d="M6 70 C 40 70 46 14 70 14 C 94 14 100 70 134 70"></path>
+              <path d="M2 56 H138" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1"></path>
+              <circle class="{{ sunDot.cls }}" cx="{{ sunDot.x }}" cy="{{ sunDot.y }}" r="8"></circle>
+              <circle cx="{{ sunDot.x }}" cy="{{ sunDot.y }}" r="13" fill="none" stroke="rgba(255,214,120,0.45)" stroke-width="2"></circle>
+            </svg>
+            <span class="ob-disp" style="display: block; margin-top: 6px; text-align: center; font-size: 30px; font-weight: 400; line-height: 1.1">{{ d.vaqt }}</span>
+            <sc-if value="{{ part }}"><span style="display: block; margin-top: 2px; text-align: center; font-size: 13px; color: rgba(255, 255, 255, 0.82)">{{ part }}</span></sc-if>
+          </div>
+        </sc-if>
+        <sc-if value="{{ d.boy }}">
+          <div class="ob-card" style="flex: 1 1 100%; min-width: 0; padding: 16px 18px 18px">
+            <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 10px">
+              <p class="ob-lbl" style="font-size: 11px">Bo’yi</p>
+              <span class="ob-disp" style="font-size: 30px; font-weight: 400; line-height: 1.1; overflow-wrap: anywhere">{{ d.boy }}</span>
+            </div>
+            <div style="position: relative; margin-top: 14px; height: 10px; border-radius: 5px; background: rgba(255, 255, 255, 0.16)">
+              <span style="position: absolute; left: 0; top: 0; height: 10px; width: {{ boyPct }}; border-radius: 5px; background: linear-gradient(90deg, var(--tint), var(--acc))"></span>
+              <span style="position: absolute; left: {{ boyPct }}; top: -5px; width: 20px; height: 20px; margin-left: -10px; border-radius: 50%; background: #FFFFFF; box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.25)"></span>
+            </div>
+            <div style="margin-top: 8px; display: flex; justify-content: space-between; font-size: 12px; color: rgba(255, 255, 255, 0.82)">
+              <sc-for list="{{ rulerNums }}" as="x"><span>{{ x }}</span></sc-for>
+            </div>
+            <sc-if value="{{ santimetr }}"><span style="display: block; margin-top: 10px; font-size: 14px; color: rgba(255, 255, 255, 0.86)">{{ santimetr }}</span></sc-if>
+          </div>
+        </sc-if>
+        <div class="ob-card" style="flex: 1 1 100%; min-width: 0; padding: 16px 18px; display: flex; align-items: center; gap: 14px">
+          <span aria-hidden="true" style="flex: none; width: 44px; height: 44px; border-radius: 50%; background: radial-gradient(circle at 38% 34%, #FFF1B8 0%, var(--acc) 60%, var(--acc2) 100%); display: flex; align-items: center; justify-content: center; font-family: 'Geologica', sans-serif; font-size: 20px; font-weight: 500; color: #3A2A10">{{ initial }}</span>
+          <div style="min-width: 0">
+            <p class="ob-lbl" style="font-size: 11px">To’liq ismi</p>
+            <span style="display: block; margin-top: 4px; font-size: 19px; font-weight: 500; line-height: 1.3; overflow-wrap: anywhere">{{ nasab }}</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </sc-if>
+
+  <sc-if value="{{ b.galereya }}">
+    <section aria-label="Suratlar" style="position: relative; margin: 60px 20px 0">
+      <p class="ob-lbl">
+        <svg aria-hidden="true" viewBox="0 0 24 24" width="16" height="16" class="ob-ic"><rect x="3.5" y="5.5" width="17" height="13" rx="3"></rect><circle cx="12" cy="12" r="3.2"></circle></svg>
+        Radar: yorqin lahzalar
+      </p>
+      <h2 class="ob-h2">Ilk kunlar</h2>
+      <div style="position: relative; margin-top: 20px; height: 430px; border-radius: 28px; overflow: hidden; background: rgba(8, 20, 62, 0.3)">
+        <sc-for list="{{ slides }}" as="sl">
+          <img src="{{ sl.src }}" alt="" style="{{ sl.st }}">
+        </sc-for>
+        <div aria-hidden="true" style="position: absolute; left: 0; bottom: 0; width: 100%; height: 120px; background: linear-gradient(180deg, rgba(10, 20, 60, 0) 0%, rgba(10, 20, 60, 0.55) 100%)"></div>
+        <span class="ob-card" style="position: absolute; left: 14px; top: 14px; padding: 7px 12px; border-radius: 14px; font-size: 13px; font-weight: 600">{{ slideNo }}</span>
+        <sc-if value="{{ multi }}">
+          <button type="button" class="ob-btn ob-card" onClick="{{ prev }}" aria-label="Oldingi surat" style="position: absolute; left: 14px; bottom: 14px; width: 48px; height: 48px; border-radius: 50%; color: #FFFFFF; display: flex; align-items: center; justify-content: center; padding: 0">
+            <svg aria-hidden="true" viewBox="0 0 24 24" width="22" height="22" class="ob-ic"><path d="M14.5 6l-6 6 6 6"></path></svg>
+          </button>
+          <button type="button" class="ob-btn ob-card" onClick="{{ next }}" aria-label="Keyingi surat" style="position: absolute; right: 14px; bottom: 14px; width: 48px; height: 48px; border-radius: 50%; color: #FFFFFF; display: flex; align-items: center; justify-content: center; padding: 0">
+            <svg aria-hidden="true" viewBox="0 0 24 24" width="22" height="22" class="ob-ic"><path d="M9.5 6l6 6-6 6"></path></svg>
+          </button>
+        </sc-if>
+      </div>
+      <sc-if value="{{ multi }}">
+        <div style="margin-top: 12px; display: flex; justify-content: center; gap: 8px">
+          <sc-for list="{{ dots }}" as="dt">
+            <button type="button" class="ob-btn" onClick="{{ dt.go }}" aria-label="{{ dt.label }}" style="width: 44px; height: 44px; padding: 0; border: 0; background: transparent; display: flex; align-items: center; justify-content: center">
+              <span style="{{ dt.st }}"></span>
+            </button>
+          </sc-for>
+        </div>
+      </sc-if>
+    </section>
+  </sc-if>
+
+  <sc-if value="{{ b.xabar }}">
+    <section aria-label="Xushxabar" style="position: relative; margin: 60px 20px 0">
+      <div class="ob-card" style="padding: 22px 22px 24px; overflow: hidden">
+        <div aria-hidden="true" style="position: absolute; right: -40px; top: -40px; width: 150px; height: 150px; border-radius: 50%; background: radial-gradient(circle, rgba(255, 214, 120, 0.5) 0%, rgba(255, 214, 120, 0) 70%)"></div>
+        <div style="position: relative; display: flex; align-items: center; gap: 12px">
+          <span aria-hidden="true" style="flex: none; width: 40px; height: 40px; border-radius: 12px; background: var(--acc); color: #3A2A10; display: flex; align-items: center; justify-content: center">
+            <svg viewBox="0 0 24 24" width="22" height="22" class="ob-ic"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.5v2.5M12 19v2.5M2.5 12H5M19 12h2.5M5.3 5.3l1.8 1.8M16.9 16.9l1.8 1.8M5.3 18.7l1.8-1.8M16.9 7.1l1.8-1.8"></path></svg>
+          </span>
+          <div>
+            <p class="ob-lbl" style="font-size: 11px">Maxsus xabar · hozirgina</p>
+            <span style="display: block; margin-top: 3px; font-size: 16px; font-weight: 600">Quvonch to’lqini keldi</span>
+          </div>
+        </div>
+        <h2 class="ob-h2" style="position: relative; margin-top: 20px; font-size: 30px">Aziz yaqinlarimiz</h2>
+        <p style="position: relative; margin: 12px 0 0; font-size: 17px; line-height: 1.65; color: #FFFFFF; white-space: pre-line; overflow-wrap: anywhere">{{ d.matn }}</p>
+        <sc-if value="{{ d.ota_ona }}">
+          <p style="position: relative; margin: 18px 0 0; padding-top: 14px; border-top: 1px solid rgba(255, 255, 255, 0.18); font-size: 16px; font-weight: 500; color: rgba(255, 255, 255, 0.92); overflow-wrap: anywhere">Hurmat bilan, {{ d.ota_ona }}</p>
+        </sc-if>
+      </div>
+    </section>
+  </sc-if>
+
+  <sc-if value="{{ b.oila }}">
+    <section aria-label="Oila daraxti" style="position: relative; margin: 60px 20px 0">
+      <p class="ob-lbl">
+        <svg aria-hidden="true" viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M12 2.5a7 7 0 0 0-7 7c0 5 7 12 7 12s7-7 7-12a7 7 0 0 0-7-7zm0 9.6a2.6 2.6 0 1 1 0-5.2 2.6 2.6 0 0 1 0 5.2z"></path></svg>
+        Saqlangan manzillar
+      </p>
+      <h2 class="ob-h2">Oila daraxti</h2>
+      <div style="margin-top: 20px; display: flex; flex-direction: column; gap: 10px">
+        <sc-for list="{{ family }}" as="f">
+          <div style="{{ f.st }}">
+            <div style="min-width: 0; flex: 1">
+              <span style="display: block; font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255, 255, 255, 0.85)">{{ f.label }}</span>
+              <span style="display: block; margin-top: 4px; font-size: 19px; font-weight: 500; line-height: 1.3; white-space: pre-line; overflow-wrap: anywhere">{{ f.names }}</span>
+              <span style="display: block; margin-top: 6px; font-size: 13px; color: rgba(255, 255, 255, 0.86)">{{ f.cond }}</span>
+            </div>
+            <div style="flex: none; text-align: right">
+              <span class="ob-disp" style="display: block; font-size: 34px; font-weight: 300; line-height: 1">100%</span>
+              <span style="display: block; margin-top: 4px; font-size: 12px; color: rgba(255, 255, 255, 0.86)">quvonch</span>
+            </div>
+          </div>
+        </sc-for>
+        <div class="ob-card" style="padding: 18px 18px; display: flex; align-items: center; gap: 14px; background: rgba(255, 255, 255, 0.14)">
+          <span aria-hidden="true" style="flex: none; position: relative; width: 52px; height: 52px">
+            <span style="position: absolute; left: 0; top: 0; width: 52px; height: 52px; border-radius: 50%; background: radial-gradient(circle at 38% 34%, #FFF1B8 0%, var(--acc) 60%, var(--acc2) 100%)"></span>
+            <svg viewBox="0 0 52 52" width="52" height="52" style="position: absolute; left: 0; top: 0"><path fill="#3A2A10" d="M26 39c-6 0-10-5.6-12-9 3.4 1.8 7.6 2.6 12 2.6s8.6-.8 12-2.6c-2 3.4-6 9-12 9z" opacity=".7"></path><circle fill="#3A2A10" cx="19" cy="22" r="2.2" opacity=".7"></circle><circle fill="#3A2A10" cx="33" cy="22" r="2.2" opacity=".7"></circle></svg>
+          </span>
+          <div style="min-width: 0">
+            <span style="display: block; font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255, 255, 255, 0.85)">{{ parLabel }}</span>
+            <span style="display: block; margin-top: 4px; font-size: 20px; font-weight: 500; line-height: 1.3; overflow-wrap: anywhere">{{ d.ota_ona }}</span>
+            <span style="display: block; margin-top: 4px; font-size: 14px; color: rgba(255, 255, 255, 0.86); overflow-wrap: anywhere">{{ babyWord }} — {{ d.chaqaloq }}</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </sc-if>
+
+  <sc-if value="{{ b.albom }}">
+    <section aria-label="O’sish albomi" style="position: relative; margin: 60px 20px 0">
+      <p class="ob-lbl">
+        <svg aria-hidden="true" viewBox="0 0 24 24" width="16" height="16" class="ob-ic"><rect x="4" y="5.5" width="16" height="14" rx="3"></rect><path d="M4 10h16M8.5 3.5v4M15.5 3.5v4"></path></svg>
+        Oylik prognoz
+      </p>
+      <h2 class="ob-h2">O’sish albomi</h2>
+      <p style="margin: 8px 0 0; font-size: 15px; color: rgba(255, 255, 255, 0.86)">Har oy yangi surat — birga kuzatamiz</p>
+      <div style="margin-top: 18px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px">
+        <sc-for list="{{ months }}" as="m">
+          <div class="ob-card" style="padding: 8px 8px 10px; border-radius: 20px">
+            <div style="position: relative; height: 96px; border-radius: 14px; overflow: hidden; background: rgba(255, 255, 255, 0.1)">
+              <sc-if value="{{ m.src }}"><img src="{{ m.src }}" alt="" style="display: block; width: 100%; height: 96px; object-fit: cover"></sc-if>
+              <sc-if value="{{ m.empty }}">
+                <svg aria-hidden="true" viewBox="0 0 140 70" width="58" height="29" style="position: absolute; left: 50%; top: 50%; margin: -15px 0 0 -29px"><path fill="rgba(255,255,255,0.5)" d="{{ cloud }}"></path></svg>
+              </sc-if>
+            </div>
+            <span style="display: block; margin-top: 8px; font-size: 15px; font-weight: 600">{{ m.label }}</span>
+            <span style="display: block; font-size: 12px; color: rgba(255, 255, 255, 0.82)">{{ m.note }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+  </sc-if>
+
+  <sc-if value="{{ b.alla }}">
+    <section aria-label="Alla" style="position: relative; margin: 60px 20px 0">
+      <div class="ob-card" style="padding: 20px 20px 18px; overflow: hidden; background: rgba(6, 12, 44, 0.34)">
+        <svg aria-hidden="true" viewBox="0 0 350 120" width="350" height="120" style="position: absolute; left: 0; top: 0">
+          <circle class="ob-st ob-tw" cx="300" cy="22" r="1.4"></circle>
+          <circle class="ob-st ob-tw" cx="250" cy="44" r="1" style="animation-delay: -1.2s"></circle>
+          <circle class="ob-st ob-tw" cx="330" cy="70" r="1.2" style="animation-delay: -2.1s"></circle>
+          <path class="ob-sun" d="M296 30a16 16 0 1 0 20 22 13 13 0 0 1-20-22z" opacity=".95"></path>
+        </svg>
+        <div style="position: relative; display: flex; align-items: center; gap: 16px">
+          <button type="button" class="ob-btn" onClick="{{ toggleMusic }}" aria-label="{{ musicLabel }}" style="flex: none; width: 60px; height: 60px; border: 0; border-radius: 50%; background: #FFFFFF; color: #1C2C5E; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 20px rgba(6, 16, 50, 0.3)">
+            <sc-if value="{{ notPlaying }}"><svg aria-hidden="true" viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M8.5 5.5v13l10.5-6.5z"></path></svg></sc-if>
+            <sc-if value="{{ playing }}"><svg aria-hidden="true" viewBox="0 0 24 24" width="24" height="24"><rect x="6.5" y="5.5" width="3.8" height="13" rx="1.2" fill="currentColor"></rect><rect x="13.7" y="5.5" width="3.8" height="13" rx="1.2" fill="currentColor"></rect></svg></sc-if>
+          </button>
+          <div style="min-width: 0">
+            <p class="ob-lbl" style="font-size: 11px">Tungi rejim</p>
+            <span class="ob-disp" style="display: block; font-size: 30px; font-weight: 300; line-height: 1.1">Alla</span>
+            <span style="display: block; font-size: 14px; color: rgba(255, 255, 255, 0.86)">{{ playHint }}</span>
+          </div>
+        </div>
+        <div class="{{ waveCls }}" aria-hidden="true" style="position: relative; margin-top: 18px; height: 44px; display: flex; align-items: center; justify-content: space-between">
+          <sc-for list="{{ wave }}" as="wv"><span style="{{ wv }}"></span></sc-for>
+        </div>
+        <p style="position: relative; margin: 10px 0 0; font-size: 13px; color: rgba(255, 255, 255, 0.82)">Shamol: mayin · Uyqu: shirin</p>
+      </div>
+    </section>
+  </sc-if>
+
+  <sc-if value="{{ b.tilaklar }}">
+    <section aria-label="Tilaklar" style="position: relative; margin: 60px 20px 0">
+      <p class="ob-lbl">
+        <svg aria-hidden="true" viewBox="0 0 24 24" width="16" height="16" class="ob-ic"><path d="M4 7h16M4 12h16M4 17h10"></path></svg>
+        Kelajak prognozi
+      </p>
+      <h2 class="ob-h2">Tilaklarimiz</h2>
+      <div class="ob-card" style="margin-top: 20px; padding: 6px 18px">
+        <sc-for list="{{ wishes }}" as="t">
+          <div style="{{ t.st }}">
+            <svg aria-hidden="true" viewBox="0 0 32 32" width="30" height="30" style="flex: none">
+              <sc-if value="{{ t.sun }}">
+                <circle class="ob-sun" cx="16" cy="16" r="7"></circle>
+                <path class="ob-sunr" style="stroke-width: 2.4" d="M16 3.5v3M16 25.5v3M3.5 16h3M25.5 16h3M7.2 7.2l2.1 2.1M22.7 22.7l2.1 2.1M7.2 24.8l2.1-2.1M22.7 9.3l2.1-2.1"></path>
+              </sc-if>
+              <sc-if value="{{ t.rain }}">
+                <path class="ob-rb ob-rb1" style="stroke-width: 3" d="M4 26 A12 12 0 0 1 28 26"></path>
+                <path class="ob-rb ob-rb3" style="stroke-width: 3" d="M8 26 A8 8 0 0 1 24 26"></path>
+                <path class="ob-rb ob-rb5" style="stroke-width: 3" d="M12 26 A4 4 0 0 1 20 26"></path>
+              </sc-if>
+              <sc-if value="{{ t.star }}">
+                <path class="ob-sun" d="M16 4l3.4 7.6 8.1.7-6.2 5.3 1.9 8-7.2-4.4-7.2 4.4 1.9-8-6.2-5.3 8.1-.7z"></path>
+              </sc-if>
+              <sc-if value="{{ t.cloud }}">
+                <circle class="ob-sun" cx="20" cy="12" r="6"></circle>
+                <path class="ob-cl" transform="translate(3 13) scale(.19)" d="{{ cloud }}"></path>
+              </sc-if>
+            </svg>
+            <span style="flex: 1; min-width: 0; font-size: 17px; line-height: 1.35; overflow-wrap: anywhere">{{ t.text }}</span>
+            <div aria-hidden="true" style="flex: none; width: 64px">
+              <span style="display: block; height: 6px; border-radius: 3px; background: linear-gradient(90deg, var(--tint), var(--acc), var(--acc2))"></span>
+            </div>
+            <span style="flex: none; width: 42px; text-align: right; font-size: 15px; font-weight: 600">100%</span>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+  </sc-if>
+
+  <sc-if value="{{ b.mehmonlar }}">
+    <section aria-label="Yaqinlar tilaklari" style="position: relative; margin: 60px 20px 0">
+      <p class="ob-lbl">
+        <svg aria-hidden="true" viewBox="0 0 24 24" width="16" height="16" class="ob-ic"><path d="M5 5.5h14a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H11l-4 3.5v-3.5H5a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2z"></path></svg>
+        Yaqinlardan xabarlar
+      </p>
+      <h2 class="ob-h2">Iliq so’zlar</h2>
+      <div style="margin-top: 20px; display: flex; flex-direction: column; gap: 10px">
+        <sc-for list="{{ guests }}" as="g">
+          <div class="ob-card" style="padding: 16px 18px 18px">
+            <div style="display: flex; align-items: center; gap: 12px">
+              <span aria-hidden="true" style="{{ g.av }}">{{ g.ini }}</span>
+              <div style="flex: 1; min-width: 0">
+                <span style="display: block; font-size: 16px; font-weight: 600; overflow-wrap: anywhere">{{ g.who }}</span>
+                <sc-if value="{{ g.rel }}"><span style="display: block; font-size: 13px; color: rgba(255, 255, 255, 0.84)">{{ g.rel }}</span></sc-if>
+              </div>
+              <span style="flex: none; display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 10px; border-radius: 14px; background: rgba(255, 255, 255, 0.12); font-size: 12px; font-weight: 600">
+                <svg aria-hidden="true" viewBox="0 0 24 24" width="14" height="14"><circle class="ob-sun" cx="12" cy="12" r="5.5"></circle></svg>{{ g.tag }}
+              </span>
+            </div>
+            <p style="margin: 12px 0 0; font-size: 16px; line-height: 1.5; overflow-wrap: anywhere">{{ g.matn }}</p>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+  </sc-if>
+
+  <sc-if value="{{ b.javob }}">
+    <section aria-label="Tabriklash" style="position: relative; margin: 60px 20px 0">
+      <div class="ob-card" style="padding: 26px 20px 22px; text-align: center; overflow: hidden">
+        <div style="position: relative; width: 120px; height: 120px; margin: 0 auto">
+          <div class="{{ burstCls }}" aria-hidden="true" style="position: absolute; left: 60px; top: 60px; width: 0; height: 0">
+            <sc-for list="{{ burst }}" as="bs"><span style="{{ bs }}"></span></sc-for>
+          </div>
+          <span class="ob-glow" aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 120px; height: 120px; border-radius: 50%; background: radial-gradient(circle, rgba(255, 216, 120, 0.7) 0%, rgba(255, 216, 120, 0) 70%)"></span>
+          <span aria-hidden="true" style="position: absolute; left: 30px; top: 30px; width: 60px; height: 60px; border-radius: 50%; background: radial-gradient(circle at 38% 34%, #FFF1B8 0%, var(--acc) 60%, var(--acc2) 100%)"></span>
+        </div>
+        <h2 class="ob-h2" style="margin-top: 6px; font-size: {{ ctFs }}; overflow-wrap: break-word">{{ congratsTitle }}</h2>
+        <p style="margin: 10px 4px 20px; font-size: 16px; line-height: 1.55; color: rgba(255, 255, 255, 0.9)">Bir og’iz iliq so’zingiz {{ parentsTo }} eng yorqin quyosh.</p>
+        <button type="button" class="ob-btn" onClick="{{ congratulate }}" disabled="{{ sent }}" style="display: inline-flex; align-items: center; justify-content: center; gap: 10px; width: 100%; height: 60px; border: 0; border-radius: 30px; background: #FFFFFF; color: #1C2C5E; font-family: 'Inter', system-ui, sans-serif; font-size: 17px; font-weight: 600; box-shadow: 0 12px 26px rgba(6, 16, 50, 0.3)">
+          <sc-if value="{{ sent }}"><svg aria-hidden="true" viewBox="0 0 24 24" width="22" height="22" class="ob-ic"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></sc-if>
+          {{ btnLabel }}
+        </button>
+        <sc-if value="{{ sent }}">
+          <p role="status" style="margin: 14px 0 0; font-size: 15px; font-weight: 500; color: rgba(255, 255, 255, 0.92)">Rahmat! Tabrigingiz oilaga yetkazildi.</p>
+        </sc-if>
+      </div>
+    </section>
+  </sc-if>
+
+  <footer style="position: relative; margin-top: 40px; padding: 70px 24px 46px; text-align: center">
+    <svg aria-hidden="true" viewBox="0 0 390 200" width="390" height="200" style="position: absolute; left: 0; top: 0">
+      <circle class="ob-st ob-tw" cx="40" cy="40" r="1.4"></circle>
+      <circle class="ob-st ob-tw" cx="96" cy="96" r="1" style="animation-delay: -1.4s"></circle>
+      <circle class="ob-st ob-tw" cx="300" cy="30" r="1.2" style="animation-delay: -.6s"></circle>
+      <circle class="ob-st ob-tw" cx="350" cy="120" r="1.4" style="animation-delay: -2.2s"></circle>
+      <circle class="ob-st ob-tw" cx="210" cy="16" r="1" style="animation-delay: -1.8s"></circle>
+      <circle class="ob-st ob-tw" cx="150" cy="150" r="1" style="animation-delay: -2.6s"></circle>
+    </svg>
+    <svg aria-hidden="true" viewBox="0 0 64 64" width="56" height="56" style="position: relative">
+      <path class="ob-sun" d="M40 10a24 24 0 1 0 16 38 20 20 0 0 1-16-38z"></path>
+    </svg>
+    <p style="position: relative; margin: 10px 0 0; font-size: 21px; font-weight: 500; overflow-wrap: anywhere">{{ famLine }}</p>
+    <sc-if value="{{ dotDate }}"><p style="position: relative; margin: 6px 0 0; font-size: 14px; letter-spacing: 0.2em; color: rgba(255, 255, 255, 0.82)">{{ dotDate }}</p></sc-if>
+    <p style="position: relative; margin: 14px 0 0; font-size: 13px; color: rgba(255, 255, 255, 0.78)">Ma’lumot yangilandi: hozir · baxt 100%</p>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":5600}}'>
+class Component extends DCLogic {
+  componentDidMount() {
+    this.tick = setInterval(() => this.forceUpdate(), 1000);
+  }
+  componentWillUnmount() {
+    if (this.tick) clearInterval(this.tick);
+    if (this.cnt) clearInterval(this.cnt);
+    [this.t1, this.t2, this.t3, this.t4, this.t5].forEach(t => t && clearTimeout(t));
+  }
+  renderVals() {
+    const s = this.state || {};
+    const d = SITE.d;
+    const qiz = d.jins === 'qiz';
+    const name = String(d.chaqaloq || '').trim();
+    const w = SITE.when(d.sana, d.vaqt);
+    const pad = SITE.pad;
+    const playing = SITE.music.playing;
+    const n = SITE.has.photos, P = SITE.p;
+    const CLOUD = 'M22 66 C8 66 2 54 8 44 C12 36 22 33 29 36 C31 20 45 10 61 12 C75 13 85 22 88 32 C97 26 111 27 118 35 C125 42 126 51 122 57 C135 59 138 66 130 66 Z';
+    const ini = x => (String(x || '').replace(/^[^A-Za-zА-Яа-яЁёЎўҚқҒғҲҳ]+/, '').charAt(0) || '').toUpperCase();
+    const par = String(d.ota_ona || '').split(/\s+(?:va|ва|&|and)\s+|\s*[,&+]\s*/i).map(x => x.trim()).filter(Boolean);
+    const hr = /^(\d{1,2}):/.test(d.vaqt || '') ? +d.vaqt.split(':')[0] : -1;
+    const mn = /^\d{1,2}:(\d{2})/.test(d.vaqt || '') ? +d.vaqt.split(':')[1] : 0;
+    const part = hr < 0 ? '' : hr < 4 ? 'tun yarmida' : hr < 7 ? 'tong saharda' : hr < 12 ? 'ertalab' : hr < 17 ? 'kunduzi' : hr < 21 ? 'kechqurun' : 'tunda';
+    const kgm = String(d.vazn || '').match(/(\d+(?:[.,]\d+)?)/);
+    const kgv = kgm ? parseFloat(kgm[1].replace(',', '.')) : 0;
+    const smm = String(d.boy || '').match(/(\d+(?:[.,]\d+)?)/);
+    const smv = smm ? parseFloat(smm[1].replace(',', '.')) : 0;
+
+    // intro
+    const go = !!s.go, sun = !!s.sun, named = !!s.named;
+    const L = Math.max(1, Array.from(name || 'Farzand').length);
+    const LW = Math.max(1, ...String(name || 'Farzand').split(/\s+/).map(x => Array.from(x).length));
+    const nameFs = Math.max(28, Math.min(54, Math.floor(340 / (LW * 0.62)))) + 'px';
+    const letters = Array.from(name || 'Farzand').map((ch, i) => ({ ch: ch === ' ' ? ' ' : ch, st: 'animation-delay: ' + (i * Math.min(0.06, 0.9 / L)).toFixed(3) + 's' }));
+    const rays = [];
+    for (let i = 0; i < 16; i++) {
+      const a = i * Math.PI / 8, r1 = i % 2 ? 98 : 94, r2 = i % 2 ? 108 : 118;
+      rays.push('M' + (195 + Math.cos(a) * r1).toFixed(1) + ' ' + (245 + Math.sin(a) * r1).toFixed(1) + ' L' + (195 + Math.cos(a) * r2).toFixed(1) + ' ' + (245 + Math.sin(a) * r2).toFixed(1));
+    }
+    const pct = s.pct || 0;
+
+    // hourly
+    const now = new Date(Date.now() + 5 * 3600e3), h0 = now.getUTCHours();
+    const hours = [0, 1, 2, 3, 4, 5, 6, 7].map(i => {
+      const hh = (h0 + i) % 24, day = hh >= 6 && hh < 19;
+      return { t: i === 0 ? 'Hozir' : pad(hh), fw: i === 0 ? '600' : '500', day: day && i % 3 !== 2, cloud: day && i % 3 === 2, night: !day };
+    }).map(x => x.cloud ? Object.assign(x, { day: false }) : x);
+
+    // elapsed
+    const el = SITE.elapsed(d.sana, d.vaqt);
+    const dayStr = String(el.days || 0);
+    const flips = [
+      { v: dayStr, l: 'kun', key: 'd' + dayStr, fs: dayStr.length > 3 ? '24px' : '30px' },
+      { v: pad(el.h || 0), l: 'soat', key: 'h' + el.h, fs: '30px' },
+      { v: pad(el.m || 0), l: 'daqiqa', key: 'm' + el.m, fs: '30px' },
+      { v: pad(el.s || 0), l: 'soniya', key: 's' + el.s, fs: '30px' }
+    ];
+
+    // gauge 0..5 kg, arc length = PI*52
+    const ARC = Math.PI * 52;
+    const kf = kgv > 0 ? Math.max(0, Math.min(1, kgv / 5)) : 0;
+    const gaugeTicks = [];
+    for (let i = 0; i <= 10; i++) {
+      const a = Math.PI + i * Math.PI / 10, r1 = 38, r2 = i % 5 === 0 ? 30 : 33;
+      gaugeTicks.push('M' + (70 + Math.cos(a) * r1).toFixed(1) + ' ' + (74 + Math.sin(a) * r1).toFixed(1) + ' L' + (70 + Math.cos(a) * r2).toFixed(1) + ' ' + (74 + Math.sin(a) * r2).toFixed(1));
+    }
+    // sun position on a day arc (0..24h)
+    const tf = hr < 0 ? 0.5 : (hr + mn / 60) / 24;
+    const bez = (t, a, b, c, e) => (1 - t) * (1 - t) * (1 - t) * a + 3 * (1 - t) * (1 - t) * t * b + 3 * (1 - t) * t * t * c + t * t * t * e;
+    const seg = tf < 0.5 ? 0 : 1, lt = tf < 0.5 ? tf * 2 : (tf - 0.5) * 2;
+    const sx = seg === 0 ? bez(lt, 6, 40, 46, 70) : bez(lt, 70, 94, 100, 134);
+    const sy = seg === 0 ? bez(lt, 70, 70, 14, 14) : bez(lt, 14, 14, 70, 70);
+    const pctB = smv > 0 ? Math.max(2, Math.min(100, smv / 60 * 100)) : 0;
+
+    const family = (d.bobo_buvi || []).filter(Boolean).map((ln, i, all) => {
+      const ps = String(ln).split(/\s+(?:va|ва|&)\s+|\s*[,&+]\s*/i).map(x => x.trim()).filter(Boolean);
+      const grads = ['linear-gradient(135deg, rgba(255, 200, 110, 0.32), rgba(255, 255, 255, 0.06))', 'linear-gradient(135deg, rgba(150, 210, 255, 0.3), rgba(255, 255, 255, 0.06))', 'linear-gradient(135deg, rgba(200, 170, 255, 0.3), rgba(255, 255, 255, 0.06))'];
+      return {
+        names: ps.join('\n'),
+        label: all.length === 1 ? 'Bobo va buvisi' : i === 0 ? 'Dadasi tomondan' : i === 1 ? 'Oyisi tomondan' : 'Yaqinlari',
+        cond: ['Quyoshli · iliq', 'Musaffo osmon', 'Kamalak ko’rinmoqda'][i % 3],
+        st: 'display: flex; align-items: center; gap: 12px; box-sizing: border-box; padding: 16px 18px; border-radius: 24px; border: 1px solid rgba(255, 255, 255, 0.18); background: ' + grads[i % 3]
+      };
+    });
+
+    // slider
+    const cnt = Math.max(1, Math.min(n || 1, 6));
+    const sel = Math.min(s.sel || 0, cnt - 1);
+    const slides = [];
+    for (let i = 0; i < cnt; i++) slides.push({ src: P[i % P.length], st: 'position: absolute; left: 0; top: 0; width: 100%; height: 430px; object-fit: cover; transition: opacity .6s ease, transform .8s ease; opacity: ' + (i === sel ? 1 : 0) + '; transform: scale(' + (i === sel ? 1 : 1.06) + ')' });
+    const dots = slides.map((x, i) => ({
+      label: (i + 1) + '-surat',
+      go: () => this.setState({ sel: i }),
+      st: 'display: block; height: 8px; border-radius: 4px; transition: width .3s ease, background-color .3s ease; width: ' + (i === sel ? 26 : 8) + 'px; background: ' + (i === sel ? '#FFFFFF' : 'rgba(255, 255, 255, 0.45)')
+    }));
+
+    const OY = ['yanvar', 'fevral', 'mart', 'aprel', 'may', 'iyun', 'iyul', 'avgust', 'sentabr', 'oktabr', 'noyabr', 'dekabr'];
+    const bm = /^(\d{4})-(\d{2})-(\d{2})/.exec(d.sana || '');
+    const filled = el.none ? 1 : Math.min(6, Math.max(1, (el.totalMonths || 0) + 1));
+    const months = [0, 1, 2, 3, 4, 5].map(i => {
+      let sub = '';
+      if (bm) { const t = new Date(Date.UTC(+bm[1], +bm[2] - 1 + i, 1)); sub = (+bm[3]) + '-' + OY[t.getUTCMonth()]; }
+      const has = i < filled;
+      return { label: (i + 1) + '-oy', note: i === 0 ? (sub || 'tug’ilgan kun') : has ? sub : 'tez orada', src: has ? P[(1 + i) % P.length] : '', empty: !has };
+    });
+
+    const wave = [];
+    for (let i = 0; i < 34; i++) {
+      const hgt = 10 + Math.round(30 * Math.abs(Math.sin(i * 0.55) * Math.cos(i * 0.21)));
+      wave.push('display: block; width: 4px; height: ' + hgt + 'px; border-radius: 2px; background: ' + (i % 5 === 0 ? 'var(--acc)' : 'rgba(255, 255, 255, 0.7)'));
+    }
+
+    const kinds = ['sun', 'rain', 'star', 'cloud'];
+    const wl = (d.tilaklar || []).filter(Boolean);
+    const wishes = wl.map((text, i) => {
+      const k = kinds[i % 4];
+      return { text, sun: k === 'sun', rain: k === 'rain', star: k === 'star', cloud: k === 'cloud', st: 'display: flex; align-items: center; gap: 12px; padding: 14px 0' + (i < wl.length - 1 ? '; border-bottom: 1px solid rgba(255, 255, 255, 0.14)' : '') };
+    });
+
+    const AV = ['linear-gradient(135deg, #FFD36E, #FF9F5A)', 'linear-gradient(135deg, #9BD3FF, #6E8CFF)', 'linear-gradient(135deg, #FFB0C8, #C58CFF)', 'linear-gradient(135deg, #A6E7B4, #4FC3B0)'];
+    const TAG = ['Quyoshli', 'Iliq', 'Musaffo', 'Kamalak'];
+    const gl = (d.mehmon_tilaklari || []).filter(x => x && (x.matn || x.ism));
+    const guests = gl.map((x, i) => {
+      const nm = String(x.ism || '').trim(), m = nm.match(/^(.+?)\s*(?:·|—|–| - |,|\()\s*(.+?)\)?$/);
+      const who = m ? m[1] : nm;
+      return {
+        matn: x.matn || '', who: who || 'Mehmon', rel: m ? m[2] : '', ini: ini(who) || '·', tag: TAG[i % 4],
+        av: 'flex: none; width: 42px; height: 42px; border-radius: 50%; background: ' + AV[i % 4] + '; display: flex; align-items: center; justify-content: center; font-family: Geologica, sans-serif; font-size: 18px; font-weight: 500; color: #1C2C5E'
+      };
+    });
+
+    const burst = [];
+    for (let i = 0; i < 12; i++) burst.push('--a: ' + (i * 30) + 'deg; width: 4px; height: 18px; margin: -9px 0 0 -2px; border-radius: 2px; background: ' + (i % 2 ? 'var(--acc)' : '#FFFFFF') + '; animation-delay: ' + (i % 3 * 0.05) + 's');
+
+    const homeName = par.length ? (par[0].split(/\s+/)[0]) : '';
+    return {
+      rootCls: qiz ? 'is-qiz' : 'is-ogil',
+      w: w,
+      cloud: CLOUD,
+      rays: rays,
+      introDisp: s.gone ? 'none' : 'block',
+      introCls: 'ob-intro' + (go ? ' is-go' : '') + (sun ? ' is-sun' : '') + (named ? ' is-named' : '') + (s.fade ? ' is-fade' : ''),
+      introHidden: go ? 'true' : 'false',
+      introEyebrow: sun ? 'Bugun: baxt' : 'Prognoz yuklanmoqda',
+      pctLabel: pct + '%',
+      numColor: sun ? '#FFFFFF' : 'rgba(255, 255, 255, 0.45)',
+      load: () => {
+        if (this.state && this.state.go) return;
+        this.setState({ go: true, pct: 0 });
+        SITE.opened();
+        this.t1 = setTimeout(() => {
+          this.setState({ sun: true });
+          let v = 0;
+          this.cnt = setInterval(() => { v = Math.min(100, v + 4); this.setState({ pct: v }); if (v >= 100) { clearInterval(this.cnt); this.cnt = null; } }, 32);
+        }, 1300);
+        this.t2 = setTimeout(() => this.setState({ named: true }), 2300);
+        this.t3 = setTimeout(() => this.setState({ fade: true }), 5200);
+        this.t4 = setTimeout(() => this.setState({ gone: true }), 6200);
+      },
+      letters: letters,
+      nameFs: nameFs,
+      home: d.ota_ona ? d.ota_ona + ' xonadoni' : 'Bizning xonadon',
+      homeShort: homeName ? homeName + 'lar xonadonida' : 'xonadonimizda',
+      dateLine: [w.Weekday, w.date].filter(Boolean).join(', '),
+      condLine: (qiz ? 'Qizchamiz' : 'O’g’ilchamiz') + ' dunyoga keldi · quyoshli',
+      fullDate: [w.date, w.weekday].filter(Boolean).join(', '),
+      timeLine: [d.vaqt, part].filter(Boolean).join(' · '),
+      hours: hours,
+      showCount: !el.none,
+      flips: flips,
+      gauge: { dash: (ARC * kf).toFixed(1) + ' 400', rot: (-90 + kf * 180).toFixed(1) + 'deg' },
+      gaugeTicks: gaugeTicks,
+      gramm: kgv > 0 && kgv < 20 ? SITE.num(Math.round(kgv * 1000)) + ' gramm' : '',
+      part: part,
+      sunDot: { x: sx.toFixed(1), y: sy.toFixed(1), cls: 'ob-sun' },
+      boyPct: pctB.toFixed(1) + '%',
+      rulerNums: ['0', '10', '20', '30', '40', '50', '60 sm'],
+      santimetr: smm ? smm[1] + ' santimetr — ' + (qiz ? 'malikamiz' : 'polvonimiz') + 'ning ilk bo’yi' : '',
+      initial: ini(name),
+      nasab: par.length > 1 ? name + ' ' + par[0] + (qiz ? ' qizi' : ' o’g’li') : name,
+      slides: slides,
+      dots: dots,
+      multi: cnt > 1,
+      slideNo: (sel + 1) + ' / ' + cnt,
+      prev: () => this.setState({ sel: (sel - 1 + cnt) % cnt }),
+      next: () => this.setState({ sel: (sel + 1) % cnt }),
+      family: family,
+      parLabel: par.length > 1 ? 'Dadasi va oyisi' : 'Ota-onasi',
+      babyWord: qiz ? 'qizalog’i' : 'o’g’ilchasi',
+      months: months,
+      wave: wave,
+      waveCls: playing ? 'ob-wave is-playing' : 'ob-wave',
+      playing: playing,
+      notPlaying: !playing,
+      musicLabel: playing ? 'Musiqani to’xtatish' : 'Musiqani yoqish',
+      playHint: playing ? 'yangramoqda' : 'tinglash uchun bosing',
+      toggleMusic: () => SITE.music.toggle(),
+      wishes: wishes,
+      guests: guests,
+      burst: burst,
+      burstCls: s.sent ? 'ob-burst is-on' : 'ob-burst',
+      congratsTitle: name ? name + 'ni tabriklang' : 'Tabriklang',
+      ctFs: Math.max(22, Math.min(30, Math.floor(300 / ((LW + 2) * 0.6)))) + 'px',
+      parentsTo: d.ota_ona ? SITE.ga(d.ota_ona) : 'ota-onasiga',
+      famLine: d.ota_ona ? d.ota_ona + ' oilasi' : '',
+      dotDate: w.dots ? w.dots.split('.').join(' · ') : '',
+      sent: !!s.sent,
+      btnLabel: s.sent ? 'Tabriklandi' : 'Quyoshli tabrik yuborish',
+      congratulate: () => { if (this.state && this.state.sent) return; this.setState({ sent: true }); SITE.reply(name + ' tug’ilgani bilan tabriklayman! Muborak bo’lsin!', '🤗'); }
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,676 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<title>To’y taklifnomasi: Kinetik</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alumni+Sans:ital,wght@0,300..900;1,300..700&amp;family=Inter+Tight:wght@300;400;500;600&amp;display=swap">
+<style>
+body{margin:0;background:#0F0E0D}
+.kn-root{background:#0F0E0D;color:#F2ECE2;font-family:'Inter Tight','Helvetica Neue',Arial,sans-serif;font-weight:400}
+.kn-d{font-family:'Alumni Sans','Arial Narrow',sans-serif;text-transform:uppercase}
+.kn-num{font-variant-numeric:lining-nums tabular-nums}
+.kn-icon{fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.kn-vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.kn-tiny{margin:0;font-size:11px;line-height:14px;font-weight:500;letter-spacing:.42em;text-transform:uppercase;color:#A39A8E}
+.kn-red{color:#E4572E}
+
+/* kadr: letterbox, don, vinyetka */
+.kn-bar{position:absolute;left:0;width:390px;height:110px;background:#050404;display:flex;align-items:center;justify-content:space-between;padding:0 20px;box-sizing:border-box}
+.kn-scr{position:absolute;left:0;top:110px;width:390px;height:624px;overflow:hidden;background:radial-gradient(120% 80% at 50% 45%,#1E1B18 0,#141210 55%,#0A0908 100%)}
+.kn-grain{position:absolute;left:-20px;top:-20px;width:430px;height:664px;opacity:.13;mix-blend-mode:screen;pointer-events:none;animation:kn-grain .5s steps(3) infinite}
+@keyframes kn-grain{0%{transform:translate(0,0)}33%{transform:translate(-9px,6px)}66%{transform:translate(7px,-8px)}100%{transform:translate(0,0)}}
+.kn-flick{animation:kn-flick 4.5s linear infinite}
+@keyframes kn-flick{0%,100%{opacity:1}47%{opacity:1}48%{opacity:.86}49%{opacity:1}83%{opacity:.93}84%{opacity:1}}
+.kn-tc{font-size:11px;line-height:14px;font-weight:500;letter-spacing:.18em;color:#8F877C}
+.kn-rec{display:inline-block;width:7px;height:7px;border-radius:50%;background:#E4572E;margin-right:8px;vertical-align:1px;animation:kn-rec 1.6s steps(2) infinite}
+@keyframes kn-rec{50%{opacity:.15}}
+
+/* sarlavha bloki */
+.kn-title{position:absolute;left:0;right:0;top:0;bottom:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 16px}
+.kn-name{margin:0;font-family:'Alumni Sans','Arial Narrow',sans-serif;font-weight:700;text-transform:uppercase;line-height:.84;letter-spacing:.01em;color:#F2ECE2;white-space:nowrap}
+.kn-name span{display:inline-block}
+.kn-va{margin:6px 0 10px;font-family:'Alumni Sans','Arial Narrow',sans-serif;font-style:italic;font-weight:400;font-size:46px;line-height:46px;color:#E4572E}
+.kn-dl{margin:26px 0 0;font-size:13px;line-height:18px;font-weight:500;letter-spacing:.5em;color:#D8D0C4;padding-left:.5em}
+
+/* kirish sahnasi */
+.kn-i{position:absolute;left:0;top:0;width:390px;height:844px;z-index:40;overflow:hidden;background:#0F0E0D}
+.kn-i .kn-let,.kn-i .kn-seq{opacity:0}
+.kn-card{position:absolute;left:0;right:0;top:0;bottom:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 24px}
+.kn-leader{position:absolute;left:55px;top:172px;width:280px;height:280px;opacity:.16}
+.kn-sweep{position:absolute;left:0;top:0;width:280px;height:280px;border-radius:50%;background:conic-gradient(from 0deg,rgba(242,236,226,.34),rgba(242,236,226,0) 28%,rgba(242,236,226,0));opacity:0}
+.kn-cnt{position:absolute;left:55px;top:172px;width:280px;height:280px;display:flex;align-items:center;justify-content:center;font-family:'Alumni Sans','Arial Narrow',sans-serif;font-weight:300;font-size:200px;line-height:1;color:#F2ECE2;opacity:0}
+.kn-pres{position:absolute;left:24px;right:24px;top:0;bottom:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;opacity:0}
+.kn-ui{transition:opacity .4s ease}
+.kn-skip{visibility:hidden;opacity:0;height:44px;padding:0 4px 0 14px;border:0;background:transparent;color:#A39A8E;font-family:inherit;font-size:11px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;cursor:pointer;display:flex;align-items:center;gap:6px;transition:opacity .4s ease 1s}
+.kn-skip:hover{color:#F2ECE2}
+.kn-play{height:58px;padding:0 28px 0 8px;border-radius:29px;border:0;background:#E4572E;color:#0F0E0D;font-family:inherit;font-size:14px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;display:inline-flex;align-items:center;gap:14px;cursor:pointer;box-shadow:0 0 0 0 rgba(228,87,46,.5);animation:kn-ping 2.6s ease-out infinite}
+.kn-play:hover{background:#EE6740}
+.kn-play i{width:42px;height:42px;border-radius:50%;background:#0F0E0D;display:flex;align-items:center;justify-content:center;color:#E4572E}
+@keyframes kn-ping{0%{box-shadow:0 0 0 0 rgba(228,87,46,.45)}70%,100%{box-shadow:0 0 0 16px rgba(228,87,46,0)}}
+
+.kn-i--play .kn-card{animation:kn-hide .45s ease forwards}
+.kn-i--play .kn-ui{opacity:0;pointer-events:none;animation:none}
+.kn-i--play .kn-skip{visibility:visible;opacity:1}
+.kn-i--play .kn-leader{animation:kn-lead 1.9s ease .25s both}
+.kn-i--play .kn-sweep{animation:kn-spin .5s linear .25s 4,kn-lead2 1.9s ease .25s both}
+.kn-i--play .kn-n3{animation:kn-flash .52s ease .3s both}
+.kn-i--play .kn-n2{animation:kn-flash .52s ease .82s both}
+.kn-i--play .kn-n1{animation:kn-flash .52s ease 1.34s both}
+.kn-i--play .kn-pres{animation:kn-pres 1.6s ease 2s both}
+.kn-i--play .kn-let{animation:kn-let .6s cubic-bezier(.16,.84,.24,1) both}
+.kn-i--play .kn-seq{animation:kn-seq .7s ease both}
+.kn-i--play{animation:kn-out .9s ease var(--end, 7s) forwards}
+.kn-i--skip{animation:kn-out .45s ease 0s forwards !important;pointer-events:none}
+.kn-i--play .kn-play,.kn-i--skip .kn-skip{pointer-events:none}
+@keyframes kn-hide{to{opacity:0;transform:scale(.97)}}
+@keyframes kn-lead{0%{opacity:0}10%{opacity:.85}88%{opacity:.85}100%{opacity:0}}
+@keyframes kn-lead2{0%{opacity:0}10%{opacity:1}88%{opacity:1}100%{opacity:0}}
+@keyframes kn-spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+@keyframes kn-flash{0%{opacity:0;transform:scale(1.18)}14%{opacity:1;transform:none}82%{opacity:1}100%{opacity:0}}
+@keyframes kn-pres{0%{opacity:0;transform:scale(.94)}18%{opacity:1}80%{opacity:1;transform:scale(1.03)}100%{opacity:0;transform:scale(1.05)}}
+@keyframes kn-let{from{opacity:0;transform:translateY(34%) scale(1.3);filter:blur(10px)}to{opacity:1;transform:none;filter:none}}
+@keyframes kn-seq{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes kn-out{to{opacity:0;visibility:hidden}}
+
+/* sahnalar */
+.kn-sec{position:relative;padding:96px 20px 0}
+.kn-slate{display:flex;align-items:center;gap:12px;font-size:11px;line-height:14px;font-weight:500;letter-spacing:.3em;text-transform:uppercase;color:#A39A8E}
+.kn-slate b{font-weight:600;color:#E4572E}
+.kn-slate i{flex:1;height:1px;background:#2E2A26}
+.kn-h2{margin:20px 0 0;font-family:'Alumni Sans','Arial Narrow',sans-serif;font-weight:700;font-size:76px;line-height:.86;text-transform:uppercase;letter-spacing:.005em;color:#F2ECE2}
+.kn-h2 em{font-style:italic;font-weight:400;color:#E4572E}
+.kn-txt{font-size:16px;line-height:25px;color:#C9C1B5}
+.kn-btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;height:54px;padding:0 26px;border-radius:27px;border:0;box-sizing:border-box;background:#E4572E;color:#0F0E0D;font-family:inherit;font-size:13px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;text-decoration:none;cursor:pointer}
+.kn-btn:hover{background:#EE6740}
+.kn-btn:disabled{opacity:.6;cursor:default}
+.kn-out{display:inline-flex;align-items:center;justify-content:center;gap:10px;height:52px;padding:0 24px;border-radius:26px;border:1px solid #4A443D;box-sizing:border-box;color:#F2ECE2;font-family:inherit;font-size:12px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;background:transparent;cursor:pointer}
+.kn-out:hover{border-color:#F2ECE2}
+.kn-photo{display:block;object-fit:cover;background:#1E1B18}
+
+/* aylantirishga bog'liq harakat */
+.kn-words{--p:1}
+.kn-w{opacity:clamp(.14,calc(((var(--p) - .18) * 2.6) * var(--n) - var(--i) + 1),1);transition:opacity .2s linear}
+.kn-band{--p:.5;position:relative;overflow:hidden;padding:30px 0}
+.kn-row{white-space:nowrap;font-family:'Alumni Sans','Arial Narrow',sans-serif;font-weight:800;font-size:96px;line-height:86px;text-transform:uppercase;will-change:transform}
+.kn-row1{color:transparent;-webkit-text-stroke:1.2px #6B635A;transform:translateX(calc(var(--p) * -360px))}
+.kn-row2{color:#E4572E;transform:translateX(calc(-420px + var(--p) * 360px))}
+.kn-par{--p:.5}
+.kn-par img{transform:translateY(calc((var(--p) - .5) * -80px)) scale(1.02);will-change:transform}
+.kn-zoom{--p:.5}
+.kn-zoom .kn-bigday{transform:scale(calc(.78 + min(var(--p), .55) * .4));transform-origin:0 70%}
+.kn-zoom .kn-slide{transform:translateX(calc(clamp(-1, (.5 - var(--p)) * 2, 0) * 70px))}
+.kn-list{--p:1}
+.kn-li{--k:clamp(0,calc(var(--p) * 4.2 - var(--i) * .3 - .5),1);opacity:calc(.12 + .88 * var(--k));transform:translateX(calc((1 - var(--k)) * 36px))}
+
+/* taymer */
+.kn-tcd{font-family:'Alumni Sans','Arial Narrow',sans-serif;font-weight:500;font-size:96px;line-height:84px;color:#F2ECE2}
+.kn-tcd span.kn-col{color:#4A443D;margin:0 2px}
+.kn-tick-a{animation:kn-tick-a .5s cubic-bezier(.2,.8,.2,1)}
+.kn-tick-b{animation:kn-tick-b .5s cubic-bezier(.2,.8,.2,1)}
+@keyframes kn-tick-a{from{opacity:0;transform:translateY(-14px)}to{opacity:1;transform:none}}
+@keyframes kn-tick-b{from{opacity:0;transform:translateY(-14px)}to{opacity:1;transform:none}}
+.kn-scrub{position:relative;height:28px;margin-top:22px}
+.kn-scrub::before{content:'';position:absolute;left:0;right:0;top:13px;height:2px;background:repeating-linear-gradient(90deg,#3A352F 0 1px,transparent 1px 6px)}
+.kn-head{position:absolute;top:0;width:2px;height:28px;background:#E4572E;transition:left .9s linear}
+.kn-head::before{content:'';position:absolute;left:-5px;top:-6px;border-left:6px solid transparent;border-right:6px solid transparent;border-top:8px solid #E4572E}
+
+/* plyonka */
+.kn-strip{display:flex;gap:0;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding:0 20px 6px;scrollbar-width:none}
+.kn-strip::-webkit-scrollbar{display:none}
+.kn-frame{flex:none;width:272px;scroll-snap-align:center;background:#050404;padding:26px 10px;box-sizing:border-box;position:relative}
+.kn-frame::before,.kn-frame::after{content:'';position:absolute;left:8px;right:8px;height:10px;background:repeating-linear-gradient(90deg,#2A2622 0 9px,transparent 9px 18px);border-radius:2px}
+.kn-frame::before{top:8px}
+.kn-frame::after{bottom:8px}
+.kn-fin{height:300px;box-sizing:border-box;padding:22px 20px;background:linear-gradient(160deg,#25211D,#171512);display:flex;flex-direction:column;justify-content:space-between;text-align:left;border-radius:3px}
+
+/* javob */
+.kn-opt{width:100%;height:64px;border-radius:4px;border:1px solid #4A443D;background:transparent;color:#F2ECE2;font-family:'Alumni Sans','Arial Narrow',sans-serif;font-weight:600;font-size:30px;line-height:1;text-transform:uppercase;letter-spacing:.02em;cursor:pointer;display:flex;align-items:center;justify-content:space-between;padding:0 20px;transition:background-color .2s,color .2s,border-color .2s}
+.kn-opt--on{background:#E4572E;border-color:#E4572E;color:#0F0E0D}
+.kn-opt i{font-style:normal;font-family:'Inter Tight',Arial,sans-serif;font-size:11px;font-weight:600;letter-spacing:.2em}
+.kn-flbl{display:block;font-size:11px;line-height:16px;font-weight:500;letter-spacing:.3em;text-transform:uppercase;color:#A39A8E}
+.kn-field{display:block;width:100%;box-sizing:border-box;border:0;border-bottom:1px solid #4A443D;background:transparent;color:#F2ECE2;font-family:inherit;font-size:17px;outline:none;border-radius:0;padding:12px 0}
+.kn-field:focus{border-bottom-color:#E4572E}
+.kn-field::placeholder{color:#6F675D}
+.kn-ta{min-height:72px;line-height:26px;resize:vertical}
+.kn-stepper{display:flex;align-items:center;gap:14px;transition:opacity .2s}
+.kn-stepper--off{opacity:.3}
+.kn-step{width:46px;height:46px;border-radius:50%;border:1px solid #4A443D;background:transparent;color:#F2ECE2;display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0}
+.kn-step:disabled{opacity:.35;cursor:default}
+.kn-music{position:absolute;top:33px;right:14px;z-index:60;width:44px;height:44px;border-radius:50%;border:1px solid #4A443D;background:rgba(5,4,4,.8);color:#F2ECE2;display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0}
+.kn-music--on{background:#E4572E;border-color:#E4572E;color:#0F0E0D}
+.kn-eq{display:flex;align-items:flex-end;gap:2px;height:14px}
+.kn-eq i{display:block;width:2px;height:100%;background:currentColor;transform-origin:50% 100%;animation:kn-eq .9s ease-in-out infinite alternate}
+.kn-eq i:nth-child(2){animation-delay:-.3s}.kn-eq i:nth-child(3){animation-delay:-.6s}.kn-eq i:nth-child(4){animation-delay:-.45s}
+@keyframes kn-eq{from{transform:scaleY(.25)}to{transform:scaleY(1)}}
+.kn-sw{display:block;width:100%;height:56px;border-radius:2px}
+.kn-cue{animation:kn-cue 2.2s ease-in-out infinite}
+@keyframes kn-cue{0%,100%{transform:scaleY(.4);opacity:.4}50%{transform:scaleY(1);opacity:1}}
+@media (prefers-reduced-motion: reduce){
+  .kn-grain,.kn-flick,.kn-rec,.kn-play,.kn-eq i,.kn-tick-a,.kn-tick-b,.kn-cue{animation:none !important}
+  .kn-i .kn-let,.kn-i .kn-seq{opacity:1}
+  .kn-i--play,.kn-i--skip{animation:none !important;opacity:0;visibility:hidden}
+  .kn-w{opacity:1 !important}
+  .kn-li{opacity:1 !important;transform:none !important}
+  .kn-row1,.kn-row2,.kn-par img,.kn-zoom .kn-bigday,.kn-zoom .kn-slide{transform:none !important}
+  .kn-head{transition:none}
+}
+</style>
+</helmet>
+<div class="kn-root" ref="{{ rootRef }}" style="width: 390px; min-height: var(--vh, 100vh); position: relative; overflow: hidden; display: flex; flex-direction: column">
+  <svg width="0" height="0" aria-hidden="true" style="position: absolute"><defs><filter id="kn-gr" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="2" stitchTiles="stitch"></feTurbulence><feColorMatrix type="saturate" values="0"></feColorMatrix></filter></defs></svg>
+
+  <sc-if value="{{ has.music }}">
+  <button type="button" class="{{ musicCls }}" aria-label="{{ musicLabel }}" aria-pressed="{{ musicOn }}" onClick="{{ toggleMusic }}">
+    <sc-if value="{{ musicOn }}"><span class="kn-eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span></sc-if>
+    <sc-if value="{{ musicOff }}"><svg class="kn-icon" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V5.5l11-2.2v12.5"></path><circle cx="6.2" cy="18" r="2.8"></circle><circle cx="17.2" cy="15.8" r="2.8"></circle></svg></sc-if>
+  </button>
+  </sc-if>
+
+  <div data-intro class="{{ introCls }}" style="{{ introSt }}" aria-hidden="{{ introHidden }}">
+    <div class="kn-scr kn-flick">
+      <svg class="kn-grain" width="430" height="664" aria-hidden="true"><rect x="0" y="0" width="430" height="664" filter="url(#kn-gr)"></rect></svg>
+      <div class="kn-leader" aria-hidden="true">
+        <svg width="280" height="280" viewBox="0 0 280 280"><circle cx="140" cy="140" r="136" fill="none" stroke="#F2ECE2" stroke-width="1.5"></circle><circle cx="140" cy="140" r="112" fill="none" stroke="#F2ECE2" stroke-width="1"></circle><path d="M140 0V280M0 140H280" stroke="#F2ECE2" stroke-width="1"></path></svg>
+        <div class="kn-sweep"></div>
+      </div>
+      <div class="kn-cnt kn-n3" aria-hidden="true">3</div>
+      <div class="kn-cnt kn-n2" aria-hidden="true">2</div>
+      <div class="kn-cnt kn-n1" aria-hidden="true">1</div>
+
+      <div class="kn-card">
+        <p class="kn-tiny">Hurmatli</p>
+        <p class="kn-d" style="margin: 14px 0 0; max-width: 350px; font-weight: 700; font-size: {{ fsGuest }}px; line-height: 0.9; color: #F2ECE2; overflow-wrap: anywhere">{{ guestName }}</p>
+        <span aria-hidden="true" style="display: block; width: 40px; height: 2px; margin: 26px 0 22px; background: #E4572E"></span>
+        <p style="margin: 0; font-size: 15px; line-height: 24px; color: #C9C1B5">Siz uchun maxsus namoyish</p>
+        <p class="kn-tiny" style="margin-top: 10px; color: #8F877C">Qisqa titrlar ketma-ketligi</p>
+      </div>
+
+      <div class="kn-pres" aria-hidden="true">
+        <p class="kn-d" style="margin: 0; max-width: 340px; font-weight: 500; font-size: {{ fsPres }}px; line-height: 1; letter-spacing: 0.06em; color: #F2ECE2; overflow-wrap: anywhere">{{ presenter }}</p>
+        <p class="kn-tiny" style="margin-top: 18px; color: #E4572E">taklif qiladi</p>
+      </div>
+
+      <div class="kn-title" aria-hidden="true">
+        <p class="kn-tiny kn-seq" style="{{ seq.top }}">Nikoh to’yi</p>
+        <p class="kn-name" style="margin-top: 22px; font-size: {{ fsK }}px"><sc-for list="{{ kLet }}" as="c"><span class="kn-let" style="{{ c.st }}">{{ c.c }}</span></sc-for></p>
+        <p class="kn-va kn-seq" style="{{ seq.va }}">va</p>
+        <p class="kn-name" style="font-size: {{ fsL }}px"><sc-for list="{{ lLet }}" as="c"><span class="kn-let" style="{{ c.st }}">{{ c.c }}</span></sc-for></p>
+        <p class="kn-dl kn-num kn-seq" style="{{ seq.date }}">{{ dLine }}</p>
+      </div>
+    </div>
+    <div class="kn-bar" style="top: 0">
+      <span class="kn-tc"><i class="kn-rec"></i>REEL 01</span>
+      <span class="kn-tc kn-num" style="position: absolute; left: 0; right: 0; text-align: center; pointer-events: none">{{ w.dots }}</span>
+      <button type="button" class="kn-skip" onClick="{{ skip }}">O’tkazish<svg class="kn-icon" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l7 6-7 6M14 6l7 6-7 6"></path></svg></button>
+    </div>
+    <div class="kn-bar" style="top: 734px; justify-content: center; flex-direction: column; gap: 8px">
+      <button type="button" class="kn-play kn-ui" onClick="{{ open }}"><i><svg width="14" height="16" viewBox="0 0 14 16" aria-hidden="true"><path d="M1 1.5v13L13 8 1 1.5Z" fill="currentColor"></path></svg></i>Ko’rish</button>
+      <sc-if value="{{ has.music }}"><p class="kn-ui kn-tc" style="margin: 0; display: flex; align-items: center; gap: 6px"><svg class="kn-icon" width="13" height="13" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V5.5l11-2.2v12.5"></path><circle cx="6.2" cy="18" r="2.8"></circle><circle cx="17.2" cy="15.8" r="2.8"></circle></svg>Musiqa bilan</p></sc-if>
+    </div>
+  </div>
+
+  <header style="position: relative; height: 844px; flex: none; background: #0F0E0D">
+    <div class="kn-scr kn-flick">
+      <svg class="kn-grain" width="430" height="664" aria-hidden="true"><rect x="0" y="0" width="430" height="664" filter="url(#kn-gr)"></rect></svg>
+      <h1 class="kn-vh">{{ pair }}</h1>
+      <div class="kn-title" aria-hidden="true">
+        <p class="kn-tiny">Nikoh to’yi</p>
+        <p class="kn-name" style="margin-top: 22px; font-size: {{ fsK }}px"><sc-for list="{{ kLet }}" as="c"><span>{{ c.c }}</span></sc-for></p>
+        <p class="kn-va">va</p>
+        <p class="kn-name" style="font-size: {{ fsL }}px"><sc-for list="{{ lLet }}" as="c"><span>{{ c.c }}</span></sc-for></p>
+        <p class="kn-dl kn-num">{{ dLine }}</p>
+      </div>
+    </div>
+    <div class="kn-bar" style="top: 0">
+      <span class="kn-tc"><i class="kn-rec"></i>REEL 01</span>
+      <span class="kn-tc kn-num" style="position: absolute; left: 0; right: 0; text-align: center; pointer-events: none">{{ w.dots }}</span>
+      <span style="width: 44px"></span>
+    </div>
+    <div class="kn-bar" style="top: 734px; justify-content: center; flex-direction: column; gap: 12px">
+      <span class="kn-tc" style="color: #C9C1B5">{{ heroLine }}</span>
+      <span class="kn-cue" aria-hidden="true" style="display: block; width: 1px; height: 26px; background: #E4572E; transform-origin: 50% 0"></span>
+    </div>
+  </header>
+
+  <section class="kn-sec" style="padding-top: 80px">
+    <div class="kn-slate"><b>01</b><span>Sahna</span><i></i><span>Taklif</span></div>
+    <p class="kn-tiny" style="margin-top: 34px; color: #C9C1B5">Assalomu alaykum,</p>
+    <p class="kn-d" style="margin: 14px 0 0; font-weight: 700; font-size: {{ fsHello }}px; line-height: 0.88; color: #F2ECE2; overflow-wrap: anywhere">Hurmatli<br><span class="kn-red">{{ guestName }}</span></p>
+    <sc-if value="{{ b.taklif }}">
+      <p class="kn-words" data-sp="" style="margin: 34px 0 0; font-weight: 300; font-size: 24px; line-height: 35px; color: #F2ECE2; --n: {{ nWords }}"><sc-for list="{{ words }}" as="x"><span class="kn-w" style="{{ x.st }}">{{ x.t }}</span> </sc-for></p>
+      <sc-if value="{{ d.taklif_qiluvchilar }}">
+        <div style="margin-top: 40px; display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: 16px; align-items: baseline; padding-top: 20px; border-top: 1px solid #2E2A26">
+          <span class="kn-tiny" style="letter-spacing: 0.24em; line-height: 18px">Taklif qiluvchilar</span>
+          <span class="kn-d" style="font-weight: 600; font-size: 34px; line-height: 0.95; overflow-wrap: anywhere">{{ d.taklif_qiluvchilar }}</span>
+        </div>
+      </sc-if>
+    </sc-if>
+    <sc-if value="{{ noTaklif }}">
+      <p style="margin: 30px 0 0; font-weight: 300; font-size: 22px; line-height: 33px">Sizni nikoh to’yimizga lutfan taklif etamiz.</p>
+    </sc-if>
+  </section>
+
+  <div class="kn-band" data-sp="" aria-hidden="true" style="margin-top: 70px">
+    <div class="kn-row kn-row1">{{ band }}</div>
+    <div class="kn-row kn-row2">{{ band }}</div>
+  </div>
+
+  <sc-if value="{{ has.photo }}">
+    <div class="kn-par" data-sp="" style="position: relative; margin-top: 10px; height: 460px; overflow: hidden">
+      <img class="kn-photo" src="{{ p.0 }}" alt="" style="position: absolute; left: 0; top: -40px; width: 390px; height: 540px">
+      <div aria-hidden="true" style="position: absolute; left: 0; right: 0; top: 0; height: 46px; background: #0F0E0D"></div>
+      <div aria-hidden="true" style="position: absolute; left: 0; right: 0; bottom: 0; height: 46px; background: #0F0E0D"></div>
+      <p style="position: absolute; left: 20px; right: 20px; bottom: 64px; margin: 0; text-align: center; font-size: 16px; line-height: 22px; font-weight: 500; color: #FFFFFF; text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9), 0 0 12px rgba(0, 0, 0, 0.6)">— Bu kunni biz bilan birga kutib oling.</p>
+      <span class="kn-tc" style="position: absolute; left: 20px; top: 16px">KADR 00</span>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ b.kun }}">
+  <section class="kn-sec kn-zoom" data-sp="">
+    <div class="kn-slate"><b>{{ sc.kun }}</b><span>Sahna</span><i></i><span>Sana</span></div>
+    <div style="position: relative; margin-top: 26px; height: 300px">
+      <p class="kn-d kn-num kn-bigday" style="position: absolute; left: -6px; bottom: 0; margin: 0; font-weight: 800; font-size: 330px; line-height: 0.74; color: #E4572E">{{ w.day }}</p>
+      <p class="kn-d kn-slide" style="position: absolute; right: 0; top: 18px; margin: 0; font-weight: 300; font-size: 64px; line-height: 0.9; text-align: right; color: #F2ECE2">{{ w.month }}<br><span style="color: #6B635A">{{ w.year }}</span></p>
+    </div>
+    <div style="margin-top: 30px; display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid #2E2A26; border-bottom: 1px solid #2E2A26">
+      <div style="padding: 18px 0; border-right: 1px solid #2E2A26">
+        <p class="kn-tiny" style="letter-spacing: 0.3em">Hafta kuni</p>
+        <p class="kn-d" style="margin: 8px 0 0; font-weight: 600; font-size: 38px; line-height: 1">{{ w.weekday }}</p>
+      </div>
+      <div style="padding: 18px 0 18px 20px">
+        <p class="kn-tiny" style="letter-spacing: 0.3em">Boshlanish</p>
+        <p class="kn-d kn-num" style="margin: 8px 0 0; font-weight: 600; font-size: 38px; line-height: 1">{{ d.vaqt }}</p>
+      </div>
+    </div>
+    <sc-if value="{{ cal }}">
+      <a class="kn-out" href="{{ cal }}" target="_blank" rel="noopener" style="margin-top: 22px; width: 100%">
+        <svg class="kn-icon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="2"></rect><path d="M3.5 10h17M8 3v4M16 3v4"></path></svg>
+        Taqvimga qo’shish
+      </a>
+    </sc-if>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.taymer }}">
+  <section class="kn-sec">
+    <div class="kn-slate"><b>{{ sc.taymer }}</b><span>Sahna</span><i></i><span><i class="kn-rec" style="flex: none; height: 7px"></i>Jonli</span></div>
+    <h2 class="kn-h2">To’ygacha <em>qoldi</em></h2>
+    <div class="kn-num" role="timer" aria-label="{{ cdText }}" style="margin-top: 30px">
+      <div class="kn-tcd" style="display: flex; align-items: baseline; justify-content: space-between">
+        <sc-for list="{{ tc }}" as="t"><sc-if value="{{ t.sep }}"><span class="kn-col">:</span></sc-if><span class="{{ t.cls }}" style="display: inline-block; min-width: 66px; text-align: center">{{ t.n }}</span></sc-for>
+      </div>
+      <div style="display: flex; justify-content: space-between; margin-top: 10px">
+        <sc-for list="{{ tc }}" as="t"><span class="kn-tiny" style="min-width: 66px; text-align: center; letter-spacing: 0.24em; padding-left: 0.24em">{{ t.l }}</span></sc-for>
+      </div>
+      <div class="kn-scrub" aria-hidden="true"><span class="kn-head" style="{{ headSt }}"></span></div>
+      <div style="display: flex; justify-content: space-between" aria-hidden="true"><span class="kn-tc">00:00</span><span class="kn-tc">01:00</span></div>
+    </div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.manzil }}">
+  <section class="kn-sec">
+    <div class="kn-slate"><b>{{ sc.manzil }}</b><span>Sahna</span><i></i><span>Joy</span></div>
+    <sc-if value="{{ d.joy_rasmi }}">
+      <div class="kn-par" data-sp="" style="position: relative; margin: 26px -20px 0; height: 236px; overflow: hidden; background: #050404">
+        <img class="kn-photo" src="{{ d.joy_rasmi }}" alt="" style="position: absolute; left: 0; top: -10px; width: 390px; height: 300px">
+        <div aria-hidden="true" style="position: absolute; left: 0; right: 0; top: 0; height: 34px; background: #0F0E0D"></div>
+        <div aria-hidden="true" style="position: absolute; left: 0; right: 0; bottom: 0; height: 34px; background: #0F0E0D"></div>
+        <span class="kn-tc" style="position: absolute; right: 20px; top: 10px">TASHQI · KECHQURUN</span>
+      </div>
+    </sc-if>
+    <h2 class="kn-h2" style="font-size: {{ fsPlace }}px; overflow-wrap: anywhere">{{ d.manzil_nomi }}</h2>
+    <sc-if value="{{ d.manzil }}"><p class="kn-txt" style="margin: 14px 0 0; max-width: 330px; overflow-wrap: anywhere">{{ d.manzil }}</p></sc-if>
+    <sc-if value="{{ d.xarita }}">
+      <a class="kn-btn" href="{{ d.xarita }}" target="_blank" rel="noopener" style="margin-top: 24px; width: 100%">
+        <svg class="kn-icon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6.5-6-6.5-11a6.5 6.5 0 0 1 13 0c0 5-6.5 11-6.5 11Z"></path><circle cx="12" cy="10" r="2.3"></circle></svg>
+        Xaritada ochish
+      </a>
+    </sc-if>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.dastur }}">
+  <section class="kn-sec">
+    <div class="kn-slate"><b>{{ sc.dastur }}</b><span>Sahna</span><i></i><span>Dastur</span></div>
+    <h2 class="kn-h2">Oqshom <em>ssenariysi</em></h2>
+    <div class="kn-list" data-sp="" style="margin-top: 30px; border-top: 1px solid #2E2A26">
+      <sc-for list="{{ prog }}" as="x">
+        <div class="kn-li" style="{{ x.st }}">
+          <div style="display: grid; grid-template-columns: 34px 92px minmax(0, 1fr); gap: 8px; align-items: baseline; padding: 18px 0; border-bottom: 1px solid #2E2A26">
+            <span class="kn-tc kn-num">{{ x.n }}</span>
+            <span class="kn-d kn-num" style="font-weight: 700; font-size: 40px; line-height: 1; color: #E4572E">{{ x.vaqt }}</span>
+            <span style="font-size: 17px; line-height: 24px; color: #F2ECE2; overflow-wrap: anywhere">{{ x.nomi }}</span>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.hikoya }}">
+  <section class="kn-sec" style="padding-left: 0; padding-right: 0">
+    <div style="padding: 0 20px">
+      <div class="kn-slate"><b>{{ sc.hikoya }}</b><span>Sahna</span><i></i><span>Hikoya</span></div>
+      <h2 class="kn-h2">Bizning <em>filmimiz</em></h2>
+      <p class="kn-tiny" style="margin-top: 16px; display: flex; align-items: center; gap: 8px"><svg class="kn-icon" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M15 8l4 4-4 4"></path></svg>Kadrlarni suring</p>
+    </div>
+    <div class="kn-strip" style="margin-top: 22px">
+      <sc-for list="{{ story }}" as="h">
+        <div class="kn-frame">
+          <div class="kn-fin">
+            <div style="display: flex; justify-content: space-between"><span class="kn-tc">KADR {{ h.n }}</span><span class="kn-tc">{{ h.of }}</span></div>
+            <div>
+              <p class="kn-d kn-num" style="margin: 0; font-weight: 800; font-size: 96px; line-height: 0.8; color: #E4572E">{{ h.yil }}</p>
+              <p class="kn-d" style="margin: 14px 0 0; font-weight: 600; font-size: 36px; line-height: 0.95; overflow-wrap: anywhere">{{ h.sarlavha }}</p>
+              <sc-if value="{{ h.matn }}"><p class="kn-txt" style="margin: 10px 0 0; font-size: 15px; line-height: 22px; overflow-wrap: anywhere">{{ h.matn }}</p></sc-if>
+            </div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.galereya }}">
+  <section class="kn-sec">
+    <div class="kn-slate"><b>{{ sc.galereya }}</b><span>Sahna</span><i></i><span>Kadrlar</span></div>
+    <h2 class="kn-h2">Yorqin <em>kadrlar</em></h2>
+    <div style="position: relative; margin-top: 32px">
+      <div class="kn-par" data-sp="" style="position: relative; margin: 0 -20px; height: 220px; overflow: hidden"><img class="kn-photo" src="{{ p.1 }}" alt="" style="position: absolute; left: 0; top: -40px; width: 390px; height: 300px"></div>
+      <span class="kn-tc" style="display: block; margin-top: 8px">KADR 01</span>
+      <div style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 10px; margin-top: 18px; align-items: end">
+        <div>
+          <div class="kn-par" data-sp="" style="position: relative; height: 290px; overflow: hidden"><img class="kn-photo" src="{{ p.2 }}" alt="" style="position: absolute; left: 0; top: -40px; width: 100%; height: 370px"></div>
+          <span class="kn-tc" style="display: block; margin-top: 8px">KADR 02</span>
+        </div>
+        <div>
+          <div class="kn-par" data-sp="" style="position: relative; height: 210px; overflow: hidden"><img class="kn-photo" src="{{ p.3 }}" alt="" style="position: absolute; left: 0; top: -40px; width: 100%; height: 290px"></div>
+          <span class="kn-tc" style="display: block; margin-top: 8px">KADR 03</span>
+        </div>
+      </div>
+      <div class="kn-par" data-sp="" style="position: relative; margin: 18px 0 0 70px; height: 260px; overflow: hidden"><img class="kn-photo" src="{{ p.4 }}" alt="" style="position: absolute; left: 0; top: -40px; width: 100%; height: 340px"></div>
+      <span class="kn-tc" style="display: block; margin: 8px 0 0 70px">KADR 04</span>
+    </div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.dress }}">
+  <section class="kn-sec">
+    <div class="kn-slate"><b>{{ sc.dress }}</b><span>Sahna</span><i></i><span>Liboslar</span></div>
+    <h2 class="kn-h2">Kiyinish <em>uslubi</em></h2>
+    <p style="margin: 22px 0 0; font-weight: 300; font-size: 20px; line-height: 31px; white-space: pre-line; overflow-wrap: anywhere">{{ d.dress_kod }}</p>
+    <sc-if value="{{ sw.length }}"><div style="margin-top: 24px; display: grid; grid-template-columns: {{ swCols }}; gap: 16px 8px">
+      <sc-for list="{{ sw }}" as="c"><div><span class="kn-sw" style="background: {{ c.bg }}"></span><span class="kn-tc" style="display: block; margin-top: 8px">{{ c.name }}</span></div></sc-for>
+    </div></sc-if>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.rsvp }}">
+  <section class="kn-sec">
+    <div class="kn-slate"><b>{{ sc.rsvp }}</b><span>Sahna</span><i></i><span>Javob</span></div>
+    <h2 class="kn-h2">Tashrif <em>buyurasizmi?</em></h2>
+    <p class="kn-txt" style="margin: 14px 0 0; font-size: 14px; line-height: 22px">{{ deadline }}</p>
+    <div style="margin-top: 26px; display: flex; flex-direction: column; gap: 10px">
+      <sc-if value="{{ askName }}"><label for="kn-name" class="kn-flbl">Ismingiz</label><input id="kn-name" class="kn-field" type="text" maxlength="100" autocomplete="name" placeholder="Masalan: Dilnoza opa" onInput="{{ onName }}" style="margin-bottom: 14px"></sc-if>
+      <button type="button" class="{{ optYesCls }}" aria-pressed="{{ isYes }}" onClick="{{ sayYes }}">Albatta boraman<i>A</i></button>
+      <button type="button" class="{{ optNoCls }}" aria-pressed="{{ isNo }}" onClick="{{ sayNo }}">Kela olmayman<i>B</i></button>
+    </div>
+    <div style="margin-top: 22px; display: flex; align-items: center; justify-content: space-between; gap: 12px; height: 48px">
+      <span class="kn-flbl">Necha kishi</span>
+      <div class="{{ stepperCls }}">
+        <button type="button" class="kn-step" aria-label="Kamaytirish" disabled="{{ minusOff }}" onClick="{{ dec }}"><svg class="kn-icon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12"></path></svg></button>
+        <span class="kn-d kn-num" aria-live="polite" style="min-width: 30px; text-align: center; font-weight: 700; font-size: 40px; line-height: 40px">{{ guests }}</span>
+        <button type="button" class="kn-step" aria-label="Ko’paytirish" disabled="{{ plusOff }}" onClick="{{ inc }}"><svg class="kn-icon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12M12 6v12"></path></svg></button>
+      </div>
+    </div>
+    <label for="kn-wish" class="kn-flbl" style="margin-top: 22px">Tilaklaringiz</label>
+    <textarea id="kn-wish" class="kn-field kn-ta" rows="2" maxlength="300" placeholder="Yoshlarga ezgu tilaklaringiz…" onInput="{{ onWish }}"></textarea>
+    <button type="button" class="kn-btn" style="margin-top: 26px; width: 100%" disabled="{{ busy }}" onClick="{{ send }}">
+      <sc-if value="{{ sent }}"><svg class="kn-icon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"></path></svg></sc-if>
+      {{ sendLabel }}
+    </button>
+    <p aria-live="polite" style="margin: 12px 0 0; font-size: 14px; line-height: 22px; color: #C9C1B5">{{ rsvpNote }}</p>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ anyRow }}">
+  <section class="kn-sec" style="padding-top: 64px">
+    <div style="border-top: 1px solid #2E2A26">
+      <sc-if value="{{ b.guruh }}">
+        <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 18px 0; border-bottom: 1px solid #2E2A26">
+          <div style="min-width: 0"><p class="kn-tiny" style="letter-spacing: 0.3em">Telegram</p><p class="kn-d" style="margin: 6px 0 0; font-weight: 600; font-size: 30px; line-height: 1">Mehmonlar guruhi</p></div>
+          <a class="kn-out" href="{{ d.telegram_guruh }}" target="_blank" rel="noopener" style="flex: none; height: 46px; padding: 0 18px">Qo’shilish</a>
+        </div>
+      </sc-if>
+      <sc-if value="{{ b.telefon }}">
+        <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 18px 0; border-bottom: 1px solid #2E2A26">
+          <div style="min-width: 0"><p class="kn-tiny" style="letter-spacing: 0.3em">Savollar uchun</p><p class="kn-d kn-num" style="margin: 6px 0 0; font-weight: 600; font-size: 32px; line-height: 1; white-space: nowrap">{{ d.telefon }}</p></div>
+          <a class="kn-btn" href="{{ tel }}" aria-label="Qo’ng’iroq qilish" style="flex: none; width: 50px; height: 50px; padding: 0; border-radius: 50%"><svg class="kn-icon" width="19" height="19" viewBox="0 0 24 24" aria-hidden="true"><path d="M5.2 3.5h3.1l1.6 4.2-2.1 1.5a12.2 12.2 0 0 0 7 7l1.5-2.1 4.2 1.6v3.1a1.9 1.9 0 0 1-2.1 1.9A16.6 16.6 0 0 1 3.3 5.6a1.9 1.9 0 0 1 1.9-2.1Z"></path></svg></a>
+        </div>
+      </sc-if>
+    </div>
+  </section>
+  </sc-if>
+
+  <footer style="position: relative; margin-top: auto; padding-top: 110px">
+    <div style="padding: 0 20px 80px; text-align: center">
+      <p class="kn-tiny">Yakuniy titrlar</p>
+      <p class="kn-d" style="margin: 22px 0 0; font-weight: 800; font-size: 62px; line-height: 0.9">Tashrifingizdan<br><span class="kn-red" style="font-style: italic; font-weight: 400; font-size: 96px; line-height: 0.86">xursand</span><br>bo’lamiz</p>
+      <div style="margin-top: 46px; display: flex; flex-direction: column; gap: 14px">
+        <sc-for list="{{ credits }}" as="c">
+          <div style="display: grid; grid-template-columns: 1fr 14px 1fr; gap: 10px; align-items: baseline">
+            <span class="kn-tiny" style="text-align: right; letter-spacing: 0.24em; line-height: 18px">{{ c.r }}</span>
+            <span aria-hidden="true" style="height: 1px; background: #3A352F; transform: translateY(-4px)"></span>
+            <span class="kn-d" style="text-align: left; font-weight: 600; font-size: 26px; line-height: 1; overflow-wrap: anywhere">{{ c.v }}</span>
+          </div>
+        </sc-for>
+      </div>
+      <p class="kn-txt" style="margin: 46px auto 0; max-width: 300px; text-wrap: pretty">Alloh yoshlarga baxtli va saodatli hayot nasib etsin. Duolaringiz uchun rahmat.</p>
+    </div>
+    <div style="height: 110px; background: #050404; display: flex; align-items: center; justify-content: center">
+      <span class="kn-d" style="font-weight: 300; font-size: 30px; letter-spacing: 0.3em; padding-left: 0.3em; color: #F2ECE2">{{ mono }}</span>
+    </div>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":7400}}'>
+const D = SITE.d;
+function hhmm(t) { t = String(t || ''); return /^\d:\d\d$/.test(t) ? '0' + t : t; }
+function stamp(iso, time) { const t = Date.parse(String(iso || '').slice(0, 10) + 'T' + (hhmm(time) || '12:00') + ':00+05:00'); return isNaN(t) ? null : t; }
+function ini(n) {
+  n = String(n || '').trim(); if (!n) return '';
+  if (/^(sh|ch)/i.test(n)) return n.charAt(0).toUpperCase() + n.charAt(1).toLowerCase();
+  if (/^[og][’'‘`ʻʼ]/i.test(n)) return n.charAt(0).toUpperCase() + '’';
+  return n.charAt(0).toUpperCase();
+}
+function fitPx(text, max, width, em) { const n = String(text || '').length || 1; return Math.max(Math.round(max * 0.36), Math.min(max, Math.floor(width / (n * em)))); }
+function fitWord(text, max, width, em) { const L = Math.max(1, ...String(text || '').split(/\s+/).map((x) => x.length)); return Math.max(Math.round(max * 0.4), Math.min(max, Math.floor(width / (L * em)))); }
+function telHref(t) { return 'tel:' + String(t || '').replace(/[^\d+]/g, ''); }
+const KUYOV = String(D.kuyov || '').trim();
+const KELIN = String(D.kelin || '').trim();
+const GUEST = String(D.mehmon || '').trim();
+function calUrl() {
+  const t = stamp(D.sana, D.vaqt); if (t == null) return '';
+  const f = (ms) => new Date(ms).toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
+  const title = [KUYOV, KELIN].filter(Boolean).join(' va ') + (KUYOV || KELIN ? ': ' : '') + 'nikoh to’yi';
+  const loc = [D.manzil_nomi, D.manzil].filter(Boolean).join(', ');
+  return 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + encodeURIComponent(title) + '&dates=' + f(t) + '/' + f(t + 5 * 3600e3) + (loc ? '&location=' + encodeURIComponent(loc) : '');
+}
+function deadlineText(tail) {
+  const t = stamp(D.sana, '12:00'); if (t == null) return 'Iltimos, ' + tail + '.';
+  const dl = t - 7 * 864e5;
+  if (dl < Date.now()) return 'Iltimos, imkon qadar tezroq ' + tail + '.';
+  return 'Iltimos, ' + SITE.when(new Date(dl + 5 * 3600e3).toISOString().slice(0, 10)).dm + 'gacha ' + tail + '.';
+}
+
+const SW = [
+  ['fil suyagi', '#F1E8D6'], ['to\'q ko\'k', '#14284A'], ['to\'q yashil', '#123F33'], ['zumrad', '#16564A'],
+  ['shampan', '#EFE0BE'], ['oltin', 'linear-gradient(130deg, #A9822F, #F1D9A0 45%, #C9A24A 62%, #8A6A24)'],
+  ['kumush', 'linear-gradient(130deg, #8E9399, #F1F3F5 45%, #B8BDC2 62%, #7D8287)'], ['marvarid', '#EDE3E3'],
+  ['bordo', '#6E1A2C'], ['pudra', '#EBCBC3'], ['oq', '#F4F2EE'], ['krem', '#F1E4CC'], ['bej', '#DCC7A6'],
+  ['moviy', '#7FAEDC'], ['ko\'k', '#3F78B8'], ['yashil', '#4E9A62'], ['pushti', '#E9A7B8'], ['qizil', '#B8302F'],
+  ['jigarrang', '#7A5236'], ['kulrang', '#9EA2A6'], ['lavanda', '#BCA9DE'], ['binafsha', '#6E4E9C'], ['sariq', '#E8C14E'], ['qora', '#121010']
+];
+function swatches(text) {
+  let t = ' ' + String(text || '').toLowerCase().replace(/[’‘ʻʼ`]/g, '\'') + ' ';
+  const found = [];
+  SW.forEach(([k, bg]) => {
+    const re = new RegExp('(^|[^a-z\'])' + k + '(?![a-z])');
+    const m = re.exec(t);
+    if (m) {
+      found.push({ at: m.index, name: k.replace(/'/g, '’').toUpperCase(), bg });
+      t = t.slice(0, m.index + m[1].length) + ' '.repeat(k.length) + t.slice(m.index + m[1].length + k.length);
+    }
+  });
+  return found.sort((a, b) => a.at - b.at).slice(0, 8);
+}
+
+/* titr ketma-ketligi: harflar navbat bilan */
+const T0 = 3.5, STEP = 0.075;
+function letters(s, start) { return Array.from(String(s || '').toUpperCase()).map((c, i) => ({ c: c === ' ' ? '\u00A0' : c, st: 'animation-delay: ' + (start + i * STEP).toFixed(3) + 's' })); }
+const KL = letters(KUYOV, T0);
+const VA_AT = T0 + KL.length * STEP + 0.25;
+const LL = letters(KELIN, VA_AT + 0.35);
+const DATE_AT = VA_AT + 0.35 + LL.length * STEP + 0.45;
+const END_AT = DATE_AT + 1.6;
+const SEQ = { top: 'animation-delay: ' + (T0 - 0.3).toFixed(2) + 's', va: 'animation-delay: ' + VA_AT.toFixed(2) + 's', date: 'animation-delay: ' + DATE_AT.toFixed(2) + 's' };
+const ORDER = ['kun', 'taymer', 'manzil', 'dastur', 'hikoya', 'galereya', 'dress', 'rsvp'];
+
+class Component extends DCLogic {
+  constructor(...args) {
+    super(...args);
+    this.state = { opened: false, skipped: false, rsvp: '', guests: 1, sent: false, busy: false, warn: '' };
+    this.nm = ''; this.wish = '';
+    this.rootRef = (el) => { this.rootEl = el; };
+    this.onScroll = () => {
+      if (this.raf) return;
+      this.raf = requestAnimationFrame(() => { this.raf = 0; this.measure(); });
+    };
+  }
+  measure() {
+    const root = this.rootEl; if (!root || this.reduce) return;
+    const vh = window.innerHeight || 800;
+    const els = root.querySelectorAll('[data-sp]');
+    for (let i = 0; i < els.length; i++) {
+      const r = els[i].getBoundingClientRect();
+      const p = Math.max(0, Math.min(1, (vh - r.top) / (vh + r.height)));
+      els[i].style.setProperty('--p', p.toFixed(4));
+    }
+  }
+  componentDidMount() {
+    let reduce = false;
+    try { reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) { reduce = false; }
+    this.reduce = reduce;
+    this.timer = setInterval(() => this.forceUpdate(), 1000);
+    if (!reduce) { window.addEventListener('scroll', this.onScroll, { passive: true }); window.addEventListener('resize', this.onScroll); this.measure(); }
+  }
+  componentDidUpdate() { if (!this.reduce) this.onScroll(); }
+  componentWillUnmount() {
+    clearInterval(this.timer);
+    window.removeEventListener('scroll', this.onScroll);
+    window.removeEventListener('resize', this.onScroll);
+    if (this.raf) cancelAnimationFrame(this.raf);
+  }
+  open() { if (this.state.opened) return; this.setState({ opened: true }); SITE.opened(); }
+  send() {
+    const s = this.state;
+    if (!s.rsvp) { this.setState({ warn: 'Iltimos, avval javobingizni tanlang.' }); return; }
+    const name = this.nm.trim();
+    if (!SITE.has.guest && !name) { this.setState({ warn: 'Iltimos, ismingizni yozing.' }); return; }
+    if (s.busy) return;
+    this.setState({ busy: true, warn: '' });
+    SITE.rsvp(s.rsvp === 'yes', s.rsvp === 'yes' ? s.guests : 1, name, this.wish.trim())
+      .then(() => this.setState({ sent: true, busy: false }))
+      .catch(() => this.setState({ busy: false, warn: 'Javob yuborilmadi. Iltimos, qayta urinib ko’ring.' }));
+  }
+  rsvpVals() {
+    const s = this.state || {};
+    const isYes = s.rsvp === 'yes', isNo = s.rsvp === 'no', guests = s.guests || 1;
+    const who = (GUEST || this.nm.trim());
+    let note = '';
+    if (s.sent && isYes) note = (who ? 'Rahmat, ' + who + '! ' : 'Rahmat! ') + (guests > 1 ? 'Sizni ' + guests + ' kishi bilan kutamiz.' : 'Sizni intiqlik bilan kutamiz.');
+    else if (s.sent && isNo) note = (who ? 'Rahmat, ' + who + '! ' : 'Rahmat! ') + 'Duolaringiz biz bilan bo’lsin.';
+    else if (s.warn) note = s.warn;
+    return {
+      deadline: deadlineText('javob bering'),
+      askName: !SITE.has.guest,
+      onName: (e) => { this.nm = e.target.value; },
+      onWish: (e) => { this.wish = e.target.value; },
+      isYes, isNo, guests,
+      optYesCls: isYes ? 'kn-opt kn-opt--on' : 'kn-opt',
+      optNoCls: isNo ? 'kn-opt kn-opt--on' : 'kn-opt',
+      sayYes: () => this.setState({ rsvp: 'yes', sent: false, warn: '' }),
+      sayNo: () => this.setState({ rsvp: 'no', sent: false, warn: '' }),
+      stepperCls: isNo ? 'kn-stepper kn-stepper--off' : 'kn-stepper',
+      minusOff: isNo || guests <= 1, plusOff: isNo || guests >= 10,
+      dec: () => this.setState({ guests: Math.max(1, guests - 1), sent: false }),
+      inc: () => this.setState({ guests: Math.min(10, guests + 1), sent: false }),
+      send: () => this.send(),
+      busy: !!s.busy, sent: !!s.sent,
+      sendLabel: s.busy ? 'Yuborilmoqda…' : (s.sent ? 'Javob yuborildi' : 'Javobni yuborish'),
+      rsvpNote: note
+    };
+  }
+  renderVals() {
+    const s = this.state || {};
+    const w = SITE.when(D.sana, D.vaqt);
+    const cd = SITE.countdown(D.sana, D.vaqt);
+    const music = SITE.music.playing;
+    const guestName = GUEST || 'mehmon';
+    const sw = swatches(D.dress_kod);
+    const sc = {}; let k = 1;
+    ORDER.forEach((key) => { if (SITE.b[key]) { k++; sc[key] = SITE.pad(k); } });
+    const words = String(D.matn || '').split(/\s+/).filter(Boolean);
+    const tcv = (v, l, sep) => ({ n: SITE.pad(v), l, sep, cls: v % 2 ? 'kn-tick-a' : 'kn-tick-b' });
+    const story = Array.isArray(D.hikoya) ? D.hikoya.filter((x) => x && (x.yil || x.sarlavha || x.matn)) : [];
+    const pres = String(D.taklif_qiluvchilar || '').trim() || 'Ikki oila';
+    const credits = [['Kuyov', KUYOV], ['Kelin', KELIN], ['Taklif qiluvchilar', D.taklif_qiluvchilar], ['Sana', w.date], ['Joy', D.manzil_nomi]]
+      .filter((c) => c[1]).map((c) => ({ r: c[0], v: c[1] }));
+    const band = Array(4).fill([KUYOV, KELIN].filter(Boolean).join(' · ')).join(' — ') + ' —';
+    return Object.assign({
+      introCls: s.skipped ? 'kn-i kn-i--play kn-i--skip' : (s.opened ? 'kn-i kn-i--play' : 'kn-i'),
+      introSt: '--end: ' + END_AT.toFixed(2) + 's',
+      introHidden: !!s.opened,
+      open: () => this.open(),
+      skip: () => this.setState({ skipped: true }),
+      rootRef: this.rootRef,
+      w, sc,
+      kLet: KL, lLet: LL, seq: SEQ,
+      fsK: fitPx(KUYOV, 150, 350, 0.4), fsL: fitPx(KELIN, 150, 350, 0.4),
+      dLine: [w.day, w.monthNum, w.year].filter(Boolean).join(' · '),
+      heroLine: [w.Weekday, w.dm, D.vaqt ? 'soat ' + D.vaqt : ''].filter(Boolean).join(' · ').toUpperCase(),
+      pair: [KUYOV, KELIN].filter(Boolean).join(' va '),
+      mono: [ini(KUYOV), ini(KELIN)].filter(Boolean).join(' & '),
+      guestName, fsGuest: fitWord(guestName, 92, 340, 0.42),
+      fsHello: fitWord(guestName, 84, 350, 0.42),
+      presenter: pres, fsPres: fitWord(pres, 46, 330, 0.42),
+      words: words.map((t, i) => ({ t, st: '--i: ' + i })), nWords: words.length || 1,
+      noTaklif: !SITE.b.taklif,
+      band,
+      cal: calUrl(),
+      tc: [tcv(cd.d, 'Kun', false), tcv(cd.h, 'Soat', true), tcv(cd.m, 'Daqiqa', true), tcv(cd.s, 'Soniya', true)],
+      headSt: 'left: calc(' + (cd.s / 59 * 100).toFixed(2) + '% - 1px)',
+      cdText: cd.d + ' kun, ' + cd.h + ' soat, ' + cd.m + ' daqiqa qoldi',
+      fsPlace: fitWord(D.manzil_nomi, 76, 350, 0.4),
+      prog: (Array.isArray(D.dastur) ? D.dastur.filter((x) => x && (x.vaqt || x.nomi)) : []).map((x, i) => ({ vaqt: x.vaqt || '', nomi: x.nomi || '', n: SITE.pad(i + 1), st: '--i: ' + i })),
+      story: story.map((x, i) => ({ yil: x.yil || '', sarlavha: x.sarlavha || '', matn: x.matn || '', n: SITE.pad(i + 1), of: SITE.pad(i + 1) + ' / ' + SITE.pad(story.length) })),
+      sw, swCols: 'repeat(' + Math.max(1, Math.min(4, sw.length)) + ', minmax(0, 1fr))',
+      anyRow: !!(SITE.b.guruh || SITE.b.telefon),
+      tel: telHref(D.telefon),
+      credits,
+      musicOn: music, musicOff: !music,
+      musicCls: music ? 'kn-music kn-music--on' : 'kn-music',
+      musicLabel: music ? 'Musiqani o’chirish' : 'Musiqani yoqish',
+      toggleMusic: () => { SITE.music.toggle(); }
+    }, this.rsvpVals());
+  }
+}
+</script>
+</body>
+</html>

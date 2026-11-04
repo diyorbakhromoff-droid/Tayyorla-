@@ -1,0 +1,616 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<title>Tug’ilgan kun: Bauhaus</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geologica:wght@300;400;500;700;800;900&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#2346B5}
+.is-hidden{display:none}
+.bh-col{display:flex}
+.bh-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.bh-cap{margin:0;font-size:11px;font-weight:700;letter-spacing:.22em;text-transform:uppercase}
+.bh-head{display:flex;align-items:center;gap:12px;padding-top:12px;border-top:3px solid #141414}
+.bh-no{font-size:13px;font-weight:900;letter-spacing:.04em;font-variant-numeric:tabular-nums}
+.bh-lab{flex:1;font-size:11px;font-weight:700;letter-spacing:.22em;text-transform:uppercase}
+.bh-ico{display:block;width:22px;height:22px}
+.bh-h2{margin:14px 0 0;font-size:44px;font-weight:900;line-height:.95;letter-spacing:-.035em;overflow-wrap:anywhere}
+.bh-lead{margin:10px 0 0;font-size:16px;font-weight:400;line-height:1.45;color:#3B3A37}
+.bh-grid{background-image:linear-gradient(90deg,rgba(20,20,20,0.07) 1px,transparent 1px);background-size:58.33px 100%;background-position:20px 0}
+
+/* shapes */
+.bh-cell{position:absolute;display:block}
+.bh-spin{animation:bh-spin 24s linear infinite}
+@keyframes bh-spin{to{transform:rotate(360deg)}}
+.bh-swing{transform-origin:50% 0;animation:bh-swing 5s ease-in-out infinite alternate}
+@keyframes bh-swing{from{transform:rotate(-6deg)}to{transform:rotate(6deg)}}
+.bh-bob{animation:bh-bob 4.5s ease-in-out infinite alternate}
+@keyframes bh-bob{from{transform:translateY(-5px)}to{transform:translateY(5px)}}
+@keyframes bh-out{from{opacity:1}to{opacity:0}}
+.bh-rise{animation:bh-rise .9s cubic-bezier(.2,.8,.2,1) both;animation-timeline:view();animation-range:entry 5% entry 80%}
+@keyframes bh-rise{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+.bh-slideL{animation:bh-slideL 1s cubic-bezier(.2,.8,.2,1) both;animation-timeline:view();animation-range:entry 0% entry 80%}
+@keyframes bh-slideL{from{opacity:0;transform:translateX(-60px) rotate(-8deg)}to{opacity:1;transform:none}}
+.bh-slideR{animation:bh-slideR 1s cubic-bezier(.2,.8,.2,1) both;animation-timeline:view();animation-range:entry 0% entry 80%}
+@keyframes bh-slideR{from{opacity:0;transform:translateX(60px) rotate(8deg)}to{opacity:1;transform:none}}
+
+/* countdown */
+.bh-tile{position:relative;height:165px;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;padding:14px;box-sizing:border-box}
+.bh-num{position:relative;display:block;font-size:68px;font-weight:900;line-height:.9;letter-spacing:-.04em;font-variant-numeric:tabular-nums}
+.bh-num--a{animation:bh-numA .45s cubic-bezier(.2,.8,.2,1) both}
+.bh-num--b{animation:bh-numB .45s cubic-bezier(.2,.8,.2,1) both}
+@keyframes bh-numA{from{transform:translateY(-40%);opacity:0}to{transform:none;opacity:1}}
+@keyframes bh-numB{from{transform:translateY(-40%);opacity:0}to{transform:none;opacity:1}}
+.bh-hand{position:absolute;right:-40px;bottom:-40px;width:150px;height:150px;transition:transform .5s cubic-bezier(.3,1.5,.5,1)}
+
+/* wishes */
+.bh-wish{position:relative;display:flex;align-items:center;gap:16px;width:100%;min-height:76px;margin:0;padding:12px 16px 12px 12px;border:0;border-top:2px solid #141414;background:transparent;color:#141414;font:inherit;text-align:left;cursor:pointer;overflow:hidden;box-sizing:border-box}
+.bh-wish:last-child{border-bottom:2px solid #141414}
+.bh-wfill{position:absolute;left:0;top:0;right:0;bottom:0;transform:scaleX(0);transform-origin:0 50%;transition:transform .55s cubic-bezier(.7,0,.2,1)}
+.bh-wish--on .bh-wfill{transform:scaleX(1)}
+.bh-wsh{position:relative;flex:none;width:44px;height:44px;transition:transform .7s cubic-bezier(.4,1.6,.5,1)}
+.bh-wish--on .bh-wsh{transform:rotate(180deg) scale(.8)}
+.bh-wtx{position:relative;flex:1;min-width:0;font-size:24px;font-weight:800;line-height:1.1;letter-spacing:-.02em;overflow-wrap:anywhere;transition:color .3s ease .15s}
+.bh-wn{position:relative;flex:none;font-size:12px;font-weight:700;letter-spacing:.1em;transition:color .3s ease .15s}
+.bh-wish--on .bh-wtx,.bh-wish--on .bh-wn{color:#FAF9F6}
+.bh-wish--y.bh-wish--on .bh-wtx,.bh-wish--y.bh-wish--on .bh-wn{color:#141414}
+
+/* cake */
+.bh-flame{position:absolute;width:16px;height:26px;margin-left:-8px;border-radius:50% 50% 50% 50%/62% 62% 38% 38%;background:#F2B51B;transform-origin:50% 100%;animation:bh-fl .7s ease-in-out infinite alternate;transition:opacity .4s ease}
+.bh-flame::after{content:"";position:absolute;left:5px;top:11px;width:6px;height:11px;border-radius:50% 50% 50% 50%/62% 62% 38% 38%;background:#DE3A22}
+@keyframes bh-fl{0%{transform:scale(1,1) rotate(-4deg)}100%{transform:scale(.86,1.12) rotate(4deg)}}
+.bh-cake--out .bh-flame{animation:bh-fOut .9s cubic-bezier(.5,0,.7,.4) both}
+@keyframes bh-fOut{0%{opacity:1;transform:none}100%{opacity:0;transform:translateY(-70px) rotate(200deg) scale(.4)}}
+.bh-wcirc{position:absolute;left:50%;top:50%;width:300px;height:300px;margin:-150px 0 0 -150px;border-radius:50%;background:#2346B5;transform:scale(0);transition:transform .9s cubic-bezier(.3,1.3,.5,1) .35s}
+.bh-cake--out .bh-wcirc{transform:scale(1)}
+.bh-wline{opacity:0;transform:translateY(12px);transition:opacity .6s ease .8s,transform .6s ease .8s}
+.bh-cake--out .bh-wline{opacity:1;transform:none}
+
+/* secret */
+.bh-sec{position:relative;display:block;width:300px;height:300px;margin:0 auto;padding:0;border:0;background:none;color:inherit;font:inherit;cursor:pointer}
+.bh-q{position:absolute;width:150px;height:150px;transition:transform 1s cubic-bezier(.7,-0.2,.25,1.2)}
+.bh-q1{left:0;top:0;border-radius:150px 0 0 0;transform-origin:0 0}
+.bh-q2{left:150px;top:0;border-radius:0 150px 0 0;transform-origin:100% 0}
+.bh-q3{left:0;top:150px;border-radius:0 0 0 150px;transform-origin:0 100%}
+.bh-q4{left:150px;top:150px;border-radius:0 0 150px 0;transform-origin:100% 100%}
+.bh-sec--on .bh-q1{transform:scale(.24) rotate(-90deg)}
+.bh-sec--on .bh-q2{transform:scale(.24) rotate(90deg);transition-delay:.06s}
+.bh-sec--on .bh-q3{transform:scale(.24) rotate(90deg);transition-delay:.12s}
+.bh-sec--on .bh-q4{transform:scale(.24) rotate(-90deg);transition-delay:.18s}
+.bh-stxt{opacity:0;transform:scale(.9);transition:opacity .6s ease .6s,transform .6s ease .6s}
+.bh-sec--on .bh-stxt{opacity:1;transform:none}
+.bh-shint{transition:opacity .3s ease}
+.bh-sec--on .bh-shint{opacity:0}
+
+/* buttons */
+.bh-btn{position:relative;min-height:58px;padding:0 22px;border:0;border-radius:0;background:#141414;color:#FAF9F6;font-family:'Geologica','Futura','Avenir Next',Arial,sans-serif;font-size:15px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;display:inline-flex;align-items:center;justify-content:center;gap:12px;cursor:pointer}
+.bh-btnL{min-height:52px;padding:0 22px;border:2px solid #141414;border-radius:0;background:#ECEAE4;color:#141414;font-family:'Geologica','Futura',Arial,sans-serif;font-size:14px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;display:inline-flex;align-items:center;justify-content:center;gap:10px;cursor:pointer}
+.bh-music{position:absolute;right:14px;top:8px;z-index:5;width:44px;height:44px;border:2px solid #141414;border-radius:50%;background:#ECEAE4;display:flex;align-items:center;justify-content:center;padding:0;cursor:pointer}
+.bh-music--on{background:#F2B51B}
+.bh-go{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;width:250px;height:250px;margin:0 auto;padding:0;border:0;border-radius:50%;background:#DE3A22;color:#FAF9F6;font-family:'Geologica','Futura',Arial,sans-serif;cursor:pointer;transition:transform .5s cubic-bezier(.3,1.6,.5,1),background .4s ease}
+.bh-go:active{transform:scale(.96)}
+.bh-go--done{background:#2346B5;cursor:default}
+.bh-bit{position:absolute;left:0;top:0;opacity:0}
+.bh-burst--go .bh-bit{animation:bh-bit 1.5s cubic-bezier(.15,.8,.3,1) both}
+@keyframes bh-bit{0%{opacity:1;transform:translate(0,0) rotate(0) scale(.3)}70%{opacity:1}100%{opacity:0;transform:translate(var(--x),var(--y)) rotate(var(--r)) scale(1)}}
+
+/* intro: assemble */
+.bh-piece{transform:translate(var(--sx),var(--sy)) rotate(var(--sr)) scale(var(--ss));transition:transform 1.05s cubic-bezier(.65,-0.1,.25,1.2);transition-delay:var(--d)}
+.bh-intro--on .bh-piece{transform:none}
+.bh-ch{display:inline-block;transform:translateY(110%) rotate(8deg);transform-origin:0 100%;transition:transform .6s cubic-bezier(.2,.9,.2,1);transition-delay:var(--d)}
+.bh-intro--on .bh-ch{transform:none}
+.bh-iw{display:inline-block;overflow:hidden;vertical-align:top;white-space:nowrap;padding-bottom:2px}
+.bh-iSub{opacity:0;transform:translateY(10px);transition:opacity .5s ease 2.1s,transform .5s ease 2.1s}
+.bh-intro--on .bh-iSub{opacity:1;transform:none}
+.bh-iTag{transform:scale(0) rotate(-90deg);transition:transform .6s cubic-bezier(.3,1.6,.5,1) 1.55s}
+.bh-intro--on .bh-iTag{transform:none}
+.bh-iHide{transition:opacity .35s ease,transform .45s ease}
+.bh-intro--on .bh-iHide{opacity:0;transform:translateY(14px)}
+.bh-intro--on{pointer-events:none;animation:bh-out .6s ease 3.2s both}
+.bh-page .bh-pv{opacity:1}
+.bh-page--in .bh-pv1{animation:bh-pv .8s cubic-bezier(.2,.8,.2,1) 3.25s both}
+.bh-page--in .bh-pv2{animation:bh-pv .8s cubic-bezier(.2,.8,.2,1) 3.4s both}
+.bh-page--in .bh-pv3{animation:bh-pv .8s cubic-bezier(.2,.8,.2,1) 3.55s both}
+@keyframes bh-pv{from{opacity:0;transform:translateY(30px)}}
+
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation:none !important;transition:none !important}
+  .bh-intro--on{opacity:0}
+}
+</style>
+</helmet>
+<div style="width: 390px; min-height: var(--vh, 100vh); position: relative; overflow: hidden; background: #ECEAE4; color: #141414; font-family: 'Geologica', 'Futura', 'Avenir Next', Arial, sans-serif">
+
+  <div class="{{ pageCls }}" style="position: relative; z-index: 1; min-height: var(--vh, 100vh); display: flex; flex-direction: column">
+
+    <section class="bh-grid" style="position: relative; min-height: 844px; flex: none; padding-bottom: 30px; box-sizing: border-box">
+      <div style="position: absolute; left: 20px; top: 0; width: 350px; height: 60px; border-bottom: 3px solid #141414; display: flex; align-items: center; justify-content: space-between">
+        <div><p class="bh-cap">Tug’ilgan kun</p><p class="bh-cap" style="margin-top: 3px; font-weight: 400; letter-spacing: 0.16em">{{ heroDots }}</p></div>
+        <sc-if value="{{ noMusic }}"><svg aria-hidden="true" width="64" height="20" viewBox="0 0 64 20"><circle cx="10" cy="10" r="9" fill="#DE3A22"></circle><rect x="24" y="1" width="18" height="18" fill="#2346B5"></rect><path d="M46 19L55 1L64 19Z" fill="#F2B51B"></path></svg></sc-if>
+      </div>
+      <sc-if value="{{ has.music }}"><button type="button" class="{{ musicCls }}" onClick="{{ toggleMusic }}" aria-label="Musiqa" aria-pressed="{{ musicOn }}"><svg aria-hidden="true" width="18" height="20" viewBox="0 0 22 26"><path d="M8 3L20 0V17.5A3.5 3 0 1 1 17 14.6V5.2L10 7V20.5A3.5 3 0 1 1 7 17.6V3Z" fill="#141414"></path></svg></button></sc-if>
+
+      <div aria-hidden="true" style="{{ ringSt }}"></div>
+      <div aria-hidden="true" style="position: absolute; left: 20px; top: 78px; width: 3px; height: 250px; background: #141414"></div>
+      <span aria-hidden="true" class="bh-cap" style="position: absolute; left: 30px; top: 82px; writing-mode: vertical-rl; font-size: 10px">{{ heroVert }}</span>
+
+      <div aria-hidden="true">
+        <sc-for list="{{ cells }}" as="c"><span class="bh-cell" style="{{ c.st }}"></span></sc-for>
+      </div>
+      <sc-if value="{{ ageOn }}"><div aria-hidden="true" style="{{ tagSt }}"><span style="font-size: 12px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase">yosh</span></div></sc-if>
+
+      <div style="{{ nameFlow }}">
+        <h1 style="margin: 0; font-size: {{ nameFs }}px; font-weight: 900; line-height: 0.92; letter-spacing: -0.035em; text-transform: uppercase; overflow-wrap: anywhere"><span class="bh-sr">{{ srAge }}</span>{{ name }}</h1>
+        <p style="margin: 12px 0 0; font-size: 19px; font-weight: 400; letter-spacing: -0.01em">Tug’ilgan kuning muborak!</p>
+      </div>
+
+      <div style="position: relative; width: 350px; margin: 44px 20px 0; display: flex; flex-wrap: wrap; gap: 10px">
+      <div class="bh-pv bh-pv1" style="position: relative; width: 170px; height: 170px; background: #F2B51B; padding: 14px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: space-between">
+        <span style="font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase">{{ w.Weekday }}</span>
+        <span><span style="display: block; font-size: 84px; font-weight: 900; line-height: 0.85; letter-spacing: -0.05em">{{ w.day }}</span><span style="display: block; margin-top: 6px; font-size: 18px; font-weight: 700">{{ w.month }} {{ w.year }}</span></span>
+      </div>
+      <div class="bh-pv bh-pv2" style="position: relative; width: 170px; height: 170px">
+        <sc-if value="{{ has.photo }}"><img src="{{ p.0 }}" alt="" style="display: block; width: 170px; height: 170px; border-radius: 50%; object-fit: cover"></sc-if>
+        <sc-if value="{{ noPhoto }}"><div aria-hidden="true" style="width: 170px; height: 170px; border-radius: 50%; background: #2346B5; color: #FAF9F6; display: flex; align-items: center; justify-content: center; font-size: 110px; font-weight: 900; line-height: 1">{{ initial }}</div></sc-if>
+        <span aria-hidden="true" style="position: absolute; left: -4px; bottom: -4px; width: 62px; height: 62px; background: #DE3A22; border-radius: 0 62px 0 0"></span>
+      </div>
+      <sc-if value="{{ d.kimdan }}">
+        <div class="bh-pv bh-pv3" style="position: relative; width: 350px; min-height: 48px; padding: 10px 16px; box-sizing: border-box; background: #141414; color: #FAF9F6; display: flex; align-items: center; gap: 12px">
+          <svg aria-hidden="true" width="14" height="14" viewBox="0 0 14 14" style="flex: none"><path d="M0 14L7 0L14 14Z" fill="#F2B51B"></path></svg>
+          <span style="font-size: 14px; font-weight: 500; line-height: 1.3; overflow-wrap: anywhere">{{ from.line }}</span>
+        </div>
+      </sc-if>
+      </div>
+    </section>
+
+<sc-if value="{{ b.tabrik }}">
+    <section style="position: relative; padding: 40px 20px 44px">
+      <div class="bh-head"><span class="bh-no">{{ tab.tabrik }}</span><span class="bh-lab">Tabrik</span><svg class="bh-ico" aria-hidden="true" viewBox="0 0 22 22"><circle cx="11" cy="11" r="11" fill="#DE3A22"></circle></svg></div>
+      <h2 class="bh-h2">Senga<br>bir necha so’z</h2>
+      <div aria-hidden="true" class="bh-swing" style="position: absolute; right: 26px; top: 46px; width: 2px; height: 56px; background: #141414"><span style="position: absolute; left: -23px; top: 56px; width: 48px; height: 48px; border-radius: 50%; background: #F2B51B"></span></div>
+      <div class="bh-rise" style="position: relative; margin-top: 28px; padding: 24px 22px 26px; background: #FAF9F6; box-shadow: 10px 10px 0 #2346B5">
+        <div style="font-size: 17px; line-height: 1.65; overflow-wrap: anywhere">
+          <sc-if value="{{ dropCap }}"><span aria-hidden="true" style="float: left; width: 66px; height: 66px; margin: 4px 14px 2px 0; background: #2346B5; color: #FAF9F6; display: flex; align-items: center; justify-content: center; font-size: 50px; font-weight: 900; line-height: 1; border-radius: 0 0 66px 0">{{ dropCap }}</span></sc-if>
+          <span style="white-space: pre-line"><span class="bh-sr">{{ dropCap }}</span>{{ restText }}</span>
+        </div>
+        <sc-if value="{{ d.kimdan }}">
+          <div style="clear: both; margin-top: 22px; padding-top: 14px; border-top: 2px solid #141414; display: flex; align-items: flex-start; gap: 12px">
+            <span aria-hidden="true" style="flex: none; width: 18px; height: 18px; margin-top: 4px; background: #DE3A22"></span>
+            <div style="min-width: 0">
+              <sc-if value="{{ from.label }}"><p class="bh-cap" style="color: #5A5853">{{ from.label }}</p></sc-if>
+              <p style="margin: 4px 0 0; font-size: 21px; font-weight: 800; line-height: 1.2; letter-spacing: -0.01em; overflow-wrap: anywhere">{{ from.names }}</p>
+            </div>
+          </div>
+        </sc-if>
+      </div>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.taymer }}">
+    <section style="position: relative; padding: 40px 20px 44px">
+      <div class="bh-head"><span class="bh-no">{{ tab.taymer }}</span><span class="bh-lab">Taymer</span><svg class="bh-ico" aria-hidden="true" viewBox="0 0 22 22"><rect width="22" height="22" fill="#2346B5"></rect></svg></div>
+      <h2 class="bh-h2">{{ cdTitle }}</h2>
+      <p class="bh-lead">{{ cdDate }}</p>
+      <div class="bh-rise" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 24px">
+        <sc-for list="{{ tiles }}" as="t">
+          <div class="bh-tile" style="{{ t.bg }}">
+            <span aria-hidden="true" class="bh-hand" style="{{ t.hand }}"></span>
+            <span class="bh-cap" style="position: relative; {{ t.fg }}">{{ t.l }}</span>
+            <span class="{{ t.cls }}" style="{{ t.fg }}">{{ t.v }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.tilaklar }}">
+    <section style="position: relative; padding: 40px 20px 44px">
+      <div class="bh-head"><span class="bh-no">{{ tab.tilaklar }}</span><span class="bh-lab">Tilaklar</span><svg class="bh-ico" aria-hidden="true" viewBox="0 0 22 22"><path d="M0 22L11 0L22 22Z" fill="#F2B51B"></path></svg></div>
+      <h2 class="bh-h2">Tilaklar<br>konstruktori</h2>
+      <p class="bh-lead">Har biriga teging — shakl aylanib, tilak rangga to’ladi.</p>
+      <div style="margin-top: 22px">
+        <sc-for list="{{ wishes }}" as="w">
+          <button type="button" class="{{ w.cls }}" onClick="{{ w.tap }}" aria-pressed="{{ w.on }}">
+            <span aria-hidden="true" class="bh-wfill" style="{{ w.fill }}"></span>
+            <span aria-hidden="true" class="bh-wsh" style="{{ w.sh }}"></span>
+            <span class="bh-wtx">{{ w.text }}</span>
+            <span aria-hidden="true" class="bh-wn">{{ w.n }}</span>
+          </button>
+        </sc-for>
+      </div>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.sham }}">
+    <section style="position: relative; padding: 40px 20px 44px; text-align: center">
+      <div class="bh-head" style="text-align: left"><span class="bh-no">{{ tab.sham }}</span><span class="bh-lab">Sham</span><svg class="bh-ico" aria-hidden="true" viewBox="0 0 22 22"><path d="M11 0C16 7 18 12 18 15A7 7 0 0 1 4 15C4 12 6 7 11 0Z" fill="#DE3A22"></path></svg></div>
+      <h2 class="bh-h2" style="text-align: left">Niyat qiling<br>va puflang</h2>
+      <div class="{{ cakeCls }}" style="position: relative; width: 320px; height: 330px; margin: 18px auto 0">
+        <span aria-hidden="true" class="bh-wcirc"></span>
+        <div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 320px; height: 330px">
+          <span style="position: absolute; left: 40px; top: 300px; width: 240px; height: 10px; background: #141414"></span>
+          <span style="position: absolute; left: 50px; top: 230px; width: 220px; height: 70px; background: #2346B5"></span>
+          <span style="position: absolute; left: 50px; top: 252px; width: 220px; height: 8px; background: #ECEAE4; opacity: 0.35"></span>
+          <span style="position: absolute; left: 75px; top: 172px; width: 170px; height: 58px; background: #F2B51B"></span>
+          <span style="position: absolute; left: 75px; top: 172px; width: 170px; height: 20px; background: #141414; border-radius: 0 0 85px 85px / 0 0 20px 20px"></span>
+          <span style="position: absolute; left: 100px; top: 124px; width: 120px; height: 48px; background: #DE3A22"></span>
+          <sc-for list="{{ candles }}" as="cd">
+            <span style="{{ cd.st }}"></span>
+            <span class="bh-flame" style="{{ cd.fl }}"></span>
+          </sc-for>
+        </div>
+        <p class="bh-wline" style="position: absolute; left: 30px; top: 18px; width: 260px; margin: 0; font-size: 24px; font-weight: 900; line-height: 1.05; letter-spacing: -0.02em; color: #FAF9F6; overflow-wrap: anywhere">{{ wishLine }}</p>
+      </div>
+      <button type="button" class="bh-btnL" onClick="{{ blow }}" style="margin-top: 22px"><span class="{{ blowIdle }}">Puflash</span><span class="{{ blowDone }}">Shamlarni qayta yoqish</span></button>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.sirli }}">
+    <section style="position: relative; padding: 40px 20px 44px">
+      <div class="bh-head"><span class="bh-no">{{ tab.sirli }}</span><span class="bh-lab">Sirli tilak</span><svg class="bh-ico" aria-hidden="true" viewBox="0 0 22 22"><path d="M0 22A22 22 0 0 1 22 0V22Z" fill="#141414"></path></svg></div>
+      <h2 class="bh-h2">Doira ichida<br>bir sir bor</h2>
+      <p class="bh-lead" style="margin-bottom: 24px">Doiraga teging — to’rt bo’lak tarqalib, sirli tilakni ochadi.</p>
+      <button type="button" class="{{ secCls }}" onClick="{{ toggleSec }}" aria-label="Sirli tilakni ochish">
+        <div style="position: absolute; left: 0; top: 0; width: 300px; height: 300px; background: #FAF9F6; box-shadow: inset 0 0 0 2px #141414"></div>
+        <div class="bh-stxt" style="position: absolute; left: 34px; top: 34px; width: 232px; height: 232px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center">
+          <span class="bh-cap" style="color: #DE3A22">Sirli tilak</span>
+          <span style="margin-top: 10px; font-size: {{ secFs }}px; font-weight: 700; line-height: 1.3; letter-spacing: -0.01em; white-space: pre-line; overflow-wrap: anywhere">{{ d.sirli_tilak }}</span>
+        </div>
+        <span aria-hidden="true" class="bh-q bh-q1" style="background: #DE3A22"></span>
+        <span aria-hidden="true" class="bh-q bh-q2" style="background: #2346B5"></span>
+        <span aria-hidden="true" class="bh-q bh-q3" style="background: #F2B51B"></span>
+        <span aria-hidden="true" class="bh-q bh-q4" style="background: #141414"></span>
+        <span class="bh-shint" style="position: absolute; left: 100px; top: 100px; width: 100px; height: 100px; border-radius: 50%; background: #ECEAE4; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; color: #141414">Bosing</span>
+      </button>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.galereya }}">
+    <section style="position: relative; padding: 40px 20px 52px">
+      <div class="bh-head"><span class="bh-no">{{ tab.galereya }}</span><span class="bh-lab">Suratlar</span><svg class="bh-ico" aria-hidden="true" viewBox="0 0 22 22"><path d="M0 22V11A11 11 0 0 1 22 11V22Z" fill="#2346B5"></path></svg></div>
+      <h2 class="bh-h2">Kadrlar<br>setkasi</h2>
+      <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; row-gap: 26px; margin-top: 26px; padding-right: 10px; box-sizing: border-box">
+        <sc-for list="{{ gal }}" as="g">
+          <div class="{{ g.anim }}" style="{{ g.box }}"><img src="{{ g.src }}" alt="" style="{{ g.img }}"></div>
+        </sc-for>
+      </div>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.xronika }}">
+    <section style="position: relative; padding: 40px 20px 44px">
+      <div class="bh-head"><span class="bh-no">{{ tab.xronika }}</span><span class="bh-lab">Xronika</span><svg class="bh-ico" aria-hidden="true" viewBox="0 0 22 22"><rect x="0" y="0" width="10" height="22" fill="#DE3A22"></rect><rect x="12" y="8" width="10" height="14" fill="#141414"></rect></svg></div>
+      <h2 class="bh-h2">Yillar<br>chizmasi</h2>
+      <div style="position: relative; margin-top: 26px">
+        <div aria-hidden="true" style="position: absolute; left: 107px; top: 0; bottom: 0; width: 3px; background: #141414"></div>
+        <sc-for list="{{ chron }}" as="c">
+          <div class="bh-rise" style="position: relative; display: flex; align-items: flex-start; padding: 0 0 26px">
+            <span style="flex: none; width: 86px; padding-right: 6px; text-align: right; font-size: {{ c.fs }}px; font-weight: 900; line-height: 0.9; letter-spacing: -0.05em; color: {{ c.col }}; overflow-wrap: anywhere">{{ c.yosh }}</span>
+            <span aria-hidden="true" style="{{ c.node }}"></span>
+            <div style="flex: 1; min-width: 0; padding-left: 4px">
+              <sc-if value="{{ has.photo }}"><img src="{{ c.src }}" alt="" style="{{ c.img }}"></sc-if>
+              <p style="margin: 0; font-size: 18px; font-weight: 700; line-height: 1.3; letter-spacing: -0.01em; overflow-wrap: anywhere">{{ c.matn }}</p>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.mehmonlar }}">
+    <section style="position: relative; padding: 40px 20px 44px">
+      <div class="bh-head"><span class="bh-no">{{ tab.mehmonlar }}</span><span class="bh-lab">Yaqinlar</span><svg class="bh-ico" aria-hidden="true" viewBox="0 0 22 22"><circle cx="6" cy="11" r="6" fill="#2346B5"></circle><circle cx="16" cy="11" r="6" fill="#DE3A22"></circle></svg></div>
+      <h2 class="bh-h2">Yaqinlar<br>nima deydi</h2>
+      <div style="margin-top: 24px; display: flex; flex-direction: column; gap: 18px">
+        <sc-for list="{{ reviews }}" as="r">
+          <div class="{{ r.anim }}" style="{{ r.st }}">
+            <div style="display: flex; align-items: center; gap: 12px; padding: 12px 14px; background: #141414; color: #FAF9F6">
+              <span aria-hidden="true" style="{{ r.sh }}">{{ r.ini }}</span>
+              <span style="min-width: 0; font-size: 15px; font-weight: 800; letter-spacing: 0.02em; overflow-wrap: anywhere">{{ r.ism }}</span>
+            </div>
+            <p style="margin: 0; padding: 16px 16px 18px; font-size: 17px; line-height: 1.5; overflow-wrap: anywhere">{{ r.matn }}</p>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.javob }}">
+    <section style="position: relative; padding: 40px 20px 50px; text-align: center">
+      <div class="bh-head" style="text-align: left"><span class="bh-no">{{ tab.javob }}</span><span class="bh-lab">Tabrik</span><svg class="bh-ico" aria-hidden="true" viewBox="0 0 22 22"><circle cx="11" cy="11" r="9" fill="none" stroke="#141414" style="stroke-width: 4"></circle></svg></div>
+      <h2 class="bh-h2" style="text-align: left; font-size: 34px; overflow-wrap: break-word">{{ name }}ni<br>tabrikladingizmi?</h2>
+      <p class="bh-lead" style="text-align: left; margin-bottom: 30px">Bir bosishda tabrigingizni yetkazing.</p>
+      <div style="position: relative; width: 250px; margin: 0 auto">
+        <div class="{{ burstCls }}" aria-hidden="true" style="position: absolute; left: 125px; top: 125px; width: 0; height: 0; z-index: 3; pointer-events: none">
+          <sc-for list="{{ bits }}" as="c"><span class="bh-bit" style="{{ c }}"></span></sc-for>
+        </div>
+        <button type="button" class="{{ sendCls }}" onClick="{{ send }}">
+          <span class="{{ sendIdle }}" style="flex-direction: column; align-items: center; gap: 10px"><svg aria-hidden="true" width="34" height="34" viewBox="0 0 34 34"><path d="M0 34L17 0L34 34Z" fill="#F2B51B"></path></svg><span style="font-size: 22px; font-weight: 900; letter-spacing: 0.06em; text-transform: uppercase">Tabrikladim</span></span>
+          <span class="{{ sendDone }}" style="flex-direction: column; align-items: center; gap: 8px; padding: 0 30px"><svg aria-hidden="true" width="34" height="34" viewBox="0 0 34 34"><circle cx="17" cy="17" r="17" fill="#F2B51B"></circle></svg><span style="font-size: 20px; font-weight: 900; line-height: 1.1">Rahmat, yetkazildi</span></span>
+        </button>
+      </div>
+    </section>
+</sc-if>
+
+    <footer style="position: relative; flex: 1; min-height: 210px; margin-top: 10px; background: #141414; color: #FAF9F6; display: flex; flex-direction: column; justify-content: flex-end; padding: 0 20px 26px; box-sizing: border-box; overflow: hidden">
+      <div aria-hidden="true" class="bh-spin" style="position: absolute; right: -60px; top: -60px; width: 180px; height: 180px"><span style="position: absolute; left: 0; top: 0; width: 90px; height: 90px; background: #DE3A22; border-radius: 90px 0 0 0"></span><span style="position: absolute; left: 90px; top: 0; width: 90px; height: 90px; background: #F2B51B; border-radius: 0 90px 0 0"></span><span style="position: absolute; left: 0; top: 90px; width: 90px; height: 90px; background: #2346B5; border-radius: 0 0 0 90px"></span><span style="position: absolute; left: 90px; top: 90px; width: 90px; height: 90px; background: #ECEAE4; border-radius: 0 0 90px 0"></span></div>
+      <div aria-hidden="true" style="position: absolute; left: 20px; top: 30px; display: flex; gap: 8px"><span style="width: 26px; height: 26px; border-radius: 50%; background: #DE3A22"></span><span style="width: 26px; height: 26px; background: #2346B5"></span><span style="width: 0; height: 0; border-left: 14px solid transparent; border-right: 14px solid transparent; border-bottom: 26px solid #F2B51B"></span></div>
+      <p style="position: relative; margin: 0; font-size: {{ footFs }}px; font-weight: 900; line-height: 0.95; letter-spacing: -0.035em; text-transform: uppercase; overflow-wrap: anywhere">{{ name }}</p>
+      <p class="bh-cap" style="position: relative; margin-top: 10px; color: #BDBBB4">{{ footLine }}</p>
+    </footer>
+  </div>
+
+  <div data-intro class="{{ introCls }}" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; z-index: 20; overflow: hidden; background: #ECEAE4">
+    <div class="bh-grid" aria-hidden="true" style="position: absolute; inset: 0"></div>
+    <div style="position: absolute; left: 20px; top: 0; width: 350px; height: 60px; border-bottom: 3px solid #141414; display: flex; align-items: center; justify-content: space-between">
+      <div><p class="bh-cap">Tug’ilgan kun</p><p class="bh-cap" style="margin-top: 3px; font-weight: 400; letter-spacing: 0.16em">{{ heroDots }}</p></div>
+      <sc-if value="{{ has.music }}"><div aria-hidden="true" class="bh-iHide" style="display: flex; align-items: center; gap: 6px"><svg width="12" height="14" viewBox="0 0 22 26"><path d="M8 3L20 0V17.5A3.5 3 0 1 1 17 14.6V5.2L10 7V20.5A3.5 3 0 1 1 7 17.6V3Z" fill="#141414"></path></svg><span class="bh-cap" style="font-size: 10px">Musiqa bilan</span></div></sc-if>
+    </div>
+    <div aria-hidden="true" style="{{ ringSt }}"></div>
+    <div aria-hidden="true" style="position: absolute; left: 20px; top: 78px; width: 3px; height: 250px; background: #141414"></div>
+    <span aria-hidden="true" class="bh-cap" style="position: absolute; left: 30px; top: 82px; writing-mode: vertical-rl; font-size: 10px">{{ heroVert }}</span>
+
+    <div aria-hidden="true">
+      <sc-for list="{{ cells }}" as="c"><span class="bh-cell bh-piece" style="{{ c.st }}"></span></sc-for>
+    </div>
+    <sc-if value="{{ ageOn }}"><div aria-hidden="true" class="bh-iTag" style="{{ tagSt }}"><span style="font-size: 12px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase">yosh</span></div></sc-if>
+
+    <div aria-hidden="true" style="{{ nameSt }}">
+      <p style="margin: 0; font-size: {{ nameFs }}px; font-weight: 900; line-height: 0.92; letter-spacing: -0.035em; text-transform: uppercase"><sc-for list="{{ kin }}" as="wd"><span class="bh-iw"><sc-for list="{{ wd.ch }}" as="ch"><span class="bh-ch" style="{{ ch.st }}">{{ ch.c }}</span></sc-for></span> </sc-for></p>
+      <p class="bh-iSub" style="margin: 12px 0 0; font-size: 19px; font-weight: 400; letter-spacing: -0.01em">Tug’ilgan kuning muborak!</p>
+    </div>
+
+    <div class="bh-iHide" style="position: absolute; left: 20px; top: 618px; width: 350px">
+      <p class="bh-cap" style="color: #DE3A22">{{ introCap }}</p>
+      <p style="margin: 8px 0 0; font-size: 30px; font-weight: 900; line-height: 1; letter-spacing: -0.035em">Shakllar o’z joyini<br>topsa — bayram!</p>
+      <button type="button" class="bh-btn" onClick="{{ open }}" style="width: 350px; margin-top: 22px">
+        <svg aria-hidden="true" width="44" height="18" viewBox="0 0 44 18"><circle cx="9" cy="9" r="9" fill="#DE3A22"></circle><rect x="20" y="1" width="10" height="16" fill="#2346B5"></rect><path d="M32 17L38 1L44 17Z" fill="#F2B51B"></path></svg>
+        Shakllarni yig’ing
+      </button>
+      <sc-if value="{{ from.line }}"><p style="margin: 12px 0 0; font-size: 13px; line-height: 1.35; color: #4A4945; overflow-wrap: anywhere">{{ from.line }}</p></sc-if>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":6200}}'>
+const tkName = (d) => String(d.kimga || '').trim();
+const tkFrom = (d) => {
+  const kd = String(d.kimdan || '').trim(), ci = kd.indexOf(':');
+  const label = ci > 0 ? kd.slice(0, ci).trim() : '';
+  const names = ci > 0 ? kd.slice(ci + 1).trim() : kd;
+  return { label: label, names: names, line: !kd ? '' : (label ? label + 'dan: ' + names : names + 'dan') };
+};
+const tkFit = (text, max, min, width, k) => {
+  const longest = Math.max(1, ...String(text || '').split(/\s+/).map((x) => x.length));
+  return Math.max(min, Math.min(max, Math.floor(width / (longest * k))));
+};
+const ORDER = ['tabrik', 'taymer', 'tilaklar', 'sham', 'sirli', 'galereya', 'xronika', 'mehmonlar', 'javob'];
+const C = { R: '#DE3A22', Y: '#F2B51B', B: '#2346B5', K: '#141414' };
+const rnd = (i, k) => { const x = Math.sin(i * 127.1 + k * 311.7) * 43758.5453; return x - Math.floor(x); };
+/* geometric digits on a 3x5 module grid: S square, a/b/c/d quarter rounds (TL/TR/BR/BL outer corner), k triangle */
+const DIG = {
+  '0': ['aSb', 'S.S', 'S.S', 'S.S', 'dSc'],
+  '1': ['kS.', '.S.', '.S.', '.S.', 'SSS'],
+  '2': ['aSb', '..S', 'aSc', 'S..', 'SSS'],
+  '3': ['SSb', '..S', '.SS', '..S', 'SSc'],
+  '4': ['S.S', 'S.S', 'dSS', '..S', '..S'],
+  '5': ['SSS', 'S..', 'SSb', '..S', 'SSc'],
+  '6': ['aSS', 'S..', 'SSb', 'S.S', 'dSc'],
+  '7': ['SSS', '..S', '..S', '.S.', '.S.'],
+  '8': ['aSb', 'S.S', 'SSS', 'S.S', 'dSc'],
+  '9': ['aSb', 'S.S', 'dSS', '..S', 'SSc']
+};
+const SHAPE = { S: '', a: 'border-radius: 100% 0 0 0', b: 'border-radius: 0 100% 0 0', c: 'border-radius: 0 0 100% 0', d: 'border-radius: 0 0 0 100%', k: 'clip-path: polygon(100% 0, 100% 100%, 0 100%)', O: 'border-radius: 50%', T: 'clip-path: polygon(50% 0, 100% 100%, 0 100%)' };
+const MAIN = ['R', 'B', 'K'], ACC = [['Y', 'K', 'B'], ['Y', 'R', 'K'], ['R', 'Y', 'B']];
+const buildCells = (yosh) => {
+  const ds = String(yosh || '').replace(/\D/g, '').slice(0, 3);
+  const n = ds.length, y0 = 92;
+  const out = [];
+  let box;
+  if (n) {
+    const c = n === 1 ? 52 : n === 2 ? 46 : 34, gap = Math.round(c * 0.5);
+    const w = n * 3 * c + (n - 1) * gap, x0 = Math.round((390 - w) / 2);
+    box = { x: x0, y: y0, w: w, h: 5 * c };
+    for (let k = 0; k < n; k++) {
+      DIG[ds[k]].forEach((row, r) => {
+        for (let q = 0; q < 3; q++) {
+          const ch = row[q];
+          if (ch === '.') continue;
+          const i = out.length;
+          const col = rnd(i, k + 5) < 0.74 ? MAIN[k] : ACC[k][Math.floor(rnd(i, k + 9) * 3)];
+          out.push({ x: x0 + k * (3 * c + gap) + q * c, y: y0 + r * c, w: c + 0.6, h: c + 0.6, bg: C[col], sh: SHAPE[ch] });
+        }
+      });
+    }
+  } else {
+    box = { x: 30, y: y0 + 10, w: 330, h: 200 };
+    out.push({ x: 30, y: 120, w: 150, h: 150, bg: C.R, sh: SHAPE.O }, { x: 150, y: 140, w: 120, h: 120, bg: C.B, sh: '' }, { x: 230, y: 112, w: 130, h: 150, bg: C.Y, sh: SHAPE.T }, { x: 60, y: 286, w: 270, h: 14, bg: C.K, sh: '' });
+  }
+  const N = out.length, ROT = [-270, -180, -90, 90, 180, 135, -135, 45, 270];
+  const GC = 5, GR = Math.max(5, Math.ceil(N / GC));
+  const slots = Array.from({ length: GC * GR }, (_, j) => j).sort((a, b) => rnd(a, 3) - rnd(b, 3));
+  out.forEach((p, i) => {
+    const sl = slots[i], gx = sl % GC, gy = Math.floor(sl / GC);
+    const sx = Math.max(36, Math.min(330, 40 + gx * 66 + (rnd(i, 8) - 0.5) * 34 - (p.w - 46) / 2));
+    const sy = Math.max(78, Math.min(540, 92 + gy * (450 / GR) + (rnd(i, 9) - 0.5) * 34 - (p.h - 46) / 2));
+    const sc = (0.5 + rnd(i, 10) * 1.1).toFixed(2);
+    const dl = (0.05 + (i / Math.max(1, N)) * 0.85 + rnd(i, 11) * 0.12).toFixed(2);
+    p.st = 'left: ' + p.x + 'px; top: ' + p.y + 'px; width: ' + p.w + 'px; height: ' + p.h + 'px; background: ' + p.bg + '; ' + (p.sh ? p.sh + '; ' : '') +
+      '--sx: ' + Math.round(sx - p.x) + 'px; --sy: ' + Math.round(sy - p.y) + 'px; --sr: ' + ROT[Math.floor(rnd(i, 12) * ROT.length)] + 'deg; --ss: ' + sc + '; --d: ' + dl + 's';
+  });
+  return { cells: out, box: box, on: n > 0 };
+};
+
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { opened: false, blown: false, sec: false, sent: false, wOn: {} };
+    this.tick = 0;
+    const dg = buildCells(SITE.d.yosh);
+    const bx = dg.box;
+    const cols = ['#DE3A22', '#2346B5', '#F2B51B', '#141414'];
+    this.deco = {
+      cells: dg.cells, ageOn: dg.on,
+      ringSt: 'position: absolute; left: ' + Math.round(bx.x + bx.w / 2 - 170) + 'px; top: ' + Math.round(bx.y + bx.h / 2 - 170) + 'px; width: 340px; height: 340px; border-radius: 50%; border: 2px solid rgba(20,20,20,0.22); box-sizing: border-box',
+      tagSt: 'position: absolute; left: ' + Math.min(390 - 82, bx.x + bx.w - 40) + 'px; top: ' + (bx.y - 26) + 'px; width: 72px; height: 72px; border-radius: 50%; background: #141414; color: #ECEAE4; display: flex; align-items: center; justify-content: center',
+      nameTop: bx.y + bx.h + 34,
+      bits: Array.from({ length: 22 }, (_, i) => {
+        const a = (i / 22) * Math.PI * 2 + rnd(i, 41) * 0.3, r = 120 + rnd(i, 42) * 90, s = 12 + Math.round(rnd(i, 45) * 16);
+        const kind = i % 3, bg = cols[i % 4];
+        const shp = kind === 0 ? 'border-radius: 50%' : kind === 1 ? '' : 'clip-path: polygon(50% 0, 100% 100%, 0 100%)';
+        return 'width: ' + s + 'px; height: ' + s + 'px; margin: -' + (s / 2) + 'px 0 0 -' + (s / 2) + 'px; background: ' + bg + '; ' + shp + '; --x: ' + Math.round(Math.cos(a) * r) + 'px; --y: ' + Math.round(Math.sin(a) * r) + 'px; --r: ' + Math.round(rnd(i, 43) * 540 - 270) + 'deg; animation-delay: ' + (rnd(i, 44) * 0.12).toFixed(2) + 's';
+      })
+    };
+  }
+  componentDidMount() {
+    this.timer = setInterval(() => { this.prevCd = this.lastCd; this.tick += 1; this.forceUpdate(); }, 1000);
+  }
+  componentWillUnmount() {
+    clearInterval(this.timer);
+  }
+  renderVals() {
+    const s = this.state;
+    const D = SITE.d;
+    const name = tkName(D), from = tkFrom(D);
+    const w = SITE.when(D.sana);
+    const c = SITE.countdown(D.sana);
+    const yosh = String(D.yosh || '').trim();
+    const tab = {};
+    let k = 0;
+    ORDER.forEach((key) => { if (SITE.b[key]) { k += 1; tab[key] = (k < 10 ? '0' : '') + k; } else tab[key] = ''; });
+    const nameFs = tkFit(name, 78, 30, 350, 0.72);
+    /* kinetic name letters for the intro */
+    let li = 0;
+    const kin = name.split(/\s+/).filter(Boolean).map((wd) => ({ ch: Array.from(wd).map((ch) => ({ c: ch, st: '--d: ' + (1.45 + (li++) * 0.045).toFixed(2) + 's' })) }));
+    /* countdown tiles */
+    const cur = [String(c.d), c.hh, c.mm, c.ss];
+    const prev = this.prevCd || cur;
+    this.lastCd = cur;
+    const TL = ['kun', 'soat', 'daqiqa', 'soniya'];
+    const TB = ['background: #DE3A22', 'background: #2346B5', 'background: #F2B51B', 'background: #141414'];
+    const TF = ['color: #FAF9F6', 'color: #FAF9F6', 'color: #141414', 'color: #FAF9F6'];
+    const rot = this.tick * 6;
+    const TH = [
+      'border-radius: 50%; background: rgba(250,249,246,0.16)',
+      'background: rgba(250,249,246,0.14); transform: rotate(' + (c.m * 6) + 'deg)',
+      'border-radius: 150px 0 0 0; background: rgba(20,20,20,0.12)',
+      'clip-path: polygon(50% 0, 100% 100%, 0 100%); background: #F2B51B; transform: rotate(' + rot + 'deg)'
+    ];
+    const tiles = cur.map((v, i) => ({ v: v, l: TL[i], bg: TB[i], fg: TF[i], hand: TH[i], cls: v !== prev[i] ? (this.tick % 2 ? 'bh-num bh-num--a' : 'bh-num bh-num--b') : 'bh-num' }));
+    const matn = String(D.matn || '').trim();
+    /* wishes */
+    const WSH = ['border-radius: 50%; background: #DE3A22', 'background: #2346B5', 'clip-path: polygon(50% 0, 100% 100%, 0 100%); background: #F2B51B', 'border-radius: 44px 0 0 0; background: #141414', 'border-radius: 44px 44px 0 0; background: #DE3A22', 'clip-path: polygon(0 0, 100% 0, 0 100%); background: #2346B5'];
+    const WFL = ['#DE3A22', '#2346B5', '#F2B51B', '#141414', '#DE3A22', '#2346B5'];
+    const wishes = (D.tilaklar || []).map((t, i) => {
+      const on = !!s.wOn[i], j = i % 6;
+      return {
+        text: t, n: (i < 9 ? '0' : '') + (i + 1), on: on ? 'true' : 'false',
+        cls: 'bh-wish' + (j === 2 ? ' bh-wish--y' : '') + (on ? ' bh-wish--on' : ''),
+        sh: WSH[j] + (on && j !== 3 ? '; box-shadow: 0 0 0 3px #FAF9F6' : ''), fill: 'background: ' + WFL[j],
+        tap: () => { const m = Object.assign({}, this.state.wOn); m[i] = !m[i]; this.setState({ wOn: m }); }
+      };
+    });
+    /* candles */
+    const nC = 3;
+    const candles = Array.from({ length: nC }, (_, i) => {
+      const x = 130 + i * 30;
+      return { st: 'position: absolute; left: ' + (x - 4) + 'px; top: 80px; width: 8px; height: 44px; background: #141414', fl: 'left: ' + x + 'px; top: 52px; animation-delay: ' + (i * 0.13).toFixed(2) + 's' };
+    });
+    /* gallery */
+    const n = Math.min(6, SITE.has.photos);
+    const gp = n > 1 ? SITE.p.slice(1, n).concat([SITE.p[0]]) : SITE.p.slice(0, 1);
+    const SH = [
+      { w: 170, h: 220, r: '85px 85px 0 0', c: '#2346B5' },
+      { w: 160, h: 160, r: '50%', c: '#F2B51B' },
+      { w: 160, h: 160, r: '160px 0 0 0', c: '#141414' },
+      { w: 170, h: 200, r: '0', c: '#DE3A22' }
+    ];
+    const gal = gp.map((src, i) => {
+      let sp;
+      if (i === 0) sp = { w: 340, h: 250, r: '0 0 125px 0', c: '#DE3A22' };
+      else if (i === gp.length - 1 && (gp.length - 1) % 2 === 1) sp = { w: 340, h: 200, r: '0 100px 100px 0', c: '#F2B51B' };
+      else sp = SH[(i - 1) % 4];
+      return {
+        src: src, anim: i % 2 ? 'bh-slideR' : 'bh-slideL',
+        box: 'position: relative; flex: none; width: ' + sp.w + 'px; height: ' + sp.h + 'px; border-radius: ' + sp.r + '; box-shadow: 10px 10px 0 ' + sp.c,
+        img: 'display: block; width: ' + sp.w + 'px; height: ' + sp.h + 'px; border-radius: ' + sp.r + '; object-fit: cover'
+      };
+    });
+    /* chronicle */
+    const NODE = ['border-radius: 50%; background: #DE3A22', 'background: #2346B5', 'clip-path: polygon(50% 0, 100% 100%, 0 100%); background: #F2B51B', 'border-radius: 0 0 0 100%; background: #141414'];
+    const CC = ['#DE3A22', '#2346B5', '#141414', '#DE3A22'];
+    const chron = (D.xronika || []).map((x, i) => {
+      const y = String(x.yosh || '').trim();
+      return {
+        yosh: y, matn: x.matn || '', col: CC[i % 4], fs: y.length > 3 ? 26 : y.length > 2 ? 36 : 52,
+        node: 'flex: none; position: relative; width: 22px; height: 22px; margin: 8px 12px 0 2px; ' + NODE[i % 4],
+        src: SITE.p[i % SITE.p.length],
+        img: 'display: block; width: ' + (i % 2 ? 120 : 160) + 'px; height: 90px; margin: 0 0 10px; object-fit: cover; ' + ['border-radius: 0 45px 45px 0', 'border-radius: 45px 45px 0 0', 'border-radius: 0 0 0 60px', 'border-radius: 45px 0 45px 0'][i % 4]
+      };
+    });
+    /* guest wishes */
+    const RS = ['border-radius: 50%; background: #DE3A22', 'background: #2346B5', 'border-radius: 32px 0 0 0; background: #F2B51B; color: #141414', 'border-radius: 32px 32px 0 0; background: #ECEAE4; color: #141414'];
+    const reviews = (D.mehmon_tilaklari || []).map((r, i) => ({
+      ism: r.ism || '', matn: r.matn || '', ini: String(r.ism || '').trim().charAt(0),
+      anim: i % 2 ? 'bh-slideR' : 'bh-slideL',
+      st: 'position: relative; background: #FAF9F6; box-shadow: inset 0 0 0 2px #141414; ' + (i % 2 ? 'margin-left: 30px' : 'margin-right: 30px'),
+      sh: 'flex: none; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 900; color: #FAF9F6; ' + RS[i % 4]
+    }));
+    const sec = String(D.sirli_tilak || '');
+    const nt = this.deco.nameTop;
+    return Object.assign({}, this.deco, {
+      name: name, from: from, tab: tab, w: w,
+      srAge: yosh ? yosh + ' yosh. ' : '',
+      noPhoto: !SITE.has.photo,
+      noMusic: !SITE.has.music,
+      initial: name.charAt(0),
+      nameFs: nameFs, kin: kin,
+      nameSt: 'position: absolute; left: 20px; top: ' + nt + 'px; width: 350px',
+      nameFlow: 'position: relative; width: 350px; margin: 0 20px; padding-top: ' + nt + 'px',
+      footFs: tkFit(name, 56, 26, 330, 0.72),
+      heroDots: w.dots,
+      heroVert: yosh ? 'No. ' + yosh + ' · ' + w.year : w.year,
+      musicCls: SITE.music.playing ? 'bh-music bh-music--on' : 'bh-music',
+      musicOn: SITE.music.playing ? 'true' : 'false',
+      toggleMusic: () => { SITE.music.toggle(); },
+      dropCap: matn.charAt(0),
+      restText: matn.slice(1),
+      cdTitle: c.done ? 'Bayram boshlandi!' : 'Bayramgacha qoldi',
+      cdDate: [w.date, w.weekday].filter(Boolean).join(', '),
+      tiles: tiles,
+      wishes: wishes,
+      candles: candles,
+      cakeCls: s.blown ? 'bh-cake--out' : '',
+      wishLine: 'Niyating ushalsin, ' + name + '!',
+      blowIdle: s.blown ? 'is-hidden' : '',
+      blowDone: s.blown ? '' : 'is-hidden',
+      blow: () => this.setState({ blown: !this.state.blown }),
+      secCls: s.sec ? 'bh-sec bh-sec--on' : 'bh-sec',
+      secFs: sec.length > 160 ? 14 : sec.length > 100 ? 16 : 19,
+      toggleSec: () => this.setState({ sec: !this.state.sec }),
+      gal: gal,
+      chron: chron,
+      reviews: reviews,
+      askName: name + 'ni tabrikladingizmi?',
+      sendCls: s.sent ? 'bh-go bh-go--done' : 'bh-go',
+      sendIdle: s.sent ? 'is-hidden' : 'bh-col',
+      sendDone: s.sent ? 'bh-col' : 'is-hidden',
+      burstCls: s.sent ? 'bh-burst bh-burst--go' : 'bh-burst',
+      send: () => { if (this.state.sent) return; this.setState({ sent: true }); SITE.reply('Tabrikladim', '🥰'); },
+      footLine: [yosh ? yosh + ' yosh' : '', w.dots].filter(Boolean).join(' · '),
+      introCap: [w.dm, w.weekday].filter(Boolean).join(' · ') || 'Tug’ilgan kun',
+      introCls: s.opened ? 'bh-intro bh-intro--on' : 'bh-intro',
+      pageCls: s.opened ? 'bh-page bh-page--in' : 'bh-page',
+      open: () => { if (this.state.opened) return; this.setState({ opened: true }); SITE.opened(); }
+    });
+  }
+}
+</script>
+</body>
+</html>

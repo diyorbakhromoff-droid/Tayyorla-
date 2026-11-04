@@ -1,0 +1,665 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<title>Farzand Premium: Chaqaloq ilovasi</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geologica:wght@300;400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;display=swap">
+<style>
+body{margin:0;background:#0E1013}
+.il{--a:#5AB8FF;--aS:rgba(90,184,255,.16);--aT:#BFE3FF;--mint:#47DDB0;--amb:#FFC15A;--vio:#A28CFF;--cor:#FF7A66}
+.il.is-qiz{--a:#FF7EB6;--aS:rgba(255,126,182,.16);--aT:#FFD1E5}
+.il-d{font-family:'Geologica','Segoe UI',system-ui,sans-serif}
+.il-m{font-family:'JetBrains Mono','SFMono-Regular',Menlo,Consolas,monospace;font-variant-numeric:tabular-nums}
+.il-card{box-sizing:border-box;background:linear-gradient(180deg,#1B1F25 0%,#16191E 100%);border:1px solid rgba(255,255,255,.07);border-radius:26px;box-shadow:0 1px 0 rgba(255,255,255,.04) inset,0 18px 40px -24px rgba(0,0,0,.8)}
+.il-lab{display:flex;align-items:center;gap:8px;margin:0;font-size:13px;font-weight:600;letter-spacing:.01em;color:#AEB6C1}
+.il-dot{display:inline-block;width:8px;height:8px;border-radius:50%}
+.il-h2{margin:0 0 14px;padding:0 6px;font-size:22px;line-height:1.15;font-weight:700;letter-spacing:-.02em;color:#F2F4F7}
+.il-ic{fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.il-icf{fill:currentColor}
+.trk{fill:none;stroke:rgba(255,255,255,.08)}
+.rg{fill:none;stroke-linecap:round}
+.w8{stroke-width:8}.w10{stroke-width:10}.w12{stroke-width:12}.w14{stroke-width:14}.w6{stroke-width:6}.w3{stroke-width:3}.w2{stroke-width:2}
+.s-a{stroke:var(--a)}.s-m{stroke:var(--mint)}.s-y{stroke:var(--amb)}.s-v{stroke:var(--vio)}.s-c{stroke:var(--cor)}
+.f-a{fill:var(--a)}.f-y{fill:var(--amb)}.f-w{fill:#F2F4F7}.f-bg{fill:#16191E}
+.tick{stroke:rgba(255,255,255,.22);stroke-width:1.5;stroke-linecap:round}
+.tick2{stroke:rgba(255,255,255,.5);stroke-width:2;stroke-linecap:round}
+.il-btn{cursor:pointer;border:0;-webkit-tap-highlight-color:transparent;transition:transform .15s ease,filter .15s ease}
+.il-btn:active{transform:scale(.97)}
+.il-btn:focus-visible{outline:3px solid #F2F4F7;outline-offset:3px}
+.il-glow{position:absolute;border-radius:50%;pointer-events:none}
+
+/* jonli: sekin aylanish va yurak urishi */
+.il-spin{animation:ilSpin 14s linear infinite;transform-origin:50% 50%}
+.il-spin2{animation:ilSpin 22s linear infinite reverse;transform-origin:50% 50%}
+@keyframes ilSpin{to{transform:rotate(360deg)}}
+.il-beat{animation:ilBeat 1.6s ease-in-out infinite}
+@keyframes ilBeat{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.35);opacity:.55}}
+.il-float{animation:ilFloat 5s ease-in-out infinite}
+@keyframes ilFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.il-now{animation:ilNow 1.4s ease-in-out infinite}
+@keyframes ilNow{0%,100%{opacity:1}50%{opacity:.35}}
+
+/* kirish sahnasi */
+.il-intro{transition:opacity .8s ease,transform .8s cubic-bezier(.6,0,.3,1)}
+.il-intro.is-out{opacity:0;transform:translateY(-60px) scale(.98);pointer-events:none}
+.il-intro.is-open{pointer-events:none}
+.il-pre{transition:opacity .45s ease,transform .45s ease}
+.is-open .il-pre{opacity:0;transform:translateY(-18px) scale(.96)}
+.il-cta{transition:opacity .35s ease,transform .35s ease}
+.is-open .il-cta{opacity:0;transform:translateY(20px)}
+.il-load{opacity:0;transform:scale(.7)}
+.is-open .il-load{animation:ilPopIn .6s cubic-bezier(.3,1.4,.5,1) .25s forwards}
+@keyframes ilPopIn{to{opacity:1;transform:none}}
+.ld-ring{stroke-dasharray:100;stroke-dashoffset:100}
+.is-open .ld-ring{animation:ilLoad 1.9s cubic-bezier(.55,.1,.25,1) .45s forwards}
+@keyframes ilLoad{to{stroke-dashoffset:0}}
+.ld-pct{transition:opacity .25s ease}
+.is-done .ld-pct{opacity:0}
+.ld-ok{opacity:0;transform:scale(.4)}
+.is-done .ld-ok{animation:ilPopIn .5s cubic-bezier(.3,1.6,.5,1) forwards}
+.ld-burst{opacity:0;transform:scale(.8)}
+.is-done .ld-burst{animation:ilBurst 1s ease-out forwards}
+@keyframes ilBurst{0%{opacity:.9;transform:scale(.8)}100%{opacity:0;transform:scale(1.7)}}
+.il-reveal{opacity:0;transform:translateY(22px)}
+.is-done .il-reveal{animation:ilUp .7s cubic-bezier(.2,.9,.3,1) forwards}
+.is-done .il-reveal.r2{animation-delay:.18s}
+.is-done .il-reveal.r3{animation-delay:.34s}
+@keyframes ilUp{to{opacity:1;transform:none}}
+
+/* sahifa: ochilgandan keyin halqalar chiziladi */
+.is-on .rg-in{animation:ilRing 1.4s cubic-bezier(.3,.7,.2,1) both}
+.is-on .rg-in.d1{animation-delay:.15s}.is-on .rg-in.d2{animation-delay:.3s}
+@keyframes ilRing{from{stroke-dashoffset:100}}
+.is-on .bar-in{animation:ilBar 1.2s cubic-bezier(.3,.7,.2,1) both .2s;transform-origin:0 50%}
+@keyframes ilBar{from{transform:scaleX(0)}}
+.is-on .sq-in{animation:ilSq .4s ease both}
+@keyframes ilSq{from{opacity:0;transform:scale(.3)}}
+.chk{stroke-dasharray:30;stroke-dashoffset:0}
+.is-on .chk{animation:ilChk .6s ease both}
+@keyframes ilChk{from{stroke-dashoffset:30}}
+.il-sent{animation:ilPopIn .5s cubic-bezier(.3,1.6,.5,1) both}
+
+@media (prefers-reduced-motion: reduce){
+.il-spin,.il-spin2,.il-beat,.il-float,.il-now{animation:none}
+.il-intro,.il-pre,.il-cta,.ld-pct{transition:none}
+.is-open .il-load,.is-open .ld-ring,.is-done .ld-ok,.is-done .ld-burst,.is-done .il-reveal{animation:none}
+.is-open .il-load,.is-done .ld-ok,.is-done .il-reveal{opacity:1;transform:none}
+.is-open .ld-ring{stroke-dashoffset:0}
+.is-on .rg-in,.is-on .bar-in,.is-on .sq-in,.is-on .chk,.il-sent{animation:none}
+.il-btn{transition:none}
+}
+</style>
+</helmet>
+<div class="il il-d {{ rootCls }}" style="width: 390px; min-height: var(--vh, 100vh); position: relative; overflow: hidden; background: #0E1013; color: #F2F4F7">
+
+  <div data-intro class="{{ introCls }}" aria-hidden="{{ introHidden }}" style="display: {{ introDisp }}; position: absolute; left: 0; top: 0; width: 390px; height: 844px; z-index: 30; overflow: hidden; background: radial-gradient(120% 70% at 50% 34%, #1A1F27 0%, #0E1013 62%)">
+    <div class="il-glow" aria-hidden="true" style="left: 45px; top: 150px; width: 300px; height: 300px; background: radial-gradient(circle, var(--aS) 0%, rgba(0, 0, 0, 0) 70%)"></div>
+    <svg aria-hidden="true" viewBox="0 0 390 390" width="390" height="390" style="position: absolute; left: 0; top: 105px">
+      <g class="il-spin"><circle cx="195" cy="195" r="176" class="trk w2" stroke-dasharray="2 10"></circle></g>
+      <g class="il-spin2"><circle cx="195" cy="195" r="150" class="trk w2" stroke-dasharray="40 14"></circle></g>
+      <circle cx="195" cy="195" r="124" class="trk w2"></circle>
+    </svg>
+
+    <div class="il-pre" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px">
+      <p class="il-m" style="position: absolute; left: 0; top: 58px; width: 390px; margin: 0; text-align: center; font-size: 12px; font-weight: 500; letter-spacing: 0.24em; text-transform: uppercase; color: #8C95A1">{{ todayLine }}</p>
+      <div class="il-float" style="position: absolute; left: 115px; top: 220px; width: 160px; height: 160px; border-radius: 46px; background: linear-gradient(145deg, #232832 0%, #15181D 100%); border: 1px solid rgba(255, 255, 255, 0.09); box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.9), inset 0 1px 0 rgba(255, 255, 255, 0.08); display: flex; align-items: center; justify-content: center">
+        <svg aria-hidden="true" viewBox="0 0 120 120" width="120" height="120">
+          <circle cx="60" cy="60" r="48" class="trk w10"></circle>
+          <circle cx="60" cy="60" r="48" class="rg w10 s-v" pathLength="100" stroke-dasharray="100" stroke-dashoffset="22" transform="rotate(-90 60 60)"></circle>
+          <circle cx="60" cy="60" r="34" class="trk w10"></circle>
+          <circle cx="60" cy="60" r="34" class="rg w10 s-m" pathLength="100" stroke-dasharray="100" stroke-dashoffset="40" transform="rotate(-90 60 60)"></circle>
+          <circle cx="60" cy="60" r="20" class="trk w10"></circle>
+          <circle cx="60" cy="60" r="20" class="rg w10 s-a" pathLength="100" stroke-dasharray="100" stroke-dashoffset="12" transform="rotate(-90 60 60)"></circle>
+        </svg>
+      </div>
+      <div style="position: absolute; left: 254px; top: 206px; width: 30px; height: 30px; border-radius: 50%; background: var(--cor); color: #1A0D0A; font-size: 15px; font-weight: 800; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 0 5px #0E1013">1</div>
+
+      <div style="position: absolute; left: 28px; top: 452px; width: 334px; text-align: center">
+        <p style="margin: 0; font-size: 15px; font-weight: 500; color: var(--a)">Yangi profil</p>
+        <h1 style="margin: 10px 0 0; font-size: 36px; line-height: 1.08; font-weight: 700; letter-spacing: -0.03em; color: #F2F4F7">Oilaga yangi a’zo qo’shildi</h1>
+        <p style="margin: 14px 0 0; font-size: 16px; line-height: 1.5; color: #A3ACB8; overflow-wrap: anywhere">{{ fromLine }}</p>
+      </div>
+
+      <div class="il-card" style="position: absolute; left: 24px; top: 628px; width: 342px; padding: 13px 16px; border-radius: 22px; display: flex; align-items: center; gap: 12px; background: rgba(32, 37, 45, 0.82)">
+        <span style="flex: none; width: 38px; height: 38px; border-radius: 12px; background: var(--aS); color: var(--a); display: flex; align-items: center; justify-content: center">
+          <svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20" class="il-ic"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"></path></svg>
+        </span>
+        <span style="flex: 1; min-width: 0; text-align: left">
+          <span style="display: block; font-size: 14px; font-weight: 600; color: #F2F4F7">Sizga xushxabar bor</span>
+          <span class="il-m" style="display: block; margin-top: 2px; font-size: 12px; color: #8C95A1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{ notifLine }}</span>
+        </span>
+        <span class="il-beat" aria-hidden="true" style="flex: none; width: 9px; height: 9px; border-radius: 50%; background: var(--cor)"></span>
+      </div>
+    </div>
+
+    <div class="il-load" style="position: absolute; left: 75px; top: 150px; width: 240px; height: 240px">
+      <div class="ld-burst" aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 240px; height: 240px; border-radius: 50%; border: 3px solid var(--a)"></div>
+      <svg aria-hidden="true" viewBox="0 0 240 240" width="240" height="240" style="position: absolute; left: 0; top: 0">
+        <circle cx="120" cy="120" r="104" class="trk w14"></circle>
+        <circle cx="120" cy="120" r="104" class="rg w14 s-a ld-ring" pathLength="100" transform="rotate(-90 120 120)"></circle>
+      </svg>
+      <div class="ld-pct" style="position: absolute; left: 0; top: 82px; width: 240px; text-align: center">
+        <span class="il-m" style="font-size: 54px; line-height: 1; font-weight: 600; letter-spacing: -0.04em; color: #F2F4F7">{{ pct }}</span><span class="il-m" style="font-size: 22px; font-weight: 500; color: #8C95A1">%</span>
+        <span style="display: block; margin-top: 8px; font-size: 13px; color: #8C95A1">Profil yuklanmoqda</span>
+      </div>
+      <div class="ld-ok" style="position: absolute; left: 60px; top: 60px; width: 120px; height: 120px; border-radius: 50%; background: var(--a); color: #0E1013; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 60px var(--aS)">
+        <svg aria-hidden="true" viewBox="0 0 24 24" width="56" height="56" class="il-ic" style="stroke-width: 2.6"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>
+      </div>
+    </div>
+    <div style="position: absolute; left: 20px; top: 430px; width: 350px; text-align: center">
+      <p class="il-reveal il-m" style="margin: 0; font-size: 12px; font-weight: 500; letter-spacing: 0.24em; text-transform: uppercase; color: var(--a)">{{ genderWord }}</p>
+      <p class="il-reveal r2" style="margin: 10px 0 0; font-size: {{ introNameSize }}; line-height: 1.02; font-weight: 700; letter-spacing: -0.035em; color: #F2F4F7; overflow-wrap: anywhere">{{ d.chaqaloq }}</p>
+      <p class="il-reveal r3" style="margin: 14px 0 0; font-size: 16px; color: #A3ACB8">{{ dateTime }}</p>
+      <div class="il-reveal r3" style="margin-top: 22px; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px">
+        <sc-for list="{{ pills }}" as="x">
+          <span style="display: inline-flex; align-items: center; gap: 7px; height: 36px; padding: 0 14px; border-radius: 12px; background: #1B1F25; border: 1px solid rgba(255, 255, 255, 0.08); font-size: 14px; font-weight: 600; color: #F2F4F7"><span class="il-dot" style="{{ x.dot }}"></span>{{ x.v }}</span>
+        </sc-for>
+      </div>
+    </div>
+
+    <div class="il-cta" style="position: absolute; left: 24px; top: 732px; width: 342px">
+      <button type="button" class="il-btn" onClick="{{ open }}" style="width: 342px; height: 60px; border-radius: 20px; background: #F2F4F7; color: #0E1013; font-family: 'Geologica', system-ui, sans-serif; font-size: 17px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 10px; box-shadow: 0 14px 40px -12px var(--a)">
+        Profilni ochish
+        <svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20" class="il-ic" style="stroke-width: 2.4"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="il-glow" aria-hidden="true" style="left: -120px; top: -140px; width: 420px; height: 420px; background: radial-gradient(circle, var(--aS) 0%, rgba(0, 0, 0, 0) 70%)"></div>
+
+  <header style="position: relative; padding: 26px 20px 0; display: flex; align-items: center; justify-content: space-between; gap: 12px">
+    <div style="min-width: 0">
+      <p class="il-m" style="margin: 0; font-size: 11px; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: #8C95A1">{{ todayLine }}</p>
+      <p style="margin: 4px 0 0; font-size: 26px; font-weight: 700; letter-spacing: -0.03em; color: #F2F4F7">Profil</p>
+    </div>
+    <sc-if value="{{ has.music }}">
+      <button type="button" class="il-btn" onClick="{{ toggleMusic }}" aria-label="{{ musicLabel }}" style="flex: none; width: 48px; height: 48px; border-radius: 16px; background: #1B1F25; border: 1px solid rgba(255, 255, 255, 0.08); color: var(--a); display: flex; align-items: center; justify-content: center">
+        <sc-if value="{{ playing }}"><svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20" class="il-icf"><rect x="6" y="5" width="4" height="14" rx="1.2"></rect><rect x="14" y="5" width="4" height="14" rx="1.2"></rect></svg></sc-if>
+        <sc-if value="{{ notPlaying }}"><svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20" class="il-ic"><path d="M9 18V6l10-2v12"></path><circle cx="6.5" cy="18" r="2.5"></circle><circle cx="16.5" cy="16" r="2.5"></circle></svg></sc-if>
+      </button>
+    </sc-if>
+  </header>
+
+  <section style="position: relative; padding: 22px 16px 0">
+    <div class="il-card" style="padding: 26px 20px 24px; text-align: center; overflow: hidden">
+      <div style="position: relative; width: 156px; height: 156px; margin: 0 auto">
+        <div class="il-spin" aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 156px; height: 156px; border-radius: 50%; background: conic-gradient(from 0deg, var(--a), var(--vio), var(--mint), var(--amb), var(--a))"></div>
+        <div style="position: absolute; left: 5px; top: 5px; width: 146px; height: 146px; border-radius: 50%; background: #16191E"></div>
+        <sc-if value="{{ has.photo }}">
+          <img src="{{ p.0 }}" alt="" style="position: absolute; left: 11px; top: 11px; width: 134px; height: 134px; border-radius: 50%; object-fit: cover; object-position: 50% 30%">
+        </sc-if>
+        <sc-if value="{{ noPhoto }}">
+          <div style="position: absolute; left: 11px; top: 11px; width: 134px; height: 134px; border-radius: 50%; background: radial-gradient(circle at 30% 25%, var(--aT) 0%, var(--a) 70%); display: flex; align-items: center; justify-content: center; color: #0E1013; font-size: 64px; font-weight: 700">{{ initial }}</div>
+        </sc-if>
+        <span style="position: absolute; left: 112px; top: 114px; width: 36px; height: 36px; border-radius: 50%; background: var(--a); color: #0E1013; box-shadow: 0 0 0 4px #17191E; display: flex; align-items: center; justify-content: center">
+          <svg aria-hidden="true" viewBox="0 0 24 24" width="18" height="18" class="il-ic" style="stroke-width: 2.6"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>
+        </span>
+      </div>
+      <h1 style="margin: 20px 0 0; font-size: {{ nameSize }}; line-height: 1.02; font-weight: 700; letter-spacing: -0.035em; color: #F2F4F7; overflow-wrap: anywhere">{{ d.chaqaloq }}</h1>
+      <div style="margin-top: 14px; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px">
+        <span style="display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 14px; border-radius: 999px; background: var(--aS); color: var(--aT); font-size: 14px; font-weight: 600">
+          <span class="il-dot" style="background: var(--a)"></span>{{ genderChip }}
+        </span>
+        <sc-if value="{{ d.ota_ona }}">
+          <span style="display: inline-flex; align-items: center; height: 32px; padding: 0 14px; border-radius: 999px; background: rgba(255, 255, 255, 0.06); color: #C9D0D9; font-size: 14px; font-weight: 500; max-width: 100%; overflow-wrap: anywhere">{{ parentsChip }}</span>
+        </sc-if>
+      </div>
+      <p style="margin: 16px 0 0; font-size: 15px; line-height: 1.5; color: #A3ACB8">{{ bornLine }}</p>
+    </div>
+  </section>
+
+  <section style="position: relative; padding: 14px 16px 0">
+    <div class="il-card" style="padding: 20px 18px 20px">
+      <p class="il-lab"><span class="il-dot il-now" style="background: var(--cor)"></span>Jonli · dunyoga kelganiga</p>
+      <div style="margin-top: 14px; display: flex; align-items: center; gap: 16px">
+        <svg aria-hidden="true" viewBox="0 0 150 150" width="150" height="150" style="flex: none">
+          <circle cx="75" cy="75" r="64" class="trk w14"></circle>
+          <circle cx="75" cy="75" r="64" class="rg w14 s-v rg-in" pathLength="100" stroke-dasharray="100" style="stroke-dashoffset: {{ ring1 }}" transform="rotate(-90 75 75)"></circle>
+          <circle cx="75" cy="75" r="46" class="trk w14"></circle>
+          <circle cx="75" cy="75" r="46" class="rg w14 s-m rg-in d1" pathLength="100" stroke-dasharray="100" style="stroke-dashoffset: {{ ring2 }}" transform="rotate(-90 75 75)"></circle>
+          <circle cx="75" cy="75" r="28" class="trk w14"></circle>
+          <circle cx="75" cy="75" r="28" class="rg w14 s-a rg-in d2" pathLength="100" stroke-dasharray="100" style="stroke-dashoffset: {{ ring3 }}" transform="rotate(-90 75 75)"></circle>
+        </svg>
+        <div style="flex: 1; min-width: 0; display: grid; gap: 12px">
+          <div>
+            <p class="il-lab" style="font-size: 12px"><span class="il-dot" style="background: var(--vio)"></span>{{ ring1Label }}</p>
+            <p style="margin: 2px 0 0; font-size: 26px; line-height: 1.05; font-weight: 700; letter-spacing: -0.02em"><span class="il-m">{{ ring1Val }}</span><span style="font-size: 14px; font-weight: 500; color: #8C95A1"> {{ ring1Unit }}</span></p>
+          </div>
+          <div>
+            <p class="il-lab" style="font-size: 12px"><span class="il-dot" style="background: var(--mint)"></span>Soat</p>
+            <p style="margin: 2px 0 0; font-size: 26px; line-height: 1.05; font-weight: 700"><span class="il-m">{{ age.hh }}</span><span style="font-size: 14px; font-weight: 500; color: #8C95A1"> / 24</span></p>
+          </div>
+          <div>
+            <p class="il-lab" style="font-size: 12px"><span class="il-dot" style="background: var(--a)"></span>Daqiqa</p>
+            <p style="margin: 2px 0 0; font-size: 26px; line-height: 1.05; font-weight: 700"><span class="il-m">{{ age.mm }}</span><span class="il-m" style="font-size: 14px; font-weight: 500; color: #8C95A1">:{{ age.ss }}</span></p>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top: 16px; padding-top: 14px; border-top: 1px solid rgba(255, 255, 255, 0.07); display: flex; justify-content: space-between; align-items: baseline; gap: 10px">
+        <span style="font-size: 14px; color: #A3ACB8">Jami</span>
+        <span class="il-m" style="font-size: 15px; font-weight: 600; color: #F2F4F7; text-align: right">{{ totalLine }}</span>
+      </div>
+    </div>
+  </section>
+
+  <section style="position: relative; padding: 12px 16px 0; display: grid; grid-template-columns: 1fr 1fr; gap: 12px">
+    <div class="il-card" style="padding: 18px 14px 16px; min-width: 0">
+      <p class="il-lab" style="font-size: 12px"><span class="il-dot" style="background: var(--amb)"></span>{{ dialTitle }}</p>
+      <div style="position: relative; width: 132px; height: 132px; margin: 12px auto 0">
+        <svg aria-hidden="true" viewBox="0 0 132 132" width="132" height="132" style="position: absolute; left: 0; top: 0">
+          <circle cx="66" cy="66" r="54" class="trk w8"></circle>
+          <circle cx="66" cy="66" r="54" class="rg w8 s-y rg-in" pathLength="100" stroke-dasharray="100" style="stroke-dashoffset: {{ dialOff }}" transform="rotate(-90 66 66)"></circle>
+          <sc-for list="{{ ticks }}" as="t">
+            <line x1="66" y1="{{ t.y1 }}" x2="66" y2="20" class="{{ t.c }}" transform="{{ t.r }}"></line>
+          </sc-for>
+          <sc-if value="{{ d.vaqt }}">
+            <g transform="{{ dialRot }}"><circle cx="66" cy="12" r="7" class="f-y"></circle><circle cx="66" cy="12" r="3" class="f-bg"></circle></g>
+          </sc-if>
+        </svg>
+        <div style="position: absolute; left: 0; top: 42px; width: 132px; text-align: center">
+          <span class="il-m" style="display: block; font-size: {{ dialSize }}; line-height: 1; font-weight: 600; letter-spacing: -0.04em; color: #F2F4F7">{{ dialBig }}</span>
+          <span style="display: block; margin-top: 6px; font-size: 12px; color: #A3ACB8">{{ dialSmall }}</span>
+        </div>
+      </div>
+      <p style="margin: 12px 0 0; font-size: 13px; line-height: 1.35; color: #C9D0D9; text-align: center; overflow-wrap: anywhere">{{ w.date }}</p>
+    </div>
+    <div class="il-card" style="padding: 18px 14px 16px; min-width: 0">
+      <p class="il-lab" style="font-size: 12px"><span class="il-dot" style="background: var(--cor)"></span>{{ gridTitle }}</p>
+      <p style="margin: 10px 0 0; font-size: 28px; line-height: 1; font-weight: 700; letter-spacing: -0.02em"><span class="il-m">{{ gridDone }}</span><span style="font-size: 15px; font-weight: 600">{{ gridUnit }}</span><span style="font-size: 14px; font-weight: 500; color: #8C95A1"> / {{ gridTotal }}</span></p>
+      <div style="margin-top: 14px; display: grid; grid-template-columns: repeat({{ gridCols }}, 1fr); gap: 4px">
+        <sc-for list="{{ grid }}" as="g">
+          <span class="{{ g.c }}" style="{{ g.st }}"></span>
+        </sc-for>
+      </div>
+      <p style="margin: 12px 0 0; font-size: 12px; line-height: 1.4; color: #A3ACB8">{{ gridNote }}</p>
+    </div>
+  </section>
+
+  <sc-if value="{{ b.olchov }}">
+    <section style="position: relative; padding: 34px 16px 0">
+      <h2 class="il-h2">O’lchovlar</h2>
+      <div style="display: grid; grid-template-columns: {{ olchovCols }}; gap: 12px">
+        <div class="il-card" style="padding: 18px 16px 16px; min-width: 0">
+          <p class="il-lab" style="font-size: 12px"><span class="il-dot" style="background: var(--a)"></span>Vazni</p>
+          <div style="position: relative; width: 140px; height: 84px; margin: 14px auto 0">
+            <svg aria-hidden="true" viewBox="0 0 140 84" width="140" height="84" style="position: absolute; left: 0; top: 0">
+              <path d="M14 76 A56 56 0 0 1 126 76" class="trk w12" style="stroke-linecap: round"></path>
+              <path d="M14 76 A56 56 0 0 1 126 76" class="rg w12 s-a rg-in" pathLength="100" stroke-dasharray="100" style="stroke-dashoffset: {{ kgOff }}"></path>
+            </svg>
+            <span class="il-m" style="position: absolute; left: 0; top: 80px; font-size: 10px; color: #6E7782">1</span>
+            <span class="il-m" style="position: absolute; right: 0; top: 80px; font-size: 10px; color: #6E7782">6 kg</span>
+          </div>
+          <p style="margin: 2px 0 0; text-align: center; font-size: 30px; line-height: 1.05; font-weight: 700; letter-spacing: -0.02em; overflow-wrap: anywhere">{{ d.vazn }}</p>
+          <sc-if value="{{ gramm }}"><p class="il-m" style="margin: 4px 0 0; text-align: center; font-size: 12px; color: #8C95A1">{{ gramm }}</p></sc-if>
+        </div>
+        <sc-if value="{{ d.boy }}">
+          <div class="il-card" style="padding: 18px 16px 16px; min-width: 0">
+            <p class="il-lab" style="font-size: 12px"><span class="il-dot" style="background: var(--mint)"></span>Bo’yi</p>
+            <p style="margin: 14px 0 0; font-size: 30px; line-height: 1.05; font-weight: 700; letter-spacing: -0.02em; overflow-wrap: anywhere">{{ d.boy }}</p>
+            <div style="position: relative; margin-top: 18px; height: 12px; border-radius: 6px; background: rgba(255, 255, 255, 0.08); overflow: hidden">
+              <div class="bar-in" style="width: {{ smPct }}; height: 12px; border-radius: 6px; background: linear-gradient(90deg, rgba(71, 221, 176, 0.35), var(--mint))"></div>
+            </div>
+            <div style="margin-top: 8px; display: flex; justify-content: space-between">
+              <span class="il-m" style="font-size: 10px; color: #6E7782">0</span>
+              <span class="il-m" style="font-size: 10px; color: #6E7782">35</span>
+              <span class="il-m" style="font-size: 10px; color: #6E7782">70 sm</span>
+            </div>
+            <div style="margin-top: 10px; display: flex; gap: 3px; height: 22px; align-items: flex-end">
+              <sc-for list="{{ ruler }}" as="r"><span style="{{ r }}"></span></sc-for>
+            </div>
+          </div>
+        </sc-if>
+      </div>
+      <div class="il-card" style="margin-top: 12px; padding: 16px 18px; display: flex; align-items: center; gap: 14px">
+        <span style="flex: none; width: 44px; height: 44px; border-radius: 14px; background: var(--aS); color: var(--a); display: flex; align-items: center; justify-content: center">
+          <svg aria-hidden="true" viewBox="0 0 24 24" width="22" height="22" class="il-ic"><rect x="4" y="5" width="16" height="14" rx="3"></rect><circle cx="9.5" cy="11" r="2"></circle><path d="M14 10h3M14 13h3M7 16h6"></path></svg>
+        </span>
+        <span style="min-width: 0">
+          <span style="display: block; font-size: 12px; color: #8C95A1">To’liq ismi</span>
+          <span style="display: block; margin-top: 2px; font-size: 17px; line-height: 1.3; font-weight: 600; color: #F2F4F7; overflow-wrap: anywhere">{{ nasab }}</span>
+        </span>
+      </div>
+    </section>
+  </sc-if>
+
+  <sc-if value="{{ b.xabar }}">
+    <section style="position: relative; padding: 34px 16px 0">
+      <h2 class="il-h2">Xabar</h2>
+      <div class="il-card" style="padding: 18px 18px 22px">
+        <div style="display: flex; align-items: center; gap: 12px">
+          <span style="flex: none; width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg, var(--vio), var(--a)); color: #0E1013; display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 700">{{ parInitials }}</span>
+          <span style="flex: 1; min-width: 0">
+            <span style="display: block; font-size: 15px; font-weight: 600; color: #F2F4F7; overflow-wrap: anywhere">{{ msgFrom }}</span>
+            <span class="il-m" style="display: block; margin-top: 2px; font-size: 12px; color: #8C95A1">{{ msgMeta }}</span>
+          </span>
+        </div>
+        <div style="margin-top: 16px; padding: 16px 18px; border-radius: 6px 22px 22px 22px; background: rgba(255, 255, 255, 0.05)">
+          <p style="margin: 0; font-size: 16px; line-height: 1.65; color: #DDE2E8; white-space: pre-line; overflow-wrap: anywhere">{{ d.matn }}</p>
+        </div>
+      </div>
+    </section>
+  </sc-if>
+
+  <sc-if value="{{ b.oila }}">
+    <section style="position: relative; padding: 34px 16px 0">
+      <h2 class="il-h2">Oila davrasi</h2>
+      <div class="il-card" style="padding: 22px 16px 20px">
+        <div style="display: flex; flex-direction: column; align-items: center">
+          <span style="display: inline-flex; align-items: center; gap: 10px; padding: 8px 18px 8px 8px; border-radius: 999px; background: var(--aS); max-width: 100%">
+            <span style="flex: none; width: 40px; height: 40px; border-radius: 50%; background: var(--a); color: #0E1013; display: flex; align-items: center; justify-content: center; font-size: 17px; font-weight: 700">{{ initial }}</span>
+            <span style="min-width: 0; text-align: left">
+              <span style="display: block; font-size: 11px; color: var(--aT)">{{ babyLabel }}</span>
+              <span style="display: block; font-size: 17px; font-weight: 700; color: #F2F4F7; overflow-wrap: anywhere">{{ d.chaqaloq }}</span>
+            </span>
+          </span>
+          <span aria-hidden="true" style="display: block; width: 2px; height: 22px; background: rgba(255, 255, 255, 0.14)"></span>
+          <sc-if value="{{ d.ota_ona }}">
+            <span style="display: inline-flex; align-items: center; gap: 10px; padding: 8px 18px 8px 8px; border-radius: 999px; background: rgba(255, 255, 255, 0.06); max-width: 100%">
+              <span style="flex: none; width: 40px; height: 40px; border-radius: 50%; background: var(--vio); color: #0E1013; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700">{{ parInitials }}</span>
+              <span style="min-width: 0; text-align: left">
+                <span style="display: block; font-size: 11px; color: #A3ACB8">{{ parLabel }}</span>
+                <span style="display: block; font-size: 16px; font-weight: 600; color: #F2F4F7; overflow-wrap: anywhere">{{ d.ota_ona }}</span>
+              </span>
+            </span>
+            <span aria-hidden="true" style="display: block; width: 2px; height: 22px; background: rgba(255, 255, 255, 0.14)"></span>
+          </sc-if>
+        </div>
+        <div style="display: grid; grid-template-columns: {{ famCols }}; gap: 10px">
+          <sc-for list="{{ family }}" as="f">
+            <div style="{{ f.st }}">
+              <span style="display: flex; align-items: center; gap: 6px; font-size: 11px; color: #A3ACB8"><span class="il-dot" style="{{ f.dot }}"></span>{{ f.label }}</span>
+              <span style="display: block; margin-top: 8px; font-size: 15px; line-height: 1.4; font-weight: 600; color: #F2F4F7; white-space: pre-line; overflow-wrap: anywhere">{{ f.names }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+  </sc-if>
+
+  <sc-if value="{{ b.galereya }}">
+    <section style="position: relative; padding: 34px 16px 0">
+      <div style="display: flex; align-items: baseline; justify-content: space-between; padding: 0 6px">
+        <h2 class="il-h2">Suratlar</h2>
+        <span class="il-m" style="font-size: 13px; color: #8C95A1">{{ photoCount }}</span>
+      </div>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px">
+        <sc-for list="{{ gallery }}" as="g">
+          <div style="{{ g.box }}">
+            <img src="{{ g.src }}" alt="" style="display: block; width: 100%; height: 100%; object-fit: cover">
+            <sc-if value="{{ g.tag }}"><span class="il-m" style="position: absolute; left: 12px; top: 12px; padding: 5px 10px; border-radius: 999px; background: rgba(14, 16, 19, 0.72); color: #F2F4F7; font-size: 11px; font-weight: 500">{{ g.tag }}</span></sc-if>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+  </sc-if>
+
+  <sc-if value="{{ b.tilaklar }}">
+    <section style="position: relative; padding: 34px 16px 0">
+      <h2 class="il-h2">Tilaklar</h2>
+      <div class="il-card" style="padding: 6px 16px">
+        <sc-for list="{{ wishes }}" as="t">
+          <div style="{{ t.row }}">
+            <svg aria-hidden="true" viewBox="0 0 36 36" width="36" height="36" style="flex: none">
+              <circle cx="18" cy="18" r="15" class="trk w3"></circle>
+              <circle cx="18" cy="18" r="15" class="{{ t.ring }}" pathLength="100" stroke-dasharray="100" transform="rotate(-90 18 18)"></circle>
+              <path d="M12 18.5l4 4 8-8.5" class="il-ic chk" style="{{ t.chk }}"></path>
+            </svg>
+            <span style="flex: 1; min-width: 0; font-size: 16px; line-height: 1.4; font-weight: 500; color: #F2F4F7; overflow-wrap: anywhere">{{ t.text }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+  </sc-if>
+
+  <sc-if value="{{ b.mehmonlar }}">
+    <section style="position: relative; padding: 34px 16px 0">
+      <h2 class="il-h2">Yaqinlar yozdi</h2>
+      <div style="display: grid; gap: 10px">
+        <sc-for list="{{ guests }}" as="g">
+          <div class="il-card" style="padding: 16px 16px 16px; border-radius: 22px; display: flex; gap: 12px">
+            <span style="{{ g.av }}">{{ g.ini }}</span>
+            <span style="flex: 1; min-width: 0">
+              <span style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 8px">
+                <span style="font-size: 15px; font-weight: 600; color: #F2F4F7; overflow-wrap: anywhere">{{ g.who }}</span>
+                <sc-if value="{{ g.rel }}"><span style="font-size: 13px; color: #8C95A1">{{ g.rel }}</span></sc-if>
+              </span>
+              <span style="display: block; margin-top: 6px; font-size: 15px; line-height: 1.5; color: #C9D0D9; overflow-wrap: anywhere">{{ g.matn }}</span>
+            </span>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+  </sc-if>
+
+  <sc-if value="{{ b.javob }}">
+    <section style="position: relative; padding: 34px 16px 0">
+      <div class="il-card" style="position: relative; padding: 28px 20px 22px; text-align: center; overflow: hidden; background: radial-gradient(90% 80% at 50% 0%, var(--aS) 0%, rgba(0, 0, 0, 0) 70%), linear-gradient(180deg, #1B1F25 0%, #16191E 100%)">
+        <div style="position: relative; width: 92px; height: 92px; margin: 0 auto">
+          <svg aria-hidden="true" viewBox="0 0 92 92" width="92" height="92" style="position: absolute; left: 0; top: 0">
+            <circle cx="46" cy="46" r="40" class="trk w8"></circle>
+            <circle cx="46" cy="46" r="40" class="rg w8 s-c" pathLength="100" stroke-dasharray="100" style="stroke-dashoffset: {{ heartOff }}; transition: stroke-dashoffset 1s cubic-bezier(.3,.7,.2,1)" transform="rotate(-90 46 46)"></circle>
+          </svg>
+          <span style="position: absolute; left: 26px; top: 26px; width: 40px; height: 40px; color: var(--cor); display: flex; align-items: center; justify-content: center">
+            <svg aria-hidden="true" viewBox="0 0 24 24" width="34" height="34" class="{{ heartCls }}"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"></path></svg>
+          </span>
+        </div>
+        <h2 style="margin: 18px 0 0; font-size: 26px; line-height: 1.12; font-weight: 700; letter-spacing: -0.02em; color: #F2F4F7; overflow-wrap: anywhere">{{ congratsTitle }}</h2>
+        <p style="margin: 10px 0 22px; font-size: 15px; line-height: 1.55; color: #A3ACB8">Bir og’iz iliq so’zingiz {{ parentsTo }} eng shirin sovg’a bo’ladi.</p>
+        <button type="button" class="il-btn" onClick="{{ congratulate }}" disabled="{{ sent }}" style="width: 100%; height: 58px; border-radius: 18px; background: {{ btnBg }}; color: {{ btnInk }}; font-family: 'Geologica', system-ui, sans-serif; font-size: 17px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 10px">
+          <sc-if value="{{ sent }}"><svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20" class="il-ic" style="stroke-width: 2.6"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></sc-if>
+          {{ btnLabel }}
+        </button>
+        <sc-if value="{{ sent }}">
+          <p class="il-sent" style="margin: 14px 0 0; font-size: 14px; color: var(--mint)">Tabrigingiz {{ parentsTo }} yetkazildi</p>
+        </sc-if>
+      </div>
+    </section>
+  </sc-if>
+
+  <footer style="position: relative; padding: 40px 20px 44px; text-align: center">
+    <sc-if value="{{ famLine }}"><p style="margin: 0; font-size: 18px; font-weight: 600; color: #F2F4F7; overflow-wrap: anywhere">{{ famLine }}</p></sc-if>
+    <sc-if value="{{ w.dots }}"><p class="il-m" style="margin: 6px 0 0; font-size: 12px; letter-spacing: 0.2em; color: #8C95A1">{{ w.dots }}</p></sc-if>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":3900}}'>
+class Component extends DCLogic {
+  componentDidMount() {
+    this.tick = setInterval(() => { if (!(this.state && this.state.opened && !this.state.gone)) this.forceUpdate(); }, 1000);
+  }
+  componentWillUnmount() {
+    if (this.tick) clearInterval(this.tick);
+    if (this.loader) clearInterval(this.loader);
+    (this.timers || []).forEach(t => clearTimeout(t));
+  }
+  renderVals() {
+    const s = this.state || {};
+    const d = SITE.d;
+    const qiz = d.jins === 'qiz';
+    const name = String(d.chaqaloq || '').trim();
+    const w = SITE.when(d.sana, d.vaqt);
+    const fit = (t, max, wd, k) => { const L = Math.max(1, String(t || '').length); return Math.min(max, Math.floor(wd / (L * k))) + 'px'; };
+    const ini = x => (String(x || '').replace(/^[^A-Za-zА-Яа-яЁёЎўҚқҒғҲҳ]+/, '').charAt(0) || '').toUpperCase();
+    const par = String(d.ota_ona || '').split(/\s+(?:va|ва|&|and)\s+|\s*[,&+]\s*/i).map(x => x.trim()).filter(Boolean);
+    const hr = /^(\d{1,2}):(\d{2})/.test(d.vaqt || '') ? +d.vaqt.split(':')[0] : -1;
+    const mn = hr < 0 ? 0 : +d.vaqt.split(':')[1];
+    const part = hr < 0 ? '' : hr < 4 ? 'tun' : hr < 7 ? 'tong' : hr < 12 ? 'ertalab' : hr < 17 ? 'kunduzi' : hr < 21 ? 'kechqurun' : 'tun';
+
+    const now = new Date(Date.now() + 5 * 3600e3);
+    const todayIso = now.getUTCFullYear() + '-' + SITE.pad(now.getUTCMonth() + 1) + '-' + SITE.pad(now.getUTCDate());
+    const tw = SITE.when(todayIso);
+
+    const e = SITE.elapsed(d.sana, d.vaqt);
+    const days = e.days || 0;
+    const chilla = days < 40;
+    const ring1 = chilla ? 100 - Math.min(100, (days / 40) * 100) : e.totalMonths < 12 ? 100 - ((e.totalMonths || 0) / 12) * 100 : 0;
+    const ring2 = 100 - ((e.h || 0) / 24) * 100;
+    const ring3 = 100 - ((e.m || 0) / 60) * 100;
+
+    const ticks = [];
+    for (let i = 0; i < 24; i++) ticks.push({ y1: i % 6 === 0 ? 26 : 23, c: i % 6 === 0 ? 'tick2' : 'tick', r: 'rotate(' + (i * 15) + ' 66 66)' });
+    const frac = hr < 0 ? 0 : (hr * 60 + mn) / 1440;
+
+    // chilla (40 kun) yoki ilk yil (12 oy) jadvali
+    const gridTotal = chilla ? 40 : 12;
+    const gridDone = chilla ? Math.min(40, days + 1) : Math.min(12, (e.totalMonths || 0) + 1);
+    const grid = [];
+    for (let i = 0; i < gridTotal; i++) {
+      const done = i < gridDone - 1, cur = i === gridDone - 1;
+      const sz = chilla ? 'aspect-ratio: 1; border-radius: 4px' : 'aspect-ratio: 1; border-radius: 7px';
+      grid.push({
+        c: (done || cur ? 'sq-in' : '') + (cur ? ' il-now' : ''),
+        st: 'display: block; ' + sz + '; background: ' + (cur ? 'var(--cor)' : done ? 'rgba(255, 122, 102, ' + (0.35 + 0.5 * (i / gridTotal)).toFixed(2) + ')' : 'rgba(255, 255, 255, 0.07)') + '; animation-delay: ' + (0.2 + i * 0.02).toFixed(2) + 's'
+      });
+    }
+
+    const kgm = String(d.vazn || '').match(/(\d+(?:[.,]\d+)?)/);
+    const kgv = kgm ? parseFloat(kgm[1].replace(',', '.')) : 0;
+    const kg = kgv > 100 ? kgv / 1000 : kgv;
+    const smm = String(d.boy || '').match(/(\d+(?:[.,]\d+)?)/);
+    const sm = smm ? parseFloat(smm[1].replace(',', '.')) : 0;
+    const ruler = [];
+    for (let i = 0; i <= 28; i++) {
+      const on = sm > 0 && i <= Math.round((sm / 70) * 28);
+      ruler.push('flex: 1; height: ' + (i % 7 === 0 ? 22 : i % 7 === 3 ? 14 : 9) + 'px; border-radius: 2px; background: ' + (on ? 'var(--mint)' : 'rgba(255, 255, 255, 0.12)') + '; opacity: ' + (on ? 0.55 + 0.45 * (i / 28) : 1));
+    }
+
+    const famDots = ['var(--a)', 'var(--vio)', 'var(--mint)', 'var(--amb)'];
+    const fl = (d.bobo_buvi || []).filter(Boolean);
+    const family = fl.map((line, i, all) => ({
+      names: String(line).split(/\s+(?:va|ва|&)\s+|\s*[,&+]\s*/i).map(x => x.trim()).filter(Boolean).join('\n'),
+      label: all.length === 1 ? 'Bobo va buvisi' : i === 0 ? 'Dadasi tomondan' : i === 1 ? 'Oyisi tomondan' : 'Yaqinlari',
+      dot: 'background: ' + famDots[(i + 2) % 4],
+      st: 'min-width: 0; padding: 14px 14px 14px; border-radius: 18px; background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.07)' + (all.length % 2 === 1 && i === all.length - 1 && all.length > 1 ? '; grid-column: 1 / -1' : '')
+    }));
+
+    const n = SITE.has.photos, P = SITE.p;
+    const gsrc = n <= 1 ? [P[0]] : P.slice(1, Math.min(5, n));
+    const cnt = gsrc.length;
+    const gallery = gsrc.map((src, i) => {
+      let span = '', h = 168;
+      if (cnt === 1) { span = 'grid-column: 1 / -1; '; h = 380; }
+      else if (cnt === 2) { h = 240; }
+      else if (cnt === 3) { if (i === 0) { span = 'grid-column: 1 / -1; '; h = 260; } }
+      else { if (i === 0) { span = 'grid-row: span 2; '; h = 344; } if (i === 3) { span = 'grid-column: 1 / -1; '; h = 200; } }
+      return { src, tag: i === 0 && w.dm ? w.dm : '', box: span + 'position: relative; height: ' + h + 'px; border-radius: 22px; overflow: hidden; background: #1B1F25' };
+    });
+
+    const wc = ['s-a', 's-m', 's-y', 's-v', 's-c'];
+    const tl = (d.tilaklar || []).filter(Boolean);
+    const wishes = tl.map((text, i) => ({
+      text,
+      ring: 'rg w3 rg-in ' + wc[i % 5],
+      chk: 'color: ' + ['var(--a)', 'var(--mint)', 'var(--amb)', 'var(--vio)', 'var(--cor)'][i % 5] + '; animation-delay: ' + (0.6 + i * 0.15).toFixed(2) + 's',
+      row: 'display: flex; align-items: center; gap: 14px; padding: 14px 2px; ' + (i < tl.length - 1 ? 'border-bottom: 1px solid rgba(255, 255, 255, 0.07)' : '')
+    }));
+
+    const avBg = ['linear-gradient(135deg, var(--a), var(--vio))', 'linear-gradient(135deg, var(--mint), var(--a))', 'linear-gradient(135deg, var(--amb), var(--cor))', 'linear-gradient(135deg, var(--vio), var(--cor))'];
+    const guests = (d.mehmon_tilaklari || []).filter(x => x && (x.matn || x.ism)).map((x, i) => {
+      const bits = String(x.ism || '').split(/\s*[·•|]\s*/);
+      const who = bits[0] || 'Mehmon';
+      return {
+        who, rel: bits.slice(1).join(' · '), matn: x.matn || '', ini: ini(who) || '+',
+        av: 'flex: none; width: 40px; height: 40px; border-radius: 50%; background: ' + avBg[i % 4] + '; color: #0E1013; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 700'
+      };
+    });
+
+    const dialHas = hr >= 0;
+    return {
+      rootCls: (qiz ? 'is-qiz' : 'is-ogil') + (s.out ? ' is-on' : ''),
+      w: w,
+      introDisp: s.gone ? 'none' : 'block',
+      introCls: 'il-intro' + (s.opened ? ' is-open' : '') + (s.done ? ' is-done' : '') + (s.out ? ' is-out' : ''),
+      introHidden: s.opened ? 'true' : 'false',
+      open: () => {
+        if (this.state && this.state.opened) return;
+        const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        this.setState({ opened: true, pct: reduce ? 100 : 0 });
+        SITE.opened();
+        this.timers = [];
+        const T = (fn, ms) => this.timers.push(setTimeout(fn, ms));
+        if (reduce) { this.setState({ done: true }); T(() => this.setState({ out: true }), 900); T(() => this.setState({ gone: true }), 1500); return; }
+        const t0 = Date.now() + 450, dur = 1900;
+        this.loader = setInterval(() => {
+          const k = Math.max(0, Math.min(1, (Date.now() - t0) / dur));
+          const ease = k < 0.5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2;
+          this.setState({ pct: Math.round(ease * 100) });
+          if (k >= 1) { clearInterval(this.loader); this.loader = null; }
+        }, 50);
+        T(() => this.setState({ done: true }), 2450);
+        T(() => this.setState({ out: true }), 4300);
+        T(() => this.setState({ gone: true }), 5200);
+      },
+      pct: s.pct || 0,
+      todayLine: tw.dm ? 'Bugun · ' + tw.dm : 'Bugun',
+      fromLine: d.ota_ona ? d.ota_ona + ' oilasidan xushxabar' : 'Oilamizdan xushxabar',
+      notifLine: (w.dm ? w.dm + (d.vaqt ? ', ' + d.vaqt : '') + ' · ' : '') + (qiz ? 'qizaloq' : 'o’g’il bola'),
+      genderWord: qiz ? 'Qiz!' : 'O’g’il!',
+      introNameSize: fit(name, 58, 340, 0.62),
+      dateTime: [w.date, d.vaqt].filter(Boolean).join(' · '),
+      nameSize: fit(name, 46, 310, 0.62),
+      noPhoto: !SITE.has.photo,
+      initial: ini(name),
+      genderChip: qiz ? 'Qiz' : 'O’g’il',
+      parentsChip: d.ota_ona ? d.ota_ona + ' farzandi' : '',
+      bornLine: (qiz ? 'Qizchamiz' : 'O’g’ilchamiz') + (w.date ? ' ' + w.date + ' kuni' : '') + (part ? ' ' + part + 'da' : '') + ' dunyoga keldi',
+      age: { hh: SITE.pad(e.h || 0), mm: SITE.pad(e.m || 0), ss: SITE.pad(e.s || 0) },
+      ring1: ring1.toFixed(2), ring2: ring2.toFixed(2), ring3: ring3.toFixed(2),
+      ring1Label: chilla ? 'Chilla' : e.totalMonths < 12 ? 'Ilk yil' : 'Yoshi',
+      ring1Val: chilla ? String(days) : e.totalMonths < 12 ? String(e.totalMonths) : String(e.years),
+      ring1Unit: chilla ? '/ 40 kun' : e.totalMonths < 12 ? '/ 12 oy' : 'yosh',
+      totalLine: SITE.num(days) + ' kun · ' + SITE.num(days * 24 + (e.h || 0)) + ' soat',
+      ticks: ticks,
+      dialTitle: dialHas ? 'Tug’ilgan vaqti' : 'Tug’ilgan kuni',
+      dialOff: (100 - frac * 100).toFixed(2),
+      dialRot: 'rotate(' + (frac * 360).toFixed(1) + ' 66 66)',
+      dialBig: dialHas ? d.vaqt : w.day,
+      dialSize: dialHas ? '30px' : '40px',
+      dialSmall: dialHas ? part : w.month,
+      gridUnit: chilla ? '-kun' : '-oy',
+      pills: [d.vazn ? { v: d.vazn, dot: 'background: var(--a)' } : null, d.boy ? { v: d.boy, dot: 'background: var(--mint)' } : null, d.vaqt ? { v: d.vaqt, dot: 'background: var(--amb)' } : null].filter(Boolean),
+      gridTitle: chilla ? 'Chilla kunlari' : 'Ilk yil oylari',
+      gridTotal: gridTotal, gridDone: gridDone, grid: grid, gridCols: chilla ? 8 : 6,
+      gridNote: chilla ? (40 - gridDone > 0 ? 'Chilla tugashiga ' + (40 - gridDone) + ' kun' : 'Bugun chilla tugaydi') : gridDone >= 12 ? 'Birinchi yil yakunlanmoqda' : gridDone + '-oyi davom etmoqda',
+      olchovCols: d.boy ? '1fr 1fr' : '1fr',
+      kgOff: kg > 0 ? (100 - Math.max(2, Math.min(100, ((kg - 1) / 5) * 100))).toFixed(2) : '100',
+      gramm: kg > 0 && kg < 20 ? SITE.num(Math.round(kg * 1000)) + ' gramm' : '',
+      smPct: sm > 0 ? Math.max(4, Math.min(100, (sm / 70) * 100)).toFixed(1) + '%' : '0%',
+      ruler: ruler,
+      nasab: par.length > 1 ? name + ' ' + par[0] + (qiz ? ' qizi' : ' o’g’li') : name,
+      parInitials: par.length > 1 ? ini(par[0]) + ini(par[1]) : ini(d.ota_ona) || ini(name),
+      msgFrom: d.ota_ona ? d.ota_ona : 'Ota-onasi',
+      msgMeta: [w.dm, d.vaqt].filter(Boolean).join(' · ') || 'Xushxabar',
+      babyLabel: qiz ? 'Malikamiz' : 'Polvonimiz',
+      parLabel: par.length > 1 ? 'Dadasi va oyisi' : 'Ota-onasi',
+      family: family,
+      famCols: family.length > 1 ? '1fr 1fr' : '1fr',
+      gallery: gallery,
+      photoCount: cnt + ' ta',
+      wishes: wishes,
+      guests: guests,
+      congratsTitle: name ? name + 'ni tabriklang' : 'Tabriklang',
+      parentsTo: d.ota_ona ? SITE.ga(d.ota_ona) : 'ota-onasiga',
+      famLine: d.ota_ona ? d.ota_ona + ' oilasi' : '',
+      sent: !!s.sent,
+      heartOff: s.sent ? '0' : '100',
+      heartCls: s.sent ? 'il-icf il-sent' : 'il-ic',
+      btnBg: s.sent ? 'rgba(71, 221, 176, 0.16)' : 'var(--a)',
+      btnInk: s.sent ? 'var(--mint)' : '#0E1013',
+      btnLabel: s.sent ? 'Tabriklandi' : 'Tabriklash',
+      congratulate: () => { if (this.state && this.state.sent) return; this.setState({ sent: true }); SITE.reply(name + ' tug’ilgani bilan tabriklayman! Muborak bo’lsin!', '🥰'); },
+      playing: SITE.music.playing,
+      notPlaying: !SITE.music.playing,
+      musicLabel: SITE.music.playing ? 'Musiqani to’xtatish' : 'Musiqani yoqish',
+      toggleMusic: () => { SITE.music.toggle(); this.forceUpdate(); }
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,632 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<title>Osh va marosimlar taklifnomasi: Afisha</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800;900&amp;family=IBM+Plex+Mono:wght@400;500;600&amp;display=swap">
+<style>
+body{margin:0}
+.af-root{font-family:'Inter Tight','Helvetica Neue',Arial,sans-serif;color:#121316;background:#ECE8DF;word-spacing:.1em}
+.af-root .af-mono,.af-root .af-m,.af-word{word-spacing:0}
+.af-m{font-family:'IBM Plex Mono','Courier New',monospace}
+.af-num{font-variant-numeric:lining-nums tabular-nums}
+.af-mono{margin:0;font-family:'IBM Plex Mono',monospace;font-size:11.5px;line-height:16px;font-weight:500;letter-spacing:.06em;text-transform:uppercase}
+.af-icon{fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:square;stroke-linejoin:miter;flex:none}
+.af-red{background:#E0442C;color:#ECE8DF}
+.af-ink{background:#121316;color:#ECE8DF}
+.af-paper{background:#ECE8DF;color:#121316}
+.af-grid{background-image:linear-gradient(90deg,rgba(18,19,22,.07) 1px,transparent 1px);background-size:60px 100%;background-position:20px 0}
+.af-red.af-grid{background-image:linear-gradient(90deg,rgba(236,232,223,.12) 1px,transparent 1px)}
+.af-ink.af-grid{background-image:linear-gradient(90deg,rgba(236,232,223,.07) 1px,transparent 1px)}
+.af-rule{height:3px;background:currentColor}
+.af-hair{height:1px;background:currentColor;opacity:.25}
+.af-word{display:block;font-weight:900;line-height:.86;letter-spacing:-.05em;white-space:nowrap}
+.af-vt{writing-mode:vertical-rl;transform:rotate(180deg)}
+.af-sh{fill:#121316}.af-sp{fill:#ECE8DF}.af-sr{fill:#E0442C}
+.af-lk{fill:none;stroke:#121316;stroke-linecap:butt}
+.af-lp{fill:none;stroke:#ECE8DF;stroke-linecap:round}
+.af-steam line{animation:af-steam 2.8s ease-in-out infinite;transform-box:fill-box;transform-origin:50% 100%}
+.af-steam line:nth-child(2){animation-delay:-.9s}.af-steam line:nth-child(3){animation-delay:-1.8s}
+@keyframes af-steam{0%,100%{transform:scaleY(.55)}50%{transform:scaleY(1)}}
+
+/* ---------- kirish: afisha qatlamlari surilib keladi */
+.af-i{position:absolute;left:0;top:0;width:390px;height:844px;z-index:40;overflow:hidden;background:#ECE8DF;color:#121316}
+.af-i-ui{transition:opacity .35s ease}
+.af-disc{position:absolute;left:112px;top:262px;width:380px;height:380px;border-radius:50%;background:#E0442C;animation:af-spin 50s linear infinite}
+.af-disc::after{content:"";position:absolute;inset:26px;border-radius:50%;border:1px dashed rgba(236,232,223,.55)}
+@keyframes af-spin{to{transform:rotate(360deg)}}
+.af-i-btn{display:flex;align-items:center;justify-content:space-between;width:350px;height:62px;padding:0 20px;box-sizing:border-box;border:0;cursor:pointer;background:#ECE8DF;color:#121316;font-family:'Inter Tight',sans-serif;font-weight:800;font-size:19px;letter-spacing:-.01em;text-align:left}
+.af-i-btn:focus-visible{outline:3px solid #E0442C;outline-offset:4px}
+.af-i-btn .af-arr{display:inline-block;animation:af-nudge 1.6s ease-in-out infinite}
+@keyframes af-nudge{0%,100%{transform:translateX(0)}50%{transform:translateX(6px)}}
+.af-L{position:absolute;transition:transform .7s cubic-bezier(.7,0,.2,1)}
+.af-L1{left:0;top:0;width:390px;height:844px;background:#E0442C;transform:translateX(-101%)}
+.af-L2{left:0;bottom:0;width:390px;height:250px;background:#121316;transform:translateY(101%);transition-delay:.22s}
+.af-L3{left:20px;top:168px;width:350px;transform:translateX(420px);transition-delay:.38s;color:#ECE8DF}
+.af-L4{left:20px;top:30px;width:350px;transform:translateY(-120px);transition-delay:.3s;color:#ECE8DF}
+.af-L5{left:20px;bottom:40px;width:350px;transform:translateY(160px);transition-delay:.5s;color:#ECE8DF}
+.af-L6{right:-46px;top:392px;width:176px;height:176px;border-radius:50%;background:#ECE8DF;transform:translateX(320px);transition-delay:.46s}
+.af-L6::after{content:"";position:absolute;left:44px;top:44px;width:88px;height:88px;border-radius:50%;background:#121316}
+.af-i--open{pointer-events:none;animation:af-out .8s cubic-bezier(.7,0,.25,1) 1.5s forwards}
+.af-i--open .af-i-ui{opacity:0}
+.af-i--open .af-L{transform:none}
+@keyframes af-out{to{transform:translateY(-101%);visibility:hidden}}
+
+/* ---------- bosh qism */
+.af-up{opacity:0;transform:translateX(-24px)}
+.af-on .af-up{animation:af-in .7s cubic-bezier(.2,.8,.2,1) forwards}
+.af-on .af-d1{animation-delay:1.65s}.af-on .af-d2{animation-delay:1.75s}.af-on .af-d3{animation-delay:1.85s}.af-on .af-d4{animation-delay:1.95s}
+@keyframes af-in{to{opacity:1;transform:none}}
+
+/* bo'limlar */
+.af-sec{position:relative;padding:22px 20px 56px}
+.af-hd{display:grid;grid-template-columns:110px 1fr;align-items:start;padding-top:12px;margin-bottom:28px;border-top:3px solid currentColor}
+.af-no{font-weight:900;font-size:52px;line-height:.9;letter-spacing:-.05em;color:#E0442C}
+.af-red .af-no,.af-ink .af-no{color:#ECE8DF}
+.af-ink .af-no{color:#E0442C}
+.af-hl{margin:4px 0 0;font-weight:800;font-size:15px;line-height:1.2;letter-spacing:-.005em;text-transform:uppercase}
+.af-p{margin:0;font-weight:500;font-size:23px;line-height:1.32;letter-spacing:-.015em;white-space:pre-line;overflow-wrap:anywhere;text-wrap:pretty}
+.af-btn{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;min-height:58px;padding:0 20px;box-sizing:border-box;border:0;cursor:pointer;font-family:'Inter Tight',sans-serif;font-weight:800;font-size:17px;letter-spacing:-.01em;text-decoration:none;transition:transform .2s,background-color .2s}
+.af-btn:active{transform:translateY(1px)}
+.af-btn--k{background:#121316;color:#ECE8DF}
+.af-btn--r{background:#E0442C;color:#ECE8DF}
+.af-btn--p{background:#ECE8DF;color:#121316}
+.af-btn:disabled{opacity:.6;cursor:default}
+.af-btn:focus-visible,.af-opt:focus-visible,.af-sb:focus-visible{outline:3px solid #121316;outline-offset:3px}
+.af-ink .af-btn:focus-visible{outline-color:#ECE8DF}
+
+.af-dt{display:grid;grid-template-columns:92px 1fr;gap:0;border-top:1px solid rgba(236,232,223,.28)}
+.af-dt>*{padding:14px 0;border-bottom:1px solid rgba(236,232,223,.28)}
+.af-dl{margin:0;color:#E0442C}
+.af-dv{margin:0;font-weight:700;font-size:20px;line-height:1.25;letter-spacing:-.01em;overflow-wrap:anywhere}
+
+.af-cd{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:3px solid #ECE8DF}
+.af-cdc{padding:12px 0 0}
+.af-cdc+.af-cdc{padding-left:10px;border-left:1px solid rgba(236,232,223,.25)}
+.af-cdn{display:block;font-weight:900;font-size:56px;line-height:1;letter-spacing:-.05em}
+.af-cdl{display:block;margin-top:10px;color:#E0442C}
+.af-tick{display:inline-block;animation:af-tick .35s cubic-bezier(.2,.8,.2,1)}
+@keyframes af-tick{from{transform:translateY(-30%);opacity:0}to{transform:none;opacity:1}}
+.af-secbar{display:grid;grid-template-columns:repeat(60,1fr);gap:2px;height:18px;margin-top:22px}
+.af-secbar i{display:block;background:rgba(236,232,223,.16)}
+.af-secbar i.on{background:#E0442C}
+
+.af-duo{position:relative;overflow:hidden;background:#121316}
+.af-duo img{display:block;width:100%;height:100%;object-fit:cover}
+.af-duo .af-g{width:100%;height:100%;filter:grayscale(1) contrast(1.12)}
+.af-duo .af-mul{position:absolute;inset:0;background:#E0442C;mix-blend-mode:multiply}
+.af-cap{position:absolute;left:0;bottom:0;padding:6px 8px;background:#ECE8DF;color:#121316}
+
+.af-pr{display:grid;grid-template-columns:96px 1fr;align-items:baseline;padding:16px 0;border-bottom:1px solid rgba(18,19,22,.22)}
+.af-pr:first-child{border-top:1px solid rgba(18,19,22,.22)}
+.af-pt{font-weight:900;font-size:28px;line-height:1;letter-spacing:-.04em;color:#E0442C}
+.af-pn{margin:0;font-weight:600;font-size:19px;line-height:1.3;overflow-wrap:anywhere}
+
+.af-opt{flex:1 1 0;min-width:0;height:62px;border:0;cursor:pointer;font-family:'Inter Tight',sans-serif;font-size:18px;font-weight:800;letter-spacing:-.01em;display:flex;align-items:center;justify-content:center;gap:8px;padding:0 6px;white-space:nowrap;background:transparent;color:#ECE8DF;box-shadow:inset 0 0 0 2px #ECE8DF;transition:background-color .2s,color .2s}
+.af-opt--on{background:#ECE8DF;color:#121316}
+.af-step{display:flex;align-items:center;justify-content:space-between;margin-top:10px;padding:8px 8px 8px 16px;box-shadow:inset 0 0 0 2px rgba(236,232,223,.5);transition:opacity .2s}
+.af-step--off{opacity:.4}
+.af-sb{width:46px;height:46px;border:0;background:#ECE8DF;color:#121316;font-size:22px;font-weight:700;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:'Inter Tight',sans-serif}
+.af-sb:disabled{opacity:.45;cursor:default}
+.af-inp,.af-ta{display:block;width:100%;box-sizing:border-box;border:0;border-bottom:2px solid #ECE8DF;border-radius:0;background:rgba(18,19,22,.1);color:#ECE8DF;font-family:'Inter Tight',sans-serif;font-size:17px;font-weight:500;outline:none}
+.af-inp{height:54px;padding:0 14px}
+.af-ta{height:84px;padding:14px;resize:none;line-height:1.45}
+.af-inp:focus,.af-ta:focus{background:rgba(18,19,22,.2)}
+.af-inp::placeholder,.af-ta::placeholder{color:rgba(236,232,223,.82)}
+
+.af-music{position:absolute;right:16px;top:16px;z-index:30;width:46px;height:46px;border:0;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#ECE8DF;background:#121316}
+.af-music--on{color:#E0442C}
+.af-eq{display:flex;align-items:flex-end;gap:3px;height:16px}
+.af-eq i{display:block;width:3px;height:100%;background:currentColor;transform-origin:50% 100%;animation:af-eq 1s ease-in-out infinite}
+.af-eq i:nth-child(2){animation-delay:-.3s}.af-eq i:nth-child(3){animation-delay:-.6s}
+@keyframes af-eq{0%,100%{transform:scaleY(.3)}50%{transform:scaleY(1)}}
+
+@media (prefers-reduced-motion: reduce){
+  .af-disc,.af-steam line,.af-i-btn .af-arr,.af-eq i,.af-tick{animation:none}
+  .af-L,.af-i-ui{transition:none}
+  .af-up{opacity:1;transform:none}
+  .af-on .af-up{animation:none}
+  .af-i--open{animation:af-out .01s linear forwards}
+}
+</style>
+</helmet>
+<div class="{{ rootCls }}" style="width: 390px; min-height: var(--vh, 100vh); position: relative; overflow: hidden; display: flex; flex-direction: column">
+
+  <sc-if value="{{ has.music }}">
+  <button type="button" class="{{ musicCls }}" aria-label="{{ musicLabel }}" aria-pressed="{{ musicOn }}" onClick="{{ toggleMusic }}">
+    <sc-if value="{{ musicOn }}"><span class="af-eq" aria-hidden="true"><i></i><i></i><i></i></span></sc-if>
+    <sc-if value="{{ musicOff }}"><svg class="af-icon" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V5.5l11-2.2v12.5"></path><circle cx="6.2" cy="18" r="2.8"></circle><circle cx="17.2" cy="15.8" r="2.8"></circle></svg></sc-if>
+  </button>
+  </sc-if>
+
+  <!-- ===== kirish: afisha qatlamlari surilib keladi ===== -->
+  <div data-intro class="{{ introCls }}" aria-hidden="{{ introHidden }}">
+    <div class="af-grid" style="position: absolute; inset: 0"></div>
+    <div class="af-i-ui">
+      <div style="position: absolute; left: 20px; right: 20px; top: 28px; display: flex; justify-content: space-between; align-items: baseline">
+        <p class="af-mono">Taklifnoma</p>
+        <p class="af-mono af-num">{{ w.dots }}</p>
+      </div>
+      <div class="af-rule" style="position: absolute; left: 20px; right: 20px; top: 52px"></div>
+      <div style="position: absolute; left: 20px; right: 20px; top: 74px">
+        <p class="af-mono" style="color: #E0442C">Assalomu alaykum</p>
+        <p style="margin: 10px 0 0; font-weight: 800; font-size: {{ introGuestFs }}px; line-height: 1; letter-spacing: -0.04em; overflow-wrap: anywhere">{{ guestHello }}</p>
+      </div>
+      <div class="af-disc" aria-hidden="true"></div>
+      <svg width="200" height="200" viewBox="0 0 200 200" aria-hidden="true" style="position: absolute; left: 192px; top: 292px">
+        <sc-if value="{{ mk.nahorgi }}"><g>
+          <g class="af-steam"><line class="af-lp" x1="70" y1="58" x2="70" y2="18" style="stroke-width: 7"></line><line class="af-lp" x1="100" y1="50" x2="100" y2="4" style="stroke-width: 7"></line><line class="af-lp" x1="130" y1="58" x2="130" y2="18" style="stroke-width: 7"></line></g>
+          <ellipse class="af-sp" cx="100" cy="150" rx="96" ry="34"></ellipse>
+          <ellipse class="af-lk" cx="100" cy="148" rx="74" ry="22" style="stroke-width: 4"></ellipse>
+          <path class="af-sh" d="M40 146A60 60 0 0 1 160 146Z"></path>
+          <rect class="af-sp" x="72" y="108" width="26" height="7" transform="rotate(-30 85 111)"></rect>
+          <rect class="af-sp" x="104" y="100" width="26" height="7" transform="rotate(24 117 103)"></rect>
+          <rect class="af-sp" x="94" y="126" width="26" height="7" transform="rotate(-8 107 129)"></rect>
+        </g></sc-if>
+        <sc-if value="{{ mk.osh_toyi }}"><g>
+          <g class="af-steam"><line class="af-lp" x1="70" y1="54" x2="70" y2="16" style="stroke-width: 7"></line><line class="af-lp" x1="100" y1="46" x2="100" y2="2" style="stroke-width: 7"></line><line class="af-lp" x1="130" y1="54" x2="130" y2="16" style="stroke-width: 7"></line></g>
+          <path class="af-sp" d="M46 86A54 30 0 0 1 154 86Z"></path>
+          <rect class="af-sh" x="8" y="84" width="184" height="16"></rect>
+          <path class="af-sh" d="M22 100H178A78 78 0 0 1 22 100Z"></path>
+          <rect class="af-sh" x="0" y="104" width="16" height="12"></rect>
+          <rect class="af-sh" x="184" y="104" width="16" height="12"></rect>
+          <rect class="af-sp" x="40" y="118" width="120" height="6"></rect>
+        </g></sc-if>
+        <sc-if value="{{ mk.sunnat }}"><g>
+          <path class="af-sh" d="M22 172L42 86H158L178 172Z"></path>
+          <ellipse class="af-sh" cx="100" cy="86" rx="58" ry="12"></ellipse>
+          <rect class="af-sp" x="22" y="156" width="156" height="16"></rect>
+          <path class="af-sp" d="M80 146C62 132 64 106 84 98C78 114 84 128 100 136C94 142 88 145 80 146Z"></path>
+          <path class="af-sp" d="M120 146C138 132 136 106 116 98C122 114 116 128 100 136C106 142 112 145 120 146Z"></path><rect class="af-sp" x="46" y="112" width="12" height="12" transform="rotate(45 52 118)"></rect><rect class="af-sp" x="142" y="112" width="12" height="12" transform="rotate(45 148 118)"></rect>
+          
+        </g></sc-if>
+        <sc-if value="{{ mk.beshik }}"><g>
+          <path class="af-lk" d="M8 176Q100 204 192 176" style="stroke-width: 12"></path>
+          <rect class="af-sh" x="30" y="54" width="16" height="122"></rect>
+          <rect class="af-sh" x="154" y="54" width="16" height="122"></rect>
+          <path class="af-lk" d="M38 54Q100 6 162 54" style="stroke-width: 12"></path>
+          <rect class="af-sp" x="46" y="100" width="108" height="60"></rect>
+          <rect class="af-sh" x="46" y="116" width="108" height="8"></rect>
+          <rect class="af-sh" x="46" y="136" width="108" height="8"></rect>
+          <path class="af-sp" d="M46 100A27 22 0 0 1 100 100A27 22 0 0 1 154 100Z"></path>
+        </g></sc-if>
+      </svg>
+      <div style="position: absolute; left: 20px; top: 300px; width: 30px; height: 280px; display: flex; justify-content: center">
+        <p class="af-mono af-vt" style="white-space: nowrap">{{ taklifCap }}</p>
+      </div>
+      <div style="position: absolute; left: 64px; top: 452px">
+        <p class="af-num" style="margin: 0; font-weight: 900; font-size: 150px; line-height: 0.8; letter-spacing: -0.07em">{{ w.day }}</p>
+        <p class="af-mono" style="margin-top: 14px">{{ w.month }} · {{ w.weekday }}</p>
+      </div>
+      <div class="af-ink" style="position: absolute; left: 0; right: 0; top: 650px; bottom: 0; padding: 26px 20px 0">
+        <button type="button" class="af-i-btn" onClick="{{ open }}">
+          <span>Afishani ochish</span>
+          <svg class="af-icon af-arr" width="26" height="26" viewBox="0 0 24 24" aria-hidden="true" style="stroke-width: 2.6"><path d="M3 12h17M14 6l6 6-6 6"></path></svg>
+        </button>
+        <p class="af-mono" style="margin-top: 18px; color: rgba(236,232,223,.72); overflow-wrap: anywhere">{{ introFrom }}</p>
+      </div>
+    </div>
+    <!-- ochilganda surilib keladigan qatlamlar -->
+    <div class="af-L af-L1 af-grid af-red" aria-hidden="true"></div>
+    <div class="af-L af-L4" aria-hidden="true">
+      <div style="display: flex; justify-content: space-between"><p class="af-mono">{{ taklifCap }}</p><p class="af-mono af-num">{{ hhmm }}</p></div>
+      <div class="af-rule" style="margin-top: 8px"></div>
+    </div>
+    <div class="af-L af-L3" aria-hidden="true">
+      <sc-for list="{{ words }}" as="x"><span class="af-word" style="{{ x.s }}">{{ x.t }}</span></sc-for>
+    </div>
+    <div class="af-L af-L6" aria-hidden="true"></div>
+    <div class="af-L af-L2" aria-hidden="true"></div>
+    <div class="af-L af-L5" aria-hidden="true">
+      <div class="af-rule" style="margin-bottom: 12px"></div>
+      <p style="margin: 0; font-weight: 800; font-size: 26px; line-height: 1.05; letter-spacing: -0.03em; overflow-wrap: anywhere">{{ w.date }}</p>
+      <p class="af-mono" style="margin-top: 10px; color: #E0442C; overflow-wrap: anywhere">{{ mezbon }}</p>
+    </div>
+  </div>
+
+  <!-- ===== bosh qism: afisha ===== -->
+  <header class="af-red af-grid" style="position: relative; padding: 28px 20px 0; overflow: hidden">
+    <div class="af-up af-d1">
+      <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 12px">
+        <p class="af-mono">Bismillahir Rohmanir Rohiym</p>
+        <p class="af-mono af-num" style="flex: none">{{ w.dots }}</p>
+      </div>
+      <div class="af-rule" style="margin-top: 8px"></div>
+      <p style="margin: 22px 0 0; font-weight: 500; font-size: 18px; line-height: 1.2">Assalomu alaykum,</p>
+      <p style="margin: 4px 0 0; font-weight: 800; font-size: {{ guestFs }}px; line-height: 1.02; letter-spacing: -0.035em; overflow-wrap: anywhere">{{ guestLine }}</p>
+    </div>
+    <div class="af-up af-d2" style="display: grid; grid-template-columns: 110px 1fr; margin-top: 26px; padding-top: 12px; border-top: 1px solid rgba(236,232,223,.45)">
+      <p class="af-mono" style="padding-top: 3px">Mezbonlar</p>
+      <div>
+        <p style="margin: 0; font-weight: 800; font-size: {{ hostFs }}px; line-height: 1.1; letter-spacing: -0.02em; overflow-wrap: anywhere">{{ mezbon }}</p>
+        <p style="margin: 6px 0 0; font-size: 16px; line-height: 1.4">sizni {{ taklifLow }} lutfan taklif etadi</p>
+      </div>
+    </div>
+    <div class="af-up af-d3" style="margin-top: 34px">
+      <p class="af-mono" style="padding-top: 12px; border-top: 3px solid #ECE8DF">{{ taklifCap }}</p>
+      <h1 style="margin: 18px 0 0" aria-label="{{ title }}">
+        <sc-for list="{{ words }}" as="x"><span class="af-word" style="{{ x.s }}" aria-hidden="true">{{ x.t }}</span></sc-for>
+      </h1>
+    </div>
+    <div class="af-up af-d4" style="position: relative; display: grid; grid-template-columns: 1fr 150px; gap: 16px; align-items: end; margin-top: 26px; min-height: 150px">
+      <div style="padding-bottom: 26px">
+        <sc-if value="{{ sabab }}"><p style="margin: 0; font-weight: 600; font-size: 18px; line-height: 1.35; overflow-wrap: anywhere">{{ sabab }}</p></sc-if>
+      </div>
+      <svg width="150" height="150" viewBox="0 0 200 200" aria-hidden="true" style="display: block; margin-bottom: -2px">
+        <sc-if value="{{ mk.nahorgi }}"><g>
+          <g class="af-steam"><line class="af-lp" x1="70" y1="58" x2="70" y2="18" style="stroke-width: 7"></line><line class="af-lp" x1="100" y1="50" x2="100" y2="4" style="stroke-width: 7"></line><line class="af-lp" x1="130" y1="58" x2="130" y2="18" style="stroke-width: 7"></line></g>
+          <ellipse class="af-sp" cx="100" cy="150" rx="96" ry="34"></ellipse>
+          <ellipse class="af-lk" cx="100" cy="148" rx="74" ry="22" style="stroke-width: 4"></ellipse>
+          <path class="af-sh" d="M40 146A60 60 0 0 1 160 146Z"></path>
+          <rect class="af-sp" x="72" y="108" width="26" height="7" transform="rotate(-30 85 111)"></rect>
+          <rect class="af-sp" x="104" y="100" width="26" height="7" transform="rotate(24 117 103)"></rect>
+          <rect class="af-sp" x="94" y="126" width="26" height="7" transform="rotate(-8 107 129)"></rect>
+        </g></sc-if>
+        <sc-if value="{{ mk.osh_toyi }}"><g>
+          <g class="af-steam"><line class="af-lp" x1="70" y1="54" x2="70" y2="16" style="stroke-width: 7"></line><line class="af-lp" x1="100" y1="46" x2="100" y2="2" style="stroke-width: 7"></line><line class="af-lp" x1="130" y1="54" x2="130" y2="16" style="stroke-width: 7"></line></g>
+          <path class="af-sp" d="M46 86A54 30 0 0 1 154 86Z"></path>
+          <rect class="af-sh" x="8" y="84" width="184" height="16"></rect>
+          <path class="af-sh" d="M22 100H178A78 78 0 0 1 22 100Z"></path>
+          <rect class="af-sh" x="0" y="104" width="16" height="12"></rect>
+          <rect class="af-sh" x="184" y="104" width="16" height="12"></rect>
+          <rect class="af-sp" x="40" y="118" width="120" height="6"></rect>
+        </g></sc-if>
+        <sc-if value="{{ mk.sunnat }}"><g>
+          <path class="af-sh" d="M22 172L42 86H158L178 172Z"></path>
+          <ellipse class="af-sh" cx="100" cy="86" rx="58" ry="12"></ellipse>
+          <rect class="af-sp" x="22" y="156" width="156" height="16"></rect>
+          <path class="af-sp" d="M80 146C62 132 64 106 84 98C78 114 84 128 100 136C94 142 88 145 80 146Z"></path>
+          <path class="af-sp" d="M120 146C138 132 136 106 116 98C122 114 116 128 100 136C106 142 112 145 120 146Z"></path><rect class="af-sp" x="46" y="112" width="12" height="12" transform="rotate(45 52 118)"></rect><rect class="af-sp" x="142" y="112" width="12" height="12" transform="rotate(45 148 118)"></rect>
+        </g></sc-if>
+        <sc-if value="{{ mk.beshik }}"><g>
+          <path class="af-lk" d="M8 176Q100 204 192 176" style="stroke-width: 12"></path>
+          <rect class="af-sh" x="30" y="54" width="16" height="122"></rect>
+          <rect class="af-sh" x="154" y="54" width="16" height="122"></rect>
+          <path class="af-lk" d="M38 54Q100 6 162 54" style="stroke-width: 12"></path>
+          <rect class="af-sp" x="46" y="100" width="108" height="60"></rect>
+          <rect class="af-sh" x="46" y="116" width="108" height="8"></rect>
+          <rect class="af-sh" x="46" y="136" width="108" height="8"></rect>
+          <path class="af-sp" d="M46 100A27 22 0 0 1 100 100A27 22 0 0 1 154 100Z"></path>
+        </g></sc-if>
+      </svg>
+    </div>
+  </header>
+
+  <!-- asosiy ma'lumot: qora tasma -->
+  <div class="af-ink af-grid" style="padding: 26px 20px 30px">
+    <div class="af-dt">
+      <p class="af-mono af-dl">Sana</p><p class="af-dv">{{ dateLine }}</p>
+      <sc-if value="{{ hhmm }}"><p class="af-mono af-dl">Vaqt</p><p class="af-dv af-num">soat {{ hhmm }}<sc-if value="{{ timeNote }}"><span class="af-m" style="display: block; margin-top: 4px; font-size: 12.5px; font-weight: 400; letter-spacing: 0.04em; color: rgba(236,232,223,.72)">{{ timeNote }}</span></sc-if></p></sc-if>
+      <sc-if value="{{ d.manzil_nomi }}"><p class="af-mono af-dl">Joy</p><p class="af-dv">{{ d.manzil_nomi }}</p></sc-if>
+    </div>
+  </div>
+
+  <main style="display: flex; flex-direction: column">
+    <!-- ===== taklif ===== -->
+    <sc-if value="{{ b.taklif }}">
+    <section class="af-sec af-paper af-grid">
+      <div class="af-hd"><span class="af-no af-num">{{ ix.taklif }}</span><p class="af-hl">Taklif so’zi</p></div>
+      <p class="af-p">{{ d.matn }}</p>
+      <p class="af-mono" style="margin-top: 22px; padding-top: 10px; border-top: 1px solid rgba(18,19,22,.3); text-transform: none; letter-spacing: 0.02em; overflow-wrap: anywhere">Hurmat bilan, {{ mezbon }}</p>
+    </section>
+    </sc-if>
+
+    <!-- ===== sana va vaqt ===== -->
+    <sc-if value="{{ b.kun }}">
+    <section class="af-sec af-paper af-grid" style="padding-top: 0">
+      <div class="af-hd"><span class="af-no af-num">{{ ix.kun }}</span><p class="af-hl">Sana va vaqt</p></div>
+      <div style="display: grid; grid-template-columns: 1fr 120px; align-items: end; gap: 10px">
+        <p class="af-num" style="margin: 0; font-weight: 900; font-size: 196px; line-height: 0.76; letter-spacing: -0.075em; color: #E0442C">{{ w.day }}</p>
+        <div style="padding-bottom: 4px">
+          <p style="margin: 0; font-weight: 800; font-size: 24px; line-height: 1; letter-spacing: -0.03em">{{ w.month }}</p>
+          <p class="af-mono af-num" style="margin-top: 8px">{{ w.year }}</p>
+          <p class="af-mono" style="margin-top: 2px">{{ w.weekday }}</p>
+        </div>
+      </div>
+      <sc-if value="{{ hasWeek }}">
+      <div class="af-num" style="display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); margin-top: 24px; border-top: 3px solid #121316">
+        <sc-for list="{{ week }}" as="x"><div style="{{ x.s }}"><span class="af-mono" style="display: block; font-size: 10.5px">{{ x.l }}</span><span style="display: block; margin-top: 6px; font-weight: 800; font-size: 20px; letter-spacing: -0.03em">{{ x.n }}</span></div></sc-for>
+      </div>
+      </sc-if>
+      <sc-if value="{{ calLink }}">
+      <a class="af-btn af-btn--k" href="{{ calLink }}" target="_blank" rel="noopener" style="margin-top: 22px">
+        <span>Kalendarga qo’shish</span>
+        <svg class="af-icon" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v16M4 12h16"></path></svg>
+      </a>
+      </sc-if>
+    </section>
+    </sc-if>
+
+    <!-- ===== taymer ===== -->
+    <sc-if value="{{ b.taymer }}">
+    <section class="af-sec af-ink af-grid" style="padding-top: 26px">
+      <div class="af-hd" style="border-top-color: #ECE8DF"><span class="af-no af-num">{{ ix.taymer }}</span><p class="af-hl">{{ untilText }}</p></div>
+      <div class="af-cd af-num" role="timer" aria-label="{{ cdText }}">
+        <div class="af-cdc"><span class="af-cdn"><span class="af-tick" key="{{ cdKey.d }}">{{ cd.dd }}</span></span><span class="af-mono af-cdl">kun</span></div>
+        <div class="af-cdc"><span class="af-cdn"><span class="af-tick" key="{{ cdKey.h }}">{{ cd.hh }}</span></span><span class="af-mono af-cdl">soat</span></div>
+        <div class="af-cdc"><span class="af-cdn"><span class="af-tick" key="{{ cdKey.m }}">{{ cd.mm }}</span></span><span class="af-mono af-cdl">daqiqa</span></div>
+        <div class="af-cdc"><span class="af-cdn" style="color: #E0442C"><span class="af-tick" key="{{ cdKey.s }}">{{ cd.ss }}</span></span><span class="af-mono af-cdl">soniya</span></div>
+      </div>
+      <div class="af-secbar" aria-hidden="true"><sc-for list="{{ secs }}" as="x"><i class="{{ x }}"></i></sc-for></div>
+    </section>
+    </sc-if>
+
+    <!-- ===== manzil ===== -->
+    <sc-if value="{{ b.manzil }}">
+    <section class="af-sec af-paper af-grid" style="padding-top: 26px">
+      <div class="af-hd"><span class="af-no af-num">{{ ix.manzil }}</span><p class="af-hl">Manzil</p></div>
+      <sc-if value="{{ d.joy_rasmi }}">
+      <div class="af-duo" style="height: 230px; margin-bottom: 22px">
+        <div class="af-g"><img src="{{ d.joy_rasmi }}" alt=""></div>
+        <div class="af-mul"></div>
+        <span class="af-mono af-cap">Marosim joyi</span>
+      </div>
+      </sc-if>
+      <h2 style="margin: 0; font-weight: 900; font-size: {{ placeFs }}px; line-height: 1; letter-spacing: -0.045em; overflow-wrap: anywhere">{{ d.manzil_nomi }}</h2>
+      <sc-if value="{{ d.manzil }}"><p style="margin: 14px 0 0; padding-top: 12px; border-top: 1px solid rgba(18,19,22,.3); font-weight: 500; font-size: 18px; line-height: 1.45; overflow-wrap: anywhere">{{ d.manzil }}</p></sc-if>
+      <sc-if value="{{ d.xarita }}">
+      <a class="af-btn af-btn--r" href="{{ d.xarita }}" target="_blank" rel="noopener" style="margin-top: 22px">
+        <span>Xaritada ochish</span>
+        <svg class="af-icon" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" style="stroke-width: 2.4"><path d="M7 17 17 7M9 7h8v8"></path></svg>
+      </a>
+      </sc-if>
+    </section>
+    </sc-if>
+
+    <!-- ===== dastur ===== -->
+    <sc-if value="{{ b.dastur }}">
+    <section class="af-sec af-paper af-grid" style="padding-top: 0">
+      <div class="af-hd"><span class="af-no af-num">{{ ix.dastur }}</span><p class="af-hl">Marosim tartibi</p></div>
+      <div>
+        <sc-for list="{{ prog }}" as="x">
+        <div class="af-pr"><span class="af-pt af-num">{{ x.vaqt }}</span><p class="af-pn">{{ x.nomi }}</p></div>
+        </sc-for>
+      </div>
+    </section>
+    </sc-if>
+
+    <!-- ===== suratlar ===== -->
+    <sc-if value="{{ b.galereya }}">
+    <section class="af-sec af-ink af-grid" style="padding-top: 26px">
+      <div class="af-hd" style="border-top-color: #ECE8DF"><span class="af-no af-num">{{ ix.galereya }}</span><p class="af-hl">Suratlar</p></div>
+      <div class="af-duo" style="height: 250px"><div class="af-g"><img src="{{ p.0 }}" alt=""></div><div class="af-mul"></div><span class="af-mono af-cap af-num">01/03</span></div>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px">
+        <div class="af-duo" style="height: 200px"><div class="af-g"><img src="{{ p.1 }}" alt=""></div><span class="af-mono af-cap af-num">02/03</span></div>
+        <div class="af-duo" style="height: 200px"><div class="af-g"><img src="{{ p.2 }}" alt=""></div><span class="af-mono af-cap af-num">03/03</span></div>
+      </div>
+    </section>
+    </sc-if>
+
+    <!-- ===== javob ===== -->
+    <sc-if value="{{ b.rsvp }}">
+    <section class="af-sec af-red af-grid" style="padding-top: 26px">
+      <div class="af-hd" style="border-top-color: #ECE8DF"><span class="af-no af-num">{{ ix.rsvp }}</span><p class="af-hl">Javobingiz</p></div>
+      <h2 style="margin: 0; font-weight: 900; font-size: 62px; line-height: 0.88; letter-spacing: -0.06em">Kelasizmi?</h2>
+      <p style="margin: 16px 0 22px; font-weight: 500; font-size: 16px; line-height: 1.45">{{ deadline }}</p>
+      <sc-if value="{{ askName }}"><input class="af-inp" type="text" maxlength="100" autocomplete="name" placeholder="Ismingiz" aria-label="Ismingiz" onInput="{{ onName }}" style="margin-bottom: 12px"></sc-if>
+      <div style="display: flex; gap: 10px">
+        <button type="button" class="{{ optYesCls }}" aria-pressed="{{ isYes }}" onClick="{{ sayYes }}">Boraman</button>
+        <button type="button" class="{{ optNoCls }}" aria-pressed="{{ isNo }}" onClick="{{ sayNo }}">Bora olmayman</button>
+      </div>
+      <div class="{{ stepCls }}">
+        <span style="font-size: 16px; font-weight: 700">Necha kishi bo’lasiz?</span>
+        <div style="display: flex; align-items: center; gap: 6px">
+          <button type="button" class="af-sb" aria-label="Kamaytirish" disabled="{{ minusOff }}" onClick="{{ dec }}">−</button>
+          <span class="af-num" style="min-width: 34px; text-align: center; font-size: 24px; font-weight: 900" aria-live="polite">{{ guests }}</span>
+          <button type="button" class="af-sb" aria-label="Ko’paytirish" disabled="{{ plusOff }}" onClick="{{ inc }}">+</button>
+        </div>
+      </div>
+      <textarea class="af-ta" maxlength="300" placeholder="Tilagingiz yoki izoh (ixtiyoriy)" aria-label="Tilagingiz yoki izoh" onInput="{{ onWish }}" style="margin-top: 10px"></textarea>
+      <button type="button" class="af-btn af-btn--k" disabled="{{ busy }}" onClick="{{ send }}" style="margin-top: 16px">
+        <span>{{ sendLabel }}</span>
+        <svg class="af-icon" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" style="stroke-width: 2.4"><path d="M3 12h17M14 6l6 6-6 6"></path></svg>
+      </button>
+      <div aria-live="polite" style="margin-top: 14px; font-weight: 600; font-size: 16px; line-height: 1.45">
+        <sc-if value="{{ rsvpNote }}"><p style="margin: 0; padding: 12px 14px; background: #121316; color: #ECE8DF">{{ rsvpNote }}</p></sc-if>
+      </div>
+    </section>
+    </sc-if>
+
+    <!-- ===== telefon ===== -->
+    <sc-if value="{{ b.telefon }}">
+    <section class="af-sec af-paper af-grid" style="padding-top: 26px; padding-bottom: 48px">
+      <div class="af-hd"><span class="af-no af-num">{{ ix.telefon }}</span><p class="af-hl">Aloqa</p></div>
+      <div style="display: flex; align-items: stretch; gap: 10px">
+        <div style="flex: 1 1 auto; min-width: 0">
+          <p class="af-mono">Savollar bo’lsa, qo’ng’iroq qiling</p>
+          <p class="af-num" style="margin: 8px 0 0; font-weight: 800; font-size: {{ telFs }}px; line-height: 1.05; letter-spacing: -0.03em; white-space: nowrap">{{ d.telefon }}</p>
+        </div>
+        <a class="af-btn af-btn--k" href="{{ tel }}" aria-label="Qo’ng’iroq qilish" style="flex: none; width: 64px; min-height: 64px; padding: 0; justify-content: center">
+          <svg class="af-icon" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path d="M5.2 3.5h3.1l1.6 4.2-2.1 1.5a12.2 12.2 0 0 0 7 7l1.5-2.1 4.2 1.6v3.1a1.9 1.9 0 0 1-2.1 1.9A16.6 16.6 0 0 1 3.3 5.6a1.9 1.9 0 0 1 1.9-2.1Z"></path></svg>
+        </a>
+      </div>
+    </section>
+    </sc-if>
+  </main>
+
+  <!-- ===== yakun: duo ===== -->
+  <footer class="af-ink af-grid" style="margin-top: auto; padding: 0 20px 34px">
+    <div style="height: 14px; margin: 0 -20px 30px; background: #E0442C"></div>
+    <p class="af-mono" style="color: #E0442C">Duo</p>
+    <p style="margin: 14px 0 0; font-weight: 800; font-size: 31px; line-height: 1.05; letter-spacing: -0.035em">{{ duaA }}</p>
+    <p style="margin: 16px 0 0; font-weight: 500; font-size: 17px; line-height: 1.5; color: rgba(236,232,223,.8)">{{ duaB }}</p>
+    <div class="af-rule" style="margin-top: 30px"></div>
+    <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 8px 16px; margin-top: 12px">
+      <p style="margin: 0; flex: 1 1 170px; font-weight: 800; font-size: 18px; line-height: 1.25; overflow-wrap: anywhere">{{ mezbon }}</p>
+      <p class="af-mono af-num" style="flex: none; color: #E0442C">{{ footMeta }}</p>
+    </div>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":5000}}'>
+const D = SITE.d;
+const AP = (s) => String(s || '').replace(/'/g, '’').trim();
+const MKS = ['nahorgi', 'osh_toyi', 'sunnat', 'beshik'];
+const MK = MKS.indexOf(D.marosim) >= 0 ? D.marosim : 'nahorgi';
+const NOMI = AP(D.marosim_nomi) || 'Nahorgi osh';
+const TAKLIF = AP(D.marosim_taklif) || 'Nahorgi oshga taklifnoma';
+const TAKLIF_GA = TAKLIF.replace(/\s*taklifnoma$/i, '') || SITE.ga(NOMI);
+const low = (s) => s ? s.charAt(0).toLowerCase() + s.slice(1) : s;
+const GUEST = AP(D.mehmon);
+const MEZBON = AP(D.mezbon);
+const SABAB = AP(D.sababi);
+const ISM = AP(D.ism);
+const WITH_ISM = !!ISM && (MK === 'sunnat' || MK === 'beshik');
+const TITLE = WITH_ISM ? ISM + 'ning ' + low(NOMI) : NOMI;
+const TAKLIF_LOW = WITH_ISM ? ISM + 'ning ' + low(TAKLIF_GA) : low(TAKLIF_GA);
+const UNTIL = { nahorgi: 'Nahorgi oshgacha', osh_toyi: 'Osh to’yigacha', sunnat: 'Sunnat to’yigacha', beshik: 'Beshik to’yigacha' }[MK];
+const DUA = {
+  nahorgi: ['Tashrifingiz — dasturxonimizga fayz va baraka.', 'Alloh barchamizni yaxshi kunlarga yetkazsin, duolaringiz ijobat bo’lsin.'],
+  osh_toyi: ['Tashrifingiz — dasturxonimizga fayz va baraka.', 'Alloh xonadonimiz quvonchini ziyoda qilsin, duolaringiz ijobat bo’lsin.'],
+  sunnat: ['Duolaringiz — farzandimizga eng katta sovg’a.', 'Alloh o’g’limizni sog’-salomat, umrini uzoq va baxtli qilsin.'],
+  beshik: ['Tashrifingiz — xonadonimizga quvonch va baraka.', 'Alloh farzandimizga sog’lik, uzoq va baxtli umr ato etsin.'],
+}[MK];
+const ORDER = ['taklif', 'kun', 'taymer', 'manzil', 'dastur', 'galereya', 'rsvp', 'telefon'];
+function hhmm(t) { t = String(t || '').trim(); return /^\d:\d\d$/.test(t) ? '0' + t : (/^\d\d:\d\d$/.test(t) ? t : ''); }
+const HM = hhmm(D.vaqt);
+const H24 = HM ? parseInt(HM.slice(0, 2), 10) : -1;
+function stamp(iso, time) { const t = Date.parse(String(iso || '').slice(0, 10) + 'T' + (hhmm(time) || '12:00') + ':00+05:00'); return isNaN(t) ? null : t; }
+function fitPx(text, max, width, em, lines) { const n = String(text || '').length || 1; return Math.max(Math.round(max * 0.5), Math.min(max, Math.floor(width * (lines || 1) / (n * em)))); }
+function telHref(t) { return 'tel:' + String(t || '').replace(/[^\d+]/g, ''); }
+function calUrl() {
+  const t = stamp(D.sana, D.vaqt); if (t == null) return '';
+  const f = (ms) => new Date(ms).toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
+  const title = TITLE + (MEZBON ? ' — ' + MEZBON : '');
+  const loc = [D.manzil_nomi, D.manzil].filter(Boolean).join(', ');
+  return 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + encodeURIComponent(title) + '&dates=' + f(t) + '/' + f(t + 2 * 3600e3) + (loc ? '&location=' + encodeURIComponent(loc) : '');
+}
+function deadlineText(tail) {
+  const t = stamp(D.sana, '12:00'); if (t == null) return 'Iltimos, ' + tail + '.';
+  const dl = t - 5 * 864e5;
+  if (dl < Date.now()) return 'Iltimos, imkon qadar tezroq ' + tail + '.';
+  return 'Iltimos, ' + SITE.when(new Date(dl + 5 * 3600e3).toISOString().slice(0, 10)).dm + 'gacha ' + tail + '.';
+}
+// ulkan sarlavha: har bir so'z o'z qatorida, kenglikka moslab
+function titleWords() {
+  const ws = TITLE.split(/\s+/).filter(Boolean);
+  return ws.map((t) => {
+    const n = t.replace(/[’']/g, '').length + (/[’']/.test(t) ? 0.3 : 0);
+    const fs = Math.max(40, Math.min(128, Math.floor(350 / (n * 0.54))));
+    return { t, s: 'font-size: ' + fs + 'px' };
+  });
+}
+const WORDS = titleWords();
+const WD = ['Du', 'Se', 'Ch', 'Pa', 'Ju', 'Sh', 'Ya'];
+function weekStrip(iso) {
+  const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(String(iso || '')); if (!m) return [];
+  const base = Date.UTC(+m[1], +m[2] - 1, +m[3]);
+  const off = (new Date(base).getUTCDay() + 6) % 7;
+  const out = [];
+  for (let i = 0; i < 7; i++) {
+    const dt = new Date(base + (i - off) * 864e5);
+    const on = i === off;
+    out.push({ l: WD[i], n: String(dt.getUTCDate()), s: 'padding: 10px 0 12px 8px; ' + (i ? 'border-left: 1px solid rgba(18,19,22,.18); ' : '') + (on ? 'background: #121316; color: #ECE8DF' : '') });
+  }
+  return out;
+}
+function timeNote() {
+  if (MK === 'nahorgi' && H24 >= 4 && H24 < 9) return 'Bomdod namozidan so’ng';
+  return '';
+}
+const REDUCED = typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+class Component extends DCLogic {
+  constructor(...args) {
+    super(...args);
+    this.state = { opened: false, rsvp: '', guests: 1, sent: false, busy: false, warn: '' };
+    this.nm = ''; this.wish = '';
+  }
+  componentDidMount() { this.timer = setInterval(() => this.forceUpdate(), 1000); }
+  componentWillUnmount() { clearInterval(this.timer); }
+  open() {
+    if (this.state.opened) return;
+    this.setState({ opened: true });
+    SITE.opened();
+  }
+  send() {
+    const s = this.state;
+    if (!s.rsvp) { this.setState({ warn: 'Iltimos, avval javobingizni tanlang.' }); return; }
+    const name = this.nm.trim();
+    if (!SITE.has.guest && !name) { this.setState({ warn: 'Iltimos, ismingizni yozing.' }); return; }
+    if (s.busy) return;
+    this.setState({ busy: true, warn: '' });
+    SITE.rsvp(s.rsvp === 'yes', s.rsvp === 'yes' ? s.guests : 1, name, this.wish.trim())
+      .then(() => this.setState({ sent: true, busy: false }))
+      .catch(() => this.setState({ busy: false, warn: 'Javob yuborilmadi. Iltimos, qayta urinib ko’ring.' }));
+  }
+  renderVals() {
+    const s = this.state || {};
+    const w = SITE.when(D.sana, D.vaqt);
+    const cd = SITE.countdown(D.sana, D.vaqt);
+    const isYes = s.rsvp === 'yes', isNo = s.rsvp === 'no', guests = s.guests || 1;
+    const who = GUEST || this.nm.trim();
+    let note = '';
+    if (s.sent && isYes) note = (who ? 'Rahmat, ' + who + '! ' : 'Rahmat! ') + 'Sizni ' + (guests > 1 ? guests + ' kishi bilan ' : '') + 'intizorlik bilan kutamiz.';
+    else if (s.sent && isNo) note = (who ? 'Rahmat, ' + who + '! ' : 'Rahmat! ') + 'Javobingiz yetkazildi, duolaringiz biz bilan bo’ladi.';
+    else if (s.warn) note = s.warn;
+    const ix = {}; let n = 0;
+    ORDER.forEach((k) => { if (SITE.b[k]) { n += 1; ix[k] = SITE.pad(n); } });
+    const music = SITE.music.playing;
+    const guestLine = GUEST ? 'Hurmatli ' + GUEST + '!' : 'Hurmatli mehmon!';
+    const mk = {}; MKS.forEach((k) => { mk[k] = k === MK; });
+    const secs = []; for (let i = 0; i < 60; i++) secs.push(i <= cd.s && !cd.none ? 'on' : '');
+    return {
+      w, cd, ix, mk, words: WORDS, title: TITLE,
+      rootCls: s.opened || REDUCED ? 'af-root af-on' : 'af-root',
+      introCls: 'af-i' + (s.opened ? ' af-i--open' : ''),
+      introHidden: !!s.opened,
+      open: () => this.open(),
+      guestHello: GUEST ? 'Hurmatli ' + GUEST : 'Hurmatli mehmon',
+      introGuestFs: fitPx(GUEST ? 'Hurmatli ' + GUEST : 'Hurmatli mehmon', 44, 350, 0.56, 2),
+      introFrom: MEZBON ? MEZBON + ' taklifi' : TAKLIF,
+      taklifCap: TAKLIF,
+      guestLine, guestFs: fitPx(guestLine, 36, 350, 0.56, 2),
+      mezbon: MEZBON, hostFs: fitPx(MEZBON, 24, 240, 0.58, 2),
+      taklifLow: TAKLIF_LOW,
+      sabab: SABAB,
+      hhmm: HM, timeNote: timeNote(),
+      dateLine: [w.date, w.weekday].filter(Boolean).join(', '),
+      week: weekStrip(D.sana), hasWeek: !!w.day,
+      calLink: calUrl(),
+      untilText: cd.done ? 'Marosim vaqti keldi' : UNTIL + ' qoldi',
+      cdKey: { d: 'd' + cd.dd, h: 'h' + cd.hh, m: 'm' + cd.mm, s: 's' + cd.ss },
+      cdText: cd.d + ' kun, ' + cd.h + ' soat, ' + cd.m + ' daqiqa qoldi',
+      secs,
+      placeFs: fitPx(AP(D.manzil_nomi), 40, 350, 0.56, 2),
+      prog: (D.dastur || []).filter((x) => x && (x.vaqt || x.nomi)).map((x) => ({ vaqt: hhmm(x.vaqt) || AP(x.vaqt) || '—', nomi: AP(x.nomi) })),
+      deadline: deadlineText('javobingizni bildiring'),
+      askName: !SITE.has.guest,
+      onName: (e) => { this.nm = e.target.value; },
+      onWish: (e) => { this.wish = e.target.value; },
+      isYes, isNo, guests,
+      optYesCls: isYes ? 'af-opt af-opt--on' : 'af-opt',
+      optNoCls: isNo ? 'af-opt af-opt--on' : 'af-opt',
+      sayYes: () => this.setState({ rsvp: 'yes', sent: false, warn: '' }),
+      sayNo: () => this.setState({ rsvp: 'no', sent: false, warn: '' }),
+      stepCls: isNo ? 'af-step af-step--off' : 'af-step',
+      minusOff: isNo || guests <= 1, plusOff: isNo || guests >= 10,
+      dec: () => this.setState({ guests: Math.max(1, guests - 1), sent: false }),
+      inc: () => this.setState({ guests: Math.min(10, guests + 1), sent: false }),
+      send: () => this.send(),
+      busy: !!s.busy,
+      sendLabel: s.busy ? 'Yuborilmoqda…' : (s.sent ? 'Javob yuborildi' : 'Javobni yuborish'),
+      rsvpNote: note,
+      tel: telHref(D.telefon), telFs: fitPx(AP(D.telefon), 30, 270, 0.6, 1),
+      duaA: DUA[0], duaB: DUA[1],
+      footMeta: [HM, w.dots].filter(Boolean).join(' / '),
+      musicOn: music, musicOff: !music,
+      musicCls: music ? 'af-music af-music--on' : 'af-music',
+      musicLabel: music ? 'Musiqani o’chirish' : 'Musiqani yoqish',
+      toggleMusic: () => { SITE.music.toggle(); }
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,642 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<title>Tug’ilgan kun: Bento</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geologica:wght@400;500;600;700&amp;family=Sofia+Sans+Extra+Condensed:ital,wght@0,800;0,900;1,800;1,900&amp;display=swap">
+<style>
+body{margin:0}
+.is-hidden{display:none !important}
+.bn-d{font-family:'Sofia Sans Extra Condensed','Arial Narrow','Roboto Condensed',sans-serif;font-weight:900;letter-spacing:-.005em}
+.bn-i{font-style:italic}
+.bn-row{display:flex;align-items:center;gap:10px}
+.bn-sec{position:relative;padding:0 16px;margin-top:34px}
+.bn-lab{display:flex;align-items:center;gap:10px;margin:0 0 12px;font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#55534E}
+.bn-lab::after{content:"";flex:1;height:1px;background:rgba(24,24,28,0.16)}
+.bn-labN{display:inline-flex;align-items:center;justify-content:center;min-width:34px;height:26px;padding:0 9px;border-radius:13px;background:#18181C;color:#D7F55E;font-size:12px;letter-spacing:.06em;box-sizing:border-box}
+.bn-tile{position:relative;box-sizing:border-box;border-radius:28px;overflow:hidden}
+.bn-cap{margin:0;font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase}
+.bn-ico{fill:none;stroke:#18181C;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.bn-icoL{fill:none;stroke:#D7F55E;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.bn-icoW{fill:none;stroke:#FFFFFF;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+/* hero: tiles fly in and lock */
+.bn-fly{position:absolute;transition:transform 1s cubic-bezier(.2,1.22,.36,1);transition-delay:var(--dl,0s)}
+.bn-fly > .bn-tile{width:100%;height:100%}
+.bn-shut .bn-fly{transform:translate(var(--sx),var(--sy)) rotate(var(--sr)) scale(var(--ss))}
+.bn-shut .bn-fly > .bn-tile{animation:bn-bob 4.8s ease-in-out infinite alternate;animation-delay:var(--bd,0s);box-shadow:0 22px 44px rgba(24,24,28,0.2)}
+@keyframes bn-bob{from{transform:translateY(-7px) rotate(-1.2deg)}to{transform:translateY(7px) rotate(1.2deg)}}
+.bn-in .bn-fly > .bn-tile{animation:bn-lock .5s ease-out both;animation-delay:calc(var(--dl,0s) + .74s)}
+@keyframes bn-lock{0%{transform:scale(1)}35%{transform:scale(.955)}100%{transform:scale(1)}}
+.bn-ring{position:absolute;left:0;top:0;right:0;bottom:0;border-radius:inherit;box-shadow:inset 0 0 0 3px #D7F55E;opacity:0;pointer-events:none}
+.bn-in .bn-ring{animation:bn-ringA .9s ease-out both;animation-delay:calc(var(--dl,0s) + .76s)}
+@keyframes bn-ringA{0%{opacity:0}18%{opacity:1}100%{opacity:0}}
+.bn-w{display:inline-block;overflow:hidden;vertical-align:top;padding:0 .1em .04em 0;margin-right:-.1em}
+.bn-w > span{display:inline-block}
+.bn-in .bn-w > span{animation:bn-up .7s cubic-bezier(.2,.9,.25,1) both;animation-delay:calc(1.05s + var(--i) * .045s)}
+@keyframes bn-up{from{transform:translateY(105%)}to{transform:none}}
+.bn-spin{animation:bn-spin 12s linear infinite}
+@keyframes bn-spin{to{transform:rotate(360deg)}}
+.bn-orbit{transform-origin:50% 50%;animation:bn-spin 6s linear infinite}
+.bn-ecg{fill:none;stroke:#18181C;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:420;animation:bn-ecg 3.2s linear infinite}
+@keyframes bn-ecg{from{stroke-dashoffset:420}to{stroke-dashoffset:-420}}
+.bn-beat{transform-box:fill-box;transform-origin:50% 50%;animation:bn-beat 1.1s ease-in-out infinite}
+@keyframes bn-beat{0%,100%{transform:scale(1)}15%{transform:scale(1.22)}30%{transform:scale(.96)}45%{transform:scale(1.12)}}
+.bn-hintW{transition:opacity .6s ease 1.6s}
+.bn-shut .bn-hintW{opacity:0}
+.bn-hint{animation:bn-hint 1.8s ease-in-out infinite}
+@keyframes bn-hint{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
+
+/* intro card */
+.bn-cta{transition:transform .45s cubic-bezier(.5,0,.7,.4),opacity .35s ease}
+.bn-intro--open{pointer-events:none}
+.bn-intro--open .bn-cta{transform:translateY(30px) scale(.86);opacity:0}
+.bn-go{width:100%;min-height:58px;border:0;border-radius:18px;background:#18181C;color:#FFFFFF;font-family:'Geologica',system-ui,sans-serif;font-size:17px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:12px;cursor:pointer;padding:0 20px;box-shadow:0 10px 22px rgba(24,24,28,0.28)}
+.bn-go:active{transform:scale(.98)}
+.bn-pulse{animation:bn-pulse 2.2s ease-in-out infinite}
+@keyframes bn-pulse{0%,100%{box-shadow:0 10px 22px rgba(24,24,28,0.28),0 0 0 0 rgba(215,245,94,0.9)}50%{box-shadow:0 10px 22px rgba(24,24,28,0.28),0 0 0 9px rgba(215,245,94,0)}}
+.bn-gridIco rect{fill:#D7F55E}
+.bn-gridIco rect:nth-child(2){fill:#C6B5FF}
+.bn-gridIco rect:nth-child(3){fill:#FFFFFF}
+
+/* scroll reveal */
+.bn-rise{animation:bn-rise .9s cubic-bezier(.2,.8,.3,1) both;animation-timeline:view();animation-range:entry 0% entry 80%}
+@keyframes bn-rise{from{opacity:0;transform:translateY(34px) scale(.96)}to{opacity:1;transform:none}}
+.bn-pop{animation:bn-pop .8s cubic-bezier(.2,1.3,.4,1) both;animation-timeline:view();animation-range:entry 0% entry 90%}
+@keyframes bn-pop{from{opacity:0;transform:scale(.82) rotate(-3deg)}to{opacity:1;transform:none}}
+
+/* countdown */
+.bn-cdN{display:block;font-size:52px;line-height:.9;font-variant-numeric:tabular-nums}
+.bn-ta{animation:bn-rollA .5s cubic-bezier(.2,1.3,.4,1)}
+.bn-tb{animation:bn-rollB .5s cubic-bezier(.2,1.3,.4,1)}
+@keyframes bn-rollA{from{transform:translateY(-60%);opacity:0}}
+@keyframes bn-rollB{from{transform:translateY(-60%);opacity:0}}
+.bn-bar{position:relative;height:16px;border-radius:8px;background:#ECE9E2;overflow:hidden}
+.bn-fill{position:absolute;left:0;top:0;bottom:0;border-radius:8px;background:repeating-linear-gradient(-45deg,#D7F55E 0 10px,#C5E84A 10px 20px);background-size:200% 100%;animation:bn-stripe 1.6s linear infinite}
+@keyframes bn-stripe{from{background-position:0 0}to{background-position:-28px 0}}
+
+/* wishes */
+.bn-wish{display:flex;flex-direction:column;justify-content:space-between;gap:14px;min-height:118px;padding:16px 18px 18px;border-radius:26px;box-sizing:border-box}
+.bn-wishT{margin:0;font-size:34px;line-height:.95;text-transform:uppercase;overflow-wrap:anywhere}
+
+/* candles */
+.bn-flame{transform-box:fill-box;transform-origin:50% 100%;animation:bn-flick .8s ease-in-out infinite alternate}
+.bn-glow{transform-box:fill-box;transform-origin:50% 50%;animation:bn-glow 1.6s ease-in-out infinite}
+@keyframes bn-flick{0%{transform:scale(1,1) rotate(-3deg)}50%{transform:scale(.9,1.1) rotate(2deg)}100%{transform:scale(1.05,.95) rotate(-1deg)}}
+@keyframes bn-glow{0%,100%{opacity:.45;transform:scale(.9)}50%{opacity:.85;transform:scale(1.1)}}
+.bn-smoke{fill:none;stroke:#BDBAB2;stroke-width:2.4;stroke-linecap:round;stroke-dasharray:3 5;opacity:0}
+.bn-out .bn-flame{animation:bn-fOut .35s ease-in both}
+.bn-out .bn-glow{animation:bn-fade .3s ease both}
+.bn-out .bn-smoke{animation:bn-smoke 2.2s ease-out .2s both}
+@keyframes bn-fOut{from{opacity:1;transform:scale(1)}to{opacity:0;transform:scale(.2,.1)}}
+@keyframes bn-fade{to{opacity:0}}
+@keyframes bn-smoke{0%{opacity:0;transform:translateY(0)}20%{opacity:.9}100%{opacity:0;transform:translateY(-36px)}}
+.bn-wishLine{opacity:0;transform:translateY(10px);transition:opacity .6s ease .3s,transform .6s ease .3s}
+.bn-wishLine--on{opacity:1;transform:none}
+.bn-sq{position:absolute;left:0;top:0;width:12px;height:12px;margin:-6px 0 0 -6px;border-radius:3px;opacity:0}
+.bn-burst--go .bn-sq{animation:bn-shoot 1.2s cubic-bezier(.15,.8,.3,1) both}
+@keyframes bn-shoot{0%{opacity:1;transform:translateY(0) scale(.4) rotate(0)}70%{opacity:1}100%{opacity:0;transform:translateY(-130px) scale(1.1) rotate(160deg)}}
+.bn-pill{min-height:52px;border:0;border-radius:26px;background:#D7F55E;color:#18181C;font-family:'Geologica',system-ui,sans-serif;font-size:16px;font-weight:600;display:inline-flex;align-items:center;justify-content:center;gap:9px;cursor:pointer;padding:0 26px}
+
+/* secret: flip tile */
+.bn-flipBtn{display:block;width:100%;padding:0;border:0;background:none;cursor:pointer;color:inherit;font:inherit;text-align:left;perspective:1100px}
+.bn-flip{display:grid;transform-style:preserve-3d;transition:transform .85s cubic-bezier(.3,1.25,.45,1)}
+.bn-flip > div{grid-area:1/1;-webkit-backface-visibility:hidden;backface-visibility:hidden}
+.bn-back{transform:rotateY(180deg)}
+.bn-flipBtn--on .bn-flip{transform:rotateY(180deg)}
+.bn-tap{animation:bn-tap 2.4s ease-in-out infinite}
+@keyframes bn-tap{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+
+/* gallery */
+.bn-ph img{display:block;width:100%;height:100%;object-fit:cover}
+.bn-chip{position:absolute;left:12px;top:12px;height:26px;padding:0 10px;border-radius:13px;background:rgba(24,24,28,0.72);color:#D7F55E;font-size:12px;font-weight:600;display:flex;align-items:center;letter-spacing:.06em}
+
+/* reply */
+.bn-send{width:100%;min-height:60px;border:0;border-radius:20px;background:#18181C;color:#FFFFFF;font-family:'Geologica',system-ui,sans-serif;font-size:18px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:10px;cursor:pointer;transition:transform .15s ease,background .3s ease}
+.bn-send:active{transform:scale(.98)}
+.bn-send--done{background:#FFFFFF;color:#18181C;cursor:default}
+.bn-music{width:44px;height:44px;border-radius:50%;border:0;background:#18181C;display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0}
+.bn-music--on{background:#D7F55E}
+.bn-music--on path{fill:#18181C}
+
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation:none !important;transition:none !important}
+  .bn-shut .bn-fly{transform:none}
+  .bn-intro--open{opacity:0}
+}
+</style>
+</helmet>
+<div class="{{ rootCls }}" style="width: 390px; min-height: var(--vh, 100vh); position: relative; overflow: hidden; background: #E8E5DE; color: #18181C; font-family: 'Geologica', system-ui, -apple-system, sans-serif">
+  <div aria-hidden="true" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; pointer-events: none; background-image: radial-gradient(rgba(24,24,28,0.13) 1px, rgba(24,24,28,0) 1.4px); background-size: 20px 20px; background-position: 6px 6px"></div>
+
+  <div style="position: relative; min-height: var(--vh, 100vh); display: flex; flex-direction: column">
+
+    <section style="position: relative; height: 844px; flex: none">
+      <div style="position: absolute; left: 16px; top: 14px; width: 358px; height: 44px; display: flex; align-items: center; justify-content: space-between">
+        <span style="display: inline-flex; align-items: center; gap: 8px; height: 34px; padding: 0 14px; border-radius: 17px; background: #FFFFFF; font-size: 13px; font-weight: 600; color: #18181C"><span aria-hidden="true" style="width: 8px; height: 8px; border-radius: 50%; background: #18181C; box-shadow: 0 0 0 3px #D7F55E"></span>{{ topChip }}</span>
+        <sc-if value="{{ has.music }}"><button type="button" class="{{ musicCls }}" onClick="{{ toggleMusic }}" aria-label="Musiqa" aria-pressed="{{ musicOn }}"><svg aria-hidden="true" width="18" height="20" viewBox="0 0 22 26"><path d="M8 3L20 0V17.5A3.5 3 0 1 1 17 14.6V5.2L10 7V20.5A3.5 3 0 1 1 7 17.6V3Z" fill="#D7F55E"></path></svg></button></sc-if>
+      </div>
+
+      <div class="bn-fly" style="left: 16px; top: 64px; width: 358px; height: 196px; --dl: 0s; --bd: -1s; --sx: -26px; --sy: -34px; --sr: -7deg; --ss: 0.84">
+        <div class="bn-tile" style="background: #18181C; color: #FFFFFF; padding: 20px 22px">
+          <p class="bn-cap" style="color: #D7F55E">Tug’ilgan kuning muborak</p>
+          <h1 aria-label="{{ name }}" class="bn-d bn-i" style="margin: 0; position: absolute; left: 22px; bottom: 44px; width: 300px; font-size: {{ nameFs }}px; line-height: 0.86; text-transform: uppercase; overflow-wrap: anywhere">
+            <sc-for list="{{ nameWords }}" as="w"><span aria-hidden="true" class="bn-w"><sc-for list="{{ w.ch }}" as="c"><span style="{{ c.st }}">{{ c.t }}</span></sc-for></span>{{ w.sp }}</sc-for>
+          </h1>
+          <p style="position: absolute; left: 22px; bottom: 18px; margin: 0; font-size: 13px; font-weight: 500; color: #A9A79F">{{ heroDate }}</p>
+          <svg aria-hidden="true" class="bn-spin" width="46" height="46" viewBox="0 0 46 46" style="position: absolute; right: 18px; top: 16px"><path d="M23 0C25 15 31 21 46 23C31 25 25 31 23 46C21 31 15 25 0 23C15 21 21 15 23 0Z" fill="#D7F55E"></path></svg>
+          <span class="bn-ring"></span>
+        </div>
+      </div>
+
+      <div class="bn-fly" style="left: 16px; top: 270px; width: 174px; height: 262px; --dl: .08s; --bd: -2.4s; --sx: -64px; --sy: 46px; --sr: 9deg; --ss: 0.8">
+        <div class="bn-tile" style="background: #C6B5FF">
+          <sc-if value="{{ has.photo }}"><img src="{{ p.0 }}" alt="" style="display: block; width: 174px; height: 262px; object-fit: cover"></sc-if>
+          <sc-if value="{{ noPhoto }}">
+            <div aria-hidden="true" class="bn-d bn-i" style="position: absolute; left: 0; top: 0; width: 174px; height: 262px; display: flex; align-items: center; justify-content: center; font-size: 230px; line-height: 1; color: #18181C">{{ initial }}</div>
+          </sc-if>
+          <span style="position: absolute; left: 12px; bottom: 12px; height: 28px; padding: 0 12px; border-radius: 14px; background: #FFFFFF; font-size: 12px; font-weight: 600; display: flex; align-items: center; gap: 6px"><span aria-hidden="true" style="width: 7px; height: 7px; border-radius: 50%; background: #18181C"></span>Bugun qahramon</span>
+          <span class="bn-ring"></span>
+        </div>
+      </div>
+
+      <div class="bn-fly" style="left: 200px; top: 270px; width: 174px; height: 126px; --dl: .16s; --bd: -0.6s; --sx: 70px; --sy: -26px; --sr: 12deg; --ss: 0.8">
+        <div class="bn-tile" style="background: #D7F55E; padding: 14px 16px">
+          <p class="bn-cap" style="color: #18181C">{{ t3.l }}</p>
+          <span class="bn-d" style="position: absolute; right: 14px; bottom: 6px; font-size: {{ t3.fs }}px; line-height: 0.82; font-variant-numeric: tabular-nums">{{ t3.v }}</span>
+          <sc-if value="{{ t3.s }}"><span style="position: absolute; left: 16px; bottom: 14px; font-size: 13px; font-weight: 600">{{ t3.s }}</span></sc-if>
+          <span class="bn-ring"></span>
+        </div>
+      </div>
+
+      <div class="bn-fly" style="left: 200px; top: 406px; width: 174px; height: 126px; --dl: .22s; --bd: -3.1s; --sx: 84px; --sy: 96px; --sr: -13deg; --ss: 0.8">
+        <div class="bn-tile" style="background: #C6B5FF; padding: 14px 16px">
+          <p class="bn-cap" style="color: #18181C">{{ t4.l }}</p>
+          <span class="bn-d" style="position: absolute; left: 14px; bottom: 10px; font-size: {{ t4.fs }}px; line-height: 0.85; font-variant-numeric: tabular-nums; white-space: nowrap">{{ t4.v }}</span>
+          <span class="bn-ring"></span>
+        </div>
+      </div>
+
+      <div class="bn-fly" style="left: 16px; top: 542px; width: 358px; height: 104px; --dl: .3s; --bd: -1.8s; --sx: -34px; --sy: 128px; --sr: 5deg; --ss: 0.8">
+        <div class="bn-tile" style="background: #FFFFFF; padding: 14px 18px">
+          <svg aria-hidden="true" width="150" height="76" viewBox="0 0 150 76" style="position: absolute; left: 14px; top: 14px">
+            <path class="bn-ecg" d="M0 46H34L42 30L52 62L64 8L76 70L86 46H150"></path>
+            <path class="bn-beat" d="M124 30C124 26 128 23 131.5 26.5C135 23 139 26 139 30C139 35 131.5 40 131.5 40S124 35 124 30Z" fill="#18181C"></path>
+          </svg>
+          <div style="position: absolute; right: 18px; top: 12px; width: 180px; text-align: right">
+            <span class="bn-d" style="display: block; font-size: {{ t5.fs }}px; line-height: 0.9; white-space: nowrap">{{ t5.v }}</span>
+            <span style="display: block; margin-top: 4px; font-size: 12px; font-weight: 500; line-height: 1.3; color: #55534E">{{ t5.l }}</span>
+          </div>
+          <span class="bn-ring"></span>
+        </div>
+      </div>
+
+      <div class="bn-fly" style="left: 16px; top: 656px; width: 174px; height: 104px; --dl: .38s; --bd: -2.9s; --sx: -78px; --sy: 84px; --sr: -15deg; --ss: 0.8">
+        <div class="bn-tile" style="background: #18181C; color: #FFFFFF; padding: 14px 16px">
+          <svg aria-hidden="true" width="34" height="34" viewBox="0 0 40 40" style="position: absolute; right: 10px; bottom: 10px">
+            <circle cx="20" cy="20" r="6" fill="#D7F55E"></circle>
+            <circle cx="20" cy="20" r="15" fill="none" stroke="#5A5A60" stroke-width="1.5"></circle>
+            <g class="bn-orbit"><circle cx="35" cy="20" r="3.5" fill="#C6B5FF"></circle></g>
+          </svg>
+          <span style="position: absolute; left: 16px; top: 12px; white-space: nowrap; color: #D7F55E"><span class="bn-d" style="font-size: {{ t6.fs }}px; line-height: 0.95">{{ t6.v }}</span><sc-if value="{{ t6.u }}"><span style="margin-left: 5px; font-size: 13px; font-weight: 600">{{ t6.u }}</span></sc-if></span>
+          <span style="position: absolute; left: 16px; right: 46px; bottom: 12px; font-size: 12px; font-weight: 500; line-height: 1.3; color: #C9C7C0">{{ t6.l }}</span>
+          <span class="bn-ring"></span>
+        </div>
+      </div>
+
+      <div class="bn-fly" style="left: 200px; top: 656px; width: 174px; height: 104px; --dl: .44s; --bd: -0.2s; --sx: 64px; --sy: 82px; --sr: 16deg; --ss: 0.82">
+        <div class="bn-tile" style="background: #D7F55E; padding: 14px 16px">
+          <span class="bn-d" style="position: absolute; left: 16px; top: 12px; font-size: {{ t7.fs }}px; line-height: 0.95; white-space: nowrap">{{ t7.v }}</span>
+          <span style="position: absolute; left: 16px; right: 12px; bottom: 12px; font-size: 12px; font-weight: 600; line-height: 1.3">{{ t7.l }}</span>
+          <span class="bn-ring"></span>
+        </div>
+      </div>
+
+      <sc-if value="{{ anyBlock }}">
+        <div aria-hidden="true" class="bn-hintW" style="position: absolute; left: 0; top: 780px; width: 390px; display: flex; justify-content: center">
+          <span class="bn-hint" style="display: inline-flex; align-items: center; gap: 8px; height: 34px; padding: 0 16px; border-radius: 17px; background: #FFFFFF; font-size: 13px; font-weight: 600"><svg width="14" height="14" viewBox="0 0 14 14"><path class="bn-ico" d="M7 2V12M3 8L7 12L11 8"></path></svg>Davomi pastda</span>
+        </div>
+      </sc-if>
+    </section>
+
+<sc-if value="{{ b.tabrik }}">
+    <section class="bn-sec" style="margin-top: 6px">
+      <p class="bn-lab"><span class="bn-labN">{{ num.tabrik }}</span>Tabrik</p>
+      <div class="bn-tile bn-rise" style="background: #FFFFFF; padding: 22px 22px 24px">
+        <span aria-hidden="true" style="display: flex; width: 46px; height: 46px; border-radius: 50%; background: #D7F55E; align-items: center; justify-content: center"><svg width="22" height="18" viewBox="0 0 22 18"><path d="M0 18V10C0 4 3 1 9 0V4C6 5 5 7 5 9H9V18ZM13 18V10C13 4 16 1 22 0V4C19 5 18 7 18 9H22V18Z" fill="#18181C"></path></svg></span>
+        <p style="margin: 16px 0 0; font-size: 17px; font-weight: 400; line-height: 1.6; color: #18181C; white-space: pre-line; overflow-wrap: anywhere">{{ d.matn }}</p>
+      </div>
+      <sc-if value="{{ d.kimdan }}">
+        <div class="bn-tile bn-rise" style="margin-top: 10px; background: #18181C; color: #FFFFFF; padding: 16px 18px; display: flex; align-items: center; gap: 14px">
+          <div aria-hidden="true" style="flex: none; display: flex">
+            <sc-for list="{{ avatars }}" as="a"><span class="bn-d" style="{{ a.st }}">{{ a.t }}</span></sc-for>
+          </div>
+          <p style="margin: 0; min-width: 0; font-size: 15px; line-height: 1.35; overflow-wrap: anywhere"><sc-if value="{{ from.label }}"><span style="display: block; font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #D7F55E">{{ from.label }}</span></sc-if><span style="display: block; font-weight: 600">{{ from.names }}</span></p>
+        </div>
+      </sc-if>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.taymer }}">
+    <section class="bn-sec">
+      <p class="bn-lab"><span class="bn-labN">{{ num.taymer }}</span>{{ cdTitle }}</p>
+      <sc-if value="{{ cdLive }}">
+        <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px">
+          <sc-for list="{{ tiles }}" as="t">
+            <div class="bn-tile bn-pop" style="{{ t.st }}">
+              <span class="{{ t.cls }}">{{ t.v }}</span>
+              <span style="display: block; margin-top: 8px; font-size: 12px; font-weight: 600">{{ t.l }}</span>
+            </div>
+          </sc-for>
+        </div>
+        <div class="bn-tile bn-rise" style="margin-top: 10px; background: #FFFFFF; padding: 18px 20px 20px">
+          <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 10px">
+            <span style="font-size: 14px; font-weight: 600">Yangi yoshgacha yo’l</span>
+            <span class="bn-d" style="font-size: 34px; line-height: 1">{{ pct }}%</span>
+          </div>
+          <div class="bn-bar" style="margin-top: 10px"><div class="bn-fill" style="width: {{ pct }}%"></div></div>
+          <p style="margin: 10px 0 0; font-size: 13px; color: #55534E">{{ cdDate }}</p>
+        </div>
+      </sc-if>
+      <sc-if value="{{ cdDone }}">
+        <div class="bn-tile bn-pop" style="background: #D7F55E; padding: 26px 22px; display: flex; align-items: center; justify-content: space-between; gap: 12px">
+          <span class="bn-d bn-i" style="font-size: 54px; line-height: 0.9; text-transform: uppercase">Bugun<br>bayram!</span>
+          <svg aria-hidden="true" class="bn-spin" width="64" height="64" viewBox="0 0 46 46"><path d="M23 0C25 15 31 21 46 23C31 25 25 31 23 46C21 31 15 25 0 23C15 21 21 15 23 0Z" fill="#18181C"></path></svg>
+        </div>
+      </sc-if>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.tilaklar }}">
+    <section class="bn-sec">
+      <p class="bn-lab"><span class="bn-labN">{{ num.tilaklar }}</span>Tilaklarimiz</p>
+      <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px">
+        <sc-for list="{{ wishes }}" as="w">
+          <div class="bn-wish bn-pop" style="{{ w.st }}">
+            <div style="display: flex; align-items: center; justify-content: space-between">
+              <span style="font-size: 12px; font-weight: 600; letter-spacing: 0.08em; opacity: 0.75">{{ w.n }}</span>
+              <svg aria-hidden="true" width="26" height="26" viewBox="0 0 26 26"><path d="{{ w.ico }}" fill="{{ w.icoFill }}"></path></svg>
+            </div>
+            <p class="bn-wishT bn-d">{{ w.text }}</p>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.sham }}">
+    <section class="bn-sec">
+      <p class="bn-lab"><span class="bn-labN">{{ num.sham }}</span>Shamni puflang</p>
+      <div class="{{ cakeCls }}" style="border-radius: 32px; background: #18181C; color: #FFFFFF; padding: 22px 20px 24px; display: flex; flex-direction: column; align-items: center; text-align: center; position: relative; overflow: hidden">
+        <p style="margin: 0; font-size: 15px; color: #C9C7C0">Ko’zingni yum, niyat qil va bos</p>
+        <div style="position: relative; display: flex; align-items: flex-end; justify-content: center; gap: 6px; height: 230px; margin-top: 8px">
+          <sc-for list="{{ candles }}" as="c">
+            <div style="position: relative; display: flex; flex-direction: column; align-items: center">
+              <svg aria-hidden="true" width="44" height="74" viewBox="0 0 44 74" style="display: block; margin-bottom: -6px">
+                <circle class="bn-glow" cx="22" cy="34" r="20" fill="#D7F55E" opacity="0.35"></circle>
+                <path class="bn-flame" d="M22 6C30 20 33 30 30 38C28 45 16 45 14 38C11 30 14 20 22 6Z" fill="#D7F55E"></path>
+                <path class="bn-flame" d="M22 22C25 28 26 33 24.5 36.5C23.5 39 20.5 39 19.5 36.5C18 33 19 28 22 22Z" fill="#FFFFFF"></path>
+                <path class="bn-smoke" d="M22 44C16 36 28 30 22 20C17 12 26 6 22 0"></path>
+                <rect x="20.5" y="46" width="3" height="28" rx="1.5" fill="#FFFFFF"></rect>
+              </svg>
+              <span class="bn-d" style="{{ c.st }}">{{ c.t }}</span>
+            </div>
+          </sc-for>
+        </div>
+        <div aria-hidden="true" style="width: 250px; height: 14px; margin-top: 4px; border-radius: 7px; background: #2C2C32"></div>
+        <div class="{{ burstCls }}" aria-hidden="true" style="position: absolute; left: 50%; top: 150px; width: 0; height: 0; pointer-events: none">
+          <sc-for list="{{ squares }}" as="q"><span style="{{ q.w }}"><span class="bn-sq" style="{{ q.p }}"></span></span></sc-for>
+        </div>
+        <p class="{{ wishCls }}" style="margin: 16px 0 0; min-height: 30px; font-family: 'Sofia Sans Extra Condensed', 'Arial Narrow', sans-serif; font-weight: 900; font-style: italic; font-size: 30px; line-height: 1; text-transform: uppercase; color: #D7F55E; overflow-wrap: anywhere">{{ wishLine }}</p>
+        <button type="button" class="bn-pill" onClick="{{ blow }}" style="margin-top: 16px">
+          <span class="{{ blowIdle }}">Puflash</span><span class="{{ blowDone }}">Shamni qayta yoqish</span>
+        </button>
+      </div>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.sirli }}">
+    <section class="bn-sec">
+      <p class="bn-lab"><span class="bn-labN">{{ num.sirli }}</span>Sirli tilak</p>
+      <button type="button" class="{{ secCls }}" onClick="{{ toggleSec }}" aria-label="Sirli tilakni ochish" aria-expanded="{{ secOn }}">
+        <div class="bn-flip">
+          <div class="bn-tile" style="min-height: 210px; background: #18181C; color: #FFFFFF; padding: 22px; display: flex; flex-direction: column; justify-content: space-between">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start">
+              <span class="bn-d bn-i" style="font-size: 44px; line-height: 0.9; text-transform: uppercase">Faqat<br>sen uchun</span>
+              <span aria-hidden="true" class="bn-tap" style="flex: none; width: 58px; height: 58px; border-radius: 50%; background: #D7F55E; display: flex; align-items: center; justify-content: center"><svg width="24" height="26" viewBox="0 0 24 26"><rect class="bn-ico" x="3" y="11" width="18" height="13" rx="3"></rect><path class="bn-ico" d="M7 11V7.5a5 5 0 0 1 10 0V11"></path></svg></span>
+            </div>
+            <p style="margin: 0; font-size: 14px; color: #C9C7C0">Bosing — karta ag’dariladi va biz yashirgan tilak ochiladi</p>
+          </div>
+          <div class="bn-tile bn-back" style="min-height: 210px; background: #C6B5FF; color: #18181C; padding: 22px; display: flex; flex-direction: column; justify-content: center; gap: 12px">
+            <p class="bn-cap">Sirli tilak</p>
+            <p style="margin: 0; font-size: 19px; font-weight: 600; line-height: 1.45; white-space: pre-line; overflow-wrap: anywhere">{{ d.sirli_tilak }}</p>
+          </div>
+        </div>
+      </button>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.galereya }}">
+    <section class="bn-sec">
+      <p class="bn-lab"><span class="bn-labN">{{ num.galereya }}</span>Kadrlar</p>
+      <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: 118px; gap: 10px">
+        <sc-for list="{{ gallery }}" as="g">
+          <div class="bn-tile bn-ph bn-pop" style="{{ g.st }}">
+            <img src="{{ g.src }}" alt="">
+            <span class="bn-chip">{{ g.n }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.xronika }}">
+    <section class="bn-sec">
+      <p class="bn-lab"><span class="bn-labN">{{ num.xronika }}</span>Yillar xronikasi</p>
+      <div style="display: flex; flex-direction: column; gap: 10px">
+        <sc-for list="{{ chron }}" as="x">
+          <div class="bn-rise" style="display: grid; grid-template-columns: 112px minmax(0, 1fr); gap: 10px">
+            <div class="bn-tile" style="{{ x.ageSt }}">
+              <span class="bn-d" style="display: block; font-size: {{ x.fs }}px; line-height: 0.85">{{ x.yosh }}</span>
+              <span style="display: block; margin-top: 4px; font-size: 12px; font-weight: 600">{{ x.unit }}</span>
+            </div>
+            <div class="bn-tile" style="{{ x.boxSt }}">
+              <sc-if value="{{ x.src }}"><img src="{{ x.src }}" alt="" style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; object-fit: cover"><div aria-hidden="true" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; background: linear-gradient(180deg, rgba(24,24,28,0) 20%, rgba(24,24,28,0.82) 100%)"></div></sc-if>
+              <p style="{{ x.txtSt }}">{{ x.matn }}</p>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.javob }}">
+    <section class="bn-sec">
+      <p class="bn-lab"><span class="bn-labN">{{ num.javob }}</span>Javob</p>
+      <div class="bn-tile bn-rise" style="background: #D7F55E; padding: 24px 22px 22px; overflow: visible">
+        <h2 class="bn-d bn-i" style="margin: 0; font-size: {{ askFs }}px; line-height: 0.92; text-transform: uppercase; overflow-wrap: anywhere">{{ askName }}</h2>
+        <p style="margin: 10px 0 18px; font-size: 15px; line-height: 1.45">{{ askSub }}</p>
+        <div style="position: relative">
+          <div class="{{ sendBurst }}" aria-hidden="true" style="position: absolute; left: 50%; top: 20px; width: 0; height: 0; pointer-events: none; z-index: 2">
+            <sc-for list="{{ squares }}" as="q"><span style="{{ q.w }}"><span class="bn-sq" style="{{ q.p }}"></span></span></sc-for>
+          </div>
+          <button type="button" class="{{ sendCls }}" onClick="{{ send }}">
+            <span class="{{ sendIdle }}"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 20 20"><path d="M10 17s-6.5-4.1-6.5-8.6A3.6 3.6 0 0 1 10 6.3a3.6 3.6 0 0 1 6.5 2.1C16.5 12.9 10 17 10 17z" fill="#D7F55E"></path></svg>Tabrikladim</span>
+            <span class="{{ sendDone }}"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 20 20"><path class="bn-ico" d="M4 10.5l4 4 8-9"></path></svg>Tabrigingiz yetkazildi</span>
+          </button>
+        </div>
+      </div>
+    </section>
+</sc-if>
+
+    <footer aria-hidden="true" style="flex: 1; min-height: 120px; display: flex; align-items: flex-end; padding: 34px 16px 22px; box-sizing: border-box">
+      <div style="display: flex; gap: 8px; width: 100%">
+        <span class="bn-d bn-i" style="flex: 1; min-width: 0; height: 44px; border-radius: 22px; background: #18181C; color: #D7F55E; display: flex; align-items: center; padding: 0 18px; font-size: 24px; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{ name }}</span>
+        <sc-if value="{{ d.yosh }}"><span class="bn-d" style="flex: none; height: 44px; min-width: 44px; padding: 0 12px; box-sizing: border-box; border-radius: 22px; background: #D7F55E; display: flex; align-items: center; justify-content: center; font-size: 24px">{{ d.yosh }}</span></sc-if>
+        <span style="flex: none; height: 44px; border-radius: 22px; background: #FFFFFF; display: flex; align-items: center; padding: 0 16px; font-size: 13px; font-weight: 600">{{ footDate }}</span>
+      </div>
+    </footer>
+  </div>
+
+  <div data-intro class="{{ introCls }}" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; z-index: 20">
+    <div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; pointer-events: none"></div>
+    <div class="bn-cta" style="position: absolute; left: 36px; top: 276px; width: 318px; box-sizing: border-box; padding: 22px 22px 20px; border-radius: 30px; background: #FFFFFF; box-shadow: 0 30px 70px rgba(24,24,28,0.3), 0 2px 0 rgba(24,24,28,0.05)">
+      <div style="display: flex; align-items: center; justify-content: space-between">
+        <span style="height: 28px; padding: 0 12px; border-radius: 14px; background: #D7F55E; font-size: 12px; font-weight: 600; display: inline-flex; align-items: center">{{ pieces }}</span>
+        <svg aria-hidden="true" class="bn-gridIco" width="34" height="34" viewBox="0 0 34 34"><rect x="0" y="0" width="20" height="14" rx="4"></rect><rect x="23" y="0" width="11" height="14" rx="4"></rect><rect x="0" y="17" width="11" height="17" rx="4"></rect><rect x="14" y="17" width="20" height="17" rx="4" fill="#18181C"></rect></svg>
+      </div>
+      <h2 class="bn-d bn-i" style="margin: 16px 0 0; font-size: {{ introFs }}px; line-height: 0.9; text-transform: uppercase; overflow-wrap: anywhere">{{ introTitle }}</h2>
+      <p style="margin: 10px 0 18px; font-size: 15px; line-height: 1.45; color: #55534E">Bo’laklar sochilib ketdi. Bir bosing — bayram joyiga yig’iladi.</p>
+      <button type="button" class="bn-go bn-pulse" onClick="{{ open }}">
+        <svg aria-hidden="true" width="20" height="20" viewBox="0 0 20 20"><rect x="1" y="1" width="8" height="8" rx="2.5" fill="#D7F55E"></rect><rect x="11" y="1" width="8" height="8" rx="2.5" fill="#C6B5FF"></rect><rect x="1" y="11" width="8" height="8" rx="2.5" fill="#FFFFFF"></rect><rect x="11" y="11" width="8" height="8" rx="2.5" fill="#D7F55E"></rect></svg>
+        Bayramni yig’ish
+      </button>
+      <sc-if value="{{ from.line }}"><p style="margin: 14px 0 0; font-size: 13px; font-weight: 500; line-height: 1.4; color: #55534E; text-align: center; overflow-wrap: anywhere">{{ from.line }}</p></sc-if>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":3900}}'>
+const tkName = (d) => String(d.kimga || '').trim();
+const tkFrom = (d) => {
+  const kd = String(d.kimdan || '').trim(), ci = kd.indexOf(':');
+  const label = ci > 0 ? kd.slice(0, ci).trim() : '';
+  const names = ci > 0 ? kd.slice(ci + 1).trim() : kd;
+  return { label: label, names: names, line: !kd ? '' : (label ? label + 'dan: ' + names : names + 'dan') };
+};
+const tkFit = (text, max, min, width, k) => {
+  const longest = Math.max(1, ...String(text || '').split(/\s+/).map((x) => x.length));
+  return Math.max(min, Math.min(max, Math.floor(width / (longest * k))));
+};
+const WEEK = ['yakshanba', 'dushanba', 'seshanba', 'chorshanba', 'payshanba', 'juma', 'shanba'];
+const dec = (x) => { const s = x >= 100 ? String(Math.round(x)) : x.toFixed(1).replace(/\.0$/, ''); return s.replace('.', ','); };
+// hayot raqamlari: sana — shu yilgi tug’ilgan kun (yoki tug’ilgan sana), yosh — nechchi yoshga to’lyapti
+const life = (D) => {
+  const iso = String(D.sana || '');
+  if (!/^\d{4}-\d{2}-\d{2}/.test(iso)) return null;
+  const y = +iso.slice(0, 4), m = +iso.slice(5, 7), dd = +iso.slice(8, 10);
+  const age = parseInt(String(D.yosh || '').replace(/[^0-9]/g, ''), 10);
+  const nowY = new Date().getFullYear();
+  let by, ty;
+  if (y <= nowY - 2) { by = y; ty = age > 0 ? y + age : nowY; } else { if (!(age > 0)) return null; ty = y; by = y - age; }
+  const years = ty - by;
+  if (years <= 0 || years > 130) return null;
+  const days = Math.round((Date.UTC(ty, m - 1, dd) - Date.UTC(by, m - 1, dd)) / 864e5);
+  return { years: years, days: days, beats: days * 1440 * 72, km: years * 0.94, born: WEEK[new Date(Date.UTC(by, m - 1, dd)).getUTCDay()] };
+};
+const ICONS = [
+  'M13 1L16.2 9.8L25 13L16.2 16.2L13 25L9.8 16.2L1 13L9.8 9.8Z',
+  'M13 23S2 16.5 2 9.2A5.6 5.6 0 0 1 13 6.4A5.6 5.6 0 0 1 24 9.2C24 16.5 13 23 13 23Z',
+  'M13 2A11 11 0 1 1 12.99 2ZM13 7A6 6 0 1 0 13.01 7Z',
+  'M3 3H23V23H3ZM9 9V17H17V9Z',
+  'M13 2L24 22H2Z'
+];
+
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { opened: false, k: 1, blown: false, sec: false, sent: false };
+    const rnd = (i, k) => { const x = Math.sin(i * 127.1 + k * 311.7) * 43758.5453; return x - Math.floor(x); };
+    const cols = ['#D7F55E', '#C6B5FF', '#FFFFFF', '#18181C'];
+    this.squares = Array.from({ length: 16 }, (_, i) => {
+      const ang = -84 + (168 * i) / 15 + (rnd(i, 7) - 0.5) * 10;
+      return { w: 'position: absolute; left: 0; top: 0; width: 0; height: 0; transform: rotate(' + ang.toFixed(1) + 'deg)', p: 'background: ' + cols[i % 4] + '; box-shadow: 0 0 0 1.5px #18181C; animation-delay: ' + (rnd(i, 9) * 0.16).toFixed(2) + 's' };
+    });
+  }
+  componentDidMount() {
+    this.timer = setInterval(() => this.forceUpdate(), 1000);
+  }
+  componentWillUnmount() {
+    clearInterval(this.timer);
+    clearInterval(this.count);
+  }
+  startCount() {
+    let still = false;
+    try { still = window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) { still = false; }
+    if (still) return;
+    const t0 = Date.now() + 650;
+    this.setState({ k: 0 });
+    this.count = setInterval(() => {
+      const t = Math.max(0, Math.min(1, (Date.now() - t0) / 1400));
+      this.setState({ k: 1 - Math.pow(1 - t, 3) });
+      if (t >= 1) clearInterval(this.count);
+    }, 40);
+  }
+  renderVals() {
+    const s = this.state, D = SITE.d, k = s.k;
+    const name = tkName(D), from = tkFrom(D);
+    const w = SITE.when(D.sana), cd = SITE.countdown(D.sana);
+    const yosh = String(D.yosh || '').trim();
+    const L = life(D);
+    const cnt = (v) => SITE.num(Math.round(v * k));
+    const nameU = name.toLocaleUpperCase('uz');
+    const one = Math.floor(300 / (Math.max(1, nameU.length) * 0.43));
+    const longest = Math.max(1, ...nameU.split(/\s+/).map((x) => x.length));
+    const nameFs = one >= 66 ? Math.min(112, one) : Math.max(30, Math.min(64, Math.floor(300 / (longest * 0.5))));
+    let ci = 0;
+    const words = nameU.split(/\s+/).filter(Boolean);
+    const nameWords = words.map((wd, wi) => ({
+      sp: wi < words.length - 1 ? ' ' : '',
+      ch: Array.from(wd).map((c) => ({ t: c, st: '--i: ' + (ci++) }))
+    }));
+    const sizeFor = (v, max, wdt) => Math.max(26, Math.min(max, Math.floor(wdt / (Math.max(1, String(v).length) * 0.47))));
+
+    // hero tiles: hayot raqamlari yoki ma’lumot bo’lmasa — sana tafsilotlari
+    const t3 = L
+      ? { l: 'yosh', v: String(Math.round(L.years * k)), fs: String(L.years).length > 2 ? 76 : 104, s: '' }
+      : { l: w.month || 'bayram', v: w.day || '!', fs: 104, s: w.year };
+    const t4 = L
+      ? { l: 'kun yashading', v: cnt(L.days), fs: sizeFor(SITE.num(L.days), 68, 150) }
+      : { l: 'bayram kuni', v: w.Weekday || 'Bayram', fs: sizeFor(w.Weekday || 'Bayram', 56, 150) };
+    const daysLeft = cd.none ? '' : (cd.done ? 'Bugun bayram!' : cd.d + ' kun');
+    const t5 = L
+      ? { v: '≈ ' + SITE.num(Math.round(L.beats / 1e6 * k)) + ' mln', l: 'marta urdi yuraging — har biri quvonch uchun', fs: 50 }
+      : { v: daysLeft || 'Muborak!', l: cd.done ? 'eng yorqin kun keldi' : 'bayramgacha qoldi', fs: 50 };
+    const t6 = L
+      ? { v: dec(L.km * k), u: 'mlrd km', l: 'Quyosh atrofidagi yo’ling', fs: 46 }
+      : { v: w.year || '2026', u: '', l: 'yangi yosh, yangi orzular', fs: 46 };
+    const t7 = L
+      ? { v: SITE.cap(L.born), l: 'kuni dunyoga kelgansan', fs: sizeFor(L.born, 44, 140) }
+      : { v: '100%', l: 'quvonch kafolatlangan', fs: 44 };
+
+    const ORDER = ['tabrik', 'taymer', 'tilaklar', 'sham', 'sirli', 'galereya', 'xronika', 'javob'];
+    const num = {};
+    let ni = 1;
+    ORDER.forEach((key) => { if (SITE.b[key]) num[key] = SITE.pad(ni++); });
+
+    const names = from.names.split(/\s*,\s*|\s+va\s+|\s+и\s+/).map((x) => x.trim()).filter(Boolean);
+    const avCols = ['#D7F55E', '#C6B5FF', '#FFFFFF', '#E8E5DE'];
+    const avatars = names.slice(0, 4).map((x, i) => ({
+      t: x.charAt(0).toLocaleUpperCase('uz'),
+      st: 'width: 40px; height: 40px; border-radius: 50%; box-sizing: border-box; border: 3px solid #18181C; display: flex; align-items: center; justify-content: center; font-size: 22px; color: #18181C; background: ' + avCols[i % 4] + (i ? '; margin-left: -12px' : '')
+    }));
+
+    const tl = [[cd.dd, 'kun', cd.d], [cd.hh, 'soat', cd.h], [cd.mm, 'daqiqa', cd.m], [cd.ss, 'soniya', cd.s]];
+    const tst = ['background: #18181C; color: #D7F55E', 'background: #C6B5FF; color: #18181C', 'background: #FFFFFF; color: #18181C', 'background: #D7F55E; color: #18181C'];
+    const pct = cd.none ? 0 : Math.max(1, Math.min(100, Math.round((1 - Math.min(365, cd.d) / 365) * 100)));
+
+    const wl = D.tilaklar || [];
+    const wcol = [['#D7F55E', '#18181C'], ['#18181C', '#FFFFFF'], ['#C6B5FF', '#18181C'], ['#FFFFFF', '#18181C']];
+    let col = 0;
+    const wishes = wl.map((t, i) => {
+      const long = String(t).length > 11;
+      const last = i === wl.length - 1;
+      let wide = long || (last && col === 0);
+      if (!wide && col === 1) col = 0; else if (!wide) col = 1; else col = 0;
+      const c = wcol[i % 4];
+      return {
+        text: t, n: SITE.pad(i + 1), ico: ICONS[i % ICONS.length], icoFill: c[0] === '#18181C' ? '#D7F55E' : '#18181C',
+        st: 'background: ' + c[0] + '; color: ' + c[1] + (wide ? '; grid-column: 1 / -1' : '') + '; animation-delay: ' + (i * 0.05).toFixed(2) + 's'
+      };
+    });
+
+    const digits = (yosh && /^\d{1,3}$/.test(yosh)) ? Array.from(yosh) : [''];
+    const candles = digits.map((c, i) => ({
+      t: c,
+      st: c ? 'display: block; font-size: 168px; line-height: 0.78; color: ' + (i % 2 ? '#C6B5FF' : '#D7F55E') + '; font-style: italic; padding-right: 0.04em' : 'display: block; width: 26px; height: 120px; border-radius: 8px; background: repeating-linear-gradient(-30deg, #D7F55E 0 12px, #C6B5FF 12px 24px)'
+    }));
+
+    const n = Math.min(6, SITE.has.photos);
+    const order = n > 1 ? SITE.p.slice(1, n).concat([SITE.p[0]]) : SITE.p.slice(0, 1);
+    const GP = { 1: [[2, 3]], 2: [[1, 3], [1, 3]], 3: [[2, 2], [1, 2], [1, 2]], 4: [[2, 2], [1, 2], [1, 1], [1, 1]], 5: [[2, 2], [1, 2], [1, 1], [1, 1], [2, 2]], 6: [[2, 2], [1, 2], [1, 1], [1, 1], [1, 1], [1, 1]] };
+    const pat = GP[Math.max(1, order.length)] || GP[1];
+    const gallery = order.map((src, i) => ({
+      src: src, n: SITE.pad(i + 1),
+      st: 'grid-column: span ' + pat[i][0] + '; grid-row: span ' + pat[i][1] + '; background: #C6B5FF; animation-delay: ' + (i * 0.04).toFixed(2) + 's'
+    }));
+
+    const xr = D.xronika || [];
+    const chron = xr.map((x, i) => {
+      const last = i === xr.length - 1;
+      const src = SITE.has.photo ? SITE.p[i % SITE.p.length] : '';
+      const ys = String(x.yosh || '').trim();
+      return {
+        yosh: ys || '—', unit: /^\d+$/.test(ys) ? 'yosh' : '', matn: x.matn || '', src: src,
+        fs: ys.length > 3 ? 34 : ys.length > 2 ? 52 : 70,
+        ageSt: 'min-height: 128px; padding: 14px 14px 12px; display: flex; flex-direction: column; justify-content: flex-end; ' + (last ? 'background: #D7F55E; color: #18181C' : (i % 2 ? 'background: #C6B5FF; color: #18181C' : 'background: #18181C; color: #D7F55E')),
+        boxSt: 'min-height: 128px; display: flex; align-items: flex-end; background: ' + (src ? '#18181C' : '#FFFFFF'),
+        txtSt: 'position: relative; margin: 0; padding: 14px 16px; font-size: 15px; font-weight: 600; line-height: 1.35; overflow-wrap: anywhere; color: ' + (src ? '#FFFFFF' : '#18181C')
+      };
+    });
+
+    const introTitle = name ? name + 'ning kuni' : 'Bayram kuni';
+    const askName = name ? name + 'ni tabrikladingizmi?' : 'Tabrikladingizmi?';
+    return {
+      rootCls: s.opened ? 'bn-in' : 'bn-shut',
+      introCls: s.opened ? 'bn-intro bn-intro--open' : 'bn-intro',
+      open: () => { if (this.state.opened) return; this.setState({ opened: true }); SITE.opened(); this.startCount(); },
+      name: name, from: from, num: num, avatars: avatars,
+      nameFs: nameFs, nameWords: nameWords,
+      initial: nameU.charAt(0) || 'T', noPhoto: !SITE.has.photo,
+      topChip: [w.dots, w.weekday].filter(Boolean).join(' · ') || 'Tug’ilgan kun',
+      heroDate: [w.date, w.weekday].filter(Boolean).join(', '),
+      t3: t3, t4: t4, t5: t5, t6: t6, t7: t7,
+      anyBlock: Object.keys(SITE.b).some((key) => SITE.b[key]),
+      musicCls: SITE.music.playing ? 'bn-music bn-music--on' : 'bn-music',
+      musicOn: SITE.music.playing ? 'true' : 'false',
+      toggleMusic: () => { SITE.music.toggle(); },
+      cdTitle: cd.done ? 'Bayram' : 'Bayramgacha',
+      cdLive: !cd.done && !cd.none, cdDone: cd.done,
+      cdDate: [w.date, w.weekday].filter(Boolean).join(', '),
+      pct: pct,
+      tiles: tl.map((t, i) => ({
+        v: t[0], l: t[1],
+        st: tst[i] + '; padding: 14px 10px 12px; text-align: center; border-radius: 22px; animation-delay: ' + (i * 0.06).toFixed(2) + 's',
+        cls: 'bn-d bn-cdN' + (i === 3 ? (t[2] % 2 ? ' bn-ta' : ' bn-tb') : '')
+      })),
+      wishes: wishes,
+      candles: candles,
+      cakeCls: s.blown ? 'bn-out' : '',
+      wishCls: s.blown ? 'bn-wishLine bn-wishLine--on' : 'bn-wishLine',
+      wishLine: name ? 'Niyating ushalsin, ' + name + '!' : 'Niyating ushalsin!',
+      burstCls: s.blown ? 'bn-burst bn-burst--go' : 'bn-burst',
+      blowIdle: s.blown ? 'is-hidden' : '',
+      blowDone: s.blown ? '' : 'is-hidden',
+      blow: () => this.setState({ blown: !this.state.blown }),
+      squares: this.squares,
+      secCls: s.sec ? 'bn-flipBtn bn-flipBtn--on' : 'bn-flipBtn',
+      secOn: s.sec ? 'true' : 'false',
+      toggleSec: () => this.setState({ sec: !this.state.sec }),
+      gallery: gallery,
+      chron: chron,
+      askName: askName, askFs: tkFit(askName, 50, 30, 300, 0.45),
+      askSub: 'Bir bosishda tabrigingizni yetkazing — u darhol egasiga boradi.',
+      sendCls: s.sent ? 'bn-send bn-send--done' : 'bn-send',
+      sendIdle: s.sent ? 'is-hidden' : 'bn-row',
+      sendDone: s.sent ? 'bn-row' : 'is-hidden',
+      sendBurst: s.sent ? 'bn-burst bn-burst--go' : 'bn-burst',
+      send: () => { if (this.state.sent) return; this.setState({ sent: true }); SITE.reply('Tabrikladim', '🥰'); },
+      footDate: w.dots || 'Tug’ilgan kun',
+      pieces: L ? '7 ta raqam · 1 hayot' : '7 ta bo’lak',
+      introTitle: introTitle, introFs: tkFit(introTitle, 54, 30, 270, 0.45)
+    };
+  }
+}
+</script>
+</body>
+</html>

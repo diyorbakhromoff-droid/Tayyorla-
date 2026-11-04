@@ -1,0 +1,643 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<title>Tug’ilgan kun: Xrom</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,400;0,500;0,600;0,700;0,800;1,800;1,900&amp;family=Tektur:wght@500;600;700;800&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#9EF0FF}
+.is-hidden{display:none}
+.kr-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.kr-hd{font-family:'Exo 2','Arial Black',Arial,sans-serif;font-weight:900;font-style:italic;letter-spacing:-.01em;text-transform:uppercase}
+.kr-tk{font-family:'Tektur','Exo 2',Arial,sans-serif}
+.kr-chrome{background:linear-gradient(180deg,#FFFFFF 0%,#E4E8EF 20%,#9AA3B5 42%,#353B4D 51%,#8D96A8 58%,#EEF1F6 76%,#FFFFFF 86%,#A9B1C0 100%);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-stroke:.6px rgba(255,255,255,0.45);filter:drop-shadow(0 2px 0 #241C3E) drop-shadow(0 10px 18px rgba(0,0,0,0.55))}
+.kr-holo{background:linear-gradient(100deg,#9EF0FF 0%,#C8B6FF 28%,#FF9DE8 52%,#FFE29A 74%,#B8FFC8 100%);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:kr-shift 6s linear infinite}
+@keyframes kr-shift{from{background-position:0% 0}to{background-position:200% 0}}
+.kr-kick{margin:0;font-family:'Tektur','Exo 2',Arial,sans-serif;font-size:12px;font-weight:600;letter-spacing:.24em;text-transform:uppercase}
+.kr-h2{margin:8px 0 0;line-height:1.05;overflow-wrap:break-word}
+.kr-lead{margin:10px 0 0;font-size:15px;line-height:1.5;color:#B9B2D0}
+.kr-bevel{padding:2.5px;background:linear-gradient(135deg,#FFFFFF 0%,#8C95A8 26%,#F4F6FA 48%,#4B5262 70%,#D8DDE6 88%,#FFFFFF 100%);box-shadow:0 18px 40px rgba(0,0,0,0.5),0 0 0 1px rgba(0,0,0,0.4)}
+.kr-holoB{padding:2px;background:linear-gradient(120deg,#9EF0FF,#C8B6FF 30%,#FF9DE8 55%,#FFE29A 78%,#B8FFC8);background-size:200% 200%;animation:kr-shift2 8s ease-in-out infinite alternate}
+@keyframes kr-shift2{from{background-position:0% 50%}to{background-position:100% 50%}}
+.kr-glass{background:linear-gradient(160deg,rgba(40,28,78,0.96),rgba(18,11,38,0.97))}
+.kr-chip{display:inline-flex;align-items:center;gap:8px;min-height:34px;padding:0 16px;border-radius:999px;background:rgba(255,255,255,0.07);box-shadow:inset 0 0 0 1px rgba(200,182,255,0.45);font-family:'Tektur','Exo 2',Arial,sans-serif;font-size:13px;font-weight:600;letter-spacing:.06em;color:#E9E6F3}
+.kr-spark{position:absolute;display:block;width:var(--s);height:var(--s);background:radial-gradient(circle,#FFFFFF 0 18%,rgba(255,255,255,0) 19%),conic-gradient(from 0deg,transparent 0 40deg,#FFFFFF 45deg,transparent 50deg 130deg,#FFFFFF 135deg,transparent 140deg 220deg,#FFFFFF 225deg,transparent 230deg 310deg,#FFFFFF 315deg,transparent 320deg);clip-path:polygon(50% 0,58% 42%,100% 50%,58% 58%,50% 100%,42% 58%,0 50%,42% 42%);animation:kr-tw 3s ease-in-out infinite;filter:drop-shadow(0 0 6px rgba(190,240,255,0.9))}
+@keyframes kr-tw{0%,100%{opacity:.25;transform:scale(.6) rotate(0)}50%{opacity:1;transform:scale(1) rotate(45deg)}}
+.kr-blob{position:absolute;display:block;border-radius:42% 58% 63% 37% / 41% 44% 56% 59%;background:radial-gradient(circle at 32% 28%,#FFFFFF 0%,#E8ECF3 12%,#8C95A8 38%,#2B3142 62%,#9AA3B5 82%,#F4F6FA 100%);box-shadow:inset -8px -10px 24px rgba(20,14,40,0.6),inset 6px 8px 16px rgba(255,255,255,0.5),0 20px 40px rgba(0,0,0,0.5);animation:kr-morph 9s ease-in-out infinite alternate}
+@keyframes kr-morph{0%{border-radius:42% 58% 63% 37% / 41% 44% 56% 59%;transform:translateY(0) rotate(0)}50%{border-radius:60% 40% 35% 65% / 55% 38% 62% 45%}100%{border-radius:38% 62% 52% 48% / 60% 52% 48% 40%;transform:translateY(-16px) rotate(20deg)}}
+.kr-orb{position:absolute;border-radius:50%;filter:blur(48px);opacity:.55;background:conic-gradient(from 0deg,#9EF0FF,#C8B6FF,#FF9DE8,#FFE29A,#B8FFC8,#9EF0FF);animation:kr-spin 18s linear infinite}
+@keyframes kr-spin{to{transform:rotate(360deg)}}
+.kr-bob{animation:kr-bob 4.6s ease-in-out infinite alternate}
+@keyframes kr-bob{from{transform:translateY(-6px)}to{transform:translateY(6px)}}
+.kr-rise{animation:kr-rise 1s cubic-bezier(.2,.8,.2,1) both;animation-timeline:view();animation-range:entry 5% entry 85%}
+@keyframes kr-rise{from{opacity:0;transform:translateY(30px) scale(.96)}to{opacity:1;transform:none}}
+.kr-pop{animation:kr-popIn 1s cubic-bezier(.3,1.4,.5,1) both;animation-timeline:view();animation-range:entry 0% entry 80%}
+@keyframes kr-popIn{from{opacity:0;transform:scale(.7)}to{opacity:1;transform:none}}
+@keyframes kr-out{from{opacity:1}to{opacity:0}}
+/* balloon digits */
+.kr-dO{fill:none;stroke:#120A26;stroke-width:37;stroke-linecap:round;stroke-linejoin:round}
+.kr-dR{fill:none;stroke:url(#kr-gR);stroke-width:33;stroke-linecap:round;stroke-linejoin:round}
+.kr-dF{fill:none;stroke:url(#kr-gF);stroke-width:28;stroke-linecap:round;stroke-linejoin:round}
+.kr-dH{fill:none;stroke:#FFFFFF;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;opacity:.8}
+.kr-str{fill:none;stroke:#C9CFDA;stroke-width:1.3;opacity:.8}
+.kr-knot{fill:#8C95A8}
+
+/* countdown */
+.kr-cap{position:relative;width:76px;height:118px;border-radius:38px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.kr-num{display:block;font-family:'Tektur','Exo 2',Arial,sans-serif;font-weight:800;font-size:36px;line-height:1;font-variant-numeric:tabular-nums}
+.kr-num--a{animation:kr-numA .5s cubic-bezier(.3,1.5,.5,1) both}
+.kr-num--b{animation:kr-numB .5s cubic-bezier(.3,1.5,.5,1) both}
+@keyframes kr-numA{from{transform:scale(.4);opacity:0}to{transform:none;opacity:1}}
+@keyframes kr-numB{from{transform:scale(.4);opacity:0}to{transform:none;opacity:1}}
+.kr-shine{position:absolute;left:-60%;top:0;width:40%;height:100%;background:linear-gradient(100deg,rgba(255,255,255,0),rgba(255,255,255,0.35),rgba(255,255,255,0));transform:skewX(-14deg);animation:kr-sh 4.5s ease-in-out infinite}
+@keyframes kr-sh{0%,55%{transform:translateX(0) skewX(-14deg)}100%{transform:translateX(420%) skewX(-14deg)}}
+
+/* wish bubbles */
+.kr-wish{position:relative;display:block;max-width:300px;padding:0;border:0;border-radius:999px;background:none;font:inherit;color:inherit;cursor:pointer;text-align:left}
+.kr-wIn{display:flex;align-items:center;gap:12px;min-height:56px;padding:10px 22px 10px 12px;border-radius:999px;box-sizing:border-box;transition:background .4s ease}
+.kr-wDot{flex:none;width:34px;height:34px;border-radius:50%;background:radial-gradient(circle at 32% 28%,#FFFFFF,#AEB6C6 40%,#3A4052 75%,#C9CFDA);box-shadow:0 4px 10px rgba(0,0,0,0.5);transition:transform .6s cubic-bezier(.3,1.6,.5,1)}
+.kr-wTx{font-family:'Exo 2',Arial,sans-serif;font-size:20px;font-weight:700;line-height:1.2;color:#F2EFFA;overflow-wrap:anywhere;transition:color .3s ease}
+.kr-wish--on .kr-wIn{background:linear-gradient(100deg,#9EF0FF,#C8B6FF 35%,#FF9DE8 65%,#FFE29A)}
+.kr-wish--on .kr-wTx{color:#1A1030}
+.kr-wish--on .kr-wDot{transform:rotate(200deg) scale(1.12)}
+
+/* candles */
+.kr-flame{position:absolute;width:22px;height:36px;margin-left:-11px;border-radius:50% 50% 50% 50%/62% 62% 38% 38%;background:radial-gradient(circle at 50% 70%,#FFFFFF 0 20%,#FFE29A 38%,#FF9DE8 70%,rgba(200,182,255,0.4));box-shadow:0 0 24px 6px rgba(255,157,232,0.55),0 0 50px 14px rgba(158,240,255,0.25);transform-origin:50% 100%;animation:kr-fl .8s ease-in-out infinite alternate}
+@keyframes kr-fl{0%{transform:scale(1,1) rotate(-3deg)}100%{transform:scale(.88,1.1) rotate(3deg)}}
+.kr-cake--out .kr-flame{animation:kr-fOut .5s ease-in both}
+@keyframes kr-fOut{to{opacity:0;transform:scale(.1,.4)}}
+.kr-up{position:absolute;opacity:0}
+.kr-cake--out .kr-up{animation:kr-up 2.6s ease-out both}
+@keyframes kr-up{0%{opacity:0;transform:translate(0,0) scale(.4)}15%{opacity:1}100%{opacity:0;transform:translate(var(--dx),var(--dy)) scale(1)}}
+.kr-wline{opacity:0;transform:translateY(12px) scale(.96);transition:opacity .7s ease .6s,transform .7s ease .6s}
+.kr-cake--out .kr-wline{opacity:1;transform:none}
+
+/* secret balloon */
+.kr-sec{position:relative;display:block;width:330px;height:380px;margin:0 auto;padding:0;border:0;background:none;color:inherit;font:inherit;cursor:pointer}
+.kr-ball{position:absolute;left:55px;top:10px;width:220px;height:260px;transform-origin:50% 100%;transition:transform .35s cubic-bezier(.5,0,.8,.4),opacity .25s ease .2s}
+.kr-ballIn{animation:kr-sway 4s ease-in-out infinite alternate;transform-origin:50% 100%}
+@keyframes kr-sway{from{transform:rotate(-3deg)}to{transform:rotate(3deg)}}
+.kr-sec--on .kr-ball{transform:scale(1.35);opacity:0}
+.kr-card{position:absolute;left:15px;top:60px;width:300px;opacity:0;transform:scale(.6);transition:opacity .6s ease .35s,transform .8s cubic-bezier(.3,1.4,.5,1) .3s}
+.kr-sec--on .kr-card{opacity:1;transform:none}
+.kr-bit{position:absolute;left:0;top:0;opacity:0}
+.kr-sec--on .kr-bit,.kr-burst--go .kr-bit{animation:kr-bit 1.5s cubic-bezier(.15,.8,.3,1) both}
+@keyframes kr-bit{0%{opacity:1;transform:translate(0,0) rotate(0) scale(.3)}70%{opacity:1}100%{opacity:0;transform:translate(var(--x),var(--y)) rotate(var(--r)) scale(1)}}
+.kr-hint{transition:opacity .2s ease}
+.kr-sec--on .kr-hint{opacity:0}
+
+/* CD */
+.kr-cd{animation:kr-spin 14s linear infinite}
+
+/* buttons */
+.kr-btn{position:relative;overflow:hidden;min-height:60px;padding:0 28px;border:0;border-radius:999px;background:linear-gradient(180deg,#FFFFFF 0%,#DDE2EA 30%,#9AA3B5 50%,#C9CFDA 62%,#FFFFFF 100%);box-shadow:inset 0 -3px 6px rgba(40,46,64,0.45),inset 0 2px 2px rgba(255,255,255,0.9),0 0 0 2px rgba(20,14,40,0.6),0 0 30px rgba(200,182,255,0.45),0 14px 30px rgba(0,0,0,0.5);color:#1A1030;font-family:'Exo 2',Arial,sans-serif;font-size:17px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;display:inline-flex;align-items:center;justify-content:center;gap:12px;cursor:pointer}
+.kr-btn--done{background:linear-gradient(100deg,#9EF0FF,#C8B6FF 35%,#FF9DE8 65%,#FFE29A);cursor:default}
+.kr-btnL{min-height:52px;padding:0 24px;border:0;border-radius:999px;background:rgba(255,255,255,0.08);box-shadow:inset 0 0 0 1.5px #C9CFDA;color:#F2EFFA;font-family:'Exo 2',Arial,sans-serif;font-size:15px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;display:inline-flex;align-items:center;justify-content:center;gap:10px;cursor:pointer}
+.kr-music{position:absolute;right:16px;top:16px;z-index:5;width:46px;height:46px;border:0;border-radius:50%;background:radial-gradient(circle at 32% 28%,#FFFFFF,#AEB6C6 40%,#3A4052 78%,#C9CFDA);box-shadow:0 6px 16px rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;padding:0;cursor:pointer}
+.kr-music--on{box-shadow:0 0 0 3px #FF9DE8,0 0 24px rgba(255,157,232,0.7)}
+.kr-row{display:flex;align-items:center;gap:10px}
+
+/* intro: inflate and float */
+.kr-fly{transform:translateY(var(--ty))}
+.kr-inf{transform-box:fill-box;transform-origin:50% 100%;transform:scale(.16,.12)}
+.kr-strI{opacity:0}
+.kr-intro--on .kr-fly{animation:kr-fly 1.4s cubic-bezier(.45,0,.2,1) calc(var(--d) + 1.15s) both}
+.kr-intro--on .kr-inf{animation:kr-inf 1.25s linear var(--d) both}
+.kr-intro--on .kr-strI{animation:kr-fadeIn .4s ease calc(var(--d) + 1s) both}
+@keyframes kr-fly{from{transform:translateY(var(--ty))}to{transform:translateY(0)}}
+@keyframes kr-inf{0%{transform:scale(.16,.12)}18%{transform:scale(.3,.36)}26%{transform:scale(.28,.3)}44%{transform:scale(.62,.7)}52%{transform:scale(.58,.62)}74%{transform:scale(1.1,.94)}86%{transform:scale(.96,1.04)}100%{transform:scale(1,1)}}
+@keyframes kr-fadeIn{from{opacity:0}to{opacity:1}}
+.kr-iName{opacity:0;transform:scale(.7);filter:blur(10px);transition:opacity .8s ease 2.2s,transform 1s cubic-bezier(.3,1.4,.5,1) 2.2s,filter .8s ease 2.2s}
+.kr-intro--on .kr-iName{opacity:1;transform:none;filter:none}
+.kr-iSub{opacity:0;transition:opacity .6s ease 2.6s}
+.kr-intro--on .kr-iSub{opacity:1}
+.kr-iHide{transition:opacity .4s ease,transform .5s ease}
+.kr-intro--on .kr-iHide{opacity:0;transform:translateY(20px) scale(.96)}
+.kr-intro--on{pointer-events:none;animation:kr-out .7s ease 3.4s both}
+.kr-page--in .kr-pv1{animation:kr-pv 1s ease 3.4s both}
+.kr-page--in .kr-pv2{animation:kr-pvU 1s cubic-bezier(.2,.8,.2,1) 3.6s both}
+@keyframes kr-pv{from{opacity:0}}
+@keyframes kr-pvU{from{opacity:0;transform:translateY(40px)}}
+
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation:none !important;transition:none !important}
+  .kr-intro--on{opacity:0}
+  .kr-fly,.kr-inf{transform:none}
+}
+</style>
+</helmet>
+<div style="width: 390px; min-height: var(--vh, 100vh); position: relative; overflow: hidden; background: linear-gradient(180deg, #0B0716 0%, #150B2C 30%, #10091F 60%, #0B0716 100%); color: #E9E6F3; font-family: 'Exo 2', 'Arial', sans-serif">
+  <svg aria-hidden="true" width="0" height="0" style="position: absolute">
+    <defs>
+      <linearGradient id="kr-gF" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color: #FFFFFF"></stop><stop offset="0.18" style="stop-color: #E6EAF0"></stop><stop offset="0.42" style="stop-color: #9AA3B5"></stop><stop offset="0.53" style="stop-color: #363C4E"></stop><stop offset="0.62" style="stop-color: #A7B0C0"></stop><stop offset="0.82" style="stop-color: #F6F8FB"></stop><stop offset="1" style="stop-color: #8A93A5"></stop></linearGradient>
+      <linearGradient id="kr-gS" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color: #D8DDE6"></stop><stop offset="0.45" style="stop-color: #5A6274"></stop><stop offset="0.55" style="stop-color: #2A2F3E"></stop><stop offset="1" style="stop-color: #B2BAC8"></stop></linearGradient>
+      <radialGradient id="kr-gH" cx="0.3" cy="0.2" r="0.45"><stop offset="0" style="stop-color: #FFFFFF; stop-opacity: 0.9"></stop><stop offset="1" style="stop-color: #FFFFFF; stop-opacity: 0"></stop></radialGradient>
+      <linearGradient id="kr-gR" x1="0" y1="0" x2="1" y2="0"><stop offset="0" style="stop-color: #9EF0FF"></stop><stop offset="0.35" style="stop-color: #C8B6FF"></stop><stop offset="0.65" style="stop-color: #FF9DE8"></stop><stop offset="1" style="stop-color: #FFE29A"></stop></linearGradient>
+      <radialGradient id="kr-gB" cx="0.34" cy="0.3" r="0.75"><stop offset="0" style="stop-color: #FFFFFF"></stop><stop offset="0.16" style="stop-color: #E4E8EF"></stop><stop offset="0.48" style="stop-color: #8C95A8"></stop><stop offset="0.74" style="stop-color: #2B3142"></stop><stop offset="0.92" style="stop-color: #9AA3B5"></stop><stop offset="1" style="stop-color: #DDE2EA"></stop></radialGradient>
+    </defs>
+  </svg>
+
+  <div aria-hidden="true" style="position: absolute; left: 0; top: 0; bottom: 0; width: 390px; pointer-events: none; overflow: hidden">
+    <sc-for list="{{ orbs }}" as="o"><span class="kr-orb" style="{{ o }}"></span></sc-for>
+    <sc-for list="{{ sparks }}" as="sp"><span class="kr-spark" style="{{ sp }}"></span></sc-for>
+  </div>
+
+  <div class="{{ pageCls }}" style="position: relative; z-index: 1; min-height: var(--vh, 100vh); display: flex; flex-direction: column">
+
+    <section style="position: relative; min-height: 844px; flex: none; padding-bottom: 36px; box-sizing: border-box">
+      <sc-if value="{{ has.music }}"><button type="button" class="{{ musicCls }}" onClick="{{ toggleMusic }}" aria-label="Musiqa" aria-pressed="{{ musicOn }}"><svg aria-hidden="true" width="18" height="20" viewBox="0 0 22 26"><path d="M8 3L20 0V17.5A3.5 3 0 1 1 17 14.6V5.2L10 7V20.5A3.5 3 0 1 1 7 17.6V3Z" fill="#1A1030"></path></svg></button></sc-if>
+      <span aria-hidden="true" class="kr-blob" style="left: -44px; top: 560px; width: 100px; height: 88px; opacity: 0.9"></span>
+      <span aria-hidden="true" class="kr-blob" style="left: 330px; top: 640px; width: 84px; height: 96px; animation-delay: -4s; opacity: 0.85"></span>
+      <div class="kr-pv1" aria-hidden="true" style="position: absolute; left: 0; top: 30px; width: 390px; height: 340px">
+        <div class="kr-bob">
+          <svg width="390" height="340" viewBox="0 0 390 340" style="display: block; overflow: visible">
+            <sc-for list="{{ bals }}" as="g">
+              <g>
+                <path class="kr-str" d="{{ g.str }}"></path>
+                <path class="kr-knot" d="{{ g.knot }}"></path>
+                <g transform="{{ g.tf }}">
+                  <sc-if value="{{ g.ball }}"><ellipse cx="50" cy="75" rx="56" ry="66" fill="url(#kr-gB)"></ellipse><ellipse cx="30" cy="42" rx="13" ry="19" fill="#FFFFFF" opacity="0.55"></ellipse></sc-if>
+                  <sc-if value="{{ g.d }}"><path class="kr-dO" d="{{ g.d }}"></path><path class="kr-dR" d="{{ g.d }}"></path><path class="kr-dF" d="{{ g.d }}"></path><path class="kr-dH" d="{{ g.d }}" transform="translate(-6 -7)"></path></sc-if>
+                </g>
+              </g>
+            </sc-for>
+          </svg>
+        </div>
+      </div>
+      <div style="position: relative; padding: 384px 20px 0; text-align: center">
+        <h1 class="kr-hd kr-chrome" style="margin: 0; font-size: {{ nameFs }}px; line-height: 1.12; overflow-wrap: break-word"><span class="kr-sr">{{ srAge }}</span>{{ name }}</h1>
+        <p class="kr-holo" style="margin: 10px 0 0; font-size: 19px; font-weight: 700; letter-spacing: 0.04em">Tug’ilgan kuning muborak!</p>
+      </div>
+      <div class="kr-pv2" style="position: relative; margin-top: 26px; display: flex; flex-direction: column; align-items: center; gap: 18px">
+        <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; padding: 0 20px">
+          <span class="kr-chip"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 14 14"><path d="M7 0L8.4 5.6L14 7L8.4 8.4L7 14L5.6 8.4L0 7L5.6 5.6Z" fill="#9EF0FF"></path></svg>{{ heroDate }}</span>
+          <sc-if value="{{ yosh }}"><span class="kr-chip">{{ yosh }} yosh</span></sc-if>
+        </div>
+        <sc-if value="{{ has.photo }}">
+          <div style="position: relative; width: 250px; height: 250px">
+            <div class="kr-bevel" style="width: 250px; height: 250px; border-radius: 50%; box-sizing: border-box"><img src="{{ p.0 }}" alt="" style="display: block; width: 245px; height: 245px; border-radius: 50%; object-fit: cover"></div>
+            <span aria-hidden="true" class="kr-spark" style="--s: 40px; right: 6px; top: 4px"></span>
+            <span aria-hidden="true" class="kr-spark" style="--s: 24px; left: 10px; bottom: 30px; animation-delay: -1.4s"></span>
+          </div>
+        </sc-if>
+        <sc-if value="{{ from.line }}"><p style="margin: 0; padding: 0 30px; font-size: 14px; line-height: 1.4; color: #B9B2D0; text-align: center; overflow-wrap: anywhere">{{ from.line }}</p></sc-if>
+      </div>
+    </section>
+
+<sc-if value="{{ b.tabrik }}">
+    <section style="position: relative; padding: 36px 20px 40px">
+      <p class="kr-kick kr-holo">{{ tab.tabrik }}</p>
+      <h2 class="kr-h2 kr-hd kr-chrome" style="font-size: 44px">Tabrik</h2>
+      <div class="kr-holoB kr-rise" style="margin-top: 22px; border-radius: 30px">
+        <div class="kr-glass" style="position: relative; padding: 26px 22px 26px; border-radius: 28px; overflow: hidden">
+          <span aria-hidden="true" style="position: absolute; right: -60px; top: -60px; width: 180px; height: 180px; border-radius: 50%; background: radial-gradient(circle, rgba(200,182,255,0.25), rgba(200,182,255,0) 70%)"></span>
+          <div style="position: relative; font-size: 17px; line-height: 1.65; overflow-wrap: anywhere">
+            <sc-if value="{{ dropCap }}"><span aria-hidden="true" class="kr-hd kr-chrome" style="float: left; margin: 2px 12px 0 0; font-size: 62px; line-height: 0.9">{{ dropCap }}</span></sc-if>
+            <span style="white-space: pre-line"><span class="kr-sr">{{ dropCap }}</span>{{ restText }}</span>
+          </div>
+          <sc-if value="{{ d.kimdan }}">
+            <div style="position: relative; clear: both; margin-top: 22px; display: flex; align-items: center; gap: 12px">
+              <span aria-hidden="true" style="flex: none; width: 40px; height: 40px; border-radius: 50%; background: radial-gradient(circle at 32% 28%, #FFFFFF, #AEB6C6 40%, #3A4052 78%, #C9CFDA)"></span>
+              <div style="min-width: 0">
+                <sc-if value="{{ from.label }}"><p class="kr-kick" style="font-size: 11px; color: #B9B2D0">{{ from.label }}</p></sc-if>
+                <p class="kr-holo" style="margin: 2px 0 0; font-size: 20px; font-weight: 800; line-height: 1.25; overflow-wrap: anywhere">{{ from.names }}</p>
+              </div>
+            </div>
+          </sc-if>
+        </div>
+      </div>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.taymer }}">
+    <section style="position: relative; padding: 36px 20px 40px; text-align: center">
+      <p class="kr-kick kr-holo">{{ tab.taymer }}</p>
+      <h2 class="kr-h2 kr-hd kr-chrome" style="font-size: 36px">{{ cdTitle }}</h2>
+      <p class="kr-lead">{{ cdDate }}</p>
+      <div class="kr-pop" style="display: flex; justify-content: center; gap: 10px; margin-top: 24px">
+        <sc-for list="{{ caps }}" as="t">
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 10px">
+            <div class="kr-bevel" style="border-radius: 40px">
+              <div class="kr-cap kr-glass">
+                <span aria-hidden="true" style="position: absolute; left: 8px; right: 8px; top: 6px; height: 34px; border-radius: 30px; background: linear-gradient(180deg, rgba(255,255,255,0.22), rgba(255,255,255,0))"></span>
+                <span aria-hidden="true" class="kr-shine" style="{{ t.sd }}"></span>
+                <span class="{{ t.cls }}"><span class="kr-holo">{{ t.v }}</span></span>
+              </div>
+            </div>
+            <span class="kr-kick" style="font-size: 10px; letter-spacing: 0.2em; color: #B9B2D0">{{ t.l }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.tilaklar }}">
+    <section style="position: relative; padding: 36px 20px 40px">
+      <p class="kr-kick kr-holo">{{ tab.tilaklar }}</p>
+      <h2 class="kr-h2 kr-hd kr-chrome" style="font-size: 44px">Tilaklar</h2>
+      <p class="kr-lead">Pufakchaga teging — u gologramma bo’lib porlaydi.</p>
+      <div style="position: relative; margin-top: 20px; display: flex; flex-direction: column; gap: 14px">
+        <sc-for list="{{ wishes }}" as="w">
+          <div style="{{ w.row }}">
+            <div class="kr-bob" style="{{ w.bob }}">
+              <button type="button" class="{{ w.cls }}" onClick="{{ w.tap }}" aria-pressed="{{ w.on }}">
+                <span class="kr-bevel" style="display: block; border-radius: 999px"><span class="kr-wIn kr-glass"><span aria-hidden="true" class="kr-wDot"></span><span class="kr-wTx">{{ w.text }}</span></span></span>
+              </button>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.sham }}">
+    <section style="position: relative; padding: 36px 20px 40px; text-align: center">
+      <p class="kr-kick kr-holo">{{ tab.sham }}</p>
+      <h2 class="kr-h2 kr-hd kr-chrome" style="font-size: 36px">Niyat qiling</h2>
+      <p class="kr-lead">Sham gologramma olovida yonmoqda — puflang.</p>
+      <div class="{{ cakeCls }}" style="position: relative; width: 320px; height: 330px; margin: 10px auto 0">
+        <div aria-hidden="true" style="position: absolute; left: 30px; top: 250px; width: 260px; height: 56px; border-radius: 50%; background: radial-gradient(ellipse at 50% 30%, #FFFFFF, #AEB6C6 35%, #3A4052 70%, #9AA3B5); box-shadow: 0 20px 40px rgba(0,0,0,0.6), 0 0 40px rgba(200,182,255,0.3)"></div>
+        <div aria-hidden="true" style="position: absolute; left: 50px; top: 176px; width: 220px; height: 98px; border-radius: 22px 22px 110px 110px / 22px 22px 30px 30px; background: linear-gradient(90deg, #4B5262 0%, #C9CFDA 18%, #FFFFFF 30%, #8C95A8 52%, #2B3142 74%, #9AA3B5 90%, #DDE2EA 100%)"></div>
+        <div aria-hidden="true" style="position: absolute; left: 50px; top: 166px; width: 220px; height: 30px; border-radius: 50%; background: linear-gradient(100deg, #9EF0FF, #C8B6FF 35%, #FF9DE8 65%, #FFE29A)"></div>
+        <sc-for list="{{ candles }}" as="cd">
+          <span aria-hidden="true" style="{{ cd.st }}"></span>
+          <span aria-hidden="true" class="kr-flame" style="{{ cd.fl }}"></span>
+        </sc-for>
+        <div aria-hidden="true" style="position: absolute; left: 160px; top: 90px; width: 0; height: 0">
+          <sc-for list="{{ ups }}" as="u"><span class="kr-up kr-spark" style="{{ u }}"></span></sc-for>
+        </div>
+        <p class="kr-wline kr-hd kr-chrome" style="position: absolute; left: 0; top: 10px; width: 320px; margin: 0; font-size: {{ wishFs }}px; line-height: 1.15; overflow-wrap: break-word">{{ wishLine }}</p>
+      </div>
+      <button type="button" class="kr-btnL" onClick="{{ blow }}" style="margin-top: 10px"><span class="{{ blowIdle }}">Puflash</span><span class="{{ blowDone }}">Shamni qayta yoqish</span></button>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.sirli }}">
+    <section style="position: relative; padding: 36px 20px 40px; text-align: center">
+      <p class="kr-kick kr-holo">{{ tab.sirli }}</p>
+      <h2 class="kr-h2 kr-hd kr-chrome" style="font-size: 42px">Sirli shar</h2>
+      <p class="kr-lead">Sharni yoring — ichida senga atalgan sirli tilak bor.</p>
+      <button type="button" class="{{ secCls }}" onClick="{{ toggleSec }}" aria-label="Sirli tilakni ochish" style="margin-top: 10px">
+        <div class="kr-card">
+          <div class="kr-holoB" style="border-radius: 30px">
+            <div class="kr-glass" style="padding: 30px 22px; border-radius: 28px; min-height: 200px; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; justify-content: center">
+              <span class="kr-kick kr-holo">Sirli tilak</span>
+              <span style="margin-top: 12px; font-size: {{ secFs }}px; font-weight: 600; line-height: 1.4; color: #F2EFFA; white-space: pre-line; overflow-wrap: anywhere">{{ d.sirli_tilak }}</span>
+            </div>
+          </div>
+        </div>
+        <div class="kr-ball" aria-hidden="true">
+          <div class="kr-ballIn" style="position: relative; width: 220px; height: 330px">
+            <svg width="220" height="330" viewBox="0 0 220 330" style="display: block; overflow: visible">
+              <path class="kr-str" d="M110 268C96 290 124 300 108 330"></path>
+              <path class="kr-knot" d="M102 270L118 270L110 256Z"></path>
+              <ellipse cx="110" cy="130" rx="104" ry="128" fill="url(#kr-gB)"></ellipse>
+              <ellipse cx="110" cy="130" rx="104" ry="128" fill="none" stroke="url(#kr-gR)" style="stroke-width: 2; opacity: 0.8"></ellipse>
+              <ellipse cx="70" cy="66" rx="24" ry="36" fill="#FFFFFF" opacity="0.6" transform="rotate(-24 70 66)"></ellipse>
+            </svg>
+            <span class="kr-hint kr-hd" style="position: absolute; left: 0; top: 112px; width: 220px; font-size: 28px; color: #1A1030; opacity: 0.7">Bosing</span>
+          </div>
+        </div>
+        <div aria-hidden="true" style="position: absolute; left: 165px; top: 140px; width: 0; height: 0">
+          <sc-for list="{{ pops }}" as="c"><span class="kr-bit" style="{{ c }}"></span></sc-for>
+        </div>
+      </button>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.galereya }}">
+    <section style="position: relative; padding: 36px 20px 40px">
+      <p class="kr-kick kr-holo">{{ tab.galereya }}</p>
+      <h2 class="kr-h2 kr-hd kr-chrome" style="font-size: 44px">Kadrlar</h2>
+      <div class="kr-bevel kr-rise" style="margin-top: 22px; border-radius: 30px">
+        <div style="position: relative; border-radius: 28px; overflow: hidden; height: 300px">
+          <img src="{{ g0 }}" alt="" style="display: block; width: 345px; height: 300px; object-fit: cover">
+          <span aria-hidden="true" style="position: absolute; inset: 0; background: linear-gradient(160deg, rgba(255,255,255,0.28), rgba(255,255,255,0) 30%, rgba(255,255,255,0) 70%, rgba(200,182,255,0.25))"></span>
+        </div>
+      </div>
+      <sc-if value="{{ cdOn }}">
+        <div class="kr-pop" style="position: relative; width: 290px; height: 290px; margin: 30px auto 0">
+          <div style="position: absolute; inset: 0; border-radius: 50%; overflow: hidden; box-shadow: 0 0 0 3px #C9CFDA, 0 0 0 5px rgba(20,14,40,0.8), 0 20px 50px rgba(0,0,0,0.6)">
+            <img src="{{ g1 }}" alt="" style="display: block; width: 290px; height: 290px; object-fit: cover">
+            <span aria-hidden="true" class="kr-cd" style="position: absolute; inset: 0; background: conic-gradient(from 20deg, rgba(158,240,255,0.5), rgba(200,182,255,0.1), rgba(255,157,232,0.5), rgba(255,226,154,0.1), rgba(184,255,200,0.45), rgba(158,240,255,0.1), rgba(158,240,255,0.5)); mix-blend-mode: screen"></span>
+            <span aria-hidden="true" style="position: absolute; inset: 0; border-radius: 50%; background: repeating-radial-gradient(circle, rgba(255,255,255,0) 0 3px, rgba(255,255,255,0.07) 3px 4px)"></span>
+          </div>
+          <span aria-hidden="true" style="position: absolute; left: 110px; top: 110px; width: 70px; height: 70px; border-radius: 50%; background: radial-gradient(circle, #0B0716 0 14px, #C9CFDA 15px 17px, rgba(220,226,236,0.55) 18px 34px, #8C95A8 35px)"></span>
+        </div>
+      </sc-if>
+      <div style="display: flex; flex-wrap: wrap; justify-content: space-between; row-gap: 18px; margin-top: 26px">
+        <sc-for list="{{ gal }}" as="g">
+          <div class="kr-bevel kr-rise" style="{{ g.box }}"><img src="{{ g.src }}" alt="" style="{{ g.img }}"></div>
+        </sc-for>
+      </div>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.xronika }}">
+    <section style="position: relative; padding: 36px 20px 40px">
+      <p class="kr-kick kr-holo">{{ tab.xronika }}</p>
+      <h2 class="kr-h2 kr-hd kr-chrome" style="font-size: 44px">Yillar</h2>
+      <div style="position: relative; margin-top: 24px">
+        <svg aria-hidden="true" width="350" height="{{ chH }}" viewBox="{{ chVB }}" style="position: absolute; left: 0; top: 0"><path d="{{ chPath }}" fill="none" stroke="url(#kr-gR)" style="stroke-width: 1.6; stroke-dasharray: 3 6; opacity: 0.8"></path></svg>
+        <sc-for list="{{ chron }}" as="c">
+          <div class="kr-rise" style="{{ c.row }}">
+            <div style="flex: none; width: 110px; height: 110px; border-radius: 50%; background: radial-gradient(circle at 32% 28%, #FFFFFF, #DDE2EA 14%, #8C95A8 42%, #2B3142 70%, #9AA3B5 92%); box-shadow: 0 16px 30px rgba(0,0,0,0.5), inset 0 0 0 1px rgba(255,255,255,0.4); display: flex; align-items: center; justify-content: center">
+              <span class="kr-hd" style="font-size: {{ c.fs }}px; line-height: 1; color: #1A1030; text-shadow: 0 1px 0 rgba(255,255,255,0.6)">{{ c.yosh }}</span>
+            </div>
+            <div class="kr-holoB" style="flex: 1; min-width: 0; border-radius: 22px">
+              <div class="kr-glass" style="padding: 14px 16px; border-radius: 20px">
+                <sc-if value="{{ has.photo }}"><img src="{{ c.src }}" alt="" style="display: block; width: 100%; height: 96px; margin-bottom: 10px; border-radius: 14px; object-fit: cover"></sc-if>
+                <p style="margin: 0; font-size: 16px; font-weight: 600; line-height: 1.35; overflow-wrap: anywhere">{{ c.matn }}</p>
+              </div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.mehmonlar }}">
+    <section style="position: relative; padding: 36px 20px 40px">
+      <p class="kr-kick kr-holo">{{ tab.mehmonlar }}</p>
+      <h2 class="kr-h2 kr-hd kr-chrome" style="font-size: 44px">Yaqinlar</h2>
+      <div style="margin-top: 22px; display: flex; flex-direction: column; gap: 18px">
+        <sc-for list="{{ reviews }}" as="r">
+          <div style="{{ r.st }}"><div class="kr-holoB kr-rise" style="border-radius: 26px">
+            <div class="kr-glass" style="position: relative; padding: 18px 18px 20px; border-radius: 24px; overflow: hidden">
+              <span aria-hidden="true" style="position: absolute; left: 0; top: 0; right: 0; height: 60px; background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0))"></span>
+              <div style="position: relative; display: flex; align-items: center; gap: 12px">
+                <span aria-hidden="true" class="kr-hd" style="flex: none; width: 42px; height: 42px; border-radius: 50%; background: radial-gradient(circle at 32% 28%, #FFFFFF, #C9CFDA 40%, #5A6274 80%); color: #1A1030; display: flex; align-items: center; justify-content: center; font-size: 18px">{{ r.ini }}</span>
+                <span class="kr-holo" style="min-width: 0; font-size: 16px; font-weight: 800; letter-spacing: 0.02em; overflow-wrap: anywhere">{{ r.ism }}</span>
+              </div>
+              <p style="position: relative; margin: 12px 0 0; font-size: 16px; line-height: 1.5; color: #E9E6F3; overflow-wrap: anywhere">{{ r.matn }}</p>
+            </div>
+          </div></div>
+        </sc-for>
+      </div>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.javob }}">
+    <section style="position: relative; padding: 40px 20px 46px; text-align: center">
+      <p class="kr-kick kr-holo">{{ tab.javob }}</p>
+      <h2 class="kr-h2" style="font-size: 26px; font-weight: 800; color: #F2EFFA">{{ askName }}</h2>
+      <p class="kr-lead" style="margin-bottom: 28px">Bir bosishda tabrigingizni yetkazing</p>
+      <div style="position: relative; width: 310px; margin: 0 auto">
+        <div class="{{ burstCls }}" aria-hidden="true" style="position: absolute; left: 155px; top: 30px; width: 0; height: 0; z-index: 3; pointer-events: none">
+          <sc-for list="{{ bits }}" as="c"><span class="kr-bit" style="{{ c }}"></span></sc-for>
+        </div>
+        <button type="button" class="{{ sendCls }}" onClick="{{ send }}" style="width: 310px">
+          <span aria-hidden="true" class="kr-shine"></span>
+          <span class="{{ sendIdle }}"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 14 14"><path d="M7 0L8.4 5.6L14 7L8.4 8.4L7 14L5.6 8.4L0 7L5.6 5.6Z" fill="#1A1030"></path></svg>Tabrikladim</span>
+          <span class="{{ sendDone }}">Rahmat, yetkazildi</span>
+        </button>
+      </div>
+    </section>
+</sc-if>
+
+    <footer style="position: relative; flex: 1; min-height: 190px; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; padding: 0 20px 30px; box-sizing: border-box; text-align: center">
+      <span aria-hidden="true" class="kr-blob" style="left: 30px; top: 20px; width: 60px; height: 54px"></span>
+      <span aria-hidden="true" class="kr-blob" style="right: 40px; top: 40px; width: 44px; height: 50px; animation-delay: -3s"></span>
+      <p class="kr-hd kr-chrome" style="position: relative; margin: 0; font-size: {{ footFs }}px; line-height: 1.1; overflow-wrap: break-word">{{ name }}</p>
+      <p class="kr-kick kr-holo" style="position: relative; margin-top: 10px; font-size: 11px">{{ footLine }}</p>
+    </footer>
+  </div>
+
+  <div data-intro class="{{ introCls }}" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; z-index: 20; overflow: hidden; background: #0B0716">
+    <div aria-hidden="true" style="position: absolute; inset: 0; background: radial-gradient(80% 55% at 50% 42%, #24134A 0%, #140B2C 55%, #0B0716 100%)"></div>
+    <span aria-hidden="true" class="kr-orb" style="left: 40px; top: 120px; width: 310px; height: 310px; opacity: 0.4"></span>
+    <div aria-hidden="true">
+      <sc-for list="{{ iSparks }}" as="sp"><span class="kr-spark" style="{{ sp }}"></span></sc-for>
+    </div>
+    <span aria-hidden="true" class="kr-blob" style="left: -30px; top: 90px; width: 120px; height: 104px"></span>
+    <span aria-hidden="true" class="kr-blob" style="left: 300px; top: 470px; width: 110px; height: 120px; animation-delay: -5s"></span>
+    <span aria-hidden="true" class="kr-blob" style="left: 290px; top: 60px; width: 54px; height: 50px; animation-delay: -2s"></span>
+    <sc-if value="{{ has.music }}"><div aria-hidden="true" class="kr-iHide" style="position: absolute; left: 20px; top: 18px; display: flex; align-items: center; gap: 6px"><svg width="12" height="14" viewBox="0 0 22 26"><path d="M8 3L20 0V17.5A3.5 3 0 1 1 17 14.6V5.2L10 7V20.5A3.5 3 0 1 1 7 17.6V3Z" fill="#C8B6FF"></path></svg><span class="kr-kick" style="font-size: 10px; color: #C8B6FF">Musiqa bilan</span></div></sc-if>
+
+    <div class="kr-iHide" style="position: absolute; left: 20px; top: 150px; width: 350px; text-align: center">
+      <span class="kr-chip">{{ introCap }}</span>
+      <p class="kr-hd kr-chrome" style="margin: 26px 0 0; font-size: 60px; line-height: 1.05">Puflang!</p>
+      <p style="margin: 14px auto 0; max-width: 300px; font-size: 16px; line-height: 1.45; color: #C9C2DE">Tugmani bosing — xrom sharlar shishib, havoga ko’tariladi.</p>
+    </div>
+
+    <div aria-hidden="true" style="position: absolute; left: 0; top: 30px; width: 390px; height: 340px">
+      <svg width="390" height="340" viewBox="0 0 390 340" style="display: block; overflow: visible">
+        <sc-for list="{{ bals }}" as="g">
+          <g class="kr-fly" style="{{ g.an }}">
+            <path class="kr-str kr-strI" d="{{ g.str }}" style="{{ g.an }}"></path>
+            <path class="kr-knot kr-strI" d="{{ g.knot }}" style="{{ g.an }}"></path>
+            <g transform="{{ g.tf }}">
+              <g class="kr-inf" style="{{ g.an }}">
+                <sc-if value="{{ g.ball }}"><ellipse cx="50" cy="75" rx="56" ry="66" fill="url(#kr-gB)"></ellipse><ellipse cx="30" cy="42" rx="13" ry="19" fill="#FFFFFF" opacity="0.55"></ellipse></sc-if>
+                <sc-if value="{{ g.d }}"><path class="kr-dO" d="{{ g.d }}"></path><path class="kr-dR" d="{{ g.d }}"></path><path class="kr-dF" d="{{ g.d }}"></path><path class="kr-dH" d="{{ g.d }}" transform="translate(-6 -7)"></path></sc-if>
+              </g>
+            </g>
+          </g>
+        </sc-for>
+      </svg>
+    </div>
+
+    <div aria-hidden="true" style="position: absolute; left: 20px; top: 384px; width: 350px; text-align: center">
+      <p class="kr-hd kr-chrome kr-iName" style="margin: 0; font-size: {{ nameFs }}px; line-height: 1.12; overflow-wrap: break-word">{{ name }}</p>
+      <p class="kr-holo kr-iSub" style="margin: 10px 0 0; font-size: 19px; font-weight: 700; letter-spacing: 0.04em">Tug’ilgan kuning muborak!</p>
+    </div>
+
+    <div class="kr-iHide" style="position: absolute; left: 40px; top: 730px; width: 310px; display: flex; flex-direction: column; align-items: center; gap: 12px">
+      <button type="button" class="kr-btn" onClick="{{ open }}" style="width: 310px">
+        <span aria-hidden="true" class="kr-shine"></span>
+        <svg aria-hidden="true" width="18" height="24" viewBox="0 0 18 24"><ellipse cx="9" cy="8" rx="8" ry="8" fill="#1A1030"></ellipse><path d="M6 17L12 17L9 14Z" fill="#1A1030"></path><path d="M9 17C7 20 11 21 9 24" fill="none" stroke="#1A1030" style="stroke-width: 1.4"></path></svg>
+        Shishiring
+      </button>
+      <sc-if value="{{ from.line }}"><p style="margin: 0; font-size: 13px; line-height: 1.35; color: #A49DBB; text-align: center; overflow-wrap: anywhere">{{ from.line }}</p></sc-if>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":6600}}'>
+const tkName = (d) => String(d.kimga || '').trim();
+const tkFrom = (d) => {
+  const kd = String(d.kimdan || '').trim(), ci = kd.indexOf(':');
+  const label = ci > 0 ? kd.slice(0, ci).trim() : '';
+  const names = ci > 0 ? kd.slice(ci + 1).trim() : kd;
+  return { label: label, names: names, line: !kd ? '' : (label ? label + 'dan: ' + names : names + 'dan') };
+};
+const tkFit = (text, max, min, width, k) => {
+  const longest = Math.max(1, ...String(text || '').split(/\s+/).map((x) => x.length));
+  return Math.max(min, Math.min(max, Math.floor(width / (longest * k))));
+};
+const ORDER = ['tabrik', 'taymer', 'tilaklar', 'sham', 'sirli', 'galereya', 'xronika', 'mehmonlar', 'javob'];
+const TABN = { tabrik: 'tabrik', taymer: 'taymer', tilaklar: 'tilaklar', sham: 'sham', sirli: 'sirli tilak', galereya: 'suratlar', xronika: 'xronika', mehmonlar: 'yaqinlar', javob: 'javob' };
+const rnd = (i, k) => { const x = Math.sin(i * 127.1 + k * 311.7) * 43758.5453; return x - Math.floor(x); };
+/* foil-balloon digits: centre-line paths in a 100x150 cell, drawn as fat chrome tubes */
+const DP = {
+  '0': 'M50 12C78 12 88 42 88 76C88 110 78 140 50 140C22 140 12 110 12 76C12 42 22 12 50 12Z',
+  '1': 'M20 40L46 14L46 140',
+  '2': 'M14 44C14 22 32 12 50 12C72 12 87 26 87 46C87 72 58 92 16 140L90 140',
+  '3': 'M16 30C24 16 38 12 52 12C74 12 86 26 86 43C86 62 70 72 48 74C74 76 90 90 90 108C90 128 72 140 50 140C32 140 18 132 12 118',
+  '4': 'M68 140L68 14L12 102L92 102',
+  '5': 'M84 14L28 14L22 68C32 60 42 58 54 58C76 58 90 74 90 98C90 124 72 140 48 140C32 140 18 132 12 120',
+  '6': 'M80 22C72 15 62 12 52 12C26 12 12 42 12 80C12 116 28 140 52 140C76 140 90 122 90 100C90 78 74 62 52 62C32 62 16 76 12 92',
+  '7': 'M12 14L90 14C64 52 48 94 40 140',
+  '8': 'M50 72C28 72 16 60 16 42C16 24 30 12 50 12C70 12 84 24 84 42C84 60 72 72 50 72C26 72 12 88 12 106C12 126 28 140 50 140C72 140 88 126 88 106C88 88 74 72 50 72Z',
+  '9': 'M20 130C28 137 38 140 48 140C74 140 88 110 88 72C88 36 72 12 48 12C24 12 10 30 10 52C10 74 26 90 48 90C68 90 84 76 88 60'
+};
+const ADV = { '1': 70 };
+const HOLO = ['#9EF0FF', '#C8B6FF', '#FF9DE8', '#FFE29A', '#B8FFC8'];
+/* balloon digits in a 390x340 box: bottoms rest on y 272 */
+const buildBals = (yosh) => {
+  const ds = String(yosh || '').replace(/\D/g, '').slice(0, 3);
+  const n = ds.length, bottom = 272;
+  const S = n === 1 ? 1.75 : n === 2 ? 1.42 : n === 3 ? 1.02 : 1.7;
+  const chars = n ? Array.from(ds) : [''];
+  const adv = chars.map((ch) => (ADV[ch] || 100) * S);
+  const total = adv.reduce((x, y) => x + y, 0);
+  let x = 195 - total / 2;
+  const top = bottom - 140 * S;
+  return chars.map((ch, i) => {
+    const x0 = x, cx = Math.round(x0 + adv[i] / 2);
+    x += adv[i];
+    const r = n > 1 ? (i % 2 ? 4 : -4) : 0, sway = (i % 2 ? -1 : 1) * 12, by = bottom + Math.round(16 * S);
+    return {
+      ball: !ch, d: ch ? DP[ch] : '',
+      tf: 'translate(' + Math.round(x0) + ' ' + Math.round(top) + ') rotate(' + r + ' 50 140) scale(' + S + ')',
+      knot: 'M' + (cx - 7) + ' ' + (by + 10) + 'L' + (cx + 7) + ' ' + (by + 10) + 'L' + cx + ' ' + by + 'Z',
+      str: 'M' + cx + ' ' + (by + 10) + 'C' + (cx + sway) + ' ' + (by + 36) + ' ' + (cx - sway) + ' ' + (by + 56) + ' ' + (cx + sway / 2) + ' ' + (by + 92),
+      an: '--d: ' + (0.1 + i * 0.18).toFixed(2) + 's; --ty: 400px'
+    };
+  });
+};
+
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { opened: false, blown: false, sec: false, sent: false, wOn: {} };
+    this.tick = 0;
+    const spk = (n, seed, top, h) => Array.from({ length: n }, (_, i) => '--s: ' + Math.round(10 + rnd(i, seed) * 18) + 'px; left: ' + Math.round(top === null ? (i % 2 ? 360 + rnd(i, seed + 1) * 22 : 2 + rnd(i, seed + 1) * 14) : 8 + rnd(i, seed + 1) * 370) + 'px; top: ' + (top === null ? (2 + rnd(i, seed + 2) * 96).toFixed(1) + '%' : Math.round(top + rnd(i, seed + 2) * h) + 'px') + '; animation-delay: -' + (rnd(i, seed + 3) * 3).toFixed(2) + 's; animation-duration: ' + (2.4 + rnd(i, seed + 4) * 2).toFixed(2) + 's');
+    const burst = (n, seed, r0, r1, a0, a1) => Array.from({ length: n }, (_, i) => {
+      const a = (a0 + (a1 - a0) * (i / Math.max(1, n - 1)) + (rnd(i, seed) - 0.5) * 12) * Math.PI / 180, r = r0 + rnd(i, seed + 1) * (r1 - r0);
+      const s = 8 + Math.round(rnd(i, seed + 2) * 12), kind = i % 3;
+      const shp = kind === 0 ? 'border-radius: 50%; background: radial-gradient(circle at 32% 28%, #FFFFFF, #AEB6C6 45%, #3A4052)' : kind === 1 ? 'border-radius: 3px; background: ' + HOLO[i % 5] : 'clip-path: polygon(50% 0, 60% 40%, 100% 50%, 60% 60%, 50% 100%, 40% 60%, 0 50%, 40% 40%); background: #FFFFFF';
+      return 'width: ' + s + 'px; height: ' + s + 'px; margin: -' + (s / 2) + 'px 0 0 -' + (s / 2) + 'px; ' + shp + '; --x: ' + Math.round(Math.cos(a) * r) + 'px; --y: ' + Math.round(Math.sin(a) * r) + 'px; --r: ' + Math.round(rnd(i, seed + 3) * 540 - 270) + 'deg; animation-delay: ' + (rnd(i, seed + 4) * 0.12).toFixed(2) + 's';
+    });
+    this.deco = {
+      bals: buildBals(SITE.d.yosh),
+      orbs: [[-160, 1100], [180, 2200], [-170, 3300], [170, 4400], [-160, 5500]].map((o, i) => 'left: ' + o[0] + 'px; top: ' + o[1] + 'px; width: 380px; height: 380px; opacity: 0.18; animation-delay: -' + (i * 3) + 's'),
+      sparks: spk(30, 3, null, 0),
+      iSparks: spk(16, 21, 40, 640),
+      ups: Array.from({ length: 12 }, (_, i) => '--s: ' + Math.round(10 + rnd(i, 51) * 14) + 'px; left: 0; top: 0; --dx: ' + Math.round((rnd(i, 52) - 0.5) * 240) + 'px; --dy: ' + Math.round(-60 - rnd(i, 53) * 160) + 'px; animation-delay: ' + (0.2 + rnd(i, 54) * 0.5).toFixed(2) + 's'),
+      pops: burst(26, 61, 110, 190, -180, 180),
+      bits: burst(22, 71, 90, 170, -170, -10)
+    };
+  }
+  componentDidMount() {
+    this.timer = setInterval(() => { this.prevCd = this.lastCd; this.tick += 1; this.forceUpdate(); }, 1000);
+  }
+  componentWillUnmount() {
+    clearInterval(this.timer);
+  }
+  renderVals() {
+    const s = this.state;
+    const D = SITE.d;
+    const name = tkName(D), from = tkFrom(D);
+    const w = SITE.when(D.sana);
+    const c = SITE.countdown(D.sana);
+    const yosh = String(D.yosh || '').trim();
+    const tab = {};
+    let k = 0;
+    ORDER.forEach((key) => { if (SITE.b[key]) { k += 1; tab[key] = '0' + k + ' / ' + TABN[key]; } else tab[key] = ''; });
+    const cur = [String(c.d), c.hh, c.mm, c.ss];
+    const prev = this.prevCd || cur;
+    this.lastCd = cur;
+    const L = ['kun', 'soat', 'daqiqa', 'soniya'];
+    const caps = cur.map((v, i) => ({ v: v, l: L[i], sd: 'animation-delay: ' + (i * 0.25) + 's', cls: v !== prev[i] ? (this.tick % 2 ? 'kr-num kr-num--a' : 'kr-num kr-num--b') : 'kr-num' }));
+    const matn = String(D.matn || '').trim();
+    const wishes = (D.tilaklar || []).map((t, i) => {
+      const on = !!s.wOn[i];
+      return {
+        text: t, on: on ? 'true' : 'false', cls: on ? 'kr-wish kr-wish--on' : 'kr-wish',
+        row: 'display: flex; justify-content: ' + ['flex-start', 'flex-end', 'center'][i % 3] + '; padding: 0 ' + [0, 0, 10][i % 3] + 'px; transform: rotate(' + [-2, 2, -1, 1.5][i % 4] + 'deg)',
+        bob: 'animation-delay: -' + (i * 0.9).toFixed(1) + 's; animation-duration: ' + (3.8 + (i % 3) * 0.6).toFixed(1) + 's',
+        tap: () => { const m = Object.assign({}, this.state.wOn); m[i] = !m[i]; this.setState({ wOn: m }); }
+      };
+    });
+    const candles = [110, 160, 210].map((x, i) => ({
+      st: 'position: absolute; left: ' + (x - 7) + 'px; top: ' + (98 + (i === 1 ? -14 : 0)) + 'px; width: 14px; height: ' + (80 + (i === 1 ? 14 : 0)) + 'px; border-radius: 7px; background: linear-gradient(90deg, #4B5262, #FFFFFF 35%, #9AA3B5 60%, #2B3142); box-shadow: 0 0 0 1px rgba(0,0,0,0.3)',
+      fl: 'left: ' + x + 'px; top: ' + (60 + (i === 1 ? -14 : 0)) + 'px; animation-delay: ' + (i * 0.17).toFixed(2) + 's'
+    }));
+    const n = Math.min(6, SITE.has.photos);
+    const gp = n > 1 ? SITE.p.slice(1, n).concat([SITE.p[0]]) : SITE.p.slice(0, 1);
+    const rest = gp.slice(2);
+    const gal = rest.map((src, i) => {
+      const solo = rest.length % 2 === 1 && i === rest.length - 1;
+      const wd = solo ? 345 : 168, ht = solo ? 220 : 240, rad = solo ? '30px' : '84px';
+      return { src: src, box: 'flex: none; width: ' + wd + 'px; border-radius: ' + rad + '; box-sizing: border-box', img: 'display: block; width: ' + (wd - 5) + 'px; height: ' + ht + 'px; border-radius: ' + rad + '; object-fit: cover' };
+    });
+    const xr = D.xronika || [];
+    const chron = xr.map((x, i) => {
+      const y = String(x.yosh || '').trim(), left = i % 2 === 0;
+      return {
+        yosh: y, matn: x.matn || '', fs: y.length > 3 ? 20 : y.length > 2 ? 28 : 40, src: SITE.p[i % SITE.p.length],
+        row: 'position: relative; display: flex; align-items: center; gap: 14px; margin-bottom: 22px; flex-direction: ' + (left ? 'row' : 'row-reverse')
+      };
+    });
+    const rowH = SITE.has.photo ? 190 : 130, chH = Math.max(1, xr.length * rowH);
+    let cp = 'M55 20';
+    for (let i = 1; i < xr.length; i++) { const x0 = i % 2 ? 55 : 295, x1 = i % 2 ? 295 : 55; cp += 'C' + x0 + ' ' + (i * rowH - 40) + ' ' + x1 + ' ' + (i * rowH - 60) + ' ' + x1 + ' ' + (i * rowH + 20); }
+    const reviews = (D.mehmon_tilaklari || []).map((r, i) => ({
+      ism: r.ism || '', matn: r.matn || '', ini: String(r.ism || '').trim().charAt(0),
+      st: 'border-radius: 26px; transform: rotate(' + [-1.5, 1.2, -0.8, 1.6][i % 4] + 'deg); ' + (i % 2 ? 'margin-left: 22px' : 'margin-right: 22px')
+    }));
+    const sec = String(D.sirli_tilak || '');
+    const wl = 'Niyating ushalsin, ' + name + '!';
+    return Object.assign({}, this.deco, {
+      name: name, from: from, tab: tab, yosh: yosh,
+      srAge: yosh ? yosh + ' yosh. ' : '',
+      nameFs: tkFit(name, 66, 26, 350, 0.76),
+      footFs: tkFit(name, 44, 22, 340, 0.76),
+      heroDate: [w.date, w.weekday].filter(Boolean).join(' · '),
+      musicCls: SITE.music.playing ? 'kr-music kr-music--on' : 'kr-music',
+      musicOn: SITE.music.playing ? 'true' : 'false',
+      toggleMusic: () => { SITE.music.toggle(); },
+      dropCap: matn.charAt(0),
+      restText: matn.slice(1),
+      cdTitle: c.done ? 'Bayram boshlandi!' : 'Bayramgacha',
+      cdDate: [w.date, w.weekday].filter(Boolean).join(', '),
+      caps: caps,
+      wishes: wishes,
+      candles: candles,
+      cakeCls: s.blown ? 'kr-cake--out' : '',
+      wishLine: wl,
+      wishFs: tkFit(wl, 30, 18, 320, 0.76),
+      blowIdle: s.blown ? 'is-hidden' : '',
+      blowDone: s.blown ? '' : 'is-hidden',
+      blow: () => this.setState({ blown: !this.state.blown }),
+      secCls: s.sec ? 'kr-sec kr-sec--on' : 'kr-sec',
+      secFs: sec.length > 160 ? 14 : sec.length > 100 ? 16 : 18,
+      toggleSec: () => this.setState({ sec: !this.state.sec }),
+      g0: gp[0], g1: gp[1] || gp[0], cdOn: gp.length > 1,
+      gal: gal,
+      chron: chron, chH: chH, chVB: '0 0 350 ' + chH, chPath: cp,
+      reviews: reviews,
+      askName: name + 'ni tabrikladingizmi?',
+      sendCls: s.sent ? 'kr-btn kr-btn--done' : 'kr-btn',
+      sendIdle: s.sent ? 'is-hidden' : 'kr-row',
+      sendDone: s.sent ? 'kr-row' : 'is-hidden',
+      burstCls: s.sent ? 'kr-burst kr-burst--go' : 'kr-burst',
+      send: () => { if (this.state.sent) return; this.setState({ sent: true }); SITE.reply('Tabrikladim', '🥰'); },
+      footLine: [yosh ? yosh + ' yosh' : '', w.dots].filter(Boolean).join(' · '),
+      introCap: [w.dm, w.weekday].filter(Boolean).join(' · ') || 'Tug’ilgan kun',
+      introCls: s.opened ? 'kr-intro kr-intro--on' : 'kr-intro',
+      pageCls: s.opened ? 'kr-page kr-page--in' : 'kr-page',
+      open: () => { if (this.state.opened) return; this.setState({ opened: true }); SITE.opened(); }
+    });
+  }
+}
+</script>
+</body>
+</html>

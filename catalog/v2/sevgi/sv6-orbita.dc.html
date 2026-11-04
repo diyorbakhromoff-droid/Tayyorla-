@@ -1,0 +1,616 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<title>Sevgi maktubi: Orbita</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600&amp;family=Unbounded:wght@200;300;400;500&amp;display=swap">
+<style>
+body{margin:0}
+.ub{font-family:'Unbounded','Arial Black',Arial,sans-serif}
+.gt{font-family:'Golos Text','Helvetica Neue',Arial,sans-serif}
+.ico{fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+button:focus-visible{outline:2px solid #FF7A59;outline-offset:3px}
+button:disabled{opacity:.7;cursor:default}
+.ob-grid{background-color:#0B0E26;background-image:linear-gradient(rgba(232,236,255,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(232,236,255,.045) 1px,transparent 1px);background-size:39px 39px;background-position:-1px -1px}
+.ob-lb{margin:0;font-family:'Golos Text',Arial,sans-serif;font-size:11px;font-weight:500;letter-spacing:.26em;text-transform:uppercase;color:#8E95C4}
+.ob-h2{margin:14px 0 0;font-family:'Unbounded',Arial,sans-serif;font-weight:300;font-size:30px;line-height:1.14;letter-spacing:-.01em;color:#E8ECFF}
+.ob-sh{display:flex;align-items:center;gap:12px}
+.ob-num{flex:none;display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:50%;border:1px solid rgba(232,236,255,.28);font-family:'Unbounded',Arial,sans-serif;font-size:11px;font-weight:400;color:#E8ECFF}
+.ob-rule{flex:1;height:1px;background:rgba(232,236,255,.16)}
+.ob-ring{fill:none;stroke:rgba(232,236,255,.22);stroke-width:1}
+.ob-ringd{fill:none;stroke:rgba(232,236,255,.2);stroke-width:1;stroke-dasharray:2 5}
+.ob-ring2{fill:none;stroke:rgba(232,236,255,.72);stroke-width:1.2}
+.ob-tick{fill:none;stroke:rgba(232,236,255,.28);stroke-width:1}
+.ob-lead{fill:none;stroke:rgba(232,236,255,.4);stroke-width:1}
+.ob-cA{fill:#FF7A59}.ob-cB{fill:#9CB4FF}
+.ob-trA{fill:none;stroke:#FF7A59;stroke-width:1.4;stroke-linecap:round;opacity:.5}
+.ob-trB{fill:none;stroke:#9CB4FF;stroke-width:1.4;stroke-linecap:round;opacity:.5}
+.ob-arc{fill:none;stroke:#FF7A59;stroke-width:3;stroke-linecap:round}
+.ob-arcbg{fill:none;stroke:rgba(232,236,255,.12);stroke-width:3}
+.ob-st{fill:#E8ECFF}
+.ob-cl{fill:none;stroke:rgba(232,236,255,.3);stroke-width:.8}
+.ob-ini{font-family:'Unbounded',Arial,sans-serif;font-size:12px;font-weight:400;fill:#E8ECFF}
+.ob-car{font-family:'Golos Text',Arial,sans-serif;font-size:9px;font-weight:600;letter-spacing:.2em;fill:#8E95C4}
+.ob-pair{fill:none;stroke:#FF7A59;stroke-width:1.2;stroke-dasharray:3 4}
+.ob-body{position:absolute;left:-9px;top:-9px;width:18px;height:18px;border-radius:50%}
+.ob-ba{background:radial-gradient(circle at 34% 32%,#FFE1D6 0,#FF7A59 52%,#B83E25 100%);box-shadow:0 0 22px 4px rgba(255,122,89,.5)}
+.ob-bb{background:radial-gradient(circle at 34% 32%,#F4F6FF 0,#9CB4FF 52%,#4B62C4 100%);box-shadow:0 0 22px 4px rgba(156,180,255,.5)}
+.ob-dot{display:inline-block;width:9px;height:9px;border-radius:50%}
+.ob-crop{position:absolute;width:12px;height:12px;border-color:rgba(232,236,255,.55);border-style:solid;border-width:0}
+.ob-cell{padding:14px 12px 13px;border:1px solid rgba(232,236,255,.16);margin:-1px 0 0 -1px;min-width:0}
+
+/* intro */
+.ob-intro{transition:opacity .9s ease 3.3s,visibility 0s linear 4.2s}
+.ob-intro.is-on{opacity:0;visibility:hidden;pointer-events:none}
+.ob-sys{position:absolute;width:0;height:0;animation:obSpin 80s linear infinite}
+.ob-hsys{position:absolute;width:0;height:0;animation:obSpin 34s linear infinite}
+@keyframes obSpin{to{transform:rotate(360deg)}}
+.ob-turnA,.ob-turnB,.ob-armA,.ob-armB{position:absolute;left:0;top:0;width:0;height:0;transition:transform 2.6s cubic-bezier(.55,0,.3,1)}
+.ob-turnA{transform:rotate(200deg)}
+.ob-turnB{transform:rotate(20deg)}
+.ob-armA{transform:translateX(150px)}
+.ob-armB{transform:translateX(96px)}
+.ob-intro.is-on .ob-turnA{transform:rotate(920deg)}
+.ob-intro.is-on .ob-turnB{transform:rotate(380deg)}
+.ob-intro.is-on .ob-armA,.ob-intro.is-on .ob-armB{transform:translateX(58px)}
+.ob-trail{opacity:0}
+.ob-intro.is-on .ob-trail{animation:obTrail 3.3s ease forwards}
+@keyframes obTrail{0%{opacity:0}12%{opacity:.42}70%{opacity:.32}100%{opacity:0}}
+.ob-tail{position:absolute;left:-2px;top:-56px;width:4px;height:56px;border-radius:2px;opacity:0}
+.ob-tailA{background:linear-gradient(rgba(255,122,89,0),rgba(255,122,89,.85))}
+.ob-tailB{background:linear-gradient(rgba(156,180,255,0),rgba(156,180,255,.85))}
+.ob-intro.is-on .ob-tail{animation:obTail 2.6s ease forwards}
+@keyframes obTail{0%{opacity:0}15%{opacity:.9}70%{opacity:.8}100%{opacity:0}}
+.ob-old{transition:opacity 1.4s ease .6s}
+.ob-intro.is-on .ob-old{opacity:.25}
+.ob-lock{stroke-dasharray:1;stroke-dashoffset:1}
+.ob-intro.is-on .ob-lock{transition:stroke-dashoffset .8s cubic-bezier(.4,0,.2,1) 2.35s;stroke-dashoffset:0}
+.ob-flash{position:absolute;width:150px;height:150px;margin:-75px 0 0 -75px;border-radius:50%;background:radial-gradient(circle,rgba(255,236,226,.55) 0,rgba(255,122,89,.18) 34%,rgba(11,14,38,0) 66%);opacity:0;transform:scale(.2)}
+.ob-intro.is-on .ob-flash{animation:obFlash 1.3s ease-out 2.45s forwards}
+@keyframes obFlash{0%{opacity:0;transform:scale(.2)}30%{opacity:1}100%{opacity:0;transform:scale(1.9)}}
+.ob-i1{transition:opacity .5s ease,transform .5s ease}
+.ob-intro.is-on .ob-i1{opacity:0;transform:translateY(-10px)}
+.ob-i2{opacity:0;transform:translateY(12px);transition:opacity .8s ease 2.55s,transform .8s ease 2.55s}
+.ob-intro.is-on .ob-i2{opacity:1;transform:none}
+.ob-btn{transition:opacity .35s ease,transform .35s ease}
+.ob-intro.is-on .ob-btn{opacity:0;transform:translateY(12px)}
+.ob-pulse{animation:obPulse 2.4s ease-in-out infinite}
+@keyframes obPulse{0%,100%{box-shadow:0 0 0 0 rgba(255,122,89,.45)}50%{box-shadow:0 0 0 12px rgba(255,122,89,0)}}
+
+/* page */
+.ob-in{animation:obIn .8s ease-out both}
+@keyframes obIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.ob-moon{transition:transform 1.6s cubic-bezier(.6,0,.25,1),opacity .8s ease .9s}
+.ob-moon.is-off{transform:translateX(250px);opacity:0}
+.ob-sec{opacity:.0;transition:opacity 1s ease .7s}
+.ob-sec.is-shown{opacity:1}
+.ob-corona{animation:obCor 5s ease-in-out infinite}
+@keyframes obCor{0%,100%{opacity:.75}50%{opacity:1}}
+.ob-sig{animation:obSig 1.6s cubic-bezier(.4,0,.2,1) 3}
+@keyframes obSig{0%{transform:translateX(0);opacity:0}10%{opacity:1}90%{opacity:1}100%{transform:translateX(246px);opacity:0}}
+.ob-blink{animation:obBlink 3.2s ease-in-out infinite}
+@keyframes obBlink{0%,100%{opacity:.35}50%{opacity:1}}
+
+@media (prefers-reduced-motion: reduce){
+.ob-sys,.ob-hsys,.ob-pulse,.ob-in,.ob-corona,.ob-sig,.ob-blink{animation:none}
+.ob-intro,.ob-turnA,.ob-turnB,.ob-armA,.ob-armB,.ob-old,.ob-i1,.ob-i2,.ob-btn,.ob-moon,.ob-sec{transition:none}
+.ob-intro.is-on .ob-trail,.ob-intro.is-on .ob-flash{animation:none}
+.ob-intro.is-on .ob-lock{transition:none}
+}
+</style>
+</helmet>
+<div class="ob-grid" style="width: 390px; min-height: var(--vh, 100vh); position: relative; overflow: hidden; background-color: #0B0E26; color: #E8ECFF; font-family: 'Golos Text', 'Helvetica Neue', Arial, sans-serif; display: flex; flex-direction: column">
+
+  <sc-if value="{{ has.music }}">
+  <button type="button" aria-label="Musiqa" aria-pressed="{{ musicOn }}" onClick="{{ toggleMusic }}" style="position: absolute; top: 14px; right: 14px; z-index: 40; width: 46px; height: 46px; padding: 0; border-radius: 50%; border: 1px solid rgba(232, 236, 255, 0.4); background: rgba(11, 14, 38, 0.7); color: #E8ECFF; cursor: pointer; display: flex; align-items: center; justify-content: center">
+    <sc-if value="{{ musicOff }}">
+      <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path class="ico" d="M9 18V5l11-2v13"></path><circle class="ico" cx="6" cy="18" r="3"></circle><circle class="ico" cx="17" cy="16" r="3"></circle><path class="ico" d="M3 3l18 18"></path></svg>
+    </sc-if>
+    <sc-if value="{{ musicOn }}">
+      <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path class="ico" d="M9 18V5l11-2v13"></path><circle class="ico" cx="6" cy="18" r="3"></circle><circle class="ico" cx="17" cy="16" r="3"></circle></svg>
+    </sc-if>
+  </button>
+  </sc-if>
+
+  <!-- ============ INTRO: two bodies spiral into one orbit ============ -->
+  <div data-intro class="{{ introCls }}" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; z-index: 30; overflow: hidden">
+    <div class="ob-grid" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px">
+      <div class="ob-i1" style="position: absolute; left: 32px; top: 56px; width: 300px">
+        <p class="ob-lb">Gravitatsiya · ikki jism</p>
+        <p class="ub" style="margin: 16px 0 0; font-size: 33px; font-weight: 300; line-height: 1.12; letter-spacing: -0.01em">Ikki jism.<br>Ikki alohida yo’l.</p>
+        <p class="gt" style="margin: 14px 0 0; width: 290px; font-size: 15px; line-height: 1.55; color: #8E95C4">Ular bir-birini sezmasdan tortadi — va bir kun bitta orbitaga tushadi.</p>
+      </div>
+
+      <svg aria-hidden="true" style="position: absolute; left: 0; top: 0" width="390" height="844" viewBox="0 0 390 844">
+        <path class="ob-ring" d="M0 452 H390 M195 262 V642" style="stroke: rgba(232, 236, 255, 0.08)"></path>
+        <circle class="ob-ringd ob-old" cx="195" cy="452" r="150"></circle>
+        <circle class="ob-ringd ob-old" cx="195" cy="452" r="96"></circle>
+        <sc-for list="{{ iTicks }}" as="t"><path class="ob-tick ob-old" d="{{ t }}"></path></sc-for>
+        <circle class="ob-ring2 ob-lock" pathLength="1" cx="195" cy="452" r="58" style="transform: rotate(-90deg); transform-origin: 195px 452px"></circle>
+        <path class="ob-ring" d="M190 452 H200 M195 447 V457" style="stroke: rgba(232, 236, 255, 0.5)"></path>
+        <text class="ob-car ob-old" x="195" y="294" text-anchor="middle">ORBITA I</text>
+        <text class="ob-car ob-old" x="195" y="348" text-anchor="middle">ORBITA II</text>
+      </svg>
+
+      <div style="position: absolute; left: 195px; top: 452px; width: 0; height: 0">
+        <div class="ob-flash"></div>
+        <div class="ob-sys">
+          <svg aria-hidden="true" style="position: absolute; left: -195px; top: -452px; overflow: visible" width="390" height="844" viewBox="-195 -452 390 844">
+            <path class="ob-trA ob-trail" d="{{ trailA }}"></path>
+            <path class="ob-trB ob-trail" d="{{ trailB }}"></path>
+          </svg>
+          <div class="ob-turnA"><div class="ob-armA"><div class="ob-tail ob-tailA"></div><div class="ob-body ob-ba"></div></div></div>
+          <div class="ob-turnB"><div class="ob-armB"><div class="ob-tail ob-tailB"></div><div class="ob-body ob-bb"></div></div></div>
+        </div>
+      </div>
+
+      <div class="ob-i2" style="position: absolute; left: 24px; top: 642px; width: 342px; text-align: center">
+        <p class="ob-lb">Endi — bitta orbita</p>
+        <p class="ub" style="margin: 12px 0 0; font-size: {{ pairPx }}px; font-weight: 300; line-height: 1.2; overflow-wrap: anywhere">{{ fromName }} <span style="color: #FF7A59">+</span> {{ toName }}</p>
+      </div>
+
+      <div class="ob-btn" style="position: absolute; left: 32px; top: 652px; width: 326px">
+        <div style="display: flex; flex-direction: column; gap: 8px">
+          <p class="gt" style="margin: 0; display: flex; align-items: center; gap: 10px; font-size: 14px; color: #C9CEEE; overflow-wrap: anywhere"><span class="ob-dot" style="background: #FF7A59"></span><span style="min-width: 0">{{ fromName }} <span style="color: #8E95C4">· tashqi orbita</span></span></p>
+          <p class="gt" style="margin: 0; display: flex; align-items: center; gap: 10px; font-size: 14px; color: #C9CEEE; overflow-wrap: anywhere"><span class="ob-dot" style="background: #9CB4FF"></span><span style="min-width: 0">{{ toName }} <span style="color: #8E95C4">· ichki orbita</span></span></p>
+        </div>
+      </div>
+      <sc-if value="{{ has.music }}">
+      <p class="ob-btn gt" style="position: absolute; left: 0; top: 816px; width: 390px; margin: 0; display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 12px; color: #8E95C4"><svg width="13" height="13" viewBox="0 0 24 24" aria-hidden="true"><path class="ico" d="M9 18V5l11-2v13"></path><circle class="ico" cx="6" cy="18" r="3"></circle><circle class="ico" cx="17" cy="16" r="3"></circle></svg>Qo’shiq bilan ochiladi</p>
+      </sc-if>
+      <button type="button" class="ob-btn ob-pulse" onClick="{{ open }}" style="position: absolute; left: 32px; top: 740px; width: 326px; min-height: 56px; padding: 0 20px; border: 0; border-radius: 999px; background: #FF7A59; color: #0B0E26; font-family: 'Unbounded', Arial, sans-serif; font-size: 14px; font-weight: 400; letter-spacing: 0.02em; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 12px">
+        <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><circle class="ico" cx="12" cy="12" r="9"></circle><circle cx="4.5" cy="9" r="2.2" style="fill: currentColor"></circle><circle cx="19.5" cy="15" r="2.2" style="fill: currentColor"></circle></svg>
+        Orbitalarni birlashtiring
+      </button>
+    </div>
+  </div>
+
+  <!-- ============ HERO ============ -->
+  <header style="position: relative; padding: 58px 32px 0">
+    <p class="ob-lb">{{ heroLb }}</p>
+    <h1 class="ub" style="margin: 14px 0 0; font-size: {{ toPx }}px; font-weight: 300; line-height: 1.06; letter-spacing: -0.02em; overflow-wrap: anywhere; white-space: {{ toWs }}">{{ toName }},</h1>
+    <p class="gt" style="margin: 12px 0 0; font-size: 17px; line-height: 1.45; color: #C9CEEE">sen — mening tortishish markazim.</p>
+
+    <div style="position: relative; height: 470px; margin: 0 -32px">
+      <svg aria-hidden="true" style="position: absolute; left: 0; top: 0" width="390" height="470" viewBox="0 0 390 470">
+        <path class="ob-ring" d="M18 235 H372 M195 58 V412" style="stroke: rgba(232, 236, 255, 0.08)"></path>
+        <sc-for list="{{ hTicks }}" as="t"><path class="ob-tick" d="{{ t }}"></path></sc-for>
+        <circle class="ob-ring" cx="195" cy="235" r="166" style="stroke: rgba(232, 236, 255, 0.14)"></circle>
+        <circle class="ob-ringd" cx="195" cy="235" r="150"></circle>
+        <circle class="ob-ringd" cx="195" cy="235" r="96"></circle>
+        <circle class="ob-ring2" cx="195" cy="235" r="58"></circle>
+        <path class="ob-ring" d="M190 235 H200 M195 230 V240" style="stroke: rgba(232, 236, 255, 0.55)"></path>
+        <path class="ob-lead" d="M89 129 L52 92 H22"></path>
+        <circle cx="89" cy="129" r="2.5" style="fill: #E8ECFF"></circle>
+        <path class="ob-lead" d="M263 303 L300 352 H368"></path>
+        <circle cx="263" cy="303" r="2.5" style="fill: #E8ECFF"></circle>
+        <path class="ob-lead" d="M236 194 L282 148 H368"></path>
+        <circle cx="236" cy="194" r="2.5" style="fill: #E8ECFF"></circle>
+      </svg>
+      <p class="gt" style="position: absolute; left: 22px; top: 52px; width: 170px; margin: 0; font-size: 10px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: #8E95C4">Avval · I</p>
+      <p class="gt" style="position: absolute; left: 22px; top: 98px; width: 120px; margin: 0; font-size: 12px; line-height: 1.35; color: #C9CEEE">alohida yo’llar</p>
+      <p class="gt" style="position: absolute; right: 22px; top: 126px; width: 120px; margin: 0; text-align: right; font-size: 10px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: #FF7A59">Endi</p>
+      <p class="gt" style="position: absolute; right: 22px; top: 154px; width: 120px; margin: 0; text-align: right; font-size: 12px; line-height: 1.35; color: #C9CEEE">bitta orbita</p>
+      <p class="gt" style="position: absolute; right: 22px; top: 358px; width: 160px; margin: 0; text-align: right; font-size: 12px; line-height: 1.35; color: #C9CEEE">umumiy markaz —<br>ikkimizning uyimiz</p>
+      <div style="position: absolute; left: 195px; top: 235px; width: 0; height: 0">
+        <div class="ob-hsys">
+          <div style="position: absolute; left: 0; top: 0; transform: rotate(200deg)"><div style="position: absolute; left: 0; top: 0; transform: translateX(58px)"><div class="ob-body ob-ba"></div></div></div>
+          <div style="position: absolute; left: 0; top: 0; transform: rotate(20deg)"><div style="position: absolute; left: 0; top: 0; transform: translateX(58px)"><div class="ob-body ob-bb"></div></div></div>
+        </div>
+      </div>
+      <div style="position: absolute; left: 32px; right: 32px; top: 420px; display: flex; justify-content: space-between; gap: 16px">
+        <p class="gt" style="margin: 0; min-width: 0; display: flex; align-items: center; gap: 8px; font-size: 13px; color: #C9CEEE; overflow-wrap: anywhere"><span class="ob-dot" style="flex: none; background: #FF7A59"></span>{{ fromName }}</p>
+        <p class="gt" style="margin: 0; min-width: 0; display: flex; align-items: center; gap: 8px; font-size: 13px; color: #C9CEEE; overflow-wrap: anywhere; text-align: right"><span class="ob-dot" style="flex: none; background: #9CB4FF"></span>{{ toName }}</p>
+      </div>
+    </div>
+
+    <sc-if value="{{ hasDate }}">
+    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; margin: 18px 0 0 1px">
+      <div class="ob-cell"><p class="ob-lb" style="font-size: 9px; letter-spacing: 0.2em">Tanishuv</p><p class="ub" style="margin: 8px 0 0; font-size: 14px; font-weight: 300">{{ w.dots }}</p></div>
+      <div class="ob-cell"><p class="ob-lb" style="font-size: 9px; letter-spacing: 0.2em">Birga</p><p class="ub" style="margin: 8px 0 0; font-size: 14px; font-weight: 300">{{ daysTxt }} kun</p></div>
+      <div class="ob-cell"><p class="ob-lb" style="font-size: 9px; letter-spacing: 0.2em">Aylanish</p><p class="ub" style="margin: 8px 0 0; font-size: 14px; font-weight: 300">{{ turnsTxt }}</p></div>
+    </div>
+    </sc-if>
+  </header>
+
+  <!-- ============ MAKTUB ============ -->
+  <sc-if value="{{ b.maktub }}">
+  <section style="position: relative; padding: 84px 32px 0">
+    <div class="ob-sh"><span class="ob-num">{{ n.maktub }}</span><p class="ob-lb">Xabar</p><span class="ob-rule"></span></div>
+    <h2 class="ob-h2">Senga maktub</h2>
+    <div style="position: relative; margin-top: 28px; padding: 30px 24px 30px; background: rgba(20, 24, 58, 0.72); border: 1px solid rgba(232, 236, 255, 0.12)">
+      <span class="ob-crop" style="left: -1px; top: -1px; border-left-width: 1px; border-top-width: 1px"></span>
+      <span class="ob-crop" style="right: -1px; top: -1px; border-right-width: 1px; border-top-width: 1px"></span>
+      <span class="ob-crop" style="left: -1px; bottom: -1px; border-left-width: 1px; border-bottom-width: 1px"></span>
+      <span class="ob-crop" style="right: -1px; bottom: -1px; border-right-width: 1px; border-bottom-width: 1px"></span>
+      <p class="ub" style="margin: 0; font-size: {{ greetPx }}px; font-weight: 300; line-height: 1.25; overflow-wrap: anywhere">{{ greet }}</p>
+      <div class="gt" style="margin-top: 20px; font-size: 17px; line-height: 1.72; color: #D7DBF5; white-space: pre-line; overflow-wrap: anywhere">{{ d.matn }}</div>
+      <sc-if value="{{ sign }}">
+      <div style="margin-top: 26px; padding-top: 18px; border-top: 1px solid rgba(232, 236, 255, 0.12); display: flex; align-items: center; justify-content: flex-end; gap: 10px">
+        <p class="ub" style="margin: 0; font-size: 16px; font-weight: 300; overflow-wrap: anywhere; text-align: right">{{ sign }}</p>
+        <span class="ob-dot" style="flex: none; background: #FF7A59; box-shadow: 0 0 12px rgba(255, 122, 89, 0.7)"></span>
+      </div>
+      </sc-if>
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- ============ SABABLAR ============ -->
+  <sc-if value="{{ b.sabablar }}">
+  <section style="position: relative; padding: 84px 32px 0">
+    <div class="ob-sh"><span class="ob-num">{{ n.sabablar }}</span><p class="ob-lb">Tortishish kuchi</p><span class="ob-rule"></span></div>
+    <h2 class="ob-h2">Seni sevishimning sabablari</h2>
+    <p class="gt" style="margin: 10px 0 0; font-size: 15px; color: #8E95C4">Har bir sabab — meni senga tortib turgan kuch</p>
+    <div style="margin-top: 22px">
+      <sc-for list="{{ reasons }}" as="r">
+      <div style="display: flex; align-items: center; gap: 16px; padding: 16px 0; border-top: 1px solid rgba(232, 236, 255, 0.14)">
+        <svg aria-hidden="true" style="flex: none" width="40" height="40" viewBox="0 0 40 40"><circle class="ob-ringd" cx="20" cy="20" r="15" style="stroke: rgba(232, 236, 255, 0.4)"></circle><circle cx="20" cy="20" r="4" style="fill: #9CB4FF"></circle><circle cx="{{ r.x }}" cy="{{ r.y }}" r="3.2" style="fill: #FF7A59"></circle></svg>
+        <span class="ub" style="flex: none; width: 26px; font-size: 11px; font-weight: 400; color: #8E95C4">{{ r.n }}</span>
+        <span class="gt" style="flex: 1; min-width: 0; font-size: 19px; font-weight: 500; line-height: 1.3; overflow-wrap: anywhere">{{ r.t }}</span>
+      </div>
+      </sc-for>
+      <div style="border-top: 1px solid rgba(232, 236, 255, 0.14)"></div>
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- ============ HISOB: orbital counter ============ -->
+  <sc-if value="{{ b.hisob }}">
+  <section style="position: relative; padding: 84px 32px 0">
+    <div class="ob-sh"><span class="ob-num">{{ n.hisob }}</span><p class="ob-lb">Orbital hisoblagich</p><span class="ob-rule"></span></div>
+    <h2 class="ob-h2">Birga o’tgan kunlar</h2>
+    <div role="img" aria-label="{{ daysLbl }}" style="position: relative; width: 326px; height: 326px; margin-top: 26px">
+      <svg aria-hidden="true" style="position: absolute; left: 0; top: 0" width="326" height="326" viewBox="0 0 326 326">
+        <sc-for list="{{ cTicks }}" as="t"><path class="ob-tick" d="{{ t }}"></path></sc-for>
+        <circle class="ob-arcbg" cx="163" cy="163" r="140"></circle>
+        <circle class="ob-arc" cx="163" cy="163" r="140" style="stroke-dasharray: {{ arc.dash }}; transform: rotate(-90deg); transform-origin: 163px 163px"></circle>
+        <circle class="ob-ringd" cx="163" cy="163" r="112"></circle>
+        <circle cx="163" cy="23" r="4" style="fill: #E8ECFF"></circle>
+        <circle cx="{{ arc.x }}" cy="{{ arc.y }}" r="8" style="fill: #FF7A59"></circle>
+        <circle cx="{{ arc.x }}" cy="{{ arc.y }}" r="14" style="fill: none; stroke: rgba(255, 122, 89, 0.4); stroke-width: 1"></circle>
+      </svg>
+      <div aria-hidden="true" style="position: absolute; left: 40px; right: 40px; top: 0; bottom: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center">
+        <p class="ob-lb" style="font-size: 10px">Birga</p>
+        <p class="ub" style="margin: 8px 0 0; font-size: {{ dPx }}px; font-weight: 200; line-height: 1; letter-spacing: -0.03em">{{ daysTxt }}</p>
+        <p class="gt" style="margin: 8px 0 0; font-size: 13px; letter-spacing: 0.24em; text-transform: uppercase; color: #C9CEEE">kun</p>
+      </div>
+    </div>
+    <p class="gt" style="margin: 16px 0 0; font-size: 14px; line-height: 1.5; color: #8E95C4">Har bir to’liq aylanish — birga o’tgan bir yil. Oq nuqta — tanishgan kunimiz, to’q sariq — bugun.</p>
+    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; margin: 24px 0 0 1px">
+      <sc-for list="{{ ymd }}" as="c">
+      <div class="ob-cell" style="text-align: center"><p class="ub" style="margin: 0; font-size: 26px; font-weight: 300">{{ c.v }}</p><p class="ob-lb" style="margin-top: 6px; font-size: 9px; letter-spacing: 0.2em">{{ c.l }}</p></div>
+      </sc-for>
+    </div>
+    <div role="img" aria-label="{{ clockLbl }}" style="display: flex; align-items: center; justify-content: space-between; margin-top: 14px; padding: 14px 16px; border: 1px solid rgba(232, 236, 255, 0.16)">
+      <span class="gt" style="display: flex; align-items: center; gap: 8px; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: #8E95C4"><span class="ob-dot ob-blink" style="width: 7px; height: 7px; background: #FF7A59"></span>Jonli</span>
+      <span aria-hidden="true" class="ub" style="font-size: 22px; font-weight: 300; letter-spacing: 0.04em">{{ clock }}</span>
+    </div>
+    <sc-if value="{{ nextTxt }}">
+    <p class="gt" style="margin: 14px 0 0; font-size: 15px; color: #C9CEEE">{{ nextTxt }}</p>
+    </sc-if>
+  </section>
+  </sc-if>
+
+  <!-- ============ YOL ============ -->
+  <sc-if value="{{ b.yol }}">
+  <section style="position: relative; padding: 84px 32px 0">
+    <div class="ob-sh"><span class="ob-num">{{ n.yol }}</span><p class="ob-lb">Traektoriya</p><span class="ob-rule"></span></div>
+    <h2 class="ob-h2">Bizning yo’limiz</h2>
+    <div style="position: relative; margin-top: 30px; padding-left: 46px">
+      <div style="position: absolute; left: 15px; top: 8px; bottom: 8px; width: 1px; background: linear-gradient(#9CB4FF, #FF7A59)"></div>
+      <sc-for list="{{ yol }}" as="y">
+      <div style="position: relative; padding-bottom: 30px">
+        <svg aria-hidden="true" style="position: absolute; left: -46px; top: -2px" width="32" height="32" viewBox="0 0 32 32"><circle cx="16" cy="16" r="13" style="fill: #0B0E26; stroke: rgba(232, 236, 255, 0.35); stroke-width: 1"></circle><circle cx="16" cy="16" r="4.5" style="fill: {{ y.c }}"></circle><circle cx="{{ y.x }}" cy="{{ y.y }}" r="2.2" style="fill: #E8ECFF"></circle></svg>
+        <p class="ub" style="margin: 0; font-size: 13px; font-weight: 400; letter-spacing: 0.08em; color: {{ y.c }}; overflow-wrap: anywhere">{{ y.yil }}</p>
+        <p class="gt" style="margin: 6px 0 0; font-size: 21px; font-weight: 500; line-height: 1.25; overflow-wrap: anywhere">{{ y.sarlavha }}</p>
+        <sc-if value="{{ y.matn }}"><p class="gt" style="margin: 4px 0 0; font-size: 15px; line-height: 1.5; color: #8E95C4; overflow-wrap: anywhere">{{ y.matn }}</p></sc-if>
+      </div>
+      </sc-for>
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- ============ GALEREYA ============ -->
+  <sc-if value="{{ b.galereya }}">
+  <section style="position: relative; padding: 84px 32px 0">
+    <div class="ob-sh"><span class="ob-num">{{ n.galereya }}</span><p class="ob-lb">Kuzatuvlar</p><span class="ob-rule"></span></div>
+    <h2 class="ob-h2">Lahzalarimiz</h2>
+    <div style="position: relative; width: 326px; height: 326px; margin-top: 28px">
+      <svg aria-hidden="true" style="position: absolute; left: 0; top: 0" width="326" height="326" viewBox="0 0 326 326"><circle class="ob-ringd" cx="163" cy="163" r="160" style="stroke: rgba(232, 236, 255, 0.4)"></circle></svg>
+      <div style="position: absolute; left: 31px; top: 31px; width: 264px; height: 264px; border-radius: 50%; overflow: hidden; background: #141838">
+        <img src="{{ gal.first }}" alt="" style="display: block; width: 264px; height: 264px; object-fit: cover">
+      </div>
+      <div class="ob-hsys" style="left: 163px; top: 163px"><div class="ob-body ob-bb" style="left: 151px; top: -6px; width: 12px; height: 12px"></div></div>
+      <p class="ub" style="position: absolute; right: 0; bottom: 8px; margin: 0; font-size: 11px; font-weight: 400; color: #8E95C4">01</p>
+    </div>
+    <sc-if value="{{ gal.more }}">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 18px">
+      <sc-for list="{{ gal.rest }}" as="g">
+      <div style="{{ g.st }}position: relative; overflow: hidden; border-radius: 22px; background: #141838">
+        <img src="{{ g.src }}" alt="" style="display: block; width: 100%; height: {{ g.h }}px; object-fit: cover">
+        <span class="ub" style="position: absolute; left: 10px; top: 10px; padding: 5px 9px; border-radius: 999px; background: rgba(11, 14, 38, 0.72); font-size: 10px; font-weight: 400; color: #E8ECFF">{{ g.n }}</span>
+      </div>
+      </sc-for>
+    </div>
+    </sc-if>
+  </section>
+  </sc-if>
+
+  <!-- ============ XARITA ============ -->
+  <sc-if value="{{ b.xarita }}">
+  <section style="position: relative; padding: 84px 32px 0">
+    <div class="ob-sh"><span class="ob-num">{{ n.xarita }}</span><p class="ob-lb">Osmon xaritasi</p><span class="ob-rule"></span></div>
+    <h2 class="ob-h2">O’sha kungi osmon</h2>
+    <div style="position: relative; width: 326px; height: 326px; margin-top: 28px">
+      <svg role="img" aria-label="{{ mapLbl }}" width="326" height="326" viewBox="0 0 326 326">
+        <circle cx="163" cy="163" r="150" style="fill: #070920"></circle>
+        <circle class="ob-ring" cx="163" cy="163" r="150" style="stroke: rgba(232, 236, 255, 0.4)"></circle>
+        <circle class="ob-ringd" cx="163" cy="163" r="100"></circle>
+        <circle class="ob-ringd" cx="163" cy="163" r="50"></circle>
+        <path class="ob-ring" d="M13 163 H313 M163 13 V313" style="stroke: rgba(232, 236, 255, 0.08)"></path>
+        <sc-for list="{{ mTicks }}" as="t"><path class="ob-tick" d="{{ t }}"></path></sc-for>
+        <sc-for list="{{ sky.stars }}" as="s"><circle class="ob-st" cx="{{ s.x }}" cy="{{ s.y }}" r="{{ s.r }}" style="opacity: {{ s.o }}"></circle></sc-for>
+        <polyline class="ob-cl" points="{{ sky.clA }}"></polyline>
+        <polyline class="ob-cl" points="{{ sky.clB }}"></polyline>
+        <path class="ob-pair" d="{{ sky.pairD }}"></path>
+        <circle cx="{{ sky.sa.x }}" cy="{{ sky.sa.y }}" r="9" style="fill: none; stroke: rgba(255, 122, 89, 0.5); stroke-width: 1"></circle>
+        <circle cx="{{ sky.sa.x }}" cy="{{ sky.sa.y }}" r="3.6" class="ob-cA"></circle>
+        <circle cx="{{ sky.sb.x }}" cy="{{ sky.sb.y }}" r="9" style="fill: none; stroke: rgba(156, 180, 255, 0.5); stroke-width: 1"></circle>
+        <circle cx="{{ sky.sb.x }}" cy="{{ sky.sb.y }}" r="3.6" class="ob-cB"></circle>
+        <text class="ob-ini" x="{{ sky.sa.lx }}" y="{{ sky.sa.ly }}">{{ iniFrom }}</text>
+        <text class="ob-ini" x="{{ sky.sb.lx }}" y="{{ sky.sb.ly }}">{{ iniTo }}</text>
+        <text class="ob-car" x="163" y="34" text-anchor="middle">SH</text>
+        <text class="ob-car" x="163" y="300" text-anchor="middle">J</text>
+        <text class="ob-car" x="292" y="166" text-anchor="middle">SHQ</text>
+        <text class="ob-car" x="33" y="166" text-anchor="middle">G’</text>
+      </svg>
+    </div>
+    <div style="display: flex; justify-content: space-between; gap: 16px; margin-top: 20px; padding-top: 14px; border-top: 1px solid rgba(232, 236, 255, 0.14)">
+      <p class="gt" style="margin: 0; font-size: 14px; line-height: 1.5; color: #C9CEEE">{{ mapCap }}</p>
+      <p class="ub" style="margin: 0; flex: none; font-size: 12px; font-weight: 300; color: #8E95C4">{{ w.dots }}</p>
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- ============ SIRLI: eclipse ============ -->
+  <sc-if value="{{ b.sirli }}">
+  <section style="position: relative; padding: 84px 32px 0">
+    <div class="ob-sh"><span class="ob-num">{{ n.sirli }}</span><p class="ob-lb">Tutilish</p><span class="ob-rule"></span></div>
+    <h2 class="ob-h2">Yashirin so’z</h2>
+    <div style="position: relative; width: 326px; height: 326px; margin-top: 28px">
+      <div class="ob-corona" style="position: absolute; left: 21px; top: 21px; width: 284px; height: 284px; border-radius: 50%; box-shadow: 0 0 34px 6px rgba(255, 186, 160, 0.55), 0 0 90px 20px rgba(255, 122, 89, 0.25)"></div>
+      <div style="position: absolute; left: 23px; top: 23px; width: 280px; height: 280px; border-radius: 50%; background: radial-gradient(circle at 50% 40%, #FFF6F1 0, #FFE2D6 60%, #FFC3AE 100%); display: flex; align-items: center; justify-content: center; box-sizing: border-box; padding: 34px">
+        <p class="ub {{ secCls }}" style="margin: 0; text-align: center; font-size: {{ secPx }}px; font-weight: 300; line-height: 1.38; color: #1B1E3F; overflow-wrap: anywhere">{{ d.sirli_soz }}</p>
+      </div>
+      <div class="{{ moonCls }}" style="position: absolute; left: 21px; top: 21px; width: 284px; height: 284px; border-radius: 50%; background: radial-gradient(circle at 40% 35%, #1A1F4A 0, #0B0E26 70%); box-shadow: inset 0 0 0 1px rgba(232, 236, 255, 0.1)"></div>
+    </div>
+    <sc-if value="{{ secretHidden }}">
+    <button type="button" onClick="{{ reveal }}" style="margin-top: 26px; width: 100%; min-height: 54px; padding: 0 20px; border: 1px solid rgba(232, 236, 255, 0.5); border-radius: 999px; background: transparent; color: #E8ECFF; font-family: 'Unbounded', Arial, sans-serif; font-size: 13px; font-weight: 400; letter-spacing: 0.02em; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px">
+      <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><circle class="ico" cx="10" cy="12" r="7"></circle><circle cx="15" cy="12" r="7" style="fill: currentColor"></circle></svg>
+      Tutilishni yakunlang
+    </button>
+    </sc-if>
+    <sc-if value="{{ secretShown }}">
+    <p class="gt ob-in" style="margin: 26px 0 0; font-size: 15px; color: #8E95C4; text-align: center">Oy chetga surildi. Endi bu sir — ikkimizniki.</p>
+    </sc-if>
+  </section>
+  </sc-if>
+
+  <!-- ============ JAVOB: signal ============ -->
+  <sc-if value="{{ b.javob }}">
+  <section style="position: relative; padding: 84px 32px 0">
+    <div class="ob-sh"><span class="ob-num">{{ n.javob }}</span><p class="ob-lb">Signal</p><span class="ob-rule"></span></div>
+    <h2 class="ob-h2">{{ qTitle }}</h2>
+    <div style="position: relative; height: 96px; margin-top: 24px">
+      <svg aria-hidden="true" style="position: absolute; left: 0; top: 0" width="326" height="96" viewBox="0 0 326 96">
+        <path d="M40 48 H286" style="fill: none; stroke: rgba(232, 236, 255, 0.3); stroke-width: 1; stroke-dasharray: 3 5"></path>
+        <circle class="ob-ringd" cx="40" cy="48" r="28"></circle>
+        <circle class="ob-ringd" cx="286" cy="48" r="28"></circle>
+      </svg>
+      <div class="ob-body ob-bb" style="left: 31px; top: 39px"></div>
+      <div class="ob-body ob-ba" style="left: 277px; top: 39px"></div>
+      <sc-if value="{{ answered }}">
+      <div class="ob-sig" style="position: absolute; left: 36px; top: 44px; width: 8px; height: 8px; border-radius: 50%; background: #FFFFFF; box-shadow: 0 0 14px 4px rgba(255, 255, 255, 0.7)"></div>
+      </sc-if>
+      <p class="gt" style="position: absolute; left: 0; top: 82px; width: 100px; margin: 0; font-size: 11px; color: #8E95C4; overflow-wrap: anywhere">{{ toName }}</p>
+      <p class="gt" style="position: absolute; right: 0; top: 82px; width: 100px; margin: 0; font-size: 11px; color: #8E95C4; text-align: right; overflow-wrap: anywhere">{{ fromName }}</p>
+    </div>
+    <div style="margin-top: 36px; min-height: 150px">
+      <sc-if value="{{ asking }}">
+      <div role="group" aria-label="Javobni tanlang" style="display: flex; flex-direction: column; gap: 12px">
+        <button type="button" onClick="{{ sayLove }}" disabled="{{ busy }}" style="width: 100%; min-height: 58px; padding: 0 18px; border: 0; border-radius: 999px; background: #FF7A59; color: #0B0E26; font-family: 'Unbounded', Arial, sans-serif; font-size: 14px; font-weight: 400; cursor: pointer">Men ham seni sevaman</button>
+        <button type="button" onClick="{{ sayThanks }}" disabled="{{ busy }}" style="width: 100%; min-height: 58px; padding: 0 18px; border: 1px solid rgba(232, 236, 255, 0.5); border-radius: 999px; background: transparent; color: #E8ECFF; font-family: 'Unbounded', Arial, sans-serif; font-size: 14px; font-weight: 300; cursor: pointer">Rahmat, juda ta’sirlandim</button>
+        <p class="gt" style="margin: 4px 0 0; font-size: 14px; color: #8E95C4; text-align: center">{{ askHint }}</p>
+        <sc-if value="{{ err }}"><p role="alert" class="gt" style="margin: 0; font-size: 14px; color: #FFB4A0; text-align: center">{{ err }}</p></sc-if>
+      </div>
+      </sc-if>
+      <sc-if value="{{ answered }}">
+      <div style="text-align: center">
+        <p class="ob-lb ob-in" style="color: #FF7A59">Signal qabul qilindi</p>
+        <p class="ub ob-in" style="margin: 14px 0 0; font-size: 24px; font-weight: 300; line-height: 1.3">«{{ answer }}»</p>
+        <p class="gt ob-in" style="margin: 14px 0 0; font-size: 15px; line-height: 1.5; color: #C9CEEE; overflow-wrap: anywhere">Javobing {{ fromGa }} yetib bordi.</p>
+      </div>
+      </sc-if>
+    </div>
+  </section>
+  </sc-if>
+
+  <footer style="flex: 1; position: relative; padding: 90px 32px 46px; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; gap: 12px; text-align: center">
+    <svg aria-hidden="true" width="64" height="64" viewBox="0 0 64 64"><circle class="ob-ring2" cx="32" cy="32" r="20"></circle><circle cx="12" cy="32" r="4.5" class="ob-cA"></circle><circle cx="52" cy="32" r="4.5" class="ob-cB"></circle><path class="ob-ring" d="M29 32 H35 M32 29 V35" style="stroke: rgba(232, 236, 255, 0.6)"></path></svg>
+    <p class="ub" style="margin: 0; font-size: 13px; font-weight: 300; letter-spacing: 0.12em; overflow-wrap: anywhere">{{ pair }}</p>
+    <p class="ob-lb" style="font-size: 10px">Bitta orbita</p>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":6200}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { opened: false, secret: false, answer: null, busy: false, err: '' };
+  }
+
+  nm(n) { return String(n || '').trim(); }
+  poss(n) { n = this.nm(n); return n ? n + (/[aeiouAEIOU]$/.test(n) ? 'ng' : 'ing') : ''; }
+  ini(n) { const m = this.nm(n).match(/[A-Za-zÀ-ɏЀ-ӿ]/); return m ? m[0].toUpperCase() : ''; }
+  componentDidMount() { this.timer = setInterval(() => this.forceUpdate(), 1000); }
+  componentWillUnmount() { clearInterval(this.timer); }
+
+  ticks(cx, cy, r1, n, long, short) {
+    const out = [];
+    for (let k = 0; k < n; k++) {
+      const a = (k / n) * Math.PI * 2, r2 = k % 6 ? r1 - short : r1 - long;
+      out.push('M' + (cx + r1 * Math.cos(a)).toFixed(1) + ' ' + (cy + r1 * Math.sin(a)).toFixed(1) + ' L' + (cx + r2 * Math.cos(a)).toFixed(1) + ' ' + (cy + r2 * Math.sin(a)).toFixed(1));
+    }
+    return out;
+  }
+  statics() {
+    if (this.st) return this.st;
+    const spiral = (a0, turns, r0, r1) => {
+      const pts = [], steps = Math.round(turns * 72);
+      for (let i = 0; i <= steps; i++) {
+        const t = i / steps, a = (a0 + turns * 360 * t) * Math.PI / 180, r = r0 + (r1 - r0) * t;
+        pts.push((i ? 'L' : 'M') + (r * Math.cos(a)).toFixed(1) + ' ' + (r * Math.sin(a)).toFixed(1));
+      }
+      return pts.join(' ');
+    };
+    this.st = {
+      trailA: spiral(200, 2, 150, 58), trailB: spiral(20, 1, 96, 58),
+      iTicks: this.ticks(195, 452, 172, 72, 9, 4),
+      hTicks: this.ticks(195, 235, 166, 72, 9, 4),
+      cTicks: this.ticks(163, 163, 160, 60, 8, 4),
+      mTicks: this.ticks(163, 163, 150, 72, 7, 3)
+    };
+    return this.st;
+  }
+  sky() {
+    const d = SITE.d, key = (d.tanishgan_sana || '') + '|' + this.nm(d.kimdan) + '|' + this.nm(d.kimga);
+    if (this.skyC && this.skyC.key === key) return this.skyC.val;
+    let h = 2166136261;
+    for (let i = 0; i < key.length; i++) { h ^= key.charCodeAt(i); h = Math.imul(h, 16777619); }
+    let a = h >>> 0;
+    const rnd = () => { a = (a + 0x6D2B79F5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
+    const C = 163, T = Math.PI * 2, stars = [];
+    for (let i = 0; i < 110; i++) {
+      const r = Math.sqrt(rnd()) * 142, t = rnd() * T, big = rnd();
+      stars.push({ x: (C + r * Math.cos(t)).toFixed(1), y: (C + r * Math.sin(t)).toFixed(1), r: big > 0.95 ? 1.9 : big > 0.75 ? 1.2 : 0.7, o: big > 0.75 ? 1 : 0.55 });
+    }
+    const chain = (n, x, y, sp) => { const o = []; for (let i = 0; i < n; i++) { o.push(x.toFixed(1) + ',' + y.toFixed(1)); const an = rnd() * T; x = Math.max(50, Math.min(276, x + Math.cos(an) * sp)); y = Math.max(50, Math.min(276, y + Math.sin(an) * sp)); } return o.join(' '); };
+    const clA = chain(6, 70 + rnd() * 30, 66 + rnd() * 30, 26), clB = chain(5, 206 + rnd() * 30, 206 + rnd() * 20, 24);
+    const ang = rnd() * Math.PI, dist = 54 + rnd() * 14;
+    const sa = { x: +(C - Math.cos(ang) * dist).toFixed(1), y: +(C - Math.sin(ang) * dist * 0.6).toFixed(1) };
+    const sb = { x: +(C + Math.cos(ang) * dist).toFixed(1), y: +(C + Math.sin(ang) * dist * 0.6).toFixed(1) };
+    sa.lx = sa.x - 5; sa.ly = sa.y - 16; sb.lx = sb.x - 5; sb.ly = sb.y + 27;
+    const val = { stars, clA, clB, sa, sb, pairD: 'M' + sa.x + ' ' + sa.y + ' Q' + C + ' ' + (C - 60) + ' ' + sb.x + ' ' + sb.y };
+    this.skyC = { key, val };
+    return val;
+  }
+  orbit() {
+    const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(SITE.d.tanishgan_sana || '');
+    if (!m) return { dash: '0 880', x: 163, y: 23, toNext: 0 };
+    const now = Date.now() + 5 * 3600e3, nd = new Date(now), mo = +m[2] - 1, da = +m[3];
+    let yr = nd.getUTCFullYear(), last = Date.UTC(yr, mo, da);
+    if (last > now) { yr -= 1; last = Date.UTC(yr, mo, da); }
+    const start = Date.UTC(+m[1], mo, da);
+    if (start > now) return { dash: '0 880', x: 163, y: 23, toNext: 0 };
+    const next = Date.UTC(yr + 1, mo, da), f = Math.max(0, Math.min(1, (now - last) / (next - last)));
+    const C = 2 * Math.PI * 140, ang = -Math.PI / 2 + f * Math.PI * 2;
+    return { dash: (f * C).toFixed(1) + ' ' + C.toFixed(1), x: (163 + 140 * Math.cos(ang)).toFixed(1), y: (163 + 140 * Math.sin(ang)).toFixed(1), toNext: Math.ceil((next - now) / 86400e3) };
+  }
+  gallery() {
+    const n = Math.min(6, Math.max(1, SITE.has.photos)), rest = [];
+    for (let i = 1; i < n; i++) {
+      const last = i === n - 1, odd = (n - 1) % 2 === 1;
+      const wide = last && odd;
+      rest.push({ src: SITE.p[i], n: String(i + 1).padStart(2, '0'), h: wide ? 200 : (i % 4 === 1 || i % 4 === 0 ? 210 : 170), st: wide ? 'grid-column: 1 / -1; ' : '' });
+    }
+    // ikki ustunda balandliklar teng bo’lsin
+    for (let i = 0; i + 1 < rest.length; i += 2) { if (!rest[i].st && !rest[i + 1].st) { const hh = i % 4 === 0 ? 210 : 170; rest[i].h = hh; rest[i + 1].h = hh; } }
+    return { first: SITE.p[0], rest, more: rest.length > 0 };
+  }
+  answer(a) {
+    if (this.state.busy || this.state.answer) return;
+    this.setState({ busy: true, err: '' });
+    SITE.reply(String(SITE.d.savol || '').trim() ? a + ' — «' + String(SITE.d.savol).trim() + '»' : a, '❤️').then(
+      () => this.setState({ answer: a, busy: false }),
+      () => this.setState({ busy: false, err: 'Signal yetib bormadi. Qayta bosib ko’ring.' })
+    );
+  }
+  renderVals() {
+    const s = this.state, d = SITE.d, b = SITE.b, st = this.statics();
+    const to = this.nm(d.kimga), from = this.nm(d.kimdan);
+    const fromName = from || 'Men', toName = to || 'Sen';
+    const w = SITE.when(d.tanishgan_sana), hasDate = !!w.day;
+    const el = SITE.elapsed(d.tanishgan_sana);
+    const fitW = (t, max, width, k) => { const one = Math.floor(width / (Math.max(1, t.length) * k)); return one >= 30 ? { px: Math.min(max, one), ws: 'nowrap' } : { px: Math.max(22, Math.min(40, Math.floor(width * 1.9 / (t.length * k)))), ws: 'normal' }; };
+    const tN = fitW(toName + ',', 58, 326, 0.74);
+    const longest = Math.max(1, ...(toName + ',').split(/\s+/).map((x) => x.length));
+    tN.px = Math.max(20, Math.min(tN.px, Math.floor(326 / (longest * 0.76))));
+    const days = hasDate ? el.days || 0 : 0, daysTxt = SITE.num(days);
+    const pad = (x) => String(x || 0).padStart(2, '0');
+    const order = ['maktub', 'sabablar', 'hisob', 'yol', 'galereya', 'xarita', 'sirli', 'javob'], n = {};
+    let k = 0;
+    order.forEach((key) => { if (b[key]) { k++; n[key] = String(k).padStart(2, '0'); } });
+    const reasons = (d.sabablar || []).filter((x) => String(x || '').trim()).map((t, i) => {
+      const a = (-90 + i * 77) * Math.PI / 180;
+      return { n: String(i + 1).padStart(2, '0'), t, x: (20 + 15 * Math.cos(a)).toFixed(1), y: (20 + 15 * Math.sin(a)).toFixed(1) };
+    });
+    const yolList = (d.yol || []).filter((x) => x && (x.yil || x.sarlavha || x.matn));
+    const yol = yolList.map((x, i) => {
+      const a = (-60 + i * 95) * Math.PI / 180, lastOne = i === yolList.length - 1;
+      return { yil: String(x.yil || ''), sarlavha: x.sarlavha || '', matn: x.matn || '', c: lastOne ? '#FF7A59' : '#9CB4FF', x: (16 + 13 * Math.cos(a)).toFixed(1), y: (16 + 13 * Math.sin(a)).toFixed(1) };
+    });
+    const orb = b.hisob ? this.orbit() : { dash: '0 880', x: 163, y: 23, toNext: 0 };
+    const turns = el.years || 0;
+    const greet = 'Azizim ' + toName + ',';
+    const secret = this.nm(d.sirli_soz);
+    const pairTxt = fromName + ' + ' + toName;
+    return {
+      to, from, w, hasDate, fromName, toName, n,
+      introCls: s.opened ? 'ob-intro is-on' : 'ob-intro',
+      open: () => { if (!this.state.opened) { this.setState({ opened: true }); SITE.opened(); } },
+      musicOn: !!SITE.music.playing, musicOff: !SITE.music.playing,
+      toggleMusic: () => SITE.music.toggle(),
+      trailA: st.trailA, trailB: st.trailB, iTicks: st.iTicks, hTicks: st.hTicks, cTicks: b.hisob ? st.cTicks : [], mTicks: b.xarita ? st.mTicks : [],
+      pairPx: pairTxt.length > 24 ? 20 : pairTxt.length > 16 ? 24 : 28,
+      heroLb: hasDate ? 'Gravitatsion maktub · ' + w.year : 'Gravitatsion maktub',
+      toPx: tN.px, toWs: tN.ws,
+      daysTxt, turnsTxt: turns > 0 ? turns + ' marta' : (el.totalMonths || 0) + ' oy',
+      greet, greetPx: greet.length > 26 ? 18 : 22,
+      sign: from ? 'Sening ' + this.poss(from) : '',
+      reasons, yol,
+      arc: orb,
+      dPx: daysTxt.length > 6 ? 44 : 58,
+      daysLbl: days + ' kun birga',
+      ymd: [{ v: el.years || 0, l: 'yil' }, { v: el.months || 0, l: 'oy' }, { v: el.rest || 0, l: 'kun' }],
+      clock: pad(el.h) + ':' + pad(el.m) + ':' + pad(el.s),
+      clockLbl: (el.h || 0) + ' soat ' + (el.m || 0) + ' daqiqa ' + (el.s || 0) + ' soniya',
+      nextTxt: orb.toNext ? 'Navbatdagi to’liq aylanishgacha ' + orb.toNext + ' kun qoldi' : '',
+      gal: b.galereya ? this.gallery() : { first: '', rest: [], more: false },
+      sky: b.xarita ? this.sky() : { stars: [], clA: '', clB: '', sa: {}, sb: {}, pairD: '' },
+      iniFrom: this.ini(from), iniTo: this.ini(to),
+      mapLbl: 'Osmon xaritasi' + (hasDate ? ': ' + w.date : ''),
+      mapCap: hasDate ? w.date + ', ' + w.weekday + '. Shu kuni ikki yo’l kesishdi.' : 'Shu kuni ikki yo’l kesishdi.',
+      secCls: s.secret ? 'ob-sec is-shown' : 'ob-sec',
+      secPx: secret.length > 150 ? 13 : secret.length > 90 ? 15 : 17,
+      moonCls: s.secret ? 'ob-moon is-off' : 'ob-moon',
+      secretShown: s.secret, secretHidden: !s.secret,
+      reveal: () => this.setState({ secret: true }),
+      qTitle: String(d.savol || '').trim() || 'Javobingni kutaman',
+      askHint: from ? 'Javobing signal bo’lib ' + SITE.ga(from) + ' yetadi' : 'Javobing signal bo’lib menga yetadi',
+      asking: !s.answer, answered: !!s.answer, answer: s.answer || '',
+      busy: s.busy, err: s.err,
+      sayLove: () => this.answer('Men ham seni sevaman'),
+      sayThanks: () => this.answer('Rahmat, juda ta’sirlandim'),
+      fromGa: from ? SITE.ga(from) : 'menga',
+      pair: [from, to].filter(Boolean).join(' · ')
+    };
+  }
+}
+</script>
+</body>
+</html>

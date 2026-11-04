@@ -1,0 +1,526 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<title>Osh va marosimlar taklifnomasi: Chiziq</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600&amp;family=Literata:ital,wght@0,300;0,400;0,500;1,300;1,400&amp;display=swap">
+<style>
+body{margin:0}
+.cz-root{font-family:'Jost','Segoe UI',Arial,sans-serif;color:#2A2C5E;background:#E7E7EE}
+.cz-s{font-family:'Literata',Georgia,'Times New Roman',serif}
+.cz-num{font-variant-numeric:lining-nums tabular-nums}
+.cz-cap{margin:0;font-family:'Jost',sans-serif;font-size:11.5px;line-height:16px;font-weight:500;letter-spacing:.28em;text-transform:uppercase}
+.cz-icon{fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.cz-mut{color:#5C5E80}
+
+/* uzluksiz chiziq */
+.cz-art{display:block}
+.cz-ln{fill:none;stroke:#2A2C5E;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.cz-acc{fill:#D9774F}
+.cz-pen .cz-ln{stroke-dasharray:1 1;stroke-dashoffset:1;transition:stroke-dashoffset 2.5s cubic-bezier(.55,.05,.35,1)}
+.cz-pen .cz-acc{opacity:0;transform:scale(.2);transform-box:fill-box;transform-origin:50% 50%;transition:opacity .5s ease 2.1s,transform .7s cubic-bezier(.2,1.4,.4,1) 2.1s}
+.cz-i--open .cz-pen .cz-ln{stroke-dashoffset:0}
+.cz-i--open .cz-pen .cz-acc{opacity:1;transform:none}
+.cz-steam{animation:cz-sway 5s ease-in-out infinite;transform-box:fill-box;transform-origin:50% 100%}
+@keyframes cz-sway{0%,100%{transform:skewX(0)}50%{transform:skewX(-2.5deg)}}
+
+/* ---------- kirish: chiziq o'zini chizadi */
+.cz-i{position:absolute;left:0;top:0;width:390px;height:844px;z-index:40;overflow:hidden;background:#E7E7EE}
+.cz-i-ui{transition:opacity .5s ease}
+.cz-lead{position:absolute;left:0;top:489px;height:2.2px;width:150px;background:#2A2C5E;border-radius:2px;transform-origin:0 50%;animation:cz-lead 2.4s ease-in-out infinite alternate;transition:opacity .3s ease}
+.cz-lead::after{content:"";position:absolute;right:-6px;top:-4.9px;width:12px;height:12px;border-radius:50%;background:#D9774F}
+@keyframes cz-lead{from{transform:scaleX(.86)}to{transform:scaleX(1)}}
+.cz-i-btn{display:inline-flex;align-items:center;justify-content:center;gap:12px;height:56px;padding:0 30px;border:0;border-radius:999px;cursor:pointer;background:#2A2C5E;color:#F4F4F8;font-family:'Jost',sans-serif;font-weight:500;font-size:16px;letter-spacing:.06em;box-shadow:0 16px 30px -18px rgba(42,44,94,.8)}
+.cz-i-btn:focus-visible{outline:2px solid #D9774F;outline-offset:4px}
+.cz-i-later{opacity:0;transform:translateY(8px);transition:opacity .8s ease 1.7s,transform .8s ease 1.7s}
+.cz-i--open .cz-i-later{opacity:1;transform:none}
+.cz-i--open{pointer-events:none;animation:cz-out .7s ease 2.75s forwards}
+.cz-i--open .cz-i-ui,.cz-i--open .cz-lead{opacity:0}
+@keyframes cz-out{to{opacity:0;visibility:hidden}}
+
+/* ---------- sahifa */
+.cz-up{opacity:0;transform:translateY(12px)}
+.cz-on .cz-up{animation:cz-fade 1s cubic-bezier(.2,.7,.2,1) forwards}
+.cz-on .cz-d1{animation-delay:2.9s}.cz-on .cz-d2{animation-delay:3.05s}.cz-on .cz-d3{animation-delay:3.2s}.cz-on .cz-d4{animation-delay:3.35s}
+@keyframes cz-fade{to{opacity:1;transform:none}}
+.cz-sec{padding:64px 28px 0}
+.cz-hd{display:flex;align-items:center;gap:12px;margin-bottom:26px}
+.cz-hl{position:relative;width:44px;height:2px;flex:none}
+.cz-hl::before{content:"";position:absolute;left:0;top:0;width:100%;height:100%;border-radius:2px;background:#2A2C5E;transform-origin:0 50%;transform:scaleX(0);transition:transform 1.1s cubic-bezier(.5,0,.2,1)}
+.cz-hl::after{content:"";position:absolute;right:-5px;top:-3px;width:8px;height:8px;border-radius:50%;background:#D9774F;opacity:0;transition:opacity .4s ease .9s}
+.cz-rv .cz-hl::before{transform:none}
+.cz-rv .cz-hl::after{opacity:1}
+.cz-ix{margin-left:auto;font-family:'Literata',serif;font-style:italic;font-size:15px;color:#5C5E80}
+.cz-p{margin:0;font-family:'Literata',Georgia,serif;font-weight:300;font-size:20px;line-height:1.66;white-space:pre-line;overflow-wrap:anywhere;text-wrap:pretty}
+.cz-btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 26px;border-radius:999px;box-sizing:border-box;font-family:'Jost',sans-serif;font-weight:500;font-size:16px;letter-spacing:.03em;text-decoration:none;cursor:pointer;border:0;transition:background-color .2s,color .2s}
+.cz-btn--o{background:transparent;color:#2A2C5E;box-shadow:inset 0 0 0 1.5px #2A2C5E}
+.cz-btn--o:hover{background:#2A2C5E;color:#F4F4F8}
+.cz-btn--k{background:#2A2C5E;color:#F4F4F8}
+.cz-btn--k .cz-icon{color:#F2B597}
+.cz-btn:disabled{opacity:.55;cursor:default}
+.cz-btn:focus-visible,.cz-opt:focus-visible,.cz-sb:focus-visible{outline:2px solid #D9774F;outline-offset:3px}
+
+.cz-meta{display:grid;grid-template-columns:1fr 1.25fr 1fr;border-top:1.5px solid #2A2C5E;border-bottom:1px solid rgba(42,44,94,.25)}
+.cz-meta>div{padding:14px 0 16px;text-align:center}
+.cz-meta>div+div{border-left:1px solid rgba(42,44,94,.2)}
+.cz-ml{display:block;font-size:10.5px;line-height:14px;font-weight:500;letter-spacing:.24em;text-transform:uppercase;color:#5C5E80}
+.cz-mv{display:block;margin-top:6px;font-family:'Literata',serif;font-size:20px;line-height:1.2}
+
+.cz-ring{fill:none;stroke:#D9774F;stroke-width:1.6;stroke-linecap:round;stroke-dasharray:1 1;stroke-dashoffset:1;transition:stroke-dashoffset 1.6s cubic-bezier(.5,0,.2,1) .2s}
+.cz-rv .cz-ring{stroke-dashoffset:0}
+
+.cz-cd{display:grid;grid-template-columns:repeat(4,minmax(0,1fr))}
+.cz-cdc{text-align:center}
+.cz-cdc+.cz-cdc{border-left:1px solid rgba(42,44,94,.2)}
+.cz-cdn{display:block;font-family:'Literata',serif;font-weight:300;font-size:46px;line-height:1.05}
+.cz-cdl{display:block;margin-top:4px;font-size:11px;line-height:14px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:#5C5E80}
+.cz-fade{display:inline-block;animation:cz-tick .6s ease}
+@keyframes cz-tick{from{opacity:.15}to{opacity:1}}
+.cz-track{position:relative;height:14px;margin-top:26px}
+.cz-track::before{content:"";position:absolute;left:0;right:0;top:6px;height:1.5px;background:rgba(42,44,94,.22)}
+.cz-track i{position:absolute;left:0;top:6px;height:1.5px;width:100%;background:#2A2C5E;transform-origin:0 50%;transition:transform .9s linear}
+.cz-track b{position:absolute;top:2px;width:10px;height:10px;margin-left:-5px;border-radius:50%;background:#D9774F;transition:left .9s linear}
+
+.cz-ph{position:relative;display:block;background:#D8D8E2}
+.cz-ph img{display:block;width:100%;height:100%;object-fit:cover}
+.cz-fr{position:absolute;border:1.5px solid #2A2C5E;pointer-events:none}
+
+.cz-tl{position:relative;padding-left:30px}
+.cz-tl::before{content:"";position:absolute;left:6px;top:12px;bottom:12px;width:1.5px;background:#2A2C5E}
+.cz-pr{position:relative;padding:4px 0 22px}
+.cz-pr:last-child{padding-bottom:0}
+.cz-pr::before{content:"";position:absolute;left:-30px;top:8px;width:11px;height:11px;border-radius:50%;background:#E7E7EE;box-shadow:inset 0 0 0 1.5px #2A2C5E}
+.cz-pr--1::before{background:#D9774F;box-shadow:none}
+.cz-pt{display:block;font-size:14px;line-height:18px;font-weight:500;letter-spacing:.14em;color:#5C5E80}
+.cz-pn{margin:4px 0 0;font-family:'Literata',serif;font-size:20px;line-height:1.4;overflow-wrap:anywhere}
+
+.cz-opt{flex:1 1 0;min-width:0;height:54px;border-radius:999px;border:0;cursor:pointer;font-family:'Jost',sans-serif;font-size:16px;font-weight:500;display:flex;align-items:center;justify-content:center;gap:8px;padding:0 8px;white-space:nowrap;background:transparent;color:#2A2C5E;box-shadow:inset 0 0 0 1.5px rgba(42,44,94,.45);transition:background-color .25s,color .25s,box-shadow .25s}
+.cz-opt--on{background:#2A2C5E;color:#F4F4F8;box-shadow:inset 0 0 0 1.5px #2A2C5E}
+.cz-opt--on .cz-icon{color:#F2B597}
+.cz-step{display:flex;align-items:center;justify-content:space-between;margin-top:18px;padding-bottom:12px;border-bottom:1px solid rgba(42,44,94,.3);transition:opacity .2s}
+.cz-step--off{opacity:.4}
+.cz-sb{width:44px;height:44px;border-radius:50%;border:0;background:transparent;box-shadow:inset 0 0 0 1.5px rgba(42,44,94,.45);color:#2A2C5E;font-size:20px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:'Jost',sans-serif}
+.cz-sb:disabled{opacity:.4;cursor:default}
+.cz-inp,.cz-ta{display:block;width:100%;box-sizing:border-box;border:0;border-bottom:1px solid rgba(42,44,94,.4);border-radius:0;background:transparent;color:#2A2C5E;font-family:'Literata',serif;font-size:18px;outline:none}
+.cz-inp{height:52px;padding:0 2px}
+.cz-ta{height:82px;padding:14px 2px;resize:none;line-height:1.45}
+.cz-inp:focus,.cz-ta:focus{border-bottom-color:#D9774F}
+.cz-inp::placeholder,.cz-ta::placeholder{color:#6A6C8C;font-style:italic}
+
+.cz-music{position:absolute;right:16px;top:16px;z-index:30;width:46px;height:46px;border-radius:50%;border:0;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#2A2C5E;background:rgba(244,244,248,.85);box-shadow:inset 0 0 0 1.5px rgba(42,44,94,.4)}
+.cz-music--on{background:#2A2C5E;color:#F2B597}
+.cz-eq{display:flex;align-items:flex-end;gap:3px;height:16px}
+.cz-eq i{display:block;width:3px;height:100%;border-radius:2px;background:currentColor;transform-origin:50% 100%;animation:cz-eq 1s ease-in-out infinite}
+.cz-eq i:nth-child(2){animation-delay:-.3s}.cz-eq i:nth-child(3){animation-delay:-.6s}
+@keyframes cz-eq{0%,100%{transform:scaleY(.3)}50%{transform:scaleY(1)}}
+
+@media (prefers-reduced-motion: reduce){
+  .cz-steam,.cz-lead,.cz-eq i,.cz-fade{animation:none}
+  .cz-pen .cz-ln{stroke-dashoffset:0;transition:none}
+  .cz-pen .cz-acc{opacity:1;transform:none;transition:none}
+  .cz-hl::before,.cz-ring,.cz-track i,.cz-track b{transition:none}
+  .cz-hl::before{transform:none}.cz-hl::after{opacity:1}.cz-ring{stroke-dashoffset:0}
+  .cz-up{opacity:1;transform:none}
+  .cz-on .cz-up{animation:none}
+  .cz-i-later{opacity:1;transform:none;transition:none}
+  .cz-i--open{animation:cz-out .01s linear forwards}
+}
+</style>
+</helmet>
+<div class="{{ rootCls }}" style="width: 390px; min-height: var(--vh, 100vh); position: relative; overflow: hidden; display: flex; flex-direction: column">
+
+  <sc-if value="{{ has.music }}">
+  <button type="button" class="{{ musicCls }}" aria-label="{{ musicLabel }}" aria-pressed="{{ musicOn }}" onClick="{{ toggleMusic }}">
+    <sc-if value="{{ musicOn }}"><span class="cz-eq" aria-hidden="true"><i></i><i></i><i></i></span></sc-if>
+    <sc-if value="{{ musicOff }}"><svg class="cz-icon" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V5.5l11-2.2v12.5"></path><circle cx="6.2" cy="18" r="2.8"></circle><circle cx="17.2" cy="15.8" r="2.8"></circle></svg></sc-if>
+  </button>
+  </sc-if>
+
+  <!-- ===== kirish: chiziq o'zini chizadi ===== -->
+  <div data-intro class="{{ introCls }}" aria-hidden="{{ introHidden }}">
+    <div style="position: absolute; left: 0; right: 0; top: 0; height: 250px; text-align: center">
+      <p class="cz-cap" style="position: absolute; left: 0; right: 0; top: 52px">Bismillahir Rohmanir Rohiym</p>
+      <p class="cz-s cz-mut" style="position: absolute; left: 0; right: 0; top: 98px; margin: 0; font-style: italic; font-weight: 300; font-size: 19px; line-height: 24px">Assalomu alaykum,</p>
+      <p class="cz-s" style="position: absolute; left: 28px; right: 28px; top: 128px; margin: 0; font-weight: 300; font-size: {{ guestFs }}px; line-height: 1.15; overflow-wrap: anywhere">{{ guestLine }}</p>
+    </div>
+    <div class="cz-lead" aria-hidden="true"></div>
+    <svg class="cz-art cz-pen" width="390" height="260" viewBox="0 0 390 260" aria-hidden="true" style="position: absolute; left: 0; top: 250px">
+      <sc-if value="{{ mk.nahorgi }}"><path class="cz-ln" pathLength="1" d="{{ art.nahorgi }}"></path><circle class="cz-acc" cx="318" cy="64" r="11"></circle></sc-if>
+      <sc-if value="{{ mk.osh_toyi }}"><path class="cz-ln" pathLength="1" d="{{ art.osh_toyi }}"></path><circle class="cz-acc" cx="196" cy="186" r="6"></circle></sc-if>
+      <sc-if value="{{ mk.sunnat }}"><path class="cz-ln" pathLength="1" d="{{ art.sunnat }}"></path><circle class="cz-acc" cx="195" cy="176" r="6"></circle></sc-if>
+      <sc-if value="{{ mk.beshik }}"><path class="cz-ln" pathLength="1" d="{{ art.beshik }}"></path><circle class="cz-acc" cx="195" cy="34" r="7"></circle></sc-if>
+    </svg>
+    <div class="cz-i-ui" style="position: absolute; left: 0; right: 0; top: 560px; display: flex; flex-direction: column; align-items: center">
+      <p class="cz-cap" style="padding: 0 28px; text-align: center">{{ taklifCap }}</p>
+      <button type="button" class="cz-i-btn" onClick="{{ open }}" style="margin-top: 36px">
+        <svg class="cz-icon" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 17c3-1 4-9 8-9 3 0 2 6 5 6 2 0 3-3 5-4"></path></svg>
+        Taklifnomani ochish
+      </button>
+      <p class="cz-s cz-mut" style="margin: 20px 0 0; padding: 0 28px; font-style: italic; font-size: 16px; line-height: 1.4; text-align: center; overflow-wrap: anywhere">{{ introFrom }}</p>
+    </div>
+  </div>
+
+  <!-- ===== bosh qism ===== -->
+  <header style="position: relative">
+    <div style="position: relative; height: 250px; text-align: center">
+      <p class="cz-cap" style="position: absolute; left: 0; right: 0; top: 52px">Bismillahir Rohmanir Rohiym</p>
+      <p class="cz-s cz-mut" style="position: absolute; left: 0; right: 0; top: 98px; margin: 0; font-style: italic; font-weight: 300; font-size: 19px; line-height: 24px">Assalomu alaykum,</p>
+      <p class="cz-s" style="position: absolute; left: 28px; right: 28px; top: 128px; margin: 0; font-weight: 300; font-size: {{ guestFs }}px; line-height: 1.15; overflow-wrap: anywhere">{{ guestLine }}</p>
+    </div>
+    <svg class="cz-art" width="390" height="260" viewBox="0 0 390 260" aria-hidden="true">
+      <sc-if value="{{ mk.nahorgi }}"><path class="cz-ln" d="{{ art.nahorgi }}"></path><circle class="cz-acc" cx="318" cy="64" r="11"></circle></sc-if>
+      <sc-if value="{{ mk.osh_toyi }}"><path class="cz-ln" d="{{ art.osh_toyi }}"></path><circle class="cz-acc" cx="196" cy="186" r="6"></circle></sc-if>
+      <sc-if value="{{ mk.sunnat }}"><path class="cz-ln" d="{{ art.sunnat }}"></path><circle class="cz-acc" cx="195" cy="176" r="6"></circle></sc-if>
+      <sc-if value="{{ mk.beshik }}"><path class="cz-ln" d="{{ art.beshik }}"></path><circle class="cz-acc" cx="195" cy="34" r="7"></circle></sc-if>
+    </svg>
+    <div style="padding: 0 28px; text-align: center">
+      <div class="cz-up cz-d1" style="margin-top: 34px">
+        <p class="cz-cap cz-mut" style="letter-spacing: 0.24em">Mezbonlar</p>
+        <p style="margin: 10px 0 0; font-weight: 500; font-size: {{ hostFs }}px; line-height: 1.25; letter-spacing: 0.01em; overflow-wrap: anywhere">{{ mezbon }}</p>
+        <p class="cz-s cz-mut" style="margin: 6px 0 0; font-style: italic; font-weight: 300; font-size: 17px; line-height: 1.45">sizni {{ taklifLow }} lutfan taklif etadi</p>
+      </div>
+      <div class="cz-up cz-d2" style="margin-top: 40px">
+        <p class="cz-cap" style="color: #B4532E">{{ taklifCap }}</p>
+        <sc-if value="{{ titleA }}"><p class="cz-s" style="margin: 16px 0 0; font-style: italic; font-weight: 300; font-size: 30px; line-height: 1.1; overflow-wrap: anywhere">{{ titleA }}</p></sc-if>
+        <h1 class="cz-s" style="margin: {{ titleMt }}px 0 0; font-weight: 300; font-size: {{ titleFs }}px; line-height: 1.05; letter-spacing: -0.015em; overflow-wrap: anywhere">{{ titleB }}</h1>
+        <sc-if value="{{ sabab }}"><p class="cz-s cz-mut" style="margin: 16px auto 0; max-width: 300px; font-style: italic; font-weight: 300; font-size: 18px; line-height: 1.5; overflow-wrap: anywhere">{{ sabab }}</p></sc-if>
+      </div>
+      <div class="cz-up cz-d3 cz-meta" style="margin-top: 40px; text-align: center">
+        <div><span class="cz-ml">Kun</span><span class="cz-mv">{{ w.Weekday }}</span></div>
+        <div><span class="cz-ml">Sana</span><span class="cz-mv cz-num">{{ w.dm }}</span></div>
+        <div><span class="cz-ml">Soat</span><span class="cz-mv cz-num">{{ hhmm }}</span></div>
+      </div>
+      <sc-if value="{{ timeNote }}"><p class="cz-up cz-d4 cz-s cz-mut" style="margin: 14px 0 0; font-style: italic; font-size: 16px; line-height: 1.4">{{ timeNote }}</p></sc-if>
+    </div>
+  </header>
+
+  <main style="display: flex; flex-direction: column">
+    <!-- ===== taklif ===== -->
+    <sc-if value="{{ b.taklif }}">
+    <section class="{{ rv.taklif }}" data-rv="taklif">
+      <div class="cz-hd"><span class="cz-hl" aria-hidden="true"></span><p class="cz-cap" style="margin-left: 6px">Taklif so’zi</p><span class="cz-ix cz-num">{{ ix.taklif }}</span></div>
+      <p class="cz-p">{{ d.matn }}</p>
+      <p class="cz-s cz-mut" style="margin: 20px 0 0; font-style: italic; font-size: 17px; line-height: 1.4; overflow-wrap: anywhere">Hurmat bilan, {{ mezbon }}</p>
+    </section>
+    </sc-if>
+
+    <!-- ===== sana va vaqt ===== -->
+    <sc-if value="{{ b.kun }}">
+    <section class="{{ rv.kun }}" data-rv="kun">
+      <div class="cz-hd"><span class="cz-hl" aria-hidden="true"></span><p class="cz-cap" style="margin-left: 6px">Sana va vaqt</p><span class="cz-ix cz-num">{{ ix.kun }}</span></div>
+      <div style="display: flex; align-items: center; gap: 22px">
+        <div style="position: relative; width: 150px; height: 150px; flex: none">
+          <svg width="150" height="150" viewBox="0 0 150 150" aria-hidden="true" style="position: absolute; left: 0; top: 0">
+            <path class="cz-ring" pathLength="1" d="M118 34C100 14 52 10 28 36C6 60 10 104 38 124C66 144 112 138 130 108C146 82 136 52 112 36C100 28 84 24 70 26"></path>
+          </svg>
+          <p class="cz-s cz-num" style="position: absolute; left: 0; right: 0; top: 24px; margin: 0; text-align: center; font-weight: 300; font-size: 84px; line-height: 100px">{{ w.day }}</p>
+        </div>
+        <div style="min-width: 0">
+          <p class="cz-s" style="margin: 0; font-size: 28px; line-height: 1.15">{{ w.month }}</p>
+          <p class="cz-cap cz-mut cz-num" style="margin-top: 8px; letter-spacing: 0.2em">{{ w.year }} · {{ w.weekday }}</p>
+          <sc-if value="{{ hhmm }}"><p class="cz-num" style="margin: 14px 0 0; font-weight: 500; font-size: 20px; line-height: 1.2; letter-spacing: 0.06em">soat {{ hhmm }}</p></sc-if>
+        </div>
+      </div>
+      <sc-if value="{{ calLink }}">
+      <a class="cz-btn cz-btn--o" href="{{ calLink }}" target="_blank" rel="noopener" style="margin-top: 28px">
+        <svg class="cz-icon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="3"></rect><path d="M3.5 10h17M8 3v4M16 3v4M12 13v5M9.5 15.5h5"></path></svg>
+        Kalendarga qo’shish
+      </a>
+      </sc-if>
+    </section>
+    </sc-if>
+
+    <!-- ===== taymer ===== -->
+    <sc-if value="{{ b.taymer }}">
+    <section class="{{ rv.taymer }}" data-rv="taymer">
+      <div class="cz-hd"><span class="cz-hl" aria-hidden="true"></span><p class="cz-cap" style="margin-left: 6px">{{ untilText }}</p><span class="cz-ix cz-num">{{ ix.taymer }}</span></div>
+      <div class="cz-cd cz-num" role="timer" aria-label="{{ cdText }}">
+        <div class="cz-cdc"><span class="cz-cdn"><span class="cz-fade" key="{{ cdKey.d }}">{{ cd.dd }}</span></span><span class="cz-cdl">kun</span></div>
+        <div class="cz-cdc"><span class="cz-cdn"><span class="cz-fade" key="{{ cdKey.h }}">{{ cd.hh }}</span></span><span class="cz-cdl">soat</span></div>
+        <div class="cz-cdc"><span class="cz-cdn"><span class="cz-fade" key="{{ cdKey.m }}">{{ cd.mm }}</span></span><span class="cz-cdl">daqiqa</span></div>
+        <div class="cz-cdc"><span class="cz-cdn" style="color: #B4532E"><span class="cz-fade" key="{{ cdKey.s }}">{{ cd.ss }}</span></span><span class="cz-cdl">soniya</span></div>
+      </div>
+      <div class="cz-track" aria-hidden="true"><i style="{{ barStyle }}"></i><b style="{{ dotStyle }}"></b></div>
+    </section>
+    </sc-if>
+
+    <!-- ===== manzil ===== -->
+    <sc-if value="{{ b.manzil }}">
+    <section class="{{ rv.manzil }}" data-rv="manzil">
+      <div class="cz-hd"><span class="cz-hl" aria-hidden="true"></span><p class="cz-cap" style="margin-left: 6px">Manzil</p><span class="cz-ix cz-num">{{ ix.manzil }}</span></div>
+      <sc-if value="{{ d.joy_rasmi }}">
+      <div style="position: relative; width: 322px; height: 220px; margin: 0 0 30px 12px">
+        <div class="cz-fr" style="left: -12px; top: 12px; width: 322px; height: 220px; border-radius: 160px 160px 0 0"></div>
+        <div class="cz-ph" style="width: 322px; height: 220px; border-radius: 160px 160px 0 0; overflow: hidden"><img src="{{ d.joy_rasmi }}" alt=""></div>
+      </div>
+      </sc-if>
+      <h2 class="cz-s" style="margin: 0; font-weight: 400; font-size: 28px; line-height: 1.2; overflow-wrap: anywhere">{{ d.manzil_nomi }}</h2>
+      <sc-if value="{{ d.manzil }}"><p style="margin: 10px 0 0; font-size: 17px; line-height: 1.55; color: #5C5E80; overflow-wrap: anywhere">{{ d.manzil }}</p></sc-if>
+      <sc-if value="{{ d.xarita }}">
+      <a class="cz-btn cz-btn--k" href="{{ d.xarita }}" target="_blank" rel="noopener" style="margin-top: 24px">
+        <svg class="cz-icon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.5s-7-6.1-7-11.6a7 7 0 0 1 14 0c0 5.5-7 11.6-7 11.6Z"></path><circle cx="12" cy="9.8" r="2.6"></circle></svg>
+        Xaritada ochish
+      </a>
+      </sc-if>
+    </section>
+    </sc-if>
+
+    <!-- ===== dastur ===== -->
+    <sc-if value="{{ b.dastur }}">
+    <section class="{{ rv.dastur }}" data-rv="dastur">
+      <div class="cz-hd"><span class="cz-hl" aria-hidden="true"></span><p class="cz-cap" style="margin-left: 6px">Marosim tartibi</p><span class="cz-ix cz-num">{{ ix.dastur }}</span></div>
+      <div class="cz-tl">
+        <sc-for list="{{ prog }}" as="x">
+        <div class="{{ x.cls }}"><span class="cz-pt cz-num">{{ x.vaqt }}</span><p class="cz-pn">{{ x.nomi }}</p></div>
+        </sc-for>
+      </div>
+    </section>
+    </sc-if>
+
+    <!-- ===== suratlar ===== -->
+    <sc-if value="{{ b.galereya }}">
+    <section class="{{ rv.galereya }}" data-rv="galereya">
+      <div class="cz-hd"><span class="cz-hl" aria-hidden="true"></span><p class="cz-cap" style="margin-left: 6px">Suratlar</p><span class="cz-ix cz-num">{{ ix.galereya }}</span></div>
+      <div style="position: relative; height: 470px">
+        <svg width="334" height="470" viewBox="0 0 334 470" aria-hidden="true" style="position: absolute; left: 0; top: 0">
+          <path class="cz-ring" pathLength="1" style="stroke: #2A2C5E; stroke-width: 1.4" d="M-28 120C40 120 60 30 120 36C170 40 160 110 214 116C262 120 300 70 334 80M-28 380C20 384 40 300 96 300C150 300 140 420 210 430C260 436 290 400 334 404"></path>
+        </svg>
+        <div class="cz-ph" style="position: absolute; left: 0; top: 0; width: 200px; height: 260px; border-radius: 100px 100px 0 0; overflow: hidden"><img src="{{ p.0 }}" alt=""></div>
+        <div class="cz-ph" style="position: absolute; right: 0; top: 150px; width: 150px; height: 170px; border-radius: 50%; overflow: hidden"><img src="{{ p.1 }}" alt=""></div>
+        <div class="cz-ph" style="position: absolute; left: 44px; top: 290px; width: 190px; height: 180px; overflow: hidden"><img src="{{ p.2 }}" alt=""></div>
+        <div class="cz-fr" style="left: 56px; top: 302px; width: 190px; height: 180px; border-color: #D9774F"></div>
+      </div>
+    </section>
+    </sc-if>
+
+    <!-- ===== javob ===== -->
+    <sc-if value="{{ b.rsvp }}">
+    <section class="{{ rv.rsvp }}" data-rv="rsvp">
+      <div class="cz-hd"><span class="cz-hl" aria-hidden="true"></span><p class="cz-cap" style="margin-left: 6px">Javobingiz</p><span class="cz-ix cz-num">{{ ix.rsvp }}</span></div>
+      <h2 class="cz-s" style="margin: 0; font-weight: 300; font-size: 36px; line-height: 1.1">Tashrif buyurasizmi?</h2>
+      <p style="margin: 12px 0 24px; font-size: 16px; line-height: 1.5; color: #5C5E80">{{ deadline }}</p>
+      <sc-if value="{{ askName }}"><input class="cz-inp" type="text" maxlength="100" autocomplete="name" placeholder="Ismingiz" aria-label="Ismingiz" onInput="{{ onName }}" style="margin-bottom: 20px"></sc-if>
+      <div style="display: flex; gap: 10px">
+        <button type="button" class="{{ optYesCls }}" aria-pressed="{{ isYes }}" onClick="{{ sayYes }}">
+          <sc-if value="{{ isYes }}"><svg class="cz-icon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"></path></svg></sc-if>
+          Boraman
+        </button>
+        <button type="button" class="{{ optNoCls }}" aria-pressed="{{ isNo }}" onClick="{{ sayNo }}">
+          <sc-if value="{{ isNo }}"><svg class="cz-icon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"></path></svg></sc-if>
+          Bora olmayman
+        </button>
+      </div>
+      <div class="{{ stepCls }}">
+        <span class="cz-s" style="font-size: 18px">Necha kishi bo’lasiz?</span>
+        <div style="display: flex; align-items: center; gap: 8px">
+          <button type="button" class="cz-sb" aria-label="Kamaytirish" disabled="{{ minusOff }}" onClick="{{ dec }}">−</button>
+          <span class="cz-s cz-num" style="min-width: 30px; text-align: center; font-size: 22px" aria-live="polite">{{ guests }}</span>
+          <button type="button" class="cz-sb" aria-label="Ko’paytirish" disabled="{{ plusOff }}" onClick="{{ inc }}">+</button>
+        </div>
+      </div>
+      <textarea class="cz-ta" maxlength="300" placeholder="Tilagingiz yoki izoh (ixtiyoriy)" aria-label="Tilagingiz yoki izoh" onInput="{{ onWish }}" style="margin-top: 8px"></textarea>
+      <button type="button" class="cz-btn cz-btn--k" disabled="{{ busy }}" onClick="{{ send }}" style="width: 100%; margin-top: 24px">{{ sendLabel }}</button>
+      <div aria-live="polite" style="min-height: 24px; margin-top: 14px; font-size: 16px; line-height: 1.5">
+        <sc-if value="{{ rsvpNote }}"><p class="cz-s" style="margin: 0; font-style: italic; text-align: center">{{ rsvpNote }}</p></sc-if>
+      </div>
+    </section>
+    </sc-if>
+
+    <!-- ===== telefon ===== -->
+    <sc-if value="{{ b.telefon }}">
+    <section class="{{ rv.telefon }}" data-rv="telefon">
+      <div class="cz-hd"><span class="cz-hl" aria-hidden="true"></span><p class="cz-cap" style="margin-left: 6px">Aloqa</p><span class="cz-ix cz-num">{{ ix.telefon }}</span></div>
+      <div style="display: flex; align-items: center; justify-content: space-between; gap: 16px">
+        <div style="min-width: 0">
+          <p class="cz-s cz-mut" style="margin: 0; font-style: italic; font-size: 16px; line-height: 1.4">Savollar bo’lsa, qo’ng’iroq qiling</p>
+          <p class="cz-s cz-num" style="margin: 6px 0 0; font-weight: 300; font-size: {{ telFs }}px; line-height: 1.2; white-space: nowrap">{{ d.telefon }}</p>
+        </div>
+        <a class="cz-btn cz-btn--o" href="{{ tel }}" aria-label="Qo’ng’iroq qilish" style="width: 58px; height: 58px; padding: 0; flex: none">
+          <svg class="cz-icon" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M5.2 3.5h3.1l1.6 4.2-2.1 1.5a12.2 12.2 0 0 0 7 7l1.5-2.1 4.2 1.6v3.1a1.9 1.9 0 0 1-2.1 1.9A16.6 16.6 0 0 1 3.3 5.6a1.9 1.9 0 0 1 1.9-2.1Z"></path></svg>
+        </a>
+      </div>
+    </section>
+    </sc-if>
+  </main>
+
+  <!-- ===== yakun: duo ===== -->
+  <footer style="margin-top: auto; padding: 72px 28px 48px; text-align: center">
+    <svg width="390" height="40" viewBox="0 0 390 40" aria-hidden="true" style="display: block; margin: 0 -28px 30px">
+      <path class="cz-ln" style="stroke-width: 1.6" d="M0 24H150C162 24 166 8 180 8C194 8 192 30 200 30C208 30 206 16 214 16C222 16 222 24 240 24H390"></path>
+    </svg>
+    <p class="cz-s" style="margin: 0; font-style: italic; font-weight: 300; font-size: 27px; line-height: 1.32">{{ duaA }}</p>
+    <p style="margin: 16px auto 0; max-width: 300px; font-size: 16px; line-height: 1.6; color: #5C5E80">{{ duaB }}</p>
+    <p style="margin: 30px 0 0; font-weight: 500; font-size: 18px; line-height: 1.3; overflow-wrap: anywhere">{{ mezbon }}</p>
+    <p class="cz-cap cz-mut cz-num" style="margin-top: 8px; letter-spacing: 0.2em">{{ footMeta }}</p>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":4600}}'>
+const D = SITE.d;
+const AP = (s) => String(s || '').replace(/'/g, '’').trim();
+const MKS = ['nahorgi', 'osh_toyi', 'sunnat', 'beshik'];
+const MK = MKS.indexOf(D.marosim) >= 0 ? D.marosim : 'nahorgi';
+const NOMI = AP(D.marosim_nomi) || 'Nahorgi osh';
+const TAKLIF = AP(D.marosim_taklif) || 'Nahorgi oshga taklifnoma';
+const TAKLIF_GA = TAKLIF.replace(/\s*taklifnoma$/i, '') || SITE.ga(NOMI);
+const low = (s) => s ? s.charAt(0).toLowerCase() + s.slice(1) : s;
+const GUEST = AP(D.mehmon);
+const MEZBON = AP(D.mezbon);
+const SABAB = AP(D.sababi);
+const ISM = AP(D.ism);
+const WITH_ISM = !!ISM && (MK === 'sunnat' || MK === 'beshik');
+const TITLE_A = WITH_ISM ? ISM + 'ning' : '';
+const TITLE_B = WITH_ISM ? low(NOMI) : NOMI;
+const TITLE = WITH_ISM ? TITLE_A + ' ' + TITLE_B : NOMI;
+const TAKLIF_LOW = WITH_ISM ? ISM + 'ning ' + low(TAKLIF_GA) : low(TAKLIF_GA);
+const UNTIL = { nahorgi: 'Nahorgi oshgacha', osh_toyi: 'Osh to’yigacha', sunnat: 'Sunnat to’yigacha', beshik: 'Beshik to’yigacha' }[MK];
+const DUA = {
+  nahorgi: ['Tashrifingiz — dasturxonimizga fayz va baraka.', 'Alloh barchamizni yaxshi kunlarga yetkazsin, duolaringiz ijobat bo’lsin.'],
+  osh_toyi: ['Tashrifingiz — dasturxonimizga fayz va baraka.', 'Alloh xonadonimiz quvonchini ziyoda qilsin, duolaringiz ijobat bo’lsin.'],
+  sunnat: ['Duolaringiz — farzandimizga eng katta sovg’a.', 'Alloh o’g’limizni sog’-salomat, umrini uzoq va baxtli qilsin.'],
+  beshik: ['Tashrifingiz — xonadonimizga quvonch va baraka.', 'Alloh farzandimizga sog’lik, uzoq va baxtli umr ato etsin.'],
+}[MK];
+// uzluksiz chiziqli rasmlar (chapdan kiradi, marosimga qarab)
+const ART = {
+  nahorgi: 'M0 240H50C60 240 65 222 65 200A130 30 0 0 1 122 175.2C130 142 158 120 185 117C175 97 191 85 183 65C177 49 191 41 187 25C197 41 203 53 197 69C191 87 207 99 205 117C232 120 260 142 268 175.2A130 30 0 0 1 325 200A130 30 0 0 1 65 200C70 206 78 208 88 208A107 12 0 0 0 302 208C316 212 324 232 336 240H390',
+  osh_toyi: 'M0 240H112C124 240 130 230 136 222C140 232 146 236 156 236C160 226 166 218 172 212C178 222 184 230 195 234C206 230 212 222 218 212C224 218 230 226 234 236C244 236 250 230 254 222C260 230 266 240 278 240H300C314 240 320 214 318 184C317 168 318 160 322 152C334 154 340 140 330 134C322 130 314 134 313 124A118 16 0 0 0 77 124A118 16 0 0 0 313 124C310 130 306 134 304 140C296 184 248 206 195 206C142 206 94 184 86 140C72 136 64 152 74 158C84 162 92 152 86 144C92 134 102 126 112 122C124 104 156 95 182 94C172 76 190 64 182 46C176 34 188 26 186 16C196 28 200 38 194 52C188 68 206 78 202 94C230 96 264 104 278 122C282 126 286 126 288 122',
+  sunnat: 'M0 240H64C84 240 92 228 95 210A100 30 0 0 0 295 210C290 180 286 140 281 110A86 16 0 0 0 109 110A86 16 0 0 0 281 110C270 128 262 140 250 148C268 162 262 190 240 192C222 194 222 172 238 166C250 162 244 150 230 150C214 150 204 142 195 132C186 142 176 150 160 150C146 150 140 162 152 166C168 172 168 194 150 192C128 190 122 162 140 148C128 140 120 128 109 110C104 140 100 180 95 210A100 14 0 0 0 295 210C298 228 310 240 330 240H390',
+  beshik: 'M0 240H195C150 240 106 232 78 212C72 208 74 200 82 202C90 212 100 218 110 222V80C100 76 100 62 110 62C120 62 120 76 110 80C150 64 240 64 280 80C270 76 270 62 280 62C290 62 290 76 280 80V140C276 190 240 212 195 212C150 212 114 190 110 140C120 126 136 124 146 134C144 118 170 116 170 132C170 140 160 142 156 136C176 132 196 140 214 132C232 124 254 142 280 146V222C290 218 300 212 308 202C316 200 318 208 312 212C284 232 240 240 195 240H390',
+};
+const ORDER = ['taklif', 'kun', 'taymer', 'manzil', 'dastur', 'galereya', 'rsvp', 'telefon'];
+function hhmm(t) { t = String(t || '').trim(); return /^\d:\d\d$/.test(t) ? '0' + t : (/^\d\d:\d\d$/.test(t) ? t : ''); }
+const HM = hhmm(D.vaqt);
+const H24 = HM ? parseInt(HM.slice(0, 2), 10) : -1;
+function stamp(iso, time) { const t = Date.parse(String(iso || '').slice(0, 10) + 'T' + (hhmm(time) || '12:00') + ':00+05:00'); return isNaN(t) ? null : t; }
+function fitPx(text, max, width, em, lines) { const n = String(text || '').length || 1; return Math.max(Math.round(max * 0.52), Math.min(max, Math.floor(width * (lines || 1) / (n * em)))); }
+function telHref(t) { return 'tel:' + String(t || '').replace(/[^\d+]/g, ''); }
+function calUrl() {
+  const t = stamp(D.sana, D.vaqt); if (t == null) return '';
+  const f = (ms) => new Date(ms).toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
+  const title = TITLE + (MEZBON ? ' — ' + MEZBON : '');
+  const loc = [D.manzil_nomi, D.manzil].filter(Boolean).join(', ');
+  return 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + encodeURIComponent(title) + '&dates=' + f(t) + '/' + f(t + 2 * 3600e3) + (loc ? '&location=' + encodeURIComponent(loc) : '');
+}
+function deadlineText(tail) {
+  const t = stamp(D.sana, '12:00'); if (t == null) return 'Iltimos, ' + tail + '.';
+  const dl = t - 5 * 864e5;
+  if (dl < Date.now()) return 'Iltimos, imkon qadar tezroq ' + tail + '.';
+  return 'Iltimos, ' + SITE.when(new Date(dl + 5 * 3600e3).toISOString().slice(0, 10)).dm + 'gacha ' + tail + '.';
+}
+function timeNote() {
+  if (MK === 'nahorgi' && H24 >= 4 && H24 < 9) return 'Bomdod namozidan so’ng, tong sahar';
+  return '';
+}
+const REDUCED = typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
+const CAN_IO = typeof IntersectionObserver === 'function' && !REDUCED;
+
+class Component extends DCLogic {
+  constructor(...args) {
+    super(...args);
+    this.state = { opened: false, rv: {}, rsvp: '', guests: 1, sent: false, busy: false, warn: '' };
+    this.nm = ''; this.wish = '';
+  }
+  componentDidMount() {
+    this.timer = setInterval(() => this.forceUpdate(), 1000);
+    if (CAN_IO) {
+      this.io = new IntersectionObserver((es) => {
+        const add = {};
+        es.forEach((e) => { if (e.isIntersecting) { add[e.target.getAttribute('data-rv')] = true; this.io.unobserve(e.target); } });
+        if (Object.keys(add).length) this.setState((s) => ({ rv: Object.assign({}, s.rv, add) }));
+      }, { rootMargin: '0px 0px -12% 0px' });
+      document.querySelectorAll('[data-rv]').forEach((el) => this.io.observe(el));
+    }
+  }
+  componentWillUnmount() { clearInterval(this.timer); if (this.io) this.io.disconnect(); }
+  open() {
+    if (this.state.opened) return;
+    this.setState({ opened: true });
+    SITE.opened();
+  }
+  send() {
+    const s = this.state;
+    if (!s.rsvp) { this.setState({ warn: 'Iltimos, avval javobingizni tanlang.' }); return; }
+    const name = this.nm.trim();
+    if (!SITE.has.guest && !name) { this.setState({ warn: 'Iltimos, ismingizni yozing.' }); return; }
+    if (s.busy) return;
+    this.setState({ busy: true, warn: '' });
+    SITE.rsvp(s.rsvp === 'yes', s.rsvp === 'yes' ? s.guests : 1, name, this.wish.trim())
+      .then(() => this.setState({ sent: true, busy: false }))
+      .catch(() => this.setState({ busy: false, warn: 'Javob yuborilmadi. Iltimos, qayta urinib ko’ring.' }));
+  }
+  renderVals() {
+    const s = this.state || {};
+    const w = SITE.when(D.sana, D.vaqt);
+    const cd = SITE.countdown(D.sana, D.vaqt);
+    const isYes = s.rsvp === 'yes', isNo = s.rsvp === 'no', guests = s.guests || 1;
+    const who = GUEST || this.nm.trim();
+    let note = '';
+    if (s.sent && isYes) note = (who ? 'Rahmat, ' + who + '! ' : 'Rahmat! ') + 'Sizni ' + (guests > 1 ? guests + ' kishi bilan ' : '') + 'intizorlik bilan kutamiz.';
+    else if (s.sent && isNo) note = (who ? 'Rahmat, ' + who + '! ' : 'Rahmat! ') + 'Javobingiz yetkazildi, duolaringiz biz bilan bo’ladi.';
+    else if (s.warn) note = s.warn;
+    const ix = {}; let n = 0;
+    ORDER.forEach((k) => { if (SITE.b[k]) { n += 1; ix[k] = SITE.pad(n); } });
+    const rv = {}; ORDER.forEach((k) => { rv[k] = 'cz-sec' + (!CAN_IO || (s.rv && s.rv[k]) ? ' cz-rv' : ''); });
+    const music = SITE.music.playing;
+    const guestLine = GUEST ? 'Hurmatli ' + GUEST + '!' : 'Hurmatli mehmon!';
+    const mk = {}; MKS.forEach((k) => { mk[k] = k === MK; });
+    const sp = (cd.s / 60);
+    return {
+      w, cd, ix, mk, rv, art: ART,
+      rootCls: s.opened || REDUCED ? 'cz-root cz-on' : 'cz-root',
+      introCls: 'cz-i' + (s.opened ? ' cz-i--open' : ''),
+      introHidden: !!s.opened,
+      open: () => this.open(),
+      introFrom: MEZBON ? MEZBON + ' taklifi' : '',
+      taklifCap: TAKLIF,
+      guestLine, guestFs: fitPx(guestLine, 36, 334, 0.5, 2),
+      mezbon: MEZBON, hostFs: fitPx(MEZBON, 24, 334, 0.52, 2),
+      taklifLow: TAKLIF_LOW,
+      titleA: TITLE_A, titleB: TITLE_B,
+      titleFs: fitPx(TITLE_B, 54, 334, 0.5, 2),
+      titleMt: TITLE_A ? 2 : 16,
+      sabab: SABAB,
+      hhmm: HM || '—', timeNote: timeNote(),
+      calLink: calUrl(),
+      untilText: cd.done ? 'Marosim vaqti keldi' : UNTIL + ' qoldi',
+      cdKey: { d: 'd' + cd.dd, h: 'h' + cd.hh, m: 'm' + cd.mm, s: 's' + cd.ss },
+      cdText: cd.d + ' kun, ' + cd.h + ' soat, ' + cd.m + ' daqiqa qoldi',
+      barStyle: 'transform: scaleX(' + sp.toFixed(3) + ')',
+      dotStyle: 'left: ' + (sp * 100).toFixed(2) + '%',
+      prog: (D.dastur || []).filter((x) => x && (x.vaqt || x.nomi)).map((x, i) => ({ vaqt: hhmm(x.vaqt) || AP(x.vaqt) || '—', nomi: AP(x.nomi), cls: i === 0 ? 'cz-pr cz-pr--1' : 'cz-pr' })),
+      deadline: deadlineText('javobingizni bildiring'),
+      askName: !SITE.has.guest,
+      onName: (e) => { this.nm = e.target.value; },
+      onWish: (e) => { this.wish = e.target.value; },
+      isYes, isNo, guests,
+      optYesCls: isYes ? 'cz-opt cz-opt--on' : 'cz-opt',
+      optNoCls: isNo ? 'cz-opt cz-opt--on' : 'cz-opt',
+      sayYes: () => this.setState({ rsvp: 'yes', sent: false, warn: '' }),
+      sayNo: () => this.setState({ rsvp: 'no', sent: false, warn: '' }),
+      stepCls: isNo ? 'cz-step cz-step--off' : 'cz-step',
+      minusOff: isNo || guests <= 1, plusOff: isNo || guests >= 10,
+      dec: () => this.setState({ guests: Math.max(1, guests - 1), sent: false }),
+      inc: () => this.setState({ guests: Math.min(10, guests + 1), sent: false }),
+      send: () => this.send(),
+      busy: !!s.busy,
+      sendLabel: s.busy ? 'Yuborilmoqda…' : (s.sent ? 'Javob yuborildi' : 'Javobni yuborish'),
+      rsvpNote: note,
+      tel: telHref(D.telefon), telFs: fitPx(AP(D.telefon), 28, 250, 0.56, 1),
+      duaA: DUA[0], duaB: DUA[1],
+      footMeta: [HM, w.dots].filter(Boolean).join(' · '),
+      musicOn: music, musicOff: !music,
+      musicCls: music ? 'cz-music cz-music--on' : 'cz-music',
+      musicLabel: music ? 'Musiqani o’chirish' : 'Musiqani yoqish',
+      toggleMusic: () => { SITE.music.toggle(); }
+    };
+  }
+}
+</script>
+</body>
+</html>

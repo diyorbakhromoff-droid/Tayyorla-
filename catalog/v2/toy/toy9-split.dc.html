@@ -1,0 +1,552 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<title>To’y taklifnomasi: Ikki yarim</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sofia+Sans+Extra+Condensed:ital,wght@0,300;0,500;0,700;0,800;1,300&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,300..600;1,8..60,300..600&amp;display=swap">
+<style>
+body{margin:0;background:#F5EFE7}
+.sp-root{background:#F5EFE7;color:#2A1912;font-family:'Source Serif 4','Source Serif Pro',Georgia,serif;font-optical-sizing:auto}
+.sp-c{font-family:'Sofia Sans Extra Condensed','Roboto Condensed','Arial Narrow',sans-serif}
+.sp-num{font-variant-numeric:lining-nums tabular-nums}
+.sp-icon{fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;flex:none}
+
+/* ikki rangli surat (duotone) */
+.sp-duo{position:absolute;overflow:hidden;isolation:isolate}
+.sp-duo-ph{position:absolute;inset:0;filter:grayscale(1) contrast(1.12) brightness(1.06);transition:filter .9s ease}
+.sp-duo-ph img{position:absolute;top:0;display:block;object-fit:cover}
+.sp-duo i{position:absolute;inset:0;display:block;transition:opacity .9s ease}
+.sp-hi{mix-blend-mode:multiply}
+.sp-lo{mix-blend-mode:lighten}
+.sp-duo--c .sp-hi{background:#E9C6AC}
+.sp-duo--c .sp-lo{background:#3A2219}
+.sp-duo--s .sp-hi{background:#D2E3F1}
+.sp-duo--s .sp-lo{background:#2B4762}
+.sp-duo--on .sp-duo-ph{filter:none}
+.sp-duo--on i{opacity:0}
+.sp-drift{animation:sp-drift 16s ease-in-out infinite alternate}
+.sp-drift2{animation:sp-drift2 16s ease-in-out infinite alternate}
+@keyframes sp-drift{from{transform:scale(1.04) translateY(6px)}to{transform:scale(1.1) translateY(-10px)}}
+@keyframes sp-drift2{from{transform:scale(1.1) translateY(-10px)}to{transform:scale(1.04) translateY(6px)}}
+
+/* bosh qism */
+.sp-half{position:absolute;top:0;width:195px;height:844px;overflow:hidden}
+.sp-half--c{left:0;background:#3A2219;color:#F3E8DC}
+.sp-half--s{left:195px;background:#C9DCEC;color:#2A1912}
+.sp-lbl{font-family:'Sofia Sans Extra Condensed','Arial Narrow',sans-serif;font-weight:600;font-size:13px;line-height:16px;letter-spacing:.24em;text-transform:uppercase;white-space:nowrap}
+.sp-name{position:absolute;margin:0;font-family:'Sofia Sans Extra Condensed','Arial Narrow',sans-serif;font-weight:800;line-height:.86;letter-spacing:-.01em;text-transform:uppercase;white-space:nowrap}
+.sp-ghost{position:absolute;margin:0;font-family:'Sofia Sans Extra Condensed','Arial Narrow',sans-serif;font-weight:800;font-size:420px;line-height:1;text-transform:uppercase;-webkit-text-fill-color:transparent;-webkit-text-stroke:1.5px currentColor;opacity:.4}
+.sp-va{position:absolute;left:160px;width:70px;height:70px;border-radius:50%;background:#F5EFE7;color:#3A2219;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 30px -10px rgba(30,15,10,.55)}
+.sp-va b{font-family:'Source Serif 4',Georgia,serif;font-style:italic;font-weight:300;font-size:31px;line-height:1;margin-top:-6px}
+.sp-ring{position:absolute;left:0;top:0;width:112px;height:112px;animation:sp-spin 28s linear infinite}
+.sp-ring text{font-family:'Sofia Sans Extra Condensed','Arial Narrow',sans-serif;font-weight:600;font-size:9.5px;letter-spacing:.22em;fill:#F5EFE7}
+.sp-ring--ink text{fill:#3A2219}
+@keyframes sp-spin{to{transform:rotate(360deg)}}
+.sp-cue{animation:sp-cue 2.4s ease-in-out infinite}
+@keyframes sp-cue{0%,100%{transform:translateY(0);opacity:.55}50%{transform:translateY(6px);opacity:1}}
+
+/* kirish sahnasi: ikki yarim bir-biriga suriladi */
+.sp-i{position:absolute;left:0;top:0;width:390px;height:844px;z-index:40;overflow:hidden;background:#F5EFE7}
+.sp-i--open{animation:sp-out .8s ease 2.9s forwards;pointer-events:none}
+@keyframes sp-out{to{opacity:0;visibility:hidden}}
+.sp-i .sp-half{transition:transform 1.25s cubic-bezier(.75,0,.2,1) .15s}
+.sp-i .sp-half--c{transform:translateY(-150px)}
+.sp-i .sp-half--s{transform:translateY(150px)}
+.sp-i--open .sp-half--c,.sp-i--open .sp-half--s{transform:none}
+.sp-i .sp-name{color:transparent;transition:color .6s ease 1.25s}
+.sp-i .sp-half--c .sp-name{-webkit-text-stroke:1.4px #F3E8DC}
+.sp-i .sp-half--s .sp-name{-webkit-text-stroke:1.4px #2A1912}
+.sp-i--open .sp-half--c .sp-name{color:#F3E8DC}
+.sp-i--open .sp-half--s .sp-name{color:#2A1912}
+.sp-i .sp-va{transform:scale(0) rotate(-90deg);transition:transform .8s cubic-bezier(.3,1.5,.5,1) 1.3s}
+.sp-i--open .sp-va{transform:none}
+.sp-i .sp-fade{transition:opacity .5s ease}
+.sp-i--open .sp-fade{opacity:0}
+.sp-i .sp-late{opacity:0;transition:opacity .7s ease 1.6s}
+.sp-i--open .sp-late{opacity:1}
+.sp-cta{height:52px;padding:0 20px;border:0;border-radius:26px;background:#3A2219;color:#F3E8DC;font-family:'Sofia Sans Extra Condensed','Arial Narrow',sans-serif;font-size:17px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;display:inline-flex;align-items:center;gap:10px;cursor:pointer;box-shadow:0 14px 26px -14px rgba(40,20,12,.9)}
+.sp-cta:hover{background:#4A2C20}
+.sp-cta svg{animation:sp-nudge 1.8s ease-in-out infinite}
+@keyframes sp-nudge{0%,100%{transform:translateY(-2px)}50%{transform:translateY(3px)}}
+
+/* bo'limlar */
+.sp-sec{position:relative;padding:92px 28px 0}
+.sp-k{display:flex;align-items:center;gap:10px;height:16px;color:#7D6556}
+.sp-k i{display:block;flex:none;width:14px;height:14px;border-radius:50%;background:linear-gradient(90deg,#3A2219 50%,#C9DCEC 50%)}
+.sp-h2{margin:18px 0 0;font-family:'Sofia Sans Extra Condensed','Arial Narrow',sans-serif;font-weight:800;font-size:52px;line-height:.92;letter-spacing:-.005em;text-transform:uppercase;color:#2A1912}
+.sp-h2 em{font-family:'Source Serif 4',Georgia,serif;font-style:italic;font-weight:300;text-transform:none;letter-spacing:0;color:#3E5F80;font-size:.8em}
+.sp-up{animation:sp-up 1s cubic-bezier(.2,.7,.2,1) both}
+@keyframes sp-up{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+.sp-tile{position:relative;display:flex;overflow:hidden;border-radius:4px}
+.sp-tn{display:block}
+.sp-tn--a{animation:sp-tickA .55s cubic-bezier(.2,.7,.2,1)}
+.sp-tn--b{animation:sp-tickB .55s cubic-bezier(.2,.7,.2,1)}
+@keyframes sp-tickA{from{opacity:0;transform:translateY(-55%)}to{opacity:1;transform:none}}
+@keyframes sp-tickB{from{opacity:0;transform:translateY(-55%)}to{opacity:1;transform:none}}
+.sp-pill{display:inline-flex;align-items:center;justify-content:center;gap:10px;height:50px;padding:0 24px;border-radius:25px;border:1.5px solid #3A2219;color:#3A2219;text-decoration:none;font-family:'Sofia Sans Extra Condensed','Arial Narrow',sans-serif;font-size:17px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;box-sizing:border-box;background:transparent}
+.sp-pill:hover{background:#EDE3D7}
+.sp-pill--fill{background:#3A2219;color:#F3E8DC}
+.sp-pill--fill:hover{background:#4A2C20}
+.sp-pill--sky{background:#C9DCEC;border-color:#C9DCEC;color:#2A1912}
+.sp-dot{position:absolute;left:-6px;top:9px;width:11px;height:11px;border-radius:50%;box-sizing:border-box;border:2px solid #3A2219;background:#F5EFE7}
+.sp-row:nth-child(2n) .sp-dot{background:#C9DCEC}
+.sp-ph{display:block;width:100%;padding:0;border:0;background:#E6DACB;cursor:pointer;position:relative;overflow:hidden}
+.sp-tag{position:absolute;left:10px;bottom:10px;z-index:2;height:26px;padding:0 10px;border-radius:13px;background:rgba(245,239,231,.88);color:#3A2219;display:flex;align-items:center;font-family:'Sofia Sans Extra Condensed','Arial Narrow',sans-serif;font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase}
+.sp-ans{display:flex;height:150px;border-radius:4px;overflow:hidden}
+.sp-ab{flex:1 1 0;min-width:0;border:0;margin:0;padding:18px 16px;display:flex;flex-direction:column;justify-content:space-between;align-items:flex-start;text-align:left;cursor:pointer;font-family:'Sofia Sans Extra Condensed','Arial Narrow',sans-serif;transition:flex-grow .6s cubic-bezier(.6,0,.2,1),opacity .4s ease}
+.sp-ab--c{background:#3A2219;color:#F3E8DC}
+.sp-ab--s{background:#C9DCEC;color:#2A1912}
+.sp-ab b{font-weight:800;font-size:30px;line-height:.95;text-transform:uppercase;letter-spacing:.01em}
+.sp-ab span{font-size:13px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;opacity:.75}
+.sp-ab--big{flex-grow:2.2}
+.sp-ab--dim{opacity:.55}
+.sp-ab:disabled{cursor:default}
+.sp-field{display:block;width:100%;height:54px;box-sizing:border-box;margin:22px 0 0;padding:0 18px;border-radius:4px;border:1.5px solid #D6C7B6;background:#FFFFFF;color:#2A1912;font-family:inherit;font-size:16px;outline:none}
+.sp-field:focus{border-color:#3A2219}
+.sp-field::placeholder{color:#94806F}
+.sp-music{position:absolute;top:14px;right:14px;z-index:60;width:44px;height:44px;border-radius:50%;border:0;background:#F5EFE7;color:#3A2219;display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0;box-shadow:0 6px 16px -8px rgba(30,15,10,.6)}
+.sp-music--on{background:#3A2219;color:#F3E8DC}
+.sp-eq{display:flex;align-items:flex-end;gap:2px;height:14px}
+.sp-eq i{display:block;width:2px;height:100%;background:currentColor;transform-origin:50% 100%;animation:sp-eq .9s ease-in-out infinite alternate}
+.sp-eq i:nth-child(2){animation-delay:-.3s}.sp-eq i:nth-child(3){animation-delay:-.6s}
+@keyframes sp-eq{from{transform:scaleY(.25)}to{transform:scaleY(1)}}
+@media (prefers-reduced-motion: reduce){
+  .sp-drift,.sp-drift2,.sp-ring,.sp-cue,.sp-cta svg,.sp-up,.sp-tn--a,.sp-tn--b,.sp-eq i{animation:none !important}
+  .sp-i--open{animation:none;opacity:0;visibility:hidden}
+  .sp-i .sp-half,.sp-i .sp-name,.sp-i .sp-va,.sp-i .sp-fade,.sp-i .sp-late,.sp-ab,.sp-duo-ph,.sp-duo i{transition:none}
+}
+</style>
+</helmet>
+<div class="sp-root" style="width: 390px; min-height: var(--vh, 100vh); position: relative; overflow: hidden; display: flex; flex-direction: column">
+
+  <sc-if value="{{ has.music }}">
+  <button type="button" class="{{ musicCls }}" aria-label="{{ musicLabel }}" aria-pressed="{{ musicOn }}" onClick="{{ toggleMusic }}">
+    <sc-if value="{{ musicOn }}"><span class="sp-eq" aria-hidden="true"><i></i><i></i><i></i></span></sc-if>
+    <sc-if value="{{ musicOff }}"><svg class="sp-icon" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V5.5l11-2.2v12.5"></path><circle cx="6.2" cy="18" r="2.8"></circle><circle cx="17.2" cy="15.8" r="2.8"></circle></svg></sc-if>
+  </button>
+  </sc-if>
+
+  <!-- ============ KIRISH: ikki yarim ============ -->
+  <div data-intro class="{{ introCls }}" aria-hidden="{{ introHidden }}">
+    <div class="sp-fade" style="position: absolute; left: 211px; right: 18px; top: 26px">
+      <p class="sp-lbl" style="margin: 0; color: #7D6556">Hurmatli</p>
+      <p style="margin: 6px 0 0; font-style: italic; font-weight: 300; font-size: {{ fsGuest }}px; line-height: 1.12; color: #2A1912; overflow-wrap: anywhere">{{ guestName }}</p>
+      <p class="sp-lbl" style="margin: 12px 0 0; font-size: 11px; letter-spacing: 0.2em; color: #3E5F80; white-space: normal">ikki yarim · bir taklif</p>
+    </div>
+
+    <div class="sp-half sp-half--c">
+      <sc-if value="{{ has.photo }}">
+        <div class="sp-duo sp-duo--c" style="left: 20px; top: 84px; width: 175px; height: 456px">
+          <div class="sp-duo-ph sp-drift"><img src="{{ p.0 }}" alt="" style="left: 0; width: 350px; height: 456px"></div>
+          <i class="sp-hi"></i><i class="sp-lo"></i>
+        </div>
+      </sc-if>
+      <sc-if value="{{ noPhoto }}"><p class="sp-ghost" style="right: 10px; top: 120px">{{ iniK }}</p></sc-if>
+      <p class="sp-lbl" style="position: absolute; left: 20px; top: 34px; margin: 0">{{ topL }}</p>
+      <p class="sp-name" style="right: 14px; top: 664px; font-size: {{ fsName }}px">{{ kuyovU }}</p>
+      <p class="sp-lbl sp-late" style="position: absolute; right: 14px; top: 744px; margin: 0; font-size: 12px; color: #BFA897">Kuyov</p>
+      <p class="sp-c sp-num sp-late" style="position: absolute; left: 20px; top: 784px; margin: 0; font-weight: 300; font-size: 30px; line-height: 32px; letter-spacing: 0.02em">{{ w.dots }}</p>
+    </div>
+    <div class="sp-half sp-half--s">
+      <sc-if value="{{ has.photo }}">
+        <div class="sp-duo sp-duo--s" style="left: 0; top: 84px; width: 175px; height: 456px">
+          <div class="sp-duo-ph sp-drift2"><img src="{{ p.0 }}" alt="" style="left: -175px; width: 350px; height: 456px"></div>
+          <i class="sp-hi"></i><i class="sp-lo"></i>
+        </div>
+      </sc-if>
+      <sc-if value="{{ noPhoto }}"><p class="sp-ghost" style="left: -6px; top: 120px; color: #2A1912">{{ iniM }}</p></sc-if>
+      <p class="sp-lbl" style="position: absolute; right: 20px; top: 34px; margin: 0">Taklifnoma</p>
+      <p class="sp-name" style="left: 14px; top: 664px; font-size: {{ fsName }}px">{{ kelinU }}</p>
+      <p class="sp-lbl sp-late" style="position: absolute; left: 14px; top: 744px; margin: 0; font-size: 12px; color: #4E6A85">Kelin</p>
+      <p class="sp-c sp-num sp-late" style="position: absolute; right: 20px; top: 784px; margin: 0; font-weight: 500; font-size: 20px; line-height: 32px; letter-spacing: 0.06em; text-align: right; white-space: nowrap">{{ wkTime }}</p>
+    </div>
+
+    <div class="sp-va" style="top: 565px">
+      <b>va</b>
+    </div>
+    <div class="sp-late" style="position: absolute; left: 139px; top: 544px; width: 112px; height: 112px; mix-blend-mode: difference; pointer-events: none">
+      <svg class="sp-ring" viewBox="0 0 112 112" aria-hidden="true"><defs><path id="spRingI" d="M56 56m-48 0a48 48 0 1 1 96 0a48 48 0 1 1-96 0"></path></defs><text textLength="296" lengthAdjust="spacing"><textPath href="#spRingI">{{ ringText }}</textPath></text></svg>
+    </div>
+
+    <div class="sp-fade" style="position: absolute; left: 16px; width: 179px; top: 726px; display: flex; flex-direction: column; align-items: flex-start">
+      <button type="button" class="sp-cta" onClick="{{ open }}">
+        <svg class="sp-icon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 4v16M16 4v16M4 9l4-5 4 5M12 15l4 5 4-5"></path></svg>
+        Birlashtirish
+      </button>
+      <sc-if value="{{ has.music }}"><p class="sp-lbl" style="margin: 12px 0 0 4px; font-size: 11px; color: #7D6556">musiqa bilan ochiladi</p></sc-if>
+    </div>
+  </div>
+
+  <!-- ============ BOSH QISM ============ -->
+  <header style="position: relative; height: 844px; flex: none">
+    <div class="sp-half sp-half--c">
+      <sc-if value="{{ has.photo }}">
+        <div class="sp-duo sp-duo--c" style="left: 20px; top: 84px; width: 175px; height: 456px">
+          <div class="sp-duo-ph sp-drift"><img src="{{ p.0 }}" alt="" style="left: 0; width: 350px; height: 456px"></div>
+          <i class="sp-hi"></i><i class="sp-lo"></i>
+        </div>
+      </sc-if>
+      <sc-if value="{{ noPhoto }}"><p class="sp-ghost" style="right: 10px; top: 120px">{{ iniK }}</p></sc-if>
+      <p class="sp-lbl" style="position: absolute; left: 20px; top: 34px; margin: 0">{{ topL }}</p>
+      <h1 class="sp-name" style="right: 14px; top: 664px; font-size: {{ fsName }}px">{{ kuyovU }}</h1>
+      <p class="sp-lbl" style="position: absolute; right: 14px; top: 744px; margin: 0; font-size: 12px; color: #BFA897">Kuyov</p>
+      <p class="sp-c sp-num" style="position: absolute; left: 20px; top: 784px; margin: 0; font-weight: 300; font-size: 30px; line-height: 32px; letter-spacing: 0.02em">{{ w.dots }}</p>
+    </div>
+    <div class="sp-half sp-half--s">
+      <sc-if value="{{ has.photo }}">
+        <div class="sp-duo sp-duo--s" style="left: 0; top: 84px; width: 175px; height: 456px">
+          <div class="sp-duo-ph sp-drift2"><img src="{{ p.0 }}" alt="" style="left: -175px; width: 350px; height: 456px"></div>
+          <i class="sp-hi"></i><i class="sp-lo"></i>
+        </div>
+      </sc-if>
+      <sc-if value="{{ noPhoto }}"><p class="sp-ghost" style="left: -6px; top: 120px; color: #2A1912">{{ iniM }}</p></sc-if>
+      <p class="sp-lbl" style="position: absolute; right: 20px; top: 34px; margin: 0">Taklifnoma</p>
+      <p class="sp-name" style="left: 14px; top: 664px; font-size: {{ fsName }}px">{{ kelinU }}</p>
+      <p class="sp-lbl" style="position: absolute; left: 14px; top: 744px; margin: 0; font-size: 12px; color: #4E6A85">Kelin</p>
+      <p class="sp-c sp-num" style="position: absolute; right: 20px; top: 784px; margin: 0; font-weight: 500; font-size: 20px; line-height: 32px; letter-spacing: 0.06em; text-align: right; white-space: nowrap">{{ wkTime }}</p>
+    </div>
+    <div class="sp-va" style="top: 565px">
+      <b>va</b>
+    </div>
+    <div class="sp-ringw" style="position: absolute; left: 139px; top: 544px; width: 112px; height: 112px; mix-blend-mode: difference; pointer-events: none">
+      <svg class="sp-ring" viewBox="0 0 112 112" aria-hidden="true"><defs><path id="spRingH" d="M56 56m-48 0a48 48 0 1 1 96 0a48 48 0 1 1-96 0"></path></defs><text textLength="296" lengthAdjust="spacing"><textPath href="#spRingH">{{ ringText }}</textPath></text></svg>
+    </div>
+    <svg class="sp-cue" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" style="position: absolute; left: 185px; top: 818px; color: #F3E8DC; mix-blend-mode: difference"><path class="sp-icon" d="M6 9l6 6 6-6"></path></svg>
+  </header>
+
+  <!-- ============ TAKLIF ============ -->
+  <section class="sp-sec" style="padding-top: 80px">
+    <p style="margin: 0; font-weight: 400; font-size: 38px; line-height: 44px; letter-spacing: -0.01em">Assalomu alaykum,</p>
+    <p style="margin: 2px 0 0; font-style: italic; font-weight: 300; font-size: 38px; line-height: 44px; letter-spacing: -0.01em; color: #3E5F80; overflow-wrap: anywhere">{{ guestHello }}</p>
+    <sc-if value="{{ b.taklif }}">
+      <sc-if value="{{ d.taklif_qiluvchilar }}">
+        <div style="margin-top: 34px; display: grid; grid-template-columns: 167px minmax(0, 1fr); border-top: 1.5px solid #2A1912">
+          <p class="sp-lbl" style="margin: 12px 0 0; font-size: 12px; color: #7D6556; white-space: normal">Taklif qiluvchilar</p>
+          <p style="margin: 10px 0 0; font-size: 17px; line-height: 24px; overflow-wrap: anywhere"><b style="font-weight: 600">{{ d.taklif_qiluvchilar }}</b></p>
+        </div>
+      </sc-if>
+      <p style="margin: 30px 0 0; font-weight: 400; font-size: 21px; line-height: 33px; text-wrap: pretty; white-space: pre-line; overflow-wrap: anywhere">{{ d.matn }}</p>
+    </sc-if>
+    <sc-if value="{{ noTaklif }}">
+      <p style="margin: 30px 0 0; font-weight: 400; font-size: 21px; line-height: 33px; text-wrap: pretty; overflow-wrap: anywhere">Sizni nikoh to’yimizga lutfan taklif etamiz. Tashrifingiz biz uchun katta sharaf.</p>
+    </sc-if>
+    <div aria-hidden="true" style="margin-top: 40px; display: flex; height: 6px"><span style="flex: 1; background: #3A2219"></span><span style="flex: 1; background: #C9DCEC"></span></div>
+  </section>
+
+  <!-- ============ SANA ============ -->
+  <sc-if value="{{ b.kun }}">
+  <section class="sp-sec">
+    <div class="sp-k"><i></i><span class="sp-lbl">Sana va vaqt</span></div>
+    <div class="sp-tile" style="margin-top: 22px; height: 236px">
+      <div style="flex: 1 1 0; min-width: 0; background: #3A2219; color: #F3E8DC; display: flex; flex-direction: column; justify-content: space-between; padding: 16px 0 0 16px">
+        <span class="sp-lbl" style="font-size: 12px; opacity: 0.7">{{ w.Weekday }}</span>
+        <span class="sp-c sp-num" style="display: block; font-weight: 800; font-size: 196px; line-height: 0.78; letter-spacing: -0.03em; margin: 0 0 -6px -8px">{{ w.day }}</span>
+      </div>
+      <div style="flex: 1 1 0; min-width: 0; background: #C9DCEC; color: #2A1912; display: flex; flex-direction: column; justify-content: space-between; padding: 16px 16px 18px">
+        <span class="sp-lbl" style="font-size: 12px; text-align: right; opacity: 0.7">{{ w.year }}</span>
+        <div>
+          <span class="sp-c" style="display: block; font-weight: 800; font-size: 44px; line-height: 0.9; text-transform: uppercase">{{ w.month }}</span>
+          <span style="display: block; margin-top: 12px; font-style: italic; font-weight: 300; font-size: 19px; line-height: 24px">soat</span>
+          <span class="sp-c sp-num" style="display: block; font-weight: 700; font-size: 40px; line-height: 40px">{{ d.vaqt }}</span>
+        </div>
+      </div>
+    </div>
+    <sc-if value="{{ cal }}">
+      <a class="sp-pill" href="{{ cal }}" target="_blank" rel="noopener" style="margin-top: 22px">
+        <svg class="sp-icon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="2"></rect><path d="M3.5 10h17M8 3v4M16 3v4"></path></svg>
+        Taqvimga qo’shish
+      </a>
+    </sc-if>
+  </section>
+  </sc-if>
+
+  <!-- ============ TAYMER ============ -->
+  <sc-if value="{{ b.taymer }}">
+  <section style="position: relative; margin-top: 92px">
+    <div class="sp-num" style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); height: 168px">
+      <sc-for list="{{ ticks }}" as="t">
+        <div style="{{ t.st }}">
+          <span class="sp-lbl" style="font-size: 11px; opacity: 0.72">{{ t.top }}</span>
+          <span style="display: block; height: 76px; overflow: hidden"><span class="{{ t.cls }}">{{ t.v }}</span></span>
+          <span class="sp-lbl" style="font-size: 12px">{{ t.l }}</span>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- ============ MANZIL ============ -->
+  <sc-if value="{{ b.manzil }}">
+  <section class="sp-sec">
+    <div class="sp-k"><i></i><span class="sp-lbl">Manzil</span></div>
+    <h2 class="sp-h2" style="font-size: {{ fsVenue }}px; overflow-wrap: anywhere">{{ d.manzil_nomi }}</h2>
+    <sc-if value="{{ d.manzil }}"><p style="margin: 14px 0 0; font-size: 17px; line-height: 26px; color: #5C4638; text-wrap: pretty; overflow-wrap: anywhere">{{ d.manzil }}</p></sc-if>
+    <sc-if value="{{ d.joy_rasmi }}">
+      <div style="position: relative; margin-top: 26px; height: 220px; border-radius: 4px; overflow: hidden">
+        <div class="sp-duo sp-duo--c" style="left: 0; top: 0; width: 167px; height: 220px">
+          <div class="sp-duo-ph"><img src="{{ d.joy_rasmi }}" alt="" style="left: 0; width: 334px; height: 220px"></div>
+          <i class="sp-hi"></i><i class="sp-lo"></i>
+        </div>
+        <div class="sp-duo sp-duo--s" style="left: 167px; top: 0; width: 167px; height: 220px">
+          <div class="sp-duo-ph"><img src="{{ d.joy_rasmi }}" alt="" style="left: -167px; width: 334px; height: 220px"></div>
+          <i class="sp-hi"></i><i class="sp-lo"></i>
+        </div>
+      </div>
+    </sc-if>
+    <sc-if value="{{ d.xarita }}">
+      <a class="sp-pill sp-pill--fill" href="{{ d.xarita }}" target="_blank" rel="noopener" style="margin-top: 22px">
+        <svg class="sp-icon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6.5-6-6.5-11a6.5 6.5 0 0 1 13 0c0 5-6.5 11-6.5 11Z"></path><circle cx="12" cy="10" r="2.3"></circle></svg>
+        Xaritada ochish
+      </a>
+    </sc-if>
+  </section>
+  </sc-if>
+
+  <!-- ============ DASTUR ============ -->
+  <sc-if value="{{ b.dastur }}">
+  <section class="sp-sec">
+    <div class="sp-k"><i></i><span class="sp-lbl">To’y dasturi</span></div>
+    <h2 class="sp-h2">Kun <em>qanday o’tadi</em></h2>
+    <div style="position: relative; margin-top: 30px; padding: 4px 0 6px">
+      <span aria-hidden="true" style="position: absolute; left: 167px; top: 0; bottom: 0; width: 1.5px; background: #2A1912"></span>
+      <sc-for list="{{ prog }}" as="x">
+        <div class="sp-row" style="position: relative; display: grid; grid-template-columns: 167px minmax(0, 1fr); padding: 12px 0 18px">
+          <span class="sp-c sp-num" style="padding-right: 18px; text-align: right; font-weight: 800; font-size: 40px; line-height: 30px; color: {{ x.col }}">{{ x.vaqt }}</span>
+          <div style="position: relative; padding-left: 20px; min-width: 0">
+            <span class="sp-dot"></span>
+            <span style="display: block; font-size: 17px; line-height: 25px; overflow-wrap: anywhere">{{ x.nomi }}</span>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- ============ HIKOYA ============ -->
+  <sc-if value="{{ b.hikoya }}">
+  <section class="sp-sec">
+    <div class="sp-k"><i></i><span class="sp-lbl">Bizning hikoya</span></div>
+    <h2 class="sp-h2">Ikki yo’l, <em>bitta manzil</em></h2>
+    <div style="margin-top: 30px; display: flex; flex-direction: column; gap: 14px">
+      <sc-for list="{{ story }}" as="x">
+        <div style="{{ x.st }}">
+          <span class="sp-c sp-num" style="display: block; font-weight: 800; font-size: 46px; line-height: 40px">{{ x.yil }}</span>
+          <sc-if value="{{ x.sarlavha }}"><span class="sp-lbl" style="display: block; margin-top: 12px; font-size: 13px; white-space: normal">{{ x.sarlavha }}</span></sc-if>
+          <sc-if value="{{ x.matn }}"><span style="display: block; margin-top: 8px; font-size: 16px; line-height: 23px; overflow-wrap: anywhere">{{ x.matn }}</span></sc-if>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- ============ GALEREYA ============ -->
+  <sc-if value="{{ b.galereya }}">
+  <section class="sp-sec">
+    <div class="sp-k"><i></i><span class="sp-lbl">Suratlar</span></div>
+    <h2 class="sp-h2">Ikki rang, <em>bir lahza</em></h2>
+    <p style="margin: 12px 0 0; font-size: 15px; line-height: 22px; color: #7D6556">Suratga teging — u o’z rangiga qaytadi.</p>
+    <div style="margin-top: 24px; display: grid; grid-template-columns: 1fr 1fr; gap: 8px">
+      <sc-for list="{{ gal }}" as="g">
+        <button type="button" class="sp-ph" aria-label="{{ g.label }}" aria-pressed="{{ g.on }}" onClick="{{ g.tap }}" style="{{ g.st }}">
+          <div class="{{ g.cls }}" style="inset: 0">
+            <div class="sp-duo-ph"><img src="{{ g.src }}" alt="" style="left: 0; width: 100%; height: 100%"></div>
+            <i class="sp-hi"></i><i class="sp-lo"></i>
+          </div>
+          <span class="sp-tag">{{ g.n }}</span>
+        </button>
+      </sc-for>
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- ============ KIYINISH ============ -->
+  <sc-if value="{{ b.dress }}">
+  <section class="sp-sec">
+    <div class="sp-k"><i></i><span class="sp-lbl">Kiyinish uslubi</span></div>
+    <div class="sp-tile" style="margin-top: 22px">
+      <div style="flex: none; width: 64px; display: flex; flex-direction: column"><span style="flex: 1; background: #3A2219"></span><span style="flex: 1; background: #C9DCEC"></span></div>
+      <p style="flex: 1 1 auto; min-width: 0; margin: 0; padding: 18px 20px; background: #EDE3D7; font-size: 17px; line-height: 26px; white-space: pre-line; overflow-wrap: anywhere">{{ d.dress_kod }}</p>
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- ============ JAVOB ============ -->
+  <sc-if value="{{ b.rsvp }}">
+  <section class="sp-sec">
+    <div class="sp-k"><i></i><span class="sp-lbl">Javobingiz</span></div>
+    <h2 class="sp-h2">Tashrif <em>buyurasizmi?</em></h2>
+    <p style="margin: 12px 0 0; font-size: 15px; line-height: 22px; color: #7D6556">{{ deadline }}</p>
+    <sc-if value="{{ askName }}"><input class="sp-field" type="text" maxlength="100" autocomplete="name" placeholder="Ismingiz, masalan: Dilnoza opa" aria-label="Ismingiz" onInput="{{ onName }}"></sc-if>
+    <div class="sp-ans" style="margin-top: 22px">
+      <button type="button" class="{{ yesCls }}" aria-pressed="{{ isYes }}" disabled="{{ busy }}" onClick="{{ sayYes }}">
+        <span>{{ yesTop }}</span>
+        <b>Albatta<br>boraman</b>
+      </button>
+      <button type="button" class="{{ noCls }}" aria-pressed="{{ isNo }}" disabled="{{ busy }}" onClick="{{ sayNo }}">
+        <span>{{ noTop }}</span>
+        <b>Kela<br>olmayman</b>
+      </button>
+    </div>
+    <div aria-live="polite" style="margin-top: 14px; min-height: 24px; font-size: 16px; line-height: 24px">
+      <sc-if value="{{ isYes }}"><p style="margin: 0">Rahmat! Sizni intiqlik bilan kutamiz.</p></sc-if>
+      <sc-if value="{{ isNo }}"><p style="margin: 0">Javobingiz uchun rahmat. Duolaringiz biz bilan bo’lsin.</p></sc-if>
+      <sc-if value="{{ err }}"><p style="margin: 0; color: #A0402E">{{ err }}</p></sc-if>
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- ============ TELEFON ============ -->
+  <sc-if value="{{ b.telefon }}">
+  <section class="sp-sec">
+    <div class="sp-k"><i></i><span class="sp-lbl">Aloqa</span></div>
+    <div style="margin-top: 18px; display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 18px 0; border-top: 1.5px solid #2A1912; border-bottom: 1.5px solid #2A1912">
+      <div style="min-width: 0">
+        <p style="margin: 0; font-size: 15px; line-height: 22px; color: #7D6556">Savollar bo’lsa, qo’ng’iroq qiling</p>
+        <p class="sp-c sp-num" style="margin: 6px 0 0; font-weight: 700; font-size: 32px; line-height: 34px; white-space: nowrap">{{ d.telefon }}</p>
+      </div>
+      <a class="sp-pill sp-pill--fill" href="{{ tel }}" aria-label="Qo’ng’iroq qilish" style="flex: none; width: 54px; height: 54px; padding: 0; border-radius: 50%"><svg class="sp-icon" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M5.2 3.5h3.1l1.6 4.2-2.1 1.5a12.2 12.2 0 0 0 7 7l1.5-2.1 4.2 1.6v3.1a1.9 1.9 0 0 1-2.1 1.9A16.6 16.6 0 0 1 3.3 5.6a1.9 1.9 0 0 1 1.9-2.1Z"></path></svg></a>
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- ============ YAKUN ============ -->
+  <footer style="position: relative; margin-top: auto; padding-top: 100px">
+    <div style="display: flex; min-height: 330px">
+      <div style="flex: 1 1 0; min-width: 0; background: #3A2219; color: #F3E8DC; padding: 36px 14px 28px 24px; display: flex; flex-direction: column; justify-content: space-between">
+        <p class="sp-c" style="margin: 0; font-weight: 800; font-size: 50px; line-height: 0.9; text-transform: uppercase">Sizni<br>kutamiz</p>
+        <p class="sp-c" style="margin: 24px 0 0; font-weight: 800; font-size: 22px; line-height: 24px; text-transform: uppercase; overflow-wrap: anywhere">{{ initials }}</p>
+      </div>
+      <div style="flex: 1 1 0; min-width: 0; background: #C9DCEC; color: #2A1912; padding: 36px 24px 28px 16px; display: flex; flex-direction: column; justify-content: space-between">
+        <p style="margin: 0; font-style: italic; font-weight: 300; font-size: 20px; line-height: 28px; text-wrap: pretty">Tashrifingizdan xursand bo’lamiz. Duolaringiz biz bilan bo’lsin.</p>
+        <sc-if value="{{ d.taklif_qiluvchilar }}"><p class="sp-lbl" style="margin: 24px 0 0; font-size: 12px; white-space: normal; overflow-wrap: anywhere">{{ d.taklif_qiluvchilar }}</p></sc-if>
+      </div>
+    </div>
+    <div class="sp-c sp-num" style="display: flex; justify-content: space-between; gap: 12px; padding: 14px 24px 18px; background: #2A1912; color: #CBB9A8; font-size: 14px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase">
+      <span style="min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{ pair }}</span>
+      <span style="flex: none">{{ w.dots }}</span>
+    </div>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":5600}}'>
+const D = SITE.d;
+function hhmm(t) { t = String(t || ''); return /^\d:\d\d$/.test(t) ? '0' + t : t; }
+function stamp(iso, time) { const t = Date.parse(String(iso || '').slice(0, 10) + 'T' + (hhmm(time) || '12:00') + ':00+05:00'); return isNaN(t) ? null : t; }
+function fitPx(text, max, width, em) { const n = String(text || '').length || 1; return Math.max(Math.round(max * 0.26), Math.min(max, Math.floor(width / (n * em)))); }
+function telHref(t) { return 'tel:' + String(t || '').replace(/[^\d+]/g, ''); }
+const KUYOV = String(D.kuyov || '').trim();
+const KELIN = String(D.kelin || '').trim();
+const GUEST = String(D.mehmon || '').trim();
+const up = (s) => s.toLocaleUpperCase('uz');
+function calUrl() {
+  const t = stamp(D.sana, D.vaqt); if (t == null) return '';
+  const f = (ms) => new Date(ms).toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
+  const title = [KUYOV, KELIN].filter(Boolean).join(' va ') + ' — to’y';
+  const loc = [D.manzil_nomi, D.manzil].filter(Boolean).join(', ');
+  return 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + encodeURIComponent(title) + '&dates=' + f(t) + '/' + f(t + 5 * 3600e3) + (loc ? '&location=' + encodeURIComponent(loc) : '');
+}
+function deadlineText(tail) {
+  const t = stamp(D.sana, '12:00'); if (t == null) return 'Iltimos, ' + tail + '.';
+  const dl = t - 5 * 864e5;
+  if (dl < Date.now()) return 'Iltimos, imkon qadar tezroq ' + tail + '.';
+  return 'Iltimos, ' + SITE.when(new Date(dl + 5 * 3600e3).toISOString().slice(0, 10)).dm + 'gacha ' + tail + '.';
+}
+const TILE = ['background: #3A2219; color: #F3E8DC', 'background: #4A2C20; color: #F3E8DC', 'background: #C9DCEC; color: #2A1912', 'background: #B7CEE3; color: #2A1912'];
+const GAL = [
+  'grid-column: 1 / span 2; height: 420px', 'height: 230px', 'height: 230px', 'grid-column: 1 / span 2; height: 230px'
+];
+
+class Component extends DCLogic {
+  constructor(...args) {
+    super(...args);
+    this.state = { opened: false, rsvp: '', busy: false, err: '', col: {} };
+    this.nm = '';
+  }
+  componentDidMount() { this.timer = setInterval(() => this.forceUpdate(), 1000); }
+  componentWillUnmount() { clearInterval(this.timer); }
+  open() { if (this.state.opened) return; this.setState({ opened: true }); SITE.opened(); }
+  answer(going) {
+    const name = this.nm.trim();
+    if (!SITE.has.guest && !name) { this.setState({ err: 'Iltimos, avval ismingizni yozing.' }); return; }
+    const prev = this.state.rsvp;
+    this.setState({ rsvp: going ? 'yes' : 'no', busy: true, err: '' });
+    SITE.rsvp(going, 1, name).then(() => this.setState({ busy: false }))
+      .catch(() => this.setState({ rsvp: prev, busy: false, err: 'Javob yuborilmadi. Iltimos, qayta urinib ko’ring.' }));
+  }
+  renderVals() {
+    const s = this.state || {};
+    const w = SITE.when(D.sana, D.vaqt);
+    const cd = SITE.countdown(D.sana, D.vaqt);
+    const music = SITE.music.playing;
+    const on = s.rsvp === 'yes', off = s.rsvp === 'no';
+    const kU = up(KUYOV), mU = up(KELIN);
+    const fsName = Math.min(fitPx(kU, 96, 168, 0.42), fitPx(mU, 96, 168, 0.42));
+    const tick = (v, l, top, i) => ({
+      v: SITE.pad(v), l, top,
+      cls: 'sp-tn sp-c ' + (v % 2 ? 'sp-tn--a' : 'sp-tn--b'),
+      st: TILE[i] + '; display: flex; flex-direction: column; justify-content: space-between; padding: 16px 12px 16px; font-family: \'Sofia Sans Extra Condensed\', sans-serif; font-weight: 800; font-size: 76px; line-height: 76px'
+    });
+    const col = s.col || {};
+    const photos = SITE.p.slice(1, 5);
+    const gal = photos.map((src, i) => ({
+      src, n: SITE.pad(i + 1), on: !!col[i],
+      label: col[i] ? 'Suratni ikki rangda ko’rish' : 'Suratni asl rangida ko’rish',
+      cls: 'sp-duo ' + (i % 2 ? 'sp-duo--s' : 'sp-duo--c') + (col[i] ? ' sp-duo--on' : ''),
+      st: GAL[i % GAL.length],
+      tap: () => this.setState({ col: Object.assign({}, col, { [i]: !col[i] }) })
+    }));
+    const story = (Array.isArray(D.hikoya) ? D.hikoya.filter((x) => x && (x.yil || x.sarlavha || x.matn)) : []).map((x, i) => Object.assign({}, x, {
+      st: (i % 2
+        ? 'align-self: flex-end; background: #C9DCEC; color: #2A1912'
+        : 'align-self: flex-start; background: #3A2219; color: #F3E8DC') + '; width: 244px; box-sizing: border-box; padding: 18px 18px 20px; border-radius: 4px'
+    }));
+    const guestName = GUEST || 'mehmon';
+    return {
+      introCls: s.opened ? 'sp-i sp-i--open' : 'sp-i',
+      introHidden: !!s.opened,
+      open: () => this.open(),
+      w,
+      kuyovU: kU, kelinU: mU, fsName,
+      iniK: kU.charAt(0), iniM: mU.charAt(0),
+      initials: [kU.charAt(0), mU.charAt(0)].filter(Boolean).join(' + '),
+      pair: [KUYOV, KELIN].filter(Boolean).join(' va '),
+      topL: 'Nikoh to’yiga',
+      ringText: ('NIKOH TO’YI · ' + w.dots + ' · ' + (w.weekday || '') + ' · ').toUpperCase(),
+      wkTime: [w.Weekday, hhmm(D.vaqt)].filter(Boolean).join(' · '),
+      guestName, fsGuest: GUEST.length > 16 ? 20 : 24,
+      guestHello: 'hurmatli ' + guestName + '!',
+      noPhoto: !SITE.has.photo,
+      noTaklif: !SITE.b.taklif,
+      cal: calUrl(),
+      ticks: [tick(cd.d, 'kun', 'To’ygacha', 0), tick(cd.h, 'soat', '', 1), tick(cd.m, 'daqiqa', '', 2), tick(cd.s, 'soniya', 'qoldi', 3)],
+      fsVenue: fitPx(D.manzil_nomi, 52, 640, 0.42),
+      prog: (Array.isArray(D.dastur) ? D.dastur.filter((x) => x && (x.vaqt || x.nomi)) : []).map((x, i) => Object.assign({}, x, { col: i % 2 ? '#3E5F80' : '#3A2219' })),
+      story, gal,
+      deadline: deadlineText('javob bering'),
+      askName: !SITE.has.guest,
+      onName: (e) => { this.nm = e.target.value; if (s.err) this.setState({ err: '' }); },
+      busy: !!s.busy, err: s.err,
+      isYes: on && !s.busy, isNo: off && !s.busy,
+      yesTop: on ? 'Belgilandi' : 'Ha',
+      noTop: off ? 'Belgilandi' : 'Afsus',
+      yesCls: 'sp-ab sp-ab--c' + (on ? ' sp-ab--big' : (off ? ' sp-ab--dim' : '')),
+      noCls: 'sp-ab sp-ab--s' + (off ? ' sp-ab--big' : (on ? ' sp-ab--dim' : '')),
+      sayYes: () => this.answer(true),
+      sayNo: () => this.answer(false),
+      tel: telHref(D.telefon),
+      musicOn: music, musicOff: !music,
+      musicCls: music ? 'sp-music sp-music--on' : 'sp-music',
+      musicLabel: music ? 'Musiqani o’chirish' : 'Musiqani yoqish',
+      toggleMusic: () => { SITE.music.toggle(); }
+    };
+  }
+}
+</script>
+</body>
+</html>
