@@ -159,7 +159,7 @@ body{margin:0}
           <sc-if value="{{ noPhoto }}">
             <div aria-hidden="true" class="bn-d bn-i" style="position: absolute; left: 0; top: 0; width: 174px; height: 262px; display: flex; align-items: center; justify-content: center; font-size: 230px; line-height: 1; color: #18181C">{{ initial }}</div>
           </sc-if>
-          <span style="position: absolute; left: 12px; bottom: 12px; height: 28px; padding: 0 12px; border-radius: 14px; background: #FFFFFF; font-size: 12px; font-weight: 600; display: flex; align-items: center; gap: 6px"><span aria-hidden="true" style="width: 7px; height: 7px; border-radius: 50%; background: #18181C"></span>Bugun qahramon</span>
+          <span style="position: absolute; left: 12px; bottom: 12px; height: 28px; padding: 0 12px; border-radius: 14px; background: #FFFFFF; color: #18181C; font-size: 12px; font-weight: 600; display: flex; align-items: center; gap: 6px"><span aria-hidden="true" style="width: 7px; height: 7px; border-radius: 50%; background: #18181C"></span>Bugun qahramon</span>
           <span class="bn-ring"></span>
         </div>
       </div>
@@ -218,7 +218,7 @@ body{margin:0}
 
       <sc-if value="{{ anyBlock }}">
         <div aria-hidden="true" class="bn-hintW" style="position: absolute; left: 0; top: 780px; width: 390px; display: flex; justify-content: center">
-          <span class="bn-hint" style="display: inline-flex; align-items: center; gap: 8px; height: 34px; padding: 0 16px; border-radius: 17px; background: #FFFFFF; font-size: 13px; font-weight: 600"><svg width="14" height="14" viewBox="0 0 14 14"><path class="bn-ico" d="M7 2V12M3 8L7 12L11 8"></path></svg>Davomi pastda</span>
+          <span class="bn-hint" style="display: inline-flex; align-items: center; gap: 8px; height: 34px; padding: 0 16px; border-radius: 17px; background: #FFFFFF; color: #18181C; font-size: 13px; font-weight: 600"><svg width="14" height="14" viewBox="0 0 14 14"><path class="bn-ico" d="M7 2V12M3 8L7 12L11 8"></path></svg>Davomi pastda</span>
         </div>
       </sc-if>
     </section>
@@ -253,7 +253,7 @@ body{margin:0}
             </div>
           </sc-for>
         </div>
-        <div class="bn-tile bn-rise" style="margin-top: 10px; background: #FFFFFF; padding: 18px 20px 20px">
+        <div class="bn-tile bn-rise" style="margin-top: 10px; background: #FFFFFF; color: #18181C; padding: 18px 20px 20px">
           <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 10px">
             <span style="font-size: 14px; font-weight: 600">Yangi yoshgacha yo’l</span>
             <span class="bn-d" style="font-size: 34px; line-height: 1">{{ pct }}%</span>
@@ -263,7 +263,7 @@ body{margin:0}
         </div>
       </sc-if>
       <sc-if value="{{ cdDone }}">
-        <div class="bn-tile bn-pop" style="background: #D7F55E; padding: 26px 22px; display: flex; align-items: center; justify-content: space-between; gap: 12px">
+        <div class="bn-tile bn-pop" style="background: #D7F55E; color: #18181C; padding: 26px 22px; display: flex; align-items: center; justify-content: space-between; gap: 12px">
           <span class="bn-d bn-i" style="font-size: 54px; line-height: 0.9; text-transform: uppercase">Bugun<br>bayram!</span>
           <svg aria-hidden="true" class="bn-spin" width="64" height="64" viewBox="0 0 46 46"><path d="M23 0C25 15 31 21 46 23C31 25 25 31 23 46C21 31 15 25 0 23C15 21 21 15 23 0Z" fill="#18181C"></path></svg>
         </div>
@@ -281,7 +281,7 @@ body{margin:0}
               <span style="font-size: 12px; font-weight: 600; letter-spacing: 0.08em; opacity: 0.75">{{ w.n }}</span>
               <svg aria-hidden="true" width="26" height="26" viewBox="0 0 26 26"><path d="{{ w.ico }}" fill="{{ w.icoFill }}"></path></svg>
             </div>
-            <p class="bn-wishT bn-d">{{ w.text }}</p>
+            <p class="bn-wishT bn-d" style="font-size: {{ w.fs }}px">{{ w.text }}</p>
           </div>
         </sc-for>
       </div>
@@ -377,7 +377,7 @@ body{margin:0}
 <sc-if value="{{ b.javob }}">
     <section class="bn-sec">
       <p class="bn-lab"><span class="bn-labN">{{ num.javob }}</span>Javob</p>
-      <div class="bn-tile bn-rise" style="background: #D7F55E; padding: 24px 22px 22px; overflow: visible">
+      <div class="bn-tile bn-rise" style="background: #D7F55E; color: #18181C; padding: 24px 22px 22px; overflow: visible">
         <h2 class="bn-d bn-i" style="margin: 0; font-size: {{ askFs }}px; line-height: 0.92; text-transform: uppercase; overflow-wrap: anywhere">{{ askName }}</h2>
         <p style="margin: 10px 0 18px; font-size: 15px; line-height: 1.45">{{ askSub }}</p>
         <div style="position: relative">
@@ -396,15 +396,15 @@ body{margin:0}
     <footer aria-hidden="true" style="flex: 1; min-height: 120px; display: flex; align-items: flex-end; padding: 34px 16px 22px; box-sizing: border-box">
       <div style="display: flex; gap: 8px; width: 100%">
         <span class="bn-d bn-i" style="flex: 1; min-width: 0; height: 44px; border-radius: 22px; background: #26262D; color: #D7F55E; display: flex; align-items: center; padding: 0 18px; font-size: 24px; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{ name }}</span>
-        <sc-if value="{{ d.yosh }}"><span class="bn-d" style="flex: none; height: 44px; min-width: 44px; padding: 0 12px; box-sizing: border-box; border-radius: 22px; background: #D7F55E; display: flex; align-items: center; justify-content: center; font-size: 24px">{{ d.yosh }}</span></sc-if>
-        <span style="flex: none; height: 44px; border-radius: 22px; background: #FFFFFF; display: flex; align-items: center; padding: 0 16px; font-size: 13px; font-weight: 600">{{ footDate }}</span>
+        <sc-if value="{{ d.yosh }}"><span class="bn-d" style="flex: none; height: 44px; min-width: 44px; padding: 0 12px; box-sizing: border-box; border-radius: 22px; background: #D7F55E; color: #18181C; display: flex; align-items: center; justify-content: center; font-size: 24px">{{ d.yosh }}</span></sc-if>
+        <span style="flex: none; height: 44px; border-radius: 22px; background: #FFFFFF; color: #18181C; display: flex; align-items: center; padding: 0 16px; font-size: 13px; font-weight: 600">{{ footDate }}</span>
       </div>
     </footer>
   </div>
 
   <div data-intro class="{{ introCls }}" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; z-index: 20">
     <div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; pointer-events: none"></div>
-    <div class="bn-cta" style="position: absolute; left: 36px; top: 276px; width: 318px; box-sizing: border-box; padding: 22px 22px 20px; border-radius: 30px; background: #FFFFFF; box-shadow: 0 30px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.4)">
+    <div class="bn-cta" style="position: absolute; left: 36px; top: 276px; width: 318px; box-sizing: border-box; padding: 22px 22px 20px; border-radius: 30px; background: #FFFFFF; color: #18181C; box-shadow: 0 30px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.4)">
       <div style="display: flex; align-items: center; justify-content: space-between">
         <span style="height: 28px; padding: 0 12px; border-radius: 14px; background: #D7F55E; font-size: 12px; font-weight: 600; display: inline-flex; align-items: center">{{ pieces }}</span>
         <svg aria-hidden="true" class="bn-gridIco" width="34" height="34" viewBox="0 0 34 34"><rect x="0" y="0" width="20" height="14" rx="4"></rect><rect x="23" y="0" width="11" height="14" rx="4"></rect><rect x="0" y="17" width="11" height="17" rx="4"></rect><rect x="14" y="17" width="20" height="17" rx="4" fill="#18181C"></rect></svg>
@@ -494,9 +494,9 @@ class Component extends DCLogic {
     const L = life(D);
     const cnt = (v) => SITE.num(Math.round(v * k));
     const nameU = name.toLocaleUpperCase('uz');
-    const one = Math.floor(300 / (Math.max(1, nameU.length) * 0.43));
+    const one = Math.floor(300 / (Math.max(1, nameU.length) * 0.5));
     const longest = Math.max(1, ...nameU.split(/\s+/).map((x) => x.length));
-    const nameFs = one >= 66 ? Math.min(112, one) : Math.max(30, Math.min(64, Math.floor(300 / (longest * 0.5))));
+    const nameFs = one >= 66 ? Math.min(112, one) : Math.max(28, Math.min(62, Math.floor(300 / (longest * 0.56))));
     let ci = 0;
     const words = nameU.split(/\s+/).filter(Boolean);
     const nameWords = words.map((wd, wi) => ({
@@ -543,13 +543,14 @@ class Component extends DCLogic {
     const wcol = [['#D7F55E', '#18181C'], ['#26262D', '#FFFFFF'], ['#C6B5FF', '#18181C'], ['#FFFFFF', '#18181C']];
     let col = 0;
     const wishes = wl.map((t, i) => {
-      const long = String(t).length > 11;
+      const lw = Math.max(1, ...String(t).split(/\s+/).map((x) => x.length));
+      const long = String(t).length > 11 || lw > 9;
       const last = i === wl.length - 1;
       let wide = long || (last && col === 0);
       if (!wide && col === 1) col = 0; else if (!wide) col = 1; else col = 0;
       const c = wcol[i % 4];
       return {
-        text: t, n: SITE.pad(i + 1), ico: ICONS[i % ICONS.length], icoFill: c[0] === '#26262D' ? '#D7F55E' : '#18181C',
+        text: t, n: SITE.pad(i + 1), ico: ICONS[i % ICONS.length], fs: Math.max(20, Math.min(34, Math.floor((wide ? 300 : 136) / (lw * 0.6)))), icoFill: c[0] === '#26262D' ? '#D7F55E' : '#18181C',
         st: 'background: ' + c[0] + '; color: ' + c[1] + (wide ? '; grid-column: 1 / -1' : '') + '; animation-delay: ' + (i * 0.05).toFixed(2) + 's'
       };
     });

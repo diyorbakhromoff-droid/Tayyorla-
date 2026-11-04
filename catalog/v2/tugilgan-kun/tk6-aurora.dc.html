@@ -8,35 +8,43 @@
 <body>
 <x-dc>
 <helmet>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,300..600;1,7..72,300..600&amp;family=Wix+Madefor+Display:wght@400;500;600;700&amp;display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ysabeau+Infant:wght@200;300;400;500&amp;family=Wix+Madefor+Display:wght@400;500;600;700&amp;display=swap">
 <style>
 body{margin:0}
 .is-hidden{display:none !important}
-.au-s{font-family:'Literata',Georgia,'Times New Roman',serif;font-optical-sizing:auto}
+.au-s{font-family:'Ysabeau Infant','Avenir Next','Segoe UI',sans-serif;font-weight:300}
 .au-row{display:flex;align-items:center;gap:10px}
-.au-cap{margin:0;font-size:12px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:#6A5880}
-.au-h2{margin:8px 0 0;font-family:'Literata',Georgia,serif;font-style:italic;font-weight:300;font-size:42px;line-height:1.05;color:#251A35;overflow-wrap:anywhere}
+.au-cap{margin:0;font-size:12px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:#CDD4E8;text-shadow:0 1px 12px rgba(12,18,32,0.85),0 0 2px rgba(12,18,32,0.6)}
+.au-h2{margin:8px 0 0;font-family:'Ysabeau Infant','Avenir Next','Segoe UI',sans-serif;font-weight:300;font-size:42px;line-height:1.05;color:#F4F1FA;overflow-wrap:anywhere}
 .au-sec{position:relative;margin-top:64px;padding:0 20px}
-.au-glass{position:relative;box-sizing:border-box;border-radius:30px;background:rgba(255,255,255,0.42);-webkit-backdrop-filter:blur(22px) saturate(1.5);backdrop-filter:blur(22px) saturate(1.5);border:1px solid rgba(255,255,255,0.75);box-shadow:0 24px 60px rgba(70,40,110,0.13),inset 0 1px 0 rgba(255,255,255,0.9)}
-.au-glass::before{content:"";position:absolute;left:0;top:0;right:0;height:50%;border-radius:30px 30px 0 0;background:linear-gradient(180deg,rgba(255,255,255,0.35),rgba(255,255,255,0));pointer-events:none}
-.au-ico{fill:none;stroke:#251A35;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-.au-dot{display:inline-block;flex:none;width:10px;height:10px;border-radius:50%;background:linear-gradient(135deg,#FF8A6B,#FF5E9C 45%,#7C6BFF)}
+.au-glass{position:relative;box-sizing:border-box;border-radius:30px;background:rgba(255,255,255,0.075);-webkit-backdrop-filter:blur(24px) saturate(1.6);backdrop-filter:blur(24px) saturate(1.6);border:1px solid rgba(255,255,255,0.16);box-shadow:0 24px 60px rgba(0,0,0,0.35),inset 0 1px 0 rgba(255,255,255,0.22)}
+.au-glass::before{content:"";position:absolute;left:0;top:0;right:0;height:50%;border-radius:30px 30px 0 0;background:linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0));pointer-events:none}
+.au-ico{fill:none;stroke:#F4F1FA;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.au-dot{display:inline-block;flex:none;width:10px;height:10px;border-radius:50%;background:linear-gradient(135deg,#3FF0B0,#36C2FF 50%,#8A6BFF);box-shadow:0 0 10px rgba(63,240,176,0.7)}
 
 /* aurora fields */
-.au-blob{position:absolute;border-radius:50%;pointer-events:none;animation:au-drift 22s ease-in-out infinite alternate}
+.au-blob{position:absolute;border-radius:50%;pointer-events:none;mix-blend-mode:screen;animation:au-drift 22s ease-in-out infinite alternate}
 @keyframes au-drift{0%{transform:translate(0,0) scale(1) rotate(0)}50%{transform:translate(34px,-26px) scale(1.12) rotate(20deg)}100%{transform:translate(-28px,30px) scale(.94) rotate(-14deg)}}
-.au-grain{position:absolute;left:0;top:0;width:390px;pointer-events:none;mix-blend-mode:multiply;opacity:.2}
+.au-grain{position:absolute;left:0;top:0;width:390px;pointer-events:none;mix-blend-mode:overlay;opacity:.32}
+
+.au-star{position:absolute;display:block;border-radius:50%;background:#FFFFFF;pointer-events:none;animation:au-tw 3s ease-in-out infinite alternate}
+@keyframes au-tw{from{opacity:.15;transform:scale(.7)}to{opacity:.95;transform:scale(1)}}
+
+.au-cur{position:absolute;pointer-events:none;mix-blend-mode:screen;border-radius:50%;background:repeating-linear-gradient(90deg,rgba(150,255,215,0.22) 0 2px,rgba(150,255,215,0) 2px 7px,rgba(150,255,215,0.12) 7px 9px,rgba(150,255,215,0) 9px 15px),linear-gradient(180deg,rgba(63,240,176,0) 0%,rgba(63,240,176,0.5) 42%,rgba(54,194,255,0.28) 68%,rgba(138,107,255,0) 100%);-webkit-mask-image:radial-gradient(closest-side,#000 35%,rgba(0,0,0,0) 100%);mask-image:radial-gradient(closest-side,#000 35%,rgba(0,0,0,0) 100%);animation:au-sway 14s ease-in-out infinite alternate}
+@keyframes au-sway{0%{transform:rotate(-14deg) skewX(-18deg) scaleY(1)}50%{transform:rotate(-8deg) skewX(-6deg) scaleY(1.12)}100%{transform:rotate(-16deg) skewX(-24deg) scaleY(.92)}}
+.au-intro .au-cur{opacity:0;transition:opacity 2s ease .5s}
+.au-intro--open .au-cur{opacity:1}
 
 /* intro: aurora blooms from the centre */
-.au-intro{background:#F3EEEA}
-.au-ib{position:absolute;border-radius:50%;transform:translate(var(--tx),var(--ty)) scale(.5);opacity:.9;transition:transform 2s cubic-bezier(.16,.84,.24,1),opacity 1.2s ease;transition-delay:var(--dl,0s)}
+.au-intro{background:#0C1220}
+.au-ib{position:absolute;border-radius:50%;mix-blend-mode:screen;transform:translate(var(--tx),var(--ty)) scale(.5);opacity:.9;transition:transform 2s cubic-bezier(.16,.84,.24,1),opacity 1.2s ease;transition-delay:var(--dl,0s)}
 .au-intro--open .au-ib{transform:none;opacity:1}
-.au-orb{position:relative;display:flex;flex-direction:column;align-items:center;gap:22px;padding:0;border:0;background:none;cursor:pointer;color:#251A35;font-family:'Wix Madefor Display',system-ui,sans-serif}
-.au-core{position:relative;width:132px;height:132px;border-radius:50%;background:radial-gradient(circle at 50% 46%,#FFFFFF 0%,#FFF1E6 16%,#FFB29A 34%,#FF7FB0 54%,rgba(141,125,255,0.75) 76%,rgba(124,107,255,0) 100%);box-shadow:0 0 50px 18px rgba(255,170,190,0.45),0 0 110px 46px rgba(124,107,255,0.2);animation:au-breathe 3.4s ease-in-out infinite}
+.au-orb{position:relative;display:flex;flex-direction:column;align-items:center;gap:22px;padding:0;border:0;background:none;cursor:pointer;color:#F4F1FA;font-family:'Wix Madefor Display',system-ui,sans-serif}
+.au-core{position:relative;width:132px;height:132px;border-radius:50%;background:radial-gradient(circle at 50% 46%,#FFFFFF 0%,#E8FFF6 14%,#7DF7CF 32%,#36C2FF 54%,rgba(138,107,255,0.75) 76%,rgba(138,107,255,0) 100%);box-shadow:0 0 50px 18px rgba(63,240,176,0.35),0 0 120px 50px rgba(138,107,255,0.25);animation:au-breathe 3.4s ease-in-out infinite}
 @keyframes au-breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
-.au-halo{position:absolute;left:50%;top:66px;width:132px;height:132px;margin:-66px 0 0 -66px;border-radius:50%;border:1px solid rgba(255,255,255,0.9);animation:au-halo 3.4s ease-out infinite;pointer-events:none}
+.au-halo{position:absolute;left:50%;top:66px;width:132px;height:132px;margin:-66px 0 0 -66px;border-radius:50%;border:1px solid rgba(160,255,222,0.55);animation:au-halo 3.4s ease-out infinite;pointer-events:none}
 @keyframes au-halo{from{transform:scale(1);opacity:.9}to{transform:scale(2.6);opacity:0}}
-.au-label{display:inline-flex;align-items:center;gap:8px;min-height:46px;padding:0 22px;border-radius:23px;background:rgba(255,255,255,0.55);border:1px solid rgba(255,255,255,0.9);font-size:15px;font-weight:600;box-shadow:0 10px 30px rgba(70,40,110,0.12)}
+.au-label{display:inline-flex;align-items:center;gap:8px;min-height:46px;padding:0 22px;border-radius:23px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.25);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);font-size:15px;font-weight:600;box-shadow:0 10px 30px rgba(0,0,0,0.3)}
 .au-intro--open .au-core{animation:au-bloom 1.5s cubic-bezier(.3,.6,.2,1) both}
 @keyframes au-bloom{0%{transform:scale(1);opacity:1}100%{transform:scale(9);opacity:0}}
 .au-intro--open .au-halo{animation:none;opacity:0}
@@ -67,21 +75,21 @@ body{margin:0}
 @keyframes au-rise{from{opacity:0;transform:translateY(40px);filter:blur(6px)}to{opacity:1;transform:none;filter:blur(0)}}
 
 /* timer rings */
-.au-ringT{fill:none;stroke:rgba(37,26,53,0.08);stroke-width:5}
+.au-ringT{fill:none;stroke:rgba(255,255,255,0.12);stroke-width:5}
 .au-ringV{fill:none;stroke-width:5;stroke-linecap:round;transition:stroke-dashoffset .9s cubic-bezier(.3,.7,.3,1)}
-.au-g1{stop-color:#FF8A6B}
-.au-g2{stop-color:#FF5E9C}
-.au-g3{stop-color:#7C6BFF}
-.au-g4{stop-color:#45D3C7}
+.au-g1{stop-color:#3FF0B0}
+.au-g2{stop-color:#36C2FF}
+.au-g3{stop-color:#8A6BFF}
+.au-g4{stop-color:#FF5FC8}
 .au-tick{animation:au-tick .5s ease-out}
 .au-tock{animation:au-tock .5s ease-out}
 @keyframes au-tick{from{opacity:.2;filter:blur(4px)}}
 @keyframes au-tock{from{opacity:.2;filter:blur(4px)}}
 
 /* wishes */
-.au-wish{position:relative;display:inline-flex;align-items:center;gap:10px;min-height:52px;padding:10px 20px 10px 14px;border-radius:26px;box-sizing:border-box;border:1px solid rgba(255,255,255,0.8);background:rgba(255,255,255,0.45);-webkit-backdrop-filter:blur(16px) saturate(1.4);backdrop-filter:blur(16px) saturate(1.4);box-shadow:0 12px 30px rgba(70,40,110,0.1);font-family:'Wix Madefor Display',system-ui,sans-serif;font-size:17px;font-weight:600;color:#251A35;cursor:pointer;text-align:left;overflow-wrap:anywhere;animation:au-bob 5s ease-in-out infinite alternate;transition:background .5s ease,color .5s ease,box-shadow .5s ease}
+.au-wish{position:relative;display:inline-flex;align-items:center;gap:10px;min-height:52px;padding:10px 20px 10px 14px;border-radius:26px;box-sizing:border-box;border:1px solid rgba(255,255,255,0.18);background:rgba(255,255,255,0.08);-webkit-backdrop-filter:blur(16px) saturate(1.4);backdrop-filter:blur(16px) saturate(1.4);box-shadow:0 12px 30px rgba(0,0,0,0.25);font-family:'Wix Madefor Display',system-ui,sans-serif;font-size:17px;font-weight:600;color:#F4F1FA;cursor:pointer;text-align:left;overflow-wrap:anywhere;animation:au-bob 5s ease-in-out infinite alternate;transition:background .5s ease,color .5s ease,box-shadow .5s ease}
 @keyframes au-bob{from{transform:translateY(-4px)}to{transform:translateY(5px)}}
-.au-wish--on{background:linear-gradient(120deg,rgba(255,138,107,0.9),rgba(255,94,156,0.9) 50%,rgba(124,107,255,0.9));color:#FFFFFF;box-shadow:0 14px 34px rgba(255,94,156,0.35)}
+.au-wish--on{background:linear-gradient(120deg,#3FF0B0,#36C2FF 55%,#A58CFF);color:#0C1220;border-color:rgba(255,255,255,0.6);box-shadow:0 14px 34px rgba(54,194,255,0.35)}
 .au-wish--on .au-wdot{background:#FFFFFF;box-shadow:0 0 12px 3px rgba(255,255,255,0.8)}
 .au-wdot{flex:none;width:12px;height:12px;border-radius:50%}
 
@@ -99,13 +107,13 @@ body{margin:0}
 @keyframes au-mote{0%{opacity:0;transform:translate(0,0) scale(.6)}15%{opacity:1}100%{opacity:0;transform:translate(var(--mx),-150px) scale(1.2)}}
 .au-wishLine{opacity:0;filter:blur(8px);transition:opacity 1s ease .4s,filter 1s ease .4s}
 .au-wishLine--on{opacity:1;filter:blur(0)}
-.au-btn{min-height:54px;border-radius:27px;border:1px solid rgba(255,255,255,0.9);background:rgba(255,255,255,0.6);color:#251A35;font-family:'Wix Madefor Display',system-ui,sans-serif;font-size:16px;font-weight:600;display:inline-flex;align-items:center;justify-content:center;gap:10px;cursor:pointer;padding:0 28px;box-shadow:0 12px 30px rgba(70,40,110,0.14)}
+.au-btn{min-height:54px;border-radius:27px;border:1px solid rgba(255,255,255,0.25);background:rgba(255,255,255,0.1);color:#F4F1FA;font-family:'Wix Madefor Display',system-ui,sans-serif;font-size:16px;font-weight:600;display:inline-flex;align-items:center;justify-content:center;gap:10px;cursor:pointer;padding:0 28px;box-shadow:0 12px 30px rgba(0,0,0,0.3)}
 
 /* secret: frosted glass */
 .au-sec2{display:block;width:100%;padding:0;border:0;background:none;cursor:pointer;color:inherit;font:inherit;text-align:center}
 .au-secTx{filter:blur(9px);opacity:.55;transition:filter 1.2s ease,opacity 1.2s ease}
-.au-frost{position:absolute;left:0;top:0;right:0;bottom:0;border-radius:30px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;background:linear-gradient(140deg,rgba(255,255,255,0.55),rgba(255,255,255,0.25));-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);transition:opacity .9s ease,transform 1.1s cubic-bezier(.3,.7,.2,1)}
-.au-sheen{position:absolute;left:-40%;top:0;width:40%;height:100%;background:linear-gradient(100deg,rgba(255,255,255,0),rgba(255,255,255,0.7),rgba(255,255,255,0));transform:skewX(-14deg);animation:au-sheen 4.5s ease-in-out infinite}
+.au-frost{position:absolute;left:0;top:0;right:0;bottom:0;border-radius:30px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;background:linear-gradient(140deg,rgba(190,220,255,0.2),rgba(255,255,255,0.05));-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);transition:opacity .9s ease,transform 1.1s cubic-bezier(.3,.7,.2,1)}
+.au-sheen{position:absolute;left:-40%;top:0;width:40%;height:100%;background:linear-gradient(100deg,rgba(255,255,255,0),rgba(255,255,255,0.22),rgba(255,255,255,0));transform:skewX(-14deg);animation:au-sheen 4.5s ease-in-out infinite}
 @keyframes au-sheen{0%,55%{transform:translateX(0) skewX(-14deg)}100%{transform:translateX(380%) skewX(-14deg)}}
 .au-sec2--on .au-secTx{filter:blur(0);opacity:1}
 .au-sec2--on .au-frost{opacity:0;transform:translateY(-30px) scale(1.04);pointer-events:none}
@@ -113,22 +121,22 @@ body{margin:0}
 /* gallery */
 .au-shot{position:absolute;left:0;top:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.06);transition:opacity .9s ease,transform 1.6s cubic-bezier(.2,.8,.2,1)}
 .au-shot--on{opacity:1;transform:none}
-.au-thumb{position:relative;flex:none;width:52px;height:52px;padding:0;border-radius:16px;border:2px solid rgba(255,255,255,0.8);overflow:hidden;cursor:pointer;background:rgba(255,255,255,0.4);opacity:.6;transition:opacity .3s ease,transform .3s ease}
+.au-thumb{position:relative;flex:none;width:52px;height:52px;padding:0;border-radius:16px;border:2px solid rgba(255,255,255,0.25);overflow:hidden;cursor:pointer;background:rgba(255,255,255,0.08);opacity:.6;transition:opacity .3s ease,transform .3s ease}
 .au-thumb img{display:block;width:100%;height:100%;object-fit:cover}
-.au-thumb--on{opacity:1;transform:translateY(-4px);border-color:#FFFFFF;box-shadow:0 0 0 2px #FF5E9C,0 10px 20px rgba(255,94,156,0.3)}
+.au-thumb--on{opacity:1;transform:translateY(-4px);border-color:#FFFFFF;box-shadow:0 0 0 2px #3FF0B0,0 10px 22px rgba(63,240,176,0.3)}
 
 /* reply */
-.au-send{position:relative;width:100%;min-height:62px;border:0;border-radius:31px;padding:2px;background:conic-gradient(from var(--a,0deg),#FF8A6B,#FF5E9C,#7C6BFF,#45D3C7,#FF8A6B);cursor:pointer;animation:au-spinBorder 6s linear infinite}
+.au-send{position:relative;width:100%;min-height:62px;border:0;border-radius:31px;padding:2px;background:conic-gradient(from var(--a,0deg),#3FF0B0,#36C2FF,#8A6BFF,#FF5FC8,#3FF0B0);cursor:pointer;animation:au-spinBorder 6s linear infinite}
 @property --a{syntax:'<angle>';inherits:false;initial-value:0deg}
 @keyframes au-spinBorder{to{--a:360deg}}
-.au-sendIn{display:flex;align-items:center;justify-content:center;gap:10px;min-height:58px;border-radius:29px;background:rgba(255,255,255,0.86);color:#251A35;font-family:'Wix Madefor Display',system-ui,sans-serif;font-size:18px;font-weight:700}
-.au-send--done .au-sendIn{background:linear-gradient(120deg,#FF8A6B,#FF5E9C 50%,#7C6BFF);color:#FFFFFF}
+.au-sendIn{display:flex;align-items:center;justify-content:center;gap:10px;min-height:58px;border-radius:29px;background:rgba(12,18,32,0.88);color:#F4F1FA;font-family:'Wix Madefor Display',system-ui,sans-serif;font-size:18px;font-weight:700}
+.au-send--done .au-sendIn{background:linear-gradient(120deg,#3FF0B0,#36C2FF 55%,#A58CFF);color:#0C1220}
 .au-spark{position:absolute;left:0;top:0;width:10px;height:10px;margin:-5px 0 0 -5px;border-radius:50%;opacity:0}
 .au-burst--go .au-spark{animation:au-spark 1.4s cubic-bezier(.15,.8,.3,1) both}
 @keyframes au-spark{0%{opacity:1;transform:translateY(0) scale(.5)}70%{opacity:1}100%{opacity:0;transform:translateY(-120px) scale(1)}}
-.au-music{position:absolute;right:18px;top:20px;z-index:5;width:46px;height:46px;border-radius:50%;border:1px solid rgba(255,255,255,0.9);background:rgba(255,255,255,0.5);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0}
-.au-music--on{background:linear-gradient(135deg,#FF8A6B,#FF5E9C,#7C6BFF)}
-.au-music--on path{fill:#FFFFFF}
+.au-music{position:absolute;right:18px;top:20px;z-index:5;width:46px;height:46px;border-radius:50%;border:1px solid rgba(255,255,255,0.25);background:rgba(255,255,255,0.1);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0}
+.au-music--on{background:linear-gradient(135deg,#3FF0B0,#36C2FF,#8A6BFF)}
+.au-music--on path{fill:#0C1220}
 
 @media (prefers-reduced-motion: reduce){
   *,*::before,*::after{animation:none !important;transition:none !important}
@@ -138,50 +146,53 @@ body{margin:0}
 }
 </style>
 </helmet>
-<div class="{{ rootCls }}" style="width: 390px; min-height: var(--vh, 100vh); position: relative; overflow: hidden; background: #F3EEEA; color: #251A35; font-family: 'Wix Madefor Display', system-ui, -apple-system, sans-serif">
+<div class="{{ rootCls }}" style="width: 390px; min-height: var(--vh, 100vh); position: relative; overflow: hidden; background: #0C1220; color: #F4F1FA; font-family: 'Wix Madefor Display', system-ui, -apple-system, sans-serif">
   <svg aria-hidden="true" width="0" height="0" style="position: absolute">
-    <filter id="au-grainF" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"></feTurbulence><feColorMatrix type="matrix" values="0 0 0 0 0.16  0 0 0 0 0.1  0 0 0 0 0.24  2.6 0 0 0 -1.25"></feColorMatrix></filter>
+    <filter id="au-grainF" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"></feTurbulence><feColorMatrix type="matrix" values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  2.6 0 0 0 -1.25"></feColorMatrix></filter>
     <linearGradient id="au-ringG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" class="au-g1"></stop><stop offset=".45" class="au-g2"></stop><stop offset="1" class="au-g3"></stop></linearGradient>
   </svg>
 
   <div aria-hidden="true" style="position: absolute; left: 0; top: 0; bottom: 0; width: 390px; pointer-events: none; overflow: hidden">
+    <sc-for list="{{ stars }}" as="t"><span class="au-star" style="{{ t }}"></span></sc-for>
     <sc-for list="{{ heroFields }}" as="f"><div class="au-blob" style="{{ f.st }}"></div></sc-for>
+    <div class="au-cur" style="left: -90px; top: 10px; width: 570px; height: 330px"></div>
+    <div class="au-cur" style="left: -60px; top: 470px; width: 520px; height: 280px; animation-delay: -6s; animation-duration: 17s"></div>
     <sc-for list="{{ pageFields }}" as="f"><div class="au-blob" style="{{ f.st }}"></div></sc-for>
     <svg class="au-grain" width="390" height="100%" style="height: 100%"><rect x="0" y="0" width="100%" height="100%" filter="url(#au-grainF)"></rect></svg>
   </div>
 
   <div style="position: relative; z-index: 1; min-height: var(--vh, 100vh); display: flex; flex-direction: column">
     <section style="position: relative; height: 844px; flex: none">
-      <sc-if value="{{ has.music }}"><button type="button" class="{{ musicCls }}" onClick="{{ toggleMusic }}" aria-label="Musiqa" aria-pressed="{{ musicOn }}"><svg aria-hidden="true" width="18" height="20" viewBox="0 0 22 26"><path d="M8 3L20 0V17.5A3.5 3 0 1 1 17 14.6V5.2L10 7V20.5A3.5 3 0 1 1 7 17.6V3Z" fill="#251A35"></path></svg></button></sc-if>
+      <sc-if value="{{ has.music }}"><button type="button" class="{{ musicCls }}" onClick="{{ toggleMusic }}" aria-label="Musiqa" aria-pressed="{{ musicOn }}"><svg aria-hidden="true" width="18" height="20" viewBox="0 0 22 26"><path d="M8 3L20 0V17.5A3.5 3 0 1 1 17 14.6V5.2L10 7V20.5A3.5 3 0 1 1 7 17.6V3Z" fill="#F4F1FA"></path></svg></button></sc-if>
       <div style="position: absolute; left: 0; top: 26px; width: 390px; display: flex; justify-content: center">
         <span class="au-glass" style="display: inline-flex; align-items: center; gap: 8px; height: 38px; padding: 0 18px; border-radius: 19px; font-size: 13px; font-weight: 600"><span class="au-dot"></span>{{ heroDate }}</span>
       </div>
       <p class="au-cap" style="position: absolute; left: 20px; top: 118px; width: 350px; text-align: center">Tug’ilgan kuning muborak</p>
-      <h1 aria-label="{{ name }}" class="au-s" style="position: absolute; left: 20px; top: 146px; width: 350px; height: 190px; margin: 0; display: flex; align-items: center; justify-content: center; text-align: center; font-style: italic; font-weight: 300; font-size: {{ nameFs }}px; line-height: 1; letter-spacing: -0.02em; color: #251A35; overflow-wrap: anywhere">
+      <h1 aria-label="{{ name }}" class="au-s" style="position: absolute; left: 20px; top: 146px; width: 350px; height: 190px; margin: 0; display: flex; align-items: center; justify-content: center; text-align: center; font-weight: 300; font-size: {{ nameFs }}px; line-height: 1; letter-spacing: -0.02em; color: #F4F1FA; overflow-wrap: anywhere">
         <span aria-hidden="true"><sc-for list="{{ nameWords }}" as="w"><span style="white-space: nowrap"><sc-for list="{{ w.ch }}" as="c"><span class="au-ch">{{ c.t }}</span></sc-for></span>{{ w.sp }}</sc-for></span>
       </h1>
 
       <div class="au-rv" style="position: absolute; left: 0; top: 352px; width: 390px; height: 380px">
         <div class="au-glass au-float" style="position: absolute; left: 52px; top: 10px; width: 286px; height: 340px; padding: 12px; border-radius: 34px">
-          <div style="position: relative; width: 262px; height: 272px; border-radius: 24px; overflow: hidden; background: linear-gradient(140deg, #FFB49C, #FF7EB0 45%, #9C8CFF)">
+          <div style="position: relative; width: 262px; height: 272px; border-radius: 24px; overflow: hidden; background: linear-gradient(140deg, #1E8C74, #2C5BB0 50%, #6A48C8)">
             <sc-if value="{{ has.photo }}"><img src="{{ p.0 }}" alt="" style="display: block; width: 262px; height: 272px; object-fit: cover"></sc-if>
-            <sc-if value="{{ noPhoto }}"><div aria-hidden="true" class="au-s" style="position: absolute; left: 0; top: 0; width: 262px; height: 272px; display: flex; align-items: center; justify-content: center; font-style: italic; font-weight: 300; font-size: 210px; line-height: 1; color: rgba(255,255,255,0.9)">{{ initial }}</div></sc-if>
+            <sc-if value="{{ noPhoto }}"><div aria-hidden="true" class="au-s" style="position: absolute; left: 0; top: 0; width: 262px; height: 272px; display: flex; align-items: center; justify-content: center; font-weight: 300; font-size: 210px; line-height: 1; color: rgba(255,255,255,0.9)">{{ initial }}</div></sc-if>
           </div>
           <div style="display: flex; align-items: center; justify-content: space-between; height: 44px; padding: 0 6px">
-            <span class="au-s" style="font-style: italic; font-size: 19px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 200px">{{ name }}</span>
-            <span style="font-size: 12px; font-weight: 600; letter-spacing: 0.14em; color: #6A5880">{{ cardDate }}</span>
+            <span class="au-s" style="font-size: 19px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 200px">{{ name }}</span>
+            <span style="font-size: 12px; font-weight: 600; letter-spacing: 0.14em; color: #AEB7D0">{{ cardDate }}</span>
           </div>
         </div>
         <sc-if value="{{ d.yosh }}">
           <div class="au-glass au-float2" style="position: absolute; left: 262px; top: -22px; width: 104px; height: 104px; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center">
             <span class="au-s" style="font-size: {{ ageFs }}px; font-weight: 400; line-height: 1">{{ d.yosh }}</span>
-            <span style="margin-top: 2px; font-size: 11px; font-weight: 700; letter-spacing: 0.2em; color: #6A5880">YOSH</span>
+            <span style="margin-top: 2px; font-size: 11px; font-weight: 700; letter-spacing: 0.2em; color: #AEB7D0">YOSH</span>
           </div>
         </sc-if>
       </div>
 
       <sc-if value="{{ from.line }}">
-        <p class="au-rv" style="position: absolute; left: 30px; top: 736px; width: 330px; margin: 0; text-align: center; font-size: 14px; font-weight: 500; line-height: 1.45; color: #4A3B5E; overflow-wrap: anywhere">{{ from.line }}</p>
+        <p class="au-rv" style="position: absolute; left: 30px; top: 736px; width: 330px; margin: 0; text-align: center; font-size: 14px; font-weight: 500; line-height: 1.45; color: #C3C9DD; overflow-wrap: anywhere">{{ from.line }}</p>
       </sc-if>
       <sc-if value="{{ anyBlock }}">
         <svg aria-hidden="true" width="22" height="14" viewBox="0 0 22 14" style="position: absolute; left: 184px; top: 800px; animation: au-chev 2s ease-in-out infinite"><path class="au-ico" d="M3 3l8 8 8-8"></path></svg>
@@ -193,11 +204,11 @@ body{margin:0}
       <div class="au-glass au-rise" style="padding: 28px 24px 24px">
         <p class="au-cap">Tabrik</p>
         <h2 class="au-h2" style="font-size: 36px">Senga bir necha so’z</h2>
-        <p style="position: relative; margin: 16px 0 0; font-size: 16px; line-height: 1.72; color: #2E2240; white-space: pre-line; overflow-wrap: anywhere">{{ d.matn }}</p>
+        <p style="position: relative; margin: 16px 0 0; font-size: 16px; line-height: 1.72; color: #E6E3F0; white-space: pre-line; overflow-wrap: anywhere">{{ d.matn }}</p>
         <sc-if value="{{ d.kimdan }}">
-          <div style="display: flex; align-items: center; gap: 12px; margin-top: 22px; padding-top: 18px; border-top: 1px solid rgba(37,26,53,0.1)">
+          <div style="display: flex; align-items: center; gap: 12px; margin-top: 22px; padding-top: 18px; border-top: 1px solid rgba(255,255,255,0.12)">
             <div aria-hidden="true" style="display: flex; flex: none"><sc-for list="{{ avatars }}" as="a"><span class="au-s" style="{{ a.st }}">{{ a.t }}</span></sc-for></div>
-            <p style="margin: 0; min-width: 0; font-size: 14px; line-height: 1.4; overflow-wrap: anywhere"><sc-if value="{{ from.label }}"><span style="display: block; font-size: 12px; color: #6A5880">{{ from.label }}</span></sc-if><span style="display: block; font-weight: 600">{{ from.names }}</span></p>
+            <p style="margin: 0; min-width: 0; font-size: 14px; line-height: 1.4; overflow-wrap: anywhere"><sc-if value="{{ from.label }}"><span style="display: block; font-size: 12px; color: #AEB7D0">{{ from.label }}</span></sc-if><span style="display: block; font-weight: 600">{{ from.names }}</span></p>
           </div>
         </sc-if>
       </div>
@@ -219,14 +230,14 @@ body{margin:0}
                 </svg>
                 <span class="{{ r.cls }}" style="position: absolute; left: 0; top: 0; width: 64px; height: 64px; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 400; font-variant-numeric: tabular-nums">{{ r.v }}</span>
               </div>
-              <span style="font-size: 12px; font-weight: 600; color: #6A5880">{{ r.l }}</span>
+              <span style="font-size: 12px; font-weight: 600; color: #AEB7D0">{{ r.l }}</span>
             </div>
           </sc-for>
         </div>
       </sc-if>
       <sc-if value="{{ cdDone }}">
         <div class="au-glass au-rise" style="margin-top: 20px; padding: 26px 20px">
-          <span class="au-s" style="font-style: italic; font-size: 30px; line-height: 1.2">Bugun — sening kuning!</span>
+          <span class="au-s" style="font-size: 30px; line-height: 1.2">Bugun — sening kuning!</span>
         </div>
       </sc-if>
     </section>
@@ -255,14 +266,14 @@ body{margin:0}
             <sc-for list="{{ motes }}" as="m"><span class="au-mote" style="{{ m }}"></span></sc-for>
             <svg width="240" height="260" viewBox="0 0 240 260" style="position: absolute; left: 0; top: 0">
               <g class="au-flame"><path d="M120 46C134 72 140 88 134 102C129 114 111 114 106 102C100 88 106 72 120 46Z" fill="#FFB36B"></path><path d="M120 72C127 84 129 93 126 100C124 105 116 105 114 100C111 93 113 84 120 72Z" fill="#FFF4D8"></path></g>
-              <rect x="117.5" y="106" width="5" height="12" rx="2" fill="#3A2B4E"></rect>
-              <rect x="96" y="116" width="48" height="128" rx="20" fill="#FFFFFF" opacity="0.75"></rect>
-              <rect x="104" y="124" width="10" height="108" rx="5" fill="#FFFFFF"></rect>
-              <rect x="96" y="116" width="48" height="128" rx="20" fill="none" stroke="#FFFFFF" stroke-width="1.5"></rect>
-              <ellipse cx="120" cy="248" rx="70" ry="9" fill="#7C6BFF" opacity="0.18"></ellipse>
+              <rect x="117.5" y="106" width="5" height="12" rx="2" fill="#C9CDE0"></rect>
+              <rect x="96" y="116" width="48" height="128" rx="20" fill="#FFFFFF" opacity="0.18"></rect>
+              <rect x="104" y="124" width="10" height="108" rx="5" fill="#FFFFFF" opacity="0.55"></rect>
+              <rect x="96" y="116" width="48" height="128" rx="20" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"></rect>
+              <ellipse cx="120" cy="248" rx="70" ry="9" fill="#36C2FF" opacity="0.3"></ellipse>
             </svg>
           </div>
-          <p class="{{ wishCls }}" style="margin: 6px 0 0; min-height: 34px; font-family: 'Literata', Georgia, serif; font-style: italic; font-size: 24px; line-height: 1.3; overflow-wrap: anywhere">{{ wishLine }}</p>
+          <p class="{{ wishCls }}" style="margin: 6px 0 0; min-height: 34px; font-family: 'Ysabeau Infant', 'Avenir Next', sans-serif; font-weight: 400; font-size: 24px; line-height: 1.3; overflow-wrap: anywhere">{{ wishLine }}</p>
           <button type="button" class="au-btn" onClick="{{ blow }}" style="margin-top: 14px">
             <span class="{{ blowIdle }}">Puflash</span><span class="{{ blowDone }}">Shamni qayta yoqish</span>
           </button>
@@ -277,13 +288,13 @@ body{margin:0}
         <div class="au-glass au-rise" style="min-height: 240px; overflow: hidden">
           <div style="position: relative; min-height: 240px; box-sizing: border-box; padding: 30px 24px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px">
             <p class="au-cap">Sirli tilak</p>
-            <p class="au-secTx au-s" style="margin: 0; font-style: italic; font-size: 22px; line-height: 1.45; color: #251A35; white-space: pre-line; overflow-wrap: anywhere">{{ d.sirli_tilak }}</p>
+            <p class="au-secTx au-s" style="margin: 0; font-size: 22px; line-height: 1.45; color: #F4F1FA; white-space: pre-line; overflow-wrap: anywhere">{{ d.sirli_tilak }}</p>
           </div>
           <div class="au-frost">
             <span class="au-sheen" aria-hidden="true"></span>
             <svg aria-hidden="true" width="48" height="48" viewBox="0 0 48 48"><circle cx="24" cy="24" r="22" fill="rgba(255,255,255,0.7)"></circle><path class="au-ico" d="M17 27V18.5a2.5 2.5 0 0 1 5 0V25M22 24v-7.5a2.5 2.5 0 0 1 5 0V24M27 24.5V19a2.5 2.5 0 0 1 5 0v8c0 5-3 9-8 9h-1c-3 0-5-1.5-6.5-4L13 27a2.4 2.4 0 0 1 4-2.6"></path></svg>
-            <span class="au-s" style="position: relative; font-style: italic; font-size: 28px; line-height: 1.2">Muzlagan oyna</span>
-            <span style="position: relative; font-size: 14px; font-weight: 500; line-height: 1.45; max-width: 260px; color: #3E2F52">Oynani arting — ortida biz yashirgan tilak bor</span>
+            <span class="au-s" style="position: relative; font-size: 28px; line-height: 1.2">Muzlagan oyna</span>
+            <span style="position: relative; font-size: 14px; font-weight: 500; line-height: 1.45; max-width: 260px; color: #C9CDE0">Oynani arting — ortida biz yashirgan tilak bor</span>
           </div>
         </div>
       </button>
@@ -295,7 +306,7 @@ body{margin:0}
       <p class="au-cap">Yorqin lahzalar</p>
       <h2 class="au-h2">Suratlar</h2>
       <div class="au-glass au-rise" style="margin-top: 24px; padding: 12px; border-radius: 34px">
-        <div style="position: relative; width: 100%; height: 400px; border-radius: 24px; overflow: hidden; background: linear-gradient(140deg, #FFB49C, #FF7EB0 45%, #9C8CFF)">
+        <div style="position: relative; width: 100%; height: 400px; border-radius: 24px; overflow: hidden; background: linear-gradient(140deg, #1E8C74, #2C5BB0 50%, #6A48C8)">
           <sc-for list="{{ shots }}" as="g"><img class="{{ g.cls }}" src="{{ g.src }}" alt=""></sc-for>
           <span class="au-glass" style="position: absolute; left: 12px; bottom: 12px; height: 32px; padding: 0 14px; border-radius: 16px; display: flex; align-items: center; font-size: 13px; font-weight: 600">{{ shotNo }}</span>
         </div>
@@ -312,14 +323,14 @@ body{margin:0}
     <section class="au-sec" style="text-align: center">
       <div class="au-glass au-rise" style="padding: 30px 22px 24px">
         <h2 class="au-h2" style="margin-top: 0; font-size: {{ askFs }}px">{{ askName }}</h2>
-        <p style="position: relative; margin: 10px 0 22px; font-size: 15px; line-height: 1.5; color: #4A3B5E">Bir bosishda tabrigingizni yetkazing</p>
+        <p style="position: relative; margin: 10px 0 22px; font-size: 15px; line-height: 1.5; color: #C3C9DD">Bir bosishda tabrigingizni yetkazing</p>
         <div style="position: relative">
           <div class="{{ burstCls }}" aria-hidden="true" style="position: absolute; left: 50%; top: 22px; width: 0; height: 0; pointer-events: none; z-index: 2">
             <sc-for list="{{ sparks }}" as="c"><span style="{{ c.w }}"><span class="au-spark" style="{{ c.p }}"></span></span></sc-for>
           </div>
           <button type="button" class="{{ sendCls }}" onClick="{{ send }}">
             <span class="au-sendIn">
-              <span class="{{ sendIdle }}"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 20 20"><path d="M10 17s-6.5-4.1-6.5-8.6A3.6 3.6 0 0 1 10 6.3a3.6 3.6 0 0 1 6.5 2.1C16.5 12.9 10 17 10 17z" fill="#FF5E9C"></path></svg>Tabrikladim</span>
+              <span class="{{ sendIdle }}"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 20 20"><path d="M10 17s-6.5-4.1-6.5-8.6A3.6 3.6 0 0 1 10 6.3a3.6 3.6 0 0 1 6.5 2.1C16.5 12.9 10 17 10 17z" fill="#3FF0B0"></path></svg>Tabrikladim</span>
               <span class="{{ sendDone }}">Rahmat! Tabrigingiz yetkazildi</span>
             </span>
           </button>
@@ -330,25 +341,28 @@ body{margin:0}
 
     <footer aria-hidden="true" style="flex: 1; min-height: 150px; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; padding: 50px 20px 30px; box-sizing: border-box; text-align: center">
       <span class="au-dot" style="width: 14px; height: 14px"></span>
-      <span class="au-s" style="margin-top: 12px; font-style: italic; font-size: 22px; color: #251A35; max-width: 340px; overflow-wrap: anywhere">{{ footLine }}</span>
-      <span style="margin-top: 6px; font-size: 12px; font-weight: 600; letter-spacing: 0.2em; color: #6A5880">{{ footDate }}</span>
+      <span class="au-s" style="margin-top: 12px; font-size: 22px; color: #F4F1FA; max-width: 340px; overflow-wrap: anywhere">{{ footLine }}</span>
+      <span style="margin-top: 6px; font-size: 12px; font-weight: 600; letter-spacing: 0.2em; color: #AEB7D0">{{ footDate }}</span>
     </footer>
   </div>
 
-  <div data-intro class="{{ introCls }}" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; z-index: 20; overflow: hidden; background: #F3EEEA">
+  <div data-intro class="{{ introCls }}" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; z-index: 20; overflow: hidden; background: #0C1220">
     <div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; pointer-events: none">
+      <sc-for list="{{ introStars }}" as="t"><span class="au-star" style="{{ t }}"></span></sc-for>
       <sc-for list="{{ introFields }}" as="f"><div class="au-ib" style="{{ f.st }}"></div></sc-for>
+      <div class="au-cur" style="left: -90px; top: 10px; width: 570px; height: 330px"></div>
+      <div class="au-cur" style="left: -60px; top: 470px; width: 520px; height: 280px; animation-delay: -6s; animation-duration: 17s"></div>
       <svg class="au-grain" width="390" height="844" style="height: 844px"><rect x="0" y="0" width="390" height="844" filter="url(#au-grainF)"></rect></svg>
     </div>
 
     <div class="au-closedTx" style="position: absolute; left: 30px; top: 120px; width: 330px; text-align: center">
       <p class="au-cap">{{ introCap }}</p>
-      <p class="au-s" style="margin: 14px 0 0; font-style: italic; font-weight: 300; font-size: 36px; line-height: 1.15; color: #251A35">Senga atalgan nur shu yerda</p>
+      <p class="au-s" style="margin: 14px 0 0; font-weight: 300; font-size: 36px; line-height: 1.15; color: #F4F1FA">Senga atalgan nur shu yerda</p>
     </div>
 
     <div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; pointer-events: none">
       <p class="au-cap au-iKick" style="position: absolute; left: 20px; top: 118px; width: 350px; text-align: center">Tug’ilgan kuning muborak</p>
-      <div class="au-s" style="position: absolute; left: 20px; top: 146px; width: 350px; height: 190px; display: flex; align-items: center; justify-content: center; text-align: center; font-style: italic; font-weight: 300; font-size: {{ nameFs }}px; line-height: 1; letter-spacing: -0.02em; color: #251A35; overflow-wrap: anywhere">
+      <div class="au-s" style="position: absolute; left: 20px; top: 146px; width: 350px; height: 190px; display: flex; align-items: center; justify-content: center; text-align: center; font-weight: 300; font-size: {{ nameFs }}px; line-height: 1; letter-spacing: -0.02em; color: #F4F1FA; overflow-wrap: anywhere">
         <span><sc-for list="{{ nameWords }}" as="w"><span style="white-space: nowrap"><sc-for list="{{ w.ch }}" as="c"><span class="au-ch" style="{{ c.st }}">{{ c.t }}</span></sc-for></span>{{ w.sp }}</sc-for></span>
       </div>
     </div>
@@ -362,7 +376,7 @@ body{margin:0}
       </button>
     </div>
     <sc-if value="{{ from.line }}">
-      <p class="au-closedTx" style="position: absolute; left: 30px; top: 690px; width: 330px; margin: 0; text-align: center; font-size: 14px; font-weight: 500; line-height: 1.45; color: #4A3B5E; overflow-wrap: anywhere">{{ from.line }}</p>
+      <p class="au-closedTx" style="position: absolute; left: 30px; top: 690px; width: 330px; margin: 0; text-align: center; font-size: 14px; font-weight: 500; line-height: 1.45; color: #C3C9DD; overflow-wrap: anywhere">{{ from.line }}</p>
     </sc-if>
   </div>
 </div>
@@ -379,7 +393,7 @@ const tkFit = (text, max, min, width, k) => {
   const longest = Math.max(1, ...String(text || '').split(/\s+/).map((x) => x.length));
   return Math.max(min, Math.min(max, Math.floor(width / (longest * k))));
 };
-const AU = ['#FF8A6B', '#FF5E9C', '#7C6BFF', '#45D3C7', '#FFC46B'];
+const AU = ['#3FF0B0', '#36C2FF', '#8A6BFF', '#FF5FC8', '#FFB86B'];
 const field = (c, a) => 'radial-gradient(closest-side, ' + c + ' 0%, ' + c + a + ' 32%, ' + c + '2E 64%, rgba(255,255,255,0) 100%)';
 
 class Component extends DCLogic {
@@ -400,6 +414,14 @@ class Component extends DCLogic {
       pageFields: Array.from({ length: 9 }, (_, i) => {
         const s = 300 + Math.round(rnd(i, 3) * 160);
         return { st: 'left: ' + Math.round((i % 2 ? 150 : -170) + rnd(i, 4) * 90) + 'px; top: ' + (20 + i * 9 + rnd(i, 5) * 4).toFixed(1) + '%; width: ' + s + 'px; height: ' + Math.round(s * 0.62) + 'px; rotate: ' + Math.round((rnd(i, 6) - 0.5) * 70) + 'deg; background: ' + field(AU[(i + 1) % 4], '77') + '; opacity: 0.7; animation-duration: ' + (20 + i * 2) + 's; animation-delay: -' + (i * 3) + 's' };
+      }),
+      stars: Array.from({ length: 70 }, (_, i) => {
+        const z = (1 + Math.round(rnd(i, 31) * 2)) + 'px';
+        return 'left: ' + Math.round(rnd(i, 32) * 386) + 'px; top: ' + (rnd(i, 33) * 99).toFixed(2) + '%; width: ' + z + '; height: ' + z + '; animation-duration: ' + (2 + rnd(i, 34) * 3).toFixed(1) + 's; animation-delay: -' + (rnd(i, 35) * 3).toFixed(1) + 's';
+      }),
+      introStars: Array.from({ length: 46 }, (_, i) => {
+        const z = (1 + Math.round(rnd(i, 41) * 2)) + 'px';
+        return 'left: ' + Math.round(rnd(i, 42) * 386) + 'px; top: ' + Math.round(rnd(i, 43) * 840) + 'px; width: ' + z + '; height: ' + z + '; animation-duration: ' + (2 + rnd(i, 44) * 3).toFixed(1) + 's; animation-delay: -' + (rnd(i, 45) * 3).toFixed(1) + 's';
       }),
       motes: Array.from({ length: 12 }, (_, i) => '--mx: ' + Math.round((rnd(i, 8) - 0.5) * 180) + 'px; background: ' + AU[i % 4] + '; animation-delay: ' + (rnd(i, 9) * 0.6).toFixed(2) + 's; width: ' + (5 + Math.round(rnd(i, 10) * 6)) + 'px; height: ' + (5 + Math.round(rnd(i, 10) * 6)) + 'px'),
       sparks: Array.from({ length: 16 }, (_, i) => {
@@ -432,7 +454,7 @@ class Component extends DCLogic {
     const names = from.names.split(/\s*,\s*|\s+va\s+|\s+и\s+/).map((x) => x.trim()).filter(Boolean);
     const avatars = names.slice(0, 4).map((x, i) => ({
       t: x.charAt(0).toLocaleUpperCase('uz'),
-      st: 'width: 40px; height: 40px; border-radius: 50%; box-sizing: border-box; border: 2px solid rgba(255,255,255,0.95); display: flex; align-items: center; justify-content: center; font-style: italic; font-size: 19px; color: #FFFFFF; background: linear-gradient(135deg, ' + AU[i % 4] + ', ' + AU[(i + 1) % 4] + ')' + (i ? '; margin-left: -12px' : '')
+      st: 'width: 40px; height: 40px; border-radius: 50%; box-sizing: border-box; border: 2px solid #1A2338; display: flex; align-items: center; justify-content: center; font-size: 19px; font-weight: 500; color: #0C1220; background: linear-gradient(135deg, ' + AU[i % 4] + ', ' + AU[(i + 1) % 4] + ')' + (i ? '; margin-left: -12px' : '')
     }));
 
     const C = 169.6;
