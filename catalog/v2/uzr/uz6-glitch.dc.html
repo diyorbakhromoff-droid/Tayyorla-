@@ -147,7 +147,7 @@ a{color:#B14A34}
         <p class="g-mo g-dim" style="margin: 0; font-size: 12px; font-weight: 500; letter-spacing: 0.08em; overflow-wrap: anywhere">{{ fromTo }}</p>
         <div class="g-it" style="margin-top: 12px; font-size: {{ h1Size }}; font-weight: 800; line-height: 1.02; letter-spacing: -0.04em" aria-hidden="true">
           <span class="g-rgb"><span class="g-base" style="overflow-wrap: anywhere">{{ d.kimga }},</span><span class="g-c" style="overflow-wrap: anywhere">{{ d.kimga }},</span><span class="g-m" style="overflow-wrap: anywhere">{{ d.kimga }},</span><span class="g-sl" style="overflow-wrap: anywhere">{{ d.kimga }},</span></span>
-          <span class="g-rgb" style="margin-top: 4px"><span class="g-base">{{ line2 }}</span><span class="g-c">{{ line2 }}</span><span class="g-m">{{ line2 }}</span><span class="g-sl g-sl2">{{ line2 }}</span></span>
+          <span class="g-rgb" style="margin-top: 4px; white-space: nowrap"><span class="g-base">{{ line2 }}</span><span class="g-c">{{ line2 }}</span><span class="g-m">{{ line2 }}</span><span class="g-sl g-sl2">{{ line2 }}</span></span>
         </div>
       </div>
 
@@ -415,7 +415,7 @@ class Component extends DCLogic {
     const d = SITE.d, b = SITE.b;
     const ok = !!s.healed;
     const ini = (x) => (String(x || '').trim().charAt(0) || '').toUpperCase();
-    const glyph = '#%&@$*!?<>/=+01';
+    const glyph = '#%*!?<>/=+01';
     let seed = (s.tick || 0) * 7919 + 13;
     const rnd = () => { seed = (seed * 16807) % 2147483647; return seed / 2147483647; };
     const scramble = (txt) => txt.split('').map((ch) => (ch !== ' ' && rnd() < 0.38 ? glyph.charAt(Math.floor(rnd() * glyph.length)) : ch)).join('');

@@ -484,7 +484,7 @@ class Component extends DCLogic {
     const tab = {};
     let k = 0;
     ORDER.forEach((key) => { if (SITE.b[key]) { k += 1; tab[key] = (k < 10 ? '0' : '') + k; } else tab[key] = ''; });
-    const nameFs = tkFit(name, 78, 30, 350, 0.72);
+    const nameFs = tkFit(name, 78, 28, 350, 0.8);
     /* kinetic name letters for the intro */
     let li = 0;
     const kin = name.split(/\s+/).filter(Boolean).map((wd) => ({ ch: Array.from(wd).map((ch) => ({ c: ch, st: '--d: ' + (1.45 + (li++) * 0.045).toFixed(2) + 's' })) }));
@@ -573,7 +573,7 @@ class Component extends DCLogic {
       nameFs: nameFs, kin: kin,
       nameSt: 'position: absolute; left: 20px; top: ' + nt + 'px; width: 350px',
       nameFlow: 'position: relative; width: 350px; margin: 0 20px; padding-top: ' + nt + 'px',
-      footFs: tkFit(name, 56, 26, 330, 0.72),
+      footFs: tkFit(name, 56, 24, 330, 0.8),
       heroDots: w.dots,
       heroVert: yosh ? 'No. ' + yosh + ' · ' + w.year : w.year,
       musicCls: SITE.music.playing ? 'bh-music bh-music--on' : 'bh-music',

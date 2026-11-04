@@ -1,0 +1,622 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<title>Tug’ilgan kun: Guruh chati</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Commissioner:wght@300;400;500;600;700;800&amp;family=Pacifico&amp;display=swap">
+<style>
+body{margin:0}
+.is-hidden{display:none !important}
+.ct-pac{font-family:'Pacifico','Segoe Script',cursive;font-weight:400}
+.ct-wall{background-color:#EFE7DC;isolation:isolate}
+.ct-dood{fill:none;stroke:#DCCFBD;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.ct-ico{fill:none;stroke:#13201C;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.ct-icoG{fill:none;stroke:#0E9F7E;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.ct-icoW{fill:none;stroke:#FFFFFF;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.ct-chip{display:inline-flex;align-items:center;min-height:28px;padding:4px 14px;box-sizing:border-box;border-radius:14px;background:rgba(255,255,255,0.72);font-size:13px;font-weight:600;color:#3B4B45;text-align:center;line-height:1.35}
+.ct-sys{display:flex;justify-content:center;padding:0 24px;margin:14px 0 4px}
+
+/* bubbles */
+.ct-rowIn{position:relative;display:flex;align-items:flex-end;gap:8px;padding:0 44px 0 10px;margin-top:10px}
+.ct-av{flex:none;width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;color:#FFFFFF;overflow:hidden}
+.ct-bIn{position:relative;min-width:0;background:#FFFFFF;border-radius:20px 20px 20px 6px;padding:9px 13px 7px;box-sizing:border-box;box-shadow:0 1px 1.5px rgba(19,32,28,0.1)}
+.ct-name{margin:0 0 3px;font-size:13.5px;font-weight:700;line-height:1.3;overflow-wrap:anywhere}
+.ct-txt{margin:0;font-size:16px;line-height:1.45;color:#13201C;white-space:pre-line;overflow-wrap:anywhere}
+.ct-meta{display:flex;align-items:center;justify-content:flex-end;gap:4px;margin-top:3px;font-size:11.5px;color:#7A8882}
+.ct-rowOut{position:relative;display:flex;justify-content:flex-end;padding:0 10px 0 70px;margin-top:10px}
+.ct-bOut{position:relative;min-width:0;background:#D7F4E5;border-radius:20px 20px 6px 20px;padding:9px 13px 7px;box-sizing:border-box;box-shadow:0 1px 1.5px rgba(19,32,28,0.1)}
+.ct-typ{display:inline-flex;align-items:center;gap:5px;height:40px;padding:0 15px;box-sizing:border-box;background:#FFFFFF;border-radius:20px 20px 20px 6px;box-shadow:0 1px 1.5px rgba(19,32,28,0.1)}
+.ct-typ i{display:block;width:8px;height:8px;border-radius:50%;background:#94A39C;animation:ct-dot 1.2s ease-in-out infinite}
+.ct-typ i:nth-child(2){animation-delay:.15s}
+.ct-typ i:nth-child(3){animation-delay:.3s}
+@keyframes ct-dot{0%,60%,100%{transform:translateY(0);opacity:.5}30%{transform:translateY(-5px);opacity:1}}
+
+/* first screen: messages arrive after the unlock */
+.ct-arr{transform-origin:0 100%}
+.ct-shut .ct-arr{opacity:0}
+.ct-live .ct-arr{animation:ct-arr .55s cubic-bezier(.2,1.25,.4,1) both;animation-delay:var(--ad,0s)}
+@keyframes ct-arr{from{opacity:0;transform:translateY(18px) scale(.9)}to{opacity:1;transform:none}}
+.ct-tH{position:absolute;left:54px;bottom:0;opacity:0;pointer-events:none}
+.ct-live .ct-tH{animation:ct-tH 1s ease both;animation-delay:calc(var(--ad,0s) - 1s)}
+@keyframes ct-tH{0%{opacity:0;transform:scale(.7)}15%,82%{opacity:1;transform:none}100%{opacity:0;transform:scale(.9)}}
+
+/* further down: typing, then the message, as you scroll */
+.ct-m{position:relative;view-timeline-name:--ctm;view-timeline-axis:block}
+.ct-m > .ct-tV{position:absolute;left:54px;top:10px;opacity:0;pointer-events:none;animation:ct-tV 1ms linear both;animation-timeline:--ctm;animation-range:entry 0% entry 190px}
+.ct-m > .ct-body{transform-origin:0 0;animation:ct-bV 1ms linear both;animation-timeline:--ctm;animation-range:entry 0% entry 190px}
+.ct-m.ct-mine > .ct-body{transform-origin:100% 0}
+@keyframes ct-tV{0%{opacity:0;transform:scale(.6)}22%{opacity:1;transform:none}58%{opacity:1}74%,100%{opacity:0;transform:scale(.85)}}
+@keyframes ct-bV{0%,62%{opacity:0;transform:translateY(16px) scale(.92)}100%{opacity:1;transform:none}}
+
+/* sticker */
+.ct-stk{position:relative;width:168px;height:168px;filter:drop-shadow(0 8px 14px rgba(19,32,28,0.22));animation:ct-wob 4s ease-in-out infinite}
+@keyframes ct-wob{0%,100%{transform:rotate(-7deg)}50%{transform:rotate(-2deg) scale(1.03)}}
+.ct-conf{animation:ct-conf 3.2s ease-in-out infinite alternate}
+@keyframes ct-conf{from{transform:translateY(-3px) rotate(-8deg)}to{transform:translateY(4px) rotate(10deg)}}
+
+/* voice notes */
+.ct-vn{display:flex;align-items:center;gap:10px}
+.ct-play{flex:none;width:44px;height:44px;border-radius:50%;border:0;background:#0E9F7E;display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0;box-shadow:0 4px 10px rgba(14,159,126,0.35)}
+.ct-wave{position:relative;flex:1;min-width:0;height:30px}
+.ct-bars{position:absolute;left:0;top:0;right:0;bottom:0;display:flex;align-items:center;gap:2px}
+.ct-bars span{display:block;flex:1;min-width:2px;border-radius:2px;background:#C3CEC9}
+.ct-bars--on span{background:#0E9F7E}
+.ct-bars--on{clip-path:inset(0 100% 0 0)}
+.ct-vn--play .ct-bars--on{animation:ct-prog var(--dur,4s) linear both}
+@keyframes ct-prog{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
+.ct-vn--play .ct-bars--base span{animation:ct-eq .5s ease-in-out infinite alternate}
+@keyframes ct-eq{from{transform:scaleY(.7)}to{transform:scaleY(1.1)}}
+.ct-tr{margin:7px 0 0;padding:7px 10px;border-radius:12px;background:#F2F5F3;font-size:15px;font-weight:600;line-height:1.35;color:#13201C;overflow-wrap:anywhere}
+
+/* countdown */
+.ct-cd{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin-top:8px}
+.ct-cdT{display:flex;flex-direction:column;align-items:center;padding:10px 0 8px;border-radius:14px;background:#0E9F7E;color:#FFFFFF}
+.ct-cdN{font-size:28px;font-weight:700;line-height:1;font-variant-numeric:tabular-nums}
+.ct-ta{animation:ct-roll .45s cubic-bezier(.2,1.3,.4,1)}
+.ct-tb{animation:ct-roll2 .45s cubic-bezier(.2,1.3,.4,1)}
+@keyframes ct-roll{from{transform:translateY(-55%);opacity:0}}
+@keyframes ct-roll2{from{transform:translateY(-55%);opacity:0}}
+.ct-link{display:flex;align-items:center;justify-content:center;gap:8px;min-height:46px;margin-top:8px;border-radius:14px;background:#F2F5F3;color:#0B7F64;font-size:15px;font-weight:700;text-decoration:none}
+
+/* candle mini app */
+.ct-key{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;min-height:48px;margin-top:6px;border:0;border-radius:14px;background:rgba(255,255,255,0.82);color:#0B7F64;font-family:'Commissioner',system-ui,sans-serif;font-size:15px;font-weight:700;cursor:pointer;box-shadow:0 1px 1.5px rgba(19,32,28,0.1)}
+.ct-flame{transform-box:fill-box;transform-origin:50% 100%;animation:ct-flick .8s ease-in-out infinite alternate}
+@keyframes ct-flick{0%{transform:scale(1,1) rotate(-4deg)}50%{transform:scale(.9,1.1) rotate(3deg)}100%{transform:scale(1.05,.95) rotate(-1deg)}}
+.ct-smoke{fill:none;stroke:#A9B5B0;stroke-width:2;stroke-linecap:round;stroke-dasharray:3 4;opacity:0}
+.ct-out .ct-flame{animation:ct-fOut .35s ease-in both}
+.ct-out .ct-smoke{animation:ct-smoke 2s ease-out .2s both}
+@keyframes ct-fOut{to{opacity:0;transform:scale(.2,.1)}}
+@keyframes ct-smoke{0%{opacity:0;transform:translateY(0)}20%{opacity:.9}100%{opacity:0;transform:translateY(-26px)}}
+.ct-after{animation:ct-arr .5s cubic-bezier(.2,1.25,.4,1) both}
+.ct-after2{animation:ct-arr .5s cubic-bezier(.2,1.25,.4,1) 1.1s both}
+
+/* spoiler */
+.ct-spBtn{display:block;width:100%;padding:0;border:0;background:none;cursor:pointer;color:inherit;font:inherit;text-align:left}
+.ct-spTx{filter:blur(7px);opacity:.35;transition:filter .8s ease,opacity .8s ease}
+.ct-spDots{position:absolute;left:-4px;top:-4px;right:-4px;bottom:-4px;border-radius:10px;background:radial-gradient(circle,rgba(19,32,28,0.6) 0 .9px,rgba(19,32,28,0) 1.3px) 0 0/5px 5px,radial-gradient(circle,rgba(14,159,126,0.7) 0 .8px,rgba(14,159,126,0) 1.2px) 2px 3px/7px 6px;animation:ct-noise 1.4s linear infinite;transition:opacity .8s ease}
+@keyframes ct-noise{from{background-position:0 0,2px 3px}to{background-position:10px 5px,-12px 15px}}
+.ct-spBtn--on .ct-spTx{filter:blur(0);opacity:1}
+.ct-spBtn--on .ct-spDots{opacity:0}
+
+/* album */
+.ct-alb{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:3px;border-radius:16px;overflow:hidden}
+.ct-alb img{display:block;width:100%;height:100%;object-fit:cover}
+
+/* composer */
+.ct-qr{flex:none;min-height:40px;padding:0 16px;border-radius:20px;border:1.5px solid #0E9F7E;background:#FFFFFF;color:#0B7F64;font-family:'Commissioner',system-ui,sans-serif;font-size:14.5px;font-weight:700;cursor:pointer;white-space:nowrap}
+.ct-input{flex:1;min-width:0;height:50px;box-sizing:border-box;border-radius:25px;border:0;background:#FFFFFF;padding:0 18px;font-family:'Commissioner',system-ui,sans-serif;font-size:16px;color:#13201C;outline:none;box-shadow:0 1px 2px rgba(19,32,28,0.12)}
+.ct-input::placeholder{color:#7A8882}
+.ct-send{flex:none;width:50px;height:50px;border-radius:50%;border:0;background:#0E9F7E;display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0;box-shadow:0 6px 14px rgba(14,159,126,0.35)}
+.ct-send:active,.ct-qr:active,.ct-key:active{transform:scale(.97)}
+.ct-tick2{opacity:0;transition:opacity .4s ease}
+.ct-ok .ct-tick2{opacity:1}
+.ct-music{flex:none;width:44px;height:44px;border-radius:50%;border:0;background:#E9F6F0;display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0}
+.ct-music--on{background:#0E9F7E}
+.ct-music--on path{fill:#FFFFFF}
+
+/* intro: lock screen */
+.ct-lockTop,.ct-noteWrap,.ct-hint{transition:transform .5s cubic-bezier(.6,0,.4,1),opacity .4s ease}
+.ct-intro--open{pointer-events:none;animation:ct-unlock .75s cubic-bezier(.7,0,.25,1) .35s both}
+@keyframes ct-unlock{to{transform:translateY(-104%)}}
+.ct-intro--open .ct-lockTop{transform:translateY(-60px);opacity:0}
+.ct-intro--open .ct-noteWrap{transform:translateY(-30px) scale(1.06);opacity:0}
+.ct-intro--open .ct-hint{opacity:0}
+.ct-note{display:block;width:100%;padding:0;border:0;background:none;cursor:pointer;text-align:left;font:inherit;color:inherit}
+.ct-noteIn{position:relative;border-radius:26px;background:rgba(255,255,255,0.8);-webkit-backdrop-filter:blur(26px) saturate(1.6);backdrop-filter:blur(26px) saturate(1.6);padding:14px 16px 15px;box-shadow:0 18px 40px rgba(0,0,0,0.25)}
+.ct-ring{position:absolute;left:-6px;top:-6px;right:-6px;bottom:-6px;border-radius:32px;border:2px solid rgba(255,255,255,0.8);animation:ct-ringA 2s ease-out infinite;pointer-events:none}
+@keyframes ct-ringA{0%{transform:scale(.97);opacity:.9}100%{transform:scale(1.07);opacity:0}}
+.ct-drop{animation:ct-drop .7s cubic-bezier(.2,1.3,.4,1) .5s both}
+@keyframes ct-drop{from{opacity:0;transform:translateY(-40px) scale(.94)}to{opacity:1;transform:none}}
+.ct-hint{animation:ct-hintA 2.4s ease-in-out infinite}
+@keyframes ct-hintA{0%,100%{opacity:.65}50%{opacity:1}}
+
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation:none !important;transition:none !important}
+  .ct-shut .ct-arr{opacity:1}
+  .ct-intro--open{opacity:0}
+}
+</style>
+</helmet>
+<div class="{{ rootCls }}" style="width: 390px; min-height: var(--vh, 100vh); position: relative; overflow: hidden; background: #EFE7DC; color: #13201C; font-family: 'Commissioner', system-ui, -apple-system, sans-serif">
+  <div class="ct-wall" style="position: relative; min-height: var(--vh, 100vh); display: flex; flex-direction: column; padding-bottom: 18px; box-sizing: border-box">
+    <svg aria-hidden="true" width="390" height="100%" style="position: absolute; left: 0; top: 0; height: 100%; z-index: -1; pointer-events: none">
+      <defs><pattern id="ct-doodle" x="0" y="0" width="150" height="150" patternUnits="userSpaceOnUse"><g class="ct-dood">
+        <path d="M24 18a9 11 0 1 0 0.1 0zM24 40l-2 4h4zM24 44c-3 8 4 12 0 20"></path>
+        <path d="M104 22l3 7 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"></path>
+        <rect x="60" y="70" width="22" height="16" rx="2"></rect>
+        <path d="M58 70h26M71 64v22M71 64c-4-6-10-2-6 1M71 64c4-6 10-2 6 1"></path>
+        <path d="M126 96c0-4 5-6 7-2 2-4 7-2 7 2 0 5-7 9-7 9s-7-4-7-9z"></path>
+        <path d="M18 112l6-6M30 118l2 7M40 104l6 2"></path>
+        <path d="M92 124a4 4 0 1 0 0.1 0zM112 136l8-4"></path>
+        <path d="M128 40c4 2 6 6 4 10M8 76c4-3 9-2 11 2"></path>
+      </g></pattern></defs>
+      <rect x="0" y="0" width="100%" height="100%" fill="url(#ct-doodle)"></rect>
+    </svg>
+
+    <header class="ct-arr" style="--ad: .9s; position: relative; z-index: 3; display: flex; align-items: center; gap: 12px; height: 68px; padding: 0 14px 0 16px; background: rgba(255,255,255,0.94); box-shadow: 0 1px 0 rgba(19,32,28,0.08)">
+      <svg aria-hidden="true" width="12" height="20" viewBox="0 0 12 20"><path class="ct-icoG" d="M10 2L2 10L10 18"></path></svg>
+      <div aria-hidden="true" class="ct-av" style="width: 44px; height: 44px; background: linear-gradient(135deg, #12B88F, #0B7F64)">
+        <sc-if value="{{ has.photo }}"><img src="{{ p.0 }}" alt="" style="width: 44px; height: 44px; object-fit: cover"></sc-if>
+        <sc-if value="{{ noPhoto }}"><span style="font-size: 18px">{{ initial }}</span></sc-if>
+      </div>
+      <div style="flex: 1; min-width: 0">
+        <p style="margin: 0; font-size: 17px; font-weight: 700; line-height: 1.2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{ groupTitle }}</p>
+        <p style="margin: 2px 0 0; font-size: 13px; font-weight: 500; color: #0B7F64">{{ members }}</p>
+      </div>
+      <sc-if value="{{ has.music }}"><button type="button" class="{{ musicCls }}" onClick="{{ toggleMusic }}" aria-label="Musiqa" aria-pressed="{{ musicOn }}"><svg aria-hidden="true" width="17" height="20" viewBox="0 0 22 26"><path d="M8 3L20 0V17.5A3.5 3 0 1 1 17 14.6V5.2L10 7V20.5A3.5 3 0 1 1 7 17.6V3Z" fill="#0E9F7E"></path></svg></button></sc-if>
+    </header>
+
+    <div class="ct-sys ct-arr" style="--ad: 1.1s; margin-top: 16px"><span class="ct-chip">{{ dayChip }}</span></div>
+    <div class="ct-sys ct-arr" style="--ad: 1.25s; margin-top: 6px"><span class="ct-chip" style="font-weight: 500; overflow-wrap: anywhere">{{ sysLine }}</span></div>
+
+    <div class="ct-rowIn" style="margin-top: 12px">
+      <div class="ct-tH" style="--ad: 2.3s"><span class="ct-typ"><i></i><i></i><i></i></span></div>
+      <span aria-hidden="true" class="ct-av ct-arr" style="{{ s0.av }}; --ad: 2.3s">{{ s0.ini }}</span>
+      <div class="ct-bIn ct-arr" style="--ad: 2.3s; padding: 4px 4px 7px; width: 268px">
+        <p class="ct-name" style="{{ s0.col }}; padding: 4px 9px 0">{{ s0.name }}</p>
+        <div style="position: relative; width: 260px; height: 300px; border-radius: 16px; overflow: hidden; background: linear-gradient(150deg, #12B88F, #0B5E4B)">
+          <sc-if value="{{ has.photo }}"><img src="{{ p.0 }}" alt="" style="display: block; width: 260px; height: 300px; object-fit: cover"></sc-if>
+          <sc-if value="{{ noPhoto }}"><div aria-hidden="true" class="ct-pac" style="position: absolute; left: 0; top: 0; width: 260px; height: 300px; display: flex; align-items: center; justify-content: center; font-size: 120px; line-height: 1; color: rgba(255,255,255,0.92)">{{ initial }}</div></sc-if>
+        </div>
+        <p class="ct-txt" style="padding: 7px 9px 0; font-weight: 600">{{ heroCaption }}</p>
+        <div style="display: flex; align-items: center; justify-content: space-between; padding: 6px 9px 0">
+          <span style="display: inline-flex; align-items: center; gap: 5px; height: 26px; padding: 0 10px; border-radius: 13px; background: #E3F5EE; font-size: 13px; font-weight: 700; color: #0B7F64"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 20 20"><path d="M10 17s-6.5-4.1-6.5-8.6A3.6 3.6 0 0 1 10 6.3a3.6 3.6 0 0 1 6.5 2.1C16.5 12.9 10 17 10 17z" fill="#E0445E"></path></svg>{{ heartCount }}</span>
+          <span class="ct-meta" style="margin: 0">{{ t.hero }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="ct-rowIn" style="margin-top: 8px; padding-left: 54px">
+      <div class="ct-arr" style="--ad: 3.1s; position: relative">
+        <div class="ct-stk">
+          <div aria-hidden="true" style="{{ stkCut }}"></div>
+          <div style="{{ stkIn }}">
+            <span class="ct-pac" style="font-size: {{ stkFs }}px; line-height: 1.1; color: #FFFFFF; text-shadow: 0 3px 0 rgba(0,0,0,0.12)">{{ stkBig }}</span>
+            <sc-if value="{{ stkSmall }}"><span style="margin-top: -4px; font-size: 13px; font-weight: 800; letter-spacing: 0.24em; color: #FFFFFF">{{ stkSmall }}</span></sc-if>
+          </div>
+        </div>
+        <svg aria-hidden="true" class="ct-conf" width="200" height="190" viewBox="0 0 200 190" style="position: absolute; left: -16px; top: -12px; pointer-events: none">
+          <rect x="176" y="20" width="10" height="10" rx="2" fill="#FFC94A" transform="rotate(20 181 25)"></rect>
+          <circle cx="12" cy="40" r="6" fill="#E0445E"></circle>
+          <path d="M186 140l4 9 9 1-7 6 2 9-8-5-8 5 2-9-7-6 9-1z" fill="#FFC94A"></path>
+          <rect x="4" y="150" width="12" height="6" rx="3" fill="#7A4FD6" transform="rotate(-30 10 153)"></rect>
+          <circle cx="150" cy="182" r="4" fill="#1A6FAD"></circle>
+        </svg>
+      </div>
+    </div>
+
+<sc-if value="{{ b.tabrik }}">
+    <div class="ct-m">
+      <div class="ct-tV"><span class="ct-typ"><i></i><i></i><i></i></span></div>
+      <div class="ct-body ct-rowIn">
+        <span aria-hidden="true" class="ct-av" style="{{ sFrom.av }}">{{ sFrom.ini }}</span>
+        <div class="ct-bIn">
+          <p class="ct-name" style="{{ sFrom.col }}">{{ sFrom.name }}</p>
+          <p class="ct-txt">{{ d.matn }}</p>
+          <div class="ct-meta">{{ t.tabrik }}</div>
+        </div>
+      </div>
+    </div>
+</sc-if>
+
+<sc-if value="{{ b.mehmonlar }}">
+    <div class="ct-sys"><span class="ct-chip">{{ guestsChip }}</span></div>
+    <sc-for list="{{ guests }}" as="g">
+      <div class="ct-m">
+        <div class="ct-tV"><span class="ct-typ"><i></i><i></i><i></i></span></div>
+        <div class="ct-body ct-rowIn">
+          <span aria-hidden="true" class="ct-av" style="{{ g.av }}">{{ g.ini }}</span>
+          <div class="ct-bIn">
+            <p class="ct-name" style="{{ g.col }}">{{ g.name }}</p>
+            <p class="ct-txt">{{ g.text }}</p>
+            <div class="ct-meta">{{ g.time }}</div>
+          </div>
+        </div>
+      </div>
+    </sc-for>
+</sc-if>
+
+<sc-if value="{{ b.tilaklar }}">
+    <div class="ct-sys"><span class="ct-chip">Tilaklar — ovozli xabarlarda</span></div>
+    <sc-for list="{{ voices }}" as="v">
+      <div class="ct-m">
+        <div class="ct-tV"><span class="ct-typ" style="gap: 7px"><svg aria-hidden="true" width="14" height="16" viewBox="0 0 14 16"><rect x="4" y="1" width="6" height="9" rx="3" fill="#0E9F7E"></rect><path class="ct-icoG" d="M1.5 7.5a5.5 5.5 0 0 0 11 0M7 13v2"></path></svg><span style="font-size: 13px; font-weight: 600; color: #0B7F64">yozmoqda</span></span></div>
+        <div class="ct-body ct-rowIn">
+          <span aria-hidden="true" class="ct-av" style="{{ v.av }}">{{ v.ini }}</span>
+          <div class="ct-bIn" style="width: 286px">
+            <p class="ct-name" style="{{ v.col }}">{{ v.name }}</p>
+            <div class="{{ v.cls }}" style="{{ v.dur }}">
+              <button type="button" class="ct-play" onClick="{{ v.tap }}" aria-label="{{ v.label }}" aria-pressed="{{ v.on }}">
+                <sc-if value="{{ v.idle }}"><svg aria-hidden="true" width="16" height="18" viewBox="0 0 16 18"><path d="M3 1.8V16.2C3 17 3.9 17.5 4.6 17L15 10C15.6 9.6 15.6 8.4 15 8L4.6 1C3.9 0.5 3 1 3 1.8Z" fill="#FFFFFF"></path></svg></sc-if>
+                <sc-if value="{{ v.playing }}"><svg aria-hidden="true" width="14" height="16" viewBox="0 0 14 16"><rect x="1" y="1" width="4" height="14" rx="1.5" fill="#FFFFFF"></rect><rect x="9" y="1" width="4" height="14" rx="1.5" fill="#FFFFFF"></rect></svg></sc-if>
+              </button>
+              <div class="ct-wave" aria-hidden="true">
+                <div class="ct-bars ct-bars--base"><sc-for list="{{ v.bars }}" as="h"><span style="{{ h }}"></span></sc-for></div>
+                <div class="ct-bars ct-bars--on"><sc-for list="{{ v.bars }}" as="h"><span style="{{ h }}"></span></sc-for></div>
+              </div>
+            </div>
+            <p class="ct-tr">{{ v.text }}</p>
+            <div class="ct-meta"><span style="margin-right: auto">{{ v.len }}</span>{{ v.time }}</div>
+          </div>
+        </div>
+      </div>
+    </sc-for>
+</sc-if>
+
+<sc-if value="{{ b.taymer }}">
+    <div class="ct-m">
+      <div class="ct-tV"><span class="ct-typ"><i></i><i></i><i></i></span></div>
+      <div class="ct-body ct-rowIn">
+        <span aria-hidden="true" class="ct-av" style="{{ s2.av }}">{{ s2.ini }}</span>
+        <div class="ct-bIn" style="width: 286px">
+          <p class="ct-name" style="{{ s2.col }}">{{ s2.name }}</p>
+          <p class="ct-txt">{{ cdText }}</p>
+          <sc-if value="{{ cdLive }}">
+            <div class="ct-cd">
+              <sc-for list="{{ tiles }}" as="x"><div class="ct-cdT"><span class="{{ x.cls }}">{{ x.v }}</span><span style="margin-top: 4px; font-size: 11px; font-weight: 600; opacity: 0.9">{{ x.l }}</span></div></sc-for>
+            </div>
+          </sc-if>
+          <sc-if value="{{ calUrl }}"><a class="ct-link" href="{{ calUrl }}" target="_blank" rel="noopener"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 20 20"><rect class="ct-icoG" x="3" y="4.5" width="14" height="12.5" rx="2.5"></rect><path class="ct-icoG" d="M3 8.5h14M7 2.5v4M13 2.5v4"></path></svg>Taqvimga qo’shish</a></sc-if>
+          <div class="ct-meta">{{ t.taymer }}</div>
+        </div>
+      </div>
+    </div>
+</sc-if>
+
+<sc-if value="{{ b.sham }}">
+    <div class="ct-m">
+      <div class="ct-tV"><span class="ct-typ"><i></i><i></i><i></i></span></div>
+      <div class="ct-body ct-rowIn">
+        <span aria-hidden="true" class="ct-av" style="{{ s3.av }}">{{ s3.ini }}</span>
+        <div style="min-width: 0; width: 286px">
+          <div class="ct-bIn">
+            <p class="ct-name" style="{{ s3.col }}">{{ s3.name }}</p>
+            <p class="ct-txt">Endi shamlarni puflaysan — avval ko’zingni yumib, niyat qil!</p>
+            <div class="{{ cakeCls }}" style="margin-top: 8px; border-radius: 16px; background: linear-gradient(180deg, #FFF6E8, #FBE6CF); height: 170px; display: flex; align-items: flex-end; justify-content: center; overflow: hidden">
+              <svg aria-hidden="true" width="220" height="160" viewBox="0 0 220 160">
+                <sc-for list="{{ candles }}" as="c">
+                  <g transform="{{ c.tr }}">
+                    <path class="ct-smoke" d="M0 20C-5 13 5 9 0 2C-4 -4 3 -9 0 -14"></path>
+                    <path class="ct-flame" d="M0 0C6 9 8 15 6 20C4.5 24 -4.5 24 -6 20C-8 15 -6 9 0 0Z" fill="#FF9F43"></path>
+                    <path class="ct-flame" d="M0 9C2.5 13 3 16 2 18.5C1.2 20 -1.2 20 -2 18.5C-3 16 -2.5 13 0 9Z" fill="#FFF3C4"></path>
+                    <rect x="-3.5" y="23" width="7" height="34" rx="2" fill="{{ c.col }}"></rect>
+                  </g>
+                </sc-for>
+                <rect x="40" y="80" width="140" height="50" rx="10" fill="#F7B4C0"></rect>
+                <path d="M40 92C40 84 46 80 52 80H168C174 80 180 84 180 92C176 104 168 92 162 100C156 110 148 92 140 102C132 112 124 92 116 102C108 112 100 92 92 102C84 112 76 92 68 102C60 110 50 96 40 104Z" fill="#FFFFFF"></path>
+                <rect x="24" y="126" width="172" height="12" rx="6" fill="#0E9F7E"></rect>
+                <circle cx="70" cy="116" r="4" fill="#E0445E"></circle><circle cx="110" cy="120" r="4" fill="#FFC94A"></circle><circle cx="150" cy="116" r="4" fill="#7A4FD6"></circle>
+              </svg>
+            </div>
+            <div class="ct-meta">{{ t.sham }}</div>
+          </div>
+          <button type="button" class="ct-key" onClick="{{ blow }}">
+            <svg aria-hidden="true" width="18" height="18" viewBox="0 0 20 20"><path class="ct-icoG" d="M3 10c3-3 6 3 9 0s4-3 5-1M3 14c3-3 6 3 9 0s4-3 5-1M3 6c3-3 6 3 9 0s4-3 5-1"></path></svg>
+            <span class="{{ blowIdle }}">Puflash</span><span class="{{ blowDone }}">Shamni qayta yoqish</span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <sc-if value="{{ blown }}">
+      <div class="ct-rowOut ct-after">
+        <div class="ct-bOut"><p class="ct-txt">Niyat qildim va puflab yubordim!</p><div class="ct-meta">{{ t.now }}<svg aria-hidden="true" width="18" height="11" viewBox="0 0 18 11"><path class="ct-icoG" d="M1 6l3.5 3.5L11 2M7 9.5L14.5 2"></path></svg></div></div>
+      </div>
+      <div class="ct-rowIn ct-after2">
+        <span aria-hidden="true" class="ct-av" style="{{ s3.av }}">{{ s3.ini }}</span>
+        <div class="ct-bIn"><p class="ct-name" style="{{ s3.col }}">{{ s3.name }}</p><p class="ct-txt">{{ wishLine }}</p><div class="ct-meta">{{ t.now }}</div></div>
+      </div>
+    </sc-if>
+</sc-if>
+
+<sc-if value="{{ b.sirli }}">
+    <div class="ct-m">
+      <div class="ct-tV"><span class="ct-typ"><i></i><i></i><i></i></span></div>
+      <div class="ct-body ct-rowIn">
+        <span aria-hidden="true" class="ct-av" style="{{ s1.av }}">{{ s1.ini }}</span>
+        <div class="ct-bIn" style="width: 286px">
+          <p class="ct-name" style="{{ s1.col }}">{{ s1.name }}</p>
+          <p class="ct-txt" style="font-weight: 600">Sirli tilak. Faqat sen o’qishing mumkin:</p>
+          <button type="button" class="{{ secCls }}" onClick="{{ toggleSec }}" aria-label="Sirli tilakni ochish" aria-expanded="{{ secOn }}" style="margin-top: 8px">
+            <span style="position: relative; display: block; padding: 4px 0">
+              <span class="ct-spTx" style="display: block; font-size: 16px; line-height: 1.45; color: #13201C; white-space: pre-line; overflow-wrap: anywhere">{{ d.sirli_tilak }}</span>
+              <span aria-hidden="true" class="ct-spDots"></span>
+            </span>
+            <span class="{{ spHint }}" style="display: flex; align-items: center; gap: 6px; margin-top: 8px; font-size: 13px; font-weight: 700; color: #0B7F64"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 20 20"><path class="ct-icoG" d="M2 10s3-6 8-6 8 6 8 6-3 6-8 6-8-6-8-6z"></path><circle class="ct-icoG" cx="10" cy="10" r="2.5"></circle></svg>Bosing — yashirin matn ochiladi</span>
+          </button>
+          <div class="ct-meta">{{ t.sirli }}</div>
+        </div>
+      </div>
+    </div>
+</sc-if>
+
+<sc-if value="{{ b.galereya }}">
+    <div class="ct-m">
+      <div class="ct-tV"><span class="ct-typ"><i></i><i></i><i></i></span></div>
+      <div class="ct-body ct-rowIn">
+        <span aria-hidden="true" class="ct-av" style="{{ s4.av }}">{{ s4.ini }}</span>
+        <div class="ct-bIn" style="width: 296px; padding: 4px 4px 7px">
+          <p class="ct-name" style="{{ s4.col }}; padding: 4px 9px 2px">{{ s4.name }}</p>
+          <div class="ct-alb">
+            <sc-for list="{{ album }}" as="g"><div style="{{ g.st }}"><img src="{{ g.src }}" alt=""></div></sc-for>
+          </div>
+          <p class="ct-txt" style="padding: 7px 9px 0">{{ albumCap }}</p>
+          <div class="ct-meta" style="padding: 0 9px">{{ t.galereya }}</div>
+        </div>
+      </div>
+    </div>
+</sc-if>
+
+<sc-if value="{{ b.javob }}">
+    <sc-for list="{{ sentList }}" as="m">
+      <div class="ct-rowOut ct-after">
+        <div class="{{ m.cls }}"><p class="ct-txt">{{ m.text }}</p><div class="ct-meta">{{ m.time }}<svg aria-hidden="true" width="18" height="11" viewBox="0 0 18 11"><path class="ct-icoG" d="M1 6l3.5 3.5L11 2"></path><path class="ct-icoG ct-tick2" d="M7 9.5L14.5 2"></path></svg></div></div>
+      </div>
+    </sc-for>
+    <div style="margin-top: 22px; padding: 0 10px">
+      <p style="margin: 0 0 10px 6px; font-size: 14px; font-weight: 600; color: #3B4B45; overflow-wrap: anywhere">{{ askLine }}</p>
+      <div style="display: flex; gap: 8px; overflow-x: auto; padding: 2px 2px 10px; scrollbar-width: none">
+        <sc-for list="{{ quick }}" as="q"><button type="button" class="ct-qr" onClick="{{ q.tap }}">{{ q.text }}</button></sc-for>
+      </div>
+      <div style="display: flex; align-items: center; gap: 8px">
+        <input class="ct-input" type="text" maxlength="300" placeholder="Tabrigingizni yozing..." aria-label="Tabrik matni" value="{{ draft }}" onInput="{{ setDraft }}">
+        <button type="button" class="ct-send" onClick="{{ sendDraft }}" aria-label="Yuborish"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24"><path d="M3.4 20.4L21 12 3.4 3.6 3.4 10.2 15 12 3.4 13.8Z" fill="#FFFFFF"></path></svg></button>
+      </div>
+      <sc-if value="{{ sendErr }}"><p role="alert" style="margin: 8px 6px 0; font-size: 13px; font-weight: 700; color: #B3261E">{{ sendErr }}</p></sc-if>
+    </div>
+</sc-if>
+
+    <div aria-hidden="true" style="flex: 1; min-height: 40px"></div>
+    <div aria-hidden="true" style="display: flex; justify-content: center; padding: 0 20px">
+      <span class="ct-chip" style="font-weight: 500">{{ footLine }}</span>
+    </div>
+  </div>
+
+  <div data-intro class="{{ introCls }}" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; z-index: 20; overflow: hidden; background: #0B2F28">
+    <div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; background: radial-gradient(120% 70% at 20% 10%, #138F72 0%, rgba(19,143,114,0) 60%), radial-gradient(90% 60% at 90% 90%, #3D2D6B 0%, rgba(61,45,107,0) 70%), #0B2F28">
+      <sc-if value="{{ has.photo }}"><img src="{{ p.0 }}" alt="" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; object-fit: cover; transform: scale(1.06); filter: blur(3px)"></sc-if>
+      <div style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; background: linear-gradient(180deg, rgba(8,20,17,0.55) 0%, rgba(8,20,17,0.15) 38%, rgba(8,20,17,0.35) 62%, rgba(8,20,17,0.75) 100%)"></div>
+    </div>
+
+    <div class="ct-lockTop" aria-hidden="true" style="position: absolute; left: 0; top: 54px; width: 390px; text-align: center; color: #FFFFFF">
+      <svg width="16" height="20" viewBox="0 0 16 20"><rect x="1.5" y="8.5" width="13" height="10" rx="2.5" fill="none" stroke="#FFFFFF" stroke-width="1.8"></rect><path d="M4.5 8.5V6a3.5 3.5 0 0 1 7 0v2.5" fill="none" stroke="#FFFFFF" stroke-width="1.8"></path></svg>
+      <p style="margin: 10px 0 0; font-size: 19px; font-weight: 600; text-shadow: 0 1px 8px rgba(0,0,0,0.3)">{{ lockDate }}</p>
+      <p style="margin: 0; font-size: 104px; font-weight: 600; line-height: 1.02; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; text-shadow: 0 2px 20px rgba(0,0,0,0.25)">{{ lockTime }}</p>
+    </div>
+
+    <div class="ct-noteWrap" style="position: absolute; left: 16px; top: 380px; width: 358px">
+      <div aria-hidden="true" class="ct-drop" style="position: absolute; left: 24px; right: 24px; top: 24px; bottom: -22px; border-radius: 24px; background: rgba(255,255,255,0.34)"></div>
+      <div aria-hidden="true" class="ct-drop" style="position: absolute; left: 12px; right: 12px; top: 12px; bottom: -11px; border-radius: 25px; background: rgba(255,255,255,0.52)"></div>
+      <div class="ct-drop" style="position: relative">
+        <button type="button" class="ct-note" onClick="{{ open }}" aria-label="Yangi xabarni ochish">
+          <span class="ct-ring" aria-hidden="true"></span>
+          <span class="ct-noteIn" style="display: block">
+            <span style="display: flex; align-items: center; gap: 10px">
+              <span aria-hidden="true" style="flex: none; width: 40px; height: 40px; border-radius: 11px; background: linear-gradient(160deg, #19C79B, #0B8A6C); display: flex; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24"><path d="M12 3C6.5 3 2.5 6.6 2.5 11c0 2.4 1.2 4.5 3.1 6L4.8 21l4.4-2.3c.9.2 1.8.3 2.8.3 5.5 0 9.5-3.6 9.5-8S17.5 3 12 3Z" fill="#FFFFFF"></path></svg></span>
+              <span style="flex: 1; min-width: 0">
+                <span style="display: flex; justify-content: space-between; gap: 8px; font-size: 13px; font-weight: 600; color: #55635D"><span>XABARLAR</span><span>hozir</span></span>
+                <span style="display: block; margin-top: 1px; font-size: 17px; font-weight: 700; color: #13201C">Yangi xabar</span>
+              </span>
+            </span>
+            <span style="display: block; margin-top: 8px; font-size: 15.5px; line-height: 1.4; color: #1D2B27; overflow-wrap: anywhere">{{ noteBody }}</span>
+            <span style="display: flex; align-items: center; justify-content: space-between; margin-top: 10px">
+              <span style="font-size: 13px; font-weight: 600; color: #55635D">{{ noteGroup }}</span>
+              <span style="height: 24px; min-width: 24px; padding: 0 9px; box-sizing: border-box; border-radius: 12px; background: #0E9F7E; color: #FFFFFF; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center">{{ noteCount }}</span>
+            </span>
+          </span>
+        </button>
+      </div>
+    </div>
+
+    <p class="ct-hint" aria-hidden="true" style="position: absolute; left: 0; top: 640px; width: 390px; margin: 0; text-align: center; font-size: 15px; font-weight: 600; color: #FFFFFF; text-shadow: 0 1px 8px rgba(0,0,0,0.4)">Xabarni o’qish uchun bildirishnomani bosing</p>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":4600}}'>
+const tkName = (d) => String(d.kimga || '').trim();
+const tkFrom = (d) => {
+  const kd = String(d.kimdan || '').trim(), ci = kd.indexOf(':');
+  const label = ci > 0 ? kd.slice(0, ci).trim() : '';
+  const names = ci > 0 ? kd.slice(ci + 1).trim() : kd;
+  return { label: label, names: names, line: !kd ? '' : (label ? label + 'dan: ' + names : names + 'dan') };
+};
+// jo’natuvchilar ismi rangi (oq fonda o’qiladigan)
+const NC = ['#C0442A', '#7A4FD6', '#1A6FAD', '#9A6512', '#0B7F64', '#B03A78'];
+const AV = [['#FF8A66', '#E0445E'], ['#A98BFF', '#6B45D1'], ['#5AB4F0', '#1A6FAD'], ['#FFC94A', '#D98A12'], ['#3DD6A8', '#0B8A6C'], ['#F58BC0', '#B03A78']];
+const pad2 = (n) => (n < 10 ? '0' : '') + n;
+const clock = (min) => pad2(Math.floor(min / 60) % 24) + ':' + pad2(min % 60);
+const WEEK = ['yakshanba', 'dushanba', 'seshanba', 'chorshanba', 'payshanba', 'juma', 'shanba'];
+const MON = ['yanvar', 'fevral', 'mart', 'aprel', 'may', 'iyun', 'iyul', 'avgust', 'sentabr', 'oktabr', 'noyabr', 'dekabr'];
+
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { opened: false, blown: false, sec: false, play: -1, draft: '', sent: [], sendErr: '' };
+    const rnd = (i, k) => { const x = Math.sin(i * 127.1 + k * 311.7) * 43758.5453; return x - Math.floor(x); };
+    this.bars = (seed) => Array.from({ length: 30 }, (_, i) => 'height: ' + Math.round(6 + Math.abs(Math.sin(i * 0.55 + seed)) * 16 + rnd(i, seed) * 8) + 'px; animation-delay: -' + (rnd(i, seed + 3) * 0.5).toFixed(2) + 's');
+    const pts = [];
+    for (let i = 0; i < 28; i++) { const a = (i / 28) * Math.PI * 2, r = i % 2 ? 46 : 50; pts.push((50 + r * Math.cos(a)).toFixed(1) + '% ' + (50 + r * Math.sin(a)).toFixed(1) + '%'); }
+    this.burst = 'polygon(' + pts.join(', ') + ')';
+  }
+  componentDidMount() {
+    this.timer = setInterval(() => this.forceUpdate(), 1000);
+  }
+  componentWillUnmount() {
+    clearInterval(this.timer);
+    clearTimeout(this.playT);
+  }
+  renderVals() {
+    const s = this.state, D = SITE.d;
+    const name = tkName(D), from = tkFrom(D);
+    const w = SITE.when(D.sana), cd = SITE.countdown(D.sana);
+    const yosh = String(D.yosh || '').trim();
+
+    // guruh a’zolari: tabrik muallif(lar)i va yaqinlar
+    const pool = from.names.split(/\s*,\s*|\s+va\s+|\s+и\s+/).map((x) => x.trim()).filter(Boolean);
+    if (!pool.length) pool.push('Yaqinlaring');
+    const person = (nm, i) => ({
+      name: nm, ini: nm.charAt(0).toLocaleUpperCase('uz'),
+      col: 'color: ' + NC[i % NC.length],
+      av: 'background: linear-gradient(135deg, ' + AV[i % AV.length][0] + ', ' + AV[i % AV.length][1] + ')'
+    });
+    const P = (i) => person(pool[i % pool.length], i % pool.length);
+    const mt = D.mehmon_tilaklari || [];
+    const uniq = {};
+    pool.concat(mt.map((x) => String(x.ism || '').split(',')[0].trim())).forEach((x) => { if (x) uniq[x] = 1; });
+    const memberN = Object.keys(uniq).length + 1;
+
+    let tm = 7 * 60 + 58;
+    const next = (step) => { tm += step; return clock(tm); };
+    const t = { hero: next(0) };
+    t.tabrik = next(3);
+    const guests = mt.map((g, i) => {
+      const nm = String(g.ism || '').trim() || 'Mehmon';
+      const pp = person(nm, pool.length + i);
+      return { name: pp.name, ini: pp.ini, col: pp.col, av: pp.av, text: g.matn || '', time: next(2 + (i % 3)) };
+    });
+    const wl = D.tilaklar || [];
+    const voices = wl.map((x, i) => {
+      const pp = P(i + 1), on = s.play === i, sec = 3 + (String(x).length % 5);
+      return {
+        name: pp.name, ini: pp.ini, col: pp.col, av: pp.av, text: x, time: next(1),
+        len: '0:0' + sec, dur: '--dur: ' + sec + 's', bars: this.bars(i * 1.7 + 0.4),
+        cls: on ? 'ct-vn ct-vn--play' : 'ct-vn', on: on ? 'true' : 'false', idle: !on, playing: on,
+        label: (on ? 'To’xtatish: ' : 'Tinglash: ') + x,
+        tap: () => {
+          clearTimeout(this.playT);
+          if (this.state.play === i) { this.setState({ play: -1 }); return; }
+          this.setState({ play: i });
+          this.playT = setTimeout(() => { if (this.state.play === i) this.setState({ play: -1 }); }, sec * 1000 + 300);
+        }
+      };
+    });
+    t.taymer = next(4); t.sham = next(3); t.sirli = next(2); t.galereya = next(3);
+    const nowD = new Date();
+    t.now = pad2(nowD.getHours()) + ':' + pad2(nowD.getMinutes());
+
+    const tl = [[cd.dd, 'kun', cd.d], [cd.hh, 'soat', cd.h], [cd.mm, 'daqiqa', cd.m], [cd.ss, 'soniya', cd.s]];
+    const iso = String(D.sana || '');
+    let calUrl = '';
+    if (/^\d{4}-\d{2}-\d{2}/.test(iso)) {
+      const a = iso.slice(0, 10).replace(/-/g, '');
+      const nx = new Date(Date.UTC(+iso.slice(0, 4), +iso.slice(5, 7) - 1, +iso.slice(8, 10) + 1));
+      const b = nx.getUTCFullYear() + pad2(nx.getUTCMonth() + 1) + pad2(nx.getUTCDate());
+      calUrl = 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + encodeURIComponent((name || 'Do’stim') + 'ning tug’ilgan kuni') + '&dates=' + a + '/' + b;
+    }
+
+    const digits = (yosh && /^\d{1,3}$/.test(yosh)) ? Math.min(5, Math.max(1, Math.ceil(+yosh / 10))) : 3;
+    const cc = ['#7A4FD6', '#1A6FAD', '#0E9F7E', '#E0445E', '#D98A12'];
+    const candles = Array.from({ length: digits }, (_, i) => {
+      const x = 110 + (i - (digits - 1) / 2) * 26;
+      return { tr: 'translate(' + x + ' 24)', col: cc[i % cc.length] };
+    });
+
+    const n = Math.max(1, Math.min(6, SITE.has.photos));
+    const order = n > 1 ? SITE.p.slice(1, n).concat([SITE.p[0]]) : SITE.p.slice(0, 1);
+    const AL = { 1: [[6, 300]], 2: [[3, 210], [3, 210]], 3: [[6, 180], [3, 130], [3, 130]], 4: [[3, 140], [3, 140], [3, 140], [3, 140]], 5: [[3, 150], [3, 150], [2, 100], [2, 100], [2, 100]], 6: [[2, 110], [2, 110], [2, 110], [2, 110], [2, 110], [2, 110]] };
+    const al = AL[order.length] || AL[1];
+    const album = order.map((src, i) => ({ src: src, st: 'grid-column: span ' + al[i][0] + '; height: ' + al[i][1] + 'px; background: #CFE9DE' }));
+
+    const sent = s.sent.map((m) => ({ text: m.text, time: m.time, cls: m.ok ? 'ct-bOut ct-ok' : 'ct-bOut' }));
+    const doSend = (text) => {
+      const msg = String(text || '').trim();
+      if (!msg || this.busy) return;
+      const nd = new Date(), tt = pad2(nd.getHours()) + ':' + pad2(nd.getMinutes());
+      const list = this.state.sent.concat([{ text: msg, time: tt, ok: false }]);
+      const idx = list.length - 1;
+      this.busy = true;
+      this.setState({ sent: list, draft: '', sendErr: '' });
+      SITE.reply(msg, '🥰').then(() => {
+        this.busy = false;
+        const l2 = this.state.sent.slice(); if (l2[idx]) l2[idx] = Object.assign({}, l2[idx], { ok: true });
+        this.setState({ sent: l2 });
+      }).catch(() => { this.busy = false; this.setState({ sendErr: 'Yuborilmadi, qayta urinib ko’ring' }); });
+    };
+    const qtext = [name ? 'Tug’ilgan kuning muborak, ' + name + '!' : 'Tug’ilgan kuning muborak!', 'Tabrikladim', 'Baxtli bo’l!'];
+
+    const gt = name ? (yosh ? name + ' — ' + yosh + ' yosh' : name + 'ning kuni') : 'Tug’ilgan kun';
+    const stkBig = /^\d{1,3}$/.test(yosh) ? yosh : 'Muborak!';
+    const total = 2 + (SITE.b.tabrik ? 1 : 0) + (SITE.b.mehmonlar ? guests.length : 0) + (SITE.b.tilaklar ? voices.length : 0) + ['taymer', 'sham', 'sirli', 'galereya'].filter((k) => SITE.b[k]).length;
+    return {
+      rootCls: s.opened ? 'ct-live' : 'ct-shut',
+      introCls: s.opened ? 'ct-intro ct-intro--open' : 'ct-intro',
+      open: () => { if (this.state.opened) return; this.setState({ opened: true }); SITE.opened(); },
+      name: name, initial: (name.charAt(0) || 'T').toLocaleUpperCase('uz'), noPhoto: !SITE.has.photo,
+      groupTitle: gt, members: memberN + ' a’zo, onlayn',
+      musicCls: SITE.music.playing ? 'ct-music ct-music--on' : 'ct-music',
+      musicOn: SITE.music.playing ? 'true' : 'false',
+      toggleMusic: () => { SITE.music.toggle(); },
+      dayChip: [w.dm, w.weekday].filter(Boolean).join(', ') || 'Bugun',
+      sysLine: pool[0] + ' «' + gt + '» guruhini yaratdi',
+      s0: P(0), s1: P(1), s2: P(2), s3: P(0), s4: P(2),
+      sFrom: Object.assign(P(0), { name: from.names || pool[0] }),
+      heroCaption: name ? 'Tug’ilgan kuning muborak, ' + name + '!' : 'Tug’ilgan kuning muborak!',
+      heartCount: String(memberN - 1),
+      stkCut: 'position: absolute; left: 0; top: 0; width: 168px; height: 168px; background: #FFFFFF; clip-path: ' + this.burst,
+      stkIn: 'position: absolute; left: 9px; top: 9px; width: 150px; height: 150px; display: flex; flex-direction: column; align-items: center; justify-content: center; background: radial-gradient(circle at 35% 30%, #22D3A6, #0E9F7E 55%, #0B7F64); clip-path: ' + this.burst,
+      stkBig: stkBig, stkSmall: stkBig === yosh ? 'YOSH' : '',
+      stkFs: stkBig === yosh ? (yosh.length > 2 ? 50 : 66) : 28,
+      t: t,
+      guestsChip: 'Yaqinlaring ham yozishdi',
+      guests: guests,
+      voices: voices,
+      cdText: cd.done ? 'Bayram boshlandi! Bugun — sening kuning.' : 'Bayramgacha qancha qoldi, sanab turibmiz:',
+      cdLive: !cd.done && !cd.none,
+      tiles: tl.map((x, i) => ({ v: x[0], l: x[1], cls: 'ct-cdN' + (i === 3 ? (x[2] % 2 ? ' ct-ta' : ' ct-tb') : '') })),
+      calUrl: cd.done ? '' : calUrl,
+      candles: candles,
+      cakeCls: s.blown ? 'ct-out' : '',
+      blown: s.blown,
+      blowIdle: s.blown ? 'is-hidden' : '',
+      blowDone: s.blown ? '' : 'is-hidden',
+      blow: () => this.setState({ blown: !this.state.blown }),
+      wishLine: name ? 'Niyating ushalsin, ' + name + '!' : 'Niyating ushalsin!',
+      secCls: s.sec ? 'ct-spBtn ct-spBtn--on' : 'ct-spBtn',
+      secOn: s.sec ? 'true' : 'false',
+      spHint: s.sec ? 'is-hidden' : '',
+      toggleSec: () => this.setState({ sec: !this.state.sec }),
+      album: album,
+      albumCap: order.length > 1 ? 'Eng yorqin lahzalaring — ' + order.length + ' ta surat' : 'Eng yorqin lahzang',
+      sentList: sent,
+      askLine: name ? name + 'ni tabriklang — xabaringiz unga yetadi' : 'Tabriklang — xabaringiz yetib boradi',
+      quick: qtext.map((q) => ({ text: q, tap: () => doSend(q) })),
+      draft: s.draft,
+      setDraft: (e) => this.setState({ draft: e.target.value }),
+      sendDraft: () => doSend(this.state.draft || 'Tabrikladim'),
+      sendErr: s.sendErr,
+      footLine: [name, w.dots].filter(Boolean).join(' · '),
+      lockTime: t.now,
+      lockDate: SITE.cap(WEEK[nowD.getDay()]) + ', ' + nowD.getDate() + '-' + MON[nowD.getMonth()],
+      noteBody: pool[0] + ': ' + (name ? name + ', tug’ilgan kuning bilan! ' : 'Tug’ilgan kuning bilan! ') + 'Senga atab guruh ochdik, hamma shu yerda.',
+      noteGroup: gt,
+      noteCount: '+' + Math.max(1, total - 1)
+    };
+  }
+}
+</script>
+</body>
+</html>
