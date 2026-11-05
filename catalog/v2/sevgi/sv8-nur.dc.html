@@ -26,6 +26,7 @@ button:disabled{opacity:.7;cursor:default}
 .nu-gl2{fill:none;stroke:#C98A3A;stroke-width:.7;opacity:.7}
 .nu-frame{fill:none;stroke:#2A1E2E;stroke-width:10;stroke-linejoin:round}
 .nu-frameL{fill:none;stroke:#E8A64A;stroke-width:1.2;opacity:.8}
+.nu-pS{fill:url(#nuStars)}.nu-pD{fill:url(#nuShade)}
 .nu-lap{fill:#24427F}.nu-gf{fill:#E8A64A}.nu-lt{fill:#FFE0A8}
 .nu-ln{fill:none;stroke:#24427F;stroke-width:1.2}
 .nu-ln2{fill:none;stroke:#24427F;stroke-width:.7;opacity:.6}
@@ -191,7 +192,7 @@ button:disabled{opacity:.7;cursor:default}
     <div aria-hidden="true" class="nu-beam" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; pointer-events: none; background: linear-gradient(170deg, rgba(255, 214, 140, 0.0) 20%, rgba(255, 214, 140, 0.32) 55%, rgba(255, 214, 140, 0) 95%); clip-path: polygon(70px 300px, 320px 300px, 390px 844px, 0 844px); filter: blur(4px)"></div>
     <div aria-hidden="true" class="nu-flr" style="position: absolute; left: 0; top: 612px; width: 390px; height: 232px; overflow: hidden; pointer-events: none">
       <div class="nu-flrM" style="position: absolute; left: -80px; top: -40px; width: 620px; height: 320px">
-        <svg width="620" height="320" viewBox="0 0 620 320" style="display: block; transform: perspective(300px) rotateX(48deg); transform-origin: 50% 0; filter: blur(1.5px)"><rect width="620" height="320" style="fill: url(#nuStars); opacity: .55"></rect></svg>
+        <svg width="620" height="320" viewBox="0 0 620 320" style="display: block; transform: perspective(300px) rotateX(48deg); transform-origin: 50% 0; filter: blur(1.5px)"><rect width="620" height="320" class="nu-pS" style="opacity: .55"></rect></svg>
       </div>
     </div>
     <div aria-hidden="true" class="nu-wash" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; background: radial-gradient(70% 50% at 50% 40%, #FFF6E4 0%, #F3E6D3 70%)"></div>
@@ -220,7 +221,7 @@ button:disabled{opacity:.7;cursor:default}
   <header class="nu-ground" style="position: relative; padding: 24px 0 46px">
     <div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 390px; height: 100%; overflow: hidden; pointer-events: none">
       <div class="nu-drift" style="position: absolute; left: 0; top: 380px; width: 560px; height: 360px; opacity: .55">
-        <svg width="560" height="360" viewBox="0 0 560 360" style="display: block; transform: skewX(-24deg); filter: blur(2px)"><rect width="560" height="360" style="fill: url(#nuStars)"></rect></svg>
+        <svg width="560" height="360" viewBox="0 0 560 360" style="display: block; transform: skewX(-24deg); filter: blur(2px)"><rect width="560" height="360" class="nu-pS"></rect></svg>
       </div>
       <div style="position: absolute; left: 0; top: 330px; width: 390px; height: 440px; background: linear-gradient(180deg, #F3E6D3 0%, rgba(243, 230, 211, 0) 18%, rgba(243, 230, 211, 0) 70%, #F3E6D3 100%)"></div>
     </div>
@@ -269,7 +270,7 @@ button:disabled{opacity:.7;cursor:default}
     <div class="nu-rv" style="position: relative; overflow: hidden; padding: 34px 24px 30px; background: #FBF4E8; border-radius: 3px; box-shadow: 0 0 0 1px rgba(201, 138, 58, 0.6), 0 0 0 7px #FBF4E8, 0 0 0 9px #24427F, 0 30px 50px -30px rgba(60, 40, 20, 0.6)">
       <div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; overflow: hidden; pointer-events: none">
         <div class="nu-drift" style="position: absolute; left: 0; top: 0; width: 520px; height: 1400px; opacity: .5; animation-duration: 34s">
-          <svg width="520" height="1400" viewBox="0 0 520 1400" style="display: block; transform: skewX(-18deg); filter: blur(2.5px)"><rect width="520" height="1400" style="fill: url(#nuStars)"></rect></svg>
+          <svg width="520" height="1400" viewBox="0 0 520 1400" style="display: block; transform: skewX(-18deg); filter: blur(2.5px)"><rect width="520" height="1400" class="nu-pS"></rect></svg>
         </div>
       </div>
       <div class="nu-sweep"></div>
@@ -328,7 +329,7 @@ button:disabled{opacity:.7;cursor:default}
       <sc-for list="{{ yol }}" as="y">
       <div class="nu-niche" style="flex: none; width: 220px; scroll-snap-align: center; position: relative">
         <div style="{{ nicheClip }}position: relative; width: 220px; height: 300px; background: linear-gradient(180deg, #FFE7B0 0%, #F7D9B6 40%, #FBF4E8 75%)">
-          <div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 220px; height: 300px; opacity: .16"><svg width="220" height="300" viewBox="0 0 220 300"><rect width="220" height="300" style="fill: url(#nuShade)"></rect></svg></div>
+          <div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 220px; height: 300px; opacity: .16"><svg width="220" height="300" viewBox="0 0 220 300"><rect width="220" height="300" class="nu-pD"></rect></svg></div>
           <div style="position: absolute; left: 0; top: 0; width: 220px; height: 300px; box-sizing: border-box; padding: 86px 18px 20px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 6px">
             <span class="nu-d" style="font-size: {{ y.fs }}px; line-height: 1; color: #24427F; overflow-wrap: anywhere">{{ y.yil }}</span>
             <svg aria-hidden="true" width="60" height="10" viewBox="0 0 60 10"><path class="nu-gl" d="M0 5 H22 M38 5 H60"></path><path class="nu-gf" d="M30 0 L35 5 L30 10 L25 5Z"></path></svg>
@@ -359,7 +360,7 @@ button:disabled{opacity:.7;cursor:default}
         <div class="nu-rv" style="position: relative; width: {{ g.w }}px; height: {{ g.h }}px; transition-delay: {{ g.dl }}">
           <div style="position: absolute; left: 0; top: 0; width: {{ g.w }}px; height: {{ g.h }}px; clip-path: {{ g.clip }}; background: #E9D6BC; overflow: hidden">
             <img src="{{ g.src }}" alt="" style="display: block; width: 100%; height: 100%; object-fit: cover">
-            <div class="nu-shut" aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; background: #3A2A35; transition-delay: {{ g.dl2 }}"><svg width="{{ g.w }}" height="{{ g.h }}" viewBox="0 0 {{ g.w }} {{ g.h }}" style="display: block"><rect width="{{ g.w }}" height="{{ g.h }}" style="fill: url(#nuStars); opacity: .5"></rect></svg></div>
+            <div class="nu-shut" aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; background: #3A2A35; transition-delay: {{ g.dl2 }}"><svg width="{{ g.w }}" height="{{ g.h }}" viewBox="0 0 {{ g.w }} {{ g.h }}" style="display: block"><rect width="{{ g.w }}" height="{{ g.h }}" class="nu-pS" style="opacity: .5"></rect></svg></div>
           </div>
           <svg aria-hidden="true" width="{{ g.w }}" height="{{ g.h }}" viewBox="0 0 {{ g.w }} {{ g.h }}" style="position: absolute; left: 0; top: 0; overflow: visible"><path d="{{ g.d }}" style="fill: none; stroke: #24427F; stroke-width: 3"></path><path class="nu-gl" d="{{ g.d2 }}"></path></svg>
         </div>
@@ -430,10 +431,10 @@ button:disabled{opacity:.7;cursor:default}
             <sc-if value="{{ secretShown }}" hint-placeholder-val="{{ false }}"><p class="nu-sc nu-in" style="margin-top: 4px; color: #24427F; animation-delay: 1s">Bu so’z faqat ikkimizniki</p></sc-if>
           </div>
           <div class="nu-door nu-dl" style="position: absolute; left: 0; top: 0; width: 175px; height: 100%; background: #3A2A35; box-shadow: inset -2px 0 0 #2A1E2E">
-            <svg aria-hidden="true" width="175" height="{{ secretH }}" viewBox="0 0 175 {{ secretH }}" style="display: block"><rect width="175" height="{{ secretH }}" style="fill: url(#nuStars); opacity: .32"></rect></svg>
+            <svg aria-hidden="true" width="175" height="{{ secretH }}" viewBox="0 0 175 {{ secretH }}" style="display: block"><rect width="175" height="{{ secretH }}" class="nu-pS" style="opacity: .32"></rect></svg>
           </div>
           <div class="nu-door nu-dr" style="position: absolute; left: 175px; top: 0; width: 175px; height: 100%; background: #3A2A35; box-shadow: inset 2px 0 0 #2A1E2E">
-            <svg aria-hidden="true" width="175" height="{{ secretH }}" viewBox="0 0 175 {{ secretH }}" style="display: block"><rect width="175" height="{{ secretH }}" style="fill: url(#nuStars); opacity: .32"></rect></svg>
+            <svg aria-hidden="true" width="175" height="{{ secretH }}" viewBox="0 0 175 {{ secretH }}" style="display: block"><rect width="175" height="{{ secretH }}" class="nu-pS" style="opacity: .32"></rect></svg>
           </div>
           <div class="nu-dbtn" style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; box-sizing: border-box; padding-top: 70px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; text-align: center">
             <p class="nu-d" style="margin: 0; padding: 4px 16px; font-size: 26px; color: #FFE7B8; background: rgba(42, 30, 46, 0.75); border-radius: 4px">Yopiq darcha</p>
