@@ -1,0 +1,616 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<title>Uzr VIP: Favvora</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;500;600&amp;family=Alegreya+Sans:ital,wght@0,400;0,500;0,700;1,400&amp;family=Amiri:wght@400;700&amp;display=swap">
+<style>
+body{margin:0}
+.fv-d{font-family:'El Messiri','Trebuchet MS',Georgia,serif}
+.fv-t{font-family:'Alegreya Sans','Segoe UI',Arial,sans-serif}
+.fv-ar{font-family:'Amiri','Noto Naskh Arabic','Times New Roman',serif}
+.fv-lb{margin:0;font-family:'Alegreya Sans','Segoe UI',Arial,sans-serif;font-size:12px;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:#8FDCD3}
+.fv-h2{margin:8px 0 0;font-family:'El Messiri','Trebuchet MS',Georgia,serif;font-weight:500;font-size:36px;line-height:1.15;color:#EEF6F3;overflow-wrap:anywhere}
+.fv-ic{fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.fv-ln{fill:none;stroke-width:1.2}
+.fv-ln2{fill:none;stroke-width:2}
+.fv-hair{fill:none;stroke-width:.8}
+.fv-jet{fill:none;stroke-width:3;stroke-linecap:round}
+.fv-jet2{fill:none;stroke-width:1.6;stroke-linecap:round}
+button{-webkit-tap-highlight-color:transparent}
+button:focus-visible,textarea:focus-visible{outline:2px solid #8FDCD3;outline-offset:3px}
+button:disabled{opacity:.7;cursor:default}
+.fv-press{transition:transform .4s cubic-bezier(.3,1.6,.5,1),box-shadow .35s ease,background-color .35s ease}
+.fv-press:active{transform:scale(.955)}
+.fv-silver{background:linear-gradient(100deg,#9FBFC0 0%,#FFFFFF 36%,#C7DCDC 56%,#F4FBFA 78%,#9FBFC0 100%);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:fvSheen 8s ease-in-out infinite}
+@keyframes fvSheen{0%,100%{background-position:0% 0}50%{background-position:100% 0}}
+.fv-btnS{background:linear-gradient(100deg,#A8C9C9,#F6FCFB 42%,#CDE2E1 64%,#A8C9C9);color:#0A3139;box-shadow:0 14px 30px -14px rgba(126,216,207,.8),inset 0 1px 0 rgba(255,255,255,.7)}
+.fv-sg1{stop-color:#B9D6D6}.fv-sg2{stop-color:#FFFFFF}.fv-sg3{stop-color:#8FB3B4}
+.fv-w1{stop-color:#5FC7C0}.fv-w2{stop-color:#1F7C83}.fv-w3{stop-color:#0D4A55}
+.fv-gl1{stop-color:#FFD9B0;stop-opacity:.85}.fv-gl2{stop-color:#FFB98A;stop-opacity:0}
+.fv-st1{stop-color:#6E8A8C}.fv-st2{stop-color:#3C5A5F}
+
+/* ---------- intro ---------- */
+.fv-intro{transition:opacity .9s cubic-bezier(.4,0,.2,1) 4s}
+.fv-intro.is-open{opacity:0;pointer-events:none}
+.fv-sky{opacity:0;transition:opacity 2.6s ease 1.2s}
+.fv-intro.is-open .fv-sky{opacity:1}
+.fv-glow{opacity:0;transition:opacity 2.4s ease 1.4s}
+.fv-intro.is-open .fv-glow{opacity:1}
+.fv-drop{opacity:0;transform:translateY(-30px)}
+.fv-intro.is-open .fv-drop{animation:fvDrop .55s cubic-bezier(.55,0,1,.45) .15s both}
+@keyframes fvDrop{0%{opacity:0;transform:translateY(-30px)}20%{opacity:1}100%{opacity:1;transform:translateY(44px)}}
+.fv-draw{stroke-dasharray:100;stroke-dashoffset:100}
+.fv-intro.is-open .fv-draw{transition:stroke-dashoffset 1s cubic-bezier(.3,.7,.3,1) .6s;stroke-dashoffset:0}
+.fv-intro.is-open .fv-draw.d2{transition-delay:1s}
+.fv-flow{stroke-dasharray:5 9;opacity:0}
+.fv-intro.is-open .fv-flow{opacity:.9;transition:opacity .6s ease 1.5s;animation:fvFlow 1.1s linear infinite}
+.fv-run .fv-flow{opacity:.9;animation:fvFlow 1.1s linear infinite}
+@keyframes fvFlow{to{stroke-dashoffset:-28}}
+.fv-fill{transform-box:fill-box;transform-origin:50% 22%;transform:scale(0.02);opacity:0}
+.fv-intro.is-open .fv-fill{transform:none;opacity:1;transition:transform 2s cubic-bezier(.2,.8,.25,1) 1.1s,opacity .6s ease 1.1s}
+.fv-crack{transition:opacity 1.2s ease 1.3s}
+.fv-intro.is-open .fv-crack{opacity:0}
+.fv-leaf{transition:transform 2.4s cubic-bezier(.3,.7,.3,1) 1.4s,opacity 1.8s ease 1.6s;transform-box:fill-box;transform-origin:center}
+.fv-intro.is-open .fv-leaf{transform:translate(-14px,-6px) rotate(40deg);opacity:.0}
+.fv-rip{transform-box:fill-box;transform-origin:center;opacity:0}
+.fv-intro.is-open .fv-rip{animation:fvRip 3.2s ease-out infinite}
+.fv-intro.is-open .fv-rip.r2{animation-delay:2.6s}.fv-intro.is-open .fv-rip.r3{animation-delay:3.6s}
+.fv-intro.is-open .fv-rip.r1{animation-delay:1.6s}
+.fv-run .fv-rip{animation:fvRip 3.6s ease-out infinite}
+.fv-run .fv-rip.r2{animation-delay:1.2s}.fv-run .fv-rip.r3{animation-delay:2.4s}
+@keyframes fvRip{0%{opacity:.75;transform:scale(1)}100%{opacity:0;transform:scale(4.2)}}
+.fv-glint{opacity:0}
+.fv-intro.is-open .fv-glint{animation:fvGlint 2.8s ease-in-out 2.2s infinite}
+.fv-run .fv-glint{animation:fvGlint 3.4s ease-in-out infinite}
+.fv-glint.g2{animation-delay:3s!important}.fv-glint.g3{animation-delay:3.8s!important}
+@keyframes fvGlint{0%,100%{opacity:0;transform:translateX(-6px)}50%{opacity:.85;transform:translateX(6px)}}
+.fv-mirror{opacity:0}
+.fv-intro.is-open .fv-mirror{opacity:.32;transition:opacity 1.6s ease 2s}
+.fv-refl{opacity:0;clip-path:inset(0 50% 0 50%);filter:blur(6px)}
+.fv-intro.is-open .fv-refl{opacity:1;clip-path:inset(0 0 0 0);filter:blur(0);transition:opacity 1.2s ease 2.2s,clip-path 1.4s cubic-bezier(.3,.7,.2,1) 2.2s,filter 1.4s ease 2.2s}
+.fv-wave{animation:fvWave 3.6s ease-in-out infinite}
+@keyframes fvWave{0%,100%{transform:skewX(0) scaleY(1)}30%{transform:skewX(-3deg) scaleY(.97)}70%{transform:skewX(3deg) scaleY(1.02)}}
+.fv-cta{transition:opacity .45s ease,transform .5s cubic-bezier(.5,0,.7,.4)}
+.fv-intro.is-open .fv-cta{opacity:0;transform:translateY(18px)}
+.fv-in1{animation:fvUp 1.2s cubic-bezier(.2,.7,.2,1) .2s both}
+.fv-in2{animation:fvUp 1.2s cubic-bezier(.2,.7,.2,1) .55s both}
+.fv-in3{animation:fvUp 1.2s cubic-bezier(.2,.7,.2,1) .9s both}
+.fv-in4{animation:fvUp 1.1s cubic-bezier(.25,1.4,.4,1) 1.25s both}
+@keyframes fvUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+.fv-mask{clip-path:inset(0 0 0 100%);animation:fvMask 2.2s cubic-bezier(.4,0,.2,1) .3s both}
+@keyframes fvMask{to{clip-path:inset(0 0 0 0)}}
+.fv-tw{animation:fvTw 4.8s ease-in-out infinite}
+@keyframes fvTw{0%,100%{opacity:.25}50%{opacity:.9}}
+.fv-pulse{animation:fvPulse 2.4s ease-in-out infinite}
+@keyframes fvPulse{0%,100%{transform:scale(1);opacity:.55}50%{transform:scale(1.18);opacity:1}}
+.fv-halo{transform-box:fill-box;transform-origin:center;animation:fvHalo 2.4s ease-out infinite}
+@keyframes fvHalo{0%{transform:scale(.7);opacity:.8}100%{transform:scale(1.7);opacity:0}}
+.fv-mote{position:absolute;width:3px;height:3px;border-radius:50%;background:#FFE7C8;opacity:0}
+.fv-intro.is-open .fv-mote{animation:fvMote 5s ease-in-out infinite}
+@keyframes fvMote{0%{opacity:0;transform:translateY(0)}30%{opacity:.9}100%{opacity:0;transform:translateY(-90px)}}
+.fv-hit{position:absolute;left:150px;top:490px;width:90px;height:110px;border:0;background:transparent;border-radius:45px;cursor:pointer;padding:0}
+
+/* ---------- page ---------- */
+.fv-drip{position:absolute;width:3px;height:9px;border-radius:2px 2px 3px 3px;background:linear-gradient(#E8FBF8,#7ED8CF);opacity:0;animation:fvDrip 2.6s cubic-bezier(.55,0,1,.45) infinite}
+@keyframes fvDrip{0%{opacity:0;transform:translateY(0)}15%{opacity:.9}85%{opacity:.9}100%{opacity:0;transform:translateY(54px)}}
+.fv-bob{animation:fvBob 2.2s ease-in-out infinite}
+@keyframes fvBob{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+.fv-arch{clip-path:path('M0 300 V128 C0 70 70 30 160 0 C250 30 320 70 320 128 V300 Z')}
+.fv-archS{clip-path:path('M0 200 V86 C0 46 40 20 77 0 C114 20 154 46 154 86 V200 Z')}
+.fv-archW{clip-path:path('M0 190 V80 C0 44 90 18 160 0 C230 18 320 44 320 80 V190 Z')}
+.fv-reflI{transform:scaleY(-1);opacity:.34;-webkit-mask-image:linear-gradient(to top,rgba(0,0,0,.9),rgba(0,0,0,0) 70%);mask-image:linear-gradient(to top,rgba(0,0,0,.9),rgba(0,0,0,0) 70%)}
+.fv-reflW{animation:fvRw 5s ease-in-out infinite;transform-origin:50% 0}
+@keyframes fvRw{0%,100%{transform:skewX(0)}50%{transform:skewX(2.5deg)}}
+.fv-row{position:relative;overflow:hidden;width:100%;display:flex;align-items:center;gap:14px;padding:16px 16px;border:1px solid rgba(143,220,211,.22);border-radius:14px;background:rgba(10,49,57,.55);color:#EEF6F3;text-align:left;cursor:pointer;font:inherit}
+.fv-row .fv-rp{position:absolute;left:34px;top:50%;width:30px;height:30px;margin:-15px 0 0 -15px;border-radius:50%;border:1.5px solid rgba(143,220,211,.8);opacity:0;pointer-events:none}
+.fv-row.is-t .fv-rp{animation:fvRp .9s ease-out}
+.fv-row.is-t2 .fv-rp{animation:fvRp2 .9s ease-out}
+@keyframes fvRp{0%{opacity:.9;transform:scale(.4)}100%{opacity:0;transform:scale(9)}}
+@keyframes fvRp2{0%{opacity:.9;transform:scale(.4)}100%{opacity:0;transform:scale(9)}}
+.fv-row.is-on{border-color:rgba(143,220,211,.6);background:rgba(18,80,90,.7)}
+.fv-oct{transition:transform .5s cubic-bezier(.3,1.6,.5,1)}
+.fv-row.is-on .fv-oct{transform:rotate(45deg)}
+.fv-pop{animation:fvPop .7s cubic-bezier(.25,1.5,.4,1) both}
+@keyframes fvPop{from{opacity:0;transform:scale(.9) translateY(10px)}to{opacity:1;transform:none}}
+.fv-burst{position:absolute;left:50%;top:50%;width:8px;height:8px;margin:-4px;border-radius:50% 50% 50% 0;background:#BFEFEA;opacity:0}
+.fv-boom .fv-burst{animation:fvBurst 1.1s cubic-bezier(.2,.7,.3,1) both}
+@keyframes fvBurst{0%{opacity:1;transform:rotate(var(--r)) translateY(0) scale(.6)}100%{opacity:0;transform:rotate(var(--r)) translateY(-120px) scale(1)}}
+.fv-boom .fv-ring{animation:fvRing 1.4s ease-out both}
+@keyframes fvRing{0%{opacity:.9;transform:scale(.3)}100%{opacity:0;transform:scale(3)}}
+.fv-ta{font-family:'Alegreya Sans','Segoe UI',Arial,sans-serif}
+.fv-ta::placeholder{color:#7FA3A3}
+
+html.fv-arm .rv{opacity:0;transform:translateY(30px);transition:opacity 1s cubic-bezier(.2,.7,.2,1),transform 1.1s cubic-bezier(.2,.75,.25,1)}
+html.fv-arm .rv.is-in{opacity:1;transform:none}
+html.fv-arm .rv .rc{opacity:0;transform:translateY(20px) scale(.985);transition:opacity .9s ease,transform 1s cubic-bezier(.25,1.3,.4,1)}
+html.fv-arm .rv.is-in .rc{opacity:1;transform:none}
+html.fv-arm .rv .rc:nth-child(2){transition-delay:.12s}html.fv-arm .rv .rc:nth-child(3){transition-delay:.24s}
+html.fv-arm .rv .rc:nth-child(4){transition-delay:.36s}html.fv-arm .rv .rc:nth-child(5){transition-delay:.48s}
+html.fv-arm .rv .rc:nth-child(6){transition-delay:.6s}html.fv-arm .rv .rc:nth-child(n+7){transition-delay:.7s}
+html.fv-arm .rv .fv-mk{clip-path:inset(0 0 0 100%);transition:clip-path 2s cubic-bezier(.4,0,.2,1) .2s}
+html.fv-arm .rv.is-in .fv-mk{clip-path:inset(0 0 0 0)}
+
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .fv-intro.is-open{opacity:0}
+  .fv-mask{clip-path:none}
+  html.fv-arm .rv,html.fv-arm .rv .rc{opacity:1!important;transform:none!important}
+  html.fv-arm .rv .fv-mk{clip-path:none!important}
+  .fv-flow,.fv-run .fv-flow{opacity:.9}
+}
+</style>
+</helmet>
+<div style="width: 390px; min-height: var(--vh, 100vh); position: relative; overflow: hidden; background: #0B3B45; color: #EEF6F3; display: flex; flex-direction: column" class="fv-t">
+
+  <sc-if value="{{ has.music }}">
+  <button type="button" class="fv-press" onClick="{{ toggleMusic }}" aria-label="Musiqa" aria-pressed="{{ musicOn }}" style="position: absolute; right: 16px; top: 16px; z-index: 40; width: 44px; height: 44px; padding: 0; border-radius: 50%; border: 1px solid rgba(191, 239, 234, 0.55); background: rgba(7, 42, 50, 0.6); color: #DFF5F2; display: flex; align-items: center; justify-content: center; cursor: pointer">
+    <sc-if value="{{ musicOn }}"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V6l10-2v12" stroke="currentColor" class="fv-ic"></path><circle cx="7" cy="18" r="2.4" stroke="currentColor" class="fv-ic"></circle><circle cx="17" cy="16" r="2.4" stroke="currentColor" class="fv-ic"></circle></svg></sc-if>
+    <sc-if value="{{ musicOff }}"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V6l10-2v12" stroke="currentColor" class="fv-ic"></path><circle cx="7" cy="18" r="2.4" stroke="currentColor" class="fv-ic"></circle><circle cx="17" cy="16" r="2.4" stroke="currentColor" class="fv-ic"></circle><path d="M4 4l16 16" stroke="currentColor" class="fv-ic"></path></svg></sc-if>
+  </button>
+  </sc-if>
+
+  <!-- ================= KIRISH: qurigan favvora ================= -->
+  <div data-intro="" class="{{ introCls }}" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; z-index: 30; overflow: hidden; background: #072A32">
+    <svg width="390" height="844" viewBox="0 0 390 844" aria-hidden="true" style="position: absolute; left: 0; top: 0">
+      <defs>
+        <linearGradient id="fvSkyN" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color: #051E25"></stop><stop offset="1" style="stop-color: #0B3B45"></stop></linearGradient>
+        <linearGradient id="fvSkyD" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color: #0E4A55"></stop><stop offset="0.7" style="stop-color: #3E7F86"></stop><stop offset="1" style="stop-color: #E9B796"></stop></linearGradient>
+        <radialGradient id="fvGlow" cx="0.5" cy="0.75" r="0.6"><stop offset="0" class="fv-gl1"></stop><stop offset="1" class="fv-gl2"></stop></radialGradient>
+        <linearGradient id="fvSilver" x1="0" y1="0" x2="1" y2="1"><stop offset="0" class="fv-sg1"></stop><stop offset="0.5" class="fv-sg2"></stop><stop offset="1" class="fv-sg3"></stop></linearGradient>
+        <radialGradient id="fvWater" cx="0.5" cy="0.3" r="0.75"><stop offset="0" class="fv-w1"></stop><stop offset="0.55" class="fv-w2"></stop><stop offset="1" class="fv-w3"></stop></radialGradient>
+        <linearGradient id="fvStone" x1="0" y1="0" x2="0" y2="1"><stop offset="0" class="fv-st1"></stop><stop offset="1" class="fv-st2"></stop></linearGradient>
+        <pattern id="fvTile" width="16" height="16" patternUnits="userSpaceOnUse"><rect width="16" height="16" fill="#123F6E"></rect><path d="M8 0 L16 8 L8 16 L0 8 Z" fill="#1F8A8E"></path><circle cx="8" cy="8" r="2.2" fill="#EAF3EF"></circle></pattern>
+        <pattern id="fvLat" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M12 2 L15 9 L22 12 L15 15 L12 22 L9 15 L2 12 L9 9 Z" fill="none" stroke="#2A6E74" class="fv-hair"></path><path d="M0 0 L5 5 M24 0 L19 5 M0 24 L5 19 M24 24 L19 19" stroke="#2A6E74" class="fv-hair"></path></pattern>
+        <pattern id="fvFloor" width="40" height="20" patternUnits="userSpaceOnUse"><rect width="40" height="20" fill="#0F3F48"></rect><path d="M0 0 H40 M0 10 H40 M20 0 V10 M0 10 V20 M40 10 V20" stroke="#0A323A" class="fv-ln"></path></pattern>
+        <clipPath id="fvPool"><polygon points="352,673.7 260,721 130,721 38,673.7 38,606.3 130,559 260,559 352,606.3"></polygon></clipPath>
+      </defs>
+      <!-- osmon -->
+      <rect x="0" y="0" width="390" height="844" fill="url(#fvSkyN)"></rect>
+      <rect class="fv-sky" x="0" y="0" width="390" height="560" fill="url(#fvSkyD)"></rect>
+      <g fill="#DFF5F2">
+        <circle class="fv-tw" cx="40" cy="120" r="1.2"></circle><circle class="fv-tw" cx="88" cy="58" r="0.9" style="animation-delay: 1s"></circle>
+        <circle class="fv-tw" cx="320" cy="70" r="1.3" style="animation-delay: 2s"></circle><circle class="fv-tw" cx="360" cy="132" r="0.9" style="animation-delay: .6s"></circle>
+        <circle class="fv-tw" cx="270" cy="24" r="1" style="animation-delay: 3s"></circle><circle class="fv-tw" cx="22" cy="40" r="1" style="animation-delay: 1.6s"></circle>
+      </g>
+      <!-- yon ravoqlar -->
+      <path d="M-30 560 V250 C-30 215 0 196 20 182 C40 196 58 215 58 250 V560 Z" fill="#06252C"></path>
+      <path d="M332 560 V250 C332 215 350 196 370 182 C390 196 420 215 420 250 V560 Z" fill="#06252C"></path>
+      <!-- peshtoq -->
+      <rect x="66" y="150" width="258" height="410" fill="url(#fvTile)"></rect>
+      <rect x="66" y="150" width="258" height="410" fill="none" stroke="#9FC9C8" class="fv-ln"></rect>
+      <rect x="80" y="164" width="230" height="396" fill="#0C3640"></rect>
+      <path d="M100 560 V306 C100 256 148 220 195 194 C242 220 290 256 290 306 V560 Z" fill="#051F26"></path>
+      <path class="fv-glow" d="M100 560 V306 C100 256 148 220 195 194 C242 220 290 256 290 306 V560 Z" fill="url(#fvGlow)"></path>
+      <path d="M100 560 V306 C100 256 148 220 195 194 C242 220 290 256 290 306 V560 Z" fill="url(#fvLat)" opacity="0.8"></path>
+      <path d="M100 560 V306 C100 256 148 220 195 194 C242 220 290 256 290 306 V560" stroke="url(#fvSilver)" class="fv-ln2"></path>
+      <path d="M92 560 V304 C92 250 144 212 195 184 C246 212 298 250 298 304 V560" stroke="#5E9C9F" class="fv-ln"></path>
+      <g fill="#7ED8CF" opacity="0.8"><circle cx="104" cy="196" r="9"></circle><circle cx="286" cy="196" r="9"></circle></g>
+      <g fill="#0C3640"><path d="M104 189 L106 194 L111 196 L106 198 L104 203 L102 198 L97 196 L102 194 Z"></path><path d="M286 189 L288 194 L293 196 L288 198 L286 203 L284 198 L279 196 L284 194 Z"></path></g>
+      <!-- hovli toshi -->
+      <rect x="0" y="560" width="390" height="284" fill="url(#fvFloor)"></rect>
+      <rect x="0" y="560" width="390" height="284" fill="#041A20" opacity="0.35"></rect>
+      <path d="M0 560 H390" stroke="#2F6F75" class="fv-ln"></path>
+      <!-- hovuz: tashqi chet va old devor -->
+      <polygon points="363.2,676.7 264.7,728.7 125.3,728.7 26.8,676.7 26.8,690.7 125.3,742.7 264.7,742.7 363.2,690.7" fill="#2C4E54"></polygon>
+      <polygon points="363.2,676.7 264.7,728.7 125.3,728.7 26.8,676.7 26.8,603.3 125.3,551.3 264.7,551.3 363.2,603.3" fill="url(#fvStone)"></polygon>
+      <polygon points="352,673.7 260,721 130,721 38,673.7 38,606.3 130,559 260,559 352,606.3" fill="#0B2E35"></polygon>
+      <g clip-path="url(#fvPool)">
+        <rect x="30" y="555" width="330" height="170" fill="url(#fvTile)" opacity="0.32"></rect>
+        <polygon points="38,606.3 130,559 260,559 352,606.3 352,620 260,574 130,574 38,620" fill="#08262C" opacity="0.8"></polygon>
+        <g class="fv-crack" stroke="#04161A">
+          <path d="M80 660 L104 650 L118 662 L142 654 M250 690 L268 676 L292 682 L306 670 M170 704 L182 690 L200 698" class="fv-ln2"></path>
+          <path d="M104 650 L100 636 M268 676 L262 662" class="fv-ln"></path>
+        </g>
+        <g class="fv-leaf"><path d="M300 640 C310 632 322 634 326 640 C320 646 308 648 300 640 Z" fill="#9C7B4A"></path><path d="M74 690 C82 682 94 684 98 690 C92 696 80 698 74 690 Z" fill="#8C6A3E"></path></g>
+        <g class="fv-fill">
+          <ellipse cx="195" cy="640" rx="200" ry="110" fill="url(#fvWater)"></ellipse>
+          <path class="fv-mirror fv-ln" d="M120 720 V650 C120 628 160 612 195 600 C230 612 270 628 270 650 V720 Z" fill="none" stroke="#E6FBF8"></path>
+          <g stroke="#E6FBF8" class="fv-ln2">
+            <path class="fv-glint" d="M70 640 H96"></path><path class="fv-glint g2" d="M286 618 H316"></path><path class="fv-glint g3" d="M120 700 H140"></path>
+          </g>
+          <g fill="none" stroke="#DFF5F2" class="fv-ln">
+            <ellipse class="fv-rip r1" cx="195" cy="626" rx="24" ry="6"></ellipse>
+            <ellipse class="fv-rip r2" cx="195" cy="626" rx="24" ry="6"></ellipse>
+            <ellipse class="fv-rip r3" cx="195" cy="626" rx="24" ry="6"></ellipse>
+          </g>
+        </g>
+      </g>
+      <polygon points="352,673.7 260,721 130,721 38,673.7 38,606.3 130,559 260,559 352,606.3" fill="none" stroke="#A9C9C8" class="fv-ln"></polygon>
+      <!-- favvora -->
+      <path d="M183 630 C186 612 188 600 189 584 H201 C202 600 204 612 207 630 Z" fill="url(#fvStone)"></path>
+      <ellipse cx="195" cy="630" rx="16" ry="4" fill="#2C4E54"></ellipse>
+      <path d="M147 576 Q195 612 243 576 Z" fill="url(#fvStone)"></path>
+      <ellipse cx="195" cy="576" rx="48" ry="9" fill="#5B7C80"></ellipse>
+      <ellipse cx="195" cy="576" rx="42" ry="6" fill="#0B2E35"></ellipse>
+      <ellipse class="fv-fill" cx="195" cy="576" rx="42" ry="6" fill="#5FC7C0"></ellipse>
+      <path d="M192 576 V550 H198 V576 Z" fill="#6E8A8C"></path>
+      <circle cx="195" cy="546" r="6.5" fill="url(#fvSilver)"></circle>
+      <path d="M195 532 L198 540 H192 Z" fill="#B9D6D6"></path>
+      <!-- suv oqimi -->
+      <g stroke="#CFF5F0">
+        <path class="fv-draw fv-jet" pathLength="100" d="M195 534 C188 512 162 516 152 572"></path>
+        <path class="fv-draw fv-jet" pathLength="100" d="M195 534 C202 512 228 516 238 572"></path>
+        <path class="fv-draw d2 fv-jet" pathLength="100" d="M150 580 C140 592 136 606 132 636"></path>
+        <path class="fv-draw d2 fv-jet" pathLength="100" d="M240 580 C250 592 254 606 258 636"></path>
+      </g>
+      <g stroke="#FFFFFF">
+        <path class="fv-flow fv-jet2" d="M195 534 C188 512 162 516 152 572"></path>
+        <path class="fv-flow fv-jet2" d="M195 534 C202 512 228 516 238 572"></path>
+        <path class="fv-flow fv-jet2" d="M150 580 C140 592 136 606 132 636"></path>
+        <path class="fv-flow fv-jet2" d="M240 580 C250 592 254 606 258 636"></path>
+      </g>
+      <circle class="fv-drop" cx="195" cy="528" r="3.2" fill="#E6FBF8"></circle>
+      <g class="fv-cta"><circle class="fv-halo" cx="195" cy="546" r="16" fill="none" stroke="#BFEFEA" style="stroke-width: 1.4"></circle></g>
+    </svg>
+
+    <span class="fv-mote" style="left: 170px; top: 420px; animation-delay: 2s"></span>
+    <span class="fv-mote" style="left: 222px; top: 470px; animation-delay: 2.8s"></span>
+    <span class="fv-mote" style="left: 140px; top: 500px; animation-delay: 3.4s"></span>
+    <span class="fv-mote" style="left: 250px; top: 400px; animation-delay: 2.4s"></span>
+
+    <div style="position: absolute; left: 0; top: 26px; width: 390px; text-align: center">
+      <p class="fv-ar fv-in1" dir="rtl" lang="ar" style="margin: 0; font-size: 27px; line-height: 1.7; color: #CFEDEA">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p>
+      <p class="fv-t fv-in1" style="margin: 0; font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase; color: #8FB9B8">Bismillahir Rohmanir Rohiym</p>
+      <p class="fv-lb fv-in2" style="margin-top: 18px; font-size: 11.5px; letter-spacing: {{ fromLs }}; color: #BFE3DF; padding: 0 24px; overflow-wrap: anywhere">{{ fromTo }}</p>
+    </div>
+
+    <div class="fv-refl" aria-live="polite" style="position: absolute; left: 50px; top: 640px; width: 290px; text-align: center">
+      <div class="fv-wave">
+        <p class="fv-t" style="margin: 0; font-size: 13px; letter-spacing: 0.28em; text-transform: uppercase; color: #E6FBF8">Kechir meni</p>
+        <p class="fv-d" style="margin: 0; font-size: {{ reflSize }}; line-height: 1.15; font-weight: 500; color: #FFFFFF; text-shadow: 0 0 18px rgba(191, 239, 234, 0.7); overflow-wrap: anywhere">{{ d.kimga }}</p>
+      </div>
+    </div>
+
+    <button type="button" class="fv-hit fv-cta" onClick="{{ open }}" aria-label="Favvorani ochish" tabindex="-1"></button>
+
+    <div class="fv-cta" style="position: absolute; left: 0; top: 752px; width: 390px; display: flex; flex-direction: column; align-items: center; gap: 12px">
+      <p class="fv-t fv-in3" style="margin: 0; font-size: 14.5px; font-style: italic; line-height: 1.4; color: #BFDCDA; text-align: center; padding: 0 30px">Favvora qurib qolgan. Unga suv qaytaring.</p>
+      <button type="button" class="fv-press fv-btnS fv-in4 fv-t" onClick="{{ open }}" style="height: 52px; padding: 0 28px 0 20px; border: 0; border-radius: 26px; font-size: 16px; font-weight: 700; letter-spacing: 0.04em; display: inline-flex; align-items: center; gap: 10px; cursor: pointer">
+        <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 C15 8 18 11 18 15 A6 6 0 0 1 6 15 C6 11 9 8 12 3 Z" stroke="#0A3139" class="fv-ic"></path><path d="M9.5 15.5 A2.6 2.6 0 0 0 12 18" stroke="#0A3139" class="fv-ic"></path></svg>
+        <span>Suvni oching</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ================= BOSH QISM ================= -->
+  <header style="position: relative; flex: none; padding: 30px 0 30px; display: flex; flex-direction: column; align-items: center; text-align: center; background: linear-gradient(180deg, #072A32 0%, #0B3B45 70%)">
+    <p class="fv-ar" dir="rtl" lang="ar" style="margin: 0; font-size: 26px; line-height: 1.7; color: #CFEDEA">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p>
+    <p class="fv-t" style="margin: 0; font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase; color: #8FB9B8">Bismillahir Rohmanir Rohiym</p>
+
+    <div style="position: relative; width: 330px; height: 470px; margin-top: 22px">
+      <svg width="330" height="470" viewBox="0 0 330 470" aria-hidden="true" style="position: absolute; left: 0; top: 0">
+        <defs>
+          <linearGradient id="fvSilver2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" class="fv-sg1"></stop><stop offset="0.5" class="fv-sg2"></stop><stop offset="1" class="fv-sg3"></stop></linearGradient>
+          <linearGradient id="fvArchIn" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color: #0E4A55"></stop><stop offset="1" style="stop-color: #072A32"></stop></linearGradient>
+        </defs>
+        <rect x="2" y="40" width="326" height="428" fill="url(#fvTile)" opacity="0.55"></rect>
+        <rect x="14" y="52" width="302" height="416" fill="#0B3B45"></rect>
+        <path d="M30 468 V170 C30 112 100 66 165 30 C230 66 300 112 300 170 V468 Z" fill="url(#fvArchIn)"></path>
+        <path d="M30 468 V170 C30 112 100 66 165 30 C230 66 300 112 300 170 V468 Z" fill="url(#fvLat)" opacity="0.45"></path>
+        <path d="M30 468 V170 C30 112 100 66 165 30 C230 66 300 112 300 170 V468" stroke="url(#fvSilver2)" class="fv-ln2"></path>
+        <path d="M20 468 V168 C20 106 94 56 165 18 C236 56 310 106 310 168 V468" stroke="#5E9C9F" class="fv-hair"></path>
+        <g fill="#7ED8CF" opacity="0.75"><circle cx="40" cy="70" r="8"></circle><circle cx="290" cy="70" r="8"></circle></g>
+        <g fill="#0B3B45"><path d="M40 64 L42 68 L46 70 L42 72 L40 76 L38 72 L34 70 L38 68 Z"></path><path d="M290 64 L292 68 L296 70 L292 72 L290 76 L288 72 L284 70 L288 68 Z"></path></g>
+      </svg>
+      <div style="position: absolute; left: 40px; top: 118px; width: 250px; display: flex; flex-direction: column; align-items: center; gap: 10px">
+        <p class="fv-lb" style="font-size: 11px">Assalomu alaykum</p>
+        <h1 class="fv-d fv-silver" style="margin: 0; font-size: {{ h1Size }}; line-height: 1.08; font-weight: 500; overflow-wrap: anywhere">{{ d.kimga }}</h1>
+        <svg width="120" height="16" viewBox="0 0 120 16" aria-hidden="true"><path d="M0 8 H48 M72 8 H120" stroke="#5E9C9F" class="fv-ln"></path><path d="M60 1 L64 6 L70 8 L64 10 L60 15 L56 10 L50 8 L56 6 Z" fill="#7ED8CF"></path></svg>
+        <p class="fv-d" style="margin: 0; font-size: 26px; line-height: 1.2; color: #EEF6F3">Kechir meni</p>
+        <p class="fv-t" style="margin: 0; font-size: 16px; line-height: 1.55; color: #BFDCDA">Qurigan favvoraga suv qaytgani kabi, oramizga yana iliqlik qaytishini so’rayman.</p>
+        <p class="fv-t" style="margin: 6px 0 0; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #8FB9B8; overflow-wrap: anywhere">{{ fromLine }}</p>
+      </div>
+      <svg class="fv-run" width="200" height="100" viewBox="100 520 190 120" aria-hidden="true" style="position: absolute; left: 65px; top: 362px">
+        <ellipse cx="195" cy="628" rx="90" ry="12" fill="#0D4A55"></ellipse>
+        <ellipse cx="195" cy="628" rx="90" ry="12" fill="none" stroke="#5E9C9F" class="fv-ln"></ellipse>
+        <g fill="none" stroke="#DFF5F2" class="fv-ln"><ellipse class="fv-rip r1" cx="195" cy="628" rx="16" ry="3"></ellipse><ellipse class="fv-rip r2" cx="195" cy="628" rx="16" ry="3"></ellipse><ellipse class="fv-rip r3" cx="195" cy="628" rx="16" ry="3"></ellipse></g>
+        <path d="M187 628 C189 612 190 600 191 586 H199 C200 600 201 612 203 628 Z" fill="#5B7C80"></path>
+        <path d="M157 580 Q195 606 233 580 Z" fill="#5B7C80"></path>
+        <ellipse cx="195" cy="580" rx="38" ry="6" fill="#5FC7C0"></ellipse>
+        <circle cx="195" cy="552" r="5" fill="#CFE4E4"></circle>
+        <g stroke="#CFF5F0"><path class="fv-jet2" d="M195 540 C188 520 168 524 160 578"></path><path class="fv-jet2" d="M195 540 C202 520 222 524 230 578"></path><path class="fv-jet2" d="M158 584 C150 596 146 608 144 626"></path><path class="fv-jet2" d="M232 584 C240 596 244 608 246 626"></path></g>
+        <g stroke="#FFFFFF"><path class="fv-flow fv-jet2" d="M195 540 C188 520 168 524 160 578"></path><path class="fv-flow fv-jet2" d="M195 540 C202 520 222 524 230 578"></path><path class="fv-flow fv-jet2" d="M158 584 C150 596 146 608 144 626"></path><path class="fv-flow fv-jet2" d="M232 584 C240 596 244 608 246 626"></path></g>
+      </svg>
+    </div>
+    <div class="fv-bob" aria-hidden="true" style="margin-top: 20px; display: flex; flex-direction: column; align-items: center; gap: 4px; color: #8FB9B8">
+      <span class="fv-t" style="font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase">Davomi pastda</span>
+      <svg width="18" height="18" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" stroke="currentColor" class="fv-ic"></path></svg>
+    </div>
+  </header>
+
+  <!-- ================= MAKTUB ================= -->
+  <sc-if value="{{ b.maktub }}">
+  <section class="rv" style="position: relative; flex: none; padding: 40px 20px 30px">
+    <div class="rc" style="position: relative; background: #F1F6F2; color: #123C44; border-radius: 6px 6px 18px 18px; padding: 0 24px 30px; box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.6)">
+      <svg width="350" height="70" viewBox="0 0 350 70" aria-hidden="true" style="display: block; margin: 0 -24px; position: relative; top: -34px; margin-bottom: -30px">
+        <path d="M0 70 V52 C40 44 120 30 175 2 C230 30 310 44 350 52 V70 Z" fill="#F1F6F2"></path>
+        <path d="M30 66 C70 56 130 40 175 14 C220 40 280 56 320 66" stroke="#7ED8CF" class="fv-ln2"></path>
+        <path d="M175 0 L180 10 L190 14 L180 18 L175 28 L170 18 L160 14 L170 10 Z" fill="#1F8A8E"></path>
+      </svg>
+      <p class="fv-lb" style="text-align: center; color: #1F7C83">Maktub</p>
+      <h2 class="fv-d" style="margin: 6px 0 18px; font-size: 32px; font-weight: 500; line-height: 1.15; text-align: center; color: #0E3A42">Qalbimdagi so’zlar</h2>
+      <div style="display: flex; gap: 14px; align-items: flex-start">
+        <div aria-hidden="true" style="flex: none; position: relative; width: 58px; height: 58px">
+          <span style="position: absolute; inset: 6px; background: #0B3B45; border-radius: 3px"></span>
+          <span style="position: absolute; inset: 6px; background: #1F7C83; border-radius: 3px; transform: rotate(45deg)"></span>
+          <span class="fv-d" style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 30px; font-weight: 600; color: #F1F6F2">{{ dropCap }}</span>
+        </div>
+        <p class="fv-t" style="margin: 2px 0 0; min-width: 0; font-size: 17.5px; line-height: 1.66; color: #1E4148; white-space: pre-line; overflow-wrap: anywhere">{{ dropFirst }}</p>
+      </div>
+      <sc-if value="{{ hasRest }}"><p class="fv-t" style="margin: 12px 0 0; font-size: 17.5px; line-height: 1.66; color: #1E4148; white-space: pre-line; overflow-wrap: anywhere">{{ dropRest }}</p></sc-if>
+      <div style="margin-top: 22px; display: flex; flex-direction: column; align-items: flex-end; gap: 2px">
+        <span class="fv-t" style="font-size: 13px; font-style: italic; color: #4F7377">Hurmat va pushaymonlik bilan,</span>
+        <span class="fv-d" style="font-size: {{ sigSize }}; font-weight: 500; color: #1F7C83; overflow-wrap: anywhere; text-align: right">{{ d.kimdan }}</span>
+      </div>
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- ================= VA'DALAR ================= -->
+  <sc-if value="{{ b.vadalar }}">
+  <section class="rv" style="position: relative; flex: none; padding: 46px 20px 30px">
+    <div class="rc" style="text-align: center">
+      <p class="fv-lb">Va’dalarim</p>
+      <h2 class="fv-h2">Har biri — bir tomchi</h2>
+      <p class="fv-t" style="margin: 10px 24px 22px; font-size: 15px; font-style: italic; line-height: 1.5; color: #A9C9C8">Tomchilar yig’ilib hovuz to’lgani kabi, so’zlarim ishim bilan to’lsin. Har birini bosib ko’ring.</p>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 10px">
+      <sc-for list="{{ promises }}" as="v">
+        <button type="button" class="{{ v.cls }}" onClick="{{ v.tap }}" aria-pressed="{{ v.on }}">
+          <span class="fv-rp" aria-hidden="true"></span>
+          <span aria-hidden="true" style="flex: none; position: relative; width: 38px; height: 38px">
+            <span class="fv-oct" style="position: absolute; inset: 5px; border: 1.5px solid #7ED8CF; border-radius: 3px"></span>
+            <svg width="38" height="38" viewBox="0 0 38 38" style="position: absolute; left: 0; top: 0"><path d="M19 10 C22 15 24.5 17.5 24.5 21 A5.5 5.5 0 0 1 13.5 21 C13.5 17.5 16 15 19 10 Z" fill="#7ED8CF"></path></svg>
+          </span>
+          <span style="flex: 1; min-width: 0; font-size: 17px; line-height: 1.4; overflow-wrap: anywhere">{{ v.text }}</span>
+          <span class="fv-d" aria-hidden="true" style="flex: none; font-size: 15px; color: #5E9C9F">{{ v.n }}</span>
+        </button>
+      </sc-for>
+    </div>
+    <div style="margin-top: 22px; display: flex; justify-content: center">
+      <sc-if value="{{ notAccepted }}">
+        <button type="button" class="fv-press fv-t" onClick="{{ accept }}" style="height: 52px; padding: 0 26px; border-radius: 26px; border: 1.5px solid #7ED8CF; background: rgba(126, 216, 207, 0.08); color: #DFF5F2; font-size: 16px; font-weight: 700; cursor: pointer">Va’dalaringga ishonaman</button>
+      </sc-if>
+      <sc-if value="{{ accepted }}">
+        <p class="fv-pop fv-t" role="status" style="margin: 0; padding: 14px 20px; border-radius: 26px; background: rgba(126, 216, 207, 0.14); color: #DFF5F2; font-size: 15.5px">Rahmat. Har birida turaman.</p>
+      </sc-if>
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- ================= GALEREYA ================= -->
+  <sc-if value="{{ b.galereya }}">
+  <section class="rv" style="position: relative; flex: none; padding: 50px 0 20px">
+    <div class="rc" style="text-align: center; padding: 0 24px">
+      <p class="fv-lb">Xotiralar</p>
+      <h2 class="fv-h2">Suvdagi aks</h2>
+    </div>
+    <div class="rc" style="position: relative; width: 320px; margin: 26px auto 0">
+      <img class="fv-arch" src="{{ p.0 }}" alt="" style="display: block; width: 320px; height: 300px; object-fit: cover">
+      <svg width="320" height="300" viewBox="0 0 320 300" aria-hidden="true" style="position: absolute; left: 0; top: 0"><path d="M1 300 V128 C1 70 70 31 160 1 C250 31 319 70 319 128 V300" stroke="#BFE3DF" class="fv-ln2"></path></svg>
+      <div style="height: 90px; overflow: hidden; position: relative">
+        <div class="fv-reflW"><img class="fv-arch fv-reflI" src="{{ p.0 }}" alt="" style="display: block; width: 320px; height: 300px; object-fit: cover"></div>
+        <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(11, 59, 69, 0.2), #0B3B45)"></div>
+      </div>
+    </div>
+    <sc-if value="{{ g3 }}">
+    <div class="rc" style="display: flex; justify-content: center; gap: 12px; margin-top: -40px; position: relative">
+      <img class="fv-archS" src="{{ p.1 }}" alt="" style="display: block; width: 154px; height: 200px; object-fit: cover">
+      <img class="fv-archS" src="{{ p.2 }}" alt="" style="display: block; width: 154px; height: 200px; object-fit: cover">
+    </div>
+    </sc-if>
+    <sc-if value="{{ g2 }}">
+    <div class="rc" style="display: flex; justify-content: center; margin-top: -40px; position: relative">
+      <img class="fv-archW" src="{{ p.1 }}" alt="" style="display: block; width: 320px; height: 190px; object-fit: cover">
+    </div>
+    </sc-if>
+    <p class="rc fv-t" style="margin: 18px 30px 0; font-size: 15px; font-style: italic; line-height: 1.5; color: #A9C9C8; text-align: center">Tiniq suv kabi, eng yaxshi kunlarimiz ham ko’z oldimda.</p>
+  </section>
+  </sc-if>
+
+  <!-- ================= TAKLIF ================= -->
+  <sc-if value="{{ b.taklif }}">
+  <section class="rv" style="position: relative; flex: none; padding: 50px 20px 30px">
+    <div class="rc" style="position: relative; border-radius: 160px 160px 18px 18px; padding: 54px 26px 30px; background: linear-gradient(180deg, #10505B 0%, #0A343D 100%); border: 1px solid rgba(143, 220, 211, 0.3); text-align: center; overflow: hidden">
+      <svg width="350" height="70" viewBox="0 0 350 70" aria-hidden="true" style="position: absolute; left: 0; top: 0; opacity: 0.5"><rect width="350" height="70" fill="url(#fvLat)"></rect></svg>
+      <svg width="64" height="50" viewBox="0 0 64 50" aria-hidden="true" style="position: relative; display: block; margin: 0 auto">
+        <path d="M8 18 H56 C55 34 46 44 32 44 C18 44 9 34 8 18 Z" fill="#F1F6F2"></path>
+        <path d="M14 24 H50" stroke="#1F8A8E" class="fv-ln2"></path>
+        <path d="M12 30 L18 26 L24 30 L30 26 L36 30 L42 26 L48 30 L52 28" stroke="#1F8A8E" class="fv-ln"></path>
+        <path d="M26 12 C24 8 28 6 26 2 M36 12 C34 8 38 6 36 2" stroke="#BFE3DF" class="fv-ic fv-pulse"></path>
+        <ellipse cx="32" cy="46" rx="20" ry="3" fill="#072A32"></ellipse>
+      </svg>
+      <p class="fv-lb" style="position: relative; margin-top: 14px">Yarashish taklifi</p>
+      <p class="fv-d" style="position: relative; margin: 10px 0 0; font-size: 27px; line-height: 1.25; color: #EEF6F3; overflow-wrap: anywhere">{{ d.taklif }}</p>
+      <sc-if value="{{ hasChips }}">
+      <div style="position: relative; margin-top: 18px; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px">
+        <sc-if value="{{ d.taklif_vaqt }}"><span class="fv-t" style="display: inline-flex; align-items: center; gap: 8px; padding: 9px 14px; border-radius: 20px; background: rgba(241, 246, 242, 0.1); border: 1px solid rgba(143, 220, 211, 0.35); font-size: 15px; color: #DFF5F2"><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5" stroke="#7ED8CF" class="fv-ic"></circle><path d="M12 7.5V12l3 2" stroke="#7ED8CF" class="fv-ic"></path></svg>{{ d.taklif_vaqt }}</span></sc-if>
+        <sc-if value="{{ d.taklif_joy }}"><span class="fv-t" style="display: inline-flex; align-items: center; gap: 8px; padding: 9px 14px; border-radius: 20px; background: rgba(241, 246, 242, 0.1); border: 1px solid rgba(143, 220, 211, 0.35); font-size: 15px; color: #DFF5F2; overflow-wrap: anywhere"><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6.5-6-6.5-11a6.5 6.5 0 0 1 13 0c0 5-6.5 11-6.5 11z" stroke="#7ED8CF" class="fv-ic"></path><circle cx="12" cy="10" r="2.3" stroke="#7ED8CF" class="fv-ic"></circle></svg>{{ d.taklif_joy }}</span></sc-if>
+      </div>
+      </sc-if>
+      <div style="position: relative; margin-top: 24px">
+        <sc-if value="{{ notAgreed }}">
+          <button type="button" class="fv-press fv-btnS fv-t" onClick="{{ agree }}" style="width: 100%; height: 54px; border: 0; border-radius: 27px; font-size: 16.5px; font-weight: 700; cursor: pointer">Roziman, boraman</button>
+        </sc-if>
+        <sc-if value="{{ agreed }}">
+          <p class="fv-pop fv-t" role="status" style="margin: 0; padding: 15px 18px; border-radius: 27px; background: rgba(126, 216, 207, 0.16); font-size: 16px; color: #EEF6F3; overflow-wrap: anywhere">{{ agreedText }}</p>
+        </sc-if>
+      </div>
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- ================= JAVOB ================= -->
+  <sc-if value="{{ showAnswer }}">
+  <section class="rv" style="position: relative; flex: none; padding: 50px 24px 30px; text-align: center">
+    <div class="rc">
+      <p class="fv-lb">Javob</p>
+      <h2 class="fv-h2" style="font-size: 40px">Kechirasanmi?</h2>
+      <p class="fv-t" style="margin: 10px 0 0; font-size: 15.5px; font-style: italic; line-height: 1.5; color: #A9C9C8">{{ askSub }}</p>
+    </div>
+    <sc-if value="{{ b.javob }}">
+    <div class="rc" style="margin-top: 26px; display: flex; flex-direction: column; align-items: center">
+      <sc-if value="{{ waiting }}">
+        <div style="position: relative; width: 150px; height: 150px">
+          <span class="fv-halo" aria-hidden="true" style="position: absolute; inset: 8px; border-radius: 50%; border: 1.5px solid rgba(143, 220, 211, 0.6)"></span>
+          <button type="button" class="fv-press fv-btnS fv-d" onClick="{{ forgive }}" style="position: absolute; inset: 14px; border: 0; border-radius: 50%; font-size: 20px; font-weight: 600; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px">
+            <svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 C15 8 18 11 18 15 A6 6 0 0 1 6 15 C6 11 9 8 12 3 Z" stroke="#0A3139" class="fv-ic"></path></svg>
+            <span>Kechirdim</span>
+          </button>
+        </div>
+      </sc-if>
+      <sc-if value="{{ forgiven }}">
+        <div class="fv-boom" style="position: relative; width: 100%">
+          <span class="fv-ring" aria-hidden="true" style="position: absolute; left: 50%; top: 50%; width: 120px; height: 120px; margin: -60px; border-radius: 50%; border: 2px solid #BFEFEA; opacity: 0"></span>
+          <sc-for list="{{ bursts }}" as="r"><span class="fv-burst" aria-hidden="true" style="{{ r }}"></span></sc-for>
+          <div class="fv-pop" role="status" style="position: relative; padding: 22px 20px; border-radius: 18px; background: #F1F6F2; color: #123C44">
+            <p class="fv-d" style="margin: 0; font-size: 24px; font-weight: 500; overflow-wrap: anywhere">Rahmat, {{ d.kimga }}.</p>
+            <p class="fv-t" style="margin: 8px 0 0; font-size: 16px; line-height: 1.55; color: #2E5257; white-space: pre-line; overflow-wrap: anywhere">{{ thanks }}</p>
+          </div>
+        </div>
+      </sc-if>
+    </div>
+    </sc-if>
+    <sc-if value="{{ both }}">
+      <div style="margin-top: 24px; display: flex; align-items: center; gap: 10px">
+        <span aria-hidden="true" style="flex: 1; height: 1px; background: rgba(143, 220, 211, 0.3)"></span>
+        <span class="fv-t" style="font-size: 14px; font-style: italic; color: #A9C9C8">yoki o’z so’zlaring bilan</span>
+        <span aria-hidden="true" style="flex: 1; height: 1px; background: rgba(143, 220, 211, 0.3)"></span>
+      </div>
+    </sc-if>
+    <sc-if value="{{ b.sorov }}">
+    <div class="rc" style="margin-top: 18px; text-align: left">
+      <sc-if value="{{ notSent }}">
+        <div style="display: flex; flex-direction: column; gap: 12px">
+          <label for="fvReply" class="fv-lb" style="font-size: 11px">Javobingiz</label>
+          <textarea id="fvReply" class="fv-ta" rows="3" placeholder="Bir-ikki so’z ham kifoya" style="width: 100%; height: 96px; box-sizing: border-box; resize: none; padding: 12px 14px; border: 1px solid rgba(143, 220, 211, 0.4); border-radius: 14px; background: rgba(7, 42, 50, 0.7); color: #EEF6F3; font-size: 16px; line-height: 1.5"></textarea>
+          <sc-if value="{{ sendErr }}"><p role="alert" class="fv-t" style="margin: -4px 0 0; font-size: 14px; color: #FFC9A8">{{ sendErr }}</p></sc-if>
+          <button type="button" class="fv-press fv-t" onClick="{{ send }}" disabled="{{ sending }}" style="height: 52px; border: 1.5px solid #7ED8CF; border-radius: 26px; background: rgba(126, 216, 207, 0.1); color: #EEF6F3; font-size: 16px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px">
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12l16-8-6 16-2.5-6.5L4 12z M11.5 13.5L20 4" stroke="#7ED8CF" class="fv-ic"></path></svg>
+            <span>{{ sendLabel }}</span>
+          </button>
+        </div>
+      </sc-if>
+      <sc-if value="{{ sent }}">
+        <p class="fv-pop fv-t" role="status" style="margin: 0; padding: 15px 18px; border-radius: 14px; border: 1px solid rgba(143, 220, 211, 0.4); font-size: 15.5px; color: #EEF6F3; overflow-wrap: anywhere">Javobing {{ toFrom }} yetib bordi.</p>
+      </sc-if>
+    </div>
+    </sc-if>
+  </section>
+  </sc-if>
+
+  <!-- ================= YAKUN: oyat va duo ================= -->
+  <footer class="rv" style="position: relative; flex: 1 0 auto; padding: 56px 26px 64px; display: flex; flex-direction: column; align-items: center; text-align: center; background: linear-gradient(180deg, #0B3B45 0%, #072A32 100%)">
+    <svg class="rc" width="200" height="24" viewBox="0 0 200 24" aria-hidden="true"><path d="M0 12 H80 M120 12 H200" stroke="#5E9C9F" class="fv-ln"></path><path d="M100 2 L105 8 L112 12 L105 16 L100 22 L95 16 L88 12 L95 8 Z" fill="#7ED8CF"></path><circle cx="80" cy="12" r="2" fill="#7ED8CF"></circle><circle cx="120" cy="12" r="2" fill="#7ED8CF"></circle></svg>
+    <p class="rc fv-ar fv-mk" dir="rtl" lang="ar" style="margin: 22px 0 0; font-size: 25px; line-height: 2; color: #DFF5F2">وَلْيَعْفُوا وَلْيَصْفَحُوا أَلَا تُحِبُّونَ أَن يَغْفِرَ اللَّهُ لَكُمْ</p>
+    <p class="rc fv-t" style="margin: 14px 0 0; font-size: 16px; font-style: italic; line-height: 1.6; color: #BFDCDA">«Afv etsinlar va kechirsinlar. Alloh sizlarni mag’firat qilishini yoqtirmaysizlarmi?»</p>
+    <p class="rc fv-t" style="margin: 6px 0 0; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #7FA9A8">Nur surasi, 22-oyat</p>
+    <p class="rc fv-d" style="margin: 30px 0 0; font-size: 20px; line-height: 1.5; color: #EEF6F3">Alloh oramizni isloh qilsin, qalblarimizga orom bersin.</p>
+    <p class="rc fv-d fv-silver" style="margin: 18px 0 0; font-size: {{ sigSize }}; font-weight: 500; overflow-wrap: anywhere">{{ d.kimdan }}</p>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":4200}}'>
+const FV_RM = typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
+const FV_IO = typeof IntersectionObserver === 'function' && !FV_RM && !(typeof navigator !== 'undefined' && navigator.webdriver);
+
+class Component extends DCLogic {
+  constructor(...args) {
+    super(...args);
+    this.state = { opened: false, accepted: false, agreed: false, forgiven: false, sent: false, sending: false, err: '', taps: {} };
+  }
+  componentDidMount() { if (FV_IO) document.documentElement.classList.add('fv-arm'); }
+  componentWillUnmount() { this.gone = true; clearTimeout(this.t1); if (this.io) this.io.disconnect(); }
+  startIO() {
+    if (!FV_IO || this.io) return;
+    try {
+      this.io = new IntersectionObserver((es) => es.forEach((e) => {
+        if (e.isIntersecting) { e.target.classList.add('is-in'); this.io.unobserve(e.target); }
+      }), { rootMargin: '0px 0px -8% 0px', threshold: 0.01 });
+      document.querySelectorAll('.rv').forEach((el) => this.io.observe(el));
+    } catch (e) { document.documentElement.classList.remove('fv-arm'); }
+  }
+  renderVals() {
+    const s = this.state || {};
+    const d = SITE.d, b = SITE.b;
+    const vad = d.vadalar || [];
+    const matn = String(d.matn || '').replace(/^\s+/, '');
+    const paras = matn.split(/\n\s*\n/);
+    const first = paras[0] || '';
+    const n = SITE.has.photos;
+    const nameLen = String(d.kimga || '').length;
+    const fromLen = String(d.kimdan || '').length;
+    const tv = String(d.taklif_vaqt || '').trim();
+    const taps = s.taps || {};
+    return {
+      introCls: s.opened ? 'fv-intro is-open' : 'fv-intro',
+      open: () => {
+        if (this.state.opened) return;
+        this.setState({ opened: true });
+        SITE.opened();
+        this.t1 = setTimeout(() => this.startIO(), FV_RM ? 0 : 4300);
+      },
+      fromTo: (d.kimdan || '') + 'dan ' + SITE.ga(d.kimga),
+      fromLs: (String(d.kimdan || '') + String(d.kimga || '')).length > 26 ? '0.12em' : '0.26em',
+      fromLine: (d.kimdan || '') + 'dan',
+      reflSize: nameLen > 18 ? '24px' : nameLen > 11 ? '30px' : '38px',
+      h1Size: nameLen > 18 ? '30px' : nameLen > 11 ? '38px' : '48px',
+      sigSize: fromLen > 18 ? '20px' : '26px',
+      musicOn: !!SITE.music.playing,
+      musicOff: !SITE.music.playing,
+      toggleMusic: () => SITE.music.toggle(),
+      dropCap: first.charAt(0),
+      dropFirst: first.slice(1),
+      dropRest: paras.slice(1).join('\n\n'),
+      hasRest: paras.length > 1,
+      promises: vad.map((text, i) => {
+        const t = taps[i] || 0;
+        return {
+          text, n: (i < 9 ? '0' : '') + (i + 1), on: t > 0,
+          cls: 'fv-row fv-press' + (t > 0 ? ' is-on' : '') + (t ? (t % 2 ? ' is-t' : ' is-t2') : ''),
+          tap: () => { const m = Object.assign({}, this.state.taps); m[i] = (m[i] || 0) + 1; this.setState({ taps: m }); }
+        };
+      }),
+      accepted: !!s.accepted,
+      notAccepted: !s.accepted,
+      accept: () => { if (this.state.accepted) return; this.setState({ accepted: true }); SITE.reply('Va’dalaringga ishonaman', '🥹'); },
+      g3: n >= 3, g2: n === 2,
+      hasChips: !!(tv || d.taklif_joy),
+      agreedText: tv ? 'Kelishdik. ' + tv + ' — kutaman.' : 'Kelishdik. Seni kutaman.',
+      agreed: !!s.agreed,
+      notAgreed: !s.agreed,
+      agree: () => { if (this.state.agreed) return; this.setState({ agreed: true }); SITE.reply('Roziman: ' + (d.taklif || ''), '🥰'); },
+      showAnswer: !!(b.javob || b.sorov),
+      both: !!(b.javob && b.sorov),
+      askSub: b.javob && b.sorov ? 'Bitta tugma yoki bir necha so’z — qanday bo’lsa ham, kutaman.' : b.javob ? 'Bitta so’zing kifoya — kutaman.' : 'Bir necha so’z yozsang ham kifoya — kutaman.',
+      thanks: d.javob_matni || 'Favvoramiz yana to’ldi. Bu iliqlikni asrayman.',
+      waiting: !s.forgiven,
+      forgiven: !!s.forgiven,
+      bursts: [0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330].map((r, i) => '--r: ' + r + 'deg; animation-delay: ' + (i % 3) * 0.06 + 's'),
+      forgive: () => { if (this.state.forgiven) return; this.setState({ forgiven: true }); SITE.reply('Kechirdim', '🤗'); },
+      toFrom: SITE.ga(d.kimdan),
+      sent: !!s.sent,
+      notSent: !s.sent,
+      sending: !!s.sending,
+      sendLabel: s.sending ? 'Yuborilmoqda…' : 'Yuborish',
+      sendErr: s.err || '',
+      send: () => {
+        const el = document.getElementById('fvReply');
+        const text = el ? el.value.trim() : '';
+        if (!text) { this.setState({ err: 'Avval bir-ikki so’z yozing.' }); if (el) el.focus(); return; }
+        this.setState({ sending: true, err: '' });
+        SITE.reply(text, '❤️').then(() => { if (!this.gone) this.setState({ sent: true, sending: false }); })
+          .catch(() => { if (!this.gone) this.setState({ sending: false, err: 'Yuborilmadi. Qaytadan urinib ko’ring.' }); });
+      }
+    };
+  }
+}
+</script>
+</body>
+</html>

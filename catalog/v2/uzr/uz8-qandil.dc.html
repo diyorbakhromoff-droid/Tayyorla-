@@ -1,0 +1,495 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<title>Uzr Premium: Qandil</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:wght@400&amp;family=Aref+Ruqaa:wght@400;700&amp;family=Philosopher:ital,wght@0,400;0,700;1,400;1,700&amp;family=Mulish:wght@400;500;600;700&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#EE9F55}
+.qd-ph{font-family:'Philosopher',Georgia,'Times New Roman',serif}
+.qd-ar{font-family:'Amiri','Noto Naskh Arabic','Times New Roman',serif;margin:0}
+.qd-ruq{font-family:'Aref Ruqaa','Amiri','Times New Roman',serif;margin:0;white-space:nowrap}
+.qd-cap{font-size:11.5px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:#EE9F55}
+.qd-ic{fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.qd-ic2{fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.qd-thin{fill:none;stroke-width:1}
+.qd-b1{stop-color:#7A6352}.qd-b2{stop-color:#4A3B3E}.qd-b3{stop-color:#2F2530}
+.qd-l1{stop-color:#F6C483}.qd-l2{stop-color:#C9844A}.qd-l3{stop-color:#7C4A2E}
+.qd-chain{background:repeating-linear-gradient(180deg,#B8743A 0 7px,rgba(184,116,58,0) 7px 9px,#8E5A33 9px 15px,rgba(142,90,51,0) 15px 17px)}
+.qd-wall{background:radial-gradient(120% 60% at 50% 0%,#33283F 0%,#2A2035 55%,#211A2B 100%)}
+.qd-warmbg{background:radial-gradient(70% 46% at 50% 30%,rgba(246,170,92,.42) 0%,rgba(238,159,85,.16) 45%,rgba(238,159,85,0) 75%),radial-gradient(100% 40% at 50% 100%,rgba(120,60,50,.35),rgba(120,60,50,0))}
+.qd-proj{-webkit-mask-image:radial-gradient(closest-side,#000 40%,rgba(0,0,0,.35) 75%,transparent 100%);mask-image:radial-gradient(closest-side,#000 40%,rgba(0,0,0,.35) 75%,transparent 100%)}
+.qd-pstar{fill:#FFCF8C}
+/* doimiy sokin harakat */
+.qd-sway{transform-origin:195px 0;animation:qdSway 7s ease-in-out infinite}
+@keyframes qdSway{0%,100%{transform:rotate(-1.3deg)}50%{transform:rotate(1.3deg)}}
+.qd-psway{transform-origin:50% 50%;animation:qdPsway 7s ease-in-out infinite}
+@keyframes qdPsway{0%,100%{transform:rotate(1.6deg)}50%{transform:rotate(-1.6deg)}}
+.qd-flick{transform-box:fill-box;transform-origin:50% 100%;animation:qdFlick 1.9s ease-in-out infinite}
+@keyframes qdFlick{0%,100%{transform:scale(1,1)}30%{transform:scale(.94,1.08)}60%{transform:scale(1.04,.95)}80%{transform:scale(.97,1.04)}}
+.qd-glowp{animation:qdGlowp 3.2s ease-in-out infinite}
+@keyframes qdGlowp{0%,100%{opacity:.85}50%{opacity:1}}
+.qd-mote{position:absolute;width:3px;height:3px;border-radius:50%;background:#FFD9A0;opacity:0;animation:qdMote 12s ease-in-out infinite}
+@keyframes qdMote{0%{opacity:0;transform:translate(0,0)}25%{opacity:.8}100%{opacity:0;transform:translate(-18px,-140px)}}
+.qd-bob{animation:qdBob 2.6s ease-in-out infinite}
+@keyframes qdBob{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+.qd-ember{animation:qdEmber 2.4s ease-in-out infinite}
+@keyframes qdEmber{0%,100%{opacity:.35}50%{opacity:.9}}
+.qd-btn{transition:transform .18s cubic-bezier(.3,1.4,.5,1),filter .2s ease,box-shadow .2s ease;-webkit-tap-highlight-color:transparent}
+.qd-btn:active{transform:scale(.955);filter:brightness(1.08)}
+.qd-btn:focus-visible{outline:3px solid #FBEBD3;outline-offset:3px}
+.qd-shine{position:relative;overflow:hidden}
+.qd-shine::after{content:'';position:absolute;top:0;bottom:0;left:-60%;width:40%;background:linear-gradient(100deg,rgba(255,255,255,0),rgba(255,255,255,.5),rgba(255,255,255,0));animation:qdShine 4s ease-in-out infinite}
+@keyframes qdShine{0%{transform:translateX(0)}55%,100%{transform:translateX(480%)}}
+.qd-eq{display:flex;align-items:flex-end;gap:3px;height:16px}
+.qd-eq span{width:3px;height:16px;border-radius:2px;background:#EE9F55;transform-origin:50% 100%;animation:qdEq 1s ease-in-out infinite}
+@keyframes qdEq{0%,100%{transform:scaleY(.3)}50%{transform:scaleY(1)}}
+/* kirish: uchqun qandilga uchadi */
+.qd-intro{transition:opacity .8s cubic-bezier(.4,0,.2,1) .95s,visibility 0s linear 1.8s}
+.qd-intro.is-open{opacity:0;visibility:hidden;pointer-events:none}
+.qd-icopy{transition:opacity .45s ease,transform .5s cubic-bezier(.4,0,.2,1)}
+.qd-intro.is-open .qd-icopy{opacity:0;transform:translateY(16px)}
+.qd-spark{position:absolute;left:189px;top:752px;width:12px;height:12px;border-radius:50%;background:radial-gradient(circle,#FFF6E0 0%,#FFC777 45%,rgba(255,170,80,0) 72%);box-shadow:0 0 18px 6px rgba(255,190,110,.65);opacity:0}
+.qd-intro.is-open .qd-spark{animation:qdSpark .75s cubic-bezier(.5,0,.3,1) .1s both}
+@keyframes qdSpark{0%{opacity:0;transform:translate(0,0) scale(.6)}15%{opacity:1}85%{opacity:1;transform:translate(0,-486px) scale(1)}100%{opacity:0;transform:translate(0,-492px) scale(1.6)}}
+.qd-ilit{opacity:0;transition:opacity .45s ease .75s}
+.qd-intro.is-open .qd-ilit{opacity:1}
+.qd-iflame{transform-box:fill-box;transform-origin:50% 100%;transform:scale(0);transition:transform .5s cubic-bezier(.3,1.6,.5,1) .78s}
+.qd-intro.is-open .qd-iflame{transform:none}
+@media (prefers-reduced-motion: no-preference){
+  .qd-warm{opacity:0}
+  .is-open .qd-warm{animation:qdFade 1.8s ease 1.1s both}
+  .qd-reveal{opacity:0;transform:scale(.12)}
+  .is-open .qd-reveal{animation:qdSpread 2.1s cubic-bezier(.16,.84,.3,1) 1.15s both}
+  .qd-mihrab{opacity:.25}
+  .is-open .qd-mihrab{animation:qdMih 1.6s ease 1.7s both}
+  .qd-up{opacity:0;transform:translateY(16px);filter:blur(5px)}
+  .is-open .qd-up{animation:qdUp 1s cubic-bezier(.2,.8,.2,1) both}
+  .qd-io .qd-sec .qd-r{opacity:0;transform:translateY(22px)}
+  .qd-io .qd-sec.is-in .qd-r{animation:qdRise .95s cubic-bezier(.2,.8,.2,1) both}
+  .qd-io .qd-sec .qd-light{opacity:.15;transform:scale(.6)}
+  .qd-io .qd-sec.is-in .qd-light{animation:qdLight 1s cubic-bezier(.3,1.5,.5,1) both}
+  .qd-io .qd-sec .qd-shL{transform:none}
+  .qd-io .qd-sec .qd-shR{transform:none}
+  .qd-io .qd-sec.is-in .qd-shL{animation:qdShL 1.4s cubic-bezier(.6,0,.2,1) .35s both}
+  .qd-io .qd-sec.is-in .qd-shR{animation:qdShR 1.4s cubic-bezier(.6,0,.2,1) .35s both}
+}
+.qd-shL,.qd-shR{transform:translateX(-102%)}
+.qd-shR{transform:translateX(102%)}
+@keyframes qdFade{from{opacity:0}to{opacity:1}}
+@keyframes qdSpread{from{opacity:0;transform:scale(.12)}35%{opacity:1}to{opacity:1;transform:none}}
+@keyframes qdMih{from{opacity:.25}to{opacity:1}}
+@keyframes qdUp{from{opacity:0;transform:translateY(16px);filter:blur(5px)}to{opacity:1;transform:none;filter:blur(0)}}
+@keyframes qdRise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+@keyframes qdLight{from{opacity:.15;transform:scale(.6)}to{opacity:1;transform:none}}
+@keyframes qdShL{from{transform:none}to{transform:translateX(-102%)}}
+@keyframes qdShR{from{transform:none}to{transform:translateX(102%)}}
+.qd-pop{animation:qdPop .65s cubic-bezier(.2,1.4,.4,1) both}
+@keyframes qdPop{from{opacity:0;transform:scale(.9) translateY(8px)}to{opacity:1;transform:none}}
+.qd-burst{position:absolute;left:50%;top:50%;width:16px;height:16px;margin:-8px 0 0 -8px;opacity:0;animation:qdBurst 1.4s cubic-bezier(.15,.7,.3,1) both}
+@keyframes qdBurst{0%{opacity:0;transform:translate(0,0) scale(.3)}15%{opacity:1}100%{opacity:0;transform:translate(var(--dx),var(--dy)) scale(1) rotate(var(--rot))}}
+.qd-seal{animation:qdSeal .9s cubic-bezier(.3,1.5,.5,1) both}
+@keyframes qdSeal{from{opacity:0;transform:scale(.4)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{animation:none !important;transition:none !important}.qd-shL,.qd-shR,.qd-spark{display:none}}
+</style>
+</helmet>
+<div class="{{ rootCls }}" style="width: 390px; min-height: var(--vh, 100vh); position: relative; overflow: hidden; background: #2A2035; color: #FBEBD3; font-family: 'Mulish', 'Segoe UI', system-ui, sans-serif; display: flex; flex-direction: column">
+
+  <sc-if value="{{ has.music }}">
+  <button type="button" class="qd-btn" onClick="{{ toggleMusic }}" aria-label="Musiqa" aria-pressed="{{ musicOn }}" style="position: absolute; right: 16px; top: 16px; z-index: 30; width: 44px; height: 44px; padding: 0; border-radius: 50%; border: 1px solid rgba(238, 159, 85, 0.5); background: rgba(42, 32, 53, 0.7); display: flex; align-items: center; justify-content: center; cursor: pointer">
+    <sc-if value="{{ musicOff }}">
+      <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 17.5V6l10-2v11.5" stroke="#EE9F55" class="qd-ic"></path><circle cx="6.8" cy="17.5" r="2.2" stroke="#EE9F55" class="qd-ic"></circle><circle cx="16.8" cy="15.5" r="2.2" stroke="#EE9F55" class="qd-ic"></circle></svg>
+    </sc-if>
+    <sc-if value="{{ musicOn }}">
+      <span class="qd-eq" aria-hidden="true"><span></span><span style="animation-delay: -0.3s"></span><span style="animation-delay: -0.6s"></span><span style="animation-delay: -0.15s"></span></span>
+    </sc-if>
+  </button>
+  </sc-if>
+
+  <!-- KIRISH: qorong’u xona, so’ngan qandil -->
+  <div class="{{ introCls }}" data-intro style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; z-index: 20; overflow: hidden; background: #241B2E">
+    <div class="qd-wall" aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; filter: brightness(0.82) saturate(0.7)"></div>
+    <svg width="390" height="844" viewBox="0 0 390 844" aria-hidden="true" style="position: absolute; left: 0; top: 0; opacity: 0.3">
+      <path d="{{ mihrabD }}" fill="rgba(255,255,255,0.02)" stroke="#8E6F8E" class="qd-thin"></path>
+      <path d="{{ mihrab2D }}" fill="none" stroke="#8E6F8E" class="qd-thin"></path>
+    </svg>
+    <div class="qd-ilit" aria-hidden="true" style="position: absolute; left: 45px; top: 110px; width: 300px; height: 300px; border-radius: 50%; background: radial-gradient(closest-side, rgba(255, 196, 120, 0.55), rgba(255, 196, 120, 0))"></div>
+    <div class="qd-sway" aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 390px; height: 400px">
+      <div class="qd-chain" style="position: absolute; left: 193px; top: 0; width: 4px; height: 118px"></div>
+      <svg width="140" height="260" viewBox="0 0 140 260" style="position: absolute; left: 125px; top: 112px; overflow: visible">
+        <path d="{{ L.cap }}" fill="url(#qdB)" stroke="#2A1F28" class="qd-thin"></path>
+        <path d="{{ L.body }}" fill="url(#qdB)" stroke="#2A1F28" class="qd-thin"></path>
+        <path d="{{ L.foot }}" fill="url(#qdB)" stroke="#2A1F28" class="qd-thin"></path>
+        <path d="{{ L.holes }}" fill="#1A1320"></path>
+        <path d="{{ L.win }}" fill="#1A1320"></path>
+        <g class="qd-ilit"><path d="{{ L.holes }}" fill="#FFD28A"></path><path d="{{ L.win }}" fill="#FFC774"></path></g>
+        <path class="qd-iflame" d="{{ L.flame }}" fill="#FFF3D6"></path>
+        <rect x="36" y="66" width="68" height="8" rx="2" fill="#5E4B45"></rect>
+        <circle cx="70" cy="246" r="6" fill="#5E4B45"></circle>
+        <path d="M70 0 V16 M64 16 H76" stroke="#5E4B45" class="qd-ic2"></path>
+        <defs><linearGradient id="qdB" x1="0" y1="0" x2="1" y2="0"><stop offset="0" class="qd-b3"></stop><stop offset="0.45" class="qd-b1"></stop><stop offset="1" class="qd-b3"></stop></linearGradient></defs>
+      </svg>
+    </div>
+    <span class="qd-mote" style="left: 80px; top: 640px"></span>
+    <span class="qd-mote" style="left: 310px; top: 560px; animation-delay: -5s"></span>
+    <span class="qd-spark"></span>
+
+    <div class="qd-icopy" style="position: absolute; left: 28px; right: 28px; top: 452px; display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center">
+      <span class="qd-cap" style="overflow-wrap: anywhere">{{ fromTo }}</span>
+      <p class="qd-ph" style="margin: 0; font-weight: 700; font-size: 44px; line-height: 1.02; color: #FBEBD3">Bir uchqun<br>kifoya</p>
+      <p style="margin: 0; max-width: 300px; font-size: 15.5px; line-height: 1.6; color: #D9C8C2; overflow-wrap: anywhere">{{ introSub }}</p>
+    </div>
+    <div class="qd-icopy" style="position: absolute; left: 0; right: 0; top: 728px; display: flex; justify-content: center">
+      <button type="button" class="qd-btn qd-shine" onClick="{{ open }}" style="height: 56px; padding: 0 30px 0 22px; border: 0; border-radius: 28px; background: linear-gradient(135deg, #F6C483 0%, #EE9F55 55%, #C9844A 100%); color: #2A2035; font-family: inherit; font-size: 17px; font-weight: 800; display: inline-flex; align-items: center; gap: 10px; cursor: pointer; box-shadow: 0 0 0 1.5px rgba(255, 220, 170, 0.6), 0 0 34px -4px rgba(238, 159, 85, 0.55)">
+        <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 C13 7 17.5 9 17.5 14 A5.5 5.5 0 0 1 6.5 14 C6.5 11 8.5 9.5 9.5 8 C10 10 11 11 12 11 C12 8 11 6 12 3 Z" stroke="#2A2035" class="qd-ic2"></path></svg>
+        <span>Qandilni yoqing</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- BOSH QISM: nur xonaga yoyiladi -->
+  <header style="flex: none; position: relative; height: 800px; overflow: hidden">
+    <div class="qd-wall" aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 390px; height: 800px"></div>
+    <div class="qd-warm qd-warmbg" aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 390px; height: 800px"></div>
+    <svg class="qd-mihrab" width="390" height="844" viewBox="0 0 390 844" aria-hidden="true" style="position: absolute; left: 0; top: 0">
+      <path d="{{ mihrabD }}" fill="rgba(255,214,160,0.04)" stroke="#B9845C" class="qd-thin"></path>
+      <path d="{{ mihrab2D }}" fill="none" stroke="#B9845C" style="fill: none; stroke-width: 0.6; opacity: 0.7"></path>
+    </svg>
+    <div class="qd-proj" aria-hidden="true" style="position: absolute; left: -200px; top: -130px; width: 790px; height: 790px">
+      <div class="qd-psway" style="position: absolute; left: 0; top: 0; width: 790px; height: 790px">
+        <svg class="qd-reveal" width="790" height="790" viewBox="0 0 790 790" style="position: absolute; left: 0; top: 0; transform-origin: 395px 395px">
+          <sc-for list="{{ proj }}" as="ps"><path class="qd-pstar" d="{{ ps.d }}" style="{{ ps.st }}"></path></sc-for>
+        </svg>
+      </div>
+    </div>
+    <div class="qd-sway" aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 390px; height: 400px">
+      <div class="qd-chain" style="position: absolute; left: 193px; top: 0; width: 4px; height: 118px"></div>
+      <div class="qd-glowp" style="position: absolute; left: 45px; top: 110px; width: 300px; height: 300px; border-radius: 50%; background: radial-gradient(closest-side, rgba(255, 196, 120, 0.55), rgba(255, 196, 120, 0))"></div>
+      <svg width="140" height="260" viewBox="0 0 140 260" style="position: absolute; left: 125px; top: 112px; overflow: visible">
+        <path d="{{ L.cap }}" fill="url(#qdL)" stroke="#5A3522" class="qd-thin"></path>
+        <path d="{{ L.body }}" fill="url(#qdL)" stroke="#5A3522" class="qd-thin"></path>
+        <path d="{{ L.foot }}" fill="url(#qdL)" stroke="#5A3522" class="qd-thin"></path>
+        <g class="qd-glowp"><path d="{{ L.holes }}" fill="#FFD28A"></path><path d="{{ L.win }}" fill="#FFC774"></path></g>
+        <path class="qd-flick" d="{{ L.flame }}" fill="#FFF3D6"></path>
+        <rect x="36" y="66" width="68" height="8" rx="2" fill="#B8743A"></rect>
+        <circle cx="70" cy="246" r="6" fill="#B8743A"></circle>
+        <path d="M70 0 V16 M64 16 H76" stroke="#B8743A" class="qd-ic2"></path>
+        <defs><linearGradient id="qdL" x1="0" y1="0" x2="1" y2="0"><stop offset="0" class="qd-l3"></stop><stop offset="0.42" class="qd-l1"></stop><stop offset="0.7" class="qd-l2"></stop><stop offset="1" class="qd-l3"></stop></linearGradient></defs>
+      </svg>
+    </div>
+    <span class="qd-mote" style="left: 60px; top: 560px"></span>
+    <span class="qd-mote" style="left: 320px; top: 480px; animation-delay: -4s"></span>
+    <span class="qd-mote" style="left: 250px; top: 690px; animation-delay: -8s"></span>
+
+    <div style="position: absolute; left: 24px; right: 24px; top: 392px; display: flex; flex-direction: column; align-items: center; gap: 4px; text-align: center">
+      <p class="qd-ruq qd-up" dir="rtl" lang="ar" style="font-size: 30px; line-height: 54px; color: #FBEBD3; text-shadow: 0 0 18px rgba(255, 190, 110, 0.55); animation-delay: 2.5s">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p>
+      <span class="qd-cap qd-up" style="font-size: 10.5px; color: #E3B98E; animation-delay: 2.65s">Bismillahir Rohmanir Rohiym</span>
+    </div>
+    <div style="position: absolute; left: 26px; right: 26px; top: 492px; display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center">
+      <span class="qd-cap qd-up" style="overflow-wrap: anywhere; animation-delay: 2.85s">{{ fromTo }}</span>
+      <h1 class="qd-ph qd-up" style="margin: 0; font-weight: 700; font-size: {{ h1Size }}; line-height: 1.05; color: #FFF4E4; overflow-wrap: anywhere; text-shadow: 0 0 26px rgba(238, 159, 85, 0.35); animation-delay: 3s">{{ d.kimga }},<br>meni kechir</h1>
+      <p class="qd-up" style="margin: 0; max-width: 300px; font-size: 15px; line-height: 1.6; color: #E6D5CC; animation-delay: 3.25s">Oramizdagi nur mening xatoyim bilan xiralashdi. Uni qayta yoqmoqchiman — iltimos, oxirigacha o’qi.</p>
+    </div>
+    <svg class="qd-bob" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" style="position: absolute; left: 183px; top: 750px"><path d="M6 9.5 L12 15.5 L18 9.5" stroke="#EE9F55" class="qd-ic2"></path></svg>
+  </header>
+
+  <sc-if value="{{ b.maktub }}">
+  <section class="{{ rv.maktub }}" data-rv="maktub" style="flex: none; position: relative; padding: 24px 18px 36px">
+    <article class="qd-r" style="position: relative; border-radius: 22px 22px 18px 18px; overflow: hidden; background: #FBEBD3; color: #3A2E3F; box-shadow: 0 0 0 1px rgba(238, 159, 85, 0.4), 0 30px 50px -30px rgba(0, 0, 0, 0.7), 0 0 60px -20px rgba(238, 159, 85, 0.35)">
+      <div aria-hidden="true" style="position: relative; height: 46px; background: linear-gradient(180deg, #C9844A, #9E5F35)">
+        <svg width="354" height="46" viewBox="0 0 354 46" style="position: absolute; left: 0; top: 0"><sc-for list="{{ band }}" as="bd"><path d="{{ bd }}" fill="#FFE2B0"></path></sc-for></svg>
+      </div>
+      <div style="padding: 24px 22px 24px; display: flex; flex-direction: column; gap: 14px">
+        <h2 class="qd-ph" style="margin: 0; font-weight: 700; font-size: 29px; line-height: 1.1; color: #2A2035">Yuragimdagi so’zlar</h2>
+        <p style="margin: 0; font-size: 16.5px; line-height: 1.72; color: #3A2E3F; white-space: pre-line; overflow-wrap: anywhere">{{ d.matn }}</p>
+        <div style="display: flex; justify-content: flex-end; align-items: center; gap: 10px">
+          <svg width="20" height="24" viewBox="0 0 20 24" aria-hidden="true" style="flex: none"><path d="M10 2 C11 6 15 8 15 13 A5 5 0 0 1 5 13 C5 10 7 8.5 8 7 C8.5 9 9 10 10 10 C10 7 9 5 10 2 Z" fill="#EE9F55"></path></svg>
+          <span class="qd-ph" style="font-style: italic; font-weight: 700; font-size: 27px; line-height: 1.1; color: #A8612A; overflow-wrap: anywhere; text-align: right">{{ d.kimdan }}</span>
+        </div>
+      </div>
+    </article>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.vadalar }}">
+  <section class="{{ rv.vadalar }}" data-rv="vadalar" style="flex: none; position: relative; padding: 18px 22px 40px; display: flex; flex-direction: column; gap: 16px">
+    <div class="qd-r" style="display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center">
+      <span class="qd-cap">Bundan buyon</span>
+      <h2 class="qd-ph" style="margin: 0; font-weight: 700; font-size: 32px; line-height: 1.1; color: #FFF4E4">Har va’da — bir nur</h2>
+    </div>
+    <ol style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px">
+      <sc-for list="{{ promises }}" as="v">
+      <li class="qd-r" style="{{ v.liSt }}">
+        <span style="flex: none; position: relative; width: 48px; height: 48px">
+          <span class="qd-light" style="{{ v.lgSt }}"></span>
+          <svg width="48" height="48" viewBox="0 0 48 48" aria-hidden="true" style="position: absolute; left: 0; top: 0"><path d="{{ starIcon }}" fill="#FFD28A" stroke="#B8743A" style="stroke-width: 1"></path><text x="24" y="29" text-anchor="middle" class="qd-ph" style="font-size: 15px; font-weight: 700; fill: #5A3522">{{ v.n }}</text></svg>
+        </span>
+        <span style="flex: 1; min-width: 0; font-size: 16px; font-weight: 600; line-height: 1.5; color: #FBEBD3; overflow-wrap: anywhere">{{ v.text }}</span>
+      </li>
+      </sc-for>
+    </ol>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.galereya }}">
+  <section class="{{ rv.galereya }}" data-rv="galereya" style="flex: none; position: relative; padding: 18px 18px 40px; display: flex; flex-direction: column; align-items: center; gap: 16px">
+    <span class="qd-cap qd-r">Xotiralarimiz</span>
+    <div style="display: flex; justify-content: center; gap: 14px; width: 354px">
+      <sc-for list="{{ gal }}" as="g">
+        <figure class="qd-r" style="{{ g.wrap }}">
+          <div style="{{ g.cu }}"></div>
+          <div style="{{ g.inner }}">
+            <img src="{{ g.src }}" alt="" style="width: 100%; height: 100%; object-fit: cover; display: block">
+            <div class="qd-shL" aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 50%; height: 100%; background: repeating-linear-gradient(45deg, #C9844A 0 2px, rgba(201, 132, 74, 0) 2px 13px), repeating-linear-gradient(-45deg, #C9844A 0 2px, rgba(201, 132, 74, 0) 2px 13px), rgba(42, 32, 53, 0.78); box-shadow: inset -2px 0 0 #C9844A"></div>
+            <div class="qd-shR" aria-hidden="true" style="position: absolute; right: 0; top: 0; width: 50%; height: 100%; background: repeating-linear-gradient(45deg, #C9844A 0 2px, rgba(201, 132, 74, 0) 2px 13px), repeating-linear-gradient(-45deg, #C9844A 0 2px, rgba(201, 132, 74, 0) 2px 13px), rgba(42, 32, 53, 0.78); box-shadow: inset 2px 0 0 #C9844A"></div>
+          </div>
+        </figure>
+      </sc-for>
+    </div>
+    <p class="qd-ph qd-r" style="margin: 0; font-style: italic; font-size: 20px; line-height: 1.35; color: #F3DCC2; text-align: center; animation-delay: 0.3s">Nurli kunlarimiz yana qaytadi.</p>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.taklif }}">
+  <section class="{{ rv.taklif }}" data-rv="taklif" style="flex: none; padding: 10px 18px 40px">
+    <div class="qd-r" style="border-radius: 22px; padding: 24px 22px; background: radial-gradient(circle at 100% 0%, rgba(238, 159, 85, 0.3) 0, rgba(238, 159, 85, 0) 200px), #362A44; box-shadow: 0 0 0 1px rgba(238, 159, 85, 0.45), 0 26px 40px -28px rgba(0, 0, 0, 0.8); display: flex; flex-direction: column; gap: 16px">
+      <div style="display: flex; gap: 14px; align-items: flex-start">
+        <svg width="78" height="64" viewBox="0 0 78 64" aria-hidden="true" style="flex: none">
+          <path d="M18 30 C18 20 46 20 46 30 C50 44 44 56 32 56 C20 56 14 44 18 30 Z" fill="#C9844A" stroke="#FFD28A" class="qd-ic"></path>
+          <path d="M24 22 C24 16 40 16 40 22 M32 12 V16" stroke="#FFD28A" class="qd-ic"></path>
+          <path d="M46 34 L58 26 L60 28" stroke="#FFD28A" class="qd-ic"></path>
+          <path d="M16 36 C8 36 8 48 18 48" stroke="#FFD28A" class="qd-ic"></path>
+          <path d="M58 44 H74 C74 52 70 56 66 56 C62 56 58 52 58 44 Z" fill="#FBEBD3"></path>
+          <path class="qd-bob qd-ic" d="M63 40 C61 36 65 34 63 30 M69 40 C67 36 71 34 69 30" stroke="#F3DCC2"></path>
+        </svg>
+        <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 6px">
+          <span class="qd-cap">Yarashish taklifi</span>
+          <p class="qd-ph" style="margin: 0; font-weight: 700; font-size: 23px; line-height: 1.22; color: #FFF4E4; overflow-wrap: anywhere">{{ d.taklif }}</p>
+        </div>
+      </div>
+      <sc-if value="{{ hasChips }}">
+      <div style="display: flex; flex-wrap: wrap; gap: 8px">
+        <sc-if value="{{ d.taklif_vaqt }}">
+        <span style="min-height: 38px; padding: 8px 14px 8px 11px; box-sizing: border-box; border-radius: 19px; background: rgba(238, 159, 85, 0.16); display: inline-flex; align-items: center; gap: 7px; font-size: 14px; font-weight: 700; color: #FBEBD3">
+          <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" style="flex: none"><circle cx="12" cy="12" r="8.5" stroke="#EE9F55" class="qd-ic"></circle><path d="M12 7.5V12l3 2" stroke="#EE9F55" class="qd-ic"></path></svg>
+          <span style="overflow-wrap: anywhere">{{ d.taklif_vaqt }}</span>
+        </span>
+        </sc-if>
+        <sc-if value="{{ d.taklif_joy }}">
+        <span style="min-height: 38px; padding: 8px 14px 8px 11px; box-sizing: border-box; border-radius: 19px; background: rgba(238, 159, 85, 0.16); display: inline-flex; align-items: center; gap: 7px; font-size: 14px; font-weight: 700; color: #FBEBD3">
+          <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" style="flex: none"><path d="M12 21s-6.5-6.2-6.5-11A6.5 6.5 0 0 1 18.5 10c0 4.8-6.5 11-6.5 11z" stroke="#EE9F55" class="qd-ic"></path><circle cx="12" cy="10" r="2.3" stroke="#EE9F55" class="qd-ic"></circle></svg>
+          <span style="overflow-wrap: anywhere">{{ d.taklif_joy }}</span>
+        </span>
+        </sc-if>
+      </div>
+      </sc-if>
+      <sc-if value="{{ notAgreed }}">
+        <button type="button" class="qd-btn" onClick="{{ agree }}" style="width: 100%; height: 52px; border: 0; border-radius: 26px; background: linear-gradient(135deg, #F6C483 0%, #EE9F55 60%, #C9844A 100%); color: #2A2035; font-family: inherit; font-size: 17px; font-weight: 800; cursor: pointer; box-shadow: 0 12px 26px -12px rgba(238, 159, 85, 0.7)">Roziman</button>
+      </sc-if>
+      <sc-if value="{{ agreed }}">
+        <div class="qd-pop" role="status" style="display: flex; align-items: center; gap: 12px; padding: 13px 16px; border-radius: 18px; background: rgba(238, 159, 85, 0.18); box-shadow: inset 0 0 0 1px rgba(238, 159, 85, 0.5)">
+          <svg class="qd-seal" width="26" height="26" viewBox="0 0 24 24" aria-hidden="true" style="flex: none"><circle cx="12" cy="12" r="10.5" fill="#EE9F55"></circle><path d="M7.6 12.4 L10.6 15.4 L16.4 9" stroke="#2A2035" class="qd-ic2"></path></svg>
+          <p style="margin: 0; font-size: 15px; font-weight: 600; line-height: 1.45; color: #FFF4E4; overflow-wrap: anywhere">{{ agreedText }}</p>
+        </div>
+      </sc-if>
+      <sc-if value="{{ errAgree }}"><p role="alert" style="margin: 0; font-size: 13.5px; color: #FFB4A0">{{ errAgree }}</p></sc-if>
+    </div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.javob }}">
+  <section class="{{ rv.javob }}" data-rv="javob" style="flex: none; position: relative; padding: 12px 18px 40px">
+    <div class="qd-r" style="position: relative; padding: 30px 22px 30px; display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center; background: radial-gradient(closest-side, rgba(238, 159, 85, 0.22), rgba(238, 159, 85, 0))">
+      <h2 class="qd-ph" style="margin: 0; font-weight: 700; font-size: 38px; line-height: 1.05; color: #FFF4E4">Kechirasanmi?</h2>
+      <p style="margin: 0 0 8px; max-width: 290px; font-size: 15.5px; line-height: 1.55; color: #E6D5CC">Bir bosish — va oramizdagi nur yana porlaydi.</p>
+      <div style="position: relative; display: flex; flex-direction: column; align-items: center">
+        <sc-if value="{{ waiting }}">
+          <button type="button" class="qd-btn qd-shine" onClick="{{ forgive }}" disabled="{{ busy }}" style="min-width: 230px; height: 58px; padding: 0 30px; border: 0; border-radius: 29px; background: linear-gradient(135deg, #FFE2B0 0%, #F6C483 40%, #EE9F55 100%); color: #2A2035; font-family: inherit; font-size: 18px; font-weight: 800; cursor: pointer; box-shadow: 0 0 0 1.5px rgba(255, 226, 176, 0.7), 0 0 44px -6px rgba(238, 159, 85, 0.75)">Kechirdim</button>
+        </sc-if>
+        <sc-if value="{{ forgiven }}">
+          <div role="status" style="display: flex; flex-direction: column; align-items: center; gap: 8px">
+            <div style="position: relative; width: 90px; height: 90px">
+              <sc-for list="{{ burst }}" as="bs">
+                <svg class="qd-burst" width="16" height="16" viewBox="0 0 48 48" aria-hidden="true" style="{{ bs }}"><path d="{{ starIcon }}" fill="#FFD28A"></path></svg>
+              </sc-for>
+              <svg class="qd-seal" width="90" height="90" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="23" fill="rgba(238,159,85,0.18)"></circle><path d="{{ starIcon }}" fill="#FFD28A" stroke="#B8743A" style="stroke-width: 0.8"></path><path d="M17.5 24.5 L22 29 L30.5 20" stroke="#5A3522" class="qd-ic2"></path></svg>
+            </div>
+            <p class="qd-ph qd-pop" style="margin: 0; font-weight: 700; font-size: 26px; line-height: 1.2; color: #FFF4E4; overflow-wrap: anywhere">Rahmat, {{ d.kimga }}.</p>
+            <p class="qd-pop" style="margin: 0; max-width: 300px; font-size: 15.5px; line-height: 1.55; color: #E6D5CC; white-space: pre-line; overflow-wrap: anywhere; animation-delay: 0.15s">{{ thanks }}</p>
+          </div>
+        </sc-if>
+        <sc-if value="{{ err }}"><p role="alert" style="margin: 10px 0 0; font-size: 13.5px; color: #FFB4A0">{{ err }}</p></sc-if>
+      </div>
+    </div>
+  </section>
+  </sc-if>
+
+  <footer style="flex: 1 0 auto; min-height: 300px; position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: flex-end; background: linear-gradient(180deg, rgba(42, 32, 53, 0) 0%, #33263D 60%, #3A2A3E 100%)">
+    <div aria-hidden="true" style="position: absolute; left: 95px; bottom: -120px; width: 200px; height: 240px; border-radius: 50%; background: radial-gradient(closest-side, rgba(238, 159, 85, 0.35), rgba(238, 159, 85, 0))"></div>
+    <div style="position: relative; padding: 34px 26px 56px; display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center">
+      <p class="qd-ar" dir="rtl" lang="ar" style="font-size: 23px; line-height: 46px; color: #FBEBD3; text-shadow: 0 0 16px rgba(255, 190, 110, 0.4)">وَلْيَعْفُوا وَلْيَصْفَحُوا أَلَا تُحِبُّونَ أَن يَغْفِرَ اللَّهُ لَكُمْ</p>
+      <p class="qd-ph" style="margin: 0; font-style: italic; font-size: 16.5px; line-height: 1.45; color: #F3DCC2">«Afv etsinlar va kechirsinlar. Alloh sizlarni mag’firat qilishini yoqtirmaysizlarmi?»</p>
+      <span class="qd-cap" style="font-size: 10.5px">Nur surasi, 22-oyat</span>
+      <svg width="28" height="28" viewBox="0 0 48 48" aria-hidden="true" style="margin: 10px 0 2px"><path d="{{ starIcon }}" fill="#EE9F55"></path></svg>
+      <p class="qd-ph" style="margin: 0; font-weight: 700; font-size: 22px; line-height: 1.3; color: #FFF4E4">Alloh qalblarimizga nur va mehr bersin.</p>
+      <p class="qd-ph" style="margin: 2px 0 0; font-style: italic; font-weight: 700; font-size: 26px; line-height: 1.1; color: #EE9F55; overflow-wrap: anywhere">{{ d.kimdan }}</p>
+    </div>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":3500}}'>
+const QD_RM = typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
+const QD_IO = typeof IntersectionObserver === 'function' && !QD_RM && !(typeof navigator !== 'undefined' && navigator.webdriver);
+const QD_KEYS = ['maktub', 'vadalar', 'galereya', 'taklif', 'javob'];
+
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { opened: false, rv: {}, forgiven: false, agreed: false, busy: false, err: '', errAgree: '' };
+  }
+  componentDidMount() {
+    if (QD_IO) {
+      this.io = new IntersectionObserver((es) => {
+        const add = {};
+        es.forEach((e) => { if (e.isIntersecting) { add[e.target.getAttribute('data-rv')] = true; this.io.unobserve(e.target); } });
+        if (Object.keys(add).length) this.setState((s) => ({ rv: Object.assign({}, s.rv, add) }));
+      }, { rootMargin: '0px 0px -10% 0px', threshold: 0.01 });
+      this.watch();
+    }
+  }
+  componentDidUpdate() { this.watch(); }
+  componentWillUnmount() { if (this.io) this.io.disconnect(); }
+  watch() {
+    if (!this.io) return;
+    document.querySelectorAll('[data-rv]').forEach((el) => { if (!el.__qd) { el.__qd = 1; this.io.observe(el); } });
+  }
+  star(cx, cy, r, k) {
+    // sakkiz qirrali yulduz
+    let d = '';
+    for (let i = 0; i < 16; i++) {
+      const a = -Math.PI / 2 + i * Math.PI / 8, rr = i % 2 ? r * (k || 0.5) : r;
+      d += (i ? ' L' : 'M') + (cx + Math.cos(a) * rr).toFixed(1) + ' ' + (cy + Math.sin(a) * rr).toFixed(1);
+    }
+    return d + ' Z';
+  }
+  geo() {
+    if (this.g) return this.g;
+    const f = (v) => (+v).toFixed(1);
+    // qandil: qopqoq, tana, oyoq; tanadagi teshiklar
+    const L = {
+      cap: 'M70 16 C60 24 44 40 38 66 H102 C96 40 80 24 70 16 Z',
+      body: 'M36 74 C14 98 12 150 34 186 C40 194 100 194 106 186 C128 150 126 98 104 74 Z',
+      foot: 'M40 190 C50 214 62 230 70 240 C78 230 90 214 100 190 Z',
+      win: 'M60 168 V128 C60 116 70 108 70 108 C70 108 80 116 80 128 V168 Z',
+      flame: 'M70 132 C73 141 77 146 77 154 A7 7 0 0 1 63 154 C63 146 67 141 70 132 Z'
+    };
+    const rows = [[92, 40], [112, 50], [132, 53], [152, 51], [172, 42]];
+    let holes = '';
+    rows.forEach(([y, hw], ri) => {
+      for (let x = 70 - hw + 9; x <= 70 + hw - 8; x += 15) {
+        const xx = x + (ri % 2 ? 7 : 0);
+        if (xx > 70 + hw - 6) continue;
+        if (xx > 52 && xx < 88 && y > 100 && y < 176) continue;
+        holes += ' ' + (((ri + Math.round(xx / 15)) % 2) ? this.star(xx, y, 5.2, 0.5) : 'M' + f(xx - 2.4) + ' ' + y + ' a2.4 2.4 0 1 0 4.8 0 a2.4 2.4 0 1 0 -4.8 0');
+      }
+    });
+    holes += ' ' + this.star(70, 44, 6, 0.5) + ' ' + this.star(58, 206, 3.5, 0.5) + ' ' + this.star(82, 206, 3.5, 0.5);
+    L.holes = holes;
+    // devorga tushgan nur: markaz qandil (395, 395 ichki koordinatada)
+    const proj = [], rings = [[70, 8, 5], [120, 12, 7], [180, 16, 9], [245, 20, 11], [315, 26, 13], [380, 30, 14]];
+    rings.forEach(([r, n, s], ri) => {
+      for (let i = 0; i < n; i++) {
+        const a = (i / n) * Math.PI * 2 + (ri % 2 ? Math.PI / n : 0);
+        const x = 395 + Math.cos(a) * r, y = 395 + Math.sin(a) * r * 0.92;
+        const big = i % 2 === 0;
+        proj.push({ d: big ? this.star(x, y, s, 0.46) : 'M' + f(x - s * 0.32) + ' ' + f(y) + ' a' + f(s * 0.32) + ' ' + f(s * 0.32) + ' 0 1 0 ' + f(s * 0.64) + ' 0 a' + f(s * 0.32) + ' ' + f(s * 0.32) + ' 0 1 0 ' + f(-s * 0.64) + ' 0', st: 'opacity: ' + (0.82 - ri * 0.09).toFixed(2) });
+      }
+    });
+    // mehrob ravog’i
+    const arch = (x0, x1, top, spring, bottom) => {
+      const w = x1 - x0, ax = x0 + w / 2;
+      return 'M' + x0 + ' ' + bottom + ' V' + spring + ' C' + x0 + ' ' + (spring - (spring - top) * 0.55) + ' ' + (x0 + w * 0.3) + ' ' + (top + (spring - top) * 0.15) + ' ' + ax + ' ' + top +
+        ' C' + (x1 - w * 0.3) + ' ' + (top + (spring - top) * 0.15) + ' ' + x1 + ' ' + (spring - (spring - top) * 0.55) + ' ' + x1 + ' ' + spring + ' V' + bottom;
+    };
+    const band = [];
+    for (let i = 0; i < 12; i++) band.push(this.star(15 + i * 29.5, 23, i % 2 ? 6 : 9, 0.48));
+    this.g = { L, proj, mihrabD: arch(34, 356, 40, 250, 844), mihrab2D: arch(46, 344, 58, 256, 844), band, starIcon: this.star(24, 24, 19, 0.56) };
+    return this.g;
+  }
+  archPoly(w, h, inset) {
+    const i = inset || 0, W = w - 2 * i, H = h - i, s = W * 0.62 + i, pts = [];
+    const bz = (p0, p1, p2, p3, t) => { const u = 1 - t; return u * u * u * p0 + 3 * u * u * t * p1 + 3 * u * t * t * p2 + t * t * t * p3; };
+    const x0 = i, ax = w / 2, ay = i;
+    pts.push([x0, H]);
+    for (let k = 0; k <= 16; k++) { const t = k / 16; pts.push([bz(x0, x0, x0 + W * 0.28, ax, t), bz(s, i + (s - i) * 0.42, i + (s - i) * 0.14, ay, t)]); }
+    for (let k = 1; k <= 16; k++) { const t = k / 16; pts.push([bz(ax, x0 + W * 0.72, x0 + W, x0 + W, t), bz(ay, i + (s - i) * 0.14, i + (s - i) * 0.42, s, t)]); }
+    pts.push([x0 + W, H]);
+    return 'polygon(' + pts.map((p) => p[0].toFixed(1) + 'px ' + p[1].toFixed(1) + 'px').join(', ') + ')';
+  }
+  gallery() {
+    const two = SITE.has.photos >= 2;
+    const dims = two ? [[168, 250, 0], [168, 250, 34]] : [[250, 340, 0]];
+    return dims.map(([w, h, top], i) => ({
+      src: SITE.p[i],
+      wrap: 'position: relative; margin: ' + top + 'px 0 0; width: ' + w + 'px; height: ' + h + 'px; flex: none; filter: drop-shadow(0 0 22px rgba(238, 159, 85, 0.35)); animation-delay: ' + (0.1 + i * 0.18) + 's',
+      cu: 'position: absolute; left: 0; top: 0; width: ' + w + 'px; height: ' + h + 'px; background: linear-gradient(160deg, #F6C483, #B8743A 55%, #EE9F55); clip-path: ' + this.archPoly(w, h, 0),
+      inner: 'position: absolute; left: 0; top: 0; width: ' + w + 'px; height: ' + h + 'px; overflow: hidden; clip-path: ' + this.archPoly(w, h, 6)
+    }));
+  }
+  answer(kind) {
+    if (this.state.busy) return;
+    const d = SITE.d;
+    this.setState({ busy: true, err: '', errAgree: '' });
+    const p = kind === 'agree' ? SITE.reply('Roziman: ' + (d.taklif || ''), '🥰') : SITE.reply('Kechirdim', '🤗');
+    p.then(
+      () => this.setState(kind === 'agree' ? { agreed: true, busy: false } : { forgiven: true, busy: false }),
+      () => this.setState(kind === 'agree' ? { busy: false, errAgree: 'Javob yetib bormadi. Qayta urinib ko’ring.' } : { busy: false, err: 'Javob yetib bormadi. Qayta urinib ko’ring.' })
+    );
+  }
+  renderVals() {
+    const s = this.state || {}, d = SITE.d, g = this.geo();
+    const to = String(d.kimga || '').trim(), from = String(d.kimdan || '').trim();
+    const rv = {};
+    QD_KEYS.forEach((k) => { rv[k] = 'qd-sec' + ((s.rv[k] && s.opened) || !QD_IO ? ' is-in' : ''); });
+    const vad = d.vadalar || [];
+    const promises = vad.map((text, i) => ({
+      text, n: String(i + 1),
+      liSt: 'display: flex; align-items: center; gap: 14px; padding: 10px 14px 10px 10px; border-radius: 18px; background: rgba(255, 226, 176, 0.06); box-shadow: inset 0 0 0 1px rgba(238, 159, 85, 0.22); animation-delay: ' + (0.08 + i * 0.13).toFixed(2) + 's',
+      lgSt: 'position: absolute; left: -16px; top: -16px; width: 80px; height: 80px; border-radius: 50%; background: radial-gradient(closest-side, rgba(255, 200, 120, 0.6), rgba(255, 200, 120, 0)); animation-delay: ' + (0.3 + i * 0.13).toFixed(2) + 's'
+    }));
+    const burst = [];
+    for (let i = 0; i < 16; i++) {
+      const a = (i / 16) * Math.PI * 2, r = 74 + (i % 3) * 24;
+      burst.push('--dx: ' + Math.round(Math.cos(a) * r) + 'px; --dy: ' + Math.round(Math.sin(a) * r) + 'px; --rot: ' + (i % 2 ? 140 : -140) + 'deg; animation-delay: ' + ((i % 4) * 0.05).toFixed(2) + 's');
+    }
+    const nl = to.length, tv = String(d.taklif_vaqt || '').trim();
+    return {
+      rootCls: 'qd-root' + (QD_IO ? ' qd-io' : '') + (s.opened ? ' is-open' : ''),
+      introCls: s.opened ? 'qd-intro is-open' : 'qd-intro',
+      open: () => { if (this.state.opened) return; this.setState({ opened: true }); SITE.opened(); },
+      musicOn: !!SITE.music.playing, musicOff: !SITE.music.playing, toggleMusic: () => SITE.music.toggle(),
+      fromTo: (from ? from + 'dan ' : '') + SITE.ga(to),
+      introSub: to + ', oramizdagi nur xatoyim tufayli so’ndi. Bir uchqun bilan uni qayta yoqing.',
+      h1Size: nl > 20 ? '32px' : nl > 12 ? '38px' : '44px',
+      L: g.L, proj: g.proj, mihrabD: g.mihrabD, mihrab2D: g.mihrab2D, band: g.band, starIcon: g.starIcon,
+      rv, promises, gal: this.gallery(), burst,
+      hasChips: !!(tv || d.taklif_joy),
+      agreed: !!s.agreed, notAgreed: !s.agreed, errAgree: s.errAgree,
+      agreedText: tv ? 'Kelishdik! ' + tv + ' — choynakni men damlayman.' : 'Kelishdik! Choynakni men damlayman.',
+      agree: () => this.answer('agree'),
+      waiting: !s.forgiven, forgiven: !!s.forgiven, busy: !!s.busy, err: s.err,
+      forgive: () => this.answer('forgive'),
+      thanks: d.javob_matni || 'Qalbingdagi nur uchun rahmat. Uni hech qachon so’ndirmayman, inshaalloh.'
+    };
+  }
+}
+</script>
+</body>
+</html>

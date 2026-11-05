@@ -1,0 +1,800 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<title>Uzr: Kechirim chiptasi</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Russo+One&amp;family=Rubik:wght@400;500;600;700&amp;family=Caveat:wght@600;700&amp;display=swap">
+<style>
+body{margin:0}
+.ru{font-family:'Russo One','Arial Black',Arial,sans-serif;font-weight:400}
+.cv{font-family:'Caveat','Comic Sans MS',cursive;font-weight:700}
+.ico{fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.icf{fill:currentColor}
+button{font-family:inherit;-webkit-tap-highlight-color:transparent}
+button:focus-visible{outline:3px solid #2A2350;outline-offset:3px}
+button:disabled{cursor:default}
+.kq-lbl{margin:0;font-size:12px;font-weight:600;letter-spacing:.22em;text-transform:uppercase}
+
+/* coins & sparkles */
+.kq-coin{position:absolute;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#7C8398;background:radial-gradient(circle at 34% 28%,#FFFFFF 0%,#E8EBF2 34%,#B3B9C8 70%,#8A91A6 100%);box-shadow:inset 0 0 0 2.5px #9EA5B8,inset 0 0 0 4.5px rgba(255,255,255,.85),0 4px 0 #6E7488}
+.kq-coin.g{color:#B0610F;background:radial-gradient(circle at 34% 28%,#FFF6D6 0%,#FFD66B 36%,#F2A93B 70%,#C77816 100%);box-shadow:inset 0 0 0 2.5px #D98A1E,inset 0 0 0 4.5px rgba(255,240,190,.9),0 4px 0 #9A5A0C}
+.kq-float{animation:kqFloat 4.6s ease-in-out infinite;animation-delay:var(--d,0s)}
+@keyframes kqFloat{0%,100%{transform:translateY(0) rotateY(0deg)}50%{transform:translateY(-16px) rotateY(180deg)}}
+.kq-spark{position:absolute;color:#FFFFFF;pointer-events:none;animation:kqTw 2.8s ease-in-out infinite;animation-delay:var(--d,0s)}
+@keyframes kqTw{0%,100%{opacity:0;transform:scale(.3) rotate(0)}50%{opacity:1;transform:scale(1) rotate(45deg)}}
+.kq-rays{position:absolute;border-radius:50%;background:repeating-conic-gradient(from 0deg,rgba(255,255,255,.38) 0deg 6deg,rgba(255,255,255,0) 6deg 16deg);animation:kqSpin 80s linear infinite;pointer-events:none}
+@keyframes kqSpin{to{transform:rotate(360deg)}}
+
+/* ---------- intro ---------- */
+.kq-intro{transition:opacity .6s ease .5s;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+.kq-intro.is-go{opacity:0}
+.kq-intro.is-gone{opacity:0;visibility:hidden;pointer-events:none}
+.kq-ch{display:inline-block;animation:kqDrop .8s cubic-bezier(.2,1.6,.4,1) both;animation-delay:var(--d)}
+@keyframes kqDrop{from{opacity:0;transform:translateY(-46px) rotate(-14deg) scale(.6)}to{opacity:1;transform:none}}
+.kq-pill{animation:kqIn .7s cubic-bezier(.2,1.3,.4,1) .05s both}
+.kq-slot{transform-origin:50% 50%;animation:kqSlot .6s cubic-bezier(.2,1.4,.4,1) .55s both}
+@keyframes kqSlot{from{transform:scaleX(0);opacity:0}to{transform:none;opacity:1}}
+.kq-print{animation:kqPrint 1.35s cubic-bezier(.22,1.18,.36,1) .85s both}
+@keyframes kqPrint{0%{transform:translateY(-450px)}100%{transform:none}}
+.kq-tkw,.kq-ttl,.kq-ctl{transition:transform .95s cubic-bezier(.6,-.25,.4,1),opacity .6s ease .25s}
+.kq-intro.is-go .kq-tkw{transform:translateY(-760px) rotate(-9deg);opacity:0}
+.kq-intro.is-go .kq-ttl{transform:translateY(-200px);opacity:0}
+.kq-intro.is-go .kq-ctl{transform:translateY(200px);opacity:0}
+.kq-in{animation:kqIn .8s cubic-bezier(.2,1.25,.4,1) both;animation-delay:var(--d,0s)}
+@keyframes kqIn{from{opacity:0;transform:translateY(18px) scale(.96)}to{opacity:1;transform:none}}
+.kq-panel{position:absolute;overflow:hidden;border-radius:16px}
+.kq-cv{position:absolute;left:0;top:0;width:100%;height:100%;display:block;touch-action:none;cursor:pointer;border-radius:16px;transition:opacity .8s ease,transform .8s cubic-bezier(.3,1.4,.5,1)}
+.kq-cv.is-done{opacity:0;transform:scale(1.04);pointer-events:none}
+.kq-cvfb{position:absolute;left:0;top:0;width:100%;height:100%;border-radius:16px;background:linear-gradient(135deg,#AEB4C3,#F4F6FA 30%,#B9C0CE 55%,#FFFFFF 75%,#9AA1B4);transition:opacity .7s ease}
+.kq-cvfb.is-done{opacity:0}
+.kq-pen{position:absolute;left:0;top:0;width:44px;height:44px;pointer-events:none;opacity:0;transition:opacity .2s ease;z-index:3}
+.kq-pen.is-on{opacity:1}
+.kq-spk{position:absolute;left:0;top:0;width:16px;height:16px;margin:-8px 0 0 -8px;color:#FFFFFF;opacity:0;pointer-events:none;z-index:3}
+.kq-spk.t{color:#F2683C}
+.kq-prize{transform:scale(.94);transition:transform .9s cubic-bezier(.2,1.8,.4,1)}
+.kq-won .kq-prize{transform:none}
+.kq-stamp{position:absolute;opacity:0;pointer-events:none}
+.kq-won .kq-stamp{animation:kqStamp .8s cubic-bezier(.2,1.6,.4,1) .55s both}
+@keyframes kqStamp{0%{opacity:0;transform:scale(2.4) rotate(-50deg)}60%{opacity:1;transform:scale(.92) rotate(-12deg)}100%{opacity:1;transform:scale(1) rotate(-10deg)}}
+.kq-burst{position:absolute;left:50%;top:50%;width:0;height:0;pointer-events:none;z-index:5}
+.kq-bc{left:-13px;top:-13px;width:26px;height:26px;opacity:0}
+.kq-won .kq-bc,.kq-sec.is-pop .kq-bc{animation:kqCoinOut 1.7s cubic-bezier(.2,.6,.35,1) both;animation-delay:var(--d)}
+@keyframes kqCoinOut{0%{opacity:1;transform:translate(0,0) scale(.3) rotateY(0)}45%{opacity:1;transform:translate(var(--x),var(--y)) scale(1) rotateY(var(--r))}100%{opacity:0;transform:translate(var(--x2),var(--y2)) scale(.85) rotateY(var(--r2))}}
+.kq-bs{position:absolute;left:-10px;top:-10px;width:20px;height:20px;color:#FFFFFF;opacity:0}
+.kq-bs.t{color:#F2683C}
+.kq-won .kq-bs,.kq-sec.is-pop .kq-bs{animation:kqSparkOut 1.1s ease-out both;animation-delay:var(--d)}
+@keyframes kqSparkOut{0%{opacity:0;transform:translate(0,0) scale(.2)}30%{opacity:1}100%{opacity:0;transform:translate(var(--x),var(--y)) scale(1.2) rotate(90deg)}}
+.kq-glow{position:absolute;left:50%;top:50%;width:60px;height:60px;margin:-30px 0 0 -30px;border-radius:50%;background:radial-gradient(closest-side,rgba(255,255,255,.95),rgba(255,214,170,.5) 60%,rgba(255,214,170,0));opacity:0;pointer-events:none}
+.kq-won .kq-glow{animation:kqGlow 1.2s ease-out .05s both}
+@keyframes kqGlow{0%{opacity:0;transform:scale(.3)}30%{opacity:1}100%{opacity:0;transform:scale(9)}}
+.kq-hand{animation:kqHand 1.8s ease-in-out infinite}
+@keyframes kqHand{0%,100%{transform:translateX(-12px) rotate(-10deg)}50%{transform:translateX(12px) rotate(8deg)}}
+.kq-cta{position:relative;display:flex;align-items:center;justify-content:center;gap:12px;width:300px;height:62px;margin:0 auto;padding:0;border:0;border-radius:18px;background:linear-gradient(180deg,#F57A4E,#E4572A);color:#FFFFFF;box-shadow:0 6px 0 #A63A16,0 16px 26px -12px rgba(42,35,80,.6),inset 0 2px 0 rgba(255,255,255,.35);font-family:'Russo One',Arial,sans-serif;font-size:19px;letter-spacing:.04em;cursor:pointer;transition:transform .14s cubic-bezier(.3,1.6,.5,1),box-shadow .14s ease}
+.kq-cta:active{transform:translateY(5px);box-shadow:0 1px 0 #A63A16,0 6px 12px -8px rgba(42,35,80,.6),inset 0 2px 0 rgba(255,255,255,.35)}
+.kq-pop{animation:kqPopIn .7s cubic-bezier(.2,1.7,.4,1) .9s both}
+@keyframes kqPopIn{from{opacity:0;transform:scale(.4)}to{opacity:1;transform:none}}
+.kq-halo{position:absolute;left:-4px;top:-4px;right:-4px;bottom:-4px;border-radius:22px;border:3px solid #F2683C;animation:kqHalo 2s ease-out 1.6s infinite;pointer-events:none;opacity:0}
+@keyframes kqHalo{0%{opacity:.9;transform:scale(1)}100%{opacity:0;transform:scale(1.14,1.5)}}
+.kq-ghost{display:flex;align-items:center;justify-content:center;gap:12px;width:300px;height:56px;margin:0 auto;padding:0;border-radius:18px;border:2px solid #2A2350;background:#FFFDF7;color:#2A2350;box-shadow:0 4px 0 #2A2350;font-size:16px;font-weight:600;cursor:pointer;transition:transform .14s cubic-bezier(.3,1.6,.5,1),box-shadow .14s ease}
+.kq-ghost:active{transform:translateY(4px);box-shadow:0 0 0 #2A2350}
+.kq-skip{display:inline-flex;align-items:center;justify-content:center;min-height:44px;margin:8px auto 0;padding:0 18px;border:0;background:transparent;color:#5A4F8A;font-size:14px;font-weight:500;text-decoration:underline;text-underline-offset:4px;cursor:pointer;transition:transform .14s ease}
+.kq-skip:active{transform:scale(.95)}
+
+/* ---------- page reveal ---------- */
+.kq-sec{position:relative}
+.kq-sec .rv{opacity:0;transform:translateY(36px);transition:opacity .7s ease,transform .95s cubic-bezier(.2,1.2,.35,1);transition-delay:var(--i,0s)}
+.kq-sec.is-in .rv{opacity:1;transform:none}
+.kq-sec .rvt{opacity:0;transform:translateY(46px) rotate(4deg) scale(.95);transition:opacity .7s ease,transform 1.05s cubic-bezier(.2,1.3,.35,1);transition-delay:var(--i,0s)}
+.kq-sec.is-in .rvt{opacity:1;transform:rotate(var(--rot,0deg))}
+.kq-root.is-on .kq-h-in{animation:kqIn .9s cubic-bezier(.2,1.25,.4,1) backwards;animation-delay:var(--d,0s)}
+.kq-root.is-on .kq-tk-in{animation:kqTkIn 1.1s cubic-bezier(.2,1.3,.4,1) .15s backwards}
+@keyframes kqTkIn{from{opacity:0;transform:translateY(70px) rotate(8deg) scale(.88)}to{opacity:1;transform:rotate(-2deg)}}
+.kq-holo{position:absolute;border-radius:50%;background:conic-gradient(from 0deg,#FFD6E8,#D8E8FF,#D6FFF0,#FFF4C8,#E8D6FF,#FFD6E8);overflow:hidden}
+.kq-holo:after{content:'';position:absolute;left:-60%;top:0;width:40%;height:100%;background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,.9),rgba(255,255,255,0));transform:skewX(-20deg);animation:kqSheen 3.6s ease-in-out 1.5s infinite}
+@keyframes kqSheen{0%{left:-60%}55%,100%{left:130%}}
+.kq-mus{position:absolute;right:16px;top:16px;z-index:8;width:46px;height:46px;padding:0;border-radius:50%;border:2px solid #2A2350;background:#FFFDF7;color:#2A2350;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .14s ease}
+.kq-mus:active{transform:scale(.9)}
+
+/* prize list (va'dalar) */
+.kq-row{position:relative;display:flex;align-items:center;gap:14px;width:100%;min-height:74px;margin:0;padding:12px 16px 12px 14px;box-sizing:border-box;border:0;border-radius:16px;background:#FFFDF7;color:#2A2350;text-align:left;cursor:pointer;box-shadow:0 4px 0 #CBBDF0,0 12px 20px -14px rgba(42,35,80,.5);transition:transform .16s cubic-bezier(.3,1.6,.5,1),box-shadow .16s ease}
+.kq-row:active{transform:translateY(3px) scale(.985);box-shadow:0 1px 0 #CBBDF0}
+.kq-flip{position:relative;flex:none;width:48px;height:48px;perspective:300px}
+.kq-face{position:absolute;left:0;top:0;width:48px;height:48px;-webkit-backface-visibility:hidden;backface-visibility:hidden;transition:transform .7s cubic-bezier(.3,1.5,.5,1)}
+.kq-face.b{transform:rotateY(180deg)}
+.kq-row.is-on .kq-face.a{transform:rotateY(-180deg)}
+.kq-row.is-on .kq-face.b{transform:rotateY(0deg)}
+.kq-tag{flex:none;align-self:flex-start;margin-top:2px;padding:3px 8px;border-radius:8px;border:1.5px solid #C2481F;color:#C2481F;font-size:10.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;opacity:0;transform:scale(1.8) rotate(-18deg);transition:opacity .3s ease,transform .5s cubic-bezier(.2,1.7,.4,1)}
+.kq-row.is-on .kq-tag{opacity:1;transform:rotate(-8deg)}
+.kq-rb{position:absolute;left:38px;top:50%;width:0;height:0;pointer-events:none}
+.kq-rbs{position:absolute;left:-8px;top:-8px;width:16px;height:16px;opacity:0;animation:kqSparkOut .9s ease-out both;animation-delay:var(--d)}
+
+/* gallery */
+.kq-gt{position:relative;background:#FFFDF7;padding:10px 10px 0;box-sizing:border-box;border-radius:14px;box-shadow:0 14px 22px -14px rgba(42,35,80,.55)}
+.kq-gt img{display:block;width:100%;object-fit:cover;border-radius:8px}
+
+/* answer */
+.kq-btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;min-height:58px;margin:0;padding:0 18px;box-sizing:border-box;border:0;border-radius:18px;font-family:'Russo One',Arial,sans-serif;font-size:19px;letter-spacing:.03em;cursor:pointer;transition:transform .14s cubic-bezier(.3,1.6,.5,1),box-shadow .14s ease}
+.kq-btn:active{transform:translateY(4px)}
+.kq-btn-t{background:linear-gradient(180deg,#F57A4E,#E4572A);color:#FFFFFF;box-shadow:0 5px 0 #A63A16}
+.kq-btn-t:active{box-shadow:0 1px 0 #A63A16}
+.kq-ok{display:inline-block;padding:9px 18px;border:3px double #2E8A68;border-radius:12px;color:#2E8A68;font-family:'Russo One',sans-serif;font-size:20px;letter-spacing:.1em;text-transform:uppercase;animation:kqStamp .8s cubic-bezier(.2,1.6,.4,1) both}
+.kq-pulse{animation:kqPulse 2s ease-in-out infinite}
+@keyframes kqPulse{0%,100%{transform:scale(1)}12%{transform:scale(1.04)}24%{transform:scale(1)}}
+
+@media (prefers-reduced-motion: reduce){
+.kq-float,.kq-spark,.kq-rays,.kq-ch,.kq-pill,.kq-slot,.kq-print,.kq-in,.kq-hand,.kq-pop,.kq-halo,.kq-pulse,.kq-ok,.kq-rbs,.kq-holo:after{animation:none}
+.kq-won .kq-stamp,.kq-won .kq-bc,.kq-won .kq-bs,.kq-won .kq-glow,.kq-sec.is-pop .kq-bc,.kq-sec.is-pop .kq-bs{animation:none}
+.kq-won .kq-stamp{opacity:1;transform:rotate(-10deg)}
+.kq-bc,.kq-bs,.kq-glow,.kq-rbs{display:none}
+.kq-root.is-on .kq-h-in,.kq-root.is-on .kq-tk-in{animation:none}
+.kq-intro,.kq-tkw,.kq-ttl,.kq-ctl,.kq-cv,.kq-cvfb,.kq-prize,.kq-face,.kq-tag,.kq-sec .rv,.kq-sec .rvt{transition:none}
+.kq-sec .rv{opacity:1;transform:none}
+.kq-sec .rvt{opacity:1;transform:rotate(var(--rot,0deg))}
+}
+</style>
+</helmet>
+<div class="{{ rootCls }}" style="width: 390px; min-height: var(--vh, 100vh); position: relative; overflow: hidden; background: #E7DDFB; color: #2A2350; font-family: 'Rubik', Arial, sans-serif; display: flex; flex-direction: column">
+
+  <!-- ============ INTRO: the ticket machine ============ -->
+  <div data-intro class="{{ introCls }}" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; z-index: 40; overflow: hidden; background: #E2D6FA">
+    <div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; background: radial-gradient(110% 64% at 50% 44%, #F6F1FF 0%, #E2D6FA 52%, #C9B8F2 100%)"></div>
+    <div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; background-image: radial-gradient(rgba(42, 35, 80, 0.1) 1.2px, transparent 1.7px); background-size: 22px 22px"></div>
+    <div class="kq-rays" aria-hidden="true" style="left: -355px; top: -150px; width: 1100px; height: 1100px"></div>
+    <sc-for list="{{ introCoins }}" as="c">
+    <div class="{{ c.cls }}" aria-hidden="true" style="left: {{ c.x }}px; top: {{ c.y }}px; width: {{ c.s }}px; height: {{ c.s }}px; --d: {{ c.d }}"><svg width="{{ c.h }}" height="{{ c.h }}" viewBox="0 0 24 24"><path class="icf" d="M12 2c.8 5.6 4.4 9.2 10 10-5.6.8-9.2 4.4-10 10-.8-5.6-4.4-9.2-10-10 5.6-.8 9.2-4.4 10-10z"></path></svg></div>
+    </sc-for>
+    <sc-for list="{{ introSparks }}" as="k">
+    <svg class="kq-spark" aria-hidden="true" width="{{ k.s }}" height="{{ k.s }}" viewBox="0 0 24 24" style="left: {{ k.x }}px; top: {{ k.y }}px; --d: {{ k.d }}"><path class="icf" d="M12 0c1 7 5 11 12 12-7 1-11 5-12 12-1-7-5-11-12-12 7-1 11-5 12-12z"></path></svg>
+    </sc-for>
+
+    <!-- title -->
+    <div class="kq-ttl" style="position: absolute; left: 0; top: 30px; width: 390px; text-align: center">
+      <span class="kq-pill" style="display: inline-flex; align-items: center; gap: 8px; height: 30px; padding: 0 14px; border-radius: 999px; background: #2A2350; color: #FFFDF7; font-size: 12px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase"><span aria-hidden="true" style="width: 7px; height: 7px; border-radius: 50%; background: #F2683C"></span>Bugungi tiraj · 1 nusxa</span>
+      <h1 class="ru" aria-label="Kechirim chiptasi" style="margin: 12px 0 0; font-size: 46px; line-height: 1.02; color: #2A2350; letter-spacing: 0.01em">
+        <span aria-hidden="true" style="display: block"><sc-for list="{{ t1 }}" as="c"><span class="kq-ch" style="--d: {{ c.d }}">{{ c.ch }}</span></sc-for></span>
+        <span aria-hidden="true" style="display: block; color: #E4572A"><sc-for list="{{ t2 }}" as="c"><span class="kq-ch" style="--d: {{ c.d }}">{{ c.ch }}</span></sc-for></span>
+      </h1>
+    </div>
+
+    <!-- dispenser slot -->
+    <div class="kq-slot" aria-hidden="true" style="position: absolute; left: 20px; top: 172px; width: 350px; height: 22px; border-radius: 11px; background: linear-gradient(180deg, #1C1740, #3A3270); box-shadow: inset 0 4px 6px rgba(0, 0, 0, 0.5), 0 2px 0 rgba(255, 255, 255, 0.7); z-index: 3"></div>
+
+    <!-- the ticket -->
+    <div class="kq-tkw" style="position: absolute; left: 0; top: 183px; width: 390px; height: 470px; overflow: hidden">
+      <div class="kq-print" style="position: absolute; left: 28px; top: 0; width: 334px; height: 430px">
+      <div class="{{ tkCls }}" style="position: relative; width: 334px; height: 430px">
+        <svg aria-hidden="true" width="334" height="430" viewBox="0 0 334 430" style="position: absolute; left: 0; top: 0; filter: drop-shadow(0 18px 20px rgba(42, 35, 80, 0.35))">
+          <path d="{{ tkPath }}" style="fill: #FFFDF7"></path>
+          <path d="{{ bandPath }}" style="fill: #2A2350"></path>
+          <path d="M22 74H312M22 366H312" style="fill: none; stroke: #CBBDF0; stroke-width: 2; stroke-dasharray: 7 6"></path>
+        </svg>
+        <div style="position: absolute; left: 22px; top: 0; width: 290px; height: 74px; display: flex; align-items: center; justify-content: space-between; color: #FFFDF7">
+          <div>
+            <p class="kq-lbl" style="font-size: 10.5px; color: #C9B8F2">Kirish chiptasi</p>
+            <p class="ru" style="margin: 3px 0 0; font-size: 19px; letter-spacing: 0.04em">KECHIRIM</p>
+          </div>
+          <div style="text-align: right">
+            <p class="kq-lbl" style="font-size: 10.5px; color: #C9B8F2">1 kishilik</p>
+            <p class="ru" style="margin: 3px 0 0; font-size: 19px; color: #FF9B73">{{ serial }}</p>
+          </div>
+        </div>
+        <p style="position: absolute; left: 0; top: 84px; width: 334px; margin: 0; text-align: center; font-size: 11.5px; font-weight: 600; letter-spacing: 0.28em; text-transform: uppercase; color: #6A5F96">Kumush qatlamni qiring</p>
+        <div class="kq-panel" style="left: 24px; top: 106px; width: 286px; height: 206px; background: #FFF6EE; box-shadow: inset 0 0 0 2px #F3D3C2">
+          <div aria-hidden="true" style="position: absolute; left: -57px; top: -97px; width: 400px; height: 400px; border-radius: 50%; background: repeating-conic-gradient(from 0deg, rgba(242, 104, 60, 0.09) 0deg 8deg, rgba(242, 104, 60, 0) 8deg 20deg)"></div>
+          <div class="kq-prize" style="position: absolute; left: 0; top: 0; width: 286px; height: 206px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 0 16px; box-sizing: border-box">
+            <p class="kq-lbl" style="font-size: 11px; color: #C2481F">Siz yutdingiz</p>
+            <p class="ru" style="margin: 6px 0 0; font-size: 27px; line-height: 1.05; color: #2A2350">Chin dildan uzr</p>
+            <p class="cv" style="margin: 4px 0 0; max-width: 254px; font-size: {{ prizeNamePx }}px; line-height: 1.05; color: #E4572A; overflow-wrap: anywhere">{{ prizeName }}</p>
+            <div style="margin-top: 10px; display: flex; align-items: flex-start; gap: 8px; max-width: 254px; text-align: left">
+              <span class="kq-coin g" aria-hidden="true" style="position: relative; flex: none; width: 24px; height: 24px; box-shadow: inset 0 0 0 2px #D98A1E, 0 2px 0 #9A5A0C"><svg width="11" height="11" viewBox="0 0 24 24"><path class="icf" d="M12 2c.8 5.6 4.4 9.2 10 10-5.6.8-9.2 4.4-10 10-.8-5.6-4.4-9.2-10-10 5.6-.8 9.2-4.4 10-10z"></path></svg></span>
+              <p style="margin: 0; font-size: 13.5px; line-height: 1.35; color: #4A4170; overflow-wrap: anywhere"><b style="color: #2A2350">Yutuq:</b> {{ prizeLine }}</p>
+            </div>
+          </div>
+          <sc-if value="{{ noCanvas }}"><div class="{{ fbCls }}" aria-hidden="true"></div></sc-if>
+          <canvas id="kq-cv-a" class="{{ cvCls }}" role="img" aria-label="Qiriladigan kumush qatlam" onPointerDown="{{ downA }}" onPointerMove="{{ moveA }}" onPointerUp="{{ upA }}" onPointerCancel="{{ upA }}"></canvas>
+          <div id="kq-pen-a" class="{{ penCls }}" aria-hidden="true"><div class="kq-coin g" style="left: 0; top: 0; width: 44px; height: 44px"><svg width="20" height="20" viewBox="0 0 24 24"><path class="icf" d="M12 2c.8 5.6 4.4 9.2 10 10-5.6.8-9.2 4.4-10 10-.8-5.6-4.4-9.2-10-10 5.6-.8 9.2-4.4 10-10z"></path></svg></div></div>
+          <sc-for list="{{ spkA }}" as="k"><svg id="{{ k.id }}" class="{{ k.c }}" viewBox="0 0 24 24" aria-hidden="true"><path class="icf" d="M12 0c1 7 5 11 12 12-7 1-11 5-12 12-1-7-5-11-12-12 7-1 11-5 12-12z"></path></svg></sc-for>
+          <span class="kq-glow" aria-hidden="true"></span>
+        </div>
+        <div class="kq-burst" aria-hidden="true" style="top: 209px">
+          <sc-for list="{{ coinBurst }}" as="c"><span class="{{ c.cls }}" style="--d: {{ c.d }}; --x: {{ c.x }}; --y: {{ c.y }}; --x2: {{ c.x2 }}; --y2: {{ c.y2 }}; --r: {{ c.r }}; --r2: {{ c.r2 }}"><svg width="12" height="12" viewBox="0 0 24 24"><path class="icf" d="M12 2c.8 5.6 4.4 9.2 10 10-5.6.8-9.2 4.4-10 10-.8-5.6-4.4-9.2-10-10 5.6-.8 9.2-4.4 10-10z"></path></svg></span></sc-for>
+          <sc-for list="{{ sparkBurst }}" as="k"><svg class="{{ k.c }}" viewBox="0 0 24 24" style="--d: {{ k.d }}; --x: {{ k.x }}; --y: {{ k.y }}"><path class="icf" d="M12 0c1 7 5 11 12 12-7 1-11 5-12 12-1-7-5-11-12-12 7-1 11-5 12-12z"></path></svg></sc-for>
+        </div>
+        <div style="position: absolute; left: 24px; top: 322px; width: 286px; display: flex; justify-content: space-between; gap: 12px">
+          <div style="min-width: 0; flex: 1">
+            <p class="kq-lbl" style="font-size: 10.5px; color: #6A5F96">Kimga</p>
+            <p class="cv" style="margin: 0; font-size: 26px; line-height: 1.1; color: #2A2350; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{ toName }}</p>
+          </div>
+          <div style="min-width: 0; flex: 1; text-align: right">
+            <p class="kq-lbl" style="font-size: 10.5px; color: #6A5F96">Kimdan</p>
+            <p class="cv" style="margin: 0; font-size: 26px; line-height: 1.1; color: #2A2350; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{ fromName }}</p>
+          </div>
+        </div>
+        <div style="position: absolute; left: 24px; top: 372px; width: 286px; height: 52px; display: flex; align-items: center; justify-content: space-between">
+          <svg aria-hidden="true" width="126" height="26" viewBox="0 0 126 26"><sc-for list="{{ barsSm }}" as="r"><rect x="{{ r.x }}" y="0" width="{{ r.w }}" height="26" style="fill: #2A2350"></rect></sc-for></svg>
+          <span style="font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #6A5F96">Muddati: umrbod</span>
+        </div>
+        <div class="kq-stamp" aria-hidden="true" style="right: -16px; top: 60px; width: 104px; height: 104px">
+          <svg width="104" height="104" viewBox="0 0 104 104">
+            <circle cx="52" cy="52" r="48" style="fill: rgba(228, 87, 42, 0.12); stroke: #E4572A; stroke-width: 4"></circle>
+            <circle cx="52" cy="52" r="39" style="fill: none; stroke: #E4572A; stroke-width: 1.5; stroke-dasharray: 3 3"></circle>
+            <text x="52" y="50" text-anchor="middle" style="font-family: 'Russo One', sans-serif; font-size: 19px; letter-spacing: 1px; fill: #E4572A">YUTUQ</text>
+            <text x="52" y="67" text-anchor="middle" style="font-family: 'Rubik', sans-serif; font-weight: 700; font-size: 9.5px; letter-spacing: 1.6px; fill: #E4572A">TASDIQLANDI</text>
+          </svg>
+        </div>
+      </div>
+      </div>
+    </div>
+
+    <!-- controls -->
+    <div class="kq-ctl" style="position: absolute; left: 0; top: 664px; width: 390px; text-align: center">
+      <sc-if value="{{ notWon }}">
+      <div class="kq-in" style="--d: 1.9s">
+        <p style="margin: 0; display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 15.5px; font-weight: 500; color: #2A2350">
+          <svg class="kq-hand" width="28" height="28" viewBox="0 0 24 24" aria-hidden="true" style="color: #E4572A"><path class="ico" d="M9 11V5.5a1.5 1.5 0 0 1 3 0V10M12 9.5a1.5 1.5 0 0 1 3 0V11M15 10.5a1.5 1.5 0 0 1 3 0v4c0 3.6-2.4 6.5-6 6.5-2.4 0-3.9-1.1-5.1-2.9L4.3 14.1a1.5 1.5 0 0 1 2.5-1.7L9 15"></path></svg>
+          Barmog’ingiz bilan qiring
+        </p>
+        <button type="button" class="kq-ghost" onClick="{{ coinA }}" disabled="{{ busyA }}" style="margin-top: 14px">
+          <span class="kq-coin g" aria-hidden="true" style="position: relative; width: 28px; height: 28px; box-shadow: inset 0 0 0 2px #D98A1E, 0 2px 0 #9A5A0C"><svg width="12" height="12" viewBox="0 0 24 24"><path class="icf" d="M12 2c.8 5.6 4.4 9.2 10 10-5.6.8-9.2 4.4-10 10-.8-5.6-4.4-9.2-10-10 5.6-.8 9.2-4.4 10-10z"></path></svg></span>
+          Tanga bilan qirish
+        </button>
+        <button type="button" class="kq-skip" onClick="{{ open }}">Qirmasdan ochish</button>
+      </div>
+      </sc-if>
+      <sc-if value="{{ won }}">
+      <div>
+        <p class="ru kq-in" style="margin: 0; font-size: 30px; line-height: 1.1; color: #2A2350; --d: 0.6s">Tabriklaymiz!</p>
+        <p class="kq-in" style="margin: 6px 0 0; font-size: 15px; color: #4A4170; --d: 0.75s">Yutug’ingiz ichkarida kutyapti</p>
+        <div class="kq-pop" style="margin-top: 16px">
+          <button type="button" class="kq-cta" onClick="{{ open }}">
+            <span class="kq-halo" aria-hidden="true"></span>
+            Chiptani ochish
+            <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path class="ico" d="M5 12h13M13 6l6 6-6 6" style="stroke-width: 2.6"></path></svg>
+          </button>
+        </div>
+      </div>
+      </sc-if>
+    </div>
+  </div>
+
+  <!-- ============ PAGE ============ -->
+  <div style="flex: 1; position: relative; display: flex; flex-direction: column; background: linear-gradient(180deg, #E7DDFB 0%, #EFE8FD 40%, #E2D6FA 100%)">
+    <div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; pointer-events: none; background-image: radial-gradient(rgba(42, 35, 80, 0.08) 1.2px, transparent 1.7px); background-size: 22px 22px"></div>
+    <sc-for list="{{ pageCoins }}" as="c">
+    <div class="{{ c.cls }}" aria-hidden="true" style="left: {{ c.x }}px; top: {{ c.y }}; width: {{ c.s }}px; height: {{ c.s }}px; --d: {{ c.d }}; opacity: 0.9"><svg width="{{ c.h }}" height="{{ c.h }}" viewBox="0 0 24 24"><path class="icf" d="M12 2c.8 5.6 4.4 9.2 10 10-5.6.8-9.2 4.4-10 10-.8-5.6-4.4-9.2-10-10 5.6-.8 9.2-4.4 10-10z"></path></svg></div>
+    </sc-for>
+
+    <sc-if value="{{ has.music }}">
+    <button type="button" class="kq-mus" aria-label="Musiqa" aria-pressed="{{ musicOn }}" onClick="{{ toggleMusic }}">
+      <sc-if value="{{ musicOff }}"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path class="ico" d="M9 18V5l11-2v13"></path><circle class="ico" cx="6" cy="18" r="3"></circle><circle class="ico" cx="17" cy="16" r="3"></circle><path class="ico" d="M3 3l18 18"></path></svg></sc-if>
+      <sc-if value="{{ musicOn }}"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path class="ico" d="M9 18V5l11-2v13"></path><circle class="ico" cx="6" cy="18" r="3"></circle><circle class="ico" cx="17" cy="16" r="3"></circle></svg></sc-if>
+    </button>
+    </sc-if>
+
+    <!-- ============ HERO: the ticket holder ============ -->
+    <header style="position: relative; padding: 56px 24px 30px; text-align: center">
+      <p class="kq-lbl kq-h-in" style="position: relative; color: #C2481F; --d: 0.05s">Chipta egasi</p>
+      <div class="kq-tk-in" style="position: relative; width: 320px; margin: 22px auto 0; transform: rotate(-2deg)">
+        <div style="position: relative; border-radius: 22px; background: #FFFDF7; box-shadow: 0 6px 0 #CBBDF0, 0 26px 34px -20px rgba(42, 35, 80, 0.6); overflow: hidden">
+          <div style="position: relative; height: 54px; background: #2A2350; display: flex; align-items: center; justify-content: space-between; padding: 0 18px; color: #FFFDF7">
+            <span class="ru" style="font-size: 15px; letter-spacing: 0.08em">KECHIRIM</span>
+            <span class="ru" style="font-size: 15px; color: #FF9B73">{{ serial }}</span>
+          </div>
+          <sc-if value="{{ has.photo }}">
+          <div style="position: relative; height: 230px; margin: 14px 14px 0; border-radius: 14px; overflow: hidden">
+            <img src="{{ p.0 }}" alt="" style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; object-fit: cover; display: block">
+          </div>
+          </sc-if>
+          <div style="position: relative; padding: 18px 20px 20px">
+            <h2 class="cv" style="margin: 0; font-size: {{ namePx }}px; line-height: 1; color: #2A2350; overflow-wrap: anywhere">{{ toName }}</h2>
+            <p style="margin: 10px auto 0; max-width: 270px; font-size: 16px; line-height: 1.5; color: #4A4170; overflow-wrap: anywhere">{{ heroSub }}</p>
+          </div>
+          <div aria-hidden="true" style="position: relative; height: 0; border-top: 2px dashed #CBBDF0; margin: 0 18px"></div>
+          <div style="position: relative; display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 14px 20px 16px">
+            <div style="min-width: 0; text-align: left">
+              <p class="kq-lbl" style="font-size: 10.5px; color: #6A5F96">Beruvchi</p>
+              <p class="cv" style="margin: 0; font-size: 24px; line-height: 1.1; color: #E4572A; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 200px">{{ fromName }}</p>
+            </div>
+            <svg aria-hidden="true" width="80" height="24" viewBox="0 0 80 24" style="flex: none"><sc-for list="{{ barsXs }}" as="r"><rect x="{{ r.x }}" y="0" width="{{ r.w }}" height="24" style="fill: #2A2350"></rect></sc-for></svg>
+          </div>
+        </div>
+        <div aria-hidden="true" style="position: absolute; left: -12px; top: 66px; width: 24px; height: 24px; border-radius: 50%; background: #E7DDFB"></div>
+        <div aria-hidden="true" style="position: absolute; right: -12px; top: 66px; width: 24px; height: 24px; border-radius: 50%; background: #E7DDFB"></div>
+        <div class="kq-holo" aria-hidden="true" style="right: -16px; top: {{ holoTop }}px; width: 74px; height: 74px; box-shadow: 0 0 0 3px #FFFDF7, 0 8px 16px -6px rgba(42, 35, 80, 0.5); transform: rotate(12deg)">
+          <svg width="74" height="74" viewBox="0 0 74 74" style="position: absolute; left: 0; top: 0">
+            <circle cx="37" cy="37" r="29" style="fill: none; stroke: rgba(42, 35, 80, 0.45); stroke-width: 1.2; stroke-dasharray: 2 3"></circle>
+            <text x="37" y="34" text-anchor="middle" style="font-family: 'Russo One', sans-serif; font-size: 10px; letter-spacing: 1px; fill: #2A2350">HAQIQIY</text>
+            <text x="37" y="48" text-anchor="middle" style="font-family: 'Rubik', sans-serif; font-weight: 700; font-size: 8px; letter-spacing: 1.4px; fill: #2A2350">CHIPTA</text>
+          </svg>
+        </div>
+      </div>
+    </header>
+
+    <!-- ============ MAKTUB ============ -->
+    <sc-if value="{{ b.maktub }}">
+    <section data-rv="maktub" class="{{ rv.maktub }}" style="padding: 26px 20px 18px">
+      <div class="rv" style="display: flex; align-items: center; gap: 12px; padding: 0 4px">
+        <span class="ru" style="flex: none; width: 40px; height: 40px; border-radius: 12px; background: #2A2350; color: #FFFDF7; display: flex; align-items: center; justify-content: center; font-size: 17px">{{ nMaktub }}</span>
+        <div style="min-width: 0">
+          <p class="kq-lbl" style="color: #C2481F">Chipta orqasida</p>
+          <h2 class="ru" style="margin: 2px 0 0; font-size: 25px; line-height: 1.1">Uzr maktubi</h2>
+        </div>
+      </div>
+      <div class="rvt" style="--i: 0.12s; --rot: 0.8deg; position: relative; margin-top: 18px; border-radius: 22px; background: #FFFDF7; padding: 26px 24px 26px; box-shadow: 0 6px 0 #CBBDF0, 0 24px 30px -20px rgba(42, 35, 80, 0.55)">
+        <p class="cv" style="margin: 0; font-size: 30px; line-height: 1.05; color: #E4572A; overflow-wrap: anywhere">{{ greet }}</p>
+        <p style="margin: 12px 0 0; font-size: 16.5px; line-height: 32px; color: #2A2350; white-space: pre-line; overflow-wrap: anywhere; background-image: repeating-linear-gradient(180deg, rgba(203, 189, 240, 0) 0px, rgba(203, 189, 240, 0) 30px, rgba(203, 189, 240, 0.6) 30px, rgba(203, 189, 240, 0.6) 31.5px, rgba(203, 189, 240, 0) 31.5px, rgba(203, 189, 240, 0) 32px)">{{ d.matn }}</p>
+        <p class="cv" style="margin: 14px 0 0; text-align: right; font-size: 28px; line-height: 1.1; color: #2A2350; overflow-wrap: anywhere">{{ signLine }}</p>
+      </div>
+    </section>
+    </sc-if>
+
+    <!-- ============ VA'DALAR: prize list ============ -->
+    <sc-if value="{{ b.vadalar }}">
+    <section data-rv="vadalar" class="{{ rv.vadalar }}" style="padding: 26px 20px 18px">
+      <div class="rv" style="display: flex; align-items: center; gap: 12px; padding: 0 4px">
+        <span class="ru" style="flex: none; width: 40px; height: 40px; border-radius: 12px; background: #2A2350; color: #FFFDF7; display: flex; align-items: center; justify-content: center; font-size: 17px">{{ nVadalar }}</span>
+        <div style="min-width: 0">
+          <p class="kq-lbl" style="color: #C2481F">Yutuqlar ro’yxati</p>
+          <h2 class="ru" style="margin: 2px 0 0; font-size: 25px; line-height: 1.1">Mening va’dalarim</h2>
+        </div>
+      </div>
+      <p class="rv" style="--i: 0.08s; margin: 12px 4px 0; font-size: 15px; line-height: 1.5; color: #4A4170">Har bir yutuq — men bajaradigan va’da. Tangani bosing va kafolatni tasdiqlang.</p>
+      <div style="margin-top: 16px; display: flex; flex-direction: column; gap: 12px">
+        <sc-for list="{{ prizes }}" as="v">
+        <div class="rv" style="--i: {{ v.i }}">
+          <button type="button" class="{{ v.cls }}" aria-pressed="{{ v.on }}" onClick="{{ v.tap }}">
+            <span class="kq-flip" aria-hidden="true">
+              <span class="kq-face a"><span class="kq-coin" style="left: 0; top: 0; width: 48px; height: 48px"><span class="ru" style="font-size: 18px; color: #5C6378">{{ v.n }}</span></span></span>
+              <span class="kq-face b"><span class="kq-coin g" style="left: 0; top: 0; width: 48px; height: 48px"><svg width="22" height="22" viewBox="0 0 24 24"><path class="ico" d="M5 12.5l4.5 4.5L19 7.5" style="stroke-width: 3"></path></svg></span></span>
+            </span>
+            <span style="flex: 1; min-width: 0">
+              <span style="display: block; font-size: 11px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: #6A5F96">{{ v.lbl }}</span>
+              <span style="display: block; margin-top: 3px; font-size: 16.5px; font-weight: 500; line-height: 1.35; color: #2A2350; overflow-wrap: anywhere">{{ v.t }}</span>
+            </span>
+            <span class="kq-tag" aria-hidden="true">Kafolat</span>
+            <sc-if value="{{ v.burst }}"><span class="kq-rb" aria-hidden="true"><sc-for list="{{ rowBurst }}" as="k"><svg class="kq-rbs" viewBox="0 0 24 24" style="--d: {{ k.d }}; --x: {{ k.x }}; --y: {{ k.y }}; color: {{ k.c }}"><path class="icf" d="M12 0c1 7 5 11 12 12-7 1-11 5-12 12-1-7-5-11-12-12 7-1 11-5 12-12z"></path></svg></sc-for></span></sc-if>
+          </button>
+        </div>
+        </sc-for>
+      </div>
+      <p class="rv" style="--i: 0.3s; margin: 14px 4px 0; font-size: 13.5px; font-weight: 500; color: #6A5F96; text-align: center">{{ prizeHint }}</p>
+    </section>
+    </sc-if>
+
+    <!-- ============ GALEREYA ============ -->
+    <sc-if value="{{ b.galereya }}">
+    <section data-rv="galereya" class="{{ rv.galereya }}" style="padding: 26px 20px 18px">
+      <div class="rv" style="display: flex; align-items: center; gap: 12px; padding: 0 4px">
+        <span class="ru" style="flex: none; width: 40px; height: 40px; border-radius: 12px; background: #2A2350; color: #FFFDF7; display: flex; align-items: center; justify-content: center; font-size: 17px">{{ nGal }}</span>
+        <div style="min-width: 0">
+          <p class="kq-lbl" style="color: #C2481F">Bonus chiptalar</p>
+          <h2 class="ru" style="margin: 2px 0 0; font-size: 25px; line-height: 1.1">Bizning xotiralar</h2>
+        </div>
+      </div>
+      <div style="margin-top: 18px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px 14px">
+        <sc-for list="{{ gal }}" as="g">
+        <div class="rvt" style="--i: {{ g.i }}; --rot: {{ g.r }}; grid-column: {{ g.col }}">
+          <div class="kq-gt">
+            <img src="{{ g.src }}" alt="" style="height: {{ g.h }}px">
+            <div style="display: flex; align-items: center; justify-content: space-between; height: 34px">
+              <span class="ru" style="font-size: 12px; letter-spacing: 0.06em; color: #2A2350">{{ g.n }}</span>
+              <span style="width: 9px; height: 9px; border-radius: 50%; background: #F2683C"></span>
+            </div>
+          </div>
+        </div>
+        </sc-for>
+      </div>
+    </section>
+    </sc-if>
+
+    <!-- ============ TAKLIF: grand prize scratch ============ -->
+    <sc-if value="{{ b.taklif }}">
+    <section data-rv="taklif" class="{{ rv.taklif }}" style="padding: 26px 20px 18px">
+      <div class="rv" style="display: flex; align-items: center; gap: 12px; padding: 0 4px">
+        <span class="ru" style="flex: none; width: 40px; height: 40px; border-radius: 12px; background: #2A2350; color: #FFFDF7; display: flex; align-items: center; justify-content: center; font-size: 17px">{{ nTaklif }}</span>
+        <div style="min-width: 0">
+          <p class="kq-lbl" style="color: #C2481F">Bosh sovrin</p>
+          <h2 class="ru" style="margin: 2px 0 0; font-size: 25px; line-height: 1.1">Uchrashuvga taklif</h2>
+        </div>
+      </div>
+      <div class="rvt" style="--i: 0.12s; --rot: -0.8deg; position: relative; margin-top: 18px; border-radius: 22px; background: #2A2350; padding: 18px; box-shadow: 0 6px 0 #17123A, 0 26px 30px -18px rgba(42, 35, 80, 0.7)">
+        <p style="margin: 0 0 12px; text-align: center; font-size: 12px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: #C9B8F2">{{ grandHint }}</p>
+        <div class="{{ grandCls }}" style="position: relative; height: 230px">
+          <div class="kq-panel" style="left: 0; top: 0; width: 100%; height: 230px; background: #FFF6EE">
+            <div class="kq-prize" style="position: absolute; left: 0; top: 0; width: 100%; height: 230px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 0 18px; box-sizing: border-box">
+              <p class="ru" style="margin: 0; font-size: {{ takPx }}px; line-height: 1.15; color: #2A2350; overflow-wrap: anywhere">{{ d.taklif }}</p>
+              <div style="margin-top: 14px; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px">
+                <sc-if value="{{ d.taklif_vaqt }}"><span style="display: inline-flex; align-items: center; gap: 7px; min-height: 34px; padding: 4px 12px; box-sizing: border-box; border-radius: 10px; background: #2A2350; color: #FFFDF7; font-size: 14px; font-weight: 500; overflow-wrap: anywhere"><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" style="flex: none; color: #FF9B73"><circle class="ico" cx="12" cy="12" r="8.5"></circle><path class="ico" d="M12 7.5V12l3 2"></path></svg>{{ d.taklif_vaqt }}</span></sc-if>
+                <sc-if value="{{ d.taklif_joy }}"><span style="display: inline-flex; align-items: center; gap: 7px; min-height: 34px; padding: 4px 12px; box-sizing: border-box; border-radius: 10px; background: #F2683C; color: #FFFFFF; font-size: 14px; font-weight: 500; overflow-wrap: anywhere"><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" style="flex: none"><path class="ico" d="M12 20.5s-6.5-5.9-6.5-10.5a6.5 6.5 0 0 1 13 0c0 4.6-6.5 10.5-6.5 10.5z"></path><circle class="ico" cx="12" cy="10" r="2.3"></circle></svg>{{ d.taklif_joy }}</span></sc-if>
+              </div>
+            </div>
+            <sc-if value="{{ noCanvas }}"><div class="{{ fbClsB }}" aria-hidden="true"></div></sc-if>
+            <canvas id="kq-cv-b" class="{{ cvClsB }}" role="img" aria-label="Qiriladigan kumush qatlam" onPointerDown="{{ downB }}" onPointerMove="{{ moveB }}" onPointerUp="{{ upB }}" onPointerCancel="{{ upB }}"></canvas>
+            <div id="kq-pen-b" class="{{ penClsB }}" aria-hidden="true"><div class="kq-coin g" style="left: 0; top: 0; width: 44px; height: 44px"><svg width="20" height="20" viewBox="0 0 24 24"><path class="icf" d="M12 2c.8 5.6 4.4 9.2 10 10-5.6.8-9.2 4.4-10 10-.8-5.6-4.4-9.2-10-10 5.6-.8 9.2-4.4 10-10z"></path></svg></div></div>
+            <sc-for list="{{ spkB }}" as="k"><svg id="{{ k.id }}" class="{{ k.c }}" viewBox="0 0 24 24" aria-hidden="true"><path class="icf" d="M12 0c1 7 5 11 12 12-7 1-11 5-12 12-1-7-5-11-12-12 7-1 11-5 12-12z"></path></svg></sc-for>
+            <span class="kq-glow" aria-hidden="true"></span>
+          </div>
+          <div class="kq-burst" aria-hidden="true">
+            <sc-for list="{{ coinBurstS }}" as="c"><span class="{{ c.cls }}" style="--d: {{ c.d }}; --x: {{ c.x }}; --y: {{ c.y }}; --x2: {{ c.x2 }}; --y2: {{ c.y2 }}; --r: {{ c.r }}; --r2: {{ c.r2 }}"><svg width="12" height="12" viewBox="0 0 24 24"><path class="icf" d="M12 2c.8 5.6 4.4 9.2 10 10-5.6.8-9.2 4.4-10 10-.8-5.6-4.4-9.2-10-10 5.6-.8 9.2-4.4 10-10z"></path></svg></span></sc-for>
+          </div>
+        </div>
+        <div style="margin-top: 16px">
+          <sc-if value="{{ notGrand }}">
+          <button type="button" class="kq-ghost" onClick="{{ coinB }}" disabled="{{ busyB }}" style="width: 100%; border-color: #FFFDF7; box-shadow: 0 4px 0 #17123A">
+            <span class="kq-coin g" aria-hidden="true" style="position: relative; width: 28px; height: 28px; box-shadow: inset 0 0 0 2px #D98A1E, 0 2px 0 #9A5A0C"><svg width="12" height="12" viewBox="0 0 24 24"><path class="icf" d="M12 2c.8 5.6 4.4 9.2 10 10-5.6.8-9.2 4.4-10 10-.8-5.6-4.4-9.2-10-10 5.6-.8 9.2-4.4 10-10z"></path></svg></span>
+            Tanga bilan qirish
+          </button>
+          </sc-if>
+          <sc-if value="{{ grand }}">
+            <sc-if value="{{ notAgreed }}">
+            <button type="button" class="kq-btn kq-btn-t kq-in" onClick="{{ agree }}">
+              <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path class="ico" d="M5 12.5l4.5 4.5L19 7.5" style="stroke-width: 2.8"></path></svg>
+              Roziman, boraman
+            </button>
+            </sc-if>
+            <sc-if value="{{ agreed }}">
+            <p class="kq-in" style="margin: 0; display: flex; align-items: center; justify-content: center; gap: 10px; min-height: 58px; border-radius: 18px; background: rgba(255, 253, 247, 0.1); color: #FFFDF7; font-size: 16px; font-weight: 500; text-align: center; padding: 0 14px">
+              <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" style="flex: none; color: #7FE0B8"><path class="ico" d="M5 12.5l4.5 4.5L19 7.5" style="stroke-width: 2.8"></path></svg>
+              {{ agreedTxt }}
+            </p>
+            </sc-if>
+          </sc-if>
+        </div>
+      </div>
+    </section>
+    </sc-if>
+
+    <!-- ============ JAVOB: activate the ticket ============ -->
+    <sc-if value="{{ b.javob }}">
+    <section data-rv="javob" class="{{ rvJavob }}" style="padding: 26px 20px 18px">
+      <div class="rvt" style="--i: 0.05s; position: relative; border-radius: 26px; background: #FFFDF7; padding: 30px 22px 26px; text-align: center; box-shadow: 0 6px 0 #CBBDF0, 0 26px 34px -20px rgba(42, 35, 80, 0.55)">
+        <div aria-hidden="true" style="position: absolute; left: -12px; top: 50%; width: 24px; height: 24px; margin-top: -12px; border-radius: 50%; background: #EAE1FC"></div>
+        <div aria-hidden="true" style="position: absolute; right: -12px; top: 50%; width: 24px; height: 24px; margin-top: -12px; border-radius: 50%; background: #EAE1FC"></div>
+        <p class="kq-lbl" style="color: #C2481F">Oxirgi qadam</p>
+        <h2 class="ru" style="margin: 8px 0 0; font-size: 28px; line-height: 1.1; color: #2A2350">Chiptani faollashtiring</h2>
+        <sc-if value="{{ waiting }}">
+          <p style="margin: 12px auto 0; max-width: 290px; font-size: 15.5px; line-height: 1.5; color: #4A4170; overflow-wrap: anywhere">{{ askLine }}</p>
+          <div class="kq-pulse" style="margin-top: 20px">
+            <button type="button" class="kq-btn kq-btn-t" onClick="{{ forgive }}" disabled="{{ busy }}">
+              <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path class="icf" d="M12 20.3c-5-3.6-8.5-6.8-8.5-10.6 0-2.7 2-4.7 4.6-4.7 1.6 0 3 .8 3.9 2.1.9-1.3 2.3-2.1 3.9-2.1 2.6 0 4.6 2 4.6 4.7 0 3.8-3.5 7-8.5 10.6z"></path></svg>
+              Kechirdim
+            </button>
+          </div>
+          <sc-if value="{{ err }}"><p style="margin: 10px 0 0; font-size: 14px; color: #B3261E">{{ err }}</p></sc-if>
+        </sc-if>
+        <sc-if value="{{ forgiven }}">
+          <div style="margin-top: 16px"><span class="kq-ok">Faollashtirildi</span></div>
+          <p class="cv kq-in" style="margin: 14px auto 0; max-width: 300px; font-size: 28px; line-height: 1.15; color: #E4572A; overflow-wrap: anywhere; --d: 0.3s">{{ thanks }}</p>
+          <p class="kq-in" style="margin: 8px 0 0; font-size: 14px; color: #6A5F96; --d: 0.45s">{{ sentTxt }}</p>
+        </sc-if>
+        <div class="kq-burst" aria-hidden="true" style="top: 60%">
+          <sc-for list="{{ coinBurstS }}" as="c"><span class="{{ c.cls }}" style="--d: {{ c.d }}; --x: {{ c.x }}; --y: {{ c.y }}; --x2: {{ c.x2 }}; --y2: {{ c.y2 }}; --r: {{ c.r }}; --r2: {{ c.r2 }}"><svg width="12" height="12" viewBox="0 0 24 24"><path class="icf" d="M12 2c.8 5.6 4.4 9.2 10 10-5.6.8-9.2 4.4-10 10-.8-5.6-4.4-9.2-10-10 5.6-.8 9.2-4.4 10-10z"></path></svg></span></sc-for>
+          <sc-for list="{{ sparkBurst }}" as="k"><svg class="{{ k.c }}" viewBox="0 0 24 24" style="--d: {{ k.d }}; --x: {{ k.x }}; --y: {{ k.y }}"><path class="icf" d="M12 0c1 7 5 11 12 12-7 1-11 5-12 12-1-7-5-11-12-12 7-1 11-5 12-12z"></path></svg></sc-for>
+        </div>
+      </div>
+    </section>
+    </sc-if>
+
+    <div style="flex: 1; min-height: 20px"></div>
+    <footer style="position: relative; padding: 26px 24px 40px; text-align: center">
+      <svg aria-hidden="true" width="200" height="26" viewBox="0 0 200 26" style="display: block; margin: 0 auto"><sc-for list="{{ barsLg }}" as="r"><rect x="{{ r.x }}" y="0" width="{{ r.w }}" height="26" style="fill: #2A2350"></rect></sc-for></svg>
+      <p class="ru" style="margin: 8px 0 0; font-size: 13px; letter-spacing: 0.3em; color: #2A2350">{{ serial }}</p>
+      <p style="margin: 12px auto 0; max-width: 300px; font-size: 13.5px; line-height: 1.55; color: #5A4F8A">Chipta muddati — umrbod. Har kuni amal qiladi va hech qachon bekor bo’lmaydi.</p>
+      <sc-if value="{{ pair }}"><p class="cv" style="margin: 10px 0 0; font-size: 26px; color: #2A2350; overflow-wrap: anywhere">{{ pair }}</p></sc-if>
+    </footer>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":4200}}'>
+const REDUCED = typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
+// under automation (screenshots, thumbnails) sections are shown at once
+const STILL = REDUCED || (typeof navigator !== 'undefined' && !!navigator.webdriver);
+const CAN_IO = typeof IntersectionObserver === 'function' && !STILL;
+const SECS = ['maktub', 'vadalar', 'galereya', 'taklif', 'javob'];
+const HAS_CANVAS = typeof HTMLCanvasElement !== 'undefined' && !!(HTMLCanvasElement.prototype && HTMLCanvasElement.prototype.getContext);
+
+function rng(seed) { let a = seed; return () => { a = (a * 16807) % 2147483647; return a / 2147483647; }; }
+function txt(v) { return String(v == null ? '' : v).trim(); }
+function hash(s) { let h = 2166136261; s = String(s); for (let i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); } return h >>> 0; }
+function bars(seed, W) {
+  const r = rng(seed % 2147483646 + 1), out = []; let x = 0;
+  while (x < W - 2) { const w = 1 + Math.floor(r() * 3.4); if (x + w > W) break; out.push({ x, w }); x += w + 1 + Math.floor(r() * 3); }
+  return out;
+}
+function ticketPath(W, H, cuts, r, nr) {
+  let d = 'M' + r + ' 0 H' + (W - r) + ' A' + r + ' ' + r + ' 0 0 1 ' + W + ' ' + r;
+  cuts.forEach((y) => { d += ' V' + (y - nr) + ' A' + nr + ' ' + nr + ' 0 0 0 ' + W + ' ' + (y + nr); });
+  d += ' V' + (H - r) + ' A' + r + ' ' + r + ' 0 0 1 ' + (W - r) + ' ' + H + ' H' + r + ' A' + r + ' ' + r + ' 0 0 1 0 ' + (H - r);
+  cuts.slice().reverse().forEach((y) => { d += ' V' + (y + nr) + ' A' + nr + ' ' + nr + ' 0 0 0 0 ' + (y - nr); });
+  return d + ' V' + r + ' A' + r + ' ' + r + ' 0 0 1 ' + r + ' 0 Z';
+}
+function bandPath(W, y, r, nr) {
+  return 'M0 ' + r + ' A' + r + ' ' + r + ' 0 0 1 ' + r + ' 0 H' + (W - r) + ' A' + r + ' ' + r + ' 0 0 1 ' + W + ' ' + r +
+    ' V' + (y - nr) + ' A' + nr + ' ' + nr + ' 0 0 0 ' + (W - nr) + ' ' + y + ' H' + nr + ' A' + nr + ' ' + nr + ' 0 0 0 0 ' + (y - nr) + ' Z';
+}
+function coinBurst(seed, n, spread) {
+  const r = rng(seed), out = [];
+  for (let i = 0; i < n; i++) {
+    const a = (i / n) * Math.PI * 2 + r() * 0.4, d = spread * (0.55 + r() * 0.6);
+    const x = Math.cos(a) * d, y = Math.sin(a) * d * 0.8 - spread * 0.35;
+    out.push({ cls: 'kq-coin kq-bc' + (i % 3 ? ' g' : ''), d: (r() * 0.2).toFixed(2) + 's', x: x.toFixed(0) + 'px', y: y.toFixed(0) + 'px',
+      x2: (x * 1.25).toFixed(0) + 'px', y2: (y + spread * 1.2).toFixed(0) + 'px', r: Math.round(180 + r() * 360) + 'deg', r2: Math.round(540 + r() * 540) + 'deg' });
+  }
+  return out;
+}
+function chars(s, d0, step) { return s.split('').map((ch, i) => ({ ch: ch === ' ' ? ' ' : ch, d: (d0 + i * step).toFixed(2) + 's' })); }
+
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { go: false, gone: false, heroOn: false, won: false, grand: false, rv: {}, pop: {}, vd: {}, last: -1,
+      drawA: false, drawB: false, busyA: false, busyB: false, agreed: false, forgiven: false, busy: false, err: '', sent: false };
+    this.sc = {};
+    const d = SITE.d;
+    const H = hash(txt(d.kimga) + '|' + txt(d.kimdan));
+    this.serial = '№ ' + String(1000 + H % 9000);
+    this.barsSm = bars(H, 126); this.barsLg = bars(H + 7, 200); this.barsXs = bars(H + 3, 80);
+    this.tkPath = ticketPath(334, 430, [74, 366], 20, 12);
+    this.bandPath = bandPath(334, 74, 20, 12);
+    this.t1 = chars('Kechirim', 0.2, 0.05); this.t2 = chars('chiptasi', 0.45, 0.05);
+    const r = rng(17);
+    const ic = [[14, 236, 34, 1], [340, 214, 30, 0], [-8, 470, 28, 0], [356, 520, 34, 1], [24, 760, 30, 1], [330, 790, 26, 0], [176, 826, 22, 1], [312, 96, 26, 1], [40, 110, 22, 0]];
+    this.introCoins = ic.map((p, i) => ({ cls: 'kq-coin kq-float' + (p[3] ? ' g' : ''), x: p[0], y: p[1], s: p[2], h: Math.round(p[2] * 0.42), d: (-i * 0.6).toFixed(1) + 's' }));
+    const is = [[62, 20], [326, 30], [18, 300], [362, 400], [30, 620], [352, 650], [200, 8], [96, 800], [280, 820], [8, 180]];
+    this.introSparks = is.map((p) => ({ x: p[0], y: p[1], s: 12 + Math.round(r() * 14), d: (-r() * 2.8).toFixed(2) + 's' }));
+    const pc = [[-12, '6%', 28, 1], [372, '13%', 26, 0], [-14, '27%', 30, 0], [372, '38%', 26, 1], [-10, '52%', 24, 1], [372, '63%', 30, 0], [-12, '77%', 26, 0], [374, '88%', 24, 1]];
+    this.pageCoins = pc.map((p, i) => ({ cls: 'kq-coin kq-float' + (p[3] ? ' g' : ''), x: p[0], y: p[1], s: p[2], h: Math.round(p[2] * 0.42), d: (-i * 0.8).toFixed(1) + 's' }));
+    this.coinBurst = coinBurst(5, 18, 150);
+    this.coinBurstS = coinBurst(11, 12, 110);
+    const rs = rng(23);
+    this.sparkBurst = Array.from({ length: 12 }, (x, i) => { const a = (i / 12) * Math.PI * 2, dd = 90 + rs() * 70; return { c: 'kq-bs' + (i % 2 ? ' t' : ''), d: (0.05 + rs() * 0.25).toFixed(2) + 's', x: (Math.cos(a) * dd).toFixed(0) + 'px', y: (Math.sin(a) * dd * 0.7).toFixed(0) + 'px' }; });
+    const cc = ['#F2683C', '#FFC24B', '#8A7BD8', '#FF9B73'];
+    this.rowBurst = Array.from({ length: 9 }, (x, i) => { const a = (i / 9) * Math.PI * 2; return { d: (i * 0.02).toFixed(2) + 's', x: (Math.cos(a) * 40).toFixed(0) + 'px', y: (Math.sin(a) * 32).toFixed(0) + 'px', c: cc[i % 4] }; });
+    this.spkA = Array.from({ length: 6 }, (x, i) => ({ id: 'kq-spk-a' + i, c: 'kq-spk' + (i % 2 ? ' t' : '') }));
+    this.spkB = Array.from({ length: 4 }, (x, i) => ({ id: 'kq-spk-b' + i, c: 'kq-spk' + (i % 2 ? ' t' : '') }));
+  }
+  componentDidMount() {
+    if (STILL) this.setState({ rv: SECS.reduce((o, k) => { o[k] = true; return o; }, {}) });
+    this.paintAll();
+    try { if (document.fonts && document.fonts.load) document.fonts.load('26px "Russo One"').then(() => this.paintAll(), () => {}); } catch (e) { /* no font api */ }
+    this.onResize = () => { if (!this.sc.b || !this.sc.b.touched) this.paint('b'); };
+    window.addEventListener('resize', this.onResize);
+  }
+  componentWillUnmount() {
+    [this.t1x, this.t2x, this.t3x, this.t4x, this.t5x].forEach((t) => clearTimeout(t));
+    if (this.io) this.io.disconnect();
+    window.removeEventListener('resize', this.onResize);
+    Object.keys(this.sc).forEach((k) => { if (this.sc[k] && this.sc[k].raf) cancelAnimationFrame(this.sc[k].raf); });
+  }
+  componentDidUpdate() { if (SITE.b.taklif && !this.state.grand && (!this.sc.b || !this.sc.b.ok || !this.sc.b.cv.isConnected)) this.paint('b'); }
+  watch() {
+    if (this.io || !CAN_IO) { if (!CAN_IO) this.setState({ rv: SECS.reduce((o, k) => { o[k] = true; return o; }, {}) }); return; }
+    this.io = new IntersectionObserver((es) => {
+      const add = {};
+      es.forEach((e) => { if (e.isIntersecting) { add[e.target.getAttribute('data-rv')] = true; this.io.unobserve(e.target); } });
+      if (Object.keys(add).length) this.setState((s) => ({ rv: Object.assign({}, s.rv, add) }));
+    }, { rootMargin: '0px 0px -12% 0px' });
+    document.querySelectorAll('[data-rv]').forEach((el) => this.io.observe(el));
+  }
+
+  // ---------- silver scratch layer ----------
+  paintAll() { if (!this.state.won && (!this.sc.a || !this.sc.a.touched)) this.paint('a'); if (!this.state.grand && (!this.sc.b || !this.sc.b.touched)) this.paint('b'); }
+  paint(key) {
+    if (!HAS_CANVAS) return;
+    const cv = document.getElementById('kq-cv-' + key);
+    if (!cv) return;
+    const w = cv.offsetWidth, h = cv.offsetHeight;
+    if (!w || !h) return;
+    const k = Math.min(2, window.devicePixelRatio || 1);
+    cv.width = Math.round(w * k); cv.height = Math.round(h * k);
+    const c = cv.getContext('2d', { willReadFrequently: true });
+    if (!c) return;
+    c.setTransform(k, 0, 0, k, 0, 0);
+    c.globalCompositeOperation = 'source-over';
+    const g = c.createLinearGradient(0, 0, w, h);
+    g.addColorStop(0, '#A9B0C0'); g.addColorStop(0.24, '#EEF1F7'); g.addColorStop(0.46, '#B7BECD'); g.addColorStop(0.7, '#F7F8FB'); g.addColorStop(1, '#9AA1B4');
+    c.fillStyle = g; c.fillRect(0, 0, w, h);
+    // holographic tint bands
+    const hg = c.createLinearGradient(0, h, w, 0);
+    hg.addColorStop(0, 'rgba(255,180,210,0.22)'); hg.addColorStop(0.3, 'rgba(180,210,255,0.22)'); hg.addColorStop(0.6, 'rgba(190,255,230,0.2)'); hg.addColorStop(1, 'rgba(255,236,170,0.24)');
+    c.fillStyle = hg; c.fillRect(0, 0, w, h);
+    const r = rng(key === 'a' ? 71 : 93);
+    for (let i = 0; i < (w * h) / 24; i++) { c.fillStyle = r() > 0.5 ? 'rgba(255,255,255,0.45)' : 'rgba(70,76,96,0.16)'; c.fillRect(r() * w, r() * h, 1.2, 1.2); }
+    // little stars pattern
+    c.fillStyle = 'rgba(80,86,110,0.16)';
+    for (let y = 16; y < h; y += 30) for (let x = (y / 30) % 2 ? 28 : 12; x < w; x += 32) {
+      c.save(); c.translate(x, y); c.beginPath();
+      c.moveTo(0, -6); c.quadraticCurveTo(0.6, -0.6, 6, 0); c.quadraticCurveTo(0.6, 0.6, 0, 6); c.quadraticCurveTo(-0.6, 0.6, -6, 0); c.quadraticCurveTo(-0.6, -0.6, 0, -6); c.fill(); c.restore();
+    }
+    c.textAlign = 'center'; c.textBaseline = 'middle';
+    const big = key === 'a' ? 32 : 30;
+    c.font = big + 'px "Russo One", "Arial Black", Arial, sans-serif';
+    const lab = key === 'a' ? 'QIRING' : 'BOSH SOVRIN';
+    c.fillStyle = 'rgba(255,255,255,0.85)'; c.fillText(lab, w / 2 + 1, h / 2 - 10 + 1.5);
+    c.fillStyle = 'rgba(58,62,84,0.62)'; c.fillText(lab, w / 2, h / 2 - 10);
+    c.font = '600 12.5px Rubik, Arial, sans-serif';
+    c.fillStyle = 'rgba(58,62,84,0.6)'; c.fillText(key === 'a' ? 'BARMOQ YOKI TANGA BILAN' : 'QIRIB, TAKLIFNI OCHING', w / 2, h / 2 + 22);
+    c.strokeStyle = 'rgba(58,62,84,0.3)'; c.lineWidth = 1.5; c.setLineDash([5, 5]);
+    c.strokeRect(9.5, 9.5, w - 19, h - 19); c.setLineDash([]);
+    this.sc[key] = Object.assign(this.sc[key] || {}, { cv, c, w, h, k, ok: true, touched: false, moves: 0, last: null, sp: 0, done: false });
+  }
+  pt(key, e) {
+    const s = this.sc[key], r = s.cv.getBoundingClientRect();
+    return { x: (e.clientX - r.left) * s.w / (r.width || s.w), y: (e.clientY - r.top) * s.h / (r.height || s.h) };
+  }
+  erase(key, a, b) {
+    const s = this.sc[key], c = s.c;
+    c.globalCompositeOperation = 'destination-out';
+    c.lineCap = 'round'; c.lineJoin = 'round'; c.lineWidth = 40;
+    c.beginPath(); c.moveTo(a.x, a.y); c.lineTo(b.x + 0.01, b.y); c.stroke();
+    s.touched = true; s.moves++;
+    const pen = document.getElementById('kq-pen-' + key);
+    if (pen) pen.style.transform = 'translate(' + (b.x - 22).toFixed(1) + 'px,' + (b.y - 22).toFixed(1) + 'px) rotate(' + ((b.x * 2.4) % 360).toFixed(0) + 'deg)';
+    if (s.moves % 4 === 0) this.spark(key, b);
+    if (s.moves % 6 === 0 && this.cleared(key) > 0.5) this.win(key, false);
+  }
+  spark(key, p) {
+    const s = this.sc[key], n = key === 'a' ? 6 : 4, el = document.getElementById('kq-spk-' + key + (s.sp % n));
+    s.sp++;
+    if (!el || REDUCED || !el.animate) return;
+    const dx = (Math.random() - 0.5) * 64, dy = -18 - Math.random() * 42;
+    el.style.left = p.x.toFixed(0) + 'px'; el.style.top = p.y.toFixed(0) + 'px';
+    el.animate([{ opacity: 1, transform: 'translate(0,0) scale(.4) rotate(0deg)' }, { opacity: 0, transform: 'translate(' + dx.toFixed(0) + 'px,' + dy.toFixed(0) + 'px) scale(1.2) rotate(140deg)' }], { duration: 650, easing: 'cubic-bezier(.2,.7,.3,1)' });
+  }
+  cleared(key) {
+    const s = this.sc[key];
+    try {
+      const W = s.cv.width, Hh = s.cv.height, data = s.c.getImageData(0, 0, W, Hh).data;
+      let n = 0, z = 0;
+      const step = Math.max(4, Math.round(6 * s.k));
+      for (let y = 2; y < Hh; y += step) for (let x = 2; x < W; x += step) { n++; if (data[(y * W + x) * 4 + 3] < 40) z++; }
+      return n ? z / n : 0;
+    } catch (e) { return 0; }
+  }
+  down(key, e) {
+    const s = this.sc[key];
+    if (!s || !s.ok || s.done || s.raf) return;
+    try { e.currentTarget.setPointerCapture(e.pointerId); } catch (err) { /* */ }
+    e.preventDefault();
+    s.last = this.pt(key, e);
+    this.erase(key, s.last, s.last);
+    this.setState(key === 'a' ? { drawA: true } : { drawB: true });
+  }
+  move(key, e) {
+    const s = this.sc[key];
+    if (!s || !s.last || s.done) return;
+    const p = this.pt(key, e);
+    this.erase(key, s.last, p);
+    s.last = p;
+  }
+  up(key) {
+    const s = this.sc[key];
+    if (s) s.last = null;
+    this.setState(key === 'a' ? { drawA: false } : { drawB: false });
+  }
+  coin(key) {
+    const s = this.sc[key];
+    if (!HAS_CANVAS || !s || !s.ok || REDUCED) { this.win(key, true); return; }
+    if (s.raf || s.done) return;
+    this.setState(key === 'a' ? { busyA: true, drawA: true } : { busyB: true, drawB: true });
+    const rows = 5, pts = [{ x: s.w * 0.06, y: s.h * 0.06 }];
+    for (let i = 0; i <= rows; i++) { const y = s.h * (0.1 + 0.8 * i / rows); pts.push(i % 2 ? { x: s.w * 0.06, y } : { x: s.w * 0.94, y }); }
+    const seg = [], L = [];
+    let tot = 0;
+    for (let i = 1; i < pts.length; i++) { const l = Math.hypot(pts[i].x - pts[i - 1].x, pts[i].y - pts[i - 1].y); seg.push(l); tot += l; L.push(tot); }
+    const at = (t) => {
+      const dd = t * tot; let i = 0;
+      while (i < L.length - 1 && L[i] < dd) i++;
+      const s0 = i ? L[i - 1] : 0, f = seg[i] ? (dd - s0) / seg[i] : 0;
+      return { x: pts[i].x + (pts[i + 1].x - pts[i].x) * f, y: pts[i].y + (pts[i + 1].y - pts[i].y) * f };
+    };
+    const T = 1200, t0 = performance.now();
+    let last = at(0);
+    const tick = (now) => {
+      const t = Math.min(1, (now - t0) / T), e = t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+      const p = at(e);
+      this.erase(key, last, p); last = p;
+      if (t < 1 && !s.done) s.raf = requestAnimationFrame(tick);
+      else { s.raf = 0; this.win(key, true); }
+    };
+    s.raf = requestAnimationFrame(tick);
+  }
+  win(key) {
+    const s = this.sc[key];
+    if (s) { if (s.done) return; s.done = true; }
+    if (key === 'a') { if (!this.state.won) this.setState({ won: true, drawA: false, busyA: false }); }
+    else this.setState({ grand: true, drawB: false, busyB: false });
+  }
+  open() {
+    if (this.state.go) return;
+    if (!this.state.won) this.setState({ won: true });
+    this.setState({ go: true });
+    SITE.opened();
+    this.t4x = setTimeout(() => this.setState({ heroOn: true }), REDUCED ? 0 : 450);
+    const fin = () => { this.setState({ gone: true }); this.t3x = setTimeout(() => this.watch(), 250); };
+    if (REDUCED) fin(); else this.t2x = setTimeout(fin, 1100);
+  }
+  forgive() {
+    if (this.state.busy || this.state.forgiven) return;
+    this.setState({ busy: true, err: '', forgiven: true, pop: Object.assign({}, this.state.pop, { javob: true }) });
+    SITE.reply('Kechirdim', '🤗').then(
+      () => { this.setState({ busy: false }); this.t5x = setTimeout(() => this.setState({ sent: true }), 700); },
+      () => this.setState({ busy: false, forgiven: false, pop: {}, err: 'Javob yetib bormadi. Qayta bosib ko’ring.' })
+    );
+  }
+  renderVals() {
+    const s = this.state, d = SITE.d, B = SITE.b;
+    const to = txt(d.kimga), from = txt(d.kimdan);
+    const toName = to || 'Azizim', fromName = from || 'Men';
+    const L = toName.length;
+    const vd = (d.vadalar || []).map(txt).filter(Boolean);
+    const first = vd[0] || '';
+    const prizeLine = first ? '«' + first + '»' : (txt(d.taklif) || 'so’zimda turishim va seni asrashim');
+    // section numbering only for visible sections
+    let n = 0; const num = {};
+    ['maktub', 'vadalar', 'galereya', 'taklif'].forEach((k) => { if (B[k]) { n++; num[k] = String(n).padStart(2, '0'); } });
+    const nOn = Object.keys(s.vd).filter((k) => s.vd[k]).length;
+    const prizes = vd.map((t, i) => ({
+      t, n: i + 1, lbl: (i + 1) + '-yutuq', on: s.vd[i] ? 'true' : 'false', i: (0.12 + 0.08 * i).toFixed(2) + 's',
+      cls: 'kq-row' + (s.vd[i] ? ' is-on' : ''), burst: !!s.vd[i] && s.last === i,
+      tap: () => this.setState({ vd: Object.assign({}, this.state.vd, { [i]: !this.state.vd[i] }), last: this.state.vd[i] ? -1 : i })
+    }));
+    const P = SITE.has.photos > 1 ? SITE.p.slice(1, Math.min(SITE.p.length, 5)) : [SITE.p[0]];
+    const np = P.length, gal = [];
+    const rots = ['-2deg', '2.2deg', '1.4deg', '-1.6deg'];
+    for (let i = 0; i < np; i++) {
+      const wide = np % 2 === 1 && i === 0;
+      gal.push({ src: P[i], col: wide ? 'span 2' : 'auto', h: wide ? 220 : 180, r: wide ? '-1deg' : rots[i % 4], i: (0.1 + 0.1 * i).toFixed(2) + 's', n: 'Chipta № ' + String(i + 1).padStart(2, '0') });
+    }
+    const rv = {}; SECS.forEach((k) => { rv[k] = 'kq-sec' + (s.rv[k] ? ' is-in' : ''); });
+    const tk = txt(d.taklif), tl = tk.length;
+    return {
+      rootCls: s.heroOn ? 'kq-root is-on' : 'kq-root',
+      introCls: 'kq-intro' + (s.go ? ' is-go' : '') + (s.gone ? ' is-gone' : ''),
+      tkCls: s.won ? 'kq-won' : '',
+      t1: this.t1, t2: this.t2,
+      introCoins: this.introCoins, introSparks: this.introSparks, pageCoins: this.pageCoins,
+      tkPath: this.tkPath, bandPath: this.bandPath, barsSm: this.barsSm, barsLg: this.barsLg, barsXs: this.barsXs,
+      coinBurst: this.coinBurst, coinBurstS: this.coinBurstS, sparkBurst: this.sparkBurst, rowBurst: this.rowBurst, spkA: this.spkA, spkB: this.spkB,
+      serial: this.serial, toName, fromName, holoTop: SITE.has.photo ? 214 : 70,
+      prizeName: toName + ', kechir meni', prizeNamePx: Math.max(22, Math.min(34, Math.floor(400 / ((L + 13) * 0.42)))),
+      prizeLine,
+      noCanvas: !HAS_CANVAS,
+      cvCls: 'kq-cv' + (s.won ? ' is-done' : ''), fbCls: 'kq-cvfb' + (s.won ? ' is-done' : ''),
+      cvClsB: 'kq-cv' + (s.grand ? ' is-done' : ''), fbClsB: 'kq-cvfb' + (s.grand ? ' is-done' : ''),
+      penCls: 'kq-pen' + (s.drawA && !s.won ? ' is-on' : ''), penClsB: 'kq-pen' + (s.drawB && !s.grand ? ' is-on' : ''),
+      downA: (e) => this.down('a', e), moveA: (e) => this.move('a', e), upA: () => this.up('a'),
+      downB: (e) => this.down('b', e), moveB: (e) => this.move('b', e), upB: () => this.up('b'),
+      coinA: () => this.coin('a'), coinB: () => this.coin('b'), busyA: s.busyA, busyB: s.busyB,
+      won: s.won, notWon: !s.won, open: () => this.open(),
+      namePx: Math.max(38, Math.min(64, Math.floor(300 / (L * 0.42)))),
+      heroSub: from ? 'Bu chipta faqat sen uchun. Ichida bitta yutuq bor — ' + from + 'ning chin dildan uzri.' : 'Bu chipta faqat sen uchun. Ichida bitta yutuq bor — chin dildan uzrim.',
+      musicOn: !!SITE.music.playing, musicOff: !SITE.music.playing, toggleMusic: () => SITE.music.toggle(),
+      rv, rvJavob: rv.javob + (s.pop.javob ? ' is-pop' : ''),
+      nMaktub: num.maktub, nVadalar: num.vadalar, nGal: num.galereya, nTaklif: num.taklif,
+      greet: to ? to + ',' : 'Azizim,', signLine: from ? '— ' + from : '',
+      prizes, prizeHint: nOn ? nOn + ' / ' + vd.length + ' va’da kafolatlandi' : vd.length + ' ta yutuq sizni kutyapti',
+      gal,
+      grand: s.grand, notGrand: !s.grand, grandCls: s.grand ? 'kq-won' : '',
+      grandHint: s.grand ? 'Bosh sovrin ochildi' : 'Kumush qatlamni qiring',
+      takPx: tl > 60 ? 19 : tl > 36 ? 22 : 26,
+      agreed: s.agreed, notAgreed: !s.agreed,
+      agree: () => { if (this.state.agreed) return; this.setState({ agreed: true }); SITE.reply('Roziman: ' + (tk || 'uchrashamiz'), '🥰'); },
+      agreedTxt: from ? 'Kelishdik! ' + from + ' sizni kutadi.' : 'Kelishdik! Sizni kutaman.',
+      waiting: !s.forgiven, forgiven: s.forgiven, busy: s.busy, err: s.err,
+      askLine: from ? 'Agar kechirgan bo’lsangiz, tugmani bosing — javobingiz to’g’ri ' + SITE.ga(from) + ' boradi.' : 'Agar kechirgan bo’lsangiz, tugmani bosing — javobingiz menga yetib boradi.',
+      forgive: () => this.forgive(),
+      thanks: txt(d.javob_matni) || 'Rahmat! So’zimda turaman.',
+      sentTxt: s.sent ? (from ? 'Javobingiz ' + SITE.ga(from) + ' yetkazildi' : 'Javobingiz yetkazildi') : 'Yuborilmoqda…',
+      pair: [from, to].filter(Boolean).join(' → ')
+    };
+  }
+}
+</script>
+</body>
+</html>

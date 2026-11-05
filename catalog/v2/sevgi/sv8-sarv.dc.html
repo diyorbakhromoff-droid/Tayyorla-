@@ -161,7 +161,7 @@ html.sv-arm .rv.is-in .sv-grow{transform:none}
       <p class="sv-d sv-nm" style="margin: 0; font-size: {{ toPx }}px; font-style: italic; font-weight: 500; line-height: 1.05; color: #22483A; overflow-wrap: anywhere">{{ toName }}</p>
     </div>
     <div class="sv-fr" style="position: absolute; left: 115px; top: 262px; width: 160px; text-align: center">
-      <p class="sv-d" style="margin: 0; font-size: 16px; font-style: italic; line-height: 1.35; color: #B5523B; overflow-wrap: anywhere">{{ fromLine }}</p>
+      <p class="sv-d" style="margin: 0; font-size: {{ frPx }}px; font-style: italic; line-height: 1.35; color: #B5523B; overflow-wrap: anywhere">{{ fromLine }}</p>
     </div>
     <div class="sv-cta" style="position: absolute; left: 60px; top: 176px; width: 270px; text-align: center">
       <p class="sv-lb sv-fade1" style="color: #2F5E4A">Turmush o’rtog’imga maktub</p>
@@ -194,7 +194,7 @@ html.sv-arm .rv.is-in .sv-grow{transform:none}
       <h1 class="sv-d sv-nm" style="margin: 0; font-size: {{ toPx }}px; font-style: italic; font-weight: 500; line-height: 1.05; color: #22483A; overflow-wrap: anywhere">{{ toName }}</h1>
     </div>
     <div class="sv-fr" style="position: absolute; left: 115px; top: 262px; width: 160px; text-align: center">
-      <p class="sv-d" style="margin: 0; font-size: 16px; font-style: italic; line-height: 1.35; color: #B5523B; overflow-wrap: anywhere">{{ fromLine }}</p>
+      <p class="sv-d" style="margin: 0; font-size: {{ frPx }}px; font-style: italic; line-height: 1.35; color: #B5523B; overflow-wrap: anywhere">{{ fromLine }}</p>
     </div>
     <div class="sv-late" style="position: absolute; left: 20px; top: 716px; width: 350px; text-align: center">
       <p class="sv-lb" style="color: #2F5E4A">Turmush o’rtog’imga maktub</p>
@@ -507,7 +507,7 @@ class Component extends DCLogic {
     const days = hasDate ? el.days || 0 : 0, daysTxt = SITE.num(days);
     const pad = (x) => String(x || 0).padStart(2, '0');
     const L = Math.max(1, toName.length);
-    const toPx = L <= 7 ? 46 : L <= 10 ? 38 : L <= 14 ? 30 : 24;
+    const toPx = L <= 7 ? 46 : L <= 10 ? 38 : L <= 13 ? 30 : 21;
     const taps = s.taps || {};
     const reasons = (d.sabablar || []).filter((x) => String(x || '').trim()).map((t, i) => {
       const left = i % 2 === 0;
@@ -528,7 +528,7 @@ class Component extends DCLogic {
       open: () => this.open(),
       musicOn: !!SITE.music.playing, musicOff: !SITE.music.playing,
       toggleMusic: () => SITE.music.toggle(),
-      fromLine: from ? from + 'dan — sevgi va duo bilan' : 'Sevgi va duo bilan',
+      fromLine: from ? from + 'dan — sevgi va duo bilan' : 'Sevgi va duo bilan', frPx: from.length > 22 ? 13.5 : 16,
       sinceTxt: w.date + '-yildan beri birga',
       greet: toName + ',', greetPx: toName.length > 16 ? 24 : 30,
       sign: from ? 'Duogo’ying — ' + from : '',
