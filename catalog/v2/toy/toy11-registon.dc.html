@@ -62,6 +62,7 @@ body{margin:0;background:#0E1636}
 .rg-iname{opacity:0}
 .rg-i--open .rg-iname{animation:rg-up .8s cubic-bezier(.2,.8,.2,1) both}
 @keyframes rg-up{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+.rg-i--open .rg-iname{animation-name:rg-fade;animation-duration:.6s}
 .rg-iui{transition:opacity .45s ease,transform .6s ease}
 .rg-i--open .rg-iui{opacity:0;transform:translateY(10px)}
 .rg-cta{position:relative;height:56px;padding:0 28px;border-radius:28px;border:0;display:inline-flex;align-items:center;gap:12px;font-family:inherit;font-size:15px;font-weight:600;letter-spacing:.03em;color:#2A1606;cursor:pointer;background:linear-gradient(180deg,#FFE3A0,#E9B04A 55%,#BF8530);box-shadow:0 16px 30px -12px rgba(233,176,74,.55),inset 0 1px 0 rgba(255,255,255,.7);transition:transform .18s cubic-bezier(.3,1.6,.5,1);animation:rg-halo 2.8s ease-out infinite}
@@ -206,36 +207,7 @@ body{margin:0;background:#0E1636}
       </div>
     </div>
 
-    <div class="rg-iname" style="position: absolute; inset: 0; animation-delay: 4.3s">
-    <svg width="390" height="844" viewBox="0 0 390 844" aria-hidden="true" style="position: absolute; left: 0; top: 0">
-      <rect width="390" height="844" fill="url(#rgGirih)"></rect>
-      <path d="M20 844V260A280 280 0 0 1 195 60A280 280 0 0 1 370 260V844Z" fill="url(#rgHall)"></path>
-      <path d="M20 844V260A280 280 0 0 1 195 60A280 280 0 0 1 370 260V844Z" fill="none" stroke="#1E4FA8" stroke-width="22"></path>
-      <path d="M20 844V260A280 280 0 0 1 195 60A280 280 0 0 1 370 260V844Z" fill="none" stroke="url(#rgTL)" stroke-width="16"></path>
-      <path d="M20 844V260A280 280 0 0 1 195 60A280 280 0 0 1 370 260V844Z" fill="none" stroke="#2AA7B2" stroke-width="4"></path>
-      <path d="M31 844V262A270 270 0 0 1 195 72A270 270 0 0 1 359 262V844" fill="none" stroke="#E9B04A" stroke-width="2"></path>
-      <polygon class="rg-glow" points="{{ heroStarL }}" fill="url(#rgGold)"></polygon>
-      <polygon class="rg-glow" points="{{ heroStarR }}" fill="url(#rgGold)"></polygon>
-      <use href="#rgCres" transform="translate(190 116) rotate(-28) scale(.62)" fill="#C98A2E"></use>
-      <path d="M206 102L207.6 106.4L212 106.6L208.6 109.4L209.8 113.8L206 111.2L202.2 113.8L203.4 109.4L200 106.6L204.4 106.4Z" fill="#C98A2E"></path>
-      <polygon points="{{ heroDiv }}" fill="#2AA7B2"></polygon>
-      <path d="M90 562H170M220 562H300" stroke="#C98A2E" stroke-width="1.2"></path>
-      <rect x="0" y="818" width="390" height="26" fill="url(#rgKL)"></rect>
-      <rect x="0" y="816" width="390" height="3" fill="#E9B04A"></rect>
-    </svg>
-    <div style="position: absolute; left: 50px; right: 50px; top: 146px; display: flex; flex-direction: column; align-items: center; text-align: center">
-      <p class="rg-ar" dir="rtl" lang="ar" style="margin: 0; font-size: 25px; line-height: 46px; color: #1B2456; white-space: nowrap">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p>
-      <p style="margin: 2px 0 0; font-size: 11px; line-height: 16px; font-weight: 500; letter-spacing: 0.24em; text-transform: uppercase; color: #6A5230">Bismillahir Rohmanir Rohiym</p>
-    </div>
-    <div aria-hidden="true" style="position: absolute; left: 48px; right: 48px; top: 250px; height: 290px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center">
-      <p class="rg-lbl" style="color: #1F7F88; letter-spacing: 0.28em">Nikoh to’yiga taklifnoma</p>
-      <p class="rg-ys" style="margin: 16px 0 0; font-size: {{ fsK }}px; line-height: 1.08; color: #1B2456; overflow-wrap: anywhere">{{ kuyov }}</p>
-      <p style="margin: 4px 0; font-weight: 300; font-size: 22px; line-height: 28px; color: #A8681E">va</p>
-      <p class="rg-ys" style="margin: 0; font-size: {{ fsL }}px; line-height: 1.08; color: #1B2456; overflow-wrap: anywhere">{{ kelin }}</p>
-    </div>
-    <p class="rg-num" style="position: absolute; left: 40px; right: 40px; top: 592px; margin: 0; text-align: center; font-size: 13px; line-height: 20px; font-weight: 600; letter-spacing: 0.14em; color: #5A3A12">{{ heroLine }}</p>
-    <p style="position: absolute; left: 60px; right: 60px; top: 640px; margin: 0; text-align: center; font-size: 14px; line-height: 22px; font-weight: 300; font-style: italic; color: #6A5230">Registon peshtoqi ostida sizni kutamiz</p>
-    </div>
+    <div class="rg-iname" aria-hidden="true" style="position: absolute; inset: 0; animation-delay: 4.25s; background: radial-gradient(ellipse 80% 70% at 50% 60%, #FFF8E8, #FBE6BC 55%, #EFC27A)"></div>
 
     <div class="rg-iui" style="position: absolute; left: 24px; right: 24px; top: 40px; text-align: center">
       <p class="rg-lbl" style="color: #9FE6E8">Nikoh to’yiga taklifnoma</p>
@@ -527,7 +499,7 @@ body{margin:0;background:#0E1636}
   <footer ref="{{ rf.foot }}" class="{{ sc.foot }}" style="margin-top: auto; padding: 96px 0 0">
     <div class="rg-r" style="position: relative; width: 390px; height: 230px">
       <svg width="390" height="230" viewBox="0 0 390 230" aria-hidden="true" style="position: absolute; left: 0; top: 0">
-        <g class="rg-glow" transform="translate(300 54)"><circle r="54" fill="url(#rgMoonG)"></circle><use href="#rgCres" transform="rotate(-28) scale(.8)" fill="#FFE9B0"></use></g>
+        <g class="rg-glow" transform="translate(300 54)"><circle r="54" fill="url(#rgMoonG)" opacity=".4"></circle><use href="#rgCres" transform="rotate(-28) scale(.8)" fill="#FFE9B0"></use></g>
         <sc-for list="{{ skyline }}" as="k"><path d="{{ k.d }}" fill="{{ k.f }}"></path></sc-for>
       </svg>
     </div>
