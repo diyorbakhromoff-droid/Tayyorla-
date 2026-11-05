@@ -290,7 +290,7 @@ button:disabled{cursor:default}
             <img src="{{ p.0 }}" alt="" style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; object-fit: cover; display: block">
           </div>
           </sc-if>
-          <div style="position: relative; padding: 18px 20px 20px">
+          <div style="position: relative; padding: {{ heroPad }}px 20px 20px">
             <h2 class="cv" style="margin: 0; font-size: {{ namePx }}px; line-height: 1; color: #2A2350; overflow-wrap: anywhere">{{ toName }}</h2>
             <p style="margin: 10px auto 0; max-width: 270px; font-size: 16px; line-height: 1.5; color: #4A4170; overflow-wrap: anywhere">{{ heroSub }}</p>
           </div>
@@ -761,7 +761,7 @@ class Component extends DCLogic {
       introCoins: this.introCoins, introSparks: this.introSparks, pageCoins: this.pageCoins,
       tkPath: this.tkPath, bandPath: this.bandPath, barsSm: this.barsSm, barsLg: this.barsLg, barsXs: this.barsXs,
       coinBurst: this.coinBurst, coinBurstS: this.coinBurstS, sparkBurst: this.sparkBurst, rowBurst: this.rowBurst, spkA: this.spkA, spkB: this.spkB,
-      serial: this.serial, toName, fromName, holoTop: SITE.has.photo ? 214 : 70,
+      serial: this.serial, toName, fromName, holoTop: SITE.has.photo ? 214 : 64, heroPad: SITE.has.photo ? 18 : 74,
       prizeName: toName + ', kechir meni', prizeNamePx: Math.max(22, Math.min(34, Math.floor(400 / ((L + 13) * 0.42)))),
       prizeLine,
       noCanvas: !HAS_CANVAS,

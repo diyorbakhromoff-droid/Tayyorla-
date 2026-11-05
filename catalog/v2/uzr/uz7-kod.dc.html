@@ -1,0 +1,627 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<title>Uzr VIP: Yurak qulfi</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&amp;family=Sofia+Sans:wght@400;500;600;700&amp;display=swap">
+<style>
+body{margin:0}
+.q-cg{font-family:'Cormorant Garamond','Times New Roman',Georgia,serif}
+.q-ss{font-family:'Sofia Sans','Helvetica Neue',Arial,sans-serif}
+.q-ic{fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.q-ic2{fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.qs1{stop-color:#FBE0D0}.qs2{stop-color:#E8A98B}.qs3{stop-color:#B9714F}.qs4{stop-color:#F2C3A9}
+.qp1{stop-color:#F6E6DC}.qp2{stop-color:#E6CDBF}
+.q-foil{background:linear-gradient(110deg,#F4C9B2 0%,#E4A487 30%,#FBE2D4 48%,#D58E70 66%,#F0BFA5 100%);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:#E4A487;-webkit-text-fill-color:transparent;animation:qFoil 7s ease-in-out infinite}
+@keyframes qFoil{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+.q-kick{display:flex;align-items:center;justify-content:center;gap:10px;margin:0;font-family:'Sofia Sans',Arial,sans-serif;font-size:12px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:#E9B096}
+.q-kick::before,.q-kick::after{content:'';width:26px;height:1px;background:linear-gradient(90deg,rgba(228,164,135,0),#E4A487)}
+.q-kick::after{background:linear-gradient(90deg,#E4A487,rgba(228,164,135,0))}
+/* yulduz changi */
+.q-dust{position:absolute;border-radius:50%;background:#F7DCCB;animation:qTw 4s ease-in-out infinite}
+@keyframes qTw{0%,100%{opacity:.15;transform:scale(.6)}50%{opacity:.9;transform:scale(1)}}
+.q-glow{position:absolute;border-radius:50%;background:radial-gradient(closest-side,rgba(232,169,139,.34),rgba(232,169,139,.1) 55%,rgba(232,169,139,0));animation:qBreathe 5s ease-in-out infinite}
+@keyframes qBreathe{0%,100%{transform:scale(.94);opacity:.8}50%{transform:scale(1.06);opacity:1}}
+/* ---------------- KIRISH */
+.q-intro{transition:opacity .7s cubic-bezier(.4,0,.2,1) 2.95s,transform .9s cubic-bezier(.4,0,.2,1) 2.95s,filter .7s ease 2.95s,visibility 0s linear 3.7s}
+.q-head{transition:opacity .5s ease 1.45s,transform .6s ease 1.45s}
+.q-open .q-head{opacity:0;transform:translateY(-14px)}
+.q-open{opacity:0;visibility:hidden;pointer-events:none;transform:scale(1.04);filter:blur(4px)}
+.q-swA{transition:opacity .35s ease .25s,transform .45s cubic-bezier(.4,0,.2,1) .25s}
+.q-swB{opacity:0;transform:translateY(10px);transition:opacity .5s ease .55s,transform .6s cubic-bezier(.2,1.3,.4,1) .55s}
+.q-open .q-swA{opacity:0;transform:translateY(-10px)}
+.q-open .q-swB{opacity:1;transform:none}
+.q-scene{animation:qFloat 6s ease-in-out infinite}
+@keyframes qFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.q-lockwrap{position:absolute;left:105px;top:182px;width:180px;height:216px;transform-origin:90px 150px}
+.q-lockswing{position:absolute;left:0;top:0;width:180px;height:216px;transform-origin:90px 0;animation:qSwing 4.2s ease-in-out infinite}
+@keyframes qSwing{0%,100%{transform:rotate(-2.2deg)}50%{transform:rotate(2.2deg)}}
+.q-shk{position:absolute;left:33px;top:0;width:114px;height:104px;transform-origin:20px 100px}
+.q-body{position:absolute;left:0;top:58px;width:180px;height:158px;filter:drop-shadow(0 14px 18px rgba(5,8,20,.55))}
+.q-open .q-lockswing{animation:none}
+.q-open .q-lockwrap{animation:qDrop .85s cubic-bezier(.55,0,.85,.35) .95s forwards}
+.q-open .q-body{animation:qPulse .5s cubic-bezier(.3,1.6,.5,1) .12s}
+.q-open .q-shk{animation:qShk .7s cubic-bezier(.3,1.55,.5,1) .28s forwards}
+@keyframes qPulse{0%{transform:scale(1)}45%{transform:scale(1.07)}100%{transform:scale(1)}}
+@keyframes qShk{0%{transform:none}45%{transform:translateY(-24px)}100%{transform:translateY(-24px) rotate(-34deg)}}
+@keyframes qDrop{0%{transform:none;opacity:1}15%{transform:translateY(-10px) rotate(-4deg);opacity:1}100%{transform:translate(40px,620px) rotate(42deg);opacity:0}}
+.q-ring{position:absolute;left:195px;top:300px;width:10px;height:10px;margin:-5px 0 0 -5px;border-radius:50%;border:2px solid #F2C3A9;opacity:0}
+.q-open .q-ring{animation:qRing 1.1s cubic-bezier(.2,.8,.3,1) .2s}
+.q-open .q-ring2{animation:qRing 1.3s cubic-bezier(.2,.8,.3,1) .38s}
+@keyframes qRing{0%{opacity:.9;transform:scale(1)}100%{opacity:0;transform:scale(26)}}
+.q-chain{position:absolute;left:-85px;width:560px;height:24px}
+.q-chainA{top:288px;transform:rotate(29deg)}
+.q-chainB{top:288px;transform:rotate(-29deg)}
+.q-chainA i,.q-chainB i{display:block;width:560px;height:24px}
+.q-open .q-chainA i{animation:qChA .8s cubic-bezier(.6,0,.3,1) 1.05s forwards}
+.q-open .q-chainB i{animation:qChB .8s cubic-bezier(.6,0,.3,1) 1.1s forwards}
+@keyframes qChA{0%{transform:none;opacity:1}100%{transform:translateX(-560px);opacity:0}}
+@keyframes qChB{0%{transform:none;opacity:1}100%{transform:translateX(560px);opacity:0}}
+.ql1{fill:none;stroke:#D59275;stroke-width:9;stroke-linecap:round;stroke-dasharray:17 6}
+.ql2{fill:none;stroke:#1A2038;stroke-width:3;stroke-linecap:round;stroke-dasharray:7 16;stroke-dashoffset:-5}
+.ql3{fill:none;stroke:#FBE0D0;stroke-width:1.6;stroke-linecap:round;stroke-dasharray:9 14;stroke-dashoffset:-2;opacity:.7}
+.q-env{position:absolute;left:40px;top:196px;width:310px;height:212px;perspective:900px}
+.q-letter{position:absolute;left:16px;top:14px;width:278px;height:186px;border-radius:6px;background:linear-gradient(180deg,#FFF8F3,#F4E4DA);box-shadow:0 2px 0 rgba(255,255,255,.6) inset;z-index:2;text-align:center;box-sizing:border-box;padding:26px 18px 0}
+.q-open .q-letter{animation:qRise 1s cubic-bezier(.2,1.25,.4,1) 1.7s forwards}
+@keyframes qRise{0%{transform:none}100%{transform:translateY(-128px) scale(1.06)}}
+.q-front{position:absolute;left:0;top:0;width:310px;height:212px;z-index:3}
+.q-flap{position:absolute;left:0;top:0;width:310px;height:132px;z-index:4;transform-origin:50% 0;backface-visibility:visible}
+.q-open .q-flap{animation:qFlap .65s cubic-bezier(.4,0,.2,1) 1.35s forwards}
+@keyframes qFlap{0%{transform:rotateX(0);z-index:4}100%{transform:rotateX(178deg);z-index:1}}
+.qf1{fill:#EAD3C6}.qf2{fill:#E0C2B2}.qf3{fill:#D5B09E}.qf4{fill:none;stroke:#C98D72;stroke-width:1;opacity:.55}
+.q-rays{position:absolute;left:45px;top:70px;width:300px;height:300px;border-radius:50%;background:repeating-conic-gradient(from 0deg,rgba(251,224,208,.34) 0deg 6deg,rgba(251,224,208,0) 6deg 20deg);-webkit-mask:radial-gradient(closest-side,#000 25%,rgba(0,0,0,0));mask:radial-gradient(closest-side,#000 25%,rgba(0,0,0,0));opacity:0;transform:scale(.4)}
+.q-open .q-rays{animation:qRays 1.6s cubic-bezier(.2,.8,.3,1) 1.75s forwards}
+@keyframes qRays{0%{opacity:0;transform:scale(.4) rotate(0)}40%{opacity:1}100%{opacity:.85;transform:scale(1.25) rotate(40deg)}}
+.q-spk{position:absolute;left:195px;top:150px;width:8px;height:8px;margin:-4px 0 0 -4px;border-radius:50%;background:#FBE0D0;box-shadow:0 0 8px #F2C3A9;opacity:0}
+.q-open .q-spk{animation:qSpk 1.1s cubic-bezier(.15,.8,.3,1) 1.9s forwards}
+@keyframes qSpk{0%{opacity:0;transform:translate(0,0) scale(.4)}20%{opacity:1}100%{opacity:0;transform:translate(var(--dx),var(--dy)) scale(1)}}
+/* g'ildiraklar */
+.q-panel{position:absolute;left:24px;top:462px;width:342px;height:132px;box-sizing:border-box;border-radius:26px;background:linear-gradient(180deg,rgba(35,45,78,.92),rgba(22,29,52,.92));box-shadow:0 0 0 1px rgba(228,164,135,.42) inset,0 18px 40px rgba(4,7,18,.45);display:flex;align-items:center;justify-content:center;gap:10px}
+.q-wh{position:relative;width:56px;height:96px;padding:0;border:0;border-radius:14px;overflow:hidden;cursor:pointer;background:linear-gradient(180deg,#0E1324,#1F2848 50%,#0E1324);box-shadow:0 0 0 1.5px rgba(228,164,135,.55) inset,0 6px 12px rgba(0,0,0,.35);-webkit-tap-highlight-color:transparent;transition:transform .18s ease,box-shadow .35s ease}
+.q-wh:active{transform:scale(.94)}
+.q-wh:focus-visible{outline:2px solid #FBE0D0;outline-offset:3px}
+.q-wh::before{content:'';position:absolute;left:0;right:0;top:0;bottom:0;z-index:2;pointer-events:none;background:linear-gradient(180deg,rgba(10,13,26,.92) 0%,rgba(10,13,26,0) 34%,rgba(10,13,26,0) 66%,rgba(10,13,26,.92) 100%)}
+.q-wh::after{content:'';position:absolute;left:4px;right:4px;top:26px;height:44px;z-index:3;pointer-events:none;border-top:1px solid rgba(228,164,135,.5);border-bottom:1px solid rgba(228,164,135,.5)}
+.q-wh--ok{box-shadow:0 0 0 2px #E8A98B inset,0 0 18px rgba(232,169,139,.55),0 6px 12px rgba(0,0,0,.35)}
+.q-strip{position:absolute;left:0;top:0;width:56px}
+.q-strip span{display:flex;align-items:center;justify-content:center;width:56px;height:46px;font-family:'Cormorant Garamond',Georgia,serif;font-size:34px;font-weight:700;line-height:1;color:#F6E9E2}
+.q-wh--ok .q-strip span{color:#F4C2A7}
+.q-open .q-wh{animation:qWhOk .6s cubic-bezier(.3,1.6,.5,1) both}
+@keyframes qWhOk{0%{transform:none}40%{transform:translateY(-6px) scale(1.06)}100%{transform:none}}
+.q-btn{transition:transform .16s ease,box-shadow .3s ease,background-color .3s ease;-webkit-tap-highlight-color:transparent;position:relative;overflow:hidden}
+.q-btn:active{transform:scale(.97)}
+.q-btn:focus-visible{outline:2px solid #FBE0D0;outline-offset:3px}
+.q-btn::after{content:'';position:absolute;left:50%;top:50%;width:20px;height:20px;margin:-10px 0 0 -10px;border-radius:50%;background:rgba(255,255,255,.35);opacity:0;transform:scale(1);transition:transform .5s ease,opacity .6s ease}
+.q-btn:active::after{opacity:1;transform:scale(14);transition:transform 0s,opacity 0s}
+.q-shake{animation:qShake .5s cubic-bezier(.36,.07,.19,.97)}
+@keyframes qShake{10%,90%{transform:translateX(-1px)}20%,80%{transform:translateX(3px)}30%,50%,70%{transform:translateX(-6px)}40%,60%{transform:translateX(6px)}}
+/* ---------------- SAHIFA */
+.q-hero .q-h{opacity:0;transform:translateY(18px);transition:opacity .9s ease,transform 1s cubic-bezier(.2,1.2,.4,1)}
+.q-hero--in .q-h{opacity:1;transform:none}
+.q-hero--in .q-h1{transition-delay:2.95s}.q-hero--in .q-h2{transition-delay:3.05s}.q-hero--in .q-h3{transition-delay:3.2s}.q-hero--in .q-h4{transition-delay:3.3s}.q-hero--in .q-h5{transition-delay:3.45s}.q-hero--in .q-h6{transition-delay:3.6s}
+.q-openlock{animation:qSwing 5s ease-in-out infinite;transform-origin:50% 0}
+.q-cue{animation:qCue 2.2s ease-in-out infinite}
+@keyframes qCue{0%,100%{transform:translateY(0);opacity:.6}50%{transform:translateY(7px);opacity:1}}
+.q-rv{opacity:0;transform:translateY(34px);transition:opacity .9s ease,transform 1.1s cubic-bezier(.2,1,.3,1)}
+.q-rv .q-st{opacity:0;transform:translateY(16px);transition:opacity .7s ease,transform .8s cubic-bezier(.2,1.2,.4,1)}
+.q-rv.is-in{opacity:1;transform:none}
+.q-rv.is-in .q-st{opacity:1;transform:none}
+.q-rv.is-in .q-st1{transition-delay:.15s}.q-rv.is-in .q-st2{transition-delay:.3s}.q-rv.is-in .q-st3{transition-delay:.45s}.q-rv.is-in .q-st4{transition-delay:.6s}
+.q-paper{position:relative;margin:0 18px;padding:40px 26px 34px;border-radius:8px;background:linear-gradient(180deg,#FBF2EC,#F2E2D8);color:#24304F;box-shadow:0 24px 50px rgba(3,6,16,.5)}
+.q-paper::before{content:'';position:absolute;left:9px;top:9px;right:9px;bottom:9px;border:1px solid rgba(185,113,79,.45);border-radius:4px;pointer-events:none}
+.q-drop{float:left;margin:6px 10px 0 0;font-family:'Cormorant Garamond',Georgia,serif;font-size:74px;font-weight:700;line-height:.78;color:#B9714F}
+.q-ribbon{position:absolute;right:30px;top:-8px;width:26px;height:66px;background:linear-gradient(180deg,#C47E62,#E4A487);clip-path:polygon(0 0,100% 0,100% 100%,50% 82%,0 100%)}
+.q-locket{position:absolute;filter:drop-shadow(0 16px 24px rgba(3,6,16,.55))}
+.q-locket img{display:block;width:100%;height:100%;object-fit:cover}
+.q-lk-float{animation:qFloat 7s ease-in-out infinite}
+.q-lk-float2{animation:qFloat 6s ease-in-out -2s infinite}
+.q-vow{position:relative;width:100%;min-height:66px;box-sizing:border-box;padding:12px 16px 12px 12px;border:0;border-radius:18px;background:rgba(31,40,72,.75);color:#F6E9E2;box-shadow:0 0 0 1px rgba(228,164,135,.32) inset;display:flex;align-items:center;gap:14px;text-align:left;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .45s cubic-bezier(.3,1.5,.5,1),background-color .4s ease,box-shadow .4s ease}
+.q-vow:active{transform:scale(.97)}
+.q-vow:focus-visible{outline:2px solid #FBE0D0;outline-offset:3px}
+.q-vow--on{background:rgba(232,169,139,.16);box-shadow:0 0 0 1.5px #E8A98B inset,0 0 22px rgba(232,169,139,.22)}
+.q-key{flex:none;width:44px;height:44px;border-radius:14px;background:rgba(10,13,26,.6);display:flex;align-items:center;justify-content:center;transition:background-color .4s ease}
+.q-key svg{transition:transform .7s cubic-bezier(.3,1.6,.5,1)}
+.q-vow--on .q-key{background:linear-gradient(135deg,#F6CDB6,#D58E70)}
+.q-vow--on .q-key svg{transform:rotate(90deg)}
+.q-vow--on .q-burst{animation:qBurst .7s ease-out}
+.q-burst{position:absolute;left:34px;top:50%;width:6px;height:6px;margin:-3px 0 0 -3px;border-radius:50%;opacity:0;box-shadow:0 -26px 0 #F2C3A9,22px -14px 0 #F2C3A9,26px 8px 0 #F2C3A9,10px 24px 0 #F2C3A9,-14px 22px 0 #F2C3A9,-26px 2px 0 #F2C3A9,-18px -20px 0 #F2C3A9}
+@keyframes qBurst{0%{opacity:1;transform:scale(.3)}100%{opacity:0;transform:scale(1.3)}}
+.q-ticket{position:relative;margin:0 18px;border-radius:24px;background:linear-gradient(135deg,#F7D2BE 0%,#E4A487 45%,#D08A6C 100%);color:#1A2240;box-shadow:0 22px 44px rgba(3,6,16,.45)}
+.q-ticket::before,.q-ticket::after{content:'';position:absolute;top:50%;width:30px;height:30px;margin-top:-15px;border-radius:50%;background:#151C31}
+.q-ticket::before{left:-15px}.q-ticket::after{right:-15px}
+.q-chip{display:flex;align-items:center;gap:10px;min-height:48px;box-sizing:border-box;padding:8px 14px;border-radius:14px;background:rgba(26,34,64,.12)}
+.q-pop{animation:qPopIn .6s cubic-bezier(.2,1.4,.4,1) both}
+@keyframes qPopIn{from{opacity:0;transform:scale(.92) translateY(10px)}to{opacity:1;transform:none}}
+.q-halfL,.q-halfR{transition:transform 1s cubic-bezier(.3,1.5,.5,1)}
+.q-halfL{transform:translate(-26px,8px) rotate(-14deg)}
+.q-halfR{transform:translate(26px,8px) rotate(14deg)}
+.q-joined .q-halfL,.q-joined .q-halfR{transform:none}
+.q-joined .q-crack{opacity:0;transition:opacity .4s ease .9s}
+.q-crack{opacity:.9}
+.q-joined .q-heartglow{animation:qHG 1.4s ease-out .8s both}
+@keyframes qHG{0%{opacity:0;transform:scale(.6)}40%{opacity:1}100%{opacity:0;transform:scale(1.7)}}
+.q-heartglow{opacity:0}
+.q-ta::placeholder{color:#7C84A3}
+.q-ta:focus{outline:2px solid #E8A98B;outline-offset:2px}
+.q-eq{display:flex;align-items:flex-end;gap:3px;height:16px}
+.q-eq span{width:3px;height:16px;border-radius:2px;background:#1A2240;transform-origin:50% 100%;animation:qEq 1s ease-in-out infinite}
+@keyframes qEq{0%,100%{transform:scaleY(.3)}50%{transform:scaleY(1)}}
+@media (prefers-reduced-motion: reduce){
+*,*::before,*::after{animation:none !important;transition:none !important}
+.q-rv,.q-rv .q-st,.q-hero .q-h{opacity:1 !important;transform:none !important}
+.q-open .q-swB{opacity:1}
+}
+</style>
+</helmet>
+<div ref="{{ rootRef }}" style="width: 390px; min-height: var(--vh, 100vh); position: relative; overflow: hidden; color: #F6E9E2; font-family: 'Sofia Sans', 'Helvetica Neue', Arial, sans-serif; display: flex; flex-direction: column; background-color: #151C31; background-image: radial-gradient(120% 50% at 50% 0%, #22294A 0%, rgba(21, 28, 49, 0) 70%)">
+
+  <svg width="0" height="0" aria-hidden="true" style="position: absolute; left: 0; top: 0">
+    <defs>
+      <linearGradient id="qRG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" class="qs1"></stop><stop offset="0.38" class="qs2"></stop><stop offset="0.72" class="qs3"></stop><stop offset="1" class="qs4"></stop></linearGradient>
+      <linearGradient id="qRG2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" class="qs4"></stop><stop offset="1" class="qs3"></stop></linearGradient>
+    </defs>
+  </svg>
+
+  <sc-if value="{{ has.music }}">
+  <button type="button" class="q-btn" onClick="{{ toggleMusic }}" aria-label="Musiqa" aria-pressed="{{ musicOn }}" style="position: absolute; right: 16px; top: 16px; z-index: 30; width: 44px; height: 44px; padding: 0; border: 0; border-radius: 22px; background: linear-gradient(135deg, #F6CDB6, #D58E70); display: flex; align-items: center; justify-content: center; cursor: pointer">
+    <sc-if value="{{ musicOff }}">
+      <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 17.5V6l10-2v11.5" stroke="#1A2240" class="q-ic2"></path><circle cx="6.8" cy="17.5" r="2.2" stroke="#1A2240" class="q-ic2"></circle><circle cx="16.8" cy="15.5" r="2.2" stroke="#1A2240" class="q-ic2"></circle></svg>
+    </sc-if>
+    <sc-if value="{{ musicOn }}">
+      <span class="q-eq" aria-hidden="true"><span></span><span style="animation-delay: -0.3s"></span><span style="animation-delay: -0.6s"></span><span style="animation-delay: -0.15s"></span></span>
+    </sc-if>
+  </button>
+  </sc-if>
+
+  <!-- KIRISH: qulflangan xat va yurak qulfi -->
+  <div class="{{ introCls }}" data-intro style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; z-index: 20; overflow: hidden; background-color: #131A2E; background-image: radial-gradient(70% 42% at 50% 36%, #2A3259 0%, rgba(19, 26, 46, 0) 100%)">
+    <div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px">
+      <sc-for list="{{ dust }}" as="p"><span class="q-dust" style="left: {{ p.x }}; top: {{ p.y }}; width: {{ p.s }}; height: {{ p.s }}; animation-delay: {{ p.dl }}; animation-duration: {{ p.du }}"></span></sc-for>
+    </div>
+
+    <div class="q-head" style="position: absolute; left: 24px; right: 24px; top: 46px; text-align: center">
+      <p class="q-kick">{{ fromLine }}</p>
+      <div style="position: relative; height: 60px; margin-top: 12px">
+        <p class="q-cg q-foil q-swA" style="position: absolute; left: 0; right: 0; top: 0; margin: 0; font-size: 46px; font-weight: 600; font-style: italic; line-height: 1.15">Qulflangan xat</p>
+        <p class="q-cg q-foil q-swB" style="position: absolute; left: 0; right: 0; top: 0; margin: 0; font-size: 46px; font-weight: 600; font-style: italic; line-height: 1.15">Qulf ochildi</p>
+      </div>
+    </div>
+
+    <div class="q-scene" aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 390px; height: 460px">
+      <span class="q-glow" style="left: 35px; top: 140px; width: 320px; height: 320px"></span>
+      <span class="q-rays"></span>
+      <!-- konvert -->
+      <div class="q-env">
+        <svg width="310" height="212" viewBox="0 0 310 212" style="position: absolute; left: 0; top: 0"><rect x="0" y="0" width="310" height="212" rx="10" class="qf3"></rect></svg>
+        <div class="q-letter">
+          <p class="q-cg" style="margin: 0; font-size: {{ letterName }}; font-weight: 600; font-style: italic; line-height: 1.1; color: #B9714F; overflow-wrap: anywhere">{{ nameComma }}</p>
+          <p class="q-cg" style="margin: 4px 0 0; font-size: 34px; font-weight: 700; line-height: 1.05; color: #24304F">kechir meni</p>
+          <svg width="60" height="14" viewBox="0 0 60 14" style="margin-top: 10px"><path d="M2 7 H22 M38 7 H58 M30 2 C26 -1 22 3 26 7 L30 11 L34 7 C38 3 34 -1 30 2 Z" stroke="#B9714F" class="q-ic"></path></svg>
+        </div>
+        <svg class="q-front" viewBox="0 0 310 212"><path d="M0 10 Q0 0 10 4 L155 150 L300 4 Q310 0 310 10 L310 202 Q310 212 300 212 L10 212 Q0 212 0 202 Z" class="qf1"></path><path d="M0 212 L130 132 M310 212 L180 132" class="qf4"></path></svg>
+        <svg class="q-flap" viewBox="0 0 310 132"><path d="M10 0 L300 0 Q310 0 310 8 L155 128 L0 8 Q0 0 10 0 Z" class="qf2"></path><path d="M6 6 L155 120 L304 6" class="qf4"></path></svg>
+      </div>
+      <span class="q-ring"></span><span class="q-ring q-ring2"></span>
+      <!-- zanjirlar -->
+      <div class="q-chain q-chainA"><i><svg width="560" height="24" viewBox="0 0 560 24"><path d="M4 12 H556" class="ql1"></path><path d="M4 12 H556" class="ql2"></path><path d="M4 9 H556" class="ql3"></path></svg></i></div>
+      <div class="q-chain q-chainB"><i><svg width="560" height="24" viewBox="0 0 560 24"><path d="M4 12 H556" class="ql1"></path><path d="M4 12 H556" class="ql2"></path><path d="M4 9 H556" class="ql3"></path></svg></i></div>
+      <!-- yurak qulf -->
+      <div class="q-lockwrap">
+        <div class="q-lockswing">
+          <svg class="q-shk" viewBox="0 0 114 104"><path d="M20 100 V52 A37 37 0 0 1 94 52 V100" stroke="url(#qRG2)" style="fill: none; stroke-width: 15px"></path><path d="M16 100 V52 A41 41 0 0 1 57 11" stroke="#FBE0D0" style="fill: none; stroke-width: 2px; opacity: 0.6"></path></svg>
+          <svg class="q-body" viewBox="0 0 180 158">
+            <path d="M90 152 C40 118 6 92 6 52 C6 24 28 6 52 6 C70 6 84 16 90 30 C96 16 110 6 128 6 C152 6 174 24 174 52 C174 92 140 118 90 152 Z" fill="url(#qRG)"></path>
+            <path d="M90 140 C46 110 18 88 18 54 C18 32 34 18 52 18 C68 18 80 28 90 44 C100 28 112 18 128 18 C146 18 162 32 162 54 C162 88 134 110 90 140 Z" stroke="#FBE0D0" style="fill: none; stroke-width: 1.2px; opacity: 0.7"></path>
+            <ellipse cx="50" cy="40" rx="22" ry="11" fill="#FFFFFF" transform="rotate(-28 50 40)" opacity="0.32"></ellipse>
+            <circle cx="90" cy="70" r="12" fill="#151C31"></circle>
+            <path d="M84 76 L79 104 H101 L96 76 Z" fill="#151C31"></path>
+          </svg>
+        </div>
+      </div>
+      <sc-for list="{{ sparks }}" as="k"><span class="q-spk" style="--dx: {{ k.dx }}; --dy: {{ k.dy }}"></span></sc-for>
+    </div>
+
+    <!-- kod paneli -->
+    <div class="{{ panelCls }}" role="group" aria-label="Kod g’ildiraklari">
+      <sc-for list="{{ wheels }}" as="w">
+        <button type="button" class="{{ w.cls }}" onClick="{{ w.tap }}" aria-label="{{ w.label }}" style="animation-delay: {{ w.dl }}">
+          <span class="q-strip" style="transform: translateY({{ w.y }}); transition: {{ w.tr }}">
+            <sc-for list="{{ w.cells }}" as="c"><span>{{ c }}</span></sc-for>
+          </span>
+        </button>
+      </sc-for>
+    </div>
+
+    <div style="position: absolute; left: 24px; right: 24px; top: 610px; text-align: center">
+      <p class="q-ss" style="margin: 0; font-size: 13px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #A9B0C8">{{ instr }}</p>
+      <p class="q-cg" style="margin: 18px 0 0; font-size: 24px; font-weight: 600; font-style: italic; line-height: 1.25; color: #F6E9E2">{{ hintMain }}</p>
+      <p class="q-ss" style="margin: 6px 0 0; font-size: 14px; line-height: 1.45; color: #E9B096">{{ hintSub }}</p>
+    </div>
+
+    <div style="position: absolute; left: 0; right: 0; top: 752px; display: flex; justify-content: center">
+      <button type="button" class="q-btn q-ss" onClick="{{ ask }}" disabled="{{ askOff }}" style="height: 50px; padding: 0 24px; border: 0; border-radius: 25px; background: rgba(232, 169, 139, 0.12); box-shadow: 0 0 0 1px rgba(232, 169, 139, 0.6) inset; color: #F4C2A7; font-size: 15px; font-weight: 700; letter-spacing: 0.04em; cursor: pointer; display: flex; align-items: center; gap: 10px">
+        <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><circle cx="7.5" cy="12" r="4" stroke="#F4C2A7" class="q-ic2"></circle><path d="M11.5 12 H21 M17.5 12 V15.5 M20.5 12 V14.5" stroke="#F4C2A7" class="q-ic2"></path></svg>
+        <span>Kalitni so’rash</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- BOSH QISM -->
+  <section class="{{ heroCls }}" style="position: relative; min-height: 844px; box-sizing: border-box; padding: 74px 24px 60px; text-align: center; display: flex; flex-direction: column; align-items: center">
+    <div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; pointer-events: none">
+      <sc-for list="{{ dust2 }}" as="p"><span class="q-dust" style="left: {{ p.x }}; top: {{ p.y }}; width: {{ p.s }}; height: {{ p.s }}; animation-delay: {{ p.dl }}; animation-duration: {{ p.du }}"></span></sc-for>
+      <span class="q-glow" style="left: 55px; top: 70px; width: 280px; height: 280px"></span>
+    </div>
+    <p class="q-kick q-h q-h1" style="position: relative">Qulf ochildi</p>
+    <div class="q-h q-h2" style="position: relative; margin-top: 22px; width: 132px; height: 150px">
+      <svg class="q-openlock" width="132" height="150" viewBox="0 0 180 210" aria-hidden="true">
+        <g transform="translate(0 -20) rotate(-32 53 100)"><path d="M53 100 V58 A37 37 0 0 1 127 58 V100" stroke="url(#qRG2)" style="fill: none; stroke-width: 15px"></path></g>
+        <g transform="translate(0 52)">
+          <path d="M90 152 C40 118 6 92 6 52 C6 24 28 6 52 6 C70 6 84 16 90 30 C96 16 110 6 128 6 C152 6 174 24 174 52 C174 92 140 118 90 152 Z" fill="url(#qRG)"></path>
+          <ellipse cx="50" cy="40" rx="22" ry="11" fill="#FFFFFF" transform="rotate(-28 50 40)" opacity="0.32"></ellipse>
+          <circle cx="90" cy="70" r="12" fill="#151C31"></circle>
+          <path d="M84 76 L79 104 H101 L96 76 Z" fill="#151C31"></path>
+        </g>
+      </svg>
+    </div>
+    <p class="q-ss q-h q-h3" style="position: relative; margin: 26px 0 0; font-size: 13px; font-weight: 700; letter-spacing: 0.24em; text-transform: uppercase; color: #A9B0C8; overflow-wrap: anywhere">{{ fromTo }}</p>
+    <h1 class="q-cg q-h q-h4" style="position: relative; margin: 14px 0 0; font-weight: 600; line-height: 1">
+      <span class="q-foil" style="display: block; font-size: {{ heroName }}; font-style: italic; line-height: 1.08; overflow-wrap: anywhere; padding: 0 4px">{{ nameComma }}</span>
+      <span style="display: block; margin-top: 6px; font-size: 58px; font-weight: 700; color: #F6E9E2; letter-spacing: -0.01em">kechir meni</span>
+    </h1>
+    <p class="q-ss q-h q-h5" style="position: relative; margin: 22px 0 0; max-width: 310px; font-size: 17px; line-height: 1.6; color: #C9CDDC">Yuragimni qulflab yurgan gaplarim bor edi. Kalitni senga berdim — endi hammasini o’qib chiq.</p>
+    <div class="q-h q-h6" aria-hidden="true" style="position: relative; margin-top: auto; padding-top: 34px; display: flex; flex-direction: column; align-items: center; gap: 8px">
+      <svg class="q-cue" width="22" height="34" viewBox="0 0 22 34"><rect x="1.5" y="1.5" width="19" height="31" rx="9.5" stroke="#E8A98B" class="q-ic"></rect><path d="M11 9 V15" stroke="#E8A98B" class="q-ic2"></path></svg>
+    </div>
+  </section>
+
+  <div style="display: flex; flex-direction: column; gap: 76px; padding-bottom: 20px">
+
+  <sc-if value="{{ b.maktub }}">
+  <section class="{{ rv.maktub }}" data-rv="maktub">
+    <p class="q-kick q-st" style="margin-bottom: 22px">Ochiq xat</p>
+    <div class="q-paper q-st q-st1">
+      <span class="q-ribbon" aria-hidden="true"></span>
+      <svg width="40" height="40" viewBox="0 0 40 40" aria-hidden="true" style="display: block; margin: -8px auto 16px"><circle cx="20" cy="20" r="18" stroke="#B9714F" class="q-ic"></circle><circle cx="20" cy="16" r="4.5" fill="#B9714F"></circle><path d="M17.5 19 L16 28 H24 L22.5 19 Z" fill="#B9714F"></path></svg>
+      <p class="q-cg" style="margin: 0 0 18px; font-size: 26px; font-weight: 600; font-style: italic; line-height: 1.2; color: #B9714F; overflow-wrap: anywhere">Azizim {{ d.kimga }},</p>
+      <p style="margin: 0; font-size: 17px; line-height: 1.68; white-space: pre-line; overflow-wrap: anywhere"><span class="q-drop" aria-hidden="true">{{ dropCap }}</span>{{ dropRest }}</p>
+      <div style="clear: both; display: flex; align-items: center; justify-content: flex-end; gap: 12px; margin-top: 26px">
+        <span aria-hidden="true" style="width: 48px; height: 1px; background: #B9714F"></span>
+        <p class="q-cg" style="margin: 0; font-size: {{ sigSize }}; font-weight: 600; font-style: italic; line-height: 1.2; color: #24304F; overflow-wrap: anywhere">{{ d.kimdan }}</p>
+      </div>
+    </div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.galereya }}">
+  <section class="{{ rv.galereya }}" data-rv="galereya" style="text-align: center">
+    <p class="q-kick q-st">Medalyon ichida</p>
+    <h2 class="q-cg q-st q-st1" style="margin: 12px 24px 0; font-size: 36px; font-weight: 600; font-style: italic; line-height: 1.15; color: #F6E9E2">Biz saqlagan lahzalar</h2>
+    <div class="q-st q-st2" style="position: relative; width: 390px; height: {{ galH }}; margin-top: 26px">
+      <div class="q-locket q-lk-float" style="left: 65px; top: 6px; width: 260px; height: 232px">
+        <div style="position: absolute; left: 0; top: 0; width: 260px; height: 232px; clip-path: path('M130 226 C58 178 6 138 6 80 C6 38 36 8 74 8 C100 8 120 22 130 42 C140 22 160 8 186 8 C224 8 254 38 254 80 C254 138 202 178 130 226 Z')"><img src="{{ p.0 }}" alt="" loading="lazy"></div>
+        <svg width="260" height="232" viewBox="0 0 260 232" aria-hidden="true" style="position: absolute; left: 0; top: 0"><path d="M130 226 C58 178 6 138 6 80 C6 38 36 8 74 8 C100 8 120 22 130 42 C140 22 160 8 186 8 C224 8 254 38 254 80 C254 138 202 178 130 226 Z" stroke="url(#qRG)" style="fill: none; stroke-width: 7px"></path></svg>
+      </div>
+      <sc-if value="{{ g2 }}">
+      <div class="q-locket q-lk-float2" style="left: 16px; top: 214px; width: 132px; height: 132px; border-radius: 66px; overflow: hidden; box-shadow: 0 0 0 5px #E4A487, 0 0 0 7px #151C31, 0 0 0 8px rgba(228, 164, 135, 0.6)"><img src="{{ p.1 }}" alt="" loading="lazy"></div>
+      </sc-if>
+      <sc-if value="{{ g3 }}">
+      <div class="q-locket q-lk-float" style="left: 236px; top: 240px; width: 118px; height: 118px; border-radius: 59px; overflow: hidden; box-shadow: 0 0 0 5px #E4A487, 0 0 0 7px #151C31, 0 0 0 8px rgba(228, 164, 135, 0.6)"><img src="{{ p.2 }}" alt="" loading="lazy"></div>
+      </sc-if>
+      <sc-if value="{{ g2 }}">
+      <p class="q-cg" style="position: absolute; left: 150px; top: 300px; width: 90px; margin: 0; font-size: 18px; font-style: italic; line-height: 1.2; color: #E9B096">va yana ko’p</p>
+      </sc-if>
+    </div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.vadalar }}">
+  <section class="{{ rv.vadalar }}" data-rv="vadalar" style="padding: 0 18px">
+    <p class="q-kick q-st">Kalitlar</p>
+    <h2 class="q-cg q-st q-st1" style="margin: 12px 0 0; text-align: center; font-size: 36px; font-weight: 600; font-style: italic; line-height: 1.15">Senga beradigan kalitlarim</h2>
+    <p class="q-st q-st2" style="margin: 10px 8px 0; text-align: center; font-size: 15.5px; line-height: 1.5; color: #A9B0C8">Har bir va’da — bitta kalit. Bosib, qabul qil.</p>
+    <div class="q-st q-st3" style="display: flex; flex-direction: column; gap: 10px; margin-top: 22px">
+      <sc-for list="{{ promises }}" as="v">
+        <button type="button" class="{{ v.cls }}" onClick="{{ v.tap }}" aria-pressed="{{ v.on }}">
+          <span class="q-burst" aria-hidden="true"></span>
+          <span class="q-key" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24"><circle cx="7" cy="12" r="4" stroke="{{ v.kc }}" class="q-ic2"></circle><path d="M11 12 H21 M17 12 V15.5 M20 12 V14.5" stroke="{{ v.kc }}" class="q-ic2"></path></svg></span>
+          <span style="flex: 1; font-size: 16.5px; font-weight: 500; line-height: 1.4; overflow-wrap: anywhere">{{ v.text }}</span>
+        </button>
+      </sc-for>
+    </div>
+    <div class="q-st q-st4" style="margin-top: 16px; min-height: 52px">
+      <sc-if value="{{ notAccepted }}">
+        <div style="display: flex; align-items: center; gap: 14px">
+          <p class="q-ss" style="margin: 0; font-size: 14px; font-weight: 700; letter-spacing: 0.14em; color: #E9B096">{{ vowCount }}</p>
+          <button type="button" class="q-btn q-ss" onClick="{{ accept }}" style="flex: 1; height: 52px; border: 0; border-radius: 26px; background: rgba(232, 169, 139, 0.12); box-shadow: 0 0 0 1px rgba(232, 169, 139, 0.6) inset; color: #F4C2A7; font-size: 15px; font-weight: 700; cursor: pointer">Hammasini qabul qilaman</button>
+        </div>
+      </sc-if>
+      <sc-if value="{{ accepted }}">
+        <p class="q-pop q-cg" role="status" style="margin: 0; text-align: center; font-size: 22px; font-style: italic; font-weight: 600; color: #F4C2A7">Hamma kalitlar endi sende.</p>
+      </sc-if>
+    </div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.taklif }}">
+  <section class="{{ rv.taklif }}" data-rv="taklif">
+    <p class="q-kick q-st" style="margin-bottom: 22px">Yarashuv uchrashuvi</p>
+    <div class="q-ticket q-st q-st1">
+      <div style="padding: 28px 26px 24px; text-align: center">
+        <svg width="34" height="34" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9 H17 V14 A6 6 0 0 1 5 14 Z M17 10 H19 A2 2 0 0 1 19 14 H17 M8 5 C8 4 9 4 9 3 M12 5 C12 4 13 4 13 3" stroke="#1A2240" class="q-ic2"></path></svg>
+        <p class="q-cg" style="margin: 10px 0 0; font-size: {{ offerSize }}; font-weight: 700; line-height: 1.2; overflow-wrap: anywhere">{{ d.taklif }}</p>
+      </div>
+      <sc-if value="{{ hasChips }}">
+      <div aria-hidden="true" style="margin: 0 22px; border-top: 2px dashed rgba(26, 34, 64, 0.35)"></div>
+      <div style="padding: 18px 22px 0; display: grid; grid-template-columns: {{ chipCols }}; gap: 10px">
+        <sc-if value="{{ d.taklif_vaqt }}">
+        <div class="q-chip"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" style="flex: none"><circle cx="12" cy="12" r="8.5" stroke="#1A2240" class="q-ic2"></circle><path d="M12 7.5 V12 L15 14" stroke="#1A2240" class="q-ic2"></path></svg><span style="font-size: 15px; font-weight: 700; line-height: 1.3; overflow-wrap: anywhere">{{ d.taklif_vaqt }}</span></div>
+        </sc-if>
+        <sc-if value="{{ d.taklif_joy }}">
+        <div class="q-chip"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" style="flex: none"><path d="M12 21 C7 15.5 5 12.5 5 9.5 A7 7 0 0 1 19 9.5 C19 12.5 17 15.5 12 21 Z" stroke="#1A2240" class="q-ic2"></path><circle cx="12" cy="9.5" r="2.4" stroke="#1A2240" class="q-ic2"></circle></svg><span style="font-size: 15px; font-weight: 700; line-height: 1.3; overflow-wrap: anywhere">{{ d.taklif_joy }}</span></div>
+        </sc-if>
+      </div>
+      </sc-if>
+      <div style="padding: 18px 22px 24px">
+        <sc-if value="{{ notAgreed }}">
+          <button type="button" class="q-btn q-ss" onClick="{{ agree }}" style="width: 100%; height: 56px; border: 0; border-radius: 28px; background: #1A2240; color: #F6E9E2; font-size: 16px; font-weight: 700; letter-spacing: 0.03em; cursor: pointer">Roziman, boraman</button>
+        </sc-if>
+        <sc-if value="{{ agreed }}">
+          <p class="q-pop" role="status" style="margin: 0; min-height: 56px; display: flex; align-items: center; justify-content: center; text-align: center; font-size: 16px; font-weight: 700; line-height: 1.4; overflow-wrap: anywhere">{{ agreedText }}</p>
+        </sc-if>
+      </div>
+    </div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ showAnswer }}">
+  <section class="{{ rv.javob }}" data-rv="javob" style="padding: 0 18px; text-align: center">
+    <p class="q-kick q-st">Sening javobing</p>
+    <div class="{{ heartCls }}" aria-hidden="true" style="position: relative; width: 180px; height: 150px; margin: 22px auto 0">
+      <span class="q-heartglow" style="position: absolute; left: 10px; top: 0; width: 160px; height: 150px; border-radius: 50%; background: radial-gradient(closest-side, rgba(242, 195, 169, 0.7), rgba(242, 195, 169, 0))"></span>
+      <svg class="q-halfL" width="180" height="150" viewBox="0 0 180 158" style="position: absolute; left: 0; top: 0; transform-origin: 90px 150px"><path d="M90 152 C40 118 6 92 6 52 C6 24 28 6 52 6 C70 6 84 16 90 30 L82 52 L96 74 L84 100 L94 124 Z" fill="url(#qRG)"></path></svg>
+      <svg class="q-halfR" width="180" height="150" viewBox="0 0 180 158" style="position: absolute; left: 0; top: 0; transform-origin: 90px 150px"><path d="M90 30 C96 16 110 6 128 6 C152 6 174 24 174 52 C174 92 140 118 90 152 L94 124 L84 100 L96 74 L82 52 Z" fill="url(#qRG2)"></path></svg>
+      <svg class="q-crack" width="180" height="150" viewBox="0 0 180 158" style="position: absolute; left: 0; top: 0"><path d="M90 30 L82 52 L96 74 L84 100 L94 124 L90 152" stroke="#151C31" class="q-ic"></path></svg>
+    </div>
+    <h2 class="q-cg q-st q-st1" style="margin: 18px 0 0; font-size: 36px; font-weight: 600; font-style: italic; line-height: 1.15">{{ askTitle }}</h2>
+    <p class="q-st q-st2" style="margin: 10px 8px 0; font-size: 15.5px; line-height: 1.5; color: #A9B0C8">{{ askSub }}</p>
+    <div class="q-st q-st3" style="margin-top: 22px; display: flex; flex-direction: column; gap: 16px">
+      <sc-if value="{{ b.javob }}">
+      <sc-if value="{{ waiting }}">
+        <button type="button" class="q-btn q-cg" onClick="{{ forgive }}" style="width: 100%; height: 64px; border: 0; border-radius: 32px; background: linear-gradient(135deg, #F7D2BE, #E4A487 50%, #D08A6C); color: #1A2240; font-size: 28px; font-weight: 700; font-style: italic; cursor: pointer; box-shadow: 0 14px 30px rgba(208, 138, 108, 0.3)">Kechirdim</button>
+      </sc-if>
+      <sc-if value="{{ forgiven }}">
+        <div class="q-pop" role="status" style="padding: 18px 18px; border-radius: 20px; background: rgba(232, 169, 139, 0.14); box-shadow: 0 0 0 1px rgba(232, 169, 139, 0.5) inset">
+          <p class="q-cg" style="margin: 0; font-size: 24px; font-weight: 600; font-style: italic; line-height: 1.3; color: #F4C2A7; overflow-wrap: anywhere">{{ thanks }}</p>
+          <p class="q-ss" style="margin: 8px 0 0; font-size: 13.5px; color: #A9B0C8; overflow-wrap: anywhere">Javobing {{ toFrom }} yetib bordi</p>
+        </div>
+      </sc-if>
+      </sc-if>
+      <sc-if value="{{ both }}">
+      <div aria-hidden="true" style="display: flex; align-items: center; gap: 12px">
+        <span style="flex: 1; height: 1px; background: rgba(228, 164, 135, 0.35)"></span>
+        <span style="font-size: 13.5px; color: #A9B0C8">yoki o’z so’zlaring bilan</span>
+        <span style="flex: 1; height: 1px; background: rgba(228, 164, 135, 0.35)"></span>
+      </div>
+      </sc-if>
+      <sc-if value="{{ b.sorov }}">
+      <sc-if value="{{ notSent }}">
+        <div style="display: flex; flex-direction: column; gap: 10px; text-align: left">
+          <label for="qReply" class="q-ss" style="font-size: 12px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: #E9B096">Javob yozish</label>
+          <textarea id="qReply" class="q-ta q-ss" rows="3" placeholder="Bir-ikki so’z ham kifoya" style="width: 100%; height: 96px; box-sizing: border-box; resize: none; padding: 14px 16px; border: 0; border-radius: 18px; background: rgba(31, 40, 72, 0.85); box-shadow: 0 0 0 1px rgba(228, 164, 135, 0.4) inset; color: #F6E9E2; font-size: 16px; line-height: 1.45"></textarea>
+          <sc-if value="{{ sendErr }}"><p role="alert" style="margin: 0; font-size: 14px; font-weight: 600; color: #FFB4A0">{{ sendErr }}</p></sc-if>
+          <button type="button" class="q-btn q-ss" onClick="{{ send }}" disabled="{{ sending }}" style="width: 100%; height: 54px; border: 0; border-radius: 27px; background: rgba(232, 169, 139, 0.12); box-shadow: 0 0 0 1px rgba(232, 169, 139, 0.6) inset; color: #F4C2A7; font-size: 15px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px">
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12l16-8-6 16-2.5-6.5L4 12z M11.5 13.5L20 4" stroke="#F4C2A7" class="q-ic2"></path></svg>
+            <span>{{ sendLabel }}</span>
+          </button>
+        </div>
+      </sc-if>
+      <sc-if value="{{ sent }}">
+        <p class="q-pop" role="status" style="margin: 0; padding: 16px; border-radius: 18px; background: rgba(31, 40, 72, 0.85); font-size: 15.5px; line-height: 1.45; overflow-wrap: anywhere">Xating {{ toFrom }} yetib bordi.</p>
+      </sc-if>
+      </sc-if>
+    </div>
+  </section>
+  </sc-if>
+
+  </div>
+
+  <footer class="{{ rv.footer }}" data-rv="footer" style="flex: 1 0 auto; position: relative; min-height: 320px; box-sizing: border-box; padding: 70px 24px 64px; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; text-align: center">
+    <svg class="q-st" width="64" height="30" viewBox="0 0 64 30" aria-hidden="true"><circle cx="12" cy="15" r="9" stroke="#E8A98B" class="q-ic2"></circle><path d="M21 15 H60 M50 15 V22 M57 15 V20" stroke="#E8A98B" class="q-ic2"></path></svg>
+    <p class="q-cg q-foil q-st q-st1" style="margin: 16px 0 0; font-size: 40px; font-weight: 600; font-style: italic; line-height: 1.15">Kalit endi sende.</p>
+    <p class="q-st q-st2" style="margin: 12px 0 0; max-width: 300px; font-size: 16px; line-height: 1.55; color: #A9B0C8">Yuragim hech qachon sendan qulflanmaydi.</p>
+    <p class="q-cg q-st q-st3" style="margin: 16px 0 0; font-size: {{ footSig }}; font-weight: 600; font-style: italic; line-height: 1.2; color: #F4C2A7; overflow-wrap: anywhere">{{ d.kimdan }}</p>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":4200}}'>
+class Component extends DCLogic {
+  constructor(...args) {
+    super(...args);
+    this.timers = [];
+    this.rootRef = (el) => { this.root = el; };
+    // kod: oluvchining ismi (dastlabki 5 harfigacha)
+    const raw = String((SITE.d && SITE.d.kimga) || '').trim();
+    let toks = (raw.match(/\p{L}[’'ʻ‘`]?/gu) || []).map((t) => t.toUpperCase().replace(/['ʻ‘`]/, '’'));
+    this.full = toks.length;
+    if (!toks.length) toks = ['U', 'Z', 'R'];
+    toks = toks.slice(0, 5);
+    const cyr = /[А-Яа-яЁёЎўҚқҒғҲҳ]/.test(raw);
+    const AB = cyr ? 'АБВГДЕЖЗИЙКЛМНОПРСТУФХЧШЭЮЯЎҚҒҲ'.split('') : ['A', 'B', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'X', 'Y', 'Z', 'O’', 'G’'];
+    this.W = toks.map((t, i) => {
+      const opts = [];
+      let k = (t.charCodeAt(0) * 7 + i * 11) % AB.length;
+      while (opts.length < 4) { const c = AB[k % AB.length]; if (c !== t && opts.indexOf(c) < 0) opts.push(c); k += 5 + i; }
+      const at = (i * 2 + 3) % 5;
+      opts.splice(at, 0, t);
+      const start = (at + 2 + (i % 2)) % 5;
+      return { t, opts, at, start };
+    });
+    this.N = 5; this.R = 14;
+    this.state = { pos: this.W.map((w) => 2 * this.N + w.start), jump: -1, spin: false, solved: false, asked: false, shake: false,
+      vows: {}, accepted: false, agreed: false, forgiven: false, sent: false, seen: {} };
+  }
+  componentDidMount() {
+    let reduce = false;
+    try { reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) { reduce = false; }
+    this.reduce = reduce;
+    if (reduce || navigator.webdriver || typeof IntersectionObserver === 'undefined' || !this.root) { this.setState({ all: true }); return; }
+    this.io = new IntersectionObserver((list) => {
+      const add = {};
+      list.forEach((en) => { if (en.isIntersecting) { add[en.target.getAttribute('data-rv')] = true; this.io.unobserve(en.target); } });
+      if (Object.keys(add).length && !this.gone) this.setState({ seen: Object.assign({}, this.state.seen, add) });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.06 });
+    this.root.querySelectorAll('[data-rv]').forEach((el) => this.io.observe(el));
+  }
+  componentWillUnmount() { this.gone = true; this.timers.forEach((t) => clearTimeout(t)); if (this.io) this.io.disconnect(); }
+  later(fn, ms) { this.timers.push(setTimeout(() => { if (!this.gone) fn(); }, ms)); }
+  ok(pos) { return this.W.every((w, i) => pos[i] % this.N === w.at); }
+  solve() {
+    if (this.state.solved) return;
+    this.setState({ solved: true, spin: false });
+    this.later(() => SITE.opened(), this.reduce ? 0 : 2800);
+  }
+  turn(i) {
+    const s = this.state;
+    if (s.solved || s.spin) return;
+    const pos = s.pos.slice();
+    let jump = -1;
+    pos[i] += 1;
+    if (pos[i] >= (this.R - 3) * this.N) { pos[i] -= 8 * this.N; jump = i; }
+    this.setState({ pos, jump });
+    if (this.ok(pos)) { this.waitSolve = true; this.later(() => this.solve(), 520); }
+  }
+  ask() {
+    const s = this.state;
+    if (s.solved || s.spin) return;
+    const pos = s.pos.map((p, i) => {
+      const k = (this.W[i].at - (p % this.N) + this.N) % this.N;
+      return k === 0 ? p : p + k + this.N;
+    });
+    this.setState({ pos, spin: true, asked: true, jump: -1 });
+    this.later(() => this.solve(), 700 + 70 * (this.W.length - 1) + 120);
+  }
+  renderVals() {
+    const s = this.state || {};
+    const d = SITE.d, b = SITE.b;
+    const N = this.N, R = this.R;
+    const nameLen = String(d.kimga || '').length;
+    const fromLen = String(d.kimdan || '').length;
+    const all = !!s.all;
+    const rv = {};
+    ['maktub', 'galereya', 'vadalar', 'taklif', 'javob', 'footer'].forEach((k) => { rv[k] = 'q-rv' + (all || (s.seen && s.seen[k]) ? ' is-in' : ''); });
+    // yulduz changi (barqaror tasodif)
+    const rnd = (n) => { const x = Math.sin(n * 91.7 + 13.1) * 43758.5453; return x - Math.floor(x); };
+    const mk = (cnt, h, seed) => {
+      const out = [];
+      for (let i = 0; i < cnt; i++) {
+        const sz = 1.5 + rnd(seed + i * 3) * 2.5;
+        out.push({ x: (rnd(seed + i) * 380).toFixed(0) + 'px', y: (rnd(seed + i * 7 + 2) * h).toFixed(0) + 'px', s: sz.toFixed(1) + 'px',
+          dl: (-rnd(seed + i * 5) * 4).toFixed(2) + 's', du: (3 + rnd(seed + i * 11) * 3).toFixed(2) + 's' });
+      }
+      return out;
+    };
+    const sparks = [];
+    for (let i = 0; i < 14; i++) {
+      const a = (i / 14) * Math.PI * 2, r = 90 + (i % 3) * 34;
+      sparks.push({ dx: Math.round(Math.cos(a) * r) + 'px', dy: Math.round(Math.sin(a) * r) + 'px' });
+    }
+    const pos = s.pos || [];
+    const wheels = this.W.map((w, i) => {
+      const cells = [];
+      for (let r = 0; r < R; r++) for (let k = 0; k < N; k++) cells.push(w.opts[k]);
+      const okW = pos[i] % N === w.at;
+      const tr = s.spin ? 'transform 0.7s cubic-bezier(0.2, 0.85, 0.25, 1.04) ' + (i * 0.07).toFixed(2) + 's' : s.jump === i ? 'none' : 'transform 0.42s cubic-bezier(0.3, 1.5, 0.55, 1)';
+      return { cells, y: (25 - pos[i] * 46) + 'px', tr, dl: (i * 0.07).toFixed(2) + 's',
+        cls: 'q-wh' + (okW ? ' q-wh--ok' : ''),
+        label: (i + 1) + '-harf: ' + w.opts[pos[i] % N] + '. Keyingi harfga aylantirish',
+        tap: () => this.turn(i) };
+    });
+    const n = this.W.length;
+    const okCount = this.W.filter((w, i) => pos[i] % N === w.at).length;
+    const hintSub = this.full > 5 ? 'Ismingning dastlabki 5 harfi' : this.full ? n + ' ta harf' : '3 ta harf';
+    const matn = String(d.matn || '').replace(/^\s+/, '');
+    const vows = d.vadalar || [];
+    const vs = s.vows || {};
+    const vOn = vows.filter((x, i) => vs[i]).length;
+    const allV = !!s.accepted;
+    const finishVows = (vsx) => { if (this.state.accepted) return; this.setState({ vows: vsx, accepted: true }); SITE.reply('Va’dalaringga ishonaman', '🥹'); };
+    const tv = String(d.taklif_vaqt || '').trim();
+    const offerLen = String(d.taklif || '').length;
+    const np = SITE.has.photos;
+    return {
+      rootRef: this.rootRef,
+      rv,
+      introCls: s.solved ? 'q-intro q-open' : 'q-intro',
+      panelCls: 'q-panel' + (s.shake ? ' q-shake' : ''),
+      heroCls: 'q-hero' + (s.solved ? ' q-hero--in' : ''),
+      dust: mk(34, 844, 3), dust2: mk(22, 844, 41), sparks,
+      wheels,
+      fromLine: (d.kimdan || '') + 'dan senga',
+      instr: s.solved ? 'Ochildi' : s.asked ? 'Kalit aylanmoqda…' : okCount ? 'To’g’ri harflar yonadi · ' + okCount + '/' + n : 'Harflarni bosib aylantiring',
+      hintMain: s.asked ? 'Kalit — sening isming.' : 'Kalit — men eng ko’p aytadigan ism.',
+      hintSub: s.asked ? 'Uni har kuni aytaman.' : hintSub,
+      askOff: !!(s.solved || s.spin),
+      ask: () => this.ask(),
+      nameComma: String(d.kimga || '').trim() + ',',
+      letterName: nameLen > 16 ? '20px' : nameLen > 10 ? '24px' : '30px',
+      heroName: nameLen > 16 ? '38px' : nameLen > 10 ? '46px' : '58px',
+      fromTo: (d.kimdan || '') + 'dan ' + SITE.ga(d.kimga),
+      musicOn: !!SITE.music.playing,
+      musicOff: !SITE.music.playing,
+      toggleMusic: () => SITE.music.toggle(),
+      dropCap: matn.charAt(0), dropRest: matn.slice(1),
+      sigSize: fromLen > 16 ? '22px' : '28px',
+      footSig: fromLen > 16 ? '22px' : '28px',
+      g2: np >= 2, g3: np >= 3,
+      galH: np >= 2 ? '372px' : '244px',
+      promises: vows.map((text, i) => {
+        const on = allV || !!vs[i];
+        return { text, on, cls: on ? 'q-vow q-vow--on' : 'q-vow', kc: on ? '#1A2240' : '#E8A98B',
+          tap: () => {
+            if (this.state.accepted) return;
+            const nv = Object.assign({}, this.state.vows || {}, { [i]: !this.state.vows[i] });
+            if (vows.every((x, j) => nv[j])) finishVows(nv); else this.setState({ vows: nv });
+          } };
+      }),
+      vowCount: vOn + '/' + vows.length,
+      accepted: allV, notAccepted: !allV,
+      accept: () => { const nv = {}; vows.forEach((x, i) => { nv[i] = true; }); finishVows(nv); },
+      offerSize: offerLen > 60 ? '24px' : offerLen > 34 ? '27px' : '31px',
+      hasChips: !!(tv || d.taklif_joy),
+      chipCols: tv && d.taklif_joy ? '1fr 1fr' : '1fr',
+      agreedText: tv ? 'Kelishdik! ' + tv + ' — seni kutaman.' : 'Kelishdik! Seni kutaman.',
+      agreed: !!s.agreed, notAgreed: !s.agreed,
+      agree: () => { if (this.state.agreed) return; this.setState({ agreed: true }); SITE.reply('Roziman: ' + (d.taklif || ''), '🥰'); },
+      showAnswer: !!(b.javob || b.sorov),
+      both: !!(b.javob && b.sorov),
+      heartCls: s.forgiven || s.sent ? 'q-joined' : '',
+      askTitle: b.javob ? 'Yuragimni butun qilasanmi?' : 'Bir so’z yozib qoldir',
+      askSub: b.javob && b.sorov ? 'Bitta tugma yoki bir necha so’z — qanday bo’lsa ham, kutaman.' : b.javob ? 'Bitta so’zing ikki bo’lakni birlashtiradi.' : 'Bir necha so’z yozsang ham kifoya — kutaman.',
+      thanks: d.javob_matni || 'Rahmat! Bu kalitni hech qachon yo’qotmayman.',
+      waiting: !s.forgiven, forgiven: !!s.forgiven,
+      forgive: () => { if (this.state.forgiven) return; this.setState({ forgiven: true }); SITE.reply('Kechirdim', '🤗'); },
+      toFrom: SITE.ga(d.kimdan),
+      sent: !!s.sent, notSent: !s.sent, sending: !!s.sending,
+      sendLabel: s.sending ? 'Yuborilmoqda…' : 'Yuborish',
+      sendErr: s.err || '',
+      send: () => {
+        const el = document.getElementById('qReply');
+        const text = el ? el.value.trim() : '';
+        if (!text) { this.setState({ err: 'Avval bir-ikki so’z yozing.' }); if (el) el.focus(); return; }
+        this.setState({ sending: true, err: '' });
+        SITE.reply(text, '❤️').then(() => { if (!this.gone) this.setState({ sent: true, sending: false }); })
+          .catch(() => { if (!this.gone) this.setState({ sending: false, err: 'Yuborilmadi. Qaytadan urinib ko’ring.' }); });
+      }
+    };
+  }
+}
+</script>
+</body>
+</html>
