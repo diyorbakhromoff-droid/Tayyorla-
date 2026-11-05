@@ -554,16 +554,16 @@ class Component extends DCLogic {
       st: 'padding: 22px 22px 20px; border-radius: 22px; ' + (i % 2 ? 'margin-left: 26px' : 'margin-right: 26px')
     }));
     const sec = String(D.sirli_tilak || '');
-    const iNameFs = tkFit(name, 60, 26, 236, 0.5);
-    const iLines = name.length * iNameFs * 0.5 > 236 ? 2 : 1;
+    const iNameFs = tkFit(name, 60, 22, 236, 0.58);
+    const iLines = name.length * iNameFs * 0.58 > 236 ? 2 : 1;
     return Object.assign({}, this.deco, {
       name: name, from: from, yosh: yosh, noPhoto: !SITE.has.photo, ph: ph,
       srAge: yosh ? yosh + ' yosh. ' : '',
       ageFs: yosh.length > 2 ? 24 : 30,
-      nameFs: tkFit(name, 68, 28, 350, 0.5),
+      nameFs: tkFit(name, 68, 26, 350, 0.58),
       iNameFs: iNameFs,
       iNameTop: 372 - Math.round((iLines - 1) * iNameFs * 0.55),
-      footFs: tkFit(name, 46, 24, 340, 0.5),
+      footFs: tkFit(name, 46, 22, 340, 0.58),
       heroDate: [w.date, w.weekday].filter(Boolean).join(' · '),
       musicCls: SITE.music.playing ? 'hl-music hl-music--on' : 'hl-music',
       musicOn: SITE.music.playing ? 'true' : 'false',

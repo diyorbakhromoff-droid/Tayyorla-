@@ -599,14 +599,14 @@ const SPEC = [[40, 'p1'], [9, 'pb'], [44, 'p3'], [9, 'pb'], [38, 'p2'], [14, 'p5
 const PARTS = [];
 PARTS.push({ d: 'M111 540V524Q195 516 279 524V540Z', fill: 'url(#mn-pc)', det: 'M111 532H279', edge: edge(524, 84), base: true });
 let yb = 520;
-SPEC.forEach((sp) => { const y1 = yb - sp[0]; PARTS.push({ d: band(yb, y1, HW(yb), HW(y1)), fill: 'url(#mn-' + sp[1] + ')', det: '', edge: edge(y1, HW(y1)), base: yb === 520 }); yb = y1; });
+SPEC.forEach((sp) => { const y1 = yb - sp[0]; PARTS.push({ d: band(yb, y1, HW(yb), HW(y1)), fill: 'url(#mn-' + sp[1] + ')', det: '', edge: edge(y1, HW(y1)), base: yb >= 470 }); yb = y1; });
 PARTS.push({ d: band(160, 136, 50, 61), fill: 'url(#mn-pc)', det: scal(156, 52, 9, 4, 4) + scal(147, 56, 10, 4, 4) + scal(139, 60, 11, 3, 3), edge: edge(136, 61) });
 PARTS.push({ d: band(136, 86, 59, 58), fill: 'url(#mn-p1)', det: '', edge: edge(86, 58), lantern: true });
 PARTS.push({ d: band(86, 70, 58, 64), fill: 'url(#mn-pc)', det: scal(82, 58, 10, 3.5, 4) + scal(75, 62, 11, 3, 3), edge: edge(70, 64) });
 PARTS.push({ d: band(70, 44, 40, 38), fill: 'url(#mn-p4)', det: '', edge: edge(44, 38) });
 PARTS.push({ d: 'M157 44Q160 25 195 22Q230 25 233 44Q195 37 157 44Z', fill: 'url(#mn-pb)', det: 'M195 22V15', edge: 'M160 40Q195 33 230 40' });
 PARTS.push({ d: 'M190 14a5 5 0 1 0 10 0a5 5 0 1 0 -10 0Z', fill: 'url(#mn-pc)', det: '', edge: '' });
-const PARTS_V = PARTS.map((x, i) => ({ d: x.d, fill: x.fill, det: x.det || 'M0 0', edge: x.edge || 'M0 0', lantern: !!x.lantern, cls: x.base ? 'mn-bd mn-bd--base' : 'mn-bd', st: '--i: ' + Math.max(0, i - 2) }));
+const PARTS_V = PARTS.map((x, i) => ({ d: x.d, fill: x.fill, det: x.det || 'M0 0', edge: x.edge || 'M0 0', lantern: !!x.lantern, cls: x.base ? 'mn-bd mn-bd--base' : 'mn-bd', st: '--i: ' + Math.max(0, i - 3) }));
 const ARCHES = [-62, -32, 0, 32, 62].map((a) => { const r = a * Math.PI / 180, c = CX + 58 * Math.sin(r), w = 17 * Math.cos(r), l = r1(c - w / 2), rr = r1(c + w / 2); return 'M' + l + ' 128V104Q' + l + ' 97 ' + r1(c) + ' 93Q' + rr + ' 97 ' + rr + ' 104V128Z'; });
 const GHOST = (() => {
   const L = [[CX - HW(520), 520], [CX - 50, 160], [CX - 61, 136], [CX - 58, 86], [CX - 64, 70], [CX - 40, 70], [CX - 38, 44], [157, 44], [195, 22]];
