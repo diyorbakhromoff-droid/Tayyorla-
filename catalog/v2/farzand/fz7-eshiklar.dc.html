@@ -35,6 +35,7 @@ body{margin:0;background:#1F3D35}
 .es-leaf.is-open{transform:rotateY(-101deg)}
 .es-leaf.is-r{transform-origin:100% 50%}
 .es-leaf.is-r.is-open{transform:rotateY(101deg)}
+.es-leaf.is-edge.is-open{transform:rotateY(-95deg)}
 .es-big .es-leaf.is-open{transform:rotateY(-103deg)}
 .es-big .es-leaf.is-r.is-open{transform:rotateY(103deg)}
 .es-face{position:absolute;left:0;top:0;width:100%;height:100%;box-sizing:border-box;-webkit-backface-visibility:hidden;backface-visibility:hidden;overflow:hidden}
@@ -653,10 +654,10 @@ class Component extends DCLogic {
         n: String(i + 1), label: f.label, photo: f.photo || '', text: !f.photo,
         big: f.big || '', unit: f.unit || '', fs,
         aria: (i + 1) + '-eshik' + (on ? ': ' + f.label + (f.photo ? '' : ' ' + [f.big, f.unit].filter(Boolean).join(' ')) : ''),
-        pos: 'left: ' + DX[i % 3] + 'px; top: ' + DY[Math.floor(i / 3)] + 'px; width: 100px; height: 132px; padding: 0; border: 0; background: transparent; border-radius: 50px 50px 4px 4px',
+        pos: 'left: ' + DX[i % 3] + 'px; top: ' + DY[Math.floor(i / 3)] + 'px; width: 100px; height: 132px; padding: 0; border: 0; background: transparent; border-radius: 50px 50px 4px 4px' + (i % 3 ? '' : '; perspective-origin: 0 50%'),
         factCls: 'es-fact' + (on ? ' is-open' : ''),
         sparkCls: on && !auto ? 'is-on' : '',
-        leafCls: 'es-leaf' + (on ? ' is-open' : ''),
+        leafCls: 'es-leaf' + (i % 3 ? '' : ' is-edge') + (on ? ' is-open' : ''),
         leafSt: 'left: 0; top: 0; width: 100px; height: 132px' + (auto ? '; transition-delay: ' + (order * 0.1).toFixed(2) + 's' : ''),
         face: 'background: linear-gradient(180deg, ' + PASTEL[i] + ', ' + PASTEL[i] + 'E6); border-radius: 50px 50px 4px 4px / 46px 46px 4px 4px; box-shadow: inset 0 -10px 18px rgba(0, 0, 0, 0.06)',
         tap: () => { const st = this.state || {}; if (st.big) return; const o = Object.assign({}, st.open || {}); if (o[i]) return; o[i] = true; this.setState({ open: o, ck: (st.ck || 0) + 1 }); },
