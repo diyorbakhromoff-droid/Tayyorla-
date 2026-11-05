@@ -31,7 +31,7 @@ button:disabled{opacity:.7;cursor:default}
 @keyframes fvSheen{0%,100%{background-position:0% 0}50%{background-position:100% 0}}
 .fv-btnS{background:linear-gradient(100deg,#A8C9C9,#F6FCFB 42%,#CDE2E1 64%,#A8C9C9);color:#0A3139;box-shadow:0 14px 30px -14px rgba(126,216,207,.8),inset 0 1px 0 rgba(255,255,255,.7)}
 .fv-sg1{stop-color:#B9D6D6}.fv-sg2{stop-color:#FFFFFF}.fv-sg3{stop-color:#8FB3B4}
-.fv-w1{stop-color:#5FC7C0}.fv-w2{stop-color:#1F7C83}.fv-w3{stop-color:#0D4A55}
+.fv-w1{stop-color:#2E9C9C}.fv-w2{stop-color:#145C66}.fv-w3{stop-color:#0A3E48}
 .fv-gl1{stop-color:#FFD9B0;stop-opacity:.85}.fv-gl2{stop-color:#FFB98A;stop-opacity:0}
 .fv-st1{stop-color:#6E8A8C}.fv-st2{stop-color:#3C5A5F}
 
@@ -45,8 +45,8 @@ button:disabled{opacity:.7;cursor:default}
 .fv-drop{opacity:0;transform:translateY(-30px)}
 .fv-intro.is-open .fv-drop{animation:fvDrop .55s cubic-bezier(.55,0,1,.45) .15s both}
 @keyframes fvDrop{0%{opacity:0;transform:translateY(-30px)}20%{opacity:1}100%{opacity:1;transform:translateY(44px)}}
-.fv-draw{stroke-dasharray:100;stroke-dashoffset:100}
-.fv-intro.is-open .fv-draw{transition:stroke-dashoffset 1s cubic-bezier(.3,.7,.3,1) .6s;stroke-dashoffset:0}
+.fv-draw{stroke-dasharray:100;stroke-dashoffset:100;opacity:0}
+.fv-intro.is-open .fv-draw{transition:stroke-dashoffset 1s cubic-bezier(.3,.7,.3,1) .6s,opacity .1s linear .6s;stroke-dashoffset:0;opacity:1}
 .fv-intro.is-open .fv-draw.d2{transition-delay:1s}
 .fv-flow{stroke-dasharray:5 9;opacity:0}
 .fv-intro.is-open .fv-flow{opacity:.9;transition:opacity .6s ease 1.5s;animation:fvFlow 1.1s linear infinite}
@@ -71,7 +71,7 @@ button:disabled{opacity:.7;cursor:default}
 .fv-glint.g2{animation-delay:3s!important}.fv-glint.g3{animation-delay:3.8s!important}
 @keyframes fvGlint{0%,100%{opacity:0;transform:translateX(-6px)}50%{opacity:.85;transform:translateX(6px)}}
 .fv-mirror{opacity:0}
-.fv-intro.is-open .fv-mirror{opacity:.32;transition:opacity 1.6s ease 2s}
+.fv-intro.is-open .fv-mirror{opacity:.5;transition:opacity 1.6s ease 2s}
 .fv-refl{opacity:0;clip-path:inset(0 50% 0 50%);filter:blur(6px)}
 .fv-intro.is-open .fv-refl{opacity:1;clip-path:inset(0 0 0 0);filter:blur(0);transition:opacity 1.2s ease 2.2s,clip-path 1.4s cubic-bezier(.3,.7,.2,1) 2.2s,filter 1.4s ease 2.2s}
 .fv-wave{animation:fvWave 3.6s ease-in-out infinite}
@@ -201,7 +201,7 @@ html.fv-arm .rv.is-in .fv-mk{clip-path:inset(0 0 0 0)}
       <polygon points="363.2,676.7 264.7,728.7 125.3,728.7 26.8,676.7 26.8,603.3 125.3,551.3 264.7,551.3 363.2,603.3" fill="url(#fvStone)"></polygon>
       <polygon points="352,673.7 260,721 130,721 38,673.7 38,606.3 130,559 260,559 352,606.3" fill="#0B2E35"></polygon>
       <g clip-path="url(#fvPool)">
-        <rect x="30" y="555" width="330" height="170" fill="url(#fvTile)" opacity="0.32"></rect>
+        <rect x="30" y="555" width="330" height="170" fill="url(#fvTile)" opacity="0.16"></rect>
         <polygon points="38,606.3 130,559 260,559 352,606.3 352,620 260,574 130,574 38,620" fill="#08262C" opacity="0.8"></polygon>
         <g class="fv-crack" stroke="#04161A">
           <path d="M80 660 L104 650 L118 662 L142 654 M250 690 L268 676 L292 682 L306 670 M170 704 L182 690 L200 698" class="fv-ln2"></path>
@@ -263,7 +263,7 @@ html.fv-arm .rv.is-in .fv-mk{clip-path:inset(0 0 0 0)}
     <div class="fv-refl" aria-live="polite" style="position: absolute; left: 50px; top: 640px; width: 290px; text-align: center">
       <div class="fv-wave">
         <p class="fv-t" style="margin: 0; font-size: 13px; letter-spacing: 0.28em; text-transform: uppercase; color: #E6FBF8">Kechir meni</p>
-        <p class="fv-d" style="margin: 0; font-size: {{ reflSize }}; line-height: 1.15; font-weight: 500; color: #FFFFFF; text-shadow: 0 0 18px rgba(191, 239, 234, 0.7); overflow-wrap: anywhere">{{ d.kimga }}</p>
+        <p class="fv-d" style="margin: 0; font-size: {{ reflSize }}; line-height: 1.15; font-weight: 500; color: #FFFFFF; text-shadow: 0 2px 14px rgba(4, 30, 36, 0.9), 0 0 24px rgba(191, 239, 234, 0.45); overflow-wrap: anywhere">{{ d.kimga }}</p>
       </div>
     </div>
 
