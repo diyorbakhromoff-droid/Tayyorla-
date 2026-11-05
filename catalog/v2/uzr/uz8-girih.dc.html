@@ -1,0 +1,557 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<title>Uzr VIP: Girih</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Philosopher:ital,wght@0,400;0,700;1,400;1,700&amp;family=PT+Sans:ital,wght@0,400;0,700;1,400&amp;family=Noto+Naskh+Arabic:wght@400;500&amp;display=swap">
+<style>
+body{margin:0}
+.gr-d{font-family:'Philosopher','Trebuchet MS',Georgia,serif}
+.gr-t{font-family:'PT Sans','Segoe UI',Arial,sans-serif}
+.gr-ar{font-family:'Noto Naskh Arabic','Amiri','Times New Roman',serif}
+.gr-lb{margin:0;font-family:'PT Sans','Segoe UI',Arial,sans-serif;font-size:12px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:#E3AE52}
+.gr-h2{margin:8px 0 0;font-family:'Philosopher','Trebuchet MS',Georgia,serif;font-weight:700;font-size:34px;line-height:1.12;color:#F4EEDF;overflow-wrap:anywhere}
+.gr-ic{fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.gr-ln{fill:none;stroke-width:1.2}
+.gr-ln2{fill:none;stroke-width:2}
+.gr-hair{fill:none;stroke-width:.8}
+.gr-dash{fill:none;stroke-width:1.2;stroke-dasharray:4 4}
+.gr-outS{fill:none;stroke-width:2.2;stroke-linejoin:round}
+button{-webkit-tap-highlight-color:transparent}
+button:focus-visible,textarea:focus-visible{outline:2px solid #E3AE52;outline-offset:3px}
+button:disabled{opacity:.7;cursor:default}
+.gr-press{transition:transform .4s cubic-bezier(.3,1.6,.5,1),box-shadow .35s ease,background-color .35s ease,border-color .35s ease}
+.gr-press:active{transform:scale(.95)}
+.gr-gold{background:linear-gradient(100deg,#B9842E 0%,#FBE2A6 36%,#E3AE52 58%,#FFF0C8 80%,#B9842E 100%);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:grSheen 7s ease-in-out infinite}
+@keyframes grSheen{0%,100%{background-position:0% 0}50%{background-position:100% 0}}
+.gr-btnG{background:linear-gradient(100deg,#C8913A,#FBE2A6 45%,#E3AE52 70%,#C8913A);color:#1A1F45;box-shadow:0 14px 30px -14px rgba(227,174,82,.85),inset 0 1px 0 rgba(255,255,255,.55)}
+.gr-g1{stop-color:#C8913A}.gr-g2{stop-color:#FFF0C8}.gr-g3{stop-color:#B9842E}
+
+/* ---------- kirish ---------- */
+.gr-intro{transition:opacity .9s cubic-bezier(.4,0,.2,1) 3.6s}
+.gr-intro.is-whole{opacity:0;pointer-events:none}
+.gr-pc{transform-box:fill-box;transform-origin:center;transition:transform .9s cubic-bezier(.3,1.35,.45,1),filter .6s ease}
+.gr-pc.is-loose{filter:drop-shadow(0 8px 6px rgba(0,0,0,.45))}
+.gr-pc.is-next{animation:grBob 1.8s ease-in-out infinite}
+@keyframes grBob{0%,100%{translate:0 0}50%{translate:0 -6px}}
+.gr-pc > use:last-child{opacity:0}
+.gr-pc.is-in > use:last-child{animation:grFlash 1s ease-out .55s both}
+.gr-span2{grid-column:span 2}
+@keyframes grFlash{0%{opacity:0}30%{opacity:1}100%{opacity:0}}
+.gr-slot{transition:opacity .4s ease .7s}
+.gr-slot.is-next use{animation:grGlow 1.4s ease-in-out infinite}
+@keyframes grGlow{0%,100%{opacity:.55}50%{opacity:1}}
+.gr-slot.is-done{opacity:0}
+.gr-lines use{stroke-dasharray:260;stroke-dashoffset:260}
+.gr-intro.is-whole .gr-lines use{stroke-dashoffset:0;transition:stroke-dashoffset 1.6s cubic-bezier(.4,0,.2,1) .7s}
+.gr-sheen{transform:translateX(-420px)}
+.gr-intro.is-whole .gr-sheen{transform:translateX(420px);transition:transform 1.6s cubic-bezier(.4,0,.2,1) .8s}
+.gr-panel{transform-box:fill-box;transform-origin:center}
+.gr-intro.is-whole .gr-panel{animation:grThump .7s cubic-bezier(.3,1.6,.5,1) .65s}
+@keyframes grThump{0%{transform:scale(1)}40%{transform:scale(1.025)}100%{transform:scale(1)}}
+.gr-med{opacity:0;transform:scale(.4) rotate(-45deg)}
+.gr-intro.is-whole .gr-med{opacity:1;transform:none;transition:opacity .5s ease 1.3s,transform 1s cubic-bezier(.25,1.5,.4,1) 1.3s}
+.gr-cta{transition:opacity .5s ease,transform .6s cubic-bezier(.5,0,.7,.4)}
+.gr-intro.is-whole .gr-cta{opacity:0;transform:translateY(20px)}
+.gr-in1{animation:grUp 1.1s cubic-bezier(.2,.7,.2,1) .15s both}
+.gr-in2{animation:grUp 1.1s cubic-bezier(.2,.7,.2,1) .45s both}
+.gr-in3{animation:grUp 1.1s cubic-bezier(.2,.7,.2,1) .8s both}
+.gr-in4{animation:grUp 1s cubic-bezier(.25,1.45,.4,1) 1.1s both}
+@keyframes grUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+.gr-pin{animation:grPin 1.1s cubic-bezier(.2,.8,.3,1) both}
+@keyframes grPin{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:none}}
+.gr-dot{width:8px;height:8px;transform:rotate(45deg);border:1.5px solid #E3AE52;transition:background-color .4s ease,transform .5s cubic-bezier(.3,1.7,.5,1)}
+.gr-dot.is-on{background:#E3AE52;transform:rotate(45deg) scale(1.25)}
+.gr-hit{position:absolute;width:80px;height:80px;margin:-40px 0 0 -40px;border:0;padding:0;background:transparent;border-radius:50%;cursor:pointer}
+.gr-spin{transform-box:fill-box;transform-origin:center;animation:grSpin 80s linear infinite}
+@keyframes grSpin{to{transform:rotate(360deg)}}
+.gr-tw{animation:grTw 5s ease-in-out infinite}
+@keyframes grTw{0%,100%{opacity:.3}50%{opacity:1}}
+
+/* ---------- sahifa ---------- */
+.gr-cham{clip-path:polygon(22px 0,calc(100% - 22px) 0,100% 22px,100% calc(100% - 22px),calc(100% - 22px) 100%,22px 100%,0 calc(100% - 22px),0 22px)}
+.gr-chamS{clip-path:polygon(14px 0,calc(100% - 14px) 0,100% 14px,100% calc(100% - 14px),calc(100% - 14px) 100%,14px 100%,0 calc(100% - 14px),0 14px)}
+.gr-oct{clip-path:polygon(29.3% 0,70.7% 0,100% 29.3%,100% 70.7%,70.7% 100%,29.3% 100%,0 70.7%,0 29.3%)}
+.gr-star8{clip-path:polygon(50% 0%,64.6% 14.6%,85.4% 14.6%,85.4% 35.4%,100% 50%,85.4% 64.6%,85.4% 85.4%,64.6% 85.4%,50% 100%,35.4% 85.4%,14.6% 85.4%,14.6% 64.6%,0% 50%,14.6% 35.4%,14.6% 14.6%,35.4% 14.6%)}
+.gr-tile{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:12px;min-height:132px;box-sizing:border-box;padding:16px 16px 18px;border:1px solid rgba(227,174,82,.35);background:#1A2E70;color:#F4EEDF;text-align:left;cursor:pointer;font:inherit;overflow:hidden}
+.gr-tile.gr-wide{grid-column:span 2;min-height:96px}
+.gr-tile.is-on{background:#1F7F8A;border-color:#3CC4C4}
+.gr-tile .gr-ts{transition:transform .7s cubic-bezier(.3,1.6,.5,1)}
+.gr-tile.is-on .gr-ts{transform:rotate(135deg)}
+.gr-tile::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at 30px 30px,rgba(255,240,200,.45),rgba(255,240,200,0) 60%);opacity:0;transition:opacity .6s ease}
+.gr-tile.is-on::after{opacity:1}
+.gr-pop{animation:grPop .7s cubic-bezier(.25,1.5,.4,1) both}
+@keyframes grPop{from{opacity:0;transform:scale(.9) translateY(10px)}to{opacity:1;transform:none}}
+.gr-sp{position:absolute;left:50%;top:50%;width:14px;height:14px;margin:-7px;background:#E3AE52;opacity:0}
+.gr-boom .gr-sp{animation:grSp 1.2s cubic-bezier(.2,.7,.3,1) both}
+@keyframes grSp{0%{opacity:1;transform:rotate(var(--r)) translateY(0) scale(.4)}100%{opacity:0;transform:rotate(var(--r)) translateY(-130px) scale(1) rotate(180deg)}}
+.gr-ta::placeholder{color:#8F9AC4}
+html.gr-arm .rv{opacity:0;transform:translateY(30px);transition:opacity 1s cubic-bezier(.2,.7,.2,1),transform 1.1s cubic-bezier(.2,.75,.25,1)}
+html.gr-arm .rv.is-in{opacity:1;transform:none}
+html.gr-arm .rv .rc{opacity:0;transform:translateY(18px) rotate(-1.5deg) scale(.97);transition:opacity .8s ease,transform .9s cubic-bezier(.25,1.35,.4,1)}
+html.gr-arm .rv.is-in .rc{opacity:1;transform:none}
+html.gr-arm .rv .rc:nth-child(2){transition-delay:.1s}html.gr-arm .rv .rc:nth-child(3){transition-delay:.2s}
+html.gr-arm .rv .rc:nth-child(4){transition-delay:.3s}html.gr-arm .rv .rc:nth-child(5){transition-delay:.4s}
+html.gr-arm .rv .rc:nth-child(n+6){transition-delay:.5s}
+html.gr-arm .rv .gr-mk{clip-path:inset(0 0 0 100%);transition:clip-path 2s cubic-bezier(.4,0,.2,1) .2s}
+html.gr-arm .rv.is-in .gr-mk{clip-path:inset(0 0 0 0)}
+
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .gr-pc.is-next{translate:none}
+  html.gr-arm .rv,html.gr-arm .rv .rc{opacity:1!important;transform:none!important}
+  html.gr-arm .rv .gr-mk{clip-path:none!important}
+  .gr-lines use{stroke-dashoffset:0}
+}
+</style>
+</helmet>
+<div class="gr-t" style="width: 390px; min-height: var(--vh, 100vh); position: relative; overflow: hidden; background: #13235C; color: #F4EEDF; display: flex; flex-direction: column">
+
+  <svg width="0" height="0" aria-hidden="true" style="position: absolute">
+    <defs>
+      <path id="grStar" d="M0.0 -39.6 L11.6 -28.0 L28.0 -28.0 L28.0 -11.6 L39.6 0.0 L28.0 11.6 L28.0 28.0 L11.6 28.0 L0.0 39.6 L-11.6 28.0 L-28.0 28.0 L-28.0 11.6 L-39.6 0.0 L-28.0 -11.6 L-28.0 -28.0 L-11.6 -28.0 Z"></path>
+      <path id="grStarI" d="M0.0 -21.8 L6.4 -15.4 L15.4 -15.4 L15.4 -6.4 L21.8 0.0 L15.4 6.4 L15.4 15.4 L6.4 15.4 L0.0 21.8 L-6.4 15.4 L-15.4 15.4 L-15.4 6.4 L-21.8 0.0 L-15.4 -6.4 L-15.4 -15.4 L-6.4 -15.4 Z"></path>
+      <g id="grTile">
+        <use href="#grStar" fill="#2FA9B0"></use>
+        <use href="#grStar" fill="none" stroke="#E3AE52" class="gr-ln2"></use>
+        <use href="#grStarI" fill="#F4EEDF" transform="rotate(22.5)"></use>
+        <use href="#grStarI" fill="none" stroke="#1B3478" class="gr-hair" transform="rotate(22.5) scale(0.62)"></use>
+        <circle r="4.5" fill="#E3AE52"></circle>
+      </g>
+      <g id="grHole">
+        <use href="#grStar" fill="#0A1436"></use>
+        <use href="#grStar" stroke="#3CC4C4" class="gr-dash"></use>
+      </g>
+      <use id="grOut" href="#grStar" stroke="#FBE2A6" class="gr-outS"></use>
+      <g id="grFlash"><use href="#grStar" fill="#FFF0C8" opacity="0.7"></use></g>
+      <pattern id="grPat" width="80" height="80" patternUnits="userSpaceOnUse" x="-5" y="0">
+        <rect width="80" height="80" fill="#1B3478"></rect>
+        <g transform="translate(40 40)"><use href="#grTile"></use></g>
+      </pattern>
+      <pattern id="grPatS" width="40" height="40" patternUnits="userSpaceOnUse">
+        <rect width="40" height="40" fill="#1B3478"></rect>
+        <g transform="translate(20 20) scale(0.5)"><use href="#grTile"></use></g>
+      </pattern>
+      <linearGradient id="grGold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" class="gr-g1"></stop><stop offset="0.5" class="gr-g2"></stop><stop offset="1" class="gr-g3"></stop></linearGradient>
+      <linearGradient id="grSh" x1="0" y1="0" x2="1" y2="0"><stop offset="0" style="stop-color: #FFF0C8; stop-opacity: 0"></stop><stop offset="0.5" style="stop-color: #FFF0C8; stop-opacity: 0.55"></stop><stop offset="1" style="stop-color: #FFF0C8; stop-opacity: 0"></stop></linearGradient>
+      <clipPath id="grClip"><rect x="35" y="150" width="320" height="400"></rect></clipPath>
+    </defs>
+  </svg>
+
+  <sc-if value="{{ has.music }}">
+  <button type="button" class="gr-press" onClick="{{ toggleMusic }}" aria-label="Musiqa" aria-pressed="{{ musicOn }}" style="position: absolute; right: 16px; top: 16px; z-index: 40; width: 44px; height: 44px; padding: 0; border-radius: 50%; border: 1px solid rgba(227, 174, 82, 0.6); background: rgba(10, 20, 54, 0.6); color: #FBE2A6; display: flex; align-items: center; justify-content: center; cursor: pointer">
+    <sc-if value="{{ musicOn }}"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V6l10-2v12" stroke="currentColor" class="gr-ic"></path><circle cx="7" cy="18" r="2.4" stroke="currentColor" class="gr-ic"></circle><circle cx="17" cy="16" r="2.4" stroke="currentColor" class="gr-ic"></circle></svg></sc-if>
+    <sc-if value="{{ musicOff }}"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V6l10-2v12" stroke="currentColor" class="gr-ic"></path><circle cx="7" cy="18" r="2.4" stroke="currentColor" class="gr-ic"></circle><circle cx="17" cy="16" r="2.4" stroke="currentColor" class="gr-ic"></circle><path d="M4 4l16 16" stroke="currentColor" class="gr-ic"></path></svg></sc-if>
+  </button>
+  </sc-if>
+
+  <!-- ================= KIRISH: girih panjarasi ================= -->
+  <div data-intro="" class="{{ introCls }}" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; z-index: 30; overflow: hidden; background: radial-gradient(120% 80% at 50% 40%, #1A2E70 0%, #0E1A48 70%, #0A1338 100%)">
+    <svg width="390" height="844" viewBox="0 0 390 844" aria-hidden="true" style="position: absolute; left: 0; top: 0">
+      <g fill="#FBE2A6"><circle class="gr-tw" cx="30" cy="130" r="1.2"></circle><circle class="gr-tw" cx="364" cy="120" r="1.1" style="animation-delay: 1.4s"></circle><circle class="gr-tw" cx="20" cy="600" r="1" style="animation-delay: 2.4s"></circle><circle class="gr-tw" cx="372" cy="640" r="1.2" style="animation-delay: .8s"></circle></g>
+      <g class="gr-panel">
+        <rect x="23" y="138" width="344" height="424" fill="#F4EEDF"></rect>
+        <rect x="27" y="142" width="336" height="416" fill="none" stroke="#B9842E" class="gr-ln"></rect>
+        <rect x="31" y="146" width="328" height="408" fill="url(#grGold)"></rect>
+        <rect x="35" y="150" width="320" height="400" fill="#1B3478"></rect>
+        <g clip-path="url(#grClip)">
+        <use href="#grTile" x="75" y="190"></use>
+        <g class="{{ slot.0 }}"><use href="#grHole" x="155" y="190"></use></g>
+        <use href="#grTile" x="235" y="190"></use>
+        <use href="#grTile" x="315" y="190"></use>
+        <use href="#grTile" x="75" y="270"></use>
+        <use href="#grTile" x="155" y="270"></use>
+        <use href="#grTile" x="235" y="270"></use>
+        <g class="{{ slot.1 }}"><use href="#grHole" x="315" y="270"></use></g>
+        <g class="{{ slot.2 }}"><use href="#grHole" x="75" y="350"></use></g>
+        <use href="#grTile" x="155" y="350"></use>
+        <use href="#grTile" x="235" y="350"></use>
+        <use href="#grTile" x="315" y="350"></use>
+        <use href="#grTile" x="75" y="430"></use>
+        <use href="#grTile" x="155" y="430"></use>
+        <g class="{{ slot.3 }}"><use href="#grHole" x="235" y="430"></use></g>
+        <use href="#grTile" x="315" y="430"></use>
+        <use href="#grTile" x="75" y="510"></use>
+        <g class="{{ slot.4 }}"><use href="#grHole" x="155" y="510"></use></g>
+        <use href="#grTile" x="235" y="510"></use>
+        <use href="#grTile" x="315" y="510"></use>
+        <g class="gr-lines"><use href="#grOut" x="75" y="190"></use><use href="#grOut" x="155" y="190"></use><use href="#grOut" x="235" y="190"></use><use href="#grOut" x="315" y="190"></use><use href="#grOut" x="75" y="270"></use><use href="#grOut" x="155" y="270"></use><use href="#grOut" x="235" y="270"></use><use href="#grOut" x="315" y="270"></use><use href="#grOut" x="75" y="350"></use><use href="#grOut" x="155" y="350"></use><use href="#grOut" x="235" y="350"></use><use href="#grOut" x="315" y="350"></use><use href="#grOut" x="75" y="430"></use><use href="#grOut" x="155" y="430"></use><use href="#grOut" x="235" y="430"></use><use href="#grOut" x="315" y="430"></use><use href="#grOut" x="75" y="510"></use><use href="#grOut" x="155" y="510"></use><use href="#grOut" x="235" y="510"></use><use href="#grOut" x="315" y="510"></use></g>
+        <rect class="gr-sheen" x="-40" y="150" width="200" height="400" fill="url(#grSh)"></rect>
+        </g>
+        <g fill="#13235C"><rect x="19" y="134" width="14" height="14" transform="rotate(45 26 141)"></rect><rect x="357" y="134" width="14" height="14" transform="rotate(45 364 141)"></rect><rect x="19" y="552" width="14" height="14" transform="rotate(45 26 559)"></rect><rect x="357" y="552" width="14" height="14" transform="rotate(45 364 559)"></rect></g>
+        <g fill="#E3AE52"><rect x="22" y="137" width="8" height="8" transform="rotate(45 26 141)"></rect><rect x="360" y="137" width="8" height="8" transform="rotate(45 364 141)"></rect><rect x="22" y="555" width="8" height="8" transform="rotate(45 26 559)"></rect><rect x="360" y="555" width="8" height="8" transform="rotate(45 364 559)"></rect></g>
+      </g>
+      <g class="gr-cta"><path d="M40 618 H350" stroke="#2A4290" class="gr-dash"></path></g>
+      <g>
+        <g class="{{ pc.0.cls }}" style="{{ pc.0.st }}"><use href="#grTile" x="155" y="190"></use><use href="#grFlash" x="155" y="190"></use></g>
+        <g class="{{ pc.1.cls }}" style="{{ pc.1.st }}"><use href="#grTile" x="315" y="270"></use><use href="#grFlash" x="315" y="270"></use></g>
+        <g class="{{ pc.2.cls }}" style="{{ pc.2.st }}"><use href="#grTile" x="75" y="350"></use><use href="#grFlash" x="75" y="350"></use></g>
+        <g class="{{ pc.3.cls }}" style="{{ pc.3.st }}"><use href="#grTile" x="235" y="430"></use><use href="#grFlash" x="235" y="430"></use></g>
+        <g class="{{ pc.4.cls }}" style="{{ pc.4.st }}"><use href="#grTile" x="155" y="510"></use><use href="#grFlash" x="155" y="510"></use></g>
+      </g>
+    </svg>
+
+    <div style="position: absolute; left: 0; top: 22px; width: 390px; text-align: center">
+      <p class="gr-ar gr-in1" dir="rtl" lang="ar" style="margin: 0; font-size: 25px; line-height: 1.8; color: #FBE2A6">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p>
+      <p class="gr-t gr-in1" style="margin: 0; font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase; color: #9FAAD4">Bismillahir Rohmanir Rohiym</p>
+      <p class="gr-lb gr-in2" style="margin-top: 16px; letter-spacing: {{ fromLs }}; color: #F4EEDF; padding: 0 24px; overflow-wrap: anywhere">{{ fromTo }}</p>
+    </div>
+
+    <div class="gr-med" aria-live="polite" style="position: absolute; left: 75px; top: 230px; width: 240px; height: 240px">
+      <div class="gr-oct" style="position: absolute; inset: 0; background: linear-gradient(135deg, #C8913A, #FBE2A6 50%, #B9842E)"></div>
+      <div class="gr-oct" style="position: absolute; inset: 5px; background: #F4EEDF"></div>
+      <div class="gr-oct" style="position: absolute; inset: 14px; border: 0; background: radial-gradient(circle, #FFFFFF 0%, #F4EEDF 70%)"></div>
+      <div style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; padding: 0 30px; text-align: center">
+        <svg width="28" height="28" viewBox="-40 -40 80 80" aria-hidden="true"><use href="#grStar" fill="#2FA9B0"></use><use href="#grStarI" fill="#F4EEDF" transform="rotate(22.5)"></use></svg>
+        <p class="gr-d" style="margin: 0; font-size: {{ medSize }}; line-height: 1.1; font-weight: 700; color: #13235C; overflow-wrap: anywhere">{{ d.kimga }},</p>
+        <p class="gr-d" style="margin: 0; font-size: 26px; font-style: italic; line-height: 1.1; color: #A36F1E">kechir meni</p>
+        <p class="gr-t" style="margin: 4px 0 0; font-size: 12.5px; line-height: 1.4; color: #3A4A80">Naqsh yana butun</p>
+      </div>
+    </div>
+
+    <sc-for list="{{ hits }}" as="h"><button type="button" class="gr-hit gr-cta" onClick="{{ place }}" aria-label="Parchani joyiga qo’yish" tabindex="-1" style="{{ h }}"></button></sc-for>
+
+    <div class="gr-cta" style="position: absolute; left: 0; top: 664px; width: 390px; display: flex; flex-direction: column; align-items: center; gap: 12px">
+      <div class="gr-in3" aria-hidden="true" style="display: flex; gap: 12px"><sc-for list="{{ dots }}" as="c"><span class="{{ c }}"></span></sc-for></div>
+      <p class="gr-t gr-in3" style="margin: 0; font-size: 14.5px; font-style: italic; line-height: 1.45; color: #C6CEEA; text-align: center; padding: 0 34px">{{ hint }}</p>
+      <button type="button" class="gr-press gr-btnG gr-in4 gr-t" onClick="{{ place }}" style="height: 54px; padding: 0 28px 0 22px; border: 0; border-radius: 4px; font-size: 16px; font-weight: 700; letter-spacing: 0.04em; display: inline-flex; align-items: center; gap: 10px; cursor: pointer">
+        <svg width="20" height="20" viewBox="-40 -40 80 80" aria-hidden="true"><use href="#grStar" fill="none" stroke="#1A1F45" style="stroke-width: 7"></use></svg>
+        <span>{{ btnLabel }}</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ================= BOSH QISM ================= -->
+  <header style="position: relative; flex: none; padding: 28px 0 34px; display: flex; flex-direction: column; align-items: center; text-align: center">
+    <p class="gr-ar" dir="rtl" lang="ar" style="margin: 0; font-size: 25px; line-height: 1.8; color: #FBE2A6">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p>
+    <p class="gr-t" style="margin: 0; font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase; color: #9FAAD4">Bismillahir Rohmanir Rohiym</p>
+    <div style="position: relative; width: 390px; height: 200px; margin-top: 22px">
+      <svg width="390" height="200" viewBox="0 0 390 200" aria-hidden="true" style="position: absolute; left: 0; top: 0">
+        <rect x="0" y="20" width="390" height="160" fill="url(#grPat)"></rect>
+        <rect x="0" y="16" width="390" height="4" fill="url(#grGold)"></rect>
+        <rect x="0" y="180" width="390" height="4" fill="url(#grGold)"></rect>
+        <rect x="0" y="20" width="390" height="160" fill="#13235C" opacity="0.25"></rect>
+      </svg>
+      <div style="position: absolute; left: 105px; top: 10px; width: 180px; height: 180px">
+        <div class="gr-oct" style="position: absolute; inset: 0; background: linear-gradient(135deg, #C8913A, #FBE2A6 50%, #B9842E)"></div>
+        <div class="gr-oct" style="position: absolute; inset: 5px; background: #13235C"></div>
+        <svg class="gr-spin" width="150" height="150" viewBox="-60 -60 120 120" aria-hidden="true" style="position: absolute; left: 15px; top: 15px; opacity: 0.35"><use href="#grStar" fill="none" stroke="#E3AE52" class="gr-ln" transform="scale(1.4)"></use><use href="#grStar" fill="none" stroke="#E3AE52" class="gr-ln" transform="rotate(22.5) scale(1.25)"></use></svg>
+        <div style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; gap: 10px">
+          <span class="gr-d gr-gold" style="font-size: 52px; font-weight: 700; line-height: 1">{{ iniFrom }}</span>
+          <svg width="14" height="14" viewBox="-40 -40 80 80" aria-hidden="true"><use href="#grStar" fill="#3CC4C4"></use></svg>
+          <span class="gr-d gr-gold" style="font-size: 52px; font-weight: 700; line-height: 1">{{ iniTo }}</span>
+        </div>
+      </div>
+    </div>
+    <div style="padding: 28px 26px 0; display: flex; flex-direction: column; align-items: center; gap: 10px">
+      <p class="gr-lb">Assalomu alaykum</p>
+      <h1 class="gr-d" style="margin: 0; font-size: {{ h1Size }}; line-height: 1.06; font-weight: 700; color: #F4EEDF; overflow-wrap: anywhere">{{ d.kimga }}</h1>
+      <p class="gr-d gr-gold" style="margin: 0; font-size: 34px; font-style: italic; font-weight: 700; line-height: 1.1">kechir meni</p>
+      <p class="gr-t" style="margin: 6px 0 0; font-size: 16.5px; line-height: 1.55; color: #C6CEEA">Tushib qolgan parchalar joyiga qaytgani kabi, oramizdagi naqsh ham yana butun bo’lishini so’rayman.</p>
+      <p class="gr-t" style="margin: 4px 0 0; font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase; color: #9FAAD4; overflow-wrap: anywhere">{{ fromLine }}</p>
+    </div>
+  </header>
+
+  <!-- ================= MAKTUB ================= -->
+  <sc-if value="{{ b.maktub }}">
+  <section class="rv" style="flex: none; padding: 30px 20px 26px">
+    <div class="rc gr-cham" style="background: linear-gradient(135deg, #C8913A, #FBE2A6 50%, #B9842E); padding: 3px">
+      <div class="gr-cham" style="position: relative; background: #F4EEDF; color: #1B2550; padding: 34px 24px 28px">
+        <svg width="44" height="44" viewBox="0 0 44 44" aria-hidden="true" style="position: absolute; left: 10px; top: 10px"><rect width="44" height="44" fill="url(#grPatS)" opacity="0.9"></rect></svg>
+        <svg width="44" height="44" viewBox="0 0 44 44" aria-hidden="true" style="position: absolute; left: 10px; bottom: 10px"><rect width="44" height="44" fill="url(#grPatS)" opacity="0.9"></rect></svg>
+        <p class="gr-lb" style="text-align: center; color: #A36F1E">Maktub</p>
+        <h2 class="gr-d" style="margin: 6px 0 20px; font-size: 32px; font-weight: 700; line-height: 1.12; text-align: center; color: #13235C">Qalbimdagi so’zlar</h2>
+        <p class="gr-t" style="margin: 0; font-size: 17.5px; line-height: 1.66; color: #26305A; white-space: pre-line; overflow-wrap: anywhere"><span class="gr-d" style="float: left; margin: 4px 10px 0 0; width: 52px; height: 52px; display: flex; align-items: center; justify-content: center; font-size: 32px; font-weight: 700; color: #F4EEDF; background: #13235C" aria-hidden="true">{{ dropCap }}</span>{{ dropRest }}</p>
+        <div style="clear: both; margin-top: 22px; display: flex; flex-direction: column; align-items: flex-end; gap: 2px">
+          <span class="gr-t" style="font-size: 13.5px; font-style: italic; color: #5A6390">Hurmat va pushaymonlik bilan,</span>
+          <span class="gr-d" style="font-size: {{ sigSize }}; font-weight: 700; font-style: italic; color: #A36F1E; overflow-wrap: anywhere; text-align: right">{{ d.kimdan }}</span>
+        </div>
+      </div>
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- ================= VA'DALAR ================= -->
+  <sc-if value="{{ b.vadalar }}">
+  <section class="rv" style="flex: none; padding: 40px 20px 26px">
+    <div class="rc" style="text-align: center">
+      <p class="gr-lb">Va’dalarim</p>
+      <h2 class="gr-h2">Har biri — bir parcha</h2>
+      <p class="gr-t" style="margin: 10px 18px 22px; font-size: 15px; font-style: italic; line-height: 1.5; color: #B8C2E0">Parchalar birlashib naqsh bo’lgani kabi, va’dalarim ham ishonchni qayta tiklasin. Bosib ko’ring.</p>
+    </div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px">
+      <sc-for list="{{ promises }}" as="v">
+        <button type="button" class="{{ v.cls }}" onClick="{{ v.tap }}" aria-pressed="{{ v.on }}">
+          <span aria-hidden="true" style="position: relative; width: 40px; height: 40px; flex: none">
+            <svg class="gr-ts" width="40" height="40" viewBox="-42 -42 84 84" style="position: absolute; left: 0; top: 0"><use href="#grStar" fill="none" stroke="#E3AE52" class="gr-ln2"></use></svg>
+            <span class="gr-d" style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 700; color: #FBE2A6">{{ v.n }}</span>
+          </span>
+          <span style="position: relative; font-size: 16.5px; line-height: 1.38; overflow-wrap: anywhere">{{ v.text }}</span>
+        </button>
+      </sc-for>
+    </div>
+    <div style="margin-top: 20px; display: flex; justify-content: center">
+      <sc-if value="{{ notAccepted }}">
+        <button type="button" class="gr-press gr-t" onClick="{{ accept }}" style="height: 52px; padding: 0 26px; border-radius: 4px; border: 1.5px solid #E3AE52; background: rgba(227, 174, 82, 0.08); color: #FBE2A6; font-size: 16px; font-weight: 700; cursor: pointer">Va’dalaringga ishonaman</button>
+      </sc-if>
+      <sc-if value="{{ accepted }}">
+        <p class="gr-pop gr-t" role="status" style="margin: 0; padding: 14px 20px; border-radius: 4px; background: rgba(60, 196, 196, 0.16); color: #F4EEDF; font-size: 15.5px">Rahmat. Har birida turaman.</p>
+      </sc-if>
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- ================= GALEREYA ================= -->
+  <sc-if value="{{ b.galereya }}">
+  <section class="rv" style="flex: none; padding: 40px 20px 20px">
+    <div class="rc" style="text-align: center">
+      <p class="gr-lb">Xotiralar</p>
+      <h2 class="gr-h2">Butun lahzalar</h2>
+    </div>
+    <div class="rc gr-cham" style="margin-top: 22px; padding: 3px; background: linear-gradient(135deg, #C8913A, #FBE2A6 50%, #B9842E)">
+      <img class="gr-cham" src="{{ p.0 }}" alt="" style="display: block; width: 344px; height: 250px; object-fit: cover">
+    </div>
+    <sc-if value="{{ g3 }}">
+    <div style="margin-top: 10px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px">
+      <div class="rc gr-chamS" style="padding: 3px; background: linear-gradient(135deg, #C8913A, #FBE2A6 50%, #B9842E)"><img class="gr-chamS" src="{{ p.1 }}" alt="" style="display: block; width: 164px; height: 190px; object-fit: cover"></div>
+      <div class="rc gr-chamS" style="padding: 3px; background: linear-gradient(135deg, #C8913A, #FBE2A6 50%, #B9842E)"><img class="gr-chamS" src="{{ p.2 }}" alt="" style="display: block; width: 164px; height: 190px; object-fit: cover"></div>
+    </div>
+    </sc-if>
+    <sc-if value="{{ g2 }}">
+    <div class="rc gr-cham" style="margin-top: 10px; padding: 3px; background: linear-gradient(135deg, #C8913A, #FBE2A6 50%, #B9842E)"><img class="gr-cham" src="{{ p.1 }}" alt="" style="display: block; width: 344px; height: 200px; object-fit: cover"></div>
+    </sc-if>
+    <p class="rc gr-t" style="margin: 16px 20px 0; font-size: 15px; font-style: italic; line-height: 1.5; color: #B8C2E0; text-align: center">Har bir xotira — naqshimizning bir bo’lagi.</p>
+  </section>
+  </sc-if>
+
+  <!-- ================= TAKLIF ================= -->
+  <sc-if value="{{ b.taklif }}">
+  <section class="rv" style="flex: none; padding: 40px 20px 26px">
+    <div class="rc" style="text-align: center">
+      <p class="gr-lb">Yarashish taklifi</p>
+    </div>
+    <div style="margin-top: 16px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px">
+      <div class="rc gr-cham" style="grid-column: span 2; position: relative; padding: 26px 22px; background: #F4EEDF; color: #13235C; text-align: center">
+        <svg width="70" height="46" viewBox="0 0 70 46" aria-hidden="true" style="display: block; margin: 0 auto">
+          <path d="M8 14 H62 C61 30 51 40 35 40 C19 40 9 30 8 14 Z" fill="#13235C"></path>
+          <path d="M14 20 H56" stroke="#E3AE52" class="gr-ln2"></path>
+          <g fill="#3CC4C4"><rect x="21" y="25" width="6" height="6" transform="rotate(45 24 28)"></rect><rect x="32" y="27" width="6" height="6" transform="rotate(45 35 30)"></rect><rect x="43" y="25" width="6" height="6" transform="rotate(45 46 28)"></rect></g>
+          <path d="M29 10 C27 6 31 4 29 0 M41 10 C39 6 43 4 41 0" stroke="#A36F1E" class="gr-ic gr-tw"></path>
+        </svg>
+        <p class="gr-d" style="margin: 12px 0 0; font-size: 27px; font-weight: 700; line-height: 1.22; overflow-wrap: anywhere">{{ d.taklif }}</p>
+      </div>
+      <sc-if value="{{ d.taklif_vaqt }}">
+      <div class="{{ chipCls }}" style="padding: 16px; background: #1A2E70; border: 1px solid rgba(227, 174, 82, 0.35); display: flex; flex-direction: column; gap: 8px">
+        <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5" stroke="#E3AE52" class="gr-ic"></circle><path d="M12 7.5V12l3 2" stroke="#E3AE52" class="gr-ic"></path></svg>
+        <span class="gr-lb" style="font-size: 10.5px; color: #9FAAD4">Qachon</span>
+        <span class="gr-d" style="font-size: 19px; font-weight: 700; line-height: 1.2; overflow-wrap: anywhere">{{ d.taklif_vaqt }}</span>
+      </div>
+      </sc-if>
+      <sc-if value="{{ d.taklif_joy }}">
+      <div class="{{ chipCls2 }}" style="padding: 16px; background: #1A2E70; border: 1px solid rgba(227, 174, 82, 0.35); display: flex; flex-direction: column; gap: 8px">
+        <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6.5-6-6.5-11a6.5 6.5 0 0 1 13 0c0 5-6.5 11-6.5 11z" stroke="#E3AE52" class="gr-ic"></path><circle cx="12" cy="10" r="2.3" stroke="#E3AE52" class="gr-ic"></circle></svg>
+        <span class="gr-lb" style="font-size: 10.5px; color: #9FAAD4">Qayerda</span>
+        <span class="gr-d" style="font-size: 19px; font-weight: 700; line-height: 1.2; overflow-wrap: anywhere">{{ d.taklif_joy }}</span>
+      </div>
+      </sc-if>
+    </div>
+    <div class="rc" style="margin-top: 14px">
+      <sc-if value="{{ notAgreed }}">
+        <button type="button" class="gr-press gr-btnG gr-t" onClick="{{ agree }}" style="width: 100%; height: 54px; border: 0; border-radius: 4px; font-size: 16.5px; font-weight: 700; cursor: pointer">Roziman, boraman</button>
+      </sc-if>
+      <sc-if value="{{ agreed }}">
+        <p class="gr-pop gr-t" role="status" style="margin: 0; padding: 15px 18px; border-radius: 4px; background: rgba(60, 196, 196, 0.16); font-size: 16px; color: #F4EEDF; text-align: center; overflow-wrap: anywhere">{{ agreedText }}</p>
+      </sc-if>
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- ================= JAVOB ================= -->
+  <sc-if value="{{ showAnswer }}">
+  <section class="rv" style="flex: none; padding: 44px 24px 26px; text-align: center">
+    <div class="rc">
+      <p class="gr-lb">Javob</p>
+      <h2 class="gr-h2" style="font-size: 40px">Kechirasanmi?</h2>
+      <p class="gr-t" style="margin: 10px 0 0; font-size: 15.5px; font-style: italic; line-height: 1.5; color: #B8C2E0">{{ askSub }}</p>
+    </div>
+    <sc-if value="{{ b.javob }}">
+    <div class="rc" style="margin-top: 24px; display: flex; flex-direction: column; align-items: center">
+      <sc-if value="{{ waiting }}">
+        <div style="position: relative; width: 170px; height: 170px">
+          <svg class="gr-spin" width="170" height="170" viewBox="-44 -44 88 88" aria-hidden="true" style="position: absolute; left: 0; top: 0"><use href="#grStar" fill="none" stroke="#E3AE52" class="gr-hair" transform="scale(1.08)"></use><use href="#grStar" fill="none" stroke="#3CC4C4" class="gr-hair" transform="rotate(22.5) scale(1.02)"></use></svg>
+          <button type="button" class="gr-press gr-btnG gr-star8 gr-d" onClick="{{ forgive }}" style="position: absolute; left: 17px; top: 17px; width: 136px; height: 136px; border: 0; font-size: 19px; font-weight: 700; cursor: pointer">Kechirdim</button>
+        </div>
+      </sc-if>
+      <sc-if value="{{ forgiven }}">
+        <div class="gr-boom" style="position: relative; width: 100%">
+          <sc-for list="{{ bursts }}" as="r"><span class="gr-sp gr-star8" aria-hidden="true" style="{{ r }}"></span></sc-for>
+          <div class="gr-pop gr-cham" role="status" style="position: relative; padding: 24px 20px; background: #F4EEDF; color: #13235C">
+            <p class="gr-d" style="margin: 0; font-size: 25px; font-weight: 700; overflow-wrap: anywhere">Rahmat, {{ d.kimga }}.</p>
+            <p class="gr-t" style="margin: 8px 0 0; font-size: 16px; line-height: 1.55; color: #3A4A80; white-space: pre-line; overflow-wrap: anywhere">{{ thanks }}</p>
+          </div>
+        </div>
+      </sc-if>
+    </div>
+    </sc-if>
+    <sc-if value="{{ both }}">
+      <div style="margin-top: 24px; display: flex; align-items: center; gap: 10px">
+        <span aria-hidden="true" style="flex: 1; height: 1px; background: rgba(227, 174, 82, 0.35)"></span>
+        <span class="gr-t" style="font-size: 14px; font-style: italic; color: #B8C2E0">yoki o’z so’zlaring bilan</span>
+        <span aria-hidden="true" style="flex: 1; height: 1px; background: rgba(227, 174, 82, 0.35)"></span>
+      </div>
+    </sc-if>
+    <sc-if value="{{ b.sorov }}">
+    <div class="rc" style="margin-top: 18px; text-align: left">
+      <sc-if value="{{ notSent }}">
+        <div style="display: flex; flex-direction: column; gap: 12px">
+          <label for="grReply" class="gr-lb" style="font-size: 11px">Javobingiz</label>
+          <textarea id="grReply" class="gr-ta gr-t" rows="3" placeholder="Bir-ikki so’z ham kifoya" style="width: 100%; height: 96px; box-sizing: border-box; resize: none; padding: 12px 14px; border: 1px solid rgba(227, 174, 82, 0.45); border-radius: 4px; background: #0E1A48; color: #F4EEDF; font-size: 16px; line-height: 1.5"></textarea>
+          <sc-if value="{{ sendErr }}"><p role="alert" class="gr-t" style="margin: -4px 0 0; font-size: 14px; color: #FFC9A8">{{ sendErr }}</p></sc-if>
+          <button type="button" class="gr-press gr-t" onClick="{{ send }}" disabled="{{ sending }}" style="height: 52px; border: 1.5px solid #E3AE52; border-radius: 4px; background: rgba(227, 174, 82, 0.08); color: #F4EEDF; font-size: 16px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px">
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12l16-8-6 16-2.5-6.5L4 12z M11.5 13.5L20 4" stroke="#E3AE52" class="gr-ic"></path></svg>
+            <span>{{ sendLabel }}</span>
+          </button>
+        </div>
+      </sc-if>
+      <sc-if value="{{ sent }}">
+        <p class="gr-pop gr-t" role="status" style="margin: 0; padding: 15px 18px; border-radius: 4px; border: 1px solid rgba(227, 174, 82, 0.45); font-size: 15.5px; color: #F4EEDF; overflow-wrap: anywhere">Javobing {{ toFrom }} yetib bordi.</p>
+      </sc-if>
+    </div>
+    </sc-if>
+  </section>
+  </sc-if>
+
+  <!-- ================= YAKUN ================= -->
+  <footer class="rv" style="position: relative; flex: 1 0 auto; padding: 0 0 60px; display: flex; flex-direction: column; align-items: center; text-align: center">
+    <svg class="rc" width="390" height="44" viewBox="0 0 390 44" aria-hidden="true" style="display: block; margin-top: 30px"><rect x="0" y="0" width="390" height="40" fill="url(#grPatS)"></rect><rect x="0" y="40" width="390" height="3" fill="url(#grGold)"></rect></svg>
+    <div style="padding: 36px 24px 0; display: flex; flex-direction: column; align-items: center">
+      <p class="rc gr-ar gr-mk" dir="rtl" lang="ar" style="margin: 0 -6px; font-size: 22px; line-height: 2.1; color: #FBE2A6">وَلْيَعْفُوا وَلْيَصْفَحُوا أَلَا تُحِبُّونَ أَن يَغْفِرَ اللَّهُ لَكُمْ</p>
+      <p class="rc gr-t" style="margin: 14px 0 0; font-size: 16px; font-style: italic; line-height: 1.6; color: #C6CEEA">«Afv etsinlar va kechirsinlar. Alloh sizlarni mag’firat qilishini yoqtirmaysizlarmi?»</p>
+      <p class="rc gr-t" style="margin: 6px 0 0; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #8F9AC4">Nur surasi, 22-oyat</p>
+      <p class="rc gr-d" style="margin: 30px 0 0; font-size: 21px; line-height: 1.45; color: #F4EEDF">Alloh oramizni isloh qilsin, qalblarimizni bir-biriga yaqin qilsin.</p>
+      <p class="rc gr-d gr-gold" style="margin: 18px 0 0; font-size: {{ sigSize }}; font-weight: 700; font-style: italic; overflow-wrap: anywhere">{{ d.kimdan }}</p>
+    </div>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":4300}}'>
+const GR_RM = typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
+const GR_IO = typeof IntersectionObserver === 'function' && !GR_RM && !(typeof navigator !== 'undefined' && navigator.webdriver);
+const GR_SLOT = [[155, 190], [315, 270], [75, 350], [235, 430], [155, 510]];
+const GR_TRAY = [[59, 618, -24], [127, 618, 18], [195, 618, -10], [263, 618, 30], [331, 618, -16]];
+const GR_HINT = ['Naqshdan besh parcha tushib qolgan. Ularni birma-bir joyiga qaytaring.', 'Bitta parcha joyida. Yana to’rttasi qoldi.', 'Naqsh tiklanmoqda. Yana uchta.', 'Yarmidan oshdi. Yana ikkita.', 'Oxirgi parcha qoldi.', ''];
+
+class Component extends DCLogic {
+  constructor(...args) {
+    super(...args);
+    this.state = { placed: 0, accepted: false, agreed: false, forgiven: false, sent: false, sending: false, err: '', taps: {} };
+  }
+  componentDidMount() { if (GR_IO) document.documentElement.classList.add('gr-arm'); }
+  componentWillUnmount() { this.gone = true; clearTimeout(this.t1); if (this.io) this.io.disconnect(); }
+  startIO() {
+    if (!GR_IO || this.io) return;
+    try {
+      this.io = new IntersectionObserver((es) => es.forEach((e) => {
+        if (e.isIntersecting) { e.target.classList.add('is-in'); this.io.unobserve(e.target); }
+      }), { rootMargin: '0px 0px -8% 0px', threshold: 0.01 });
+      document.querySelectorAll('.rv').forEach((el) => this.io.observe(el));
+    } catch (e) { document.documentElement.classList.remove('gr-arm'); }
+  }
+  renderVals() {
+    const s = this.state || {};
+    const d = SITE.d, b = SITE.b;
+    const ini = (n) => { const m = String(n || '').trim().match(/[A-Za-zÀ-ɏЀ-ӿ]/); return m ? m[0].toUpperCase() : ''; };
+    const vad = d.vadalar || [];
+    const matn = String(d.matn || '').replace(/^\s+/, '');
+    const n = SITE.has.photos;
+    const nameLen = String(d.kimga || '').length;
+    const fromLen = String(d.kimdan || '').length;
+    const tv = String(d.taklif_vaqt || '').trim();
+    const placed = s.placed || 0, whole = placed >= 5;
+    const taps = s.taps || {};
+    const odd = vad.length % 2 === 1;
+    const place = () => {
+      const p = this.state.placed || 0;
+      if (p >= 5) return;
+      this.setState({ placed: p + 1 });
+      if (p + 1 >= 5) { SITE.opened(); this.t1 = setTimeout(() => this.startIO(), GR_RM ? 0 : 4600); }
+    };
+    const both2 = !!(tv && d.taklif_joy);
+    return {
+      introCls: whole ? 'gr-intro is-whole' : 'gr-intro',
+      place,
+      slot: [0, 1, 2, 3, 4].map((i) => 'gr-slot' + (placed > i ? ' is-done' : i === placed ? ' is-next' : '')),
+      pc: GR_TRAY.map((t, i) => {
+        const inn = placed > i;
+        return {
+          cls: 'gr-pc' + (inn ? ' is-in' : ' is-loose') + (!inn && i === placed ? ' is-next' : ''),
+          st: inn ? 'transform: none' : 'transform: translate(' + (t[0] - GR_SLOT[i][0]) + 'px, ' + (t[1] - GR_SLOT[i][1]) + 'px) rotate(' + t[2] + 'deg) scale(0.66)'
+        };
+      }),
+      hits: whole ? [] : ['left: ' + GR_SLOT[placed][0] + 'px; top: ' + GR_SLOT[placed][1] + 'px', 'left: ' + GR_TRAY[placed][0] + 'px; top: ' + GR_TRAY[placed][1] + 'px'],
+      dots: [0, 1, 2, 3, 4].map((i) => 'gr-dot' + (placed > i ? ' is-on' : '')),
+      hint: GR_HINT[placed],
+      btnLabel: placed === 0 ? 'Parchani qo’ying' : placed >= 4 ? 'Oxirgi parcha' : 'Keyingi parcha',
+      fromTo: (d.kimdan || '') + 'dan ' + SITE.ga(d.kimga),
+      fromLs: (String(d.kimdan || '') + String(d.kimga || '')).length > 26 ? '0.1em' : '0.24em',
+      fromLine: (d.kimdan || '') + 'dan',
+      medSize: nameLen > 18 ? '20px' : nameLen > 11 ? '25px' : '32px',
+      h1Size: nameLen > 18 ? '34px' : nameLen > 11 ? '42px' : '54px',
+      sigSize: fromLen > 18 ? '20px' : '28px',
+      iniFrom: ini(d.kimdan), iniTo: ini(d.kimga),
+      musicOn: !!SITE.music.playing,
+      musicOff: !SITE.music.playing,
+      toggleMusic: () => SITE.music.toggle(),
+      dropCap: matn.charAt(0),
+      dropRest: matn.slice(1),
+      promises: vad.map((text, i) => {
+        const t = taps[i] || 0;
+        return {
+          text, n: String(i + 1), on: t % 2 === 1,
+          cls: 'gr-tile gr-press gr-chamS' + (odd && i === vad.length - 1 ? ' gr-wide' : '') + (t % 2 === 1 ? ' is-on' : ''),
+          tap: () => { const m = Object.assign({}, this.state.taps); m[i] = (m[i] || 0) + 1; this.setState({ taps: m }); }
+        };
+      }),
+      accepted: !!s.accepted,
+      notAccepted: !s.accepted,
+      accept: () => { if (this.state.accepted) return; this.setState({ accepted: true }); SITE.reply('Va’dalaringga ishonaman', '🥹'); },
+      g3: n >= 3, g2: n === 2,
+      chipCls: 'rc gr-chamS' + (both2 ? '' : ' gr-span2'),
+      chipCls2: 'rc gr-chamS' + (both2 ? '' : ' gr-span2'),
+      agreedText: tv ? 'Kelishdik. ' + tv + ' — kutaman.' : 'Kelishdik. Seni kutaman.',
+      agreed: !!s.agreed,
+      notAgreed: !s.agreed,
+      agree: () => { if (this.state.agreed) return; this.setState({ agreed: true }); SITE.reply('Roziman: ' + (d.taklif || ''), '🥰'); },
+      showAnswer: !!(b.javob || b.sorov),
+      both: !!(b.javob && b.sorov),
+      askSub: b.javob && b.sorov ? 'Bitta tugma yoki bir necha so’z — qanday bo’lsa ham, kutaman.' : b.javob ? 'Bitta so’zing kifoya — kutaman.' : 'Bir necha so’z yozsang ham kifoya — kutaman.',
+      thanks: d.javob_matni || 'Naqshimiz yana butun. Endi uni ehtiyot qilaman.',
+      waiting: !s.forgiven,
+      forgiven: !!s.forgiven,
+      bursts: [0, 45, 90, 135, 180, 225, 270, 315, 22, 112, 202, 292].map((r, i) => '--r: ' + r + 'deg; animation-delay: ' + (i > 7 ? 0.12 : 0) + 's'),
+      forgive: () => { if (this.state.forgiven) return; this.setState({ forgiven: true }); SITE.reply('Kechirdim', '🤗'); },
+      toFrom: SITE.ga(d.kimdan),
+      sent: !!s.sent,
+      notSent: !s.sent,
+      sending: !!s.sending,
+      sendLabel: s.sending ? 'Yuborilmoqda…' : 'Yuborish',
+      sendErr: s.err || '',
+      send: () => {
+        const el = document.getElementById('grReply');
+        const text = el ? el.value.trim() : '';
+        if (!text) { this.setState({ err: 'Avval bir-ikki so’z yozing.' }); if (el) el.focus(); return; }
+        this.setState({ sending: true, err: '' });
+        SITE.reply(text, '❤️').then(() => { if (!this.gone) this.setState({ sent: true, sending: false }); })
+          .catch(() => { if (!this.gone) this.setState({ sending: false, err: 'Yuborilmadi. Qaytadan urinib ko’ring.' }); });
+      }
+    };
+  }
+}
+</script>
+</body>
+</html>

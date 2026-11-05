@@ -120,7 +120,7 @@ body{margin:0}
 .q-locket img{display:block;width:100%;height:100%;object-fit:cover}
 .q-lk-float{animation:qFloat 7s ease-in-out infinite}
 .q-lk-float2{animation:qFloat 6s ease-in-out -2s infinite}
-.q-vow{position:relative;width:100%;min-height:66px;box-sizing:border-box;padding:12px 16px 12px 12px;border:0;border-radius:18px;background:rgba(31,40,72,.75);color:#F6E9E2;box-shadow:0 0 0 1px rgba(228,164,135,.32) inset;display:flex;align-items:center;gap:14px;text-align:left;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .45s cubic-bezier(.3,1.5,.5,1),background-color .4s ease,box-shadow .4s ease}
+.q-vow{position:relative;width:100%;font-family:'Sofia Sans','Helvetica Neue',Arial,sans-serif;min-height:66px;box-sizing:border-box;padding:12px 16px 12px 12px;border:0;border-radius:18px;background:rgba(31,40,72,.75);color:#F6E9E2;box-shadow:0 0 0 1px rgba(228,164,135,.32) inset;display:flex;align-items:center;gap:14px;text-align:left;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .45s cubic-bezier(.3,1.5,.5,1),background-color .4s ease,box-shadow .4s ease}
 .q-vow:active{transform:scale(.97)}
 .q-vow:focus-visible{outline:2px solid #FBE0D0;outline-offset:3px}
 .q-vow--on{background:rgba(232,169,139,.16);box-shadow:0 0 0 1.5px #E8A98B inset,0 0 22px rgba(232,169,139,.22)}
@@ -184,8 +184,8 @@ body{margin:0}
       <sc-for list="{{ dust }}" as="p"><span class="q-dust" style="left: {{ p.x }}; top: {{ p.y }}; width: {{ p.s }}; height: {{ p.s }}; animation-delay: {{ p.dl }}; animation-duration: {{ p.du }}"></span></sc-for>
     </div>
 
-    <div class="q-head" style="position: absolute; left: 24px; right: 24px; top: 46px; text-align: center">
-      <p class="q-kick">{{ fromLine }}</p>
+    <div class="q-head" style="position: absolute; left: 24px; right: 24px; top: {{ headTop }}; text-align: center">
+      <p class="q-kick" style="font-size: {{ kickFs }}; letter-spacing: {{ kickLs }}; line-height: 1.35">{{ fromLine }}</p>
       <div style="position: relative; height: 60px; margin-top: 12px">
         <p class="q-cg q-foil q-swA" style="position: absolute; left: 0; right: 0; top: 0; margin: 0; font-size: 46px; font-weight: 600; font-style: italic; line-height: 1.15">Qulflangan xat</p>
         <p class="q-cg q-foil q-swB" style="position: absolute; left: 0; right: 0; top: 0; margin: 0; font-size: 46px; font-weight: 600; font-style: italic; line-height: 1.15">Qulf ochildi</p>
@@ -563,6 +563,7 @@ class Component extends DCLogic {
       dust: mk(34, 844, 3), dust2: mk(22, 844, 41), sparks,
       wheels,
       fromLine: (d.kimdan || '') + 'dan senga',
+      headTop: fromLen > 22 ? '22px' : '46px', kickFs: fromLen > 22 ? '11px' : '12px', kickLs: fromLen > 22 ? '0.1em' : '0.3em',
       instr: s.solved ? 'Ochildi' : s.asked ? 'Kalit aylanmoqda…' : okCount ? 'To’g’ri harflar yonadi · ' + okCount + '/' + n : 'Harflarni bosib aylantiring',
       hintMain: s.asked ? 'Kalit — sening isming.' : 'Kalit — men eng ko’p aytadigan ism.',
       hintSub: s.asked ? 'Uni har kuni aytaman.' : hintSub,
