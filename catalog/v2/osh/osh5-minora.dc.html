@@ -58,7 +58,7 @@ body{margin:0}
 
 /* ---------- kirish */
 .mn-i{position:absolute;left:0;top:0;width:390px;height:844px;z-index:40;overflow:hidden;background:#D4E6E2}
-.mn-dusk{position:absolute;left:0;top:0;width:390px;height:844px;background:linear-gradient(180deg,rgba(40,52,74,.42),rgba(70,60,72,.2) 60%,rgba(80,50,40,.12));transition:opacity 2.6s ease .2s;pointer-events:none}
+.mn-dusk{position:absolute;left:0;top:0;width:390px;height:844px;background:linear-gradient(180deg,rgba(40,60,84,.26),rgba(80,70,80,.12) 60%,rgba(90,60,40,.06));transition:opacity 2.6s ease .2s;pointer-events:none}
 .mn-i--open .mn-dusk{opacity:0}
 .mn-i .mn-sun{opacity:.25;transform:scale(.8);transition:opacity 1.6s ease 2.2s,transform 2.2s cubic-bezier(.2,.8,.2,1) 2s}
 .mn-i--open .mn-sun{opacity:1;transform:none}
@@ -705,11 +705,11 @@ class Component extends DCLogic {
       introHidden: !!s.opened,
       open: () => this.open(),
       taklifCap: TAKLIF,
-      guestLine, guestFs: fitPx(guestLine, 30, 334, 0.55, 2),
+      guestLine, guestFs: fitPx(guestLine, 30, 334, 0.64, 2),
       mezbon: MEZBON, hostFs: fitPx(MEZBON, 28, 334, 0.56, 2),
       taklifLow: TAKLIF_LOW,
-      titleA: TITLE_A, titleB: TITLE_B, titleAFs: fitPx(TITLE_A, 26, 330, 0.5, 1),
-      titleFs: fitPx(TITLE_B, 48, 340, 0.6, 1),
+      titleA: TITLE_A, titleB: TITLE_B, titleAFs: fitPx(TITLE_A, TITLE_A ? 23 : 26, 330, 0.52, 1),
+      titleFs: fitPx(TITLE_B, TITLE_A ? 40 : 48, 340, 0.62, 1),
       titleMt: TITLE_A ? 0 : 10,
       sabab: SABAB,
       hhmm: HM || '—', timeNote: timeNote(), timeCap: timeCap(),

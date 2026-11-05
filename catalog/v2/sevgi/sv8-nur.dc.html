@@ -47,7 +47,7 @@ button:disabled{opacity:.7;cursor:default}
 .is-open .nu-dawn,.is-open .nu-dawn2{opacity:1}
 .nu-night{transition:opacity 1.4s ease .2s}
 .is-open .nu-night{opacity:0}
-.nu-sun{transform:translateY(140px);transition:transform 2.2s cubic-bezier(.25,.6,.2,1) .15s}
+.nu-sun{transform:translateY(240px);transition:transform 2.2s cubic-bezier(.25,.6,.2,1) .15s}
 .is-open .nu-sun{transform:translateY(0)}
 .nu-warm{opacity:0;transition:opacity 1.6s ease .7s}
 .is-open .nu-warm{opacity:1}
@@ -559,7 +559,7 @@ class Component extends DCLogic {
   }
   geo() {
     if (this.g) return this.g;
-    const win = this.arch(270, 600, 290, 0, 60, 110), win2 = this.arch(270, 600, 290, -8, 60, 110), win3 = this.arch(270, 600, 290, 6, 60, 110);
+    const win = this.arch(270, 488, 290, 0, 60, 110), win2 = this.arch(270, 488, 290, -8, 60, 110), win3 = this.arch(270, 488, 290, 6, 60, 110);
     const hwin = this.arch(240, 356, 190, 0, 75, 10), hwin2 = this.arch(240, 356, 190, 6, 75, 10);
     const nstars = [];
     for (let i = 0; i < 34; i++) { const x = 70 + ((i * 97) % 250), y = 140 + ((i * 53) % 380), s = i % 5 === 0 ? 3 : 2; nstars.push('position: absolute; left: ' + x + 'px; top: ' + y + 'px; width: ' + s + 'px; height: ' + s + 'px; border-radius: 50%; background: #FFF1D0; animation-delay: ' + (-(i % 7) * 0.45).toFixed(2) + 's'); }

@@ -499,6 +499,7 @@ class Component extends DCLogic {
     const lw = Math.round(Math.min(rows.length === 1 ? 64 : 56, spacing * 0.86));
     const lh = lw * 2;
     const sag = 16;
+    const STEP = Math.min(0.2, 2.4 / Math.max(1, L));
     const items = [], garl = [], nails = [];
     let top = 6, g = 0;
     rows.forEach((row, r) => {
@@ -512,7 +513,7 @@ class Component extends DCLogic {
         const gy = top + 4 * sag * t * (1 - t);
         const sh = Math.round(14 + (i % 2) * 16 + ((i * 7 + r * 3) % 3) * 5);
         rowMax = Math.max(rowMax, gy - top + sh + lh);
-        const dl = 0.45 + g * 0.2;
+        const dl = 0.45 + g * STEP;
         const hs = lw * 2.1;
         items.push({
           ch, w: lw, h2: lh, sh: sh + 'px',
@@ -525,7 +526,7 @@ class Component extends DCLogic {
       top += Math.round(rowMax) + 18;
     });
     const lanH = top;
-    const afterDl = (REDUCED ? 0 : 0.45 + L * 0.2 + 0.6).toFixed(2) + 's';
+    const afterDl = (REDUCED ? 0 : 0.45 + L * STEP + 0.6).toFixed(2) + 's';
 
     const LW = Math.max(1, ...words.map((x) => Array.from(x).length));
     const nfs = Math.max(30, Math.min(50, Math.floor(330 / (LW * 0.64))));
@@ -658,7 +659,7 @@ class Component extends DCLogic {
       fam, famHas: famL.length > 0, famPath,
       parLabel: par.length > 1 ? 'Dadasi va oyisi' : 'Ota-onasi',
       babyLabel: qiz ? 'Qizalog’i' : 'O’g’ilchasi',
-      babyFs: Math.max(18, Math.min(28, Math.floor(170 / (LW * 0.62)))) + 'px',
+      babyFs: Math.max(14, Math.min(28, Math.floor(160 / (LW * 0.64)))) + 'px',
       months,
       rays, raysCls: 'qd-rays' + (playing ? ' is-on' : ''),
       playing, notPlaying: !playing,
@@ -668,7 +669,7 @@ class Component extends DCLogic {
       wishes, sparks,
       guests,
       congratsTitle: name ? name + 'ni tabriklang' : 'Tabriklang',
-      ctFs: Math.max(26, Math.min(34, Math.floor(300 / ((LW + 2) * 0.55)))) + 'px',
+      ctFs: Math.max(20, Math.min(34, Math.floor(290 / ((LW + 2) * 0.66)))) + 'px',
       parentsTo: d.ota_ona ? SITE.ga(d.ota_ona) : 'ota-onasiga',
       risers, riseCls: 'qd-rise' + (s.sent ? ' is-on' : ''),
       sent: !!s.sent,

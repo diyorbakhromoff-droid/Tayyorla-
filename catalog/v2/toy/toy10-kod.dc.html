@@ -31,7 +31,7 @@ body{margin:0;background:#1F2124}
 
 /* ===== kirish ===== */
 .kd-i{position:absolute;left:0;top:0;width:390px;height:844px;z-index:40;overflow:hidden;background:#1F2124}
-.kd-i--ok{pointer-events:none;animation:kd-iout .6s ease 3.3s forwards}
+.kd-i--ok{pointer-events:none;animation:kd-iout .6s ease 3.05s forwards}
 @keyframes kd-iout{to{opacity:0;visibility:hidden}}
 .kd-up{animation:kd-up .8s cubic-bezier(.2,.85,.25,1) both}
 @keyframes kd-up{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
@@ -127,8 +127,8 @@ body{margin:0;background:#1F2124}
 @keyframes kd-cardin{from{opacity:0;transform:translateY(40px) scale(.94)}to{opacity:1;transform:none}}
 .kd-card--i .kd-pn1{transform:translateZ(1px) rotateX(-180deg)}
 .kd-card--i .kd-pn3{transform:translateZ(2px) rotateX(180deg)}
-.kd-i--ok .kd-card--i .kd-pn3{animation:kd-unf3 .85s cubic-bezier(.35,1.25,.45,1) 2s forwards}
-.kd-i--ok .kd-card--i .kd-pn1{animation:kd-unf1 .85s cubic-bezier(.35,1.25,.45,1) 2.5s forwards}
+.kd-i--ok .kd-card--i .kd-pn3{animation:kd-unf3 .85s cubic-bezier(.35,1.25,.45,1) 1.85s forwards}
+.kd-i--ok .kd-card--i .kd-pn1{animation:kd-unf1 .85s cubic-bezier(.35,1.25,.45,1) 2.3s forwards}
 @keyframes kd-unf3{from{transform:translateZ(2px) rotateX(180deg)}to{transform:translateZ(0) rotateX(0deg)}}
 @keyframes kd-unf1{from{transform:translateZ(1px) rotateX(-180deg)}to{transform:translateZ(0) rotateX(0deg)}}
 .kd-card--p{box-shadow:0 40px 60px -30px rgba(0,0,0,.8);border-radius:18px}
@@ -603,7 +603,7 @@ class Component extends DCLogic {
     if (this.state.ph === 'ok' || this.state.ph === 'gone') return;
     this.setState({ ph: 'ok', ent: CODE || this.state.ent, mg: this.state.mg + 1 });
     SITE.opened();
-    this.later(() => { this.setState({ ph: 'gone' }); this.observe(); }, 4000);
+    this.later(() => { this.setState({ ph: 'gone' }); this.observe(); }, 3700);
   }
   /* birinchi aylantirishda: ekrandan pastdagi bo'limlar yashirinadi va ko'ringanda chiqib keladi */
   observe() {
