@@ -245,6 +245,7 @@ body{margin:0}
       <p class="qd-cap qd-mut qd-num qd-tw qd-tw4" style="margin-top: 16px; font-size: 11px; letter-spacing: 0.22em">{{ heroDate }}</p>
       <p class="qd-tw qd-tw5" style="margin: 14px 0 0; font-size: 17px; line-height: 1.35; overflow-wrap: anywhere"><span class="qd-mut">Mezbonlar:</span> {{ mezbon }}</p>
     </div>
+    <svg class="qd-icon qd-br qd-tw qd-tw5" width="40" height="40" viewBox="0 0 64 64" aria-hidden="true" style="position: absolute; left: 175px; top: 722px"><sc-for list="{{ icon }}" as="pp"><path d="{{ pp }}"></path></sc-for><path d="{{ iconDots }}" style="stroke-width: 3.6; stroke: #FFE6A6"></path></svg>
     <div class="qd-i-ui" style="position: absolute; left: 0; right: 0; top: 572px; display: flex; flex-direction: column; align-items: center">
       <p class="qd-cap qd-br" style="padding: 0 24px; text-align: center">{{ taklifCap }}</p>
       <button type="button" class="qd-i-btn" onClick="{{ open }}" style="margin-top: 26px">
@@ -298,6 +299,7 @@ body{margin:0}
         <p class="qd-cap qd-mut qd-num" style="margin-top: 16px; font-size: 11px; letter-spacing: 0.22em">{{ heroDate }}</p>
         <p style="margin: 14px 0 0; font-size: 17px; line-height: 1.35; overflow-wrap: anywhere"><span class="qd-mut">Mezbonlar:</span> {{ mezbon }}</p>
       </div>
+      <svg class="qd-icon qd-br" width="40" height="40" viewBox="0 0 64 64" aria-hidden="true" style="position: absolute; left: 175px; top: 722px"><sc-for list="{{ icon }}" as="pp"><path d="{{ pp }}"></path></sc-for><path d="{{ iconDots }}" style="stroke-width: 3.6; stroke: #FFE6A6"></path></svg>
     </div>
 
     <div style="padding: 44px 32px 0; text-align: center">
@@ -529,6 +531,12 @@ const DUA = {
   beshik: ['Tashrifingiz — xonadonimizga quvonch va baraka.', 'Alloh farzandimizga sog’lik, uzoq va baxtli umr ato etsin.'],
 }[MK];
 
+const ICONS = {
+  nahorgi: { p: ['M6 39a26 7.5 0 1 0 52 0a26 7.5 0 1 0 -52 0', 'M13 38C15 28 23 23 32 23S49 28 51 38', 'M22 46.5L24 51H40L42 46.5', 'M25 18c-3-3 3-5 0-9M32 16c-3-3 3-5 0-9M39 18c-3-3 3-5 0-9'], dots: 'M24 33h.01M31 29h.01M38 31h.01M42 35h.01M28 36h.01M35 36h.01' },
+  osh_toyi: { p: ['M7 27H57', 'M10 27C10 44 19 53 32 53S54 44 54 27', 'M7 27C2 27 2 35 9 35M57 27C62 27 62 35 55 35', 'M20 27C20 19 44 19 44 27', 'M32 20V16M29 16H35', 'M24 12c-2-2 2-4 0-7M40 12c-2-2 2-4 0-7'], dots: 'M20 38h.01M26 41h.01M32 42h.01M38 41h.01M44 38h.01' },
+  sunnat: { p: ['M11 47L14.5 25C15.5 19 22 16 32 16S48.5 19 49.5 25L53 47Z', 'M11.8 41.5H52.2', 'M32 16V41.5', 'M22 23c4 3 4 10-1 14c-2-5-1-10 1-14Z', 'M42 23c-4 3-4 10 1 14c2-5 1-10-1-14Z'], dots: 'M17 44.5h.01M24.5 44.5h.01M32 44.5h.01M39.5 44.5h.01M47 44.5h.01' },
+  beshik: { p: ['M10 52C20 57 44 57 54 52', 'M16 54V21M48 54V21', 'M11 19H53', 'M16 31H48V39C48 45 42 48 32 48S16 45 16 39Z', 'M16 31C24 27 40 27 48 31'], dots: 'M11 19h.01M53 19h.01M27 39h.01M32 40h.01M37 39h.01' },
+}[MK];
 // ---- qandil teshiklari (80×140)
 const ci = (x, y, r) => 'M' + (x - r) + ' ' + y + 'a' + r + ' ' + r + ' 0 1 0 ' + (2 * r) + ' 0a' + r + ' ' + r + ' 0 1 0 ' + (-2 * r) + ' 0Z';
 const STAR_B = 'M40.0 62.0L42.9 64.9L47.1 64.9L47.1 69.1L50.0 72.0L47.1 74.9L47.1 79.1L42.9 79.1L40.0 82.0L37.1 79.1L32.9 79.1L32.9 74.9L30.0 72.0L32.9 69.1L32.9 64.9L37.1 64.9Z';
@@ -629,6 +637,7 @@ class Component extends DCLogic {
     const guestLine = GUEST ? 'Hurmatli ' + GUEST + '!' : 'Hurmatli mehmon!';
     return {
       w, cd, ix, rv,
+      icon: ICONS.p, iconDots: ICONS.dots,
       lamps: LAMPS_V, casts: CASTS, holes: HOLES, holesS: HOLES_S,
       rootCls: s.opened || REDUCED ? 'qd-root qd-on' : 'qd-root',
       introCls: 'qd-i' + (s.opened ? ' qd-i--open' : ''),
