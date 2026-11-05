@@ -118,6 +118,7 @@ body{margin:0;background:#1F3D35}
 .es-leakb{transition:opacity .4s ease .7s}
 .es-intro.is-big .es-leakb{opacity:0}
 .es-post{opacity:0}
+.es-post,.es-up,.es-nl,.es-nm,.es-mote,.es-spark{pointer-events:none}
 .es-intro.is-big .es-post{transition:opacity 1s ease 2.9s;opacity:1}
 .es-nl{display:inline-block;opacity:0}
 .es-intro.is-big .es-nl{animation:esNl .9s cubic-bezier(.2,.8,.3,1) forwards}
@@ -238,10 +239,10 @@ body{margin:0;background:#1F3D35}
       </sc-for>
     </div>
 
-    <div style="position: absolute; left: 58px; top: {{ L.lbl }}; width: 274px; text-align: center">
+    <div class="es-nm" style="position: absolute; left: 58px; top: {{ L.lbl }}; width: 274px; text-align: center">
       <p class="es-up" style="margin: 0; font-size: 11px; font-weight: 800; letter-spacing: 0.22em; text-transform: uppercase; color: var(--g); animation-delay: 2.95s">{{ roomLbl }}</p>
     </div>
-    <div style="position: absolute; left: 58px; top: {{ L.name }}; width: 274px; text-align: center">
+    <div class="es-nm" style="position: absolute; left: 58px; top: {{ L.name }}; width: 274px; text-align: center">
       <p class="es-p" style="margin: 0; font-size: {{ nameFs }}; line-height: 1.1; color: #2A2F2C">
         <sc-for list="{{ nameWords }}" as="wd"><span style="display: inline-block; white-space: nowrap; margin: 0 0.1em"><sc-for list="{{ wd.ls }}" as="l"><span class="es-nl" style="{{ l.st }}">{{ l.ch }}</span></sc-for></span></sc-for>
       </p>
@@ -547,7 +548,7 @@ body{margin:0;background:#1F3D35}
         <button type="button" class="es-btn es-brass" onClick="{{ ring }}" aria-label="{{ bellLabel }}" style="position: absolute; left: 41px; top: 108px; width: 68px; height: 68px; padding: 0; border: 0; border-radius: 50%; box-shadow: 0 6px 12px rgba(0, 0, 0, 0.45), inset 0 0 0 3px rgba(255, 255, 255, 0.35)">
           <span style="position: absolute; left: 12px; top: 12px; width: 44px; height: 44px; border-radius: 50%; background: radial-gradient(circle at 40% 35%, #FFFDF6, var(--gl)); box-shadow: inset 0 2px 5px rgba(70, 45, 10, 0.35)"></span>
         </button>
-        <span key="{{ rkKey }}" class="es-p es-ding {{ dingCls }}" aria-hidden="true" style="position: absolute; left: -40px; top: -34px; width: 230px; text-align: center; font-size: 26px; color: #F2D58F">Ding-dong!</span>
+        <span key="{{ rkKey }}" class="es-p es-ding {{ dingCls }}" aria-hidden="true" style="position: absolute; left: 132px; top: 40px; width: 120px; text-align: left; font-size: 22px; color: #F2D58F; white-space: nowrap">Ding-dong!</span>
       </div>
       <button type="button" class="es-btn" onClick="{{ ring }}" disabled="{{ sent }}" style="display: inline-flex; align-items: center; justify-content: center; gap: 10px; width: 100%; height: 60px; margin-top: 18px; border: 0; border-radius: 30px; background: #FBF3E6; color: #2A2F2C; font-family: 'Raleway', system-ui, sans-serif; font-size: 18px; font-weight: 800; box-shadow: 0 14px 28px rgba(0, 0, 0, 0.3)">
         <sc-if value="{{ sent }}"><svg aria-hidden="true" viewBox="0 0 24 24" width="22" height="22" class="es-ic"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></sc-if>
