@@ -313,9 +313,6 @@ body{margin:0}
       <sc-if value="{{ g3 }}">
       <div class="q-locket q-lk-float" style="left: 236px; top: 240px; width: 118px; height: 118px; border-radius: 59px; overflow: hidden; box-shadow: 0 0 0 5px #E4A487, 0 0 0 7px #151C31, 0 0 0 8px rgba(228, 164, 135, 0.6)"><img src="{{ p.2 }}" alt="" loading="lazy"></div>
       </sc-if>
-      <sc-if value="{{ g2 }}">
-      <p class="q-cg" style="position: absolute; left: 150px; top: 300px; width: 90px; margin: 0; font-size: 18px; font-style: italic; line-height: 1.2; color: #E9B096">va yana ko’p</p>
-      </sc-if>
     </div>
   </section>
   </sc-if>
@@ -522,7 +519,9 @@ class Component extends DCLogic {
       const out = [];
       for (let i = 0; i < cnt; i++) {
         const sz = 1.5 + rnd(seed + i * 3) * 2.5;
-        out.push({ x: (rnd(seed + i) * 380).toFixed(0) + 'px', y: (rnd(seed + i * 7 + 2) * h).toFixed(0) + 'px', s: sz.toFixed(1) + 'px',
+        const xx = rnd(seed + i) * 380, yy = rnd(seed + i * 7 + 2) * h;
+        if (xx > 40 && xx < 350 && ((yy > 36 && yy < 140) || (yy > 600 && yy < 720))) continue;
+        out.push({ x: xx.toFixed(0) + 'px', y: yy.toFixed(0) + 'px', s: sz.toFixed(1) + 'px',
           dl: (-rnd(seed + i * 5) * 4).toFixed(2) + 's', du: (3 + rnd(seed + i * 11) * 3).toFixed(2) + 's' });
       }
       return out;
