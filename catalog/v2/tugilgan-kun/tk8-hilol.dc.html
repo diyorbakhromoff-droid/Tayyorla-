@@ -1,0 +1,599 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<title>Tug’ilgan kun: Hilol</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alice&amp;family=Aref+Ruqaa:wght@400;700&amp;family=Oranienbaum&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#C9BEF5}
+.is-hidden{display:none}
+.hl-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.hl-d{font-family:'Oranienbaum','Alice',Georgia,serif;font-weight:400}
+.hl-ar{font-family:'Aref Ruqaa','Amiri','Times New Roman',serif;font-weight:400}
+.hl-kick{margin:0;font-family:'Alice',Georgia,serif;font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:#B9AEEA}
+.hl-h2{margin:6px 0 0;font-family:'Oranienbaum',Georgia,serif;font-weight:400;font-size:42px;line-height:1.05;color:#F4EFE6;overflow-wrap:break-word}
+.hl-lead{margin:10px 0 0;font-size:15px;line-height:1.55;color:#ADA6CF}
+.hl-card{position:relative;background:linear-gradient(180deg,rgba(52,42,112,0.72),rgba(30,24,74,0.82));border:1px solid rgba(201,190,245,0.32);box-shadow:0 20px 44px rgba(5,3,20,0.45),inset 0 1px 0 rgba(255,255,255,0.08)}
+
+/* ambient */
+.hl-st{position:absolute;display:block;border-radius:50%;background:#F4EFE6;animation:hl-tw ease-in-out infinite alternate}
+@keyframes hl-tw{from{opacity:.25;transform:scale(.7)}to{opacity:1;transform:scale(1.1)}}
+.hl-moonG{animation:hl-moonG 6s ease-in-out infinite alternate}
+@keyframes hl-moonG{from{opacity:.6;transform:scale(.95)}to{opacity:1;transform:scale(1.06)}}
+.hl-sway{transform-origin:50% 0;animation:hl-sway 4.5s ease-in-out infinite alternate}
+@keyframes hl-sway{from{transform:rotate(-3deg)}to{transform:rotate(3deg)}}
+.hl-shoot{position:absolute;display:block;width:110px;height:2px;border-radius:2px;background:linear-gradient(90deg,rgba(244,239,230,0),#F4EFE6);opacity:0;animation:hl-shoot 9s ease-in infinite}
+@keyframes hl-shoot{0%,88%{opacity:0;transform:translate(0,0) rotate(-28deg)}90%{opacity:1}100%{opacity:0;transform:translate(-200px,110px) rotate(-28deg)}}
+
+/* scroll reveals */
+.hl-rise{animation:hl-rise 1s cubic-bezier(.2,.8,.2,1) both}
+.hl-glowIn{animation:hl-glowIn 1.2s ease both}
+.hl-phase{animation:hl-phase 1.2s cubic-bezier(.3,1.4,.5,1) both}
+@supports (animation-timeline: view()){
+  .hl-rise{animation-timeline:view();animation-range:entry 5% entry 80%}
+  .hl-glowIn{animation-timeline:view();animation-range:entry 10% entry 90%}
+  .hl-phase{animation-timeline:view();animation-range:entry 20% entry 100%}
+}
+@keyframes hl-rise{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:none}}
+@keyframes hl-glowIn{from{opacity:0;filter:blur(8px)}to{opacity:1;filter:none}}
+@keyframes hl-phase{from{opacity:0;transform:rotate(-40deg) scale(.6)}to{opacity:1;transform:none}}
+
+/* lanterns */
+.hl-lan{position:relative;display:flex;flex-direction:column;align-items:center;width:165px;min-height:190px;margin:0;padding:0 6px 14px;border:0;background:none;color:#F4EFE6;font:inherit;cursor:pointer;box-sizing:border-box;transition:transform .25s cubic-bezier(.3,1.5,.5,1)}
+.hl-lan:active{transform:scale(.95)}
+.hl-pane{fill:#2B2560;transition:fill .6s ease}
+.hl-lan--on .hl-pane{fill:#F6B95A}
+.hl-paneL{fill:#3A3278;transition:fill .6s ease}
+.hl-lan--on .hl-paneL{fill:#FFD98A}
+.hl-flame{transform-box:fill-box;transform-origin:50% 100%;transform:scale(0);transition:transform .5s cubic-bezier(.3,1.6,.5,1) .15s}
+.hl-lan--on .hl-flame{transform:scale(1);animation:hl-fl .7s ease-in-out .6s infinite alternate}
+@keyframes hl-fl{from{transform:scale(1,1)}to{transform:scale(.85,1.12)}}
+.hl-halo{position:absolute;left:50%;top:40px;width:120px;height:120px;margin-left:-60px;border-radius:50%;background:radial-gradient(circle,rgba(246,185,90,0.55),rgba(246,185,90,0) 70%);opacity:0;transform:scale(.4);transition:opacity .6s ease,transform .9s cubic-bezier(.2,.8,.2,1);pointer-events:none}
+.hl-lan--on .hl-halo{opacity:1;transform:none}
+.hl-lTx{position:relative;margin-top:6px;font-family:'Oranienbaum',Georgia,serif;font-size:25px;line-height:1.1;text-align:center;overflow-wrap:anywhere;transition:color .5s ease,text-shadow .5s ease}
+.hl-lan--on .hl-lTx{color:#FFE2A8;text-shadow:0 0 16px rgba(246,185,90,0.6)}
+
+/* flip timer */
+.hl-flip{position:relative;width:72px;height:88px;perspective:320px}
+.hl-half{position:absolute;left:0;width:72px;height:44px;overflow:hidden;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.hl-top{top:0;border-radius:36px 36px 0 0;background:linear-gradient(180deg,#3A3182,#2C2568)}
+.hl-bot{top:44px;border-radius:0 0 10px 10px;background:linear-gradient(180deg,#251F5A,#1B1646)}
+.hl-half span{display:block;width:72px;height:88px;line-height:96px;text-align:center;font-family:'Alice',Georgia,serif;font-size:38px;color:#F4EFE6;font-variant-numeric:lining-nums tabular-nums}
+.hl-bot span{transform:translateY(-44px)}
+.hl-flap1{z-index:2;transform-origin:50% 100%;transform:rotateX(-90deg)}
+.hl-flap2{z-index:2;transform-origin:50% 0;transform:rotateX(0)}
+.hl-flip--a .hl-flap1{animation:hl-fTopA .3s ease-in both}
+.hl-flip--a .hl-flap2{animation:hl-fBotA .32s cubic-bezier(.3,1.5,.6,1) .3s both}
+.hl-flip--b .hl-flap1{animation:hl-fTopB .3s ease-in both}
+.hl-flip--b .hl-flap2{animation:hl-fBotB .32s cubic-bezier(.3,1.5,.6,1) .3s both}
+@keyframes hl-fTopA{from{transform:rotateX(0)}to{transform:rotateX(-90deg)}}
+@keyframes hl-fBotA{from{transform:rotateX(90deg)}to{transform:rotateX(0)}}
+@keyframes hl-fTopB{from{transform:rotateX(0)}to{transform:rotateX(-90deg)}}
+@keyframes hl-fBotB{from{transform:rotateX(90deg)}to{transform:rotateX(0)}}
+.hl-hinge{position:absolute;left:0;top:43.5px;width:72px;height:1px;background:rgba(8,6,26,0.9);z-index:3}
+.hl-tFrame{position:absolute;left:-4px;top:-4px;width:80px;height:96px;box-sizing:border-box;border-radius:40px 40px 13px 13px;border:1px solid rgba(201,190,245,0.6);z-index:4;pointer-events:none;box-shadow:0 0 18px rgba(201,190,245,0.18)}
+
+/* secret: clouds over the moon */
+.hl-sec{position:relative;display:block;width:350px;height:320px;margin:0;padding:0;border:0;border-radius:28px;background:none;color:inherit;font:inherit;cursor:pointer;overflow:hidden;text-align:center}
+.hl-cl{position:absolute;transition:transform 1.6s cubic-bezier(.5,0,.2,1),opacity 1.4s ease .2s}
+.hl-sec--on .hl-clL{transform:translateX(-260px);opacity:0}
+.hl-sec--on .hl-clR{transform:translateX(260px);opacity:0}
+.hl-secTx{opacity:0;transform:translateY(12px);transition:opacity 1s ease .8s,transform 1.1s cubic-bezier(.2,.8,.2,1) .8s}
+.hl-sec--on .hl-secTx{opacity:1;transform:none}
+.hl-secHint{transition:opacity .3s ease}
+.hl-sec--on .hl-secHint{opacity:0}
+
+/* send */
+.hl-btn{position:relative;min-height:58px;padding:0 30px;border:0;border-radius:999px;background:linear-gradient(180deg,#F4EFE6,#D9D0F6);color:#1F1A4D;font-family:'Alice',Georgia,serif;font-size:17px;letter-spacing:.05em;display:inline-flex;align-items:center;justify-content:center;gap:12px;cursor:pointer;box-shadow:0 0 30px rgba(201,190,245,0.35),0 14px 30px rgba(5,3,20,0.5);transition:transform .22s cubic-bezier(.3,1.5,.5,1)}
+.hl-btn:active{transform:scale(.95)}
+.hl-btn--done{background:linear-gradient(180deg,#3A3182,#2A2366);color:#F4EFE6;cursor:default;box-shadow:0 0 0 1px rgba(201,190,245,0.5),0 0 30px rgba(201,190,245,0.25)}
+.hl-row{display:inline-flex;align-items:center;gap:10px}
+.hl-ray{position:absolute;left:0;top:0;width:70px;height:2px;margin-top:-1px;border-radius:2px;background:linear-gradient(90deg,rgba(244,239,230,0),#FFF6E0);transform-origin:0 50%;opacity:0}
+.hl-burst--go .hl-ray{animation:hl-ray 1.3s cubic-bezier(.15,.7,.3,1) both}
+@keyframes hl-ray{0%{opacity:0;transform:rotate(var(--a)) translateX(10px) scaleX(.2)}20%{opacity:1}100%{opacity:0;transform:rotate(var(--a)) translateX(var(--d)) scaleX(1)}}
+.hl-music{position:absolute;right:16px;top:12px;z-index:5;width:46px;height:46px;border:1px solid rgba(201,190,245,0.5);border-radius:50%;background:rgba(31,26,77,0.75);display:flex;align-items:center;justify-content:center;padding:0;cursor:pointer;transition:transform .2s ease}
+.hl-music:active{transform:scale(.92)}
+.hl-music--on{box-shadow:0 0 0 2px #C9BEF5,0 0 20px rgba(201,190,245,0.5)}
+
+/* intro: the crescent rises, stars form a frame */
+.hl-cres{transform:translate(-70px,560px) rotate(-30deg);transition:transform 2.3s cubic-bezier(.25,.8,.25,1) .1s}
+.hl-in--on .hl-cres{transform:none}
+.hl-win{opacity:0;transition:opacity .5s ease}
+.hl-in--on .hl-win{opacity:1}
+.hl-fs{transform:translate(var(--ox),var(--oy));transition:transform 1.5s cubic-bezier(.55,0,.2,1)}
+.hl-in--on .hl-fs{transform:none}
+.hl-arch{stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 1.2s cubic-bezier(.4,0,.2,1) 2.5s}
+.hl-in--on .hl-arch{stroke-dashoffset:0}
+.hl-archF{opacity:0;transition:opacity 1.2s ease 2.7s}
+.hl-in--on .hl-archF{opacity:1}
+.hl-iName{opacity:0;transform:translateY(14px) scale(.96);filter:blur(5px);transition:opacity 1s ease 2.9s,transform 1.2s cubic-bezier(.2,.8,.2,1) 2.9s,filter 1s ease 2.9s}
+.hl-in--on .hl-iName{opacity:1;transform:none;filter:none}
+.hl-iSub{opacity:0;transform:translateY(8px);transition:opacity .9s ease 3.35s,transform .9s ease 3.35s}
+.hl-in--on .hl-iSub{opacity:1;transform:none}
+.hl-iHide{transition:opacity .45s ease,transform .45s ease}
+.hl-in--on .hl-iHide{opacity:0;transform:translateY(12px)}
+.hl-in--on{pointer-events:none;animation:hl-out .75s ease 4.15s both}
+@keyframes hl-out{from{opacity:1}to{opacity:0}}
+.hl-open{position:relative;min-height:58px;width:262px;padding:0 24px;border:0;border-radius:999px;background:linear-gradient(180deg,#F4EFE6,#D9D0F6);color:#1F1A4D;font-family:'Alice',Georgia,serif;font-size:17px;letter-spacing:.04em;display:inline-flex;align-items:center;justify-content:center;gap:12px;cursor:pointer;box-shadow:0 0 34px rgba(201,190,245,0.45),0 16px 34px rgba(5,3,20,0.6);transition:transform .22s cubic-bezier(.3,1.5,.5,1)}
+.hl-open:active{transform:scale(.95)}
+.hl-open::after{content:"";position:absolute;inset:-7px;border-radius:999px;border:1px solid rgba(201,190,245,0.7);animation:hl-halo 2.6s ease-out infinite}
+@keyframes hl-halo{0%{opacity:.8;transform:scale(1)}100%{opacity:0;transform:scale(1.15,1.5)}}
+.hl-page--in .hl-pv1{animation:hl-pv 1.1s cubic-bezier(.2,.8,.2,1) 4s both}
+.hl-page--in .hl-pv2{animation:hl-pv 1.1s cubic-bezier(.2,.8,.2,1) 4.15s both}
+.hl-page--in .hl-pv3{animation:hl-pv 1.1s cubic-bezier(.2,.8,.2,1) 4.35s both}
+@keyframes hl-pv{from{opacity:0;transform:translateY(26px)}}
+
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation:none !important;transition:none !important}
+  .hl-in--on{opacity:0}
+}
+</style>
+</helmet>
+<div style="width: 390px; min-height: var(--vh, 100vh); position: relative; overflow: hidden; background: linear-gradient(180deg, #17123F 0%, #1F1A4D 25%, #241D57 55%, #1B1646 85%, #120E33 100%); color: #DDD8EE; font-family: 'Alice', Georgia, serif">
+  <div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 390px; height: 100%; pointer-events: none">
+    <sc-for list="{{ pageStars }}" as="s"><span class="hl-st" style="{{ s }}"></span></sc-for>
+    <span class="hl-shoot" style="left: 300px; top: 1400px"></span><span class="hl-shoot" style="left: 340px; top: 3300px; animation-delay: 4s"></span><span class="hl-shoot" style="left: 260px; top: 5200px; animation-delay: 7s"></span>
+  </div>
+
+  <div class="{{ pageCls }}" style="position: relative; z-index: 1; min-height: var(--vh, 100vh); display: flex; flex-direction: column">
+
+    <section style="position: relative; flex: none; padding: 0 0 30px">
+      <div style="position: relative; height: 58px; padding: 0 20px; display: flex; align-items: center">
+        <p class="hl-kick" style="font-size: 10px; color: #9D94CC">{{ heroDate }}</p>
+      </div>
+      <sc-if value="{{ has.music }}"><button type="button" class="{{ musicCls }}" onClick="{{ toggleMusic }}" aria-label="Musiqa" aria-pressed="{{ musicOn }}"><svg aria-hidden="true" width="18" height="20" viewBox="0 0 22 26"><path d="M8 3L20 0V17.5A3.5 3 0 1 1 17 14.6V5.2L10 7V20.5A3.5 3 0 1 1 7 17.6V3Z" fill="#F4EFE6"></path></svg></button></sc-if>
+
+      <div class="hl-pv1" style="position: relative; padding: 0 20px; text-align: center">
+        <p class="hl-ar" dir="rtl" lang="ar" style="margin: 0; font-size: 31px; line-height: 1.6; color: #F4EFE6; text-shadow: 0 0 18px rgba(201,190,245,0.4)">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p>
+        <p style="margin: 0; font-size: 13px; font-style: italic; letter-spacing: 0.04em; color: #ADA6CF">Bismillahir Rohmanir Rohiym</p>
+      </div>
+
+      <div class="hl-pv2" style="position: relative; width: 300px; height: 300px; margin: 34px auto 0">
+        <div aria-hidden="true" class="hl-moonG" style="position: absolute; left: -60px; top: -60px; width: 420px; height: 420px; border-radius: 50%; background: radial-gradient(circle, rgba(201,190,245,0.32) 0%, rgba(201,190,245,0.1) 45%, rgba(201,190,245,0) 68%)"></div>
+        <div style="position: absolute; left: 10px; top: 10px; width: 280px; height: 280px; border-radius: 50%; overflow: hidden; background: radial-gradient(circle at 40% 35%, #FFFDF6, #E9E2F7 55%, #B9AEEA); box-shadow: 0 0 0 1px rgba(244,239,230,0.6), 0 0 0 9px rgba(201,190,245,0.12), 0 0 60px rgba(201,190,245,0.4)">
+          <sc-if value="{{ has.photo }}"><img src="{{ p.0 }}" alt="" style="display: block; width: 280px; height: 280px; object-fit: cover"></sc-if>
+          <sc-if value="{{ noPhoto }}"><svg aria-hidden="true" width="280" height="280" viewBox="0 0 280 280"><circle cx="96" cy="110" r="22" fill="#D6CDEE" opacity="0.6"></circle><circle cx="180" cy="80" r="12" fill="#D6CDEE" opacity="0.5"></circle><circle cx="170" cy="190" r="30" fill="#D6CDEE" opacity="0.45"></circle><circle cx="80" cy="200" r="10" fill="#D6CDEE" opacity="0.5"></circle></svg></sc-if>
+        </div>
+        <svg aria-hidden="true" width="110" height="110" viewBox="-55 -55 110 110" style="position: absolute; right: -30px; top: -26px; overflow: visible">
+          <defs><mask id="hl-hm"><circle cx="0" cy="0" r="40" fill="#FFFFFF"></circle><circle cx="-16" cy="-10" r="36" fill="#000000"></circle></mask></defs>
+          <circle cx="0" cy="0" r="40" fill="#F4EFE6" mask="url(#hl-hm)" style="filter: drop-shadow(0 0 10px rgba(244,239,230,0.7))"></circle>
+          <path d="M-14 6L-11 13L-4 16L-11 19L-14 26L-17 19L-24 16L-17 13Z" fill="#F4EFE6"></path>
+        </svg>
+        <sc-if value="{{ yosh }}">
+          <div style="position: absolute; left: -12px; bottom: 6px; width: 84px; height: 84px; border-radius: 50%; background: radial-gradient(circle at 40% 35%, #3A3182, #1F1A4D); box-shadow: 0 0 0 1px rgba(201,190,245,0.7), 0 10px 26px rgba(5,3,20,0.5); text-align: center">
+            <p style="margin: 0; padding-top: 16px; font-size: {{ ageFs }}px; line-height: 1.1; color: #F4EFE6">{{ yosh }}</p>
+            <p class="hl-kick" style="font-size: 9px; color: #C9BEF5">yosh</p>
+          </div>
+        </sc-if>
+      </div>
+
+      <div class="hl-pv3" style="position: relative; padding: 30px 20px 0; text-align: center">
+        <h1 class="hl-d" style="margin: 0; font-size: {{ nameFs }}px; line-height: 1.05; color: #F4EFE6; overflow-wrap: break-word; text-shadow: 0 0 26px rgba(201,190,245,0.45)"><span class="hl-sr">{{ srAge }}</span>{{ name }}</h1>
+        <p class="hl-kick" style="margin-top: 12px">Tug’ilgan kuningiz muborak</p>
+        <sc-if value="{{ from.line }}"><p style="margin: 14px 0 0; font-size: 15px; font-style: italic; line-height: 1.45; color: #ADA6CF; overflow-wrap: anywhere">{{ from.line }}</p></sc-if>
+      </div>
+    </section>
+
+<sc-if value="{{ b.tabrik }}">
+    <section style="position: relative; padding: 36px 20px 40px">
+      <svg aria-hidden="true" class="hl-phase" width="40" height="40" viewBox="-20 -20 40 40" style="display: block; margin-bottom: 12px"><defs><mask id="{{ ph.tabrik.id }}"><circle r="15" fill="#FFFFFF"></circle><circle cx="{{ ph.tabrik.dx }}" r="15.5" fill="#000000"></circle></mask></defs><circle r="15" fill="#2E2766" stroke="rgba(201,190,245,0.4)" style="stroke-width: 1"></circle><circle r="15" fill="#F4EFE6" mask="{{ ph.tabrik.url }}"></circle></svg>
+      <p class="hl-kick">Qalbdan tabrik</p>
+      <h2 class="hl-h2">Oy nurida bitilgan</h2>
+      <div class="hl-card hl-rise" style="margin-top: 24px; padding: 30px 24px 26px; border-radius: 24px; overflow: hidden">
+        <div aria-hidden="true" style="position: absolute; left: 0; right: 0; top: 0; height: 18px; background: repeating-linear-gradient(45deg, rgba(201,190,245,0.28) 0 1.5px, rgba(0,0,0,0) 1.5px 9px), repeating-linear-gradient(-45deg, rgba(201,190,245,0.28) 0 1.5px, rgba(0,0,0,0) 1.5px 9px); border-bottom: 1px solid rgba(201,190,245,0.3)"></div>
+        <div style="margin-top: 8px; font-size: 17px; line-height: 1.72; color: #EAE6F4; overflow-wrap: anywhere">
+          <sc-if value="{{ dropCap }}"><span aria-hidden="true" class="hl-d" style="float: left; margin: 2px 12px 0 0; font-size: 72px; line-height: 0.85; color: #C9BEF5; text-shadow: 0 0 20px rgba(201,190,245,0.5)">{{ dropCap }}</span></sc-if>
+          <span style="white-space: pre-line"><span class="hl-sr">{{ dropCap }}</span>{{ restText }}</span>
+        </div>
+        <sc-if value="{{ d.kimdan }}">
+          <div style="clear: both; margin-top: 22px; padding-top: 14px; border-top: 1px solid rgba(201,190,245,0.25); text-align: right">
+            <sc-if value="{{ from.label }}"><p class="hl-kick" style="font-size: 10px">{{ from.label }}</p></sc-if>
+            <p class="hl-d" style="margin: 4px 0 0; font-size: 27px; line-height: 1.15; color: #F4EFE6; overflow-wrap: anywhere">{{ from.names }}</p>
+          </div>
+        </sc-if>
+      </div>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.tilaklar }}">
+    <section style="position: relative; padding: 36px 20px 40px">
+      <svg aria-hidden="true" class="hl-phase" width="40" height="40" viewBox="-20 -20 40 40" style="display: block; margin-bottom: 12px"><defs><mask id="{{ ph.tilaklar.id }}"><circle r="15" fill="#FFFFFF"></circle><circle cx="{{ ph.tilaklar.dx }}" r="15.5" fill="#000000"></circle></mask></defs><circle r="15" fill="#2E2766" stroke="rgba(201,190,245,0.4)" style="stroke-width: 1"></circle><circle r="15" fill="#F4EFE6" mask="{{ ph.tilaklar.url }}"></circle></svg>
+      <p class="hl-kick">Duo va tilaklar</p>
+      <h2 class="hl-h2">Har duo — bir fonus</h2>
+      <p class="hl-lead">Fonusga teging — u yonib, tilakni yoritadi.</p>
+      <div style="margin-top: 18px; display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 20px">
+        <sc-for list="{{ wishes }}" as="w">
+          <button type="button" class="{{ w.cls }}" onClick="{{ w.tap }}" aria-pressed="{{ w.on }}">
+            <span aria-hidden="true" class="hl-halo"></span>
+            <span aria-hidden="true" class="hl-sway" style="{{ w.sw }}">
+              <svg width="64" height="128" viewBox="0 0 64 128" style="display: block; overflow: visible">
+                <path d="M32 0V22" stroke="#9D94CC" style="stroke-width: 1"></path>
+                <circle cx="32" cy="25" r="4" fill="none" stroke="#D9C38A" style="stroke-width: 1.6"></circle>
+                <path d="M20 40L32 28L44 40Z" fill="#C9A25C"></path>
+                <path d="M16 40H48L52 48H12Z" fill="#B48B48"></path>
+                <path class="hl-pane" d="M14 48H50L46 98H18Z"></path>
+                <path class="hl-paneL" d="M24 50H40L38 96H26Z"></path>
+                <path d="M14 48H50L46 98H18ZM24 48L26 98M40 48L38 98M14 66H50M16 82H48" fill="none" stroke="#C9A25C" style="stroke-width: 1.3"></path>
+                <path d="M14 66C20 60 26 60 32 66C38 60 44 60 50 66" fill="none" stroke="#C9A25C" style="stroke-width: 1"></path>
+                <path class="hl-flame" d="M32 70C36 76 37 81 34.5 85C33.5 87 30.5 87 29.5 85C27 81 28 76 32 70Z" fill="#FFF3C8"></path>
+                <path d="M16 98H48L42 108H22Z" fill="#B48B48"></path>
+                <path d="M28 108H36L32 120Z" fill="#C9A25C"></path>
+              </svg>
+            </span>
+            <span class="hl-lTx">{{ w.text }}</span>
+          </button>
+        </sc-for>
+      </div>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.taymer }}">
+    <section style="position: relative; padding: 36px 20px 40px; text-align: center">
+      <svg aria-hidden="true" class="hl-phase" width="40" height="40" viewBox="-20 -20 40 40" style="display: block; margin: 0 auto 12px"><defs><mask id="{{ ph.taymer.id }}"><circle r="15" fill="#FFFFFF"></circle><circle cx="{{ ph.taymer.dx }}" r="15.5" fill="#000000"></circle></mask></defs><circle r="15" fill="#2E2766" stroke="rgba(201,190,245,0.4)" style="stroke-width: 1"></circle><circle r="15" fill="#F4EFE6" mask="{{ ph.taymer.url }}"></circle></svg>
+      <p class="hl-kick">{{ cdKick }}</p>
+      <h2 class="hl-h2">{{ cdTitle }}</h2>
+      <p class="hl-lead">{{ cdDate }}</p>
+      <div class="hl-rise" style="display: flex; justify-content: center; gap: 12px; margin-top: 30px">
+        <sc-for list="{{ tiles }}" as="t">
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 14px">
+            <div class="{{ t.cls }}">
+              <div class="hl-half hl-top"><span>{{ t.cur }}</span></div>
+              <div class="hl-half hl-bot"><span>{{ t.prev }}</span></div>
+              <div class="hl-half hl-top hl-flap1"><span>{{ t.prev }}</span></div>
+              <div class="hl-half hl-bot hl-flap2"><span>{{ t.cur }}</span></div>
+              <span class="hl-hinge"></span><span class="hl-tFrame"></span>
+            </div>
+            <span style="font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: #ADA6CF">{{ t.l }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.xronika }}">
+    <section style="position: relative; padding: 36px 20px 30px">
+      <svg aria-hidden="true" class="hl-phase" width="40" height="40" viewBox="-20 -20 40 40" style="display: block; margin-bottom: 12px"><defs><mask id="{{ ph.xronika.id }}"><circle r="15" fill="#FFFFFF"></circle><circle cx="{{ ph.xronika.dx }}" r="15.5" fill="#000000"></circle></mask></defs><circle r="15" fill="#2E2766" stroke="rgba(201,190,245,0.4)" style="stroke-width: 1"></circle><circle r="15" fill="#F4EFE6" mask="{{ ph.xronika.url }}"></circle></svg>
+      <p class="hl-kick">Yillar yulduz turkumi</p>
+      <h2 class="hl-h2">Hilol to’lin oyga qadar</h2>
+      <div style="position: relative; margin-top: 28px; padding-left: 64px">
+        <div aria-hidden="true" style="position: absolute; left: 25px; top: 14px; bottom: 34px; width: 2px; background: repeating-linear-gradient(180deg, rgba(201,190,245,0.7) 0 3px, rgba(0,0,0,0) 3px 9px)"></div>
+        <sc-for list="{{ chron }}" as="c">
+          <div class="hl-rise" style="position: relative; padding-bottom: 24px">
+            <svg aria-hidden="true" width="52" height="52" viewBox="-26 -26 52 52" style="position: absolute; left: -64px; top: 0"><defs><mask id="{{ c.mid }}"><circle r="20" fill="#FFFFFF"></circle><circle cx="{{ c.dx }}" r="20.5" fill="#000000"></circle></mask></defs><circle r="25" fill="#1F1A4D"></circle><circle r="20" fill="#2E2766"></circle><circle r="20" fill="#F4EFE6" mask="{{ c.murl }}" style="filter: drop-shadow(0 0 6px rgba(244,239,230,0.6))"></circle></svg>
+            <div class="hl-card" style="padding: 14px 16px; border-radius: 18px; display: flex; align-items: center; gap: 14px">
+              <sc-if value="{{ has.photo }}"><img src="{{ c.src }}" alt="" style="flex: none; display: block; width: 64px; height: 64px; border-radius: 50%; object-fit: cover; box-shadow: 0 0 0 2px rgba(201,190,245,0.5)"></sc-if>
+              <div style="min-width: 0">
+                <p class="hl-d" style="margin: 0; font-size: 26px; line-height: 1; color: #C9BEF5">{{ c.label }}</p>
+                <p style="margin: 6px 0 0; font-size: 16px; line-height: 1.4; color: #EAE6F4; overflow-wrap: anywhere">{{ c.matn }}</p>
+              </div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.galereya }}">
+    <section style="position: relative; padding: 36px 20px 40px">
+      <svg aria-hidden="true" class="hl-phase" width="40" height="40" viewBox="-20 -20 40 40" style="display: block; margin-bottom: 12px"><defs><mask id="{{ ph.galereya.id }}"><circle r="15" fill="#FFFFFF"></circle><circle cx="{{ ph.galereya.dx }}" r="15.5" fill="#000000"></circle></mask></defs><circle r="15" fill="#2E2766" stroke="rgba(201,190,245,0.4)" style="stroke-width: 1"></circle><circle r="15" fill="#F4EFE6" mask="{{ ph.galereya.url }}"></circle></svg>
+      <p class="hl-kick">Xotira suratlari</p>
+      <h2 class="hl-h2">Shahar derazalarida</h2>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px 12px; margin-top: 26px">
+        <sc-for list="{{ gal }}" as="g">
+          <div class="hl-glowIn" style="{{ g.box }}">
+            <div style="{{ g.clip }}"><img src="{{ g.src }}" alt="" style="{{ g.img }}"></div>
+            <svg aria-hidden="true" width="{{ g.w }}" height="{{ g.h }}" viewBox="{{ g.vb }}" style="position: absolute; left: 0; top: 0; overflow: visible"><path d="{{ g.arch }}" fill="none" stroke="#F6B95A" style="stroke-width: 2; opacity: 0.85; filter: drop-shadow(0 0 8px rgba(246,185,90,0.7))"></path></svg>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.sirli }}">
+    <section style="position: relative; padding: 36px 20px 40px">
+      <svg aria-hidden="true" class="hl-phase" width="40" height="40" viewBox="-20 -20 40 40" style="display: block; margin-bottom: 12px"><defs><mask id="{{ ph.sirli.id }}"><circle r="15" fill="#FFFFFF"></circle><circle cx="{{ ph.sirli.dx }}" r="15.5" fill="#000000"></circle></mask></defs><circle r="15" fill="#2E2766" stroke="rgba(201,190,245,0.4)" style="stroke-width: 1"></circle><circle r="15" fill="#F4EFE6" mask="{{ ph.sirli.url }}"></circle></svg>
+      <p class="hl-kick">Sirli tilak</p>
+      <h2 class="hl-h2">Bulutlar ortida</h2>
+      <p class="hl-lead" style="margin-bottom: 22px">Bulutlarga teging — ular tarqalib, oy nurida tilak ko’rinadi.</p>
+      <button type="button" class="{{ secCls }}" onClick="{{ toggleSec }}" aria-label="Sirli tilakni ochish" aria-pressed="{{ secOn }}">
+        <span aria-hidden="true" style="position: absolute; inset: 0; background: radial-gradient(60% 55% at 50% 45%, #4A3F96, #2A2366 60%, #1B1646); box-shadow: inset 0 0 0 1px rgba(201,190,245,0.35)"></span>
+        <span aria-hidden="true" style="position: absolute; left: 95px; top: 80px; width: 160px; height: 160px; border-radius: 50%; background: radial-gradient(circle at 45% 40%, rgba(255,253,246,0.32), rgba(201,190,245,0.12) 60%, rgba(201,190,245,0) 72%)"></span>
+        <span class="hl-secTx" style="position: absolute; left: 28px; right: 28px; top: 0; bottom: 0; display: flex; flex-direction: column; align-items: center; justify-content: center">
+          <span class="hl-kick">Sizga bir tilak</span>
+          <span class="hl-d" style="display: block; margin-top: 12px; font-size: {{ secFs }}px; line-height: 1.3; color: #F4EFE6; white-space: pre-line; overflow-wrap: anywhere; text-shadow: 0 0 16px rgba(201,190,245,0.5)">{{ d.sirli_tilak }}</span>
+        </span>
+        <span aria-hidden="true" class="hl-cl hl-clL" style="left: -40px; top: 40px; width: 300px; height: 250px">
+          <svg width="300" height="250" viewBox="0 0 300 250"><path d="M20 210C-10 210 -10 160 30 156C20 112 80 96 104 128C116 74 196 70 210 126C250 108 290 140 270 176C300 180 300 214 270 214Z" fill="#5A4FA6"></path><path d="M40 196C14 196 16 166 44 164C40 132 86 122 104 146C116 108 180 108 190 146C224 134 254 158 240 184C262 186 262 200 240 200Z" fill="#7368BC"></path></svg>
+        </span>
+        <span aria-hidden="true" class="hl-cl hl-clR" style="left: 110px; top: 20px; width: 300px; height: 250px">
+          <svg width="300" height="250" viewBox="0 0 300 250"><path d="M30 150C0 150 0 110 36 106C30 66 90 52 112 84C126 36 206 34 218 86C262 70 300 104 280 140C300 146 296 180 268 180H40Z" fill="#6A5FB4"></path><path d="M50 138C26 138 28 112 54 110C52 82 96 74 112 98C126 66 180 66 190 100C220 90 248 112 236 136C256 138 254 154 232 154H56Z" fill="#8A80CC" opacity="0.9"></path></svg>
+        </span>
+        <span aria-hidden="true" class="hl-secHint" style="position: absolute; left: 0; right: 0; bottom: 20px; display: flex; justify-content: center"><span style="display: inline-flex; align-items: center; min-height: 40px; padding: 0 18px; border-radius: 999px; background: rgba(244,239,230,0.94); font-size: 14px; color: #1F1A4D">Bulutlarni tarqatish</span></span>
+      </button>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.mehmonlar }}">
+    <section style="position: relative; padding: 36px 20px 40px">
+      <svg aria-hidden="true" class="hl-phase" width="40" height="40" viewBox="-20 -20 40 40" style="display: block; margin-bottom: 12px"><defs><mask id="{{ ph.mehmonlar.id }}"><circle r="15" fill="#FFFFFF"></circle><circle cx="{{ ph.mehmonlar.dx }}" r="15.5" fill="#000000"></circle></mask></defs><circle r="15" fill="#2E2766" stroke="rgba(201,190,245,0.4)" style="stroke-width: 1"></circle><circle r="15" fill="#F4EFE6" mask="{{ ph.mehmonlar.url }}"></circle></svg>
+      <p class="hl-kick">Yaqinlar tilaklari</p>
+      <h2 class="hl-h2">Tungi osmondagi so’zlar</h2>
+      <div style="margin-top: 24px; display: flex; flex-direction: column; gap: 14px">
+        <sc-for list="{{ reviews }}" as="r">
+          <div class="hl-card hl-rise" style="{{ r.st }}">
+            <svg aria-hidden="true" width="26" height="26" viewBox="-13 -13 26 26" style="position: absolute; right: 16px; top: 16px"><path d="M0 -12L3 -3L12 0L3 3L0 12L-3 3L-12 0L-3 -3Z" fill="{{ r.col }}" style="filter: drop-shadow(0 0 6px rgba(244,239,230,0.6))"></path></svg>
+            <p style="margin: 0; padding-right: 26px; font-size: 16px; line-height: 1.6; color: #EAE6F4; overflow-wrap: anywhere">{{ r.matn }}</p>
+            <p class="hl-d" style="margin: 10px 0 0; font-size: 23px; line-height: 1.15; color: #C9BEF5; overflow-wrap: anywhere">{{ r.ism }}</p>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+</sc-if>
+
+<sc-if value="{{ b.javob }}">
+    <section style="position: relative; padding: 36px 20px 46px; text-align: center">
+      <svg aria-hidden="true" class="hl-phase" width="40" height="40" viewBox="-20 -20 40 40" style="display: block; margin: 0 auto 12px"><defs><mask id="{{ ph.javob.id }}"><circle r="15" fill="#FFFFFF"></circle><circle cx="{{ ph.javob.dx }}" r="15.5" fill="#000000"></circle></mask></defs><circle r="15" fill="#2E2766" stroke="rgba(201,190,245,0.4)" style="stroke-width: 1"></circle><circle r="15" fill="#F4EFE6" mask="{{ ph.javob.url }}"></circle></svg>
+      <p class="hl-kick">Tabrigingizni yo’llang</p>
+      <h2 class="hl-h2" style="font-size: 36px">{{ askName }}</h2>
+      <p class="hl-lead" style="margin-bottom: 32px">Bir bosishda tabrigingiz {{ nameGa }} yetib boradi</p>
+      <div style="position: relative; width: 290px; margin: 0 auto">
+        <div class="{{ burstCls }}" aria-hidden="true" style="position: absolute; left: 145px; top: 29px; width: 0; height: 0">
+          <sc-for list="{{ rays }}" as="r"><span class="hl-ray" style="{{ r }}"></span></sc-for>
+        </div>
+        <button type="button" class="{{ sendCls }}" onClick="{{ send }}" style="width: 290px">
+          <span class="{{ sendIdle }}"><svg aria-hidden="true" width="18" height="18" viewBox="-10 -10 20 20"><path d="M0 -9L2.2 -2.2L9 0L2.2 2.2L0 9L-2.2 2.2L-9 0L-2.2 -2.2Z" fill="#5A4FA6"></path></svg>Tabrikladim</span>
+          <span class="{{ sendDone }}"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 20 20"><path d="M4 10.5l4 4 8-9" fill="none" stroke="#F4EFE6" style="stroke-width: 2; stroke-linecap: round; stroke-linejoin: round"></path></svg>Rahmat, yetkazildi</span>
+        </button>
+      </div>
+    </section>
+</sc-if>
+
+    <footer style="position: relative; flex: 1; min-height: 400px; display: flex; flex-direction: column; justify-content: flex-end; text-align: center">
+      <div style="position: relative; padding: 30px 26px 0">
+        <p class="hl-d" style="margin: 0; font-size: 34px; line-height: 1.15; color: #F4EFE6">Alloh umringizga baraka bersin</p>
+        <p style="margin: 12px 0 0; font-size: 15px; line-height: 1.6; color: #ADA6CF">Hayotingiz to’lin oydek nurli, kunlaringiz tinch va barakali bo’lsin. Omin.</p>
+      </div>
+      <div aria-hidden="true" style="position: relative; height: 190px; margin-top: 20px; overflow: hidden">
+        <div class="hl-moonG" style="position: absolute; left: 115px; top: 0; width: 160px; height: 160px; border-radius: 50%; background: radial-gradient(circle, rgba(244,239,230,0.35), rgba(201,190,245,0) 70%)"></div>
+        <div style="position: absolute; left: 155px; top: 40px; width: 80px; height: 80px; border-radius: 50%; background: radial-gradient(circle at 40% 35%, #FFFDF6, #E3DCF4 60%, #C3B8EC); box-shadow: 0 0 40px rgba(244,239,230,0.5)"></div>
+        <svg width="390" height="190" viewBox="0 650 390 190" preserveAspectRatio="none" style="position: absolute; left: 0; top: 0"><path d="{{ skyline }}" fill="#0E0B26"></path><sc-for list="{{ footWins }}" as="fw"><rect x="{{ fw.x }}" y="{{ fw.y }}" width="5" height="7" rx="2.5" fill="#F6B95A"></rect></sc-for></svg>
+      </div>
+      <div style="position: relative; padding: 4px 20px 30px; background: #0E0B26">
+        <p class="hl-d" style="margin: 0; font-size: {{ footFs }}px; line-height: 1.1; color: #F4EFE6; overflow-wrap: break-word">{{ name }}</p>
+        <p class="hl-kick" style="margin-top: 8px; font-size: 10px">{{ footLine }}</p>
+      </div>
+    </footer>
+  </div>
+
+  <div data-intro class="{{ introCls }}" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; z-index: 20; overflow: hidden; background: linear-gradient(180deg, #0D0A2A 0%, #1B1550 40%, #2E2468 70%, #4A3A7A 80%, #0E0B26 80.1%, #0E0B26 100%)">
+    <div aria-hidden="true" style="position: absolute; inset: 0; background: linear-gradient(180deg, #0D0A2A 0%, #18124A 35%, #2A2163 62%, #4E3E80 78%, #6A4E86 86%)"></div>
+    <div aria-hidden="true">
+      <sc-for list="{{ skyStars }}" as="s"><span class="hl-st" style="{{ s }}"></span></sc-for>
+    </div>
+    <svg aria-hidden="true" width="390" height="844" viewBox="0 0 390 844" style="position: absolute; left: 0; top: 0; overflow: visible">
+      <defs><mask id="hl-im"><circle cx="0" cy="0" r="38" fill="#FFFFFF"></circle><circle cx="-15" cy="-11" r="34" fill="#000000"></circle></mask>
+        <radialGradient id="hl-ig"><stop offset="0" style="stop-color: #F4EFE6; stop-opacity: 0.45"></stop><stop offset="1" style="stop-color: #C9BEF5; stop-opacity: 0"></stop></radialGradient></defs>
+      <g class="hl-cres" style="transform-origin: 318px 128px">
+        <g transform="translate(318 128)">
+          <circle cx="0" cy="0" r="120" fill="url(#hl-ig)"></circle>
+          <circle cx="0" cy="0" r="38" fill="#F7F2E8" mask="url(#hl-im)"></circle>
+          <path d="M-20 10L-17 17L-10 20L-17 23L-20 30L-23 23L-30 20L-23 17Z" fill="#F7F2E8"></path>
+        </g>
+      </g>
+      <path class="hl-archF" d="{{ archD }}" fill="rgba(20,15,60,0.45)"></path>
+      <path class="hl-arch" pathLength="1" d="{{ archD }}" fill="none" stroke="#C9BEF5" style="stroke-width: 1.2; opacity: 0.8"></path>
+      <path d="{{ skyline }}" fill="#0E0B26"></path>
+      <sc-for list="{{ poplars }}" as="pp"><ellipse cx="{{ pp.x }}" cy="{{ pp.y }}" rx="{{ pp.rx }}" ry="{{ pp.ry }}" fill="#0B0920"></ellipse></sc-for>
+      <sc-for list="{{ wins }}" as="w"><rect class="hl-win" x="{{ w.x }}" y="{{ w.y }}" width="{{ w.w }}" height="{{ w.h }}" rx="{{ w.rx }}" fill="#F6B95A" style="{{ w.st }}"></rect></sc-for>
+    </svg>
+    <div aria-hidden="true">
+      <sc-for list="{{ frameStars }}" as="f"><span class="hl-fs" style="{{ f.box }}"><span class="hl-st" style="{{ f.st }}"></span></span></sc-for>
+    </div>
+
+    <p class="hl-kick hl-iHide" style="position: absolute; left: 22px; top: 18px; font-size: 10px; color: #9D94CC">{{ introCap }}</p>
+    <sc-if value="{{ has.music }}"><div class="hl-iHide" style="position: absolute; right: 20px; top: 16px; display: flex; align-items: center; gap: 6px"><svg aria-hidden="true" width="12" height="14" viewBox="0 0 22 26"><path d="M8 3L20 0V17.5A3.5 3 0 1 1 17 14.6V5.2L10 7V20.5A3.5 3 0 1 1 7 17.6V3Z" fill="#9D94CC"></path></svg><span style="font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: #9D94CC">Musiqa bilan</span></div></sc-if>
+    <div style="position: absolute; left: 20px; top: 46px; width: 260px; text-align: left">
+      <p class="hl-ar" dir="rtl" lang="ar" style="margin: 0; font-size: 28px; line-height: 1.6; color: #F4EFE6; text-align: left">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p>
+      <p style="margin: 0; font-size: 12px; font-style: italic; color: #ADA6CF">Bismillahir Rohmanir Rohiym</p>
+    </div>
+    <div class="hl-iHide" style="position: absolute; left: 30px; top: 330px; width: 330px; text-align: center">
+      <p class="hl-d" style="margin: 0; font-size: 32px; line-height: 1.15; color: #E9E4F6">Tun cho’kdi.<br>Osmon bir ism uchun<br>yulduzlarini yig’moqda</p>
+    </div>
+    <div aria-hidden="true" class="hl-iName" style="position: absolute; left: 75px; top: {{ iNameTop }}px; width: 240px; text-align: center">
+      <sc-if value="{{ yosh }}"><p class="hl-kick" style="color: #C9BEF5">{{ yosh }} yosh</p></sc-if>
+      <p class="hl-d" style="margin: 8px 0 0; font-size: {{ iNameFs }}px; line-height: 1.05; color: #F7F2E8; overflow-wrap: break-word; text-shadow: 0 0 24px rgba(201,190,245,0.7)">{{ name }}</p>
+      <p class="hl-iSub" style="margin: 14px 0 0; font-size: 16px; font-style: italic; line-height: 1.4; color: #D9D2F2">Tug’ilgan kuningiz muborak.<br>Alloh umringizga baraka bersin</p>
+    </div>
+
+    <div class="hl-iHide" style="position: absolute; left: 20px; top: 724px; width: 350px; display: flex; flex-direction: column; align-items: center; gap: 14px">
+      <p style="margin: 0; font-size: 14px; line-height: 1.4; color: #D9D2F2; text-align: center">Hilolni chiqaring — yulduzlar ismingizni o’raydi</p>
+      <button type="button" class="hl-open" onClick="{{ open }}">
+        <svg aria-hidden="true" width="18" height="18" viewBox="-10 -10 20 20"><defs><mask id="hl-bm"><circle r="8" fill="#FFFFFF"></circle><circle cx="-3.5" cy="-2.5" r="7" fill="#000000"></circle></mask></defs><circle r="8" fill="#5A4FA6" mask="url(#hl-bm)"></circle></svg>
+        Hilolni chiqaring
+      </button>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":6400}}'>
+const tkName = (d) => String(d.kimga || '').trim();
+const tkFrom = (d) => {
+  const kd = String(d.kimdan || '').trim(), ci = kd.indexOf(':');
+  const label = ci > 0 ? kd.slice(0, ci).trim() : '';
+  const names = ci > 0 ? kd.slice(ci + 1).trim() : kd;
+  return { label: label, names: names, line: !kd ? '' : (label ? label + 'dan: ' + names : names + 'dan') };
+};
+const tkFit = (text, max, min, width, k) => {
+  const longest = Math.max(1, ...String(text || '').split(/\s+/).map((x) => x.length));
+  return Math.max(min, Math.min(max, Math.floor(width / (longest * k))));
+};
+const rnd = (i, k) => { const x = Math.sin(i * 127.1 + k * 311.7) * 43758.5453; return x - Math.floor(x); };
+const f1 = (v) => Math.round(v * 10) / 10;
+const archG = (w, h) => {
+  const s = Math.min(h * 0.42, w * 0.62);
+  return 'M0 ' + h + 'V' + f1(s) + 'C0 ' + f1(s * 0.46) + ' ' + f1(w * 0.28) + ' ' + f1(s * 0.13) + ' ' + f1(w / 2) + ' 0C' + f1(w * 0.72) + ' ' + f1(s * 0.13) + ' ' + w + ' ' + f1(s * 0.46) + ' ' + w + ' ' + f1(s) + 'V' + h + 'Z';
+};
+/* old-city rooftops: domes, a minaret, flat roofs */
+const SKY = 'M0 844V700H22V686H40V700H52V690C52 668 70 656 84 652C98 656 116 668 116 690V700H126V612L130 566H128V556H132L140 532L148 556H152V566H150L154 612V700H170V676H206V700H214V684C214 650 236 632 252 626C268 632 290 650 290 684V700H300V668H330V700H340V690C340 676 352 668 362 666C372 668 384 676 384 690V700H390V844Z';
+/* the star frame: a pointed arch */
+const AP = { l: 62, r: 328, base: 600, spring: 410, apex: 238 };
+const cub = (t, a, b, c, d) => { const u = 1 - t; return u * u * u * a + 3 * u * u * t * b + 3 * u * t * t * c + t * t * t * d; };
+const ARCH = 'M' + AP.l + ' ' + AP.base + 'V' + AP.spring + 'C' + AP.l + ' 330 132 276 195 ' + AP.apex + 'C258 276 ' + AP.r + ' 330 ' + AP.r + ' ' + AP.spring + 'V' + AP.base;
+const framePts = () => {
+  const pts = [];
+  for (let k = 0; k < 6; k++) pts.push([AP.l, AP.base - k * (AP.base - AP.spring) / 6]);
+  for (let k = 0; k <= 8; k++) { const t = k / 8; pts.push([cub(t, AP.l, AP.l, 132, 195), cub(t, AP.spring, 330, 276, AP.apex)]); }
+  for (let k = 7; k >= 0; k--) { const t = k / 8; pts.push([390 - cub(t, AP.l, AP.l, 132, 195), cub(t, AP.spring, 330, 276, AP.apex)]); }
+  for (let k = 5; k >= 0; k--) pts.push([AP.r, AP.base - k * (AP.base - AP.spring) / 6]);
+  return pts;
+};
+const ORDER = ['tabrik', 'tilaklar', 'taymer', 'xronika', 'galereya', 'sirli', 'mehmonlar', 'javob'];
+
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { opened: false, sec: false, sent: false, wOn: {} };
+    this.tick = 0;
+    const star = (i, k, left, top) => {
+      const sz = 1.2 + rnd(i, k + 2) * 2.2;
+      return 'left: ' + left + 'px; top: ' + top + 'px; width: ' + f1(sz) + 'px; height: ' + f1(sz) + 'px; box-shadow: 0 0 ' + Math.round(sz * 3) + 'px rgba(244,239,230,0.7); animation-duration: ' + (2 + rnd(i, k + 3) * 3).toFixed(1) + 's; animation-delay: -' + (rnd(i, k + 4) * 3).toFixed(1) + 's';
+    };
+    const skyStars = Array.from({ length: 40 }, (_, i) => star(i, 1, Math.round(rnd(i, 1) * 386), Math.round(10 + rnd(i, 2) * 640)));
+    const frameStars = framePts().map((p, i) => {
+      const ox = Math.round(rnd(i, 21) * 380), oy = Math.round(20 + rnd(i, 22) * 600);
+      const big = i % 4 === 0;
+      return {
+        box: 'position: absolute; left: ' + f1(p[0]) + 'px; top: ' + f1(p[1]) + 'px; width: 0; height: 0; --ox: ' + f1(ox - p[0]) + 'px; --oy: ' + f1(oy - p[1]) + 'px; transition-delay: ' + (0.9 + i * 0.045).toFixed(2) + 's',
+        st: 'left: ' + (big ? -2.5 : -1.6) + 'px; top: ' + (big ? -2.5 : -1.6) + 'px; width: ' + (big ? 5 : 3.2) + 'px; height: ' + (big ? 5 : 3.2) + 'px; box-shadow: 0 0 ' + (big ? 14 : 8) + 'px rgba(244,239,230,0.95); animation-duration: ' + (1.6 + rnd(i, 23) * 2).toFixed(1) + 's'
+      };
+    });
+    const wins = [];
+    for (let i = 0; i < 34; i++) {
+      const x = Math.round(8 + rnd(i, 31) * 370), y = Math.round(714 + rnd(i, 32) * 118);
+      const tall = rnd(i, 33) > 0.5;
+      wins.push({ x: x, y: y, w: tall ? 6 : 8, h: tall ? 10 : 6, rx: tall ? 3 : 1, st: 'opacity: 0; transition-delay: ' + (0.5 + rnd(i, 34) * 1.8).toFixed(2) + 's' });
+    }
+    [[84, 682, 4, 6], [252, 664, 5, 8], [140, 590, 3, 5], [362, 684, 3, 5], [188, 688, 4, 6]].forEach((wv, i) => wins.push({ x: wv[0] - wv[2] / 2, y: wv[1], w: wv[2], h: wv[3], rx: wv[2] / 2, st: 'opacity: 0; transition-delay: ' + (0.6 + i * 0.25).toFixed(2) + 's' }));
+    wins.forEach((wv) => { wv.st = wv.st.replace('opacity: 0; ', ''); });
+    const pageStars = Array.from({ length: 70 }, (_, i) => {
+      const sz = 1 + rnd(i, 42) * 2;
+      return 'left: ' + Math.round(rnd(i, 40) * 386) + 'px; top: ' + f1(rnd(i, 41) * 100) + '%; width: ' + f1(sz) + 'px; height: ' + f1(sz) + 'px; animation-duration: ' + (2 + rnd(i, 43) * 3).toFixed(1) + 's; animation-delay: -' + (rnd(i, 44) * 3).toFixed(1) + 's';
+    });
+    const rays = Array.from({ length: 14 }, (_, i) => '--a: ' + Math.round(-180 + i * (180 / 13)) + 'deg; --d: ' + Math.round(80 + rnd(i, 50) * 60) + 'px; animation-delay: ' + (rnd(i, 51) * 0.18).toFixed(2) + 's');
+    const footWins = Array.from({ length: 16 }, (_, i) => ({ x: Math.round(10 + rnd(i, 60) * 370), y: Math.round(712 + rnd(i, 61) * 110) }));
+    this.deco = {
+      skyStars: skyStars, frameStars: frameStars, wins: wins, pageStars: pageStars, rays: rays, footWins: footWins,
+      skyline: SKY, archD: ARCH,
+      poplars: [{ x: 8, y: 676, rx: 9, ry: 40 }, { x: 162, y: 664, rx: 8, ry: 34 }, { x: 318, y: 658, rx: 9, ry: 38 }, { x: 196, y: 672, rx: 6, ry: 26 }]
+    };
+  }
+  componentDidMount() {
+    this.timer = setInterval(() => { this.prevCd = this.lastCd; this.tick += 1; this.forceUpdate(); }, 1000);
+  }
+  componentWillUnmount() {
+    clearInterval(this.timer);
+  }
+  renderVals() {
+    const s = this.state;
+    const D = SITE.d;
+    const name = tkName(D), from = tkFrom(D);
+    const w = SITE.when(D.sana);
+    const c = SITE.countdown(D.sana);
+    const yosh = String(D.yosh || '').trim();
+    /* moon phases wax through the visible sections: crescent first, full moon last */
+    const vis = ORDER.filter((k) => SITE.b[k]);
+    const ph = {};
+    ORDER.forEach((k) => {
+      const i = vis.indexOf(k), p = vis.length > 1 ? 0.18 + 0.82 * i / (vis.length - 1) : 1;
+      ph[k] = { id: 'hl-ph-' + k, url: 'url(#hl-ph-' + k + ')', dx: f1(-p * 33) };
+    });
+    const cur = [String(c.d), c.hh, c.mm, c.ss];
+    const prev = this.prevCd || cur;
+    this.lastCd = cur;
+    const L = ['kun', 'soat', 'daqiqa', 'soniya'];
+    const tiles = cur.map((v, i) => ({ cur: v, prev: prev[i], l: L[i], cls: v !== prev[i] ? (this.tick % 2 ? 'hl-flip hl-flip--a' : 'hl-flip hl-flip--b') : 'hl-flip' }));
+    const matn = String(D.matn || '').trim();
+    const wishes = (D.tilaklar || []).map((t, i) => {
+      const on = !!s.wOn[i];
+      return {
+        text: t, on: on ? 'true' : 'false', cls: on ? 'hl-lan hl-lan--on' : 'hl-lan',
+        sw: 'display: block; animation-delay: -' + (i * 0.9).toFixed(1) + 's; animation-duration: ' + (4 + (i % 3) * 0.7).toFixed(1) + 's',
+        tap: () => { const m = Object.assign({}, this.state.wOn); m[i] = !m[i]; this.setState({ wOn: m }); }
+      };
+    });
+    const n = Math.min(6, SITE.has.photos);
+    const gp = n > 1 ? SITE.p.slice(1, n).concat([SITE.p[0]]) : SITE.p.slice(0, 1);
+    const gal = gp.map((src, i) => {
+      const full = i === 0 || (i === gp.length - 1 && gp.length % 2 === 0);
+      const wd = full ? 350 : 169, ht = full ? 300 : (i % 4 === 1 || i % 4 === 2 ? 250 : 210);
+      const d = archG(wd, ht);
+      return {
+        src: src, w: wd, h: ht, vb: '0 0 ' + wd + ' ' + ht, arch: d,
+        box: 'position: relative; width: ' + wd + 'px; height: ' + ht + 'px' + (full ? '; grid-column: 1 / -1' : '') + (!full && i % 2 === 0 ? '; margin-top: 30px' : ''),
+        clip: 'width: ' + wd + 'px; height: ' + ht + 'px; clip-path: path(\'' + d + '\')',
+        img: 'display: block; width: ' + wd + 'px; height: ' + ht + 'px; object-fit: cover'
+      };
+    });
+    const xr = D.xronika || [];
+    const chron = xr.map((x, i) => {
+      const y = String(x.yosh || '').trim(), p = xr.length > 1 ? 0.2 + 0.8 * i / (xr.length - 1) : 1;
+      return { label: y ? y + ' yosh' : '', matn: x.matn || '', src: SITE.p[(i + 1) % SITE.p.length], mid: 'hl-xm-' + i, murl: 'url(#hl-xm-' + i + ')', dx: f1(-p * 44) };
+    });
+    const COLS = ['#F4EFE6', '#C9BEF5', '#F6B95A'];
+    const reviews = (D.mehmon_tilaklari || []).map((r, i) => ({
+      ism: r.ism || '', matn: r.matn || '', col: COLS[i % 3],
+      st: 'padding: 22px 22px 20px; border-radius: 22px; ' + (i % 2 ? 'margin-left: 26px' : 'margin-right: 26px')
+    }));
+    const sec = String(D.sirli_tilak || '');
+    const iNameFs = tkFit(name, 60, 26, 236, 0.5);
+    const iLines = name.length * iNameFs * 0.5 > 236 ? 2 : 1;
+    return Object.assign({}, this.deco, {
+      name: name, from: from, yosh: yosh, noPhoto: !SITE.has.photo, ph: ph,
+      srAge: yosh ? yosh + ' yosh. ' : '',
+      ageFs: yosh.length > 2 ? 24 : 30,
+      nameFs: tkFit(name, 68, 28, 350, 0.5),
+      iNameFs: iNameFs,
+      iNameTop: 372 - Math.round((iLines - 1) * iNameFs * 0.55),
+      footFs: tkFit(name, 46, 24, 340, 0.5),
+      heroDate: [w.date, w.weekday].filter(Boolean).join(' · '),
+      musicCls: SITE.music.playing ? 'hl-music hl-music--on' : 'hl-music',
+      musicOn: SITE.music.playing ? 'true' : 'false',
+      toggleMusic: () => { SITE.music.toggle(); },
+      dropCap: matn.charAt(0),
+      restText: matn.slice(1),
+      cdKick: c.done ? 'Muborak kun' : 'Muborak kungacha',
+      cdTitle: c.done ? 'Bugun — sizning kuningiz' : 'Necha tun qoldi',
+      cdDate: [w.date, w.weekday].filter(Boolean).join(', '),
+      tiles: tiles,
+      wishes: wishes,
+      secCls: s.sec ? 'hl-sec hl-sec--on' : 'hl-sec',
+      secOn: s.sec ? 'true' : 'false',
+      secFs: sec.length > 160 ? 21 : sec.length > 100 ? 24 : 28,
+      toggleSec: () => this.setState({ sec: !this.state.sec }),
+      gal: gal,
+      chron: chron,
+      reviews: reviews,
+      askName: name + 'ni tabrikladingizmi?',
+      nameGa: SITE.ga(name),
+      sendCls: s.sent ? 'hl-btn hl-btn--done' : 'hl-btn',
+      sendIdle: s.sent ? 'is-hidden' : 'hl-row',
+      sendDone: s.sent ? 'hl-row' : 'is-hidden',
+      burstCls: s.sent ? 'hl-burst hl-burst--go' : 'hl-burst',
+      send: () => { if (this.state.sent) return; this.setState({ sent: true }); SITE.reply('Tabrikladim', '🤗'); },
+      footLine: [yosh ? yosh + ' yosh' : '', w.dots].filter(Boolean).join(' · '),
+      introCap: [w.dm, w.weekday].filter(Boolean).join(' · ') || 'Tug’ilgan kun',
+      introCls: s.opened ? 'hl-in hl-in--on' : 'hl-in',
+      pageCls: s.opened ? 'hl-page hl-page--in' : 'hl-page',
+      open: () => { if (this.state.opened) return; this.setState({ opened: true }); SITE.opened(); }
+    });
+  }
+}
+</script>
+</body>
+</html>

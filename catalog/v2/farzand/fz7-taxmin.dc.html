@@ -435,8 +435,8 @@ body{margin:0;background:#EAF2A0}
       <sc-if value="{{ played }}">
         <span class="tx-d" style="flex: none; width: 58px; height: 58px; border-radius: 50%; background: #FF7A3D; color: #1B2A1F; display: flex; align-items: center; justify-content: center; font-size: 22px">{{ score }}</span>
         <span style="flex: 1; min-width: 0">
-          <span class="tx-t" style="display: block; font-size: 12px; font-weight: 900; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(234, 242, 160, 0.75)">Sizning natijangiz</span>
-          <span class="tx-d" style="display: block; margin-top: 3px; font-size: 17px; line-height: 1.2; color: #FFFFFF">{{ verdict }}</span>
+          <span class="tx-t" style="display: block; font-size: 12px; font-weight: 900; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(234, 242, 160, 0.75)">Natijangiz</span>
+          <span class="tx-d" style="display: block; margin-top: 3px; font-size: 16px; line-height: 1.2; color: #FFFFFF">{{ verdict }}</span>
         </span>
       </sc-if>
       <sc-if value="{{ notPlayed }}">
@@ -778,7 +778,7 @@ class Component extends DCLogic {
 
     const confetti = [];
     const cc = ['#1B2A1F', '#FF7A3D', '#FFFFFF', '#FFD23F'];
-    const spots = [[14, 252, 14, 0], [356, 250, 10, 1], [26, 650, 12, 1], [348, 628, 16, 0], [10, 470, 9, 0], [364, 440, 12, 1], [60, 818, 10, 0], [330, 812, 12, 1], [190, 96, 9, 0], [362, 300, 8, 1]];
+    const spots = [[8, 318, 14, 0], [356, 250, 10, 1], [26, 650, 12, 1], [348, 628, 16, 0], [10, 470, 9, 0], [364, 440, 12, 1], [60, 818, 10, 0], [330, 812, 12, 1], [190, 96, 9, 0], [362, 300, 8, 1]];
     spots.forEach((p, i) => {
       confetti.push('--r0: ' + (i * 23) + 'deg; --r1: ' + (i * 23 + 50) + 'deg; --fx: ' + (i % 2 ? 12 : -10) + 'px; --fy: ' + (i % 3 ? -18 : 14) + 'px; position: absolute; left: ' + p[0] + 'px; top: ' + p[1] + 'px; width: ' + p[2] + 'px; height: ' + (p[3] ? p[2] : Math.round(p[2] * 0.45)) + 'px; border-radius: ' + (p[3] ? '50%' : '3px') + '; background: ' + cc[i % 4] + '; animation-delay: -' + (i * 0.9).toFixed(1) + 's');
     });
