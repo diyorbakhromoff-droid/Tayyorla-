@@ -1,0 +1,556 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<title>Uzr VIP: Hilol</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kurale&amp;family=Noto+Serif:ital,wght@0,400;0,600;1,400&amp;family=Aref+Ruqaa:wght@400;700&amp;display=swap">
+<style>
+body{margin:0}
+.hl-d{font-family:'Kurale',Georgia,'Times New Roman',serif}
+.hl-t{font-family:'Noto Serif',Georgia,'Times New Roman',serif}
+.hl-ar{font-family:'Aref Ruqaa','Amiri','Times New Roman',serif}
+.hl-lb{margin:0;font-family:'Noto Serif',Georgia,serif;font-size:11.5px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:#AFC0D8}
+.hl-h2{margin:6px 0 0;font-family:'Kurale',Georgia,serif;font-weight:400;font-size:32px;line-height:1.15;color:#F3F1E8;overflow-wrap:anywhere}
+.hl-ic{fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.hl-ln{fill:none;stroke-width:1.2}
+.hl-hair{fill:none;stroke-width:.8}
+button{-webkit-tap-highlight-color:transparent}
+button:focus-visible,textarea:focus-visible{outline:2px solid #CFD8E6;outline-offset:3px}
+button:disabled{opacity:.7;cursor:default}
+.hl-press{transition:transform .4s cubic-bezier(.3,1.6,.5,1),box-shadow .35s ease,background-color .35s ease,border-color .35s ease}
+.hl-press:active{transform:scale(.955)}
+.hl-silver{background:linear-gradient(100deg,#9AA8BE 0%,#FFFFFF 36%,#C8D2E2 58%,#F6F8FC 80%,#9AA8BE 100%);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:hlSheen 8s ease-in-out infinite}
+@keyframes hlSheen{0%,100%{background-position:0% 0}50%{background-position:100% 0}}
+.hl-btnS{background:linear-gradient(100deg,#AEBBD0,#FFFFFF 45%,#D3DCEA 68%,#AEBBD0);color:#101C33;box-shadow:0 14px 34px -14px rgba(207,216,230,.75),inset 0 1px 0 rgba(255,255,255,.8)}
+.hl-m1{stop-color:#FFFFFF}.hl-m2{stop-color:#E6ECF5}.hl-m3{stop-color:#B9C5D8}
+.hl-h1{stop-color:#DCE4F0;stop-opacity:.55}.hl-h2s{stop-color:#DCE4F0;stop-opacity:0}
+.hl-k1{stop-color:#050B1A}.hl-k2{stop-color:#101C33}.hl-k3{stop-color:#1C3350}
+.hl-w1{stop-color:#F6E7B8;stop-opacity:.95}.hl-w2{stop-color:#F6E7B8;stop-opacity:0}
+
+/* ---------- kirish: oy fazalari ---------- */
+.hl-intro{transition:opacity 1s cubic-bezier(.4,0,.2,1) 3.7s}
+.hl-intro.is-full{opacity:0;pointer-events:none}
+.hl-de,.hl-le{transform-box:fill-box;transform-origin:center;transition:transform 1.2s cubic-bezier(.45,0,.2,1)}
+.hl-de{transform:scaleX(.9)}
+.q1 .hl-de{transform:scaleX(.45)}
+.q2 .hl-de{transform:scaleX(0)}
+.hl-le{transform:scaleX(0)}
+.q3 .hl-le{transform:scaleX(.55)}
+.q4 .hl-le{transform:scaleX(1)}
+.hl-halo{transform-box:fill-box;transform-origin:center;opacity:.12;transform:scale(.6);transition:opacity 1.4s ease,transform 1.6s cubic-bezier(.3,.8,.3,1)}
+.q1 .hl-halo{opacity:.3;transform:scale(.75)}.q2 .hl-halo{opacity:.5;transform:scale(.9)}.q3 .hl-halo{opacity:.72;transform:scale(1)}.q4 .hl-halo{opacity:1;transform:scale(1.18)}
+.hl-mare{opacity:0;transition:opacity 1.4s ease .4s}
+.q4 .hl-mare{opacity:.5}
+.hl-lit{opacity:0;transition:opacity 1.4s ease .2s}
+.q1 .hl-lit{opacity:.22}.q2 .hl-lit{opacity:.46}.q3 .hl-lit{opacity:.72}.q4 .hl-lit{opacity:1}
+.hl-skyL{opacity:0;transition:opacity 1.6s ease}
+.q2 .hl-skyL{opacity:.4}.q3 .hl-skyL{opacity:.7}.q4 .hl-skyL{opacity:1}
+.hl-lan{opacity:0;transition:opacity .9s ease .5s}
+.q1 .n1,.q2 .n2,.q3 .n3,.q4 .n4{opacity:1}
+.hl-lan.is-glow{animation:hlFlick 3.4s ease-in-out infinite}
+@keyframes hlFlick{0%,100%{opacity:1}45%{opacity:.82}60%{opacity:.95}}
+.hl-fl{transform-box:fill-box;transform-origin:50% 100%;transform:scale(.35);transition:transform 1.2s cubic-bezier(.3,1.5,.5,1)}
+.q3 .hl-fl{transform:scale(.8)}.q4 .hl-fl{transform:scale(1)}
+.hl-fl.f2{transition-delay:.12s}.hl-fl.f3{transition-delay:.24s}.hl-fl.f4{transition-delay:.36s}
+.hl-rf{opacity:0;transform-box:fill-box;transform-origin:50% 0;transform:scaleY(.3);transition:opacity 1.2s ease,transform 1.4s cubic-bezier(.3,.8,.3,1)}
+.q2 .hl-rf{opacity:.25;transform:scaleY(.6)}.q3 .hl-rf{opacity:.45;transform:scaleY(.85)}.q4 .hl-rf{opacity:.7;transform:none}
+.hl-rfw{animation:hlRfw 3s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+@keyframes hlRfw{0%,100%{transform:scaleX(1)}50%{transform:scaleX(1.5)}}
+.hl-msg{opacity:0;transform:translateY(14px);filter:blur(4px)}
+.hl-intro.is-full .hl-msg{opacity:1;transform:none;filter:blur(0);transition:opacity 1.2s ease .9s,transform 1.4s cubic-bezier(.2,.8,.2,1) .9s,filter 1.2s ease .9s}
+.hl-cta{transition:opacity .5s ease,transform .6s cubic-bezier(.5,0,.7,.4)}
+.hl-intro.is-full .hl-cta{opacity:0;transform:translateY(20px)}
+.hl-tw{animation:hlTw 4.6s ease-in-out infinite}
+@keyframes hlTw{0%,100%{opacity:.25}50%{opacity:1}}
+.hl-moonB{transform-box:fill-box;transform-origin:center}
+.hl-intro:not(.q4) .hl-moonB{animation:hlBreath 3.2s ease-in-out infinite}
+@keyframes hlBreath{0%,100%{transform:scale(1)}50%{transform:scale(1.025)}}
+.hl-ring{transform-box:fill-box;transform-origin:center;animation:hlRing 2.6s ease-out infinite}
+@keyframes hlRing{0%{transform:scale(.85);opacity:.7}100%{transform:scale(1.45);opacity:0}}
+.hl-sp{position:absolute;width:4px;height:4px;border-radius:50%;background:#FFFFFF;opacity:0;box-shadow:0 0 6px #DCE4F0}
+.hl-intro.is-full .hl-sp{animation:hlSp 2.4s ease-out both}
+@keyframes hlSp{0%{opacity:0;transform:translate(0,0) scale(.5)}20%{opacity:1}100%{opacity:0;transform:translate(var(--x),var(--y)) scale(1)}}
+.hl-in1{animation:hlUp 1.2s cubic-bezier(.2,.7,.2,1) .2s both}
+.hl-in2{animation:hlUp 1.2s cubic-bezier(.2,.7,.2,1) .5s both}
+.hl-in3{animation:hlUp 1.2s cubic-bezier(.2,.7,.2,1) .85s both}
+.hl-in4{animation:hlUp 1s cubic-bezier(.25,1.45,.4,1) 1.15s both}
+@keyframes hlUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+.hl-dot{width:10px;height:10px;border-radius:50%;border:1.5px solid #CFD8E6;box-sizing:border-box;transition:background-color .5s ease,transform .5s cubic-bezier(.3,1.7,.5,1),box-shadow .5s ease}
+.hl-dot.is-on{background:#F3F1E8;transform:scale(1.2);box-shadow:0 0 10px rgba(220,228,240,.8)}
+.hl-hit{position:absolute;left:125px;top:120px;width:140px;height:140px;border:0;padding:0;border-radius:50%;background:transparent;cursor:pointer}
+
+/* ---------- sahifa ---------- */
+.hl-path{position:relative}
+.hl-path::before{content:'';position:absolute;left:35px;top:40px;bottom:40px;width:1px;background:linear-gradient(180deg,rgba(207,216,230,0),rgba(207,216,230,.45) 8%,rgba(207,216,230,.45) 92%,rgba(207,216,230,0))}
+.hl-sec{position:relative;padding:34px 22px 30px 66px}
+.hl-node{position:absolute;left:20px;top:34px}
+.hl-row{position:relative;width:100%;display:flex;align-items:center;gap:14px;padding:14px 14px;border:1px solid rgba(207,216,230,.18);border-radius:12px;background:rgba(207,216,230,.04);color:#F3F1E8;text-align:left;cursor:pointer;font:inherit;overflow:hidden}
+.hl-row.is-on{border-color:rgba(242,223,168,.6);background:rgba(242,223,168,.08)}
+.hl-star{transform-box:fill-box;transform-origin:center;transition:transform .7s cubic-bezier(.3,1.7,.5,1),fill .4s ease}
+.hl-row.is-on .hl-star{transform:rotate(90deg) scale(1.25);fill:#F6E7B8}
+.hl-row .hl-glw{position:absolute;left:8px;top:50%;width:44px;height:44px;margin-top:-22px;border-radius:50%;background:radial-gradient(circle,rgba(246,231,184,.55),rgba(246,231,184,0) 70%);opacity:0;transition:opacity .5s ease}
+.hl-row.is-on .hl-glw{opacity:1}
+.hl-circ{border-radius:50%;object-fit:cover;display:block;box-shadow:0 0 0 1px rgba(207,216,230,.5),0 0 0 6px rgba(16,28,51,1),0 0 0 7px rgba(207,216,230,.25),0 24px 50px -20px rgba(0,0,0,.7)}
+.hl-pop{animation:hlPop .7s cubic-bezier(.25,1.5,.4,1) both}
+@keyframes hlPop{from{opacity:0;transform:scale(.9) translateY(10px)}to{opacity:1;transform:none}}
+.hl-ray{position:absolute;left:50%;top:50%;width:2px;height:40px;margin:-20px -1px;background:linear-gradient(#FFFFFF,rgba(255,255,255,0));opacity:0}
+.hl-boom .hl-ray{animation:hlRay 1.3s cubic-bezier(.2,.7,.3,1) both}
+@keyframes hlRay{0%{opacity:1;transform:rotate(var(--r)) translateY(-20px) scaleY(.3)}100%{opacity:0;transform:rotate(var(--r)) translateY(-120px) scaleY(1)}}
+.hl-glowB{animation:hlGB 3s ease-in-out infinite}
+@keyframes hlGB{0%,100%{box-shadow:0 0 30px 4px rgba(220,228,240,.25)}50%{box-shadow:0 0 54px 12px rgba(220,228,240,.45)}}
+.hl-ta::placeholder{color:#8794AC}
+html.hl-arm .rv{opacity:0;transform:translateY(28px);transition:opacity 1s cubic-bezier(.2,.7,.2,1),transform 1.1s cubic-bezier(.2,.75,.25,1)}
+html.hl-arm .rv.is-in{opacity:1;transform:none}
+html.hl-arm .rv .hl-node{opacity:0;transform:scale(.4) rotate(-90deg);transition:opacity .7s ease .1s,transform 1s cubic-bezier(.25,1.5,.4,1) .1s}
+html.hl-arm .rv.is-in .hl-node{opacity:1;transform:none}
+html.hl-arm .rv .rc{opacity:0;transform:translateY(16px);transition:opacity .8s ease,transform .9s cubic-bezier(.25,1.3,.4,1)}
+html.hl-arm .rv.is-in .rc{opacity:1;transform:none}
+html.hl-arm .rv .rc:nth-child(2){transition-delay:.1s}html.hl-arm .rv .rc:nth-child(3){transition-delay:.2s}
+html.hl-arm .rv .rc:nth-child(4){transition-delay:.3s}html.hl-arm .rv .rc:nth-child(5){transition-delay:.4s}
+html.hl-arm .rv .rc:nth-child(n+6){transition-delay:.5s}
+html.hl-arm .rv .hl-mk{clip-path:inset(0 0 0 100%);transition:clip-path 2s cubic-bezier(.4,0,.2,1) .2s}
+html.hl-arm .rv.is-in .hl-mk{clip-path:inset(0 0 0 0)}
+
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  html.hl-arm .rv,html.hl-arm .rv .rc,html.hl-arm .rv .hl-node{opacity:1!important;transform:none!important}
+  html.hl-arm .rv .hl-mk{clip-path:none!important}
+}
+</style>
+</helmet>
+<div class="hl-t" style="width: 390px; min-height: var(--vh, 100vh); position: relative; overflow: hidden; background: #101C33; color: #F3F1E8; display: flex; flex-direction: column">
+
+  <svg width="0" height="0" aria-hidden="true" style="position: absolute">
+    <defs>
+      <radialGradient id="hlMoon" gradientUnits="userSpaceOnUse" cx="210" cy="175" r="70"><stop offset="0" class="hl-m1"></stop><stop offset="0.6" class="hl-m2"></stop><stop offset="1" class="hl-m3"></stop></radialGradient>
+      <radialGradient id="hlHalo" cx="0.5" cy="0.5" r="0.5"><stop offset="0" class="hl-h1"></stop><stop offset="1" class="hl-h2s"></stop></radialGradient>
+      <linearGradient id="hlSky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" class="hl-k1"></stop><stop offset="0.55" class="hl-k2"></stop><stop offset="1" class="hl-k3"></stop></linearGradient>
+      <radialGradient id="hlSkyL" cx="0.5" cy="0.22" r="0.7"><stop offset="0" style="stop-color: #3B5578; stop-opacity: 0.9"></stop><stop offset="1" style="stop-color: #3B5578; stop-opacity: 0"></stop></radialGradient>
+      <radialGradient id="hlWarm" cx="0.5" cy="0.5" r="0.5"><stop offset="0" class="hl-w1"></stop><stop offset="1" class="hl-w2"></stop></radialGradient>
+      <path id="hlTulip" d="M0 0 C-6 -4 -6 -13 -4 -17 L-1.5 -12 L0 -18 L1.5 -12 L4 -17 C6 -13 6 -4 0 0 Z M-0.6 0 H0.6 V12 H-0.6 Z"></path>
+      <g id="hlGarden">
+        <rect x="0" y="575" width="390" height="269"></rect>
+        <path d="M40 590 C24 530 28 430 40 318 C52 430 56 530 40 590 Z"></path>
+        <path d="M82 590 C70 540 72 460 82 380 C92 460 94 540 82 590 Z"></path>
+        <path d="M350 590 C334 530 338 430 350 318 C362 430 366 530 350 590 Z"></path>
+        <path d="M308 590 C296 540 298 460 308 380 C318 460 320 540 308 590 Z"></path>
+        <path d="M0 600 C20 575 50 580 66 596 C80 578 110 582 120 600 Z M270 600 C282 580 310 578 324 596 C340 580 372 575 390 600 Z"></path>
+        <path d="M80 557 H310 V577 H80 Z M96 442 H294 V557 H96 Z M88 428 H302 V442 H88 Z"></path>
+        <path d="M160 428 C160 398 176 380 195 372 C214 380 230 398 230 428 Z"></path>
+        <path d="M194 372 V360 H196 V372 Z"></path>
+        <path d="M195 344 A9 9 0 1 0 204 356 A7 7 0 1 1 195 344 Z"></path>
+      </g>
+      <g id="hlArches">
+        <path d="M106 557 V505 C106 486 120 474 131 468 C142 474 156 486 156 505 V557 Z"></path>
+        <path d="M170 557 V505 C170 486 184 474 195 468 C206 474 220 486 220 505 V557 Z"></path>
+        <path d="M234 557 V505 C234 486 248 474 259 468 C270 474 284 486 284 505 V557 Z"></path>
+      </g>
+    </defs>
+  </svg>
+
+  <sc-if value="{{ has.music }}">
+  <button type="button" class="hl-press" onClick="{{ toggleMusic }}" aria-label="Musiqa" aria-pressed="{{ musicOn }}" style="position: absolute; right: 16px; top: 16px; z-index: 40; width: 44px; height: 44px; padding: 0; border-radius: 50%; border: 1px solid rgba(207, 216, 230, 0.55); background: rgba(5, 11, 26, 0.6); color: #E6ECF5; display: flex; align-items: center; justify-content: center; cursor: pointer">
+    <sc-if value="{{ musicOn }}"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V6l10-2v12" stroke="currentColor" class="hl-ic"></path><circle cx="7" cy="18" r="2.4" stroke="currentColor" class="hl-ic"></circle><circle cx="17" cy="16" r="2.4" stroke="currentColor" class="hl-ic"></circle></svg></sc-if>
+    <sc-if value="{{ musicOff }}"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V6l10-2v12" stroke="currentColor" class="hl-ic"></path><circle cx="7" cy="18" r="2.4" stroke="currentColor" class="hl-ic"></circle><circle cx="17" cy="16" r="2.4" stroke="currentColor" class="hl-ic"></circle><path d="M4 4l16 16" stroke="currentColor" class="hl-ic"></path></svg></sc-if>
+  </button>
+  </sc-if>
+
+  <!-- ================= KIRISH: tungi bog' va hilol ================= -->
+  <div data-intro="" class="{{ introCls }}" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; z-index: 30; overflow: hidden; background: #070E1E">
+    <svg width="390" height="844" viewBox="0 0 390 844" aria-hidden="true" style="position: absolute; left: 0; top: 0">
+      <rect x="0" y="0" width="390" height="844" fill="url(#hlSky)"></rect>
+      <rect class="hl-skyL" x="0" y="0" width="390" height="620" fill="url(#hlSkyL)"></rect>
+      <g fill="#E6ECF5">
+        <circle class="hl-tw" cx="34" cy="70" r="1.2"></circle><circle class="hl-tw" cx="80" cy="150" r="0.9" style="animation-delay: 1.2s"></circle>
+        <circle class="hl-tw" cx="120" cy="40" r="1" style="animation-delay: 2.1s"></circle><circle class="hl-tw" cx="300" cy="56" r="1.3" style="animation-delay: .5s"></circle>
+        <circle class="hl-tw" cx="352" cy="150" r="1" style="animation-delay: 3s"></circle><circle class="hl-tw" cx="270" cy="300" r="0.9" style="animation-delay: 1.7s"></circle>
+        <circle class="hl-tw" cx="60" cy="280" r="1.1" style="animation-delay: 2.6s"></circle><circle class="hl-tw" cx="340" cy="250" r="0.9" style="animation-delay: .9s"></circle>
+        <circle class="hl-tw" cx="22" cy="200" r="0.8" style="animation-delay: 3.4s"></circle><circle class="hl-tw" cx="372" cy="90" r="0.8" style="animation-delay: 1.5s"></circle>
+      </g>
+      <!-- oy -->
+      <circle class="hl-halo" cx="195" cy="190" r="150" fill="url(#hlHalo)"></circle>
+      <g class="hl-moonB">
+        <circle cx="195" cy="190" r="56" fill="#1A2741"></circle>
+        <circle cx="195" cy="190" r="56" fill="none" stroke="#3A4C6C" class="hl-hair"></circle>
+        <path d="M195 134 A56 56 0 0 1 195 246 Z" fill="url(#hlMoon)"></path>
+        <ellipse class="hl-de" cx="195" cy="190" rx="56.5" ry="56.5" fill="#1A2741"></ellipse>
+        <ellipse class="hl-le" cx="195" cy="190" rx="56" ry="56" fill="url(#hlMoon)"></ellipse>
+        <g class="hl-mare" fill="#AEBBD0"><circle cx="180" cy="176" r="10"></circle><circle cx="208" cy="204" r="7"></circle><circle cx="186" cy="214" r="5"></circle><circle cx="214" cy="170" r="4"></circle></g>
+      </g>
+      <g class="hl-cta"><circle class="hl-ring" cx="195" cy="190" r="64" fill="none" stroke="#CFD8E6" style="stroke-width: 1.2"></circle></g>
+      <!-- bog' -->
+      <use href="#hlGarden" fill="#081122"></use>
+      <use class="hl-lit" href="#hlGarden" fill="#2C4366"></use>
+      <use href="#hlArches" fill="#040914"></use>
+      <polygon points="184,577 206,577 252,844 138,844" fill="#0B1A30"></polygon>
+      <polygon class="hl-lit" points="184,577 206,577 252,844 138,844" fill="#3D5A82"></polygon>
+      <g class="hl-rf"><ellipse class="hl-rfw" cx="195" cy="700" rx="10" ry="110" fill="#E6ECF5" opacity="0.8"></ellipse></g>
+      <g>
+        <circle class="hl-lan n1 is-glow" cx="131" cy="520" r="34" fill="url(#hlWarm)"></circle>
+        <circle class="hl-lan n2 is-glow" cx="195" cy="520" r="34" fill="url(#hlWarm)"></circle>
+        <circle class="hl-lan n3 is-glow" cx="259" cy="520" r="34" fill="url(#hlWarm)"></circle>
+        <g class="hl-lan n4"><circle cx="195" cy="420" r="70" fill="url(#hlWarm)" opacity="0.35"></circle></g>
+      </g>
+      <g fill="#F6E7B8">
+        <path class="hl-lan n1" d="M127 506 H135 L137 516 L131 524 L125 516 Z"></path>
+        <path class="hl-lan n2" d="M191 506 H199 L201 516 L195 524 L189 516 Z"></path>
+        <path class="hl-lan n3" d="M255 506 H263 L265 516 L259 524 L253 516 Z"></path>
+      </g>
+      <g stroke="#7E8DA8" class="hl-hair"><path d="M131 468 V506 M195 468 V506 M259 468 V506"></path></g>
+      <!-- lolalar -->
+      <g fill="#0C1A2E">
+        <use href="#hlTulip" x="110" y="650"></use><use href="#hlTulip" x="138" y="680"></use><use href="#hlTulip" x="96" y="716"></use><use href="#hlTulip" x="126" y="742"></use>
+        <use href="#hlTulip" x="280" y="650"></use><use href="#hlTulip" x="252" y="680"></use><use href="#hlTulip" x="294" y="716"></use><use href="#hlTulip" x="264" y="742"></use>
+        <use href="#hlTulip" x="60" y="660"></use><use href="#hlTulip" x="330" y="660"></use>
+      </g>
+      <g fill="#DCE4F0">
+        <g class="hl-fl"><use href="#hlTulip" x="110" y="650"></use><use href="#hlTulip" x="280" y="650"></use></g>
+        <g class="hl-fl f2"><use href="#hlTulip" x="138" y="680"></use><use href="#hlTulip" x="252" y="680"></use></g>
+        <g class="hl-fl f3"><use href="#hlTulip" x="96" y="716"></use><use href="#hlTulip" x="294" y="716"></use><use href="#hlTulip" x="60" y="660"></use></g>
+        <g class="hl-fl f4"><use href="#hlTulip" x="126" y="742"></use><use href="#hlTulip" x="264" y="742"></use><use href="#hlTulip" x="330" y="660"></use></g>
+      </g>
+    </svg>
+
+    <span class="hl-sp" style="left: 193px; top: 188px; --x: -90px; --y: -60px; animation-delay: .5s"></span>
+    <span class="hl-sp" style="left: 193px; top: 188px; --x: 96px; --y: -40px; animation-delay: .6s"></span>
+    <span class="hl-sp" style="left: 193px; top: 188px; --x: -70px; --y: 70px; animation-delay: .7s"></span>
+    <span class="hl-sp" style="left: 193px; top: 188px; --x: 84px; --y: 64px; animation-delay: .55s"></span>
+    <span class="hl-sp" style="left: 193px; top: 188px; --x: 0px; --y: -110px; animation-delay: .65s"></span>
+
+    <div style="position: absolute; left: 0; top: 18px; width: 390px; text-align: center">
+      <p class="hl-ar hl-in1" dir="rtl" lang="ar" style="margin: 0; font-size: 24px; line-height: 1.7; color: #E6ECF5">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p>
+      <p class="hl-t hl-in1" style="margin: 0; font-size: 10.5px; letter-spacing: 0.24em; text-transform: uppercase; color: #8F9CB4">Bismillahir Rohmanir Rohiym</p>
+    </div>
+
+    <div class="hl-msg" aria-live="polite" style="position: absolute; left: 30px; top: 262px; width: 330px; text-align: center">
+      <p class="hl-d" style="margin: 0; font-size: {{ msgSize }}; line-height: 1.15; color: #FFFFFF; text-shadow: 0 0 20px rgba(220, 228, 240, 0.6); overflow-wrap: anywhere">{{ d.kimga }}, kechir meni</p>
+      <p class="hl-t" style="margin: 6px 0 0; font-size: 14px; font-style: italic; color: #DCE4F0">Oramizdagi tun tugab, oy to’ldi.</p>
+    </div>
+
+    <button type="button" class="hl-hit hl-cta" onClick="{{ grow }}" aria-label="Oyni to’ldirish" tabindex="-1"></button>
+
+    <div class="hl-cta" style="position: absolute; left: 0; top: 268px; width: 390px; text-align: center">
+      <p class="hl-lb hl-in2" style="color: #DCE4F0; letter-spacing: {{ fromLs }}; padding: 0 26px; overflow-wrap: anywhere">{{ fromTo }}</p>
+    </div>
+
+    <div class="hl-cta" style="position: absolute; left: 0; top: 716px; width: 390px; display: flex; flex-direction: column; align-items: center; gap: 12px">
+      <div class="hl-in3" aria-hidden="true" style="display: flex; gap: 12px"><sc-for list="{{ dots }}" as="c"><span class="{{ c }}"></span></sc-for></div>
+      <p class="hl-t hl-in3" style="margin: 0; font-size: 14px; font-style: italic; line-height: 1.45; color: #C9D2E2; text-align: center; padding: 0 34px; text-shadow: 0 1px 8px #050B1A">{{ hint }}</p>
+      <button type="button" class="hl-press hl-btnS hl-in4 hl-t" onClick="{{ grow }}" style="height: 52px; padding: 0 26px 0 20px; border: 0; border-radius: 26px; font-size: 15.5px; font-weight: 600; display: inline-flex; align-items: center; gap: 10px; cursor: pointer">
+        <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 3.5 A8.5 8.5 0 1 0 20.5 15 A7 7 0 1 1 15 3.5 Z" stroke="#101C33" class="hl-ic"></path></svg>
+        <span>{{ btnLabel }}</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ================= BOSH QISM ================= -->
+  <header style="position: relative; flex: none; display: flex; flex-direction: column; align-items: center; text-align: center">
+    <div style="position: relative; width: 390px; height: 400px; overflow: hidden">
+      <svg width="390" height="400" viewBox="0 60 390 520" preserveAspectRatio="xMidYMid slice" aria-hidden="true" style="position: absolute; left: 0; top: 0">
+        <rect x="0" y="0" width="390" height="844" fill="url(#hlSky)"></rect>
+        <rect x="0" y="0" width="390" height="620" fill="url(#hlSkyL)"></rect>
+        <circle cx="195" cy="210" r="150" fill="url(#hlHalo)"></circle>
+        <circle cx="195" cy="210" r="50" fill="#F6F8FC"></circle>
+        <g fill="#AEBBD0" opacity="0.45"><circle cx="182" cy="198" r="9"></circle><circle cx="207" cy="222" r="6"></circle><circle cx="188" cy="230" r="4"></circle></g>
+        <g fill="#E6ECF5"><circle class="hl-tw" cx="40" cy="120" r="1.2"></circle><circle class="hl-tw" cx="330" cy="110" r="1.1" style="animation-delay: 1.4s"></circle><circle class="hl-tw" cx="300" cy="300" r="1" style="animation-delay: 2.2s"></circle><circle class="hl-tw" cx="80" cy="320" r="1" style="animation-delay: .8s"></circle></g>
+        <use href="#hlGarden" fill="#2C4366"></use>
+        <use href="#hlArches" fill="#081122"></use>
+        <circle class="hl-lan is-glow" cx="131" cy="520" r="34" fill="url(#hlWarm)" style="opacity: 1"></circle>
+        <circle class="hl-lan is-glow" cx="195" cy="520" r="34" fill="url(#hlWarm)" style="opacity: 1; animation-delay: 1s"></circle>
+        <circle class="hl-lan is-glow" cx="259" cy="520" r="34" fill="url(#hlWarm)" style="opacity: 1; animation-delay: 2s"></circle>
+      </svg>
+      <div style="position: absolute; left: 0; top: 18px; width: 390px">
+        <p class="hl-ar" dir="rtl" lang="ar" style="margin: 0; font-size: 24px; line-height: 1.7; color: #E6ECF5">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p>
+        <p class="hl-t" style="margin: 0; font-size: 10.5px; letter-spacing: 0.24em; text-transform: uppercase; color: #8F9CB4">Bismillahir Rohmanir Rohiym</p>
+      </div>
+      <div aria-hidden="true" style="position: absolute; left: 0; bottom: 0; width: 390px; height: 80px; background: linear-gradient(180deg, rgba(16, 28, 51, 0), #101C33)"></div>
+    </div>
+    <div style="padding: 8px 26px 34px; display: flex; flex-direction: column; align-items: center; gap: 10px">
+      <p class="hl-lb">Assalomu alaykum</p>
+      <h1 class="hl-d hl-silver" style="margin: 0; font-size: {{ h1Size }}; line-height: 1.08; font-weight: 400; overflow-wrap: anywhere">{{ d.kimga }}</h1>
+      <svg width="140" height="18" viewBox="0 0 140 18" aria-hidden="true"><path d="M0 9 H54 M86 9 H140" stroke="#5E6F8E" class="hl-ln"></path><path d="M74 2 A7 7 0 1 0 78 14 A5.5 5.5 0 1 1 74 2 Z" fill="#CFD8E6"></path><path d="M64 6 L65 8.2 L67.4 8.5 L65.6 10 L66.1 12.4 L64 11.2 L61.9 12.4 L62.4 10 L60.6 8.5 L63 8.2 Z" fill="#CFD8E6"></path></svg>
+      <p class="hl-d" style="margin: 0; font-size: 28px; line-height: 1.2; color: #F3F1E8">Kechir meni</p>
+      <p class="hl-t" style="margin: 2px 0 0; font-size: 16px; line-height: 1.6; color: #B9C4D6">Hilol kecha sayin to’lib, to’lin oyga aylangani kabi, oramiz ham yana nurga to’lishini so’rayman.</p>
+      <p class="hl-t" style="margin: 6px 0 0; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #8F9CB4; overflow-wrap: anywhere">{{ fromLine }}</p>
+    </div>
+  </header>
+
+  <div class="hl-path" style="flex: none">
+
+  <!-- ================= MAKTUB ================= -->
+  <sc-if value="{{ b.maktub }}">
+  <section class="rv hl-sec">
+    <svg class="hl-node" width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><circle cx="15" cy="15" r="13" fill="#1A2741" stroke="#5E6F8E" class="hl-hair"></circle><path d="{{ ph.maktub }}" fill="#E6ECF5"></path></svg>
+    <div class="rc"><p class="hl-lb">Maktub</p><h2 class="hl-h2">Qalbimdagi so’zlar</h2></div>
+    <div class="rc" style="margin-top: 18px; position: relative; padding: 24px 20px 24px; border-radius: 4px 22px 4px 22px; background: #F3F1E8; color: #1B2740; box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.7)">
+      <p class="hl-t" style="margin: 0; font-size: 16.5px; line-height: 1.7; color: #26324A; white-space: pre-line; overflow-wrap: anywhere"><span class="hl-d" aria-hidden="true" style="float: left; width: 50px; height: 50px; margin: 4px 10px 0 0; border-radius: 50%; background: #101C33; color: #F3F1E8; display: flex; align-items: center; justify-content: center; font-size: 30px; box-shadow: inset -9px 0 0 #3A4C6C">{{ dropCap }}</span>{{ dropRest }}</p>
+      <div style="clear: both; margin-top: 18px; display: flex; flex-direction: column; align-items: flex-end; gap: 2px">
+        <span class="hl-t" style="font-size: 13px; font-style: italic; color: #5A6680">Hurmat va pushaymonlik bilan,</span>
+        <span class="hl-d" style="font-size: {{ sigSize }}; color: #2E4266; overflow-wrap: anywhere; text-align: right">{{ d.kimdan }}</span>
+      </div>
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- ================= VA'DALAR ================= -->
+  <sc-if value="{{ b.vadalar }}">
+  <section class="rv hl-sec">
+    <svg class="hl-node" width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><circle cx="15" cy="15" r="13" fill="#1A2741" stroke="#5E6F8E" class="hl-hair"></circle><path d="{{ ph.vadalar }}" fill="#E6ECF5"></path></svg>
+    <div class="rc"><p class="hl-lb">Va’dalarim</p><h2 class="hl-h2">Har biri — bir yulduz</h2>
+      <p class="hl-t" style="margin: 8px 0 18px; font-size: 14.5px; font-style: italic; line-height: 1.55; color: #AEB9CC">Tunni yulduzlar yoritgani kabi, bu so’zlarim yo’limizni yoritsin. Har birini bosib yoqing.</p></div>
+    <div class="rc" style="display: flex; flex-direction: column; gap: 10px">
+      <sc-for list="{{ promises }}" as="v">
+        <button type="button" class="{{ v.cls }}" onClick="{{ v.tap }}" aria-pressed="{{ v.on }}">
+          <span class="hl-glw" aria-hidden="true"></span>
+          <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true" style="position: relative; flex: none"><path class="hl-star" d="M14 2 C15 10 18 13 26 14 C18 15 15 18 14 26 C13 18 10 15 2 14 C10 13 13 10 14 2 Z" fill="#CFD8E6"></path></svg>
+          <span style="position: relative; flex: 1; min-width: 0; font-size: 16px; line-height: 1.45; overflow-wrap: anywhere">{{ v.text }}</span>
+        </button>
+      </sc-for>
+    </div>
+    <div class="rc" style="margin-top: 18px">
+      <sc-if value="{{ notAccepted }}">
+        <button type="button" class="hl-press hl-t" onClick="{{ accept }}" style="height: 50px; padding: 0 22px; border-radius: 25px; border: 1.5px solid #CFD8E6; background: rgba(207, 216, 230, 0.06); color: #F3F1E8; font-size: 15.5px; font-weight: 600; cursor: pointer">Va’dalaringga ishonaman</button>
+      </sc-if>
+      <sc-if value="{{ accepted }}">
+        <p class="hl-pop hl-t" role="status" style="margin: 0; display: inline-block; padding: 13px 18px; border-radius: 25px; background: rgba(242, 223, 168, 0.12); color: #F3F1E8; font-size: 15px">Rahmat. Har birida turaman.</p>
+      </sc-if>
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- ================= GALEREYA ================= -->
+  <sc-if value="{{ b.galereya }}">
+  <section class="rv hl-sec">
+    <svg class="hl-node" width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><circle cx="15" cy="15" r="13" fill="#1A2741" stroke="#5E6F8E" class="hl-hair"></circle><path d="{{ ph.galereya }}" fill="#E6ECF5"></path></svg>
+    <div class="rc"><p class="hl-lb">Xotiralar</p><h2 class="hl-h2">Oy yorug’idagi kunlar</h2></div>
+    <sc-if value="{{ g3 }}">
+    <div class="rc" style="position: relative; height: 330px; margin-top: 20px">
+      <img class="hl-circ" src="{{ p.0 }}" alt="" style="position: absolute; left: 0; top: 0; width: 220px; height: 220px">
+      <img class="hl-circ" src="{{ p.1 }}" alt="" style="position: absolute; left: 150px; top: 176px; width: 150px; height: 150px">
+      <img class="hl-circ" src="{{ p.2 }}" alt="" style="position: absolute; left: 206px; top: 18px; width: 92px; height: 92px">
+    </div>
+    </sc-if>
+    <sc-if value="{{ g2 }}">
+    <div class="rc" style="position: relative; height: 310px; margin-top: 20px">
+      <img class="hl-circ" src="{{ p.0 }}" alt="" style="position: absolute; left: 0; top: 0; width: 220px; height: 220px">
+      <img class="hl-circ" src="{{ p.1 }}" alt="" style="position: absolute; left: 140px; top: 150px; width: 160px; height: 160px">
+    </div>
+    </sc-if>
+    <sc-if value="{{ g1 }}">
+    <div class="rc" style="margin-top: 20px"><img class="hl-circ" src="{{ p.0 }}" alt="" style="width: 260px; height: 260px"></div>
+    </sc-if>
+    <p class="rc hl-t" style="margin: 14px 0 0; font-size: 14.5px; font-style: italic; line-height: 1.5; color: #AEB9CC">Eng yorug’ kunlarimiz — to’lin oy kabi esimda.</p>
+  </section>
+  </sc-if>
+
+  <!-- ================= TAKLIF ================= -->
+  <sc-if value="{{ b.taklif }}">
+  <section class="rv hl-sec">
+    <svg class="hl-node" width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><circle cx="15" cy="15" r="13" fill="#1A2741" stroke="#5E6F8E" class="hl-hair"></circle><path d="{{ ph.taklif }}" fill="#E6ECF5"></path></svg>
+    <div class="rc"><p class="hl-lb">Yarashish taklifi</p></div>
+    <div class="rc" style="margin-top: 14px; position: relative; overflow: hidden; padding: 24px 20px 22px; border-radius: 22px; border: 1px solid rgba(207, 216, 230, 0.25); background: linear-gradient(160deg, #1D2E4E 0%, #131F38 100%)">
+      <svg width="120" height="120" viewBox="0 0 120 120" aria-hidden="true" style="position: absolute; right: -24px; top: -24px; opacity: 0.5"><circle cx="60" cy="60" r="60" fill="url(#hlHalo)"></circle><circle cx="60" cy="60" r="22" fill="#E6ECF5"></circle></svg>
+      <p class="hl-d" style="position: relative; margin: 0; padding-right: 50px; font-size: 25px; line-height: 1.25; color: #F3F1E8; overflow-wrap: anywhere">{{ d.taklif }}</p>
+      <sc-if value="{{ hasChips }}">
+      <div style="position: relative; margin-top: 16px; display: flex; flex-direction: column; gap: 10px">
+        <sc-if value="{{ d.taklif_vaqt }}"><div style="display: flex; align-items: center; gap: 10px; font-size: 15.5px; color: #DCE4F0"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" style="flex: none"><circle cx="12" cy="12" r="8.5" stroke="#CFD8E6" class="hl-ic"></circle><path d="M12 7.5V12l3 2" stroke="#CFD8E6" class="hl-ic"></path></svg><span style="overflow-wrap: anywhere">{{ d.taklif_vaqt }}</span></div></sc-if>
+        <sc-if value="{{ d.taklif_joy }}"><div style="display: flex; align-items: center; gap: 10px; font-size: 15.5px; color: #DCE4F0"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" style="flex: none"><path d="M12 21s-6.5-6-6.5-11a6.5 6.5 0 0 1 13 0c0 5-6.5 11-6.5 11z" stroke="#CFD8E6" class="hl-ic"></path><circle cx="12" cy="10" r="2.3" stroke="#CFD8E6" class="hl-ic"></circle></svg><span style="overflow-wrap: anywhere">{{ d.taklif_joy }}</span></div></sc-if>
+      </div>
+      </sc-if>
+      <div style="position: relative; margin-top: 20px">
+        <sc-if value="{{ notAgreed }}">
+          <button type="button" class="hl-press hl-btnS hl-t" onClick="{{ agree }}" style="width: 100%; height: 52px; border: 0; border-radius: 26px; font-size: 16px; font-weight: 600; cursor: pointer">Roziman, boraman</button>
+        </sc-if>
+        <sc-if value="{{ agreed }}">
+          <p class="hl-pop hl-t" role="status" style="margin: 0; padding: 14px 18px; border-radius: 26px; background: rgba(207, 216, 230, 0.12); font-size: 15.5px; color: #F3F1E8; overflow-wrap: anywhere">{{ agreedText }}</p>
+        </sc-if>
+      </div>
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- ================= JAVOB ================= -->
+  <sc-if value="{{ showAnswer }}">
+  <section class="rv hl-sec">
+    <svg class="hl-node" width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><circle cx="15" cy="15" r="13" fill="#1A2741" stroke="#5E6F8E" class="hl-hair"></circle><circle cx="15" cy="15" r="11" fill="#F6F8FC"></circle></svg>
+    <div class="rc"><p class="hl-lb">Javob</p><h2 class="hl-h2" style="font-size: 38px">Kechirasanmi?</h2>
+      <p class="hl-t" style="margin: 8px 0 0; font-size: 14.5px; font-style: italic; line-height: 1.55; color: #AEB9CC">{{ askSub }}</p></div>
+    <sc-if value="{{ b.javob }}">
+    <div class="rc" style="margin-top: 22px">
+      <sc-if value="{{ waiting }}">
+        <div style="display: flex; justify-content: center; padding-right: 30px">
+          <button type="button" class="hl-press hl-glowB hl-d" onClick="{{ forgive }}" style="width: 140px; height: 140px; border: 0; border-radius: 50%; background: radial-gradient(circle at 40% 38%, #FFFFFF 0%, #E6ECF5 55%, #B9C5D8 100%); color: #101C33; font-size: 21px; cursor: pointer">Kechirdim</button>
+        </div>
+      </sc-if>
+      <sc-if value="{{ forgiven }}">
+        <div class="hl-boom" style="position: relative">
+          <sc-for list="{{ rays }}" as="r"><span class="hl-ray" aria-hidden="true" style="{{ r }}"></span></sc-for>
+          <div class="hl-pop" role="status" style="position: relative; padding: 22px 20px; border-radius: 22px; background: #F3F1E8; color: #1B2740">
+            <p class="hl-d" style="margin: 0; font-size: 24px; overflow-wrap: anywhere">Rahmat, {{ d.kimga }}.</p>
+            <p class="hl-t" style="margin: 8px 0 0; font-size: 15.5px; line-height: 1.6; color: #3A4660; white-space: pre-line; overflow-wrap: anywhere">{{ thanks }}</p>
+          </div>
+        </div>
+      </sc-if>
+    </div>
+    </sc-if>
+    <sc-if value="{{ both }}">
+      <div style="margin-top: 22px; display: flex; align-items: center; gap: 10px">
+        <span aria-hidden="true" style="flex: 1; height: 1px; background: rgba(207, 216, 230, 0.25)"></span>
+        <span class="hl-t" style="font-size: 13.5px; font-style: italic; color: #AEB9CC">yoki o’z so’zlaring bilan</span>
+        <span aria-hidden="true" style="flex: 1; height: 1px; background: rgba(207, 216, 230, 0.25)"></span>
+      </div>
+    </sc-if>
+    <sc-if value="{{ b.sorov }}">
+    <div class="rc" style="margin-top: 16px">
+      <sc-if value="{{ notSent }}">
+        <div style="display: flex; flex-direction: column; gap: 12px">
+          <label for="hlReply" class="hl-lb" style="font-size: 11px">Javobingiz</label>
+          <textarea id="hlReply" class="hl-ta hl-t" rows="3" placeholder="Bir-ikki so’z ham kifoya" style="width: 100%; height: 96px; box-sizing: border-box; resize: none; padding: 12px 14px; border: 1px solid rgba(207, 216, 230, 0.35); border-radius: 14px; background: #0A1426; color: #F3F1E8; font-size: 16px; line-height: 1.5"></textarea>
+          <sc-if value="{{ sendErr }}"><p role="alert" class="hl-t" style="margin: -4px 0 0; font-size: 14px; color: #FFC9A8">{{ sendErr }}</p></sc-if>
+          <button type="button" class="hl-press hl-t" onClick="{{ send }}" disabled="{{ sending }}" style="height: 50px; border: 1.5px solid #CFD8E6; border-radius: 25px; background: rgba(207, 216, 230, 0.06); color: #F3F1E8; font-size: 15.5px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px">
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12l16-8-6 16-2.5-6.5L4 12z M11.5 13.5L20 4" stroke="#CFD8E6" class="hl-ic"></path></svg>
+            <span>{{ sendLabel }}</span>
+          </button>
+        </div>
+      </sc-if>
+      <sc-if value="{{ sent }}">
+        <p class="hl-pop hl-t" role="status" style="margin: 0; padding: 14px 18px; border-radius: 14px; border: 1px solid rgba(207, 216, 230, 0.35); font-size: 15px; color: #F3F1E8; overflow-wrap: anywhere">Javobing {{ toFrom }} yetib bordi.</p>
+      </sc-if>
+    </div>
+    </sc-if>
+  </section>
+  </sc-if>
+
+  </div>
+
+  <!-- ================= YAKUN ================= -->
+  <footer class="rv" style="position: relative; flex: 1 0 auto; padding: 50px 26px 64px; display: flex; flex-direction: column; align-items: center; text-align: center; background: radial-gradient(90% 60% at 50% 100%, #1C3350 0%, #101C33 70%)">
+    <svg class="rc" width="60" height="60" viewBox="0 0 60 60" aria-hidden="true"><circle cx="30" cy="30" r="30" fill="url(#hlHalo)"></circle><path d="M34 14 A16 16 0 1 0 44 40 A13 13 0 1 1 34 14 Z" fill="#E6ECF5"></path><path d="M44 22 L45.2 24.6 L48 25 L45.9 26.8 L46.5 29.6 L44 28.2 L41.5 29.6 L42.1 26.8 L40 25 L42.8 24.6 Z" fill="#E6ECF5"></path></svg>
+    <p class="rc hl-ar hl-mk" dir="rtl" lang="ar" style="margin: 20px -8px 0; font-size: 24px; line-height: 2; color: #E6ECF5">وَلْيَعْفُوا وَلْيَصْفَحُوا أَلَا تُحِبُّونَ أَن يَغْفِرَ اللَّهُ لَكُمْ</p>
+    <p class="rc hl-t" style="margin: 12px 0 0; font-size: 15.5px; font-style: italic; line-height: 1.6; color: #C9D2E2">«Afv etsinlar va kechirsinlar. Alloh sizlarni mag’firat qilishini yoqtirmaysizlarmi?»</p>
+    <p class="rc hl-t" style="margin: 6px 0 0; font-size: 11.5px; letter-spacing: 0.2em; text-transform: uppercase; color: #8F9CB4">Nur surasi, 22-oyat</p>
+    <p class="rc hl-d" style="margin: 28px 0 0; font-size: 21px; line-height: 1.45; color: #F3F1E8">Alloh oramizni isloh qilsin, qalblarimizni nurga to’ldirsin.</p>
+    <p class="rc hl-d hl-silver" style="margin: 16px 0 0; font-size: {{ sigSize }}; overflow-wrap: anywhere">{{ d.kimdan }}</p>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":4200}}'>
+const HL_RM = typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
+const HL_IO = typeof IntersectionObserver === 'function' && !HL_RM && !(typeof navigator !== 'undefined' && navigator.webdriver);
+const HL_HINT = ['Osmonda ingichka hilol. Oyga bosing — u to’la boshlaydi.', 'Hilol kattalashmoqda. Yana bosing.', 'Yarim oy. Bog’ yorisha boshladi.', 'Oz qoldi — oy to’lishiga bir qadam.', ''];
+const HL_BTN = ['Oyni to’ldiring', 'Yana bir kecha', 'Davom eting', 'To’lin oy', ''];
+
+function hlPhase(cx, cy, R, f) {
+  const k = Math.cos(2 * Math.PI * f), crescent = k > 0;
+  let rx = Math.abs(k) * R;
+  if (crescent) rx = Math.min(rx, R * 0.86);
+  const top = cx + ' ' + (cy - R), bot = cx + ' ' + (cy + R);
+  return 'M' + top + ' A' + R + ' ' + R + ' 0 0 1 ' + bot + ' A' + rx.toFixed(2) + ' ' + R + ' 0 0 ' + (crescent ? 0 : 1) + ' ' + top + ' Z';
+}
+
+class Component extends DCLogic {
+  constructor(...args) {
+    super(...args);
+    this.state = { phase: 0, accepted: false, agreed: false, forgiven: false, sent: false, sending: false, err: '', taps: {} };
+  }
+  componentDidMount() { if (HL_IO) document.documentElement.classList.add('hl-arm'); }
+  componentWillUnmount() { this.gone = true; clearTimeout(this.t1); if (this.io) this.io.disconnect(); }
+  startIO() {
+    if (!HL_IO || this.io) return;
+    try {
+      this.io = new IntersectionObserver((es) => es.forEach((e) => {
+        if (e.isIntersecting) { e.target.classList.add('is-in'); this.io.unobserve(e.target); }
+      }), { rootMargin: '0px 0px -8% 0px', threshold: 0.01 });
+      document.querySelectorAll('.rv').forEach((el) => this.io.observe(el));
+    } catch (e) { document.documentElement.classList.remove('hl-arm'); }
+  }
+  renderVals() {
+    const s = this.state || {};
+    const d = SITE.d, b = SITE.b;
+    const vad = d.vadalar || [];
+    const matn = String(d.matn || '').replace(/^\s+/, '');
+    const n = SITE.has.photos;
+    const nameLen = String(d.kimga || '').length;
+    const fromLen = String(d.kimdan || '').length;
+    const tv = String(d.taklif_vaqt || '').trim();
+    const phase = s.phase || 0, full = phase >= 4;
+    const taps = s.taps || {};
+    let q = '';
+    for (let i = 1; i <= phase; i++) q += ' q' + i;
+    const order = ['maktub', 'vadalar', 'galereya', 'taklif'];
+    const vis = order.filter((k) => b[k]);
+    const ph = {};
+    vis.forEach((k, i) => { ph[k] = hlPhase(15, 15, 11, 0.07 + (0.38 * i) / Math.max(1, vis.length)); });
+    return {
+      introCls: 'hl-intro' + q + (full ? ' is-full' : ''),
+      grow: () => {
+        const p = this.state.phase || 0;
+        if (p >= 4) return;
+        this.setState({ phase: p + 1 });
+        if (p + 1 >= 4) { SITE.opened(); this.t1 = setTimeout(() => this.startIO(), HL_RM ? 0 : 4700); }
+      },
+      dots: [0, 1, 2, 3].map((i) => 'hl-dot' + (phase > i ? ' is-on' : '')),
+      hint: HL_HINT[phase],
+      btnLabel: HL_BTN[phase],
+      ph,
+      fromTo: (d.kimdan || '') + 'dan ' + SITE.ga(d.kimga),
+      fromLs: (String(d.kimdan || '') + String(d.kimga || '')).length > 26 ? '0.1em' : '0.24em',
+      fromLine: (d.kimdan || '') + 'dan',
+      msgSize: nameLen > 18 ? '24px' : nameLen > 11 ? '28px' : '34px',
+      h1Size: nameLen > 18 ? '34px' : nameLen > 11 ? '42px' : '54px',
+      sigSize: fromLen > 18 ? '20px' : '28px',
+      musicOn: !!SITE.music.playing,
+      musicOff: !SITE.music.playing,
+      toggleMusic: () => SITE.music.toggle(),
+      dropCap: matn.charAt(0),
+      dropRest: matn.slice(1),
+      promises: vad.map((text, i) => {
+        const t = taps[i] || 0;
+        return {
+          text, on: t % 2 === 1,
+          cls: 'hl-row hl-press' + (t % 2 === 1 ? ' is-on' : ''),
+          tap: () => { const m = Object.assign({}, this.state.taps); m[i] = (m[i] || 0) + 1; this.setState({ taps: m }); }
+        };
+      }),
+      accepted: !!s.accepted,
+      notAccepted: !s.accepted,
+      accept: () => { if (this.state.accepted) return; this.setState({ accepted: true }); SITE.reply('Va’dalaringga ishonaman', '🥹'); },
+      g3: n >= 3, g2: n === 2, g1: n < 2,
+      hasChips: !!(tv || d.taklif_joy),
+      agreedText: tv ? 'Kelishdik. ' + tv + ' — kutaman.' : 'Kelishdik. Seni kutaman.',
+      agreed: !!s.agreed,
+      notAgreed: !s.agreed,
+      agree: () => { if (this.state.agreed) return; this.setState({ agreed: true }); SITE.reply('Roziman: ' + (d.taklif || ''), '🥰'); },
+      showAnswer: !!(b.javob || b.sorov),
+      both: !!(b.javob && b.sorov),
+      askSub: b.javob && b.sorov ? 'Bitta tugma yoki bir necha so’z — qanday bo’lsa ham, kutaman.' : b.javob ? 'Bitta so’zing kifoya — kutaman.' : 'Bir necha so’z yozsang ham kifoya — kutaman.',
+      thanks: d.javob_matni || 'Oyimiz yana to’ldi. Bu nurni asrayman.',
+      waiting: !s.forgiven,
+      forgiven: !!s.forgiven,
+      rays: [0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330].map((r, i) => '--r: ' + r + 'deg; animation-delay: ' + (i % 2) * 0.08 + 's'),
+      forgive: () => { if (this.state.forgiven) return; this.setState({ forgiven: true }); SITE.reply('Kechirdim', '🤗'); },
+      toFrom: SITE.ga(d.kimdan),
+      sent: !!s.sent,
+      notSent: !s.sent,
+      sending: !!s.sending,
+      sendLabel: s.sending ? 'Yuborilmoqda…' : 'Yuborish',
+      sendErr: s.err || '',
+      send: () => {
+        const el = document.getElementById('hlReply');
+        const text = el ? el.value.trim() : '';
+        if (!text) { this.setState({ err: 'Avval bir-ikki so’z yozing.' }); if (el) el.focus(); return; }
+        this.setState({ sending: true, err: '' });
+        SITE.reply(text, '❤️').then(() => { if (!this.gone) this.setState({ sent: true, sending: false }); })
+          .catch(() => { if (!this.gone) this.setState({ sending: false, err: 'Yuborilmadi. Qaytadan urinib ko’ring.' }); });
+      }
+    };
+  }
+}
+</script>
+</body>
+</html>

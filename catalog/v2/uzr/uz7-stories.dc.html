@@ -296,7 +296,7 @@ button:disabled{cursor:default}
       <div class="ks-body" style="align-items: center; text-align: center">
         <div class="ks-pop" style="position: relative; width: 120px; height: 120px; --i: 0.05s">
           <div class="ks-ring" aria-hidden="true" style="position: absolute; left: -6px; top: -6px; width: 132px; height: 132px"></div>
-          <div class="un" style="position: absolute; left: 0; top: 0; width: 120px; height: 120px; border-radius: 50%; box-shadow: 0 0 0 5px #12324A; overflow: hidden; display: flex; align-items: center; justify-content: center; background: linear-gradient(150deg, #FF9E7A, #FF6F8E 55%, #8E7BD6); font-size: 46px; font-weight: 800">{{ ini }}</div>
+          <div class="un" style="position: absolute; left: 0; top: 0; width: 120px; height: 120px; border-radius: 50%; box-shadow: 0 0 0 5px #12324A; overflow: hidden; display: flex; align-items: center; justify-content: center; background: linear-gradient(150deg, #FF9E7A, #FF6F8E 55%, #8E7BD6); font-size: 46px; font-weight: 800"><sc-if value="{{ has.photo }}"><img src="{{ p.0 }}" alt="" style="width: 100%; height: 100%; object-fit: cover; display: block"></sc-if><sc-if value="{{ noPhoto }}">{{ ini }}</sc-if></div>
         </div>
         <h2 class="un ks-rise" style="margin: 24px 0 0; font-size: 26px; line-height: 1.2; font-weight: 800; --i: 0.2s">Hikoyalar tugadi</h2>
         <p class="ks-rise" style="margin: 10px auto 0; max-width: 300px; font-size: 16px; line-height: 1.5; color: #D6E4F0; overflow-wrap: anywhere; --i: 0.35s">{{ endLine }}</p>
@@ -420,11 +420,11 @@ class Component extends DCLogic {
     if (B.vadalar) {
       const vd = (d.vadalar || []).map(txt).filter(Boolean);
       const groups = [];
-      for (let i = 0; i < vd.length; i += 5) groups.push(vd.slice(i, i + 5));
+      for (let i = 0; i < vd.length; i += 4) groups.push(vd.slice(i, i + 4));
       groups.forEach((g, gi) => {
         list.push({ kind: 'vad', dur: 3.5 + g.length * 1.2, bg: 'linear-gradient(170deg, #7FB8E6 0%, #4E7FB8 55%, #2D4F7A 100%)',
           chip: groups.length > 1 ? 'Va’dalar · ' + (gi + 1) + '/' + groups.length : 'So’zimda turaman',
-          items: g.map((t, j) => ({ t, n: gi * 5 + j + 1, bg: ST_BG[j % 5], r: ST_R[j % 5], x: ST_X[j % 5], i: (0.35 + j * 0.22).toFixed(2) + 's' })) });
+          items: g.map((t, j) => ({ t, n: gi * 4 + j + 1, bg: ST_BG[j % 5], r: ST_R[j % 5], x: ST_X[j % 5], i: (0.35 + j * 0.22).toFixed(2) + 's' })) });
       });
     }
     if (B.galereya) {
