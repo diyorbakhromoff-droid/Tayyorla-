@@ -52,9 +52,10 @@ button:disabled{opacity:.7;cursor:default}
 .q2 .hl-skyL{opacity:.4}.q3 .hl-skyL{opacity:.7}.q4 .hl-skyL{opacity:1}
 .hl-lan{opacity:0;transition:opacity .9s ease .5s}
 .q1 .n1,.q2 .n2,.q3 .n3,.q4 .n4{opacity:1}
-.hl-lan.is-glow{animation:hlFlick 3.4s ease-in-out infinite}
+.q1 .n1.is-glow,.q2 .n2.is-glow,.q3 .n3.is-glow,.hl-hlan{animation:hlFlick 3.4s ease-in-out 1.4s infinite}
 @keyframes hlFlick{0%,100%{opacity:1}45%{opacity:.82}60%{opacity:.95}}
 .hl-fl{transform-box:fill-box;transform-origin:50% 100%;transform:scale(.35);transition:transform 1.2s cubic-bezier(.3,1.5,.5,1)}
+.hl-fl{opacity:0;transition:transform 1.2s cubic-bezier(.3,1.5,.5,1),opacity .8s ease}.q1 .hl-fl{opacity:.6}.q2 .hl-fl{opacity:1}
 .q3 .hl-fl{transform:scale(.8)}.q4 .hl-fl{transform:scale(1)}
 .hl-fl.f2{transition-delay:.12s}.hl-fl.f3{transition-delay:.24s}.hl-fl.f4{transition-delay:.36s}
 .hl-rf{opacity:0;transform-box:fill-box;transform-origin:50% 0;transform:scaleY(.3);transition:opacity 1.2s ease,transform 1.4s cubic-bezier(.3,.8,.3,1)}
@@ -185,7 +186,7 @@ html.hl-arm .rv.is-in .hl-mk{clip-path:inset(0 0 0 0)}
       <g class="hl-cta"><circle class="hl-ring" cx="195" cy="190" r="64" fill="none" stroke="#CFD8E6" style="stroke-width: 1.2"></circle></g>
       <!-- bog' -->
       <use href="#hlGarden" fill="#081122"></use>
-      <use class="hl-lit" href="#hlGarden" fill="#2C4366"></use>
+      <use class="hl-lit" href="#hlGarden" fill="#263B5C"></use>
       <use href="#hlArches" fill="#040914"></use>
       <polygon points="184,577 206,577 252,844 138,844" fill="#0B1A30"></polygon>
       <polygon class="hl-lit" points="184,577 206,577 252,844 138,844" fill="#3D5A82"></polygon>
@@ -223,7 +224,7 @@ html.hl-arm .rv.is-in .hl-mk{clip-path:inset(0 0 0 0)}
     <span class="hl-sp" style="left: 193px; top: 188px; --x: 0px; --y: -110px; animation-delay: .65s"></span>
 
     <div style="position: absolute; left: 0; top: 18px; width: 390px; text-align: center">
-      <p class="hl-ar hl-in1" dir="rtl" lang="ar" style="margin: 0; font-size: 24px; line-height: 1.7; color: #E6ECF5">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p>
+      <p class="hl-ar hl-in1" dir="rtl" lang="ar" style="margin: 0; font-size: 29px; line-height: 1.6; color: #E6ECF5">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p>
       <p class="hl-t hl-in1" style="margin: 0; font-size: 10.5px; letter-spacing: 0.24em; text-transform: uppercase; color: #8F9CB4">Bismillahir Rohmanir Rohiym</p>
     </div>
 
@@ -238,7 +239,7 @@ html.hl-arm .rv.is-in .hl-mk{clip-path:inset(0 0 0 0)}
       <p class="hl-lb hl-in2" style="color: #DCE4F0; letter-spacing: {{ fromLs }}; padding: 0 26px; overflow-wrap: anywhere">{{ fromTo }}</p>
     </div>
 
-    <div class="hl-cta" style="position: absolute; left: 0; top: 716px; width: 390px; display: flex; flex-direction: column; align-items: center; gap: 12px">
+    <div class="hl-cta" style="position: absolute; left: 0; top: 676px; height: 168px; padding-top: 40px; box-sizing: border-box; background: linear-gradient(180deg, rgba(5, 11, 26, 0), rgba(5, 11, 26, 0.75) 45%); width: 390px; display: flex; flex-direction: column; align-items: center; gap: 12px">
       <div class="hl-in3" aria-hidden="true" style="display: flex; gap: 12px"><sc-for list="{{ dots }}" as="c"><span class="{{ c }}"></span></sc-for></div>
       <p class="hl-t hl-in3" style="margin: 0; font-size: 14px; font-style: italic; line-height: 1.45; color: #C9D2E2; text-align: center; padding: 0 34px; text-shadow: 0 1px 8px #050B1A">{{ hint }}</p>
       <button type="button" class="hl-press hl-btnS hl-in4 hl-t" onClick="{{ grow }}" style="height: 52px; padding: 0 26px 0 20px; border: 0; border-radius: 26px; font-size: 15.5px; font-weight: 600; display: inline-flex; align-items: center; gap: 10px; cursor: pointer">
@@ -254,18 +255,18 @@ html.hl-arm .rv.is-in .hl-mk{clip-path:inset(0 0 0 0)}
       <svg width="390" height="400" viewBox="0 60 390 520" preserveAspectRatio="xMidYMid slice" aria-hidden="true" style="position: absolute; left: 0; top: 0">
         <rect x="0" y="0" width="390" height="844" fill="url(#hlSky)"></rect>
         <rect x="0" y="0" width="390" height="620" fill="url(#hlSkyL)"></rect>
-        <circle cx="195" cy="210" r="150" fill="url(#hlHalo)"></circle>
-        <circle cx="195" cy="210" r="50" fill="#F6F8FC"></circle>
-        <g fill="#AEBBD0" opacity="0.45"><circle cx="182" cy="198" r="9"></circle><circle cx="207" cy="222" r="6"></circle><circle cx="188" cy="230" r="4"></circle></g>
+        <circle cx="195" cy="262" r="150" fill="url(#hlHalo)"></circle>
+        <circle cx="195" cy="262" r="46" fill="#F6F8FC"></circle>
+        <g fill="#AEBBD0" opacity="0.45"><circle cx="182" cy="250" r="9"></circle><circle cx="207" cy="274" r="6"></circle><circle cx="188" cy="282" r="4"></circle></g>
         <g fill="#E6ECF5"><circle class="hl-tw" cx="40" cy="120" r="1.2"></circle><circle class="hl-tw" cx="330" cy="110" r="1.1" style="animation-delay: 1.4s"></circle><circle class="hl-tw" cx="300" cy="300" r="1" style="animation-delay: 2.2s"></circle><circle class="hl-tw" cx="80" cy="320" r="1" style="animation-delay: .8s"></circle></g>
         <use href="#hlGarden" fill="#2C4366"></use>
         <use href="#hlArches" fill="#081122"></use>
-        <circle class="hl-lan is-glow" cx="131" cy="520" r="34" fill="url(#hlWarm)" style="opacity: 1"></circle>
-        <circle class="hl-lan is-glow" cx="195" cy="520" r="34" fill="url(#hlWarm)" style="opacity: 1; animation-delay: 1s"></circle>
-        <circle class="hl-lan is-glow" cx="259" cy="520" r="34" fill="url(#hlWarm)" style="opacity: 1; animation-delay: 2s"></circle>
+        <circle class="hl-hlan" cx="131" cy="520" r="34" fill="url(#hlWarm)" style="opacity: 1"></circle>
+        <circle class="hl-hlan" cx="195" cy="520" r="34" fill="url(#hlWarm)" style="opacity: 1; animation-delay: 1s"></circle>
+        <circle class="hl-hlan" cx="259" cy="520" r="34" fill="url(#hlWarm)" style="opacity: 1; animation-delay: 2s"></circle>
       </svg>
       <div style="position: absolute; left: 0; top: 18px; width: 390px">
-        <p class="hl-ar" dir="rtl" lang="ar" style="margin: 0; font-size: 24px; line-height: 1.7; color: #E6ECF5">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p>
+        <p class="hl-ar" dir="rtl" lang="ar" style="margin: 0; font-size: 29px; line-height: 1.6; color: #E6ECF5">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p>
         <p class="hl-t" style="margin: 0; font-size: 10.5px; letter-spacing: 0.24em; text-transform: uppercase; color: #8F9CB4">Bismillahir Rohmanir Rohiym</p>
       </div>
       <div aria-hidden="true" style="position: absolute; left: 0; bottom: 0; width: 390px; height: 80px; background: linear-gradient(180deg, rgba(16, 28, 51, 0), #101C33)"></div>
@@ -431,7 +432,7 @@ html.hl-arm .rv.is-in .hl-mk{clip-path:inset(0 0 0 0)}
   <!-- ================= YAKUN ================= -->
   <footer class="rv" style="position: relative; flex: 1 0 auto; padding: 50px 26px 64px; display: flex; flex-direction: column; align-items: center; text-align: center; background: radial-gradient(90% 60% at 50% 100%, #1C3350 0%, #101C33 70%)">
     <svg class="rc" width="60" height="60" viewBox="0 0 60 60" aria-hidden="true"><circle cx="30" cy="30" r="30" fill="url(#hlHalo)"></circle><path d="M34 14 A16 16 0 1 0 44 40 A13 13 0 1 1 34 14 Z" fill="#E6ECF5"></path><path d="M44 22 L45.2 24.6 L48 25 L45.9 26.8 L46.5 29.6 L44 28.2 L41.5 29.6 L42.1 26.8 L40 25 L42.8 24.6 Z" fill="#E6ECF5"></path></svg>
-    <p class="rc hl-ar hl-mk" dir="rtl" lang="ar" style="margin: 20px -8px 0; font-size: 24px; line-height: 2; color: #E6ECF5">وَلْيَعْفُوا وَلْيَصْفَحُوا أَلَا تُحِبُّونَ أَن يَغْفِرَ اللَّهُ لَكُمْ</p>
+    <p class="rc hl-ar hl-mk" dir="rtl" lang="ar" style="margin: 20px -8px 0; font-size: 26px; line-height: 2.3; color: #E6ECF5">وَلْيَعْفُوا وَلْيَصْفَحُوا أَلَا تُحِبُّونَ أَن يَغْفِرَ اللَّهُ لَكُمْ</p>
     <p class="rc hl-t" style="margin: 12px 0 0; font-size: 15.5px; font-style: italic; line-height: 1.6; color: #C9D2E2">«Afv etsinlar va kechirsinlar. Alloh sizlarni mag’firat qilishini yoqtirmaysizlarmi?»</p>
     <p class="rc hl-t" style="margin: 6px 0 0; font-size: 11.5px; letter-spacing: 0.2em; text-transform: uppercase; color: #8F9CB4">Nur surasi, 22-oyat</p>
     <p class="rc hl-d" style="margin: 28px 0 0; font-size: 21px; line-height: 1.45; color: #F3F1E8">Alloh oramizni isloh qilsin, qalblarimizni nurga to’ldirsin.</p>
