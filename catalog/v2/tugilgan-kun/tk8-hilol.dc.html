@@ -359,10 +359,10 @@ a{color:#C9BEF5}
         <p class="hl-d" style="margin: 0; font-size: 34px; line-height: 1.15; color: #F4EFE6">Alloh umringizga baraka bersin</p>
         <p style="margin: 12px 0 0; font-size: 15px; line-height: 1.6; color: #ADA6CF">Hayotingiz to’lin oydek nurli, kunlaringiz tinch va barakali bo’lsin. Omin.</p>
       </div>
-      <div aria-hidden="true" style="position: relative; height: 190px; margin-top: 20px; overflow: hidden">
-        <div class="hl-moonG" style="position: absolute; left: 115px; top: 0; width: 160px; height: 160px; border-radius: 50%; background: radial-gradient(circle, rgba(244,239,230,0.35), rgba(201,190,245,0) 70%)"></div>
-        <div style="position: absolute; left: 155px; top: 40px; width: 80px; height: 80px; border-radius: 50%; background: radial-gradient(circle at 40% 35%, #FFFDF6, #E3DCF4 60%, #C3B8EC); box-shadow: 0 0 40px rgba(244,239,230,0.5)"></div>
-        <svg width="390" height="190" viewBox="0 650 390 190" preserveAspectRatio="none" style="position: absolute; left: 0; top: 0"><path d="{{ skyline }}" fill="#0E0B26"></path><sc-for list="{{ footWins }}" as="fw"><rect x="{{ fw.x }}" y="{{ fw.y }}" width="5" height="7" rx="2.5" fill="#F6B95A"></rect></sc-for></svg>
+      <div aria-hidden="true" style="position: relative; height: 324px; margin-top: 0; overflow: hidden">
+        <div class="hl-moonG" style="position: absolute; left: 230px; top: -20px; width: 160px; height: 160px; border-radius: 50%; background: radial-gradient(circle, rgba(244,239,230,0.35), rgba(201,190,245,0) 70%)"></div>
+        <div style="position: absolute; left: 270px; top: 20px; width: 80px; height: 80px; border-radius: 50%; background: radial-gradient(circle at 40% 35%, #FFFDF6, #E3DCF4 60%, #C3B8EC); box-shadow: 0 0 40px rgba(244,239,230,0.5)"></div>
+        <svg width="390" height="324" viewBox="0 520 390 324" style="position: absolute; left: 0; top: 0"><path d="{{ skyline }}" fill="#0E0B26"></path><sc-for list="{{ footWins }}" as="fw"><rect x="{{ fw.x }}" y="{{ fw.y }}" width="5" height="7" rx="2.5" fill="#F6B95A"></rect></sc-for></svg>
       </div>
       <div style="position: relative; padding: 4px 20px 30px; background: #0E0B26">
         <p class="hl-d" style="margin: 0; font-size: {{ footFs }}px; line-height: 1.1; color: #F4EFE6; overflow-wrap: break-word">{{ name }}</p>
@@ -489,7 +489,7 @@ class Component extends DCLogic {
       return 'left: ' + Math.round(rnd(i, 40) * 386) + 'px; top: ' + f1(rnd(i, 41) * 100) + '%; width: ' + f1(sz) + 'px; height: ' + f1(sz) + 'px; animation-duration: ' + (2 + rnd(i, 43) * 3).toFixed(1) + 's; animation-delay: -' + (rnd(i, 44) * 3).toFixed(1) + 's';
     });
     const rays = Array.from({ length: 14 }, (_, i) => '--a: ' + Math.round(-180 + i * (180 / 13)) + 'deg; --d: ' + Math.round(80 + rnd(i, 50) * 60) + 'px; animation-delay: ' + (rnd(i, 51) * 0.18).toFixed(2) + 's');
-    const footWins = Array.from({ length: 16 }, (_, i) => ({ x: Math.round(10 + rnd(i, 60) * 370), y: Math.round(712 + rnd(i, 61) * 110) }));
+    const footWins = Array.from({ length: 16 }, (_, i) => ({ x: Math.round(10 + rnd(i, 60) * 370), y: Math.round(712 + rnd(i, 61) * 120) }));
     this.deco = {
       skyStars: skyStars, frameStars: frameStars, wins: wins, pageStars: pageStars, rays: rays, footWins: footWins,
       skyline: SKY, archD: ARCH,
