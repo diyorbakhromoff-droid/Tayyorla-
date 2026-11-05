@@ -38,6 +38,8 @@ a{color:#EE9F55}
 .qd-mote{position:absolute;width:3px;height:3px;border-radius:50%;background:#FFD9A0;opacity:0;animation:qdMote 12s ease-in-out infinite}
 @keyframes qdMote{0%{opacity:0;transform:translate(0,0)}25%{opacity:.8}100%{opacity:0;transform:translate(-18px,-140px)}}
 .qd-bob{animation:qdBob 2.6s ease-in-out infinite}
+/* past ekran (masalan 360x640): hero birinchi ekranga sig'sin — chiroq va matn yuqoriroq */
+@media (min-aspect-ratio: 390/780){.qd-hero{height:720px !important}.qd-hero .qd-sway{top:-40px !important}.qd-hero .qd-proj{top:-170px !important}.qd-h-bis{top:338px !important}.qd-h-txt{top:430px !important}.qd-hero .qd-bob{top:688px !important}}
 @keyframes qdBob{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
 .qd-ember{animation:qdEmber 2.4s ease-in-out infinite}
 @keyframes qdEmber{0%,100%{opacity:.35}50%{opacity:.9}}
@@ -153,7 +155,7 @@ a{color:#EE9F55}
   </div>
 
   <!-- BOSH QISM: nur xonaga yoyiladi -->
-  <header style="flex: none; position: relative; height: 800px; overflow: hidden">
+  <header class="qd-hero" style="flex: none; position: relative; height: 800px; overflow: hidden">
     <div class="qd-wall" aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 390px; height: 800px"></div>
     <div class="qd-warm qd-warmbg" aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 390px; height: 800px"></div>
     <svg class="qd-mihrab" width="390" height="844" viewBox="0 0 390 844" aria-hidden="true" style="position: absolute; left: 0; top: 0">
@@ -185,11 +187,11 @@ a{color:#EE9F55}
     <span class="qd-mote" style="left: 320px; top: 480px; animation-delay: -4s"></span>
     <span class="qd-mote" style="left: 250px; top: 690px; animation-delay: -8s"></span>
 
-    <div style="position: absolute; left: 24px; right: 24px; top: 392px; display: flex; flex-direction: column; align-items: center; gap: 4px; text-align: center">
+    <div class="qd-h-bis" style="position: absolute; left: 24px; right: 24px; top: 392px; display: flex; flex-direction: column; align-items: center; gap: 4px; text-align: center">
       <p class="qd-ruq qd-up" dir="rtl" lang="ar" style="font-size: 30px; line-height: 54px; color: #FBEBD3; text-shadow: 0 0 18px rgba(255, 190, 110, 0.55); animation-delay: 2.5s">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p>
       <span class="qd-cap qd-up" style="font-size: 10.5px; color: #E3B98E; animation-delay: 2.65s">Bismillahir Rohmanir Rohiym</span>
     </div>
-    <div style="position: absolute; left: 26px; right: 26px; top: 492px; display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center">
+    <div class="qd-h-txt" style="position: absolute; left: 26px; right: 26px; top: 492px; display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center">
       <span class="qd-cap qd-up" style="overflow-wrap: anywhere; animation-delay: 2.85s">{{ fromTo }}</span>
       <h1 class="qd-ph qd-up" style="margin: 0; font-weight: 700; font-size: {{ h1Size }}; line-height: 1.05; color: #FFF4E4; overflow-wrap: anywhere; text-shadow: 0 0 26px rgba(238, 159, 85, 0.35); animation-delay: 3s">{{ d.kimga }},<br>meni kechir</h1>
       <p class="qd-up" style="margin: 0; max-width: 300px; font-size: 15px; line-height: 1.6; color: #E6D5CC; animation-delay: 3.25s">Oramizdagi nur mening xatoyim bilan xiralashdi. Uni qayta yoqmoqchiman — iltimos, oxirigacha o’qi.</p>

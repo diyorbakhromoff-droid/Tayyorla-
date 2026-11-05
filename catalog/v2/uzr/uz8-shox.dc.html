@@ -32,6 +32,8 @@ a{color:#4FC1B9}
 .sx-petal{position:absolute;width:9px;height:13px;border-radius:50% 50% 50% 50% / 70% 70% 30% 30%;background:#F5EFE3;opacity:0;animation:sxFall 13s linear infinite}
 @keyframes sxFall{0%{opacity:0;transform:translate(0,0) rotate(0deg)}12%{opacity:.75}100%{opacity:0;transform:translate(-40px,300px) rotate(260deg)}}
 .sx-bob{animation:sxBob 2.6s ease-in-out infinite}
+/* hero matni pastdan joylashadi: uzun ism yuqoriga o'sadi va pastki strelkaga tegmaydi; past ekranda (360x640) hero ixchamroq */
+@media (min-aspect-ratio: 390/760){.sx-hero{height:700px !important}.sx-h-vine{transform:translateY(-8px) scale(.8);transform-origin:195px 0}.sx-hero .sx-bob{top:658px !important}}
 @keyframes sxBob{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
 .sx-btn{transition:transform .18s cubic-bezier(.3,1.4,.5,1),filter .2s ease,box-shadow .2s ease;-webkit-tap-highlight-color:transparent}
 .sx-btn:active{transform:scale(.955);filter:brightness(1.06)}
@@ -135,7 +137,7 @@ a{color:#4FC1B9}
   </div>
 
   <!-- BOSH QISM: novda qayta o’sadi -->
-  <header style="flex: none; position: relative; height: 770px; overflow: hidden">
+  <header class="sx-hero" style="flex: none; position: relative; height: 770px; overflow: hidden">
     <div class="sx-tile" aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 390px; height: 770px"></div>
     <div aria-hidden="true" style="position: absolute; left: -60px; top: 120px; width: 510px; height: 520px; background: radial-gradient(closest-side, rgba(79, 193, 185, 0.22), rgba(79, 193, 185, 0))"></div>
     <div class="sx-band" aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 390px; height: 8px"></div>
@@ -143,7 +145,7 @@ a{color:#4FC1B9}
       <p class="sx-ar" dir="rtl" lang="ar" style="font-size: 25px; line-height: 50px; color: #F5EFE3">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p>
       <span class="sx-cap" style="font-size: 10.5px">Bismillahir Rohmanir Rohiym</span>
     </div>
-    <svg width="390" height="480" viewBox="0 0 390 480" aria-hidden="true" style="position: absolute; left: 0; top: 100px; overflow: visible">
+    <svg class="sx-h-vine" width="390" height="480" viewBox="0 0 390 480" aria-hidden="true" style="position: absolute; left: 0; top: 88px; overflow: visible">
       <g class="sx-dead">
         <path d="{{ V.deadL }}" stroke="#5C6FA3" class="sx-stem"></path>
         <path d="{{ V.deadR }}" stroke="#5C6FA3" class="sx-stem"></path>
@@ -170,7 +172,7 @@ a{color:#4FC1B9}
     <span class="sx-petal" style="left: 300px; top: 120px; animation-delay: -7s"></span>
     <span class="sx-petal" style="left: 200px; top: 260px; animation-delay: -10s"></span>
 
-    <div style="position: absolute; left: 26px; right: 26px; top: 552px; display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center">
+    <div class="sx-h-txt" style="position: absolute; left: 26px; right: 26px; bottom: 42px; display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center">
       <span class="sx-cap sx-up" style="overflow-wrap: anywhere; animation-delay: 3.2s">{{ fromTo }}</span>
       <h1 class="sx-em sx-up" style="margin: 0; font-weight: 700; font-size: {{ h1Size }}; line-height: 1.08; color: #FFFFFF; overflow-wrap: anywhere; animation-delay: 3.35s">{{ d.kimga }},<br>meni kechir</h1>
       <p class="sx-up" style="margin: 0; max-width: 300px; font-size: 15px; line-height: 1.6; color: #D3DBF0; animation-delay: 3.55s">Uzilgan rishtamiz qayta ulansin, unda yangi kurtaklar ochilsin.</p>
