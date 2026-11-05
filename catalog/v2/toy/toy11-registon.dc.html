@@ -185,10 +185,14 @@ body{margin:0;background:#0E1636}
           <circle cx="{{ m.cx }}" cy="{{ m.by }}" r="2.6" fill="#E9B04A"></circle>
           <use href="#rgCres" transform="{{ m.ct }}" fill="#E9B04A"></use>
         </sc-for>
-        <sc-for list="{{ walls }}" as="a"><path d="{{ a.d }}" fill="url(#rgBrick)"></path></sc-for>
+        <sc-for list="{{ walls }}" as="a"><path d="{{ a }}" fill="url(#rgBrick)"></path></sc-for>
         <sc-for list="{{ tiles }}" as="t"><path d="{{ t.d }}" fill="{{ t.dim }}"></path></sc-for>
         <sc-for list="{{ tiles }}" as="t"><path class="rg-lt" d="{{ t.d }}" fill="{{ t.lit }}" style="{{ t.dl }}"></path></sc-for>
         <sc-for list="{{ darks }}" as="a"><path d="{{ a }}" fill="#0B0E26"></path></sc-for>
+        <sc-for list="{{ mw }}" as="a"><path d="{{ a }}" fill="url(#rgBrick)"></path></sc-for>
+        <sc-for list="{{ mt }}" as="t"><path d="{{ t.d }}" fill="{{ t.dim }}"></path></sc-for>
+        <sc-for list="{{ mt }}" as="t"><path class="rg-lt" d="{{ t.d }}" fill="{{ t.lit }}" style="{{ t.dl }}"></path></sc-for>
+        <sc-for list="{{ md }}" as="a"><path d="{{ a }}" fill="#1B6A74"></path></sc-for>
         <path d="M150 770V585H240V770Z" fill="url(#rgTD)"></path>
         <path class="rg-lt" d="M150 770V585H240V770Z" fill="url(#rgTL)" style="animation-delay: 1.45s"></path>
         <path d="M157 770V640A60 60 0 0 1 195 595A60 60 0 0 1 233 640V770Z" fill="#E9B04A"></path>
@@ -632,12 +636,14 @@ tile('M92 330H298V352H92Z', 1.25, 'k');
 tile('M106 352H284V480H106Z', 1.1);
 DARKS.push(pArch(124, 392, 142, 378, 80));
 /* minoralar: halqa-halqa yonadi (pastdan yuqoriga) */
+const MW = [], MT = [], MD = [];
+function mtile(d, delay, kind) { const n = TILES.length; tile(d, delay, kind); MT.push(TILES.pop()); }
 [[46, 70], [320, 344]].forEach(([a, b], mi) => {
-  WALLS.push('M' + a + ' 770L' + (a + 2) + ' 250H' + (b - 2) + 'L' + b + ' 770Z');
-  for (let k = 0; k < 6; k++) { const y = 700 - k * 76; tile('M' + (a + 1) + ' ' + y + 'H' + (b - 1) + 'V' + (y + 12) + 'H' + (a + 1) + 'Z', 1.0 + k * 0.16 + mi * 0.05, k % 2 ? 'k' : 't'); }
-  WALLS.push('M' + (a - 5) + ' 238H' + (b + 5) + 'V252H' + (a - 5) + 'Z');
-  tile('M' + (a - 5) + ' 238H' + (b + 5) + 'V252H' + (a - 5) + 'Z', 1.95 + mi * 0.05, 'k');
-  DARKS.push('M' + (a + 1) + ' 238C' + (a + 1) + ' 224 ' + ((a + b) / 2) + ' 218 ' + ((a + b) / 2) + ' 218C' + ((a + b) / 2) + ' 218 ' + (b - 1) + ' 224 ' + (b - 1) + ' 238Z');
+  MW.push('M' + a + ' 770L' + (a + 2) + ' 250H' + (b - 2) + 'L' + b + ' 770Z');
+  for (let k = 0; k < 6; k++) { const y = 700 - k * 76; mtile('M' + (a + 1) + ' ' + y + 'H' + (b - 1) + 'V' + (y + 12) + 'H' + (a + 1) + 'Z', 1.0 + k * 0.16 + mi * 0.05, k % 2 ? 'k' : 't'); }
+  MW.push('M' + (a - 5) + ' 238H' + (b + 5) + 'V252H' + (a - 5) + 'Z');
+  mtile('M' + (a - 5) + ' 238H' + (b + 5) + 'V252H' + (a - 5) + 'Z', 1.95 + mi * 0.05, 'k');
+  MD.push('M' + (a + 1) + ' 238C' + (a + 1) + ' 224 ' + ((a + b) / 2) + ' 218 ' + ((a + b) / 2) + ' 218C' + ((a + b) / 2) + ' 218 ' + (b - 1) + ' 224 ' + (b - 1) + ' 238Z');
 });
 /* niche ichida qubba bezagi */
 tile(pArch(140, 412, 110, 70, 50).replace(/V482Z$/, 'Z'), 1.6);
@@ -753,7 +759,7 @@ class Component extends DCLogic {
       introCls: s.opened ? 'rg-i rg-i--open' : 'rg-i',
       introHidden: !!s.opened,
       open: () => this.open(),
-      heroStarL: star(8, 16, 8, 30, 30), heroStarR: star(8, 16, 8, 360, 30), heroDiv: star(8, 8, 4, 195, 562), stars: STARS, domes: DOMES, walls: WALLS, tiles: TILES, darks: DARKS, skyline: SKY,
+      heroStarL: star(8, 16, 8, 30, 30), heroStarR: star(8, 16, 8, 360, 30), heroDiv: star(8, 8, 4, 195, 562), stars: STARS, domes: DOMES, walls: WALLS, mw: MW, mt: MT, md: MD, tiles: TILES, darks: DARKS, skyline: SKY,
       tileStar: star(8, 7, 3.6, 8, 8), girihStar: star(8, 16, 9, 20, 20), star8: star(8, 18, 9, 0, 0), starClip: STAR_CLIP,
       arch: ARCH, kunRibs: KUN_RIBS,
       rf: this.rf, sc, w,
