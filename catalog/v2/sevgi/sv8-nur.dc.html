@@ -328,7 +328,7 @@ button:disabled{opacity:.7;cursor:default}
       <sc-for list="{{ yol }}" as="y">
       <div class="nu-niche" style="flex: none; width: 220px; scroll-snap-align: center; position: relative">
         <div style="{{ nicheClip }}position: relative; width: 220px; height: 300px; background: linear-gradient(180deg, #FFE7B0 0%, #F7D9B6 40%, #FBF4E8 75%)">
-          <div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 220px; height: 300px; opacity: .35"><svg width="220" height="300" viewBox="0 0 220 300"><rect width="220" height="300" style="fill: url(#nuShade)"></rect></svg></div>
+          <div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 220px; height: 300px; opacity: .16"><svg width="220" height="300" viewBox="0 0 220 300"><rect width="220" height="300" style="fill: url(#nuShade)"></rect></svg></div>
           <div style="position: absolute; left: 0; top: 0; width: 220px; height: 300px; box-sizing: border-box; padding: 86px 18px 20px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 6px">
             <span class="nu-d" style="font-size: {{ y.fs }}px; line-height: 1; color: #24427F; overflow-wrap: anywhere">{{ y.yil }}</span>
             <svg aria-hidden="true" width="60" height="10" viewBox="0 0 60 10"><path class="nu-gl" d="M0 5 H22 M38 5 H60"></path><path class="nu-gf" d="M30 0 L35 5 L30 10 L25 5Z"></path></svg>
@@ -341,11 +341,6 @@ button:disabled{opacity:.7;cursor:default}
       </div>
       </sc-for>
     </div>
-    <sc-if value="{{ yolMany }}">
-    <div aria-hidden="true" style="display: flex; justify-content: center; gap: 8px">
-      <sc-for list="{{ yolDots }}" as="q"><svg width="10" height="10" viewBox="-5 -5 10 10"><path class="nu-gf" d="{{ dotStar }}" style="{{ q }}"></path></svg></sc-for>
-    </div>
-    </sc-if>
   </section>
   </sc-if>
 
@@ -487,7 +482,7 @@ button:disabled{opacity:.7;cursor:default}
   <!-- ================= FOOTER ================= -->
   <footer style="flex: 1; padding: 6px 24px 46px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 8px">
     <svg aria-hidden="true" width="160" height="26" viewBox="0 0 160 26"><path class="nu-gl" d="M0 13 H62 M98 13 H160"></path><g transform="translate(80 13)"><path class="nu-lap" d="{{ bigStar }}"></path><path class="nu-gf" d="{{ smallStar }}"></path></g></svg>
-    <p class="nu-ar" dir="rtl" lang="ar" style="margin: 4px 0 0; font-size: 22px; line-height: 46px; color: #24427F">بَارَكَ اللَّهُ لَكُمَا وَبَارَكَ عَلَيْكُمَا وَجَمَعَ بَيْنَكُمَا فِي خَيْرٍ</p>
+    <p class="nu-ar" dir="rtl" lang="ar" style="margin: 4px 0 0; font-size: 19.5px; line-height: 42px; color: #24427F; white-space: nowrap">بَارَكَ اللَّهُ لَكُمَا وَبَارَكَ عَلَيْكُمَا وَجَمَعَ بَيْنَكُمَا فِي خَيْرٍ</p>
     <p style="margin: 0; font-size: 16.5px; line-height: 1.5; font-style: italic; color: #4A3A2C">«Alloh sizlarga baraka bersin, ustingizga baraka yog’dirsin va ikkingizni yaxshilikda jamlasin»</p>
     <p class="nu-d" style="margin: 12px 0 0; font-size: 22px; color: #24427F; overflow-wrap: anywhere">{{ pair }}</p>
   </footer>
@@ -663,8 +658,6 @@ class Component extends DCLogic {
       }),
       yolRange: ys.length > 1 && ys[0] !== ys[ys.length - 1] ? ys[0] + ' — ' + ys[ys.length - 1] : (ys[0] || ''),
       yol: yol.map((x, i) => { const yl = String(x.yil || ''); return { yil: yl, no: (i + 1) + ' / ' + yol.length, sarlavha: x.sarlavha || '', matn: x.matn || '', fs: yl.length <= 4 ? 44 : yl.length <= 8 ? 30 : 22 }; }),
-      yolMany: yol.length > 1,
-      yolDots: yol.map((x, i) => (i === 0 ? 'opacity: 1' : 'opacity: .4')),
       galLbl: total <= 10 ? this.numWord(total) + ' lahza' : total + ' lahza',
       galRows: this.galRows(),
       digits10: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'],

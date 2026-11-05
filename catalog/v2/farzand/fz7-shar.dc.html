@@ -573,7 +573,7 @@ class Component extends DCLogic {
     if (CAN_IO) {
       this.io = new IntersectionObserver((es) => {
         const add = {};
-        es.forEach((e) => { if (e.isIntersecting) { add[e.target.getAttribute('data-rv')] = true; this.io.unobserve(e.target); } });
+        es.forEach((e) => { if (e.isIntersecting) { if ((window.scrollY || 0) > 20) add[e.target.getAttribute('data-rv')] = true; this.io.unobserve(e.target); } });
         if (Object.keys(add).length) this.setState((s) => ({ rv: Object.assign({}, s.rv, add) }));
       }, { rootMargin: '0px 0px 60px 0px' });
       this.observe();

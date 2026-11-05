@@ -1,0 +1,801 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<title>To’y taklifnomasi: Registon</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Reem+Kufi:wght@400;500;600&amp;family=Yeseva+One&amp;family=Commissioner:wght@300;400;500;600&amp;display=swap&amp;subset=arabic,cyrillic,cyrillic-ext,latin-ext">
+<style>
+body{margin:0;background:#0E1636}
+.rg-root{background:#0E1636;color:#F5EEDF;font-family:'Commissioner','Helvetica Neue',Arial,sans-serif;font-weight:400}
+.rg-ys{font-family:'Yeseva One','Playfair Display',Georgia,serif;font-weight:400}
+.rg-ar{font-family:'Reem Kufi','Amiri','Noto Naskh Arabic',serif;direction:rtl}
+.rg-num{font-variant-numeric:lining-nums tabular-nums}
+.rg-icon{fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.rg-vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+.rg-k0{stop-color:#050920}.rg-k1{stop-color:#0E1842}.rg-k2{stop-color:#22336C}.rg-k3{stop-color:#3A3F72}
+.rg-dm0{stop-color:#1C6A74}.rg-dm1{stop-color:#0C3440}
+.rg-dl0{stop-color:#7FE0E2}.rg-dl1{stop-color:#2AA7B2}.rg-dl2{stop-color:#11606C}
+.rg-w0{stop-color:#FFF4D2}.rg-w1{stop-color:#FFD07A}.rg-w2{stop-color:#E9973A;stop-opacity:.9}.rg-w3{stop-color:#B4602A;stop-opacity:0}
+.rg-gl0{stop-color:#FFE7A8;stop-opacity:.55}.rg-gl1{stop-color:#FFE7A8;stop-opacity:0}
+.rg-h0{stop-color:#FFF8E8}.rg-h1{stop-color:#FBE6BC}.rg-h2{stop-color:#EFC27A}
+.rg-g0{stop-color:#FFE7A8}.rg-g1{stop-color:#E9B04A}.rg-g2{stop-color:#9C6A1E}
+.rg-pl0{stop-color:#141432}.rg-pl1{stop-color:#07081A}
+
+/* sahna */
+.rg-world{position:absolute;left:0;top:0;width:390px;height:844px;transform-origin:195px 735px;will-change:transform}
+.rg-star{opacity:.35;animation:rg-tw 4s ease-in-out infinite}
+@keyframes rg-tw{0%,100%{opacity:.25}50%{opacity:1}}
+.rg-moon{transform:translate(0,330px)}
+.rg-lt{opacity:0}
+.rg-dl{opacity:.0}
+.rg-doorW{position:absolute;left:160px;top:600px;width:70px;height:160px;perspective:260px;clip-path:path('M0 160V40A56 56 0 0 1 35 0A56 56 0 0 1 70 40V160Z')}
+.rg-light{position:absolute;inset:0;background:radial-gradient(ellipse 60% 70% at 50% 75%,#FFF8E2,#FFD98E 45%,#EAA048 80%,#B4602A)}
+.rg-leaf{position:absolute;top:0;width:35px;height:160px;box-sizing:border-box;background:repeating-linear-gradient(180deg,rgba(0,0,0,0) 0 18px,rgba(0,0,0,.35) 18px 20px),linear-gradient(90deg,#4A2A1A,#6B3E22 50%,#3E2214);box-shadow:inset 0 0 0 2px #2A170E,inset 0 0 0 4px rgba(233,176,74,.45);backface-visibility:hidden}
+.rg-leaf::after{content:'';position:absolute;top:96px;width:4px;height:4px;border-radius:50%;background:#E9B04A;box-shadow:0 0 4px #FFD07A}
+.rg-leafL{left:0;transform-origin:0 50%}
+.rg-leafL::after{right:4px}
+.rg-leafR{right:0;transform-origin:100% 50%}
+.rg-leafR::after{left:4px}
+.rg-spill{opacity:0}
+
+.rg-i{position:absolute;left:0;top:0;width:390px;height:844px;z-index:40;overflow:hidden;background:#0E1842}
+.rg-i--open{pointer-events:none;animation:rg-out .55s ease 4.85s forwards}
+@keyframes rg-out{to{opacity:0;visibility:hidden}}
+.rg-i--open .rg-moon{animation:rg-moon 2s cubic-bezier(.3,.6,.25,1) .2s both}
+@keyframes rg-moon{0%{transform:translate(18px,330px)}100%{transform:translate(0,0)}}
+.rg-i--open .rg-lt{animation:rg-lit 1.1s cubic-bezier(.3,.7,.3,1) both}
+@keyframes rg-lit{0%{opacity:0;filter:brightness(1)}45%{opacity:1;filter:brightness(1.7)}100%{opacity:1;filter:brightness(1)}}
+.rg-i--open .rg-leafL{animation:rg-dL 1.3s cubic-bezier(.5,0,.3,1) 2.5s both}
+.rg-i--open .rg-leafR{animation:rg-dR 1.3s cubic-bezier(.5,0,.3,1) 2.5s both}
+@keyframes rg-dL{to{transform:rotateY(-112deg)}}
+@keyframes rg-dR{to{transform:rotateY(112deg)}}
+.rg-i--open .rg-spill{animation:rg-fade 1.2s ease 2.7s both}
+@keyframes rg-fade{from{opacity:0}to{opacity:1}}
+.rg-i--open .rg-world{animation:rg-zoom 1.6s cubic-bezier(.7,0,.3,1) 3.35s both}
+@keyframes rg-zoom{from{transform:none}to{transform:scale(5)}}
+.rg-iname{opacity:0}
+.rg-i--open .rg-iname{animation:rg-up .8s cubic-bezier(.2,.8,.2,1) both}
+@keyframes rg-up{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+.rg-iui{transition:opacity .45s ease,transform .6s ease}
+.rg-i--open .rg-iui{opacity:0;transform:translateY(10px)}
+.rg-cta{position:relative;height:56px;padding:0 28px;border-radius:28px;border:0;display:inline-flex;align-items:center;gap:12px;font-family:inherit;font-size:15px;font-weight:600;letter-spacing:.03em;color:#2A1606;cursor:pointer;background:linear-gradient(180deg,#FFE3A0,#E9B04A 55%,#BF8530);box-shadow:0 16px 30px -12px rgba(233,176,74,.55),inset 0 1px 0 rgba(255,255,255,.7);transition:transform .18s cubic-bezier(.3,1.6,.5,1);animation:rg-halo 2.8s ease-out infinite}
+.rg-cta:active{transform:scale(.95)}
+@keyframes rg-halo{0%{box-shadow:0 16px 30px -12px rgba(233,176,74,.55),0 0 0 0 rgba(255,215,140,.5)}70%,100%{box-shadow:0 16px 30px -12px rgba(233,176,74,.55),0 0 0 16px rgba(255,215,140,0)}}
+.rg-cue{animation:rg-cue 2.2s ease-in-out infinite}
+@keyframes rg-cue{0%,100%{transform:translateY(0);opacity:.5}50%{transform:translateY(6px);opacity:1}}
+.rg-glow{animation:rg-glow 5s ease-in-out infinite alternate}
+@keyframes rg-glow{from{opacity:.75}to{opacity:1}}
+
+/* sahifa */
+.rg-sec{position:relative;padding:86px 20px 0;display:flex;flex-direction:column;align-items:center;text-align:center}
+.rg-lbl{margin:0;font-size:11px;line-height:16px;font-weight:600;letter-spacing:.3em;text-transform:uppercase;color:#6FD3D8}
+.rg-h2{margin:12px 0 0;font-family:'Yeseva One',Georgia,serif;font-weight:400;font-size:34px;line-height:40px;color:#F5EEDF;text-wrap:balance}
+.rg-txt{font-size:16px;line-height:26px;color:#C9CCE0}
+.rg-band{display:block;width:350px;height:22px;border-radius:2px;background:url(#);}
+.rg-r{opacity:1}
+.is-in .rg-r{animation:rg-up .95s cubic-bezier(.2,.8,.2,1) both}
+.is-in .rg-tb{animation:rg-tb 1.4s cubic-bezier(.3,.7,.3,1) both}
+@keyframes rg-tb{0%{opacity:0;filter:brightness(1)}50%{opacity:1;filter:brightness(1.8)}100%{opacity:1;filter:brightness(1)}}
+.rg-glaze{position:relative;box-sizing:border-box;background:linear-gradient(180deg,#F6F1E6,#EAE2D0);color:#1B2456;border-radius:6px;box-shadow:0 0 0 3px #2AA7B2,0 0 0 5px #0E1636,0 0 0 6px #E9B04A,0 30px 50px -28px rgba(0,0,0,.9)}
+.rg-tile{position:relative;box-sizing:border-box;background:linear-gradient(180deg,#18265A,#121D48);border-radius:6px;box-shadow:inset 0 0 0 1px rgba(111,211,216,.45),0 22px 34px -24px rgba(0,0,0,.9)}
+.rg-photo{display:block;width:100%;height:100%;object-fit:cover;background:#1B2456}
+.rg-btn{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:10px;height:54px;padding:0 26px;border-radius:27px;border:0;box-sizing:border-box;background:linear-gradient(180deg,#FFE3A0,#E9B04A 55%,#BF8530);color:#2A1606;font-family:inherit;font-size:15px;font-weight:600;text-decoration:none;cursor:pointer;box-shadow:0 14px 24px -14px rgba(0,0,0,.9),inset 0 1px 0 rgba(255,255,255,.6);transition:transform .18s cubic-bezier(.3,1.6,.5,1),filter .2s}
+.rg-btn:active{transform:scale(.95);filter:brightness(1.1)}
+.rg-btn:disabled{opacity:.6;cursor:default}
+.rg-btn--t{background:linear-gradient(180deg,#5AD0D6,#2AA7B2 55%,#15808C);color:#06222A}
+.rg-out{display:inline-flex;align-items:center;justify-content:center;gap:10px;height:50px;padding:0 22px;border-radius:25px;border:1px solid rgba(111,211,216,.6);box-sizing:border-box;color:#9FE6E8;font-family:inherit;font-size:14px;font-weight:500;text-decoration:none;background:rgba(42,167,178,.08);cursor:pointer;transition:transform .18s cubic-bezier(.3,1.6,.5,1),background-color .2s}
+.rg-out:active{transform:scale(.95);background:rgba(42,167,178,.2)}
+
+.rg-flip{position:relative;width:74px;height:94px;perspective:300px}
+.rg-flipc{position:absolute;inset:0;border-radius:6px;background:linear-gradient(180deg,#1E4FA8 0,#173F8C 49.6%,#123375 50.4%,#173F8C 100%);box-shadow:0 0 0 2px #2AA7B2,0 0 0 4px #0E1636,0 0 0 5px #E9B04A,0 18px 26px -16px rgba(0,0,0,.95);display:flex;align-items:center;justify-content:center;overflow:hidden}
+.rg-flipc::after{content:'';position:absolute;left:0;right:0;top:50%;height:1px;background:rgba(0,0,0,.4)}
+.rg-fa{display:block;animation:rg-fa .7s cubic-bezier(.3,1.4,.5,1)}
+.rg-fb{display:block;animation:rg-fb .7s cubic-bezier(.3,1.4,.5,1)}
+@keyframes rg-fa{from{transform:rotateX(88deg);opacity:.3}to{transform:none;opacity:1}}
+@keyframes rg-fb{from{transform:rotateX(88deg);opacity:.3}to{transform:none;opacity:1}}
+
+.rg-gimg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.06);transition:opacity .9s ease,transform 1.8s cubic-bezier(.2,.8,.2,1)}
+.rg-gimg--on{opacity:1;transform:none}
+.rg-th{position:relative;width:60px;height:60px;padding:0;border:0;cursor:pointer;background:linear-gradient(160deg,#FFE3A0,#E9B04A 50%,#9C6A1E);transition:transform .35s cubic-bezier(.3,1.5,.5,1),filter .3s;filter:saturate(.55) brightness(.75)}
+.rg-th img{position:absolute;left:4px;top:4px;width:52px;height:52px;object-fit:cover}
+.rg-th--on{transform:translateY(-8px) rotate(22.5deg);filter:none}
+.rg-th:active{transform:scale(.9)}
+
+.rg-opt{position:relative;flex:1 1 0;min-width:0;height:54px;border-radius:27px;border:1px solid #C8C2B0;background:#FBF8F1;color:#1B2456;font-family:inherit;font-size:14px;font-weight:600;cursor:pointer;padding:0 8px;white-space:nowrap;transition:background-color .25s,color .25s,border-color .25s,transform .18s cubic-bezier(.3,1.6,.5,1)}
+.rg-opt:active{transform:scale(.95)}
+.rg-opt--on{background:#1B2456;border-color:#1B2456;color:#FFE3A0;animation:rg-pop .45s cubic-bezier(.3,1.6,.5,1)}
+@keyframes rg-pop{0%{transform:scale(.94)}100%{transform:scale(1)}}
+.rg-flbl{display:block;text-align:left;font-size:11px;line-height:16px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:#4E5680}
+.rg-field{display:block;width:100%;box-sizing:border-box;border:1px solid #CFC8B6;background:#FBF8F1;color:#1B2456;font-family:inherit;font-size:16px;outline:none;transition:border-color .2s,box-shadow .2s}
+.rg-field:focus{border-color:#2AA7B2;box-shadow:0 0 0 3px rgba(42,167,178,.2)}
+.rg-field::placeholder{color:#8A8FA8}
+.rg-in2{height:54px;margin:8px 0 18px;padding:0 20px;border-radius:27px}
+.rg-ta{min-height:86px;margin-top:8px;padding:14px 20px;line-height:24px;border-radius:20px;resize:vertical}
+.rg-stepper{display:flex;align-items:center;gap:14px;transition:opacity .2s}
+.rg-stepper--off{opacity:.35}
+.rg-step{width:46px;height:46px;border-radius:50%;border:1px solid #CFC8B6;background:#FBF8F1;color:#1B2456;display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0;transition:transform .18s cubic-bezier(.3,1.6,.5,1)}
+.rg-step:active{transform:scale(.88)}
+.rg-step:disabled{opacity:.4;cursor:default}
+.rg-burst{position:absolute;left:50%;top:50%;width:0;height:0;pointer-events:none}
+.rg-burst i{position:absolute;left:-4px;top:-4px;width:8px;height:8px;background:#2AA7B2;clip-path:polygon(50% 0,62% 38%,100% 50%,62% 62%,50% 100%,38% 62%,0 50%,38% 38%);opacity:0}
+.rg-burst i:nth-child(2n){background:#E9B04A}
+.rg-burst--on i{animation:rg-spark .9s cubic-bezier(.2,.8,.3,1) both}
+@keyframes rg-spark{0%{opacity:1;transform:rotate(var(--a)) translateX(0) scale(1.2)}100%{opacity:0;transform:rotate(var(--a)) translateX(var(--r)) scale(.4)}}
+.rg-music{position:absolute;top:14px;right:14px;z-index:60;width:44px;height:44px;border-radius:50%;border:1px solid rgba(111,211,216,.6);background:rgba(14,22,54,.8);color:#9FE6E8;display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0;transition:transform .18s}
+.rg-music:active{transform:scale(.9)}
+.rg-music--on{background:#2AA7B2;color:#06222A}
+.rg-eq{display:flex;align-items:flex-end;gap:2px;height:14px}
+.rg-eq i{display:block;width:2px;height:100%;background:currentColor;transform-origin:50% 100%;animation:rg-eq .9s ease-in-out infinite alternate}
+.rg-eq i:nth-child(2){animation-delay:-.3s}.rg-eq i:nth-child(3){animation-delay:-.6s}.rg-eq i:nth-child(4){animation-delay:-.45s}
+@keyframes rg-eq{from{transform:scaleY(.25)}to{transform:scaleY(1)}}
+@media (prefers-reduced-motion: reduce){
+  .rg-star,.rg-cta,.rg-cue,.rg-glow,.rg-eq i,.rg-fa,.rg-fb,.is-in .rg-r,.is-in .rg-tb,.rg-opt--on,.rg-burst--on i{animation:none !important}
+  .rg-i--open{animation:none;opacity:0;visibility:hidden}
+  .rg-gimg,.rg-th,.rg-iui{transition:none}
+}
+</style>
+</helmet>
+<div class="rg-root" style="width: 390px; min-height: var(--vh, 100vh); position: relative; overflow: hidden; display: flex; flex-direction: column">
+  <svg width="0" height="0" aria-hidden="true" style="position: absolute">
+    <defs>
+      <linearGradient id="rgSky" x1="0" y1="0" x2="0" y2="844" gradientUnits="userSpaceOnUse"><stop offset="0" class="rg-k0"></stop><stop offset=".4" class="rg-k1"></stop><stop offset=".72" class="rg-k2"></stop><stop offset="1" class="rg-k3"></stop></linearGradient>
+      <linearGradient id="rgDomeD" x1="0" y1="0" x2="1" y2="0"><stop offset="0" class="rg-dm1"></stop><stop offset=".45" class="rg-dm0"></stop><stop offset="1" class="rg-dm1"></stop></linearGradient>
+      <linearGradient id="rgDomeL" x1="0" y1="0" x2="1" y2="0"><stop offset="0" class="rg-dl2"></stop><stop offset=".4" class="rg-dl0"></stop><stop offset=".6" class="rg-dl1"></stop><stop offset="1" class="rg-dl2"></stop></linearGradient>
+      <radialGradient id="rgWarm" cx="195" cy="740" r="190" gradientUnits="userSpaceOnUse"><stop offset="0" class="rg-w0"></stop><stop offset=".25" class="rg-w1"></stop><stop offset=".55" class="rg-w2"></stop><stop offset="1" class="rg-w3"></stop></radialGradient>
+      <radialGradient id="rgMoonG" cx="0" cy="0" r="80" gradientUnits="userSpaceOnUse"><stop offset="0" class="rg-gl0"></stop><stop offset="1" class="rg-gl1"></stop></radialGradient>
+      <radialGradient id="rgHall" cx="195" cy="560" r="420" gradientUnits="userSpaceOnUse"><stop offset="0" class="rg-h0"></stop><stop offset=".55" class="rg-h1"></stop><stop offset="1" class="rg-h2"></stop></radialGradient>
+      <linearGradient id="rgGold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" class="rg-g0"></stop><stop offset=".5" class="rg-g1"></stop><stop offset="1" class="rg-g2"></stop></linearGradient>
+      <linearGradient id="rgPlaza" x1="0" y1="770" x2="0" y2="844" gradientUnits="userSpaceOnUse"><stop offset="0" class="rg-pl0"></stop><stop offset="1" class="rg-pl1"></stop></linearGradient>
+      <pattern id="rgTD" x="0" y="0" width="16" height="16" patternUnits="userSpaceOnUse"><rect width="16" height="16" fill="#152455"></rect><polygon points="{{ tileStar }}" fill="#1B5866"></polygon><circle cx="8" cy="8" r="1.6" fill="#6E5A2E"></circle><circle cx="0" cy="0" r="2" fill="#24306A"></circle><circle cx="16" cy="0" r="2" fill="#24306A"></circle><circle cx="0" cy="16" r="2" fill="#24306A"></circle><circle cx="16" cy="16" r="2" fill="#24306A"></circle></pattern>
+      <pattern id="rgTL" x="0" y="0" width="16" height="16" patternUnits="userSpaceOnUse"><rect width="16" height="16" fill="#1E4FA8"></rect><polygon points="{{ tileStar }}" fill="#3CC4CB"></polygon><circle cx="8" cy="8" r="1.8" fill="#FFE3A0"></circle><circle cx="0" cy="0" r="2.2" fill="#F2F6F4"></circle><circle cx="16" cy="0" r="2.2" fill="#F2F6F4"></circle><circle cx="0" cy="16" r="2.2" fill="#F2F6F4"></circle><circle cx="16" cy="16" r="2.2" fill="#F2F6F4"></circle></pattern>
+      <pattern id="rgKD" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse"><rect width="20" height="20" fill="#2A2238"></rect><path d="M2 2H18V8H8V12H18V18H2V12H12V8H2Z" fill="#1E4A66"></path></pattern>
+      <pattern id="rgKL" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse"><rect width="20" height="20" fill="#F1EDE2"></rect><path d="M2 2H18V8H8V12H18V18H2V12H12V8H2Z" fill="#1E4FA8"></path></pattern>
+      <pattern id="rgBrick" x="0" y="0" width="14" height="8" patternUnits="userSpaceOnUse"><rect width="14" height="8" fill="#2A2336"></rect><path d="M0 7.5H14M7 3.5H14M0 3.5H3" stroke="#1E1A2A" stroke-width="1"></path></pattern>
+      <pattern id="rgGirih" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse"><rect width="40" height="40" fill="#101A44"></rect><polygon points="{{ girihStar }}" fill="none" stroke="#2AA7B2" stroke-width="1.2" opacity=".55"></polygon><circle cx="20" cy="20" r="3" fill="#E9B04A" opacity=".55"></circle><path d="M0 0L8 8M40 0L32 8M0 40L8 32M40 40L32 32" stroke="#2AA7B2" stroke-width="1.2" opacity=".4"></path></pattern>
+      <path id="rgCres" d="M0 -22A22 22 0 1 0 0 22A17 17 0 1 1 0 -22Z"></path>
+    </defs>
+  </svg>
+
+  <sc-if value="{{ has.music }}">
+  <button type="button" class="{{ musicCls }}" aria-label="{{ musicLabel }}" aria-pressed="{{ musicOn }}" onClick="{{ toggleMusic }}">
+    <sc-if value="{{ musicOn }}"><span class="rg-eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span></sc-if>
+    <sc-if value="{{ musicOff }}"><svg class="rg-icon" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V5.5l11-2.2v12.5"></path><circle cx="6.2" cy="18" r="2.8"></circle><circle cx="17.2" cy="15.8" r="2.8"></circle></svg></sc-if>
+  </button>
+  </sc-if>
+
+  <div data-intro class="{{ introCls }}" aria-hidden="{{ introHidden }}">
+    <div class="rg-world" aria-hidden="true">
+      <svg width="390" height="844" viewBox="0 0 390 844" style="position: absolute; left: 0; top: 0">
+        <rect width="390" height="844" fill="url(#rgSky)"></rect>
+        <sc-for list="{{ stars }}" as="s"><circle class="rg-star" cx="{{ s.x }}" cy="{{ s.y }}" r="{{ s.r }}" fill="#F4F1FF" style="{{ s.st }}"></circle></sc-for>
+        <g transform="translate(300 150)"><g class="rg-moon"><circle r="80" fill="url(#rgMoonG)"></circle><use href="#rgCres" transform="rotate(-28)" fill="#FFE9B0"></use><path d="M34 -30L36.4 -23.6L43 -23L38 -18.6L39.4 -12L34 -15.4L28.6 -12L30 -18.6L25 -23L31.6 -23.6Z" fill="#FFE9B0"></path></g></g>
+        <sc-for list="{{ domes }}" as="m">
+          <rect x="{{ m.dx }}" y="{{ m.dy }}" width="{{ m.dw }}" height="{{ m.dh }}" fill="url(#rgKD)"></rect>
+          <path d="{{ m.d }}" fill="url(#rgDomeD)"></path>
+          <path class="rg-lt" d="{{ m.d }}" fill="url(#rgDomeL)" style="{{ m.dl }}"></path>
+          <path d="{{ m.ribs }}" fill="none" stroke="#082A33" stroke-width="1.4" opacity=".7"></path>
+          <rect class="rg-lt" x="{{ m.dx }}" y="{{ m.dy }}" width="{{ m.dw }}" height="{{ m.dh }}" fill="url(#rgKL)" style="{{ m.dl }}"></rect>
+          <path d="{{ m.fin }}" fill="none" stroke="#E9B04A" stroke-width="1.6"></path>
+        </sc-for>
+        <sc-for list="{{ walls }}" as="a"><path d="{{ a.d }}" fill="url(#rgBrick)"></path></sc-for>
+        <sc-for list="{{ tiles }}" as="t"><path d="{{ t.d }}" fill="{{ t.dim }}"></path></sc-for>
+        <sc-for list="{{ tiles }}" as="t"><path class="rg-lt" d="{{ t.d }}" fill="{{ t.lit }}" style="{{ t.dl }}"></path></sc-for>
+        <sc-for list="{{ darks }}" as="a"><path d="{{ a }}" fill="#0B0E26"></path></sc-for>
+        <path d="M150 770V585H240V770Z" fill="url(#rgTD)"></path>
+        <path class="rg-lt" d="M150 770V585H240V770Z" fill="url(#rgTL)" style="animation-delay: 1.45s"></path>
+        <path d="M157 770V640A60 60 0 0 1 195 595A60 60 0 0 1 233 640V770Z" fill="#E9B04A"></path>
+        <rect x="0" y="770" width="390" height="74" fill="url(#rgPlaza)"></rect>
+        <ellipse class="rg-spill" cx="195" cy="780" rx="170" ry="40" fill="url(#rgWarm)"></ellipse>
+      </svg>
+      <div class="rg-doorW">
+        <div class="rg-light"></div>
+        <div class="rg-leaf rg-leafL"></div>
+        <div class="rg-leaf rg-leafR"></div>
+      </div>
+    </div>
+
+    <div class="rg-iname" style="position: absolute; inset: 0; animation-delay: 4.3s">
+    <svg width="390" height="844" viewBox="0 0 390 844" aria-hidden="true" style="position: absolute; left: 0; top: 0">
+      <rect width="390" height="844" fill="url(#rgGirih)"></rect>
+      <path d="M20 844V260A280 280 0 0 1 195 60A280 280 0 0 1 370 260V844Z" fill="url(#rgHall)"></path>
+      <path d="M20 844V260A280 280 0 0 1 195 60A280 280 0 0 1 370 260V844Z" fill="none" stroke="#1E4FA8" stroke-width="22"></path>
+      <path d="M20 844V260A280 280 0 0 1 195 60A280 280 0 0 1 370 260V844Z" fill="none" stroke="url(#rgTL)" stroke-width="16"></path>
+      <path d="M20 844V260A280 280 0 0 1 195 60A280 280 0 0 1 370 260V844Z" fill="none" stroke="#2AA7B2" stroke-width="4"></path>
+      <path d="M31 844V262A270 270 0 0 1 195 72A270 270 0 0 1 359 262V844" fill="none" stroke="#E9B04A" stroke-width="2"></path>
+      <polygon class="rg-glow" points="{{ heroStarL }}" fill="url(#rgGold)"></polygon>
+      <polygon class="rg-glow" points="{{ heroStarR }}" fill="url(#rgGold)"></polygon>
+      <use href="#rgCres" transform="translate(190 116) rotate(-28) scale(.62)" fill="#C98A2E"></use>
+      <path d="M206 102L207.6 106.4L212 106.6L208.6 109.4L209.8 113.8L206 111.2L202.2 113.8L203.4 109.4L200 106.6L204.4 106.4Z" fill="#C98A2E"></path>
+      <polygon points="{{ heroDiv }}" fill="#2AA7B2"></polygon>
+      <path d="M90 562H170M220 562H300" stroke="#C98A2E" stroke-width="1.2"></path>
+      <rect x="0" y="818" width="390" height="26" fill="url(#rgKL)"></rect>
+      <rect x="0" y="816" width="390" height="3" fill="#E9B04A"></rect>
+    </svg>
+    <div style="position: absolute; left: 50px; right: 50px; top: 146px; display: flex; flex-direction: column; align-items: center; text-align: center">
+      <p class="rg-ar" dir="rtl" lang="ar" style="margin: 0; font-size: 25px; line-height: 46px; color: #1B2456; white-space: nowrap">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p>
+      <p style="margin: 2px 0 0; font-size: 11px; line-height: 16px; font-weight: 500; letter-spacing: 0.24em; text-transform: uppercase; color: #6A5230">Bismillahir Rohmanir Rohiym</p>
+    </div>
+    <div aria-hidden="true" style="position: absolute; left: 48px; right: 48px; top: 250px; height: 290px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center">
+      <p class="rg-lbl" style="color: #1F7F88; letter-spacing: 0.28em">Nikoh to’yiga taklifnoma</p>
+      <p class="rg-ys" style="margin: 16px 0 0; font-size: {{ fsK }}px; line-height: 1.08; color: #1B2456; overflow-wrap: anywhere">{{ kuyov }}</p>
+      <p style="margin: 4px 0; font-weight: 300; font-size: 22px; line-height: 28px; color: #A8681E">va</p>
+      <p class="rg-ys" style="margin: 0; font-size: {{ fsL }}px; line-height: 1.08; color: #1B2456; overflow-wrap: anywhere">{{ kelin }}</p>
+    </div>
+    <p class="rg-num" style="position: absolute; left: 40px; right: 40px; top: 592px; margin: 0; text-align: center; font-size: 13px; line-height: 20px; font-weight: 600; letter-spacing: 0.14em; color: #5A3A12">{{ heroLine }}</p>
+    <p style="position: absolute; left: 60px; right: 60px; top: 640px; margin: 0; text-align: center; font-size: 14px; line-height: 22px; font-weight: 300; font-style: italic; color: #6A5230">Registon peshtoqi ostida sizni kutamiz</p>
+    </div>
+
+    <div class="rg-iui" style="position: absolute; left: 24px; right: 24px; top: 40px; text-align: center">
+      <p class="rg-lbl" style="color: #9FE6E8">Nikoh to’yiga taklifnoma</p>
+      <p style="margin: 16px 0 0; font-size: 15px; line-height: 20px; color: #C9CCE0">Hurmatli</p>
+      <p class="rg-ys" style="margin: 4px 0 0; font-size: {{ fsGuest }}px; line-height: 1.15; color: #FFF6E2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{ guestName }}</p>
+    </div>
+    <div class="rg-iui" style="position: absolute; left: 24px; right: 24px; top: 680px; display: flex; flex-direction: column; align-items: center; text-align: center">
+      <button type="button" class="rg-cta" onClick="{{ open }}">
+        <svg class="rg-icon" width="18" height="20" viewBox="0 0 18 20" aria-hidden="true"><path d="M2 19V9a7 7 0 0 1 14 0v10"></path><path d="M9 4v15"></path></svg>
+        Darvozani ochish
+      </button>
+      <sc-if value="{{ has.music }}"><p style="margin: 12px 0 0; display: flex; align-items: center; gap: 8px; font-size: 12px; line-height: 16px; color: #C9CCE0"><svg class="rg-icon" width="15" height="15" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V5.5l11-2.2v12.5"></path><circle cx="6.2" cy="18" r="2.8"></circle><circle cx="17.2" cy="15.8" r="2.8"></circle></svg>Musiqa bilan ochiladi</p></sc-if>
+    </div>
+  </div>
+
+  <header style="position: relative; height: 844px; flex: none; overflow: hidden">
+    <h1 class="rg-vh">{{ pair }}</h1>
+    <svg width="390" height="844" viewBox="0 0 390 844" aria-hidden="true" style="position: absolute; left: 0; top: 0">
+      <rect width="390" height="844" fill="url(#rgGirih)"></rect>
+      <path d="M20 844V260A280 280 0 0 1 195 60A280 280 0 0 1 370 260V844Z" fill="url(#rgHall)"></path>
+      <path d="M20 844V260A280 280 0 0 1 195 60A280 280 0 0 1 370 260V844Z" fill="none" stroke="#1E4FA8" stroke-width="22"></path>
+      <path d="M20 844V260A280 280 0 0 1 195 60A280 280 0 0 1 370 260V844Z" fill="none" stroke="url(#rgTL)" stroke-width="16"></path>
+      <path d="M20 844V260A280 280 0 0 1 195 60A280 280 0 0 1 370 260V844Z" fill="none" stroke="#2AA7B2" stroke-width="4"></path>
+      <path d="M31 844V262A270 270 0 0 1 195 72A270 270 0 0 1 359 262V844" fill="none" stroke="#E9B04A" stroke-width="2"></path>
+      <polygon class="rg-glow" points="{{ heroStarL }}" fill="url(#rgGold)"></polygon>
+      <polygon class="rg-glow" points="{{ heroStarR }}" fill="url(#rgGold)"></polygon>
+      <use href="#rgCres" transform="translate(190 116) rotate(-28) scale(.62)" fill="#C98A2E"></use>
+      <path d="M206 102L207.6 106.4L212 106.6L208.6 109.4L209.8 113.8L206 111.2L202.2 113.8L203.4 109.4L200 106.6L204.4 106.4Z" fill="#C98A2E"></path>
+      <polygon points="{{ heroDiv }}" fill="#2AA7B2"></polygon>
+      <path d="M90 562H170M220 562H300" stroke="#C98A2E" stroke-width="1.2"></path>
+      <rect x="0" y="818" width="390" height="26" fill="url(#rgKL)"></rect>
+      <rect x="0" y="816" width="390" height="3" fill="#E9B04A"></rect>
+    </svg>
+    <div style="position: absolute; left: 50px; right: 50px; top: 146px; display: flex; flex-direction: column; align-items: center; text-align: center">
+      <p class="rg-ar" dir="rtl" lang="ar" style="margin: 0; font-size: 25px; line-height: 46px; color: #1B2456; white-space: nowrap">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p>
+      <p style="margin: 2px 0 0; font-size: 11px; line-height: 16px; font-weight: 500; letter-spacing: 0.24em; text-transform: uppercase; color: #6A5230">Bismillahir Rohmanir Rohiym</p>
+    </div>
+    <div aria-hidden="true" style="position: absolute; left: 48px; right: 48px; top: 250px; height: 290px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center">
+      <p class="rg-lbl" style="color: #1F7F88; letter-spacing: 0.28em">Nikoh to’yiga taklifnoma</p>
+      <p class="rg-ys" style="margin: 16px 0 0; font-size: {{ fsK }}px; line-height: 1.08; color: #1B2456; overflow-wrap: anywhere">{{ kuyov }}</p>
+      <p style="margin: 4px 0; font-weight: 300; font-size: 22px; line-height: 28px; color: #A8681E">va</p>
+      <p class="rg-ys" style="margin: 0; font-size: {{ fsL }}px; line-height: 1.08; color: #1B2456; overflow-wrap: anywhere">{{ kelin }}</p>
+    </div>
+    <p class="rg-num" style="position: absolute; left: 40px; right: 40px; top: 592px; margin: 0; text-align: center; font-size: 13px; line-height: 20px; font-weight: 600; letter-spacing: 0.14em; color: #5A3A12">{{ heroLine }}</p>
+    <p style="position: absolute; left: 60px; right: 60px; top: 640px; margin: 0; text-align: center; font-size: 14px; line-height: 22px; font-weight: 300; font-style: italic; color: #6A5230">Registon peshtoqi ostida sizni kutamiz</p>
+    <svg class="rg-icon rg-cue" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" style="position: absolute; left: 183px; top: 790px; color: #7A4A12"><path d="M6 9l6 6 6-6"></path></svg>
+  </header>
+
+  <section ref="{{ rf.hello }}" class="{{ sc.hello }}" style="padding-top: 70px">
+    <svg class="rg-tb" width="350" height="22" viewBox="0 0 350 22" aria-hidden="true"><rect width="350" height="22" fill="url(#rgTL)"></rect><rect x="0" y="0" width="350" height="2" fill="#E9B04A"></rect><rect x="0" y="20" width="350" height="2" fill="#E9B04A"></rect></svg>
+    <p class="rg-lbl rg-r" style="margin-top: 30px">Assalomu alaykum</p>
+    <p class="rg-ys rg-r" style="margin: 14px 0 0; max-width: 350px; font-size: {{ fsHello }}px; line-height: 1.18; color: #FFF6E2; overflow-wrap: anywhere; animation-delay: .1s">{{ guestHello }}</p>
+    <sc-if value="{{ has.photo }}">
+      <div class="rg-r" style="position: relative; width: 280px; height: 380px; margin-top: 34px; animation-delay: .2s">
+        <div style="position: absolute; inset: 0; background: linear-gradient(160deg, #6FD3D8, #2AA7B2 45%, #15606C); clip-path: path('{{ arch.big }}')"></div>
+        <div style="position: absolute; left: 5px; top: 6px; width: 270px; height: 374px; background: #E9B04A; clip-path: path('{{ arch.bigG }}')"></div>
+        <div style="position: absolute; left: 8px; top: 10px; width: 264px; height: 370px; clip-path: path('{{ arch.bigIn }}'); overflow: hidden"><img class="rg-photo" src="{{ p.0 }}" alt=""></div>
+      </div>
+    </sc-if>
+  </section>
+
+  <sc-if value="{{ b.taklif }}">
+  <section ref="{{ rf.taklif }}" class="{{ sc.taklif }}" style="padding-top: 50px">
+    <div class="rg-glaze rg-r" style="width: 100%; padding: 34px 24px 30px">
+      <svg width="40" height="40" viewBox="-20 -20 40 40" aria-hidden="true" style="display: block; margin: 0 auto 16px"><polygon points="{{ star8 }}" fill="#2AA7B2"></polygon><circle r="5" fill="#E9B04A"></circle></svg>
+      <p style="margin: 0; font-size: 18px; line-height: 30px; color: #232B5C; text-wrap: pretty; white-space: pre-line; overflow-wrap: anywhere">{{ d.matn }}</p>
+      <sc-if value="{{ d.taklif_qiluvchilar }}">
+        <span aria-hidden="true" style="display: block; width: 120px; height: 8px; margin: 24px auto 16px; background: url(#); background-image: radial-gradient(circle, #2AA7B2 0 2.5px, transparent 3px); background-size: 15px 8px"></span>
+        <p class="rg-flbl" style="text-align: center; color: #2A8F98">Taklif qiluvchilar</p>
+        <p class="rg-ys" style="margin: 8px 0 0; font-size: 23px; line-height: 30px; color: #1B2456; overflow-wrap: anywhere">{{ d.taklif_qiluvchilar }}</p>
+      </sc-if>
+    </div>
+  </section>
+  </sc-if>
+  <sc-if value="{{ noTaklif }}">
+    <p style="margin: 30px 20px 0; text-align: center; font-size: 18px; line-height: 30px; color: #C9CCE0">Sizni nikoh to’yimizga lutfan taklif etamiz.</p>
+  </sc-if>
+
+  <section ref="{{ rf.oyat }}" class="{{ sc.oyat }}" style="padding-top: 66px">
+    <div class="rg-r" style="position: relative; width: 100%; box-sizing: border-box; padding: 34px 20px 28px; border-radius: 6px; background: url(#); background-color: #101A44; box-shadow: inset 0 0 0 10px #152455, inset 0 0 0 11px #2AA7B2, inset 0 0 0 13px #101A44, inset 0 0 0 14px #E9B04A">
+      <p class="rg-ar" dir="rtl" lang="ar" style="margin: 0; font-size: 23px; line-height: 50px; color: #9FE6E8">وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً</p>
+      <p style="margin: 14px 0 0; font-style: italic; font-weight: 300; font-size: 15px; line-height: 25px; color: #D8DAEA">«Uning oyatlaridan biri — sizlar uchun o’zingizdan juftlar yaratgani, toki ular bilan orom topgaysiz. Va o’rtangizda muhabbat va rahmat paydo qildi»</p>
+      <p class="rg-lbl" style="margin-top: 14px; font-size: 10px; color: #E9B04A">Rum surasi, 21-oyat</p>
+    </div>
+  </section>
+
+  <sc-if value="{{ b.kun }}">
+  <section ref="{{ rf.kun }}" class="{{ sc.kun }}">
+    <p class="rg-lbl rg-r">Sana va vaqt</p>
+    <h2 class="rg-h2 rg-r" style="animation-delay: .08s">Baxtli kunimiz</h2>
+    <div class="rg-r" style="position: relative; width: 300px; height: 330px; margin-top: 26px; animation-delay: .16s">
+      <svg width="300" height="330" viewBox="0 0 300 330" aria-hidden="true" style="position: absolute; left: 0; top: 0">
+        <path d="M150 4V22" stroke="#E9B04A" stroke-width="2"></path>
+        <use href="#rgCres" transform="translate(150 10) scale(.28) rotate(-90)" fill="#E9B04A"></use>
+        <path d="M38 150C38 78 96 34 150 22C204 34 262 78 262 150Z" fill="url(#rgDomeL)"></path>
+        <path d="{{ kunRibs }}" fill="none" stroke="#0C4650" stroke-width="1.4" opacity=".6"></path>
+        <rect x="30" y="150" width="240" height="20" fill="url(#rgKL)"></rect>
+        <rect x="30" y="148" width="240" height="3" fill="#E9B04A"></rect>
+        <rect x="30" y="169" width="240" height="3" fill="#E9B04A"></rect>
+        <rect x="40" y="172" width="220" height="150" fill="#F4EFE4"></rect>
+        <rect x="40" y="172" width="220" height="150" fill="none" stroke="#2AA7B2" stroke-width="6"></rect>
+        <rect x="46" y="178" width="208" height="138" fill="none" stroke="#E9B04A" stroke-width="1"></rect>
+      </svg>
+      <p class="rg-lbl" style="position: absolute; left: 0; right: 0; top: 96px; color: #06323A; font-size: 12px; letter-spacing: 0.2em">{{ w.weekday }}</p>
+      <div style="position: absolute; left: 46px; right: 46px; top: 184px; display: flex; flex-direction: column; align-items: center">
+        <p class="rg-ys rg-num" style="margin: 0; font-size: 70px; line-height: 70px; color: #1B2456">{{ w.day }}</p>
+        <p class="rg-ys" style="margin: 2px 0 0; font-size: 22px; line-height: 26px; color: #2A8F98">{{ w.month }} {{ w.year }}</p>
+        <p class="rg-num" style="margin: 8px 0 0; font-size: 14px; line-height: 18px; font-weight: 600; letter-spacing: 0.14em; color: #7A4A12">{{ timeTxt }}</p>
+      </div>
+    </div>
+    <sc-if value="{{ cal }}">
+      <a class="rg-out rg-r" href="{{ cal }}" target="_blank" rel="noopener" style="margin-top: 26px; animation-delay: .26s">
+        <svg class="rg-icon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="2"></rect><path d="M3.5 10h17M8 3v4M16 3v4"></path></svg>
+        Taqvimga qo’shish
+      </a>
+    </sc-if>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.taymer }}">
+  <section ref="{{ rf.taymer }}" class="{{ sc.taymer }}">
+    <p class="rg-lbl rg-r">To’ygacha</p>
+    <h2 class="rg-h2 rg-r" style="animation-delay: .08s">Qolgan vaqt</h2>
+    <div class="rg-num rg-r" role="timer" aria-label="{{ cdText }}" style="margin-top: 30px; display: flex; gap: 12px; justify-content: center; animation-delay: .16s">
+      <sc-for list="{{ ticks }}" as="t">
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 12px">
+          <div class="rg-flip"><div class="rg-flipc"><span class="{{ t.cls }}" style="font-family: 'Yeseva One', Georgia, serif; font-size: 40px; line-height: 48px; color: #FFF6E2">{{ t.n }}</span></div></div>
+          <span style="font-size: 10px; line-height: 12px; font-weight: 600; letter-spacing: 0.18em; color: #6FD3D8">{{ t.l }}</span>
+        </div>
+      </sc-for>
+    </div>
+    <p class="rg-txt rg-r" style="margin: 22px 0 0; font-size: 14px; line-height: 22px; animation-delay: .24s">{{ wkLine }}</p>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.manzil }}">
+  <section ref="{{ rf.manzil }}" class="{{ sc.manzil }}">
+    <svg class="rg-tb" width="350" height="22" viewBox="0 0 350 22" aria-hidden="true"><rect width="350" height="22" fill="url(#rgTL)"></rect><rect x="0" y="0" width="350" height="2" fill="#E9B04A"></rect><rect x="0" y="20" width="350" height="2" fill="#E9B04A"></rect></svg>
+    <p class="rg-lbl rg-r" style="margin-top: 30px">Manzil</p>
+    <sc-if value="{{ d.joy_rasmi }}">
+      <div class="rg-r" style="position: relative; width: 250px; height: 310px; margin-top: 26px; animation-delay: .08s">
+        <div style="position: absolute; inset: 0; background: linear-gradient(160deg, #6FD3D8, #2AA7B2 45%, #15606C); clip-path: path('{{ arch.mid }}')"></div>
+        <div style="position: absolute; left: 5px; top: 6px; width: 240px; height: 304px; background: #E9B04A; clip-path: path('{{ arch.midG }}')"></div>
+        <div style="position: absolute; left: 8px; top: 10px; width: 234px; height: 300px; clip-path: path('{{ arch.midIn }}'); overflow: hidden"><img class="rg-photo" src="{{ d.joy_rasmi }}" alt=""></div>
+      </div>
+    </sc-if>
+    <h2 class="rg-h2 rg-r" style="max-width: 350px; overflow-wrap: anywhere; animation-delay: .14s">{{ d.manzil_nomi }}</h2>
+    <sc-if value="{{ d.manzil }}"><p class="rg-txt rg-r" style="margin: 12px 0 0; max-width: 310px; overflow-wrap: anywhere; animation-delay: .2s">{{ d.manzil }}</p></sc-if>
+    <sc-if value="{{ d.xarita }}">
+      <a class="rg-btn rg-r" href="{{ d.xarita }}" target="_blank" rel="noopener" style="margin-top: 24px; animation-delay: .26s">
+        <svg class="rg-icon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6.5-6-6.5-11a6.5 6.5 0 0 1 13 0c0 5-6.5 11-6.5 11Z"></path><circle cx="12" cy="10" r="2.3"></circle></svg>
+        Xaritada ochish
+      </a>
+    </sc-if>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.dastur }}">
+  <section ref="{{ rf.dastur }}" class="{{ sc.dastur }}">
+    <p class="rg-lbl rg-r">Dastur</p>
+    <h2 class="rg-h2 rg-r" style="animation-delay: .08s">Oqshom tartibi</h2>
+    <div style="position: relative; width: 100%; margin-top: 30px; padding: 30px 0 10px">
+      <div aria-hidden="true" style="position: absolute; left: 50%; top: 0; bottom: 0; width: 22px; margin-left: -11px; background: url(#); background-color: #2A2336; background-image: linear-gradient(90deg, rgba(0, 0, 0, 0.35), rgba(255, 255, 255, 0.06) 45%, rgba(0, 0, 0, 0.4)); border-radius: 3px 3px 0 0"></div>
+      <svg aria-hidden="true" width="40" height="30" viewBox="0 0 40 30" style="position: absolute; left: 50%; top: -22px; margin-left: -20px"><path d="M4 30H36V22H4Z" fill="#2AA7B2"></path><path d="M8 22C8 12 20 6 20 6C20 6 32 12 32 22Z" fill="url(#rgDomeL)"></path><path d="M20 0V6" stroke="#E9B04A" stroke-width="2"></path></svg>
+      <sc-for list="{{ prog }}" as="x">
+        <div class="rg-r" style="{{ x.row }}">
+          <div style="{{ x.side }}">
+            <p class="rg-num" style="margin: 0; font-size: 15px; line-height: 18px; font-weight: 600; letter-spacing: 0.08em; color: #E9B04A">{{ x.vaqt }}</p>
+            <p class="rg-ys" style="margin: 6px 0 0; font-size: 19px; line-height: 24px; color: #F5EEDF; overflow-wrap: anywhere">{{ x.nomi }}</p>
+          </div>
+          <div aria-hidden="true" style="position: absolute; left: 50%; top: 10px; width: 34px; height: 16px; margin-left: -17px; background: url(#); background-color: #1E4FA8; background-image: radial-gradient(circle, #FFE3A0 0 1.5px, transparent 2px), radial-gradient(circle, #3CC4CB 0 3px, transparent 3.5px); background-size: 8px 16px, 8px 16px; background-position: 0 0, 4px 0; box-shadow: 0 0 0 2px #E9B04A"></div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.hikoya }}">
+  <section ref="{{ rf.hikoya }}" class="{{ sc.hikoya }}">
+    <svg class="rg-tb" width="350" height="22" viewBox="0 0 350 22" aria-hidden="true"><rect width="350" height="22" fill="url(#rgTL)"></rect><rect x="0" y="0" width="350" height="2" fill="#E9B04A"></rect><rect x="0" y="20" width="350" height="2" fill="#E9B04A"></rect></svg>
+    <p class="rg-lbl rg-r" style="margin-top: 30px">Bizning yo’limiz</p>
+    <h2 class="rg-h2 rg-r" style="animation-delay: .08s">Hujradan hujraga</h2>
+    <div style="width: 100%; margin-top: 28px; display: flex; flex-wrap: wrap; justify-content: center; gap: 14px 10px">
+      <sc-for list="{{ story }}" as="h">
+        <div class="rg-r" style="{{ h.st }}">
+          <div style="position: absolute; inset: 0; background: linear-gradient(160deg, #6FD3D8, #2AA7B2 45%, #15606C); clip-path: path('{{ h.arch }}')"></div>
+          <div style="position: absolute; left: 4px; top: 5px; right: 4px; bottom: 0; background: linear-gradient(180deg, #1A2A62, #121D48); clip-path: path('{{ h.archIn }}')"></div>
+          <div style="position: relative; padding: 46px 14px 18px; display: flex; flex-direction: column; align-items: center">
+            <span class="rg-ys rg-num" style="font-size: 24px; line-height: 28px; color: #E9B04A">{{ h.yil }}</span>
+            <p class="rg-ys" style="margin: 10px 0 0; font-size: 19px; line-height: 24px; color: #F5EEDF; overflow-wrap: anywhere">{{ h.sarlavha }}</p>
+            <sc-if value="{{ h.matn }}"><p class="rg-txt" style="margin: 6px 0 0; font-size: 13px; line-height: 20px; overflow-wrap: anywhere">{{ h.matn }}</p></sc-if>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.galereya }}">
+  <section ref="{{ rf.galereya }}" class="{{ sc.galereya }}">
+    <p class="rg-lbl rg-r">Suratlar</p>
+    <h2 class="rg-h2 rg-r" style="animation-delay: .08s">Yorug’ lahzalar</h2>
+    <div class="rg-r" style="position: relative; width: 300px; height: 420px; margin-top: 28px; animation-delay: .16s">
+      <div style="position: absolute; inset: 0; background: linear-gradient(160deg, #6FD3D8, #2AA7B2 45%, #15606C); clip-path: path('{{ arch.gal }}')"></div>
+      <div style="position: absolute; left: 5px; top: 6px; width: 290px; height: 414px; background: #E9B04A; clip-path: path('{{ arch.galG }}')"></div>
+      <div style="position: absolute; left: 8px; top: 10px; width: 284px; height: 410px; clip-path: path('{{ arch.galIn }}'); overflow: hidden; background: #1B2456">
+        <sc-for list="{{ gal }}" as="g"><img class="{{ g.cls }}" src="{{ g.src }}" alt="{{ g.alt }}"></sc-for>
+      </div>
+    </div>
+    <sc-if value="{{ galMany }}">
+      <div class="rg-r" style="margin-top: 24px; display: flex; gap: 8px; justify-content: center; align-items: flex-end; height: 80px; animation-delay: .24s">
+        <sc-for list="{{ gal }}" as="g"><button type="button" class="{{ g.th }}" aria-label="{{ g.alt }}" aria-pressed="{{ g.on }}" onClick="{{ g.pick }}" style="clip-path: polygon({{ starClip }})"><img src="{{ g.src }}" alt="" style="clip-path: polygon({{ starClip }})"></button></sc-for>
+      </div>
+    </sc-if>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.dress }}">
+  <section ref="{{ rf.dress }}" class="{{ sc.dress }}">
+    <p class="rg-lbl rg-r">Kiyinish uslubi</p>
+    <p class="rg-r" style="margin: 18px 0 0; max-width: 330px; font-size: 17px; line-height: 28px; color: #E2E3EE; white-space: pre-line; overflow-wrap: anywhere; animation-delay: .08s">{{ d.dress_kod }}</p>
+    <sc-if value="{{ sw.length }}"><div class="rg-r" style="margin-top: 24px; width: 100%; display: grid; grid-template-columns: {{ swCols }}; gap: 18px 8px; justify-items: center; animation-delay: .16s">
+      <sc-for list="{{ sw }}" as="c"><div style="display: flex; flex-direction: column; align-items: center; gap: 8px"><span style="display: block; width: 46px; height: 46px; background: {{ c.bg }}; clip-path: polygon({{ starClip }})"></span><span style="font-size: 12px; line-height: 16px; color: #C9CCE0">{{ c.name }}</span></div></sc-for>
+    </div></sc-if>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.rsvp }}">
+  <section ref="{{ rf.rsvp }}" class="{{ sc.rsvp }}">
+    <svg class="rg-tb" width="350" height="22" viewBox="0 0 350 22" aria-hidden="true"><rect width="350" height="22" fill="url(#rgTL)"></rect><rect x="0" y="0" width="350" height="2" fill="#E9B04A"></rect><rect x="0" y="20" width="350" height="2" fill="#E9B04A"></rect></svg>
+    <p class="rg-lbl rg-r" style="margin-top: 30px">Javobingiz</p>
+    <h2 class="rg-h2 rg-r" style="animation-delay: .08s">Tashrif buyurasizmi?</h2>
+    <p class="rg-txt rg-r" style="margin: 10px 0 0; font-size: 14px; line-height: 22px; animation-delay: .12s">{{ deadline }}</p>
+    <div class="rg-glaze rg-r" style="width: 100%; margin-top: 26px; padding: 24px 18px 22px; text-align: left; animation-delay: .18s">
+      <sc-if value="{{ askName }}"><label for="rg-name" class="rg-flbl">Ismingiz</label><input id="rg-name" class="rg-field rg-in2" type="text" maxlength="100" autocomplete="name" placeholder="Masalan: Dilnoza opa" onInput="{{ onName }}"></sc-if>
+      <div style="display: flex; gap: 8px">
+        <button type="button" class="{{ optYesCls }}" aria-pressed="{{ isYes }}" onClick="{{ sayYes }}">Albatta boraman</button>
+        <button type="button" class="{{ optNoCls }}" aria-pressed="{{ isNo }}" onClick="{{ sayNo }}">Kela olmayman</button>
+      </div>
+      <div style="margin-top: 20px; display: flex; align-items: center; justify-content: space-between; gap: 12px; height: 48px">
+        <span class="rg-flbl">Necha kishi</span>
+        <div class="{{ stepperCls }}">
+          <button type="button" class="rg-step" aria-label="Kamaytirish" disabled="{{ minusOff }}" onClick="{{ dec }}"><svg class="rg-icon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12"></path></svg></button>
+          <span class="rg-ys rg-num" aria-live="polite" style="min-width: 28px; text-align: center; font-size: 28px; line-height: 34px; color: #1B2456">{{ guests }}</span>
+          <button type="button" class="rg-step" aria-label="Ko’paytirish" disabled="{{ plusOff }}" onClick="{{ inc }}"><svg class="rg-icon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12M12 6v12"></path></svg></button>
+        </div>
+      </div>
+      <label for="rg-wish" class="rg-flbl" style="margin-top: 20px">Tilaklaringiz</label>
+      <textarea id="rg-wish" class="rg-field rg-ta" rows="2" maxlength="300" placeholder="Yoshlarga ezgu tilaklaringiz…" onInput="{{ onWish }}"></textarea>
+      <div style="position: relative; margin-top: 20px">
+        <button type="button" class="rg-btn" style="width: 100%" disabled="{{ busy }}" onClick="{{ send }}">
+          <sc-if value="{{ sent }}"><svg class="rg-icon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"></path></svg></sc-if>
+          {{ sendLabel }}
+        </button>
+        <span class="{{ burstCls }}" aria-hidden="true"><sc-for list="{{ sparks }}" as="k"><i style="{{ k }}"></i></sc-for></span>
+      </div>
+      <p aria-live="polite" style="margin: 10px 0 0; font-size: 14px; line-height: 22px; color: #1B2456">{{ rsvpNote }}</p>
+    </div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ anyRow }}">
+  <section ref="{{ rf.aloqa }}" class="{{ sc.aloqa }}" style="padding-top: 56px">
+    <div style="width: 100%; display: flex; flex-direction: column; gap: 12px">
+      <sc-if value="{{ b.guruh }}">
+        <div class="rg-tile rg-r" style="display: flex; align-items: center; gap: 14px; padding: 14px 14px 14px 16px; text-align: left">
+          <span aria-hidden="true" style="flex: none; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; color: #06222A; background: linear-gradient(160deg, #6FD3D8, #2AA7B2); clip-path: polygon({{ starClip }})"><svg class="rg-icon" width="18" height="18" viewBox="0 0 24 24"><path d="M21 4 3 11l6 2.2M21 4l-3 16-7.5-5.6M21 4 9 13.2v5.3l3-3.1"></path></svg></span>
+          <div style="flex: 1; min-width: 0">
+            <p style="margin: 0; font-size: 16px; line-height: 22px; font-weight: 600; color: #F5EEDF">Mehmonlar guruhi</p>
+            <p class="rg-txt" style="margin: 2px 0 0; font-size: 13px; line-height: 18px">Telegram’dagi to’y guruhi</p>
+          </div>
+          <a class="rg-btn rg-btn--t" href="{{ d.telegram_guruh }}" target="_blank" rel="noopener" style="flex: none; height: 46px; padding: 0 18px; font-size: 14px">Qo’shilish</a>
+        </div>
+      </sc-if>
+      <sc-if value="{{ b.telefon }}">
+        <div class="rg-tile rg-r" style="display: flex; align-items: center; gap: 14px; padding: 14px 14px 14px 16px; text-align: left; animation-delay: .08s">
+          <span aria-hidden="true" style="flex: none; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; color: #2A1606; background: linear-gradient(160deg, #FFE3A0, #E9B04A); clip-path: polygon({{ starClip }})"><svg class="rg-icon" width="18" height="18" viewBox="0 0 24 24"><path d="M5.2 3.5h3.1l1.6 4.2-2.1 1.5a12.2 12.2 0 0 0 7 7l1.5-2.1 4.2 1.6v3.1a1.9 1.9 0 0 1-2.1 1.9A16.6 16.6 0 0 1 3.3 5.6a1.9 1.9 0 0 1 1.9-2.1Z"></path></svg></span>
+          <div style="flex: 1; min-width: 0">
+            <p class="rg-txt" style="margin: 0; font-size: 13px; line-height: 18px">Savollar uchun</p>
+            <p class="rg-num" style="margin: 2px 0 0; font-size: 18px; line-height: 24px; font-weight: 600; color: #F5EEDF; white-space: nowrap">{{ d.telefon }}</p>
+          </div>
+          <a class="rg-btn" href="{{ tel }}" aria-label="Qo’ng’iroq qilish" style="flex: none; width: 46px; height: 46px; padding: 0; border-radius: 50%"><svg class="rg-icon" width="19" height="19" viewBox="0 0 24 24" aria-hidden="true"><path d="M5.2 3.5h3.1l1.6 4.2-2.1 1.5a12.2 12.2 0 0 0 7 7l1.5-2.1 4.2 1.6v3.1a1.9 1.9 0 0 1-2.1 1.9A16.6 16.6 0 0 1 3.3 5.6a1.9 1.9 0 0 1 1.9-2.1Z"></path></svg></a>
+        </div>
+      </sc-if>
+    </div>
+  </section>
+  </sc-if>
+
+  <footer ref="{{ rf.foot }}" class="{{ sc.foot }}" style="margin-top: auto; padding: 96px 0 0">
+    <div class="rg-r" style="position: relative; width: 390px; height: 230px">
+      <svg width="390" height="230" viewBox="0 0 390 230" aria-hidden="true" style="position: absolute; left: 0; top: 0">
+        <g class="rg-glow" transform="translate(300 54)"><circle r="54" fill="url(#rgMoonG)"></circle><use href="#rgCres" transform="rotate(-28) scale(.8)" fill="#FFE9B0"></use></g>
+        <sc-for list="{{ skyline }}" as="k"><path d="{{ k.d }}" fill="{{ k.f }}"></path></sc-for>
+      </svg>
+    </div>
+    <div style="padding: 34px 24px 64px; display: flex; flex-direction: column; align-items: center; text-align: center; background: linear-gradient(180deg, #0B1230, #080D24)">
+      <p class="rg-ar rg-r" dir="rtl" lang="ar" style="margin: 0; max-width: 350px; font-size: 21px; line-height: 46px; color: #FFE3A0">بَارَكَ اللَّهُ لَكُمَا وَبَارَكَ عَلَيْكُمَا وَجَمَعَ بَيْنَكُمَا فِي خَيْرٍ</p>
+      <p class="rg-r" style="margin: 12px 0 0; max-width: 320px; font-style: italic; font-weight: 300; font-size: 15px; line-height: 24px; color: #D8DAEA; animation-delay: .08s">«Alloh sizlarga baraka bersin, ustingizga baraka yog’dirsin va ikkingizni yaxshilikda jamlasin»</p>
+      <p class="rg-ys rg-r" style="margin: 30px 0 0; font-size: 30px; line-height: 38px; color: #FFF6E2; animation-delay: .14s">Tashrifingizdan xursand bo’lamiz</p>
+      <sc-if value="{{ d.taklif_qiluvchilar }}"><p class="rg-lbl rg-r" style="margin-top: 22px; line-height: 19px; color: #9FE6E8; overflow-wrap: anywhere; animation-delay: .2s">{{ d.taklif_qiluvchilar }}</p></sc-if>
+      <p class="rg-num rg-r" style="margin: 14px 0 0; font-size: 12px; line-height: 18px; letter-spacing: 0.3em; color: #E9B04A; animation-delay: .24s">{{ w.dots }}</p>
+    </div>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":7600}}'>
+const D = SITE.d;
+function hhmm(t) { t = String(t || ''); return /^\d:\d\d$/.test(t) ? '0' + t : t; }
+function stamp(iso, time) { const t = Date.parse(String(iso || '').slice(0, 10) + 'T' + (hhmm(time) || '12:00') + ':00+05:00'); return isNaN(t) ? null : t; }
+function fitPx(text, max, width, em) { const n = String(text || '').length || 1; return Math.max(Math.round(max * 0.42), Math.min(max, Math.floor(width / (n * em)))); }
+function fitWord(text, max, width, em) { const L = Math.max(1, ...String(text || '').split(/\s+/).map((x) => x.length)); return Math.max(Math.round(max * 0.45), Math.min(max, Math.floor(width / (L * em)))); }
+function telHref(t) { return 'tel:' + String(t || '').replace(/[^\d+]/g, ''); }
+const KUYOV = String(D.kuyov || '').trim();
+const KELIN = String(D.kelin || '').trim();
+const GUEST = String(D.mehmon || '').trim();
+function calUrl() {
+  const t = stamp(D.sana, D.vaqt); if (t == null) return '';
+  const f = (ms) => new Date(ms).toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
+  const title = [KUYOV, KELIN].filter(Boolean).join(' va ') + (KUYOV || KELIN ? ': ' : '') + 'nikoh to’yi';
+  const loc = [D.manzil_nomi, D.manzil].filter(Boolean).join(', ');
+  return 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + encodeURIComponent(title) + '&dates=' + f(t) + '/' + f(t + 5 * 3600e3) + (loc ? '&location=' + encodeURIComponent(loc) : '');
+}
+function deadlineText(tail) {
+  const t = stamp(D.sana, '12:00'); if (t == null) return 'Iltimos, ' + tail + '.';
+  const dl = t - 7 * 864e5;
+  if (dl < Date.now()) return 'Iltimos, imkon qadar tezroq ' + tail + '.';
+  return 'Iltimos, ' + SITE.when(new Date(dl + 5 * 3600e3).toISOString().slice(0, 10)).dm + 'gacha ' + tail + '.';
+}
+const SW = [
+  ['fil suyagi', '#F1E8D6'], ['to\'q ko\'k', '#1C3358'], ['to\'q yashil', '#17463A'], ['zumrad', '#1B5E50'],
+  ['shampan', '#EEDDB8'], ['oltin', 'linear-gradient(160deg, #FFE3A0, #E9B04A 50%, #9C6A1E)'],
+  ['kumush', 'linear-gradient(160deg, #F1F3F5, #B8BDC2 55%, #7D8287)'], ['marvarid', '#EEE5E3'],
+  ['bordo', '#74202F'], ['pudra', '#EBCBC3'], ['oq', '#F7F5F1'], ['krem', '#F1E4CC'], ['bej', '#DCC7A6'],
+  ['moviy', '#8DB7DF'], ['ko\'k', '#4A7FBC'], ['yashil', '#5A9A68'], ['pushti', '#E9AABA'], ['qizil', '#B83A33'],
+  ['jigarrang', '#80583C'], ['kulrang', '#A5A8AB'], ['lavanda', '#C2B0E0'], ['binafsha', '#745AA2'], ['sariq', '#E8C455'], ['qora', '#1C1816']
+];
+function swatches(text) {
+  let t = ' ' + String(text || '').toLowerCase().replace(/[’‘ʻʼ`]/g, '\'') + ' ';
+  const found = [];
+  SW.forEach(([k, bg]) => {
+    const re = new RegExp('(^|[^a-z\'])' + k + '(?![a-z])');
+    const m = re.exec(t);
+    if (m) {
+      found.push({ at: m.index, name: SITE.cap(k.replace(/'/g, '’')), bg });
+      t = t.slice(0, m.index + m[1].length) + ' '.repeat(k.length) + t.slice(m.index + m[1].length + k.length);
+    }
+  });
+  return found.sort((a, b) => a.at - b.at).slice(0, 8);
+}
+
+/* Registon sahnasi geometriyasi */
+const fx = (v) => Math.round(v * 10) / 10;
+function star(n, ro, ri, cx, cy) {
+  const pts = [];
+  for (let i = 0; i < n * 2; i++) { const r = i % 2 ? ri : ro, a = (i * 180 / n - 90) * Math.PI / 180; pts.push(fx(cx + r * Math.cos(a)) + ',' + fx(cy + r * Math.sin(a))); }
+  return pts.join(' ');
+}
+const STAR_CLIP = (() => { const p = []; for (let i = 0; i < 16; i++) { const r = i % 2 ? 38 : 50, a = (i * 22.5 - 90) * Math.PI / 180; p.push(fx(50 + r * Math.cos(a)) + '% ' + fx(50 + r * Math.sin(a)) + '%'); } return p.join(', '); })();
+function pArch(x, y, w, h, s) { /* uchli ravoq: chap pastdan */ const r = fx(w * 0.78), sp = s == null ? Math.round(w * 0.55) : s; return 'M' + x + ' ' + (y + h) + 'V' + (y + sp) + 'A' + r + ' ' + r + ' 0 0 1 ' + fx(x + w / 2) + ' ' + y + 'A' + r + ' ' + r + ' 0 0 1 ' + (x + w) + ' ' + (y + sp) + 'V' + (y + h) + 'Z'; }
+function arch(W, H) { return pArch(0, 0, W, H); }
+const ARCH = {
+  big: arch(280, 380), bigG: arch(270, 374), bigIn: arch(264, 370),
+  mid: arch(250, 310), midG: arch(240, 304), midIn: arch(234, 300),
+  gal: arch(300, 420), galG: arch(290, 414), galIn: arch(284, 410)
+};
+function dome(cx, base, w, top) {
+  const l = cx - w / 2, r = cx + w / 2;
+  const d = 'M' + l + ' ' + base + 'C' + l + ' ' + fx(base - (base - top) * 0.75) + ' ' + fx(cx - w * 0.22) + ' ' + fx(top + 6) + ' ' + cx + ' ' + top + 'C' + fx(cx + w * 0.22) + ' ' + fx(top + 6) + ' ' + r + ' ' + fx(base - (base - top) * 0.75) + ' ' + r + ' ' + base + 'Z';
+  let ribs = '';
+  for (let i = 1; i < 8; i++) { const x = l + (w * i) / 8; ribs += 'M' + cx + ' ' + top + 'Q' + fx(x + (x - cx) * 0.35) + ' ' + fx(top + (base - top) * 0.45) + ' ' + fx(x) + ' ' + base; }
+  return { d, ribs };
+}
+const DOMES = [[54, 372, 96, 270, 8, 372, 92, 46, 1.9], [338, 388, 86, 296, 296, 388, 84, 40, 2.05]].map((m) => {
+  const g = dome(m[0], m[1], m[2], m[3]);
+  return { d: g.d, ribs: g.ribs, dx: m[4], dy: m[5], dw: m[6], dh: m[7], dl: 'animation-delay: ' + m[8] + 's', fin: 'M' + m[0] + ' ' + m[3] + 'V' + (m[3] - 16) + 'M' + (m[0] - 4) + ' ' + (m[3] - 8) + 'H' + (m[0] + 4) };
+});
+const WALLS = [
+  'M0 420H96V770H0Z', 'M294 432H390V770H294Z',
+  'M92 330H298V770H92Z'
+];
+const TILES = [], DARKS = [];
+function tile(d, delay, kind) { TILES.push({ d, dim: kind === 'k' ? 'url(#rgKD)' : 'url(#rgTD)', lit: kind === 'k' ? 'url(#rgKL)' : 'url(#rgTL)', dl: 'animation-delay: ' + delay.toFixed(2) + 's' }); }
+/* yon qanotlar: ikki qavat ravoqli hujralar */
+[[0, 96, 0.7], [294, 96, 0.8]].forEach(([x0, w, dl]) => {
+  for (let row = 0; row < 2; row++) {
+    const y = row ? 610 : 470;
+    for (let c = 0; c < 2; c++) {
+      const x = x0 + 12 + c * 40;
+      tile('M' + (x - 4) + ' ' + (y - 6) + 'H' + (x + 34) + 'V' + (y + 100) + 'H' + (x - 4) + 'Z', dl + row * 0.15 + c * 0.05);
+      DARKS.push(pArch(x, y, 30, 96, 18));
+    }
+  }
+  tile('M' + x0 + ' 432H' + (x0 + w) + 'V448H' + x0 + 'Z', dl + 0.35, 'k');
+});
+/* peshtoq: ramka, kufiy bitik, ravoq ustidagi yulduzlar */
+tile('M92 352H106V770H92Z', 0.95); tile('M284 352H298V770H284Z', 0.95);
+tile('M92 330H298V352H92Z', 1.25, 'k');
+tile('M106 352H284V480H106Z', 1.1);
+DARKS.push(pArch(124, 392, 142, 378, 80));
+/* minoralar: halqa-halqa yonadi (pastdan yuqoriga) */
+[[46, 70], [320, 344]].forEach(([a, b], mi) => {
+  WALLS.push('M' + a + ' 770L' + (a + 2) + ' 250H' + (b - 2) + 'L' + b + ' 770Z');
+  for (let k = 0; k < 6; k++) { const y = 700 - k * 76; tile('M' + (a + 1) + ' ' + y + 'H' + (b - 1) + 'V' + (y + 12) + 'H' + (a + 1) + 'Z', 1.0 + k * 0.16 + mi * 0.05, k % 2 ? 'k' : 't'); }
+  WALLS.push('M' + (a - 5) + ' 238H' + (b + 5) + 'V252H' + (a - 5) + 'Z');
+  tile('M' + (a - 5) + ' 238H' + (b + 5) + 'V252H' + (a - 5) + 'Z', 1.95 + mi * 0.05, 'k');
+  DARKS.push('M' + (a + 1) + ' 238C' + (a + 1) + ' 224 ' + ((a + b) / 2) + ' 218 ' + ((a + b) / 2) + ' 218C' + ((a + b) / 2) + ' 218 ' + (b - 1) + ' 224 ' + (b - 1) + ' 238Z');
+});
+/* niche ichida qubba bezagi */
+tile(pArch(140, 412, 110, 70, 50).replace(/V482Z$/, 'Z'), 1.6);
+const STARS = [];
+let seed = 7;
+function rnd() { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; }
+for (let i = 0; i < 46; i++) STARS.push({ x: fx(rnd() * 390), y: fx(rnd() * 330), r: fx(0.5 + rnd() * 1.3), st: 'animation-delay: ' + (-rnd() * 4).toFixed(2) + 's; animation-duration: ' + (2.5 + rnd() * 3).toFixed(2) + 's' });
+/* footer: kichik silueti */
+const SKY = [];
+(() => {
+  const c = '#0B1230', t = '#1B5866';
+  SKY.push({ d: 'M0 230V150H70V230Z M320 230V150H390V230Z', f: '#121A40' });
+  const dm = dome(195, 120, 80, 64); SKY.push({ d: dm.d, f: '#1B6A74' });
+  const d2 = dome(60, 150, 56, 112); SKY.push({ d: d2.d, f: '#14505A' });
+  const d3 = dome(330, 150, 56, 112); SKY.push({ d: d3.d, f: '#14505A' });
+  SKY.push({ d: 'M120 230V120H270V230Z', f: '#151E48' });
+  SKY.push({ d: pArch(160, 140, 70, 90, 30), f: '#E9B04A' });
+  SKY.push({ d: pArch(166, 147, 58, 83, 26), f: '#FFE3A0' });
+  SKY.push({ d: 'M98 230L100 80H112L114 230Z M276 230L278 80H290L292 230Z', f: '#151E48' });
+  SKY.push({ d: 'M96 80H116V72H96Z M274 80H294V72H274Z', f: t });
+  SKY.push({ d: 'M0 226H390V230H0Z', f: c });
+})();
+
+const NPH = Math.max(1, Math.min(5, SITE.has.photos || 0));
+const GAL = [1, 2, 3, 4, 0].filter((i) => i < NPH).map((i) => SITE.p[i]);
+const KEYS = ['hello', 'taklif', 'oyat', 'kun', 'taymer', 'manzil', 'dastur', 'hikoya', 'galereya', 'dress', 'rsvp', 'aloqa', 'foot'];
+const SPARKS = [];
+for (let i = 0; i < 12; i++) SPARKS.push('--a: ' + (i * 30) + 'deg; --r: ' + (70 + (i % 3) * 22) + 'px; animation-delay: ' + ((i % 4) * 0.03).toFixed(2) + 's');
+const KUN_RIBS = (() => { let s = ''; for (let i = 1; i < 10; i++) { const x = 38 + 224 * i / 10; s += 'M150 22Q' + fx(x + (x - 150) * 0.3) + ' 70 ' + fx(x) + ' 150'; } return s; })();
+
+class Component extends DCLogic {
+  constructor(...args) {
+    super(...args);
+    this.state = { opened: false, g: 0, rsvp: '', guests: 1, sent: false, busy: false, warn: '', seen: {} };
+    this.nm = ''; this.wish = ''; this.n = 0; this.picked = false;
+    this.els = {}; this.rf = {};
+    KEYS.forEach((k) => { this.rf[k] = (el) => { this.els[k] = el; }; });
+  }
+  componentDidMount() {
+    this.timer = setInterval(() => {
+      this.n++;
+      if (!this.picked && GAL.length > 1 && this.n % 6 === 0) this.setState({ g: (this.state.g + 1) % GAL.length });
+      else this.forceUpdate();
+    }, 1000);
+    try {
+      if (typeof IntersectionObserver === 'undefined') return;
+      this.io = new IntersectionObserver((list) => {
+        const add = {};
+        list.forEach((en) => { if (en.isIntersecting) { add[en.target.getAttribute('data-k')] = true; this.io.unobserve(en.target); } });
+        if (Object.keys(add).length) this.setState({ seen: Object.assign({}, this.state.seen, add) });
+      }, { rootMargin: '0px 0px -8% 0px', threshold: 0.01 });
+      KEYS.forEach((k) => { const el = this.els[k]; if (el) { el.setAttribute('data-k', k); this.io.observe(el); } });
+    } catch (e) { this.io = null; }
+  }
+  componentWillUnmount() { clearInterval(this.timer); if (this.io) this.io.disconnect(); }
+  open() { if (this.state.opened) return; this.setState({ opened: true }); SITE.opened(); }
+  send() {
+    const s = this.state;
+    if (!s.rsvp) { this.setState({ warn: 'Iltimos, avval javobingizni tanlang.' }); return; }
+    const name = this.nm.trim();
+    if (!SITE.has.guest && !name) { this.setState({ warn: 'Iltimos, ismingizni yozing.' }); return; }
+    if (s.busy) return;
+    this.setState({ busy: true, warn: '' });
+    SITE.rsvp(s.rsvp === 'yes', s.rsvp === 'yes' ? s.guests : 1, name, this.wish.trim())
+      .then(() => this.setState({ sent: true, busy: false }))
+      .catch(() => this.setState({ busy: false, warn: 'Javob yuborilmadi. Iltimos, qayta urinib ko’ring.' }));
+  }
+  rsvpVals() {
+    const s = this.state || {};
+    const isYes = s.rsvp === 'yes', isNo = s.rsvp === 'no', guests = s.guests || 1;
+    const who = (GUEST || this.nm.trim());
+    let note = '';
+    if (s.sent && isYes) note = (who ? 'Rahmat, ' + who + '! ' : 'Rahmat! ') + (guests > 1 ? 'Sizni ' + guests + ' kishi bilan kutamiz.' : 'Sizni intiqlik bilan kutamiz.');
+    else if (s.sent && isNo) note = (who ? 'Rahmat, ' + who + '! ' : 'Rahmat! ') + 'Duolaringiz biz bilan bo’lsin.';
+    else if (s.warn) note = s.warn;
+    return {
+      deadline: deadlineText('javob bering'),
+      askName: !SITE.has.guest,
+      onName: (e) => { this.nm = e.target.value; },
+      onWish: (e) => { this.wish = e.target.value; },
+      isYes, isNo, guests,
+      optYesCls: isYes ? 'rg-opt rg-opt--on' : 'rg-opt',
+      optNoCls: isNo ? 'rg-opt rg-opt--on' : 'rg-opt',
+      sayYes: () => this.setState({ rsvp: 'yes', sent: false, warn: '' }),
+      sayNo: () => this.setState({ rsvp: 'no', sent: false, warn: '' }),
+      stepperCls: isNo ? 'rg-stepper rg-stepper--off' : 'rg-stepper',
+      minusOff: isNo || guests <= 1, plusOff: isNo || guests >= 10,
+      dec: () => this.setState({ guests: Math.max(1, guests - 1), sent: false }),
+      inc: () => this.setState({ guests: Math.min(10, guests + 1), sent: false }),
+      send: () => this.send(),
+      busy: !!s.busy, sent: !!s.sent,
+      burstCls: s.sent ? 'rg-burst rg-burst--on' : 'rg-burst', sparks: SPARKS,
+      sendLabel: s.busy ? 'Yuborilmoqda…' : (s.sent ? 'Javob yuborildi' : 'Javobni yuborish'),
+      rsvpNote: note
+    };
+  }
+  renderVals() {
+    const s = this.state || {};
+    const seen = s.seen || {};
+    const w = SITE.when(D.sana, D.vaqt);
+    const cd = SITE.countdown(D.sana, D.vaqt);
+    const music = SITE.music.playing;
+    const guestName = GUEST || 'mehmon';
+    const hello = 'Hurmatli ' + (GUEST || 'mehmon') + '!';
+    const sw = swatches(D.dress_kod);
+    const tick = (v, l) => ({ n: SITE.pad(v), l, cls: v % 2 ? 'rg-fa' : 'rg-fb' });
+    const story = Array.isArray(D.hikoya) ? D.hikoya.filter((x) => x && (x.yil || x.sarlavha || x.matn)) : [];
+    const prog = Array.isArray(D.dastur) ? D.dastur.filter((x) => x && (x.vaqt || x.nomi)) : [];
+    const cur = (s.g || 0) % GAL.length;
+    const sc = {};
+    KEYS.forEach((k) => { sc[k] = 'rg-sec' + (seen[k] ? ' is-in' : ''); });
+    return Object.assign({
+      introCls: s.opened ? 'rg-i rg-i--open' : 'rg-i',
+      introHidden: !!s.opened,
+      open: () => this.open(),
+      heroStarL: star(8, 16, 8, 30, 30), heroStarR: star(8, 16, 8, 360, 30), heroDiv: star(8, 8, 4, 195, 562), stars: STARS, domes: DOMES, walls: WALLS, tiles: TILES, darks: DARKS, skyline: SKY,
+      tileStar: star(8, 7, 3.6, 8, 8), girihStar: star(8, 16, 9, 20, 20), star8: star(8, 18, 9, 0, 0), starClip: STAR_CLIP,
+      arch: ARCH, kunRibs: KUN_RIBS,
+      rf: this.rf, sc, w,
+      kuyov: KUYOV, kelin: KELIN,
+      fsK: fitPx(KUYOV, 54, 290, 0.66), fsL: fitPx(KELIN, 54, 290, 0.66),
+      heroLine: [w.Weekday, w.dm, D.vaqt ? 'soat ' + D.vaqt : ''].filter(Boolean).join(' · '),
+      pair: [KUYOV, KELIN].filter(Boolean).join(' va '),
+      guestName, fsGuest: fitPx(guestName, 30, 330, 0.62),
+      guestHello: hello, fsHello: fitWord(hello, 38, 340, 0.64),
+      noTaklif: !SITE.b.taklif,
+      cal: calUrl(),
+      timeTxt: D.vaqt ? 'soat ' + D.vaqt : '',
+      ticks: [tick(cd.d, 'KUN'), tick(cd.h, 'SOAT'), tick(cd.m, 'DAQIQA'), tick(cd.s, 'SONIYA')],
+      cdText: cd.d + ' kun, ' + cd.h + ' soat, ' + cd.m + ' daqiqa qoldi',
+      wkLine: [w.Weekday, w.date, D.vaqt ? 'soat ' + D.vaqt : ''].filter(Boolean).join(' · '),
+      prog: prog.map((x, i) => {
+        const left = i % 2 === 0;
+        return {
+          vaqt: x.vaqt || '', nomi: x.nomi || '',
+          row: 'position: relative; display: flex; justify-content: ' + (left ? 'flex-start' : 'flex-end') + '; padding: 0 0 26px; animation-delay: ' + (0.1 + i * 0.12).toFixed(2) + 's',
+          side: 'width: calc(50% - 28px); text-align: ' + (left ? 'right' : 'left')
+        };
+      }),
+      story: story.map((x, i) => {
+        const wide = story.length % 2 === 1 && i === story.length - 1;
+        const W = wide ? 230 : 160;
+        return {
+          yil: x.yil || '', sarlavha: x.sarlavha || '', matn: x.matn || '',
+          arch: pArch(0, 0, W, 400, Math.round(W * 0.42)), archIn: pArch(0, 0, W - 8, 400, Math.round((W - 8) * 0.42)),
+          st: 'position: relative; width: ' + W + 'px; min-height: 190px; animation-delay: ' + (0.1 + i * 0.12).toFixed(2) + 's'
+        };
+      }),
+      gal: GAL.map((src, k) => ({ src, alt: 'Surat ' + (k + 1), on: k === cur, cls: k === cur ? 'rg-gimg rg-gimg--on' : 'rg-gimg', th: k === cur ? 'rg-th rg-th--on' : 'rg-th', pick: () => { this.picked = true; this.setState({ g: k }); } })),
+      galMany: GAL.length > 1,
+      sw, swCols: 'repeat(' + Math.max(1, Math.min(4, sw.length)) + ', minmax(0, 1fr))',
+      anyRow: !!(SITE.b.guruh || SITE.b.telefon),
+      tel: telHref(D.telefon),
+      musicOn: music, musicOff: !music,
+      musicCls: music ? 'rg-music rg-music--on' : 'rg-music',
+      musicLabel: music ? 'Musiqani o’chirish' : 'Musiqani yoqish',
+      toggleMusic: () => { SITE.music.toggle(); }
+    }, this.rsvpVals());
+  }
+}
+</script>
+</body>
+</html>

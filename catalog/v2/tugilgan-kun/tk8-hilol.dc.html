@@ -8,14 +8,14 @@
 <body>
 <x-dc>
 <helmet>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alice&amp;family=Aref+Ruqaa:wght@400;700&amp;family=Oranienbaum&amp;display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alice&amp;family=Amiri:wght@400;700&amp;family=Oranienbaum&amp;display=swap">
 <style>
 body{margin:0}
 a{color:#C9BEF5}
 .is-hidden{display:none}
 .hl-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .hl-d{font-family:'Oranienbaum','Alice',Georgia,serif;font-weight:400}
-.hl-ar{font-family:'Aref Ruqaa','Amiri','Times New Roman',serif;font-weight:400}
+.hl-ar{font-family:'Amiri','Noto Naskh Arabic','Times New Roman',serif;font-weight:400}
 .hl-kick{margin:0;font-family:'Alice',Georgia,serif;font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:#B9AEEA}
 .hl-h2{margin:6px 0 0;font-family:'Oranienbaum',Georgia,serif;font-weight:400;font-size:42px;line-height:1.05;color:#F4EFE6;overflow-wrap:break-word}
 .hl-lead{margin:10px 0 0;font-size:15px;line-height:1.55;color:#ADA6CF}
@@ -474,11 +474,14 @@ class Component extends DCLogic {
       };
     });
     const wins = [];
-    for (let i = 0; i < 34; i++) {
-      const x = Math.round(8 + rnd(i, 31) * 370), y = Math.round(714 + rnd(i, 32) * 118);
-      const tall = rnd(i, 33) > 0.5;
-      wins.push({ x: x, y: y, w: tall ? 6 : 8, h: tall ? 10 : 6, rx: tall ? 3 : 1, st: 'opacity: 0; transition-delay: ' + (0.5 + rnd(i, 34) * 1.8).toFixed(2) + 's' });
-    }
+    let wi = 0;
+    [718, 748, 780, 812].forEach((y, row) => {
+      for (let x = 14 + (row % 2) * 16; x < 380; x += 32) {
+        wi += 1;
+        if (rnd(wi, 30) < 0.42) continue;
+        wins.push({ x: x, y: y, w: 7, h: 12, rx: 3.5, st: 'opacity: 0; transition-delay: ' + (0.5 + rnd(wi, 34) * 1.8).toFixed(2) + 's' });
+      }
+    });
     [[84, 682, 4, 6], [252, 664, 5, 8], [140, 590, 3, 5], [362, 684, 3, 5], [188, 688, 4, 6]].forEach((wv, i) => wins.push({ x: wv[0] - wv[2] / 2, y: wv[1], w: wv[2], h: wv[3], rx: wv[2] / 2, st: 'opacity: 0; transition-delay: ' + (0.6 + i * 0.25).toFixed(2) + 's' }));
     wins.forEach((wv) => { wv.st = wv.st.replace('opacity: 0; ', ''); });
     const pageStars = Array.from({ length: 70 }, (_, i) => {
