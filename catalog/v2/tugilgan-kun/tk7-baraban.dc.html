@@ -60,6 +60,7 @@ body{margin:0}
 .bb-card{position:absolute;left:30px;top:226px;width:330px;opacity:0;visibility:hidden;transform:scale(.3) rotate(-14deg);transition:opacity .25s ease,transform .3s ease,visibility 0s linear .3s;pointer-events:none}
 .bb-card--on{opacity:1;visibility:visible;transform:none;pointer-events:auto;transition:opacity .3s ease .45s,transform .75s cubic-bezier(.2,1.45,.35,1) .45s,visibility 0s linear 0s}
 .bb-tkt{position:relative;border-radius:22px;background:#FFF4DE;color:#2A0A12;box-shadow:0 26px 60px rgba(30,0,6,0.55);-webkit-mask:radial-gradient(circle 13px at 0 118px,transparent 98%,#000) left/51% 100% no-repeat,radial-gradient(circle 13px at 100% 118px,transparent 98%,#000) right/51% 100% no-repeat;mask:radial-gradient(circle 13px at 0 118px,transparent 98%,#000) left/51% 100% no-repeat,radial-gradient(circle 13px at 100% 118px,transparent 98%,#000) right/51% 100% no-repeat}
+.bb-cRays{position:absolute;left:-95px;top:-110px;width:520px;height:520px;border-radius:50%;background:repeating-conic-gradient(from 0deg,rgba(255,236,170,0.28) 0deg 9deg,rgba(255,236,170,0) 9deg 18deg);-webkit-mask:radial-gradient(closest-side,#000 40%,transparent);mask:radial-gradient(closest-side,#000 40%,transparent);animation:bb-rot 24s linear infinite;pointer-events:none}
 .bb-wishW{display:inline-block}
 .bb-card--on .bb-wishW{animation:bb-wish .9s cubic-bezier(.2,1.6,.4,1) .75s both}
 @keyframes bb-wish{0%{opacity:0;transform:scale(.2)}60%{opacity:1;transform:scale(1.12)}100%{transform:none}}
@@ -401,7 +402,8 @@ body{margin:0}
           <sc-for list="{{ rimBulbs }}" as="u"><circle class="bb-bulb" cx="{{ u.x }}" cy="{{ u.y }}" r="4.4" style="{{ u.st }}"></circle></sc-for>
           <circle cx="170" cy="170" r="38" fill="url(#bb-gold)" stroke="#A86E00" stroke-width="2"></circle>
           <circle cx="170" cy="170" r="29" fill="#8A0B22"></circle>
-          <text class="bb-d1" x="170" y="{{ hubY }}" text-anchor="middle" fill="#FFCE3A" style="{{ hubFs }}">{{ hubText }}</text>
+          <sc-if value="{{ hubText }}"><text class="bb-d1" x="170" y="{{ hubY }}" text-anchor="middle" fill="#FFCE3A" style="{{ hubFs }}">{{ hubText }}</text></sc-if>
+          <sc-if value="{{ hubStar }}"><path d="M170 152l5.3 10.9 12 1.4-8.9 8.2 2.4 11.8-10.8-6.1-10.8 6.1 2.4-11.8-8.9-8.2 12-1.4z" fill="#FFCE3A"></path></sc-if>
         </svg>
       </div>
       <div class="bb-ptrIn" style="position: absolute; left: 148px; top: -22px; width: 44px; height: 62px">
@@ -418,8 +420,9 @@ body{margin:0}
 
     <!-- win card -->
     <div class="{{ cardCls }}">
+      <div aria-hidden="true" class="bb-cRays"></div>
       <div class="bb-tkt" style="{{ tktSt }}">
-        <div style="height: 118px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 0 20px; box-sizing: border-box; border-bottom: 2px dashed rgba(42,10,18,0.25)">
+        <div style="min-height: 118px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 10px 20px; box-sizing: border-box; border-bottom: 2px dashed rgba(42,10,18,0.25)">
           <p style="margin: 0; font-size: 15px; font-weight: 700; letter-spacing: 0.26em; color: #B3122E">{{ winKicker }}</p>
           <p class="bb-d1" style="margin: 8px 0 0; font-size: {{ winFs }}px; line-height: 1.05; color: #2A0A12; overflow-wrap: anywhere"><span class="bb-wishW">{{ winText }}</span></p>
         </div>
@@ -575,7 +578,7 @@ class Component extends DCLogic {
     const si = segs.findIndex((x) => x.star);
     if (si >= 0 && won.length < 2 && cand.length > 1) cand = cand.filter((i) => i !== si);
     if (!cand.length) return;
-    const k = cand[Math.floor(Math.random() * cand.length)];
+    const k = si >= 0 && won.length === 2 && won.indexOf(si) < 0 ? si : cand[Math.floor(Math.random() * cand.length)];
     if (SITE.has.music && !SITE.music.playing) SITE.music.play();
     const jit = (Math.random() - 0.5) * seg * 0.56;
     const want = -((k + 0.5) * seg) + jit + 1.6;
@@ -700,7 +703,7 @@ class Component extends DCLogic {
     const lower = wt ? wt.charAt(0).toLocaleLowerCase('uz') + wt.slice(1) : '';
     const winLine = isSecret ? String(D.sirli_tilak || '') : (name ? 'Bu yil ' + ga + ' ' + lower + ' tilaymiz!' : 'Bu yil sizga ' + lower + ' tilaymiz!') + (allWon ? '\nBarcha tilaklar endi ' + (name ? name + 'niki' : 'sizniki') + '!' : '');
     const wlen = Math.max(...wt.split(/\s+/).map((x) => x.length), 1);
-    const winFs = isSecret ? 30 : Math.max(26, Math.min(48, Math.floor(280 / (wlen * 0.78))));
+    const winFs = isSecret ? 30 : Math.max(24, Math.min(48, Math.floor(282 / (Math.max(wlen, wt.length) * 0.68))));
     const wonNames = s.won.map((i) => (segs[i] && segs[i].star ? 'Sirli tilak' : (segs[i] ? segs[i].t : '')));
 
     // page: balls
@@ -720,7 +723,7 @@ class Component extends DCLogic {
     });
     const wonRegular = wonNames.filter((x) => x && x !== 'Sirli tilak' && wl.indexOf(x) >= 0);
     const wonLine = wonRegular.length
-      ? 'G’ildirak ' + ga.toLocaleLowerCase('uz').replace(/^./, (c) => (name ? c.toLocaleUpperCase('uz') : c)) + ' «' + wonRegular.join('», «') + '» tilagini tanladi. Lekin aslida hammasi — ' + (name ? name + 'niki' : 'sizniki') + '!'
+      ? 'G’ildirak tanlagani: «' + wonRegular.join('», «') + '». Lekin aslida hammasi — ' + (name ? name + 'niki' : 'sizniki') + '!'
       : (name ? 'Bu tilaklarning hammasi — ' + name + 'niki!' : 'Bu tilaklarning hammasi — sizniki!');
 
     // countdown
@@ -771,8 +774,8 @@ class Component extends DCLogic {
       stageCls: spinning ? 'bb-fast' : '', rimCls: '',
       segs: segs, pegs: pegs, rimBulbs: this.rimBulbs,
       blurBg: 'background: conic-gradient(' + cg + ')',
-      hubText: isAge ? yosh : '★'.replace('★', '+'), hubY: isAge ? (yosh.length > 2 ? 178 : 180) : 182,
-      hubFs: 'font-size: ' + (isAge ? (yosh.length > 2 ? 20 : 26) : 30) + 'px',
+      hubText: isAge ? yosh : '', hubStar: !isAge, hubY: yosh.length > 2 ? 177 : 179,
+      hubFs: 'font-size: ' + (yosh.length > 2 ? 19 : 25) + 'px',
       signDots: this.signDots, signChars: signChars,
       signKicker: name ? name.toLocaleUpperCase('uz') + ' UCHUN' : 'SIZ UCHUN',
       introAsk: name ? 'Aylantiring — bu yil ' + ga + ' qaysi tilak tushadi?' : 'Aylantiring — bu yil sizga qaysi tilak tushadi?',

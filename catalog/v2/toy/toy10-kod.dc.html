@@ -38,7 +38,7 @@ body{margin:0;background:#1F2124}
 .kd-lockw{position:absolute;left:115px;top:118px;width:160px;height:190px}
 .kd-lock{animation:kd-lockin 1s cubic-bezier(.3,1.4,.5,1) .15s both}
 @keyframes kd-lockin{from{opacity:0;transform:translateY(-30px) scale(.85)}to{opacity:1;transform:none}}
-.kd-shk{transform-box:view-box;transform-origin:44px 96px}
+.kd-shk{transform-box:view-box;transform-origin:44px 100px}
 .kd-i--bad .kd-lock{animation:kd-rattle .5s ease}
 @keyframes kd-rattle{0%,100%{transform:none}20%{transform:rotate(-5deg)}40%{transform:rotate(4deg)}60%{transform:rotate(-3deg)}80%{transform:rotate(2deg)}}
 .kd-i--ok .kd-shk{animation:kd-shk 1s cubic-bezier(.3,1.6,.5,1) .3s forwards}
@@ -113,6 +113,9 @@ body{margin:0;background:#1F2124}
 .kd-pn3 .kd-face::before{bottom:10px;border-bottom:1px solid rgba(176,106,74,.45);border-radius:0 0 10px 10px}
 .kd-pn2 .kd-face::after,.kd-pn3 .kd-face::after{content:'';position:absolute;left:0;right:0;top:0;height:14px;background:linear-gradient(rgba(90,60,40,.12),rgba(90,60,40,0));pointer-events:none}
 .kd-back{position:absolute;inset:0;border-radius:0 0 18px 18px;background:linear-gradient(180deg,#E9DFD2,#DED2C3);transform:rotateX(180deg);-webkit-backface-visibility:hidden;backface-visibility:hidden;display:flex;align-items:center;justify-content:center}
+.kd-back::before{content:'';position:absolute;inset:9px;border:1px solid rgba(176,106,74,.4);border-radius:0 0 11px 11px;pointer-events:none}
+.kd-back1{border-radius:18px 18px 0 0}
+.kd-back1::before{border-radius:11px 11px 0 0}
 .kd-seal{width:76px;height:76px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#FBE9DC;font-size:26px;font-weight:700;letter-spacing:.02em;background:radial-gradient(circle at 35% 30%,#E7A988,#B5694A 55%,#7E3F2A);box-shadow:0 6px 14px -6px rgba(80,30,15,.8),inset 0 0 0 4px rgba(255,220,200,.18)}
 .kd-names{margin:0;line-height:1.02;font-weight:600;color:#2A2522;letter-spacing:.01em;overflow-wrap:anywhere}
 .kd-orn{display:block;width:120px;height:14px;margin:6px 0;background:radial-gradient(circle,#B06A4A 2px,transparent 2.6px) center/14px 14px no-repeat,linear-gradient(90deg,transparent,#C99073 30%,transparent 46%,transparent 54%,#C99073 70%,transparent) center/100% 1px no-repeat}
@@ -172,7 +175,7 @@ body{margin:0;background:#1F2124}
 .kd-car::-webkit-scrollbar{display:none}
 .kd-ph{position:relative;flex:none;width:264px;height:340px;scroll-snap-align:center;border-radius:20px;padding:6px;box-sizing:border-box;background:linear-gradient(140deg,#EBB596,#8E5038 50%,#D08A6A);box-shadow:0 22px 30px -20px rgba(0,0,0,.9)}
 .kd-ph img{display:block;width:100%;height:100%;object-fit:cover;border-radius:15px}
-.kd-paper{position:relative;margin:16px 16px 0;border-radius:22px;padding:22px 20px 22px;background:linear-gradient(180deg,#F7F2EB,#EFE7DD);color:#2A2522;box-shadow:0 30px 40px -28px rgba(0,0,0,.9)}
+.kd-paper{position:relative;margin:0;border-radius:22px;padding:22px 20px 22px;background:linear-gradient(180deg,#F7F2EB,#EFE7DD);color:#2A2522;box-shadow:0 30px 40px -28px rgba(0,0,0,.9)}
 .kd-paper::before{content:'';position:absolute;inset:9px;border:1px solid rgba(176,106,74,.4);border-radius:15px;pointer-events:none}
 .kd-ans{position:relative;height:58px;width:100%;border:0;border-radius:16px;cursor:pointer;font-family:'Nunito Sans',Arial,sans-serif;font-size:16px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:10px;color:#F4EEE6;background:linear-gradient(180deg,#3A3D42,#2B2E32);box-shadow:inset 0 1px 0 rgba(255,255,255,.12),inset 0 -2px 0 rgba(0,0,0,.35),0 10px 16px -10px rgba(0,0,0,.7);transition:transform .12s ease,opacity .3s}
 .kd-ans:active{transform:translateY(2px) scale(.98)}
@@ -230,7 +233,7 @@ body{margin:0;background:#1F2124}
           <clipPath id="kdClip"><rect x="14" y="88" width="132" height="98" rx="24"></rect></clipPath>
         </defs>
         <g class="kd-shk">
-          <path class="kd-shkp" d="M44 98V60a36 36 0 0 1 72 0v38"></path>
+          <path class="kd-shkp" d="M44 140V60a36 36 0 0 1 72 0v38"></path>
           <path class="kd-shkh" d="M40 92V60a40 40 0 0 1 17-32.5"></path>
         </g>
         <rect x="14" y="88" width="132" height="98" rx="24" fill="url(#kdBody)"></rect>
@@ -248,6 +251,7 @@ body{margin:0;background:#1F2124}
 
     <div class="kd-card kd-card--i">
         <div class="kd-pn kd-pn1">
+          <div class="kd-back kd-back1" aria-hidden="true"></div>
           <div class="kd-face">
             <p class="kd-m kd-cu" style="margin: 0; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 10.5px; letter-spacing: .22em"><svg class="kd-icon" width="15" height="15" viewBox="0 0 24 24" aria-hidden="true"><rect x="4.5" y="10.5" width="15" height="10" rx="2.5"></rect><path d="M8 10.5V7a4 4 0 0 1 7.6-1.7"></path><path d="M12 14.5v2"></path></svg>OCHILDI · {{ codeDots }}</p>
             <p style="margin: 18px 0 0; font-size: 14.5px; line-height: 20px; color: #7C716B">Assalomu alaykum,</p>
@@ -273,7 +277,6 @@ body{margin:0;background:#1F2124}
             </div>
             <p style="margin: 12px 0 0; font-size: 15px; line-height: 21px; color: #4A403A">{{ w.Weekday }}, soat <b style="font-weight: 700; color: #2A2522">{{ vaqt }}</b></p>
             <sc-if value="{{ venueOn }}"><p class="kd-d" style="margin: 10px auto 0; max-width: 290px; font-size: 19px; line-height: 23px; font-weight: 600; color: #2A2522; overflow-wrap: anywhere">{{ d.manzil_nomi }}</p></sc-if>
-            <sc-if value="{{ hostsOn }}"><p class="kd-m" style="margin: 10px auto 0; max-width: 290px; font-size: 10.5px; line-height: 15px; letter-spacing: .12em; text-transform: uppercase; color: #9A6A52; overflow-wrap: anywhere">{{ d.taklif_qiluvchilar }}</p></sc-if>
           </div>
           <div class="kd-back" aria-hidden="true"><span class="kd-seal kd-d">{{ mono }}</span></div>
         </div>
@@ -320,6 +323,7 @@ body{margin:0;background:#1F2124}
     </div>
     <div class="kd-card kd-card--p">
         <div class="kd-pn kd-pn1">
+          <div class="kd-back kd-back1" aria-hidden="true"></div>
           <div class="kd-face">
             <p class="kd-m kd-cu" style="margin: 0; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 10.5px; letter-spacing: .22em"><svg class="kd-icon" width="15" height="15" viewBox="0 0 24 24" aria-hidden="true"><rect x="4.5" y="10.5" width="15" height="10" rx="2.5"></rect><path d="M8 10.5V7a4 4 0 0 1 7.6-1.7"></path><path d="M12 14.5v2"></path></svg>OCHILDI · {{ codeDots }}</p>
             <p style="margin: 18px 0 0; font-size: 14.5px; line-height: 20px; color: #7C716B">Assalomu alaykum,</p>
@@ -345,7 +349,6 @@ body{margin:0;background:#1F2124}
             </div>
             <p style="margin: 12px 0 0; font-size: 15px; line-height: 21px; color: #4A403A">{{ w.Weekday }}, soat <b style="font-weight: 700; color: #2A2522">{{ vaqt }}</b></p>
             <sc-if value="{{ venueOn }}"><p class="kd-d" style="margin: 10px auto 0; max-width: 290px; font-size: 19px; line-height: 23px; font-weight: 600; color: #2A2522; overflow-wrap: anywhere">{{ d.manzil_nomi }}</p></sc-if>
-            <sc-if value="{{ hostsOn }}"><p class="kd-m" style="margin: 10px auto 0; max-width: 290px; font-size: 10.5px; line-height: 15px; letter-spacing: .12em; text-transform: uppercase; color: #9A6A52; overflow-wrap: anywhere">{{ d.taklif_qiluvchilar }}</p></sc-if>
           </div>
           <div class="kd-back" aria-hidden="true"><span class="kd-seal kd-d">{{ mono }}</span></div>
         </div>

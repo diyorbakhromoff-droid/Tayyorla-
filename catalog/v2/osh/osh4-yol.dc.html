@@ -57,7 +57,7 @@ body{margin:0}
 .yl-left{margin-left:auto;flex:none;padding:7px 11px;border-radius:999px;background:#E3F6EA;color:#0F7A3D;font-weight:600;font-size:13px;line-height:16px;white-space:nowrap}
 .yl-dest{display:flex;align-items:flex-start;gap:12px;margin-top:14px}
 .yl-desti{width:40px;height:40px;border-radius:12px;background:#FFF0EB;color:#F2542D;display:flex;align-items:center;justify-content:center;flex:none}
-.yl-btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:54px;padding:0 22px;border-radius:16px;box-sizing:border-box;font-family:'Fira Sans',sans-serif;font-weight:600;font-size:16px;text-decoration:none;cursor:pointer;border:0;position:relative;overflow:hidden;transition:transform .18s cubic-bezier(.2,1.4,.4,1),background-color .25s}
+.yl-btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:54px;padding:0 22px;border-radius:16px;box-sizing:border-box;font-family:'Fira Sans',sans-serif;font-weight:600;font-size:16px;text-decoration:none;cursor:pointer;border:0;position:relative;overflow:hidden;white-space:nowrap;transition:transform .18s cubic-bezier(.2,1.4,.4,1),background-color .25s}
 .yl-btn:active{transform:scale(.96)}
 .yl-btn::after{content:"";position:absolute;left:50%;top:50%;width:200px;height:200px;margin:-100px 0 0 -100px;border-radius:50%;background:rgba(255,255,255,.35);transform:scale(0);opacity:0;transition:transform .5s ease,opacity .6s ease}
 .yl-btn:active::after{transform:scale(1);opacity:1;transition:none}
@@ -862,7 +862,7 @@ class Component extends DCLogic {
       tripText: cd.done ? 'Manzilga yetib keldik!' : 'So’nggi 30 kunlik yo’lning ' + Math.round(frac * 100) + '% i bosib o’tildi',
       copy: () => this.copy(), copied: !!s.copied, notCopied: !s.copied,
       copyLabel: s.copied ? 'Nusxalandi' : 'Nusxa',
-      copyStyle: D.xarita ? 'flex: none; padding: 0 18px' : 'flex: 1 1 0',
+      copyStyle: D.xarita ? 'flex: none; width: 136px; padding: 0' : 'flex: 1 1 0',
       deadline: deadlineText('javobingizni bildiring'),
       askName: !SITE.has.guest,
       onName: (e) => { this.nm = e.target.value; },

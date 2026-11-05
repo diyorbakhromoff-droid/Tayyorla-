@@ -249,7 +249,7 @@ body{margin:0}
       </div>
       <div style="position: absolute; left: 48px; top: 218px; width: 294px; height: 100px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center">
         <p class="ay-cap ay-carve" style="font-size: 10px; letter-spacing: .24em; color: #5A341C">Tug’ilgan kuningiz muborak</p>
-        <h1 aria-label="{{ name }}" class="ay-d ay-carve" style="margin: 4px 0 0; font-size: {{ nameFs }}px; line-height: 1.05; overflow-wrap: anywhere; max-width: 280px">
+        <h1 aria-label="{{ name }}" class="ay-d ay-carve" style="margin: 4px 0 0; font-size: {{ nameFs }}px; line-height: 1.05; overflow-wrap: anywhere; max-width: 222px">
           <span aria-hidden="true"><sc-for list="{{ nameWords }}" as="w"><span style="white-space: nowrap"><sc-for list="{{ w.ch }}" as="c"><span class="ay-ch">{{ c.t }}</span></sc-for></span>{{ w.sp }}</sc-for></span>
         </h1>
       </div>
@@ -259,9 +259,9 @@ body{margin:0}
           <span class="ay-cap" style="margin-top: 8px; color: #6E4226">yoshingiz muborak</span>
         </sc-if>
       </div>
-      <div style="position: absolute; left: 80px; top: 620px; width: 230px; display: flex; flex-direction: column; align-items: center; text-align: center">
+      <div style="position: absolute; left: 80px; top: 616px; width: 230px; display: flex; flex-direction: column; align-items: center; text-align: center">
         <span style="font-size: 13.5px; font-weight: 600; letter-spacing: .04em; color: #5A341C">{{ heroDate }}</span>
-        <sc-if value="{{ from.line }}"><p class="ay-d" style="margin: 8px 0 0; font-size: 16px; line-height: 1.35; color: #3B2213; overflow-wrap: anywhere">{{ from.line }}</p></sc-if>
+        <sc-if value="{{ from.line }}"><p class="ay-d" style="margin: 6px 0 0; font-size: 15px; line-height: 1.3; color: #3B2213; overflow-wrap: anywhere">{{ from.line }}</p></sc-if>
       </div>
       <sc-if value="{{ anyBlock }}">
         <svg aria-hidden="true" width="22" height="14" viewBox="0 0 22 14" style="position: absolute; left: 184px; top: 806px; animation: ay-chev 2.2s ease-in-out infinite"><path d="M3 3l8 8 8-8" fill="none" stroke="#FBEBD0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
@@ -477,7 +477,7 @@ body{margin:0}
     </div>
     <div aria-hidden="true" style="position: absolute; left: 48px; top: 218px; width: 294px; height: 100px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; pointer-events: none">
       <p class="ay-cap ay-carve ay-late" style="font-size: 10px; letter-spacing: .24em; color: #5A341C; --d: 1.1s">Tug’ilgan kuningiz muborak</p>
-      <div class="ay-d ay-carve" style="margin: 4px 0 0; font-size: {{ nameFs }}px; line-height: 1.05; overflow-wrap: anywhere; max-width: 280px">
+      <div class="ay-d ay-carve" style="margin: 4px 0 0; font-size: {{ nameFs }}px; line-height: 1.05; overflow-wrap: anywhere; max-width: 222px">
         <span><sc-for list="{{ nameWords }}" as="w"><span style="white-space: nowrap"><sc-for list="{{ w.ch }}" as="c"><span class="ay-ch" style="{{ c.st }}">{{ c.t }}</span></sc-for></span>{{ w.sp }}</sc-for></span>
       </div>
     </div>
@@ -487,9 +487,9 @@ body{margin:0}
         <span class="ay-cap ay-late" style="margin-top: 8px; color: #6E4226; --d: 2.5s">yoshingiz muborak</span>
       </sc-if>
     </div>
-    <div aria-hidden="true" style="position: absolute; left: 80px; top: 620px; width: 230px; display: flex; flex-direction: column; align-items: center; text-align: center; pointer-events: none">
+    <div aria-hidden="true" style="position: absolute; left: 80px; top: 616px; width: 230px; display: flex; flex-direction: column; align-items: center; text-align: center; pointer-events: none">
       <span class="ay-late" style="font-size: 13.5px; font-weight: 600; letter-spacing: .04em; color: #5A341C; --d: 2.7s">{{ heroDate }}</span>
-      <sc-if value="{{ from.line }}"><p class="ay-d ay-late" style="margin: 8px 0 0; font-size: 16px; line-height: 1.35; color: #3B2213; overflow-wrap: anywhere; --d: 2.9s">{{ from.line }}</p></sc-if>
+      <sc-if value="{{ from.line }}"><p class="ay-d ay-late" style="margin: 6px 0 0; font-size: 15px; line-height: 1.3; color: #3B2213; overflow-wrap: anywhere; --d: 2.9s">{{ from.line }}</p></sc-if>
     </div>
 
     <div class="ay-closed" style="position: absolute; left: 70px; top: 420px; width: 250px; display: flex; flex-direction: column; align-items: center; text-align: center">
@@ -587,7 +587,7 @@ class Component extends DCLogic {
     const yosh = String(D.yosh || '').trim();
     const words = name.split(/\s+/).filter(Boolean);
     const longest = Math.max(1, ...words.map((x) => x.length));
-    const nameFs = Math.max(24, Math.min(words.length > 1 ? 34 : 50, Math.floor(270 / (longest * 0.6))));
+    const nameFs = Math.max(24, Math.min(words.length > 1 ? 34 : 50, Math.floor(214 / (longest * 0.64))));
     let ci = 0;
     const nameWords = words.map((wd, wi) => ({
       sp: wi < words.length - 1 ? ' ' : '',
@@ -603,7 +603,7 @@ class Component extends DCLogic {
       return {
         text: t, on: on ? 'true' : 'false',
         cls: on ? 'ay-tab ay-tab--on' : 'ay-tab',
-        st: on ? '' : 'animation-delay: -' + (i * 1.3).toFixed(1) + 's',
+        st: (on ? '' : 'animation-delay: -' + (i * 1.3).toFixed(1) + 's; ') + (i === wl.length - 1 && i % 2 === 0 ? 'grid-column: 1 / span 2; width: calc(50% - 8px); margin: 0 auto' : ''),
         tap: () => { const lit = Object.assign({}, this.state.lit); lit[i] = !lit[i]; this.setState({ lit: lit }); }
       };
     });

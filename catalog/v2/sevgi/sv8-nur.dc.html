@@ -1,0 +1,690 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<title>Sevgi maktubi: Nur</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bona+Nova:ital,wght@0,400;0,700;1,400&amp;family=Noto+Naskh+Arabic:wght@400;500&amp;family=Raleway:wght@500;600;700&amp;display=swap">
+<style>
+body{margin:0}
+.nu-d{font-family:'Bona Nova',Georgia,'Times New Roman',serif;font-weight:400}
+.nu-ar{font-family:'Noto Naskh Arabic','Amiri','Times New Roman',serif;font-weight:400}
+.nu-sc{margin:0;font-family:'Raleway','Trebuchet MS',sans-serif;font-size:12px;line-height:16px;font-weight:600;letter-spacing:.28em;text-transform:uppercase}
+.nu-gold{background:linear-gradient(100deg,#B9761E 0%,#F6C766 28%,#E39A35 48%,#FFE3A6 64%,#C9822A 84%,#F0B656 100%);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent}
+.nu-ico{fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+button{-webkit-tap-highlight-color:transparent}
+button:focus-visible{outline:3px solid #E8A64A;outline-offset:3px}
+button:disabled{opacity:.7;cursor:default}
+
+.nu-wood{fill:none;stroke:#2A1E2E;stroke-width:3.2;stroke-linejoin:round}
+.nu-woodT{fill:none;stroke:#3A2A35;stroke-width:2.2;stroke-linejoin:round}
+.nu-gl{fill:none;stroke:#C98A3A;stroke-width:1.1;stroke-linejoin:round}
+.nu-gl2{fill:none;stroke:#C98A3A;stroke-width:.7;opacity:.7}
+.nu-frame{fill:none;stroke:#2A1E2E;stroke-width:10;stroke-linejoin:round}
+.nu-frameL{fill:none;stroke:#E8A64A;stroke-width:1.2;opacity:.8}
+.nu-lap{fill:#24427F}.nu-gf{fill:#E8A64A}.nu-lt{fill:#FFE0A8}
+.nu-ln{fill:none;stroke:#24427F;stroke-width:1.2}
+.nu-ln2{fill:none;stroke:#24427F;stroke-width:.7;opacity:.6}
+
+/* ground: lime plaster */
+.nu-ground{background-color:#F3E6D3;background-image:radial-gradient(130% 50% at 50% 0%,rgba(255,236,200,.8) 0%,rgba(243,230,211,0) 60%),radial-gradient(circle at 20% 30%,rgba(170,130,80,.06) 0 1px,rgba(170,130,80,0) 1.6px),radial-gradient(circle at 70% 80%,rgba(170,130,80,.05) 0 1px,rgba(170,130,80,0) 1.6px);background-size:100% 100%,9px 11px,13px 7px}
+
+/* ---------- intro ---------- */
+.nu-intro{transition:opacity .9s ease 3s,visibility 0s linear 3.95s}
+.nu-intro.is-open{opacity:0;visibility:hidden;pointer-events:none}
+.nu-fade{transition:opacity .45s ease,transform .5s ease}
+.nu-intro.is-open .nu-fade{opacity:0;transform:translateY(12px)}
+.nu-bis{clip-path:inset(0 0 0 100%);animation:nuInk 1.8s cubic-bezier(.45,0,.2,1) .25s forwards}
+@keyframes nuInk{to{clip-path:inset(0 0 0 0)}}
+.nu-up{opacity:0;animation:nuUp .9s cubic-bezier(.2,.8,.2,1) both}
+@keyframes nuUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.nu-dawn{opacity:0;transition:opacity 1.8s ease .1s}
+.nu-dawn2{opacity:0;transition:opacity 1.6s ease .9s}
+.is-open .nu-dawn,.is-open .nu-dawn2{opacity:1}
+.nu-night{transition:opacity 1.4s ease .2s}
+.is-open .nu-night{opacity:0}
+.nu-sun{transform:translateY(140px);transition:transform 2.2s cubic-bezier(.25,.6,.2,1) .15s}
+.is-open .nu-sun{transform:translateY(0)}
+.nu-warm{opacity:0;transition:opacity 1.6s ease .7s}
+.is-open .nu-warm{opacity:1}
+.nu-beam{opacity:0;transition:opacity 1.2s ease 1s}
+.is-open .nu-beam{opacity:1}
+.nu-flr{opacity:0;transition:opacity 1s ease .9s}
+.is-open .nu-flr{opacity:1}
+.is-open .nu-flrM{animation:nuTravel 3s cubic-bezier(.3,0,.3,1) .8s both}
+@keyframes nuTravel{from{transform:translate(-150px,-60px)}to{transform:translate(40px,30px)}}
+.nu-wash{opacity:0;transition:opacity .9s ease 2.3s}
+.is-open .nu-wash{opacity:1}
+.nu-twk{animation:nuTw 3.2s ease-in-out infinite}
+@keyframes nuTw{0%,100%{opacity:.25}50%{opacity:1}}
+.nu-moon{animation:nuFloat 7s ease-in-out infinite}
+@keyframes nuFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+
+/* ambient light on the page */
+.nu-drift{animation:nuDrift 26s linear infinite}
+@keyframes nuDrift{from{transform:translate(-120px,-40px)}to{transform:translate(0,0)}}
+.nu-breath{animation:nuBreath 5s ease-in-out infinite}
+@keyframes nuBreath{0%,100%{opacity:.6;transform:scale(.96)}50%{opacity:1;transform:scale(1.04)}}
+.nu-rays{animation:nuSpin 80s linear infinite}
+@keyframes nuSpin{to{transform:rotate(360deg)}}
+.nu-mote{position:absolute;width:4px;height:4px;border-radius:50%;background:radial-gradient(circle,#FFF4DA 0,#F6C766 50%,rgba(246,199,102,0) 72%);animation:nuMote 10s ease-in-out infinite}
+@keyframes nuMote{0%,100%{transform:translate(0,0);opacity:.15}50%{transform:translate(14px,-34px);opacity:.9}}
+
+/* hero entrance */
+.nu-h{opacity:0;transform:translateY(16px);transition:opacity 1s ease,transform 1.1s cubic-bezier(.2,.8,.2,1)}
+.nu-root.is-in .nu-h{opacity:1;transform:none}
+
+/* scroll reveal */
+.nu-io .nu-sec .nu-rv{opacity:0;transform:translateY(22px);transition:opacity .8s ease,transform .9s cubic-bezier(.2,.8,.2,1)}
+.nu-io .nu-sec.is-in .nu-rv{opacity:1;transform:none}
+.nu-sweep{position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none;background:linear-gradient(105deg,rgba(255,230,180,0) 30%,rgba(255,230,180,.55) 50%,rgba(255,230,180,0) 70%);transform:translateX(-120%)}
+.nu-io .nu-sec.is-in .nu-sweep{animation:nuSweep 1.8s cubic-bezier(.4,0,.2,1) .3s both}
+@keyframes nuSweep{from{transform:translateX(-120%)}to{transform:translateX(120%)}}
+.nu-shut{transition:transform 1.4s cubic-bezier(.6,0,.2,1)}
+.nu-io .nu-sec .nu-shut{transform:none}
+.nu-io .nu-sec.is-in .nu-shut{transform:translateY(-102%)}
+.nu-sec .nu-shut{transform:translateY(-102%)}
+
+/* reasons */
+.nu-card{transition:transform .3s cubic-bezier(.3,1.5,.5,1),box-shadow .4s ease,background-color .4s ease}
+.nu-card:active{transform:scale(.97)}
+.nu-card.is-b{background-color:#FFF4DF;box-shadow:0 0 0 1px #E8A64A,0 16px 30px -18px rgba(201,138,58,.9)}
+.nu-star{transition:transform .8s cubic-bezier(.3,1.5,.5,1)}
+.is-b .nu-star{transform:rotate(45deg) scale(1.08)}
+.nu-starL{opacity:0;transition:opacity .4s ease}
+.is-b .nu-starL{opacity:1}
+.nu-flash{position:absolute;left:0;top:0;width:100%;height:100%;border-radius:inherit;pointer-events:none;background:linear-gradient(105deg,rgba(255,224,168,0) 30%,rgba(255,224,168,.8) 50%,rgba(255,224,168,0) 70%);opacity:0}
+.is-b .nu-flash{animation:nuFlash .9s ease-out both}
+@keyframes nuFlash{from{opacity:1;transform:translateX(-100%)}to{opacity:1;transform:translateX(100%)}}
+
+/* carousel */
+.nu-car{scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.nu-car::-webkit-scrollbar{display:none}
+.nu-niche{transition:transform .35s cubic-bezier(.3,1.4,.5,1)}
+.nu-niche:active{transform:scale(.97)}
+
+/* odometer */
+.nu-odo{display:block;transition:transform 2.3s cubic-bezier(.16,.84,.24,1)}
+.nu-flip{display:inline-block;animation:nuFlip .5s cubic-bezier(.3,1.4,.5,1) both}
+@keyframes nuFlip{from{transform:perspective(160px) rotateX(-90deg);opacity:.2}to{transform:none;opacity:1}}
+
+/* shutters */
+.nu-door{transition:transform 1.3s cubic-bezier(.6,0,.2,1)}
+.nu-dl{transform-origin:0 50%}.nu-dr{transform-origin:100% 50%}
+.nu-sh.is-open .nu-dl{transform:perspective(700px) rotateY(-100deg)}
+.nu-sh.is-open .nu-dr{transform:perspective(700px) rotateY(100deg)}
+.nu-dbtn{transition:opacity .35s ease,transform .35s ease}
+.nu-sh.is-open .nu-dbtn{opacity:0;transform:scale(.85);pointer-events:none}
+.nu-glowIn{opacity:0;transition:opacity 1.4s ease .4s}
+.nu-sh.is-open .nu-glowIn{opacity:1}
+.nu-secret{filter:blur(7px);opacity:.4;transition:filter 1.1s ease .6s,opacity 1.1s ease .6s}
+.nu-secret.is-shown{filter:none;opacity:1}
+
+/* buttons */
+.nu-btn{position:relative;overflow:hidden;transition:transform .25s cubic-bezier(.3,1.5,.5,1),box-shadow .25s ease}
+.nu-btn:active{transform:scale(.96)}
+.nu-btn::after{content:'';position:absolute;left:50%;top:50%;width:240px;height:240px;margin:-120px 0 0 -120px;border-radius:50%;background:radial-gradient(circle,rgba(255,240,210,.55) 0,rgba(255,240,210,0) 62%);opacity:0;transform:scale(1.2);transition:opacity .6s ease,transform .6s ease;pointer-events:none}
+.nu-btn:active::after{opacity:1;transform:scale(.25);transition:0s}
+.nu-ray{position:absolute;left:0;top:0;width:3px;height:70px;margin-left:-1.5px;border-radius:2px;background:linear-gradient(180deg,rgba(255,224,168,0),#FFD27A);transform-origin:50% 100%;opacity:0;animation:nuRay 1.4s cubic-bezier(.2,.7,.3,1) both}
+@keyframes nuRay{0%{opacity:0;transform:rotate(var(--a)) translateY(-10px) scaleY(.2)}25%{opacity:1}100%{opacity:0;transform:rotate(var(--a)) translateY(-120px) scaleY(1)}}
+.nu-in{animation:nuUp .8s cubic-bezier(.2,.8,.2,1) both}
+
+@media (prefers-reduced-motion: reduce){
+.nu-bis{animation:none;clip-path:none}
+.nu-up,.nu-in,.nu-flip{animation:none;opacity:1}
+.nu-twk,.nu-moon,.nu-drift,.nu-breath,.nu-rays,.nu-mote,.is-open .nu-flrM,.nu-io .nu-sec.is-in .nu-sweep,.is-b .nu-flash,.nu-ray{animation:none}
+.nu-ray,.nu-flash,.nu-sweep{opacity:0}
+.nu-intro,.nu-fade,.nu-dawn,.nu-dawn2,.nu-night,.nu-sun,.nu-warm,.nu-beam,.nu-flr,.nu-wash,.nu-h,.nu-odo,.nu-shut,.nu-card,.nu-star,.nu-starL,.nu-door,.nu-dbtn,.nu-glowIn,.nu-secret{transition:none}
+}
+</style>
+</helmet>
+<div class="{{ rootCls }}" style="width: 390px; min-height: var(--vh, 100vh); position: relative; overflow: hidden; background-color: #F3E6D3; color: #2A2118; font-family: 'Bona Nova', Georgia, 'Times New Roman', serif; display: flex; flex-direction: column">
+
+  <svg aria-hidden="true" width="0" height="0" style="position: absolute; left: 0; top: 0">
+    <defs>
+      <pattern id="nuStars" width="56" height="56" patternUnits="userSpaceOnUse"><path d="{{ patStar }}" style="fill: #FFE7B8"></path><path d="{{ patStar2 }}" style="fill: #FFE7B8"></path></pattern>
+      <pattern id="nuShade" width="56" height="56" patternUnits="userSpaceOnUse"><path d="{{ patStar }}" style="fill: none; stroke: #7A5A3A; stroke-width: 3"></path><path d="{{ patStar2 }}" style="fill: none; stroke: #7A5A3A; stroke-width: 3"></path></pattern>
+    </defs>
+  </svg>
+
+  <sc-if value="{{ has.music }}">
+  <button type="button" aria-label="Musiqa" aria-pressed="{{ musicOn }}" onClick="{{ toggleMusic }}" class="nu-btn" style="position: absolute; top: 14px; right: 14px; z-index: 40; width: 46px; height: 46px; padding: 0; border-radius: 50%; border: 1px solid #C98A3A; background: #FBF4E8; color: #24427F; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 16px -8px rgba(36, 66, 127, 0.5)">
+    <sc-if value="{{ musicOff }}" hint-placeholder-val="{{ true }}">
+      <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path class="nu-ico" d="M9 18V5l11-2v13"></path><circle class="nu-ico" cx="6" cy="18" r="3"></circle><circle class="nu-ico" cx="17" cy="16" r="3"></circle><path class="nu-ico" d="M3 3l18 18"></path></svg>
+    </sc-if>
+    <sc-if value="{{ musicOn }}" hint-placeholder-val="{{ false }}">
+      <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path class="nu-ico" d="M9 18V5l11-2v13"></path><circle class="nu-ico" cx="6" cy="18" r="3"></circle><circle class="nu-ico" cx="17" cy="16" r="3"></circle></svg>
+    </sc-if>
+  </button>
+  </sc-if>
+
+  <!-- ================= INTRO ================= -->
+  <div data-intro class="{{ introCls }}" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; z-index: 30; overflow: hidden; background-color: #1C2340">
+    <div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; background: radial-gradient(70% 45% at 50% 40%, #2C3560 0%, #1C2340 60%, #12172C 100%)"></div>
+    <div aria-hidden="true" class="nu-warm" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; background: radial-gradient(80% 50% at 50% 42%, #C9895A 0%, #7A5464 45%, #3A3150 100%)"></div>
+    <!-- window -->
+    <div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px">
+      <div style="{{ winClip }}position: absolute; left: 0; top: 0; width: 390px; height: 844px">
+        <div class="nu-night" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; background: linear-gradient(180deg, #0B1030 0%, #18225A 55%, #2B3A78 100%)">
+          <sc-for list="{{ nstars }}" as="q"><span class="nu-twk" style="{{ q }}"></span></sc-for>
+          <svg class="nu-moon" width="40" height="40" viewBox="0 0 40 40" style="position: absolute; left: 230px; top: 200px"><path d="M26 6 A16 16 0 1 0 34 30 A13 13 0 1 1 26 6Z" style="fill: #FFE7B8"></path></svg>
+        </div>
+        <div class="nu-dawn" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; background: linear-gradient(180deg, #4F6CB0 0%, #C68BA0 38%, #F2B27A 62%, #FFD68E 80%)"></div>
+        <div class="nu-dawn2" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; background: linear-gradient(180deg, #9FC0E8 0%, #F7D9B6 50%, #FFE7B0 80%)"></div>
+        <div class="nu-sun" style="position: absolute; left: 115px; top: 380px; width: 160px; height: 160px; border-radius: 50%; background: radial-gradient(circle, #FFF8E6 0%, #FFE2A0 28%, rgba(255, 200, 110, 0.6) 50%, rgba(255, 200, 110, 0) 70%)"></div>
+        <svg width="390" height="844" viewBox="0 0 390 844" style="position: absolute; left: 0; top: 0"><path d="M0 560 C 60 540, 120 548, 195 538 C 270 548, 330 540, 390 556 V844 H0Z" style="fill: rgba(42, 30, 46, 0.55)"></path></svg>
+        <svg width="390" height="844" viewBox="0 0 390 844" style="position: absolute; left: 0; top: 0"><path class="nu-wood" d="{{ latD }}"></path><path class="nu-gl2" d="{{ latD }}" style="opacity: .35"></path></svg>
+      </div>
+      <svg width="390" height="844" viewBox="0 0 390 844" style="position: absolute; left: 0; top: 0">
+        <path class="nu-frame" d="{{ winD }}"></path>
+        <path class="nu-frameL" d="{{ win2D }}"></path>
+        <path class="nu-frameL" d="{{ win3D }}"></path>
+        <rect x="40" y="598" width="310" height="14" style="fill: #2A1E2E"></rect>
+        <path class="nu-frameL" d="M40 598.5 H350 M40 611.5 H350"></path>
+      </svg>
+    </div>
+    <!-- beams + travelling star light -->
+    <div aria-hidden="true" class="nu-beam" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; pointer-events: none; background: linear-gradient(170deg, rgba(255, 214, 140, 0.0) 20%, rgba(255, 214, 140, 0.32) 55%, rgba(255, 214, 140, 0) 95%); clip-path: polygon(70px 300px, 320px 300px, 390px 844px, 0 844px); filter: blur(4px)"></div>
+    <div aria-hidden="true" class="nu-flr" style="position: absolute; left: 0; top: 612px; width: 390px; height: 232px; overflow: hidden; pointer-events: none">
+      <div class="nu-flrM" style="position: absolute; left: -80px; top: -40px; width: 620px; height: 320px">
+        <svg width="620" height="320" viewBox="0 0 620 320" style="display: block; transform: perspective(300px) rotateX(48deg); transform-origin: 50% 0; filter: blur(1.5px)"><rect width="620" height="320" style="fill: url(#nuStars); opacity: .55"></rect></svg>
+      </div>
+    </div>
+    <div aria-hidden="true" class="nu-wash" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; background: radial-gradient(70% 50% at 50% 40%, #FFF6E4 0%, #F3E6D3 70%)"></div>
+
+    <div class="nu-fade" style="position: absolute; left: 0; top: 36px; width: 390px; display: flex; flex-direction: column; align-items: center; gap: 2px">
+      <p class="nu-ar nu-gold nu-bis" dir="rtl" lang="ar" style="margin: 0; font-size: 28px; line-height: 56px">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p>
+      <p class="nu-sc nu-up" style="animation-delay: 1.2s; font-size: 11px; color: #E8B66A">Bismillahir Rohmanir Rohiym</p>
+    </div>
+    <div class="nu-fade" style="position: absolute; left: 0; top: 632px; width: 390px; box-sizing: border-box; padding: 0 28px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 2px">
+      <p class="nu-sc nu-up" style="animation-delay: 1.6s; color: #E8B66A">Jufti halolimga maktub</p>
+      <p class="nu-d nu-up" style="animation-delay: 1.75s; margin: 2px 0 0; font-size: {{ introPx }}px; line-height: 1.1; color: #FFF1DA; overflow-wrap: break-word; max-width: 334px">{{ d.kimga }}</p>
+      <p class="nu-up" style="animation-delay: 1.9s; margin: 0; font-size: 16px; font-style: italic; color: #C9CCE2; overflow-wrap: anywhere">{{ fromLine }}</p>
+    </div>
+    <div class="nu-fade" style="position: absolute; left: 0; top: 752px; width: 390px; display: flex; flex-direction: column; align-items: center; gap: 6px">
+      <button type="button" onClick="{{ open }}" class="nu-btn nu-up" style="animation-delay: 2.05s; min-height: 54px; padding: 0 28px; border-radius: 999px; border: 1px solid #FFD68E; background: linear-gradient(110deg, #C9822A 0%, #F6C766 35%, #E39A35 60%, #FFE3A6 80%, #D68F35 100%); color: #1C2340; font-family: 'Raleway', 'Trebuchet MS', sans-serif; font-weight: 700; font-size: 15px; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; display: flex; align-items: center; gap: 10px; box-shadow: 0 0 0 4px rgba(28, 35, 64, 0.9), 0 0 0 5px rgba(232, 166, 74, 0.55), 0 0 34px rgba(246, 199, 102, 0.4)">
+        <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path class="nu-ico" d="M3 17h18M7 17a5 5 0 0 1 10 0M12 4v3M4.6 9.6l2.1 1.5M19.4 9.6l-2.1 1.5M9 21h6"></path></svg>
+        Tongni kutib oling
+      </button>
+      <sc-if value="{{ has.music }}">
+      <p class="nu-up" style="animation-delay: 2.2s; margin: 0; display: flex; align-items: center; gap: 6px; font-size: 13px; color: #AEB4D2"><svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true" style="color: #E8A64A"><path class="nu-ico" d="M9 18V5l11-2v13"></path><circle class="nu-ico" cx="6" cy="18" r="3"></circle><circle class="nu-ico" cx="17" cy="16" r="3"></circle></svg>Musiqa bilan ochiladi</p>
+      </sc-if>
+    </div>
+  </div>
+
+  <!-- ================= HERO ================= -->
+  <header class="nu-ground" style="position: relative; padding: 24px 0 46px">
+    <div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 390px; height: 100%; overflow: hidden; pointer-events: none">
+      <div class="nu-drift" style="position: absolute; left: 0; top: 380px; width: 560px; height: 360px; opacity: .55">
+        <svg width="560" height="360" viewBox="0 0 560 360" style="display: block; transform: skewX(-24deg); filter: blur(2px)"><rect width="560" height="360" style="fill: url(#nuStars)"></rect></svg>
+      </div>
+      <div style="position: absolute; left: 0; top: 330px; width: 390px; height: 440px; background: linear-gradient(180deg, #F3E6D3 0%, rgba(243, 230, 211, 0) 18%, rgba(243, 230, 211, 0) 70%, #F3E6D3 100%)"></div>
+    </div>
+    <div aria-hidden="true" class="nu-h" style="position: relative; width: 390px; height: 380px; transition-delay: .1s">
+      <div class="nu-breath" style="position: absolute; left: 45px; top: 40px; width: 300px; height: 300px; border-radius: 50%; background: radial-gradient(circle, rgba(255, 214, 140, 0.55) 0%, rgba(255, 214, 140, 0) 68%)"></div>
+      <div style="{{ hwinClip }}position: absolute; left: 0; top: 0; width: 390px; height: 380px">
+        <div style="position: absolute; left: 0; top: 0; width: 390px; height: 380px; background: linear-gradient(180deg, #9FC0E8 0%, #F7D9B6 52%, #FFE7B0 82%)"></div>
+        <div class="nu-breath" style="position: absolute; left: 125px; top: 190px; width: 140px; height: 140px; border-radius: 50%; background: radial-gradient(circle, #FFF8E6 0%, #FFE2A0 30%, rgba(255, 200, 110, 0.55) 52%, rgba(255, 200, 110, 0) 70%)"></div>
+        <svg width="390" height="380" viewBox="0 0 390 380" style="position: absolute; left: 0; top: 0"><path d="M0 300 C 60 286, 120 292, 195 284 C 270 292, 330 286, 390 298 V380 H0Z" style="fill: rgba(122, 90, 100, 0.35)"></path><path class="nu-woodT" d="{{ hlatD }}"></path></svg>
+      </div>
+      <svg width="390" height="380" viewBox="0 0 390 380" style="position: absolute; left: 0; top: 0">
+        <path d="{{ hwinD }}" style="fill: none; stroke: #2A1E2E; stroke-width: 8; stroke-linejoin: round"></path>
+        <path class="nu-gl" d="{{ hwin2D }}"></path>
+        <rect x="64" y="356" width="262" height="12" style="fill: #2A1E2E"></rect>
+        <path class="nu-gl" d="M64 356.5 H326 M64 367.5 H326"></path>
+      </svg>
+      <span class="nu-mote" style="left: 90px; top: 200px"></span>
+      <span class="nu-mote" style="left: 300px; top: 160px; animation-delay: -4s"></span>
+      <span class="nu-mote" style="left: 200px; top: 330px; animation-delay: -7s"></span>
+    </div>
+    <div style="position: relative; padding: 20px 24px 0; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 6px">
+      <p class="nu-sc nu-h" style="color: #B06E22; transition-delay: .3s">Jufti halolim</p>
+      <h1 class="nu-d nu-h" style="margin: 0; font-size: {{ h1px }}px; line-height: 1.06; font-weight: 400; color: #24427F; overflow-wrap: break-word; max-width: 342px; transition-delay: .4s">{{ d.kimga }}</h1>
+      <p class="nu-h" style="margin: 2px 0 0; font-size: 20px; font-style: italic; color: #6A5440; transition-delay: .5s">sen — hayotimga tushgan tong nuri</p>
+      <sc-if value="{{ hasDate }}">
+      <div class="nu-h" style="margin-top: 10px; display: flex; align-items: center; gap: 12px; transition-delay: .6s">
+        <svg aria-hidden="true" width="44" height="12" viewBox="0 0 44 12"><path class="nu-gl" d="M0 6 H32"></path><path class="nu-gf" d="{{ miniStarR }}"></path></svg>
+        <span class="nu-d" style="font-size: 21px; letter-spacing: 0.14em; color: #B06E22">{{ dateDots }}</span>
+        <svg aria-hidden="true" width="44" height="12" viewBox="0 0 44 12"><path class="nu-gl" d="M12 6 H44"></path><path class="nu-gf" d="{{ miniStarL }}"></path></svg>
+      </div>
+      </sc-if>
+    </div>
+    <div class="nu-h" style="position: relative; margin: 30px 18px 0; padding: 12px; background: #24427F; border-radius: 4px; box-shadow: 0 24px 40px -26px rgba(20, 30, 70, 0.8); transition-delay: .75s">
+      <div style="position: relative; padding: 22px 16px 18px; background: #FBF4E8; border-radius: 2px; text-align: center; box-shadow: inset 0 0 0 1px rgba(201, 138, 58, 0.6)">
+        <p class="nu-ar" dir="rtl" lang="ar" style="margin: 0; font-size: 21px; line-height: 44px; color: #24427F">وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً</p>
+        <p style="margin: 10px 0 0; font-size: 16.5px; line-height: 1.5; font-style: italic; color: #4A3A2C">«Uning oyatlaridan biri — sizlar uchun o’zingizdan juftlar yaratgani, toki ular bilan orom topgaysiz. Va o’rtangizda muhabbat va rahmat paydo qildi»</p>
+        <p class="nu-sc" style="margin-top: 10px; font-size: 11px; color: #B06E22">Rum surasi, 21-oyat</p>
+      </div>
+      <sc-for list="{{ tileStars }}" as="t"><svg aria-hidden="true" width="18" height="18" viewBox="-9 -9 18 18" style="{{ t }}position: absolute"><path class="nu-gf" d="{{ tStar }}"></path></svg></sc-for>
+    </div>
+  </header>
+
+  <!-- ================= MAKTUB ================= -->
+  <sc-if value="{{ b.maktub }}">
+  <section class="{{ rv.maktub }}" data-rv="maktub" style="position: relative; padding: 14px 16px 60px">
+    <div class="nu-rv" style="position: relative; overflow: hidden; padding: 34px 24px 30px; background: #FBF4E8; border-radius: 3px; box-shadow: 0 0 0 1px rgba(201, 138, 58, 0.6), 0 0 0 7px #FBF4E8, 0 0 0 9px #24427F, 0 30px 50px -30px rgba(60, 40, 20, 0.6)">
+      <div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; overflow: hidden; pointer-events: none">
+        <div class="nu-drift" style="position: absolute; left: 0; top: 0; width: 520px; height: 1400px; opacity: .5; animation-duration: 34s">
+          <svg width="520" height="1400" viewBox="0 0 520 1400" style="display: block; transform: skewX(-18deg); filter: blur(2.5px)"><rect width="520" height="1400" style="fill: url(#nuStars)"></rect></svg>
+        </div>
+      </div>
+      <div class="nu-sweep"></div>
+      <div style="position: relative; display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center">
+        <svg aria-hidden="true" width="26" height="26" viewBox="-13 -13 26 26"><path class="nu-lap" d="{{ bigStar }}"></path><path class="nu-gf" d="{{ smallStar }}"></path></svg>
+        <p class="nu-sc" style="color: #B06E22">Maktub</p>
+        <p class="nu-d" style="margin: 0 0 16px; font-size: 26px; line-height: 1.2; color: #24427F; overflow-wrap: anywhere">{{ greet }}</p>
+      </div>
+      <div style="position: relative; font-size: 18.5px; line-height: 1.68; color: #2A2118; white-space: pre-line; overflow-wrap: anywhere"><sc-if value="{{ capL }}"><span aria-hidden="true" style="float: left; position: relative; width: 60px; height: 66px; margin: 6px 12px 2px 0; background: #24427F; border-radius: 30px 30px 3px 3px; box-shadow: 0 0 0 1px #C98A3A, 0 0 0 4px #FBF4E8, 0 0 0 5px rgba(201, 138, 58, 0.7); display: flex; align-items: center; justify-content: center"><span class="nu-d nu-gold" style="font-size: 40px; line-height: 1; margin-top: 8px">{{ capL }}</span></span></sc-if>{{ capRest }}</div>
+      <sc-if value="{{ sign }}">
+      <div style="position: relative; clear: both; margin-top: 22px; display: flex; flex-direction: column; align-items: flex-end">
+        <p style="margin: 0; font-size: 16px; font-style: italic; color: #6A5440">Duolar bilan,</p>
+        <p class="nu-d" style="margin: 0; font-size: 25px; color: #24427F; overflow-wrap: anywhere; text-align: right">{{ sign }}</p>
+      </div>
+      </sc-if>
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- ================= SABABLAR ================= -->
+  <sc-if value="{{ b.sabablar }}">
+  <section class="{{ rv.sabablar }}" data-rv="sabablar" style="position: relative; padding: 0 18px 60px">
+    <div class="nu-rv" style="display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center">
+      <svg aria-hidden="true" width="140" height="26" viewBox="0 0 140 26"><path class="nu-gl" d="M0 13 H50 M90 13 H140"></path><g transform="translate(70 13)"><path class="nu-lap" d="{{ bigStar }}"></path><path class="nu-gf" d="{{ smallStar }}"></path></g></svg>
+      <p class="nu-sc" style="color: #B06E22">{{ reasonsLbl }}</p>
+      <h2 class="nu-d" style="margin: 0; font-size: 32px; line-height: 1.12; font-weight: 400; color: #24427F">Seni sevishimning sabablari</h2>
+      <p style="margin: 0; font-size: 17px; font-style: italic; color: #6A5440">Har birini bosing — nurga to’ladi</p>
+    </div>
+    <ul style="list-style: none; margin: 24px 0 0; padding: 0; display: flex; flex-direction: column; gap: 12px">
+      <sc-for list="{{ reasons }}" as="r">
+      <li class="nu-rv" style="transition-delay: {{ r.dl }}">
+        <button type="button" onClick="{{ r.tap }}" aria-pressed="{{ r.on }}" class="{{ r.cls }}" style="position: relative; overflow: hidden; width: 100%; min-height: 70px; box-sizing: border-box; padding: 12px 16px 12px 78px; border: 0; border-radius: 4px; background-color: #FBF4E8; box-shadow: 0 0 0 1px rgba(201, 138, 58, 0.45); color: #2A2118; font: inherit; font-size: 18.5px; line-height: 1.3; text-align: left; cursor: pointer; display: flex; align-items: center">
+          <span class="nu-flash"></span>
+          <span aria-hidden="true" style="position: absolute; left: 12px; top: 50%; margin-top: -26px; width: 52px; height: 52px">
+            <svg class="nu-star" width="52" height="52" viewBox="-26 -26 52 52" style="position: absolute; left: 0; top: 0"><path class="nu-lap" d="{{ r.star }}"></path><path class="nu-starL" d="{{ r.star }}" style="fill: #E8A64A"></path><path d="{{ r.star2 }}" style="fill: none; stroke: #F6D08A; stroke-width: 1"></path></svg>
+            <span class="nu-d" style="position: absolute; left: 0; top: 0; width: 52px; height: 52px; display: flex; align-items: center; justify-content: center; font-size: 19px; color: #FFF1DA">{{ r.n }}</span>
+          </span>
+          <span style="position: relative; overflow-wrap: anywhere">{{ r.t }}</span>
+        </button>
+      </li>
+      </sc-for>
+    </ul>
+  </section>
+  </sc-if>
+
+  <!-- ================= YOL ================= -->
+  <sc-if value="{{ b.yol }}">
+  <section class="{{ rv.yol }}" data-rv="yol" style="position: relative; padding: 0 0 56px">
+    <div class="nu-rv" style="display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center; padding: 0 20px">
+      <svg aria-hidden="true" width="140" height="26" viewBox="0 0 140 26"><path class="nu-gl" d="M0 13 H50 M90 13 H140"></path><g transform="translate(70 13)"><path class="nu-gf" d="{{ bigStar }}"></path><path class="nu-lap" d="{{ smallStar }}"></path></g></svg>
+      <sc-if value="{{ yolRange }}"><p class="nu-sc" style="color: #B06E22; letter-spacing: 0.24em">{{ yolRange }}</p></sc-if>
+      <h2 class="nu-d" style="margin: 0; font-size: 32px; line-height: 1.12; font-weight: 400; color: #24427F">Bizning yo’limiz</h2>
+      <p style="margin: 0; font-size: 17px; font-style: italic; color: #6A5440">Ravoqma-ravoq — suring</p>
+    </div>
+    <div class="nu-car nu-rv" style="margin-top: 22px; display: flex; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 6px 24px 18px; transition-delay: .15s">
+      <sc-for list="{{ yol }}" as="y">
+      <div class="nu-niche" style="flex: none; width: 220px; scroll-snap-align: center; position: relative">
+        <div style="{{ nicheClip }}position: relative; width: 220px; height: 300px; background: linear-gradient(180deg, #FFE7B0 0%, #F7D9B6 40%, #FBF4E8 75%)">
+          <div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 220px; height: 300px; opacity: .35"><svg width="220" height="300" viewBox="0 0 220 300"><rect width="220" height="300" style="fill: url(#nuShade)"></rect></svg></div>
+          <div style="position: absolute; left: 0; top: 0; width: 220px; height: 300px; box-sizing: border-box; padding: 86px 18px 20px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 6px">
+            <span class="nu-d" style="font-size: {{ y.fs }}px; line-height: 1; color: #24427F; overflow-wrap: anywhere">{{ y.yil }}</span>
+            <svg aria-hidden="true" width="60" height="10" viewBox="0 0 60 10"><path class="nu-gl" d="M0 5 H22 M38 5 H60"></path><path class="nu-gf" d="M30 0 L35 5 L30 10 L25 5Z"></path></svg>
+            <span class="nu-d" style="font-size: 21px; line-height: 1.2; color: #2A2118; overflow-wrap: anywhere">{{ y.sarlavha }}</span>
+            <sc-if value="{{ y.matn }}"><span style="font-size: 16px; line-height: 1.4; font-style: italic; color: #6A5440; overflow-wrap: anywhere">{{ y.matn }}</span></sc-if>
+          </div>
+        </div>
+        <svg aria-hidden="true" width="220" height="300" viewBox="0 0 220 300" style="position: absolute; left: 0; top: 0; overflow: visible"><path d="{{ nicheD }}" style="fill: none; stroke: #24427F; stroke-width: 3"></path><path class="nu-gl" d="{{ niche2D }}"></path></svg>
+        <span class="nu-d" style="position: absolute; left: 0; top: 34px; width: 220px; text-align: center; font-size: 13px; letter-spacing: 0.2em; color: #B06E22">{{ y.no }}</span>
+      </div>
+      </sc-for>
+    </div>
+    <sc-if value="{{ yolMany }}">
+    <div aria-hidden="true" style="display: flex; justify-content: center; gap: 8px">
+      <sc-for list="{{ yolDots }}" as="q"><svg width="10" height="10" viewBox="-5 -5 10 10"><path class="nu-gf" d="{{ dotStar }}" style="{{ q }}"></path></svg></sc-for>
+    </div>
+    </sc-if>
+  </section>
+  </sc-if>
+
+  <!-- ================= GALEREYA ================= -->
+  <sc-if value="{{ b.galereya }}">
+  <section class="{{ rv.galereya }}" data-rv="galereya" style="position: relative; padding: 0 12px 60px">
+    <div class="nu-rv" style="display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center">
+      <svg aria-hidden="true" width="140" height="26" viewBox="0 0 140 26"><path class="nu-gl" d="M0 13 H50 M90 13 H140"></path><g transform="translate(70 13)"><path class="nu-lap" d="{{ bigStar }}"></path><path class="nu-gf" d="{{ smallStar }}"></path></g></svg>
+      <p class="nu-sc" style="color: #B06E22">{{ galLbl }}</p>
+      <h2 class="nu-d" style="margin: 0; font-size: 32px; line-height: 1.12; font-weight: 400; color: #24427F">Nurli lahzalar</h2>
+    </div>
+    <div style="margin-top: 26px; display: flex; flex-direction: column; gap: 16px">
+      <sc-for list="{{ galRows }}" as="row">
+      <div style="display: flex; justify-content: center; align-items: flex-end; gap: 12px">
+        <sc-for list="{{ row.items }}" as="g">
+        <div class="nu-rv" style="position: relative; width: {{ g.w }}px; height: {{ g.h }}px; transition-delay: {{ g.dl }}">
+          <div style="position: absolute; left: 0; top: 0; width: {{ g.w }}px; height: {{ g.h }}px; clip-path: {{ g.clip }}; background: #E9D6BC; overflow: hidden">
+            <img src="{{ g.src }}" alt="" style="display: block; width: 100%; height: 100%; object-fit: cover">
+            <div class="nu-shut" aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; background: #3A2A35; transition-delay: {{ g.dl2 }}"><svg width="{{ g.w }}" height="{{ g.h }}" viewBox="0 0 {{ g.w }} {{ g.h }}" style="display: block"><rect width="{{ g.w }}" height="{{ g.h }}" style="fill: url(#nuStars); opacity: .5"></rect></svg></div>
+          </div>
+          <svg aria-hidden="true" width="{{ g.w }}" height="{{ g.h }}" viewBox="0 0 {{ g.w }} {{ g.h }}" style="position: absolute; left: 0; top: 0; overflow: visible"><path d="{{ g.d }}" style="fill: none; stroke: #24427F; stroke-width: 3"></path><path class="nu-gl" d="{{ g.d2 }}"></path></svg>
+        </div>
+        </sc-for>
+      </div>
+      </sc-for>
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- ================= HISOB ================= -->
+  <sc-if value="{{ b.hisob }}">
+  <section class="{{ rv.hisob }}" data-rv="hisob" style="position: relative; padding: 0 16px 60px; text-align: center">
+    <div class="nu-rv" style="display: flex; flex-direction: column; align-items: center; gap: 6px">
+      <svg aria-hidden="true" width="140" height="26" viewBox="0 0 140 26"><path class="nu-gl" d="M0 13 H50 M90 13 H140"></path><circle class="nu-gf" cx="70" cy="13" r="6"></circle><circle class="nu-gl" cx="70" cy="13" r="10"></circle></svg>
+      <h2 class="nu-d" style="margin: 0; font-size: 32px; line-height: 1.12; font-weight: 400; color: #24427F">Birga o’tgan kunlarimiz</h2>
+    </div>
+    <div class="nu-rv" style="position: relative; width: 340px; height: 200px; margin: 20px auto 0; overflow: hidden; transition-delay: .15s">
+      <div class="nu-rays" style="position: absolute; left: 20px; top: 30px; width: 300px; height: 300px">
+        <svg width="300" height="300" viewBox="-150 -150 300 300"><sc-for list="{{ sunRays }}" as="r"><path d="{{ r }}" style="fill: rgba(232, 166, 74, 0.22)"></path></sc-for></svg>
+      </div>
+      <div style="position: absolute; left: 60px; top: 70px; width: 220px; height: 220px; border-radius: 50%; background: radial-gradient(circle at 50% 40%, #FFF6E4 0%, #FFE2A6 60%, #F2B86A 100%); box-shadow: 0 0 0 1px #C98A3A, 0 0 0 7px #F3E6D3, 0 0 0 9px #24427F, 0 0 50px rgba(246, 199, 102, 0.6)"></div>
+      <div style="position: absolute; left: 0; top: 92px; width: 340px; display: flex; flex-direction: column; align-items: center">
+        <div aria-label="{{ daysLbl }}" style="display: flex; gap: 1px">
+          <sc-for list="{{ odo }}" as="o">
+          <span aria-hidden="true" style="position: relative; width: {{ odoW }}px; height: 60px; overflow: hidden">
+            <span class="nu-odo" style="transform: translateY({{ o.y }}px); transition-delay: {{ o.dl }}">
+              <sc-for list="{{ digits10 }}" as="n"><span class="nu-d" style="display: block; height: 60px; font-size: {{ odoPx }}px; line-height: 60px; color: #24427F">{{ n }}</span></sc-for>
+            </span>
+          </span>
+          </sc-for>
+        </div>
+        <p class="nu-sc" style="margin-top: 2px; color: #B06E22">kun</p>
+      </div>
+      <div aria-hidden="true" style="position: absolute; left: 0; top: 196px; width: 340px; height: 4px; background: #24427F"></div>
+    </div>
+    <div class="nu-rv" style="margin-top: 16px; display: flex; justify-content: center; gap: 8px; transition-delay: .3s">
+      <sc-for list="{{ ymd }}" as="c">
+      <div style="min-width: 86px; padding: 10px 8px 9px; box-sizing: border-box; background: #FBF4E8; box-shadow: 0 0 0 1px rgba(201, 138, 58, 0.5); border-radius: 43px 43px 3px 3px; display: flex; flex-direction: column; align-items: center">
+        <span class="nu-d" style="font-size: 28px; line-height: 1; color: #24427F">{{ c.v }}</span>
+        <span class="nu-sc" style="margin-top: 5px; font-size: 11px; color: #6A5440">{{ c.l }}</span>
+      </div>
+      </sc-for>
+    </div>
+    <div class="nu-rv" style="margin-top: 16px; display: flex; justify-content: center; align-items: baseline; gap: 4px; transition-delay: .45s">
+      <sc-for list="{{ clock }}" as="c">
+      <sc-if value="{{ c.sep }}"><span class="nu-d" style="font-size: 22px; color: #C98A3A">:</span></sc-if>
+      <span style="display: inline-flex; flex-direction: column; align-items: center; min-width: 46px">
+        <span key="{{ c.k }}" class="nu-d nu-flip" style="font-size: 26px; color: #2A2118">{{ c.v }}</span>
+        <span style="font-size: 12px; letter-spacing: 0.14em; color: #6A5440">{{ c.l }}</span>
+      </span>
+      </sc-for>
+    </div>
+    <sc-if value="{{ hasDate }}"><p class="nu-rv" style="margin: 14px 0 0; font-size: 18px; font-style: italic; color: #6A5440; transition-delay: .55s">{{ dateSince }}</p></sc-if>
+  </section>
+  </sc-if>
+
+  <!-- ================= SIRLI ================= -->
+  <sc-if value="{{ b.sirli }}">
+  <section class="{{ rv.sirli }}" data-rv="sirli" style="position: relative; padding: 0 20px 60px">
+    <div class="nu-rv" style="position: relative">
+      <div class="{{ shCls }}" style="position: relative; height: {{ secretH }}px">
+        <div style="{{ secClip }}position: absolute; left: 0; top: 0; width: 350px; height: {{ secretH }}px; background: linear-gradient(180deg, #FFE7B0 0%, #FBF4E8 60%)">
+          <div class="nu-glowIn" aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; background: radial-gradient(70% 45% at 50% 30%, rgba(255, 214, 140, 0.8) 0%, rgba(255, 214, 140, 0) 70%)"></div>
+          <div style="position: relative; height: 100%; box-sizing: border-box; padding: 110px 30px 30px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 12px">
+            <p class="nu-sc" style="color: #B06E22">Yashirin so’z</p>
+            <p class="{{ secretCls }}" style="margin: 0; font-size: 20px; line-height: 1.55; font-style: italic; color: #2A2118; white-space: pre-line; overflow-wrap: anywhere">{{ d.sirli_soz }}</p>
+            <sc-if value="{{ secretShown }}" hint-placeholder-val="{{ false }}"><p class="nu-sc nu-in" style="margin-top: 4px; color: #24427F; animation-delay: 1s">Bu so’z faqat ikkimizniki</p></sc-if>
+          </div>
+          <div class="nu-door nu-dl" style="position: absolute; left: 0; top: 0; width: 175px; height: 100%; background: #3A2A35; box-shadow: inset -2px 0 0 #2A1E2E">
+            <svg aria-hidden="true" width="175" height="{{ secretH }}" viewBox="0 0 175 {{ secretH }}" style="display: block"><rect width="175" height="{{ secretH }}" style="fill: url(#nuStars); opacity: .32"></rect></svg>
+          </div>
+          <div class="nu-door nu-dr" style="position: absolute; left: 175px; top: 0; width: 175px; height: 100%; background: #3A2A35; box-shadow: inset 2px 0 0 #2A1E2E">
+            <svg aria-hidden="true" width="175" height="{{ secretH }}" viewBox="0 0 175 {{ secretH }}" style="display: block"><rect width="175" height="{{ secretH }}" style="fill: url(#nuStars); opacity: .32"></rect></svg>
+          </div>
+          <div class="nu-dbtn" style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; box-sizing: border-box; padding-top: 70px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; text-align: center">
+            <p class="nu-d" style="margin: 0; padding: 4px 16px; font-size: 26px; color: #FFE7B8; background: rgba(42, 30, 46, 0.75); border-radius: 4px">Yopiq darcha</p>
+            <p style="margin: 0; padding: 2px 12px; font-size: 16px; font-style: italic; color: #F7D9B6; background: rgba(42, 30, 46, 0.75); border-radius: 4px">Ortida faqat sen uchun so’z bor</p>
+            <button type="button" onClick="{{ reveal }}" class="nu-btn" style="min-height: 50px; padding: 0 26px; border-radius: 999px; border: 1px solid #FFD68E; background: linear-gradient(110deg, #C9822A 0%, #F6C766 40%, #E39A35 70%, #FFE3A6 100%); color: #1C2340; font-family: 'Raleway', 'Trebuchet MS', sans-serif; font-weight: 700; font-size: 14px; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer">Darchani oching</button>
+          </div>
+        </div>
+        <svg aria-hidden="true" width="350" height="{{ secretH }}" viewBox="0 0 350 {{ secretH }}" style="position: absolute; left: 0; top: 0; pointer-events: none; overflow: visible"><path d="{{ secD }}" style="fill: none; stroke: #24427F; stroke-width: 4"></path><path class="nu-gl" d="{{ sec2D }}"></path></svg>
+      </div>
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- ================= JAVOB ================= -->
+  <sc-if value="{{ b.javob }}">
+  <section class="{{ rv.javob }}" data-rv="javob" style="position: relative; padding: 0 20px 50px; text-align: center">
+    <div class="nu-rv" style="position: relative; padding: 40px 22px 34px; background: radial-gradient(80% 50% at 50% 0%, #34569A 0%, #24427F 60%, #1A3166 100%); border-radius: 175px 175px 6px 6px; box-shadow: 0 0 0 1px #C98A3A, 0 0 0 6px #F3E6D3, 0 0 0 7px rgba(36, 66, 127, 0.5), 0 30px 50px -30px rgba(20, 30, 70, 0.8)">
+      <svg aria-hidden="true" width="56" height="56" viewBox="-28 -28 56 56" class="nu-rays" style="display: block; margin: 0 auto; animation-duration: 30s"><path class="nu-gf" d="{{ javStar }}"></path><path d="{{ javStar2 }}" style="fill: #FFE7B8"></path></svg>
+      <p class="nu-d nu-gold" style="margin: 12px 0 0; font-size: 28px; overflow-wrap: anywhere">{{ d.kimga }},</p>
+      <h2 class="nu-d" style="margin: 4px 0 0; font-size: 32px; line-height: 1.12; font-weight: 400; color: #FFF1DA">javobingni kutaman</h2>
+      <sc-if value="{{ asking }}" hint-placeholder-val="{{ true }}"><p style="margin: 8px 0 0; font-size: 17px; font-style: italic; color: #C9D3EE">Bitta bosish — va javobing yetib boradi</p></sc-if>
+      <div style="position: relative; min-height: 128px; margin-top: 22px">
+        <sc-if value="{{ asking }}" hint-placeholder-val="{{ true }}">
+        <div style="display: flex; flex-direction: column; gap: 12px">
+          <div role="group" aria-label="Javobni tanlang" style="display: flex; flex-direction: column; gap: 12px">
+            <button type="button" onClick="{{ sayLove }}" disabled="{{ busy }}" class="nu-btn" style="width: 100%; min-height: 56px; padding: 0 16px; border-radius: 999px; border: 1px solid #FFD68E; background: linear-gradient(110deg, #C9822A 0%, #F6C766 35%, #E39A35 60%, #FFE3A6 80%, #D68F35 100%); color: #1C2340; font-family: 'Bona Nova', Georgia, serif; font-size: 19px; cursor: pointer; box-shadow: 0 0 26px rgba(246, 199, 102, 0.35)">Men ham seni yaxshi ko’raman</button>
+            <button type="button" onClick="{{ sayDua }}" disabled="{{ busy }}" class="nu-btn" style="width: 100%; min-height: 56px; padding: 0 16px; border-radius: 999px; border: 1px solid #E8A64A; background: rgba(20, 30, 70, 0.4); color: #FFE7B8; font-family: 'Bona Nova', Georgia, serif; font-size: 19px; cursor: pointer">Sen ham mening nurimsan</button>
+          </div>
+          <sc-if value="{{ err }}"><p role="alert" style="margin: 0; font-size: 16px; font-weight: 700; color: #FFD68E">{{ err }}</p></sc-if>
+        </div>
+        </sc-if>
+        <sc-if value="{{ answered }}" hint-placeholder-val="{{ false }}">
+        <div style="position: relative; display: flex; flex-direction: column; align-items: center; gap: 8px">
+          <div aria-hidden="true" style="position: absolute; left: 50%; top: 70px; width: 0; height: 0">
+            <sc-for list="{{ burst }}" as="p"><span class="nu-ray" style="{{ p }}"></span></sc-for>
+          </div>
+          <p class="nu-d nu-gold nu-in" style="position: relative; margin: 0; font-size: 28px; line-height: 1.2">«{{ answer }}»</p>
+          <p class="nu-in" style="position: relative; margin: 0; font-size: 17px; line-height: 1.45; color: #E4E9F7; overflow-wrap: anywhere; animation-delay: .2s">Javobing {{ fromGa }} yetib bordi. Uyimiz hamisha nurli bo’lsin.</p>
+        </div>
+        </sc-if>
+      </div>
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- ================= FOOTER ================= -->
+  <footer style="flex: 1; padding: 6px 24px 46px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 8px">
+    <svg aria-hidden="true" width="160" height="26" viewBox="0 0 160 26"><path class="nu-gl" d="M0 13 H62 M98 13 H160"></path><g transform="translate(80 13)"><path class="nu-lap" d="{{ bigStar }}"></path><path class="nu-gf" d="{{ smallStar }}"></path></g></svg>
+    <p class="nu-ar" dir="rtl" lang="ar" style="margin: 4px 0 0; font-size: 22px; line-height: 46px; color: #24427F">بَارَكَ اللَّهُ لَكُمَا وَبَارَكَ عَلَيْكُمَا وَجَمَعَ بَيْنَكُمَا فِي خَيْرٍ</p>
+    <p style="margin: 0; font-size: 16.5px; line-height: 1.5; font-style: italic; color: #4A3A2C">«Alloh sizlarga baraka bersin, ustingizga baraka yog’dirsin va ikkingizni yaxshilikda jamlasin»</p>
+    <p class="nu-d" style="margin: 12px 0 0; font-size: 22px; color: #24427F; overflow-wrap: anywhere">{{ pair }}</p>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":5400}}'>
+const NU_RM = typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
+// avtomatlashtirilgan skrinshotlarda (navigator.webdriver) bo’limlar darhol ko’rinadi
+const NU_IO = typeof IntersectionObserver === 'function' && !NU_RM && !(typeof navigator !== 'undefined' && navigator.webdriver);
+const NU_KEYS = ['maktub', 'sabablar', 'yol', 'galereya', 'hisob', 'sirli', 'javob'];
+
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { opened: false, entered: false, rv: {}, lit: {}, secret: false, answer: null, busy: false, err: '' };
+  }
+  componentDidMount() {
+    this.timer = setInterval(() => this.forceUpdate(), 1000);
+    if (NU_IO) {
+      this.io = new IntersectionObserver((es) => {
+        const add = {};
+        es.forEach((e) => { if (e.isIntersecting) { add[e.target.getAttribute('data-rv')] = true; this.io.unobserve(e.target); } });
+        if (Object.keys(add).length) this.setState((s) => ({ rv: Object.assign({}, s.rv, add) }));
+      }, { rootMargin: '0px 0px -8% 0px', threshold: 0.01 });
+      this.watch();
+    }
+  }
+  componentDidUpdate() { this.watch(); }
+  componentWillUnmount() { clearInterval(this.timer); clearTimeout(this.t2); if (this.io) this.io.disconnect(); }
+  watch() {
+    if (!this.io) return;
+    document.querySelectorAll('[data-rv]').forEach((el) => { if (!el.__nu) { el.__nu = 1; this.io.observe(el); } });
+  }
+
+  nm(n) { return String(n || '').trim(); }
+  poss(n) { n = this.nm(n); return n ? n + (/[aeiouAEIOU’']$/.test(n) ? 'ng' : 'ing') : ''; }
+  fit(t, px, wpx, k) { const L = Math.max(1, ...String(t || '').split(/\s+/).map((x) => x.length)); return Math.max(18, Math.min(px, Math.floor(wpx / (L * (k || 0.5))))); }
+  numWord(n) { return ['', 'Bir', 'Ikki', 'Uch', 'To’rt', 'Besh', 'Olti', 'Yetti', 'Sakkiz', 'To’qqiz', 'O’n'][n] || ''; }
+  // 8-point star (khatam): 16 vertices alternating outer / inner radius
+  star(cx, cy, r, rot) {
+    const k = 0.7654, a0 = rot || 0; let d = '';
+    for (let i = 0; i < 16; i++) { const a = a0 + i * Math.PI / 8 - Math.PI / 2, rr = i % 2 ? r * k : r; d += (i ? ' L' : 'M') + (cx + Math.cos(a) * rr).toFixed(1) + ' ' + (cy + Math.sin(a) * rr).toFixed(1); }
+    return d + 'Z';
+  }
+  // pointed (two-centred) arch: apex at top, springing at s, straight jambs to h
+  arch(w, h, s, inset, ox, oy) {
+    const i = inset || 0, W = w - 2 * i, x0 = i + (ox || 0), y0 = i + (oy || 0), H = h - i + (oy || 0), S = s - i;
+    const bz = (p0, p1, p2, p3, t) => { const u = 1 - t; return u * u * u * p0 + 3 * u * u * t * p1 + 3 * u * t * t * p2 + t * t * t * p3; };
+    const ax = x0 + W / 2, ay = y0;
+    const L = [[x0, y0 + S], [x0, y0 + S * 0.42], [x0 + W * 0.26, y0 + S * 0.1], [ax, ay]];
+    const R = [[ax, ay], [x0 + W * 0.74, y0 + S * 0.1], [x0 + W, y0 + S * 0.42], [x0 + W, y0 + S]];
+    const f = (v) => (+v).toFixed(1), pts = [[x0, H]];
+    for (let k = 0; k <= 14; k++) { const t = k / 14; pts.push([bz(L[0][0], L[1][0], L[2][0], L[3][0], t), bz(L[0][1], L[1][1], L[2][1], L[3][1], t)]); }
+    for (let k = 1; k <= 14; k++) { const t = k / 14; pts.push([bz(R[0][0], R[1][0], R[2][0], R[3][0], t), bz(R[0][1], R[1][1], R[2][1], R[3][1], t)]); }
+    pts.push([x0 + W, H]);
+    const d = 'M' + f(x0) + ' ' + f(H) + ' V' + f(y0 + S) + ' C' + f(L[1][0]) + ' ' + f(L[1][1]) + ' ' + f(L[2][0]) + ' ' + f(L[2][1]) + ' ' + f(ax) + ' ' + f(ay) +
+      ' C' + f(R[1][0]) + ' ' + f(R[1][1]) + ' ' + f(R[2][0]) + ' ' + f(R[2][1]) + ' ' + f(x0 + W) + ' ' + f(y0 + S) + ' V' + f(H);
+    return { poly: 'polygon(' + pts.map((p) => f(p[0]) + 'px ' + f(p[1]) + 'px').join(', ') + ')', d };
+  }
+  lattice(x0, y0, x1, y1, step, r) {
+    let d = '';
+    for (let y = y0; y <= y1 + step; y += step) {
+      for (let x = x0; x <= x1 + step; x += step) {
+        d += this.star(x, y, r) + ' ';
+        d += 'M' + (x + r).toFixed(1) + ' ' + y + ' H' + (x + step - r).toFixed(1) + ' M' + x + ' ' + (y + r).toFixed(1) + ' V' + (y + step - r).toFixed(1) + ' ';
+      }
+    }
+    return d;
+  }
+  geo() {
+    if (this.g) return this.g;
+    const win = this.arch(270, 600, 290, 0, 60, 110), win2 = this.arch(270, 600, 290, -8, 60, 110), win3 = this.arch(270, 600, 290, 6, 60, 110);
+    const hwin = this.arch(240, 356, 190, 0, 75, 10), hwin2 = this.arch(240, 356, 190, 6, 75, 10);
+    const nstars = [];
+    for (let i = 0; i < 34; i++) { const x = 70 + ((i * 97) % 250), y = 140 + ((i * 53) % 380), s = i % 5 === 0 ? 3 : 2; nstars.push('position: absolute; left: ' + x + 'px; top: ' + y + 'px; width: ' + s + 'px; height: ' + s + 'px; border-radius: 50%; background: #FFF1D0; animation-delay: ' + (-(i % 7) * 0.45).toFixed(2) + 's'); }
+    const rays = [];
+    for (let i = 0; i < 16; i++) { const a = i * Math.PI / 8, a1 = a - 0.09, a2 = a + 0.09; rays.push('M' + (Math.cos(a1) * 112).toFixed(1) + ' ' + (Math.sin(a1) * 112).toFixed(1) + ' L' + (Math.cos(a) * 150).toFixed(1) + ' ' + (Math.sin(a) * 150).toFixed(1) + ' L' + (Math.cos(a2) * 112).toFixed(1) + ' ' + (Math.sin(a2) * 112).toFixed(1) + 'Z'); }
+    const niche = this.arch(220, 300, 130, 0), niche2 = this.arch(220, 300, 130, 7);
+    const tileStars = ['left: -3px; top: -3px; ', 'right: -3px; top: -3px; ', 'left: -3px; bottom: -3px; ', 'right: -3px; bottom: -3px; '];
+    this.g = {
+      winClip: 'clip-path: ' + win.poly + '; ', winD: win.d + ' Z', win2D: win2.d, win3D: win3.d,
+      latD: this.lattice(60, 120, 330, 600, 45, 13),
+      hwinClip: 'clip-path: ' + hwin.poly + '; ', hwinD: hwin.d, hwin2D: hwin2.d, hlatD: this.lattice(75, 20, 315, 360, 40, 11.5),
+      nstars, sunRays: rays, nicheClip: 'clip-path: ' + niche.poly + '; ', nicheD: niche.d + ' Z', niche2D: niche2.d + ' Z', tileStars,
+      patStar: this.star(14, 14, 9), patStar2: this.star(42, 42, 9),
+      bigStar: this.star(0, 0, 12), smallStar: this.star(0, 0, 5, Math.PI / 8), tStar: this.star(0, 0, 8), dotStar: this.star(0, 0, 4.5),
+      javStar: this.star(0, 0, 26), javStar2: this.star(0, 0, 12, Math.PI / 8),
+      miniStarR: this.star(38, 6, 5.5), miniStarL: this.star(6, 6, 5.5)
+    };
+    return this.g;
+  }
+  secretGeo(h) {
+    if (this.sg && this.sg.h === h) return this.sg;
+    const a = this.arch(350, h, 150, 0), a2 = this.arch(350, h, 150, 8);
+    this.sg = { h, clip: 'clip-path: ' + a.poly + '; ', d: a.d + ' Z', d2: a2.d + ' Z' };
+    return this.sg;
+  }
+  galRows() {
+    const n = Math.min(6, Math.max(1, SITE.has.photos)), plan = { 1: [1], 2: [2], 3: [1, 2], 4: [2, 2], 5: [2, 3], 6: [1, 2, 3] }[n];
+    const rows = []; let i = 0;
+    plan.forEach((c) => {
+      const items = [];
+      const dims = c === 1 ? [[300, 380]] : c === 2 ? [[170, 250], [170, 250]] : [[108, 200], [130, 240], [108, 200]];
+      dims.forEach(([w, h]) => {
+        const a = this.arch(w, h, Math.round(w * 0.62), 0), a2 = this.arch(w, h, Math.round(w * 0.62), 6);
+        items.push({ src: SITE.p[i], w, h, clip: a.poly, d: a.d + ' Z', d2: a2.d + ' Z', dl: (i * 0.08).toFixed(2) + 's', dl2: (0.3 + i * 0.12).toFixed(2) + 's' }); i++;
+      });
+      rows.push({ items });
+    });
+    return rows;
+  }
+  answer(a, emo) {
+    if (this.state.busy || this.state.answer) return;
+    this.setState({ busy: true, err: '' });
+    SITE.reply(a, emo).then(
+      () => this.setState({ answer: a, busy: false }),
+      () => this.setState({ busy: false, err: 'Javob yetib bormadi. Qayta bosib ko’ring.' })
+    );
+  }
+  renderVals() {
+    const s = this.state, d = SITE.d, g = this.geo();
+    const to = this.nm(d.kimga), from = this.nm(d.kimdan);
+    const w = SITE.when(d.tanishgan_sana), hasDate = !!w.day;
+    const el = SITE.elapsed(d.tanishgan_sana);
+    const txt = String(d.matn || '').replace(/^\s+/, '');
+    const isL = /[A-Za-zÀ-ɏЀ-ӿ]/.test(txt.charAt(0));
+    const reasons = d.sabablar || [], rn = reasons.length, yol = d.yol || [];
+    const ys = yol.map((x) => (x && x.yil) || '').filter(Boolean);
+    const total = Math.min(6, Math.max(1, SITE.has.photos));
+    const on = (k) => !!(s.rv[k] && s.opened);
+    const rv = {}; NU_KEYS.forEach((k) => { rv[k] = 'nu-sec' + (on(k) || !NU_IO ? ' is-in' : ''); });
+    const days = el.days || 0, dStr = String(days), dLen = Math.max(3, dStr.length), pad = dStr.padStart(dLen, '0');
+    const show = on('hisob') || !NU_IO;
+    const odo = pad.split('').map((c, i) => ({ y: show ? -60 * (+c) : 0, dl: (i * 0.12).toFixed(2) + 's' }));
+    const sl = String(d.sirli_soz || '').split('\n').reduce((n, x) => n + Math.max(1, Math.ceil(x.length / 27)), 0);
+    const secretH = Math.max(360, 230 + sl * 31), sg = this.secretGeo(secretH);
+    const burst = [];
+    for (let i = 0; i < 16; i++) burst.push('--a: ' + (i * 22.5).toFixed(1) + 'deg; animation-delay: ' + ((i % 4) * 0.05).toFixed(2) + 's');
+    const tl = to.length;
+    return {
+      to, from, hasDate,
+      rootCls: 'nu-root' + (NU_IO ? ' nu-io' : '') + (s.entered || NU_RM ? ' is-in' : ''),
+      introCls: s.opened ? 'nu-intro is-open' : 'nu-intro',
+      open: () => {
+        if (this.state.opened) return;
+        this.setState({ opened: true });
+        SITE.opened();
+        this.t2 = setTimeout(() => this.setState({ entered: true }), NU_RM ? 0 : 3000);
+      },
+      musicOn: !!SITE.music.playing, musicOff: !SITE.music.playing, toggleMusic: () => SITE.music.toggle(),
+      winClip: g.winClip, winD: g.winD, win2D: g.win2D, win3D: g.win3D, latD: g.latD, nstars: g.nstars,
+      hwinClip: g.hwinClip, hwinD: g.hwinD, hwin2D: g.hwin2D, hlatD: g.hlatD, sunRays: g.sunRays,
+      nicheClip: g.nicheClip, nicheD: g.nicheD, niche2D: g.niche2D, tileStars: g.tileStars,
+      patStar: g.patStar, patStar2: g.patStar2, bigStar: g.bigStar, smallStar: g.smallStar, tStar: g.tStar, dotStar: g.dotStar,
+      javStar: g.javStar, javStar2: g.javStar2, miniStarR: g.miniStarR, miniStarL: g.miniStarL,
+      introPx: Math.min(this.fit(to, 46, 334, 0.5), tl > 16 ? 34 : 46),
+      h1px: Math.min(this.fit(to, 56, 342, 0.5), tl > 16 ? 40 : 56),
+      fromLine: from ? from + 'dan — muhabbat va duo bilan' : 'muhabbat va duo bilan',
+      dateDots: hasDate ? w.dots.split('.').join(' · ') : '',
+      dateSince: hasDate ? w.dm + ' ' + w.year + '-yildan beri — har tong shukr bilan' : '',
+      greet: 'Assalomu alaykum, azizim ' + to + '!',
+      sign: from ? (/\s/.test(from) ? from : 'sening ' + this.poss(from)) : '',
+      pair: [from, to].filter(Boolean).join(' va '),
+      fromGa: SITE.ga(from),
+      rv,
+      capL: isL ? txt.charAt(0) : '',
+      capRest: isL ? txt.slice(1) : txt,
+      reasonsLbl: rn <= 10 ? this.numWord(rn) + ' sabab' : rn + ' sabab',
+      reasons: reasons.map((t, i) => {
+        const onB = !!s.lit[i];
+        return { t, n: String(i + 1), on: onB, star: this.star(0, 0, 25), star2: this.star(0, 0, 20), dl: (0.07 * Math.min(i, 7)).toFixed(2) + 's', cls: 'nu-card' + (onB ? ' is-b' : ''),
+          tap: () => this.setState((st) => ({ lit: Object.assign({}, st.lit, { [i]: !st.lit[i] }) })) };
+      }),
+      yolRange: ys.length > 1 && ys[0] !== ys[ys.length - 1] ? ys[0] + ' — ' + ys[ys.length - 1] : (ys[0] || ''),
+      yol: yol.map((x, i) => { const yl = String(x.yil || ''); return { yil: yl, no: (i + 1) + ' / ' + yol.length, sarlavha: x.sarlavha || '', matn: x.matn || '', fs: yl.length <= 4 ? 44 : yl.length <= 8 ? 30 : 22 }; }),
+      yolMany: yol.length > 1,
+      yolDots: yol.map((x, i) => (i === 0 ? 'opacity: 1' : 'opacity: .4')),
+      galLbl: total <= 10 ? this.numWord(total) + ' lahza' : total + ' lahza',
+      galRows: this.galRows(),
+      digits10: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'],
+      odo, odoPx: dLen > 5 ? 46 : 56, odoW: dLen > 5 ? 28 : 34, daysLbl: days + ' kun',
+      ymd: [{ v: el.years || 0, l: 'yil' }, { v: el.months || 0, l: 'oy' }, { v: el.rest || 0, l: 'kun' }],
+      clock: [
+        { sep: false, v: SITE.pad(el.h || 0), l: 'soat', k: 'h' + (el.h || 0) },
+        { sep: true, v: SITE.pad(el.m || 0), l: 'daqiqa', k: 'm' + (el.m || 0) },
+        { sep: true, v: SITE.pad(el.s || 0), l: 'soniya', k: 's' + (el.s || 0) }
+      ],
+      shCls: s.secret ? 'nu-sh is-open' : 'nu-sh',
+      secretCls: s.secret ? 'nu-secret is-shown' : 'nu-secret',
+      secretShown: s.secret, secretH, secClip: sg.clip, secD: sg.d, sec2D: sg.d2,
+      reveal: () => this.setState({ secret: true }),
+      asking: !s.answer, answered: !!s.answer, answer: s.answer || '', busy: s.busy, err: s.err, burst,
+      sayLove: () => this.answer('Men ham seni yaxshi ko’raman', '❤️'),
+      sayDua: () => this.answer('Sen ham mening nurimsan', '🥰')
+    };
+  }
+}
+</script>
+</body>
+</html>

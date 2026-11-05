@@ -187,7 +187,7 @@ body{margin:0}
     <section style="position: relative; padding: 40px 20px 44px">
       <p class="xt-tag">{{ tab.tabrik }}</p>
       <h2 class="xt-h2">Tabrik</h2>
-      <div class="xt-rise" style="position: relative; margin-top: 24px; padding: 54px 26px 54px; border-radius: 26px; background: #FFFFFF; box-shadow: 0 8px 0 #CBBDF2, 0 26px 44px rgba(35,25,66,0.16); transform: rotate(-1.2deg)">
+      <div class="xt-rise" style="position: relative; margin-top: 24px; padding: 78px 26px 80px; border-radius: 26px; background: #FFFFFF; box-shadow: 0 8px 0 #CBBDF2, 0 26px 44px rgba(35,25,66,0.16); transform: rotate(-1.2deg)">
         <span class="xt-idx" aria-hidden="true" style="left: 18px; top: 16px; font-size: 30px; color: #FF5436">{{ ini }}<svg width="18" height="18" viewBox="0 0 80 80" style="display: block; margin: 2px auto 0"><path d="M40 8L49.4 28.6L72 31.2L55.2 46.4L59.8 68.6L40 57.4L20.2 68.6L24.8 46.4L8 31.2L30.6 28.6Z" fill="#FF5436"></path></svg></span>
         <span class="xt-idx" aria-hidden="true" style="right: 18px; bottom: 16px; font-size: 30px; color: #FF5436; transform: rotate(180deg)">{{ ini }}<svg width="18" height="18" viewBox="0 0 80 80" style="display: block; margin: 2px auto 0"><path d="M40 8L49.4 28.6L72 31.2L55.2 46.4L59.8 68.6L40 57.4L20.2 68.6L24.8 46.4L8 31.2L30.6 28.6Z" fill="#FF5436"></path></svg></span>
         <p style="margin: 0; font-size: 17px; line-height: 1.65; color: #2E2552; white-space: pre-line; overflow-wrap: anywhere">{{ d.matn }}</p>
@@ -532,7 +532,7 @@ class Component extends DCLogic {
         tap: () => this.flip(i)
       };
     });
-    const phaseLine = s.win ? 'Hamma juftlar topildi!' : s.phase === 'deal' ? 'Kartalar tarqatilmoqda…' : s.phase === 'peek' ? 'Eslab qoling — kartalar hozir yopiladi!' : 'Ikkita kartani oching: bir xil bo’lsa — juft topildi. Oxirida ' + SITE.ga(name || 'qahramon') + ' tabrik ochiladi.';
+    const phaseLine = s.win ? 'Hamma juftlar topildi!' : s.phase === 'deal' ? 'Kartalar tarqatilmoqda…' : s.phase === 'peek' ? 'Eslab qoling — kartalar hozir yopiladi!' : 'Ikkita kartani oching va bir xil juftlarni toping — oxirida tabrik ochiladi!';
 
     /* page */
     const imgs = SITE.p.slice(0, Math.min(PAIRS, SITE.has.photos));
@@ -541,7 +541,7 @@ class Component extends DCLogic {
     const sides = [pool[0], pool[1] || pool[0]];
     const fan = [sides[0], sides[1], center].map((f, i) => ({
       img: f.img || '', ref: f.ref || '', age: !!f.age, ib: 'width: 164px; height: 224px; ' + (f.ib || ''),
-      st: 'transform: ' + ['rotate(-17deg) translate(-36px, 8px)', 'rotate(17deg) translate(36px, 8px)', 'rotate(-2deg) translateY(-6px)'][i] + '; z-index: ' + [1, 1, 2][i],
+      st: 'transform: ' + ['rotate(-11deg) translate(-26px, 6px)', 'rotate(11deg) translate(26px, 6px)', 'rotate(-2deg) translateY(-6px)'][i] + '; z-index: ' + [1, 1, 2][i],
       sw: 'animation-delay: -' + (i * 1.6).toFixed(1) + 's',
       bg: f.age ? 'background: #FFFFFF' : ''
     }));

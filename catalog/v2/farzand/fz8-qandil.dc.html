@@ -131,7 +131,13 @@ body{margin:0;background:#241B3A}
 
   <div data-intro class="{{ introCls }}" aria-hidden="{{ introHidden }}" style="display: {{ introDisp }}; position: absolute; left: 0; top: 0; width: 390px; height: 844px; z-index: 30; overflow: hidden">
     <span aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 0; height: 0"></span>
-    <div aria-hidden="true" style="position: absolute; left: 0; top: 560px; width: 390px; height: 284px; background: linear-gradient(180deg, rgba(36, 27, 58, 0), rgba(29, 22, 49, 0.92) 46%, #1D1631)"></div>
+    <div aria-hidden="true" style="position: absolute; left: 0; top: 500px; width: 390px; height: 344px; background: linear-gradient(180deg, rgba(36, 27, 58, 0), rgba(29, 22, 49, 0.9) 40%, #1D1631)"></div>
+    <sc-if value="{{ preShow }}">
+      <div style="position: absolute; left: 22px; top: 528px; width: 346px; text-align: center">
+        <p class="qd-eye"><i></i>{{ preFamily }}<i></i></p>
+        <p class="qd-dsp" style="margin: 12px 0 0; font-size: 28px; line-height: 1.25; color: #FFF6E6">Xonadonimizga yangi nur kirdi</p>
+      </div>
+    </sc-if>
     <div style="position: absolute; left: 0; top: 646px; width: 390px; text-align: center">
       <p class="qd-hint" style="margin: 0 32px; font-size: 16px; font-style: italic; line-height: 1.5; color: #E7DCEF">{{ introHint }}</p>
       <button type="button" class="qd-btn qd-cta" onClick="{{ light }}" style="margin-top: 20px; display: inline-flex; align-items: center; gap: 12px; height: 60px; padding: 0 30px 0 14px; border: 1px solid rgba(255, 236, 190, 0.8); border-radius: 30px; background: linear-gradient(180deg, #F7D899, #D9A65A); color: #3A2410; font-family: 'Lora', 'Georgia', serif; font-size: 18px; font-weight: 600">
@@ -190,10 +196,6 @@ body{margin:0;background:#241B3A}
     </div>
 
     <div style="position: relative; padding: 0 22px; text-align: center">
-      <div class="qd-pre" aria-hidden="{{ introHidden }}" style="position: absolute; left: 22px; top: 6px; width: 346px">
-        <p class="qd-eye"><i></i>{{ preFamily }}<i></i></p>
-        <p class="qd-dsp" style="margin: 14px 0 0; font-size: 30px; line-height: 1.25; color: #FFF6E6">Xonadonimizga<br>yangi nur kirdi</p>
-      </div>
       <p class="qd-after" style="margin: 0; font-size: 21px; font-style: italic; color: var(--gold)">Alhamdulillah!</p>
       <h1 class="qd-dsp qd-after qd-a2" style="margin: 8px 0 0; font-size: {{ nameFs }}; line-height: 1.12; color: #FFF6E6; text-shadow: 0 0 26px rgba(243, 204, 133, 0.45); overflow-wrap: break-word">{{ nameText }}</h1>
       <p class="qd-after qd-a3" style="margin: 12px 6px 0; font-size: 17px; line-height: 1.55; color: var(--mut); overflow-wrap: anywhere">{{ giftLine }}</p>
@@ -633,6 +635,7 @@ class Component extends DCLogic {
       introDisp: s.gone ? 'none' : 'block',
       introCls: 'qd-intro' + (s.fade ? ' is-fade' : ''),
       introHidden: s.lit ? 'true' : 'false',
+      preShow: lanH < 400,
       preFamily: d.ota_ona ? d.ota_ona + ' oilasi' : 'Quvonchli xabar',
       introHint: 'Har bir qandilda ' + (qiz ? 'qizalog’imiz' : 'o’g’ilchamiz') + ' ismining bir harfi yashiringan',
       light: () => this.light(),
