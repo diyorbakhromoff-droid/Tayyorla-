@@ -40,9 +40,9 @@ a{color:#3D6BFF}
 .pz-pL{fill:none;stroke:#FFFFFF;stroke-width:.8;opacity:.5}
 .pz-pD{fill:none;stroke:#2A3042;stroke-width:1.2;stroke-linejoin:round;opacity:.55}
 
-/* countdown */
-.pz-tile{position:relative;flex:1;min-width:0;height:118px;border-radius:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;overflow:hidden}
-.pz-num{display:block;font-family:'Spectral',Georgia,serif;font-weight:300;font-size:46px;line-height:1;color:#11141C;font-variant-numeric:lining-nums tabular-nums}
+/* age */
+.pz-tile{position:relative;flex:1 1 40%;min-width:0;height:118px;border-radius:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;overflow:hidden}
+.pz-num{display:block;white-space:nowrap;font-family:'Spectral',Georgia,serif;font-weight:300;font-size:50px;line-height:1;color:#11141C;font-variant-numeric:lining-nums tabular-nums}
 .pz-num--a{animation:pz-splitA .7s cubic-bezier(.2,.8,.2,1) both}
 .pz-num--b{animation:pz-splitB .7s cubic-bezier(.2,.8,.2,1) both}
 @keyframes pz-splitA{from{opacity:.3;transform:translateY(-8px);filter:drop-shadow(-7px 0 rgba(255,59,92,0.9)) drop-shadow(7px 0 rgba(34,181,240,0.9))}to{opacity:1;transform:none;filter:drop-shadow(0 0 0 rgba(255,59,92,0)) drop-shadow(0 0 0 rgba(34,181,240,0))}}
@@ -206,11 +206,11 @@ a{color:#3D6BFF}
 </sc-if>
 
 <sc-if value="{{ b.taymer }}">
-    <section style="position: relative; padding: 40px 20px 44px">
+    <section id="pz-age" style="position: relative; padding: 40px 20px 44px">
       <p class="pz-kick"><span class="pz-dot" style="{{ hd.taymer.dot }}"></span>{{ hd.taymer.t }}</p>
-      <h2 class="pz-h2">{{ cdTitle }}</h2>
-      <p class="pz-lead">{{ cdDate }}</p>
-      <div class="pz-rise" style="display: flex; gap: 8px; margin-top: 24px">
+      <h2 class="pz-h2">Sening <i>yoshing</i></h2>
+      <p class="pz-lead">{{ ageLead }}</p>
+      <div class="pz-rise" style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px">
         <sc-for list="{{ tiles }}" as="t">
           <div class="pz-tile pz-glass">
             <span aria-hidden="true" style="{{ t.edge }}"></span>
@@ -446,7 +446,7 @@ const tkFit = (text, max, min, width, k) => {
   return Math.max(min, Math.min(max, Math.floor(width / (longest * k))));
 };
 const ORDER = ['tabrik', 'taymer', 'tilaklar', 'sham', 'sirli', 'galereya', 'xronika', 'mehmonlar', 'javob'];
-const TABN = { tabrik: 'Tabrik', taymer: 'Taymer', tilaklar: 'Tilaklar', sham: 'Sham', sirli: 'Sirli tilak', galereya: 'Suratlar', xronika: 'Xronika', mehmonlar: 'Yaqinlar', javob: 'Tabrik' };
+const TABN = { tabrik: 'Tabrik', taymer: 'Yosh', tilaklar: 'Tilaklar', sham: 'Sham', sirli: 'Sirli tilak', galereya: 'Suratlar', xronika: 'Xronika', mehmonlar: 'Yaqinlar', javob: 'Tabrik' };
 const SPEC = ['#FF3B5C', '#FF8A3D', '#F5C21B', '#2FCB78', '#22B5F0', '#3D6BFF', '#8A4DFF'];
 const rnd = (i, k) => { const x = Math.sin(i * 127.1 + k * 311.7) * 43758.5453; return x - Math.floor(x); };
 /* wavelength (nm) to a display colour */
@@ -488,7 +488,7 @@ class Component extends DCLogic {
   constructor(props) {
     super(props);
     this.state = { opened: false, blown: false, sec: false, sent: false, wOn: {} };
-    this.tick = 0;
+    this.ageK = tkAgeStill() ? 1 : 0;
     this.deco = {
       caus: [[-120, 520, 300, 0.22], [230, 1500, 260, 0.2], [-130, 2600, 300, 0.2], [240, 3600, 280, 0.18], [-110, 4700, 280, 0.2], [220, 5700, 260, 0.18]].map((c, i) => 'left: ' + c[0] + 'px; top: ' + c[1] + 'px; width: ' + c[2] + 'px; height: ' + c[2] + 'px; opacity: ' + c[3] + '; animation-delay: -' + (i * 4) + 's'),
       motes: Array.from({ length: 26 }, (_, i) => 'left: ' + Math.round(10 + rnd(i, 3) * 370) + 'px; top: ' + Math.round(30 + rnd(i, 4) * 780) + 'px; --dx: ' + Math.round((rnd(i, 5) - 0.5) * 40) + 'px; --dy: ' + Math.round((rnd(i, 6) - 0.5) * 40) + 'px; animation-duration: ' + (4 + rnd(i, 7) * 4).toFixed(1) + 's; animation-delay: -' + (rnd(i, 8) * 4).toFixed(1) + 's'),
@@ -499,28 +499,25 @@ class Component extends DCLogic {
     };
   }
   componentDidMount() {
-    this.timer = setInterval(() => { this.prevCd = this.lastCd; this.tick += 1; this.forceUpdate(); }, 1000);
+    tkAgeRun(this, 'pz-age', 2000);
   }
   componentWillUnmount() {
-    clearInterval(this.timer);
+    tkAgeStop(this);
   }
   renderVals() {
     const s = this.state;
     const D = SITE.d;
     const name = tkName(D), from = tkFrom(D);
     const w = SITE.when(D.sana);
-    const c = SITE.countdown(D.sana);
+    const ag = SITE.age(D.sana, D.yosh), K = this.ageK;
     const yosh = String(D.yosh || '').trim();
     const hd = {};
     let k = 0;
     ORDER.forEach((key) => {
       if (SITE.b[key]) { const nm = 700 - (k % 7) * 50; hd[key] = { t: '0' + (k + 1) + ' · ' + TABN[key] + ' · ' + nm + ' nm', dot: 'background: ' + SPEC[k % 7] + '; box-shadow: 0 0 10px ' + SPEC[k % 7] }; k += 1; } else hd[key] = { t: '', dot: '' };
     });
-    const cur = [String(c.d), c.hh, c.mm, c.ss];
-    const prev = this.prevCd || cur;
-    this.lastCd = cur;
-    const L = ['kun', 'soat', 'daqiqa', 'soniya'];
-    const tiles = cur.map((v, i) => ({ v: v, l: L[i], edge: 'position: absolute; left: 18px; right: 18px; top: 0; height: 3px; border-radius: 0 0 3px 3px; background: ' + [SPEC[0], SPEC[2], SPEC[4], SPEC[6]][i], cls: v !== prev[i] ? (this.tick % 2 ? 'pz-num pz-num--a' : 'pz-num pz-num--b') : 'pz-num' }));
+    const L = ['yil', 'oy', 'hafta', 'kun'];
+    const tiles = [ag.y, ag.mo, ag.w, ag.d].map((x, i) => ({ v: SITE.num(Math.round(x * K)), l: L[i], edge: 'position: absolute; left: 18px; right: 18px; top: 0; height: 3px; border-radius: 0 0 3px 3px; background: ' + [SPEC[0], SPEC[2], SPEC[4], SPEC[6]][i], cls: K === 1 ? 'pz-num pz-num--a' : 'pz-num' }));
     const matn = String(D.matn || '').trim();
     const list = D.tilaklar || [];
     const nW = list.length;
@@ -581,8 +578,7 @@ class Component extends DCLogic {
       toggleMusic: () => { SITE.music.toggle(); },
       dropCap: matn.charAt(0),
       restText: matn.slice(1),
-      cdTitle: c.done ? 'Bayram boshlandi!' : 'Bayramgacha',
-      cdDate: [w.date, w.weekday].filter(Boolean).join(', '),
+      ageLead: 'Sen bu dunyoni ' + tkNb(ag.d) + ' kundan beri yorug’ qilib kelyapsan. Har bir kuning — biz uchun sovg’a.',
       tiles: tiles,
       wishes: wishes, ticks: ticks,
       cakeCls: s.blown ? 'pz-cake--out' : '',
