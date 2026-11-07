@@ -145,7 +145,7 @@ BLOCKS2: dict[str, list[Block]] = {
     "tugilgan-kun": [
         Block("tabrik", "Tabrik matni", ["matn", "kimdan"], ["matn"]),
         Block("tilaklar", "Tilaklar", ["tilaklar"], ["tilaklar"]),
-        Block("taymer", "Taymer", [], ["sana"]),
+        Block("taymer", "Sening yoshing", [], ["sana", "yosh"]),
         Block("sham", "«Shamni o'chiring»"),
         Block("sirli", "Sirli tilak", ["sirli_tilak"], ["sirli_tilak"]),
         Block("galereya", "Suratlar", [], [PHOTOS]),
@@ -213,7 +213,8 @@ BLOCKS2: dict[str, list[Block]] = {
 # Avval sotib olingan saytlarda (ma'lumoti to'ldirilgan bo'lsa) o'zgarishsiz qoladi.
 RETIRED_BLOCKS = {
     "sevgi": {"savol"},  # «Menga turmushga chiqasanmi?» kabi muhim savol
-    "tugilgan-kun": {"bazm"},  # «Bazmga kelasanmi?» — bazmga taklif va javob
+    # «Bazmga kelasanmi?» — bazmga taklif; «Tabrikladim» — sayt tug'ilgan kun egasiga sovg'a, u o'zini tabriklamaydi
+    "tugilgan-kun": {"bazm", "javob"},
 }
 
 _FIELD = {s: {f.key: f for f in fs} for s, fs in FIELDS2.items()}
@@ -318,6 +319,8 @@ def visible_blocks(t: dict, data: dict, photos: list, music, hidden: list) -> di
     # olib tashlangan bloklar faqat eski saytlarda, ma'lumoti bo'lsa ko'rinadi (yangi buyurtmada maydoni yo'q)
     for key in t["blocks"] + t.get("retired", []):
         ok = key not in hidden
+        if key not in t["blocks"] and not _BLOCK[t["section"]][key].needs:
+            ok = False  # ma'lumotsiz olib tashlangan blok (masalan, «Tabrikladim») hech qayerda chiqmaydi
         for need in _BLOCK[t["section"]][key].needs:
             if need == PHOTOS:
                 ok = ok and bool(photos)

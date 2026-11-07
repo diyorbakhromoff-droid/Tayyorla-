@@ -56,6 +56,22 @@
       h: Math.floor(s / 3600) % 24, m: Math.floor(s / 60) % 60, s: s % 60, totalMonths: months };
   }
 
+  /** Tug'ilgan kun egasining yoshi: sana (tug'ilgan kun) va yosh dan tug'ilgan sana topiladi.
+      Tug'ilgan kungacha hisob shu kunga, undan keyin bugunga qadar: {y, mo, w, d, h, none} — jami yil, oy, hafta, kun, soat */
+  function age(iso, yosh) {
+    var day = moment(iso), n = parseInt(yosh, 10);
+    if (!day || !(n >= 0 && n < 130)) return { y: 0, mo: 0, w: 0, d: 0, h: 0, none: true };
+    var t = new Date(day.getTime() + 5 * 3600e3);
+    var birth = new Date(Date.UTC(t.getUTCFullYear() - n, t.getUTCMonth(), t.getUTCDate()) - 5 * 3600e3);
+    var ref = new Date(Math.max(Date.now(), day.getTime()));
+    var a = new Date(birth.getTime() + 5 * 3600e3), b = new Date(ref.getTime() + 5 * 3600e3);
+    var months = (b.getUTCFullYear() - a.getUTCFullYear()) * 12 + b.getUTCMonth() - a.getUTCMonth();
+    if (b.getUTCDate() < a.getUTCDate()) months--;
+    months = Math.max(0, months);
+    var ms = Math.max(0, ref.getTime() - birth.getTime()), d = Math.floor(ms / 86400e3);
+    return { y: Math.floor(months / 12), mo: months, w: Math.floor(d / 7), d: d, h: Math.floor(ms / 3600e3), none: false };
+  }
+
   var num = function (n) { return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, " "); };
 
   // ---------------------------------------------------------------- javoblar
@@ -94,7 +110,7 @@
     d: CFG.data || {}, p: ph, b: CFG.b || {}, tier: CFG.tarif, demo: !!CFG.demo, preview: !!CFG.preview,
     has: { photo: photos.length > 0, photos: photos.length, music: !!CFG.music, guest: !!guest },
     guest: guest ? guest.n : "",
-    when: when, countdown: countdown, elapsed: elapsed, num: num, pad: pad, cap: cap,
+    when: when, countdown: countdown, elapsed: elapsed, age: age, num: num, pad: pad, cap: cap,
     music: music, refresh: refresh,
     /** Egasiga javob (Kechirdim, Tabrikladim, «Ha»…) — bot orqali yetadi. */
     reply: function (message, emoji) { return post(U.react, { emoji: emoji || "❤️", message: String(message || "").slice(0, 300) }); },

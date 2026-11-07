@@ -85,6 +85,12 @@ assert "savol" not in {f.key for f in catalog2.fields_for(sv)} and "savol" not i
 assert "savol" not in clean_order({"template": sv["id"], "data": {"kimga": "A", "savol": "Turmushga chiqasanmi?"}}, strict=False)["data"]
 assert catalog2.visible_blocks(sv, {"savol": "Eski savol"}, [], None, [])["savol"] is True  # eski sotilgan sayt o'zgarmaydi
 assert catalog2.visible_blocks(sv, {}, [], None, [])["savol"] is False
+# tug'ilgan kun: «Tabrikladim» tugmasi hech qayerda yo'q, «Sening yoshing» yosh kiritilgandagina chiqadi
+for t in (x for x in v2 if x["section"] == "tugilgan-kun"):
+    vb = catalog2.visible_blocks(t, {"sana": "2026-11-14", "yosh": "25"}, [], None, [])
+    assert vb.get("javob", False) is False and "javob" not in t["blocks"], t["id"]
+    if "taymer" in t["blocks"]:
+        assert vb["taymer"] is True and catalog2.visible_blocks(t, {"sana": "2026-11-14"}, [], None, [])["taymer"] is False
 tk = next(t for t in v2 if "bazm" in t["retired"])
 assert "bazm_sana" not in catalog2.demo_config(tk)["data"] and "Bahor" not in catalog2.render(tk, catalog2.demo_config(tk), "namuna", preview=False, demo=True)
 
