@@ -76,11 +76,11 @@ a{color:#1F6F73}
 @keyframes cb-flyP{0%{opacity:0;transform:translate(0,0) rotate(0)}15%{opacity:1}100%{opacity:0;transform:translate(var(--fx),var(--fy)) rotate(220deg)}}
 
 /* flip timer */
-.cb-flip{position:relative;width:74px;height:90px;perspective:320px}
-.cb-half{position:absolute;left:0;width:74px;height:45px;overflow:hidden;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.cb-flip{position:relative;width:100%;height:90px;perspective:320px}
+.cb-half{position:absolute;left:0;width:100%;height:45px;overflow:hidden;backface-visibility:hidden;-webkit-backface-visibility:hidden}
 .cb-top{top:0;border-radius:12px 12px 0 0;background:linear-gradient(180deg,#2A8A8A,#1F7375)}
 .cb-bot{top:45px;border-radius:0 0 12px 12px;background:linear-gradient(180deg,#1B6869,#15585B)}
-.cb-half span{display:block;width:74px;height:90px;line-height:90px;text-align:center;font-family:'Lora',Georgia,serif;font-size:42px;font-weight:500;color:#FFF3DC;font-variant-numeric:lining-nums tabular-nums}
+.cb-half span{display:block;width:100%;white-space:nowrap;height:90px;line-height:90px;text-align:center;font-family:'Lora',Georgia,serif;font-size:40px;font-weight:500;color:#FFF3DC;font-variant-numeric:lining-nums tabular-nums}
 .cb-bot span{transform:translateY(-45px)}
 .cb-flap1{z-index:2;transform-origin:50% 100%;transform:rotateX(-90deg)}
 .cb-flap2{z-index:2;transform-origin:50% 0;transform:rotateX(0)}
@@ -92,8 +92,8 @@ a{color:#1F6F73}
 @keyframes cb-fBotA{from{transform:rotateX(90deg)}to{transform:rotateX(0)}}
 @keyframes cb-fTopB{from{transform:rotateX(0)}to{transform:rotateX(-90deg)}}
 @keyframes cb-fBotB{from{transform:rotateX(90deg)}to{transform:rotateX(0)}}
-.cb-hinge{position:absolute;left:0;top:44.5px;width:74px;height:1px;background:rgba(8,40,42,0.8);z-index:3}
-.cb-tFrame{position:absolute;left:-5px;top:-5px;width:84px;height:100px;box-sizing:border-box;border-radius:16px;border:2px solid #C98A5C;box-shadow:inset 0 0 0 3px #F2DDBA;z-index:4;pointer-events:none}
+.cb-hinge{position:absolute;left:0;top:44.5px;width:100%;height:1px;background:rgba(8,40,42,0.8);z-index:3}
+.cb-tFrame{position:absolute;left:-5px;top:-5px;width:calc(100% + 10px);height:100px;box-sizing:border-box;border-radius:16px;border:2px solid #C98A5C;box-shadow:inset 0 0 0 3px #F2DDBA;z-index:4;pointer-events:none}
 
 /* secret: pool with a pebble */
 .cb-sec{position:relative;display:block;width:350px;height:300px;margin:0;padding:0;border:0;border-radius:24px;background:none;color:inherit;font:inherit;cursor:pointer;overflow:hidden;text-align:center}
@@ -393,13 +393,13 @@ a{color:#1F6F73}
 
 <sc-if value="{{ b.taymer }}">
     <div class="cb-ariq" aria-hidden="true"><span class="cb-ariqL"><span class="cb-ariqW"><span class="cb-flow"></span></span></span><svg width="30" height="30" viewBox="0 0 30 30" style="position: absolute; left: 160px; top: 5px"><path d="M15 1L25 5L29 15L25 25L15 29L5 25L1 15L5 5Z" fill="#E3CBA3"></path><path d="M15 5L22 8L25 15L22 22L15 25L8 22L5 15L8 8Z" fill="#3E9C9A"></path><circle cx="15" cy="15" r="2.4" fill="#E9F5F2"></circle></svg></div>
-    <section style="position: relative; padding: 26px 20px 40px; text-align: center">
-      <p class="cb-kick">{{ cdKick }}</p>
-      <h2 class="cb-h2">{{ cdTitle }}</h2>
-      <p class="cb-lead">{{ cdDate }}</p>
-      <div class="cb-rise" style="display: flex; justify-content: center; gap: 12px; margin-top: 28px">
+    <section data-age="" style="position: relative; padding: 26px 20px 40px; text-align: center">
+      <p class="cb-kick">Bugun — sizning kuningiz</p>
+      <h2 class="cb-h2">Sizning yoshingiz</h2>
+      <p class="cb-lead">{{ ageLead }}</p>
+      <div class="cb-rise" style="display: grid; grid-template-columns: 1fr 1fr; gap: 22px 16px; margin-top: 28px; padding: 0 6px">
         <sc-for list="{{ tiles }}" as="t">
-          <div style="display: flex; flex-direction: column; align-items: center; gap: 12px">
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 12px; min-width: 0">
             <div class="{{ t.cls }}">
               <div class="cb-half cb-top"><span>{{ t.cur }}</span></div>
               <div class="cb-half cb-bot"><span>{{ t.prev }}</span></div>
@@ -591,6 +591,7 @@ const archD = (w, h) => {
 class Component extends DCLogic {
   constructor(props) {
     super(props);
+    this.ageK = (typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches) || navigator.webdriver || typeof IntersectionObserver !== 'function' ? 1 : 0;
     this.state = { opened: false, sec: false, sent: false, wOn: {} };
     this.tick = 0;
     const cypress = [];
@@ -639,22 +640,34 @@ class Component extends DCLogic {
     this.deco = { cypress: cypress, shadows: shadows, bedLines: bedLines, flowers: flowers, tileLines: tileLines, glints: glints, iDrops: iDrops, drops: drops };
   }
   componentDidMount() {
-    this.timer = setInterval(() => { this.prevCd = this.lastCd; this.tick += 1; this.forceUpdate(); }, 1000);
+    const el = document.querySelector('[data-age]');
+    if (this.ageK < 1 && el) {
+      this.aio = new IntersectionObserver((es) => {
+        if (!es.some((e) => e.isIntersecting)) return;
+        this.aio.disconnect();
+        const K = [0.18, 0.42, 0.64, 0.82, 0.94, 1];
+        let n = 0;
+        const step = () => { this.ageK = K[n++]; this.prevCd = this.lastCd; this.tick += 1; this.forceUpdate(); if (n < K.length) this.timer = setTimeout(step, 560); };
+        this.timer = setTimeout(step, 250);
+      }, { threshold: 0.4 });
+      this.aio.observe(el);
+    } else this.ageK = 1;
   }
   componentWillUnmount() {
-    clearInterval(this.timer);
+    clearTimeout(this.timer);
+    if (this.aio) this.aio.disconnect();
   }
   renderVals() {
     const s = this.state;
     const D = SITE.d;
     const name = tkName(D), from = tkFrom(D);
     const w = SITE.when(D.sana);
-    const c = SITE.countdown(D.sana);
+    const ag = SITE.age(D.sana, D.yosh);
     const yosh = String(D.yosh || '').trim();
-    const cur = [String(c.d), c.hh, c.mm, c.ss];
+    const cur = [ag.y, ag.mo, ag.w, ag.d].map((v) => SITE.num(Math.round(v * this.ageK)));
     const prev = this.prevCd || cur;
     this.lastCd = cur;
-    const L = ['kun', 'soat', 'daqiqa', 'soniya'];
+    const L = ['yil', 'oy', 'hafta', 'kun'];
     const tiles = cur.map((v, i) => ({ cur: v, prev: prev[i], l: L[i], cls: v !== prev[i] ? (this.tick % 2 ? 'cb-flip cb-flip--a' : 'cb-flip cb-flip--b') : 'cb-flip' }));
     const matn = String(D.matn || '').trim();
     const list = D.tilaklar || [];
@@ -711,9 +724,7 @@ class Component extends DCLogic {
       toggleMusic: () => { SITE.music.toggle(); },
       dropCap: matn.charAt(0),
       restText: matn.slice(1),
-      cdKick: c.done ? 'Muborak kun' : 'Muborak kungacha',
-      cdTitle: c.done ? 'Bugun — sizning kuningiz' : 'Gullar ochilishiga oz qoldi',
-      cdDate: [w.date, w.weekday].filter(Boolean).join(', '),
+      ageLead: 'Siz bu dunyoni ' + SITE.num(ag.d) + ' kundan beri yorug’ qilib kelyapsiz — har bir kuningiz bog’imizdagi bir gul.',
       tiles: tiles,
       wishes: wishes,
       secCls: s.sec ? 'cb-sec cb-sec--on' : 'cb-sec',

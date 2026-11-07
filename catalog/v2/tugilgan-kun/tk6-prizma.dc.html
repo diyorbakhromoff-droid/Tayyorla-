@@ -462,6 +462,28 @@ const fan = (qx, qy, x0, x1, wy, spread) => SPEC.map((c, i) => {
   return { c: c, d: 'M' + qx + ' ' + qy + 'L' + (a - spread).toFixed(1) + ' ' + wy + 'L' + (b + spread).toFixed(1) + ' ' + wy + 'Z' };
 });
 
+/* «Sening yoshing»: raqamlar blok ko’rinishga kirganda 0 dan sanab chiqadi */
+const tkAgeStill = () => { try { return !!navigator.webdriver || window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) { return true; } };
+const tkAgeRun = (self, id, ms) => {
+  const el = document.getElementById(id);
+  if (tkAgeStill()) { if (self.ageK !== 1) { self.ageK = 1; self.forceUpdate(); } return; }
+  if (!el || typeof IntersectionObserver === 'undefined') { self.ageK = 1; self.forceUpdate(); return; }
+  const run = () => {
+    if (document.documentElement.style.overflow === 'hidden') { self.ageWait = setTimeout(run, 300); return; }
+    const t0 = performance.now();
+    const step = (t) => {
+      const p = Math.min(1, (t - t0) / (ms || 1800));
+      self.ageK = 1 - Math.pow(1 - p, 3); self.forceUpdate();
+      if (p < 1) self.ageRaf = requestAnimationFrame(step);
+    };
+    self.ageRaf = requestAnimationFrame(step);
+  };
+  self.ageIo = new IntersectionObserver((es) => { if (es.some((e) => e.isIntersecting)) { self.ageIo.disconnect(); run(); } }, { threshold: 0.35 });
+  self.ageIo.observe(el);
+};
+const tkNb = (n) => SITE.num(n).replace(/ /g, '\u00a0');
+const tkAgeStop = (self) => { if (self.ageIo) self.ageIo.disconnect(); clearTimeout(self.ageWait); cancelAnimationFrame(self.ageRaf); };
+
 class Component extends DCLogic {
   constructor(props) {
     super(props);

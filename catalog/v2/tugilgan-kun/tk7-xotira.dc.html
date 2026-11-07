@@ -102,7 +102,7 @@ body{margin:0}
 .xt-idx{position:absolute;font-family:'Pangolin',cursive;line-height:1;text-align:center}
 /* timer */
 .xt-cell{position:relative;width:76px;height:100px;border-radius:16px;background:#FFFFFF;box-shadow:0 6px 0 #CBBDF2,0 14px 24px rgba(35,25,66,0.15);display:flex;align-items:center;justify-content:center;overflow:hidden;perspective:300px}
-.xt-cell::after{content:'';position:absolute;left:0;right:0;top:50px;height:1px;background:rgba(35,25,66,0.12)}
+.xt-cell::after{content:'';position:absolute;left:0;right:0;top:50%;height:1px;background:rgba(35,25,66,0.12)}
 .xt-num{display:block;font-family:'Pangolin',cursive;font-size:44px;line-height:1;color:#FF5436;font-variant-numeric:tabular-nums}
 .xt-num--a{animation:xt-flA .55s cubic-bezier(.3,1.4,.5,1) both}
 .xt-num--b{animation:xt-flB .55s cubic-bezier(.3,1.4,.5,1) both}
@@ -202,14 +202,14 @@ body{margin:0}
 </sc-if>
 
 <sc-if value="{{ b.taymer }}">
-    <section style="position: relative; padding: 40px 20px 44px; text-align: center">
+    <section data-age="" style="position: relative; padding: 40px 20px 44px; text-align: center">
       <p class="xt-tag">{{ tab.taymer }}</p>
-      <h2 class="xt-h2">{{ cdTitle }}</h2>
-      <p class="xt-lead">{{ cdDate }}</p>
-      <div class="xt-deal" style="display: flex; justify-content: center; gap: 10px; margin-top: 24px">
+      <h2 class="xt-h2">Sening yoshing</h2>
+      <p class="xt-lead">{{ ageLead }}</p>
+      <div class="xt-deal" style="display: grid; grid-template-columns: 1fr 1fr; gap: 18px 14px; margin-top: 24px">
         <sc-for list="{{ caps }}" as="t">
           <div style="{{ t.wrap }}">
-            <div class="xt-cell"><span class="{{ t.cls }}">{{ t.v }}</span></div>
+            <div class="xt-cell" style="width: 100%; height: 96px"><span class="{{ t.cls }}" style="font-size: 42px; white-space: nowrap">{{ t.v }}</span></div>
             <span style="display: block; margin-top: 10px; font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #8A80B5">{{ t.l }}</span>
           </div>
         </sc-for>
@@ -458,6 +458,7 @@ class Component extends DCLogic {
     super(props);
     this.state = { opened: false, phase: 'deal', open: [], done: {}, miss: [], hit: [], moves: 0, win: false, lock: false, blown: false, sec: false, sent: false, wUp: {} };
     this.tick = 0;
+    this.ageK = (typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches) || navigator.webdriver || typeof IntersectionObserver !== 'function' ? 1 : 0;
     this.faces = buildFaces();
     const ids = [];
     this.faces.forEach((f, i) => { ids.push(i); ids.push(i); });
@@ -480,12 +481,24 @@ class Component extends DCLogic {
     };
   }
   componentDidMount() {
-    this.timer = setInterval(() => { this.prevCd = this.lastCd; this.tick += 1; this.forceUpdate(); }, 1000);
+    const el = document.querySelector('[data-age]');
+    if (this.ageK < 1 && el) {
+      this.aio = new IntersectionObserver((es) => {
+        if (!es.some((e) => e.isIntersecting)) return;
+        this.aio.disconnect();
+        let n = 0;
+        this.timer = setInterval(() => {
+          n += 1; this.ageK = 1 - Math.pow(1 - n / 12, 2.4); this.prevCd = this.lastCd; this.tick += 1; this.forceUpdate();
+          if (n >= 12) { this.ageK = 1; clearInterval(this.timer); }
+        }, 150);
+      }, { threshold: 0.4 });
+      this.aio.observe(el);
+    } else this.ageK = 1;
     this.t1 = setTimeout(() => { if (this.state.phase === 'deal') this.setState({ phase: 'peek' }); }, 1300);
     this.t2 = setTimeout(() => { if (this.state.phase === 'peek') this.setState({ phase: 'play' }); }, 3000);
   }
   componentWillUnmount() {
-    clearInterval(this.timer); clearTimeout(this.t1); clearTimeout(this.t2); clearTimeout(this.t3); clearTimeout(this.t4);
+    clearInterval(this.timer); if (this.aio) this.aio.disconnect(); clearTimeout(this.t1); clearTimeout(this.t2); clearTimeout(this.t3); clearTimeout(this.t4);
   }
   flip(i) {
     const s = this.state;
@@ -512,7 +525,7 @@ class Component extends DCLogic {
   renderVals() {
     const s = this.state, D = SITE.d;
     const name = tkName(D), from = tkFrom(D);
-    const w = SITE.when(D.sana), c = SITE.countdown(D.sana);
+    const w = SITE.when(D.sana), ag = SITE.age(D.sana, D.yosh);
     const yosh = String(D.yosh || '').trim();
     const tab = {};
     let k = 0;
@@ -545,10 +558,10 @@ class Component extends DCLogic {
       sw: 'animation-delay: -' + (i * 1.6).toFixed(1) + 's',
       bg: f.age ? 'background: #FFFFFF' : ''
     }));
-    const cur = [String(c.d), c.hh, c.mm, c.ss];
+    const cur = [ag.y, ag.mo, ag.w, ag.d].map((v) => SITE.num(Math.round(v * this.ageK)));
     const prev = this.prevCd || cur;
     this.lastCd = cur;
-    const L = ['kun', 'soat', 'daqiqa', 'soniya'];
+    const L = ['yil', 'oy', 'hafta', 'kun'];
     const caps = cur.map((v, i) => ({ v: v, l: L[i], wrap: 'transform: rotate(' + [-3, 2, -2, 3][i] + 'deg)', cls: 'xt-num' + (v !== prev[i] ? (this.tick % 2 ? ' xt-num--a' : ' xt-num--b') : '') }));
     const tl = D.tilaklar || [];
     const wishes = tl.map((t, i) => {
@@ -610,8 +623,7 @@ class Component extends DCLogic {
       musicCls: SITE.music.playing ? 'xt-music xt-music--on' : 'xt-music',
       musicOn: SITE.music.playing ? 'true' : 'false',
       toggleMusic: () => { SITE.music.toggle(); },
-      cdTitle: c.done ? 'Bayram boshlandi!' : 'Bayramgacha',
-      cdDate: [w.date, w.weekday].filter(Boolean).join(', '),
+      ageLead: 'Sen bu dunyoni ' + SITE.num(ag.d) + ' kundan beri yorug’ qilib kelyapsan. Har bir kuning — biz uchun sovg’a!',
       caps: caps, wishes: wishes, candles: candles,
       cakeCls: s.blown ? 'xt-cake--out' : '',
       wishLine: wl, wishFs: tkFit(wl, 34, 22, 290, 0.5),

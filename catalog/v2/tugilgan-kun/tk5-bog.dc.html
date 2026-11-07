@@ -58,7 +58,7 @@ a{color:#E8B4A4}
 .bg-grow{animation:bg-grow 1.2s ease-out both;animation-timeline:view();animation-range:entry 0% entry 100%}
 @keyframes bg-grow{from{opacity:0;transform:scale(.85)}to{opacity:1;transform:none}}
 
-/* plant-marker countdown */
+/* plant-marker age */
 .bg-tag{position:relative;display:block;perspective:300px}
 .bg-tag span{display:block;transform-origin:50% 0}
 .bg-tag--a span{animation:bg-flipA .5s cubic-bezier(.2,.7,.3,1) both}
@@ -215,10 +215,10 @@ a{color:#E8B4A4}
 </sc-if>
 
 <sc-if value="{{ b.taymer }}">
-    <section style="padding: 26px 20px 38px; text-align: center">
+    <section id="bg-age" style="padding: 26px 20px 38px; text-align: center">
       <p class="bg-cap">{{ tab.taymer }}</p>
-      <h2 class="bg-h2">{{ cdTitle }}</h2>
-      <p style="margin: 6px 0 0; font-size: 15px; font-style: italic; color: #C9D6C2">{{ cdDate }}</p>
+      <h2 class="bg-h2">Sening yoshing</h2>
+      <p style="margin: 6px auto 0; max-width: 320px; font-size: 15px; font-style: italic; line-height: 1.45; color: #C9D6C2">{{ ageLead }}</p>
       <div class="bg-rise" style="position: relative; margin-top: 24px; height: 200px">
         <div aria-hidden="true" style="position: absolute; left: -20px; right: -20px; bottom: 0; height: 40px; background: linear-gradient(180deg, rgba(10,20,14,0), #0A140E)"></div>
         <svg aria-hidden="true" width="350" height="200" viewBox="0 0 350 200" style="position: absolute; left: 0; top: 0">
@@ -228,9 +228,9 @@ a{color:#E8B4A4}
         <div style="position: absolute; left: 0; top: 0; width: 350px; display: flex; justify-content: space-between; padding: 0 4px; box-sizing: border-box">
           <sc-for list="{{ tags }}" as="t">
             <div style="{{ t.st }}">
-              <div style="position: relative; width: 76px; padding: 12px 0 10px; background: linear-gradient(180deg, #F6EEE0, #E9DCC6); color: #1C3A28; border-radius: 6px 6px 2px 2px; box-shadow: 0 0 0 1px rgba(28,58,40,0.35) inset, 0 10px 20px rgba(0,0,0,0.35)">
+              <div style="position: relative; width: 82px; padding: 12px 0 10px; background: linear-gradient(180deg, #F6EEE0, #E9DCC6); color: #1C3A28; border-radius: 6px 6px 2px 2px; box-shadow: 0 0 0 1px rgba(28,58,40,0.35) inset, 0 10px 20px rgba(0,0,0,0.35)">
                 <span aria-hidden="true" style="position: absolute; left: 32px; top: 5px; width: 10px; height: 10px; border-radius: 50%; background: #13261B; box-shadow: inset 0 1px 2px rgba(0,0,0,0.6)"></span>
-                <span class="{{ t.cls }}" style="margin-top: 8px"><span class="bg-s" style="font-size: 38px; font-weight: 700; line-height: 1; font-variant-numeric: lining-nums tabular-nums">{{ t.v }}</span></span>
+                <span class="{{ t.cls }}" style="margin-top: 8px"><span class="bg-s" style="{{ t.fs }}; display: block; height: 38px; font-weight: 700; line-height: 38px; white-space: nowrap; font-variant-numeric: lining-nums tabular-nums">{{ t.v }}</span></span>
                 <span style="display: block; margin-top: 4px; font-size: 13px; font-style: italic; color: #4E6553">{{ t.l }}</span>
               </div>
               <div aria-hidden="true" style="width: 18px; height: 70px; margin: 0 auto; background: linear-gradient(90deg, #CDBFA6, #E9DCC6 50%, #BFAF94); clip-path: polygon(0 0, 100% 0, 100% 78%, 50% 100%, 0 78%)"></div>
@@ -526,7 +526,7 @@ const tkFit = (text, max, min, width, k) => {
 };
 const RIM = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII'];
 const ORDER = ['tabrik', 'taymer', 'tilaklar', 'sham', 'sirli', 'galereya', 'xronika', 'mehmonlar', 'bazm', 'javob'];
-const TABN = { tabrik: 'Maktub', taymer: 'Kutish', tilaklar: 'Tilaklar', sham: 'Fonus', sirli: 'G’uncha', galereya: 'Oranjereya', xronika: 'Yillar', mehmonlar: 'Daftar', bazm: 'Taklif', javob: 'Tabrik' };
+const TABN = { tabrik: 'Maktub', taymer: 'Yoshing', tilaklar: 'Tilaklar', sham: 'Fonus', sirli: 'G’uncha', galereya: 'Oranjereya', xronika: 'Yillar', mehmonlar: 'Daftar', bazm: 'Taklif', javob: 'Tabrik' };
 
 /* ---------- copperplate engraving generator ---------- */
 const F = (n) => (Math.round(n * 10) / 10).toString();
@@ -619,12 +619,34 @@ const strand = (x0, y0, x1, y1, sag, n, t0, dt) => {
   return { d: d, bulbs: bulbs };
 };
 
+/* «Sening yoshing»: raqamlar blok ko’rinishga kirganda 0 dan sanab chiqadi */
+const tkAgeStill = () => { try { return !!navigator.webdriver || window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) { return true; } };
+const tkAgeRun = (self, id, ms) => {
+  const el = document.getElementById(id);
+  if (tkAgeStill()) { if (self.ageK !== 1) { self.ageK = 1; self.forceUpdate(); } return; }
+  if (!el || typeof IntersectionObserver === 'undefined') { self.ageK = 1; self.forceUpdate(); return; }
+  const run = () => {
+    if (document.documentElement.style.overflow === 'hidden') { self.ageWait = setTimeout(run, 300); return; }
+    const t0 = performance.now();
+    const step = (t) => {
+      const p = Math.min(1, (t - t0) / (ms || 1800));
+      self.ageK = 1 - Math.pow(1 - p, 3); self.forceUpdate();
+      if (p < 1) self.ageRaf = requestAnimationFrame(step);
+    };
+    self.ageRaf = requestAnimationFrame(step);
+  };
+  self.ageIo = new IntersectionObserver((es) => { if (es.some((e) => e.isIntersecting)) { self.ageIo.disconnect(); run(); } }, { threshold: 0.35 });
+  self.ageIo.observe(el);
+};
+const tkNb = (n) => SITE.num(n).replace(/ /g, '\u00a0');
+const tkAgeStop = (self) => { if (self.ageIo) self.ageIo.disconnect(); clearTimeout(self.ageWait); cancelAnimationFrame(self.ageRaf); };
+
 class Component extends DCLogic {
   constructor(props) {
     super(props);
     this.state = { opened: false, blown: false, sec: false, going: false, sent: false, goErr: '' };
     this.guestName = '';
-    this.tick = 0;
+    this.ageK = tkAgeStill() ? 1 : 0;
     const rnd = (i, k) => { const x = Math.sin(i * 127.1 + k * 311.7) * 43758.5453; return x - Math.floor(x); };
     const flies = (n, seed, top, h) => Array.from({ length: n }, (_, i) => 'left: ' + Math.round(10 + rnd(i, seed) * 370) + 'px; top: ' + (top === null ? (3 + rnd(i, seed + 1) * 94).toFixed(1) + '%' : Math.round(top + rnd(i, seed + 1) * h) + 'px') + '; --dx: ' + Math.round((rnd(i, seed + 2) - 0.5) * 60) + 'px; --dy: ' + Math.round((rnd(i, seed + 3) - 0.5) * 50) + 'px; animation-duration: ' + (3 + rnd(i, seed + 4) * 4).toFixed(1) + 's; animation-delay: -' + (rnd(i, seed + 5) * 6).toFixed(1) + 's');
 
@@ -713,26 +735,23 @@ class Component extends DCLogic {
     };
   }
   componentDidMount() {
-    this.timer = setInterval(() => { this.prevCd = this.lastCd; this.tick += 1; this.forceUpdate(); }, 1000);
+    tkAgeRun(this, 'bg-age', 2000);
   }
   componentWillUnmount() {
-    clearInterval(this.timer);
+    tkAgeStop(this);
   }
   renderVals() {
     const s = this.state;
     const D = SITE.d;
     const name = tkName(D), from = tkFrom(D);
     const w = SITE.when(D.sana), bw = SITE.when(D.bazm_sana);
-    const c = SITE.countdown(D.sana);
+    const ag = SITE.age(D.sana, D.yosh), K = this.ageK;
     const yosh = String(D.yosh || '').trim();
     const tab = {};
     let k = 0;
     ORDER.forEach((key) => { if (SITE.b[key]) { tab[key] = 'Varaq ' + RIM[k] + ' · ' + TABN[key]; k += 1; } else tab[key] = ''; });
-    const cur = [String(c.d), c.hh, c.mm, c.ss];
-    const prev = this.prevCd || cur;
-    this.lastCd = cur;
-    const L = ['kun', 'soat', 'daqiqa', 'soniya'];
-    const tags = cur.map((v, i) => ({ v: v, l: L[i], cls: v !== prev[i] ? (this.tick % 2 ? 'bg-tag bg-tag--a' : 'bg-tag bg-tag--b') : 'bg-tag', st: 'transform: rotate(' + [-3, 2, -1.5, 3][i] + 'deg); margin-top: ' + [18, 4, 12, 0][i] + 'px' }));
+    const L = ['yil', 'oy', 'hafta', 'kun'];
+    const tags = [ag.y, ag.mo, ag.w, ag.d].map((x, i) => ({ v: SITE.num(Math.round(x * K)), l: L[i], fs: 'font-size: ' + [38, 34, 27, 27][i] + 'px', cls: K === 1 ? 'bg-tag bg-tag--a' : 'bg-tag', st: 'transform: rotate(' + [-3, 2, -1.5, 3][i] + 'deg); margin-top: ' + [18, 4, 12, 0][i] + 'px' }));
     const matn = String(D.matn || '').trim();
     const list = D.tilaklar || [];
     const n = Math.min(6, SITE.has.photos);
@@ -752,8 +771,7 @@ class Component extends DCLogic {
       toggleMusic: () => { SITE.music.toggle(); },
       dropCap: matn.charAt(0),
       restText: matn.slice(1),
-      cdTitle: c.done ? 'Bayram boshlandi!' : 'Bayramgacha',
-      cdDate: [w.date, w.weekday].filter(Boolean).join(', '),
+      ageLead: 'Sen bu dunyoni ' + tkNb(ag.d) + ' kundan beri yorug’ qilib kelyapsan — har bir kuning biz uchun sovg’a.',
       tags: tags,
       wishes: list.map((t, i) => ({ text: t, n: RIM[i] || String(i + 1), art: this.deco.spec[i % 4], st: 'position: relative; padding: 12px 12px 18px; text-align: center; transform: rotate(' + [-1.2, 1, 0.8, -1][i % 4] + 'deg)' + (list.length % 2 === 1 && i === list.length - 1 ? '; grid-column: 1 / -1; width: 60%; justify-self: center; box-sizing: border-box' : '') })),
       lanCls: s.blown ? 'bg-lan bg-lan--out' : 'bg-lan',

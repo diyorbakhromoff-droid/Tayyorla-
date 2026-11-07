@@ -257,13 +257,13 @@ a{color:#F0A23B}
 </sc-if>
 
 <sc-if value="{{ b.taymer }}">
-    <section style="padding: 30px 20px 38px">
+    <section id="kn-age" style="padding: 30px 20px 38px">
       <div class="kn-head"><span class="kn-slate"></span><span class="kn-cap">Sahna {{ sc.taymer }}</span><span class="kn-rule"></span><span class="kn-tc">{{ tc.taymer }}</span></div>
-      <h2 class="kn-h2">{{ cdTitle }}</h2>
-      <p class="kn-m" style="margin: 8px 0 0; font-size: 13px; letter-spacing: 0.1em; color: #B9A68A">{{ cdDate }}</p>
+      <h2 class="kn-h2">Sening yoshing</h2>
+      <p class="kn-m" style="margin: 8px 0 0; max-width: 250px; font-size: 13px; line-height: 1.55; letter-spacing: 0.06em; color: #B9A68A">{{ ageLead }}</p>
       <div class="kn-rise" style="position: relative; margin-top: 22px; padding: 22px 8px 18px; border-radius: 14px; background: linear-gradient(180deg, #2E241B, #17110C); box-shadow: inset 0 1px 0 rgba(255,220,170,0.18), inset 0 0 0 1px rgba(240,162,59,0.25), 0 20px 40px rgba(0,0,0,0.5)">
         <svg aria-hidden="true" width="64" height="64" viewBox="0 0 64 64" style="position: absolute; right: 10px; top: -84px"><g class="kn-spinS"><circle cx="32" cy="32" r="30" fill="#1A130E" stroke="#F0A23B" style="stroke-width: 1.5"></circle><circle cx="32" cy="32" r="5" fill="#F0A23B"></circle><circle cx="32" cy="15" r="7" fill="#0B0806"></circle><circle cx="46.7" cy="40.5" r="7" fill="#0B0806"></circle><circle cx="17.3" cy="40.5" r="7" fill="#0B0806"></circle></g></svg>
-        <div style="display: flex; justify-content: center; gap: 8px">
+        <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px 8px; justify-items: center">
           <sc-for list="{{ odo }}" as="u">
             <div style="display: flex; flex-direction: column; align-items: center; gap: 10px">
               <div style="display: flex; gap: 3px; padding: 5px; border-radius: 7px; background: #0B0806; box-shadow: inset 0 2px 6px rgba(0,0,0,0.8), 0 0 0 1px rgba(240,162,59,0.3)">
@@ -466,7 +466,7 @@ a{color:#F0A23B}
     <section style="padding: 30px 20px 38px">
       <div class="kn-head"><span class="kn-slate"></span><span class="kn-cap">Sahna {{ sc.bazm }}</span><span class="kn-rule"></span><span class="kn-tc">{{ tc.bazm }}</span></div>
       <h2 class="kn-h2">Bazmga taklif</h2>
-      <p class="kn-m" style="margin: 8px 0 0; font-size: 13px; line-height: 1.55; letter-spacing: 0.04em; color: #B9A68A">Filmning eng yorqin sahnasi hali suratga olinmagan — u siz bilan bo’ladi.</p>
+      <p class="kn-m" style="margin: 8px 0 0; max-width: 250px; font-size: 13px; line-height: 1.55; letter-spacing: 0.04em; color: #B9A68A">Filmning eng yorqin sahnasi hali suratga olinmagan — u siz bilan bo’ladi.</p>
       <div class="{{ clapCls }}" style="position: relative; margin-top: 78px">
         <div class="kn-stick" style="position: relative; height: 34px; margin: 0 6px 0 0; border-radius: 4px 4px 0 0; background: repeating-linear-gradient(-60deg, #EDE6D6 0 18px, #15100C 18px 36px); box-shadow: 0 0 0 1px #3A2E24"></div>
         <div style="position: relative; height: 30px; background: repeating-linear-gradient(60deg, #EDE6D6 0 18px, #15100C 18px 36px); box-shadow: 0 0 0 1px #3A2E24"></div>
@@ -631,11 +631,34 @@ const ORDER = ['tabrik', 'taymer', 'tilaklar', 'sham', 'sirli', 'galereya', 'xro
 const ROLES = ['bosh rolda', 'ishtirokida', 'maxsus ishtirokida', 'hamrohligida', 'shuningdek', 'mehmon rolida', 'epizodda', 'kadr ortida'];
 const CAPS = ['Bayram oqshomi', 'Eng yorqin kulgu', 'Sevimli lahza'];
 
+/* «Sening yoshing»: raqamlar blok ko’rinishga kirganda 0 dan sanab chiqadi */
+const tkAgeStill = () => { try { return !!navigator.webdriver || window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) { return true; } };
+const tkAgeRun = (self, id, ms) => {
+  const el = document.getElementById(id);
+  if (tkAgeStill()) { if (self.ageK !== 1) { self.ageK = 1; self.forceUpdate(); } return; }
+  if (!el || typeof IntersectionObserver === 'undefined') { self.ageK = 1; self.forceUpdate(); return; }
+  const run = () => {
+    if (document.documentElement.style.overflow === 'hidden') { self.ageWait = setTimeout(run, 300); return; }
+    const t0 = performance.now();
+    const step = (t) => {
+      const p = Math.min(1, (t - t0) / (ms || 1800));
+      self.ageK = 1 - Math.pow(1 - p, 3); self.forceUpdate();
+      if (p < 1) self.ageRaf = requestAnimationFrame(step);
+    };
+    self.ageRaf = requestAnimationFrame(step);
+  };
+  self.ageIo = new IntersectionObserver((es) => { if (es.some((e) => e.isIntersecting)) { self.ageIo.disconnect(); run(); } }, { threshold: 0.35 });
+  self.ageIo.observe(el);
+};
+const tkNb = (n) => SITE.num(n).replace(/ /g, '\u00a0');
+const tkAgeStop = (self) => { if (self.ageIo) self.ageIo.disconnect(); clearTimeout(self.ageWait); cancelAnimationFrame(self.ageRaf); };
+
 class Component extends DCLogic {
   constructor(props) {
     super(props);
     this.state = { opened: false, blown: false, sec: false, going: false, sent: false, goErr: '' };
     this.guestName = '';
+    this.ageK = tkAgeStill() ? 1 : 0;
     const rnd = (i, k) => { const x = Math.sin(i * 127.1 + k * 311.7) * 43758.5453; return x - Math.floor(x); };
     this.deco = {
       leaks: [[230, 1100, 'rgba(255,128,40,0.18)'], [-200, 1900, 'rgba(200,67,43,0.16)'], [220, 2800, 'rgba(255,128,40,0.15)'], [-190, 3700, 'rgba(200,67,43,0.15)'], [230, 4600, 'rgba(255,128,40,0.14)'], [-200, 5500, 'rgba(255,128,40,0.12)']].map((g, i) => 'left: ' + g[0] + 'px; top: ' + g[1] + 'px; width: 380px; height: 380px; background: radial-gradient(circle, ' + g[2] + ', rgba(0,0,0,0) 70%); animation-delay: -' + (i * 1.7).toFixed(1) + 's'),
@@ -650,17 +673,17 @@ class Component extends DCLogic {
     };
   }
   componentDidMount() {
-    this.timer = setInterval(() => this.forceUpdate(), 1000);
+    tkAgeRun(this, 'kn-age', 600);
   }
   componentWillUnmount() {
-    clearInterval(this.timer);
+    tkAgeStop(this);
   }
   renderVals() {
     const s = this.state;
     const D = SITE.d;
     const name = tkName(D), from = tkFrom(D);
     const w = SITE.when(D.sana), bw = SITE.when(D.bazm_sana);
-    const c = SITE.countdown(D.sana);
+    const ag = SITE.age(D.sana, D.yosh), K = this.ageK;
     const yosh = String(D.yosh || '').trim();
     const ageNum = /^\d+$/.test(yosh) ? parseInt(yosh, 10) : 0;
     const sc = {}, tc = {};
@@ -671,13 +694,9 @@ class Component extends DCLogic {
     });
     const fr = ageNum ? ageNum : 25;
     const edge = (a) => [String(a - 1) + 'A', '▸ ' + a, String(a) + 'A', '▸ ' + (a + 1)];
-    const dg = (v) => String(v).split('').map((ch) => 'transform: translateY(-' + (+ch * 52) + 'px)');
-    const odo = [
-      { l: 'kun', dg: dg(String(c.d).length < 2 ? '0' + c.d : String(c.d)) },
-      { l: 'soat', dg: dg(c.hh) },
-      { l: 'daqiqa', dg: dg(c.mm) },
-      { l: 'soniya', dg: dg(c.ss) }
-    ];
+    /* odometr: barabanlar 0 dan haqiqiy raqamga bir marta aylanadi */
+    const dg = (v) => String(v).split('').map((ch, i, a) => 'transform: translateY(-' + (K > 0 ? +ch * 52 : 0) + 'px); transition-duration: ' + (1.4 + (a.length - 1 - i) * 0.35).toFixed(2) + 's');
+    const odo = [[ag.y, 'yil'], [ag.mo, 'oy'], [ag.w, 'hafta'], [ag.d, 'kun']].map((u) => ({ l: u[1], dg: dg(u[0]) }));
     const n = Math.min(6, SITE.has.photos);
     const base = SITE.p.slice(0, Math.max(1, n));
     const reps = Math.max(1, Math.ceil(4 / base.length));
@@ -713,8 +732,7 @@ class Component extends DCLogic {
       toggleMusic: () => { SITE.music.toggle(); },
       orderNo: ageNum || 1,
       fromLbl: (from.label ? from.label : 'Kimdan') + ':',
-      cdTitle: c.done ? 'Seans boshlandi!' : 'Seansgacha',
-      cdDate: [w.date, w.weekday].filter(Boolean).join(', '),
+      ageLead: 'Bu filmning bosh qahramoni — sen. Sen bu dunyoni ' + tkNb(ag.d) + ' kundan beri yorug’ qilib kelyapsan.',
       odo: odo,
       credits: (D.tilaklar || []).map((t, i) => ({ text: t, role: ROLES[i % ROLES.length] })),
       cakeCls: s.blown ? 'kn-cake--out' : '',

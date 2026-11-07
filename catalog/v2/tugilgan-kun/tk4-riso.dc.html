@@ -62,14 +62,12 @@ a{color:#1D4FB8}
 .rs-stk{position:absolute;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:50%;box-sizing:border-box;border:5px solid #FFFDF7;background:#1D4FB8;color:#F7F2E8;box-shadow:0 10px 18px rgba(20,47,107,0.28),0 2px 0 rgba(20,47,107,0.2)}
 .rs-stk::after{content:"";position:absolute;left:14%;top:10%;width:30%;height:16%;border-radius:50%;background:rgba(255,255,255,0.28);transform:rotate(-30deg)}
 
-/* timer */
-.rs-tile{position:relative;display:flex;flex-direction:column;align-items:center;gap:4px}
-.rs-disc{position:relative;width:78px;height:78px;border-radius:50%;display:grid;place-items:center}
-.rs-num{grid-area:1/1;font-family:'Dela Gothic One','Arial Black',Impact,sans-serif;font-size:32px;line-height:1;font-variant-numeric:tabular-nums}
-.rs-pa{animation:rs-popA .45s cubic-bezier(.2,1.6,.4,1)}
-.rs-pb{animation:rs-popB .45s cubic-bezier(.2,1.6,.4,1)}
-@keyframes rs-popA{from{transform:translate(10px,-8px) scale(1.25);opacity:.2}}
-@keyframes rs-popB{from{transform:translate(-8px,8px) scale(1.25);opacity:.2}}
+/* age */
+.rs-tile{position:relative;display:flex;flex-direction:column;align-items:center;gap:6px;min-width:0}
+.rs-disc{position:relative;width:100%;height:66px;box-sizing:border-box;border:2.5px solid #1D4FB8;border-radius:999px;display:grid;place-items:center}
+.rs-bigDisc{position:relative;width:170px;height:170px;margin:16px auto 0;border-radius:50%;display:grid;place-items:center}
+.rs-num{grid-area:1/1;font-family:'Dela Gothic One','Arial Black',Impact,sans-serif;font-size:23px;line-height:1;font-variant-numeric:tabular-nums;white-space:nowrap}
+.rs-numBig{font-size:84px}
 
 /* wishes stickers */
 .rs-wish{display:inline-block;max-width:300px;box-sizing:border-box;padding:12px 18px 13px;border:3px solid #FFFDF7;font-family:'Dela Gothic One','Arial Black',Impact,sans-serif;font-size:20px;line-height:1.2;box-shadow:0 8px 14px rgba(20,47,107,0.2);overflow-wrap:anywhere;animation:rs-peel 6s ease-in-out infinite}
@@ -252,14 +250,20 @@ a{color:#1D4FB8}
 </sc-if>
 
 <sc-if value="{{ b.taymer }}">
-    <section style="position: relative; padding: 20px 20px 30px; text-align: center">
-      <p class="rs-cap">{{ cdDate }}</p>
-      <h2 class="rs-h2" style="margin-top: 6px"><span aria-hidden="true" class="rs-o rs-jit">{{ cdTitle }}</span><span class="rs-b">{{ cdTitle }}</span></h2>
-      <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; margin-top: 18px">
+    <section id="rs-age" style="position: relative; padding: 20px 20px 30px; text-align: center">
+      <p class="rs-cap">Bugun — sening kuning</p>
+      <h2 class="rs-h2" style="margin-top: 6px"><span aria-hidden="true" class="rs-o rs-jit">Sening yoshing</span><span class="rs-b">Sening yoshing</span></h2>
+      <div class="rs-bigDisc">
+        <div aria-hidden="true" class="rs-htO rs-mul" style="position: absolute; inset: 0; border-radius: 50%"></div>
+        <span aria-hidden="true" class="rs-num rs-numBig rs-o">{{ ageY }}</span>
+        <span class="rs-num rs-numBig rs-b">{{ ageY }}</span>
+      </div>
+      <p class="rs-m" style="margin: 8px 0 0; font-size: 13px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: #1D4FB8">yil</p>
+      <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin-top: 16px">
         <sc-for list="{{ tiles }}" as="t">
           <div class="rs-tile">
             <div class="rs-disc">
-              <div aria-hidden="true" class="{{ t.dot }}" style="position: absolute; inset: 0; border-radius: 50%"></div>
+              <div aria-hidden="true" class="{{ t.dot }}" style="position: absolute; inset: 0; border-radius: 999px; opacity: 0.4"></div>
               <span aria-hidden="true" class="{{ t.clsO }}">{{ t.v }}</span>
               <span class="{{ t.clsB }}">{{ t.v }}</span>
             </div>
@@ -267,6 +271,7 @@ a{color:#1D4FB8}
           </div>
         </sc-for>
       </div>
+      <p style="margin: 18px auto 0; max-width: 320px; font-size: 15px; font-weight: 500; line-height: 1.5; color: #142F6B">{{ ageLead }}</p>
     </section>
 </sc-if>
 
@@ -524,11 +529,34 @@ const tkFit = (text, max, min, width, k) => {
 };
 const up = (s) => String(s || '').toLocaleUpperCase('uz');
 
+/* «Sening yoshing»: raqamlar blok ko’rinishga kirganda 0 dan sanab chiqadi */
+const tkAgeStill = () => { try { return !!navigator.webdriver || window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) { return true; } };
+const tkAgeRun = (self, id, ms) => {
+  const el = document.getElementById(id);
+  if (tkAgeStill()) { if (self.ageK !== 1) { self.ageK = 1; self.forceUpdate(); } return; }
+  if (!el || typeof IntersectionObserver === 'undefined') { self.ageK = 1; self.forceUpdate(); return; }
+  const run = () => {
+    if (document.documentElement.style.overflow === 'hidden') { self.ageWait = setTimeout(run, 300); return; }
+    const t0 = performance.now();
+    const step = (t) => {
+      const p = Math.min(1, (t - t0) / (ms || 1800));
+      self.ageK = 1 - Math.pow(1 - p, 3); self.forceUpdate();
+      if (p < 1) self.ageRaf = requestAnimationFrame(step);
+    };
+    self.ageRaf = requestAnimationFrame(step);
+  };
+  self.ageIo = new IntersectionObserver((es) => { if (es.some((e) => e.isIntersecting)) { self.ageIo.disconnect(); run(); } }, { threshold: 0.35 });
+  self.ageIo.observe(el);
+};
+const tkNb = (n) => SITE.num(n).replace(/ /g, '\u00a0');
+const tkAgeStop = (self) => { if (self.ageIo) self.ageIo.disconnect(); clearTimeout(self.ageWait); cancelAnimationFrame(self.ageRaf); };
+
 class Component extends DCLogic {
   constructor(props) {
     super(props);
     this.state = { opened: false, blown: false, sec: false, going: false, sent: false, goErr: '' };
     this.guestName = '';
+    this.ageK = tkAgeStill() ? 1 : 0;
     const rnd = (i, k) => { const x = Math.sin(i * 127.1 + k * 311.7) * 43758.5453; return x - Math.floor(x); };
     const stars = (n, seed, pct, h) => Array.from({ length: n }, (_, i) => {
       const s = 12 + Math.round(rnd(i, seed) * 16);
@@ -552,22 +580,21 @@ class Component extends DCLogic {
     };
   }
   componentDidMount() {
-    this.timer = setInterval(() => this.forceUpdate(), 1000);
+    tkAgeRun(this, 'rs-age');
   }
   componentWillUnmount() {
-    clearInterval(this.timer);
+    tkAgeStop(this);
   }
   renderVals() {
     const s = this.state;
     const D = SITE.d;
     const name = tkName(D), from = tkFrom(D), nameUp = up(name);
     const w = SITE.when(D.sana), bw = SITE.when(D.bazm_sana);
-    const cd = SITE.countdown(D.sana);
+    const ag = SITE.age(D.sana, D.yosh), K = this.ageK, cnt = (v) => SITE.num(Math.round(v * K));
     const yosh = String(D.yosh || '').trim();
     const n = Math.min(6, SITE.has.photos);
     const order = n > 1 ? SITE.p.slice(1, n).concat([SITE.p[0]]) : SITE.p.slice(0, 1);
-    const pop = (v) => (v % 2 ? ' rs-pa' : ' rs-pb');
-    const tl = [[cd.dd, 'kun', cd.d], [cd.hh, 'soat', cd.h], [cd.mm, 'daqiqa', cd.m], [cd.ss, 'soniya', cd.s]];
+    const tl = [[ag.mo, 'oy'], [ag.w, 'hafta'], [ag.d, 'kun']];
     const wst = [
       'background: #1D4FB8; color: #F7F2E8; border-radius: 999px; rotate: -4deg',
       'background: #FF6A2B; color: #142F6B; border-radius: 14px; rotate: 3deg',
@@ -593,13 +620,13 @@ class Component extends DCLogic {
       musicCls: SITE.music.playing ? 'rs-music rs-music--on' : 'rs-music',
       musicOn: SITE.music.playing ? 'true' : 'false',
       toggleMusic: () => { SITE.music.toggle(); },
-      cdTitle: cd.done ? 'Bayram boshlandi!' : 'Bayramgacha',
-      cdDate: [w.date, w.weekday].filter(Boolean).join(', '),
+      ageY: cnt(ag.y),
+      ageLead: 'Sen bu dunyoni ' + tkNb(ag.d) + ' kundan beri yorug’ qilib kelyapsan. Har bir kuning — biz uchun sovg’a!',
       tiles: tl.map((t, i) => ({
-        v: t[0], l: t[1],
-        dot: (i % 2 ? 'rs-ht' : 'rs-htO') + ' rs-mul',
-        clsO: 'rs-num rs-o' + (i === 3 ? pop(t[2]) : ''),
-        clsB: 'rs-num rs-b' + (i === 3 ? pop(t[2]) : '')
+        v: cnt(t[0]), l: t[1],
+        dot: (i % 2 ? 'rs-htO' : 'rs-ht') + ' rs-mul',
+        clsO: 'rs-num rs-o',
+        clsB: 'rs-num rs-b'
       })),
       wishes: (D.tilaklar || []).map((t, i) => ({ text: t, st: wst[i % wst.length] + '; animation-delay: -' + (i * 0.9).toFixed(1) + 's' })),
       cakeCls: s.blown ? 'rs-cake rs-cake--out' : 'rs-cake',

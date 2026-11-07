@@ -35,9 +35,9 @@ a{color:#B8142A}
 .jr-zoom{animation:jr-zoom 1s ease-out both;animation-timeline:view();animation-range:entry 0% entry 100%}
 @keyframes jr-zoom{from{transform:scale(1.12)}to{transform:scale(1)}}
 
-/* countdown page-turn */
+/* age page-turn */
 .jr-num{position:relative;display:block;perspective:400px}
-.jr-num span{display:block;transform-origin:50% 0;font-family:'Noto Serif Display','Didot',Georgia,serif;font-weight:800;font-stretch:72%;font-size:96px;line-height:.95;color:#FBF7F3;font-variant-numeric:lining-nums tabular-nums}
+.jr-num span{display:block;transform-origin:50% 0;white-space:nowrap;font-family:'Noto Serif Display','Didot',Georgia,serif;font-weight:800;font-stretch:72%;font-size:96px;line-height:.95;color:#FBF7F3;font-variant-numeric:lining-nums tabular-nums}
 .jr-num--a span{animation:jr-turnA .55s cubic-bezier(.2,.7,.3,1) both}
 .jr-num--b span{animation:jr-turnB .55s cubic-bezier(.2,.7,.3,1) both}
 @keyframes jr-turnA{from{transform:rotateX(-88deg);opacity:.2}to{transform:none;opacity:1}}
@@ -194,17 +194,18 @@ a{color:#B8142A}
 <sc-if value="{{ b.taymer }}">
     <section id="jr-taymer" style="position: relative; padding: 26px 20px 34px; background: #B8142A; color: #FBF7F3; overflow: hidden">
       <div aria-hidden="true" class="jr-mast" style="position: absolute; right: -20px; bottom: -40px; font-size: 300px; color: rgba(255,255,255,0.07)">{{ cdBg }}</div>
-      <div class="jr-folio" style="position: relative; color: #FBF7F3"><b>{{ pg.taymer }}</b><span style="flex: 1; white-space: nowrap">Kun tartibi</span><span style="min-width: 0; max-width: 50%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{ nameUp }}</span></div>
-      <p class="jr-kick" style="position: relative; margin-top: 26px; color: #FFD9DD">{{ cdDate }}</p>
-      <h2 class="jr-h2" style="position: relative; color: #FBF7F3">{{ cdTitle }}</h2>
+      <div class="jr-folio" style="position: relative; color: #FBF7F3"><b>{{ pg.taymer }}</b><span style="flex: 1; white-space: nowrap">Raqamlarda</span><span style="min-width: 0; max-width: 50%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{ nameUp }}</span></div>
+      <p class="jr-kick" style="position: relative; margin-top: 26px; color: #FFD9DD">Bugun — sening kuning</p>
+      <h2 class="jr-h2" style="position: relative; color: #FBF7F3">Sening <i>yoshing</i></h2>
       <div style="position: relative; display: grid; grid-template-columns: 1fr 1fr; margin-top: 22px; border-top: 1px solid rgba(251,247,243,0.6)">
         <sc-for list="{{ units }}" as="u">
           <div style="{{ u.st }}">
-            <span class="{{ u.cls }}"><span>{{ u.v }}</span></span>
+            <span class="{{ u.cls }}"><span style="{{ u.fs }}">{{ u.v }}</span></span>
             <span class="jr-t" style="display: block; margin-top: 6px; font-size: 12px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: #FFD9DD">{{ u.l }}</span>
           </div>
         </sc-for>
       </div>
+      <p class="jr-d" style="position: relative; margin: 18px 0 0; font-size: 19px; font-style: italic; line-height: 1.35; color: #FFE7EA">{{ ageLead }}</p>
     </section>
 </sc-if>
 
@@ -513,7 +514,7 @@ const up = (s) => String(s || '').toLocaleUpperCase('uz');
 const pad2 = (n) => (n < 10 ? '0' : '') + n;
 const ORDER = ['tabrik', 'taymer', 'tilaklar', 'sham', 'sirli', 'galereya', 'xronika', 'mehmonlar', 'bazm', 'javob'];
 const TOC = {
-  tabrik: ['Tahririyatdan', 'Sen haqingda bir necha so’z'], taymer: ['Kun tartibi', 'Bayramgacha qolgan vaqt'],
+  tabrik: ['Tahririyatdan', 'Sen haqingda bir necha so’z'], taymer: ['Raqamlarda', 'Sening yoshing'],
   tilaklar: ['Reyting', 'Yilning eng muhim tilaklari'], sham: ['Marosim', 'Shamni o’chirish'],
   sirli: ['Eksklyuziv', 'Sirli tilak'], galereya: ['Fotosessiya', 'Eng yorqin kadrlar'],
   xronika: ['Biografiya', 'Yillar va voqealar'], mehmonlar: ['Intervyu', 'Yaqinlar nima deydi'],
@@ -537,12 +538,34 @@ const mast = (text, W, maxFs, minFs, vk, anchor, fill) => {
 };
 const OY = ['yanvar', 'fevral', 'mart', 'aprel', 'may', 'iyun', 'iyul', 'avgust', 'sentabr', 'oktabr', 'noyabr', 'dekabr'];
 
+/* «Sening yoshing»: raqamlar blok ko’rinishga kirganda 0 dan sanab chiqadi */
+const tkAgeStill = () => { try { return !!navigator.webdriver || window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) { return true; } };
+const tkAgeRun = (self, id, ms) => {
+  const el = document.getElementById(id);
+  if (tkAgeStill()) { if (self.ageK !== 1) { self.ageK = 1; self.forceUpdate(); } return; }
+  if (!el || typeof IntersectionObserver === 'undefined') { self.ageK = 1; self.forceUpdate(); return; }
+  const run = () => {
+    if (document.documentElement.style.overflow === 'hidden') { self.ageWait = setTimeout(run, 300); return; }
+    const t0 = performance.now();
+    const step = (t) => {
+      const p = Math.min(1, (t - t0) / (ms || 1800));
+      self.ageK = 1 - Math.pow(1 - p, 3); self.forceUpdate();
+      if (p < 1) self.ageRaf = requestAnimationFrame(step);
+    };
+    self.ageRaf = requestAnimationFrame(step);
+  };
+  self.ageIo = new IntersectionObserver((es) => { if (es.some((e) => e.isIntersecting)) { self.ageIo.disconnect(); run(); } }, { threshold: 0.35 });
+  self.ageIo.observe(el);
+};
+const tkNb = (n) => SITE.num(n).replace(/ /g, '\u00a0');
+const tkAgeStop = (self) => { if (self.ageIo) self.ageIo.disconnect(); clearTimeout(self.ageWait); cancelAnimationFrame(self.ageRaf); };
+
 class Component extends DCLogic {
   constructor(props) {
     super(props);
     this.state = { opened: false, blown: false, sec: false, going: false, sent: false, goErr: '' };
     this.guestName = '';
-    this.tick = 0;
+    this.ageK = tkAgeStill() ? 1 : 0;
     const rnd = (i, k) => { const x = Math.sin(i * 127.1 + k * 311.7) * 43758.5453; return x - Math.floor(x); };
     const cols = ['#B8142A', '#16110F', '#F2C6CC', '#B8142A', '#E9B04F'];
     this.deco = {
@@ -554,17 +577,17 @@ class Component extends DCLogic {
     };
   }
   componentDidMount() {
-    this.timer = setInterval(() => { this.prevCd = this.lastCd; this.tick += 1; this.forceUpdate(); }, 1000);
+    tkAgeRun(this, 'jr-taymer', 2000);
   }
   componentWillUnmount() {
-    clearInterval(this.timer);
+    tkAgeStop(this);
   }
   renderVals() {
     const s = this.state;
     const D = SITE.d;
     const name = tkName(D), from = tkFrom(D), nameUp = up(name);
     const w = SITE.when(D.sana), bw = SITE.when(D.bazm_sana);
-    const c = SITE.countdown(D.sana);
+    const ag = SITE.age(D.sana, D.yosh), K = this.ageK;
     const yosh = String(D.yosh || '').trim();
     const ageNum = /^\d+$/.test(yosh) ? parseInt(yosh, 10) : 0;
     const pg = {}, toc = [];
@@ -573,13 +596,11 @@ class Component extends DCLogic {
       if (SITE.b[key]) { k += 1; pg[key] = String(2 + k * 4); toc.push({ pg: pg[key], kick: TOC[key][0], title: TOC[key][1], href: '#jr-' + key }); }
       else pg[key] = '';
     });
-    const cur = [String(c.d), c.hh, c.mm, c.ss];
-    const prev = this.prevCd || cur;
-    this.lastCd = cur;
-    const L = ['kun', 'soat', 'daqiqa', 'soniya'];
-    const units = cur.map((v, i) => ({
-      v: v, l: L[i],
-      cls: v !== prev[i] ? (this.tick % 2 ? 'jr-num jr-num--a' : 'jr-num jr-num--b') : 'jr-num',
+    const L = ['yil', 'oy', 'hafta', 'kun'];
+    const units = [ag.y, ag.mo, ag.w, ag.d].map((x, i) => ({
+      v: SITE.num(Math.round(x * K)), l: L[i],
+      fs: 'font-size: ' + (SITE.num(x).length > 4 ? 62 : SITE.num(x).length > 3 ? 76 : 96) + 'px',
+      cls: K === 1 ? 'jr-num jr-num--a' : 'jr-num',
       st: 'padding: 16px 0 14px' + (i % 2 ? '; padding-left: 18px; border-left: 1px solid rgba(251,247,243,0.6)' : '') + (i < 2 ? '; border-bottom: 1px solid rgba(251,247,243,0.6)' : '')
     }));
     const matn = String(D.matn || '').trim();
@@ -619,8 +640,7 @@ class Component extends DCLogic {
       dropCap: body.charAt(0),
       restText: body.slice(1),
       fromLbl: from.label ? from.label : 'Tabrik mualliflari',
-      cdTitle: c.done ? 'Bayram boshlandi!' : 'Bayramgacha',
-      cdDate: [w.date, w.weekday].filter(Boolean).join(' · '),
+      ageLead: 'Sen bu dunyoni ' + tkNb(ag.d) + ' kundan beri yorug’ qilib kelyapsan. Har bir kuning — biz uchun sovg’a.',
       cdBg: ageNum || '',
       units: units,
       wishN: list.length,

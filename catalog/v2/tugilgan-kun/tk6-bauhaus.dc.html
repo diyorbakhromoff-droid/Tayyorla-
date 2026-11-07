@@ -40,9 +40,9 @@ a{color:#2346B5}
 .bh-slideR{animation:bh-slideR 1s cubic-bezier(.2,.8,.2,1) both;animation-timeline:view();animation-range:entry 0% entry 80%}
 @keyframes bh-slideR{from{opacity:0;transform:translateX(60px) rotate(8deg)}to{opacity:1;transform:none}}
 
-/* countdown */
+/* age tiles */
 .bh-tile{position:relative;height:165px;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;padding:14px;box-sizing:border-box}
-.bh-num{position:relative;display:block;font-size:68px;font-weight:900;line-height:.9;letter-spacing:-.04em;font-variant-numeric:tabular-nums}
+.bh-num{position:relative;display:block;white-space:nowrap;font-size:68px;font-weight:900;line-height:.9;letter-spacing:-.04em;font-variant-numeric:tabular-nums}
 .bh-num--a{animation:bh-numA .45s cubic-bezier(.2,.8,.2,1) both}
 .bh-num--b{animation:bh-numB .45s cubic-bezier(.2,.8,.2,1) both}
 @keyframes bh-numA{from{transform:translateY(-40%);opacity:0}to{transform:none;opacity:1}}
@@ -195,16 +195,16 @@ a{color:#2346B5}
 </sc-if>
 
 <sc-if value="{{ b.taymer }}">
-    <section style="position: relative; padding: 40px 20px 44px">
-      <div class="bh-head"><span class="bh-no">{{ tab.taymer }}</span><span class="bh-lab">Taymer</span><svg class="bh-ico" aria-hidden="true" viewBox="0 0 22 22"><rect width="22" height="22" fill="#2346B5"></rect></svg></div>
-      <h2 class="bh-h2">{{ cdTitle }}</h2>
-      <p class="bh-lead">{{ cdDate }}</p>
+    <section id="bh-age" style="position: relative; padding: 40px 20px 44px">
+      <div class="bh-head"><span class="bh-no">{{ tab.taymer }}</span><span class="bh-lab">Yosh</span><svg class="bh-ico" aria-hidden="true" viewBox="0 0 22 22"><rect width="22" height="22" fill="#2346B5"></rect></svg></div>
+      <h2 class="bh-h2">Sening<br>yoshing</h2>
+      <p class="bh-lead">{{ ageLead }}</p>
       <div class="bh-rise" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 24px">
         <sc-for list="{{ tiles }}" as="t">
           <div class="bh-tile" style="{{ t.bg }}">
             <span aria-hidden="true" class="bh-hand" style="{{ t.hand }}"></span>
             <span class="bh-cap" style="position: relative; {{ t.fg }}">{{ t.l }}</span>
-            <span class="{{ t.cls }}" style="{{ t.fg }}">{{ t.v }}</span>
+            <span class="{{ t.cls }}" style="{{ t.fg }}; {{ t.fs }}">{{ t.v }}</span>
           </div>
         </sc-for>
       </div>
@@ -449,11 +449,33 @@ const buildCells = (yosh) => {
   return { cells: out, box: box, on: n > 0 };
 };
 
+/* «Sening yoshing»: raqamlar blok ko’rinishga kirganda 0 dan sanab chiqadi */
+const tkAgeStill = () => { try { return !!navigator.webdriver || window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) { return true; } };
+const tkAgeRun = (self, id, ms) => {
+  const el = document.getElementById(id);
+  if (tkAgeStill()) { if (self.ageK !== 1) { self.ageK = 1; self.forceUpdate(); } return; }
+  if (!el || typeof IntersectionObserver === 'undefined') { self.ageK = 1; self.forceUpdate(); return; }
+  const run = () => {
+    if (document.documentElement.style.overflow === 'hidden') { self.ageWait = setTimeout(run, 300); return; }
+    const t0 = performance.now();
+    const step = (t) => {
+      const p = Math.min(1, (t - t0) / (ms || 1800));
+      self.ageK = 1 - Math.pow(1 - p, 3); self.forceUpdate();
+      if (p < 1) self.ageRaf = requestAnimationFrame(step);
+    };
+    self.ageRaf = requestAnimationFrame(step);
+  };
+  self.ageIo = new IntersectionObserver((es) => { if (es.some((e) => e.isIntersecting)) { self.ageIo.disconnect(); run(); } }, { threshold: 0.35 });
+  self.ageIo.observe(el);
+};
+const tkNb = (n) => SITE.num(n).replace(/ /g, '\u00a0');
+const tkAgeStop = (self) => { if (self.ageIo) self.ageIo.disconnect(); clearTimeout(self.ageWait); cancelAnimationFrame(self.ageRaf); };
+
 class Component extends DCLogic {
   constructor(props) {
     super(props);
     this.state = { opened: false, blown: false, sec: false, sent: false, wOn: {} };
-    this.tick = 0;
+    this.ageK = tkAgeStill() ? 1 : 0;
     const dg = buildCells(SITE.d.yosh);
     const bx = dg.box;
     const cols = ['#DE3A22', '#2346B5', '#F2B51B', '#141414'];
@@ -471,17 +493,17 @@ class Component extends DCLogic {
     };
   }
   componentDidMount() {
-    this.timer = setInterval(() => { this.prevCd = this.lastCd; this.tick += 1; this.forceUpdate(); }, 1000);
+    tkAgeRun(this, 'bh-age', 2000);
   }
   componentWillUnmount() {
-    clearInterval(this.timer);
+    tkAgeStop(this);
   }
   renderVals() {
     const s = this.state;
     const D = SITE.d;
     const name = tkName(D), from = tkFrom(D);
     const w = SITE.when(D.sana);
-    const c = SITE.countdown(D.sana);
+    const ag = SITE.age(D.sana, D.yosh), K = this.ageK;
     const yosh = String(D.yosh || '').trim();
     const tab = {};
     let k = 0;
@@ -490,21 +512,19 @@ class Component extends DCLogic {
     /* kinetic name letters for the intro */
     let li = 0;
     const kin = name.split(/\s+/).filter(Boolean).map((wd) => ({ ch: Array.from(wd).map((ch) => ({ c: ch, st: '--d: ' + (1.45 + (li++) * 0.045).toFixed(2) + 's' })) }));
-    /* countdown tiles */
-    const cur = [String(c.d), c.hh, c.mm, c.ss];
-    const prev = this.prevCd || cur;
-    this.lastCd = cur;
-    const TL = ['kun', 'soat', 'daqiqa', 'soniya'];
+    /* age tiles: 0 dan sanaladi, shakllar bir marta aylanadi */
+    const AV = [ag.y, ag.mo, ag.w, ag.d];
+    const TL = ['yil', 'oy', 'hafta', 'kun'];
     const TB = ['background: #DE3A22', 'background: #2346B5', 'background: #F2B51B', 'background: #141414'];
     const TF = ['color: #FAF9F6', 'color: #FAF9F6', 'color: #141414', 'color: #FAF9F6'];
-    const rot = this.tick * 6;
+    const rot = Math.round(K * 360);
     const TH = [
       'border-radius: 50%; background: rgba(250,249,246,0.16)',
-      'background: rgba(250,249,246,0.14); transform: rotate(' + (c.m * 6) + 'deg)',
+      'background: rgba(250,249,246,0.14); transform: rotate(' + Math.round(K * 90) + 'deg)',
       'border-radius: 150px 0 0 0; background: rgba(20,20,20,0.12)',
       'clip-path: polygon(50% 0, 100% 100%, 0 100%); background: #F2B51B; transform: rotate(' + rot + 'deg)'
     ];
-    const tiles = cur.map((v, i) => ({ v: v, l: TL[i], bg: TB[i], fg: TF[i], hand: TH[i], cls: v !== prev[i] ? (this.tick % 2 ? 'bh-num bh-num--a' : 'bh-num bh-num--b') : 'bh-num' }));
+    const tiles = AV.map((x, i) => ({ v: SITE.num(Math.round(x * K)), l: TL[i], bg: TB[i], fg: TF[i], hand: TH[i], fs: 'font-size: ' + (SITE.num(x).length > 4 ? 46 : SITE.num(x).length > 3 ? 56 : 68) + 'px', cls: K === 1 ? 'bh-num bh-num--a' : 'bh-num' }));
     const matn = String(D.matn || '').trim();
     /* wishes */
     const WSH = ['border-radius: 50%; background: #DE3A22', 'background: #2346B5', 'clip-path: polygon(50% 0, 100% 100%, 0 100%); background: #F2B51B', 'border-radius: 44px 0 0 0; background: #141414', 'border-radius: 44px 44px 0 0; background: #DE3A22', 'clip-path: polygon(0 0, 100% 0, 0 100%); background: #2346B5'];
@@ -583,8 +603,7 @@ class Component extends DCLogic {
       toggleMusic: () => { SITE.music.toggle(); },
       dropCap: matn.charAt(0),
       restText: matn.slice(1),
-      cdTitle: c.done ? 'Bayram boshlandi!' : 'Bayramgacha qoldi',
-      cdDate: [w.date, w.weekday].filter(Boolean).join(', '),
+      ageLead: 'Sen bu dunyoni ' + tkNb(ag.d) + ' kundan beri yorug’ qilib kelyapsan. Har bir kuning — biz uchun sovg’a.',
       tiles: tiles,
       wishes: wishes,
       candles: candles,

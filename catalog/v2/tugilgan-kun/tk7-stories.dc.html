@@ -127,11 +127,6 @@ body{margin:0}
 .st-sec--on .st-spark{animation:st-spark 1.1s cubic-bezier(.2,.8,.3,1) both;animation-delay:var(--d,0s)}
 @keyframes st-spark{0%{opacity:1;transform:translate(0,0) scale(.4)}100%{opacity:0;transform:translate(var(--x),var(--y)) scale(1)}}
 
-/* countdown digits */
-.st-tk{animation:st-tick .5s cubic-bezier(.2,1.4,.4,1)}
-.st-tk2{animation:st-tick2 .5s cubic-bezier(.2,1.4,.4,1)}
-@keyframes st-tick{from{transform:translateY(-40%);opacity:.2}}
-@keyframes st-tick2{from{transform:translateY(-40%);opacity:.2}}
 
 /* polaroids */
 .st-pol{position:absolute;padding:10px 10px 34px;background:#FFFFFF;box-shadow:0 18px 40px rgba(0,0,0,0.35);transform:rotate(var(--r,0deg))}
@@ -174,7 +169,7 @@ body{margin:0}
 .st-lb{position:absolute;left:22px;top:22px;width:6px;height:6px;border-radius:50%;opacity:0}
 .st-like--on .st-lb{animation:st-spark .7s cubic-bezier(.2,.8,.3,1) both}
 .st-psk{border:0;cursor:pointer;transition:transform .2s ease}
-.st-cdBox{display:flex;flex-direction:column;align-items:center;justify-content:center;width:68px;height:78px;border-radius:18px;background:#F7F2EC;overflow:hidden}
+.st-cdBox{display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:0;height:78px;border-radius:18px;background:#F7F2EC;overflow:hidden}
 .st-cake .st-flame{transform-box:fill-box;transform-origin:50% 100%;animation:st-flick .7s ease-in-out infinite alternate}
 @keyframes st-flick{0%{transform:scale(1,1) rotate(-4deg)}50%{transform:scale(.9,1.12) rotate(3deg)}100%{transform:scale(1.06,.94) rotate(-1deg)}}
 .st-out .st-flame{animation:st-fOut .35s ease-in both}
@@ -336,19 +331,16 @@ body{margin:0}
 </sc-if>
 
 <sc-if value="{{ b.taymer }}">
-    <section data-rv="taymer" class="{{ rv.taymer }}" style="padding: 40px 16px 0">
+    <section data-rv="taymer" data-age="" class="{{ rv.taymer }}" style="padding: 40px 16px 0">
       <div class="st-postC" style="padding: 22px 18px 20px; text-align: center">
-        <p style="margin: 0; font-size: 13px; font-weight: 900; letter-spacing: 0.18em; color: #E8336F">{{ cdKicker }}</p>
-        <p class="st-gtx" style="margin: 8px 0 0; font-size: 23px; font-weight: 900; line-height: 1.25; overflow-wrap: anywhere">{{ cdTitle }}</p>
-        <sc-if value="{{ cdLive }}">
-          <div style="display: flex; justify-content: center; gap: 8px; margin-top: 18px">
-            <sc-for list="{{ tiles }}" as="x">
-              <div class="st-cdBox st-rc" style="{{ x.st }}"><span class="st-mono" style="font-size: 30px; line-height: 1"><span class="{{ x.cls }}" style="display: inline-block">{{ x.v }}</span></span><span style="margin-top: 6px; font-size: 12px; font-weight: 800; color: #6E6478">{{ x.l }}</span></div>
-            </sc-for>
-          </div>
-        </sc-if>
-        <sc-if value="{{ cdDone }}"><p class="st-mono" style="margin: 16px 0 0; font-size: 30px; color: #E8336F">Bugun!</p></sc-if>
-        <sc-if value="{{ calUrl }}"><a href="{{ calUrl }}" target="_blank" rel="noopener" style="display: flex; align-items: center; justify-content: center; gap: 8px; min-height: 48px; margin-top: 18px; border-radius: 24px; background: #1F1530; color: #FFFFFF; font-size: 15px; font-weight: 800; text-decoration: none"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24"><path class="st-ico" d="M6 9a6 6 0 0 1 12 0c0 6 2.5 7.5 2.5 7.5h-17S6 15 6 9zM10 20a2.2 2.2 0 0 0 4 0"></path></svg>Eslatma qo’yish</a></sc-if>
+        <p style="margin: 0; font-size: 13px; font-weight: 900; letter-spacing: 0.18em; color: #E8336F">BUGUN — SENING KUNING</p>
+        <p class="st-gtx" style="margin: 8px 0 0; font-size: 23px; font-weight: 900; line-height: 1.25; overflow-wrap: anywhere">{{ ageTitle }}</p>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 18px">
+          <sc-for list="{{ ageTilesP }}" as="x">
+            <div class="st-cdBox st-rc" style="{{ x.st }}"><span class="st-mono" style="font-size: 26px; line-height: 1; white-space: nowrap">{{ x.v }}</span><span style="margin-top: 6px; font-size: 12px; font-weight: 800; color: #6E6478">{{ x.l }}</span></div>
+          </sc-for>
+        </div>
+        <p style="margin: 16px 0 0; font-size: 15px; font-weight: 800; line-height: 1.45; color: #6E6478; overflow-wrap: anywhere">{{ ageLead }}</p>
       </div>
     </section>
 </sc-if>
@@ -619,17 +611,13 @@ body{margin:0}
       <sc-if value="{{ b.taymer }}">
         <div class="{{ cc.taymer }}" style="z-index: 2; background: linear-gradient(165deg, #FF9F43, #FF5A5F 45%, #E8336F 70%, #8A4DFF)">
           <sc-if value="{{ has.photo }}"><img src="{{ p.2 }}" alt="" style="position: absolute; left: -20px; top: -20px; width: 430px; height: 884px; object-fit: cover; filter: blur(16px); opacity: 0.3"></sc-if>
-          <p aria-hidden="true" class="st-a st-mono" style="--d: .05s; position: absolute; left: 0; top: 120px; width: 390px; margin: 0; text-align: center; font-size: 150px; line-height: 1; color: rgba(255,255,255,0.18)">{{ cdBig }}</p>
-          <p class="st-a st-scr" style="--d: .8s; position: absolute; left: 0; top: 590px; width: 390px; margin: 0; text-align: center; font-size: 36px; color: #FFFFFF; text-shadow: 0 3px 14px rgba(0,0,0,0.25); transform: rotate(-3deg)">{{ cdCap }}</p>
+          <p aria-hidden="true" class="st-a st-mono" style="--d: .05s; position: absolute; left: 0; top: 120px; width: 390px; margin: 0; text-align: center; font-size: 150px; line-height: 1; color: rgba(255,255,255,0.18)">{{ ageBig }}</p>
+          <p class="st-a st-scr" style="--d: .8s; position: absolute; left: 0; top: 590px; width: 390px; margin: 0; text-align: center; font-size: 36px; color: #FFFFFF; text-shadow: 0 3px 14px rgba(0,0,0,0.25); transform: rotate(-3deg)">Har kuning — sovg’a!</p>
           <div class="st-a st-aS" style="--d: .2s; --r: 2deg; position: absolute; left: 30px; top: 300px; width: 330px; padding: 20px 16px 18px; box-sizing: border-box; border-radius: 26px; background: #FFFFFF; text-align: center; box-shadow: 0 20px 44px rgba(0,0,0,0.3)">
-            <p class="st-gtx" style="margin: 0; font-size: 20px; font-weight: 900; line-height: 1.25; overflow-wrap: anywhere">{{ cdTitle }}</p>
-            <sc-if value="{{ cdLive }}">
-              <div style="display: flex; justify-content: center; gap: 6px; margin-top: 14px">
-                <sc-for list="{{ tiles }}" as="x"><div class="st-cdBox" style="width: 68px; height: 74px"><span class="st-mono" style="font-size: 28px; line-height: 1; color: #1F1530"><span class="{{ x.cls }}" style="display: inline-block">{{ x.v }}</span></span><span style="margin-top: 6px; font-size: 12px; font-weight: 800; color: #6E6478">{{ x.l }}</span></div></sc-for>
-              </div>
-            </sc-if>
-            <sc-if value="{{ cdDone }}"><p class="st-mono" style="margin: 14px 0 0; font-size: 30px; color: #E8336F">Bugun!</p></sc-if>
-            <sc-if value="{{ calUrl }}"><a href="{{ calUrl }}" target="_blank" rel="noopener" style="display: flex; align-items: center; justify-content: center; gap: 8px; min-height: 46px; margin-top: 14px; border-radius: 23px; background: #F7F2EC; color: #1F1530; font-size: 15px; font-weight: 800; text-decoration: none"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24"><path class="st-ico" d="M6 9a6 6 0 0 1 12 0c0 6 2.5 7.5 2.5 7.5h-17S6 15 6 9zM10 20a2.2 2.2 0 0 0 4 0"></path></svg>Eslatma qo’yish</a></sc-if>
+            <p class="st-gtx" style="margin: 0; font-size: 20px; font-weight: 900; line-height: 1.25; overflow-wrap: anywhere">{{ ageTitle }}</p>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 14px">
+              <sc-for list="{{ ageTilesS }}" as="x"><div class="st-cdBox" style="width: auto; height: 70px"><span class="st-mono" style="font-size: 24px; line-height: 1; white-space: nowrap; color: #1F1530">{{ x.v }}</span><span style="margin-top: 6px; font-size: 12px; font-weight: 800; color: #6E6478">{{ x.l }}</span></div></sc-for>
+            </div>
           </div>
         </div>
       </sc-if>
@@ -710,6 +698,7 @@ const tkFrom = (d) => {
 };
 const REDUCED = typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
 const CAN_IO = typeof IntersectionObserver === 'function' && !REDUCED;
+const AGE_NOW = REDUCED || !!navigator.webdriver || typeof IntersectionObserver !== 'function';
 const pad2 = (n) => (n < 10 ? '0' : '') + n;
 const GR = [['#FFB36B', '#FF7A3D'], ['#FF7AA6', '#E8336F'], ['#A98BFF', '#7B4DFF'], ['#5CD6A8', '#14A56E'], ['#6EC1FF', '#3A7BFF'], ['#FFD36B', '#F2A20C']];
 const rnd = (i, k) => { const x = Math.sin(i * 127.1 + k * 311.7) * 43758.5453; return x - Math.floor(x); };
@@ -718,10 +707,10 @@ const ICO = {
   tilaklar: 'M12 3l2.6 5.6 6 .7-4.5 4.1 1.2 6L12 16.4l-5.3 3 1.2-6L3.4 9.3l6-.7z',
   sorov: 'M5 20V11M12 20V4M19 20v-6',
   sirli: 'M5 11h14v9H5zM8 11V8a4 4 0 0 1 8 0v3',
-  taymer: 'M12 21a8 8 0 1 0 0-16 8 8 0 0 0 0 16zM12 9v4l2.5 2M9.5 2.5h5',
+  taymer: 'M4.5 20.5h15v-8h-15zM4.5 16c2.5 1.6 5 1.6 7.5 0s5-1.6 7.5 0M12 12.5V9M12 6.2v.01',
   galereya: 'M4 5h16v14H4zM4 15l4.5-4.5 4 4 2.5-2.5L20 17M15.5 9.5h.01'
 };
-const LABEL = { tabrik: 'Tabrik', tilaklar: 'Tilaklar', sorov: 'So’rovnoma', sirli: 'Sirli', taymer: 'Taymer', galereya: 'Suratlar' };
+const LABEL = { tabrik: 'Tabrik', tilaklar: 'Tilaklar', sorov: 'So’rovnoma', sirli: 'Sirli', taymer: 'Yoshing', galereya: 'Suratlar' };
 
 class Component extends DCLogic {
   constructor(props) {
@@ -746,10 +735,15 @@ class Component extends DCLogic {
       const a = rnd(i, 11) * Math.PI * 2, r = 125 + rnd(i, 12) * 60, z = 6 + Math.round(rnd(i, 13) * 10);
       return 'left: ' + Math.round(195 + Math.cos(a) * r * 1.15 - z / 2) + 'px; top: ' + Math.round(318 + Math.sin(a) * r - z / 2) + 'px; width: ' + z + 'px; height: ' + z + 'px; animation-delay: -' + (rnd(i, 14) * 3).toFixed(2) + 's; animation-duration: ' + (2.2 + rnd(i, 15) * 2).toFixed(2) + 's';
     });
+    this.ageS = this.ageP = AGE_NOW ? 1 : 0;
     this.floatH = Array.from({ length: 7 }, (_, i) => 'left: ' + (-15 + (i % 3) * 6) + 'px; --x: ' + Math.round((rnd(i, 9) - 0.6) * 140) + 'px; --r: ' + Math.round((rnd(i, 10) - 0.5) * 60) + 'deg; --d: ' + (i * 0.12).toFixed(2) + 's');
   }
   componentDidMount() {
-    this.timer = setInterval(() => this.forceUpdate(), 1000);
+    const el = document.querySelector('[data-age]');
+    if (!AGE_NOW && el) {
+      this.aio = new IntersectionObserver((es) => { if (es.some((e) => e.isIntersecting)) { this.aio.disconnect(); this.ageRun('ageP'); } }, { threshold: 0.4 });
+      this.aio.observe(el);
+    } else this.ageP = 1;
     if (CAN_IO) {
       this.io = new IntersectionObserver((es) => {
         const add = {};
@@ -760,8 +754,18 @@ class Component extends DCLogic {
     }
   }
   componentWillUnmount() {
-    clearInterval(this.timer); clearTimeout(this.runT); clearTimeout(this.popT); clearTimeout(this.sentT);
+    cancelAnimationFrame(this.rafP); cancelAnimationFrame(this.rafS); if (this.aio) this.aio.disconnect(); clearTimeout(this.runT); clearTimeout(this.popT); clearTimeout(this.sentT);
     if (this.io) this.io.disconnect();
+  }
+  componentDidUpdate() {
+    if (this.ageS < 1 && !this.rafS && this.state.phase === 'view' && this.cards()[this.state.cur] === 'taymer') this.ageRun('ageS');
+  }
+  ageRun(k) {
+    const rk = k === 'ageS' ? 'rafS' : 'rafP';
+    if (this[rk]) return;
+    const t0 = performance.now() + (k === 'ageS' ? 350 : 0), D = 1900;
+    const st = (t) => { const u = Math.max(0, Math.min(1, (t - t0) / D)); this[k] = 1 - Math.pow(1 - u, 3); this.forceUpdate(); if (u < 1) this[rk] = requestAnimationFrame(st); };
+    this[rk] = requestAnimationFrame(st);
   }
   cards() {
     const B = SITE.b, D = SITE.d, wl = (D.tilaklar || []).filter((x) => String(x || '').trim());
@@ -809,7 +813,7 @@ class Component extends DCLogic {
   renderVals() {
     const s = this.state, D = SITE.d, B = SITE.b;
     const name = tkName(D), from = tkFrom(D);
-    const w = SITE.when(D.sana), cd = SITE.countdown(D.sana);
+    const w = SITE.when(D.sana);
     const yosh = String(D.yosh || '').trim();
     const isAge = /^\d{1,3}$/.test(yosh);
     const wl = (D.tilaklar || []).map((x) => String(x || '').trim()).filter(Boolean);
@@ -911,17 +915,11 @@ class Component extends DCLogic {
       tap: () => { if (this.state.vote === i) return; this.setState((st) => ({ vote: i, tick: st.phase === 'view' ? st.tick + 1 : st.tick })); }
     }));
 
-    // countdown
-    const tl = [[cd.dd, 'kun', cd.d], [cd.hh, 'soat', cd.h], [cd.mm, 'daqiqa', cd.m], [cd.ss, 'soniya', cd.s]];
-    const tiles = tl.map((x, i) => ({ v: x[0], l: x[1], cls: i === 3 ? (x[2] % 2 ? 'st-tk' : 'st-tk2') : '', st: '--d: ' + (0.1 + i * 0.08).toFixed(2) + 's' }));
-    const iso = String(D.sana || '');
-    let calUrl = '';
-    if (/^\d{4}-\d{2}-\d{2}/.test(iso) && !cd.done) {
-      const a = iso.slice(0, 10).replace(/-/g, '');
-      const nx = new Date(Date.UTC(+iso.slice(0, 4), +iso.slice(5, 7) - 1, +iso.slice(8, 10) + 1));
-      const bb = nx.getUTCFullYear() + pad2(nx.getUTCMonth() + 1) + pad2(nx.getUTCDate());
-      calUrl = 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + encodeURIComponent(nameOr + 'ning tug’ilgan kuni') + '&dates=' + a + '/' + bb;
-    }
+    // age
+    const ag = SITE.age(D.sana, D.yosh);
+    const AU = [[ag.y, 'yil'], [ag.mo, 'oy'], [ag.w, 'hafta'], [ag.d, 'kun']];
+    const ageTilesP = AU.map((x, i) => ({ v: SITE.num(Math.round(x[0] * this.ageP)).replace(/ /g, '\u202F'), l: x[1], st: '--d: ' + (0.1 + i * 0.08).toFixed(2) + 's; height: 74px' }));
+    const ageTilesS = AU.map((x) => ({ v: SITE.num(Math.round(x[0] * this.ageS)).replace(/ /g, '\u202F'), l: x[1] }));
 
     // photos
     const np = Math.max(1, Math.min(6, SITE.has.photos));
@@ -1029,10 +1027,9 @@ class Component extends DCLogic {
       secCls: s.sec ? 'st-sec--on' : '', secFs: secLen > 160 ? 17 : secLen > 90 ? 19 : 22,
       sparks: this.sparks,
       openSec: () => this.setState((st) => ({ sec: true, tick: st.phase === 'view' ? st.tick + 1 : st.tick })),
-      cdKicker: cd.done ? 'BAYRAM' : 'ORTGA SANOQ',
-      cdTitle: cd.done ? 'Bayram boshlandi!' : (name ? name + 'ning tug’ilgan kuni' : 'Tug’ilgan kun'),
-      cdLive: !cd.done && !cd.none, cdDone: cd.done, tiles: tiles, calUrl: calUrl,
-      cdBig: cd.done || cd.none ? '!' : String(cd.d), cdCap: cd.done ? 'Bugun — bayram!' : 'Sanoq boshlandi!',
+      ageTitle: name ? name + ', sening yoshing' : 'Sening yoshing', ageTilesP: ageTilesP, ageTilesS: ageTilesS,
+      ageBig: isAge ? yosh : '♥',
+      ageLead: 'Sen bu dunyoni ' + SITE.num(ag.d) + ' kundan beri yorug’ qilib kelyapsan. Har bir kuning — biz uchun sovg’a!',
       dumpCard: cards.indexOf('galereya') >= 0, dump: dump,
       finalTitle: finalTitle, finalSubTop: finalSubTop, finalCtaTop: finalSubTop + 70,
       // page

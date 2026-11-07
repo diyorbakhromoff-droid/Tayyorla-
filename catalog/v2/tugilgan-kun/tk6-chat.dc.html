@@ -76,15 +76,14 @@ body{margin:0}
 @keyframes ct-eq{from{transform:scaleY(.7)}to{transform:scaleY(1.1)}}
 .ct-tr{margin:7px 0 0;padding:7px 10px;border-radius:12px;background:#F2F5F3;font-size:15px;font-weight:600;line-height:1.35;color:#13201C;overflow-wrap:anywhere}
 
-/* countdown */
-.ct-cd{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin-top:8px}
-.ct-cdT{display:flex;flex-direction:column;align-items:center;padding:10px 0 8px;border-radius:14px;background:#0E9F7E;color:#FFFFFF}
-.ct-cdN{font-size:28px;font-weight:700;line-height:1;font-variant-numeric:tabular-nums}
+/* age */
+.ct-cd{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;margin-top:8px}
+.ct-cdT{display:flex;flex-direction:column;align-items:center;padding:12px 0 10px;border-radius:14px;background:#0E9F7E;color:#FFFFFF}
+.ct-cdN{font-size:30px;font-weight:700;line-height:1;white-space:nowrap;font-variant-numeric:tabular-nums}
 .ct-ta{animation:ct-roll .45s cubic-bezier(.2,1.3,.4,1)}
 .ct-tb{animation:ct-roll2 .45s cubic-bezier(.2,1.3,.4,1)}
 @keyframes ct-roll{from{transform:translateY(-55%);opacity:0}}
 @keyframes ct-roll2{from{transform:translateY(-55%);opacity:0}}
-.ct-link{display:flex;align-items:center;justify-content:center;gap:8px;min-height:46px;margin-top:8px;border-radius:14px;background:#F2F5F3;color:#0B7F64;font-size:15px;font-weight:700;text-decoration:none}
 
 /* candle mini app */
 .ct-key{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;min-height:48px;margin-top:6px;border:0;border-radius:14px;background:rgba(255,255,255,0.82);color:#0B7F64;font-family:'Commissioner',system-ui,sans-serif;font-size:15px;font-weight:700;cursor:pointer;box-shadow:0 1px 1.5px rgba(19,32,28,0.1)}
@@ -272,19 +271,17 @@ body{margin:0}
 </sc-if>
 
 <sc-if value="{{ b.taymer }}">
-    <div class="ct-m">
+    <div id="ct-age" class="ct-m">
       <div class="ct-tV"><span class="ct-typ"><i></i><i></i><i></i></span></div>
       <div class="ct-body ct-rowIn">
         <span aria-hidden="true" class="ct-av" style="{{ s2.av }}">{{ s2.ini }}</span>
         <div class="ct-bIn" style="width: 286px">
           <p class="ct-name" style="{{ s2.col }}">{{ s2.name }}</p>
-          <p class="ct-txt">{{ cdText }}</p>
-          <sc-if value="{{ cdLive }}">
-            <div class="ct-cd">
-              <sc-for list="{{ tiles }}" as="x"><div class="ct-cdT"><span class="{{ x.cls }}">{{ x.v }}</span><span style="margin-top: 4px; font-size: 11px; font-weight: 600; opacity: 0.9">{{ x.l }}</span></div></sc-for>
-            </div>
-          </sc-if>
-          <sc-if value="{{ calUrl }}"><a class="ct-link" href="{{ calUrl }}" target="_blank" rel="noopener"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 20 20"><rect class="ct-icoG" x="3" y="4.5" width="14" height="12.5" rx="2.5"></rect><path class="ct-icoG" d="M3 8.5h14M7 2.5v4M13 2.5v4"></path></svg>Taqvimga qo’shish</a></sc-if>
+          <p class="ct-txt">{{ ageText }}</p>
+          <div class="ct-cd">
+            <sc-for list="{{ tiles }}" as="x"><div class="ct-cdT"><span class="{{ x.cls }}">{{ x.v }}</span><span style="margin-top: 4px; font-size: 11px; font-weight: 600; opacity: 0.9">{{ x.l }}</span></div></sc-for>
+          </div>
+          <p class="ct-txt" style="margin-top: 8px">Har bir kuning — biz uchun sovg’a 🎁</p>
           <div class="ct-meta">{{ t.taymer }}</div>
         </div>
       </div>
@@ -456,10 +453,33 @@ const clock = (min) => pad2(Math.floor(min / 60) % 24) + ':' + pad2(min % 60);
 const WEEK = ['yakshanba', 'dushanba', 'seshanba', 'chorshanba', 'payshanba', 'juma', 'shanba'];
 const MON = ['yanvar', 'fevral', 'mart', 'aprel', 'may', 'iyun', 'iyul', 'avgust', 'sentabr', 'oktabr', 'noyabr', 'dekabr'];
 
+/* «Sening yoshing»: raqamlar blok ko’rinishga kirganda 0 dan sanab chiqadi */
+const tkAgeStill = () => { try { return !!navigator.webdriver || window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) { return true; } };
+const tkAgeRun = (self, id, ms) => {
+  const el = document.getElementById(id);
+  if (tkAgeStill()) { if (self.ageK !== 1) { self.ageK = 1; self.forceUpdate(); } return; }
+  if (!el || typeof IntersectionObserver === 'undefined') { self.ageK = 1; self.forceUpdate(); return; }
+  const run = () => {
+    if (document.documentElement.style.overflow === 'hidden') { self.ageWait = setTimeout(run, 300); return; }
+    const t0 = performance.now();
+    const step = (t) => {
+      const p = Math.min(1, (t - t0) / (ms || 1800));
+      self.ageK = 1 - Math.pow(1 - p, 3); self.forceUpdate();
+      if (p < 1) self.ageRaf = requestAnimationFrame(step);
+    };
+    self.ageRaf = requestAnimationFrame(step);
+  };
+  self.ageIo = new IntersectionObserver((es) => { if (es.some((e) => e.isIntersecting)) { self.ageIo.disconnect(); run(); } }, { threshold: 0.35 });
+  self.ageIo.observe(el);
+};
+const tkNb = (n) => SITE.num(n).replace(/ /g, '\u00a0');
+const tkAgeStop = (self) => { if (self.ageIo) self.ageIo.disconnect(); clearTimeout(self.ageWait); cancelAnimationFrame(self.ageRaf); };
+
 class Component extends DCLogic {
   constructor(props) {
     super(props);
     this.state = { opened: false, blown: false, sec: false, play: -1, draft: '', sent: [], sendErr: '' };
+    this.ageK = tkAgeStill() ? 1 : 0;
     const rnd = (i, k) => { const x = Math.sin(i * 127.1 + k * 311.7) * 43758.5453; return x - Math.floor(x); };
     this.bars = (seed) => Array.from({ length: 30 }, (_, i) => 'height: ' + Math.round(6 + Math.abs(Math.sin(i * 0.55 + seed)) * 16 + rnd(i, seed) * 8) + 'px; animation-delay: -' + (rnd(i, seed + 3) * 0.5).toFixed(2) + 's');
     const pts = [];
@@ -467,16 +487,16 @@ class Component extends DCLogic {
     this.burst = 'polygon(' + pts.join(', ') + ')';
   }
   componentDidMount() {
-    this.timer = setInterval(() => this.forceUpdate(), 1000);
+    tkAgeRun(this, 'ct-age', 1800);
   }
   componentWillUnmount() {
-    clearInterval(this.timer);
+    tkAgeStop(this);
     clearTimeout(this.playT);
   }
   renderVals() {
     const s = this.state, D = SITE.d;
     const name = tkName(D), from = tkFrom(D);
-    const w = SITE.when(D.sana), cd = SITE.countdown(D.sana);
+    const w = SITE.when(D.sana), ag = SITE.age(D.sana, D.yosh), K = this.ageK;
     const yosh = String(D.yosh || '').trim();
 
     // guruh a’zolari: tabrik muallif(lar)i va yaqinlar
@@ -522,15 +542,7 @@ class Component extends DCLogic {
     const nowD = new Date();
     t.now = pad2(nowD.getHours()) + ':' + pad2(nowD.getMinutes());
 
-    const tl = [[cd.dd, 'kun', cd.d], [cd.hh, 'soat', cd.h], [cd.mm, 'daqiqa', cd.m], [cd.ss, 'soniya', cd.s]];
-    const iso = String(D.sana || '');
-    let calUrl = '';
-    if (/^\d{4}-\d{2}-\d{2}/.test(iso)) {
-      const a = iso.slice(0, 10).replace(/-/g, '');
-      const nx = new Date(Date.UTC(+iso.slice(0, 4), +iso.slice(5, 7) - 1, +iso.slice(8, 10) + 1));
-      const b = nx.getUTCFullYear() + pad2(nx.getUTCMonth() + 1) + pad2(nx.getUTCDate());
-      calUrl = 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + encodeURIComponent((name || 'Do’stim') + 'ning tug’ilgan kuni') + '&dates=' + a + '/' + b;
-    }
+    const tl = [[ag.y, 'yil'], [ag.mo, 'oy'], [ag.w, 'hafta'], [ag.d, 'kun']];
 
     const digits = (yosh && /^\d{1,3}$/.test(yosh)) ? Math.min(5, Math.max(1, Math.ceil(+yosh / 10))) : 3;
     const cc = ['#7A4FD6', '#1A6FAD', '#0E9F7E', '#E0445E', '#D98A12'];
@@ -589,10 +601,8 @@ class Component extends DCLogic {
       guestsChip: 'Yaqinlaring ham yozishdi',
       guests: guests,
       voices: voices,
-      cdText: cd.done ? 'Bayram boshlandi! Bugun — sening kuning.' : 'Bayramgacha qancha qoldi, sanab turibmiz:',
-      cdLive: !cd.done && !cd.none,
-      tiles: tl.map((x, i) => ({ v: x[0], l: x[1], cls: 'ct-cdN' + (i === 3 ? (x[2] % 2 ? ' ct-ta' : ' ct-tb') : '') })),
-      calUrl: cd.done ? '' : calUrl,
+      ageText: 'Hisoblab chiqdik: sen bu dunyoni ' + tkNb(ag.d) + ' kundan beri yorug’ qilib kelyapsan ✨',
+      tiles: tl.map((x) => ({ v: SITE.num(Math.round(x[0] * K)), l: x[1], cls: 'ct-cdN' + (K === 1 ? ' ct-ta' : '') })),
       candles: candles,
       cakeCls: s.blown ? 'ct-out' : '',
       blown: s.blown,

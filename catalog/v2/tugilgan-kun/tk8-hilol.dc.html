@@ -60,11 +60,11 @@ a{color:#C9BEF5}
 .hl-lan--on .hl-lTx{color:#FFE2A8;text-shadow:0 0 16px rgba(246,185,90,0.6)}
 
 /* flip timer */
-.hl-flip{position:relative;width:72px;height:88px;perspective:320px}
-.hl-half{position:absolute;left:0;width:72px;height:44px;overflow:hidden;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.hl-flip{position:relative;width:100%;height:88px;perspective:320px}
+.hl-half{position:absolute;left:0;width:100%;height:44px;overflow:hidden;backface-visibility:hidden;-webkit-backface-visibility:hidden}
 .hl-top{top:0;border-radius:36px 36px 0 0;background:linear-gradient(180deg,#3A3182,#2C2568)}
 .hl-bot{top:44px;border-radius:0 0 10px 10px;background:linear-gradient(180deg,#251F5A,#1B1646)}
-.hl-half span{display:block;width:72px;height:88px;line-height:96px;text-align:center;font-family:'Alice',Georgia,serif;font-size:38px;color:#F4EFE6;font-variant-numeric:lining-nums tabular-nums}
+.hl-half span{display:block;width:100%;white-space:nowrap;height:88px;line-height:96px;text-align:center;font-family:'Alice',Georgia,serif;font-size:38px;color:#F4EFE6;font-variant-numeric:lining-nums tabular-nums}
 .hl-bot span{transform:translateY(-44px)}
 .hl-flap1{z-index:2;transform-origin:50% 100%;transform:rotateX(-90deg)}
 .hl-flap2{z-index:2;transform-origin:50% 0;transform:rotateX(0)}
@@ -76,8 +76,8 @@ a{color:#C9BEF5}
 @keyframes hl-fBotA{from{transform:rotateX(90deg)}to{transform:rotateX(0)}}
 @keyframes hl-fTopB{from{transform:rotateX(0)}to{transform:rotateX(-90deg)}}
 @keyframes hl-fBotB{from{transform:rotateX(90deg)}to{transform:rotateX(0)}}
-.hl-hinge{position:absolute;left:0;top:43.5px;width:72px;height:1px;background:rgba(8,6,26,0.9);z-index:3}
-.hl-tFrame{position:absolute;left:-4px;top:-4px;width:80px;height:96px;box-sizing:border-box;border-radius:40px 40px 13px 13px;border:1px solid rgba(201,190,245,0.6);z-index:4;pointer-events:none;box-shadow:0 0 18px rgba(201,190,245,0.18)}
+.hl-hinge{position:absolute;left:0;top:43.5px;width:100%;height:1px;background:rgba(8,6,26,0.9);z-index:3}
+.hl-tFrame{position:absolute;left:-4px;top:-4px;width:calc(100% + 8px);height:96px;box-sizing:border-box;border-radius:40px 40px 13px 13px;border:1px solid rgba(201,190,245,0.6);z-index:4;pointer-events:none;box-shadow:0 0 18px rgba(201,190,245,0.18)}
 
 /* secret: clouds over the moon */
 .hl-sec{position:relative;display:block;width:350px;height:320px;margin:0;padding:0;border:0;border-radius:28px;background:none;color:inherit;font:inherit;cursor:pointer;overflow:hidden;text-align:center}
@@ -234,14 +234,14 @@ a{color:#C9BEF5}
 </sc-if>
 
 <sc-if value="{{ b.taymer }}">
-    <section style="position: relative; padding: 36px 20px 40px; text-align: center">
+    <section data-age="" style="position: relative; padding: 36px 20px 40px; text-align: center">
       <svg aria-hidden="true" class="hl-phase" width="40" height="40" viewBox="-20 -20 40 40" style="display: block; margin: 0 auto 12px"><defs><mask id="{{ ph.taymer.id }}"><circle r="15" fill="#FFFFFF"></circle><circle cx="{{ ph.taymer.dx }}" r="15.5" fill="#000000"></circle></mask></defs><circle r="15" fill="#2E2766" stroke="rgba(201,190,245,0.4)" style="stroke-width: 1"></circle><circle r="15" fill="#F4EFE6" mask="{{ ph.taymer.url }}"></circle></svg>
-      <p class="hl-kick">{{ cdKick }}</p>
-      <h2 class="hl-h2">{{ cdTitle }}</h2>
-      <p class="hl-lead">{{ cdDate }}</p>
-      <div class="hl-rise" style="display: flex; justify-content: center; gap: 12px; margin-top: 30px">
+      <p class="hl-kick">Bugun — sizning kuningiz</p>
+      <h2 class="hl-h2">Sizning yoshingiz</h2>
+      <p class="hl-lead">{{ ageLead }}</p>
+      <div class="hl-rise" style="display: grid; grid-template-columns: 1fr 1fr; gap: 22px 16px; margin-top: 30px; padding: 0 6px">
         <sc-for list="{{ tiles }}" as="t">
-          <div style="display: flex; flex-direction: column; align-items: center; gap: 14px">
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 14px; min-width: 0">
             <div class="{{ t.cls }}">
               <div class="hl-half hl-top"><span>{{ t.cur }}</span></div>
               <div class="hl-half hl-bot"><span>{{ t.prev }}</span></div>
@@ -458,6 +458,7 @@ const ORDER = ['tabrik', 'tilaklar', 'taymer', 'xronika', 'galereya', 'sirli', '
 class Component extends DCLogic {
   constructor(props) {
     super(props);
+    this.ageK = (typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches) || navigator.webdriver || typeof IntersectionObserver !== 'function' ? 1 : 0;
     this.state = { opened: false, sec: false, sent: false, wOn: {} };
     this.tick = 0;
     const star = (i, k, left, top) => {
@@ -497,17 +498,29 @@ class Component extends DCLogic {
     };
   }
   componentDidMount() {
-    this.timer = setInterval(() => { this.prevCd = this.lastCd; this.tick += 1; this.forceUpdate(); }, 1000);
+    const el = document.querySelector('[data-age]');
+    if (this.ageK < 1 && el) {
+      this.aio = new IntersectionObserver((es) => {
+        if (!es.some((e) => e.isIntersecting)) return;
+        this.aio.disconnect();
+        const K = [0.18, 0.42, 0.64, 0.82, 0.94, 1];
+        let n = 0;
+        const step = () => { this.ageK = K[n++]; this.prevCd = this.lastCd; this.tick += 1; this.forceUpdate(); if (n < K.length) this.timer = setTimeout(step, 560); };
+        this.timer = setTimeout(step, 250);
+      }, { threshold: 0.4 });
+      this.aio.observe(el);
+    } else this.ageK = 1;
   }
   componentWillUnmount() {
-    clearInterval(this.timer);
+    clearTimeout(this.timer);
+    if (this.aio) this.aio.disconnect();
   }
   renderVals() {
     const s = this.state;
     const D = SITE.d;
     const name = tkName(D), from = tkFrom(D);
     const w = SITE.when(D.sana);
-    const c = SITE.countdown(D.sana);
+    const ag = SITE.age(D.sana, D.yosh);
     const yosh = String(D.yosh || '').trim();
     /* moon phases wax through the visible sections: crescent first, full moon last */
     const vis = ORDER.filter((k) => SITE.b[k]);
@@ -516,10 +529,10 @@ class Component extends DCLogic {
       const i = vis.indexOf(k), p = vis.length > 1 ? 0.18 + 0.82 * i / (vis.length - 1) : 1;
       ph[k] = { id: 'hl-ph-' + k, url: 'url(#hl-ph-' + k + ')', dx: f1(-p * 33) };
     });
-    const cur = [String(c.d), c.hh, c.mm, c.ss];
+    const cur = [ag.y, ag.mo, ag.w, ag.d].map((v) => SITE.num(Math.round(v * this.ageK)));
     const prev = this.prevCd || cur;
     this.lastCd = cur;
-    const L = ['kun', 'soat', 'daqiqa', 'soniya'];
+    const L = ['yil', 'oy', 'hafta', 'kun'];
     const tiles = cur.map((v, i) => ({ cur: v, prev: prev[i], l: L[i], cls: v !== prev[i] ? (this.tick % 2 ? 'hl-flip hl-flip--a' : 'hl-flip hl-flip--b') : 'hl-flip' }));
     const matn = String(D.matn || '').trim();
     const wishes = (D.tilaklar || []).map((t, i) => {
@@ -570,9 +583,7 @@ class Component extends DCLogic {
       toggleMusic: () => { SITE.music.toggle(); },
       dropCap: matn.charAt(0),
       restText: matn.slice(1),
-      cdKick: c.done ? 'Muborak kun' : 'Muborak kungacha',
-      cdTitle: c.done ? 'Bugun — sizning kuningiz' : 'Necha tun qoldi',
-      cdDate: [w.date, w.weekday].filter(Boolean).join(', '),
+      ageLead: 'Siz bu dunyoni ' + SITE.num(ag.d) + ' kundan beri yorug’ qilib kelyapsiz. Har bir kuningiz — biz uchun sovg’a.',
       tiles: tiles,
       wishes: wishes,
       secCls: s.sec ? 'hl-sec hl-sec--on' : 'hl-sec',

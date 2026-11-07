@@ -142,7 +142,7 @@ body{margin:0}
 .vk-seal{position:absolute;right:-12px;top:-26px;width:74px;height:74px;animation:vk-spin 20s linear infinite}
 /* timer */
 .vk-cell{position:relative;width:78px;height:104px;border-radius:18px;background-color:#0A1150;background-image:radial-gradient(circle,rgba(215,255,58,0.13) 1.2px,rgba(215,255,58,0) 1.6px);background-size:7px 7px;box-shadow:inset 0 0 0 2px rgba(255,255,255,0.12),0 6px 0 #070C3C,0 16px 26px rgba(0,0,0,0.35);display:flex;align-items:center;justify-content:center;overflow:hidden;perspective:300px}
-.vk-cell::after{content:'';position:absolute;left:0;right:0;top:51px;height:1px;background:rgba(5,8,40,0.55);box-shadow:0 1px 0 rgba(255,255,255,0.06)}
+.vk-cell::after{content:'';position:absolute;left:0;right:0;top:50%;height:1px;background:rgba(5,8,40,0.55);box-shadow:0 1px 0 rgba(255,255,255,0.06)}
 .vk-num{display:block;font-size:38px;line-height:1;font-variant-numeric:tabular-nums}
 .vk-num--a{animation:vk-flipA .55s cubic-bezier(.3,1.4,.5,1) both}
 .vk-num--b{animation:vk-flipB2 .55s cubic-bezier(.3,1.4,.5,1) both}
@@ -279,15 +279,15 @@ body{margin:0}
 </sc-if>
 
 <sc-if value="{{ b.taymer }}">
-    <section style="position: relative; padding: 40px 20px 44px; text-align: center">
+    <section data-age="" style="position: relative; padding: 40px 20px 44px; text-align: center">
       <p class="vk-kick">{{ tab.taymer }}</p>
-      <h2 class="vk-h2">{{ cdTitle }}</h2>
+      <h2 class="vk-h2">Sening yoshing</h2>
       <span class="vk-bar vk-bar--c"></span>
-      <p class="vk-lead">{{ cdDate }}</p>
-      <div class="vk-pop" style="display: flex; justify-content: center; gap: 9px; margin-top: 26px">
+      <p class="vk-lead">{{ ageLead }}</p>
+      <div class="vk-pop" style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px 10px; margin-top: 26px">
         <sc-for list="{{ caps }}" as="t">
-          <div style="display: flex; flex-direction: column; align-items: center; gap: 10px">
-            <div class="vk-cell"><span class="{{ t.cls }}">{{ t.v }}</span></div>
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 10px; min-width: 0">
+            <div class="vk-cell" style="width: 100%; height: 92px"><span class="{{ t.cls }}" style="font-size: 34px; white-space: nowrap">{{ t.v }}</span></div>
             <span class="vk-kick" style="font-size: 10px; letter-spacing: 0.18em; color: #C9D0FF">{{ t.l }}</span>
           </div>
         </sc-for>
@@ -697,6 +697,7 @@ class Component extends DCLogic {
     super(props);
     this.state = { opened: false, step: 0, pick: {}, score: 0, blown: false, sec: false, sent: false, wOn: {} };
     this.tick = 0;
+    this.ageK = (typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches) || navigator.webdriver || typeof IntersectionObserver !== 'function' ? 1 : 0;
     this.Q = buildQuiz(SITE.d);
     const fl = (n, seed, y0, y1) => Array.from({ length: n }, (_, i) => ({
       d: SHP[i % 4], c: OPTC[(i + seed) % 4],
@@ -721,10 +722,22 @@ class Component extends DCLogic {
     };
   }
   componentDidMount() {
-    this.timer = setInterval(() => { this.prevCd = this.lastCd; this.tick += 1; this.forceUpdate(); }, 1000);
+    const el = document.querySelector('[data-age]');
+    if (this.ageK >= 1 || !el) { this.ageK = 1; return; }
+    this.aio = new IntersectionObserver((es) => {
+      if (!es.some((e) => e.isIntersecting)) return;
+      this.aio.disconnect();
+      let n = 0;
+      this.timer = setInterval(() => {
+        n += 1; this.ageK = 1 - Math.pow(1 - n / 12, 2.4); this.prevCd = this.lastCd; this.tick += 1; this.forceUpdate();
+        if (n >= 12) { this.ageK = 1; clearInterval(this.timer); }
+      }, 150);
+    }, { threshold: 0.4 });
+    this.aio.observe(el);
   }
   componentWillUnmount() {
     clearInterval(this.timer);
+    if (this.aio) this.aio.disconnect();
   }
   choose(qi, oi) {
     if (this.state.pick[qi] != null) return;
@@ -735,7 +748,7 @@ class Component extends DCLogic {
   renderVals() {
     const s = this.state, D = SITE.d, Q = this.Q, N = Q.length;
     const name = tkName(D), from = tkFrom(D);
-    const w = SITE.when(D.sana), c = SITE.countdown(D.sana);
+    const w = SITE.when(D.sana), ag = SITE.age(D.sana, D.yosh);
     const yosh = String(D.yosh || '').trim();
     const st = s.step, finished = N > 0 && st > N;
     const tab = {};
@@ -782,10 +795,10 @@ class Component extends DCLogic {
     const ringOff = st > N && N ? C * (1 - s.score / N) : C;
 
     /* page */
-    const cur = [String(c.d), c.hh, c.mm, c.ss];
+    const cur = [ag.y, ag.mo, ag.w, ag.d].map((v) => SITE.num(Math.round(v * this.ageK)));
     const prev = this.prevCd || cur;
     this.lastCd = cur;
-    const L = ['kun', 'soat', 'daqiqa', 'soniya'];
+    const L = ['yil', 'oy', 'hafta', 'kun'];
     const caps = cur.map((v, i) => ({ v: v, l: L[i], cls: 'vk-num vk-led' + (v !== prev[i] ? (this.tick % 2 ? ' vk-num--a' : ' vk-num--b') : '') }));
     const matn = String(D.matn || '').trim();
     const tl = D.tilaklar || [];
@@ -857,8 +870,7 @@ class Component extends DCLogic {
       toggleMusic: () => { SITE.music.toggle(); },
       dropCap: matn.charAt(0), restText: matn.slice(1),
       fromIni: (from.names || from.label).trim().charAt(0).toLocaleUpperCase('uz'),
-      cdTitle: c.done ? 'Bayram boshlandi!' : 'Bayramgacha',
-      cdDate: [w.date, w.weekday].filter(Boolean).join(', '),
+      ageLead: 'Sen bu dunyoni ' + SITE.num(ag.d) + ' kundan beri yorug’ qilib kelyapsan. Bu — ' + SITE.num(ag.h) + ' soatlik quvonch!',
       caps: caps,
       wishes: wishes, allOkCls: allOk ? 'vk-allOk vk-allOk--on' : 'vk-allOk',
       candles: candles,

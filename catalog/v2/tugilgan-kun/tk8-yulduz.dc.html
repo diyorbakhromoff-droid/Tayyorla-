@@ -235,30 +235,27 @@ body{margin:0}
 </sc-if>
 
 <sc-if value="{{ b.taymer }}">
-    <section class="ys-sec" style="text-align: center">
-      <p class="ys-cap">{{ cdDate }}</p>
-      <h2 class="ys-h2 ys-goldTx" style="margin-top: 8px">{{ cdTitle }}</h2>
-      <sc-if value="{{ cdLive }}">
-        <div class="ys-rise" style="display: flex; justify-content: space-between; margin: 28px 2px 0">
-          <sc-for list="{{ tstars }}" as="m">
-            <div style="display: flex; flex-direction: column; align-items: center; gap: 10px">
-              <div class="ys-tStar">
-                <svg aria-hidden="true" width="78" height="78" viewBox="0 0 78 78" style="position: absolute; left: 0; top: 0; overflow: visible">
-                  <g class="ys-tRot" style="{{ m.rot }}"><polygon points="{{ starT }}" style="fill: #0E4750; stroke: #D9B25C; stroke-width: 1.4"></polygon><polygon points="{{ starT2 }}" style="fill: none; stroke: rgba(242,213,138,0.45); stroke-width: .8"></polygon></g>
-                </svg>
-                <span class="{{ m.cls }}">{{ m.v }}</span>
-              </div>
-              <span style="font-size: 12px; font-weight: 700; letter-spacing: .1em; color: #A9C2BE">{{ m.l }}</span>
+    <section data-age="" class="ys-sec" style="text-align: center">
+      <p class="ys-cap">Bugun — sizning kuningiz</p>
+      <h2 class="ys-h2 ys-goldTx" style="margin-top: 8px">Sizning yoshingiz</h2>
+      <div class="ys-rise" style="margin-top: 28px">
+        <div class="ys-tStar" style="width: 140px; height: 140px; margin: 0 auto">
+          <svg aria-hidden="true" width="140" height="140" viewBox="0 0 78 78" style="position: absolute; left: 0; top: 0; overflow: visible">
+            <g class="ys-tRot" style="{{ ageRot }}"><polygon points="{{ starT }}" style="fill: #0E4750; stroke: #D9B25C; stroke-width: 1"></polygon><polygon points="{{ starT2 }}" style="fill: none; stroke: rgba(242,213,138,0.45); stroke-width: .6"></polygon></g>
+          </svg>
+          <span class="ys-num" style="width: 140px; height: 140px; flex-direction: column; font-size: 52px; line-height: .9">{{ ageY }}<span style="margin-top: 4px; font-family: 'Raleway', system-ui, sans-serif; font-size: 11px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: #D9B25C">yil</span></span>
+        </div>
+        <div class="ys-panel" style="display: flex; margin-top: 22px; padding: 18px 6px 16px">
+          <svg class="ys-rim" aria-hidden="true" viewBox="0 0 100 100" preserveAspectRatio="none"><polygon points="{{ rimP }}"></polygon></svg>
+          <sc-for list="{{ ageRow }}" as="m">
+            <div style="{{ m.st }}">
+              <span class="ys-d ys-goldTx" style="display: block; font-size: 30px; line-height: 1.05; white-space: nowrap">{{ m.v }}</span>
+              <span style="display: block; margin-top: 6px; font-size: 12px; font-weight: 700; letter-spacing: .1em; color: #A9C2BE">{{ m.l }}</span>
             </div>
           </sc-for>
         </div>
-      </sc-if>
-      <sc-if value="{{ cdDone }}">
-        <div class="ys-panel ys-rise" style="margin-top: 22px; padding: 28px 20px">
-          <svg class="ys-rim" aria-hidden="true" viewBox="0 0 100 100" preserveAspectRatio="none"><polygon points="{{ rimP }}"></polygon></svg>
-          <span class="ys-d ys-goldTx" style="position: relative; font-size: 31px; line-height: 1.2">Bugun — tug’ilgan kuningiz!</span>
-        </div>
-      </sc-if>
+        <p style="margin: 16px 6px 0; font-size: 16px; line-height: 1.6; color: #A9C2BE; overflow-wrap: anywhere">{{ ageLead }}</p>
+      </div>
     </section>
 </sc-if>
 
@@ -465,6 +462,7 @@ const CX = 195, CY = 430;
 class Component extends DCLogic {
   constructor(props) {
     super(props);
+    this.ageK = (typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches) || navigator.webdriver || typeof IntersectionObserver !== 'function' ? 1 : 0;
     this.state = { opened: false, sec: false, sent: false, gi: 0, lit: {} };
     const rnd = (i, k) => { const x = Math.sin(i * 127.1 + k * 311.7) * 43758.5453; return x - Math.floor(x); };
     const S = 66, tiles = [], crosses = [], twinkles = [];
@@ -514,15 +512,26 @@ class Component extends DCLogic {
     };
   }
   componentDidMount() {
-    this.timer = setInterval(() => this.forceUpdate(), 1000);
+    const el = document.querySelector('[data-age]');
+    if (this.ageK < 1 && el) {
+      this.aio = new IntersectionObserver((es) => {
+        if (!es.some((e) => e.isIntersecting)) return;
+        this.aio.disconnect();
+        const t0 = performance.now(), D = 1900;
+        const st = (t) => { const u = Math.min(1, (t - t0) / D); this.ageK = 1 - Math.pow(1 - u, 3); this.forceUpdate(); if (u < 1) this.ageRaf = requestAnimationFrame(st); };
+        this.ageRaf = requestAnimationFrame(st);
+      }, { threshold: 0.4 });
+      this.aio.observe(el);
+    } else this.ageK = 1;
   }
   componentWillUnmount() {
-    clearInterval(this.timer);
+    cancelAnimationFrame(this.ageRaf);
+    if (this.aio) this.aio.disconnect();
   }
   renderVals() {
     const s = this.state, D = SITE.d;
     const name = tkName(D), from = tkFrom(D);
-    const w = SITE.when(D.sana), cd = SITE.countdown(D.sana);
+    const w = SITE.when(D.sana), ag = SITE.age(D.sana, D.yosh);
     const yosh = String(D.yosh || '').trim();
     const words = name.split(/\s+/).filter(Boolean);
     const longest = Math.max(1, ...words.map((x) => x.length));
@@ -534,11 +543,8 @@ class Component extends DCLogic {
       ch: Array.from(wd).map((c) => { const i = ci++; return { t: c, st: '--i: ' + i + '; --x: ' + Math.round((i - (total - 1) / 2) * -18) + 'px' }; })
     }));
 
-    const rl = [[cd.dd, 'kun', cd.d], [cd.hh, 'soat', cd.h], [cd.mm, 'daqiqa', cd.m], [cd.ss, 'soniya', cd.s]];
-    const tstars = rl.map((r, i) => ({
-      v: r[0], l: r[1], rot: 'transform: rotate(' + (r[2] * 45) + 'deg)',
-      cls: 'ys-num' + (i === 3 ? (cd.s % 2 ? ' ys-tick' : ' ys-tock') : '')
-    }));
+    const ak = this.ageK;
+    const ageRow = [[ag.mo, 'oy'], [ag.w, 'hafta'], [ag.d, 'kun']].map((r, i) => ({ v: SITE.num(Math.round(r[0] * ak)), l: r[1], st: 'position: relative; flex: 1 1 0; min-width: 0' + (i ? '; border-left: 1px solid rgba(217,178,92,0.35)' : '') }));
 
     const wl = D.tilaklar || [];
     const wishes = wl.map((t, i) => {
@@ -584,10 +590,9 @@ class Component extends DCLogic {
       musicCls: SITE.music.playing ? 'ys-music ys-music--on' : 'ys-music',
       musicOn: SITE.music.playing ? 'true' : 'false',
       toggleMusic: () => { SITE.music.toggle(); },
-      cdTitle: cd.done ? 'Muborak kun keldi' : 'Tug’ilgan kungacha',
-      cdDate: [w.date, w.weekday].filter(Boolean).join(', '),
-      cdLive: !cd.done && !cd.none, cdDone: cd.done,
-      tstars: tstars, wishes: wishes,
+      ageY: String(Math.round(ag.y * ak)), ageRow: ageRow, ageRot: 'transform: rotate(' + Math.round(ak * 360) + 'deg)',
+      ageLead: 'Siz bu dunyoni ' + SITE.num(ag.d) + ' kundan beri yorug’ qilib kelyapsiz. Har bir kuningiz — biz uchun sovg’a.',
+      wishes: wishes,
       secCls: s.sec ? 'ys-secB ys-secB--on' : 'ys-secB',
       secOn: s.sec ? 'true' : 'false',
       toggleSec: () => this.setState({ sec: !this.state.sec }),

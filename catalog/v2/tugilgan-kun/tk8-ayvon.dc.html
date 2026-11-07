@@ -118,7 +118,7 @@ body{margin:0}
 
 /* timer: carved blocks flip */
 .ay-blk{position:relative;width:74px;height:84px;perspective:300px}
-.ay-blkF{position:absolute;left:0;top:0;width:74px;height:84px;border-radius:8px;background:linear-gradient(180deg,#A86D3C,#7A4727);box-shadow:inset 0 0 0 3px #5A341C,inset 0 0 0 5px rgba(255,226,178,0.3),0 10px 20px rgba(59,34,19,0.3);display:flex;align-items:center;justify-content:center;font-family:'Prata',Georgia,serif;font-size:32px;color:#FBEBD0;text-shadow:0 -1px 0 rgba(30,14,4,0.6);font-variant-numeric:tabular-nums}
+.ay-blkF{position:absolute;left:0;top:0;width:100%;height:84px;border-radius:8px;background:linear-gradient(180deg,#A86D3C,#7A4727);box-shadow:inset 0 0 0 3px #5A341C,inset 0 0 0 5px rgba(255,226,178,0.3),0 10px 20px rgba(59,34,19,0.3);display:flex;align-items:center;justify-content:center;font-family:'Prata',Georgia,serif;font-size:32px;color:#FBEBD0;text-shadow:0 -1px 0 rgba(30,14,4,0.6);font-variant-numeric:tabular-nums}
 .ay-blkF::after{content:"";position:absolute;left:8px;right:8px;top:41px;height:1px;background:rgba(40,20,8,0.45);box-shadow:0 1px 0 rgba(255,226,178,0.25)}
 .ay-tick{animation:ay-flipA .6s cubic-bezier(.3,.7,.3,1.2)}
 .ay-tock{animation:ay-flipB .6s cubic-bezier(.3,.7,.3,1.2)}
@@ -313,24 +313,18 @@ body{margin:0}
 </sc-if>
 
 <sc-if value="{{ b.taymer }}">
-    <section class="ay-sec" style="text-align: center">
-      <span class="ay-plq"><span class="ay-cap">{{ cdDate }}</span></span>
-      <h2 class="ay-h2" style="margin-top: 14px">{{ cdTitle }}</h2>
-      <sc-if value="{{ cdLive }}">
-        <div class="ay-rise" style="display: flex; justify-content: space-between; margin: 26px 4px 0">
-          <sc-for list="{{ blocks }}" as="m">
-            <div style="display: flex; flex-direction: column; align-items: center; gap: 10px">
-              <div class="ay-blk"><span class="{{ m.cls }}">{{ m.v }}</span></div>
-              <span style="font-size: 12.5px; font-weight: 600; letter-spacing: .06em; color: #9A6236">{{ m.l }}</span>
-            </div>
-          </sc-for>
-        </div>
-      </sc-if>
-      <sc-if value="{{ cdDone }}">
-        <div class="ay-card ay-rise" style="margin-top: 24px; padding: 34px 20px 26px">
-          <span class="ay-d" style="font-size: 28px; line-height: 1.25; color: #3B2213">Bugun — tug’ilgan kuningiz!</span>
-        </div>
-      </sc-if>
+    <section data-age="" class="ay-sec" style="text-align: center">
+      <span class="ay-plq"><span class="ay-cap">Bugun — sizning kuningiz</span></span>
+      <h2 class="ay-h2" style="margin-top: 14px">Sizning yoshingiz</h2>
+      <p style="margin: 14px 6px 0; font-size: 16px; line-height: 1.6; color: #6B4A33; overflow-wrap: anywhere">{{ ageLead }}</p>
+      <div class="ay-rise" style="display: grid; grid-template-columns: 1fr 1fr; gap: 18px 12px; margin: 24px 4px 0">
+        <sc-for list="{{ blocks }}" as="m">
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 10px; min-width: 0">
+            <div class="ay-blk" style="width: 100%"><span class="{{ m.cls }}" style="width: 100%; white-space: nowrap">{{ m.v }}</span></div>
+            <span style="font-size: 12.5px; font-weight: 600; letter-spacing: .06em; color: #9A6236">{{ m.l }}</span>
+          </div>
+        </sc-for>
+      </div>
     </section>
 </sc-if>
 
@@ -527,6 +521,8 @@ const arches = (n, x0, x1, y0, y1) => {
 class Component extends DCLogic {
   constructor(props) {
     super(props);
+    this.ageN = 0;
+    this.ageK = (typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches) || navigator.webdriver || typeof IntersectionObserver !== 'function' ? 1 : 0;
     this.state = { opened: false, sec: false, sent: false, lit: {} };
     const rnd = (i, k) => { const x = Math.sin(i * 127.1 + k * 311.7) * 43758.5453; return x - Math.floor(x); };
     // ceiling: painted boards between beams converging toward the centre
@@ -577,15 +573,27 @@ class Component extends DCLogic {
     };
   }
   componentDidMount() {
-    this.timer = setInterval(() => this.forceUpdate(), 1000);
+    const el = document.querySelector('[data-age]');
+    if (this.ageK < 1 && el) {
+      this.aio = new IntersectionObserver((es) => {
+        if (!es.some((e) => e.isIntersecting)) return;
+        this.aio.disconnect();
+        this.timer = setInterval(() => {
+          this.ageN += 1; this.ageK = 1 - Math.pow(1 - this.ageN / 12, 2.4); this.forceUpdate();
+          if (this.ageN >= 12) { this.ageK = 1; clearInterval(this.timer); }
+        }, 150);
+      }, { threshold: 0.4 });
+      this.aio.observe(el);
+    } else this.ageK = 1;
   }
   componentWillUnmount() {
     clearInterval(this.timer);
+    if (this.aio) this.aio.disconnect();
   }
   renderVals() {
     const s = this.state, D = SITE.d;
     const name = tkName(D), from = tkFrom(D);
-    const w = SITE.when(D.sana), cd = SITE.countdown(D.sana);
+    const w = SITE.when(D.sana), ag = SITE.age(D.sana, D.yosh);
     const yosh = String(D.yosh || '').trim();
     const words = name.split(/\s+/).filter(Boolean);
     const longest = Math.max(1, ...words.map((x) => x.length));
@@ -596,8 +604,8 @@ class Component extends DCLogic {
       ch: Array.from(wd).map((c) => ({ t: c, st: '--i: ' + (ci++) }))
     }));
 
-    const rl = [[cd.dd, 'kun'], [cd.hh, 'soat'], [cd.mm, 'daqiqa'], [cd.ss, 'soniya']];
-    const blocks = rl.map((r, i) => ({ v: r[0], l: r[1], cls: 'ay-blkF' + (i === 3 ? (cd.s % 2 ? ' ay-tick' : ' ay-tock') : (i === 2 && cd.s === 59 ? ' ay-tick' : '')) }));
+    const rl = [[ag.y, 'yil'], [ag.mo, 'oy'], [ag.w, 'hafta'], [ag.d, 'kun']];
+    const blocks = rl.map((r) => ({ v: SITE.num(Math.round(r[0] * this.ageK)), l: r[1], cls: 'ay-blkF' + (this.ageN ? (this.ageN % 2 ? ' ay-tick' : ' ay-tock') : '') }));
 
     const wl = D.tilaklar || [];
     const items = wl.map((t, i) => {
@@ -634,9 +642,7 @@ class Component extends DCLogic {
       musicCls: SITE.music.playing ? 'ay-music ay-music--on' : 'ay-music',
       musicOn: SITE.music.playing ? 'true' : 'false',
       toggleMusic: () => { SITE.music.toggle(); },
-      cdTitle: cd.done ? 'Muborak kun keldi' : 'Tug’ilgan kungacha',
-      cdDate: [w.date, w.weekday].filter(Boolean).join(', '),
-      cdLive: !cd.done && !cd.none, cdDone: cd.done,
+      ageLead: 'Siz bu dunyoni ' + SITE.num(ag.d) + ' kundan beri yorug’ qilib kelyapsiz. Har bir kuningiz — biz uchun sovg’a.',
       blocks: blocks, wishRows: wishRows,
       secCls: s.sec ? 'ay-secB ay-secB--on' : 'ay-secB',
       secOn: s.sec ? 'true' : 'false',
