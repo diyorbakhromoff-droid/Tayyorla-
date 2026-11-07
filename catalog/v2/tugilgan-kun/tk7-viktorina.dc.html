@@ -799,7 +799,7 @@ class Component extends DCLogic {
     const prev = this.prevCd || cur;
     this.lastCd = cur;
     const L = ['yil', 'oy', 'hafta', 'kun'];
-    const caps = cur.map((v, i) => ({ v: v, l: L[i], cls: 'vk-num vk-led' + (v !== prev[i] ? (this.tick % 2 ? ' vk-num--a' : ' vk-num--b') : '') }));
+    const caps = cur.map((v, i) => ({ v: v, l: L[i], cls: 'vk-num vk-led' + (v !== prev[i] && this.ageK >= 1 ? (this.tick % 2 ? ' vk-num--a' : ' vk-num--b') : '') }));
     const matn = String(D.matn || '').trim();
     const tl = D.tilaklar || [];
     const wishes = tl.map((t, i) => {

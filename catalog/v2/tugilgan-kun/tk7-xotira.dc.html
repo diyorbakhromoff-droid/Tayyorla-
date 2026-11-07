@@ -562,7 +562,7 @@ class Component extends DCLogic {
     const prev = this.prevCd || cur;
     this.lastCd = cur;
     const L = ['yil', 'oy', 'hafta', 'kun'];
-    const caps = cur.map((v, i) => ({ v: v, l: L[i], wrap: 'transform: rotate(' + [-3, 2, -2, 3][i] + 'deg)', cls: 'xt-num' + (v !== prev[i] ? (this.tick % 2 ? ' xt-num--a' : ' xt-num--b') : '') }));
+    const caps = cur.map((v, i) => ({ v: v, l: L[i], wrap: 'transform: rotate(' + [-3, 2, -2, 3][i] + 'deg)', cls: 'xt-num' + (v !== prev[i] && this.ageK >= 1 ? (this.tick % 2 ? ' xt-num--a' : ' xt-num--b') : '') }));
     const tl = D.tilaklar || [];
     const wishes = tl.map((t, i) => {
       const up = !!s.wUp[i], solo = tl.length % 2 === 1 && i === tl.length - 1, len = String(t).length;

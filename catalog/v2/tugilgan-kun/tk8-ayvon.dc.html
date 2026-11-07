@@ -605,7 +605,7 @@ class Component extends DCLogic {
     }));
 
     const rl = [[ag.y, 'yil'], [ag.mo, 'oy'], [ag.w, 'hafta'], [ag.d, 'kun']];
-    const blocks = rl.map((r) => ({ v: SITE.num(Math.round(r[0] * this.ageK)), l: r[1], cls: 'ay-blkF' + (this.ageN ? (this.ageN % 2 ? ' ay-tick' : ' ay-tock') : '') }));
+    const blocks = rl.map((r) => ({ v: SITE.num(Math.round(r[0] * this.ageK)), l: r[1], cls: 'ay-blkF' + (this.ageN >= 12 ? ' ay-tick' : '') }));
 
     const wl = D.tilaklar || [];
     const items = wl.map((t, i) => {
