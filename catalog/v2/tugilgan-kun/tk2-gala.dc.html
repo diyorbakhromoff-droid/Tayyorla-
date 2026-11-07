@@ -98,6 +98,14 @@ a{color:#E3B34C}a:hover{color:#F3D27A}
 @keyframes tkv-fBotB{from{transform:rotateX(90deg)}to{transform:rotateX(0)}}
 .tkv-hinge{position:absolute;left:0;top:43.5px;width:72px;height:1px;background:rgba(5,4,20,0.9);z-index:3}
 .tkv-flipFrame{position:absolute;left:0;top:0;width:72px;height:88px;box-sizing:border-box;border-radius:8px;border:1px solid rgba(227,179,76,0.45);z-index:4;pointer-events:none}
+/* «Sening yoshing»: katta flip-karta */
+.tkv-big .tkv-flip{width:128px;height:124px}
+.tkv-big .tkv-half{width:128px;height:62px}
+.tkv-big .tkv-bot{top:62px}
+.tkv-big .tkv-half span{width:128px;height:124px;line-height:124px;font-size:84px}
+.tkv-big .tkv-bot span{transform:translateY(-62px)}
+.tkv-big .tkv-hinge{top:61.5px;width:128px}
+.tkv-big .tkv-flipFrame{width:128px;height:124px}
 .tkv-unit{font-size:10px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:#D8CBAE}
 
 /* gold dust bursts */
@@ -307,50 +315,27 @@ a{color:#E3B34C}a:hover{color:#F3D27A}
 </sc-if>
 
 <sc-if value="{{ b.taymer }}" hint-placeholder-val="{{ true }}">
-    <section style="padding: 4px 20px 26px">
-      <div style="position: relative; border-radius: 18px; border: 1px solid rgba(227,179,76,0.35); background: linear-gradient(180deg, rgba(243,227,195,0.06), rgba(243,227,195,0.015)); padding: 22px 12px 20px; display: flex; flex-direction: column; align-items: center; gap: 18px">
-        <p class="tkv-label" style="margin: 0">{{ cdTitle }}</p>
-        <div style="display: flex; gap: 12px">
-          <div style="display: flex; flex-direction: column; align-items: center; gap: 10px">
-            <div class="{{ f0.cls }}">
-              <div class="tkv-half tkv-top"><span>{{ f0.cur }}</span></div>
-              <div class="tkv-half tkv-bot"><span>{{ f0.prev }}</span></div>
-              <div class="tkv-half tkv-top tkv-flap1"><span>{{ f0.prev }}</span></div>
-              <div class="tkv-half tkv-bot tkv-flap2"><span>{{ f0.cur }}</span></div>
-              <span class="tkv-hinge"></span><span class="tkv-flipFrame"></span>
-            </div>
-            <span class="tkv-unit">kun</span>
+    <section data-age style="padding: 4px 20px 26px">
+      <div style="position: relative; border-radius: 18px; border: 1px solid rgba(227,179,76,0.35); background: linear-gradient(180deg, rgba(243,227,195,0.06), rgba(243,227,195,0.015)); padding: 22px 12px 22px; display: flex; flex-direction: column; align-items: center; gap: 16px; text-align: center">
+        <p class="tkv-label" style="margin: 0">Sening yoshing</p>
+        <div class="tkv-big" style="display: flex; align-items: flex-end; gap: 14px">
+          <div class="{{ fy.cls }}">
+            <div class="tkv-half tkv-top"><span>{{ fy.cur }}</span></div>
+            <div class="tkv-half tkv-bot"><span>{{ fy.prev }}</span></div>
+            <div class="tkv-half tkv-top tkv-flap1"><span>{{ fy.prev }}</span></div>
+            <div class="tkv-half tkv-bot tkv-flap2"><span>{{ fy.cur }}</span></div>
+            <span class="tkv-hinge"></span><span class="tkv-flipFrame"></span>
           </div>
-          <div style="display: flex; flex-direction: column; align-items: center; gap: 10px">
-            <div class="{{ f1.cls }}">
-              <div class="tkv-half tkv-top"><span>{{ f1.cur }}</span></div>
-              <div class="tkv-half tkv-bot"><span>{{ f1.prev }}</span></div>
-              <div class="tkv-half tkv-top tkv-flap1"><span>{{ f1.prev }}</span></div>
-              <div class="tkv-half tkv-bot tkv-flap2"><span>{{ f1.cur }}</span></div>
-              <span class="tkv-hinge"></span><span class="tkv-flipFrame"></span>
-            </div>
-            <span class="tkv-unit">soat</span>
+          <span class="tkv-serif" style="font-size: 30px; font-style: italic; font-weight: 600; line-height: 1; color: #F3E3C3; padding-bottom: 8px">yil</span>
+        </div>
+        <p class="tkv-serif" style="margin: 0; max-width: 300px; font-size: 19px; font-style: italic; font-weight: 500; line-height: 1.4; color: #F3E3C3">Sen bu dunyoni <span style="white-space: nowrap">{{ ageDays }} kundan</span> beri yorug’ qilib kelyapsan</p>
+        <div style="width: 100%; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid rgba(227,179,76,0.3); padding-top: 16px">
+          <sc-for list="{{ ageTot }}" as="t" hint-placeholder-count="3">
+          <div style="{{ t.st }}">
+            <span class="tkv-serif tkv-foil" style="font-size: 34px; font-weight: 600; line-height: 1.1; font-variant-numeric: lining-nums tabular-nums; white-space: nowrap">{{ t.v }}</span>
+            <span class="tkv-unit">{{ t.l }}</span>
           </div>
-          <div style="display: flex; flex-direction: column; align-items: center; gap: 10px">
-            <div class="{{ f2.cls }}">
-              <div class="tkv-half tkv-top"><span>{{ f2.cur }}</span></div>
-              <div class="tkv-half tkv-bot"><span>{{ f2.prev }}</span></div>
-              <div class="tkv-half tkv-top tkv-flap1"><span>{{ f2.prev }}</span></div>
-              <div class="tkv-half tkv-bot tkv-flap2"><span>{{ f2.cur }}</span></div>
-              <span class="tkv-hinge"></span><span class="tkv-flipFrame"></span>
-            </div>
-            <span class="tkv-unit">daqiqa</span>
-          </div>
-          <div style="display: flex; flex-direction: column; align-items: center; gap: 10px">
-            <div class="{{ f3.cls }}">
-              <div class="tkv-half tkv-top"><span>{{ f3.cur }}</span></div>
-              <div class="tkv-half tkv-bot"><span>{{ f3.prev }}</span></div>
-              <div class="tkv-half tkv-top tkv-flap1"><span>{{ f3.prev }}</span></div>
-              <div class="tkv-half tkv-bot tkv-flap2"><span>{{ f3.cur }}</span></div>
-              <span class="tkv-hinge"></span><span class="tkv-flipFrame"></span>
-            </div>
-            <span class="tkv-unit">soniya</span>
-          </div>
+          </sc-for>
         </div>
       </div>
     </section>
@@ -735,7 +720,8 @@ const tkSwatches = (text) => {
 class Component extends DCLogic {
   constructor(props) {
     super(props);
-    this.state = { opened: false, blown: false, gift: false, going: false, sent: false, goErr: '' };
+    this.still = !!(navigator.webdriver || (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches));
+    this.state = { opened: false, blown: false, gift: false, going: false, sent: false, goErr: '', ak: this.still ? 1 : 0 };
     this.guestName = '';
     this.tick = 0;
     const H = 4800;
@@ -788,21 +774,34 @@ class Component extends DCLogic {
     };
   }
   componentDidMount() {
-    this.timer = setInterval(() => { this.prevCd = this.lastCd; this.tick += 1; this.forceUpdate(); }, 1000);
+    // «Sening yoshing»: blok ko'ringanda raqamlar 0 dan sanaladi
+    const ageEl = document.querySelector('[data-age]');
+    if (this.still || !ageEl || !window.IntersectionObserver) { if (!this.still) this.setState({ ak: 1 }); }
+    else {
+      this.io = new IntersectionObserver((es) => {
+        if (!es.some((e) => e.isIntersecting)) return;
+        this.io.disconnect();
+        const t0 = performance.now();
+        const step = (t) => { const k = Math.min(1, (t - t0) / 1800); this.setState({ ak: 1 - Math.pow(1 - k, 3) }); if (k < 1) this.raf = requestAnimationFrame(step); };
+        this.raf = requestAnimationFrame(step);
+      }, { threshold: 0.3 });
+      this.io.observe(ageEl);
+    }
   }
   componentWillUnmount() {
-    clearInterval(this.timer);
+    if (this.io) this.io.disconnect();
+    cancelAnimationFrame(this.raf);
   }
   renderVals() {
     const s = this.state;
     const D = SITE.d, B = SITE.b;
     const name = tkName(D), from = tkFrom(D);
     const w = SITE.when(D.sana), bw = SITE.when(D.bazm_sana);
-    const c = SITE.countdown(D.sana);
-    const cur = [c.dd, c.hh, c.mm, c.ss];
-    const prev = this.prevCd || cur;
-    this.lastCd = cur;
-    const flip = (i) => ({ cur: cur[i], prev: prev[i], cls: cur[i] !== prev[i] ? (this.tick % 2 ? 'tkv-flip tkv-flip--a' : 'tkv-flip tkv-flip--b') : 'tkv-flip' });
+    const ag = SITE.age(D.sana, D.yosh), ak = this.state.ak, cnt = (n) => SITE.num(Math.round(n * ak));
+    // yil flip-kartada sanaladi: qiymat o'zgarganda varaq ag'dariladi
+    const yCur = String(Math.round(ag.y * ak));
+    if (yCur !== this.yLast) { this.yPrev = this.yLast == null ? yCur : this.yLast; this.yLast = yCur; this.tick += 1; }
+    const fy = { cur: yCur, prev: this.yPrev, cls: this.yPrev !== yCur ? (this.tick % 2 ? 'tkv-flip tkv-flip--a' : 'tkv-flip tkv-flip--b') : 'tkv-flip' };
     const dc = this.deco;
     const n = SITE.has.photos;
     const yosh = String(D.yosh || '').trim();
@@ -844,8 +843,10 @@ class Component extends DCLogic {
       showFrom: B.tabrik && !!D.kimdan,
       fromMt: from.label ? '4px 0 0' : '22px 0 0',
       fromMt2: from.label ? '4px 0 0' : '14px 0 0',
-      cdTitle: c.done ? 'Bayram boshlandi!' : 'Tug’ilgan kungacha',
-      f0: flip(0), f1: flip(1), f2: flip(2), f3: flip(3),
+      fy: fy,
+      ageDays: SITE.num(ag.d),
+      ageTot: [[ag.mo, 'oy'], [ag.w, 'hafta'], [ag.d, 'kun']].map((x, i) => ({ v: cnt(x[0]), l: x[1],
+        st: 'display: flex; flex-direction: column; align-items: center; gap: 6px' + (i ? '; border-left: 1px solid rgba(227,179,76,0.22)' : '') })),
       cakeBgSt: 'background-image: linear-gradient(180deg, rgba(14,12,42,0.80), rgba(14,12,42,0.93))' + (SITE.has.photo ? ', url(\'' + SITE.p[2] + '\')' : ''),
       gal3: n >= 3, gal4: n >= 4,
       galH: n >= 4 ? 360 : (n >= 3 ? 280 : 270),

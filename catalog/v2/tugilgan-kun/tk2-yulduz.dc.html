@@ -103,6 +103,14 @@ a{color:#E3B34C}a:hover{color:#F3D27A}
 @keyframes ys-fBotB{from{transform:rotateX(90deg)}to{transform:rotateX(0)}}
 .ys-hinge{position:absolute;left:0;top:43.5px;width:70px;height:1px;background:rgba(20,18,58,0.4);z-index:3}
 .ys-flipFrame{position:absolute;left:0;top:0;width:70px;height:88px;box-sizing:border-box;border-radius:8px;border:1px solid rgba(227,179,76,0.8);box-shadow:0 12px 26px rgba(0,0,0,0.45);z-index:4;pointer-events:none}
+/* «Sening yoshing»: keng varaqlar, 6 xonagacha sig'adi */
+.ys-wide .ys-flip{width:148px;height:76px}
+.ys-wide .ys-half{width:148px;height:38px}
+.ys-wide .ys-bot{top:38px}
+.ys-wide .ys-half span{width:148px;height:76px;line-height:76px;font-size:38px;white-space:nowrap}
+.ys-wide .ys-bot span{transform:translateY(-38px)}
+.ys-wide .ys-hinge{top:37.5px;width:148px}
+.ys-wide .ys-flipFrame{width:148px;height:76px}
 .ys-unit{font-family:'Tenor Sans',system-ui,sans-serif;font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:#D8CBAE}
 
 /* gold dust */
@@ -320,53 +328,26 @@ a{color:#E3B34C}a:hover{color:#F3D27A}
 </sc-if>
 
 <sc-if value="{{ b.taymer }}" hint-placeholder-val="{{ true }}">
-    <section style="padding: 20px 20px 28px">
-      <div style="position: relative; border-radius: 18px; border: 1px solid rgba(227,179,76,0.35); background: linear-gradient(180deg, rgba(243,227,195,0.06), rgba(243,227,195,0.015)); padding: 24px 12px 22px; display: flex; flex-direction: column; align-items: center; gap: 18px">
+    <section data-age style="padding: 20px 20px 28px">
+      <div style="position: relative; border-radius: 18px; border: 1px solid rgba(227,179,76,0.35); background: linear-gradient(180deg, rgba(243,227,195,0.06), rgba(243,227,195,0.015)); padding: 24px 12px 24px; display: flex; flex-direction: column; align-items: center; gap: 18px">
         <div style="display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center">
           <svg aria-hidden="true" width="132" height="14" viewBox="0 0 132 14"><path class="ys-line" d="M0 7H54M78 7H132"></path><path d="M66 0l1.6 5.4L73 7l-5.4 1.6L66 14l-1.6-5.4L59 7l5.4-1.6z" fill="#E3B34C"></path></svg>
-          <h2 class="ys-serif" style="margin: 0; font-size: 30px; font-style: italic; font-weight: 500; line-height: 1.15; color: #F3E3C3">{{ cdTitle }}</h2>
+          <h2 class="ys-serif" style="margin: 0; font-size: 30px; font-style: italic; font-weight: 500; line-height: 1.15; color: #F3E3C3">Sening yoshing</h2>
+          <p style="margin: 0; max-width: 290px; font-size: 14px; line-height: 1.55; color: #D8CBAE">Sen bu dunyoni <span style="white-space: nowrap; color: #F3D27A">{{ ageDays }} kundan</span> beri yorug’ qilib kelyapsan</p>
         </div>
-        <div style="display: flex; gap: 12px">
+        <div class="ys-wide" style="display: grid; grid-template-columns: repeat(2, 148px); gap: 18px 14px">
+          <sc-for list="{{ ageFlips }}" as="f" hint-placeholder-count="4">
           <div style="display: flex; flex-direction: column; align-items: center; gap: 10px">
-            <div class="{{ f0.cls }}">
-              <div class="ys-half ys-top"><span>{{ f0.cur }}</span></div>
-              <div class="ys-half ys-bot"><span>{{ f0.prev }}</span></div>
-              <div class="ys-half ys-top ys-flap1"><span>{{ f0.prev }}</span></div>
-              <div class="ys-half ys-bot ys-flap2"><span>{{ f0.cur }}</span></div>
+            <div class="{{ f.cls }}">
+              <div class="ys-half ys-top"><span>{{ f.cur }}</span></div>
+              <div class="ys-half ys-bot"><span>{{ f.prev }}</span></div>
+              <div class="ys-half ys-top ys-flap1"><span>{{ f.prev }}</span></div>
+              <div class="ys-half ys-bot ys-flap2"><span>{{ f.cur }}</span></div>
               <span class="ys-hinge"></span><span class="ys-flipFrame"></span>
             </div>
-            <span class="ys-unit">kun</span>
+            <span class="ys-unit">{{ f.l }}</span>
           </div>
-          <div style="display: flex; flex-direction: column; align-items: center; gap: 10px">
-            <div class="{{ f1.cls }}">
-              <div class="ys-half ys-top"><span>{{ f1.cur }}</span></div>
-              <div class="ys-half ys-bot"><span>{{ f1.prev }}</span></div>
-              <div class="ys-half ys-top ys-flap1"><span>{{ f1.prev }}</span></div>
-              <div class="ys-half ys-bot ys-flap2"><span>{{ f1.cur }}</span></div>
-              <span class="ys-hinge"></span><span class="ys-flipFrame"></span>
-            </div>
-            <span class="ys-unit">soat</span>
-          </div>
-          <div style="display: flex; flex-direction: column; align-items: center; gap: 10px">
-            <div class="{{ f2.cls }}">
-              <div class="ys-half ys-top"><span>{{ f2.cur }}</span></div>
-              <div class="ys-half ys-bot"><span>{{ f2.prev }}</span></div>
-              <div class="ys-half ys-top ys-flap1"><span>{{ f2.prev }}</span></div>
-              <div class="ys-half ys-bot ys-flap2"><span>{{ f2.cur }}</span></div>
-              <span class="ys-hinge"></span><span class="ys-flipFrame"></span>
-            </div>
-            <span class="ys-unit">daqiqa</span>
-          </div>
-          <div style="display: flex; flex-direction: column; align-items: center; gap: 10px">
-            <div class="{{ f3.cls }}">
-              <div class="ys-half ys-top"><span>{{ f3.cur }}</span></div>
-              <div class="ys-half ys-bot"><span>{{ f3.prev }}</span></div>
-              <div class="ys-half ys-top ys-flap1"><span>{{ f3.prev }}</span></div>
-              <div class="ys-half ys-bot ys-flap2"><span>{{ f3.cur }}</span></div>
-              <span class="ys-hinge"></span><span class="ys-flipFrame"></span>
-            </div>
-            <span class="ys-unit">soniya</span>
-          </div>
+          </sc-for>
         </div>
       </div>
     </section>
@@ -714,7 +695,10 @@ const tkSwatches = (text) => {
 class Component extends DCLogic {
   constructor(props) {
     super(props);
-    this.state = { opened: false, blown: false, scope: false, quote: 0, qTick: 0, going: false, sent: false, goErr: '' };
+    this.still = !!(navigator.webdriver || (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches));
+    this.state = { opened: false, blown: false, scope: false, quote: 0, qTick: 0, going: false, sent: false, goErr: '', ak: this.still ? 1 : 0 };
+    this.ageLast = [];
+    this.agePrev = [];
     this.guestName = '';
     this.tick = 0;
     const H = 5760;
@@ -793,21 +777,34 @@ class Component extends DCLogic {
     };
   }
   componentDidMount() {
-    this.timer = setInterval(() => { this.prevCd = this.lastCd; this.tick += 1; this.forceUpdate(); }, 1000);
+    // «Sening yoshing»: blok ko'ringanda raqamlar 0 dan sanaladi
+    const ageEl = document.querySelector('[data-age]');
+    if (this.still || !ageEl || !window.IntersectionObserver) { if (!this.still) this.setState({ ak: 1 }); }
+    else {
+      this.io = new IntersectionObserver((es) => {
+        if (!es.some((e) => e.isIntersecting)) return;
+        this.io.disconnect();
+        const t0 = performance.now();
+        const step = (t) => { const k = Math.min(1, (t - t0) / 1800); this.setState({ ak: 1 - Math.pow(1 - k, 3) }); if (k < 1) this.raf = requestAnimationFrame(step); };
+        this.raf = requestAnimationFrame(step);
+      }, { threshold: 0.3 });
+      this.io.observe(ageEl);
+    }
   }
   componentWillUnmount() {
-    clearInterval(this.timer);
+    if (this.io) this.io.disconnect();
+    cancelAnimationFrame(this.raf);
   }
   renderVals() {
     const s = this.state;
     const D = SITE.d, B = SITE.b;
     const name = tkName(D), from = tkFrom(D);
     const w = SITE.when(D.sana), bw = SITE.when(D.bazm_sana);
-    const c = SITE.countdown(D.sana);
-    const cur = [c.dd, c.hh, c.mm, c.ss];
-    const prev = this.prevCd || cur;
-    this.lastCd = cur;
-    const flip = (i) => ({ cur: cur[i], prev: prev[i], cls: cur[i] !== prev[i] ? (this.tick % 2 ? 'ys-flip ys-flip--a' : 'ys-flip ys-flip--b') : 'ys-flip' });
+    const ag = SITE.age(D.sana, D.yosh), ak = this.state.ak, cnt = (n) => SITE.num(Math.round(n * ak));
+    // har bir varaq sanash paytida ag'dariladi
+    const cur = [ag.y, ag.mo, ag.w, ag.d].map(cnt);
+    if (cur.join() !== this.ageLast.join()) { this.agePrev = this.ageLast.length ? this.ageLast : cur; this.ageLast = cur; this.tick += 1; }
+    const flip = (i, l) => ({ cur: cur[i], prev: this.agePrev[i], l: l, cls: cur[i] !== this.agePrev[i] ? (this.tick % 2 ? 'ys-flip ys-flip--a' : 'ys-flip ys-flip--b') : 'ys-flip' });
     const dc = this.deco;
     const n = SITE.has.photos;
     const yosh = String(D.yosh || '').trim();
@@ -885,8 +882,8 @@ class Component extends DCLogic {
       wishH: 300 + extraRows * 46,
       planet: yosh || name.charAt(0).toUpperCase(),
       planetFs: yosh.length > 2 ? 17 : 21,
-      cdTitle: c.done ? 'Bayram boshlandi!' : 'Tug’ilgan kungacha',
-      f0: flip(0), f1: flip(1), f2: flip(2), f3: flip(3),
+      ageDays: SITE.num(ag.d),
+      ageFlips: [flip(0, 'yil'), flip(1, 'oy'), flip(2, 'hafta'), flip(3, 'kun')],
       gal3: n >= 3, gal5: n >= 5,
       galH: n >= 5 ? 410 : (n >= 3 ? 300 : 300),
       xron: xron,

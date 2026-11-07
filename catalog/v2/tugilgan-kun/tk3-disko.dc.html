@@ -59,7 +59,7 @@ a{color:#FFE45C}a:hover{color:#FFF09A}
 .dk-music{position:absolute;right:16px;top:16px;z-index:5;width:46px;height:46px;border-radius:50%;border:1.5px solid rgba(255,228,92,0.7);background:rgba(7,46,55,0.6);display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0}
 .dk-music--on{background:rgba(255,111,181,0.3)}
 
-/* countdown */
+/* «Sening yoshing» */
 .dk-tile{display:flex;flex-direction:column;align-items:center;gap:6px;padding:14px 0 12px;border-radius:20px;background:rgba(255,255,255,0.07);border:1.5px solid rgba(25,167,160,0.7);box-shadow:inset 0 0 18px rgba(25,167,160,0.25)}
 .dk-num{display:block;font-size:34px;font-weight:800;line-height:1;color:#FFFFFF;font-variant-numeric:tabular-nums;text-shadow:0 0 14px rgba(255,111,181,0.7)}
 .dk-pa{animation:dk-popA .5s cubic-bezier(.2,1.5,.4,1)}
@@ -226,13 +226,17 @@ a{color:#FFE45C}a:hover{color:#FFF09A}
 </sc-if>
 
 <sc-if value="{{ b.taymer }}" hint-placeholder-val="{{ true }}">
-    <section style="padding: 10px 20px 26px; text-align: center">
-      <h2 class="dk-d" style="margin: 0; font-size: 32px; font-weight: 400; line-height: 1.2; color: #FFFFFF; text-shadow: 0 0 18px rgba(25,167,160,0.9)">{{ cdTitle }}</h2>
-      <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; margin-top: 16px">
-        <div class="dk-tile"><span class="{{ popD }}">{{ cd.dd }}</span><span style="font-size: 12px; font-weight: 700; color: #CDEFEA">kun</span></div>
-        <div class="dk-tile"><span class="{{ popH }}">{{ cd.hh }}</span><span style="font-size: 12px; font-weight: 700; color: #CDEFEA">soat</span></div>
-        <div class="dk-tile"><span class="{{ popM }}">{{ cd.mm }}</span><span style="font-size: 12px; font-weight: 700; color: #CDEFEA">daqiqa</span></div>
-        <div class="dk-tile" style="border-color: rgba(255,111,181,0.8)"><span class="{{ popS }}">{{ cd.ss }}</span><span style="font-size: 12px; font-weight: 700; color: #CDEFEA">soniya</span></div>
+    <section data-age style="padding: 10px 20px 26px; text-align: center">
+      <h2 class="dk-d" style="margin: 0; font-size: 32px; font-weight: 400; line-height: 1.2; color: #FFFFFF; text-shadow: 0 0 18px rgba(25,167,160,0.9)">Sening yoshing</h2>
+      <p style="margin: 10px 0 0; display: flex; align-items: baseline; justify-content: center; gap: 10px; line-height: 1">
+        <span class="{{ popY }}" style="font-size: 88px; color: #FFE45C; text-shadow: 0 0 22px rgba(255,111,181,0.85), 0 0 4px rgba(255,111,181,0.9)">{{ ageY }}</span>
+        <span class="dk-d" style="font-size: 30px; color: #FFFFFF; text-shadow: 0 0 14px rgba(25,167,160,0.9)">yil</span>
+      </p>
+      <p style="margin: 10px auto 0; max-width: 310px; font-size: 15px; font-weight: 600; line-height: 1.5; color: #CDEFEA">Sen bu dunyoni <span style="white-space: nowrap; color: #FF6FB5; font-weight: 800">{{ ageDays }} kundan</span> beri yorug’ qilib kelyapsan</p>
+      <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin-top: 16px">
+        <sc-for list="{{ ageTot }}" as="t" hint-placeholder-count="3">
+        <div class="dk-tile" style="{{ t.st }}"><span class="{{ popY }}" style="font-size: 28px; white-space: nowrap">{{ t.v }}</span><span style="font-size: 12px; font-weight: 700; color: #CDEFEA">{{ t.l }}</span></div>
+        </sc-for>
       </div>
       <div aria-hidden="true" class="dk-eq" style="height: 34px; margin-top: 16px">
         <sc-for list="{{ eqTimer }}" as="e" hint-placeholder-count="33"><span class="dk-bar" style="{{ e.st }}"></span></sc-for>
@@ -459,7 +463,8 @@ const NOTE2 = 'M10 1H13V19A4 3.4 0 1 1 10 16V1ZM13 1C16 3 20 4 20 9C18 7 15 6 13
 class Component extends DCLogic {
   constructor(props) {
     super(props);
-    this.state = { opened: false, blown: false, flip: false, going: false, sent: false, goErr: '' };
+    this.still = !!(navigator.webdriver || (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches));
+    this.state = { opened: false, blown: false, flip: false, going: false, sent: false, goErr: '', ak: this.still ? 1 : 0 };
     this.guestName = '';
     const rnd = (i, k) => { const x = Math.sin(i * 127.1 + k * 311.7) * 43758.5453; return x - Math.floor(x); };
     const sparkCols = ['#FFE45C', '#FFFFFF', '#FF8CC6', '#7FE3DA'];
@@ -509,18 +514,32 @@ class Component extends DCLogic {
     };
   }
   componentDidMount() {
-    this.timer = setInterval(() => this.forceUpdate(), 1000);
+    // «Sening yoshing»: blok ko'ringanda raqamlar 0 dan sanaladi
+    const ageEl = document.querySelector('[data-age]');
+    if (this.still || !ageEl || !window.IntersectionObserver) { if (!this.still) this.setState({ ak: 1 }); }
+    else {
+      this.io = new IntersectionObserver((es) => {
+        if (!es.some((e) => e.isIntersecting)) return;
+        this.io.disconnect();
+        const t0 = performance.now();
+        const step = (t) => { const k = Math.min(1, (t - t0) / 1800); this.setState({ ak: 1 - Math.pow(1 - k, 3) }); if (k < 1) this.raf = requestAnimationFrame(step); };
+        this.raf = requestAnimationFrame(step);
+      }, { threshold: 0.3 });
+      this.io.observe(ageEl);
+    }
   }
   componentWillUnmount() {
-    clearInterval(this.timer);
+    if (this.io) this.io.disconnect();
+    cancelAnimationFrame(this.raf);
   }
   renderVals() {
     const s = this.state;
     const D = SITE.d;
     const name = tkName(D), from = tkFrom(D);
     const w = SITE.when(D.sana), bw = SITE.when(D.bazm_sana);
-    const cd = SITE.countdown(D.sana);
-    const pop = (n) => (n % 2 ? 'dk-num dk-pa' : 'dk-num dk-pb');
+    const ag = SITE.age(D.sana, D.yosh), ak = this.state.ak, cnt = (n) => SITE.num(Math.round(n * ak));
+    // sanash tugaganda raqamlar bir marta «sakraydi»
+    const pop = () => (ak < 1 ? 'dk-num' : 'dk-num dk-pa');
     const yosh = String(D.yosh || '').trim();
     const list = D.tilaklar || [];
     const n = Math.min(6, SITE.has.photos);
@@ -543,9 +562,8 @@ class Component extends DCLogic {
       musicCls: SITE.music.playing ? 'dk-music dk-music--on' : 'dk-music',
       musicOn: SITE.music.playing ? 'true' : 'false',
       toggleMusic: () => { SITE.music.toggle(); },
-      cd: cd,
-      cdTitle: cd.done ? 'Bayram boshlandi!' : 'Bayramgacha',
-      popD: pop(cd.d), popH: pop(cd.h), popM: pop(cd.m), popS: pop(cd.s),
+      ageY: cnt(ag.y), popY: pop(), ageDays: SITE.num(ag.d),
+      ageTot: [[ag.mo, 'oy'], [ag.w, 'hafta'], [ag.d, 'kun']].map((x, i) => ({ v: cnt(x[0]), l: x[1], st: i === 2 ? 'border-color: rgba(255,111,181,0.8)' : '' })),
       playlistSub: name + ' uchun · ' + list.length + ' ta trek',
       wishes: list.map((t, i) => ({ text: t, n: (i < 9 ? '0' : '') + (i + 1), on: i === 0, off: i !== 0, cls: i === 0 ? 'dk-track dk-track--on' : 'dk-track' })),
       cakeCls: s.blown ? 'dk-cake dk-cake--out' : 'dk-cake',

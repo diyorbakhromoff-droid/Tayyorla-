@@ -142,26 +142,21 @@ a{color:#B8392A}a:hover{color:#8F2A1E}
   </sc-if>
 
   <sc-if value="{{ b.taymer }}" hint-placeholder-val="{{ true }}">
-    <section style="padding: 10px 20px 28px">
-      <div style="background: #FFEDE8; border-radius: 20px; padding: 22px 16px; display: flex; flex-direction: column; align-items: center; gap: 14px">
-        <h2 style="margin: 0; font-size: 20px; font-weight: 800; line-height: 1.2">{{ cdTitle }}</h2>
-        <div style="width: 100%; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; text-align: center">
-          <div style="background: #FFFFFF; border-radius: 14px; padding: 12px 0; display: flex; flex-direction: column; gap: 2px">
-            <span style="font-size: 30px; font-weight: 800; line-height: 1.15; font-variant-numeric: tabular-nums">{{ cd.dd }}</span>
-            <span style="font-size: 13px; font-weight: 600; color: #7A5A50">kun</span>
+    <section data-age style="padding: 10px 20px 28px">
+      <div style="background: #FFEDE8; border-radius: 20px; padding: 22px 16px 18px; display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center">
+        <h2 style="margin: 0; font-size: 20px; font-weight: 800; line-height: 1.2">Sening yoshing</h2>
+        <p style="margin: 4px 0 0; display: flex; align-items: baseline; justify-content: center; gap: 8px; line-height: 1">
+          <span style="font-size: 72px; font-weight: 900; color: #FF6B5A; font-variant-numeric: tabular-nums; letter-spacing: -0.02em">{{ ageY }}</span>
+          <span style="font-size: 22px; font-weight: 800; color: #7A5A50">yil</span>
+        </p>
+        <p style="margin: 2px 0 8px; font-size: 15px; font-weight: 600; line-height: 1.45; color: #7A5A50">Har bir kuning — biz uchun sovg’a</p>
+        <div style="width: 100%; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px">
+          <sc-for list="{{ ageTiles }}" as="t" hint-placeholder-count="3">
+          <div style="background: #FFFFFF; border-radius: 14px; padding: 12px 4px; display: flex; flex-direction: column; gap: 2px">
+            <span style="font-size: 25px; font-weight: 800; line-height: 1.15; font-variant-numeric: tabular-nums; white-space: nowrap">{{ t.v }}</span>
+            <span style="font-size: 13px; font-weight: 600; color: #7A5A50">{{ t.l }}</span>
           </div>
-          <div style="background: #FFFFFF; border-radius: 14px; padding: 12px 0; display: flex; flex-direction: column; gap: 2px">
-            <span style="font-size: 30px; font-weight: 800; line-height: 1.15; font-variant-numeric: tabular-nums">{{ cd.hh }}</span>
-            <span style="font-size: 13px; font-weight: 600; color: #7A5A50">soat</span>
-          </div>
-          <div style="background: #FFFFFF; border-radius: 14px; padding: 12px 0; display: flex; flex-direction: column; gap: 2px">
-            <span style="font-size: 30px; font-weight: 800; line-height: 1.15; font-variant-numeric: tabular-nums">{{ cd.mm }}</span>
-            <span style="font-size: 13px; font-weight: 600; color: #7A5A50">daqiqa</span>
-          </div>
-          <div style="background: #FFFFFF; border-radius: 14px; padding: 12px 0; display: flex; flex-direction: column; gap: 2px">
-            <span style="font-size: 30px; font-weight: 800; line-height: 1.15; font-variant-numeric: tabular-nums">{{ cd.ss }}</span>
-            <span style="font-size: 13px; font-weight: 600; color: #7A5A50">soniya</span>
-          </div>
+          </sc-for>
         </div>
       </div>
     </section>
@@ -189,18 +184,32 @@ a{color:#B8392A}a:hover{color:#8F2A1E}
 class Component extends DCLogic {
   constructor(props) {
     super(props);
-    this.state = { sent: false };
+    this.still = !!(navigator.webdriver || (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches));
+    this.state = { sent: false, ak: this.still ? 1 : 0 };
   }
   componentDidMount() {
-    this.timer = setInterval(() => this.forceUpdate(), 1000);
+    // «Sening yoshing»: blok ko'ringanda raqamlar 0 dan sanaladi
+    const ageEl = document.querySelector('[data-age]');
+    if (this.still || !ageEl || !window.IntersectionObserver) { if (!this.still) this.setState({ ak: 1 }); }
+    else {
+      this.io = new IntersectionObserver((es) => {
+        if (!es.some((e) => e.isIntersecting)) return;
+        this.io.disconnect();
+        const t0 = performance.now();
+        const step = (t) => { const k = Math.min(1, (t - t0) / 1800); this.setState({ ak: 1 - Math.pow(1 - k, 3) }); if (k < 1) this.raf = requestAnimationFrame(step); };
+        this.raf = requestAnimationFrame(step);
+      }, { threshold: 0.3 });
+      this.io.observe(ageEl);
+    }
   }
   componentWillUnmount() {
-    clearInterval(this.timer);
+    if (this.io) this.io.disconnect();
+    cancelAnimationFrame(this.raf);
   }
   renderVals() {
     const d = SITE.d;
     const w = SITE.when(d.sana);
-    const cd = SITE.countdown(d.sana);
+    const ag = SITE.age(d.sana, d.yosh), ak = this.state.ak, cnt = (n) => SITE.num(Math.round(n * ak));
     const name = String(d.kimga || '').trim();
     const longest = Math.max(1, ...name.split(/\s+/).map((x) => x.length));
     const sent = this.state.sent;
@@ -209,8 +218,8 @@ class Component extends DCLogic {
       heroDate: [w.dm, w.weekday].filter(Boolean).join(' · '),
       nameFs: Math.max(30, Math.min(58, Math.floor(342 / (longest * 0.66)))),
       ageFs: String(d.yosh || '').length > 2 ? 24 : 30,
-      cd: cd,
-      cdTitle: cd.done ? 'Bayram boshlandi!' : 'Tug’ilgan kungacha',
+      ageY: cnt(ag.y),
+      ageTiles: [[ag.mo, 'oy'], [ag.w, 'hafta'], [ag.d, 'kun']].map((x) => ({ v: cnt(x[0]), l: x[1] })),
       gallery: SITE.p.slice(0, gn),
       galCols: 'repeat(' + Math.min(3, gn) + ', minmax(0, 1fr))',
       galH: gn >= 3 ? 148 : (gn === 2 ? 200 : 240),

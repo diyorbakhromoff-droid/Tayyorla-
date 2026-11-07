@@ -62,7 +62,7 @@ a{color:#2A1452}a:hover{color:#7B4FE0}
 .pc-map{flex:1.4 1 0;min-width:0;min-height:56px;border:3px solid #2A1452;border-radius:16px;background:#FFFFFF;color:#2A1452;font-size:15px;font-weight:800;display:flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;padding:0 10px;box-sizing:border-box;box-shadow:4px 4px 0 #2A1452}
 .pc-map:hover{background:#FFF3C4;color:#2A1452}
 
-/* countdown */
+/* «Sening yoshing» */
 .pc-num{display:block;font-family:'Seymour One','Arial Black',Impact,system-ui,sans-serif;font-size:27px;line-height:1;color:#2A1452;font-variant-numeric:tabular-nums}
 .pc-pa{animation:pc-tickA .45s cubic-bezier(.2,1.8,.4,1)}
 .pc-pb{animation:pc-tickB .45s cubic-bezier(.2,1.8,.4,1)}
@@ -252,26 +252,23 @@ a{color:#2A1452}a:hover{color:#7B4FE0}
 </sc-if>
 
 <sc-if value="{{ b.taymer }}" hint-placeholder-val="{{ true }}">
-    <section style="padding: 40px 20px 16px">
-      <div class="pc-panel" style="background: #FF5FA2; padding: 42px 14px 20px">
-        <h2 class="pc-d pc-cap" style="background: #FFD84A; transform: rotate(2deg)">{{ cdTitle }}</h2>
-        <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px">
-          <div style="height: 84px; border: 3px solid #2A1452; border-radius: 14px; background: #FFFFFF; box-shadow: 4px 4px 0 #2A1452; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px">
-            <span class="{{ popD }}">{{ dd }}</span>
-            <span style="font-size: 12px; font-weight: 800; color: #2A1452">kun</span>
+    <section data-age style="padding: 40px 20px 16px">
+      <div class="pc-panel" style="background: #FF5FA2; padding: 42px 16px 22px">
+        <h2 class="pc-d pc-cap" style="background: #FFD84A; transform: rotate(2deg)">Sening yoshing</h2>
+        <div style="display: flex; align-items: center; gap: 14px">
+          <div style="flex: none; min-width: 124px; height: 112px; box-sizing: border-box; padding: 0 12px; border: 3px solid #2A1452; border-radius: 18px; background: #FFD84A; box-shadow: 4px 4px 0 #2A1452; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; transform: rotate(-3deg)">
+            <span class="{{ popY }}" style="font-size: 54px">{{ ageY }}</span>
+            <span style="font-size: 14px; font-weight: 900; color: #2A1452">yil</span>
           </div>
-          <div style="height: 84px; border: 3px solid #2A1452; border-radius: 14px; background: #FFFFFF; box-shadow: 4px 4px 0 #2A1452; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px">
-            <span class="{{ popH }}">{{ hh }}</span>
-            <span style="font-size: 12px; font-weight: 800; color: #2A1452">soat</span>
+          <p style="margin: 0; font-size: 16px; font-weight: 800; line-height: 1.4; color: #FFFFFF">Sen bu dunyoni <span style="white-space: nowrap; color: #2A1452">{{ ageDays }} kundan</span> beri yorug’ qilib kelyapsan!</p>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 18px">
+          <sc-for list="{{ ageRows }}" as="r" hint-placeholder-count="3">
+          <div style="{{ r.st }}">
+            <span class="{{ r.pop }}">{{ r.v }}</span>
+            <span style="font-size: 15px; font-weight: 900; color: #2A1452">{{ r.l }}</span>
           </div>
-          <div style="height: 84px; border: 3px solid #2A1452; border-radius: 14px; background: #FFFFFF; box-shadow: 4px 4px 0 #2A1452; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px">
-            <span class="{{ popM }}">{{ mm }}</span>
-            <span style="font-size: 12px; font-weight: 800; color: #2A1452">daqiqa</span>
-          </div>
-          <div style="height: 84px; border: 3px solid #2A1452; border-radius: 14px; background: #FFD84A; box-shadow: 4px 4px 0 #2A1452; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px">
-            <span class="{{ popS }}">{{ ss }}</span>
-            <span style="font-size: 12px; font-weight: 800; color: #2A1452">soniya</span>
-          </div>
+          </sc-for>
         </div>
       </div>
     </section>
@@ -585,7 +582,8 @@ const tkMapUrl = (d) => String(d.xarita || '').trim();
 class Component extends DCLogic {
   constructor(props) {
     super(props);
-    this.state = { opened: false, blown: false, ball: false, going: false, sent: false, goErr: '' };
+    this.still = !!(navigator.webdriver || (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches));
+    this.state = { opened: false, blown: false, ball: false, going: false, sent: false, goErr: '', ak: this.still ? 1 : 0 };
     this.guestName = '';
     const H = 4200;
     const rnd = (i, k) => { const x = Math.sin(i * 127.1 + k * 311.7) * 43758.5453; return x - Math.floor(x); };
@@ -623,18 +621,32 @@ class Component extends DCLogic {
     this.deco = { fall: fall, boom: boom, mini: mini };
   }
   componentDidMount() {
-    this.timer = setInterval(() => this.forceUpdate(), 1000);
+    // «Sening yoshing»: blok ko'ringanda raqamlar 0 dan sanaladi
+    const ageEl = document.querySelector('[data-age]');
+    if (this.still || !ageEl || !window.IntersectionObserver) { if (!this.still) this.setState({ ak: 1 }); }
+    else {
+      this.io = new IntersectionObserver((es) => {
+        if (!es.some((e) => e.isIntersecting)) return;
+        this.io.disconnect();
+        const t0 = performance.now();
+        const step = (t) => { const k = Math.min(1, (t - t0) / 1800); this.setState({ ak: 1 - Math.pow(1 - k, 3) }); if (k < 1) this.raf = requestAnimationFrame(step); };
+        this.raf = requestAnimationFrame(step);
+      }, { threshold: 0.3 });
+      this.io.observe(ageEl);
+    }
   }
   componentWillUnmount() {
-    clearInterval(this.timer);
+    if (this.io) this.io.disconnect();
+    cancelAnimationFrame(this.raf);
   }
   renderVals() {
     const s = this.state;
     const D = SITE.d;
     const name = tkName(D), from = tkFrom(D);
     const w = SITE.when(D.sana), bw = SITE.when(D.bazm_sana);
-    const cd = SITE.countdown(D.sana);
-    const pop = (n) => (n % 2 ? 'pc-num pc-pa' : 'pc-num pc-pb');
+    const ag = SITE.age(D.sana, D.yosh), ak = this.state.ak, cnt = (n) => SITE.num(Math.round(n * ak));
+    // sanash tugaganda raqamlar bir marta «sakraydi»
+    const pop = () => (ak < 1 ? 'pc-num' : 'pc-num pc-pa');
     const n = SITE.has.photos;
     // ismlar — rangli yorliqlar
     const pCols = [['#FF5FA2', '#2A1452', -3], ['#FFD84A', '#2A1452', 2], ['#7B4FE0', '#FFFFFF', -2], ['#4FC3F7', '#2A1452', 3]];
@@ -667,7 +679,6 @@ class Component extends DCLogic {
       initial: name.charAt(0).toUpperCase(),
       noPhoto: !SITE.has.photo,
       ageFs: yosh.length > 2 ? 30 : 40,
-      cdTitle: cd.done ? 'Bayram boshlandi!' : 'Tug’ilgan kungacha',
       wishes: wishes,
       wishH: Math.max(130, maxB + 14),
       wishLine: 'Niyating albatta ushalsin, ' + name + '!',
@@ -677,8 +688,9 @@ class Component extends DCLogic {
       askGuest: !SITE.has.guest && !s.going,
       setName: (e) => { this.guestName = e.target.value; },
       goErr: s.goErr,
-      dd: cd.dd, hh: cd.hh, mm: cd.mm, ss: cd.ss,
-      popD: pop(cd.d), popH: pop(cd.h), popM: pop(cd.m), popS: pop(cd.s),
+      ageY: cnt(ag.y), popY: pop(ag.y), ageDays: SITE.num(ag.d),
+      ageRows: [[ag.mo, 'oy', '#FFFFFF', -1.5], [ag.w, 'hafta', '#4FC3F7', 1.5], [ag.d, 'kun', '#FFFFFF', -1]].map((x) => ({ v: cnt(x[0]), l: x[1], pop: pop(x[0]),
+        st: 'height: 58px; padding: 0 18px; border: 3px solid #2A1452; border-radius: 14px; background: ' + x[2] + '; box-shadow: 4px 4px 0 #2A1452; display: flex; align-items: center; justify-content: space-between; gap: 12px; transform: rotate(' + x[3] + 'deg)' })),
       introCls: s.opened ? 'pc-intro pc-intro--go' : 'pc-intro',
       boomCls: s.opened ? 'pc-boom' : 'pc-boomIdle',
       pageCls: s.opened ? 'pc-page pc-page--in' : 'pc-page',

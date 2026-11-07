@@ -70,7 +70,7 @@ a{color:#FFC93C}a:hover{color:#FFE38A}
 .tn-send{width:100%;min-height:58px;border:0;border-radius:29px;background:linear-gradient(90deg,#FF5FA2,#FF8FB8 45%,#FFC93C);color:#2A1452;font-family:'Onest',system-ui,sans-serif;font-size:17px;font-weight:800;display:flex;align-items:center;justify-content:center;gap:10px;cursor:pointer;padding:0 18px;box-shadow:0 14px 30px rgba(255,95,162,0.35)}
 .tn-send--done{background:rgba(255,255,255,0.07);color:#FFC93C;box-shadow:none;border:1.5px solid rgba(255,201,60,0.55);cursor:default}
 
-/* countdown */
+/* «Sening yoshing» */
 .tn-num{display:block;font-family:'Onest',system-ui,sans-serif;font-size:30px;font-weight:800;line-height:1;color:#FFFFFF;font-variant-numeric:tabular-nums}
 .tn-pa{animation:tn-popA .5s cubic-bezier(.2,1.5,.4,1)}
 .tn-pb{animation:tn-popB .5s cubic-bezier(.2,1.5,.4,1)}
@@ -278,26 +278,17 @@ a{color:#FFC93C}a:hover{color:#FFE38A}
 </sc-if>
 
 <sc-if value="{{ b.taymer }}" hint-placeholder-val="{{ true }}">
-    <section style="padding: 10px 20px 26px">
+    <section data-age style="padding: 10px 20px 26px">
       <div style="border-radius: 26px; padding: 20px 14px 20px; background: linear-gradient(135deg, rgba(255,95,162,0.20), rgba(123,79,208,0.22)); border: 1px solid rgba(255,255,255,0.14); text-align: center">
-        <h2 class="tn-h" style="margin: 0; font-size: 30px; font-weight: 400; line-height: 1.15">{{ cdTitle }}</h2>
-        <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; margin-top: 16px">
-          <div style="height: 82px; border-radius: 16px; background: rgba(18,8,44,0.55); border: 1px solid rgba(255,201,60,0.35); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px">
-            <span class="{{ popD }}">{{ dd }}</span>
-            <span style="font-size: 12px; font-weight: 700; color: #E4D6FA">kun</span>
+        <h2 class="tn-h" style="margin: 0; font-size: 30px; font-weight: 400; line-height: 1.15">Sening yoshing</h2>
+        <p style="margin: 8px auto 0; max-width: 300px; font-size: 15px; font-weight: 600; line-height: 1.5; color: #E4D6FA">Sen bu dunyoni <span style="white-space: nowrap; color: #FFC93C; font-weight: 800">{{ ageDays }} kundan</span> beri yorug’ qilib kelyapsan</p>
+        <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 16px">
+          <sc-for list="{{ ageTiles }}" as="t" hint-placeholder-count="4">
+          <div style="{{ t.st }}">
+            <span class="{{ t.pop }}" style="font-size: 34px; white-space: nowrap">{{ t.v }}</span>
+            <span style="font-size: 13px; font-weight: 700; color: #E4D6FA">{{ t.l }}</span>
           </div>
-          <div style="height: 82px; border-radius: 16px; background: rgba(18,8,44,0.55); border: 1px solid rgba(255,201,60,0.35); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px">
-            <span class="{{ popH }}">{{ hh }}</span>
-            <span style="font-size: 12px; font-weight: 700; color: #E4D6FA">soat</span>
-          </div>
-          <div style="height: 82px; border-radius: 16px; background: rgba(18,8,44,0.55); border: 1px solid rgba(255,201,60,0.35); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px">
-            <span class="{{ popM }}">{{ mm }}</span>
-            <span style="font-size: 12px; font-weight: 700; color: #E4D6FA">daqiqa</span>
-          </div>
-          <div style="height: 82px; border-radius: 16px; background: rgba(18,8,44,0.55); border: 1px solid rgba(255,95,162,0.6); box-shadow: 0 0 16px rgba(255,95,162,0.3); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px">
-            <span class="{{ popS }}">{{ ss }}</span>
-            <span style="font-size: 12px; font-weight: 700; color: #E4D6FA">soniya</span>
-          </div>
+          </sc-for>
         </div>
         <div aria-hidden="true" style="position: relative; width: 314px; height: 24px; margin: 18px auto 0">
           <svg width="26" height="24" viewBox="0 0 26 24" style="position: absolute; left: 0; top: 0"><path d="M4 18L10 6H16L22 18Z" fill="#FF5FA2"></path><path d="M10 6L13 1L16 6Z" fill="#FFC93C"></path><rect x="3" y="18" width="20" height="4" rx="2" fill="#FFC93C"></rect></svg>
@@ -650,7 +641,8 @@ const tkMapUrl = (d) => String(d.xarita || '').trim();
 class Component extends DCLogic {
   constructor(props) {
     super(props);
-    this.state = { opened: false, blown: false, rocket: false, going: false, sent: false, goErr: '' };
+    this.still = !!(navigator.webdriver || (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches));
+    this.state = { opened: false, blown: false, rocket: false, going: false, sent: false, goErr: '', ak: this.still ? 1 : 0 };
     this.guestName = '';
     const H = 4000;
     const rnd = (i, k) => { const x = Math.sin(i * 127.1 + k * 311.7) * 43758.5453; return x - Math.floor(x); };
@@ -732,20 +724,33 @@ class Component extends DCLogic {
     };
   }
   componentDidMount() {
-    this.timer = setInterval(() => this.forceUpdate(), 1000);
+    // «Sening yoshing»: blok ko'ringanda raqamlar 0 dan sanaladi
+    const ageEl = document.querySelector('[data-age]');
+    if (this.still || !ageEl || !window.IntersectionObserver) { if (!this.still) this.setState({ ak: 1 }); }
+    else {
+      this.io = new IntersectionObserver((es) => {
+        if (!es.some((e) => e.isIntersecting)) return;
+        this.io.disconnect();
+        const t0 = performance.now();
+        const step = (t) => { const k = Math.min(1, (t - t0) / 1800); this.setState({ ak: 1 - Math.pow(1 - k, 3) }); if (k < 1) this.raf = requestAnimationFrame(step); };
+        this.raf = requestAnimationFrame(step);
+      }, { threshold: 0.3 });
+      this.io.observe(ageEl);
+    }
   }
   componentWillUnmount() {
-    clearInterval(this.timer);
+    if (this.io) this.io.disconnect();
+    cancelAnimationFrame(this.raf);
   }
   renderVals() {
     const s = this.state;
     const D = SITE.d;
     const name = tkName(D), from = tkFrom(D);
     const w = SITE.when(D.sana), bw = SITE.when(D.bazm_sana);
-    const cd = SITE.countdown(D.sana);
-    const d = cd.d, h = cd.h, m = cd.m, sec = cd.s;
-    const pop = (n) => (n % 2 ? 'tn-num tn-pa' : 'tn-num tn-pb');
-    const f = sec / 59;
+    const ag = SITE.age(D.sana, D.yosh), ak = this.state.ak, cnt = (n) => SITE.num(Math.round(n * ak));
+    // sanash tugaganda raqamlar bir marta «sakraydi»; pilik sanash bilan birga yonadi
+    const pop = () => (ak < 1 ? 'tn-num' : 'tn-num tn-pa');
+    const f = ak;
     const dc = this.deco;
     // ism bir qatorda: shrift o'lchami uzunlikka qarab
     const nameFs = Math.max(30, Math.min(84, Math.floor(370 / (Math.max(3, name.length) * 0.47))));
@@ -783,7 +788,6 @@ class Component extends DCLogic {
       penSt: 'left: ' + Math.round(x0) + 'px; top: 160px',
       initial: name.charAt(0).toUpperCase(),
       noPhoto: !SITE.has.photo,
-      cdTitle: cd.done ? 'Bayram boshlandi!' : 'Tug’ilgan kungacha',
       wishes: wishes,
       wishH: Math.max(160, maxY + 80),
       wishLine: 'Niyating albatta ushalsin, ' + name + '!',
@@ -795,10 +799,11 @@ class Component extends DCLogic {
       askGuest: !SITE.has.guest && !s.going,
       setName: (e) => { this.guestName = e.target.value; },
       goErr: s.goErr,
-      dd: cd.dd, hh: cd.hh, mm: cd.mm, ss: cd.ss,
-      popD: pop(d), popH: pop(h), popM: pop(m), popS: pop(sec),
-      fuseLit: 'transform: scaleX(' + f.toFixed(3) + ')',
-      fuseHead: 'transform: translateX(' + (f * 280).toFixed(1) + 'px)',
+      ageDays: SITE.num(ag.d),
+      ageTiles: [[ag.y, 'yil'], [ag.mo, 'oy'], [ag.w, 'hafta'], [ag.d, 'kun']].map((x, i) => ({ v: cnt(x[0]), l: x[1], pop: pop(),
+        st: 'height: 92px; border-radius: 16px; background: rgba(18,8,44,0.55); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; ' + (i === 0 ? 'border: 1px solid rgba(255,95,162,0.6); box-shadow: 0 0 16px rgba(255,95,162,0.3)' : 'border: 1px solid rgba(255,201,60,0.35)') })),
+      fuseLit: 'transition: none; transform: scaleX(' + f.toFixed(3) + ')',
+      fuseHead: 'transition: none; transform: translateX(' + (f * 280).toFixed(1) + 'px)',
       introCls: s.opened ? 'tn-intro tn-intro--go' : 'tn-intro',
       pageCls: s.opened ? 'tn-page tn-page--in' : 'tn-page',
       open: () => { if (this.state.opened) return; this.setState({ opened: true }); SITE.opened(); },

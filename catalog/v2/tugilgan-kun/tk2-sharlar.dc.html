@@ -132,28 +132,20 @@ a{color:#B8392A}a:hover{color:#8F2A1E}
   </sc-if>
 
   <sc-if value="{{ b.taymer }}" hint-placeholder-val="{{ true }}">
-  <section style="padding: 12px 20px 28px">
+  <section data-age style="padding: 12px 20px 28px">
     <div style="display: flex; align-items: center; gap: 10px">
       <svg aria-hidden="true" width="18" height="26" viewBox="0 0 18 26"><ellipse cx="9" cy="9" rx="8" ry="9" fill="#FF6B5A"></ellipse><path d="M6.5 20L11.5 20L9 17Z" fill="#E5543F"></path><path class="hs-str" d="M9 20C7 22 11 24 9 26"></path></svg>
-      <h2 style="margin: 0; font-size: 22px; font-weight: 700; line-height: 1.2">{{ cdTitle }}</h2>
+      <h2 style="margin: 0; font-size: 22px; font-weight: 700; line-height: 1.2">Sening yoshing</h2>
     </div>
-    <div style="margin-top: 16px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; text-align: center">
-      <div style="background: #FFFFFF; border-radius: 18px; padding: 14px 0 12px; display: flex; flex-direction: column; gap: 4px">
-        <span style="font-size: 30px; font-weight: 700; line-height: 1.15; font-variant-numeric: tabular-nums">{{ cd.dd }}</span>
-        <span style="font-size: 13px; font-weight: 600; color: #4E5D78">kun</span>
+    <p style="margin: 10px 0 0; font-size: 16px; font-weight: 500; line-height: 1.55; color: #4E5D78">Sen bu dunyoni <span style="font-weight: 700; color: #B8392A; white-space: nowrap">{{ age.dd }} kun</span>dan beri yorug’ qilib kelyapsan</p>
+    <div style="margin-top: 16px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; text-align: center">
+      <sc-for list="{{ ageTiles }}" as="t" hint-placeholder-count="4">
+      <div style="position: relative; background: #FFFFFF; border-radius: 22px; padding: 18px 8px 14px; display: flex; flex-direction: column; align-items: center; gap: 4px">
+        <svg aria-hidden="true" width="12" height="16" viewBox="0 0 12 16" style="position: absolute; right: 14px; top: 12px"><ellipse cx="6" cy="6" rx="5.5" ry="6" fill="{{ t.c }}"></ellipse><path d="M4 14L8 14L6 11.5Z" fill="{{ t.c }}"></path></svg>
+        <span style="font-size: 34px; font-weight: 700; line-height: 1.15; font-variant-numeric: tabular-nums; white-space: nowrap; color: #1E2B45">{{ t.v }}</span>
+        <span style="font-size: 14px; font-weight: 700; color: {{ t.k }}">{{ t.l }}</span>
       </div>
-      <div style="background: #FFFFFF; border-radius: 18px; padding: 14px 0 12px; display: flex; flex-direction: column; gap: 4px">
-        <span style="font-size: 30px; font-weight: 700; line-height: 1.15; font-variant-numeric: tabular-nums">{{ cd.hh }}</span>
-        <span style="font-size: 13px; font-weight: 600; color: #4E5D78">soat</span>
-      </div>
-      <div style="background: #FFFFFF; border-radius: 18px; padding: 14px 0 12px; display: flex; flex-direction: column; gap: 4px">
-        <span style="font-size: 30px; font-weight: 700; line-height: 1.15; font-variant-numeric: tabular-nums">{{ cd.mm }}</span>
-        <span style="font-size: 13px; font-weight: 600; color: #4E5D78">daqiqa</span>
-      </div>
-      <div style="background: #FFFFFF; border-radius: 18px; padding: 14px 0 12px; display: flex; flex-direction: column; gap: 4px">
-        <span style="font-size: 30px; font-weight: 700; line-height: 1.15; font-variant-numeric: tabular-nums">{{ cd.ss }}</span>
-        <span style="font-size: 13px; font-weight: 600; color: #4E5D78">soniya</span>
-      </div>
+      </sc-for>
     </div>
   </section>
   </sc-if>
@@ -196,18 +188,30 @@ a{color:#B8392A}a:hover{color:#8F2A1E}
 class Component extends DCLogic {
   constructor(props) {
     super(props);
-    this.state = { sent: false };
+    this.still = !!(navigator.webdriver || (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches));
+    this.state = { sent: false, ak: this.still ? 1 : 0 };
   }
   componentDidMount() {
-    this.timer = setInterval(() => this.forceUpdate(), 1000);
+    // «Sening yoshing»: blok ko'ringanda raqamlar 0 dan sanaladi
+    const el = document.querySelector('[data-age]');
+    if (this.still || !el || !window.IntersectionObserver) { if (!this.still) this.setState({ ak: 1 }); return; }
+    this.io = new IntersectionObserver((es) => {
+      if (!es.some((e) => e.isIntersecting)) return;
+      this.io.disconnect();
+      const t0 = performance.now();
+      const step = (t) => { const k = Math.min(1, (t - t0) / 1800); this.setState({ ak: 1 - Math.pow(1 - k, 3) }); if (k < 1) this.raf = requestAnimationFrame(step); };
+      this.raf = requestAnimationFrame(step);
+    }, { threshold: 0.3 });
+    this.io.observe(el);
   }
   componentWillUnmount() {
-    clearInterval(this.timer);
+    if (this.io) this.io.disconnect();
+    cancelAnimationFrame(this.raf);
   }
   renderVals() {
     const d = SITE.d;
     const w = SITE.when(d.sana);
-    const cd = SITE.countdown(d.sana);
+    const ag = SITE.age(d.sana, d.yosh), ak = this.state.ak, cnt = (n) => SITE.num(Math.round(n * ak));
     const name = String(d.kimga || '').trim();
     const longest = Math.max(1, ...name.split(/\s+/).map((x) => x.length));
     const kd = String(d.kimdan || '').trim(), ci = kd.indexOf(':');
@@ -238,8 +242,8 @@ class Component extends DCLogic {
       wishes: (d.tilaklar || []).map((t, i) => ({ text: t, c: cols[i % cols.length] })),
       gallery: SITE.p.slice(0, gn).map((src, i) => ({ src: src, c: gcols[i % gcols.length], st: 'border: 4px solid ' + gcols[i % gcols.length] + '; height: ' + (gn >= 3 ? 132 : 200) + 'px' })),
       galCols: 'repeat(' + Math.min(3, gn) + ', minmax(0, 1fr))',
-      cd: cd,
-      cdTitle: cd.done ? 'Bayram boshlandi!' : 'Tug’ilgan kungacha',
+      age: { dd: SITE.num(ag.d) },
+      ageTiles: [[ag.y, 'yil'], [ag.mo, 'oy'], [ag.w, 'hafta'], [ag.d, 'kun']].map((x, i) => ({ v: cnt(x[0]), l: x[1], c: cols[i], k: ['#B8392A', '#3A8F6A', '#B07A10', '#6B4FC0'][i] })),
       askName: name + 'ni tabrikladingizmi?',
       btnCls: sent ? 'hs-btn hs-btn--done' : 'hs-btn',
       idleCls: sent ? 'is-hidden' : '',

@@ -69,6 +69,14 @@ a{color:#F3CDBB}a:hover{color:#FFE6D9}
 @keyframes pm-fBotB{from{transform:rotateX(90deg)}to{transform:rotateX(0)}}
 .pm-hinge{position:absolute;left:0;top:44.5px;width:72px;height:1px;background:rgba(58,15,30,0.45);z-index:3}
 .pm-flipFrame{position:absolute;left:0;top:0;width:72px;height:90px;box-sizing:border-box;border-radius:8px;border:1px solid rgba(232,180,160,0.9);box-shadow:0 12px 26px rgba(0,0,0,0.45);z-index:4;pointer-events:none}
+/* «Sening yoshing»: katta flip-karta */
+.pm-big .pm-flip{width:132px;height:128px}
+.pm-big .pm-half{width:132px;height:64px}
+.pm-big .pm-bot{top:64px}
+.pm-big .pm-half span{width:132px;height:128px;line-height:128px;font-size:78px}
+.pm-big .pm-bot span{transform:translateY(-64px)}
+.pm-big .pm-hinge{top:63.5px;width:132px}
+.pm-big .pm-flipFrame{width:132px;height:128px}
 .pm-unit{font-size:11px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#E6C9C0}
 
 /* program leaders */
@@ -237,26 +245,21 @@ a{color:#F3CDBB}a:hover{color:#FFE6D9}
 </sc-if>
 
 <sc-if value="{{ b.taymer }}" hint-placeholder-val="{{ true }}">
-    <section style="padding: 22px 20px 30px; display: flex; flex-direction: column; align-items: center; text-align: center">
-      <p class="pm-cap" style="margin: 0">Parda ochilishiga</p>
-      <h2 class="pm-d pm-foil pm-h2">{{ cdTitle }}</h2>
-      <div style="display: flex; gap: 12px; margin-top: 20px">
-        <div style="display: flex; flex-direction: column; align-items: center; gap: 10px">
-          <div class="{{ f0.cls }}"><div class="pm-half pm-top"><span>{{ f0.cur }}</span></div><div class="pm-half pm-bot"><span>{{ f0.prev }}</span></div><div class="pm-half pm-top pm-flap1"><span>{{ f0.prev }}</span></div><div class="pm-half pm-bot pm-flap2"><span>{{ f0.cur }}</span></div><span class="pm-hinge"></span><span class="pm-flipFrame"></span></div>
-          <span class="pm-unit">kun</span>
+    <section data-age style="padding: 22px 20px 30px; display: flex; flex-direction: column; align-items: center; text-align: center">
+      <p class="pm-cap" style="margin: 0">Bosh rolda — sen</p>
+      <h2 class="pm-d pm-foil pm-h2">Sening yoshing</h2>
+      <div class="pm-big" style="display: flex; flex-direction: column; align-items: center; gap: 10px; margin-top: 20px">
+        <div class="{{ fy.cls }}"><div class="pm-half pm-top"><span>{{ fy.cur }}</span></div><div class="pm-half pm-bot"><span>{{ fy.prev }}</span></div><div class="pm-half pm-top pm-flap1"><span>{{ fy.prev }}</span></div><div class="pm-half pm-bot pm-flap2"><span>{{ fy.cur }}</span></div><span class="pm-hinge"></span><span class="pm-flipFrame"></span></div>
+        <span class="pm-unit">yil</span>
+      </div>
+      <p style="margin: 16px 0 0; max-width: 310px; font-size: 17px; font-style: italic; line-height: 1.45; color: #E6C9C0">Sen bu dunyoni <span style="white-space: nowrap; color: #F7E7CE">{{ ageDays }} kundan</span> beri yorug’ qilib kelyapsan</p>
+      <div style="width: 100%; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin-top: 18px">
+        <sc-for list="{{ ageTot }}" as="t" hint-placeholder-count="3">
+        <div style="border-radius: 10px; border: 1px solid rgba(232,180,160,0.55); background: rgba(247,231,206,0.05); padding: 14px 4px 12px; display: flex; flex-direction: column; align-items: center; gap: 8px">
+          <span class="pm-d pm-foil" style="font-size: 27px; line-height: 1.1; white-space: nowrap; font-variant-numeric: lining-nums">{{ t.v }}</span>
+          <span class="pm-unit">{{ t.l }}</span>
         </div>
-        <div style="display: flex; flex-direction: column; align-items: center; gap: 10px">
-          <div class="{{ f1.cls }}"><div class="pm-half pm-top"><span>{{ f1.cur }}</span></div><div class="pm-half pm-bot"><span>{{ f1.prev }}</span></div><div class="pm-half pm-top pm-flap1"><span>{{ f1.prev }}</span></div><div class="pm-half pm-bot pm-flap2"><span>{{ f1.cur }}</span></div><span class="pm-hinge"></span><span class="pm-flipFrame"></span></div>
-          <span class="pm-unit">soat</span>
-        </div>
-        <div style="display: flex; flex-direction: column; align-items: center; gap: 10px">
-          <div class="{{ f2.cls }}"><div class="pm-half pm-top"><span>{{ f2.cur }}</span></div><div class="pm-half pm-bot"><span>{{ f2.prev }}</span></div><div class="pm-half pm-top pm-flap1"><span>{{ f2.prev }}</span></div><div class="pm-half pm-bot pm-flap2"><span>{{ f2.cur }}</span></div><span class="pm-hinge"></span><span class="pm-flipFrame"></span></div>
-          <span class="pm-unit">daqiqa</span>
-        </div>
-        <div style="display: flex; flex-direction: column; align-items: center; gap: 10px">
-          <div class="{{ f3.cls }}"><div class="pm-half pm-top"><span>{{ f3.cur }}</span></div><div class="pm-half pm-bot"><span>{{ f3.prev }}</span></div><div class="pm-half pm-top pm-flap1"><span>{{ f3.prev }}</span></div><div class="pm-half pm-bot pm-flap2"><span>{{ f3.cur }}</span></div><span class="pm-hinge"></span><span class="pm-flipFrame"></span></div>
-          <span class="pm-unit">soniya</span>
-        </div>
+        </sc-for>
       </div>
       <p style="margin: 16px 0 0; font-size: 16px; font-style: italic; color: #E6C9C0">{{ cdDate }}</p>
     </section>
@@ -553,7 +556,8 @@ const ROMAN = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI'
 class Component extends DCLogic {
   constructor(props) {
     super(props);
-    this.state = { opened: false, blown: false, bs: false, going: false, sent: false, goErr: '' };
+    this.still = !!(navigator.webdriver || (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches));
+    this.state = { opened: false, blown: false, bs: false, going: false, sent: false, goErr: '', ak: this.still ? 1 : 0 };
     this.guestName = '';
     this.tick = 0;
     const rnd = (i, k) => { const x = Math.sin(i * 127.1 + k * 311.7) * 43758.5453; return x - Math.floor(x); };
@@ -604,21 +608,34 @@ class Component extends DCLogic {
     };
   }
   componentDidMount() {
-    this.timer = setInterval(() => { this.prevCd = this.lastCd; this.tick += 1; this.forceUpdate(); }, 1000);
+    // «Sening yoshing»: blok ko'ringanda raqamlar 0 dan sanaladi
+    const ageEl = document.querySelector('[data-age]');
+    if (this.still || !ageEl || !window.IntersectionObserver) { if (!this.still) this.setState({ ak: 1 }); }
+    else {
+      this.io = new IntersectionObserver((es) => {
+        if (!es.some((e) => e.isIntersecting)) return;
+        this.io.disconnect();
+        const t0 = performance.now();
+        const step = (t) => { const k = Math.min(1, (t - t0) / 1800); this.setState({ ak: 1 - Math.pow(1 - k, 3) }); if (k < 1) this.raf = requestAnimationFrame(step); };
+        this.raf = requestAnimationFrame(step);
+      }, { threshold: 0.3 });
+      this.io.observe(ageEl);
+    }
   }
   componentWillUnmount() {
-    clearInterval(this.timer);
+    if (this.io) this.io.disconnect();
+    cancelAnimationFrame(this.raf);
   }
   renderVals() {
     const s = this.state;
     const D = SITE.d;
     const name = tkName(D), from = tkFrom(D);
     const w = SITE.when(D.sana), bw = SITE.when(D.bazm_sana);
-    const c = SITE.countdown(D.sana);
-    const cur = [c.dd, c.hh, c.mm, c.ss];
-    const prev = this.prevCd || cur;
-    this.lastCd = cur;
-    const flip = (i) => ({ cur: cur[i], prev: prev[i], cls: cur[i] !== prev[i] ? (this.tick % 2 ? 'pm-flip pm-flip--a' : 'pm-flip pm-flip--b') : 'pm-flip' });
+    const ag = SITE.age(D.sana, D.yosh), ak = this.state.ak, cnt = (n) => SITE.num(Math.round(n * ak));
+    // yil flip-kartada sanaladi: qiymat o'zgarganda varaq ag'dariladi
+    const yCur = String(Math.round(ag.y * ak));
+    if (yCur !== this.yLast) { this.yPrev = this.yLast == null ? yCur : this.yLast; this.yLast = yCur; this.tick += 1; }
+    const fy = { cur: yCur, prev: this.yPrev, cls: this.yPrev !== yCur ? (this.tick % 2 ? 'pm-flip pm-flip--a' : 'pm-flip pm-flip--b') : 'pm-flip' };
     const yosh = String(D.yosh || '').trim();
     const matn = String(D.matn || '').trim();
     const n = Math.min(6, SITE.has.photos);
@@ -648,9 +665,9 @@ class Component extends DCLogic {
       toggleMusic: () => { SITE.music.toggle(); },
       dropCap: matn.charAt(0),
       restText: matn.slice(1),
-      cdTitle: c.done ? 'Bayram boshlandi!' : 'Tug’ilgan kungacha',
       cdDate: [w.date, w.weekday].filter(Boolean).join(', '),
-      f0: flip(0), f1: flip(1), f2: flip(2), f3: flip(3),
+      fy: fy, ageDays: SITE.num(ag.d),
+      ageTot: [[ag.mo, 'oy'], [ag.w, 'hafta'], [ag.d, 'kun']].map((x) => ({ v: cnt(x[0]), l: x[1] })),
       wishes: (D.tilaklar || []).map((t, i) => ({ text: t, n: ROMAN[i] || String(i + 1) })),
       cakeCls: s.blown ? 'pm-cake pm-cake--out' : 'pm-cake',
       wishCls: s.blown ? 'pm-wish pm-wish--on' : 'pm-wish',
