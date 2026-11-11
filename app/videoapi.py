@@ -448,6 +448,7 @@ async def wallet(x_init_data: str = Header("")):
 class TopupIn(BaseModel):
     amount: int = Field(ge=1000, le=10_000_000)
     site: str = Field("", max_length=40)  # to'langach balansdan faollashtiriladigan sayt
+    song: int = Field(0, ge=0)  # to'langach balansdan to'lanadigan qo'shiq
 
 
 @router.post("/api/pay/topup")
@@ -461,7 +462,12 @@ async def topup(body: TopupIn, x_init_data: str = Header("")):
         if body.site:
             site = (await s.execute(select(Site).where(Site.slug == body.site))).scalar_one_or_none()
             site_id = site.id if site and site.owner_id == uid and not site.paid else None
-        p = Payment(user_id=uid, amount=body.amount, site_id=site_id)
+        song_id = None
+        if body.song:
+            from .db import Song
+            song = await s.get(Song, body.song)
+            song_id = song.id if song and song.owner_id == uid and not song.paid else None
+        p = Payment(user_id=uid, amount=body.amount, site_id=site_id, song_id=song_id)
         s.add(p)
         await s.commit()
     await videobot.send_payment_prompt(p.id)

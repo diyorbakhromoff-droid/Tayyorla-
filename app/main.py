@@ -18,6 +18,7 @@ from .config import settings
 from .db import init_db
 from .i18n import tr
 from .reminders import reminder_loop
+from . import songs
 
 
 async def main() -> None:
@@ -71,7 +72,7 @@ async def main() -> None:
             logging.warning("Admin buyruqlarini o'rnatib bo'lmadi: %s", admin_id)
 
     server = uvicorn.Server(uvicorn.Config(web.app, host=settings.host, port=settings.port, log_level="info"))
-    await asyncio.gather(server.serve(), dp.start_polling(bot), reminder_loop(bot))
+    await asyncio.gather(server.serve(), dp.start_polling(bot), reminder_loop(bot), songs.worker(bot))
 
 
 if __name__ == "__main__":

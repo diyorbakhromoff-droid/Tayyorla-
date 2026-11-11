@@ -13,6 +13,14 @@ class Settings(BaseSettings):
     base_url: str = "http://localhost:8000"
     admin_ids: str = ""
     rahmat_url: str = ""
+    # Qo'shiq (ElevenLabs Music): kalit faqat serverdagi .env da
+    elevenlabs_api_key: str = ""
+    song_model: str = "music_v2_5"
+    song_price: int = 69000          # to'liq qo'shiq (2 ta variant)
+    song_site_price: int = 0         # sayt egasi uchun qo'shiq narxi (0 — song_price bilan bir xil)
+    song_free_previews: int = 1      # har foydalanuvchiga bepul 20 soniyalik namuna(lar)
+    song_preview_seconds: int = 20
+    song_workers: int = 2            # bir vaqtda nechta qo'shiq yaratiladi
     # Click (SHOP API): kalitlar faqat serverdagi .env da turadi
     click_service_id: str = ""
     click_merchant_id: str = ""
@@ -45,6 +53,10 @@ class Settings(BaseSettings):
     video_seconds: int = 20
     video_max_per_hour: int = 10
     video_keep_days: int = 7
+
+    @property
+    def songs_on(self) -> bool:
+        return bool(self.elevenlabs_api_key)
 
     @property
     def click_on(self) -> bool:

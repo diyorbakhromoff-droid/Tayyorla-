@@ -12,7 +12,7 @@ from aiogram.utils.keyboard import InlineKeyboardBuilder
 from .. import billing, videobot
 from ..catalog import site_price, site_title
 from ..config import settings
-from ..db import Payment, RenderJob, Session, Site, User, utcnow
+from ..db import Payment, RenderJob, Session, Site, Song, User, utcnow
 from ..i18n import tr
 from . import keyboards as kb
 
@@ -127,6 +127,14 @@ async def after_topup(bot, p: Payment, user: User | None) -> None:
             await s.commit()
         if paid:
             await videobot.site_paid_notice(p.site_id)
+    if getattr(p, "song_id", None):
+        from .. import songs
+        async with Session() as s:
+            song = await s.get(Song, p.song_id)
+            if song and song.owner_id == p.user_id and not song.paid and song.status not in ("preview_queued", "preview_gen"):
+                await songs.pay(s, song, p.user_id)
+            await s.commit()
+        songs.wake()
     try:
         n = await videobot.run_awaiting(p.user_id)
         if n and bot:

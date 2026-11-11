@@ -201,6 +201,7 @@ class Payment(Base):
     admin_id: Mapped[int | None] = mapped_column(BigInteger, nullable=True)
     receipt: Mapped[str] = mapped_column(String(255), default="")  # chek fayli (Telegram file_id), admin paneli uchun
     site_id: Mapped[int | None] = mapped_column(Integer, nullable=True)  # to'lovdan keyin balansdan to'lanadigan sayt
+    song_id: Mapped[int | None] = mapped_column(Integer, nullable=True)  # to'lovdan keyin balansdan to'lanadigan qo'shiq
     provider: Mapped[str] = mapped_column(String(12), default="")  # "" — chek orqali, "click"
     ext_id: Mapped[str] = mapped_column(String(40), default="")  # to'lov tizimidagi tranzaksiya raqami
     created_at: Mapped[datetime] = mapped_column(DateTime, default=utcnow)
@@ -257,6 +258,36 @@ class Snapshot(Base):
     value: Mapped[int] = mapped_column(Integer, default=0)
 
 
+class Song(Base):
+    """Shaxsiy qo'shiq buyurtmasi: she'r (Claude) -> 20 s namuna -> to'lov -> 2 ta variant (ElevenLabs Music)."""
+    __tablename__ = "songs"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    owner_id: Mapped[int] = mapped_column(BigInteger, index=True)
+    # lyrics (she'r tayyor) -> preview_queued -> preview_ready -> paid_queued -> ready | failed
+    status: Mapped[str] = mapped_column(String(16), default="lyrics", index=True)
+    recipient: Mapped[str] = mapped_column(String(80), default="")      # kimga (ism)
+    relation: Mapped[str] = mapped_column(String(24), default="")       # sevgilim, onam, dugonam...
+    occasion: Mapped[str] = mapped_column(String(24), default="")       # tug'ilgan kun, sevgi izhori...
+    style: Mapped[str] = mapped_column(String(24), default="")
+    voice: Mapped[str] = mapped_column(String(8), default="male")       # male | female
+    answers: Mapped[dict] = mapped_column(JSON, default=dict)           # savollarga javoblar, o'z janri
+    title: Mapped[str] = mapped_column(String(120), default="")
+    lyrics: Mapped[str] = mapped_column(Text, default="")
+    tags: Mapped[list] = mapped_column(JSON, default=list)              # inglizcha uslub teglari (ElevenLabs uchun)
+    plan: Mapped[dict] = mapped_column(JSON, default=dict)              # oxirgi yuborilgan kompozitsiya rejasi
+    preview: Mapped[str] = mapped_column(String(255), default="")       # /media/... 20 s namuna
+    previews: Mapped[int] = mapped_column(Integer, default=0)           # nechta namuna yaratildi (bepul namunalar hisobi)
+    variants: Mapped[list] = mapped_column(JSON, default=list)          # [{"file": "/media/...", "private": "..."}]
+    chosen: Mapped[int] = mapped_column(Integer, default=-1)
+    price: Mapped[int] = mapped_column(Integer, default=0)
+    paid: Mapped[bool] = mapped_column(Boolean, default=False)
+    site_slug: Mapped[str] = mapped_column(String(32), default="")      # qaysi saytga qo'yilgan
+    error: Mapped[str] = mapped_column(String(255), default="")
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=utcnow)
+    updated_at: Mapped[datetime] = mapped_column(DateTime, default=utcnow)
+
+
 async def init_db() -> None:
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
@@ -278,6 +309,7 @@ _NEW_COLUMNS = [
     ("payments", "site_id", "INTEGER"),
     ("payments", "provider", "VARCHAR(12) DEFAULT '' NOT NULL"),
     ("payments", "ext_id", "VARCHAR(40) DEFAULT '' NOT NULL"),
+    ("payments", "song_id", "INTEGER"),
 ]
 
 
