@@ -180,7 +180,10 @@ async def status_text(job: RenderJob, lang: str) -> str:
 # ---------------------------------------------------------------- to'lovlar
 
 def pay_keyboard(payment_id: int, amount: int, lang: str) -> InlineKeyboardMarkup:
+    from .click import pay_url
     kb = InlineKeyboardBuilder()
+    if settings.click_on:
+        kb.button(text=tr(lang, "bot.btn_click", amount=money(amount)), url=pay_url(payment_id, amount))
     if settings.rahmat_url:
         kb.button(text=tr(lang, "bot.btn_pay", amount=money(amount)), url=settings.rahmat_url)
     kb.button(text=tr(lang, "bot.btn_paid"), callback_data=f"tpaid:{payment_id}")
@@ -198,7 +201,7 @@ async def send_payment_prompt(payment_id: int) -> None:
         p = await s.get(Payment, payment_id)
         job = await s.get(RenderJob, p.job_id) if p.job_id else None
     lang = await user_lang(p.user_id)
-    key = "bot.pay_video" if job else "bot.pay_topup"
+    key = "bot.pay_click" if settings.click_on else ("bot.pay_video" if job else "bot.pay_topup")
     try:
         await bot.send_message(p.user_id, tr(lang, key, amount=money(p.amount)), reply_markup=pay_keyboard(p.id, p.amount, lang))
     except Exception:

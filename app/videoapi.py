@@ -447,6 +447,7 @@ async def wallet(x_init_data: str = Header("")):
 
 class TopupIn(BaseModel):
     amount: int = Field(ge=1000, le=10_000_000)
+    site: str = Field("", max_length=40)  # to'langach balansdan faollashtiriladigan sayt
 
 
 @router.post("/api/pay/topup")
@@ -456,11 +457,16 @@ async def topup(body: TopupIn, x_init_data: str = Header("")):
         raise HTTPException(400, "bad_amount")
     async with Session() as s:
         await billing.touch_user(s, uid, tg.get("first_name", ""), tg.get("username", ""), tg.get("language_code", ""))
-        p = Payment(user_id=uid, amount=body.amount)
+        site_id = None
+        if body.site:
+            site = (await s.execute(select(Site).where(Site.slug == body.site))).scalar_one_or_none()
+            site_id = site.id if site and site.owner_id == uid and not site.paid else None
+        p = Payment(user_id=uid, amount=body.amount, site_id=site_id)
         s.add(p)
         await s.commit()
     await videobot.send_payment_prompt(p.id)
-    return {"ok": True, "payment": p.id}
+    from .click import pay_url
+    return {"ok": True, "payment": p.id, "click_url": pay_url(p.id, p.amount)}
 
 
 @router.post("/api/sites/{slug}/pay")

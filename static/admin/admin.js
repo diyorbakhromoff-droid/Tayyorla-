@@ -412,7 +412,7 @@
   }
 
   // ---------------------------------------------------------------- 4. To'lovlar
-  const PST = { pending: ["Tekshirish kerak", "warn"], new: ["Chek yuborilmagan", ""], approved: ["Tasdiqlangan", "good"], rejected: ["Rad etilgan", "bad"] };
+  const PST = { pending: ["Tekshirish kerak", "warn"], new: ["Chek yuborilmagan", ""], approved: ["Tasdiqlangan", "good"], rejected: ["Rad etilgan", "bad"], cancelled: ["Bekor qilingan", "bad"] };
   async function payments(alive) {
     loading("To'lovlar");
     S.payStatus = S.payStatus || "pending";
@@ -422,7 +422,7 @@
     const rows = d.payments.map((p) => `<tr>
       <td class="num">#${p.id}<span class="sub">${dt(p.created_at)}</span></td>
       <td>${userLink(p)}</td>
-      <td class="r num"><b>${som(p.amount)}</b><span class="sub">${p.for_video ? "video uchun" : "balansga"}</span></td>
+      <td class="r num"><b>${som(p.amount)}</b><span class="sub">${p.for_video ? "video uchun" : "balansga"}${p.provider === "click" ? ` · Click${p.ext_id ? ` ${esc(p.ext_id)}` : ""}` : ""}</span></td>
       <td>${tag(PST[p.status][0], PST[p.status][1])}${p.decided_at ? `<span class="sub">${dt(p.decided_at)}${p.admin ? ` · ${esc(p.admin)}` : ""}</span>` : ""}</td>
       <td class="r"><div class="row" style="justify-content:flex-end">
         ${p.receipt ? `<button type="button" class="btn sm" data-receipt="${p.id}">Chek</button>` : ""}

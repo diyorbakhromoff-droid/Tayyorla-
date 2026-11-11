@@ -154,7 +154,7 @@
     } catch (e) {
       App.busy(btn, false);
       if (e.status === 402 && e.detail && e.detail.code === "paywall") {
-        App.topupSheet({ need: Math.max(0, (e.detail.need || price) - (e.detail.balance || 0)), title: T("sites.need_title"),
+        App.topupSheet({ site: slug, need: Math.max(0, (e.detail.need || price) - (e.detail.balance || 0)), title: T("sites.need_title"),
           text: T("sites.need_text", { sum: money(e.detail.need || price), balance: money(e.detail.balance || 0) }) });
       } else toast(e.message);
     }

@@ -668,6 +668,7 @@ async def payments(status: str = "pending", limit: int = Query(100, le=500), uid
         a = users.get(p.admin_id) if p.admin_id else None
         out.append({"id": p.id, "user_id": p.user_id, "name": u.first_name if u else "", "username": u.username if u else "",
                     "amount": p.amount, "status": p.status, "for_video": bool(p.job_id), "receipt": bool(p.receipt),
+                    "provider": p.provider or "", "ext_id": p.ext_id or "",
                     "admin": (a.first_name if a else p.admin_id) if p.admin_id else None,
                     "created_at": p.created_at.isoformat() if p.created_at else None,
                     "decided_at": p.decided_at.isoformat() if p.decided_at else None})

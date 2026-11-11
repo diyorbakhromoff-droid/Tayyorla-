@@ -87,7 +87,7 @@ async def decide_payment(bot, pid: int, approve: bool, admin_id: int) -> str:
         p = await s.get(Payment, pid)
         if not p:
             return "not_found"
-        if p.status in ("approved", "rejected"):
+        if p.status in ("approved", "rejected", "cancelled"):
             return "done"
         p.status = "approved" if approve else "rejected"
         p.admin_id = admin_id
@@ -96,19 +96,43 @@ async def decide_payment(bot, pid: int, approve: bool, admin_id: int) -> str:
             await billing.credit(s, p.user_id, p.amount, "topup", f"pay:{p.id}")
         await s.commit()
         user = await s.get(User, p.user_id)
+    if approve:
+        await after_topup(bot, p, user)
+        return "ok"
     lang = (user.lang if user else "") or "uz"
     try:
-        if approve:
-            await bot.send_message(p.user_id, tr(lang, "bot.topup_done", amount=videobot.money(p.amount),
-                                                 balance=videobot.money(user.balance if user else p.amount)))
-            n = await videobot.run_awaiting(p.user_id)
-            if n:
-                await bot.send_message(p.user_id, tr(lang, "bot.queued_after_pay", n=n))
-        else:
-            await bot.send_message(p.user_id, tr(lang, "bot.topup_rejected"))
+        await bot.send_message(p.user_id, tr(lang, "bot.topup_rejected"))
     except Exception:
         log.exception("To'lov natijasini foydalanuvchiga yuborib bo'lmadi: %s", p.user_id)
     return "ok"
+
+
+async def after_topup(bot, p: Payment, user: User | None) -> None:
+    """Balans to'ldirilgach (chek tasdig'i yoki Click): xabar, kutayotgan videolar, to'lov qilingan sayt."""
+    lang = (user.lang if user else "") or "uz"
+    try:
+        if bot:
+            await bot.send_message(p.user_id, tr(lang, "bot.topup_done", amount=videobot.money(p.amount),
+                                                 balance=videobot.money(user.balance if user else p.amount)))
+    except Exception:
+        log.exception("To'lov natijasini foydalanuvchiga yuborib bo'lmadi: %s", p.user_id)
+    if p.site_id:
+        paid = False
+        async with Session() as s:
+            site = await s.get(Site, p.site_id)
+            if site and site.owner_id == p.user_id and not site.paid and \
+                    await billing.spend(s, p.user_id, site_price(site.config), "site", f"site:{site.slug}"):
+                site.status = "paid"
+                paid = True
+            await s.commit()
+        if paid:
+            await videobot.site_paid_notice(p.site_id)
+    try:
+        n = await videobot.run_awaiting(p.user_id)
+        if n and bot:
+            await bot.send_message(p.user_id, tr(lang, "bot.queued_after_pay", n=n))
+    except Exception:
+        log.exception("Kutayotgan videolarni ishga tushirib bo'lmadi: %s", p.user_id)
 
 
 @router.callback_query(F.data.startswith(("tok:", "tno:")))
@@ -123,6 +147,25 @@ async def topup_decision(cb: CallbackQuery):
         return await cb.answer("Allaqachon ko'rib chiqilgan")
     mark = "\n\n✅ <b>Tasdiqlandi</b>" if action == "tok" else "\n\n❌ <b>Rad etildi</b>"
     await cb.message.edit_text(cb.message.html_text + mark)
+    await cb.answer()
+
+
+@router.callback_query(F.data.startswith("sclick:"))
+async def site_click(cb: CallbackQuery):
+    """Saytni Click orqali to'lash: yetmagan summaga to'lov yoziladi, to'langach sayt o'zi faollashadi."""
+    site_id = int(cb.data.split(":")[1])
+    async with Session() as s:
+        site = await s.get(Site, site_id)
+        if not site or site.owner_id != cb.from_user.id:
+            return await cb.answer()
+        if site.paid:
+            return await cb.answer("✅")
+        user = await s.get(User, cb.from_user.id)
+        amount = max(1000, site_price(site.config) - (user.balance if user else 0))
+        p = Payment(user_id=cb.from_user.id, amount=amount, site_id=site.id)
+        s.add(p)
+        await s.commit()
+    await videobot.send_payment_prompt(p.id)
     await cb.answer()
 
 

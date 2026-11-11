@@ -13,6 +13,11 @@ class Settings(BaseSettings):
     base_url: str = "http://localhost:8000"
     admin_ids: str = ""
     rahmat_url: str = ""
+    # Click (SHOP API): kalitlar faqat serverdagi .env da turadi
+    click_service_id: str = ""
+    click_merchant_id: str = ""
+    click_merchant_user_id: str = ""
+    click_secret_key: str = ""
     price: int = 25000  # eski (oddiy) shablonlar uchun
     price_standart: int = 39000
     price_premium: int = 59000
@@ -40,6 +45,10 @@ class Settings(BaseSettings):
     video_seconds: int = 20
     video_max_per_hour: int = 10
     video_keep_days: int = 7
+
+    @property
+    def click_on(self) -> bool:
+        return bool(self.click_service_id and self.click_merchant_id and self.click_secret_key)
 
     @property
     def admins(self) -> set[int]:

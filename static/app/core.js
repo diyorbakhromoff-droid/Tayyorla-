@@ -263,7 +263,7 @@
 
   // ---------------------------------------------------------------- balansni to'ldirish (umumiy oyna)
   /** need — yetishmayotgan summa; amounts — tanlov; onSent — to'lov ko'rsatmasi botga ketgach. */
-  App.topupSheet = ({ need = 0, title, text, onSent } = {}) => {
+  App.topupSheet = ({ need = 0, title, text, onSent, site = "" } = {}) => {
     const q = (S.me && S.me.quota) || {};
     const price = q.price || 9900;
     const base = (S.vm && S.vm.topups) || [9900, 29700, 49500, 99000];
@@ -287,9 +287,10 @@
     $("#tpGo", s.el).onclick = async (e) => {
       busy(e.currentTarget, true);
       try {
-        await api("/api/pay/topup", { amount: pick });
+        const r = await api("/api/pay/topup", { amount: pick, site });
         notify("success");
         s.close();
+        if (r && r.click_url) openLink(r.click_url); // Click to'lov sahifasi; to'lov o'tgach balans o'zi to'ladi
         App.paySentSheet(onSent);
       } catch (err) { busy(e.currentTarget, false); toast(err.message); }
     };

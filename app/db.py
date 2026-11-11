@@ -200,6 +200,9 @@ class Payment(Base):
     job_id: Mapped[int | None] = mapped_column(Integer, nullable=True)  # to'lovdan keyin navbatga qo'yiladigan video
     admin_id: Mapped[int | None] = mapped_column(BigInteger, nullable=True)
     receipt: Mapped[str] = mapped_column(String(255), default="")  # chek fayli (Telegram file_id), admin paneli uchun
+    site_id: Mapped[int | None] = mapped_column(Integer, nullable=True)  # to'lovdan keyin balansdan to'lanadigan sayt
+    provider: Mapped[str] = mapped_column(String(12), default="")  # "" — chek orqali, "click"
+    ext_id: Mapped[str] = mapped_column(String(40), default="")  # to'lov tizimidagi tranzaksiya raqami
     created_at: Mapped[datetime] = mapped_column(DateTime, default=utcnow)
     decided_at: Mapped[datetime | None] = mapped_column(DateTime, nullable=True)
 
@@ -272,6 +275,9 @@ _NEW_COLUMNS = [
     ("traffic_links", "share", "VARCHAR(32) DEFAULT '' NOT NULL"),
     ("traffic_links", "share_revenue", "BOOLEAN DEFAULT FALSE NOT NULL"),
     ("traffic_links", "share_pct", "INTEGER DEFAULT 0 NOT NULL"),
+    ("payments", "site_id", "INTEGER"),
+    ("payments", "provider", "VARCHAR(12) DEFAULT '' NOT NULL"),
+    ("payments", "ext_id", "VARCHAR(40) DEFAULT '' NOT NULL"),
 ]
 
 
