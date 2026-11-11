@@ -29,6 +29,8 @@ def song_out(song: Song) -> dict:
         "chosen": song.chosen if paid_files else -1, "file": paid_files[song.chosen] if paid_files and 0 <= song.chosen < len(paid_files) else None,
         "paid": song.paid, "price": song.price, "site": song.site_slug or None, "error": song.error or None,
         "busy": song.status in ("preview_queued", "preview_gen", "paid_queued", "paid_gen"),
+        # naqorat boshlanishi (soniya) — videoga qo'yilganda 20 soniyalik bo'lak shu yerdan olinadi
+        "chorus_at": round((song.plan or {}).get("_chorus_at", 0) / 1000) if paid_files else 0,
         "created_at": song.created_at.isoformat() if song.created_at else None,
     }
 

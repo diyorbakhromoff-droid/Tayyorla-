@@ -94,7 +94,7 @@
       $("#toDesigns").onclick = () => { p.mine = false; App.render(); };
       return;
     }
-    body.innerHTML = `<div class="wrap stack" style="padding-top:16px">${sites.map((x) => {
+    body.innerHTML = `<div class="wrap stack" style="padding-top:16px"><div id="songTipBox" hidden></div>${sites.map((x) => {
       const t = S.cm.templates.find((y) => y.id === x.template);
       const title = [x.to, t ? tplName(t) : x.title].filter(Boolean).join(" — ");
       return `<div class="srow"><div class="top"><b>${esc(title)}</b><span class="badge ${x.paid ? "green" : "gold"}">${esc(T(x.paid ? "sites.live" : "sites.sample"))}</span></div>
@@ -113,6 +113,16 @@
     $$("[data-event]", body).forEach((b) => (b.onclick = () => App.go("event", { slug: b.dataset.event })));
     $$("[data-pay]", body).forEach((b) => (b.onclick = () => paySite(b.dataset.pay, +b.dataset.price, b)));
     $$("[data-up]", body).forEach((b) => (b.onclick = () => { haptic(); upgradeSheet(sites.find((x) => x.slug === b.dataset.up)); }));
+    // to'langan sayt bor, qo'shiq hali yo'q — yumshoq taklif
+    const paidSite = sites.find((x) => x.paid);
+    if (paidSite && App.songWizard) Promise.all([App.songMeta(), App.songList()]).then(([m, list]) => {
+      const box = $("#songTipBox", body);
+      if (!box || !m.on || list.length) return;
+      const t = S.cm.templates.find((y) => y.id === paidSite.template);
+      box.innerHTML = `<button type="button" class="banner sg-tip">${icon("music")}<span><b>${esc(T("song.tip_t"))}</b>${esc(paidSite.to ? T("song.tip_who", { name: paidSite.to }) : T("song.tip_s"))}</span>${icon("chev")}</button>`;
+      box.hidden = false;
+      box.firstElementChild.onclick = () => { haptic(); App.songWizard(t ? songPrefill({ kimga: paidSite.to }, t.section) : { recipient: paidSite.to }); };
+    }).catch(() => {});
   };
 
   /** To'langan saytni yuqori tarif shabloniga o'tkazish: farqini to'laydi, ma'lumotlar saqlanadi. */
@@ -227,6 +237,13 @@
   const v2demo = (t) => `${t.demo}?r=${order.rang}${order.data && order.data.marosim ? `&m=${encodeURIComponent(order.data.marosim)}` : ""}`;
   // ixtiyoriy bloklar (masalan, kiyinish uslubi) boshida o'chiq: mijoz xohlasa qo'shadi
   const optionalBlocks = (t) => (t.blocks || []).filter((b) => b.optional).map((b) => b.key);
+  // sayt ma'lumotlaridan qo'shiq so'rovnomasi: kimga, kim bo'ladi, qanday munosabat
+  const SONG_OCC = { "tugilgan-kun": "tugilgan_kun", sevgi: "sevgi", toy: "toy", uzr: "uzr" };
+  const SONG_REL = { sevgi: "sevgilim", farzand: "farzandim" };
+  function songPrefill(data = order.data || {}, sec = tpl().section) {
+    const who = data.kimga || data.chaqaloq || (data.kuyov && data.kelin ? `${data.kuyov} & ${data.kelin}` : "") || data.ism || "";
+    return { recipient: String(who).slice(0, 80), occasion: SONG_OCC[sec] || "", relation: SONG_REL[sec] || "" };
+  }
 
   const STEP_KEYS = ["ord.s1", "ord.s2", "ord.s3", "ord.s4", "ord.s5"];
   // tarifli shablonda tarif tanlanmaydi: dizayn → ma'lumot va bloklar → suratlar → tayyor
@@ -334,13 +351,21 @@
         $$("button", box).forEach((b) => (b.onclick = () => { order.photos.splice(+b.dataset.i, 1); save(); drawPhotos(); }));
         $("#photoUp").hidden = order.photos.length >= lim;
       };
+      // shaxsiy qo'shiq: tayyorlari ro'yxatda, yo'q bo'lsa — shu sayt egasiga qo'shiq yaratish taklifi
+      const songOn = () => !S.sm || S.sm.on;
       const drawMusic = () => {
         const box = $("#music");
+        if (!box) return;
         if (order.music) {
-          box.innerHTML = `<audio controls src="${esc(order.music)}" style="width:100%"></audio><button type="button" class="btn ghost sm" id="rmMusic" style="margin-top:8px">${esc(T("remove"))}</button>`;
+          const mine = (App.readySongs ? App.readySongs() : []).find((x) => x.file === order.music);
+          box.innerHTML = `${mine ? `<p class="sg-mini-h">${icon("music", "xs")}${esc(mine.title || T("song.title"))}</p>` : ""}<audio controls src="${esc(order.music)}" style="width:100%"></audio><button type="button" class="btn ghost sm" id="rmMusic" style="margin-top:8px">${esc(T("remove"))}</button>`;
           $("#rmMusic").onclick = () => { order.music = null; save(); drawMusic(); };
         } else {
-          box.innerHTML = `<span class="btn ghost upload" id="musicUp">${icon("music", "s")}${esc(T("ord.pick_music"))}<input type="file" id="musicIn" accept="audio/*"></span>`;
+          box.innerHTML = `<span class="btn ghost upload" id="musicUp">${icon("music", "s")}${esc(T("ord.pick_music"))}<input type="file" id="musicIn" accept="audio/*"></span>
+            <div id="mySongs" style="margin-top:14px"></div>
+            ${App.songWizard && songOn() ? `<button type="button" class="banner" id="songCta" style="margin-top:12px">${icon("music")}<span><b>${esc(T("song.for_site"))}</b>${esc(T("song.for_site_s"))}</span>${icon("chev")}</button>` : ""}`;
+          if (App.songPickList) App.songPickList($("#mySongs"), { selected: order.music, onPick: (sg) => { order.music = sg.file; save(); drawMusic(); } });
+          const sc = $("#songCta"); if (sc) sc.onclick = () => { haptic(); App.songWizard(songPrefill()); };
           $("#musicIn").onchange = async (e) => {
             const f = e.target.files[0]; if (!f) return;
             $("#musicUp").innerHTML = `<span class="spin"></span>`;
@@ -351,6 +376,7 @@
         }
       };
       drawPhotos(); drawMusic();
+      if (App.songList) Promise.all([App.songMeta(), App.songList()]).then(() => { if ($("#music")) drawMusic(); }).catch(() => {});
       $("#photoIn").onchange = async (e) => {
         const files = [...e.target.files].slice(0, lim - order.photos.length);
         e.target.value = "";
@@ -545,10 +571,11 @@
       const res = await api("/api/catalog/sites", order);
       store.del(OKEY);
       const who = order.data.kimga || order.data.kuyov || "";
+      const song = songPrefill();
       order = null;
       notify("success");
       await App.refreshMe().catch(() => {});
-      App.replace("order_done", { url: res.url, slug: res.slug, who });
+      App.replace("order_done", { url: res.url, slug: res.slug, who, song });
     } catch (e) { App.busy(btn, false); toast(e.message); }
   }
 
@@ -570,7 +597,13 @@
           <p class="hint">${esc(T("done.balance", { balance: money(bal) }))}</p>` : ""}
         <button type="button" class="btn ${site && !site.paid ? "ghost" : ""}" id="openSite">${icon("eye", "s")}${esc(T("done.open"))}</button>
         <button type="button" class="btn ghost" id="toChat">${esc(T("go_chat"))}</button>
-        <button type="button" class="btn ghost" id="toMine">${esc(T("done.mine"))}</button></div></div>`;
+        <button type="button" class="btn ghost" id="toMine">${esc(T("done.mine"))}</button>
+        ${App.songWizard ? `<button type="button" class="banner sg-tip" id="songTip" hidden>${icon("music")}<span><b>${esc(T("song.tip_t"))}</b>${esc(p.who ? T("song.tip_who", { name: p.who }) : T("song.tip_s"))}</span>${icon("chev")}</button>` : ""}</div></div>`;
+    const tip = $("#songTip");
+    if (tip) {
+      tip.onclick = () => { haptic(); App.songWizard(p.song || { recipient: p.who }); };
+      App.songMeta().then((m) => { if (m.on && tip.isConnected) tip.hidden = false; }).catch(() => {});
+    }
     $("#openSite").onclick = () => App.openLink(p.url);
     $("#toChat").onclick = () => App.closeApp();
     $("#toMine").onclick = () => App.tab("sites", { mine: true });

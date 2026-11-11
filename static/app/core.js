@@ -130,6 +130,8 @@
     clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
     trash: '<path d="M4 7h16M10 11v6M14 11v6M6 7l1 12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-12M9 7V4h6v3"/>',
     upload: '<path d="M12 16V4M7.5 8.5 12 4l4.5 4.5"/><path d="M4 15v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4"/>',
+    download: '<path d="M12 4v12M7.5 11.5 12 16l4.5-4.5"/><path d="M4 15v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4"/>',
+    headphones: '<path d="M4 15v-3a8 8 0 0 1 16 0v3"/><rect x="3" y="14" width="4.5" height="7" rx="1.6"/><rect x="16.5" y="14" width="4.5" height="7" rx="1.6"/>',
     eye: '<path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3"/>',
     lock: '<rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/>',
     refresh: '<path d="M20 11a8 8 0 0 0-14.5-4.5L4 8"/><path d="M4 4v4h4"/><path d="M4 13a8 8 0 0 0 14.5 4.5L20 16"/><path d="M20 20v-4h-4"/>',
@@ -262,8 +264,9 @@
   App.bindSwitch = (el, fn) => { if (el) el.onclick = () => { haptic(); const on = el.getAttribute("aria-checked") !== "true"; el.setAttribute("aria-checked", on); fn(on); }; };
 
   // ---------------------------------------------------------------- balansni to'ldirish (umumiy oyna)
-  /** need — yetishmayotgan summa; amounts — tanlov; onSent — to'lov ko'rsatmasi botga ketgach. */
-  App.topupSheet = ({ need = 0, title, text, onSent, site = "" } = {}) => {
+  /** need — yetishmayotgan summa; amounts — tanlov; onSent — to'lov ko'rsatmasi botga ketgach.
+   *  site / song — to'lov tasdiqlangach balansdan avtomatik to'lanadigan sayt yoki qo'shiq. */
+  App.topupSheet = ({ need = 0, title, text, onSent, site = "", song = 0 } = {}) => {
     const q = (S.me && S.me.quota) || {};
     const price = q.price || 9900;
     const base = (S.vm && S.vm.topups) || [9900, 29700, 49500, 99000];
@@ -287,7 +290,7 @@
     $("#tpGo", s.el).onclick = async (e) => {
       busy(e.currentTarget, true);
       try {
-        const r = await api("/api/pay/topup", { amount: pick, site });
+        const r = await api("/api/pay/topup", { amount: pick, site, ...(song ? { song: +song } : {}) });
         notify("success");
         s.close();
         if (r && r.click_url) openLink(r.click_url); // Click to'lov sahifasi; to'lov o'tgach balans o'zi to'ladi
@@ -323,10 +326,14 @@
     });
   }
 
-  /** Bot va eslatmalardagi havolalar: ?tab=videos, ?ev=slug, ?tosite=slug, ?v=dizayn, ?kimga=…, startapp=… */
+  /** Bot va eslatmalardagi havolalar: ?tab=videos, ?ev=slug, ?tosite=slug, ?song=id, ?v=dizayn, ?kimga=…, startapp=… */
   function route() {
     const Q = new URLSearchParams(location.search);
     const sp = (tg && tg.initDataUnsafe && tg.initDataUnsafe.start_param) || "";
+    // qo'shiq: ?song=12 — qo'shiq sahifasi, ?song=new yoki ?tab=songs — yangi qo'shiq / ro'yxat
+    const song = Q.get("song") || (sp.startsWith("song_") ? sp.slice(5) : "");
+    if (song === "new") { App.tab("home"); App.go("song_new", { step: 0 }); return true; }
+    if (+song > 0) { App.tab("home"); App.go("song", { id: +song }); return true; }
     const ev = Q.get("ev") || (sp.startsWith("ev_") ? sp.slice(3) : "");
     if (ev) { App.tab("events"); App.go("event", { slug: ev }); return true; }
     const tosite = Q.get("tosite") || (sp.startsWith("site_") ? sp.slice(5) : "");
@@ -335,6 +342,7 @@
     if (design && S.vm.designs.some((d) => d.id === design)) { App.tab("videos"); App.go("editor", { design }); return true; }
     const tab = Q.get("tab") || (["videos", "sites", "events", "profile"].includes(sp) ? sp : "");
     if (tab === "wallet") { App.tab("profile"); App.go("wallet"); return true; }
+    if (tab === "songs" || sp === "songs") { App.tab("home"); App.go("songs"); return true; }
     if (["videos", "sites", "events", "profile"].includes(tab)) { App.tab(tab, { section: Q.get("s") || "" }); return true; }
     if (Q.get("kimga")) {
       const pre = Object.fromEntries(["kimga", "sana", "tugilgan_sana"].filter((k) => Q.get(k)).map((k) => [k, Q.get(k)]));

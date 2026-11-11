@@ -26,6 +26,7 @@
         <button type="button" class="banner" id="invite">${icon("gift")}<span><b>${esc(T("pr.invite_t"))}</b>${esc(T("pr.invite_s"))}</span>${icon("share")}</button>
         <nav class="menu">
           <button type="button" data-go="people"><span class="ic">${icon("users", "s")}</span><span class="t"><b>${esc(T("pr.people"))}</b><small>${esc(T("pr.people_n", { n: (me.people || []).length }))}</small></span>${icon("chev", "s chev")}</button>
+          <button type="button" data-go="songs"><span class="ic">${icon("music", "s")}</span><span class="t"><b>${esc(T("song.mine"))}</b><small>${esc(T("song.mine_s"))}</small></span>${icon("chev", "s chev")}</button>
           <button type="button" data-go="language"><span class="ic">${icon("globe", "s")}</span><span class="t"><b>${esc(T("pr.app_lang"))}</b><small>${esc(langName(App.lang))}</small></span>${icon("chev", "s chev")}</button>
           <button type="button" id="cardLang"><span class="ic">Aa</span><span class="t"><b>${esc(T("pr.card_lang"))}</b><small>${esc(cardLang === "auto" ? T("pr.card_auto") : langName(cardLang))}</small></span>${icon("chev", "s chev")}</button>
           <button type="button" data-go="wallet"><span class="ic">${icon("wallet", "s")}</span><span class="t"><b>${esc(T("pr.history"))}</b><small>${esc(T("pr.history_s"))}</small></span>${icon("chev", "s chev")}</button>

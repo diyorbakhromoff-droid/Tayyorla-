@@ -53,7 +53,8 @@
             <small>${esc(T("home.video_sub"))}</small><span class="badge green">${esc(T("home.video_free", { n: q.free_per_day || 2 }))}</span></button>
           <button type="button" class="big-card" data-go="sites"><span class="ic pink">${icon("globe")}</span><b>${esc(T("home.site_title"))}</b>
             <small>${esc(T("home.site_sub"))}</small><span class="badge lilac">${esc(T("home.site_from", { sum: App.money(minSite) }))}</span></button>
-        </div></section>
+        </div>
+        ${App.songCardHtml ? App.songCardHtml() : ""}</section>
 
       <section class="sec"><div class="sec-h"><h2>${esc(T("home.which"))}</h2></div>
         <div class="occ">${OCCASIONS.map(([k, , , isNew]) => `<button type="button" data-occ="${k}">${isNew ? `<span class="badge new">${esc(T("new"))}</span>` : ""}${icon(k)}${esc(T("sec." + k))}</button>`).join("")}</div></section>
@@ -80,6 +81,7 @@
     $$("[data-design]", el).forEach((b) => (b.onclick = () => { haptic(); App.go("editor", { design: b.dataset.design }); }));
     $("#addPerson").onclick = () => { haptic(); personSheet(); };
     const all = $("#allPeople"); if (all) all.onclick = () => { haptic(); App.go("people"); };
+    if (App.bindSongCard) App.bindSongCard(el);
   };
 
   // ---------------------------------------------------------------- yaqinlar ro'yxati

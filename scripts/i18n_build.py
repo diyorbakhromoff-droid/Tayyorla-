@@ -17,7 +17,7 @@ from scripts.i18n_app_uz import APP
 
 DIR = Path(__file__).resolve().parent.parent / "static" / "i18n"
 KEEP = re.compile(r"(\{[a-z_]+\}|<[^>]+>|https?://\S+|@\w+|\bTayyorla\b|\bTelegram\b|\bInstagram\b|\bYouTube\b|\bGoogle\b|\bYandex\b"
-                  r"|\bClick\b|\bPayme\b|\bUzum\b|\bRahmat\b|\bVIP\b|\bPremium\b|\bStandart\b|\bMP3\b|\bM4A\b|\bOGG\b|\bWAV\b|\bMB\b|\bQR\b|\bmp3\b)")
+                  r"|\bClick\b|\bPayme\b|\bUzum\b|\bRahmat\b|\bVIP\b|\bPremium\b|\bStandart\b|\bMP3\b|\bM4A\b|\bOGG\b|\bWAV\b|\bMB\b|\bQR\b|\bmp3\b|\bAI\b|\[[^\]\n]{1,30}\])")
 
 
 def catalog_keys() -> dict:
@@ -68,6 +68,19 @@ def catalog_keys() -> dict:
     from app import catalog2
     for name, *_ in catalog2.PALETTES:
         out.setdefault(f"pal.{name}", name)
+    # shaxsiy qo'shiq so'rovnomasi (server o'zbekcha yuboradi, ilova tarjimasini ko'rsatadi)
+    from app import songs
+    for k, v in songs.RELATIONS.items():
+        out[f"sgr.{k}"] = v
+    for k, v in songs.OCCASIONS.items():
+        out[f"sgo.{k}"] = v
+    for k, v in songs.STYLES.items():
+        out[f"sgs.{k}"] = v[0]
+    for k, v in songs.VOICES.items():
+        out[f"sgv.{k}"] = v[0]
+    for k, label, hint in songs.QUESTIONS:
+        out[f"sgq.{k}"] = label
+        out[f"sgqh.{k}"] = hint
     for d in video.DESIGNS.values():
         out[f"d.{d['id']}"] = d["name"]
         for p in d.get("palettes", []):

@@ -159,6 +159,8 @@
     else if (!d || p.fresh || !same || (d.site && !p.keep)) d = newDraft(dz);
     d.design = dz.id;
     if (p.prefill) { Object.assign(d.data, p.prefill); delete p.prefill; }
+    const songMusic = App.takePendingSongMusic && App.takePendingSongMusic();
+    if (songMusic) d.music = songMusic;
     p.keep = true; p.fresh = false;
     Draft.set(d);
     const section = dz.section;
@@ -677,6 +679,7 @@
     const bars = Array.from({ length: 48 }, (_, i) => 18 + ((seed >> (i % 24)) % 7) * 6 + Math.round(10 * Math.abs(Math.sin(i * 0.7 + seed))));
     const segFrom = m.start || 0;
     body.innerHTML = `
+      <div id="mySongs"></div>
       <span class="drop upload"><span class="ic">${icon("upload")}</span><b>${esc(m.url ? T("mu.replace") : T("mu.upload"))}</b><small>${esc(T("mu.upload_sub"))}</small>
         <input type="file" accept="audio/*" id="muIn"></span>
       ${m.url ? `<div class="card"><div class="card-h"><b style="font-size:13.5px">${esc(m.name || T("mu.own_file"))}</b><span class="hint">${dur ? clock(dur) : ""}</span></div>
@@ -710,5 +713,27 @@
     if (mp) mp.onclick = () => { const on = playBtn("own", m.url, m.start || 0); mp.innerHTML = `${icon(on ? "pause" : "play", "s")}${esc(T(on ? "pause" : "mu.listen"))}`; };
     const ag = $("#agree");
     if (ag) ag.onclick = () => { haptic(); m.agree = ag.getAttribute("aria-checked") !== "true"; ag.setAttribute("aria-checked", m.agree); okBtn.disabled = !m.agree; Draft.set(d); };
+    // qo'shiqdan kelgan musiqaning uzunligi noma'lum bo'lsa — o'qib olamiz (bo'lak tanlash uchun)
+    if (m.url && !m.dur) {
+      const a = new Audio(m.url);
+      a.onloadedmetadata = () => { if (!a.duration || !isFinite(a.duration)) return; m.dur = Math.round(a.duration); Draft.set(d); if (body.isConnected) App.render(); };
+    }
+    if (App.songList) {
+      const drawSongs = () => {
+        const box = $("#mySongs", body);
+        if (!box) return;
+        App.songPickList(box, { selected: m.url, onPick: (sg) => {
+          stop();
+          Object.assign(m, App.songMusic(sg));
+          Draft.set(d); App.render();
+        } });
+        if (!App.readySongs().length && S.sm && S.sm.on) {
+          box.innerHTML = `<button type="button" class="banner" id="songCta">${icon("music")}<span><b>${esc(T("song.home_t"))}</b>${esc(T("song.for_video_s"))}</span>${icon("chev")}</button>`;
+          $("#songCta", box).onclick = () => { haptic(); App.songWizard(d.data.ism ? { recipient: d.data.ism, occasion: dz.section === "tk" ? "tugilgan_kun" : "" } : null); };
+        }
+        if (box.innerHTML) box.style.marginBottom = "14px";
+      };
+      Promise.all([App.songMeta(), App.songList()]).then(drawSongs).catch(() => {});
+    }
   };
 })();
