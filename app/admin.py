@@ -25,7 +25,7 @@ from sqlalchemy import func, select, update
 from . import track, video, videobot
 from .catalog import SECTIONS, TEMPLATES, site_price, site_title
 from .config import MEDIA_DIR, ROOT, settings
-from .db import BalanceTx, Event, MusicTrack, Payment, RenderJob, Session, Site, Snapshot, TrafficLink, User, utcnow
+from .db import BalanceTx, Event, MusicTrack, Payment, RenderJob, Session, Site, Snapshot, Song, TrafficLink, User, utcnow
 from .reminders import TZ, today
 from .webapp import check_init_data
 
@@ -34,7 +34,7 @@ router = APIRouter(prefix="/api/admin")
 public = APIRouter()
 STARTED = _time.time()
 
-SPEND_KINDS = ("site", "upgrade", "video", "package")
+SPEND_KINDS = ("site", "upgrade", "video", "package", "song")
 VIDEO_SECTIONS = {"toy": "To'y", "osh": "Osh", "gap": "Gap", "choy": "Choyxona", "tk": "Tug'ilgan kun"}
 TIER_NAMES = {"standart": "Standart", "premium": "Premium", "vip": "VIP"}
 SOURCE_GROUPS = {"": "Organik (to'g'ridan-to'g'ri)", "ref_": "Do'st taklifi (referal)", "r_": "Tabrik sahifasidan",
@@ -175,6 +175,8 @@ async def collect(a: datetime, b: datetime, days: list[date] | None = None) -> d
                                 .where(RenderJob.created_at >= a, RenderJob.created_at < b))).all()
         pays = (await s.execute(select(Payment.user_id, Payment.amount, Payment.decided_at)
                                 .where(Payment.status == "approved", Payment.decided_at >= a, Payment.decided_at < b))).all()
+        song_rows = (await s.execute(select(Song.owner_id, Song.previews, Song.paid, Song.status)
+                                     .where(Song.created_at >= a, Song.created_at < b))).all()
         first_pay = dict((await s.execute(select(Payment.user_id, func.min(Payment.decided_at))
                                           .where(Payment.status == "approved").group_by(Payment.user_id))).all())
         ever = await _sets(s) if days is not None else None
@@ -216,6 +218,12 @@ async def collect(a: datetime, b: datetime, days: list[date] | None = None) -> d
             "free_users": len({j[0] for j in own if j[2] in ("free", "bonus") and j[3] == "done"}),
             "paid_sum": by_kind["video"][1] - by_kind["refund"][1],
             "packages": by_kind["package"][0], "packages_sum": by_kind["package"][1],
+        },
+        "songs": {
+            "created": len(song_rows), "previews": sum(r[1] or 0 for r in song_rows),
+            "paid_of_created": sum(1 for r in song_rows if r[2]), "conv": pct(sum(1 for r in song_rows if r[2]), len(song_rows)),
+            "sold": by_kind["song"][0], "sold_sum": by_kind["song"][1],
+            "failed": sum(1 for r in song_rows if r[3] == "failed"),
         },
         "money": {
             "topup": topup, "topups": len(pays), "payers": len(payers),
@@ -958,7 +966,8 @@ async def system(uid: int = Depends(admin_uid)):
         errors = (await s.execute(select(RenderJob.id, RenderJob.design, RenderJob.error, RenderJob.created_at)
                                   .where(RenderJob.status == "failed").order_by(RenderJob.id.desc()).limit(10))).all()
         tables = {"Foydalanuvchilar": await cnt(User), "Saytlar va tadbirlar": await cnt(Site), "Videolar": await cnt(RenderJob),
-                  "To'lovlar": await cnt(Payment), "Hodisalar": await cnt(Event), "Kuylar": await cnt(MusicTrack, MusicTrack.active.is_(True))}
+                  "To'lovlar": await cnt(Payment), "Hodisalar": await cnt(Event), "Kuylar": await cnt(MusicTrack, MusicTrack.active.is_(True)),
+                  "Qo'shiqlar": await cnt(Song)}
     times = [(f - st).total_seconds() for st, f in done if f and st and f >= st]
     disk = shutil.disk_usage(MEDIA_DIR)
     return {

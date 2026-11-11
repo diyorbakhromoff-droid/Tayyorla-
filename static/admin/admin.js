@@ -241,6 +241,12 @@
           ${kpi(c.videos.unpaid, "Yasaldi, ammo to'lanmadi", "to'lov kutayotgan videolar", p.videos.unpaid, { invert: true })}
           ${kpi(c.videos.guest, "Mehmonlarga shaxsiy videolar", `${fmt(c.videos.packages)} paket · ${som(c.videos.packages_sum)}`, p.videos.guest)}
         </div><p class="h muted" style="font-size:12px;padding:0 0 10px">Bepul videodan keyin pul to'laganlar: ${c.videos.free_to_paid}%${c.videos.failed ? ` · xato bilan tugagan: ${fmt(c.videos.failed)}` : ""}</p></div>
+        ${c.songs ? `<div class="group"><h2><i></i>Shaxsiy qo'shiqlar</h2><div class="kpis">
+          ${kpi(c.songs.created, "She'r yozildi", `${fmt(c.songs.previews)} ta namuna eshitildi`, p.songs ? p.songs.created : 0)}
+          ${kpi(c.songs.sold, "Sotildi", som(c.songs.sold_sum), p.songs ? p.songs.sold : 0)}
+          ${kpi(c.songs.created - c.songs.paid_of_created, "Yozildi, ammo sotib olinmadi", `konversiya ${c.songs.conv}%`, p.songs ? p.songs.created - p.songs.paid_of_created : 0, { invert: true })}
+          ${kpi(c.songs.failed, "Xato bilan tugagan", "qayta urinish kerak", p.songs ? p.songs.failed : 0, { invert: true })}
+        </div></div>` : ""}
         <div class="group"><h2><i></i>Pul</h2><div class="kpis">
           ${kpi(c.money.topup, "Tushum", `${fmt(c.money.topups)} ta to'lov · o'rtacha ${som(c.money.avg_check)}`, p.money.topup, { money: true })}
           ${kpi(c.money.payers, "To'lov qilganlar", `${fmt(c.money.new_payers)} tasi birinchi marta`, p.money.payers)}
