@@ -71,6 +71,10 @@ class SongError(Exception):
     """Foydalanuvchiga ko'rsatiladigan xato (o'zbekcha)."""
 
 
+class QuotaError(SongError):
+    """ElevenLabs krediti tugagan yoki kalit ishlamayapti."""
+
+
 def meta() -> dict:
     return {
         "styles": [{"key": k, "name": v[0]} for k, v in STYLES.items()],
@@ -268,6 +272,10 @@ async def compose(plan: dict) -> bytes:
                 raise SongError("Matnda mualliflik huquqi bilan himoyalangan so'z yoki nom bor. Matnni o'zgartirib ko'ring.")
             if r.status == 429:
                 raise SongError("Navbat band, bir necha daqiqadan so'ng qayta urinib ko'ring.")
+            if "quota" in body or "credit" in body or r.status in (401, 402):
+                _CREDITS.update(at=0.0, data=None)  # keyingi tekshiruv yangidan o'qisin
+                _ALERT["at"] = 0.0                  # adminga darhol ogohlantirish
+                raise QuotaError("Qo'shiq xizmati vaqtincha band. Birozdan so'ng qayta urinib ko'ring — buyurtmangiz saqlanib qoladi.")
             raise SongError("Qo'shiq yaratishda xato bo'ldi, qayta urinib ko'ring.")
 
 
@@ -297,6 +305,21 @@ async def price_for(s, uid: int) -> int:
 async def free_previews_left(s, uid: int) -> int:
     used = await s.scalar(select(func.coalesce(func.sum(Song.previews), 0)).where(Song.owner_id == uid, Song.paid.is_(False)))
     return max(0, settings.song_free_previews - (used or 0))
+
+
+def credits_needed(song: Song, variants: int) -> int:
+    """Qo'shiq yaratish uchun taxminiy kredit: sinovda 100 s ≈ 1500 kredit."""
+    plan, _, _ = build_plan(parse_lyrics(song.lyrics), song.style, song.voice, song.tags or [])
+    seconds = sum(c["duration_ms"] for c in plan["chunks"]) / 1000
+    return int(seconds * 15 * variants) + 100
+
+
+async def enough_credits(need: int) -> bool:
+    """Kredit ma'lum bo'lsa va yetmasa False. O'qib bo'lmasa — ruxsat (xizmat to'xtab qolmasin)."""
+    c = await credits()
+    if not c or c.get("usage_based"):
+        return True
+    return c["remaining"] >= need
 
 
 async def previews_today(s) -> int:
@@ -358,8 +381,9 @@ async def check_credits(bot) -> None:
     if not c or c["remaining"] >= settings.song_credit_alert:
         return
     _ALERT["at"] = time.time()
-    text = (f"⚠️ ElevenLabs krediti kam qoldi: {c['remaining']:,} (taxminan {c['songs_left']} ta qo'shiq).\n"
-            f"Tarif: {c['tier']}. Avtomatik to'ldirish yoqilmagan bo'lsa, qo'shiq xizmati to'xtab qolishi mumkin.").replace(",", " ")
+    left = f"{c['remaining']:,}".replace(",", " ")
+    text = (f"⚠️ ElevenLabs krediti kam qoldi: {left} (taxminan {c['songs_left']} ta qo'shiq).\n"
+            f"Tarif: {c['tier']}. Avtomatik to'ldirish yoqilmagan bo'lsa, qo'shiq xizmati to'xtab qolishi mumkin.")
     for admin in settings.admins:
         try:
             await bot.send_message(admin, text)
@@ -431,6 +455,11 @@ async def process(song_id: int, bot=None) -> None:
             await notify(bot, song)
         except Exception:
             log.exception("Qo'shiq xabarini yuborib bo'lmadi: %s", song_id)
+        if song.error and "vaqtincha band" in song.error:
+            try:
+                await check_credits(bot)
+            except Exception:
+                log.exception("Kredit ogohlantirishida xato")
 
 
 async def worker(bot=None) -> None:

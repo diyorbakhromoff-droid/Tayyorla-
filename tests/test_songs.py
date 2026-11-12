@@ -322,6 +322,28 @@ async def main() -> None:
     await songs.check_credits(ab)  # 12 soat ichida qayta yuborilmaydi
     assert len(ab.sent) == 1 and ab.sent[0][0] == 999 and "5 000" in ab.sent[0][1]
 
+    # 10) kredit yetmasa: namuna navbatga qo'yilmaydi, to'lovda pul yechilmaydi
+    async def empty_credits(force=False):
+        return {"tier": "creator", "used": 99009, "limit": 100000, "remaining": 991, "reset": None, "songs_left": 0, "usage_based": False}
+    songs.credits = empty_credits
+    u3 = sign({"id": 778, "first_name": "Bek"})
+    sid9 = (await songapi.song_create(body, x_init_data=u3))["id"]
+    try:
+        await songapi.song_preview(sid9, x_init_data=u3)
+        raise AssertionError("kreditsiz namuna navbatga qo'yildi")
+    except HTTPException as e:
+        assert e.status_code == 503
+    async with Session() as s:
+        s.add(User(tg_id=778, first_name="Bek", balance=100000))
+        await s.commit()
+    try:
+        await songapi.song_pay(sid9, x_init_data=u3)
+        raise AssertionError("kreditsiz to'lov qabul qilindi")
+    except HTTPException as e:
+        assert e.status_code == 503 and "pul yechilmadi" in e.detail
+    async with Session() as s:
+        assert (await s.get(User, 778)).balance == 100000 and not (await s.get(Song, sid9)).paid
+
     # test fayllarini tozalash
     async with Session() as s:
         from sqlalchemy import select

@@ -163,6 +163,8 @@ async def song_preview(song_id: int, x_init_data: str = Header("")):
             from . import videobot
             if videobot.BOT and not await videobot.is_subscribed(videobot.BOT, uid):
                 raise HTTPException(403, {"code": "need_sub", "channel": settings.channel_link})
+        if not await songs.enough_credits(songs.credits_needed(song, 1)):
+            raise HTTPException(503, "Qo'shiq xizmati vaqtincha band. Birozdan so'ng qayta urinib ko'ring.")
         song.previews = (song.previews or 0) + 1
         song.preview_at = utcnow()
         song.status, song.error, song.updated_at = "preview_queued", "", utcnow()
@@ -184,6 +186,9 @@ async def song_pay(song_id: int, x_init_data: str = Header("")):
                 raise HTTPException(400, str(e))
             if song.status in ("preview_queued", "preview_gen"):
                 raise HTTPException(409, "Namuna tayyorlanmoqda, bir oz kuting")
+            need = songs.credits_needed(song, 1 if song.variants else 2)
+            if not await songs.enough_credits(need):
+                raise HTTPException(503, "Qo'shiq xizmati vaqtincha band — pul yechilmadi. Birozdan so'ng qayta urinib ko'ring.")
             if not await songs.pay(s, song, uid):
                 user = await s.get(User, uid)
                 price = await songs.price_for(s, uid)
