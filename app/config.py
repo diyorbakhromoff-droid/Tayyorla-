@@ -21,7 +21,8 @@ class Settings(BaseSettings):
     song_free_previews: int = 1      # har foydalanuvchiga bepul 20 soniyalik namuna(lar)
     song_preview_seconds: int = 20
     song_workers: int = 2            # bir vaqtda nechta qo'shiq yaratiladi
-    song_daily_previews: int = 20    # kuniga hamma uchun jami bepul namunalar (0 — cheklovsiz)
+    song_daily_previews: int = 3     # kuniga hamma uchun jami bepul namunalar (0 — shaxsiy bepul namuna yo'q)
+    song_lyrics_per_day: int = 5     # bitta foydalanuvchi kuniga necha marta she'r yozdira oladi (yangi + AI bilan qayta yozish)
     song_preview_sub: bool = True    # bepul namuna uchun kanalga obuna sharti (kanal sozlangan bo'lsa)
     song_credit_alert: int = 15000   # ElevenLabs krediti shundan kam qolsa adminlarga ogohlantirish (~10 qo'shiq)
     # Click (SHOP API): kalitlar faqat serverdagi .env da turadi

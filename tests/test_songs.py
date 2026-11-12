@@ -88,6 +88,8 @@ async def fake_write(song, instruction=""):
 
 songs.compose = fake_compose
 songs.write_lyrics = fake_write
+songapi.settings.song_lyrics_per_day = 100
+songapi.settings.song_daily_previews = 20
 
 
 class FakeBot:
@@ -343,6 +345,17 @@ async def main() -> None:
         assert e.status_code == 503 and "pul yechilmadi" in e.detail
     async with Session() as s:
         assert (await s.get(User, 778)).balance == 100000 and not (await s.get(Song, sid9)).paid
+
+    # 11) she'r yozish kunlik limiti (Claude xarajati)
+    songapi.settings.song_lyrics_per_day = 2
+    u4 = sign({"id": 779, "first_name": "Ali"})
+    await songapi.song_create(body, x_init_data=u4)
+    await songapi.song_create(body, x_init_data=u4)
+    try:
+        await songapi.song_create(body, x_init_data=u4)
+        raise AssertionError("kunlik she'r limiti ishlamadi")
+    except HTTPException as e:
+        assert e.status_code == 429
 
     # test fayllarini tozalash
     async with Session() as s:

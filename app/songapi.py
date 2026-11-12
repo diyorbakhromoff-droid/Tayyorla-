@@ -15,6 +15,22 @@ log = logging.getLogger(__name__)
 router = APIRouter()
 
 
+_LYRICS_DAY: dict[tuple[int, str], int] = {}
+
+
+def _lyrics_quota(uid: int) -> None:
+    """She'r yozish (Claude) xarajatini cheklash: bir foydalanuvchi kuniga song_lyrics_per_day marta."""
+    from .reminders import today
+    day = today().isoformat()
+    if len(_LYRICS_DAY) > 50_000:
+        for k in [k for k in _LYRICS_DAY if k[1] != day]:
+            _LYRICS_DAY.pop(k, None)
+    n = _LYRICS_DAY.get((uid, day), 0)
+    if settings.song_lyrics_per_day and n >= settings.song_lyrics_per_day:
+        raise HTTPException(429, "Bugun she'r yozish imkoniyati tugadi — ertaga yana urinib ko'ring yoki matnni o'zingiz tahrirlang.")
+    _LYRICS_DAY[(uid, day)] = n + 1
+
+
 def _uid(x_init_data: str) -> tuple[int, dict]:
     user = check_init_data(x_init_data)
     return int(user["id"]), user
@@ -94,6 +110,7 @@ async def song_create(body: SongIn, x_init_data: str = Header("")):
     if body.style == "custom" and not answers.get("janr"):
         raise HTTPException(400, "O'z janringizni qisqacha yozing")
     _rate_limit(user)
+    _lyrics_quota(uid)
     song = Song(owner_id=uid, recipient=body.recipient.strip(), relation=body.relation, occasion=body.occasion, style=body.style,
                 voice=body.voice, answers=answers)
     try:
@@ -123,6 +140,7 @@ async def song_lyrics(song_id: int, body: LyricsIn, x_init_data: str = Header(""
             raise HTTPException(409, "Qo'shiq yaratilgandan keyin matnni o'zgartirib bo'lmaydi")
         if body.instruction:
             _rate_limit(user)
+            _lyrics_quota(uid)
             try:
                 title, text, tags = await songs.write_lyrics(song, body.instruction)
             except Exception:
