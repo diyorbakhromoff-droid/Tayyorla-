@@ -25,6 +25,7 @@ from sqlalchemy import func, select, update
 from . import track, video, videobot
 from .catalog import SECTIONS, TEMPLATES, site_price, site_title
 from .config import MEDIA_DIR, ROOT, settings
+from . import songs
 from .db import BalanceTx, Event, MusicTrack, Payment, RenderJob, Session, Site, Snapshot, Song, TrafficLink, User, utcnow
 from .reminders import TZ, today
 from .webapp import check_init_data
@@ -978,6 +979,8 @@ async def system(uid: int = Depends(admin_uid)):
         "uptime_h": round((_time.time() - STARTED) / 3600, 1), "bot": bool(videobot.BOT),
         "prices": {"standart": settings.price_standart, "premium": settings.price_premium, "vip": settings.price_vip,
                    "video": settings.video_price, "free_per_day": settings.free_videos_per_day},
+        "songs": {"on": settings.songs_on, "price": settings.song_price, "daily_previews": settings.song_daily_previews,
+                  "credits": await songs.credits(), "alert": settings.song_credit_alert},
     }
 
 

@@ -278,6 +278,7 @@ class Song(Base):
     plan: Mapped[dict] = mapped_column(JSON, default=dict)              # oxirgi yuborilgan kompozitsiya rejasi
     preview: Mapped[str] = mapped_column(String(255), default="")       # /media/... 20 s namuna
     previews: Mapped[int] = mapped_column(Integer, default=0)           # nechta namuna yaratildi (bepul namunalar hisobi)
+    preview_at: Mapped[datetime | None] = mapped_column(DateTime, nullable=True)  # oxirgi namuna so'ralgan vaqt (kunlik limit)
     variants: Mapped[list] = mapped_column(JSON, default=list)          # [{"file": "/media/...", "private": "..."}]
     chosen: Mapped[int] = mapped_column(Integer, default=-1)
     price: Mapped[int] = mapped_column(Integer, default=0)
@@ -310,6 +311,7 @@ _NEW_COLUMNS = [
     ("payments", "provider", "VARCHAR(12) DEFAULT '' NOT NULL"),
     ("payments", "ext_id", "VARCHAR(40) DEFAULT '' NOT NULL"),
     ("payments", "song_id", "INTEGER"),
+    ("songs", "preview_at", "TIMESTAMP"),
 ]
 
 

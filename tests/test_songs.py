@@ -265,6 +265,63 @@ async def main() -> None:
     await after_topup(None, p, user)
     async with Session() as s:
         assert (await s.get(Song, sid2)).status == "paid_queued"
+    # 8) kunlik umumiy limit va kanalga obuna sharti (boshqa foydalanuvchilar)
+    from app import videobot
+    songs.settings.song_free_previews = 1
+    songs.settings.song_daily_previews = 3  # bugun allaqachon 3 ta namuna so'ralgan (sid, sid3 va...)
+    async with Session() as s:
+        from sqlalchemy import func, select
+        today_n = await songs.previews_today(s)
+    assert today_n >= 1, today_n
+    songs.settings.song_daily_previews = today_n  # limit to'ldi
+    u2 = sign({"id": 777, "first_name": "Aziz"})
+    sid7 = (await songapi.song_create(body, x_init_data=u2))["id"]
+    try:
+        await songapi.song_preview(sid7, x_init_data=u2)
+        raise AssertionError("kunlik limitdan oshib ketdi")
+    except HTTPException as e:
+        assert e.status_code == 402 and e.detail["code"] == "preview_limit" and e.detail["reason"] == "daily"
+    songs.settings.song_daily_previews = 0  # cheklovsiz
+
+    class Member:
+        status = "left"
+
+    class SubBot:
+        async def get_chat_member(self, chat, uid):
+            return Member()
+    songs.settings.channel_id = "@tayyorlaai"
+    songs.settings.song_preview_sub = True
+    videobot.BOT = SubBot()
+    try:
+        await songapi.song_preview(sid7, x_init_data=u2)
+        raise AssertionError("obunasiz namuna berildi")
+    except HTTPException as e:
+        assert e.status_code == 403 and e.detail["code"] == "need_sub" and "t.me/tayyorlaai" in e.detail["channel"]
+    Member.status = "member"
+    videobot._SUBSCRIBED.clear()
+    out = await songapi.song_preview(sid7, x_init_data=u2)
+    assert out["status"] == "preview_queued"
+    videobot.BOT = None
+    meta = await songapi.songs_meta(x_init_data=u2)
+    assert meta["preview_sub"] and meta["channel"].endswith("tayyorlaai") and "demos" in meta
+    await run_queue(bot)
+
+    # 9) kredit: kalit bor, lekin tarmoq yo'q — xato bermaydi, None qaytaradi
+    async def no_credits(force=False):
+        return {"tier": "creator", "used": 95000, "limit": 100000, "remaining": 5000, "reset": None, "songs_left": 3, "usage_based": False}
+    songs.credits = no_credits
+
+    class AdminBot:
+        sent = []
+
+        async def send_message(self, chat_id, text, **kw):
+            self.sent.append((chat_id, text))
+    songs.settings.admin_ids = "999"
+    ab = AdminBot()
+    await songs.check_credits(ab)
+    await songs.check_credits(ab)  # 12 soat ichida qayta yuborilmaydi
+    assert len(ab.sent) == 1 and ab.sent[0][0] == 999 and "5 000" in ab.sent[0][1]
+
     # test fayllarini tozalash
     async with Session() as s:
         from sqlalchemy import select

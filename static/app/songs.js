@@ -262,7 +262,8 @@
       body = `<h1>${esc(T("song.q_style"))}</h1><p class="lead">${esc(T("song.q_style_s"))}</p>
         <section class="card"><h2>${esc(T("song.genre"))}</h2><div class="chips">${m.styles.map((x) =>
           `<button type="button" class="chip" data-style="${esc(x.key)}" aria-pressed="${wiz.style === x.key}">${STYLE_EM[x.key] || "🎵"} ${esc(styleName(x.key))}</button>`).join("")}</div>
-          ${custom ? `<label class="field" style="margin-top:12px">${esc(T("song.janr"))}<input id="wJanr" maxlength="120" value="${esc(wiz.answers.janr || "")}" placeholder="${esc(T("song.janr_ph"))}"></label>` : ""}</section>
+          ${custom ? `<label class="field" style="margin-top:12px">${esc(T("song.janr"))}<input id="wJanr" maxlength="120" value="${esc(wiz.answers.janr || "")}" placeholder="${esc(T("song.janr_ph"))}"></label>` : ""}
+          <div id="wDemo"></div></section>
         <section class="card"><h2>${esc(T("song.voice"))}</h2><div class="seg">${m.voices.map((v) =>
           `<button type="button" data-voice="${esc(v.key)}" aria-pressed="${wiz.voice === v.key}">${esc(voiceName(v.key))}</button>`).join("")}</div></section>
         <section class="card sg-sum"><span>${esc(T("song.for", { name: wiz.recipient }))}</span>
@@ -295,6 +296,15 @@
       if (was !== (wiz.style === "custom")) { App.render(); if (wiz.style === "custom") setTimeout(() => { const j = $("#wJanr"); if (j) j.focus(); }, 60); return; }
       $$("[data-style]", el).forEach((x) => x.setAttribute("aria-pressed", x === b));
     }));
+    const demo = () => {
+      const box = $("#wDemo", el), url = (m.demos || {})[wiz.style];
+      if (!box) return;
+      stopPlayers();
+      box.innerHTML = url ? `<p class="hint" style="margin:14px 0 8px">${esc(T("song.demo_t", { style: styleName(wiz.style) }))}</p>${playerHtml(url, styleName(wiz.style))}` : "";
+      if (url) bindPlayers(box);
+    };
+    demo();
+    $$("[data-style]", el).forEach((b) => b.addEventListener("click", () => { if (wiz.style !== "custom") demo(); }));
     const janr = $("#wJanr");
     if (janr) janr.oninput = () => { janr.classList.remove("bad"); wiz.answers.janr = janr.value; saveW(); };
     $$("[data-voice]", el).forEach((b) => (b.onclick = () => {
@@ -514,8 +524,11 @@
       } catch (e) {
         App.busy(btn, false);
         if (e.status === 402 && e.detail && e.detail.code === "preview_limit") {
-          if (S.sm) { S.sm.free_previews = 0; if (e.detail.price) S.sm.price = e.detail.price; }
-          draw(); limitSheet();
+          if (S.sm && e.detail.reason !== "daily") S.sm.free_previews = 0;
+          if (S.sm && e.detail.price) S.sm.price = e.detail.price;
+          draw(); limitSheet(e.detail.reason);
+        } else if (e.status === 403 && e.detail && e.detail.code === "need_sub") {
+          subSheet(e.detail.channel, btn);
         } else fail(e);
       }
     }
@@ -558,10 +571,19 @@
         if (song.site) toast(T("song.site_updated"));
       } catch (e) { App.busy(btn, false); fail(e); }
     }
-    function limitSheet() {
+    function subSheet(channel, btn) {
+      const sh = App.sheet(`<div class="sh-head"><span class="sh-ic">${icon("send")}</span><div><h1>${esc(T("song.sub_t"))}</h1>
+          <p>${esc(T("song.sub_s"))}</p></div></div>
+        <button type="button" class="btn" id="sbGo">${esc(T("song.sub_go"))}</button>
+        <button type="button" class="btn ghost" id="sbDone">${esc(T("song.sub_done"))}</button>`, { label: T("song.sub_t") });
+      $("#sbGo", sh.el).onclick = () => { haptic(); if (channel) App.openLink(channel); };
+      $("#sbDone", sh.el).onclick = () => { sh.close(); preview(btn); };
+    }
+    function limitSheet(reason) {
       const price = (S.sm && S.sm.price) || 0;
-      const sh = App.sheet(`<div class="sh-head"><span class="sh-ic">${icon("headphones")}</span><div><h1>${esc(T("song.limit_t"))}</h1>
-          <p>${esc(T("song.limit_s"))}</p></div></div>
+      const daily = reason === "daily";
+      const sh = App.sheet(`<div class="sh-head"><span class="sh-ic">${icon("headphones")}</span><div><h1>${esc(T(daily ? "song.limit_daily_t" : "song.limit_t"))}</h1>
+          <p>${esc(T(daily ? "song.limit_daily_s" : "song.limit_s"))}</p></div></div>
         <button type="button" class="btn" id="lmBuy">${esc(T("song.buy", { sum: money(price) }))}</button>
         <button type="button" class="btn ghost" id="lmLater">${esc(T("close"))}</button>`, { label: T("song.limit_t") });
       $("#lmBuy", sh.el).onclick = (e) => { sh.close(); pay(e.currentTarget); };

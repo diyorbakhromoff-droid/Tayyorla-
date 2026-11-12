@@ -591,6 +591,14 @@
   // ---------------------------------------------------------------- 7. Tizim
   async function system(alive) {
     loading("Tizim");
+    const songsRow = (sg) => {
+      if (!sg) return "";
+      if (!sg.on) return `<tr><td>Qo'shiq xizmati</td><td class="r">${tag("kalit yo'q", "")}</td></tr>`;
+      const c = sg.credits;
+      if (!c) return `<tr><td>ElevenLabs krediti</td><td class="r">${tag("o'qib bo'lmadi", "warn")}<span class="sub">kalitga «User: read» ruxsatini bering</span></td></tr>`;
+      const low = c.remaining < sg.alert;
+      return `<tr><td>ElevenLabs krediti</td><td class="r num">${low ? tag(fmt(c.remaining), "bad") : `<b>${fmt(c.remaining)}</b>`}<span class="sub">≈ ${fmt(c.songs_left)} ta qo'shiq · ${esc(c.tier || "")}${c.usage_based ? " · avtomatik to'ldirish yoqilgan" : ""}</span></td></tr>`;
+    };
     const d = await api("/api/admin/system");
     if (!alive()) return;
     const q = d.queue;
@@ -609,7 +617,8 @@
           `<tr><td>Ishlab turibdi</td><td class="r num">${d.uptime_h} soat</td></tr>`,
           `<tr><td>Bot</td><td class="r">${d.bot ? tag("ulangan", "good") : tag("ulanmagan", "bad")}</td></tr>`,
           `<tr><td>To'lov kutayotgan videolar</td><td class="r num">${fmt(q.awaiting_payment)}</td></tr>`,
-          `<tr><td>Narxlar</td><td class="r num">${som(d.prices.standart)} / ${som(d.prices.premium)} / ${som(d.prices.vip)}<span class="sub">video ${som(d.prices.video)} · kuniga ${d.prices.free_per_day} bepul</span></td></tr>`])}</div>
+          `<tr><td>Narxlar</td><td class="r num">${som(d.prices.standart)} / ${som(d.prices.premium)} / ${som(d.prices.vip)}<span class="sub">video ${som(d.prices.video)} · kuniga ${d.prices.free_per_day} bepul</span></td></tr>`,
+          songsRow(d.songs)])}</div>
       </section>
       <section class="blk"><div class="bh"><h2>Oxirgi xatolar</h2></div>
         ${table(["Video", "Xato", "Qachon"], d.errors.map((e) => `<tr><td class="num">#${e.id}<span class="sub">${esc(e.design)}</span></td><td style="max-width:520px;word-break:break-word">${esc(e.error) || "—"}</td><td class="num">${dt(e.at)}</td></tr>`), "Xato yo'q")}</section>

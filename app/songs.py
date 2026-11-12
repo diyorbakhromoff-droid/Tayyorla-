@@ -79,7 +79,16 @@ def meta() -> dict:
         "occasions": [{"key": k, "name": v} for k, v in OCCASIONS.items()],
         "questions": [{"key": k, "label": a, "hint": b} for k, a, b in QUESTIONS],
         "preview_seconds": settings.song_preview_seconds,
+        "demos": demos(),
     }
+
+
+DEMO_DIR = ROOT / "static" / "songs" / "demo"
+
+
+def demos() -> dict[str, str]:
+    """Har uslub uchun tayyor namuna (bir marta yaratilgan, hamma uchun bepul): {uslub: url}."""
+    return {k: f"/static/songs/demo/{k}.mp3" for k in STYLES if (DEMO_DIR / f"{k}.mp3").is_file()}
 
 
 # ---------------------------------------------------------------- matn: bo'limlar <-> matn
@@ -290,6 +299,14 @@ async def free_previews_left(s, uid: int) -> int:
     return max(0, settings.song_free_previews - (used or 0))
 
 
+async def previews_today(s) -> int:
+    """Bugun (Toshkent vaqti) so'ralgan bepul namunalar soni."""
+    from .reminders import TZ
+    from datetime import datetime, timezone
+    start = datetime.now(TZ).replace(hour=0, minute=0, second=0, microsecond=0).astimezone(timezone.utc).replace(tzinfo=None)
+    return await s.scalar(select(func.count()).select_from(Song).where(Song.preview_at >= start, Song.paid.is_(False))) or 0
+
+
 async def pay(s, song: Song, uid: int) -> bool:
     """Balansdan to'laydi va to'liq yaratishni navbatga qo'yadi. Yetmasa False."""
     if song.paid:
@@ -299,6 +316,55 @@ async def pay(s, song: Song, uid: int) -> bool:
         return False
     song.paid, song.price, song.status, song.error, song.updated_at = True, price, "paid_queued", "", utcnow()
     return True
+
+
+# ---------------------------------------------------------------- kredit qoldig'i
+
+_CREDITS: dict = {"at": 0.0, "data": None}
+_ALERT = {"at": 0.0}
+
+
+async def credits(force: bool = False) -> dict | None:
+    """ElevenLabs obunasi: {tier, used, limit, remaining, reset}. 10 daqiqa keshlanadi. Kalit yoki ruxsat bo'lmasa None."""
+    import time
+    if not settings.elevenlabs_api_key:
+        return None
+    if not force and _CREDITS["data"] is not None and time.time() - _CREDITS["at"] < 600:
+        return _CREDITS["data"]
+    try:
+        async with aiohttp.ClientSession(timeout=aiohttp.ClientTimeout(total=20)) as http:
+            async with http.get("https://api.elevenlabs.io/v1/user/subscription", headers={"xi-api-key": settings.elevenlabs_api_key}) as r:
+                if r.status != 200:
+                    log.warning("ElevenLabs obunasini o'qib bo'lmadi: %s %s", r.status, (await r.text())[:300])
+                    return None
+                j = await r.json()
+    except Exception:
+        log.exception("ElevenLabs obunasini o'qib bo'lmadi")
+        return None
+    used, limit = int(j.get("character_count") or 0), int(j.get("character_limit") or 0)
+    data = {"tier": j.get("tier", ""), "used": used, "limit": limit, "remaining": max(0, limit - used),
+            "reset": j.get("next_character_count_reset_unix"), "songs_left": max(0, limit - used) // 1500,
+            "usage_based": bool(j.get("can_extend_character_limit")) and bool(j.get("allowed_to_extend_character_limit"))}
+    _CREDITS.update(at=time.time(), data=data)
+    return data
+
+
+async def check_credits(bot) -> None:
+    """Kredit kam qolsa adminlarga ogohlantirish (12 soatda bir martadan ko'p emas)."""
+    import time
+    if not bot or not settings.song_credit_alert or time.time() - _ALERT["at"] < 12 * 3600:
+        return
+    c = await credits(force=True)
+    if not c or c["remaining"] >= settings.song_credit_alert:
+        return
+    _ALERT["at"] = time.time()
+    text = (f"⚠️ ElevenLabs krediti kam qoldi: {c['remaining']:,} (taxminan {c['songs_left']} ta qo'shiq).\n"
+            f"Tarif: {c['tier']}. Avtomatik to'ldirish yoqilmagan bo'lsa, qo'shiq xizmati to'xtab qolishi mumkin.").replace(",", " ")
+    for admin in settings.admins:
+        try:
+            await bot.send_message(admin, text)
+        except Exception:
+            log.exception("Adminga kredit ogohlantirishini yuborib bo'lmadi")
 
 
 # ---------------------------------------------------------------- navbat
@@ -375,6 +441,8 @@ async def worker(bot=None) -> None:
         await s.commit()
     sem = asyncio.Semaphore(max(1, settings.song_workers))
     running: set[int] = set()
+    import time
+    last_check = 0.0
 
     async def run(sid: int) -> None:
         async with sem:
@@ -400,6 +468,12 @@ async def worker(bot=None) -> None:
                 asyncio.create_task(run(sid))
         except Exception:
             log.exception("Qo'shiq navbatida xato")
+        if settings.songs_on and time.time() - last_check > 3600:
+            last_check = time.time()
+            try:
+                await check_credits(bot)
+            except Exception:
+                log.exception("Kredit tekshiruvida xato")
         _wake.clear()
         try:
             await asyncio.wait_for(_wake.wait(), timeout=5)

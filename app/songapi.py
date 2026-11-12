@@ -49,7 +49,9 @@ async def songs_meta(x_init_data: str = Header("")):
         price = await songs.price_for(s, uid)
         left = await songs.free_previews_left(s, uid)
         user = await s.get(User, uid)
-    return {**songs.meta(), "on": settings.songs_on, "price": price, "free_previews": left, "balance": user.balance if user else 0}
+    sub = bool(settings.song_preview_sub and settings.channel_username)
+    return {**songs.meta(), "on": settings.songs_on, "price": price, "free_previews": left, "balance": user.balance if user else 0,
+            "preview_sub": sub, "channel": settings.channel_link if sub else ""}
 
 
 @router.get("/api/songs")
@@ -154,8 +156,15 @@ async def song_preview(song_id: int, x_init_data: str = Header("")):
         except songs.SongError as e:
             raise HTTPException(400, str(e))
         if await songs.free_previews_left(s, uid) <= 0:
-            raise HTTPException(402, {"code": "preview_limit", "price": await songs.price_for(s, uid)})
+            raise HTTPException(402, {"code": "preview_limit", "reason": "used", "price": await songs.price_for(s, uid)})
+        if settings.song_daily_previews and await songs.previews_today(s) >= settings.song_daily_previews:
+            raise HTTPException(402, {"code": "preview_limit", "reason": "daily", "price": await songs.price_for(s, uid)})
+        if settings.song_preview_sub and settings.channel_username:
+            from . import videobot
+            if videobot.BOT and not await videobot.is_subscribed(videobot.BOT, uid):
+                raise HTTPException(403, {"code": "need_sub", "channel": settings.channel_link})
         song.previews = (song.previews or 0) + 1
+        song.preview_at = utcnow()
         song.status, song.error, song.updated_at = "preview_queued", "", utcnow()
         await s.commit()
         out = song_out(song)
