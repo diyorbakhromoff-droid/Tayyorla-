@@ -71,7 +71,7 @@
     const secs = S.cm.sections.filter((s) => s.key !== "toy" && s.key !== "osh");
     const sec = secs.some((s) => s.key === p.section) ? p.section : secs[0].key;
     el.innerHTML = `
-      <header class="page-head"><h1>${esc(T("sites.title"))}</h1><p>${esc(T("sites.sub"))}</p>
+      <header class="page-head"><div class="row"><h1>${esc(T("sites.title"))}</h1>${App.profChip(false)}</div><p>${esc(T("sites.sub"))}</p>
         <div class="seg" role="tablist" style="margin-top:8px">
           <button type="button" role="tab" data-t="designs" aria-selected="${tab === "designs"}">${esc(T("videos.designs"))}</button>
           <button type="button" role="tab" data-t="mine" aria-selected="${tab === "mine"}">${esc(T("sites.mine", { n: sites.length }))}</button></div></header>

@@ -154,7 +154,7 @@
   App.icon = icon;
 
   // ---------------------------------------------------------------- navigatsiya
-  const TABS = [["home", "home", "tab.home"], ["videos", "video", "tab.videos"], ["sites", "globe", "tab.sites"], ["events", "mail", "tab.events"], ["profile", "user", "tab.profile"]];
+  const TABS = [["home", "home", "tab.home"], ["videos", "video", "tab.videos"], ["sites", "globe", "tab.sites"], ["songs", "music", "tab.songs"], ["events", "mail", "tab.events"]];
   const nav = [];
   let leave = [];
   const sheets = [];
@@ -197,6 +197,16 @@
     if (nav.length > 1) { nav.pop(); render(true); } else if (nav[0] && nav[0].v !== "home") App.tab("home");
   };
   App.current = () => nav[nav.length - 1];
+  /** Profil tugmasi (bo'lim sarlavhasida): balans va avatar; full=false — faqat avatar. Bosilsa Profil ochiladi. */
+  App.profChip = (full = true, night = false) => {
+    const me = S.me || {}, bal = (me.quota || {}).balance || 0;
+    return `<button type="button" class="prof-chip${night ? " night" : ""}${full ? "" : " mini"}" data-prof aria-label="${esc(T("pr.chip", { sum: money(bal) }))}">${
+      full ? `<span>${esc(money(bal))}</span>` : ""}<b>${esc(initials(me.name || "").slice(0, 1))}</b></button>`;
+  };
+  document.addEventListener("click", (e) => {
+    const b = e.target.closest && e.target.closest("[data-prof]");
+    if (b) { haptic(); App.go("profile"); }
+  });
 
   // ---------------------------------------------------------------- oynalar va xabarlar
   function sheet(html, { label = "", onClose } = {}) {
@@ -349,18 +359,19 @@
     const sp = (tg && tg.initDataUnsafe && tg.initDataUnsafe.start_param) || "";
     // qo'shiq: ?song=12 — qo'shiq sahifasi, ?song=new yoki ?tab=songs — yangi qo'shiq / ro'yxat
     const song = Q.get("song") || (sp.startsWith("song_") ? sp.slice(5) : "");
-    if (song === "new") { App.tab("home"); App.go("song_new", { step: 0 }); return true; }
-    if (+song > 0) { App.tab("home"); App.go("song", { id: +song }); return true; }
+    if (song === "new") { App.tab("songs"); App.go("song_new", { step: 0 }); return true; }
+    if (+song > 0) { App.tab("songs"); App.go("song", { id: +song }); return true; }
     const ev = Q.get("ev") || (sp.startsWith("ev_") ? sp.slice(3) : "");
     if (ev) { App.tab("events"); App.go("event", { slug: ev }); return true; }
     const tosite = Q.get("tosite") || (sp.startsWith("site_") ? sp.slice(5) : "");
     if (tosite) { App.tab("sites", { fromEvent: tosite }); return true; }
     const design = Q.get("v") || (sp.startsWith("v_") ? sp.slice(2) : "");
     if (design && S.vm.designs.some((d) => d.id === design)) { App.tab("videos"); App.go("editor", { design }); return true; }
-    const tab = Q.get("tab") || (["videos", "sites", "events", "profile"].includes(sp) ? sp : "");
-    if (tab === "wallet") { App.tab("profile"); App.go("wallet"); return true; }
-    if (tab === "songs" || sp === "songs") { App.tab("home"); App.go("songs"); return true; }
-    if (["videos", "sites", "events", "profile"].includes(tab)) { App.tab(tab, { section: Q.get("s") || "", ...(Q.get("mine") ? { mine: true } : {}) }); return true; }
+    const tab = Q.get("tab") || (["videos", "sites", "events", "profile", "songs"].includes(sp) ? sp : "");
+    if (tab === "wallet") { App.tab("home"); App.go("profile"); App.go("wallet"); return true; }
+    if (tab === "profile") { App.tab("home"); App.go("profile"); return true; }
+    if (tab === "songs") { App.tab("songs"); return true; }
+    if (["videos", "sites", "events"].includes(tab)) { App.tab(tab, { section: Q.get("s") || "", ...(Q.get("mine") ? { mine: true } : {}) }); return true; }
     if (Q.get("kimga")) {
       const pre = Object.fromEntries(["kimga", "sana", "tugilgan_sana"].filter((k) => Q.get(k)).map((k) => [k, Q.get(k)]));
       const p = (S.me.people || []).find((x) => x.name === pre.kimga);

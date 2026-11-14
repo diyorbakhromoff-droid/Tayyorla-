@@ -39,7 +39,7 @@
     el.innerHTML = `
       <header class="hero">
         <div class="top"><span class="wordmark">Tayyorla</span>
-          <button type="button" class="lang-pill" id="langBtn" aria-label="${esc(T("lang.change"))}">${icon("globe", "s")}${esc(LANG_CODE[App.lang] || "UZ")}</button></div>
+          ${App.profChip(true, true)}</div>
         <div><p class="hi">${esc(me.name ? T("home.hi", { name: me.name }) : T("home.hi_anon"))}</p><h1>${esc(T("home.title"))}</h1></div>
         ${soon ? `<div class="soon"><span class="ikat"><b>${soon.days_left}</b></span>
           <div><p>${esc(soon.name)}: ${esc(kindLabel(soon).toLowerCase())}</p><p>${esc(App.fmtDate(soon.date))}, ${esc(App.leftText(soon.days_left).toLowerCase())}</p></div>
@@ -69,7 +69,6 @@
         <button type="button" data-go="videos">${esc(T("all"))}</button></div>
         <div class="strip">${designs.map(vthumb).join("")}</div></section>`;
 
-    $("#langBtn").onclick = () => { haptic(); App.go("language"); };
     $$("[data-person]", el).forEach((b) => (b.onclick = () => { haptic(); App.go("rec", { person: +b.dataset.person }); }));
     $$("[data-go]", el).forEach((b) => (b.onclick = () => { haptic(); App.tab(b.dataset.go); }));
     $$("[data-occ]", el).forEach((b) => (b.onclick = () => {

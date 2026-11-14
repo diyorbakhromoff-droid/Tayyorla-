@@ -32,7 +32,7 @@
     const m = MAROSIM.find((x) => x[0] === p.m) || MAROSIM[0];
     const [mk, msec, soon] = m;
     el.innerHTML = `
-      <header class="page-head"><h1>${esc(T("ev.title"))}</h1><p>${esc(T("ev.sub"))}</p>
+      <header class="page-head"><div class="row"><h1>${esc(T("ev.title"))}</h1>${App.profChip(false)}</div><p>${esc(T("ev.sub"))}</p>
         <div class="seg" role="tablist" style="margin-top:8px">
           <button type="button" role="tab" data-k="site" aria-selected="${kind === "site"}">${esc(App.tx("ev.k_site", "Sayt taklifnoma"))}</button>
           <button type="button" role="tab" data-k="video" aria-selected="${kind === "video"}">${esc(App.tx("ev.k_video", "Video taklifnoma"))}</button></div></header>

@@ -26,7 +26,7 @@
     const free = q.free_left || 0;
     el.innerHTML = `
       <header class="page-head"><div class="row"><h1>${esc(T("videos.title"))}</h1>
-        <span class="badge ${free ? "green" : "gold"}">${icon("gift", "xs")}${esc(free ? T("videos.free_today", { n: free }) : T("videos.free_none"))}</span></div>
+        <span class="row-r"><span class="badge ${free ? "green" : "gold"}">${icon("gift", "xs")}${esc(free ? T("videos.free_today", { n: free }) : T("videos.free_none"))}</span>${App.profChip(false)}</span></div>
         <p>${esc(T("videos.sub"))}</p>
         <div class="seg" role="tablist" style="margin-top:8px">
           <button type="button" role="tab" data-t="designs" aria-selected="${tab === "designs"}">${esc(T("videos.designs"))}</button>

@@ -8,12 +8,14 @@
 
   // ---------------------------------------------------------------- Profil
   App.views.profile = (p, el) => {
-    App.chrome({ tabs: true });
+    App.chrome({});
     const me = S.me, q = me.quota || {};
     const per = q.free_per_day || 2, left = q.free_left || 0;
     const cardLang = store.get("tyr-card-lang") || "auto";
     el.innerHTML = `
-      <header class="prof-head"><span class="av"><b>${esc(App.initials(me.name).slice(0, 1))}</b></span>
+      <div class="bar light"><button type="button" class="icon-btn" id="bk" aria-label="${esc(T("back"))}">${icon("back")}</button>
+        <div class="ttl"><b>${esc(T("tab.profile"))}</b></div></div>
+      <header class="prof-head" style="padding-top:6px"><span class="av"><b>${esc(App.initials(me.name).slice(0, 1))}</b></span>
         <div><h1>${esc(me.name || "Tayyorla")}</h1><p>${esc(me.stats && me.stats.happy ? T("pr.happy", { n: me.stats.happy }) : T("pr.happy0"))}</p></div></header>
       <div class="wrap stack fade" style="padding-top:16px">
         <section class="wallet">
@@ -26,7 +28,6 @@
         <button type="button" class="banner" id="invite">${icon("gift")}<span><b>${esc(T("pr.invite_t"))}</b>${esc(T("pr.invite_s"))}</span>${icon("share")}</button>
         <nav class="menu">
           <button type="button" data-go="people"><span class="ic">${icon("users", "s")}</span><span class="t"><b>${esc(T("pr.people"))}</b><small>${esc(T("pr.people_n", { n: (me.people || []).length }))}</small></span>${icon("chev", "s chev")}</button>
-          <button type="button" data-go="songs"><span class="ic">${icon("music", "s")}</span><span class="t"><b>${esc(T("song.mine"))}</b><small>${esc(T("song.mine_s"))}</small></span>${icon("chev", "s chev")}</button>
           <button type="button" data-go="language"><span class="ic">${icon("globe", "s")}</span><span class="t"><b>${esc(T("pr.app_lang"))}</b><small>${esc(langName(App.lang))}</small></span>${icon("chev", "s chev")}</button>
           <button type="button" id="cardLang"><span class="ic">Aa</span><span class="t"><b>${esc(T("pr.card_lang"))}</b><small>${esc(cardLang === "auto" ? T("pr.card_auto") : langName(cardLang))}</small></span>${icon("chev", "s chev")}</button>
           <button type="button" data-go="wallet"><span class="ic">${icon("wallet", "s")}</span><span class="t"><b>${esc(T("pr.history"))}</b><small>${esc(T("pr.history_s"))}</small></span>${icon("chev", "s chev")}</button>
@@ -37,6 +38,7 @@
         ${(me.messages || []).length ? `<h2 style="font-size:21px;margin-top:8px">${esc(T("pr.answers"))}</h2>
           <div class="answers">${me.messages.map((m) => `<p><b>${esc(m.title)}</b>${esc(m.emoji)} ${esc(m.text)}</p>`).join("")}</div>` : ""}
       </div>`;
+    $("#bk").onclick = App.back;
     $("#topup").onclick = () => { haptic(); App.topupSheet({ onSent: () => App.render() }); };
     $("#invite").onclick = () => { haptic(); App.shareUrl(me.ref_link, T("ref.share_text")); };
     $$("[data-go]", el).forEach((b) => (b.onclick = () => { haptic(); App.go(b.dataset.go); }));
@@ -90,7 +92,9 @@
           S.vm = await api(`/api/video/meta?lang=${pick}`);
         }
         notify("success");
-        App.tab(App.nav.length > 1 && App.nav[0].v === "profile" ? "profile" : "home");
+        const fromProfile = App.nav.some((x) => x.v === "profile");
+        App.tab("home");
+        if (fromProfile) App.go("profile");
       } catch (err) { App.busy(e.currentTarget, false); toast(err.message); }
     };
   };

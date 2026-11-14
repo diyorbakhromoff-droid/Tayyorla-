@@ -153,7 +153,7 @@
     const m = S.sm, on = !m || m.on;
     return {
       on, badge: on ? T("new") : T("song.soon_badge"),
-      note: !on ? T("song.soon_t") : m && !m.free_previews ? T("song.from", { sum: money(m.price) }) : T("song.home_free", { n: (m && m.preview_seconds) || 20 }),
+      note: !on ? T("song.soon_t") : m && !m.free_previews ? T("song.from", { sum: money(m.price) }) : m ? T("song.home_free_n", { n: m.free_previews }) : T("song.home_free", { n: 20 }),
     };
   };
   App.songCardHtml = () => {
@@ -169,7 +169,7 @@
     const card = $("#songCard", el), mine = $("#songMine", el);
     if (!card) return;
     card.onclick = () => { haptic(); App.songWizard(); };
-    mine.onclick = () => { haptic(); App.go("songs"); };
+    mine.onclick = () => { haptic(); App.tab("songs"); };
     Promise.all([App.songMeta(), App.songList()]).then(([, list]) => {
       if (!card.isConnected) return;
       const c = cardState(), b = $("#songBadge", card);
@@ -180,26 +180,59 @@
     }).catch(() => {});
   };
 
-  // ---------------------------------------------------------------- qo'shiqlarim
+  // ---------------------------------------------------------------- «Musiqalar» bo'limi
+  let demoAudio = null, demoBtn = null;
+  const stopDemo = () => {
+    if (demoAudio) { demoAudio.pause(); demoAudio = null; }
+    if (demoBtn) { demoBtn.classList.remove("on"); $(".pp", demoBtn).innerHTML = icon("play", "s"); demoBtn.setAttribute("aria-pressed", "false"); demoBtn = null; }
+  };
+  function playDemo(btn) {
+    const same = demoBtn === btn;
+    stopDemo(); stopQuick();
+    if (same) return;
+    demoAudio = new Audio(btn.dataset.demo);
+    demoAudio.play().catch(() => {});
+    demoAudio.onended = stopDemo;
+    demoBtn = btn; btn.classList.add("on"); btn.setAttribute("aria-pressed", "true"); $(".pp", btn).innerHTML = icon("pause", "s");
+  }
   App.views.songs = (p, el) => {
-    App.chrome({});
-    el.innerHTML = `<div class="bar light"><button type="button" class="icon-btn" id="bk" aria-label="${esc(T("back"))}">${icon("back")}</button>
-        <div class="ttl"><b>${esc(T("song.mine"))}</b><span>${esc(T("song.mine_s"))}</span></div></div>
-      <div class="wrap stack fade" id="slBody"><div class="empty"><span class="spin"></span></div></div>`;
-    $("#bk").onclick = App.back;
+    App.chrome({ tabs: true });
+    el.innerHTML = `<header class="page-head"><div class="row"><h1>${esc(T("tab.songs"))}</h1>${App.profChip(true)}</div><p>${esc(T("mz.sub"))}</p></header>
+      <div class="wrap stack fade" id="slBody" style="padding-top:10px"><div class="empty"><span class="spin"></span></div></div>`;
     const box = $("#slBody");
+    App.onLeave(stopDemo);
     Promise.all([App.songMeta(true), App.songList(true)]).then(([m, list]) => {
       if (!box.isConnected) return;
-      box.innerHTML = `${m.on ? `<button type="button" class="sg-new" id="slNew"><span class="ic">${icon("plus")}</span><span><b>${esc(T("song.new"))}</b>${esc(T("song.new_s"))}</span>${icon("chev")}</button>`
-          : `<div class="note">${esc(T("song.soon_t"))}</div>`}
-        ${list.length ? list.map((s) => {
-          const [cls, key] = statusBadge(s);
-          return `<button type="button" class="sg-row" data-song="${s.id}">${disc(s.busy ? "sm rot" : "sm")}
-            <span class="t"><b>${esc(songTitle(s))}</b><small>${esc([T("song.for", { name: s.recipient }), s.occasion ? occName(s.occasion) : ""].filter(Boolean).join(" · "))}</small>
-              <span class="badge ${cls}">${s.busy ? '<span class="spin" style="width:10px;height:10px;border-width:2px"></span>' : ""}${esc(T(key))}</span></span>${icon("chev", "s chev")}</button>`;
-        }).join("") : `<div class="empty"><b>${esc(T("song.none"))}</b>${esc(T("song.none_s"))}</div>`}`;
+      const secs = m.preview_seconds || 20;
+      const per = Math.min(m.free_per_day || 0, 6), left = Math.min(per, m.free_previews || 0);
+      const pills = per ? `<span class="mz-pills" aria-hidden="true">${Array.from({ length: per }, (_, i) => `<i class="${i >= per - left ? "on" : ""}"></i>`).join("")}</span>` : "";
+      const freeNote = !per ? T("song.from", { sum: money(m.price) }) : left ? T("song.free_left", { n: left }) : T("song.free_used");
+      const hero = m.on ? `<section class="mz-hero">
+          <div class="top">${disc(list.length ? "" : "lg")}<div><h2>${esc(T(list.length ? "song.new" : "mz.first_t"))}</h2><p>${esc(T("mz.new_s", { n: secs }))}</p></div></div>
+          <div class="foot"><div class="free">${pills}<span>${esc(freeNote)}</span></div>
+            <button type="button" class="btn sm" id="slNew">${esc(T("song.home_go"))}</button></div></section>`
+        : `<div class="note">${esc(T("song.soon_t"))}</div>`;
+      const how = m.on && !list.length ? `<section><h2 class="mz-h">${esc(T("mz.how"))}</h2><ol class="mz-how">${[1, 2, 3].map((i) =>
+        `<li><b>${i}</b><span><strong>${esc(T(`mz.h${i}_t`, { n: secs }))}</strong>${esc(T(`mz.h${i}_s`, { sum: money(m.price) }))}</span></li>`).join("")}</ol></section>` : "";
+      const demos = (m.styles || []).filter((x) => (m.demos || {})[x.key]);
+      const styles = m.on && demos.length ? `<section><h2 class="mz-h">${esc(T("mz.styles"))}</h2><div class="mz-demos">${demos.map((x) =>
+        `<button type="button" class="mz-demo" data-demo="${esc(m.demos[x.key])}" aria-pressed="false"><span class="pp">${icon("play", "s")}</span>${esc(styleName(x.key))}</button>`).join("")}</div></section>` : "";
+      const row = (s) => {
+        const [cls, key] = statusBadge(s);
+        const head = `<button type="button" class="sg-row" data-song="${s.id}">${disc(s.busy ? "sm rot" : "sm")}
+          <span class="t"><b>${esc(songTitle(s))}</b><small>${esc([T("song.for", { name: s.recipient }), s.occasion ? occName(s.occasion) : ""].filter(Boolean).join(" · "))}</small>
+            <span class="badge ${cls}">${s.busy ? '<span class="spin" style="width:10px;height:10px;border-width:2px"></span>' : ""}${esc(T(key))}</span></span>${icon("chev", "s chev")}</button>`;
+        if (s.status !== "ready" || !s.file) return head;
+        return `<div class="mz-ready">${head}<div class="acts">
+          <button type="button" class="btn ghost xs" data-act="video" data-id="${s.id}">${icon("video", "xs")}${esc(T("song.to_video"))}</button>
+          <button type="button" class="btn ghost xs" data-act="site" data-id="${s.id}">${icon("globe", "xs")}${esc(T("mz.to_site"))}</button></div></div>`;
+      };
+      const mine = list.length ? `<section class="stack"><h2 class="mz-h" style="margin-bottom:0">${esc(T("song.mine"))}</h2>${list.map(row).join("")}</section>` : "";
+      box.innerHTML = hero + (list.length ? styles + mine : how + styles);
       const nb = $("#slNew"); if (nb) nb.onclick = () => { haptic(); App.songWizard(); };
+      $$("[data-demo]", box).forEach((b) => (b.onclick = () => { haptic(); playDemo(b); }));
       $$("[data-song]", box).forEach((b) => (b.onclick = () => { haptic(); App.go("song", { id: +b.dataset.song }); }));
+      $$("[data-act]", box).forEach((b) => (b.onclick = () => { haptic(); App.go("song", { id: +b.dataset.id, act: b.dataset.act }); }));
     }).catch((e) => { box.innerHTML = App.errBox(e); });
   };
 
@@ -494,7 +527,8 @@
       bindPlayers(el);
       const on = (id, fn) => { const b = $("#" + id, el); if (b) b.onclick = fn; };
       on("bk", App.back);
-      on("toList", () => { haptic(); App.go("songs"); });
+      on("toList", () => { haptic(); App.tab("songs"); });
+      if (p.act && st === "ready") { const act = p.act; p.act = ""; setTimeout(() => (act === "site" ? siteSheet : toVideo)(), 80); }
       on("toChat", () => App.closeApp());
       on("pvBtn", (e) => preview(e.currentTarget));
       on("buyBtn", (e) => pay(e.currentTarget));
