@@ -108,12 +108,13 @@
     payments: '<rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20M6 15h4"/>',
     users: '<circle cx="9" cy="8" r="4"/><path d="M2 21a7 7 0 0 1 14 0M17 4a4 4 0 0 1 0 8M22 21a6 6 0 0 0-4-5.6"/>',
     broadcast: '<path d="M3 11v2a1 1 0 0 0 1 1h3l6 5V5L7 10H4a1 1 0 0 0-1 1ZM17 8a5 5 0 0 1 0 8M20 5a9 9 0 0 1 0 14"/>',
+    nudges: '<path d="M6 8a6 6 0 0 1 12 0c0 7 3 8 3 8H3s3-1 3-8ZM10 20a2 2 0 0 0 4 0"/>',
     system: '<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-2.9 1.2V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-2.9-1.2l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0-1.2-2.9H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.2-2.9l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 2.9-1.2V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 2.9 1.2l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0 1.2 2.9H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1Z"/>',
   };
   const icon = (k) => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${IC[k]}</svg>`;
   const TABS = [
     ["overview", "Umumiy"], ["sources", "Trafik manbalari"], ["sales", "Sotuvlar"], ["payments", "To'lovlar"],
-    ["users", "Foydalanuvchilar"], ["broadcast", "Xabar yuborish"], ["system", "Tizim"],
+    ["users", "Foydalanuvchilar"], ["broadcast", "Xabar yuborish"], ["nudges", "Progrev"], ["system", "Tizim"],
   ];
   function nav() {
     $("#nav").innerHTML = TABS.map(([k, l]) => `<button type="button" data-tab="${k}" aria-current="${S.tab === k ? "page" : "false"}">${icon(k)}<span>${l}</span>${k === "payments" && S.pending ? `<span class="badge">${S.pending}</span>` : ""}</button>`).join("");
@@ -588,6 +589,109 @@
     }
   }
 
+  // ---------------------------------------------------------------- 6b. Progrev (eslatma xabarlari ketma-ketligi)
+  async function nudgesPage(alive) {
+    loading("Progrev");
+    const d = await api("/api/admin/nudges");
+    if (!alive()) return;
+    let cfg = d.config;
+    const st = d.stats;
+    const WON = { site: "sotib oldi", song: "sotib oldi", new: "biror narsa yasadi" };
+    const ANCHOR = { site: "sayt yaratilgandan", song: "namuna yoki she'r tayyor bo'lgandan", new: "botga qo'shilgandan" };
+    const when = (h) => (h < 24 ? `${h} soat` : h % 24 === 0 ? `${h / 24} kun` : `${Math.floor(h / 24)} kun ${h % 24} soat`);
+    const stepStat = (k, i) => {
+      const x = (st.steps[k] || {})[i];
+      return x ? `<span class="muted">Yuborildi ${fmt(x.sent)}${x.failed ? ` · yetmadi ${fmt(x.failed)}` : ""}${x.skipped ? ` · o'tkazib yuborildi ${fmt(x.skipped)}` : ""}</span>` : `<span class="muted">Hali yuborilmagan</span>`;
+    };
+    const stepHtml = (k, s, i) => `
+      <fieldset class="step" data-step="${i}">
+        <legend>${i + 1}-xabar</legend>
+        <div class="step-top">
+          <label class="f">Necha soatdan keyin<input class="in" type="number" min="1" max="720" name="after" value="${esc(s.after)}"><small>${ANCHOR[k]} <b data-when>${when(+s.after || 0)}</b> o'tib</small></label>
+          ${k === "new" ? `<label class="f">Tugma nimani ochadi<select class="in" name="target">${d.targets.map((t) => `<option value="${t.key}" ${t.key === (s.target || "app") ? "selected" : ""}>${esc(t.name)}</option>`).join("")}</select><small>shu narsani yasab bo'lganlarga yuborilmaydi</small></label>` : ""}
+          <label class="f">Tugma yozuvi<input class="in" name="button" maxlength="40" value="${esc(s.button || "")}"><small>bo'sh qolsa tugmasiz ketadi</small></label>
+        </div>
+        <label class="f">Matn<textarea class="in" name="text" maxlength="3500" rows="5">${esc(s.text)}</textarea></label>
+        <div class="row"><button type="button" class="btn sm" data-test>O'zimga sinov yuborish</button>
+          <button type="button" class="btn sm bad" data-del>O'chirish</button>${stepStat(k, i)}</div>
+      </fieldset>`;
+    const seqHtml = (q) => {
+      const sq = cfg.seqs[q.key], reached = st.reached[q.key] || 0, won = st.won[q.key] || 0;
+      return `<section class="blk seq" data-seq="${q.key}">
+        <div class="bh"><h2>${esc(q.name)}</h2><p>${reached ? `${fmt(reached)} kishiga yetdi · ${fmt(won)} tasi ${WON[q.key]} (${pctOf(won, reached)}%)` : "Hali xabar yuborilmagan"}</p></div>
+        <div class="form">
+          <label class="row sw"><input type="checkbox" name="on" ${sq.on ? "checked" : ""}> Shu ketma-ketlik yoqilgan</label>
+          ${sq.steps.map((s, i) => stepHtml(q.key, s, i)).join("")}
+          ${sq.steps.length < d.max_steps ? `<div><button type="button" class="btn sm" data-add>+ Xabar qo'shish</button></div>` : ""}
+        </div></section>`;
+    };
+    const read = () => {
+      const out = { on: $("#ng-on").checked, from_hour: +$("#ng-from").value, to_hour: +$("#ng-to").value, gap_hours: +$("#ng-gap").value, seqs: {} };
+      $$(".seq").forEach((el) => {
+        out.seqs[el.dataset.seq] = {
+          on: $('[name="on"]', el).checked,
+          steps: $$(".step", el).map((x) => ({ after: +$('[name="after"]', x).value, text: $('[name="text"]', x).value, button: $('[name="button"]', x).value,
+            ...($('[name="target"]', x) ? { target: $('[name="target"]', x).value } : {}) })),
+        };
+      });
+      return out;
+    };
+    const draw = () => {
+      main().innerHTML = `
+        <div class="head"><div><h1>Progrev</h1><p>Ishni boshlab, oxiriga yetkazmaganlarga va yangi qo'shilganlarga bot o'zi eslatma yuboradi.</p></div>
+          <div class="row"><button class="btn" id="ng-reset" type="button">Standart matnlar</button><button class="btn primary" id="ng-save" type="button">Saqlash</button></div></div>
+        <section class="blk"><div class="now">
+          <div class="${cfg.on ? "" : "alert"}"><b>${cfg.on ? "Yoqilgan" : "O'chirilgan"}</b><span>hozirgi holat</span></div>
+          <div><b>${fmt(st.sent_24h)}</b><span>oxirgi 24 soatda yuborildi</span></div>
+          <div><b>${st.last_run ? ago(st.last_run) : "—"}</b><span>oxirgi tekshiruv${st.last_run ? ` · ${fmt(st.last_sent)} ta xabar` : ""}</span></div>
+          <div><b>${cfg.from_hour}:00–${cfg.to_hour}:00</b><span>yuborish vaqti (Toshkent)</span></div>
+        </div></section>
+        <section class="blk"><div class="bh"><h2>Umumiy qoidalar</h2></div>
+          <div class="form"><label class="row sw"><input type="checkbox" id="ng-on" ${cfg.on ? "checked" : ""}> Progrev yoqilgan (o'chirilsa, hech qanday eslatma ketmaydi)</label>
+            <div class="fields">
+              <label class="f">Xabarlar orasidagi tanaffus, soat<input class="in" type="number" id="ng-gap" min="1" max="168" value="${cfg.gap_hours}"><small>bitta odam bundan tez-tez xabar olmaydi</small></label>
+              <label class="f">Qaysi soatdan<input class="in" type="number" id="ng-from" min="0" max="23" value="${cfg.from_hour}"></label>
+              <label class="f">Qaysi soatgacha<input class="in" type="number" id="ng-to" min="1" max="24" value="${cfg.to_hour}"></label>
+            </div>
+            <p class="muted" style="font-size:12.5px">Matnda ishlatish mumkin: ${d.placeholders.map((p) => `<code>${esc(p.key)}</code> — ${esc(p.name)}`).join(", ")}. Sotib olgan yoki botni bloklagan odamga xabar yuborilmaydi. ${d.grace_hours} soatdan ko'p kechikkan xabar o'tkazib yuboriladi.</p>
+          </div></section>
+        ${d.seqs.map(seqHtml).join("")}`;
+      $("#ng-save").onclick = async (e) => {
+        const btn = e.currentTarget; btn.disabled = true;
+        try { const r = await api("/api/admin/nudges", { config: read() }); cfg = r.config; toast("Saqlandi"); draw(); }
+        catch (err) { toast(err.message, true); btn.disabled = false; }
+      };
+      $("#ng-reset").onclick = () => {
+        if (!confirm("Barcha matn va vaqtlar standart holatga qaytsinmi? «Saqlash»ni bosmaguningizcha kuchga kirmaydi.")) return;
+        cfg = JSON.parse(JSON.stringify(d.defaults)); draw(); toast("Standart matnlar qo'yildi — «Saqlash»ni bosing");
+      };
+      $$(".seq").forEach((el) => {
+        const k = el.dataset.seq;
+        const add = $("[data-add]", el);
+        if (add) add.onclick = () => {
+          cfg = read(); const steps = cfg.seqs[k].steps, last = steps[steps.length - 1];
+          steps.push({ after: last ? last.after + 24 : 2, text: "", button: "Ilovani ochish", ...(k === "new" ? { target: "app" } : {}) }); draw();
+          const all = $$(`.seq[data-seq="${k}"] .step`); all[all.length - 1].scrollIntoView({ block: "center" });
+        };
+        $$(".step", el).forEach((x) => {
+          const i = +x.dataset.step;
+          $('[name="after"]', x).oninput = (e) => { $("[data-when]", x).textContent = when(+e.target.value || 0); };
+          $("[data-del]", x).onclick = () => { if (!confirm(`${i + 1}-xabar o'chirilsinmi?`)) return; cfg = read(); cfg.seqs[k].steps.splice(i, 1); draw(); };
+          $("[data-test]", x).onclick = async (e) => {
+            const btn = e.currentTarget; btn.disabled = true;
+            try {
+              await api("/api/admin/nudges/test", { seq: k, step: i, text: $('[name="text"]', x).value, button: $('[name="button"]', x).value,
+                target: $('[name="target"]', x) ? $('[name="target"]', x).value : "app" });
+              toast("Botga yuborildi — chatni tekshiring");
+            } catch (err) { toast(err.message, true); }
+            btn.disabled = false;
+          };
+        });
+      });
+    };
+    draw();
+  }
+
   // ---------------------------------------------------------------- 7. Tizim
   async function system(alive) {
     loading("Tizim");
@@ -620,14 +724,25 @@
           `<tr><td>Narxlar</td><td class="r num">${som(d.prices.standart)} / ${som(d.prices.premium)} / ${som(d.prices.vip)}<span class="sub">video ${som(d.prices.video)} · kuniga ${d.prices.free_per_day} bepul</span></td></tr>`,
           songsRow(d.songs)])}</div>
       </section>
+      ${d.songs && d.songs.on ? `<section class="blk"><div class="bh"><h2>Qo'shiq: bepul namunalar</h2><p>Bugun ${fmt(d.songs.previews_today)} ta bepul namuna so'raldi${d.songs.daily_previews ? ` (chegara ${fmt(d.songs.daily_previews)})` : ""}. Har bir namuna ElevenLabs kreditidan sarflanadi.</p></div>
+        <form class="form" id="sg-lim"><div class="fields">
+          <label class="f">Bir kishiga kuniga<input class="in" type="number" name="per_user" min="0" max="20" value="${d.songs.per_user}"><small>0 — bepul namuna yo'q</small></label>
+          <label class="f">Hamma uchun kuniga jami<input class="in" type="number" name="per_day" min="0" max="100000" value="${d.songs.daily_previews}"><small>xarajat chegarasi · 0 — cheklovsiz</small></label>
+          <div><button class="btn primary" type="submit">Saqlash</button></div></div></form></section>` : ""}
       <section class="blk"><div class="bh"><h2>Oxirgi xatolar</h2></div>
         ${table(["Video", "Xato", "Qachon"], d.errors.map((e) => `<tr><td class="num">#${e.id}<span class="sub">${esc(e.design)}</span></td><td style="max-width:520px;word-break:break-word">${esc(e.error) || "—"}</td><td class="num">${dt(e.at)}</td></tr>`), "Xato yo'q")}</section>
       <section class="blk"><div class="bh"><h2>Eksport</h2><p>Excel'da ochiladigan CSV fayllar</p></div>
         <div class="row"><button class="btn" data-exp="users">Foydalanuvchilar</button><button class="btn" data-exp="payments">To'lovlar</button><button class="btn" data-exp="sites">Taklifnomalar</button></div></section>`;
     $$("[data-exp]").forEach((b) => (b.onclick = () => download(`/api/admin/export/${b.dataset.exp}.csv`)));
+    const lim = $("#sg-lim");
+    if (lim) lim.onsubmit = async (e) => {
+      e.preventDefault(); const fd = new FormData(lim);
+      try { await api("/api/admin/song-limits", { per_user: +fd.get("per_user"), per_day: +fd.get("per_day") }); toast("Saqlandi"); render(); }
+      catch (err) { toast(err.message, true); }
+    };
   }
 
-  const VIEWS = { overview, sources, sales, payments, users, broadcast, system };
+  const VIEWS = { overview, sources, sales, payments, users, broadcast, nudges: nudgesPage, system };
 
   // ---------------------------------------------------------------- oyna
   function sheet(html) {

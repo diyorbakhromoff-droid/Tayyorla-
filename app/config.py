@@ -18,10 +18,10 @@ class Settings(BaseSettings):
     song_model: str = "music_v2_5"
     song_price: int = 69000          # to'liq qo'shiq (2 ta variant)
     song_site_price: int = 0         # sayt egasi uchun qo'shiq narxi (0 — song_price bilan bir xil)
-    song_free_previews: int = 1      # har foydalanuvchiga bepul 20 soniyalik namuna(lar)
+    song_free_previews: int = 2      # har foydalanuvchiga KUNIGA bepul 20 soniyalik namuna (admin panelda o'zgaradi)
     song_preview_seconds: int = 20
     song_workers: int = 2            # bir vaqtda nechta qo'shiq yaratiladi
-    song_daily_previews: int = 3     # kuniga hamma uchun jami bepul namunalar (0 — shaxsiy bepul namuna yo'q)
+    song_daily_previews: int = 30    # kuniga hamma uchun jami bepul namunalar — xarajat chegarasi (0 — cheklovsiz; admin panelda o'zgaradi)
     song_lyrics_per_day: int = 5     # bitta foydalanuvchi kuniga necha marta she'r yozdira oladi (yangi + AI bilan qayta yozish)
     song_preview_sub: bool = True    # bepul namuna uchun kanalga obuna sharti (kanal sozlangan bo'lsa)
     song_credit_alert: int = 15000   # ElevenLabs krediti shundan kam qolsa adminlarga ogohlantirish (~10 qo'shiq)
@@ -50,6 +50,7 @@ class Settings(BaseSettings):
     video_price: int = 9900
     # Balansni to'ldirish summalari (so'm)
     topup_amounts: str = "9900,29700,49500,99000"
+    topup_min: int = 1000  # foydalanuvchi o'zi kiritadigan eng kichik summa (so'm)
     # Har bir mehmonga shaxsiy video paketlari: «mehmonlar soni:narx»
     guest_packages: str = "15:39000,40:69000,100:119000,300:199000"
     video_fps: int = 30

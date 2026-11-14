@@ -269,25 +269,41 @@
   App.topupSheet = ({ need = 0, title, text, onSent, site = "", song = 0 } = {}) => {
     const q = (S.me && S.me.quota) || {};
     const price = q.price || 9900;
-    const base = (S.vm && S.vm.topups) || [9900, 29700, 49500, 99000];
-    let amounts = base.filter((a) => a >= need);
-    if (need && !amounts.includes(need) && need >= price) amounts = [need, ...amounts];
-    if (need && need < price) amounts = [price, ...amounts.filter((a) => a > price)];
+    const vm = S.vm || {};
+    const lo = Math.max(vm.topup_min || 1000, need || 0), hi = vm.topup_max || 10000000;
+    const base = vm.topups || [9900, 29700, 49500, 99000];
+    let amounts = base.filter((a) => a >= lo);
+    if (need && !amounts.includes(lo)) amounts = [lo, ...amounts];
     amounts = [...new Set(amounts)].slice(0, 6);
-    let pick = amounts[0];
+    let pick = amounts[0] || lo;
     const count = (a) => (a % price === 0 ? T("topup.videos", { n: a / price }) : "");
     const s = sheet(`
       <div class="sh-head"><span class="sh-ic">${icon("wallet")}</span><div><h1>${esc(title || T("topup.title"))}</h1>
         <p>${esc(text || T("topup.text", { balance: money(q.balance || 0) }))}</p></div></div>
       <div class="amounts">${amounts.map((a) => `<button type="button" data-a="${a}" aria-pressed="${a === pick}"><b>${esc(money(a))}</b><small>${esc(count(a))}</small></button>`).join("")}</div>
+      <label class="field tp-own">${esc(T("topup.own"))}
+        <input id="tpOwn" inputmode="numeric" autocomplete="off" maxlength="12" placeholder="${esc(T("topup.own_ph"))}" aria-describedby="tpHint"></label>
+      <p class="hint" id="tpHint">${esc(T("topup.own_hint", { min: money(lo) }))}</p>
       <button type="button" class="btn" id="tpGo">${esc(T("topup.pay", { sum: money(pick) }))}</button>
-      <p class="hint" style="text-align:center">${esc(T("pay.note"))}</p>`, { label: T("topup.title") });
-    $$("[data-a]", s.el).forEach((b) => (b.onclick = () => {
-      haptic(); pick = +b.dataset.a;
-      $$("[data-a]", s.el).forEach((x) => x.setAttribute("aria-pressed", x === b));
-      $("#tpGo", s.el).textContent = T("topup.pay", { sum: money(pick) });
-    }));
-    $("#tpGo", s.el).onclick = async (e) => {
+      <p class="hint" style="text-align:center">${esc(T(vm.click ? "pay.note_click" : "pay.note"))}</p>`, { label: T("topup.title") });
+    const go = $("#tpGo", s.el), own = $("#tpOwn", s.el), hint = $("#tpHint", s.el);
+    const mark = () => $$("[data-a]", s.el).forEach((x) => x.setAttribute("aria-pressed", +x.dataset.a === pick));
+    const show = () => {
+      const bad = pick < lo || pick > hi;
+      go.disabled = bad;
+      go.textContent = bad ? T("topup.own_bad") : T("topup.pay", { sum: money(pick) });
+      hint.textContent = pick > hi ? T("topup.own_max", { max: money(hi) }) : T("topup.own_hint", { min: money(lo) });
+      hint.classList.toggle("warn", bad);
+    };
+    $$("[data-a]", s.el).forEach((b) => (b.onclick = () => { haptic(); pick = +b.dataset.a; own.value = ""; mark(); show(); }));
+    own.oninput = () => {
+      const n = +own.value.replace(/\D/g, "").slice(0, 9) || 0;
+      own.value = n ? App.fmtNum(n) : "";
+      pick = n || amounts[0] || lo;
+      mark(); show();
+    };
+    go.onclick = async (e) => {
+      if (pick < lo || pick > hi) return;
       busy(e.currentTarget, true);
       try {
         const r = await api("/api/pay/topup", { amount: pick, site, ...(song ? { song: +song } : {}) });
@@ -301,9 +317,10 @@
   };
   /** To'lov ko'rsatmasi botga yuborilgach: chatga o'tish. */
   App.paySentSheet = (after) => {
+    const click = !!(S.vm && S.vm.click);
     const s = sheet(`
       <div class="sh-head"><span class="sh-ic" style="background:var(--emerald-soft);color:var(--emerald-ink)">${icon("send")}</span><div>
-        <h1>${esc(T("paysent.title"))}</h1><p>${esc(T("paysent.text"))}</p></div></div>
+        <h1>${esc(T(click ? "paysent.title_click" : "paysent.title"))}</h1><p>${esc(T(click ? "paysent.text_click" : "paysent.text"))}</p></div></div>
       <button type="button" class="btn night" id="psChat">${esc(T("go_chat"))}</button>
       <button type="button" class="btn ghost" id="psStay">${esc(T("stay_here"))}</button>`);
     $("#psChat", s.el).onclick = () => closeApp();
@@ -343,7 +360,7 @@
     const tab = Q.get("tab") || (["videos", "sites", "events", "profile"].includes(sp) ? sp : "");
     if (tab === "wallet") { App.tab("profile"); App.go("wallet"); return true; }
     if (tab === "songs" || sp === "songs") { App.tab("home"); App.go("songs"); return true; }
-    if (["videos", "sites", "events", "profile"].includes(tab)) { App.tab(tab, { section: Q.get("s") || "" }); return true; }
+    if (["videos", "sites", "events", "profile"].includes(tab)) { App.tab(tab, { section: Q.get("s") || "", ...(Q.get("mine") ? { mine: true } : {}) }); return true; }
     if (Q.get("kimga")) {
       const pre = Object.fromEntries(["kimga", "sana", "tugilgan_sana"].filter((k) => Q.get(k)).map((k) => [k, Q.get(k)]));
       const p = (S.me.people || []).find((x) => x.name === pre.kimga);

@@ -90,6 +90,7 @@ songs.compose = fake_compose
 songs.write_lyrics = fake_write
 songapi.settings.song_lyrics_per_day = 100
 songapi.settings.song_daily_previews = 20
+songapi.settings.song_free_previews = 1  # kuniga bir kishiga (testlar shu qiymatga tayanadi)
 
 
 class FakeBot:

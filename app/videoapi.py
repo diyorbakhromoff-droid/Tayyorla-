@@ -73,6 +73,7 @@ async def video_meta(lang: str = "uz"):
         "sections": video.SECTIONS, "designs": designs, "events": video.EVENT_KEYS, "fields": fields, "demo": video.DEMO,
         "langs": [{"key": k, "name": v} for k, v in i18n.LANG_NAMES.items()],
         "price": settings.video_price, "free_per_day": settings.free_videos_per_day, "topups": settings.topups,
+        "topup_min": settings.topup_min, "topup_max": 10_000_000, "click": settings.click_on,
         "packages": [{"size": n, "price": p} for n, p in settings.packages],
         "channel": settings.channel_link, "channel_name": settings.channel_username, "bot": settings.bot_username,
         "seconds": settings.video_seconds, "event_names": i18n.card(lang)["events"],
@@ -454,8 +455,8 @@ class TopupIn(BaseModel):
 @router.post("/api/pay/topup")
 async def topup(body: TopupIn, x_init_data: str = Header("")):
     uid, tg = _uid(x_init_data)
-    if body.amount not in settings.topups and body.amount < settings.video_price:
-        raise HTTPException(400, "bad_amount")
+    if body.amount < settings.topup_min:
+        raise HTTPException(400, f"Eng kam summa: {videobot.money(settings.topup_min)}")
     async with Session() as s:
         await billing.touch_user(s, uid, tg.get("first_name", ""), tg.get("username", ""), tg.get("language_code", ""))
         site_id = None

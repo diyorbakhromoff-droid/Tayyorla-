@@ -66,7 +66,9 @@ async def songs_meta(x_init_data: str = Header("")):
         left = await songs.free_previews_left(s, uid)
         user = await s.get(User, uid)
     sub = bool(settings.song_preview_sub and settings.channel_username)
-    return {**songs.meta(), "on": settings.songs_on, "price": price, "free_previews": left, "balance": user.balance if user else 0,
+    per_user, _ = await songs.limits()
+    return {**songs.meta(), "on": settings.songs_on, "price": price, "free_previews": left, "free_per_day": per_user,
+            "balance": user.balance if user else 0,
             "preview_sub": sub, "channel": settings.channel_link if sub else ""}
 
 
@@ -175,7 +177,8 @@ async def song_preview(song_id: int, x_init_data: str = Header("")):
             raise HTTPException(400, str(e))
         if await songs.free_previews_left(s, uid) <= 0:
             raise HTTPException(402, {"code": "preview_limit", "reason": "used", "price": await songs.price_for(s, uid)})
-        if settings.song_daily_previews and await songs.previews_today(s) >= settings.song_daily_previews:
+        _, per_day = await songs.limits()
+        if per_day and await songs.previews_today(s) >= per_day:
             raise HTTPException(402, {"code": "preview_limit", "reason": "daily", "price": await songs.price_for(s, uid)})
         if settings.song_preview_sub and settings.channel_username:
             from . import videobot
@@ -185,6 +188,7 @@ async def song_preview(song_id: int, x_init_data: str = Header("")):
             raise HTTPException(503, "Qo'shiq xizmati vaqtincha band. Birozdan so'ng qayta urinib ko'ring.")
         song.previews = (song.previews or 0) + 1
         song.preview_at = utcnow()
+        songs.count_preview(s, song)
         song.status, song.error, song.updated_at = "preview_queued", "", utcnow()
         await s.commit()
         out = song_out(song)

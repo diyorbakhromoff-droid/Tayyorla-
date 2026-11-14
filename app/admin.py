@@ -25,7 +25,7 @@ from sqlalchemy import func, select, update
 from . import track, video, videobot
 from .catalog import SECTIONS, TEMPLATES, site_price, site_title
 from .config import MEDIA_DIR, ROOT, settings
-from . import songs
+from . import nudges, songs, store
 from .db import BalanceTx, Event, MusicTrack, Payment, RenderJob, Session, Site, Snapshot, Song, TrafficLink, User, utcnow
 from .reminders import TZ, today
 from .webapp import check_init_data
@@ -969,6 +969,8 @@ async def system(uid: int = Depends(admin_uid)):
         tables = {"Foydalanuvchilar": await cnt(User), "Saytlar va tadbirlar": await cnt(Site), "Videolar": await cnt(RenderJob),
                   "To'lovlar": await cnt(Payment), "Hodisalar": await cnt(Event), "Kuylar": await cnt(MusicTrack, MusicTrack.active.is_(True)),
                   "Qo'shiqlar": await cnt(Song)}
+        pv_today = await songs.previews_today(s)
+    per_user, per_day = await songs.limits()
     times = [(f - st).total_seconds() for st, f in done if f and st and f >= st]
     disk = shutil.disk_usage(MEDIA_DIR)
     return {
@@ -979,9 +981,72 @@ async def system(uid: int = Depends(admin_uid)):
         "uptime_h": round((_time.time() - STARTED) / 3600, 1), "bot": bool(videobot.BOT),
         "prices": {"standart": settings.price_standart, "premium": settings.price_premium, "vip": settings.price_vip,
                    "video": settings.video_price, "free_per_day": settings.free_videos_per_day},
-        "songs": {"on": settings.songs_on, "price": settings.song_price, "daily_previews": settings.song_daily_previews,
-                  "credits": await songs.credits(), "alert": settings.song_credit_alert},
+        "songs": {"on": settings.songs_on, "price": settings.song_price, "daily_previews": per_day, "per_user": per_user,
+                  "previews_today": pv_today, "credits": await songs.credits(), "alert": settings.song_credit_alert},
     }
+
+
+class SongLimitsIn(BaseModel):
+    per_user: int = Field(ge=0, le=20)     # bir kishiga kuniga bepul namuna
+    per_day: int = Field(ge=0, le=100_000)  # hamma uchun kuniga jami (0 — cheklovsiz)
+
+
+@router.post("/song-limits")
+async def song_limits(body: SongLimitsIn, uid: int = Depends(admin_uid)):
+    await store.put("song_limits", {"per_user": body.per_user, "per_day": body.per_day})
+    log.info("Qo'shiq namunasi limiti o'zgardi: kishiga %s, jami %s (admin %s)", body.per_user, body.per_day, uid)
+    return {"ok": True, "per_user": body.per_user, "per_day": body.per_day}
+
+
+# ---------------------------------------------------------------- progrev (eslatma xabarlari ketma-ketligi)
+
+def _nudge_meta() -> dict:
+    return {"seqs": [{"key": k, "name": nudges.SEQ_NAMES[k]} for k in nudges.SEQS],
+            "targets": [{"key": k, "name": v} for k, v in nudges.TARGETS.items()],
+            "placeholders": [{"key": k, "name": v} for k, v in nudges.PLACEHOLDERS.items()],
+            "max_steps": nudges.MAX_STEPS, "grace_hours": nudges.GRACE_H, "defaults": nudges.DEFAULTS}
+
+
+@router.get("/nudges")
+async def nudges_get(uid: int = Depends(admin_uid)):
+    return {"config": await nudges.config(), "stats": await nudges.stats(), **_nudge_meta()}
+
+
+class NudgesIn(BaseModel):
+    config: dict
+
+
+@router.post("/nudges")
+async def nudges_save(body: NudgesIn, uid: int = Depends(admin_uid)):
+    try:
+        cfg = await nudges.save(body.config)
+    except nudges.ConfigError as e:
+        raise HTTPException(400, str(e))
+    log.info("Progrev sozlamasi o'zgardi (admin %s): yoqilgan=%s", uid, cfg["on"])
+    return {"ok": True, "config": cfg}
+
+
+class NudgeTestIn(BaseModel):
+    seq: str
+    step: int = Field(ge=0, le=20)
+    text: str = Field("", max_length=3500)
+    button: str = Field("", max_length=40)
+    target: str = "app"
+
+
+@router.post("/nudges/test")
+async def nudges_test(body: NudgeTestIn, uid: int = Depends(admin_uid)):
+    """Adminning o'ziga namuna: oynadagi (hali saqlanmagan) matn bilan."""
+    if body.seq not in nudges.SEQS or not body.text.strip():
+        raise HTTPException(400, "Matnni kiriting")
+    if not videobot.BOT:
+        raise HTTPException(503, "Bot ishlamayapti")
+    try:
+        await nudges.send_test(videobot.BOT, uid, body.seq, body.step, {"text": body.text, "button": body.button, "target": body.target})
+    except Exception as e:
+        log.exception("Progrev namunasini yuborib bo'lmadi")
+        raise HTTPException(502, f"Yuborib bo'lmadi: {e}")
+    return {"ok": True}
 
 
 # ---------------------------------------------------------------- CSV eksport

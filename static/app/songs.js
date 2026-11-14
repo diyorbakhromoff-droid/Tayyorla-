@@ -454,7 +454,8 @@
         body += lyrCard(true) + `<p class="hint" style="text-align:center">${esc(T("song.lyrics_hint"))}</p>`;
         const free = (m.free_previews || 0) > 0;
         cta = free ? `<button type="button" class="btn" id="pvBtn">${icon("headphones", "s")}${esc(T("song.listen", { n: m.preview_seconds || 20 }))}</button>
-            <button type="button" class="link sg-buy" id="buyBtn">${esc(T("song.buy_now", { sum: money(price) }))}</button>`
+            <button type="button" class="link sg-buy" id="buyBtn">${esc(T("song.buy_now", { sum: money(price) }))}</button>
+            <small class="hint" style="display:block;text-align:center">${esc(T("song.free_left", { n: m.free_previews }))}</small>`
           : `<button type="button" class="btn" id="buyBtn">${esc(T("song.buy", { sum: money(price) }))}</button><small class="warn">${esc(T("song.free_used"))}</small>`;
       } else if (st === "preview_queued" || st === "preview_gen") {
         body += gen(T("song.gen_preview"), T("song.gen_preview_s")) + lyrCard(false);
@@ -583,7 +584,7 @@
       const price = (S.sm && S.sm.price) || 0;
       const daily = reason === "daily";
       const sh = App.sheet(`<div class="sh-head"><span class="sh-ic">${icon("headphones")}</span><div><h1>${esc(T(daily ? "song.limit_daily_t" : "song.limit_t"))}</h1>
-          <p>${esc(T(daily ? "song.limit_daily_s" : "song.limit_s"))}</p></div></div>
+          <p>${esc(daily ? T("song.limit_daily_s") : T("song.limit_s", { n: (S.sm && S.sm.free_per_day) || 2 }))}</p></div></div>
         <button type="button" class="btn" id="lmBuy">${esc(T("song.buy", { sum: money(price) }))}</button>
         <button type="button" class="btn ghost" id="lmLater">${esc(T("close"))}</button>`, { label: T("song.limit_t") });
       $("#lmBuy", sh.el).onclick = (e) => { sh.close(); pay(e.currentTarget); };

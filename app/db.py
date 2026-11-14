@@ -289,6 +289,28 @@ class Song(Base):
     updated_at: Mapped[datetime] = mapped_column(DateTime, default=utcnow)
 
 
+class Setting(Base):
+    """Admin paneldan o'zgartiriladigan sozlama: kalit -> JSON qiymat (app/store.py)."""
+    __tablename__ = "settings"
+
+    key: Mapped[str] = mapped_column(String(40), primary_key=True)
+    value: Mapped[dict] = mapped_column(JSON)
+    updated_at: Mapped[datetime] = mapped_column(DateTime, default=utcnow)
+
+
+class NudgeLog(Base):
+    """Progrev xabari jurnali: bir qadam bir obyekt uchun bir marta yuboriladi (app/nudges.py)."""
+    __tablename__ = "nudge_log"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    user_id: Mapped[int] = mapped_column(BigInteger, index=True)
+    seq: Mapped[str] = mapped_column(String(12), index=True)   # site | song | new
+    step: Mapped[int] = mapped_column(Integer)                 # 0, 1, 2...
+    ref: Mapped[str] = mapped_column(String(24), default="")   # site:<id> | song:<id> | ""
+    status: Mapped[str] = mapped_column(String(8), default="sent")  # sent | failed | skipped
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=utcnow, index=True)
+
+
 async def init_db() -> None:
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)

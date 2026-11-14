@@ -22,7 +22,7 @@ from sqlalchemy import func, select
 
 from . import billing
 from .config import MEDIA_DIR, ROOT, settings
-from .db import Session, Site, Song, User, utcnow
+from .db import Event, Session, Site, Song, User, utcnow
 
 log = logging.getLogger(__name__)
 
@@ -302,9 +302,34 @@ async def price_for(s, uid: int) -> int:
     return settings.song_price
 
 
+PV_EVENT = "song_pv"  # har bir bepul namuna so'rovi — kunlik limitlar shu hodisalar bo'yicha sanaladi
+
+
+async def limits() -> tuple[int, int]:
+    """(bir kishiga kuniga bepul namuna, hamma uchun kuniga jami; 0 — cheklovsiz). Admin paneldan o'zgaradi."""
+    from . import store
+    v = await store.get("song_limits") or {}
+    return max(0, int(v.get("per_user", settings.song_free_previews))), max(0, int(v.get("per_day", settings.song_daily_previews)))
+
+
 async def free_previews_left(s, uid: int) -> int:
-    used = await s.scalar(select(func.coalesce(func.sum(Song.previews), 0)).where(Song.owner_id == uid, Song.paid.is_(False)))
-    return max(0, settings.song_free_previews - (used or 0))
+    """Foydalanuvchining bugungi (Toshkent vaqti) qolgan bepul namunalari."""
+    per_user, _ = await limits()
+    used = await s.scalar(select(func.count()).select_from(Event).where(
+        Event.user_id == uid, Event.kind == PV_EVENT, Event.created_at >= billing.day_start_utc()))
+    return max(0, per_user - (used or 0))
+
+
+def count_preview(s, song: Song) -> None:
+    s.add(Event(user_id=song.owner_id, kind=PV_EVENT, src=str(song.id)))
+
+
+async def refund_preview(s, song: Song) -> None:
+    """Muvaffaqiyatsiz namuna bepul hisobdan qaytariladi."""
+    ev = (await s.execute(select(Event).where(Event.user_id == song.owner_id, Event.kind == PV_EVENT, Event.src == str(song.id))
+                          .order_by(Event.id.desc()).limit(1))).scalar_one_or_none()
+    if ev:
+        await s.delete(ev)
 
 
 def credits_needed(song: Song, variants: int) -> int:
@@ -323,11 +348,9 @@ async def enough_credits(need: int) -> bool:
 
 
 async def previews_today(s) -> int:
-    """Bugun (Toshkent vaqti) so'ralgan bepul namunalar soni."""
-    from .reminders import TZ
-    from datetime import datetime, timezone
-    start = datetime.now(TZ).replace(hour=0, minute=0, second=0, microsecond=0).astimezone(timezone.utc).replace(tzinfo=None)
-    return await s.scalar(select(func.count()).select_from(Song).where(Song.preview_at >= start, Song.paid.is_(False))) or 0
+    """Bugun (Toshkent vaqti) hamma foydalanuvchilar so'ragan bepul namunalar soni."""
+    return await s.scalar(select(func.count()).select_from(Event).where(
+        Event.kind == PV_EVENT, Event.created_at >= billing.day_start_utc())) or 0
 
 
 async def pay(s, song: Song, uid: int) -> bool:
@@ -446,6 +469,7 @@ async def process(song_id: int, bot=None) -> None:
                 song.error = "Qo'shiq yaratishda xato bo'ldi, qayta urinib ko'ring."
             if mode == "preview_gen":
                 song.previews = max(0, (song.previews or 0) - 1)  # muvaffaqiyatsiz namuna bepul hisobdan qaytariladi
+                await refund_preview(s, song)
             song.status = "failed" if song.paid else "lyrics"
         song.updated_at = utcnow()
         await s.commit()
