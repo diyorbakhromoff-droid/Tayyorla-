@@ -182,6 +182,24 @@ async def main() -> None:
 
     page = (await admin.admin_page()).body.decode()
     assert "__V__" not in page and "/static/admin/admin.js?v=" in page
+
+    # «Xizmatlarga sarflandi» tafsiloti (Gani yuqorida admin tuzatishidan 10 000 olgan): Ali o‘zi to‘lagan puldan sayt oldi; Gani admin bergan balansdan
+    # sayt oldi, so'ng o'zi 9 900 to'ladi va 20 000 lik qo'shiqda aralash pul ketdi
+    async with Session() as s:
+        await credit(s, 3, 50000, "admin", "adm:999:test")
+        assert await spend(s, 3, 39000, "site", "site:draft1")
+        await credit(s, 3, 9900, "topup", "pay:2")
+        assert await spend(s, 3, 20000, "upgrade", "site:draft1")
+        await s.commit()
+    rep = await admin.spend_report(frm=d, to=d, uid=999)
+    assert rep["total"] == 59000 + 39000 + 20000 and rep["buyers"] == 2 and rep["count"] == 3
+    assert rep["real"] == 59000 + 9900 and rep["gift"] == rep["total"] - rep["real"]
+    kinds = {k["kind"]: k for k in rep["kinds"]}
+    assert kinds["site"]["sum"] == 98000 and kinds["site"]["n"] == 2 and kinds["upgrade"]["real"] == 9900
+    gani = next(u for u in rep["users"] if u["id"] == 3)
+    assert gani["spent"] == 59000 and gani["real"] == 9900 and gani["gift"] == 49100 and gani["gift_life"] == 60000 and gani["paid_life"] == 9900
+    last = rep["items"][0]
+    assert last["kind"] == "upgrade" and last["real"] == 9900 and last["user"] == "Gani" and last["title"]
     print("✅ Admin paneli tekshiruvlari o'tdi")
 
 

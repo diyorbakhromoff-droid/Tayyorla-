@@ -147,8 +147,8 @@
     const good = invert ? p < 0 : p > 0;
     return `<span class="delta ${good ? "up" : "down"}" title="Oldingi davr: ${fmt(prev)}">${p > 0 ? "+" : "−"}${Math.abs(p)}%</span>`;
   }
-  const kpi = (v, label, hint, prev, opts = {}) => `<div class="kpi"><div class="v">${opts.money ? `${fmt(v)}<small>so'm</small>` : fmt(v)}${opts.suffix || ""} ${delta(v, prev, opts.invert)}</div>
-    <div class="l">${label}</div>${hint ? `<div class="h">${hint}</div>` : ""}</div>`;
+  const kpi = (v, label, hint, prev, opts = {}) => `<div class="kpi${opts.open ? " click" : ""}"${opts.open ? ` role="button" tabindex="0" data-kpi="${opts.open}"` : ""}><div class="v">${opts.money ? `${fmt(v)}<small>so'm</small>` : fmt(v)}${opts.suffix || ""} ${delta(v, prev, opts.invert)}</div>
+    <div class="l">${label}${opts.open ? ` <span class="more">Batafsil ›</span>` : ""}</div>${hint ? `<div class="h">${hint}</div>` : ""}</div>`;
   const table = (head, rows, empty = "Ma'lumot yo'q") => `<div class="tbl-wrap"><table><thead><tr>${head.map((h) => `<th${h.startsWith(">") ? ' class="r"' : ""}>${h.replace(/^>/, "")}</th>`).join("")}</tr></thead>
     <tbody>${rows.length ? rows.join("") : `<tr><td colspan="${head.length}" class="empty">${empty}</td></tr>`}</tbody></table></div>`;
   const tag = (txt, kind = "") => `<span class="tag ${kind}">${esc(txt)}</span>`;
@@ -251,7 +251,7 @@
         <div class="group"><h2><i></i>Pul</h2><div class="kpis">
           ${kpi(c.money.topup, "Tushum", `${fmt(c.money.topups)} ta to'lov · o'rtacha ${som(c.money.avg_check)}`, p.money.topup, { money: true })}
           ${kpi(c.money.payers, "To'lov qilganlar", `${fmt(c.money.new_payers)} tasi birinchi marta`, p.money.payers)}
-          ${kpi(c.money.spent, "Xizmatlarga sarflandi", `${fmt(c.money.buyers)} xaridor`, p.money.spent, { money: true })}
+          ${kpi(c.money.spent, "Xizmatlarga sarflandi", `${fmt(c.money.buyers)} xaridor`, p.money.spent, { money: true, open: "spend" })}
           ${kpi(c.money.refunds, "Qaytarilgan", c.money.admin ? `admin tuzatishlari: ${som(c.money.admin)}` : "video tayyorlanmaganda", p.money.refunds, { money: true, invert: true })}
         </div></div>
       </div></section>
@@ -262,6 +262,7 @@
         <div class="chart-card funnel">${funnel(c.funnel)}</div></section>`;
     bindPeriod(main(), render);
     $$("[data-go]").forEach((b) => (b.onclick = () => go(b.dataset.go)));
+    $$("[data-kpi=spend]").forEach((b) => { b.onclick = () => spendSheet(); b.onkeydown = (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); spendSheet(); } }; });
     const drawChart = () => {
       const m = METRICS.find((x) => x[0] === S.metric);
       const vals = c.series[S.metric];
@@ -501,6 +502,35 @@
   const SITE_ST = { draft: ["namuna", "warn"], pending: ["to'lov tekshirilmoqda", "warn"], paid: ["sotib olingan", "good"] };
   const JOB = { free: "Bepul", bonus: "Bonus", paid: "Pullik", package: "Paket", refunded: "Qaytarilgan" };
   const JST = { done: "tayyor", awaiting_payment: "to'lov kutilmoqda", failed: "xato", queued: "navbatda", rendering: "tayyorlanmoqda" };
+  // «Xizmatlarga sarflandi» tafsiloti: xizmatlar, xaridorlar, pul manbasi va har bir xarid
+  async function spendSheet() {
+    sheet(`<p class="boot">Yuklanmoqda…</p>`);
+    let d;
+    try { d = await api(`/api/admin/spend?${qs()}`); } catch (e) { $("#sheet-body").innerHTML = `<p class="note">${esc(e.message)}</p>`; return; }
+    const pctOf = (x) => (d.total ? Math.round((100 * x) / d.total) : 0);
+    const src = (real, amount) => (real >= amount ? tag("to'langan pul", "good") : real <= 0 ? tag("admin/bonus balansi", "warn") : tag(`aralash: ${fmt(real)} to'langan`, "warn"));
+    $("#sheet-body").innerHTML = `
+      <h2 class="big" id="sheet-title">Xizmatlarga sarflandi</h2>
+      <p class="muted">${periodLabel()} · ${fmt(d.count)} ta xarid · ${fmt(d.buyers)} xaridor</p>
+      <section><div class="stat-line">
+        <div><b>${som(d.total)}</b><span>jami sarflandi</span></div>
+        <div><b class="c-good">${som(d.real)}</b><span>mijozlar to'lagan puldan</span></div>
+        <div><b class="c-warn">${som(d.gift)}</b><span>admin yoki bonus bergan balansdan</span></div></div>
+        <div class="split" aria-hidden="true"><i style="width:${pctOf(d.real)}%"></i></div>
+        <p class="muted" style="font-size:12.5px;margin-top:8px">Sarf — mijozlar balansidan xizmat uchun yechilgan pul. U tushumdan farq qiladi:
+          admin panel orqali qo'shilgan yoki bonus balans ham shu yerda sarflanadi. Har bir mijozda avval o'zi to'lagan pul sarflangan deb hisoblanadi.</p></section>
+      <section><h3>Qaysi xizmatlarga</h3>${table(["Xizmat", ">Soni", ">Summa", ">Ulushi"], d.kinds.map((k) => `<tr><td>${esc(k.label)}<span class="sub">to'langan puldan: ${som(k.real)}</span></td>
+        <td class="r num">${fmt(k.n)}</td><td class="r num">${som(k.sum)}</td><td class="r num">${pctOf(k.sum)}%</td></tr>`), "Bu davrda xarid yo'q")}</section>
+      <section><h3>Kim sarfladi</h3>${table(["Mijoz", ">Sarfladi"], d.users.map((u) => `<tr data-user="${u.id}" class="click">
+        <td>${userLink({ ...u, user_id: u.id })}<span class="sub">hammasi bo'lib to'lagan: ${som(u.paid_life)}${u.gift_life ? ` · admin/bonus olgan: ${som(u.gift_life)}` : ""}</span></td>
+        <td class="r num">${som(u.spent)}<span class="sub">${u.real ? `to'langan: ${som(u.real)}` : ""}${u.real && u.gift ? "<br>" : ""}${u.gift ? `<span class="c-warn">admin/bonus: ${som(u.gift)}</span>` : ""}</span></td></tr>`))}</section>
+      <section><h3>Har bir xarid</h3>${table(["Mijoz · nima uchun", ">Summa"], d.items.map((i) => `<tr>
+        <td><button type="button" class="link" data-user="${i.user_id}">${esc(i.user)}</button> · ${esc(i.label)}
+          <span class="sub">${i.url ? `<a href="${esc(i.url)}" target="_blank" rel="noopener">${esc(i.title)}</a>` : esc(i.title)}<br>${dt(i.created_at)}</span></td>
+        <td class="r num">${som(i.amount)}<span class="sub">${src(i.real, i.amount)}</span></td></tr>`))}
+        ${d.count > d.items.length ? `<p class="muted" style="font-size:12px">Oxirgi ${d.items.length} ta xarid ko'rsatildi.</p>` : ""}</section>`;
+    $$("[data-user]", $("#sheet")).forEach((b) => (b.onclick = () => userSheet(+b.dataset.user)));
+  }
   async function userSheet(id) {
     sheet(`<p class="boot">Yuklanmoqda…</p>`);
     let d;

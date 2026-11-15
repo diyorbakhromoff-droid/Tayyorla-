@@ -282,6 +282,96 @@ async def collect(a: datetime, b: datetime, days: list[date] | None = None) -> d
     return out
 
 
+SPEND_LABELS = {"site": "Taklifnoma (sayt)", "upgrade": "Tarifni oshirish", "video": "Video taklifnoma",
+                "package": "Mehmonlarga video paketi", "song": "Shaxsiy qo'shiq"}
+
+
+@router.get("/spend")
+async def spend_report(frm: str | None = Query(None, alias="from"), to: str | None = None, uid: int = Depends(admin_uid)):
+    """«Xizmatlarga sarflandi» tafsiloti: qaysi xizmatlarga, kim, va pul qayerdan kelgan
+    (haqiqiy to'lov yoki admin/bonus bergan balans). Balans bitta hamyon bo'lgani uchun avval to'langan pul
+    sarflangan deb hisoblanadi (FIFO), qolgani admin/bonus balansidan."""
+    d1, d2 = parse_range(frm, to)
+    a, b = utc_of(d1), utc_of(d2 + timedelta(days=1))
+    async with Session() as s:
+        txs = (await s.execute(select(BalanceTx).where(BalanceTx.kind.in_(SPEND_KINDS), BalanceTx.created_at >= a, BalanceTx.created_at < b)
+                               .order_by(BalanceTx.created_at, BalanceTx.id))).scalars().all()
+        ids = sorted({t.user_id for t in txs})
+        paid = dict((await s.execute(select(BalanceTx.user_id, func.sum(BalanceTx.amount)).where(
+            BalanceTx.kind == "topup", BalanceTx.user_id.in_(ids or [0])).group_by(BalanceTx.user_id))).all())
+        gifts = dict((await s.execute(select(BalanceTx.user_id, func.sum(BalanceTx.amount)).where(
+            BalanceTx.kind.in_(("admin", "bonus")), BalanceTx.amount > 0, BalanceTx.user_id.in_(ids or [0])).group_by(BalanceTx.user_id))).all())
+        # xaridorlarning davr oxirigacha bo'lgan butun balans tarixi — pul manbasini vaqt bo'yicha kuzatish uchun
+        history = (await s.execute(select(BalanceTx).where(BalanceTx.user_id.in_(ids or [0]), BalanceTx.created_at < b)
+                                   .order_by(BalanceTx.created_at, BalanceTx.id))).scalars().all()
+        users = {u.tg_id: u for u in (await s.execute(select(User).where(User.tg_id.in_(ids or [0])))).scalars().all()}
+        names = await _link_names(s)
+        slugs = {t.ref.split(":", 1)[1] for t in txs if t.ref.startswith("site:")}
+        song_ids = {int(t.ref.split(":", 1)[1]) for t in txs if t.ref.startswith("song:") and t.ref.split(":", 1)[1].isdigit()}
+        job_ids = {int(t.ref.split(":", 1)[1]) for t in txs if t.ref.startswith("job:") and t.ref.split(":", 1)[1].isdigit()}
+        site_rows = {x.slug: x for x in (await s.execute(select(Site).where(Site.slug.in_(slugs or {""})))).scalars().all()}
+        song_rows = {x.id: x for x in (await s.execute(select(Song).where(Song.id.in_(song_ids or {0})))).scalars().all()}
+        job_rows = {j.id: j for j in (await s.execute(select(RenderJob).where(RenderJob.id.in_(job_ids or {0})))).scalars().all()}
+        job_sites = {x.id: x for x in (await s.execute(select(Site).where(Site.id.in_({j.site_id for j in job_rows.values() if j.site_id} or {0})))).scalars().all()}
+
+    def detail(t: BalanceTx) -> tuple[str, str]:
+        kind, _, key = t.ref.partition(":")
+        if kind == "site" and key in site_rows:
+            x = site_rows[key]
+            return site_title(x.config), x.url
+        if kind == "song" and key.isdigit() and int(key) in song_rows:
+            g = song_rows[int(key)]
+            return g.title or (f"{g.recipient} uchun" if g.recipient else f"Qo'shiq #{g.id}"), ""
+        if kind == "job" and key.isdigit() and int(key) in job_rows:
+            j = job_rows[int(key)]
+            x = job_sites.get(j.site_id)
+            return (f"{site_title(x.config)} · video" if x else f"Video #{j.id}"), (x.url if x else "")
+        return t.ref or "—", ""
+
+    # balansni ikki «cho'ntak» deb yuritamiz: to'langan pul va admin/bonus puli. Xarid avval to'langan puldan yechiladi,
+    # qaytarilgan pul (refund) to'langan cho'ntakka qaytadi, admin ayirishi avval sovg'a cho'ntagidan olinadi.
+    real_of: dict[int, int] = {}
+    pools = defaultdict(lambda: [0, 0])  # user -> [to'langan, sovg'a]
+    for h in history:
+        pool = pools[h.user_id]
+        if h.kind in SPEND_KINDS:
+            amt = -h.amount
+            r = min(amt, max(0, pool[0]))
+            pool[0] -= r
+            pool[1] -= amt - r
+            real_of[h.id] = r
+        elif h.kind in ("topup", "refund"):
+            pool[0] += h.amount
+        elif h.amount > 0:
+            pool[1] += h.amount
+        else:
+            g = min(-h.amount, max(0, pool[1]))
+            pool[1] -= g
+            pool[0] -= -h.amount - g
+    items, per_user, per_kind = [], defaultdict(lambda: {"spent": 0, "real": 0, "n": 0}), defaultdict(lambda: {"n": 0, "sum": 0, "real": 0})
+    for t in txs:
+        amt = -t.amount
+        real = real_of.get(t.id, 0)
+        title, url = detail(t)
+        u = users.get(t.user_id)
+        items.append({"created_at": t.created_at.isoformat() if t.created_at else None, "user_id": t.user_id,
+                      "user": (u.first_name if u else "") or str(t.user_id), "kind": t.kind, "label": SPEND_LABELS.get(t.kind, t.kind),
+                      "amount": amt, "real": real, "title": title, "url": url})
+        pu, pk = per_user[t.user_id], per_kind[t.kind]
+        pu["spent"] += amt; pu["real"] += real; pu["n"] += 1
+        pk["n"] += 1; pk["sum"] += amt; pk["real"] += real
+    total = sum(i["amount"] for i in items)
+    real_total = sum(i["real"] for i in items)
+    return {
+        "from": d1.isoformat(), "to": d2.isoformat(), "total": total, "count": len(items), "buyers": len(per_user),
+        "real": real_total, "gift": total - real_total,
+        "kinds": sorted([{"kind": k, "label": SPEND_LABELS.get(k, k), **v} for k, v in per_kind.items()], key=lambda r: -r["sum"]),
+        "users": sorted([{**_user_out(users[i], names), **v, "gift": v["spent"] - v["real"], "paid_life": int(paid.get(i) or 0),
+                          "gift_life": int(gifts.get(i) or 0)} for i, v in per_user.items() if i in users], key=lambda r: -r["spent"]),
+        "items": items[::-1][:300],
+    }
+
+
 @router.get("/overview")
 async def overview(frm: str | None = Query(None, alias="from"), to: str | None = None, uid: int = Depends(admin_uid)):
     d1, d2 = parse_range(frm, to)
