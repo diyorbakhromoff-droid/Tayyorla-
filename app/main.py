@@ -72,7 +72,7 @@ async def main() -> None:
             logging.warning("Admin buyruqlarini o'rnatib bo'lmadi: %s", admin_id)
 
     server = uvicorn.Server(uvicorn.Config(web.app, host=settings.host, port=settings.port, log_level="info",
-                                           proxy_headers=True, forwarded_allow_ips="*")  # haqiqiy IP Caddy dan (app porti tashqariga ochilmagan))
+                                           proxy_headers=True, forwarded_allow_ips="*"))  # haqiqiy IP Caddy dan (app porti tashqariga ochilmagan)
     await asyncio.gather(server.serve(), dp.start_polling(bot), reminder_loop(bot), songs.worker(bot), nudges.loop(bot))
 
 
