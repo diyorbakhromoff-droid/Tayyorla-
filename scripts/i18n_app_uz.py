@@ -295,7 +295,7 @@ APP = {
     "song.buy_full": "To‘liq qo‘shiqni olish — {sum}", "song.free_used": "Bugungi bepul namunalar tugadi — ertaga yana bo‘ladi", "song.balance": "Balansingiz: {balance}",
     "song.gen_preview": "Qo‘shiq tayyorlanmoqda…", "song.gen_preview_s": "Odatda 1–2 daqiqa. Namuna tayyor bo‘lgach botga ham yuboramiz.",
     "song.gen_full": "To‘liq qo‘shiq tayyorlanmoqda…",
-    "song.gen_full_s": "Ko‘pincha bir necha soniya, ba’zan 2–3 daqiqa. Tayyor bo‘lgach qo‘shiqni botga ham yuboramiz.",
+    "song.gen_full_s": "Odatda 1–3 daqiqa. Tayyor bo‘lgach qo‘shiqni botga ham yuboramiz.",
     "song.close_ok": "Ilovani yopish", "song.preview_t": "Namuna: naqoratdan {n} soniya",
     "song.preview_note": "Bu naqoratdan parcha. Yoqsa, shu qo‘shiqning to‘liq o‘zi — {sum}",
     "song.get1": "To‘liq qo‘shiq, 2–3 daqiqa", "song.get2": "Namunada eshitgan kuyingiz — to‘liq holda",

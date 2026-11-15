@@ -20,6 +20,9 @@ class Settings(BaseSettings):
     song_site_price: int = 0         # sayt egasi uchun qo'shiq narxi (0 — song_price bilan bir xil)
     song_free_previews: int = 2      # har foydalanuvchiga KUNIGA bepul 20 soniyalik namuna (admin panelda o'zgaradi)
     song_preview_seconds: int = 20
+    # namuna: «chorus» — faqat naqorat tayyorlanadi, to'lovdan keyin to'liq qo'shiq o'sha naqoratdan yasaladi (arzon);
+    # «full» — namuna uchun ham to'liq qo'shiq tayyorlanadi (eski usul)
+    song_preview_mode: str = "chorus"
     song_workers: int = 2            # bir vaqtda nechta qo'shiq yaratiladi
     song_daily_previews: int = 30    # kuniga hamma uchun jami bepul namunalar — xarajat chegarasi (0 — cheklovsiz; admin panelda o'zgaradi)
     song_lyrics_per_day: int = 5     # bitta foydalanuvchi kuniga necha marta she'r yozdira oladi (yangi + AI bilan qayta yozish)

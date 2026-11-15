@@ -254,19 +254,25 @@ async def write_lyrics(song: Song, instruction: str = "") -> tuple[str, str, lis
 
 # ---------------------------------------------------------------- ElevenLabs
 
-async def compose(plan: dict) -> bytes:
-    """Kompozitsiya rejasi bo'yicha mp3. Xatoda SongError (foydalanuvchiga tushunarli matn bilan)."""
+async def compose(plan: dict, store: bool = False, info: dict | None = None) -> bytes:
+    """Kompozitsiya rejasi bo'yicha mp3. Xatoda SongError (foydalanuvchiga tushunarli matn bilan).
+    store=True — ElevenLabs qo'shiqni keyingi inpainting uchun saqlaydi, uning raqami info["song_id"] ga yoziladi."""
     if not settings.elevenlabs_api_key:
         raise SongError("Qo'shiq xizmati hozircha sozlanmagan.")
+    body = {"composition_plan": plan, "model_id": settings.song_model}
+    if store:
+        body["store_for_inpainting"] = True
     timeout = aiohttp.ClientTimeout(total=600)
     async with aiohttp.ClientSession(timeout=timeout) as http:
         async with http.post(API_URL, params={"output_format": "mp3_48000_192"},
                              headers={"xi-api-key": settings.elevenlabs_api_key, "accept": "audio/mpeg"},
-                             json={"composition_plan": plan, "model_id": settings.song_model}) as r:
+                             json=body) as r:
             if r.status == 200:
                 data = await r.read()
-                if len(data) < 10_000:
+                if len(data) < 5_000:
                     raise SongError("Qo'shiq tayyorlanmadi, qayta urinib ko'ring.")
+                if info is not None:
+                    info["song_id"] = r.headers.get("song-id", "")
                 return data
             body = (await r.text())[:2000]
             log.warning("ElevenLabs music %s: %s", r.status, body)
@@ -342,6 +348,40 @@ def credits_needed(song: Song, variants: int) -> int:
     plan, _, _ = build_plan(parse_lyrics(song.lyrics), song.style, song.voice, song.tags or [])
     seconds = sum(c["duration_ms"] for c in plan["chunks"]) / 1000
     return int(seconds * 15 * variants) + 100
+
+
+def chorus_parts(plan: dict, chorus_at: int) -> list[int]:
+    """Rejadagi naqorat bo'limlari (birinchi naqorat bilan bir xil matnli hamma bo'limlar)."""
+    t, first = 0, None
+    for i, c in enumerate(plan["chunks"]):
+        if t == chorus_at and c["text"].startswith("[Chorus]"):
+            first = i
+            break
+        t += c["duration_ms"]
+    if first is None:
+        return []
+    text = plan["chunks"][first]["text"]
+    return [i for i, c in enumerate(plan["chunks"]) if c["text"] == text]
+
+
+def preview_credits(song: Song) -> int:
+    """Namuna uchun taxminiy kredit (naqorat usulida faqat naqorat)."""
+    if settings.song_preview_mode != "chorus":
+        return credits_needed(song, 1)
+    plan, chorus_at, chorus_len = build_plan(parse_lyrics(song.lyrics), song.style, song.voice, song.tags or [])
+    return int(chorus_len / 1000 * 15) + 100 if chorus_parts(plan, chorus_at) else credits_needed(song, 1)
+
+
+def full_credits(song: Song) -> int:
+    """To'lovdan keyin kerak bo'ladigan kredit: tayyor qo'shiq bo'lsa 0, naqorat saqlangan bo'lsa — qolgan qismlar."""
+    if song.variants:
+        return 0
+    demo = (song.plan or {}).get("_demo") or {}
+    plan, chorus_at, _ = build_plan(parse_lyrics(song.lyrics), song.style, song.voice, song.tags or [])
+    if demo.get("song_id"):
+        parts = set(chorus_parts(plan, chorus_at))
+        return int(sum(c["duration_ms"] for i, c in enumerate(plan["chunks"]) if i not in parts) / 1000 * 15) + 100
+    return credits_needed(song, 1)
 
 
 async def enough_credits(need: int) -> bool:
@@ -442,6 +482,78 @@ async def _generate_variant(s, song: Song, purpose: str) -> Path:
     return path
 
 
+def _audio_ms(path: Path) -> int:
+    try:
+        out = subprocess.run(["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", str(path)],
+                             capture_output=True, text=True, timeout=30).stdout.strip()
+        return int(float(out) * 1000)
+    except Exception:
+        return 0
+
+
+async def _generate_chorus_demo(s, song: Song) -> Path | None:
+    """Namuna: faqat naqorat tayyorlanadi va ElevenLabs'da saqlanadi. Naqorat topilmasa None (eski usul ishlaydi)."""
+    plan, chorus_at, chorus_len = build_plan(parse_lyrics(song.lyrics), song.style, song.voice, song.tags or [])
+    parts = chorus_parts(plan, chorus_at)
+    if not parts:
+        return None
+    info: dict = {}
+    data = await compose({"chunks": [plan["chunks"][parts[0]]]}, store=True, info=info)
+    s.add(costs.music_row(chorus_len / 1000, "song_preview", song.owner_id, f"song:{song.id}"))
+    PRIVATE_DIR.mkdir(parents=True, exist_ok=True)
+    path = PRIVATE_DIR / f"{song.id}-demo-{secrets.token_hex(4)}.mp3"
+    path.write_bytes(data)
+    ms = await asyncio.to_thread(_audio_ms, path) or chorus_len
+    if not info.get("song_id"):
+        log.warning("ElevenLabs naqorat uchun song-id qaytarmadi (song %s) — to'liq qo'shiq oddiy usulda tayyorlanadi", song.id)
+    song.plan = {"_demo": {"song_id": info.get("song_id", ""), "private": str(path), "ms": ms}, "_chorus_at": 0, "_chorus_len": ms}
+    return path
+
+
+async def _generate_from_demo(s, song: Song) -> Path | None:
+    """To'liq qo'shiq: har bir naqorat — namunadagi yozuvning o'zi, qolgan qismlar shu naqoratga tayanib tayyorlanadi.
+    Saqlangan naqorat bo'lmasa yoki ElevenLabs rad etsa None (oddiy to'liq qo'shiq tayyorlanadi)."""
+    demo = (song.plan or {}).get("_demo") or {}
+    if not demo.get("song_id"):
+        return None
+    plan, chorus_at, _ = build_plan(parse_lyrics(song.lyrics), song.style, song.voice, song.tags or [])
+    parts = set(chorus_parts(plan, chorus_at))
+    if not parts:
+        return None
+    ms = int(demo.get("ms") or 0)
+    ref = {"song_id": demo["song_id"], "range": {"start_ms": 0, "end_ms": ms}}
+    chunks, conditioned, t, first_chorus, gen_ms = [], False, 0, None, 0
+    for i, c in enumerate(plan["chunks"]):
+        if i in parts:
+            if first_chorus is None:
+                first_chorus = t
+            chunks.append({**ref, "range": dict(ref["range"])})
+            t += ms
+            continue
+        c = dict(c)
+        if not conditioned:  # birinchi bo'lim butun qo'shiqni naqorat ovozi va kuyiga bog'laydi
+            c["conditioning_ref"] = {"song_id": demo["song_id"], "range": {"start_ms": 0, "end_ms": min(ms, 30000)}}
+            c["condition_strength"] = "high"
+            conditioned = True
+        chunks.append(c)
+        t += c["duration_ms"]
+        gen_ms += c["duration_ms"]
+    try:
+        data = await compose({"chunks": chunks})
+    except QuotaError:
+        raise
+    except SongError as e:
+        log.warning("Naqoratdan to'liq qo'shiq yasab bo'lmadi (song %s): %s — oddiy usulga o'tiladi", song.id, e)
+        return None
+    s.add(costs.music_row(gen_ms / 1000, "song_full", song.owner_id, f"song:{song.id}"))
+    PRIVATE_DIR.mkdir(parents=True, exist_ok=True)
+    path = PRIVATE_DIR / f"{song.id}-0-{secrets.token_hex(4)}.mp3"
+    path.write_bytes(data)
+    song.plan = {**song.plan, "_chorus_at": first_chorus or 0, "_chorus_len": ms}
+    song.variants = [{"private": str(path), "file": ""}]
+    return path
+
+
 async def process(song_id: int, bot=None) -> None:
     async with Session() as s:
         song = await s.get(Song, song_id)
@@ -450,11 +562,22 @@ async def process(song_id: int, bot=None) -> None:
         mode = song.status
         try:
             if mode == "preview_gen":
-                path = Path(song.variants[0]["private"]) if song.variants else await _generate_variant(s, song, "song_preview")
+                if song.variants:
+                    path = Path(song.variants[0]["private"])
+                elif (song.plan or {}).get("_demo", {}).get("private") and Path(song.plan["_demo"]["private"]).exists():
+                    path = Path(song.plan["_demo"]["private"])
+                else:
+                    path = None
+                    if settings.song_preview_mode == "chorus":
+                        path = await _generate_chorus_demo(s, song)
+                    if path is None:
+                        path = await _generate_variant(s, song, "song_preview")
                 dst = MEDIA_DIR / _public_name("songp")
                 await asyncio.to_thread(cut_preview, path, dst, song.plan.get("_chorus_at", 0), settings.song_preview_seconds)
                 song.preview, song.status = f"/media/{dst.name}", "preview_ready"
             else:
+                if not song.variants:
+                    await _generate_from_demo(s, song)  # namunadagi naqoratdan (o'sha kuy va ovoz)
                 while len(song.variants or []) < SONG_VARIANTS:
                     await _generate_variant(s, song, "song_full")
                 variants = []

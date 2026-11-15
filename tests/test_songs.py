@@ -79,9 +79,11 @@ subprocess.run(["ffmpeg", "-nostdin", "-y", "-loglevel", "error", "-f", "lavfi",
 calls = {"compose": 0, "write": 0, "plans": []}
 
 
-async def fake_compose(plan):
+async def fake_compose(plan, store=False, info=None):
     calls["compose"] += 1
     calls["plans"].append(plan)
+    if store and info is not None:
+        info["song_id"] = f"el-{calls['compose']}"  # ElevenLabs saqlangan qo'shiq raqami (song-id sarlavhasi)
     return FAKE_MP3.read_bytes()
 
 
@@ -192,8 +194,11 @@ async def main() -> None:
     assert 19 <= dur(prev) <= 21, dur(prev)
     async with Session() as s:
         song = await s.get(Song, sid)
-        private = Path(song.variants[0]["private"])
-        assert private.exists() and MEDIA_DIR not in private.parents and song.variants[0]["file"] == ""
+        # namuna: saqlangan naqorat (ochiq /media da emas), to'liq qo'shiq hali yo'q
+        demo = song.plan["_demo"]
+        private = Path(demo["private"])
+        assert private.exists() and MEDIA_DIR not in private.parents and demo["song_id"] == "el-1" and demo["ms"] > 5000
+        assert not song.variants
     assert calls["compose"] == 1 and bot.audio == [(UID, "Onajonim (namuna)")]
 
     # bepul namuna tugadi: ikkinchi qo'shiqqa namuna yo'q, to'g'ridan-to'g'ri sotib olish taklif qilinadi
@@ -217,17 +222,24 @@ async def main() -> None:
     assert out["paid"] and out["status"] == "paid_queued" and out["price"] == 69000
     await run_queue(bot)
     out = await songapi.song_get(sid, x_init_data=INIT)
-    # namunadagi qo'shiqning o'zi to'liq beriladi: ElevenLabs qayta chaqirilmaydi, ikkinchi variant yo'q
+    # namuna faqat naqorat edi (saqlangan); to'liq qo'shiq shu naqorat yozuvining o'zidan yasaladi, ikkinchi variant yo'q
     assert out["status"] == "ready" and len(out["variants"]) == 1 and out["chosen"] == 0 and out["file"] == out["variants"][0]
     assert (MEDIA_DIR / Path(out["file"]).name).exists()
-    assert calls["compose"] == 1, "to'lovdan keyin qo'shiq qayta yaratilmasligi kerak"
+    assert calls["compose"] == 2
+    demo_plan, full_plan = calls["plans"][0]["chunks"], calls["plans"][1]["chunks"]
+    assert len(demo_plan) == 1 and demo_plan[0]["text"].startswith("[Chorus]")
+    refs = [c for c in full_plan if "song_id" in c]
+    assert len(refs) == 2 and all(c["song_id"] == "el-1" and c["range"]["start_ms"] == 0 and c["range"]["end_ms"] > 5000 for c in refs)
+    assert not any(c.get("text", "").startswith("[Chorus]") for c in full_plan), "naqorat qayta tayyorlanmasligi kerak"
+    gen = [c for c in full_plan if "song_id" not in c]
+    assert gen[0]["conditioning_ref"]["song_id"] == "el-1" and gen[0]["condition_strength"] == "high"
     assert [t for _, t in bot.audio[1:]] == ["Onajonim"]
     async with Session() as s:
         assert (await s.get(User, UID)).balance == 1000
-        # xarajat jurnali: faqat 1 demo (musiqa), har she'r uchun Claude tokenlari
+        # xarajat jurnali: naqorat (namuna) + qolgan qismlar (to'liq), har she'r uchun Claude tokenlari
         logs = (await s.execute(sa_select(CostLog).order_by(CostLog.id))).scalars().all()
         music = [x for x in logs if x.kind == "music"]
-        assert [x.purpose for x in music] == ["song_preview"] and all(x.units_in > 30 and x.ref == f"song:{sid}" for x in music)
+        assert [x.purpose for x in music] == ["song_preview", "song_full"] and all(x.units_in > 5 and x.ref == f"song:{sid}" for x in music)
         assert any(x.purpose == "lyrics" and x.ref == f"song:{sid}" and x.units_in == 3000 and x.units_out == 4000 for x in logs)
         from app import costs
         sm = await costs.summary(s, utcnow() - timedelta(days=1), utcnow() + timedelta(days=1))
@@ -254,7 +266,7 @@ async def main() -> None:
         assert e.status_code == 409
 
     # 6) xato: mualliflik huquqi — namuna bepul hisobdan qaytariladi
-    async def bad_compose(plan):
+    async def bad_compose(plan, store=False, info=None):
         raise songs.SongError("Matnda mualliflik huquqi bilan himoyalangan so'z yoki nom bor.")
     songs.compose = bad_compose
     sid3 = (await songapi.song_create(body, x_init_data=INIT))["id"]
@@ -341,7 +353,7 @@ async def main() -> None:
 
     # 10) kredit yetmasa: namuna navbatga qo'yilmaydi, to'lovda pul yechilmaydi
     async def empty_credits(force=False):
-        return {"tier": "creator", "used": 99009, "limit": 100000, "remaining": 991, "reset": None, "songs_left": 0, "usage_based": False}
+        return {"tier": "creator", "used": 99800, "limit": 100000, "remaining": 200, "reset": None, "songs_left": 0, "usage_based": False}
     songs.credits = empty_credits
     u3 = sign({"id": 778, "first_name": "Bek"})
     sid9 = (await songapi.song_create(body, x_init_data=u3))["id"]
@@ -360,6 +372,27 @@ async def main() -> None:
         assert e.status_code == 503 and "pul yechilmadi" in e.detail
     async with Session() as s:
         assert (await s.get(User, 778)).balance == 100000 and not (await s.get(Song, sid9)).paid
+
+    # 10b) saqlangan naqorat rad etilsa (masalan, muddati o'tgan): to'lagan mijoz baribir oddiy to'liq qo'shiqni oladi
+    songs.credits = no_credits  # yetarli kredit
+    async def ref_rejected(plan, store=False, info=None):
+        if any("song_id" in c for c in plan["chunks"]):
+            raise songs.SongError("song not found")
+        return await fake_compose(plan, store, info)
+    songs.compose = ref_rejected
+    u5 = sign({"id": 780, "first_name": "Vali"})
+    async with Session() as s:
+        s.add(User(tg_id=780, first_name="Vali", balance=100000))
+        await s.commit()
+    sid10 = (await songapi.song_create(body, x_init_data=u5))["id"]
+    await songapi.song_preview(sid10, x_init_data=u5)
+    await run_queue(bot)
+    await songapi.song_pay(sid10, x_init_data=u5)
+    await run_queue(bot)
+    out = await songapi.song_get(sid10, x_init_data=u5)
+    assert out["status"] == "ready" and len(out["variants"]) == 1, out
+    assert len(calls["plans"][-1]["chunks"]) > 1 and not any("song_id" in c for c in calls["plans"][-1]["chunks"])
+    songs.compose = fake_compose
 
     # 11) she'r yozish kunlik limiti (Claude xarajati)
     songapi.settings.song_lyrics_per_day = 2
