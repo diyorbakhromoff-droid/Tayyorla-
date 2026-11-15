@@ -25,7 +25,7 @@ from sqlalchemy import func, select, update
 from . import track, video, videobot
 from .catalog import SECTIONS, TEMPLATES, site_price, site_title
 from .config import MEDIA_DIR, ROOT, settings
-from . import nudges, songs, store
+from . import costs, nudges, songs, store
 from .db import BalanceTx, Event, MusicTrack, Payment, RenderJob, Session, Site, Snapshot, Song, TrafficLink, User, utcnow
 from .reminders import TZ, today
 from .webapp import check_init_data
@@ -75,11 +75,14 @@ def admin_uid(x_init_data: str = Header(""), x_admin_token: str = Header(""), t:
 
 
 @router.get("/whoami")
-async def whoami(uid: int = Depends(admin_uid)):
-    """Panel ochilganda: kim kirdi va yuklab olish havolalari uchun qisqa muddatli kalit."""
+async def whoami(uid: int = Depends(admin_uid), x_admin_token: str = Header(""), t: str = Query("")):
+    """Panel ochilganda: kim kirdi va yuklab olish havolalari uchun qisqa muddatli kalit.
+    Kalit bilan kirilgan bo'lsa yangisi berilmaydi (aks holda sizib chiqqan kalitni cheksiz uzaytirish mumkin edi):
+    yangi kalitni faqat Telegram imzosi (initData) bilan kirgan admin oladi."""
     async with Session() as s:
         u = await s.get(User, uid)
-    return {"id": uid, "name": u.first_name if u else "", "token": make_token(uid, hours=6), "bot": settings.bot_username,
+    token = (x_admin_token or t) or make_token(uid, hours=6)
+    return {"id": uid, "name": u.first_name if u else "", "token": token, "bot": settings.bot_username,
             "base": settings.base_url, "channel": settings.channel_username}
 
 
@@ -181,6 +184,7 @@ async def collect(a: datetime, b: datetime, days: list[date] | None = None) -> d
         first_pay = dict((await s.execute(select(Payment.user_id, func.min(Payment.decided_at))
                                           .where(Payment.status == "approved").group_by(Payment.user_id))).all())
         ever = await _sets(s) if days is not None else None
+        cost = await costs.summary(s, a, b)
 
     new_ids = {u[0] for u in users}
     app_ev = [e for e in events if e[1] == "app"]
@@ -233,6 +237,10 @@ async def collect(a: datetime, b: datetime, days: list[date] | None = None) -> d
             "spent": sum(-t[1] for t in spend), "buyers": len({t[0] for t in spend}),
             "refunds": by_kind["refund"][1], "admin": by_kind["admin"][1] + by_kind["bonus"][1],
         },
+        # bizning tashqi xarajatimiz (ElevenLabs, Claude) — taxminiy, admin kiritgan narxlar bo'yicha
+        "costs": {"total": cost["total"], "song": cost["song"], "other": cost["other"],
+                  "demo_n": cost["demo_n"], "demo_som": cost["demo_som"],
+                  "song_profit": by_kind["song"][1] - cost["song"]},
     }
     if ever is not None:
         cohort = new_ids
@@ -370,6 +378,36 @@ async def spend_report(frm: str | None = Query(None, alias="from"), to: str | No
                           "gift_life": int(gifts.get(i) or 0)} for i, v in per_user.items() if i in users], key=lambda r: -r["spent"]),
         "items": items[::-1][:300],
     }
+
+
+@router.get("/costs")
+async def costs_report(frm: str | None = Query(None, alias="from"), to: str | None = None, uid: int = Depends(admin_uid)):
+    """Taxminiy tashqi xarajatlar: nima uchun, qancha (soniya/token/kredit) va so'mda; qo'shiqlar o'zini oqlayaptimi."""
+    d1, d2 = parse_range(frm, to)
+    a, b = utc_of(d1), utc_of(d2 + timedelta(days=1))
+    r = await costs.rates()
+    async with Session() as s:
+        sm = await costs.summary(s, a, b, r)
+        sold = (await s.execute(select(func.count(), func.coalesce(func.sum(-BalanceTx.amount), 0)).where(
+            BalanceTx.kind == "song", BalanceTx.created_at >= a, BalanceTx.created_at < b))).one()
+        created = await s.scalar(select(func.count()).select_from(Song).where(Song.created_at >= a, Song.created_at < b))
+    revenue = int(sold[1] or 0)
+    return {"from": d1.isoformat(), "to": d2.isoformat(), "rates": r, **sm,
+            "songs": {"created": created or 0, "sold": sold[0], "revenue": revenue, "cost": sm["song"], "profit": revenue - sm["song"],
+                      "cost_per_sold": round(sm["song"] / sold[0]) if sold[0] else 0}}
+
+
+class CostRatesIn(BaseModel):
+    usd_som: float | None = None
+    credits_per_sec: float | None = None
+    usd_per_1k_credits: float | None = None
+    ai_in_per_m: float | None = None
+    ai_out_per_m: float | None = None
+
+
+@router.post("/costs/rates")
+async def costs_rates(body: CostRatesIn, uid: int = Depends(admin_uid)):
+    return {"rates": await costs.save_rates(body.model_dump())}
 
 
 @router.get("/overview")
@@ -1146,7 +1184,8 @@ def _csv(name: str, header: list[str], rows) -> Response:
     buf.write("﻿")  # Excel o'zbekcha harflarni to'g'ri ochishi uchun
     w = csv.writer(buf, delimiter=";")
     w.writerow(header)
-    w.writerows(rows)
+    # foydalanuvchi kiritgan matn Excel'da formula bo'lib ishlamasin (=, +, -, @ bilan boshlansa)
+    w.writerows([[f"'{v}" if isinstance(v, str) and v[:1] in ("=", "+", "-", "@", "\t", "\r") else v for v in row] for row in rows])
     return Response(buf.getvalue(), media_type="text/csv; charset=utf-8",
                     headers={"Content-Disposition": f'attachment; filename="{name}"'})
 

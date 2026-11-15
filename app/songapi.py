@@ -6,7 +6,7 @@ from fastapi import APIRouter, Header, HTTPException
 from pydantic import BaseModel, Field
 from sqlalchemy import select
 
-from . import songs
+from . import billing, costs, songs
 from .config import settings
 from .db import Session, Site, Song, User, utcnow
 from .webapp import _rate_limit, check_init_data
@@ -122,6 +122,10 @@ async def song_create(body: SongIn, x_init_data: str = Header("")):
         raise HTTPException(502, "Hozir she'r yozib bo'lmadi, qayta urinib ko'ring")
     async with Session() as s:
         s.add(song)
+        await s.flush()
+        row = costs.ai_row(getattr(song, "_lyrics_usage", None), "lyrics", uid, f"song:{song.id}")
+        if row is not None:
+            s.add(row)
         await s.commit()
         await s.refresh(song)
     return song_out(song)
@@ -139,7 +143,7 @@ async def song_lyrics(song_id: int, body: LyricsIn, x_init_data: str = Header(""
     async with Session() as s:
         song = await _own(s, song_id, uid)
         if song.paid or song.status in ("preview_queued", "preview_gen"):
-            raise HTTPException(409, "Qo'shiq yaratilgandan keyin matnni o'zgartirib bo'lmaydi")
+            raise HTTPException(409, "Qo'shiq tayyorlangandan keyin matnni o'zgartirib bo'lmaydi")
         if body.instruction:
             _rate_limit(user)
             _lyrics_quota(uid)
@@ -149,6 +153,9 @@ async def song_lyrics(song_id: int, body: LyricsIn, x_init_data: str = Header(""
                 log.exception("Qo'shiq matnini qayta yozib bo'lmadi")
                 raise HTTPException(502, "Hozir she'r yozib bo'lmadi, qayta urinib ko'ring")
             song.title, song.lyrics, song.tags = title, text, tags or song.tags
+            row = costs.ai_row(getattr(song, "_lyrics_usage", None), "lyrics_edit", uid, f"song:{song.id}")
+            if row is not None:
+                s.add(row)
         elif body.text is not None:
             sections = songs.parse_lyrics(body.text)
             try:
@@ -158,7 +165,7 @@ async def song_lyrics(song_id: int, body: LyricsIn, x_init_data: str = Header(""
             song.lyrics = songs.render_lyrics(sections)
         if body.title:
             song.title = body.title.strip()
-        # matn o'zgardi — eski namuna va yaratilgan variant endi mos emas
+        # matn o'zgardi — eski namuna va tayyorlangan variant endi mos emas
         song.preview, song.variants, song.plan, song.status, song.error, song.updated_at = "", [], {}, "lyrics", "", utcnow()
         await s.commit()
         return song_out(song)
@@ -168,6 +175,7 @@ async def song_lyrics(song_id: int, body: LyricsIn, x_init_data: str = Header(""
 async def song_preview(song_id: int, x_init_data: str = Header("")):
     uid, _ = _uid(x_init_data)
     async with Session() as s:
+        await billing.lock_user(s, uid)  # bir vaqtdagi so'rovlar bilan bepul namunani oshirib bo'lmasin
         song = await _own(s, song_id, uid)
         if song.paid or song.preview or song.status != "lyrics":
             return song_out(song)
@@ -223,7 +231,7 @@ async def song_pay(song_id: int, x_init_data: str = Header("")):
 
 @router.post("/api/songs/{song_id}/retry")
 async def song_retry(song_id: int, x_init_data: str = Header("")):
-    """To'langan, lekin xato bilan tugagan qo'shiqni qayta yaratish."""
+    """To'langan, lekin xato bilan tugagan qo'shiqni qayta tayyorlash."""
     uid, _ = _uid(x_init_data)
     async with Session() as s:
         song = await _own(s, song_id, uid)

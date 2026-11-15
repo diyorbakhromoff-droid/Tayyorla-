@@ -7,6 +7,7 @@ import asyncio
 import os
 import tempfile
 from datetime import timedelta
+from types import SimpleNamespace
 
 os.environ["DATABASE_URL"] = f"sqlite+aiosqlite:///{tempfile.mkdtemp()}/admin.db"
 os.environ["BOT_TOKEN"] = "123456:TEST"
@@ -200,6 +201,20 @@ async def main() -> None:
     assert gani["spent"] == 59000 and gani["real"] == 9900 and gani["gift"] == 49100 and gani["gift_life"] == 60000 and gani["paid_life"] == 9900
     last = rep["items"][0]
     assert last["kind"] == "upgrade" and last["real"] == 9900 and last["user"] == "Gani" and last["title"]
+    # taxminiy xarajatlar: 1 demo (120 s musiqa) + she'r (Claude), narxlar admin paneldan o'zgaradi
+    from app import costs
+    async with Session() as s:
+        s.add_all([costs.music_row(120, "song_preview", 3, "song:77"), costs.ai_row(SimpleNamespace(input_tokens=2000, output_tokens=3000), "lyrics", 3, "song:77")])
+        await s.commit()
+    rep = await admin.costs_report(frm=d, to=d, uid=999)
+    r = rep["rates"]
+    want_music = round(120 * r["credits_per_sec"] / 1000 * r["usd_per_1k_credits"] * r["usd_som"])
+    assert rep["demo_n"] == 1 and rep["demo_som"] == want_music and rep["songs"]["cost"] == rep["song"] > want_music
+    await admin.costs_rates(admin.CostRatesIn(usd_per_1k_credits=0.5, usd_som=-5), uid=999)
+    rep2 = await admin.costs_report(frm=d, to=d, uid=999)
+    assert rep2["rates"]["usd_per_1k_credits"] == 0.5 and rep2["rates"]["usd_som"] == 1000 and rep2["demo_som"] != rep["demo_som"]
+    ov2 = await admin.overview(frm=d, to=d, uid=999)
+    assert ov2["cur"]["costs"]["song"] == rep2["song"]
     print("✅ Admin paneli tekshiruvlari o'tdi")
 
 

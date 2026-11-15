@@ -16,7 +16,7 @@
       <p style="opacity:.8">{{ hint or "Sahifani ochish uchun faqat ikkimiz biladigan so'zni yoz" }}</p>
       <input name="password" required autofocus placeholder="Maxfiy so'z"
              style="width:100%;padding:14px 16px;border-radius:14px;border:1.5px solid var(--accent);font:16px Montserrat;margin:8px 0 14px;background:var(--bg);color:var(--text)">
-      {% if error %}<p style="color:#d33;margin:0 0 12px">Noto'g'ri 🙈 Yana o'ylab ko'r</p>{% endif %}
+      {% if error == "2" %}<p style="color:#d33;margin:0 0 12px">Juda ko'p urinish ⏳ 15 daqiqadan so'ng qayta urinib ko'r</p>{% elif error %}<p style="color:#d33;margin:0 0 12px">Noto'g'ri 🙈 Yana o'ylab ko'r</p>{% endif %}
       <button class="btn" style="width:100%">Ochish ♥</button>
     </form>
   </section>

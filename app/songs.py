@@ -3,8 +3,8 @@
 Oqim:
   1. Foydalanuvchi kimga, qaysi munosabat bilan, uslub va savollarga javob beradi -> Claude o'zbekcha qo'shiq matnini yozadi.
   2. Matnni ko'radi, o'zgartiradi yoki AI dan qayta yozdiradi.
-  3. Namuna: 1-variant to'liq yaratiladi (yopiq papkada), foydalanuvchiga faqat naqoratdan 20 soniya beriladi.
-  4. To'lov: 2-variant yaratiladi, ikkala to'liq qo'shiq /media ga chiqadi, bot orqali yuboriladi, bittasini tanlaydi.
+  3. Namuna: 1-variant to'liq tayyorlanadi (yopiq papkada), foydalanuvchiga faqat naqoratdan 20 soniya beriladi.
+  4. To'lov: 2-variant tayyorlanadi, ikkala to'liq qo'shiq /media ga chiqadi, bot orqali yuboriladi, bittasini tanlaydi.
 Qo'shiqlar /media/ ichida tekis nomda saqlanadi — sayt fon musiqasi va video uchun to'g'ridan-to'g'ri ishlatiladi.
 """
 
@@ -20,7 +20,7 @@ from pathlib import Path
 import aiohttp
 from sqlalchemy import func, select
 
-from . import billing
+from . import billing, costs
 from .config import MEDIA_DIR, ROOT, settings
 from .db import Event, Session, Site, Song, User, utcnow
 
@@ -91,7 +91,7 @@ DEMO_DIR = ROOT / "static" / "songs" / "demo"
 
 
 def demos() -> dict[str, str]:
-    """Har uslub uchun tayyor namuna (bir marta yaratilgan, hamma uchun bepul): {uslub: url}."""
+    """Har uslub uchun tayyor namuna (bir marta tayyorlangan, hamma uchun bepul): {uslub: url}."""
     return {k: f"/static/songs/demo/{k}.mp3" for k in STYLES if (DEMO_DIR / f"{k}.mp3").is_file()}
 
 
@@ -244,6 +244,7 @@ async def write_lyrics(song: Song, instruction: str = "") -> tuple[str, str, lis
         system=LYRICS_SYSTEM,
         messages=[{"role": "user", "content": prompt}],
     )
+    song._lyrics_usage = resp.usage  # chaqiruvchi xarajat jurnaliga yozadi (app/costs.py)
     out = json.loads(ai._text(resp))
     sections = [{"kind": s["kind"], "lines": [ln.strip()[:200] for ln in s["lines"] if ln.strip()]} for s in out["sections"]]
     tags = [re.sub(r"[^\w\s,&'-]", "", t)[:60] for t in out.get("tags", []) if t.strip()][:6]
@@ -264,7 +265,7 @@ async def compose(plan: dict) -> bytes:
             if r.status == 200:
                 data = await r.read()
                 if len(data) < 10_000:
-                    raise SongError("Qo'shiq yaratilmadi, qayta urinib ko'ring.")
+                    raise SongError("Qo'shiq tayyorlanmadi, qayta urinib ko'ring.")
                 return data
             body = (await r.text())[:2000]
             log.warning("ElevenLabs music %s: %s", r.status, body)
@@ -276,7 +277,7 @@ async def compose(plan: dict) -> bytes:
                 _CREDITS.update(at=0.0, data=None)  # keyingi tekshiruv yangidan o'qisin
                 _ALERT["at"] = 0.0                  # adminga darhol ogohlantirish
                 raise QuotaError("Qo'shiq xizmati vaqtincha band. Birozdan so'ng qayta urinib ko'ring — buyurtmangiz saqlanib qoladi.")
-            raise SongError("Qo'shiq yaratishda xato bo'ldi, qayta urinib ko'ring.")
+            raise SongError("Qo'shiq tayyorlashda xato bo'ldi, qayta urinib ko'ring.")
 
 
 def cut_preview(src: Path, dst: Path, start_ms: int, seconds: int) -> None:
@@ -333,7 +334,7 @@ async def refund_preview(s, song: Song) -> None:
 
 
 def credits_needed(song: Song, variants: int) -> int:
-    """Qo'shiq yaratish uchun taxminiy kredit: sinovda 100 s ≈ 1500 kredit."""
+    """Qo'shiq tayyorlash uchun taxminiy kredit: sinovda 100 s ≈ 1500 kredit."""
     plan, _, _ = build_plan(parse_lyrics(song.lyrics), song.style, song.voice, song.tags or [])
     seconds = sum(c["duration_ms"] for c in plan["chunks"]) / 1000
     return int(seconds * 15 * variants) + 100
@@ -354,7 +355,7 @@ async def previews_today(s) -> int:
 
 
 async def pay(s, song: Song, uid: int) -> bool:
-    """Balansdan to'laydi va to'liq yaratishni navbatga qo'yadi. Yetmasa False."""
+    """Balansdan to'laydi va to'liq tayyorlashni navbatga qo'yadi. Yetmasa False."""
     if song.paid:
         return True
     price = await price_for(s, uid)
@@ -423,10 +424,12 @@ def wake() -> None:
     _wake.set()
 
 
-async def _generate_variant(song: Song) -> Path:
+async def _generate_variant(s, song: Song, purpose: str) -> Path:
     sections = parse_lyrics(song.lyrics)
     plan, chorus_at, chorus_len = build_plan(sections, song.style, song.voice, song.tags or [])
     data = await compose(plan)
+    # ElevenLabs har bir tayyorlash uchun to'liq qo'shiq narxini oladi (namuna ham to'liq qo'shiqdan kesiladi)
+    s.add(costs.music_row(sum(c["duration_ms"] for c in plan["chunks"]) / 1000, purpose, song.owner_id, f"song:{song.id}"))
     PRIVATE_DIR.mkdir(parents=True, exist_ok=True)
     path = PRIVATE_DIR / f"{song.id}-{len(song.variants or [])}-{secrets.token_hex(4)}.mp3"
     path.write_bytes(data)
@@ -443,13 +446,13 @@ async def process(song_id: int, bot=None) -> None:
         mode = song.status
         try:
             if mode == "preview_gen":
-                path = Path(song.variants[0]["private"]) if song.variants else await _generate_variant(song)
+                path = Path(song.variants[0]["private"]) if song.variants else await _generate_variant(s, song, "song_preview")
                 dst = MEDIA_DIR / _public_name("songp")
                 await asyncio.to_thread(cut_preview, path, dst, song.plan.get("_chorus_at", 0), settings.song_preview_seconds)
                 song.preview, song.status = f"/media/{dst.name}", "preview_ready"
             else:
                 while len(song.variants or []) < 2:
-                    await _generate_variant(song)
+                    await _generate_variant(s, song, "song_full")
                 variants = []
                 for v in song.variants:
                     if not v.get("file"):
@@ -465,8 +468,8 @@ async def process(song_id: int, bot=None) -> None:
             if isinstance(e, SongError):
                 song.error = str(e)[:255]
             else:
-                log.exception("Qo'shiq yaratishda kutilmagan xato: %s", song_id)
-                song.error = "Qo'shiq yaratishda xato bo'ldi, qayta urinib ko'ring."
+                log.exception("Qo'shiq tayyorlashda kutilmagan xato: %s", song_id)
+                song.error = "Qo'shiq tayyorlashda xato bo'ldi, qayta urinib ko'ring."
             if mode == "preview_gen":
                 song.previews = max(0, (song.previews or 0) - 1)  # muvaffaqiyatsiz namuna bepul hisobdan qaytariladi
                 await refund_preview(s, song)
@@ -487,7 +490,7 @@ async def process(song_id: int, bot=None) -> None:
 
 
 async def worker(bot=None) -> None:
-    """Navbatdagi qo'shiqlarni yaratadi. Qayta ishga tushganda yarim qolganlarini davom ettiradi."""
+    """Navbatdagi qo'shiqlarni tayyorlaydi. Qayta ishga tushganda yarim qolganlarini davom ettiradi."""
     async with Session() as s:
         for song in (await s.execute(select(Song).where(Song.status.in_(("preview_gen", "paid_gen"))))).scalars().all():
             song.status = song.status.replace("_gen", "_queued")

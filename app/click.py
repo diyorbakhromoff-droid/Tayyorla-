@@ -12,6 +12,7 @@ import logging
 from urllib.parse import urlencode
 
 from fastapi import APIRouter, Request
+from sqlalchemy import update
 from fastapi.responses import JSONResponse
 
 from . import billing
@@ -123,9 +124,15 @@ async def complete(request: Request):
             p.status, p.decided_at = "cancelled", utcnow()
             await s.commit()
             return _answer(f, CANCELLED)
-        p.status, p.decided_at = "approved", utcnow()
+        # Click so'rovni qayta yuborsa ham (bir vaqtda ikki complete) pul faqat bir marta tushadi
+        res = await s.execute(update(Payment).where(Payment.id == p.id, Payment.status.in_(("new", "pending")))
+                              .values(status="approved", decided_at=utcnow()).execution_options(synchronize_session=False))
+        if res.rowcount != 1:
+            await s.rollback()
+            return _answer(f, PAID)
         await billing.credit(s, p.user_id, p.amount, "topup", f"pay:{p.id}")
         await s.commit()
+        await s.refresh(p)
         user = await s.get(User, p.user_id)
     log.info("Click to'lovi: #%s, %s so'm, foydalanuvchi %s", p.id, p.amount, p.user_id)
     try:

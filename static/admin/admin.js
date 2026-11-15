@@ -14,8 +14,10 @@
   // ---------------------------------------------------------------- kirish
   try {
     const t = new URLSearchParams(location.search).get("t");
-    if (t) { localStorage.setItem("adm_t", t); history.replaceState(null, "", location.pathname + location.hash); }
-    S.token = localStorage.getItem("adm_t") || "";
+    // kalit faqat shu oynada saqlanadi (sessionStorage): boshqa sahifalar yoki keyingi ochilishda qolmaydi
+    try { localStorage.removeItem("adm_t"); } catch (e) { /* eski versiyadan qolgan */ }
+    if (t) { sessionStorage.setItem("adm_t", t); history.replaceState(null, "", location.pathname + location.hash); }
+    S.token = sessionStorage.getItem("adm_t") || "";
   } catch (e) { S.token = new URLSearchParams(location.search).get("t") || ""; }
   if (tg) {
     tg.ready(); tg.expand();
@@ -33,7 +35,7 @@
     if (!r.ok) {
       let msg = `Xato ${r.status}`;
       try { const j = await r.json(); msg = typeof j.detail === "string" ? j.detail : msg; } catch (e) { /* matn emas */ }
-      if (r.status === 401 || r.status === 403) { try { localStorage.removeItem("adm_t"); } catch (e) { /* */ } }
+      if (r.status === 401 || r.status === 403) { try { sessionStorage.removeItem("adm_t"); } catch (e) { /* */ } }
       const err = new Error(msg); err.status = r.status; throw err;
     }
     return r.json();
@@ -247,11 +249,13 @@
           ${kpi(c.songs.sold, "Sotildi", som(c.songs.sold_sum), p.songs ? p.songs.sold : 0)}
           ${kpi(c.songs.created - c.songs.paid_of_created, "Yozildi, ammo sotib olinmadi", `konversiya ${c.songs.conv}%`, p.songs ? p.songs.created - p.songs.paid_of_created : 0, { invert: true })}
           ${kpi(c.songs.failed, "Xato bilan tugagan", "qayta urinish kerak", p.songs ? p.songs.failed : 0, { invert: true })}
+          ${c.costs ? kpi(c.costs.song_profit, "Qo'shiqdan sof natija", `sotuv ${som(c.songs.sold_sum)} − xarajat ${som(c.costs.song)} · ${fmt(c.costs.demo_n)} ta demo`, p.costs ? p.costs.song_profit : 0, { money: true, open: "costs" }) : ""}
         </div></div>` : ""}
         <div class="group"><h2><i></i>Pul</h2><div class="kpis">
           ${kpi(c.money.topup, "Tushum", `${fmt(c.money.topups)} ta to'lov · o'rtacha ${som(c.money.avg_check)}`, p.money.topup, { money: true })}
           ${kpi(c.money.payers, "To'lov qilganlar", `${fmt(c.money.new_payers)} tasi birinchi marta`, p.money.payers)}
           ${kpi(c.money.spent, "Xizmatlarga sarflandi", `${fmt(c.money.buyers)} xaridor`, p.money.spent, { money: true, open: "spend" })}
+          ${c.costs ? kpi(c.costs.total, "Taxminiy xarajat (AI va musiqa)", `qo'shiqlar ${som(c.costs.song)} · matnlar ${som(c.costs.other)}`, p.costs ? p.costs.total : 0, { money: true, invert: true, open: "costs" }) : ""}
           ${kpi(c.money.refunds, "Qaytarilgan", c.money.admin ? `admin tuzatishlari: ${som(c.money.admin)}` : "video tayyorlanmaganda", p.money.refunds, { money: true, invert: true })}
         </div></div>
       </div></section>
@@ -262,7 +266,8 @@
         <div class="chart-card funnel">${funnel(c.funnel)}</div></section>`;
     bindPeriod(main(), render);
     $$("[data-go]").forEach((b) => (b.onclick = () => go(b.dataset.go)));
-    $$("[data-kpi=spend]").forEach((b) => { b.onclick = () => spendSheet(); b.onkeydown = (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); spendSheet(); } }; });
+    const SHEETS = { spend: () => spendSheet(), costs: () => costsSheet() };
+    $$("[data-kpi]").forEach((b) => { const open = SHEETS[b.dataset.kpi]; if (!open) return; b.onclick = open; b.onkeydown = (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(); } }; });
     const drawChart = () => {
       const m = METRICS.find((x) => x[0] === S.metric);
       const vals = c.series[S.metric];
@@ -530,6 +535,37 @@
         <td class="r num">${som(i.amount)}<span class="sub">${src(i.real, i.amount)}</span></td></tr>`))}
         ${d.count > d.items.length ? `<p class="muted" style="font-size:12px">Oxirgi ${d.items.length} ta xarid ko'rsatildi.</p>` : ""}</section>`;
     $$("[data-user]", $("#sheet")).forEach((b) => (b.onclick = () => userSheet(+b.dataset.user)));
+  }
+  // Taxminiy tashqi xarajatlar (ElevenLabs musiqasi, Claude) va qo'shiqlar o'zini oqlayaptimi
+  const RATE_FIELDS = [["usd_som", "1 dollar, so'm", "1"], ["credits_per_sec", "1 soniya musiqa, kredit", "0.1"], ["usd_per_1k_credits", "1000 kredit narxi, $", "0.01"],
+    ["ai_in_per_m", "Claude: 1 mln kirish tokeni, $", "0.1"], ["ai_out_per_m", "Claude: 1 mln chiqish tokeni, $", "0.1"]];
+  async function costsSheet() {
+    sheet(`<p class="boot">Yuklanmoqda…</p>`);
+    let d;
+    try { d = await api(`/api/admin/costs?${qs()}`); } catch (e) { $("#sheet-body").innerHTML = `<p class="note">${esc(e.message)}</p>`; return; }
+    const g = d.songs, good = g.profit >= 0;
+    const vol = (i) => (i.kind === "music" ? `${fmt(i.units_in)} s · ${fmt(i.credits)} kredit` : `${fmt(i.units_in + i.units_out)} token`);
+    $("#sheet-body").innerHTML = `
+      <h2 class="big" id="sheet-title">Taxminiy xarajatlar</h2>
+      <p class="muted">${periodLabel()} · ElevenLabs musiqasi va Claude (she'r, taklifnoma matni, tarjima)</p>
+      <section><h3>Qo'shiqlar o'zini oqlayaptimi?</h3><div class="stat-line">
+        <div><b>${som(g.revenue)}</b><span>${fmt(g.sold)} ta qo'shiq sotildi</span></div>
+        <div><b>${som(g.cost)}</b><span>qo'shiqlarga xarajat (demolar ham)</span></div>
+        <div><b class="${good ? "c-good" : "c-bad"}">${good ? "+" : "−"}${som(Math.abs(g.profit))}</b><span>${good ? "foyda" : "zarar"}</span></div></div>
+        <p class="muted" style="font-size:12.5px;margin-top:8px">${fmt(g.created)} ta she'r yozildi · ${fmt(d.demo_n)} ta demo yaratildi (o'rtacha ${som(d.demo_avg)} dan)${g.sold ? ` · bitta sotilgan qo'shiqqa ${som(g.cost_per_sold)} xarajat to'g'ri keladi` : ""}.
+          Muhim: har bir demo uchun ElevenLabs to'liq qo'shiq yaratadi va undan ${"20"} soniya kesib olinadi, shuning uchun demo deyarli to'liq qo'shiq narxida.</p></section>
+      <section><h3>Nimaga ketdi</h3>${table(["Xarajat", ">So'm"], d.items.map((i) => `<tr><td>${esc(i.label)}<span class="sub">${fmt(i.n)} ta · ${vol(i)}</span></td>
+        <td class="r num">${som(i.som)}</td></tr>`), "Bu davrda xarajat yo'q")}
+        <p style="margin-top:8px">Jami: <b>${som(d.total)}</b> · shundan qo'shiqlar ${som(d.song)}, boshqa matnlar ${som(d.other)}</p></section>
+      <section><h3>Narxlar</h3><p class="muted" style="font-size:12.5px">Xarajat har bir so'rovning haqiqiy hajmidan (soniya, token) shu narxlar bilan hisoblanadi.
+        Narxni o'zgartirsangiz eski yozuvlar ham qayta hisoblanadi. 1000 kredit narxini ElevenLabs tarifingizdan oling (masalan, $22 / 100 000 kredit = $0.22).</p>
+        <form class="form" id="rates"><div class="fields">${RATE_FIELDS.map(([k, l, st]) => `<label class="f">${l}<input class="in" name="${k}" type="number" step="${st}" min="0" value="${d.rates[k]}"></label>`).join("")}</div>
+        <div><button class="btn primary" type="submit">Saqlash</button></div></form></section>`;
+    $("#rates").onsubmit = async (e) => {
+      e.preventDefault(); const fd = new FormData(e.target);
+      try { await api("/api/admin/costs/rates", Object.fromEntries(RATE_FIELDS.map(([k]) => [k, +fd.get(k)]))); toast("Narxlar saqlandi"); costsSheet(); }
+      catch (err) { toast(err.message, true); }
+    };
   }
   async function userSheet(id) {
     sheet(`<p class="boot">Yuklanmoqda…</p>`);

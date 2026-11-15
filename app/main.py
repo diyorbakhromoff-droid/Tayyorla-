@@ -53,7 +53,7 @@ async def main() -> None:
     webapp.on_referral = on_referral
     if settings.base_url.startswith("https://"):
         # Mini App faqat HTTPS da ishlaydi
-        await bot.set_chat_menu_button(menu_button=MenuButtonWebApp(text="✨ Yaratish", web_app=WebAppInfo(url=f"{settings.base_url}/app")))
+        await bot.set_chat_menu_button(menu_button=MenuButtonWebApp(text="✨ Tayyorlash", web_app=WebAppInfo(url=f"{settings.base_url}/app")))
     commands = [
         BotCommand(command="start", description="Bosh menyu"),
         BotCommand(command="yaqinlar", description="Yaqinlarim kalendari"),
@@ -71,7 +71,8 @@ async def main() -> None:
         except Exception:
             logging.warning("Admin buyruqlarini o'rnatib bo'lmadi: %s", admin_id)
 
-    server = uvicorn.Server(uvicorn.Config(web.app, host=settings.host, port=settings.port, log_level="info"))
+    server = uvicorn.Server(uvicorn.Config(web.app, host=settings.host, port=settings.port, log_level="info",
+                                           proxy_headers=True, forwarded_allow_ips="*")  # haqiqiy IP Caddy dan (app porti tashqariga ochilmagan))
     await asyncio.gather(server.serve(), dp.start_polling(bot), reminder_loop(bot), songs.worker(bot), nudges.loop(bot))
 
 

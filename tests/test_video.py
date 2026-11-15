@@ -340,6 +340,17 @@ async def main():
     assert video.resolve_lang("auto", {"kuyov": "Jasur"}, "en") == "en"
     assert video.resolve_lang("auto", {"matn": "Тӯйи мо"}, "uz") == "tg"
     assert video.resolve_lang("kk", {"kuyov": "Jasur"}, "ru") == "kk"
+    # paketni qayta ishlatib bo'lmaydi: video olgan mehmonlarni o'chirib, 12 yangisini qo'shsa — 4 + 12 = 16 kishi,
+    # 15 lik paket yetmaydi, 40 lik paket farqi so'raladi (avval 0 so'm edi). Oxirgi mehmon qoldiriladi:
+    # SQLite eng katta id o'chsa uni qayta beradi (PostgreSQL bermaydi)
+    async with Session() as s:
+        sid_ = (await s.execute(select(Site.id).where(Site.slug == slug))).scalar_one()
+        old_guests = (await s.execute(select(Guest).where(Guest.site_id == sid_).order_by(Guest.id))).scalars().all()
+    for g in old_guests[:-1]:
+        await events.guest_delete(slug, g.id, U)
+    await videoapi_add_guests(slug, "\n".join(f"Mehmon {i}" for i in range(12)))
+    st, detail = await code(events.guest_videos(slug, U))
+    assert st == 402 and detail["package"] == 40 and detail["need"] == 69000 - 39000, (st, detail)
     print("✅ Video, balans va tadbir tekshiruvlari o'tdi")
 
 

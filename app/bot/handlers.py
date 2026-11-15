@@ -448,7 +448,7 @@ async def my_sites(event: Message | CallbackQuery, state: FSMContext):
         sites = (await s.execute(select(Site).where(Site.owner_id == event.from_user.id, Site.kind == "site")
                                  .order_by(Site.id.desc()).limit(10))).scalars().all()
     if not sites:
-        await message.answer("Sizda hali sayt yo'q. Keling, birinchisini yaratamiz! 👇", reply_markup=kb.main_menu())
+        await message.answer("Sizda hali sayt yo'q. Keling, birinchisini tayyorlaymiz! 👇", reply_markup=kb.main_menu())
     for site in sites:
         await message.answer(site_card(site), reply_markup=kb.site_actions(site))
     if isinstance(event, CallbackQuery):
@@ -516,6 +516,11 @@ async def edit_request(message: Message, state: FSMContext):
     if site.edits_used >= settings.max_edits:
         await state.clear()
         return await message.answer("Bepul tahrirlar soni tugadi 🙏", reply_markup=kb.site_actions(site))
+    try:  # Mini App bilan umumiy soatlik AI limiti (Claude xarajati cheksiz o'smasin)
+        from ..webapp import _rate_limit
+        _rate_limit({"id": message.from_user.id})
+    except Exception:
+        return await message.answer("⏳ Juda ko'p so'rov. Birozdan so'ng qayta urinib ko'ring.", reply_markup=kb.edit_mode())
     wait = await message.answer("🪄 O'zgartiryapman, bir oz kuting...")
     await message.bot.send_chat_action(message.chat.id, ChatAction.TYPING)
     try:

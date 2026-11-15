@@ -44,7 +44,7 @@ async def admin_panel(message: Message):
     if not is_admin(message.from_user.id):
         return
     url = f"{settings.base_url}/admin"
-    link = f"{url}?t={make_token(message.from_user.id, hours=24)}"
+    link = f"{url}?t={make_token(message.from_user.id, hours=12)}"
     if not settings.base_url.startswith("https://"):
         return await message.answer(f"📊 Admin panel: {link}")
     markup = InlineKeyboardMarkup(inline_keyboard=[

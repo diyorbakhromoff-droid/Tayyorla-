@@ -120,7 +120,27 @@ async def show(slug: str, request: Request):
 
 
 REACT_EMOJI = ("❤️", "🥹", "🥰", "🤗", "🔥")
-_reacts: dict[str, deque] = defaultdict(deque)
+_hits: dict[str, deque] = defaultdict(deque)
+
+
+def _ip(request: Request) -> str:
+    client = getattr(request, "client", None)
+    return client.host if client else ""
+
+
+def too_many(key: str, limit: int, window: int = 3600) -> bool:
+    """Oddiy xotiradagi limit: `window` soniyada `limit` tadan ko'p urinish bo'lsa True."""
+    now = time.time()
+    if len(_hits) > 50_000:  # xotira cheksiz o'smasin: eskilarini tozalaymiz
+        for k in [k for k, q in _hits.items() if not q or now - q[-1] > 3600]:
+            _hits.pop(k, None)
+    calls = _hits[key]
+    while calls and now - calls[0] > window:
+        calls.popleft()
+    if len(calls) >= limit:
+        return True
+    calls.append(now)
+    return False
 
 
 def with_react_widget(page: str, site) -> str:
@@ -141,18 +161,13 @@ class ReactIn(BaseModel):
 async def react(slug: str, data: ReactIn, request: Request):
     if data.emoji not in REACT_EMOJI:
         raise HTTPException(400)
-    # Bitta qurilmadan bitta saytga soatiga 5 tagacha javob
-    calls = _reacts[f"{slug}:{request.client.host if request.client else ''}"]
-    now = time.time()
-    while calls and now - calls[0] > 3600:
-        calls.popleft()
-    if len(calls) >= 5:
-        raise HTTPException(429)
-    calls.append(now)
     async with Session() as s:
         site = await get_site(s, slug)
         if not site or not site.paid:
             raise HTTPException(404)
+        # bitta qurilmadan bitta saytga soatiga 5 tagacha javob (sayt topilgandan keyin — soxta manzillar xotirani to'ldirmasin)
+        if too_many(f"r:{slug}:{_ip(request)}", 5):
+            raise HTTPException(429)
         msg = " ".join(data.message.split())
         s.add(Reaction(site_id=site.id, emoji=data.emoji, message=msg))
         await s.commit()
@@ -166,11 +181,14 @@ async def react(slug: str, data: ReactIn, request: Request):
 
 
 @app.post("/s/{slug}/unlock")
-async def unlock(slug: str, password: str = Form(...)):
+async def unlock(slug: str, request: Request, password: str = Form(..., max_length=200)):
     async with Session() as s:
         site = await get_site(s, slug)
     if not site:
         raise HTTPException(404)
+    # parolni terib topishning oldini olish: bitta qurilmadan 15 daqiqada 10 ta urinish
+    if too_many(f"u:{slug}:{_ip(request)}", 10, 900):
+        return RedirectResponse(f"/s/{slug}?e=2", status_code=303)
     real = site.config.get("fields", {}).get("password") or ""
     if _norm(password) != _norm(real):
         return RedirectResponse(f"/s/{slug}?e=1", status_code=303)
@@ -212,14 +230,21 @@ async def save_rsvp(site, name: str, going: bool, guests: int, note: str, token:
         await notify(site.owner_id, f"{icon} <b>{html.escape(name)}</b>{extra} — {'keladi' if going else 'kela olmaydi'}{tail}")
 
 
+def rsvp_spam(slug: str, request: Request) -> bool:
+    """Bitta qurilmadan bitta saytga soatiga 20 ta, bitta saytga jami soatiga 600 ta javob."""
+    return too_many(f"v:{slug}:{_ip(request)}", 20) or too_many(f"vs:{slug}", 600)
+
+
 @app.post("/s/{slug}/rsvp")
-async def rsvp(slug: str, data: RsvpIn):
+async def rsvp(slug: str, data: RsvpIn, request: Request = None):
     async with Session() as s:
         site = await get_site(s, slug)
     if not site or not accepts_rsvp(site):
         raise HTTPException(404)
     if site.kind != "video" and not site.paid:
         return {"ok": True}  # namunada mehmon javoblari saqlanmaydi
+    if rsvp_spam(slug, request):
+        raise HTTPException(429)
     name = " ".join(data.name.split())
     if not name and not data.g:
         raise HTTPException(400, "name_required")
@@ -261,6 +286,8 @@ async def anketa(slug: str, request: Request):
         raise HTTPException(404)
     if not site.paid:
         return {"ok": True}
+    if rsvp_spam(slug, request):
+        raise HTTPException(429)
     name = " ".join(str(data.get("ism") or "").split())[:100] or "Mehmon"
     going = data.get("keladi") == "ha"
     answers, guests = anketa_answers(data)

@@ -104,6 +104,18 @@ async def main() -> None:
         assert (await post("prepare", form(3, "9900.00", trans="9201"))).json()["error"] == -9
         async with Session() as s:
             assert (await s.get(Payment, 3)).status == "cancelled" and (await s.get(User, 10)).balance == 29700
+
+        # Click bilan to'langan to'lovni admin qayta tasdiqlay olmaydi (ikki marta hisoblash yo'q)
+        from app.bot.money import decide_payment
+        assert await decide_payment(None, 1, True, 999) == "done"
+        # chek orqali to'lovni ikki admin bir vaqtda tasdiqlasa ham pul bir marta tushadi
+        async with Session() as s:
+            s.add(Payment(id=50, user_id=10, amount=5000, status="pending"))
+            await s.commit()
+        res = await asyncio.gather(*[decide_payment(None, 50, True, 999) for _ in range(3)])
+        assert sorted(res) == ["done", "done", "ok"], res
+        async with Session() as s:
+            assert (await s.get(User, 10)).balance == 29700 + 5000
     print("✅ Click tekshiruvlari o'tdi")
 
 

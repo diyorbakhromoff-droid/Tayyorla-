@@ -91,7 +91,7 @@ def features(category: str, enabled: list[str]) -> InlineKeyboardMarkup:
     kb = InlineKeyboardBuilder()
     for k, title in CATEGORIES[category].features.items():
         kb.button(text=("✅ " if k in enabled else "▫️ ") + title, callback_data=f"feat:{k}")
-    kb.button(text="🚀 Saytni yaratish", callback_data="done")
+    kb.button(text="🚀 Saytni tayyorlash", callback_data="done")
     kb.adjust(1)
     return kb.as_markup()
 

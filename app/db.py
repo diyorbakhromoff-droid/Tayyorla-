@@ -298,6 +298,21 @@ class Setting(Base):
     updated_at: Mapped[datetime] = mapped_column(DateTime, default=utcnow)
 
 
+class CostLog(Base):
+    """Bizning tashqi xarajatimiz jurnali (app/costs.py): ElevenLabs musiqasi soniyalarda, Claude tokenlarda.
+    Pul shu yerda saqlanmaydi — hisobot paytida admin kiritgan joriy narxlar bilan hisoblanadi."""
+    __tablename__ = "cost_log"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    user_id: Mapped[int | None] = mapped_column(BigInteger, nullable=True, index=True)
+    kind: Mapped[str] = mapped_column(String(8), index=True)      # music | ai
+    purpose: Mapped[str] = mapped_column(String(24), index=True)  # song_preview | song_full | lyrics | site_text ...
+    units_in: Mapped[int] = mapped_column(Integer, default=0)     # music: soniya · ai: kirish tokenlari
+    units_out: Mapped[int] = mapped_column(Integer, default=0)    # ai: chiqish tokenlari
+    ref: Mapped[str] = mapped_column(String(40), default="")
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=utcnow, index=True)
+
+
 class NudgeLog(Base):
     """Progrev xabari jurnali: bir qadam bir obyekt uchun bir marta yuboriladi (app/nudges.py)."""
     __tablename__ = "nudge_log"

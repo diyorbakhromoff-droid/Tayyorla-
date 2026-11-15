@@ -1,7 +1,7 @@
 """Progrev: ishni boshlab, oxiriga yetkazmagan foydalanuvchilarga eslatma xabarlari ketma-ketligi.
 
 Uchta ketma-ketlik (ustuvorlik shu tartibda):
-  site — sayt yasagan, lekin to'lamagan (langar: sayt yaratilgan vaqt);
+  site — sayt yasagan, lekin to'lamagan (langar: sayt tayyorlangan vaqt);
   song — qo'shiq boshlagan, lekin sotib olmagan (langar: namuna so'ralgan yoki she'r yozilgan vaqt);
   new  — yangi qo'shilgan va hali hech narsa yasamagan (langar: ro'yxatdan o'tgan vaqt).
 
@@ -76,8 +76,8 @@ DEFAULTS: dict = {
             {"after": 24, "button": "Sayt dizaynlarini ko‘rish", "target": "sites",
              "text": "Yaqiningizni tabriklashning boshqacha yo‘li bor: unga atalgan kichik sayt.\n\nSuratlar, musiqa va sizning so‘zlaringiz bitta "
                      "havolada. Namunasini bepul ko‘rasiz, yoqsa keyin to‘laysiz."},
-            {"after": 72, "button": "Qo‘shiq yaratish", "target": "song",
-             "text": "Yaqiningizning ismi aytiladigan qo‘shiq yaratib ko‘ring 🎵\n\nU haqida bir necha savolga javob berasiz, she’rni biz yozamiz. "
+            {"after": 72, "button": "Qo‘shiq tayyorlash", "target": "song",
+             "text": "Yaqiningizning ismi aytiladigan qo‘shiq tayyorlab ko‘ring 🎵\n\nU haqida bir necha savolga javob berasiz, she’rni biz yozamiz. "
                      "Kuniga {free_songs} ta 20 soniyalik namuna bepul."},
         ]},
     },

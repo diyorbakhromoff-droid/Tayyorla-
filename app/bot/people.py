@@ -75,7 +75,7 @@ async def show_people(message: Message, user_id: int) -> None:
             "📅 <b>Yaqinlarim</b>\n\n"
             "Yaqinlaringizning tug'ilgan kunlari va muhim sanalarini qo'shing — men sizga "
             "<b>7 kun</b>, <b>1 kun</b> oldin va <b>o'sha kuni</b> eslataman. "
-            "Eslatmadan bir bosishda tayyor tabrik sayti yaratasiz 🎁\n\n"
+            "Eslatmadan bir bosishda tabrik sayti tayyorlaysiz 🎁\n\n"
             "Hech qachon muhim kunni unutmaysiz!"
         )
     else:

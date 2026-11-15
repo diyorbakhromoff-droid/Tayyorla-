@@ -1,5 +1,14 @@
 # SITE_ADDRESS .env da beriladi. Domen bo'lmasa ":80" (IP orqali, HTTP).
 # Domen ulangach SITE_ADDRESS=tayyorla.uz qiling: HTTPS sertifikat avtomatik olinadi.
 {$SITE_ADDRESS::80} {
+	# katta so'rovlar bilan diskni/xotirani to'ldirishning oldini olish (rasm 15 MB, audio 20 MB gacha)
+	request_body {
+		max_size 25MB
+	}
+	header {
+		X-Content-Type-Options nosniff
+		Referrer-Policy strict-origin-when-cross-origin
+		-Server
+	}
 	reverse_proxy app:8000
 }

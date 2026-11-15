@@ -36,6 +36,9 @@ on_created = None
 on_referral = None  # (taklif qilgan odam id, yangi do'st ismi)
 
 MAX_PHOTO = 15 * 1024 * 1024
+MAX_PIXELS = 40_000_000       # PNG va boshqalar: kichik faylda ulkan o'lcham xotirani to'ldirmasin
+MAX_JPEG_PIXELS = 120_000_000  # JPEG kichraytirib ochiladi (draft), telefonning 50–108 MP rasmlari ham o'tadi
+Image.MAX_IMAGE_PIXELS = MAX_JPEG_PIXELS
 MAX_AUDIO = 20 * 1024 * 1024
 AI_LIMIT = 15  # bir soatda bitta foydalanuvchi uchun AI matn so'rovlari
 _ai_calls: dict[int, deque] = defaultdict(deque)
@@ -67,6 +70,19 @@ def _rate_limit(user: dict) -> None:
     if len(calls) >= AI_LIMIT:
         raise HTTPException(429, "Juda ko'p so'rov. Birozdan so'ng urinib ko'ring.")
     calls.append(now)
+
+
+DRAFTS_PER_DAY = 40  # bitta foydalanuvchi bir kunda yaratadigan to'lanmagan sahifalar
+
+
+async def check_draft_limit(s, uid: int) -> None:
+    from datetime import timedelta
+    from .db import utcnow
+    since = utcnow() - timedelta(days=1)
+    n = (await s.execute(select(func.count(Site.id)).where(
+        Site.owner_id == uid, Site.created_at >= since, Site.status == "draft"))).scalar() or 0
+    if n >= DRAFTS_PER_DAY:
+        raise HTTPException(429, "Bugun juda ko'p qoralama ochildi. Ertaga qayta urinib ko'ring.")
 
 
 # ---------------------------------------------------------------- ma'lumotlarni tozalash
@@ -150,12 +166,19 @@ async def categories():
 @router.post("/api/upload")
 async def upload(file: UploadFile = File(...), kind: str = "photo", x_init_data: str = Header("")):
     check_init_data(x_init_data)
-    data = await file.read()
+    limit = MAX_PHOTO if kind == "photo" else MAX_AUDIO
+    data = await file.read(limit + 1)  # limitdan oshgan qismini xotiraga o'qimaymiz
     if kind == "photo":
         if len(data) > MAX_PHOTO:
             raise HTTPException(413, "Rasm juda katta (15 MB gacha)")
         try:
-            img = ImageOps.exif_transpose(Image.open(io.BytesIO(data))).convert("RGB")
+            img = Image.open(io.BytesIO(data))
+            if img.width * img.height > (MAX_JPEG_PIXELS if img.format == "JPEG" else MAX_PIXELS):
+                raise HTTPException(413, "Rasm o'lchami juda katta")
+            img.draft("RGB", (1600, 1600))  # JPEG: kerakli o'lchamga yaqin qilib o'qiydi (xotira tejaladi)
+            img = ImageOps.exif_transpose(img).convert("RGB")
+        except HTTPException:
+            raise
         except Exception:
             raise HTTPException(400, "Bu rasm fayli emas")
         img.thumbnail((1600, 1600))
@@ -206,6 +229,7 @@ async def create_site(body: SiteIn, x_init_data: str = Header("")):
     cfg = build_config(body.category, clean_answers(body.category, body.answers, strict=True))
     name = " ".join(filter(None, [user.get("first_name"), user.get("last_name")]))
     async with Session() as s:
+        await check_draft_limit(s, int(user["id"]))
         site = Site(slug=new_slug(), owner_id=int(user["id"]), owner_name=name, category=body.category, config=cfg)
         s.add(site)
         await s.commit()
@@ -284,6 +308,7 @@ async def catalog_create(body: OrderIn, x_init_data: str = Header("")):
     cfg = clean_order(body.model_dump(), strict=True)
     name = " ".join(filter(None, [user.get("first_name"), user.get("last_name")]))
     async with Session() as s:
+        await check_draft_limit(s, int(user["id"]))
         event = None
         if body.event:
             event = (await s.execute(select(Site).where(Site.slug == body.event))).scalar_one_or_none()

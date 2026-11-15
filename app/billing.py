@@ -90,8 +90,16 @@ async def credit(s: AsyncSession, uid: int, amount: int, kind: str, ref: str = "
     s.add(BalanceTx(user_id=uid, amount=amount, kind=kind, ref=ref[:64]))
 
 
+async def lock_user(s: AsyncSession, uid: int) -> None:
+    """Foydalanuvchi qatorini tranzaksiya oxirigacha qulflaydi (PostgreSQL: SELECT … FOR UPDATE).
+    Bepul kvotalar (kunlik video, qo'shiq namunasi) bir vaqtdagi so'rovlar bilan oshirib yuborilmasin."""
+    await s.execute(select(User.tg_id).where(User.tg_id == uid).with_for_update())
+
+
 async def take_video_charge(s: AsyncSession, user: User, ref: str = "") -> tuple[str, int] | None:
     """Video uchun to'lov turini tanlaydi: bugungi bepul, bonus, keyin balans. Hech biri bo'lmasa None."""
+    await lock_user(s, user.tg_id)
+    await s.refresh(user)  # qulfdan keyin bonus va balansni yangidan o'qiymiz
     q = await quota(s, user)
     if q["free_left"] > 0:
         return "free", 0

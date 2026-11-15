@@ -6,6 +6,7 @@ import re
 
 import anthropic
 
+from . import costs
 from .config import ROOT, settings
 from .sites import CATEGORIES, PALETTES
 
@@ -73,6 +74,7 @@ async def write_message(category: str, answers: dict, brief: str, previous: str 
         system=WRITER_SYSTEM,
         messages=[{"role": "user", "content": prompt}],
     )
+    await costs.log_ai(resp, "site_text")
     return _text(resp)
 
 
@@ -158,6 +160,7 @@ async def apply_edit(config: dict, request: str) -> tuple[dict, str]:
             ),
         }],
     )
+    await costs.log_ai(resp, "site_edit")
     data = json.loads(_text(resp))
 
     new = json.loads(json.dumps(config))
@@ -232,6 +235,7 @@ async def apply_catalog_edit(config: dict, request: str) -> tuple[dict, str]:
             ),
         }],
     )
+    await costs.log_ai(resp, "site_edit")
     out = json.loads(_text(resp))
     try:
         data = json.loads(out["data_json"])
@@ -280,6 +284,7 @@ async def write_video_message(section: str, data: dict, lang: str, brief: str = 
         system=VIDEO_WRITER_SYSTEM,
         messages=[{"role": "user", "content": prompt}],
     )
+    await costs.log_ai(resp, "video_text")
     return " ".join(_text(resp).split())[:200]
 
 
@@ -313,5 +318,6 @@ async def translate_fields(fields: dict[str, str], lang: str) -> dict[str, str]:
             "content": f"Til: {LANG_NAMES_AI.get(lang, lang)}\nMatnlar (JSON):\n{json.dumps({k: fields[k] for k in keys}, ensure_ascii=False)}",
         }],
     )
+    await costs.log_ai(resp, "translate")
     out = json.loads(_text(resp))
     return {k: str(out.get(k, fields[k]))[:300] for k in keys}

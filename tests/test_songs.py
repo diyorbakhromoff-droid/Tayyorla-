@@ -11,6 +11,7 @@ import os
 import subprocess
 import tempfile
 import time
+from types import SimpleNamespace
 from pathlib import Path
 from urllib.parse import urlencode
 
@@ -25,7 +26,11 @@ from fastapi import HTTPException  # noqa: E402
 from app import songapi, songs  # noqa: E402
 from app.billing import credit  # noqa: E402
 from app.config import MEDIA_DIR  # noqa: E402
-from app.db import Payment, Session, Site, Song, User, init_db  # noqa: E402
+from datetime import timedelta  # noqa: E402
+
+from sqlalchemy import select as sa_select  # noqa: E402
+
+from app.db import CostLog, Payment, Session, Site, Song, User, init_db, utcnow  # noqa: E402
 
 UID = 501
 
@@ -82,6 +87,7 @@ async def fake_compose(plan):
 
 async def fake_write(song, instruction=""):
     calls["write"] += 1
+    song._lyrics_usage = SimpleNamespace(input_tokens=3000, output_tokens=4000)  # Claude javobidagi kabi
     text = LYRICS if not instruction else LYRICS.replace("quyoshim", "osmonim")
     return "Onajonim", songs.render_lyrics(songs.parse_lyrics(text)), ["warm acoustic ballad", "dutor"]
 
@@ -217,6 +223,14 @@ async def main() -> None:
     assert [t for _, t in bot.audio[1:]] == ["Onajonim (1-variant)", "Onajonim (2-variant)"]
     async with Session() as s:
         assert (await s.get(User, UID)).balance == 1000
+        # xarajat jurnali: 1 demo + 1 qo'shimcha variant (musiqa), har she'r uchun Claude tokenlari
+        logs = (await s.execute(sa_select(CostLog).order_by(CostLog.id))).scalars().all()
+        music = [x for x in logs if x.kind == "music"]
+        assert [x.purpose for x in music] == ["song_preview", "song_full"] and all(x.units_in > 30 and x.ref == f"song:{sid}" for x in music)
+        assert any(x.purpose == "lyrics" and x.ref == f"song:{sid}" and x.units_in == 3000 and x.units_out == 4000 for x in logs)
+        from app import costs
+        sm = await costs.summary(s, utcnow() - timedelta(days=1), utcnow() + timedelta(days=1))
+        assert sm["demo_n"] == 1 and sm["song"] > 0 and sm["total"] >= sm["song"] and "song_est" not in {i["purpose"] for i in sm["items"]}
 
     # 5) tanlash va saytga qo'yish
     out = await songapi.song_choose(sid, songapi.ChooseIn(index=1), x_init_data=INIT)

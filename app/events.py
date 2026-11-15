@@ -6,7 +6,7 @@ import secrets
 from datetime import date, datetime, timedelta
 from urllib.parse import quote, urlencode
 
-from fastapi import APIRouter, Header, HTTPException
+from fastapi import APIRouter, Header, HTTPException, Request
 from fastapi.responses import Response
 from pydantic import BaseModel, Field
 from sqlalchemy import select
@@ -223,7 +223,9 @@ async def guest_videos(slug: str, x_init_data: str = Header("")):
         todo = [g for g in guests if g.id not in done_jobs]
         if not todo:
             return {"queued": 0}
-        cost = billing.package_cost(len(guests), cfg.get("package_paid", 0))
+        # paket hajmi: shu tadbirda video olgan barcha mehmonlar (keyin o'chirilganlari ham) + yangilari —
+        # aks holda mehmonlarni o'chirib, yangilarini qo'shib bitta paketni cheksiz ishlatish mumkin edi
+        cost = billing.package_cost(len(done_jobs) + len(todo), cfg.get("package_paid", 0))
         if not cost:
             raise HTTPException(400, f"max_guests:{MAX_GUESTS}")
         size, price = cost
@@ -305,12 +307,19 @@ def _ics_text(s: str) -> str:
 
 
 @router.get("/s/{slug}/event.ics")
-async def event_ics(slug: str):
+async def event_ics(slug: str, request: Request = None):
     async with Session() as s:
         site = (await s.execute(select(Site).where(Site.slug == slug))).scalar_one_or_none()
     if not site:
         raise HTTPException(404)
     cfg = site.config or {}
+    from .surprise import is_owner, locked_until
+    from .web import _unlock_token
+    q, cookies = (request.query_params, request.cookies) if request is not None else ({}, {})
+    if not is_owner(slug, q.get("owner")):
+        password = cfg.get("fields", {}).get("password")
+        if locked_until(cfg) or (password and cookies.get(f"u_{slug}") != _unlock_token(slug, password)):
+            raise HTTPException(404)
     data = cfg.get("data", {})
     d1, d2, vaqt = event_when(site)
     if not d1:

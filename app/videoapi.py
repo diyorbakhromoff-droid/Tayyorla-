@@ -543,7 +543,7 @@ async def admin_music_add(file: UploadFile = File(...), title: str = Form(..., m
     _admin(x_init_data)
     if theme not in MUSIC_THEMES or kind not in ("vocal", "instr"):
         raise HTTPException(400, "bad_theme")
-    data = await file.read()
+    data = await file.read(MAX_MUSIC + 1)
     if len(data) > MAX_MUSIC:
         raise HTTPException(413, "too_big")
     ext = AUDIO_EXT.get(file.content_type or "") or (file.filename or "").rsplit(".", 1)[-1].lower()
