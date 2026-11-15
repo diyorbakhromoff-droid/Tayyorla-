@@ -491,6 +491,26 @@ def _audio_ms(path: Path) -> int:
         return 0
 
 
+def audible_range(path: Path, total_ms: int = 0) -> tuple[int, int]:
+    """Yozuvning ovozli qismi (boshidagi va oxiridagi jimlik/so'nish tashlanadi).
+    Alohida tayyorlangan naqorat oxirida «qo'shiq yakuni» jimligi bo'ladi — uni qo'shiq ichiga qo'ysak, kupletlar orasida pauza qoladi."""
+    total_ms = total_ms or _audio_ms(path)
+    try:
+        err = subprocess.run(["ffmpeg", "-nostdin", "-hide_banner", "-i", str(path), "-af", "silencedetect=noise=-35dB:d=0.25", "-f", "null", "-"],
+                             capture_output=True, text=True, timeout=60).stderr
+    except Exception:
+        return 0, total_ms
+    starts = [float(x) for x in re.findall(r"silence_start: (-?[\d.]+)", err)]
+    ends = [float(x) for x in re.findall(r"silence_end: ([\d.]+)", err)]
+    begin, end = 0, total_ms
+    if starts and starts[0] <= 0.05 and ends:
+        begin = int(ends[0] * 1000)
+    if starts and starts[-1] > 0.05 and (len(ends) < len(starts) or ends[-1] * 1000 >= total_ms - 150):
+        end = int(starts[-1] * 1000)
+    begin, end = max(0, begin - 60), min(total_ms, end + 120)  # yumshoq kirish va chiqish uchun ozgina zaxira
+    return (begin, end) if end - begin >= 3000 else (0, total_ms)
+
+
 async def _generate_chorus_demo(s, song: Song) -> Path | None:
     """Namuna: faqat naqorat tayyorlanadi va ElevenLabs'da saqlanadi. Naqorat topilmasa None (eski usul ishlaydi)."""
     plan, chorus_at, chorus_len = build_plan(parse_lyrics(song.lyrics), song.style, song.voice, song.tags or [])
@@ -498,7 +518,10 @@ async def _generate_chorus_demo(s, song: Song) -> Path | None:
     if not parts:
         return None
     info: dict = {}
-    data = await compose({"chunks": [plan["chunks"][parts[0]]]}, store=True, info=info)
+    # naqorat keyin qo'shiq o'rtasiga qo'yiladi — alohida qo'shiqdek tugamasin (so'nish va oxiridagi jimliksiz)
+    chunk = dict(plan["chunks"][parts[0]])
+    chunk["negative_styles"] = [*chunk.get("negative_styles", []), "fade out", "song ending", "silence at the end"][:50]
+    data = await compose({"chunks": [chunk]}, store=True, info=info)
     s.add(costs.music_row(chorus_len / 1000, "song_preview", song.owner_id, f"song:{song.id}"))
     PRIVATE_DIR.mkdir(parents=True, exist_ok=True)
     path = PRIVATE_DIR / f"{song.id}-demo-{secrets.token_hex(4)}.mp3"
@@ -521,7 +544,11 @@ async def _generate_from_demo(s, song: Song) -> Path | None:
     if not parts:
         return None
     ms = int(demo.get("ms") or 0)
-    ref = {"song_id": demo["song_id"], "range": {"start_ms": 0, "end_ms": ms}}
+    begin, end = 0, ms
+    if demo.get("private") and Path(demo["private"]).exists():  # naqorat oxiridagi «yakun» jimligisiz
+        begin, end = await asyncio.to_thread(audible_range, Path(demo["private"]), ms)
+    ms = end - begin
+    ref = {"song_id": demo["song_id"], "range": {"start_ms": begin, "end_ms": end}}
     chunks, conditioned, t, first_chorus, gen_ms = [], False, 0, None, 0
     for i, c in enumerate(plan["chunks"]):
         if i in parts:
@@ -532,7 +559,7 @@ async def _generate_from_demo(s, song: Song) -> Path | None:
             continue
         c = dict(c)
         if not conditioned:  # birinchi bo'lim butun qo'shiqni naqorat ovozi va kuyiga bog'laydi
-            c["conditioning_ref"] = {"song_id": demo["song_id"], "range": {"start_ms": 0, "end_ms": min(ms, 30000)}}
+            c["conditioning_ref"] = {"song_id": demo["song_id"], "range": {"start_ms": begin, "end_ms": begin + min(ms, 30000)}}
             c["condition_strength"] = "high"
             conditioned = True
         chunks.append(c)

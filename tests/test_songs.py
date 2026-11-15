@@ -373,6 +373,15 @@ async def main() -> None:
     async with Session() as s:
         assert (await s.get(User, 778)).balance == 100000 and not (await s.get(Song, sid9)).paid
 
+    # 10a) naqorat oxiridagi «yakun» jimligi qo'shiq ichiga tushmaydi (aks holda kupletlar orasida pauza qoladi)
+    gap = TMP / "gap.mp3"
+    subprocess.run(["ffmpeg", "-nostdin", "-y", "-loglevel", "error", "-f", "lavfi", "-i", "anullsrc=r=44100:cl=mono:d=1",
+                    "-f", "lavfi", "-i", "sine=f=440:d=6", "-f", "lavfi", "-i", "anullsrc=r=44100:cl=mono:d=3.5",
+                    "-filter_complex", "[0][1][2]concat=n=3:v=0:a=1", "-c:a", "libmp3lame", str(gap)], check=True)
+    b, e = songs.audible_range(gap)
+    assert 800 <= b <= 1100 and 6900 <= e <= 7300, (b, e)
+    assert songs.audible_range(FAKE_MP3)[0] == 0
+
     # 10b) saqlangan naqorat rad etilsa (masalan, muddati o'tgan): to'lagan mijoz baribir oddiy to'liq qo'shiqni oladi
     songs.credits = no_credits  # yetarli kredit
     async def ref_rejected(plan, store=False, info=None):
