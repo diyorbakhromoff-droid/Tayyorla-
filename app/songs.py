@@ -1,10 +1,11 @@
-"""Shaxsiy qo'shiq: she'r (Claude) -> 20 soniyalik namuna -> to'lov -> 2 ta variant (ElevenLabs Music).
+"""Shaxsiy qo'shiq: she'r (Claude) -> 20 soniyalik namuna -> to'lov -> namunadagi qo'shiqning to'liq o'zi (ElevenLabs Music).
 
 Oqim:
   1. Foydalanuvchi kimga, qaysi munosabat bilan, uslub va savollarga javob beradi -> Claude o'zbekcha qo'shiq matnini yozadi.
   2. Matnni ko'radi, o'zgartiradi yoki AI dan qayta yozdiradi.
   3. Namuna: 1-variant to'liq tayyorlanadi (yopiq papkada), foydalanuvchiga faqat naqoratdan 20 soniya beriladi.
-  4. To'lov: 2-variant tayyorlanadi, ikkala to'liq qo'shiq /media ga chiqadi, bot orqali yuboriladi, bittasini tanlaydi.
+  4. To'lov: namuna kesilgan to'liq qo'shiq /media ga chiqadi va bot orqali yuboriladi (qo'shimcha ElevenLabs xarajati yo'q).
+     Namunasiz to'langan bo'lsa, bitta to'liq qo'shiq tayyorlanadi.
 Qo'shiqlar /media/ ichida tekis nomda saqlanadi — sayt fon musiqasi va video uchun to'g'ridan-to'g'ri ishlatiladi.
 """
 
@@ -333,6 +334,9 @@ async def refund_preview(s, song: Song) -> None:
         await s.delete(ev)
 
 
+SONG_VARIANTS = 1  # to'lovdan keyin beriladigan to'liq qo'shiqlar soni (namunadagi qo'shiq qayta ishlatiladi)
+
+
 def credits_needed(song: Song, variants: int) -> int:
     """Qo'shiq tayyorlash uchun taxminiy kredit: sinovda 100 s ≈ 1500 kredit."""
     plan, _, _ = build_plan(parse_lyrics(song.lyrics), song.style, song.voice, song.tags or [])
@@ -451,7 +455,7 @@ async def process(song_id: int, bot=None) -> None:
                 await asyncio.to_thread(cut_preview, path, dst, song.plan.get("_chorus_at", 0), settings.song_preview_seconds)
                 song.preview, song.status = f"/media/{dst.name}", "preview_ready"
             else:
-                while len(song.variants or []) < 2:
+                while len(song.variants or []) < SONG_VARIANTS:
                     await _generate_variant(s, song, "song_full")
                 variants = []
                 for v in song.variants:
@@ -551,13 +555,16 @@ async def notify(bot, song: Song) -> None:
         await bot.send_audio(song.owner_id, FSInputFile(MEDIA_DIR / Path(song.preview).name, filename=f"{title} — namuna.mp3"),
                              title=f"{title} (namuna)", performer="Tayyorla",
                              caption=f"🎧 «{title}» — {settings.song_preview_seconds} soniyalik namuna tayyor.\n"
-                                     f"To'liq qo'shiq va ikkinchi variantni ilovada oling.", reply_markup=kb.as_markup())
+                                     f"Yoqsa, to'liq qo'shiqni ilovada oling.", reply_markup=kb.as_markup())
     elif song.status == "ready":
+        many = len(song.variants) > 1  # eski buyurtmalarda 2 ta variant bo'lishi mumkin
         for i, v in enumerate(song.variants):
-            await bot.send_audio(song.owner_id, FSInputFile(MEDIA_DIR / Path(v["file"]).name, filename=f"{title} — {i + 1}-variant.mp3"),
-                                 title=f"{title} ({i + 1}-variant)", performer="Tayyorla",
-                                 caption=(f"🎶 «{title}» tayyor! Ikkala variantni tinglab, ilovada bittasini tanlang — "
-                                          f"uni saytingizga yoki videongizga qo'yish mumkin.") if i == len(song.variants) - 1 else None,
-                                 reply_markup=kb.as_markup() if i == len(song.variants) - 1 else None)
+            last = i == len(song.variants) - 1
+            name = f"{title} — {i + 1}-variant" if many else title
+            await bot.send_audio(song.owner_id, FSInputFile(MEDIA_DIR / Path(v["file"]).name, filename=f"{name}.mp3"),
+                                 title=f"{title} ({i + 1}-variant)" if many else title, performer="Tayyorla",
+                                 caption=(f"🎶 «{title}» tayyor! Uni ilovadan saytingizga yoki videongizga qo'yishingiz mumkin.")
+                                 if last else None,
+                                 reply_markup=kb.as_markup() if last else None)
     elif song.status in ("failed", "lyrics") and song.error:
         await bot.send_message(song.owner_id, f"⚠️ «{title}»: {song.error}", reply_markup=kb.as_markup())

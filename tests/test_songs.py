@@ -217,24 +217,28 @@ async def main() -> None:
     assert out["paid"] and out["status"] == "paid_queued" and out["price"] == 69000
     await run_queue(bot)
     out = await songapi.song_get(sid, x_init_data=INIT)
-    assert out["status"] == "ready" and len(out["variants"]) == 2 and out["chosen"] == 0 and out["file"] == out["variants"][0]
-    assert all((MEDIA_DIR / Path(f).name).exists() for f in out["variants"]) and len(set(out["variants"])) == 2
-    assert calls["compose"] == 2, "namunadagi 1-variant qayta yaratilmasligi kerak"
-    assert [t for _, t in bot.audio[1:]] == ["Onajonim (1-variant)", "Onajonim (2-variant)"]
+    # namunadagi qo'shiqning o'zi to'liq beriladi: ElevenLabs qayta chaqirilmaydi, ikkinchi variant yo'q
+    assert out["status"] == "ready" and len(out["variants"]) == 1 and out["chosen"] == 0 and out["file"] == out["variants"][0]
+    assert (MEDIA_DIR / Path(out["file"]).name).exists()
+    assert calls["compose"] == 1, "to'lovdan keyin qo'shiq qayta yaratilmasligi kerak"
+    assert [t for _, t in bot.audio[1:]] == ["Onajonim"]
     async with Session() as s:
         assert (await s.get(User, UID)).balance == 1000
-        # xarajat jurnali: 1 demo + 1 qo'shimcha variant (musiqa), har she'r uchun Claude tokenlari
+        # xarajat jurnali: faqat 1 demo (musiqa), har she'r uchun Claude tokenlari
         logs = (await s.execute(sa_select(CostLog).order_by(CostLog.id))).scalars().all()
         music = [x for x in logs if x.kind == "music"]
-        assert [x.purpose for x in music] == ["song_preview", "song_full"] and all(x.units_in > 30 and x.ref == f"song:{sid}" for x in music)
+        assert [x.purpose for x in music] == ["song_preview"] and all(x.units_in > 30 and x.ref == f"song:{sid}" for x in music)
         assert any(x.purpose == "lyrics" and x.ref == f"song:{sid}" and x.units_in == 3000 and x.units_out == 4000 for x in logs)
         from app import costs
         sm = await costs.summary(s, utcnow() - timedelta(days=1), utcnow() + timedelta(days=1))
         assert sm["demo_n"] == 1 and sm["song"] > 0 and sm["total"] >= sm["song"] and "song_est" not in {i["purpose"] for i in sm["items"]}
 
-    # 5) tanlash va saytga qo'yish
-    out = await songapi.song_choose(sid, songapi.ChooseIn(index=1), x_init_data=INIT)
-    assert out["chosen"] == 1 and out["file"] == out["variants"][1]
+    # 5) saytga qo'yish (bitta qo'shiq — mavjud bo'lmagan variantni tanlab bo'lmaydi)
+    try:
+        await songapi.song_choose(sid, songapi.ChooseIn(index=1), x_init_data=INIT)
+        raise AssertionError("yo'q variant tanlandi")
+    except HTTPException as e:
+        assert e.status_code in (400, 404, 409)
     async with Session() as s:
         s.add(Site(slug="ona1", owner_id=UID, category="birthday", config={"engine": "catalog"}, status="paid", kind="site"))
         await s.commit()
@@ -243,10 +247,6 @@ async def main() -> None:
         from sqlalchemy import select
         site = (await s.execute(select(Site).where(Site.slug == "ona1"))).scalar_one()
         assert site.config["music"] == out["file"] and out["site"] == "ona1"
-    await songapi.song_choose(sid, songapi.ChooseIn(index=0), x_init_data=INIT)
-    async with Session() as s:
-        site = (await s.execute(select(Site).where(Site.slug == "ona1"))).scalar_one()
-        assert site.config["music"] == out["variants"][0], "tanlov almashganda saytdagi musiqa ham almashadi"
     try:
         await songapi.song_lyrics(sid, songapi.LyricsIn(text=LYRICS), x_init_data=INIT)
         raise AssertionError("to'langan qo'shiq matni o'zgardi")

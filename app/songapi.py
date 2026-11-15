@@ -216,8 +216,9 @@ async def song_pay(song_id: int, x_init_data: str = Header("")):
                 raise HTTPException(400, str(e))
             if song.status in ("preview_queued", "preview_gen"):
                 raise HTTPException(409, "Namuna tayyorlanmoqda, bir oz kuting")
-            need = songs.credits_needed(song, 1 if song.variants else 2)
-            if not await songs.enough_credits(need):
+            # namuna tayyorlangan bo'lsa, to'liq qo'shiq allaqachon bor — ElevenLabs krediti kerak emas
+            need = 0 if song.variants else songs.credits_needed(song, songs.SONG_VARIANTS)
+            if need and not await songs.enough_credits(need):
                 raise HTTPException(503, "Qo'shiq xizmati vaqtincha band — pul yechilmadi. Birozdan so'ng qayta urinib ko'ring.")
             if not await songs.pay(s, song, uid):
                 user = await s.get(User, uid)

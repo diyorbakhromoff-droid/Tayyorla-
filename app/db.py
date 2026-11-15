@@ -259,7 +259,7 @@ class Snapshot(Base):
 
 
 class Song(Base):
-    """Shaxsiy qo'shiq buyurtmasi: she'r (Claude) -> 20 s namuna -> to'lov -> 2 ta variant (ElevenLabs Music)."""
+    """Shaxsiy qo'shiq buyurtmasi: she'r (Claude) -> 20 s namuna -> to'lov -> to'liq qo'shiq (ElevenLabs Music)."""
     __tablename__ = "songs"
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)

@@ -16,7 +16,7 @@ class Settings(BaseSettings):
     # Qo'shiq (ElevenLabs Music): kalit faqat serverdagi .env da
     elevenlabs_api_key: str = ""
     song_model: str = "music_v2_5"
-    song_price: int = 69000          # to'liq qo'shiq (2 ta variant)
+    song_price: int = 69000          # to'liq qo'shiq (namunadagi qo'shiqning o'zi)
     song_site_price: int = 0         # sayt egasi uchun qo'shiq narxi (0 — song_price bilan bir xil)
     song_free_previews: int = 2      # har foydalanuvchiga KUNIGA bepul 20 soniyalik namuna (admin panelda o'zgaradi)
     song_preview_seconds: int = 20

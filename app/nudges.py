@@ -61,13 +61,13 @@ DEFAULTS: dict = {
         "song": {"on": True, "steps": [
             {"after": 2, "button": "Qo‘shiqni ochish",
              "text": "{name}, «{title}» qo‘shig‘ingiz sizni kutyapti 🎵\n\nShe’r tayyor. Namunani eshitib ko‘ring, yoqsa to‘liq qo‘shiqni olasiz: "
-                     "ikki xil variant, {price}."},
+                     "{price}."},
             {"after": 24, "button": "Matnni o‘zgartirish",
              "text": "«{title}» qo‘shig‘i hali tugallanmagan.\n\nMatn yoqmagan bo‘lsa, bir bosishda o‘zgartirish mumkin: quvnoqroq, ta’sirliroq yoki "
                      "ismi ko‘proq aytiladigan qilib."},
             {"after": 72, "button": "Qo‘shiqni olish",
              "text": "Shaxsiy qo‘shiq — yaqiningiz uzoq eslab yuradigan sovg‘a.\n\n«{title}» qo‘shig‘ingiz saqlangan. Tayyor bo‘lsangiz, to‘liq "
-                     "variantni oling va videoga yoki saytga fon musiqa qilib qo‘ying."},
+                     "qo‘shiqni oling va videoga yoki saytga fon musiqa qilib qo‘ying."},
         ]},
         "new": {"on": True, "steps": [
             {"after": 1, "button": "Bepul video yasash", "target": "videos",

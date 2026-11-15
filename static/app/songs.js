@@ -1,4 +1,4 @@
-/* Qo'shiq: yaqin odamga shaxsiy AI qo'shiq — so'rovnoma, she'r, 20 soniyalik namuna, to'lov, ikki variant, sayt va videoga qo'yish */
+/* Qo'shiq: yaqin odamga shaxsiy AI qo'shiq — so'rovnoma, she'r, 20 soniyalik namuna, to'lov, to'liq qo'shiq, sayt va videoga qo'yish */
 (() => {
   "use strict";
   const { $, $$, esc, T, icon, S, api, haptic, notify, toast, store, money } = App;
@@ -509,7 +509,8 @@
       } else if (st === "ready") {
         const siteRow = s.site ? (S.me.sites || []).find((x) => x.slug === s.site) : null;
         body += `<div class="sg-ready"><h2>${esc(T("song.ready_t"))}</h2><p>${esc(T("song.ready_s"))}</p></div>
-          ${s.variants.map((f, i) => `<section class="sg-var${i === s.chosen ? " on" : ""}" data-var="${i}"><div class="vh"><b>${esc(T("song.variant", { n: i + 1 }))}</b>
+          ${s.variants.length === 1 ? `<section class="sg-var on"><div class="vh"><b>${esc(T("song.full_t"))}</b></div>${playerHtml(s.variants[0], songTitle(s))}</section>`
+            : s.variants.map((f, i) => `<section class="sg-var${i === s.chosen ? " on" : ""}" data-var="${i}"><div class="vh"><b>${esc(T("song.variant", { n: i + 1 }))}</b>
               <span class="vstate">${i === s.chosen ? `<span class="badge green">${icon("check", "xs")}${esc(T("song.chosen"))}</span>`
                 : `<button type="button" class="btn ghost xs" data-choose="${i}">${esc(T("song.choose"))}</button>`}</span></div>
               ${playerHtml(f, T("song.variant", { n: i + 1 }))}</section>`).join("")}
