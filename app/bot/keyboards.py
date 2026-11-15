@@ -16,13 +16,16 @@ def main_menu(lang: str = "uz") -> InlineKeyboardMarkup:
     kb = InlineKeyboardBuilder()
     if settings.base_url.startswith("https://"):
         kb.button(text=tr(lang, "bot.btn_video"), web_app=WebAppInfo(url=f"{settings.base_url}/app?tab=videos"))
+        if settings.songs_on:  # «Musiqalar» bo'limi: yangi qo'shiq, bepul namunalar, qo'shiqlarim
+            kb.button(text=tr(lang, "bot.btn_song"), web_app=WebAppInfo(url=f"{settings.base_url}/app?tab=songs"))
         kb.button(text=tr(lang, "bot.btn_open"), web_app=WebAppInfo(url=f"{settings.base_url}/app"))
         kb.button(text=tr(lang, "bot.btn_people"), callback_data="people")
         kb.button(text=tr(lang, "bot.btn_sites"), callback_data="my")
-        kb.button(text=tr(lang, "bot.btn_legacy"), callback_data="legacy")
+        if not settings.songs_on:
+            kb.button(text=tr(lang, "bot.btn_legacy"), callback_data="legacy")
     else:
         return legacy_menu()
-    kb.adjust(1, 1, 2, 1)
+    kb.adjust(*((1, 1, 1, 2) if settings.songs_on else (1, 1, 2, 1)))
     return kb.as_markup()
 
 
