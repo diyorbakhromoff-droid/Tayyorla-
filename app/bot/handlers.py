@@ -2,6 +2,7 @@ import asyncio
 import html
 import logging
 import re
+import time
 import uuid
 from collections import defaultdict
 
@@ -10,14 +11,14 @@ from aiogram.enums import ChatAction
 from aiogram.filters import Command, CommandObject, CommandStart
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import State, StatesGroup
-from aiogram.types import CallbackQuery, Message
+from aiogram.types import CallbackQuery, FSInputFile, InputMediaPhoto, Message
 from sqlalchemy import select
 
 from .. import ai, billing, track
 from ..catalog import photo_limit, site_price, site_title
 from ..i18n import tr
 from ..surprise import human, locked_until
-from ..config import MEDIA_DIR, settings
+from ..config import MEDIA_DIR, ROOT, settings
 from ..db import Rsvp, Session, Site, User, new_slug
 from ..render import parse_date
 from ..sites import CATEGORIES, PALETTES, build_config
@@ -156,6 +157,37 @@ async def user_lang(uid: int) -> str:
     return (u.lang if u else "") or "uz"
 
 
+# «Tayyorla nima qila oladi» karuseli: /start da tugmali xabardan oldin yuboriladi.
+START_ALBUM = sorted((ROOT / "static" / "promo").glob("start-*.jpg"))
+ALBUM_EVERY = 6 * 3600  # bitta odamga shundan tez-tez qayta yuborilmaydi (soniya)
+_album_ids: list[str] = []      # Telegram file_id lar: birinchi yuborishdan keyin qayta yuklanmaydi
+_album_seen: dict[int, float] = {}
+
+
+async def send_start_album(message: Message) -> bool:
+    if not settings.start_album or not START_ALBUM:
+        return False
+    uid, now = message.from_user.id, time.time()
+    if now - _album_seen.get(uid, 0) < ALBUM_EVERY:
+        return False
+    if len(_album_seen) > 100_000:
+        _album_seen.clear()
+    _album_seen[uid] = now
+    try:
+        cached = len(_album_ids) == len(START_ALBUM)
+        media = [InputMediaPhoto(media=_album_ids[i] if cached else FSInputFile(p)) for i, p in enumerate(START_ALBUM)]
+        sent = await message.answer_media_group(media)
+        if not cached:
+            ids = [m.photo[-1].file_id for m in sent if m.photo]
+            if len(ids) == len(START_ALBUM):
+                _album_ids[:] = ids
+        return True
+    except Exception:
+        _album_ids.clear()
+        log.exception("Start karuselini yuborib bo'lmadi")
+        return False
+
+
 @router.message(CommandStart())
 async def start(message: Message, state: FSMContext, command: CommandObject | None = None):
     await state.clear()
@@ -170,6 +202,7 @@ async def start(message: Message, state: FSMContext, command: CommandObject | No
         except Exception:
             log.exception("Referal xabarini yuborib bo'lmadi")
     key = "bot.welcome_gift" if args.startswith("r_") else "bot.welcome"
+    await send_start_album(message)
     await message.answer(tr(lang, key, name=name, free=settings.free_videos_per_day), reply_markup=kb.main_menu(lang))
 
 

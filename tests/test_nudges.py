@@ -238,6 +238,34 @@ async def main() -> None:
     assert await songs.limits() == (2, 30)
     sysd = await admin.system(uid=1)
     assert sysd["songs"]["per_user"] == 2 and sysd["songs"]["daily_previews"] == 30 and sysd["songs"]["previews_today"] == 1
+
+    # ---------- 9) /start karuseli: 5 ta rasm, file_id keshi, bir odamga qayta-qayta yuborilmaydi
+    from types import SimpleNamespace
+    from aiogram.types import FSInputFile
+    from app.bot import handlers
+
+    class Msg:
+        def __init__(self, uid, fail=False):
+            self.from_user, self.albums, self.fail = SimpleNamespace(id=uid), [], fail
+
+        async def answer_media_group(self, media):
+            if self.fail:
+                raise RuntimeError("telegram")
+            self.albums.append(media)
+            return [SimpleNamespace(photo=[SimpleNamespace(file_id=f"small{i}"), SimpleNamespace(file_id=f"big{i}")]) for i in range(len(media))]
+
+    assert len(handlers.START_ALBUM) == 5 and all(f.stat().st_size < 400_000 for f in handlers.START_ALBUM)
+    m1 = Msg(900)
+    assert await handlers.send_start_album(m1) and len(m1.albums[0]) == 5
+    assert all(isinstance(x.media, FSInputFile) for x in m1.albums[0])
+    assert not await handlers.send_start_album(m1) and len(m1.albums) == 1          # shu odamga qayta yuborilmaydi
+    m2 = Msg(901)
+    assert await handlers.send_start_album(m2) and [x.media for x in m2.albums[0]] == [f"big{i}" for i in range(5)]  # keshdan
+    m3 = Msg(902, fail=True)
+    assert not await handlers.send_start_album(m3) and handlers._album_ids == []    # xato bo'lsa start to'xtamaydi
+    handlers.settings.start_album = False
+    assert not await handlers.send_start_album(Msg(903))
+    handlers.settings.start_album = True
     print("✅ Progrev, namuna limiti va to'ldirish tekshiruvlari o'tdi")
 
 

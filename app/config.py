@@ -47,6 +47,7 @@ class Settings(BaseSettings):
     # Bepul videoni olish uchun obuna bo'linadigan kanal (@username). Bo'sh bo'lsa obuna so'ralmaydi.
     channel_id: str = "@tayyorlaai"  # bepul videolar uchun obuna kanali (bot unda admin bo'lishi kerak)
     free_videos_per_day: int = 2
+    start_album: bool = True  # /start da «Tayyorla nima qila oladi» karuseli (static/promo/start-*.jpg)
     video_price: int = 9900
     # Balansni to'ldirish summalari (so'm)
     topup_amounts: str = "9900,29700,49500,99000"
