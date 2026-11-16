@@ -55,8 +55,8 @@ async def save_rates(values: dict) -> dict:
 def som_of(row_kind: str, units_in: int, units_out: int, r: dict, model: str = "") -> float:
     if row_kind == "music":
         return units_in * r["credits_per_sec"] / 1000 * r["usd_per_1k_credits"] * r["usd_som"]
-    if row_kind == "lyria":  # units_in — qo'shiqlar soni
-        return units_in * r["lyria_usd_per_song"] * r["usd_som"]
+    if row_kind == "lyria":  # units_in — qo'shiqlar soni; Clip (30 s) to'liq qo'shiqning yarim narxi ($0.04)
+        return units_in * r["lyria_usd_per_song"] * (0.5 if "clip" in (model or "") else 1) * r["usd_som"]
     from . import llm
     p_in, p_out = llm.price(model) or (r["ai_in_per_m"], r["ai_out_per_m"])  # modelning rasmiy narxi, noma'lum bo'lsa paneldagi
     return (units_in * p_in + units_out * p_out) / 1e6 * r["usd_som"]
@@ -76,8 +76,8 @@ def music_row(seconds: float, purpose: str, user_id: int | None = None, ref: str
     return CostLog(kind="music", purpose=purpose, units_in=max(0, round(seconds)), user_id=user_id, ref=ref[:40])
 
 
-def lyria_row(purpose: str, user_id: int | None = None, ref: str = "") -> CostLog:
-    return CostLog(kind="lyria", purpose=purpose, units_in=1, user_id=user_id, ref=ref[:40])
+def lyria_row(purpose: str, user_id: int | None = None, ref: str = "", model: str = "") -> CostLog:
+    return CostLog(kind="lyria", purpose=purpose, units_in=1, user_id=user_id, ref=ref[:40], model=model[:40])
 
 
 def ai_row(usage, purpose: str, user_id: int | None = None, ref: str = "") -> CostLog | None:

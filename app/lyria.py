@@ -54,19 +54,28 @@ def lyrics_block(sections: list[dict]) -> str:
 
 
 def prompt(sections: list[dict], style_name: str, style_tags: list[str], voice: str, occasion: str,
-           extra: list[str], seconds: float, lang: str = "uz") -> str:
+           extra: list[str], seconds: float, lang: str = "uz", clip: bool = False) -> str:
     """Ko'rsatma va so'zlar alohida (hujjat tavsiyasi). Til — talaffuzga ta'sir qiladi, shuning uchun asosan o'zbekcha."""
-    minutes = max(1.5, min(3.5, round(seconds / 60 * 2) / 2))
     words = lyrics_block(sections)
+    if clip:  # namuna: faqat naqorat, 30 soniyalik bo'lak
+        tags = ", ".join([*style_tags, *extra][:12])
+        if lang == "en":
+            return (f"Create a {style_name} song chorus sung in Uzbek language by a native Uzbek singer, "
+                    f"{VOICE_EN.get(voice, VOICE_EN['female'])}, clear native Uzbek pronunciation. Style: {tags}. "
+                    f"Start singing right away. Sing exactly these lyrics:\n\n{words}")
+        return (f"O'zbek tilidagi qo'shiqning naqorati. Janr: {style_name} ({tags}). {VOICE_UZ.get(voice, VOICE_UZ['female']).capitalize()} "
+                f"ona tili o'zbek bo'lgan xonandadek aniq o'zbekcha talaffuz bilan kuylaydi. Qo'shiq darhol boshlansin. "
+                f"Quyidagi so'zlarni aynan shunday kuylang:\n\n{words}")
+    minutes = 1.5  # sovg'a qo'shig'i uchun yetarli va tezroq tayyorlanadi
     tags = ", ".join([*style_tags, *extra][:12])
     if lang == "en":
         return (f"Create a {style_name} song sung entirely in Uzbek language by a native Uzbek singer, "
                 f"{VOICE_EN.get(voice, VOICE_EN['female'])}, clear native Uzbek pronunciation. Style: {tags}. "
-                f"Occasion: {occasion}. Length about {minutes:g} minutes. Sing exactly these lyrics, do not change or add words.\n\n"
+                f"Occasion: {occasion}. Length about 90 seconds. Sing exactly these lyrics, do not change or add words.\n\n"
                 f"Lyrics:\n{words}")
     return (f"O'zbek tilida qo'shiq yarating. Janr: {style_name} ({tags}). Qo'shiqni {VOICE_UZ.get(voice, VOICE_UZ['female'])} "
             f"kuylaydi — ona tili o'zbek bo'lgan xonandadek aniq va tabiiy o'zbekcha talaffuz bilan. Munosabat: {occasion}. "
-            f"Davomiyligi taxminan {minutes:g} daqiqa. Quyidagi so'zlarni aynan shunday kuylang, so'z qo'shmang va o'zgartirmang.\n\n"
+            f"Davomiyligi taxminan 1,5 daqiqa (90 soniya). Quyidagi so'zlarni aynan shunday kuylang, so'z qo'shmang va o'zgartirmang.\n\n"
             f"Qo'shiq so'zlari:\n{words}")
 
 
@@ -128,7 +137,7 @@ def _mmss(v: str) -> float | None:
     return int(m.group(1)) * 60 + int(m.group(2)) if m else None
 
 
-async def compose(text: str) -> tuple[bytes, str]:
+async def compose(text: str, model: str | None = None) -> tuple[bytes, str]:
     """Bitta qo'shiq. Xatoda LyriaError. Hech qachon o'zi qayta urinmaydi (har urinish pullik)."""
     k = key()
     if not k:
@@ -136,7 +145,7 @@ async def compose(text: str) -> tuple[bytes, str]:
     headers = {"x-goog-api-key": k, "Api-Revision": API_REVISION, "Content-Type": "application/json"}
     timeout = aiohttp.ClientTimeout(total=900)
     async with aiohttp.ClientSession(timeout=timeout) as http:
-        async with http.post(URL, headers=headers, json={"model": settings.lyria_model, "input": text}) as r:
+        async with http.post(URL, headers=headers, json={"model": model or settings.lyria_model, "input": text}) as r:
             body = await r.text()
             status = r.status
         if status != 200:
@@ -146,7 +155,7 @@ async def compose(text: str) -> tuple[bytes, str]:
         for _ in range(96):
             audio, info = parse(data)
             if audio:
-                if len(audio) < 10_000:
+                if len(audio) < 5_000:
                     raise LyriaError("Qo'shiq tayyorlanmadi, qayta urinib ko'ring.")
                 return audio, info
             st = str(data.get("status", "")).lower()

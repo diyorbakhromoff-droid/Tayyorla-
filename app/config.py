@@ -22,6 +22,7 @@ class Settings(BaseSettings):
     gemini_api_key: str = ""         # Google Lyria (admin paneldan ham kiritiladi)
     song_provider: str = "elevenlabs"  # elevenlabs | lyria (admin paneldan almashtiriladi)
     lyria_model: str = "lyria-3.5"
+    lyria_clip_model: str = "lyria-3-clip-preview"  # namuna uchun: 30 soniya, tez va arzon ($0.04)
     song_model: str = "music_v2_5"
     song_price: int = 69000          # to'liq qo'shiq (namunadagi qo'shiqning o'zi)
     song_site_price: int = 0         # sayt egasi uchun qo'shiq narxi (0 — song_price bilan bir xil)

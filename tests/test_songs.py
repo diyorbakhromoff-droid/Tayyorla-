@@ -426,8 +426,8 @@ async def main() -> None:
     except HTTPException as e:
         assert e.status_code == 400
     lcalls = []
-    async def fake_lyria(text):
-        lcalls.append(text)
+    async def fake_lyria(text, model=None):
+        lcalls.append((text, model))
         return FAKE_MP3.read_bytes(), "[Chorus] 0:30"
     lyria.compose = fake_lyria
     songs.credits = empty_credits  # ElevenLabs krediti tugagan bo'lsa ham Lyria ishlayveradi
@@ -440,19 +440,22 @@ async def main() -> None:
     out = await songapi.song_preview(sid11, x_init_data=u6)
     await run_queue(bot)
     out = await songapi.song_get(sid11, x_init_data=u6)
+    # namuna: Clip modeli, faqat naqorat (kupletlar yo'q)
     assert out["status"] == "preview_ready" and len(lcalls) == 1 and calls["compose"] == before, out
-    assert "O'zbek tilida" in lcalls[0] and "[Chorus]" in lcalls[0]
+    assert lcalls[0][1] == "lyria-3-clip-preview" and "[Chorus]" in lcalls[0][0] and "[Verse" not in lcalls[0][0]
     assert 19 <= dur(MEDIA_DIR / Path(out["preview"]).name) <= 21
     async with Session() as s:
         song = await s.get(Song, sid11)
-        assert song.plan["_provider"] == "lyria" and song.plan["_chorus_at"] == 30000 and len(song.variants) == 1
+        assert song.plan["_provider"] == "lyria" and song.plan["_demo"]["clip"] and not song.variants
     await songapi.song_pay(sid11, x_init_data=u6)
     await run_queue(bot)
     out = await songapi.song_get(sid11, x_init_data=u6)
-    assert out["status"] == "ready" and len(out["variants"]) == 1 and len(lcalls) == 1, "sotilganda Lyria qayta chaqirilmasligi kerak"
+    # sotilganda: to'liq qo'shiq (~1.5 daqiqa) alohida tayyorlanadi
+    assert out["status"] == "ready" and len(out["variants"]) == 1 and len(lcalls) == 2, out
+    assert lcalls[1][1] is None and "O'zbek tilida" in lcalls[1][0] and "[Verse 1]" in lcalls[1][0] and "1,5 daqiqa" in lcalls[1][0]
     async with Session() as s:
         rows = (await s.execute(sa_select(CostLog).where(CostLog.ref == f"song:{sid11}", CostLog.kind == "lyria"))).scalars().all()
-        assert [r.purpose for r in rows] == ["song_preview"]
+        assert [(r.purpose, r.model) for r in rows] == [("song_preview", "lyria-3-clip-preview"), ("song_full", "lyria-3.5")]
         from app import costs
         sm = await costs.summary(s, utcnow() - timedelta(days=1), utcnow() + timedelta(days=1))
         it = next(i for i in sm["items"] if i["purpose"] == "song_preview")

@@ -621,7 +621,7 @@ async def _generate_lyria(s, song: Song, purpose: str) -> Path:
             _ALERT["at"] = 0.0
             raise QuotaError(str(e))
         raise SongError(str(e))
-    s.add(costs.lyria_row(purpose, song.owner_id, f"song:{song.id}"))
+    s.add(costs.lyria_row(purpose, song.owner_id, f"song:{song.id}", settings.lyria_model))
     PRIVATE_DIR.mkdir(parents=True, exist_ok=True)
     path = PRIVATE_DIR / f"{song.id}-l-{secrets.token_hex(4)}.mp3"
     path.write_bytes(data)
@@ -630,6 +630,33 @@ async def _generate_lyria(s, song: Song, purpose: str) -> Path:
     at_ms = int(at * 1000) if at is not None and 0 <= at * 1000 < ms - 8000 else int(ms * chorus_at / max(1, total))
     song.plan = {"_provider": "lyria", "_chorus_at": at_ms, "_chorus_len": 20000, "_lyria_text": (info or "")[:3000]}
     song.variants = [{"private": str(path), "file": ""}]
+    return path
+
+
+async def _generate_lyria_clip(s, song: Song) -> Path:
+    """Namuna: Lyria Clip faqat naqoratni kuylaydi (30 s). To'liq qo'shiq sotilganda alohida tayyorlanadi —
+    kuy biroz farq qilishi mumkin (egasi shunga rozi: namuna tez va arzon bo'lsin)."""
+    sections = parse_lyrics(song.lyrics)
+    chorus = [x for x in sections if x["kind"] == "chorus" and x["lines"]][:1] or [x for x in sections if x["lines"]][:1]
+    name, base, _ = STYLES.get(song.style, STYLES["pop"])
+    lang = (await music_cfg()).get("lang", "uz")
+    text = lyria.prompt(chorus, name, base, song.voice, OCCASIONS.get(song.occasion, song.occasion or ""),
+                        list(song.tags or []), 30, lang, clip=True)
+    try:
+        data, info = await lyria.compose(text, settings.lyria_clip_model)
+    except lyria.LyriaError as e:
+        if e.quota:
+            _ALERT["at"] = 0.0
+            raise QuotaError(str(e))
+        raise SongError(str(e))
+    s.add(costs.lyria_row("song_preview", song.owner_id, f"song:{song.id}", settings.lyria_clip_model))
+    PRIVATE_DIR.mkdir(parents=True, exist_ok=True)
+    path = PRIVATE_DIR / f"{song.id}-clip-{secrets.token_hex(4)}.mp3"
+    path.write_bytes(data)
+    ms = await asyncio.to_thread(_audio_ms, path) or 30000
+    begin, _ = await asyncio.to_thread(audible_range, path, ms)  # boshidagi jimlikni o'tkazib yuboramiz
+    song.plan = {"_provider": "lyria", "_demo": {"private": str(path), "ms": ms, "clip": True},
+                 "_chorus_at": begin, "_chorus_len": ms}
     return path
 
 
@@ -646,7 +673,7 @@ async def process(song_id: int, bot=None) -> None:
                 elif (song.plan or {}).get("_demo", {}).get("private") and Path(song.plan["_demo"]["private"]).exists():
                     path = Path(song.plan["_demo"]["private"])
                 elif await provider() == "lyria":
-                    path = await _generate_lyria(s, song, "song_preview")
+                    path = await _generate_lyria_clip(s, song)
                 else:
                     path = None
                     if settings.song_preview_mode == "chorus":
