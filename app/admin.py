@@ -828,6 +828,11 @@ async def payment_decide(pid: int, body: Decision, uid: int = Depends(admin_uid)
     if not videobot.BOT:
         raise HTTPException(503, "Bot ishlamayapti")
     from .bot.money import decide_payment
+    if body.approve:
+        async with Session() as s:
+            p = await s.get(Payment, pid)
+        if p and p.status == "new":
+            raise HTTPException(409, "Mijoz hali to'lamagan — bu to'lovni tasdiqlab bo'lmaydi")
     res = await decide_payment(videobot.BOT, pid, body.approve, uid)
     if res == "not_found":
         raise HTTPException(404)

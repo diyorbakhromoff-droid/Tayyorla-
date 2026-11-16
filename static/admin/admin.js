@@ -426,10 +426,13 @@
   }
 
   // ---------------------------------------------------------------- 4. To'lovlar
-  const PST = { pending: ["Tekshirish kerak", "warn"], new: ["Chek yuborilmagan", ""], approved: ["Tasdiqlangan", "good"], rejected: ["Rad etilgan", "bad"], cancelled: ["Bekor qilingan", "bad"] };
+  // «new» — mijoz to'lov oynasini ochgan, lekin pul to'lamagan (Click tugallanmagan). Pul tushmagan, tasdiqlanmaydi.
+  const PST = { pending: ["Chekni tekshirish", "warn"], new: ["To'lanmagan", ""], approved: ["To'landi", "good"], rejected: ["Rad etilgan", "bad"], cancelled: ["Bekor qilingan", "bad"] };
+  const pstOf = (p) => p.status === "approved" ? [p.provider === "click" ? "To'landi · Click" : "Tasdiqlangan (chek)", "good"]
+    : p.status === "new" ? [p.provider === "click" ? "Click'da to'lanmadi" : "To'lanmagan", ""] : PST[p.status] || [p.status, ""];
   async function payments(alive) {
     loading("To'lovlar");
-    S.payStatus = S.payStatus || "pending";
+    S.payStatus = S.payStatus || "approved";
     const d = await api(`/api/admin/payments?status=${S.payStatus}`);
     if (!alive()) return;
     if (S.payStatus === "pending") { S.pending = d.payments.length; nav(); }
@@ -437,15 +440,15 @@
       <td class="num">#${p.id}<span class="sub">${dt(p.created_at)}</span></td>
       <td>${userLink(p)}</td>
       <td class="r num"><b>${som(p.amount)}</b><span class="sub">${p.for_video ? "video uchun" : "balansga"}${p.provider === "click" ? ` · Click${p.ext_id ? ` ${esc(p.ext_id)}` : ""}` : ""}</span></td>
-      <td>${tag(PST[p.status][0], PST[p.status][1])}${p.decided_at ? `<span class="sub">${dt(p.decided_at)}${p.admin ? ` · ${esc(p.admin)}` : ""}</span>` : ""}</td>
+      <td>${tag(...pstOf(p))}${p.decided_at ? `<span class="sub">${dt(p.decided_at)}${p.admin ? ` · ${esc(p.admin)}` : ""}</span>` : ""}</td>
       <td class="r"><div class="row" style="justify-content:flex-end">
         ${p.receipt ? `<button type="button" class="btn sm" data-receipt="${p.id}">Chek</button>` : ""}
-        ${p.status === "pending" || p.status === "new" ? `<button type="button" class="btn sm good" data-ok="${p.id}">Tasdiqlash</button><button type="button" class="btn sm bad" data-no="${p.id}">Rad etish</button>` : ""}
+        ${p.status === "pending" ? `<button type="button" class="btn sm good" data-ok="${p.id}">Tasdiqlash</button><button type="button" class="btn sm bad" data-no="${p.id}">Rad etish</button>` : ""}
         <button type="button" class="btn sm" data-user="${p.user_id}">Mijoz</button></div></td></tr>`);
     main().innerHTML = `
-      <div class="head"><div><h1>To'lovlar</h1><p>Chekni ko'rib, shu yerning o'zida tasdiqlang — mijozga xabar va balans avtomatik boradi.</p></div>
+      <div class="head"><div><h1>To'lovlar</h1><p>Click orqali to'lovlar avtomatik tushadi — tasdiqlash shart emas. «To'lanmagan» — mijoz to'lov oynasini ochgan, lekin to'lamagan.</p></div>
         <button type="button" class="btn" id="exp-pay">To'lovlar CSV</button></div>
-      <div class="period" role="group" aria-label="Holat">${[["pending", "Tekshirish kerak"], ["new", "Chek kutilmoqda"], ["approved", "Tasdiqlangan"], ["rejected", "Rad etilgan"], ["all", "Hammasi"]]
+      <div class="period" role="group" aria-label="Holat">${[["approved", "To'langan"], ["new", "To'lanmagan"], ["pending", `Chekni tekshirish${S.pending ? ` (${S.pending})` : ""}`], ["rejected", "Rad etilgan"], ["all", "Hammasi"]]
         .map(([k, l]) => `<button type="button" class="chip" data-st="${k}" aria-pressed="${S.payStatus === k}">${l}</button>`).join("")}</div>
       <section class="blk">${table(["To'lov", "Mijoz", ">Summa", "Holat", ""], rows, S.payStatus === "pending" ? "Tekshirilishi kerak bo'lgan to'lov yo'q" : "To'lov yo'q")}</section>`;
     $$("[data-st]").forEach((b) => (b.onclick = () => { S.payStatus = b.dataset.st; render(); }));
@@ -467,7 +470,7 @@
     sheet(`<h2 class="big" id="sheet-title">Chek #${p.id}</h2><p class="muted">${esc(p.name || "")} · ${som(p.amount)} · ${dt(p.created_at)}</p>
       <section><img class="receipt" src="${withT(`/api/admin/payments/${p.id}/receipt`)}" alt="To'lov cheki"
         onerror="this.replaceWith(Object.assign(document.createElement('p'),{className:'note',textContent:'Chekni ochib bo\\'lmadi (PDF bo\\'lishi mumkin) — Telegramdagi xabardan ko\\'ring.'}))"></section>
-      ${p.status === "pending" || p.status === "new" ? `<section class="row"><button type="button" class="btn good" id="r-ok">Tasdiqlash</button><button type="button" class="btn bad" id="r-no">Rad etish</button></section>` : ""}`);
+      ${p.status === "pending" ? `<section class="row"><button type="button" class="btn good" id="r-ok">Tasdiqlash</button><button type="button" class="btn bad" id="r-no">Rad etish</button></section>` : ""}`);
     if ($("#r-ok")) {
       $("#r-ok").onclick = (e) => main().decide(p.id, true, e.target);
       $("#r-no").onclick = (e) => main().decide(p.id, false, e.target);

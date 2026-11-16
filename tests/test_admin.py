@@ -140,6 +140,20 @@ async def main() -> None:
 
     pays = await admin.payments(status="pending", limit=100, uid=999)
     assert [p["user_id"] for p in pays["payments"]] == [3]
+    # to'lanmagan (Click oynasi ochilgan, pul tushmagan) to'lovni paneldan tasdiqlab bo'lmaydi
+    async with Session() as s:
+        unpaid = Payment(user_id=3, amount=20000, status="new")
+        s.add(unpaid)
+        await s.commit()
+    from app import videobot as _vb
+    old_bot, _vb.BOT = _vb.BOT, object()
+    try:
+        await admin.payment_decide(unpaid.id, admin.Decision(approve=True), uid=999)
+        raise AssertionError("to'lanmagan to'lov tasdiqlandi")
+    except HTTPException as e:
+        assert e.status_code == 409
+    finally:
+        _vb.BOT = old_bot
 
     # foydalanuvchi: qidiruv, kartochka, balansni tuzatish (manfiyga tushmaydi)
     found = await admin.users_list(q="ali", sort="new", page=0, uid=999)  # Ali va Vali
