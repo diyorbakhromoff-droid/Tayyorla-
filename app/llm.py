@@ -131,7 +131,10 @@ async def _gemini(model, system, prompt, max_tokens, effort, schema):
     key = settings.gemini_key
     if not key:
         raise LLMError("Gemini kaliti kiritilmagan")
-    gen = {"maxOutputTokens": max_tokens, "thinkingConfig": {"thinkingLevel": effort if effort in ("low", "medium", "high") else "medium"}}
+    # Gemini'da o'ylash tokenlari ham shu chegaraga kiradi — javob uzilib qolmasligi uchun zaxira beramiz
+    # (pul faqat haqiqatan ishlatilgan token uchun olinadi)
+    gen = {"maxOutputTokens": min(65536, max(max_tokens * 4, 16000)),
+           "thinkingConfig": {"thinkingLevel": effort if effort in ("low", "medium", "high") else "medium"}}
     if schema:
         gen["responseFormat"] = {"text": {"mimeType": "APPLICATION_JSON", "schema": schema}}
     body = {"system_instruction": {"parts": [{"text": system}]}, "contents": [{"role": "user", "parts": [{"text": prompt}]}],
@@ -151,7 +154,16 @@ async def _gemini(model, system, prompt, max_tokens, effort, schema):
     usage = SimpleNamespace(input_tokens=int(um.get("promptTokenCount") or 0),
                             output_tokens=int(um.get("candidatesTokenCount") or 0) + int(um.get("thoughtsTokenCount") or 0),
                             model=model)
+    finish = cand.get("finishReason")
     if not text:
-        log.warning("Gemini bo'sh javob (%s): %s", cand.get("finishReason"), raw[:800])
-        raise LLMError(f"empty:{cand.get('finishReason')}")
+        log.warning("Gemini bo'sh javob (%s): %s", finish, raw[:800])
+        raise LLMError(f"empty:{finish}")
+    if schema:
+        if text.startswith("```"):  # ba'zan JSON ```json ... ``` ichida keladi
+            text = text.strip("`").removeprefix("json").strip()
+        try:
+            json.loads(text)
+        except ValueError:
+            log.warning("Gemini JSON to'liq emas (%s, %s token): %s", finish, usage.output_tokens, text[-300:])
+            raise LLMError(f"bad_json:{finish}")
     return text, usage
