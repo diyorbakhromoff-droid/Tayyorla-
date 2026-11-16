@@ -30,7 +30,7 @@ class Settings(BaseSettings):
     # namuna: «chorus» — faqat naqorat tayyorlanadi, to'lovdan keyin to'liq qo'shiq o'sha naqoratdan yasaladi (arzon);
     # «full» — namuna uchun ham to'liq qo'shiq tayyorlanadi (eski usul)
     song_preview_mode: str = "chorus"
-    song_workers: int = 2            # bir vaqtda nechta qo'shiq yaratiladi
+    song_workers: int = 5            # bir vaqtda nechta qo'shiq yaratiladi (Lyria/ElevenLabs — tashqi xizmat, server yuklanmaydi)
     song_daily_previews: int = 30    # kuniga hamma uchun jami bepul namunalar — xarajat chegarasi (0 — cheklovsiz; admin panelda o'zgaradi)
     song_lyrics_per_day: int = 5     # bitta foydalanuvchi kuniga necha marta she'r yozdira oladi (yangi + AI bilan qayta yozish)
     song_preview_sub: bool = True    # bepul namuna uchun kanalga obuna sharti (kanal sozlangan bo'lsa)
