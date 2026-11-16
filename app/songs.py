@@ -320,12 +320,63 @@ async def limits() -> tuple[int, int]:
     return max(0, int(v.get("per_user", settings.song_free_previews))), max(0, int(v.get("per_day", settings.song_daily_previews)))
 
 
+async def user_limits() -> dict:
+    """Bir kishiga: bepul namuna (kuniga / jami) va she'r yozish (kuniga / jami). 0 — cheklovsiz (jami uchun)."""
+    from . import store
+    v = await store.get("song_limits") or {}
+    g = lambda k, d: max(0, int(v.get(k, d)))  # noqa: E731
+    return {"pv_day": g("per_user", settings.song_free_previews), "pv_total": g("pv_total", settings.song_previews_total),
+            "ly_day": g("ly_day", settings.song_lyrics_per_day), "ly_total": g("ly_total", settings.song_lyrics_total)}
+
+
+async def previews_used_total(s, uid: int) -> int:
+    return await s.scalar(select(func.count()).select_from(Event).where(Event.user_id == uid, Event.kind == PV_EVENT)) or 0
+
+
 async def free_previews_left(s, uid: int) -> int:
-    """Foydalanuvchining bugungi (Toshkent vaqti) qolgan bepul namunalari."""
-    per_user, _ = await limits()
+    """Foydalanuvchining bugungi (Toshkent vaqti) qolgan bepul namunalari (umumiy chegara ham hisobga olinadi)."""
+    lim = await user_limits()
     used = await s.scalar(select(func.count()).select_from(Event).where(
         Event.user_id == uid, Event.kind == PV_EVENT, Event.created_at >= billing.day_start_utc()))
-    return max(0, per_user - (used or 0))
+    left = max(0, lim["pv_day"] - (used or 0))
+    if lim["pv_total"]:
+        left = min(left, max(0, lim["pv_total"] - await previews_used_total(s, uid)))
+    return left
+
+
+# ---------------------------------------------------------------- namuna faqat ilova ichida
+
+def _sig(song_id: int, name: str, day: int) -> str:
+    import hashlib
+    import hmac
+    return hmac.new(settings.bot_token.encode(), f"pv:{song_id}:{name}:{day}".encode(), hashlib.sha256).hexdigest()[:24]
+
+
+def preview_path(song: Song) -> Path | None:
+    """Yopiq namuna fayli (song.preview = «pv:<nom>»). Eski namunalar /media da — None."""
+    if song.preview and song.preview.startswith("pv:"):
+        return PRIVATE_DIR / Path(song.preview[3:]).name
+    return None
+
+
+def preview_url(song: Song) -> str | None:
+    """Ilova pleeri uchun imzolangan havola: kun davomida o'zgarmaydi, 2 kundan keyin ishlamaydi."""
+    if not song.preview:
+        return None
+    path = preview_path(song)
+    if path is None:
+        return song.preview
+    import time
+    day = int(time.time() // 86400)
+    return f"/api/songs/{song.id}/listen?d={day}&t={_sig(song.id, path.name, day)}"
+
+
+def preview_ok(song: Song, d: int, t: str) -> bool:
+    import hmac
+    import time
+    path = preview_path(song)
+    today = int(time.time() // 86400)
+    return bool(path) and d in (today, today - 1) and hmac.compare_digest(t, _sig(song.id, path.name, d))
 
 
 def count_preview(s, song: Song) -> None:
@@ -680,9 +731,11 @@ async def process(song_id: int, bot=None) -> None:
                         path = await _generate_chorus_demo(s, song)
                     if path is None:
                         path = await _generate_variant(s, song, "song_preview")
-                dst = MEDIA_DIR / _public_name("songp")
+                # namuna ochiq /media da emas: faqat ilova ichida imzolangan havola orqali eshitiladi
+                PRIVATE_DIR.mkdir(parents=True, exist_ok=True)
+                dst = PRIVATE_DIR / f"{song.id}-pv-{secrets.token_hex(6)}.mp3"
                 await asyncio.to_thread(cut_preview, path, dst, song.plan.get("_chorus_at", 0), settings.song_preview_seconds)
-                song.preview, song.status = f"/media/{dst.name}", "preview_ready"
+                song.preview, song.status = f"pv:{dst.name}", "preview_ready"
             else:
                 if not song.variants:
                     await _generate_from_demo(s, song)  # namunadagi naqoratdan (o'sha kuy va ovoz)
@@ -785,10 +838,11 @@ async def notify(bot, song: Song) -> None:
     kb.button(text="🎵 Ilovada ochish", web_app=WebAppInfo(url=app_url(song=song.id)))
     title = song.title or "Qo'shiq"
     if song.status == "preview_ready" and song.preview:
-        await bot.send_audio(song.owner_id, FSInputFile(MEDIA_DIR / Path(song.preview).name, filename=f"{title} — namuna.mp3"),
-                             title=f"{title} (namuna)", performer="Tayyorla",
-                             caption=f"🎧 «{title}» — {settings.song_preview_seconds} soniyalik namuna tayyor.\n"
-                                     f"Yoqsa, to'liq qo'shiqni ilovada oling.", reply_markup=kb.as_markup())
+        # namuna faylini yubormaymiz — faqat ilova ichida tinglanadi (yuklab olib bo'lmasin)
+        tk = InlineKeyboardBuilder()
+        tk.button(text="🎧 Ilovada tinglash", web_app=WebAppInfo(url=app_url(song=song.id)))
+        await bot.send_message(song.owner_id, f"🎧 «{title}» — {settings.song_preview_seconds} soniyalik namuna tayyor!\n"
+                                              f"Ilovada tinglang. Yoqsa, to'liq qo'shiqni shu yerda olasiz.", reply_markup=tk.as_markup())
     elif song.status == "ready":
         many = len(song.variants) > 1  # eski buyurtmalarda 2 ta variant bo'lishi mumkin
         for i, v in enumerate(song.variants):

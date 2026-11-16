@@ -194,6 +194,10 @@ async def main() -> None:
     await store.put("song_limits", {"per_user": 5, "per_day": 0})
     assert await songs.limits() == (5, 0)
     async with Session() as s:
+        # kunlik 5 tadan bugun 1 ta ishlatilgan (4), lekin umumiy chegara 5 — kecha bilan jami 2 ta, demak 3 ta qoldi
+        assert await songs.free_previews_left(s, 40) == 3
+    await store.put("song_limits", {"per_user": 5, "per_day": 0, "pv_total": 0})  # 0 — umumiy chegara yo'q
+    async with Session() as s:
         assert await songs.free_previews_left(s, 40) == 4
 
     # ---------- 7) balansni istalgan summaga to'ldirish

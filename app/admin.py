@@ -1111,6 +1111,7 @@ async def system(uid: int = Depends(admin_uid)):
                    "video": settings.video_price, "free_per_day": settings.free_videos_per_day},
         "music": await music_info(),
         "ai": await ai_info(),
+        "song_limits": await songs.user_limits(),
         "songs": {"on": settings.songs_on, "price": settings.song_price, "daily_previews": per_day, "per_user": per_user,
                   "previews_today": pv_today, "credits": await songs.credits(), "alert": settings.song_credit_alert},
     }
@@ -1119,11 +1120,19 @@ async def system(uid: int = Depends(admin_uid)):
 class SongLimitsIn(BaseModel):
     per_user: int = Field(ge=0, le=20)     # bir kishiga kuniga bepul namuna
     per_day: int = Field(ge=0, le=100_000)  # hamma uchun kuniga jami (0 — cheklovsiz)
+    pv_total: int | None = Field(default=None, ge=0, le=1000)  # bir kishiga jami bepul namuna (0 — cheklovsiz)
+    ly_day: int | None = Field(default=None, ge=0, le=100)     # bir kishiga kuniga she'r yozish
+    ly_total: int | None = Field(default=None, ge=0, le=1000)  # bir kishiga jami she'r yozish (0 — cheklovsiz)
 
 
 @router.post("/song-limits")
 async def song_limits(body: SongLimitsIn, uid: int = Depends(admin_uid)):
-    await store.put("song_limits", {"per_user": body.per_user, "per_day": body.per_day})
+    cur = await store.get("song_limits") or {}
+    cur.update({"per_user": body.per_user, "per_day": body.per_day})
+    for k in ("pv_total", "ly_day", "ly_total"):
+        if getattr(body, k) is not None:
+            cur[k] = getattr(body, k)
+    await store.put("song_limits", cur)
     log.info("Qo'shiq namunasi limiti o'zgardi: kishiga %s, jami %s (admin %s)", body.per_user, body.per_day, uid)
     return {"ok": True, "per_user": body.per_user, "per_day": body.per_day}
 

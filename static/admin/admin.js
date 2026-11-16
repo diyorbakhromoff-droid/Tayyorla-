@@ -794,6 +794,9 @@
         <form class="form" id="sg-lim"><div class="fields">
           <label class="f">Bir kishiga kuniga<input class="in" type="number" name="per_user" min="0" max="20" value="${d.songs.per_user}"><small>0 — bepul namuna yo'q</small></label>
           <label class="f">Hamma uchun kuniga jami<input class="in" type="number" name="per_day" min="0" max="100000" value="${d.songs.daily_previews}"><small>xarajat chegarasi · 0 — cheklovsiz</small></label>
+          <label class="f">Bir kishiga jami namuna<input class="in" type="number" name="pv_total" min="0" max="1000" value="${(d.song_limits || {}).pv_total ?? 5}"><small>umr bo'yi · 0 — cheklovsiz</small></label>
+          <label class="f">She'r yozish: kuniga<input class="in" type="number" name="ly_day" min="0" max="100" value="${(d.song_limits || {}).ly_day ?? 1}"><small>yangi she'r va AI bilan qayta yozish</small></label>
+          <label class="f">She'r yozish: jami<input class="in" type="number" name="ly_total" min="0" max="1000" value="${(d.song_limits || {}).ly_total ?? 5}"><small>bir kishiga · balansi bor mijozga cheklanmaydi</small></label>
           <div><button class="btn primary" type="submit">Saqlash</button></div></div></form></section>` : ""}
       ${d.ai ? (() => { const A = d.ai, opt = (p, cur) => A.models[p].map((m) => `<option value="${m.id}"${m.id === cur ? " selected" : ""}>${esc(m.name)} · $${m.in}/$${m.out}</option>`).join("");
         return `<section class="blk"><div class="bh"><h2>AI xizmati (she'r va matnlar)</h2><p>Hozir <b>${A.provider === "gemini" ? "Google Gemini" : "Anthropic Claude"}</b> ishlayapti.${A.wanted === "gemini" && !A.gemini_key ? " Gemini tanlangan, lekin Google kaliti yo'q — kalitni «Musiqa xizmati» bo'limida kiriting." : ""} Narx — 1 mln token uchun, kirish/chiqish.</p></div>
@@ -852,7 +855,7 @@
     const lim = $("#sg-lim");
     if (lim) lim.onsubmit = async (e) => {
       e.preventDefault(); const fd = new FormData(lim);
-      try { await api("/api/admin/song-limits", { per_user: +fd.get("per_user"), per_day: +fd.get("per_day") }); toast("Saqlandi"); render(); }
+      try { await api("/api/admin/song-limits", { per_user: +fd.get("per_user"), per_day: +fd.get("per_day"), pv_total: +fd.get("pv_total"), ly_day: +fd.get("ly_day"), ly_total: +fd.get("ly_total") }); toast("Saqlandi"); render(); }
       catch (err) { toast(err.message, true); }
     };
   }

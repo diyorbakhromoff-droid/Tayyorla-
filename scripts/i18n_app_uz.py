@@ -310,7 +310,7 @@ APP = {
     "song.paid": "To‘lov qabul qilindi — qo‘shiq tayyorlanmoqda",
     "song.need_text": "Qo‘shiq narxi {sum}, balansingiz {balance}. To‘lov tasdiqlangach qo‘shiq o‘zi tayyorlana boshlaydi.",
     "song.limit_t": "Bugungi bepul namunalaringiz tugadi",
-    "song.limit_daily_t": "Bugungi bepul namunalar tugadi",
+    "song.limit_daily_t": "Bugungi bepul namunalar tugadi", "song.limit_total_t": "Bepul namunalar tugadi", "song.limit_total_s": "Siz barcha bepul namunalardan foydalandingiz. Qo‘shiq yoqqan bo‘lsa, to‘liq variantini sotib oling — 2–3 daqiqada tayyor bo‘ladi.",
     "song.limit_daily_s": "Bepul namunalar soni kuniga cheklangan — ertaga yana urinib ko‘ring. Hoziroq sotib olsangiz, to‘liq qo‘shiq 2–3 daqiqada tayyor bo‘ladi.",
     "song.sub_t": "Kanalimizga obuna bo‘ling",
     "song.sub_s": "Bepul namunani olish uchun Tayyorla kanaliga obuna bo‘ling. Keyin «Obuna bo‘ldim» tugmasini bosing.",

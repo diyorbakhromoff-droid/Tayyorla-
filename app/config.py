@@ -33,7 +33,9 @@ class Settings(BaseSettings):
     song_preview_mode: str = "chorus"
     song_workers: int = 5            # bir vaqtda nechta qo'shiq yaratiladi (Lyria/ElevenLabs — tashqi xizmat, server yuklanmaydi)
     song_daily_previews: int = 30    # kuniga hamma uchun jami bepul namunalar — xarajat chegarasi (0 — cheklovsiz; admin panelda o'zgaradi)
-    song_lyrics_per_day: int = 5     # bitta foydalanuvchi kuniga necha marta she'r yozdira oladi (yangi + AI bilan qayta yozish)
+    song_lyrics_per_day: int = 1     # bitta foydalanuvchi kuniga necha marta she'r yozdira oladi (yangi + AI bilan qayta yozish)
+    song_lyrics_total: int = 5       # bir kishiga jami (balansida qo'shiq puli bo'lsa — cheklanmaydi)
+    song_previews_total: int = 5     # bir kishiga jami bepul namuna (kunlik chegara alohida)
     song_preview_sub: bool = True    # bepul namuna uchun kanalga obuna sharti (kanal sozlangan bo'lsa)
     song_credit_alert: int = 15000   # ElevenLabs krediti shundan kam qolsa adminlarga ogohlantirish (~10 qo'shiq)
     # Click (SHOP API): kalitlar faqat serverdagi .env da turadi

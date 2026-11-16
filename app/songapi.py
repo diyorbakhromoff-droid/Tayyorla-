@@ -3,32 +3,35 @@
 import logging
 
 from fastapi import APIRouter, Header, HTTPException
+from fastapi.responses import FileResponse
 from pydantic import BaseModel, Field
 from sqlalchemy import select
 
 from . import billing, costs, songs
 from .config import settings
-from .db import Session, Site, Song, User, utcnow
+from .db import CostLog, Session, Site, Song, User, utcnow
 from .webapp import _rate_limit, check_init_data
 
 log = logging.getLogger(__name__)
 router = APIRouter()
 
 
-_LYRICS_DAY: dict[tuple[int, str], int] = {}
-
-
-def _lyrics_quota(uid: int) -> None:
-    """She'r yozish (Claude) xarajatini cheklash: bir foydalanuvchi kuniga song_lyrics_per_day marta."""
-    from .reminders import today
-    day = today().isoformat()
-    if len(_LYRICS_DAY) > 50_000:
-        for k in [k for k in _LYRICS_DAY if k[1] != day]:
-            _LYRICS_DAY.pop(k, None)
-    n = _LYRICS_DAY.get((uid, day), 0)
-    if settings.song_lyrics_per_day and n >= settings.song_lyrics_per_day:
-        raise HTTPException(429, "Bugun she'r yozish imkoniyati tugadi — ertaga yana urinib ko'ring yoki matnni o'zingiz tahrirlang.")
-    _LYRICS_DAY[(uid, day)] = n + 1
+async def _lyrics_quota(uid: int) -> None:
+    """She'r yozish (AI) xarajatini cheklash: bir kishiga kuniga va jami (yangi she'r + AI bilan qayta yozish).
+    Sanoq xarajat jurnalidan (qayta ishga tushganda ham saqlanadi). Balansida qo'shiq puli bo'lsa — cheklanmaydi."""
+    from sqlalchemy import func as _f
+    lim = await songs.user_limits()
+    async with Session() as s:
+        user = await s.get(User, uid)
+        if user and user.balance >= await songs.price_for(s, uid):
+            return
+        q = select(_f.count()).select_from(CostLog).where(CostLog.user_id == uid, CostLog.purpose.in_(("lyrics", "lyrics_edit")))
+        total = await s.scalar(q) or 0
+        today = await s.scalar(q.where(CostLog.created_at >= billing.day_start_utc())) or 0
+    if lim["ly_total"] and total >= lim["ly_total"]:
+        raise HTTPException(429, "Bepul she'r yozish imkoniyatingiz tugadi. Balansni to'ldirsangiz, yangi qo'shiq tayyorlashingiz mumkin.")
+    if lim["ly_day"] and today >= lim["ly_day"]:
+        raise HTTPException(429, "Bugungi she'r yozish imkoniyati tugadi — ertaga yana urinib ko'ring yoki matnni o'zingiz tahrirlang.")
 
 
 def _uid(x_init_data: str) -> tuple[int, dict]:
@@ -41,7 +44,7 @@ def song_out(song: Song) -> dict:
     return {
         "id": song.id, "status": song.status, "recipient": song.recipient, "relation": song.relation, "occasion": song.occasion,
         "style": song.style, "voice": song.voice, "answers": {k: v for k, v in (song.answers or {}).items() if not k.startswith("_")},
-        "title": song.title, "lyrics": song.lyrics, "preview": song.preview or None, "variants": paid_files,
+        "title": song.title, "lyrics": song.lyrics, "preview": songs.preview_url(song), "variants": paid_files,
         "chosen": song.chosen if paid_files else -1, "file": paid_files[song.chosen] if paid_files and 0 <= song.chosen < len(paid_files) else None,
         "paid": song.paid, "price": song.price, "site": song.site_slug or None, "error": song.error or None,
         "busy": song.status in ("preview_queued", "preview_gen", "paid_queued", "paid_gen"),
@@ -80,6 +83,20 @@ async def songs_list(x_init_data: str = Header("")):
     return {"songs": [song_out(x) for x in rows]}
 
 
+@router.get("/api/songs/{song_id}/listen")
+async def song_listen(song_id: int, d: int = 0, t: str = ""):
+    """Namunani faqat ilova pleeri uchun beradi (imzolangan havola, yuklab olish uchun emas)."""
+    async with Session() as s:
+        song = await s.get(Song, song_id)
+    if not song or not songs.preview_ok(song, d, t):
+        raise HTTPException(404)
+    path = songs.preview_path(song)
+    if not path.exists():
+        raise HTTPException(404)
+    return FileResponse(path, media_type="audio/mpeg", headers={
+        "Cache-Control": "private, no-store", "Content-Disposition": "inline", "X-Content-Type-Options": "nosniff"})
+
+
 @router.get("/api/songs/{song_id}")
 async def song_get(song_id: int, x_init_data: str = Header("")):
     uid, _ = _uid(x_init_data)
@@ -112,7 +129,7 @@ async def song_create(body: SongIn, x_init_data: str = Header("")):
     if body.style == "custom" and not answers.get("janr"):
         raise HTTPException(400, "O'z janringizni qisqacha yozing")
     _rate_limit(user)
-    _lyrics_quota(uid)
+    await _lyrics_quota(uid)
     song = Song(owner_id=uid, recipient=body.recipient.strip(), relation=body.relation, occasion=body.occasion, style=body.style,
                 voice=body.voice, answers=answers)
     try:
@@ -146,7 +163,7 @@ async def song_lyrics(song_id: int, body: LyricsIn, x_init_data: str = Header(""
             raise HTTPException(409, "Qo'shiq tayyorlangandan keyin matnni o'zgartirib bo'lmaydi")
         if body.instruction:
             _rate_limit(user)
-            _lyrics_quota(uid)
+            await _lyrics_quota(uid)
             try:
                 title, text, tags = await songs.write_lyrics(song, body.instruction)
             except Exception:
@@ -184,7 +201,9 @@ async def song_preview(song_id: int, x_init_data: str = Header("")):
         except songs.SongError as e:
             raise HTTPException(400, str(e))
         if await songs.free_previews_left(s, uid) <= 0:
-            raise HTTPException(402, {"code": "preview_limit", "reason": "used", "price": await songs.price_for(s, uid)})
+            lim = await songs.user_limits()
+            total = lim["pv_total"] and await songs.previews_used_total(s, uid) >= lim["pv_total"]
+            raise HTTPException(402, {"code": "preview_limit", "reason": "total" if total else "used", "price": await songs.price_for(s, uid)})
         _, per_day = await songs.limits()
         if per_day and await songs.previews_today(s) >= per_day:
             raise HTTPException(402, {"code": "preview_limit", "reason": "daily", "price": await songs.price_for(s, uid)})

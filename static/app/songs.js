@@ -617,9 +617,9 @@
     }
     function limitSheet(reason) {
       const price = (S.sm && S.sm.price) || 0;
-      const daily = reason === "daily";
-      const sh = App.sheet(`<div class="sh-head"><span class="sh-ic">${icon("headphones")}</span><div><h1>${esc(T(daily ? "song.limit_daily_t" : "song.limit_t"))}</h1>
-          <p>${esc(daily ? T("song.limit_daily_s") : T("song.limit_s", { n: (S.sm && S.sm.free_per_day) || 2 }))}</p></div></div>
+      const daily = reason === "daily", total = reason === "total";
+      const sh = App.sheet(`<div class="sh-head"><span class="sh-ic">${icon("headphones")}</span><div><h1>${esc(T(total ? "song.limit_total_t" : daily ? "song.limit_daily_t" : "song.limit_t"))}</h1>
+          <p>${esc(total ? T("song.limit_total_s") : daily ? T("song.limit_daily_s") : T("song.limit_s", { n: (S.sm && S.sm.free_per_day) || 2 }))}</p></div></div>
         <button type="button" class="btn" id="lmBuy">${esc(T("song.buy", { sum: money(price) }))}</button>
         <button type="button" class="btn ghost" id="lmLater">${esc(T("close"))}</button>`, { label: T("song.limit_t") });
       $("#lmBuy", sh.el).onclick = (e) => { sh.close(); pay(e.currentTarget); };

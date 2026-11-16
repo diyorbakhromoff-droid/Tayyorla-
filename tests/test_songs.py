@@ -97,6 +97,8 @@ async def fake_write(song, instruction=""):
 songs.compose = fake_compose
 songs.write_lyrics = fake_write
 songapi.settings.song_lyrics_per_day = 100
+songapi.settings.song_lyrics_total = 1000      # umumiy chegaralar alohida tekshiriladi (11-bo'lim)
+songapi.settings.song_previews_total = 1000
 songapi.settings.song_daily_previews = 20
 songapi.settings.song_free_previews = 1  # kuniga bir kishiga (testlar shu qiymatga tayanadi)
 
@@ -189,9 +191,21 @@ async def main() -> None:
     assert out["status"] == "preview_queued" and out["busy"]
     await run_queue(bot)
     out = await songapi.song_get(sid, x_init_data=INIT)
-    assert out["status"] == "preview_ready" and out["preview"].startswith("/media/songp") and out["variants"] == []
-    prev = MEDIA_DIR / Path(out["preview"]).name
-    assert 19 <= dur(prev) <= 21, dur(prev)
+    # namuna ochiq /media da emas: faqat imzolangan havola (ilova pleeri uchun), botga fayl yuborilmaydi
+    assert out["status"] == "preview_ready" and out["preview"].startswith(f"/api/songs/{sid}/listen?") and out["variants"] == []
+    async with Session() as s:
+        prev = songs.preview_path(await s.get(Song, sid))
+    assert prev.exists() and MEDIA_DIR not in prev.parents and 19 <= dur(prev) <= 21, dur(prev)
+    from urllib.parse import parse_qs, urlparse
+    q = {k: v[0] for k, v in parse_qs(urlparse(out["preview"]).query).items()}
+    fr = await songapi.song_listen(sid, int(q["d"]), q["t"])
+    assert Path(fr.path) == prev and fr.headers["cache-control"] == "private, no-store"
+    for bad in ((int(q["d"]), "0" * 24), (int(q["d"]) - 5, q["t"])):
+        try:
+            await songapi.song_listen(sid, *bad)
+            raise AssertionError("imzosiz yoki eskirgan havola ochildi")
+        except HTTPException as e:
+            assert e.status_code == 404
     async with Session() as s:
         song = await s.get(Song, sid)
         # namuna: saqlangan naqorat (ochiq /media da emas), to'liq qo'shiq hali yo'q
@@ -199,7 +213,7 @@ async def main() -> None:
         private = Path(demo["private"])
         assert private.exists() and MEDIA_DIR not in private.parents and demo["song_id"] == "el-1" and demo["ms"] > 5000
         assert not song.variants
-    assert calls["compose"] == 1 and bot.audio == [(UID, "Onajonim (namuna)")]
+    assert calls["compose"] == 1 and bot.audio == [] and any("namuna tayyor" in t for t in bot.msgs), bot.msgs
 
     # bepul namuna tugadi: ikkinchi qo'shiqqa namuna yo'q, to'g'ridan-to'g'ri sotib olish taklif qilinadi
     sid2 = (await songapi.song_create(body, x_init_data=INIT))["id"]
@@ -233,7 +247,7 @@ async def main() -> None:
     assert not any(c.get("text", "").startswith("[Chorus]") for c in full_plan), "naqorat qayta tayyorlanmasligi kerak"
     gen = [c for c in full_plan if "song_id" not in c]
     assert gen[0]["conditioning_ref"]["song_id"] == "el-1" and gen[0]["condition_strength"] == "high"
-    assert [t for _, t in bot.audio[1:]] == ["Onajonim"]
+    assert [t for _, t in bot.audio] == ["Onajonim"]
     async with Session() as s:
         assert (await s.get(User, UID)).balance == 1000
         # xarajat jurnali: naqorat (namuna) + qolgan qismlar (to'liq), har she'r uchun Claude tokenlari
@@ -443,7 +457,8 @@ async def main() -> None:
     # namuna: Clip modeli, faqat naqorat (kupletlar yo'q)
     assert out["status"] == "preview_ready" and len(lcalls) == 1 and calls["compose"] == before, out
     assert lcalls[0][1] == "lyria-3-clip-preview" and "[Chorus]" in lcalls[0][0] and "[Verse" not in lcalls[0][0]
-    assert 19 <= dur(MEDIA_DIR / Path(out["preview"]).name) <= 21
+    async with Session() as s:
+        assert 19 <= dur(songs.preview_path(await s.get(Song, sid11))) <= 21
     async with Session() as s:
         song = await s.get(Song, sid11)
         assert song.plan["_provider"] == "lyria" and song.plan["_demo"]["clip"] and not song.variants
@@ -476,10 +491,37 @@ async def main() -> None:
     except HTTPException as e:
         assert e.status_code == 429
 
+    # 12) umumiy chegaralar: bir kishiga jami she'r va jami bepul namuna (kunlik chegara alohida)
+    from app import store as _store
+    await _store.put("song_limits", {"per_user": 100, "per_day": 0, "ly_day": 100, "ly_total": 3, "pv_total": 1})
+    u7 = sign({"id": 790, "first_name": "Nodira"})
+    ids = [(await songapi.song_create(body, x_init_data=u7))["id"] for _ in range(3)]
+    try:
+        await songapi.song_create(body, x_init_data=u7)
+        raise AssertionError("jami she'r limiti ishlamadi")
+    except HTTPException as e:
+        assert e.status_code == 429 and "Bepul" in e.detail
+    await songapi.song_preview(ids[0], x_init_data=u7)
+    try:
+        await songapi.song_preview(ids[1], x_init_data=u7)
+        raise AssertionError("jami namuna limiti ishlamadi")
+    except HTTPException as e:
+        assert e.status_code == 402 and e.detail["reason"] == "total"
+    # balansida qo'shiq puli bor mijozga she'r yozish cheklanmaydi (sotib olishi mumkin)
+    async with Session() as s:
+        s.add(User(tg_id=790, first_name="Nodira")) if not await s.get(User, 790) else None
+        await s.commit()
+        await credit(s, 790, 100000, "topup", "t790")
+        await s.commit()
+    await songapi.song_create(body, x_init_data=u7)
+    await _store.put("song_limits", {})
+
     # test fayllarini tozalash
     async with Session() as s:
         from sqlalchemy import select
         for x in (await s.execute(select(Song))).scalars().all():
+            if songs.preview_path(x):
+                songs.preview_path(x).unlink(missing_ok=True)
             for f in [x.preview, *[v.get("file", "") for v in x.variants or []]]:
                 if f:
                     (MEDIA_DIR / Path(f).name).unlink(missing_ok=True)
