@@ -1142,7 +1142,7 @@ class MusicIn(BaseModel):
     gemini_key: str | None = Field(default=None, max_length=200)  # bo'sh satr — kalitni o'chirish
 
 
-@router.post("/music")
+@router.post("/song-provider")
 async def music_save(body: MusicIn, uid: int = Depends(admin_uid)):
     cfg = await songs.music_cfg()
     if body.gemini_key is not None:
@@ -1161,7 +1161,7 @@ async def music_save(body: MusicIn, uid: int = Depends(admin_uid)):
     return await music_info()
 
 
-@router.post("/music/test")
+@router.post("/song-provider/test")
 async def music_test(uid: int = Depends(admin_uid)):
     """Lyria sinovi: bitta to'liq qo'shiq (≈ $0.08) — fonda tayyorlanib, adminga botda yuboriladi."""
     if not settings.gemini_key:

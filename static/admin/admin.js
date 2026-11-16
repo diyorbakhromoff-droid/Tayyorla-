@@ -840,13 +840,13 @@
       e.preventDefault(); const fd = new FormData(mus); const key = (fd.get("gemini_key") || "").trim();
       const body = { provider: fd.get("provider"), lang: fd.get("lang") };
       if (key) body.gemini_key = key;
-      try { const r = await api("/api/admin/music", body); toast(r.provider === body.provider ? "Saqlandi" : "Saqlandi, lekin Lyria kaliti yo'q"); render(); }
+      try { const r = await api("/api/admin/song-provider", body); toast(r.provider === body.provider ? "Saqlandi" : "Saqlandi, lekin Lyria kaliti yo'q"); render(); }
       catch (err) { toast(err.message, true); }
     };
     const mt = $("#mus-test");
     if (mt) mt.onclick = async () => {
       mt.disabled = true;
-      try { await api("/api/admin/music/test", {}); toast("Sinov boshlandi — natija botga keladi"); }
+      try { await api("/api/admin/song-provider/test", {}); toast("Sinov boshlandi — natija botga keladi"); }
       catch (err) { toast(err.message, true); mt.disabled = false; }
     };
     const lim = $("#sg-lim");

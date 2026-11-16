@@ -11,6 +11,7 @@ from types import SimpleNamespace
 
 os.environ["DATABASE_URL"] = f"sqlite+aiosqlite:///{tempfile.mkdtemp()}/llm.db"
 os.environ["BOT_TOKEN"] = "123456:TEST"
+os.environ["ADMIN_IDS"] = "999"
 
 from app import ai, costs, llm, store  # noqa: E402
 from app.config import RUNTIME  # noqa: E402
@@ -119,3 +120,20 @@ async def main() -> None:
 
 
 asyncio.run(main())
+
+
+def routes() -> None:
+    """Admin manzillari boshqa bo'limlar bilan to'qnashmasin (masalan, video kuylarini yuklash /api/admin/music)."""
+    os.environ.setdefault("ADMIN_IDS", "999")
+    from fastapi.testclient import TestClient
+    from app import admin
+    from app.web import app
+    c, h = TestClient(app), {"X-Admin-Token": admin.make_token(999)}
+    r = c.post("/api/admin/song-provider", json={"provider": "elevenlabs", "lang": "uz", "gemini_key": "AIzaSyD-TEST_key1234567890abcdefGHIJ"}, headers=h)
+    assert r.status_code == 200 and r.json()["lyria_key"] and "AIza" not in r.text, r.text
+    r = c.post("/api/admin/ai", json={"provider": "anthropic", "gemini": {"main": "gemini-3.8-flash"}}, headers=h)
+    assert r.status_code == 200 and r.json()["gemini"]["main"] == "gemini-3.8-flash", r.text
+    print("✅ Admin manzillari tekshiruvi o'tdi")
+
+
+routes()
