@@ -310,6 +310,7 @@ class CostLog(Base):
     units_in: Mapped[int] = mapped_column(Integer, default=0)     # music: soniya · ai: kirish tokenlari
     units_out: Mapped[int] = mapped_column(Integer, default=0)    # ai: chiqish tokenlari
     ref: Mapped[str] = mapped_column(String(40), default="")
+    model: Mapped[str] = mapped_column(String(40), default="")    # ai: qaysi model (narxi shundan hisoblanadi)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=utcnow, index=True)
 
 
@@ -349,6 +350,7 @@ _NEW_COLUMNS = [
     ("payments", "ext_id", "VARCHAR(40) DEFAULT '' NOT NULL"),
     ("payments", "song_id", "INTEGER"),
     ("songs", "preview_at", "TIMESTAMP"),
+    ("cost_log", "model", "VARCHAR(40) DEFAULT '' NOT NULL"),
 ]
 
 

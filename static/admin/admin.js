@@ -795,6 +795,15 @@
           <label class="f">Bir kishiga kuniga<input class="in" type="number" name="per_user" min="0" max="20" value="${d.songs.per_user}"><small>0 — bepul namuna yo'q</small></label>
           <label class="f">Hamma uchun kuniga jami<input class="in" type="number" name="per_day" min="0" max="100000" value="${d.songs.daily_previews}"><small>xarajat chegarasi · 0 — cheklovsiz</small></label>
           <div><button class="btn primary" type="submit">Saqlash</button></div></div></form></section>` : ""}
+      ${d.ai ? (() => { const A = d.ai, opt = (p, cur) => A.models[p].map((m) => `<option value="${m.id}"${m.id === cur ? " selected" : ""}>${esc(m.name)} · $${m.in}/$${m.out}</option>`).join("");
+        return `<section class="blk"><div class="bh"><h2>AI xizmati (she'r va matnlar)</h2><p>Hozir <b>${A.provider === "gemini" ? "Google Gemini" : "Anthropic Claude"}</b> ishlayapti.${A.wanted === "gemini" && !A.gemini_key ? " Gemini tanlangan, lekin Google kaliti yo'q — kalitni «Musiqa xizmati» bo'limida kiriting." : ""} Narx — 1 mln token uchun, kirish/chiqish.</p></div>
+        <form class="form" id="aicfg"><div class="fields">
+          <label class="f">Xizmat<select class="in" name="provider"><option value="anthropic"${A.wanted !== "gemini" ? " selected" : ""}>Anthropic (Claude)</option><option value="gemini"${A.wanted === "gemini" ? " selected" : ""}>Google (Gemini)</option></select><small>Google kaliti Lyria bilan bir xil</small></label>
+          <label class="f">Claude: asosiy<select class="in" name="anthropic_main">${opt("anthropic", A.anthropic.main)}</select><small>she'r, sayt matni, tahrir</small></label>
+          <label class="f">Claude: yengil<select class="in" name="anthropic_light">${opt("anthropic", A.anthropic.light)}</select><small>video matni, tarjima</small></label>
+          <label class="f">Gemini: asosiy<select class="in" name="gemini_main">${opt("gemini", A.gemini.main)}</select><small>she'r, sayt matni, tahrir</small></label>
+          <label class="f">Gemini: yengil<select class="in" name="gemini_light">${opt("gemini", A.gemini.light)}</select><small>video matni, tarjima</small></label>
+          <div class="row"><button class="btn primary" type="submit">Saqlash</button><button class="btn" type="button" id="aitest">Asosiy modelni sinash</button></div></div></form></section>`; })() : ""}
       ${d.music ? `<section class="blk"><div class="bh"><h2>Musiqa xizmati</h2><p>Qo'shiqlarni hozir <b>${d.music.provider === "lyria" ? "Google Lyria" : "ElevenLabs"}</b> tayyorlayapti.${d.music.wanted === "lyria" && !d.music.lyria_key ? " Lyria tanlangan, lekin kaliti yo'q — shuning uchun ElevenLabs ishlayapti." : ""}</p></div>
         <form class="form" id="mus"><div class="fields">
           <label class="f">Xizmat<select class="in" name="provider"><option value="elevenlabs"${d.music.wanted !== "lyria" ? " selected" : ""}>ElevenLabs</option><option value="lyria"${d.music.wanted === "lyria" ? " selected" : ""}>Google Lyria</option></select><small>Lyria: bir qo'shiq ≈ $0.08, sotilganda qo'shimcha xarajat yo'q</small></label>
@@ -807,6 +816,25 @@
       <section class="blk"><div class="bh"><h2>Eksport</h2><p>Excel'da ochiladigan CSV fayllar</p></div>
         <div class="row"><button class="btn" data-exp="users">Foydalanuvchilar</button><button class="btn" data-exp="payments">To'lovlar</button><button class="btn" data-exp="sites">Taklifnomalar</button></div></section>`;
     $$("[data-exp]").forEach((b) => (b.onclick = () => download(`/api/admin/export/${b.dataset.exp}.csv`)));
+    const aic = $("#aicfg");
+    if (aic) {
+      const val = () => { const fd = new FormData(aic); return { provider: fd.get("provider"),
+        anthropic: { main: fd.get("anthropic_main"), light: fd.get("anthropic_light") }, gemini: { main: fd.get("gemini_main"), light: fd.get("gemini_light") } }; };
+      aic.onsubmit = async (e) => {
+        e.preventDefault(); const body = val();
+        try { const r = await api("/api/admin/ai", body); toast(r.provider === body.provider ? "Saqlandi" : "Saqlandi, lekin Google kaliti yo'q — Claude ishlayapti"); render(); }
+        catch (err) { toast(err.message, true); }
+      };
+      $("#aitest").onclick = async () => {
+        const v = val(), model = v[v.provider].main;
+        sheet(`<p class="boot">${esc(model)} yozmoqda…</p>`);
+        try {
+          const r = await api("/api/admin/ai/test", { provider: v.provider, model });
+          $("#sheet-body").innerHTML = `<h2>${esc(r.model)}</h2><p class="muted">${r.seconds} s · ${fmt(r.tokens_in)} + ${fmt(r.tokens_out)} token · ≈ ${som(r.som)}</p>
+            <div class="note" style="white-space:pre-wrap;margin-top:12px">${esc(r.text)}</div><p class="muted" style="margin-top:10px">Sinov matni: onaga tug'ilgan kun tabrigi. Boshqa modelni tanlab, yana sinab solishtiring.</p>`;
+        } catch (err) { $("#sheet-body").innerHTML = `<p class="note">${esc(err.message)}</p>`; }
+      };
+    }
     const mus = $("#mus");
     if (mus) mus.onsubmit = async (e) => {
       e.preventDefault(); const fd = new FormData(mus); const key = (fd.get("gemini_key") || "").trim();

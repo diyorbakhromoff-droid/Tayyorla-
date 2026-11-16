@@ -30,7 +30,7 @@ PURPOSES = {
     "song_preview": "Qo'shiq namunasi (demo)", "song_full": "Sotilgan qo'shiq",
     "song_est": "Qo'shiq (hisob yuritilishidan oldingi, taxmin)",
     "lyrics": "Qo'shiq she'ri", "lyrics_edit": "She'rni qayta yozish", "lyrics_est": "Qo'shiq she'ri (taxmin)",
-    "song_test": "Musiqa xizmati sinovi",
+    "song_test": "Musiqa xizmati sinovi", "ai_test": "AI modelini sinash",
     "site_text": "Taklifnoma matni", "site_edit": "Sayt tahriri (AI)", "video_text": "Video matni", "translate": "Tarjima",
 }
 SONG_PURPOSES = ("song_preview", "song_full", "song_est", "lyrics", "lyrics_edit", "lyrics_est")
@@ -52,12 +52,14 @@ async def save_rates(values: dict) -> dict:
     return cur
 
 
-def som_of(row_kind: str, units_in: int, units_out: int, r: dict) -> float:
+def som_of(row_kind: str, units_in: int, units_out: int, r: dict, model: str = "") -> float:
     if row_kind == "music":
         return units_in * r["credits_per_sec"] / 1000 * r["usd_per_1k_credits"] * r["usd_som"]
     if row_kind == "lyria":  # units_in — qo'shiqlar soni
         return units_in * r["lyria_usd_per_song"] * r["usd_som"]
-    return (units_in * r["ai_in_per_m"] + units_out * r["ai_out_per_m"]) / 1e6 * r["usd_som"]
+    from . import llm
+    p_in, p_out = llm.price(model) or (r["ai_in_per_m"], r["ai_out_per_m"])  # modelning rasmiy narxi, noma'lum bo'lsa paneldagi
+    return (units_in * p_in + units_out * p_out) / 1e6 * r["usd_som"]
 
 
 async def _add(row: CostLog) -> None:
@@ -85,7 +87,7 @@ def ai_row(usage, purpose: str, user_id: int | None = None, ref: str = "") -> Co
         return None
     tin = (getattr(u, "input_tokens", 0) or 0) + (getattr(u, "cache_creation_input_tokens", 0) or 0) + (getattr(u, "cache_read_input_tokens", 0) or 0)
     return CostLog(kind="ai", purpose=purpose, units_in=int(tin), units_out=int(getattr(u, "output_tokens", 0) or 0),
-                   user_id=user_id, ref=ref[:40])
+                   user_id=user_id, ref=ref[:40], model=str(getattr(u, "model", "") or getattr(usage, "model", "") or "")[:40])
 
 
 async def log_ai(usage, purpose: str, user_id: int | None = None, ref: str = "") -> None:
@@ -103,12 +105,17 @@ async def summary(s, a, b, r: dict | None = None) -> dict:
     """[a, b) oralig'idagi xarajatlar so'mda va maqsadlar bo'yicha. Jurnal yuritilishidan oldin yaratilgan
     qo'shiqlar uchun xarajat Song yozuvidan taxmin qilinadi (nechta variant × reja uzunligi)."""
     r = r or await rates()
-    rows = (await s.execute(select(CostLog.kind, CostLog.purpose, func.count(), func.sum(CostLog.units_in), func.sum(CostLog.units_out))
-                            .where(CostLog.created_at >= a, CostLog.created_at < b).group_by(CostLog.kind, CostLog.purpose))).all()
+    rows = (await s.execute(select(CostLog.kind, CostLog.purpose, CostLog.model, func.count(), func.sum(CostLog.units_in), func.sum(CostLog.units_out))
+                            .where(CostLog.created_at >= a, CostLog.created_at < b)
+                            .group_by(CostLog.kind, CostLog.purpose, CostLog.model))).all()
     by = {}
-    for kind, purpose, n, uin, uout in rows:
-        by[purpose] = {"purpose": purpose, "label": PURPOSES.get(purpose, purpose), "kind": kind, "n": n,
-                       "units_in": int(uin or 0), "units_out": int(uout or 0), "som": som_of(kind, uin or 0, uout or 0, r)}
+    for kind, purpose, model, n, uin, uout in rows:
+        it = by.setdefault(purpose, {"purpose": purpose, "label": PURPOSES.get(purpose, purpose), "kind": kind, "n": 0,
+                                     "units_in": 0, "units_out": 0, "som": 0.0})
+        it["n"] += n
+        it["units_in"] += int(uin or 0)
+        it["units_out"] += int(uout or 0)
+        it["som"] += som_of(kind, uin or 0, uout or 0, r, model or "")
     # jurnaldan oldingi qo'shiqlar (bu davrda yaratilgan, lekin xarajat yozuvi yo'q)
     logged = set((await s.execute(select(CostLog.ref).where(CostLog.ref.like("song:%")).distinct())).scalars().all())
     old = (await s.execute(select(Song.id, Song.variants, Song.plan, Song.lyrics).where(Song.created_at >= a, Song.created_at < b))).all()

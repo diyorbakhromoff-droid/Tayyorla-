@@ -4,25 +4,41 @@ import json
 import logging
 import re
 
-import anthropic
+from types import SimpleNamespace
 
-from . import costs
+from . import costs, llm
 from .config import ROOT, settings
 from .sites import CATEGORIES, PALETTES
 
 log = logging.getLogger(__name__)
 
-client = anthropic.AsyncAnthropic(api_key=settings.anthropic_api_key or None)
-
-COMMON_ARGS = dict(
-    model=settings.ai_model,
-    betas=["server-side-fallback-2026-07-01"],
-    fallbacks="default",
-)
-
-
 class AIError(Exception):
     pass
+
+
+class _Router:
+    """Eski «client.beta.messages.create(...)» chaqiruvlari shu yerdan o'tadi: xizmat va model admin paneldan tanlanadi
+    (app/llm.py — Anthropic yoki Gemini). Javob Anthropic javobiga o'xshash: stop_reason, content[].text, usage."""
+
+    def __init__(self):
+        self.beta = self
+        self.messages = self
+
+    async def create(self, *, max_tokens: int, system: str = "", messages: list, output_config: dict | None = None, **_ignored):
+        oc = output_config or {}
+        effort = oc.get("effort", "medium")
+        effort = "medium" if effort == "high" else effort  # «high» — xarajatni ko'paytirardi, sifat uchun «medium» yetarli
+        schema = (oc.get("format") or {}).get("schema")
+        tier = "light" if system in (VIDEO_WRITER_SYSTEM, TRANSLATE_SYSTEM) else "main"
+        try:
+            text, usage = await llm.generate(tier, system, messages[-1]["content"], max_tokens, effort, schema)
+        except llm.LLMError as e:
+            raise AIError(str(e))
+        return SimpleNamespace(stop_reason="end_turn", content=[SimpleNamespace(type="text", text=text)], usage=usage, model=usage.model)
+
+
+client = _Router()
+COMMON_ARGS: dict = {}
 
 
 def _text(resp) -> str:

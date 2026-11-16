@@ -1110,6 +1110,7 @@ async def system(uid: int = Depends(admin_uid)):
         "prices": {"standart": settings.price_standart, "premium": settings.price_premium, "vip": settings.price_vip,
                    "video": settings.video_price, "free_per_day": settings.free_videos_per_day},
         "music": await music_info(),
+        "ai": await ai_info(),
         "songs": {"on": settings.songs_on, "price": settings.song_price, "daily_previews": per_day, "per_user": per_user,
                   "previews_today": pv_today, "credits": await songs.credits(), "alert": settings.song_credit_alert},
     }
@@ -1167,6 +1168,57 @@ async def music_test(uid: int = Depends(admin_uid)):
         raise HTTPException(400, "Avval Lyria kalitini kiriting")
     asyncio.create_task(songs.lyria_test(uid))
     return {"ok": True}
+
+
+# ---------------------------------------------------------------- AI xizmati: Anthropic yoki Gemini, asosiy va yengil model
+
+async def ai_info() -> dict:
+    from . import llm
+    cfg = await llm.config()
+    provider, _ = await llm.active("main")
+    return {"provider": provider, "wanted": cfg["provider"], "gemini_key": bool(settings.gemini_key),
+            "anthropic_key": bool(settings.anthropic_api_key), "anthropic": cfg["anthropic"], "gemini": cfg["gemini"],
+            "models": {p: [{"id": m, "name": n, "in": i, "out": o} for m, (n, i, o) in ms.items()] for p, ms in llm.MODELS.items()}}
+
+
+class AIConfigIn(BaseModel):
+    provider: str | None = Field(default=None, pattern="^(anthropic|gemini)$")
+    anthropic: dict[str, str] | None = None
+    gemini: dict[str, str] | None = None
+
+
+@router.post("/ai")
+async def ai_save(body: AIConfigIn, uid: int = Depends(admin_uid)):
+    from . import llm
+    cfg = await llm.save(body.provider, {"anthropic": body.anthropic or {}, "gemini": body.gemini or {}})
+    log.info("AI xizmati o'zgardi: %s (admin %s)", cfg, uid)
+    return await ai_info()
+
+
+class AITestIn(BaseModel):
+    provider: str = Field(pattern="^(anthropic|gemini)$")
+    model: str = Field(max_length=40)
+
+
+@router.post("/ai/test")
+async def ai_test(body: AITestIn, uid: int = Depends(admin_uid)):
+    """Tanlangan model bilan bitta qisqa o'zbekcha tabrik — sifat va narxni solishtirish uchun."""
+    from . import ai, costs, llm
+    if body.model not in llm.MODELS.get(body.provider, {}):
+        raise HTTPException(400, "Noma'lum model")
+    if body.provider == "gemini" and not settings.gemini_key:
+        raise HTTPException(400, "Avval «Musiqa xizmati» bo'limida Google kalitini kiriting")
+    started = _time.time()
+    prompt = ("Matn turi: onaga tug'ilgan kun tabrigi.\nMa'lumotlar: {\"ism\": \"Dilnoza opa\", \"xarakter\": \"mehribon, g'amxo'r, hazilkash\", "
+              "\"xotira\": \"har tong choy damlab kutadi\"}\nFoydalanuvchi istagi: samimiy va ta'sirli bo'lsin")
+    try:
+        text, usage = await llm.generate("main", ai.WRITER_SYSTEM, prompt, 8000, "medium", provider=body.provider, model=body.model)
+    except llm.LLMError as e:
+        raise HTTPException(502, f"Model javob bermadi: {e}")
+    await costs.log_ai(usage, "ai_test")
+    som = costs.som_of("ai", usage.input_tokens, usage.output_tokens, await costs.rates(), body.model)
+    return {"text": text, "model": body.model, "seconds": round(_time.time() - started, 1),
+            "tokens_in": usage.input_tokens, "tokens_out": usage.output_tokens, "som": round(som)}
 
 
 # ---------------------------------------------------------------- progrev (eslatma xabarlari ketma-ketligi)
