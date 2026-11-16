@@ -1,4 +1,4 @@
-"""Bizning tashqi xarajatlarimiz: ElevenLabs musiqasi va Claude (matn, she'r) chaqiruvlari.
+"""Bizning tashqi xarajatlarimiz: musiqa (ElevenLabs yoki Google Lyria) va Claude (matn, she'r) chaqiruvlari.
 
 Har bir chaqiruv haqiqiy hajmi bilan yoziladi (musiqa — soniya, Claude — kirish/chiqish tokenlari).
 So'mdagi qiymat hisobot paytida admin paneldagi narxlar bilan hisoblanadi, shuning uchun narx o'zgarsa
@@ -21,14 +21,16 @@ DEFAULTS = {
     "usd_per_1k_credits": 0.22,  # tarifingizdagi 1000 kredit narxi (Creator: $22 / 100 000 kredit)
     "ai_in_per_m": 4.0,        # Claude: 1 mln kirish tokeni, $
     "ai_out_per_m": 20.0,      # Claude: 1 mln chiqish tokeni, $
+    "lyria_usd_per_song": 0.08,  # Google Lyria 3.5: bitta qo'shiq, $
 }
 LIMITS = {"usd_som": (1000, 100000), "credits_per_sec": (1, 200), "usd_per_1k_credits": (0.01, 10),
-          "ai_in_per_m": (0, 200), "ai_out_per_m": (0, 500)}
+          "ai_in_per_m": (0, 200), "ai_out_per_m": (0, 500), "lyria_usd_per_song": (0, 5)}
 
 PURPOSES = {
-    "song_preview": "Qo'shiq namunasi (demo)", "song_full": "Sotilgan qo'shiq (2-variant)",
+    "song_preview": "Qo'shiq namunasi (demo)", "song_full": "Sotilgan qo'shiq",
     "song_est": "Qo'shiq (hisob yuritilishidan oldingi, taxmin)",
     "lyrics": "Qo'shiq she'ri", "lyrics_edit": "She'rni qayta yozish", "lyrics_est": "Qo'shiq she'ri (taxmin)",
+    "song_test": "Musiqa xizmati sinovi",
     "site_text": "Taklifnoma matni", "site_edit": "Sayt tahriri (AI)", "video_text": "Video matni", "translate": "Tarjima",
 }
 SONG_PURPOSES = ("song_preview", "song_full", "song_est", "lyrics", "lyrics_edit", "lyrics_est")
@@ -53,6 +55,8 @@ async def save_rates(values: dict) -> dict:
 def som_of(row_kind: str, units_in: int, units_out: int, r: dict) -> float:
     if row_kind == "music":
         return units_in * r["credits_per_sec"] / 1000 * r["usd_per_1k_credits"] * r["usd_som"]
+    if row_kind == "lyria":  # units_in — qo'shiqlar soni
+        return units_in * r["lyria_usd_per_song"] * r["usd_som"]
     return (units_in * r["ai_in_per_m"] + units_out * r["ai_out_per_m"]) / 1e6 * r["usd_som"]
 
 
@@ -68,6 +72,10 @@ async def _add(row: CostLog) -> None:
 
 def music_row(seconds: float, purpose: str, user_id: int | None = None, ref: str = "") -> CostLog:
     return CostLog(kind="music", purpose=purpose, units_in=max(0, round(seconds)), user_id=user_id, ref=ref[:40])
+
+
+def lyria_row(purpose: str, user_id: int | None = None, ref: str = "") -> CostLog:
+    return CostLog(kind="lyria", purpose=purpose, units_in=1, user_id=user_id, ref=ref[:40])
 
 
 def ai_row(usage, purpose: str, user_id: int | None = None, ref: str = "") -> CostLog | None:

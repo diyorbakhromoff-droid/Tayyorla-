@@ -21,8 +21,8 @@ from pathlib import Path
 import aiohttp
 from sqlalchemy import func, select
 
-from . import billing, costs
-from .config import MEDIA_DIR, ROOT, settings
+from . import billing, costs, lyria
+from .config import MEDIA_DIR, ROOT, RUNTIME, settings
 from .db import Event, Session, Site, Song, User, utcnow
 
 log = logging.getLogger(__name__)
@@ -343,6 +343,30 @@ async def refund_preview(s, song: Song) -> None:
 SONG_VARIANTS = 1  # to'lovdan keyin beriladigan to'liq qo'shiqlar soni (namunadagi qo'shiq qayta ishlatiladi)
 
 
+# ---------------------------------------------------------------- musiqa xizmati (ElevenLabs yoki Google Lyria)
+
+MUSIC_KEY = "music"
+
+
+async def music_cfg() -> dict:
+    """Admin paneldagi sozlama: {provider, gemini_key, lang}. Kalit xotiraga ham yuklanadi (settings.gemini_key)."""
+    from . import store
+    v = await store.get(MUSIC_KEY) or {}
+    RUNTIME["gemini_key"] = v.get("gemini_key", "")
+    return v
+
+
+async def provider() -> str:
+    """Hozir ishlatiladigan xizmat. Tanlangan xizmatning kaliti bo'lmasa — kaliti bor boshqasi."""
+    v = await music_cfg()
+    want = v.get("provider", settings.song_provider)
+    if want == "lyria" and settings.gemini_key:
+        return "lyria"
+    if settings.elevenlabs_api_key:
+        return "elevenlabs"
+    return "lyria" if settings.gemini_key else "elevenlabs"
+
+
 def credits_needed(song: Song, variants: int) -> int:
     """Qo'shiq tayyorlash uchun taxminiy kredit: sinovda 100 s ≈ 1500 kredit."""
     plan, _, _ = build_plan(parse_lyrics(song.lyrics), song.style, song.voice, song.tags or [])
@@ -581,6 +605,34 @@ async def _generate_from_demo(s, song: Song) -> Path | None:
     return path
 
 
+async def _generate_lyria(s, song: Song, purpose: str) -> Path:
+    """Lyria: bitta to'liq qo'shiq. Namuna shu qo'shiqning naqoratidan kesiladi, sotilsa aynan shu qo'shiq beriladi."""
+    sections = parse_lyrics(song.lyrics)
+    plan, chorus_at, _ = build_plan(sections, song.style, song.voice, song.tags or [])
+    total = sum(c["duration_ms"] for c in plan["chunks"])
+    name, base, _ = STYLES.get(song.style, STYLES["pop"])
+    lang = (await music_cfg()).get("lang", "uz")
+    text = lyria.prompt(sections, name, base, song.voice, OCCASIONS.get(song.occasion, song.occasion or ""),
+                        list(song.tags or []), total / 1000, lang)
+    try:
+        data, info = await lyria.compose(text)
+    except lyria.LyriaError as e:
+        if e.quota:
+            _ALERT["at"] = 0.0
+            raise QuotaError(str(e))
+        raise SongError(str(e))
+    s.add(costs.lyria_row(purpose, song.owner_id, f"song:{song.id}"))
+    PRIVATE_DIR.mkdir(parents=True, exist_ok=True)
+    path = PRIVATE_DIR / f"{song.id}-l-{secrets.token_hex(4)}.mp3"
+    path.write_bytes(data)
+    ms = await asyncio.to_thread(_audio_ms, path) or total
+    at = lyria.chorus_seconds(info)
+    at_ms = int(at * 1000) if at is not None and 0 <= at * 1000 < ms - 8000 else int(ms * chorus_at / max(1, total))
+    song.plan = {"_provider": "lyria", "_chorus_at": at_ms, "_chorus_len": 20000, "_lyria_text": (info or "")[:3000]}
+    song.variants = [{"private": str(path), "file": ""}]
+    return path
+
+
 async def process(song_id: int, bot=None) -> None:
     async with Session() as s:
         song = await s.get(Song, song_id)
@@ -593,6 +645,8 @@ async def process(song_id: int, bot=None) -> None:
                     path = Path(song.variants[0]["private"])
                 elif (song.plan or {}).get("_demo", {}).get("private") and Path(song.plan["_demo"]["private"]).exists():
                     path = Path(song.plan["_demo"]["private"])
+                elif await provider() == "lyria":
+                    path = await _generate_lyria(s, song, "song_preview")
                 else:
                     path = None
                     if settings.song_preview_mode == "chorus":
@@ -605,6 +659,8 @@ async def process(song_id: int, bot=None) -> None:
             else:
                 if not song.variants:
                     await _generate_from_demo(s, song)  # namunadagi naqoratdan (o'sha kuy va ovoz)
+                if not song.variants and await provider() == "lyria":
+                    await _generate_lyria(s, song, "song_full")
                 while len(song.variants or []) < SONG_VARIANTS:
                     await _generate_variant(s, song, "song_full")
                 variants = []
@@ -718,3 +774,68 @@ async def notify(bot, song: Song) -> None:
                                  reply_markup=kb.as_markup() if last else None)
     elif song.status in ("failed", "lyrics") and song.error:
         await bot.send_message(song.owner_id, f"⚠️ «{title}»: {song.error}", reply_markup=kb.as_markup())
+
+# ---------------------------------------------------------------- Lyria sinovi (admin paneldagi tugma)
+
+LYRIA_TEST_LYRICS = """[1-kuplet]
+Onajonim, quyoshim, mehribonim
+Sen borsan-u yorug'dir har tongim
+Qo'llaring iliq, so'zlaring shirin
+Sen bilan to'kis bu hayotim
+
+[Naqorat]
+Xush kelibsan, quvonchim, qo'shig'im o'zingsan
+G'olib yurak bilan seni qishda ham kutganman
+Onajon, onajon, jonim onajon
+Sen menga eng aziz, eng mehribon
+
+[2-kuplet]
+Bolaligim o'tdi bag'ringda
+Ertaklaring qoldi yodimda
+Har bir yutug'imning ortida
+Sening mehring bor, onajonim
+
+[Naqorat]
+Xush kelibsan, quvonchim, qo'shig'im o'zingsan
+G'olib yurak bilan seni qishda ham kutganman
+Onajon, onajon, jonim onajon
+Sen menga eng aziz, eng mehribon"""
+
+
+async def lyria_test(admin_id: int) -> None:
+    """Bir xil she'r bilan ikki qo'shiq (o'zbekcha va inglizcha ko'rsatma) — qaysi biri yaxshi talaffuz qilishini solishtirish uchun.
+    Har biri ≈ $0.08. Xato bo'lsa qayta urinilmaydi, natija adminga botda yuboriladi."""
+    from aiogram.types import FSInputFile
+    from . import videobot
+    bot = videobot.BOT
+    sections = parse_lyrics(LYRIA_TEST_LYRICS)
+    plan, _, _ = build_plan(sections, "pop", "female", [])
+    total = sum(c["duration_ms"] for c in plan["chunks"]) / 1000
+    name, base, _ = STYLES["pop"]
+    PRIVATE_DIR.mkdir(parents=True, exist_ok=True)
+    results = []
+    for lang, label in (("uz", "o'zbekcha ko'rsatma"), ("en", "inglizcha ko'rsatma")):
+        text = lyria.prompt(sections, name, base, "female", "Onaga minnatdorchilik", [], total, lang)
+        try:
+            data, info = await lyria.compose(text)
+        except lyria.LyriaError as e:
+            results.append((label, None, str(e)))
+            continue
+        await costs._add(costs.lyria_row("song_test", admin_id, "lyria-test"))
+        path = PRIVATE_DIR / f"lyria-test-{lang}-{secrets.token_hex(3)}.mp3"
+        path.write_bytes(data)
+        sec = (await asyncio.to_thread(_audio_ms, path)) / 1000
+        results.append((label, path, f"{sec:.0f} s" + (f", naqorat {lyria.chorus_seconds(info):.0f}-soniyada" if lyria.chorus_seconds(info) is not None else "")))
+    lines = [f"{'✅' if p else '❌'} {lab}: {info}" for lab, p, info in results]
+    msg = "🎧 Lyria sinovi (bitta she'r, ikki xil ko'rsatma)\n\n" + "\n".join(lines) + \
+          "\n\nTinglang va qaysi biri o'zbekchaga yaqinroq ekanini admin panelda «Ko'rsatma tili»da tanlang."
+    if not bot:
+        log.info(msg)
+        return
+    try:
+        await bot.send_message(admin_id, msg)
+        for lab, p, _ in results:
+            if p:
+                await bot.send_audio(admin_id, FSInputFile(p, filename=p.name), title=f"Lyria — {lab}", performer="Tayyorla sinov")
+    except Exception:
+        log.exception("Lyria sinov natijasini yuborib bo'lmadi")

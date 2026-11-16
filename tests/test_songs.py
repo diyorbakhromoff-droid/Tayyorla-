@@ -403,6 +403,61 @@ async def main() -> None:
     assert len(calls["plans"][-1]["chunks"]) > 1 and not any("song_id" in c for c in calls["plans"][-1]["chunks"])
     songs.compose = fake_compose
 
+    # 10c) Google Lyria: namuna — to'liq qo'shiqdan kesiladi, sotilganda aynan shu qo'shiq beriladi (qo'shimcha chaqiruv yo'q)
+    from app import admin, lyria, store
+    songs.compose = fake_compose
+    sample = {"steps": [{"type": "model_output", "content": [
+        {"type": "text", "text": "[Verse 1] 0:08\n[Chorus] 0:30"},
+        {"type": "audio", "mime_type": "audio/mpeg", "data": __import__("base64").b64encode(FAKE_MP3.read_bytes()).decode()}]}]}
+    raw, info = lyria.parse(sample)
+    assert raw == FAKE_MP3.read_bytes() and lyria.chorus_seconds(info) == 30
+    p_uz = lyria.prompt(songs.parse_lyrics(LYRICS), "Pop", ["modern pop"], "female", "Tug'ilgan kun", [], 95)
+    assert "[Chorus]" in p_uz and "[Verse 1]" in p_uz and "O'zbek tilida" in p_uz and "quyoshim" in p_uz
+    assert "Uzbek" in lyria.prompt(songs.parse_lyrics(LYRICS), "Pop", [], "male", "x", [], 95, "en")
+    out = await admin.music_save(admin.MusicIn(provider="lyria", gemini_key="AIzaTESTkey_1234567890abcd", lang="uz"), uid=999)
+    assert out["provider"] == "lyria" and out["lyria_key"] and "gemini_key" not in out and "AIza" not in str(out)
+    try:
+        await admin.music_save(admin.MusicIn(gemini_key="bad key with spaces!!"), uid=999)
+        raise AssertionError("noto'g'ri kalit qabul qilindi")
+    except HTTPException as e:
+        assert e.status_code == 400
+    lcalls = []
+    async def fake_lyria(text):
+        lcalls.append(text)
+        return FAKE_MP3.read_bytes(), "[Chorus] 0:30"
+    lyria.compose = fake_lyria
+    songs.credits = empty_credits  # ElevenLabs krediti tugagan bo'lsa ham Lyria ishlayveradi
+    u6 = sign({"id": 781, "first_name": "Laylo"})
+    async with Session() as s:
+        s.add(User(tg_id=781, first_name="Laylo", balance=100000))
+        await s.commit()
+    sid11 = (await songapi.song_create(body, x_init_data=u6))["id"]
+    before = calls["compose"]
+    out = await songapi.song_preview(sid11, x_init_data=u6)
+    await run_queue(bot)
+    out = await songapi.song_get(sid11, x_init_data=u6)
+    assert out["status"] == "preview_ready" and len(lcalls) == 1 and calls["compose"] == before, out
+    assert "O'zbek tilida" in lcalls[0] and "[Chorus]" in lcalls[0]
+    assert 19 <= dur(MEDIA_DIR / Path(out["preview"]).name) <= 21
+    async with Session() as s:
+        song = await s.get(Song, sid11)
+        assert song.plan["_provider"] == "lyria" and song.plan["_chorus_at"] == 30000 and len(song.variants) == 1
+    await songapi.song_pay(sid11, x_init_data=u6)
+    await run_queue(bot)
+    out = await songapi.song_get(sid11, x_init_data=u6)
+    assert out["status"] == "ready" and len(out["variants"]) == 1 and len(lcalls) == 1, "sotilganda Lyria qayta chaqirilmasligi kerak"
+    async with Session() as s:
+        rows = (await s.execute(sa_select(CostLog).where(CostLog.ref == f"song:{sid11}", CostLog.kind == "lyria"))).scalars().all()
+        assert [r.purpose for r in rows] == ["song_preview"]
+        from app import costs
+        sm = await costs.summary(s, utcnow() - timedelta(days=1), utcnow() + timedelta(days=1))
+        it = next(i for i in sm["items"] if i["purpose"] == "song_preview")
+        assert it["som"] > 0
+    # xizmatni qaytarish: ElevenLabs
+    await admin.music_save(admin.MusicIn(provider="elevenlabs"), uid=999)
+    assert await songs.provider() == "elevenlabs"
+    songs.credits = no_credits
+
     # 11) she'r yozish kunlik limiti (Claude xarajati)
     songapi.settings.song_lyrics_per_day = 2
     u4 = sign({"id": 779, "first_name": "Ali"})

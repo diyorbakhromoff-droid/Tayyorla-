@@ -24,6 +24,8 @@ from . import nudges, songs
 async def main() -> None:
     logging.basicConfig(level=logging.INFO)
     await init_db()
+    from . import songs as _songs
+    await _songs.music_cfg()  # admin paneldagi Lyria kaliti (menyu va qo'shiq bo'limi shunga qarab yoqiladi)
 
     bot = Bot(settings.bot_token, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
     dp = Dispatcher()

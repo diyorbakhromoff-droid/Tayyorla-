@@ -538,13 +538,13 @@
   }
   // Taxminiy tashqi xarajatlar (ElevenLabs musiqasi, Claude) va qo'shiqlar o'zini oqlayaptimi
   const RATE_FIELDS = [["usd_som", "1 dollar, so'm", "1"], ["credits_per_sec", "1 soniya musiqa, kredit", "0.1"], ["usd_per_1k_credits", "1000 kredit narxi, $", "0.01"],
-    ["ai_in_per_m", "Claude: 1 mln kirish tokeni, $", "0.1"], ["ai_out_per_m", "Claude: 1 mln chiqish tokeni, $", "0.1"]];
+    ["ai_in_per_m", "Claude: 1 mln kirish tokeni, $", "0.1"], ["ai_out_per_m", "Claude: 1 mln chiqish tokeni, $", "0.1"], ["lyria_usd_per_song", "Google Lyria: 1 qo'shiq, $", "0.01"]];
   async function costsSheet() {
     sheet(`<p class="boot">Yuklanmoqda…</p>`);
     let d;
     try { d = await api(`/api/admin/costs?${qs()}`); } catch (e) { $("#sheet-body").innerHTML = `<p class="note">${esc(e.message)}</p>`; return; }
     const g = d.songs, good = g.profit >= 0;
-    const vol = (i) => (i.kind === "music" ? `${fmt(i.units_in)} s · ${fmt(i.credits)} kredit` : `${fmt(i.units_in + i.units_out)} token`);
+    const vol = (i) => (i.kind === "music" ? `${fmt(i.units_in)} s · ${fmt(i.credits)} kredit` : i.kind === "lyria" ? `${fmt(i.units_in)} ta qo'shiq (Lyria)` : `${fmt(i.units_in + i.units_out)} token`);
     $("#sheet-body").innerHTML = `
       <h2 class="big" id="sheet-title">Taxminiy xarajatlar</h2>
       <p class="muted">${periodLabel()} · ElevenLabs musiqasi va Claude (she'r, taklifnoma matni, tarjima)</p>
@@ -790,16 +790,37 @@
           `<tr><td>Narxlar</td><td class="r num">${som(d.prices.standart)} / ${som(d.prices.premium)} / ${som(d.prices.vip)}<span class="sub">video ${som(d.prices.video)} · kuniga ${d.prices.free_per_day} bepul</span></td></tr>`,
           songsRow(d.songs)])}</div>
       </section>
-      ${d.songs && d.songs.on ? `<section class="blk"><div class="bh"><h2>Qo'shiq: bepul namunalar</h2><p>Bugun ${fmt(d.songs.previews_today)} ta bepul namuna so'raldi${d.songs.daily_previews ? ` (chegara ${fmt(d.songs.daily_previews)})` : ""}. Har bir namuna ElevenLabs kreditidan sarflanadi.</p></div>
+      ${d.songs && d.songs.on ? `<section class="blk"><div class="bh"><h2>Qo'shiq: bepul namunalar</h2><p>Bugun ${fmt(d.songs.previews_today)} ta bepul namuna so'raldi${d.songs.daily_previews ? ` (chegara ${fmt(d.songs.daily_previews)})` : ""}. Har bir namuna ${d.music && d.music.provider === "lyria" ? "Google Lyria hisobidan (≈ $0.08)" : "ElevenLabs kreditidan"} sarflanadi.</p></div>
         <form class="form" id="sg-lim"><div class="fields">
           <label class="f">Bir kishiga kuniga<input class="in" type="number" name="per_user" min="0" max="20" value="${d.songs.per_user}"><small>0 — bepul namuna yo'q</small></label>
           <label class="f">Hamma uchun kuniga jami<input class="in" type="number" name="per_day" min="0" max="100000" value="${d.songs.daily_previews}"><small>xarajat chegarasi · 0 — cheklovsiz</small></label>
           <div><button class="btn primary" type="submit">Saqlash</button></div></div></form></section>` : ""}
+      ${d.music ? `<section class="blk"><div class="bh"><h2>Musiqa xizmati</h2><p>Qo'shiqlarni hozir <b>${d.music.provider === "lyria" ? "Google Lyria" : "ElevenLabs"}</b> tayyorlayapti.${d.music.wanted === "lyria" && !d.music.lyria_key ? " Lyria tanlangan, lekin kaliti yo'q — shuning uchun ElevenLabs ishlayapti." : ""}</p></div>
+        <form class="form" id="mus"><div class="fields">
+          <label class="f">Xizmat<select class="in" name="provider"><option value="elevenlabs"${d.music.wanted !== "lyria" ? " selected" : ""}>ElevenLabs</option><option value="lyria"${d.music.wanted === "lyria" ? " selected" : ""}>Google Lyria</option></select><small>Lyria: bir qo'shiq ≈ $0.08, sotilganda qo'shimcha xarajat yo'q</small></label>
+          <label class="f">Lyria kaliti<input class="in" type="password" name="gemini_key" autocomplete="off" spellcheck="false" placeholder="${d.music.lyria_key ? "saqlangan ✓ — almashtirish uchun yangisini qo'ying" : "aistudio.google.com dagi API kalit"}"><small>Kalit hech qayerda ko'rsatilmaydi</small></label>
+          <label class="f">Ko'rsatma tili<select class="in" name="lang"><option value="uz"${d.music.lang !== "en" ? " selected" : ""}>O'zbekcha</option><option value="en"${d.music.lang === "en" ? " selected" : ""}>Inglizcha</option></select><small>Sinovda qaysi biri yaxshi kuylasa</small></label>
+          <div><button class="btn primary" type="submit">Saqlash</button></div></div></form>
+        <div class="row" style="margin-top:12px"><button class="btn" id="mus-test"${d.music.lyria_key ? "" : " disabled"}>Lyria sinovi: 2 ta qo'shiq (≈ 2 000 so'm)</button><span class="muted" style="font-size:12.5px">Bitta she'r o'zbekcha va inglizcha ko'rsatma bilan — natija 2–5 daqiqada botga keladi</span></div></section>` : ""}
       <section class="blk"><div class="bh"><h2>Oxirgi xatolar</h2></div>
         ${table(["Video", "Xato", "Qachon"], d.errors.map((e) => `<tr><td class="num">#${e.id}<span class="sub">${esc(e.design)}</span></td><td style="max-width:520px;word-break:break-word">${esc(e.error) || "—"}</td><td class="num">${dt(e.at)}</td></tr>`), "Xato yo'q")}</section>
       <section class="blk"><div class="bh"><h2>Eksport</h2><p>Excel'da ochiladigan CSV fayllar</p></div>
         <div class="row"><button class="btn" data-exp="users">Foydalanuvchilar</button><button class="btn" data-exp="payments">To'lovlar</button><button class="btn" data-exp="sites">Taklifnomalar</button></div></section>`;
     $$("[data-exp]").forEach((b) => (b.onclick = () => download(`/api/admin/export/${b.dataset.exp}.csv`)));
+    const mus = $("#mus");
+    if (mus) mus.onsubmit = async (e) => {
+      e.preventDefault(); const fd = new FormData(mus); const key = (fd.get("gemini_key") || "").trim();
+      const body = { provider: fd.get("provider"), lang: fd.get("lang") };
+      if (key) body.gemini_key = key;
+      try { const r = await api("/api/admin/music", body); toast(r.provider === body.provider ? "Saqlandi" : "Saqlandi, lekin Lyria kaliti yo'q"); render(); }
+      catch (err) { toast(err.message, true); }
+    };
+    const mt = $("#mus-test");
+    if (mt) mt.onclick = async () => {
+      mt.disabled = true;
+      try { await api("/api/admin/music/test", {}); toast("Sinov boshlandi — natija botga keladi"); }
+      catch (err) { toast(err.message, true); mt.disabled = false; }
+    };
     const lim = $("#sg-lim");
     if (lim) lim.onsubmit = async (e) => {
       e.preventDefault(); const fd = new FormData(lim);

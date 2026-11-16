@@ -1109,6 +1109,7 @@ async def system(uid: int = Depends(admin_uid)):
         "uptime_h": round((_time.time() - STARTED) / 3600, 1), "bot": bool(videobot.BOT),
         "prices": {"standart": settings.price_standart, "premium": settings.price_premium, "vip": settings.price_vip,
                    "video": settings.video_price, "free_per_day": settings.free_videos_per_day},
+        "music": await music_info(),
         "songs": {"on": settings.songs_on, "price": settings.song_price, "daily_previews": per_day, "per_user": per_user,
                   "previews_today": pv_today, "credits": await songs.credits(), "alert": settings.song_credit_alert},
     }
@@ -1124,6 +1125,48 @@ async def song_limits(body: SongLimitsIn, uid: int = Depends(admin_uid)):
     await store.put("song_limits", {"per_user": body.per_user, "per_day": body.per_day})
     log.info("Qo'shiq namunasi limiti o'zgardi: kishiga %s, jami %s (admin %s)", body.per_user, body.per_day, uid)
     return {"ok": True, "per_user": body.per_user, "per_day": body.per_day}
+
+
+# ---------------------------------------------------------------- musiqa xizmati: ElevenLabs yoki Google Lyria
+
+async def music_info() -> dict:
+    cfg = await songs.music_cfg()
+    return {"provider": await songs.provider(), "wanted": cfg.get("provider", settings.song_provider), "lang": cfg.get("lang", "uz"),
+            "lyria_key": bool(settings.gemini_key), "eleven_key": bool(settings.elevenlabs_api_key)}
+
+
+class MusicIn(BaseModel):
+    provider: str | None = Field(default=None, pattern="^(elevenlabs|lyria)$")
+    lang: str | None = Field(default=None, pattern="^(uz|en)$")
+    gemini_key: str | None = Field(default=None, max_length=200)  # bo'sh satr — kalitni o'chirish
+
+
+@router.post("/music")
+async def music_save(body: MusicIn, uid: int = Depends(admin_uid)):
+    cfg = await songs.music_cfg()
+    if body.gemini_key is not None:
+        k = body.gemini_key.strip()
+        if k and not re.fullmatch(r"[A-Za-z0-9_\-]{20,200}", k):
+            raise HTTPException(400, "Kalit noto'g'ri ko'rinishda")
+        cfg["gemini_key"] = k
+    if body.provider:
+        cfg["provider"] = body.provider
+    if body.lang:
+        cfg["lang"] = body.lang
+    await store.put(songs.MUSIC_KEY, cfg)
+    await songs.music_cfg()
+    log.info("Musiqa xizmati sozlamasi o'zgardi: %s, til %s, Lyria kaliti %s (admin %s)",
+             cfg.get("provider"), cfg.get("lang"), "bor" if cfg.get("gemini_key") else "yo'q", uid)
+    return await music_info()
+
+
+@router.post("/music/test")
+async def music_test(uid: int = Depends(admin_uid)):
+    """Lyria sinovi: bitta to'liq qo'shiq (≈ $0.08) — fonda tayyorlanib, adminga botda yuboriladi."""
+    if not settings.gemini_key:
+        raise HTTPException(400, "Avval Lyria kalitini kiriting")
+    asyncio.create_task(songs.lyria_test(uid))
+    return {"ok": True}
 
 
 # ---------------------------------------------------------------- progrev (eslatma xabarlari ketma-ketligi)

@@ -5,6 +5,10 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 ROOT = Path(__file__).resolve().parent.parent
 
 
+# admin paneldan o'zgaradigan, ishga tushganda bazadan yuklanadigan qiymatlar (masalan, Lyria kaliti)
+RUNTIME: dict = {}
+
+
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=ROOT / ".env", extra="ignore")
 
@@ -15,6 +19,9 @@ class Settings(BaseSettings):
     rahmat_url: str = ""
     # Qo'shiq (ElevenLabs Music): kalit faqat serverdagi .env da
     elevenlabs_api_key: str = ""
+    gemini_api_key: str = ""         # Google Lyria (admin paneldan ham kiritiladi)
+    song_provider: str = "elevenlabs"  # elevenlabs | lyria (admin paneldan almashtiriladi)
+    lyria_model: str = "lyria-3.5"
     song_model: str = "music_v2_5"
     song_price: int = 69000          # to'liq qo'shiq (namunadagi qo'shiqning o'zi)
     song_site_price: int = 0         # sayt egasi uchun qo'shiq narxi (0 — song_price bilan bir xil)
@@ -64,8 +71,12 @@ class Settings(BaseSettings):
     video_keep_days: int = 7
 
     @property
+    def gemini_key(self) -> str:
+        return RUNTIME.get("gemini_key") or self.gemini_api_key
+
+    @property
     def songs_on(self) -> bool:
-        return bool(self.elevenlabs_api_key)
+        return bool(self.elevenlabs_api_key or self.gemini_key)
 
     @property
     def click_on(self) -> bool:
