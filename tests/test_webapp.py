@@ -90,7 +90,7 @@ assert cfg["kimga"] == "Madina" and cfg["tarif"] == "standart" and cfg["demo"] i
 assert "</script><script>alert" not in page
 assert "new URLSearchParams(CFG.demo ? location.search : '')" in page and "NAMUNA" not in page
 assert "Siz ham shunday sayt yarating" not in page  # reklama hech bir tarifda yo'q
-assert "NAMUNA • TAYYORLA" in render_catalog(evil, "abc", preview=True)
+assert "HALI TO'LOV QILINMADI • NAMUNA" in render_catalog(evil, "abc", preview=True)
 vip_toy = clean_order({"template": "toy-maktub", "tarif": "vip", "data": {}}, strict=False)
 assert "/s/xyz/anketa" in render_catalog(vip_toy, "xyz", preview=False)
 print("✅ Katalog tekshiruvlari o'tdi")

@@ -161,7 +161,10 @@ async def _sets(s) -> dict:
     spenders = set((await s.execute(select(BalanceTx.user_id).where(BalanceTx.kind.in_(SPEND_KINDS)).distinct())).scalars().all())
     paid_sites = set((await s.execute(select(Site.owner_id).where(Site.status == "paid").distinct())).scalars().all())
     payers = set((await s.execute(select(Payment.user_id).where(Payment.status == "approved").distinct())).scalars().all())
-    return {"app": app, "creators": site_owners | job_owners, "buyers": spenders | paid_sites | payers, "payers": payers}
+    songers = set((await s.execute(select(Song.owner_id).distinct())).scalars().all())
+    song_buyers = set((await s.execute(select(Song.owner_id).where(Song.paid.is_(True)).distinct())).scalars().all())
+    return {"app": app, "creators": site_owners | job_owners, "buyers": spenders | paid_sites | payers, "payers": payers,
+            "songers": songers, "song_buyers": song_buyers}
 
 
 async def collect(a: datetime, b: datetime, days: list[date] | None = None) -> dict:
@@ -522,6 +525,7 @@ async def sources(frm: str | None = Query(None, alias="from"), to: str | None = 
         ids = set(ids)
         bought = ids & ever["buyers"]
         return {"users": len(ids), "app": len(ids & ever["app"]), "created": len(ids & ever["creators"]),
+                "songs": len(ids & ever["songers"]), "song_bought": len(ids & ever["song_buyers"]),
                 "bought": len(bought), "revenue": int(sum(paid_by.get(i, 0) or 0 for i in ids)),
                 "spent": int(sum(spent_by.get(i, 0) or 0 for i in ids)), "conv": pct(len(bought), len(ids))}
 
@@ -614,6 +618,8 @@ async def link_report(x: TrafficLink, a: datetime, b: datetime, days: list[date]
         spenders = set((await s.execute(select(BalanceTx.user_id).where(BalanceTx.kind.in_(SPEND_KINDS),
                                                                          BalanceTx.user_id.in_(cohort)).distinct())).scalars().all())
         payers = set((await s.execute(select(Payment.user_id).where(Payment.status == "approved", Payment.user_id.in_(cohort)).distinct())).scalars().all())
+        songers = await s.scalar(select(func.count(func.distinct(Song.owner_id))).where(Song.owner_id.in_(cohort))) or 0
+        song_buyers = await s.scalar(select(func.count(func.distinct(Song.owner_id))).where(Song.owner_id.in_(cohort), Song.paid.is_(True))) or 0
         # tushum: shu havoladan kelgan barcha odamlarning (qachon kelganidan qat'i nazar) shu davrdagi tasdiqlangan to'lovlari
         pays = (await s.execute(select(Payment.amount, Payment.decided_at).where(
             Payment.status == "approved", Payment.decided_at >= a, Payment.decided_at < b,
@@ -637,7 +643,7 @@ async def link_report(x: TrafficLink, a: datetime, b: datetime, days: list[date]
     n = len(users)
     bought = len(spenders | payers)
     return {"clicks": len(clicks), "starts": len({u for u, _ in starts}), "users": n, "app": app or 0,
-            "created": len(site_owners | job_owners), "bought": bought, "conv": pct(bought, n),
+            "created": len(site_owners | job_owners), "songs": songers, "song_bought": song_buyers, "bought": bought, "conv": pct(bought, n),
             "revenue": int(sum(p[0] for p in pays)), "payments": len(pays), "daily": daily}
 
 
@@ -678,7 +684,8 @@ async def partner_report(share: str, d: str = "30"):
     chips = "".join(f'<a class="chip" href="?d={k}" aria-pressed="{str(k == d).lower()}">{v}</a>' for k, v in REPORT_PERIODS.items())
     cards = [("Bosish", r["clicks"], "havolani ochganlar"), ("Start", r["starts"], "botda start bosganlar"),
              ("Yangi foydalanuvchi", r["users"], "botga birinchi marta kelganlar"), ("Ilovaga kirdi", r["app"], "yangi kelganlardan"),
-             ("Yasadi", r["created"], "taklifnoma yoki video"), ("Sotib oldi", r["bought"], f"konversiya {r['conv']}%")]
+             ("Yasadi", r["created"], "taklifnoma yoki video"), ("Qo'shiq tayyorladi", r["songs"], f"{r['song_bought']} tasi sotib oldi"),
+             ("Sotib oldi", r["bought"], f"konversiya {r['conv']}%")]
     money = [("Tushum", f"{num(r['revenue'])} so'm", f"{r['payments']} ta to'lov, shu davrda")]
     if x.share_pct:
         money.append((f"Sizning ulushingiz ({x.share_pct}%)", f"{num(share)} so'm", "tushumdan hisoblangan"))
@@ -899,12 +906,18 @@ async def user_card(user_id: int, uid: int = Depends(admin_uid)):
                                 .group_by(Event.kind))).all()
         invited = await s.scalar(select(func.count()).select_from(User).where(User.ref == f"ref_{user_id}"))
         names = await _link_names(s)
+        song_rows = (await s.execute(select(Song).where(Song.owner_id == user_id).order_by(Song.id.desc()).limit(30))).scalars().all()
     return {
         "user": _user_out(u, names), "invited": invited or 0,
         "sites": [{"slug": x.slug, "kind": x.kind, "title": site_title(x.config), "status": x.status, "views": x.views,
                    "tier": TIER_NAMES.get(x.config.get("tarif"), ""), "price": site_price(x.config) if x.kind == "site" else 0,
                    "url": x.url, "created_at": x.created_at.isoformat() if x.created_at else None} for x in sites],
         "videos": [{"charge": c, "status": st, "n": n} for c, st, n in jobs],
+        # qo'shiqlar: namuna — imzolangan havola (ilova pleeridagi kabi), to'langanlari — to'liq fayl
+        "songs": [{"id": x.id, "title": x.title or "Qo'shiq", "recipient": x.recipient, "status": x.status, "paid": x.paid,
+                   "price": x.price or 0, "style": songs.STYLES.get(x.style, ("",))[0], "lyrics": (x.lyrics or "")[:3000],
+                   "preview": songs.preview_url(x), "files": [v.get("file") for v in (x.variants or []) if v.get("file")] if x.paid else [],
+                   "created_at": x.created_at.isoformat() if x.created_at else None} for x in song_rows],
         "payments": [{"id": p.id, "amount": p.amount, "status": p.status, "created_at": p.created_at.isoformat() if p.created_at else None}
                      for p in pays],
         "tx": [{"amount": t.amount, "kind": t.kind, "ref": t.ref, "created_at": t.created_at.isoformat() if t.created_at else None}

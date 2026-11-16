@@ -62,7 +62,7 @@ async def load_site(site_id: int, user_id: int) -> Site | None:
 
 
 def site_card(site: Site) -> str:
-    status = {"draft": "📝 Namuna (to'lanmagan)", "pending": "⏳ To'lov tekshirilmoqda", "paid": "✅ Faol"}[site.status]
+    status = {"draft": "📝 Hali to'lov qilinmadi (namuna)", "pending": "⏳ To'lov tekshirilmoqda", "paid": "✅ Faol"}[site.status]
     left = settings.max_edits - site.edits_used
     lock = locked_until(site.config)
     surprise = f"⏰ Syurpriz: {human(lock)} da ochiladi\n" if lock else ""
@@ -130,7 +130,7 @@ async def finish(message: Message, state: FSMContext) -> None:
 def created_text(site: Site) -> str:
     return (
         "🎉 <b>Saytingiz tayyor!</b>\n\n"
-        "Hozir u <b>namuna</b> holatida, ustida «NAMUNA» yozuvi bor. Ko'rib chiqing, "
+        "Hozir u <b>namuna</b> holatida, ustida «Hali to'lov qilinmadi · namuna» yozuvi bor. Ko'rib chiqing, "
         "biror joyini o'zgartirmoqchi bo'lsangiz «✏️ Tahrirlash» ni bosib, o'z so'zingiz bilan yozing.\n\n"
         "Hammasi yoqsa, to'lov qilib toza linkni oling va yaqiningizga yuboring 💌\n\n" + site_card(site)
     )

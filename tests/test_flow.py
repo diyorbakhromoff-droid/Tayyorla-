@@ -263,7 +263,7 @@ async def main():
     await send(photo=[PhotoSize(file_id="chek2", file_unique_id="c2", width=10, height=10)])
     await click(f"approve:{csite.id}", user=ADMIN)
     page = await web.show("vip-toy", type("R", (), {"cookies": {}, "query_params": {}})())
-    assert "NAMUNA • TAYYORLA" not in page and '"rang": 12' in page
+    assert "HALI TO'LOV QILINMADI • NAMUNA" not in page and '"rang": 12' in page
 
     class Req:
         def __init__(self, data): self.data = data

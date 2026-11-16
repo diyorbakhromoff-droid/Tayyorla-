@@ -149,7 +149,7 @@
     const good = invert ? p < 0 : p > 0;
     return `<span class="delta ${good ? "up" : "down"}" title="Oldingi davr: ${fmt(prev)}">${p > 0 ? "+" : "−"}${Math.abs(p)}%</span>`;
   }
-  const kpi = (v, label, hint, prev, opts = {}) => `<div class="kpi${opts.open ? " click" : ""}"${opts.open ? ` role="button" tabindex="0" data-kpi="${opts.open}"` : ""}><div class="v">${opts.money ? `${fmt(v)}<small>so'm</small>` : fmt(v)}${opts.suffix || ""} ${delta(v, prev, opts.invert)}</div>
+  const kpi = (v, label, hint, prev, opts = {}) => `<div class="kpi${opts.open ? " click" : ""}${opts.cls ? " " + opts.cls : ""}"${opts.open ? ` role="button" tabindex="0" data-kpi="${opts.open}"` : ""}><div class="v">${opts.money ? `${fmt(v)}<small>so'm</small>` : fmt(v)}${opts.suffix || ""} ${delta(v, prev, opts.invert)}</div>
     <div class="l">${label}${opts.open ? ` <span class="more">Batafsil ›</span>` : ""}</div>${hint ? `<div class="h">${hint}</div>` : ""}</div>`;
   const table = (head, rows, empty = "Ma'lumot yo'q") => `<div class="tbl-wrap"><table><thead><tr>${head.map((h) => `<th${h.startsWith(">") ? ' class="r"' : ""}>${h.replace(/^>/, "")}</th>`).join("")}</tr></thead>
     <tbody>${rows.length ? rows.join("") : `<tr><td colspan="${head.length}" class="empty">${empty}</td></tr>`}</tbody></table></div>`;
@@ -252,7 +252,7 @@
           ${c.costs ? kpi(c.costs.song_profit, "Qo'shiqdan sof natija", `sotuv ${som(c.songs.sold_sum)} − xarajat ${som(c.costs.song)} · ${fmt(c.costs.demo_n)} ta demo`, p.costs ? p.costs.song_profit : 0, { money: true, open: "costs" }) : ""}
         </div></div>` : ""}
         <div class="group"><h2><i></i>Pul</h2><div class="kpis">
-          ${kpi(c.money.topup, "Tushum", `${fmt(c.money.topups)} ta to'lov · o'rtacha ${som(c.money.avg_check)}`, p.money.topup, { money: true })}
+          ${kpi(c.money.topup, "Hisobga tushgan pul", `${fmt(c.money.topups)} ta to'lov · o'rtacha ${som(c.money.avg_check)}`, p.money.topup, { money: true, cls: "money-in" })}
           ${kpi(c.money.payers, "To'lov qilganlar", `${fmt(c.money.new_payers)} tasi birinchi marta`, p.money.payers)}
           ${kpi(c.money.spent, "Xizmatlarga sarflandi", `${fmt(c.money.buyers)} xaridor`, p.money.spent, { money: true, open: "spend" })}
           ${c.costs ? kpi(c.costs.total, "Taxminiy xarajat (AI va musiqa)", `qo'shiqlar ${som(c.costs.song)} · matnlar ${som(c.costs.other)}`, p.costs ? p.costs.total : 0, { money: true, invert: true, open: "costs" }) : ""}
@@ -297,12 +297,12 @@
     const rows = d.links.map((x) => `<tr class="click" data-link="${x.id}">
       <td><b>${esc(x.name)}</b>${x.archived ? " " + tag("arxivda") : ""}${x.urls.report ? " " + tag(x.share_pct ? `hisobot ochiq, ${x.share_pct}%` : "hisobot ochiq", "pink") : ""}<span class="sub">${esc(x.code)}${x.note ? ` · ${esc(x.note)}` : ""}</span></td>
       <td class="r num">${fmt(x.clicks)}</td><td class="r num">${fmt(x.starts)}</td><td class="r num"><b>${fmt(x.users)}</b></td>
-      <td class="r num">${fmt(x.app)}</td><td class="r num">${fmt(x.created)}</td><td class="r num"><b>${fmt(x.bought)}</b><span class="sub">${x.conv}%</span></td>
+      <td class="r num">${fmt(x.app)}</td><td class="r num">${fmt(x.created)}</td><td class="r num">${fmt(x.songs)}${x.song_bought ? `<span class="sub">${fmt(x.song_bought)} sotib oldi</span>` : ""}</td><td class="r num"><b>${fmt(x.bought)}</b><span class="sub">${x.conv}%</span></td>
       <td class="r num">${som(x.revenue)}</td>
       <td class="r num hide-m">${x.cost ? som(x.cost) : "—"}${x.cpu ? `<span class="sub">1 kishi: ${som(x.cpu)}</span>` : ""}</td>
       <td class="r num hide-m">${x.roi == null ? "—" : tag(`${x.roi > 0 ? "+" : ""}${x.roi}%`, x.roi >= 0 ? "good" : "bad")}</td></tr>`);
     const groups = d.groups.filter((g) => g.users).map((g) => `<tr><td>${esc(g.name)}</td><td class="r num"><b>${fmt(g.users)}</b></td><td class="r num">${fmt(g.app)}</td>
-      <td class="r num">${fmt(g.created)}</td><td class="r num"><b>${fmt(g.bought)}</b><span class="sub">${g.conv}%</span></td><td class="r num">${som(g.revenue)}</td></tr>`);
+      <td class="r num">${fmt(g.created)}</td><td class="r num">${fmt(g.songs)}${g.song_bought ? `<span class="sub">${fmt(g.song_bought)} sotib oldi</span>` : ""}</td><td class="r num"><b>${fmt(g.bought)}</b><span class="sub">${g.conv}%</span></td><td class="r num">${som(g.revenue)}</td></tr>`);
     main().innerHTML = `
       <div class="head"><div><h1>Trafik manbalari</h1><p>Reklama uchun alohida havola yarating: kim bosdi, kim start bosdi, ilovaga kirdi va sotib oldi — hammasi shu yerda.</p></div></div>
       ${periodBar([["all", "Butun davr"]])}
@@ -318,9 +318,9 @@
         </form></section>
       <section class="blk"><div class="bh"><h2>Havolalar</h2><p>Foydalanuvchilar — shu havola orqali botga birinchi marta kelganlar; ularning keyingi xaridlari ham shu manbaga yoziladi.
         <label style="margin-left:10px"><input type="checkbox" id="arch" ${S.showArchived ? "checked" : ""}> arxivdagilar</label></p></div>
-        ${table(["Havola", ">Bosish", ">Start", ">Yangi", ">Ilovaga kirdi", ">Yasadi", ">Sotib oldi", ">Tushum", ">Reklama narxi", ">ROI"], rows, "Hali havola yo'q. Yuqorida birinchisini yarating.")}</section>
+        ${table(["Havola", ">Bosish", ">Start", ">Yangi", ">Ilovaga kirdi", ">Sayt/video", ">Qo'shiq", ">Sotib oldi", ">Tushum", ">Reklama narxi", ">ROI"], rows, "Hali havola yo'q. Yuqorida birinchisini yarating.")}</section>
       <section class="blk"><div class="bh"><h2>Boshqa manbalar</h2><p>Havolasiz kelganlar</p></div>
-        ${table(["Manba", ">Yangi", ">Ilovaga kirdi", ">Yasadi", ">Sotib oldi", ">Tushum"], groups)}</section>`;
+        ${table(["Manba", ">Yangi", ">Ilovaga kirdi", ">Sayt/video", ">Qo'shiq", ">Sotib oldi", ">Tushum"], groups)}</section>`;
     bindPeriod(main(), render);
     $("#arch").onchange = (e) => { S.showArchived = e.target.checked; render(); };
     $("#new-link").onsubmit = async (e) => {
@@ -344,7 +344,8 @@
       <section><h3>Natija (tanlangan davr)</h3><div class="stat-line">
         <div><b>${fmt(x.clicks)}</b><span>bosish</span></div><div><b>${fmt(x.starts)}</b><span>start</span></div>
         <div><b>${fmt(x.users)}</b><span>yangi foydalanuvchi</span></div><div><b>${fmt(x.app)}</b><span>ilovaga kirdi</span></div>
-        <div><b>${fmt(x.created)}</b><span>yasadi</span></div><div><b>${fmt(x.bought)}</b><span>sotib oldi</span></div>
+        <div><b>${fmt(x.created)}</b><span>sayt/video yasadi</span></div><div><b>${fmt(x.songs)}</b><span>qo'shiq tayyorladi${x.song_bought ? ` · ${fmt(x.song_bought)} sotib oldi` : ""}</span></div>
+        <div><b>${fmt(x.bought)}</b><span>sotib oldi</span></div>
         <div><b>${som(x.revenue)}</b><span>tushum</span></div></div>
         ${x.cost ? `<p style="margin-top:10px">Bir foydalanuvchi narxi: <b>${som(x.cpu)}</b> · bir xaridor narxi: <b>${som(x.cpb)}</b> · ROI: <b>${x.roi}%</b></p>` : ""}</section>
       <section><h3>Hamkor uchun hisobot</h3>
@@ -586,6 +587,12 @@
         <p class="muted">Qo'shilgan: ${dt(u.created_at)} · oxirgi faollik: ${ago(u.last_seen)}</p></section>
       <section><h3>Taklifnomalar va tadbirlar</h3>${d.sites.length ? table(["Nomi", "Holat", ">Ko'rildi"], d.sites.map((x) => `<tr><td><a href="${esc(x.url)}" target="_blank" rel="noopener">${esc(x.title)}</a><span class="sub">${x.kind === "video" ? "video tadbir" : `${esc(x.tier)} · ${som(x.price)}`} · ${day(x.created_at)}</span></td>
         <td>${tag(...(SITE_ST[x.status] || [x.status]))}</td><td class="r num">${fmt(x.views)}</td></tr>`)) : `<p class="muted">Yo'q</p>`}</section>
+      <section><h3>Qo'shiqlar</h3>${(d.songs || []).length ? d.songs.map((g) => `<div class="song-row">
+          <div class="song-h"><b>${esc(g.title)}</b> ${tag(g.paid ? "sotib olingan" : g.status === "preview_ready" ? "namuna tayyor" : g.status === "lyrics" ? "faqat she'r" : g.status, g.paid ? "good" : "")}
+            <span class="sub">${esc(g.recipient || "")}${g.style ? ` · ${esc(g.style)}` : ""} · ${day(g.created_at)}${g.paid && g.price ? ` · ${som(g.price)}` : ""}</span></div>
+          ${g.files.map((f, i) => `<div class="song-a"><span>${g.files.length > 1 ? `${i + 1}-variant` : "To'liq qo'shiq"}</span><audio controls preload="none" src="${esc(f)}"></audio></div>`).join("")}
+          ${g.preview ? `<div class="song-a"><span>Namuna (20 s)</span><audio controls preload="none" src="${esc(g.preview)}"></audio></div>` : ""}
+          ${g.lyrics ? `<details><summary>She'r</summary><pre class="lyr">${esc(g.lyrics)}</pre></details>` : ""}</div>`).join("") : `<p class="muted">Yo'q</p>`}</section>
       <section><h3>Videolar</h3>${d.videos.length ? `<p>${d.videos.map((v) => `${JOB[v.charge] || v.charge}, ${JST[v.status] || v.status}: <b>${v.n}</b>`).join("<br>")}</p>` : `<p class="muted">Yo'q</p>`}</section>
       <section><h3>Balans tarixi</h3>${d.tx.length ? table(["Sana", "Turi", ">Summa"], d.tx.map((t) => `<tr><td class="num">${dt(t.created_at)}</td><td>${esc(TX[t.kind] || t.kind)}</td>
         <td class="r num" style="color:var(${t.amount > 0 ? "--good" : "--ink"})">${t.amount > 0 ? "+" : "−"}${som(Math.abs(t.amount))}</td></tr>`)) : `<p class="muted">Yo'q</p>`}</section>

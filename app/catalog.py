@@ -272,7 +272,7 @@ WATERMARK = """
  align-content:center;justify-content:center;gap:60px 80px;opacity:.12;font:800 34px/1 system-ui,sans-serif;color:#000;
  text-shadow:0 0 2px #fff;user-select:none}
 </style>
-<div class="tyr-wm-bar">👀 Bu NAMUNA. To'liq versiya to'lovdan so'ng ochiladi — @{bot}</div>
+<div class="tyr-wm-bar">👀 Hali to'lov qilinmadi — bu namuna. To'liq versiya to'lovdan so'ng ochiladi — @{bot}</div>
 <div class="tyr-wm">{marks}</div>
 """
 
@@ -301,7 +301,7 @@ done.appendChild(box);},0);},true);})();</script>"""
 
 
 def _watermark() -> str:
-    return WATERMARK.replace("{bot}", settings.bot_username).replace("{marks}", "<span>NAMUNA • TAYYORLA</span>" * 40)
+    return WATERMARK.replace("{bot}", settings.bot_username).replace("{marks}", "<span>HALI TO'LOV QILINMADI • NAMUNA</span>" * 40)
 
 
 def render_catalog(config: dict, slug: str, preview: bool, guest=None) -> str:
