@@ -128,6 +128,9 @@ def routes() -> None:
     from fastapi.testclient import TestClient
     from app import admin
     from app.web import app
+    async def key_ok(key):
+        return False
+    admin.google_key_rejected = key_ok  # testda Google'ga so'rov yubormaymiz
     c, h = TestClient(app), {"X-Admin-Token": admin.make_token(999)}
     r = c.post("/api/admin/song-provider", json={"provider": "elevenlabs", "lang": "uz", "gemini_key": "AIzaSyD-TEST_key1234567890abcdefGHIJ"}, headers=h)
     assert r.status_code == 200 and r.json()["lyria_key"] and "AIza" not in r.text, r.text

@@ -405,6 +405,10 @@ async def main() -> None:
 
     # 10c) Google Lyria: namuna — to'liq qo'shiqdan kesiladi, sotilganda aynan shu qo'shiq beriladi (qo'shimcha chaqiruv yo'q)
     from app import admin, lyria, store
+
+    async def key_ok(key):
+        return False
+    admin.google_key_rejected = key_ok  # testda Google'ga so'rov yubormaymiz
     songs.compose = fake_compose
     sample = {"steps": [{"type": "model_output", "content": [
         {"type": "text", "text": "[Verse 1] 0:08\n[Chorus] 0:30"},

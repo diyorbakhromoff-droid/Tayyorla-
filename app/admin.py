@@ -1136,19 +1136,38 @@ async def music_info() -> dict:
             "lyria_key": bool(settings.gemini_key), "eleven_key": bool(settings.elevenlabs_api_key)}
 
 
+async def google_key_rejected(key: str) -> bool:
+    """Kalitni Google'da bepul tekshiradi (modellar ro'yxati). Faqat Google aniq rad etsa True; tarmoq xatosida — False."""
+    import aiohttp
+    try:
+        async with aiohttp.ClientSession(timeout=aiohttp.ClientTimeout(total=15)) as http:
+            async with http.get("https://generativelanguage.googleapis.com/v1beta/models?pageSize=1",
+                                headers={"x-goog-api-key": key}) as r:
+                if r.status in (400, 401, 403):
+                    log.warning("Google kalitni rad etdi: %s %s", r.status, (await r.text())[:300])
+                    return True
+                return False
+    except Exception:
+        log.warning("Google kalitini tekshirib bo'lmadi (tarmoq)")
+        return False
+
+
 class MusicIn(BaseModel):
     provider: str | None = Field(default=None, pattern="^(elevenlabs|lyria)$")
     lang: str | None = Field(default=None, pattern="^(uz|en)$")
-    gemini_key: str | None = Field(default=None, max_length=200)  # bo'sh satr — kalitni o'chirish
+    gemini_key: str | None = Field(default=None, max_length=1000)  # bo'sh satr — kalitni o'chirish
 
 
 @router.post("/song-provider")
 async def music_save(body: MusicIn, uid: int = Depends(admin_uid)):
     cfg = await songs.music_cfg()
     if body.gemini_key is not None:
-        k = body.gemini_key.strip()
-        if k and not re.fullmatch(r"[A-Za-z0-9_\-]{20,200}", k):
-            raise HTTPException(400, "Kalit noto'g'ri ko'rinishda")
+        k = "".join(body.gemini_key.split())  # nusxalashda qo'shilgan bo'sh joy va qator ko'chishlari
+        # Google kalitlari turli ko'rinishda bo'ladi (AIza..., AQ. ...) — faqat bo'sh joysiz oddiy belgilar va uzunlik tekshiriladi
+        if k and not re.fullmatch(r"[\x21-\x7e]{20,400}", k):
+            raise HTTPException(400, f"Kalit noto'g'ri ko'rinishda ({len(k)} belgi). Google AI Studio'dagi kalitni to'liq nusxalab qo'ying")
+        if k and await google_key_rejected(k):
+            raise HTTPException(400, "Google bu kalitni qabul qilmadi. AI Studio'dan kalitni qayta nusxalab qo'ying")
         cfg["gemini_key"] = k
     if body.provider:
         cfg["provider"] = body.provider
