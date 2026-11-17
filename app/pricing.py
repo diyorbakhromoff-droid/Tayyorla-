@@ -259,7 +259,7 @@ async def remind_due(bot, now: datetime | None = None) -> int:
     async with Session() as s:
         rows = (await s.execute(select(Song).where(
             Song.promo_until > now, Song.paid.is_(False), Song.status == "preview_ready",
-            Song.promo_sent < len(stages)).order_by(Song.promo_until).limit(500))).scalars().all()
+            Song.promo_sent < len(stages)).order_by(Song.promo_until).limit(4000))).scalars().all()
         for song in rows:
             left = int((song.promo_until - now).total_seconds() // 60)
             due = [i for i, m in enumerate(stages) if left <= m]
@@ -279,7 +279,7 @@ async def remind_due(bot, now: datetime | None = None) -> int:
             sent += 1
         except Exception:
             log.warning("Chegirma eslatmasini yuborib bo'lmadi: %s", song.owner_id)
-        await asyncio.sleep(0.05)
+        await asyncio.sleep(0.04)  # ~25 xabar/soniya — Telegram chegarasidan past
     return sent
 
 
@@ -289,8 +289,9 @@ async def loop(bot, interval: int = 180) -> None:
         try:
             n = await offer_due(bot)
             r = await remind_due(bot)
-            if n or r:
-                log.info("Chegirma: %s ta taklif, %s ta eslatma", n, r)
+            b = await backfill_due(bot)
+            if n or r or b:
+                log.info("Chegirma: %s ta taklif, %s ta eslatma, eski namunalarga %s ta", n, r, b)
         except Exception:
             log.exception("Chegirma tsiklida xato")
         await asyncio.sleep(interval)
@@ -312,3 +313,103 @@ async def stats() -> dict:
             continue
         packs[n] = packs.get(n, 0) + 1
     return {"offered": offered, "used": used or 0, "revenue": int(revenue or 0), "packs_sold": packs}
+
+
+# ---------------------------------------------------------------- eski namunalar: bir martalik chegirma tarqatmasi
+# Admin yoqadi; har aylanishda (3 daqiqa) `batch` tadan, faqat progrev soatlarida yuboriladi.
+# Har bir odamga bitta (eng oxirgi sotib olinmagan) qo'shiq bo'yicha, umrida bir marta.
+BF_KEY = "promo_backfill"
+BF_DEFAULT = {"on": False, "batch": 100, "sent": 0, "started": None, "finished": None}
+
+
+async def backfill_state() -> dict:
+    return {**BF_DEFAULT, **(await store.get(BF_KEY, {}) or {})}
+
+
+def _bf_query(now: datetime):
+    """Eski (48 soatdan oldingi) sotib olinmagan namunalar; chegirma olgan odamlar chiqarib tashlanadi."""
+    had = select(Song.owner_id).where(Song.promo_until.is_not(None))
+    return (select(Song, User).join(User, User.tg_id == Song.owner_id).where(
+        Song.status == "preview_ready", Song.paid.is_(False), Song.promo_until.is_(None),
+        (Song.preview_at.is_(None)) | (Song.preview_at < now - timedelta(hours=FRESH_HOURS)),
+        Song.owner_id.not_in(had), User.blocked.is_(False), User.song_credits <= 0))
+
+
+async def backfill_eligible(now: datetime | None = None) -> int:
+    from sqlalchemy import func
+    q = _bf_query(now or utcnow()).with_only_columns(func.count(func.distinct(Song.owner_id))).order_by(None)
+    async with Session() as s:
+        return await s.scalar(q) or 0
+
+
+async def backfill_set(on: bool, batch: int | None = None) -> dict:
+    st = await backfill_state()
+    if batch is not None:
+        st["batch"] = _int(batch, 10, 500, "Bir martada nechta")
+    if on and not st["on"]:
+        st.update(on=True, started=utcnow().isoformat(), finished=None)
+    elif not on:
+        st["on"] = False
+    await store.put(BF_KEY, st)
+    return st
+
+
+def backfill_text(name: str, song: Song, promo: dict, until: datetime, now: datetime) -> str:
+    from .videobot import money
+    loc = until.replace(tzinfo=timezone.utc).astimezone(TZ)
+    day = "bugun" if loc.date() == now.replace(tzinfo=timezone.utc).astimezone(TZ).date() else "ertaga"
+    who = f"{name}, " if name else ""
+    whom = f"{song.recipient} uchun " if song.recipient else ""
+    return (f"🎁 <b>{who}{whom}«{song.title or 'Qo‘shiq'}» qo‘shig‘ingizni eslaysizmi?</b>\n\n"
+            f"Siz uning namunasini tinglagan edingiz. Endi to‘liq qo‘shiqni faqat siz uchun chegirmada olishingiz mumkin:\n"
+            f"<s>{money(settings.song_price)}</s> → <b>{money(promo['price'])}</b>\n\n"
+            f"⏳ Chegirma <b>{day} {loc:%H:%M}</b> gacha. Keyin narx odatdagidek {money(settings.song_price)} bo‘ladi.")
+
+
+async def backfill_due(bot, now: datetime | None = None) -> int:
+    st = await backfill_state()
+    if not st["on"] or not bot:
+        return 0
+    cfg = await config()
+    promo = cfg["promo"]
+    now = now or utcnow()
+    from .nudges import config as ncfg, in_hours
+    hours = await ncfg()
+    if not in_hours(hours, now.replace(tzinfo=timezone.utc).astimezone(TZ)):
+        return 0
+    picked = []
+    async with Session() as s:
+        rows = (await s.execute(_bf_query(now).order_by(Song.id.desc()).limit(st["batch"] * 4))).all()
+        seen = set()
+        for song, user in rows:
+            if song.owner_id in seen:
+                continue  # bir odamga — eng oxirgi qo'shig'i bo'yicha bitta taklif
+            seen.add(song.owner_id)
+            song.promo_until = _end_in_hours(now + timedelta(hours=promo["hours"]), hours, promo)
+            song.promo_price, song.promo_sent = promo["price"], 0
+            picked.append((song, user))
+            if len(picked) >= st["batch"]:
+                break
+        await s.commit()
+    from aiogram.exceptions import TelegramForbiddenError
+    sent, blocked = 0, []
+    for song, user in picked:
+        try:
+            await bot.send_message(song.owner_id, backfill_text((user.first_name or "").strip(), song, promo, song.promo_until, now),
+                                   reply_markup=_keyboard(song, promo["price"]))
+            sent += 1
+        except TelegramForbiddenError:
+            blocked.append(song.owner_id)
+        except Exception:
+            log.warning("Eski namuna chegirmasini yuborib bo'lmadi: %s", song.owner_id)
+        await asyncio.sleep(0.05)
+    if blocked:
+        async with Session() as s:
+            await s.execute(update(User).where(User.tg_id.in_(blocked)).values(blocked=True))
+            await s.commit()
+    st = await backfill_state()
+    st["sent"] = st.get("sent", 0) + sent
+    if not picked:
+        st.update(on=False, finished=utcnow().isoformat())  # hammaga yuborildi — o'zi to'xtaydi
+    await store.put(BF_KEY, st)
+    return sent

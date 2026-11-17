@@ -881,7 +881,7 @@
       ["standart", "Sayt — Standart", ""], ["premium", "Sayt — Premium", ""], ["vip", "Sayt — VIP", ""]];
     const each = (x, one) => ({ each: Math.floor(x.price / x.n), off: Math.max(0, Math.round(100 - (100 * x.price) / (one * x.n))) });
     const draw = () => {
-      const one = d.prices.song, st = d.stats;
+      const one = d.prices.song, st = d.stats, bf = d.backfill || {};
       const sold = st.packs_sold || {};
       const conv = st.offered ? Math.round((100 * st.used) / st.offered) : 0;
       main().innerHTML = `
@@ -917,7 +917,28 @@
           </div>
           <div class="kpis pr-kpi"><div><b>${fmt(st.offered)}</b><span>chegirma taklif qilindi</span></div>
             <div><b>${fmt(st.used)}</b><span>chegirmada sotib oldi · ${conv}%</span></div>
-            <div><b>${fmt(st.revenue)}</b><span>chegirmadan tushum, so'm</span></div></div></section>`;
+            <div><b>${fmt(st.revenue)}</b><span>chegirmadan tushum, so'm</span></div></div></section>
+        <section class="blk"><div class="bh"><h2>Eski namunalarga chegirma</h2>${tag(bf.on ? "Yuborilmoqda" : bf.finished ? "Tugadi" : "To'xtatilgan", bf.on ? "warn" : bf.finished ? "good" : "")}</div>
+          <div class="form">
+            <p>Avval namuna olib, sotib olmaganlarga (48 soatdan oldingi) bir martalik chegirma — yuqoridagi narx, muddat va eslatmalar bilan.
+              Har bir odamga eng oxirgi qo'shig'i bo'yicha bitta xabar. Botni bloklagan, paketi bor yoki allaqachon chegirma olganlarga yuborilmaydi.</p>
+            <div class="fields">
+              <label class="f">Har 3 daqiqada nechta xabar<input class="in" type="number" min="10" max="500" id="bf-batch" value="${bf.batch}">
+                <small>100 → soatiga ~2 000 ta. Faqat progrev soatlarida yuboriladi</small></label>
+            </div>
+            <div class="row">${bf.on ? `<button type="button" class="btn bad" id="bf-stop">To'xtatish</button>`
+              : `<button type="button" class="btn primary" id="bf-start" ${bf.eligible ? "" : "disabled"}>${fmt(bf.eligible)} kishiga yuborishni boshlash</button>`}</div>
+          </div>
+          <div class="kpis pr-kpi"><div><b>${fmt(bf.eligible)}</b><span>hali yuborilmagan (kishi)</span></div>
+            <div><b>${fmt(bf.sent || 0)}</b><span>yuborildi</span></div>
+            <div><b>${bf.on && bf.eligible ? `~${fmt(Math.ceil(bf.eligible / Math.max(1, bf.batch) * 3 / 60 * 10) / 10)} soat` : "—"}</b><span>qolgan vaqt (taxminan, ish soatlarida)</span></div></div></section>`;
+      const bfGo = async (on, btn) => {
+        btn.disabled = true;
+        try { d.backfill = await api("/api/admin/pricing/backfill", { on, batch: +$("#bf-batch").value || 100 }); toast(on ? "Boshlandi — xabarlar bo'lib-bo'lib yuboriladi" : "To'xtatildi"); read(); draw(); }
+        catch (err) { toast(err.message, true); btn.disabled = false; }
+      };
+      if ($("#bf-start")) $("#bf-start").onclick = (e) => { if (confirm(`${fmt(bf.eligible)} kishiga chegirma xabari yuborilsinmi? Narx: ${fmt(d.promo.price)} so'm, ${d.promo.hours} soat.`)) bfGo(true, e.currentTarget); };
+      if ($("#bf-stop")) $("#bf-stop").onclick = (e) => bfGo(false, e.currentTarget);
       $$("[data-del]").forEach((b) => (b.onclick = () => { read(); d.packs.splice(+b.dataset.del, 1); draw(); }));
       $("#pk-add").onclick = () => { read(); const n = Math.max(1, ...d.packs.map((x) => x.n)) + 1; d.packs.push({ n, price: one * n, label: "", on: true }); draw(); };
       $("#pr-save").onclick = async (e) => {
