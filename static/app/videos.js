@@ -239,7 +239,7 @@
         <section class="card"><div class="photo-row"><span class="ph">${d.data.rasm ? `<img src="${esc(d.data.rasm)}" alt="">` : icon("photo")}</span>
           <span><b>${esc(T("ed.photo"))}</b>${esc(T("ed.photo_sub"))}</span>
           ${d.data.rasm ? `<button type="button" class="btn ghost xs" id="rmPhoto">${esc(T("remove"))}</button>`
-            : `<span class="btn ghost xs upload">${esc(T("choose"))}<input type="file" accept="image/*" id="photoIn"></span>`}</div></section>
+            : `<button type="button" class="btn ghost xs" id="photoIn">${esc(T("choose"))}</button>`}</div></section>
         ${musicCard()}
         <section class="card"><h2>${esc(T("ed.lang"))}</h2><div class="chips">
           ${langs.map((l) => `<button type="button" class="chip" data-lang="${l.key}" aria-pressed="${d.lang === l.key}">${esc(l.name)}</button>`).join("")}</div>
@@ -370,12 +370,14 @@
         btn.innerHTML = `${icon("sparkle", "s")}${esc(T("ed.ai_again"))}`;
       };
       const photoIn = $("#photoIn", form);
-      if (photoIn) photoIn.onchange = async () => {
-        const f = photoIn.files[0]; if (!f) return;
-        const fd = new FormData(); fd.append("file", f);
+      if (photoIn) photoIn.onclick = async () => {
+        haptic();
+        const [f] = await App.pickFiles();
+        if (!f) return;
         toast(T("uploading"));
-        try { d.data.rasm = (await api("/api/upload?kind=photo", fd)).url; redraw(); seekScene(1); }
-        catch (err) { toast(err.message); }
+        App.busy(photoIn, true);
+        try { d.data.rasm = await App.uploadPhoto(f); redraw(); seekScene(1); }
+        catch (err) { toast(err.message); App.busy(photoIn, false); }
       };
       const rmPhoto = $("#rmPhoto", form);
       if (rmPhoto) rmPhoto.onclick = () => { delete d.data.rasm; redraw(); };

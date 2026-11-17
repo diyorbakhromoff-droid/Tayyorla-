@@ -85,10 +85,12 @@
   }
   async function api(path, body, opt = {}) {
     const o = { method: opt.method || (body != null ? "POST" : "GET"), headers: { "X-Init-Data": initData } };
+    let timer = null;
+    if (opt.timeout && window.AbortController) { const ac = new AbortController(); o.signal = ac.signal; timer = setTimeout(() => ac.abort(), opt.timeout); }
     if (body instanceof FormData) o.body = body;
     else if (body != null) { o.body = JSON.stringify(body); o.headers["Content-Type"] = "application/json"; }
     let r;
-    try { r = await fetch(path, o); } catch { throw Object.assign(new Error(T("err.network")), { status: 0 }); }
+    try { r = await fetch(path, o); } catch { throw Object.assign(new Error(T("err.network")), { status: 0 }); } finally { if (timer) clearTimeout(timer); }
     if (!r.ok) {
       let d = null;
       try { d = (await r.json()).detail; } catch { /* matn emas */ }
@@ -97,6 +99,41 @@
     return opt.raw ? r.text() : r.json();
   }
   App.api = api;
+
+  // ---------------------------------------------------------------- rasm tanlash va yuklash
+  // Telegram (ayniqsa Android) ichida bitta <input type=file> ikkinchi marta ochilmay qolishi mumkin:
+  // har bosishda yangi input yaratamiz. Telefon rasmlari (5–10 MB) yuklashdan oldin 1600 px gacha kichraytiriladi.
+  App.pickFiles = (opt = {}) => new Promise((resolve) => {
+    const inp = document.createElement("input");
+    inp.type = "file"; inp.accept = opt.accept || "image/*"; inp.multiple = !!opt.multiple;
+    inp.style.cssText = "position:fixed;left:-9999px;top:0;width:1px;height:1px;opacity:0";
+    let done = false;
+    const finish = (files) => { if (done) return; done = true; inp.remove(); resolve(files); };
+    inp.addEventListener("change", () => finish([...(inp.files || [])]));
+    inp.addEventListener("cancel", () => finish([]));
+    document.body.appendChild(inp);
+    inp.click();
+  });
+  App.shrinkImage = async (file, max = 1600) => {
+    if (!/^image\/(jpeg|jpg|png|webp)$/i.test(file.type || "")) return file;  // HEIC va boshqalar — server o'zi o'giradi
+    let url = "";
+    try {
+      url = URL.createObjectURL(file);
+      const img = await new Promise((ok, no) => { const i = new Image(); i.onload = () => ok(i); i.onerror = no; i.src = url; });
+      const k = Math.min(1, max / Math.max(img.naturalWidth, img.naturalHeight));
+      if (k === 1 && file.size < 1.5e6) return file;
+      const c = document.createElement("canvas");
+      c.width = Math.round(img.naturalWidth * k); c.height = Math.round(img.naturalHeight * k);
+      const g = c.getContext("2d"); g.fillStyle = "#fff"; g.fillRect(0, 0, c.width, c.height); g.drawImage(img, 0, 0, c.width, c.height);
+      const blob = await new Promise((ok) => c.toBlob(ok, "image/jpeg", 0.86));
+      return blob && blob.size < file.size ? new File([blob], "photo.jpg", { type: "image/jpeg" }) : file;
+    } catch { return file; } finally { if (url) URL.revokeObjectURL(url); }
+  };
+  App.uploadPhoto = async (file) => {
+    const f = await App.shrinkImage(file);
+    const fd = new FormData(); fd.append("file", f, f.name || "photo.jpg");
+    return (await api("/api/upload?kind=photo", fd, { timeout: 120000 })).url;
+  };
   App.refreshMe = async () => { S.me = await api("/api/me"); return S.me; };
 
   // ---------------------------------------------------------------- belgilar

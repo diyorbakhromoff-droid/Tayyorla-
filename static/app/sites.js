@@ -339,7 +339,7 @@
       const lim = t.v2 ? Math.min(tier().photos, Math.max(t.slots || 1, 6)) : tier().photos;
       el.innerHTML = head(T("ord.s4"), tplName(t)) + `<div class="wrap stack fade">
         <section class="card"><h2>${esc(T("ord.photos"))}</h2><p class="hint">${esc(T("ord.photos_hint", { tier: tierTitle(tier()), n: lim }))}</p>
-          <span class="btn ghost upload" id="photoUp" style="margin-top:10px">${icon("plus", "s")}${esc(T("ord.add_photo"))}<input type="file" id="photoIn" accept="image/*" multiple></span>
+          <button type="button" class="btn ghost" id="photoUp" style="margin-top:10px">${icon("plus", "s")}${esc(T("ord.add_photo"))}</button>
           <div class="photos" id="photos"></div></section>
         <section class="card"><h2>${esc(T("ord.music"))}</h2><p class="hint">${esc(T("ord.music_hint"))}</p><div id="music" style="margin-top:10px"></div></section></div>` +
         cta(T("ord.preview"));
@@ -377,16 +377,26 @@
       };
       drawPhotos(); drawMusic();
       if (App.songList) Promise.all([App.songMeta(), App.songList()]).then(() => { if ($("#music")) drawMusic(); }).catch(() => {});
-      $("#photoIn").onchange = async (e) => {
-        const files = [...e.target.files].slice(0, lim - order.photos.length);
-        e.target.value = "";
+      $("#photoUp").onclick = async () => {
+        haptic();
+        const picked = await App.pickFiles({ multiple: true });
+        if (!picked.length) return;
+        const files = picked.slice(0, lim - order.photos.length - pending);
         if (!files.length) { toast(T("ord.max_photos", { n: lim })); return; }
-        pending = files.length; drawPhotos();
-        for (const f of files) {
-          const fd = new FormData(); fd.append("file", f);
-          try { const { url } = await api("/api/upload?kind=photo", fd); order.photos.push(url); save(); } catch (err) { toast(err.message); }
-          pending--; if ($("#photos")) drawPhotos();
-        }
+        pending += files.length; drawPhotos();
+        // ikkitadan parallel: tezroq, lekin telefon internetini bo'g'ib qo'ymaydi; tartib saqlanadi
+        const urls = new Array(files.length).fill(null);
+        let next = 0;
+        const worker = async () => {
+          while (next < files.length) {
+            const i = next++;
+            try { urls[i] = await App.uploadPhoto(files[i]); } catch (err) { toast(err.message); }
+            pending--;
+            if (urls[i]) { order.photos.push(urls[i]); save(); }
+            if ($("#photos")) drawPhotos();
+          }
+        };
+        await Promise.all([worker(), worker()]);
       };
       bindNav(step, () => { if (pending) { toast(T("ord.wait_photos")); return; } go(step + 1); });
       return;
@@ -501,7 +511,7 @@
       case "tel": return `<label class="field">${lab}<input type="tel" placeholder="+998 90 123 45 67" data-k="${k}" value="${esc(v || "")}">${hint}</label>`;
       case "lines": return `<label class="field">${lab}<textarea rows="4" data-k="${k}" data-lines="1">${esc((v || []).join("\n"))}</textarea>${hint}</label>`;
       case "photo": return `<div class="field">${lab}${v ? `<div class="photos" style="grid-template-columns:1fr 2fr"><div><img src="${esc(v)}" alt=""><button type="button" data-rmphoto="${k}">✕</button></div></div>` : ""}
-        <span class="btn ghost sm upload" style="margin-top:8px">${icon("photo", "s")}${esc(T("ord.pick_photo"))}<input type="file" accept="image/*" data-photo="${k}"></span>${hint}</div>`;
+        <button type="button" class="btn ghost sm" style="margin-top:8px" data-photo="${k}">${icon("photo", "s")}${esc(T("ord.pick_photo"))}</button>${hint}</div>`;
       case "items": return `<div class="field">${lab}${hint}<div data-items="${k}"></div><button type="button" class="btn ghost sm" data-add="${k}">+ ${esc(T("add"))}</button></div>`;
       case "textarea":
         if (f.ai) return `<div class="field">${lab}
@@ -545,10 +555,13 @@
         save(); drawItems(f, box);
       };
     });
-    $$("[data-photo]", el).forEach((inp) => (inp.onchange = async () => {
-      const file = inp.files[0]; if (!file) return;
-      const fd = new FormData(); fd.append("file", file);
-      try { order.data[inp.dataset.photo] = (await api("/api/upload?kind=photo", fd)).url; save(); App.render(); } catch (e) { toast(e.message); }
+    $$("[data-photo]", el).forEach((btn) => (btn.onclick = async () => {
+      haptic();
+      const [file] = await App.pickFiles();
+      if (!file) return;
+      App.busy(btn, true);
+      try { order.data[btn.dataset.photo] = await App.uploadPhoto(file); save(); App.render(); }
+      catch (e) { toast(e.message); App.busy(btn, false); }
     }));
     $$("[data-rmphoto]", el).forEach((b) => (b.onclick = () => { delete order.data[b.dataset.rmphoto]; save(); App.render(); }));
     const brief = $("#brief"); if (brief) brief.oninput = () => { order._brief = brief.value; save(); };
