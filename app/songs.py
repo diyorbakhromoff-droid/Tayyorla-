@@ -287,12 +287,57 @@ async def compose(plan: dict, store: bool = False, info: dict | None = None) -> 
             raise SongError("Qo'shiq tayyorlashda xato bo'ldi, qayta urinib ko'ring.")
 
 
-def cut_preview(src: Path, dst: Path, start_ms: int, seconds: int) -> None:
-    """Naqoratdan seconds soniyalik bo'lak, boshida va oxirida yumshoq o'tish bilan."""
+# Ovoz musiqadan past chiqsa so'zlar eshitilmaydi. Alohida yo'laklar (stem) yo'q, shuning uchun:
+# o'rtadagi (markaz) kanal — ovoz — yon kanallarga nisbatan balandroq, ovoz chastotalari (2–5 kHz) ko'tariladi,
+# bo'g'iq past-o'rta chastotalar (250 Hz) pasaytiriladi, keyin yumshoq kompressor va bir xil balandlik (-14 LUFS).
+MIX = {
+    "off": "",
+    "soft": ("aformat=channel_layouts=stereo,highpass=f=50,equalizer=f=250:t=q:w=1:g=-2,equalizer=f=3000:t=q:w=1.2:g=3,"
+             "equalizer=f=5500:t=q:w=1.5:g=1,stereotools=mlev=1:slev=0.8,"
+             "acompressor=threshold=-20dB:ratio=2.5:attack=8:release=160,loudnorm=I=-14:TP=-1.2:LRA=11"),
+    "strong": ("aformat=channel_layouts=stereo,highpass=f=60,equalizer=f=250:t=q:w=1:g=-3.5,equalizer=f=3000:t=q:w=1.2:g=5,"
+               "equalizer=f=5500:t=q:w=1.5:g=2,stereotools=mlev=1:slev=0.65,"
+               "acompressor=threshold=-22dB:ratio=3:attack=6:release=150,loudnorm=I=-14:TP=-1.2:LRA=10"),
+}
+MIX_DEFAULT = "soft"
+
+
+async def mix_level() -> str:
+    v = (await music_cfg()).get("mix", MIX_DEFAULT)
+    return v if v in MIX else MIX_DEFAULT
+
+
+def cut_preview(src: Path, dst: Path, start_ms: int, seconds: int, mix: str = "") -> None:
+    """Naqoratdan seconds soniyalik bo'lak, boshida va oxirida yumshoq o'tish bilan (mix — ovozni oldinga chiqarish)."""
     dur = max(5, seconds)
+    chain = (MIX.get(mix, "") + ",") if MIX.get(mix) else ""
     cmd = ["ffmpeg", "-nostdin", "-y", "-loglevel", "error", "-ss", f"{max(0, start_ms - 500) / 1000:.2f}", "-t", str(dur), "-i", str(src),
-           "-af", f"afade=t=in:d=0.6,afade=t=out:st={dur - 1.8:.2f}:d=1.8", "-c:a", "libmp3lame", "-b:a", "128k", str(dst)]
-    subprocess.run(cmd, check=True, timeout=120)
+           "-af", f"{chain}afade=t=in:d=0.6,afade=t=out:st={dur - 1.8:.2f}:d=1.8", "-c:a", "libmp3lame", "-b:a", "128k", str(dst)]
+    try:
+        subprocess.run(cmd, check=True, timeout=180)
+    except subprocess.CalledProcessError:
+        if not chain:
+            raise
+        log.warning("Aralashtirish ishlamadi, namuna ishlovsiz kesiladi: %s", src)
+        cut_preview(src, dst, start_ms, seconds, "")
+
+
+def apply_mix(src: Path, dst: Path, mix: str) -> None:
+    """To'liq qo'shiq: ovozni oldinga chiqarib dst ga yozadi (src o'zgarmaydi). Xatoda — oddiy nusxa."""
+    chain = MIX.get(mix, "")
+    if not chain:
+        shutil.copyfile(src, dst)
+        return
+    tmp = dst.with_name(dst.stem + ".mixtmp.mp3")
+    try:
+        subprocess.run(["ffmpeg", "-nostdin", "-y", "-loglevel", "error", "-i", str(src), "-af", chain,
+                        "-c:a", "libmp3lame", "-b:a", "192k", str(tmp)], check=True, timeout=600)
+        tmp.replace(dst)
+    except Exception:
+        log.warning("Aralashtirish ishlamadi, qo'shiq ishlovsiz beriladi: %s", src)
+        tmp.unlink(missing_ok=True)
+        if src != dst:
+            shutil.copyfile(src, dst)
 
 
 def _public_name(prefix: str) -> str:
@@ -744,8 +789,10 @@ async def process(song_id: int, bot=None) -> None:
                 # namuna ochiq /media da emas: faqat ilova ichida imzolangan havola orqali eshitiladi
                 PRIVATE_DIR.mkdir(parents=True, exist_ok=True)
                 dst = PRIVATE_DIR / f"{song.id}-pv-{secrets.token_hex(6)}.mp3"
-                await asyncio.to_thread(cut_preview, path, dst, song.plan.get("_chorus_at", 0), settings.song_preview_seconds)
+                mix = await mix_level()
+                await asyncio.to_thread(cut_preview, path, dst, song.plan.get("_chorus_at", 0), settings.song_preview_seconds, mix)
                 song.preview, song.status = f"pv:{dst.name}", "preview_ready"
+                song.plan = {**(song.plan or {}), "_mix_pv": mix}
             else:
                 if not song.variants:
                     await _generate_from_demo(s, song)  # namunadagi naqoratdan (o'sha kuy va ovoz)
@@ -754,13 +801,15 @@ async def process(song_id: int, bot=None) -> None:
                 while len(song.variants or []) < SONG_VARIANTS:
                     await _generate_variant(s, song, "song_full")
                 variants = []
+                mix = await mix_level()
                 for v in song.variants:
                     if not v.get("file"):
                         dst = MEDIA_DIR / _public_name("song")
-                        shutil.copyfile(v["private"], dst)
+                        await asyncio.to_thread(apply_mix, Path(v["private"]), dst, mix)
                         v = {**v, "file": f"/media/{dst.name}"}
                     variants.append(v)
                 song.variants, song.status = variants, "ready"
+                song.plan = {**(song.plan or {}), "_mix_full": mix}
                 if song.chosen < 0:
                     song.chosen = 0
             song.error = ""
@@ -930,3 +979,74 @@ async def lyria_test(admin_id: int) -> None:
                 await bot.send_audio(admin_id, FSInputFile(p, filename=p.name), title=f"Lyria — {lab}", performer="Tayyorla sinov")
     except Exception:
         log.exception("Lyria sinov natijasini yuborib bo'lmadi")
+
+
+# ---------------------------------------------------------------- mavjud qo'shiqlar: ovozni oldinga chiqarish (bir martalik)
+REMIX_KEY = "song_remix"
+REMIX_TASK: dict = {"t": None}  # fondagi qayta ishlash vazifasi (bitta)
+
+
+async def remix_state() -> dict:
+    from . import store
+    return {"running": False, "done": 0, "total": 0, "failed": 0, "level": "", "finished": None, **(await store.get(REMIX_KEY) or {})}
+
+
+def _remix_one(song: Song, mix: str) -> dict:
+    """Bitta qo'shiq: namuna va to'liq fayl(lar) asl (ishlovsiz) manbadan qayta yoziladi — URL o'zgarmaydi.
+    Manba yo'q bo'lsa, fayl o'zi bir marta ishlanadi (belgi qo'yiladi, ikki marta ishlanmaydi)."""
+    plan = dict(song.plan or {})
+    pv = preview_path(song)
+    if pv and pv.exists() and plan.get("_mix_pv") != mix:
+        demo = (plan.get("_demo") or {}).get("private")
+        full = (song.variants or [{}])[0].get("private") if song.variants else None
+        src = next((Path(x) for x in (demo, full) if x and Path(x).exists()), None)
+        if src is not None:
+            cut_preview(src, pv, plan.get("_chorus_at", 0), settings.song_preview_seconds, mix)
+            plan["_mix_pv"] = mix
+        elif not plan.get("_mix_pv") and MIX.get(mix):
+            apply_mix(pv, pv, mix)
+            plan["_mix_pv"] = mix
+    if song.paid and plan.get("_mix_full") != mix:
+        for v in song.variants or []:
+            f = v.get("file") or ""
+            if not f.startswith("/media/"):
+                continue
+            pub = MEDIA_DIR / Path(f).name
+            src = Path(v["private"]) if v.get("private") and Path(v["private"]).exists() else None
+            if src is not None:
+                apply_mix(src, pub, mix)
+            elif pub.exists() and not plan.get("_mix_full") and MIX.get(mix):
+                apply_mix(pub, pub, mix)
+        plan["_mix_full"] = mix
+    return plan
+
+
+async def remix_all() -> None:
+    """Fonda: barcha namunalar va sotilgan qo'shiqlar. Bittadan, server sekinlashmasin."""
+    from . import store
+    mix = await mix_level()
+    async with Session() as s:
+        ids = (await s.execute(select(Song.id).where(
+            (Song.status == "preview_ready") | ((Song.paid.is_(True)) & (Song.status == "ready"))).order_by(Song.id.desc()))).scalars().all()
+    st = {"running": True, "done": 0, "total": len(ids), "failed": 0, "level": mix, "finished": None}
+    await store.put(REMIX_KEY, st)
+    for i, sid in enumerate(ids, 1):
+        try:
+            async with Session() as s:
+                song = await s.get(Song, sid)
+                if song:
+                    song.plan = await asyncio.to_thread(_remix_one, song, mix)
+                    await s.commit()
+        except Exception:
+            st["failed"] += 1
+            log.exception("Qo'shiqni qayta ishlab bo'lmadi: %s", sid)
+        st["done"] = i
+        if i % 20 == 0 or i == len(ids):
+            cur = await remix_state()
+            if not cur.get("running"):
+                log.info("Qayta ishlash to'xtatildi: %s/%s", i, len(ids))
+                return
+            await store.put(REMIX_KEY, st)
+        await asyncio.sleep(0.2)
+    st.update(running=False, finished=utcnow().isoformat())
+    await store.put(REMIX_KEY, st)

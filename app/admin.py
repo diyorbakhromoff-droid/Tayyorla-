@@ -1160,7 +1160,23 @@ async def song_limits(body: SongLimitsIn, uid: int = Depends(admin_uid)):
 async def music_info() -> dict:
     cfg = await songs.music_cfg()
     return {"provider": await songs.provider(), "wanted": cfg.get("provider", settings.song_provider), "lang": cfg.get("lang", "uz"),
+            "mix": cfg.get("mix", songs.MIX_DEFAULT), "remix": await songs.remix_state(),
             "lyria_key": bool(settings.gemini_key), "eleven_key": bool(settings.elevenlabs_api_key)}
+
+
+@router.post("/song-remix")
+async def song_remix(body: dict, uid: int = Depends(admin_uid)):
+    """Mavjud namuna va qo'shiqlarni joriy «ovoz va musiqa balansi» bilan qayta ishlash (fonda). on=false — to'xtatish."""
+    from . import store
+    st = await songs.remix_state()
+    if body.get("on"):
+        alive = songs.REMIX_TASK.get("t") is not None and not songs.REMIX_TASK["t"].done()
+        if not alive:  # server qayta ishga tushgan bo'lsa, «ishlayapti» belgisi eskirgan — yangidan boshlaymiz
+            songs.REMIX_TASK["t"] = asyncio.create_task(songs.remix_all())
+            await asyncio.sleep(0.3)
+    else:
+        await store.put(songs.REMIX_KEY, {**st, "running": False})
+    return await music_info()
 
 
 async def google_key_rejected(key: str) -> bool:
@@ -1182,6 +1198,7 @@ async def google_key_rejected(key: str) -> bool:
 class MusicIn(BaseModel):
     provider: str | None = Field(default=None, pattern="^(elevenlabs|lyria)$")
     lang: str | None = Field(default=None, pattern="^(uz|en)$")
+    mix: str | None = Field(default=None, pattern="^(off|soft|strong)$")
     gemini_key: str | None = Field(default=None, max_length=1000)  # bo'sh satr — kalitni o'chirish
 
 
@@ -1200,6 +1217,8 @@ async def music_save(body: MusicIn, uid: int = Depends(admin_uid)):
         cfg["provider"] = body.provider
     if body.lang:
         cfg["lang"] = body.lang
+    if body.mix:
+        cfg["mix"] = body.mix
     await store.put(songs.MUSIC_KEY, cfg)
     await songs.music_cfg()
     log.info("Musiqa xizmati sozlamasi o'zgardi: %s, til %s, Lyria kaliti %s (admin %s)",

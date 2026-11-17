@@ -822,8 +822,14 @@
         <form class="form" id="mus"><div class="fields">
           <label class="f">Xizmat<select class="in" name="provider"><option value="elevenlabs"${d.music.wanted !== "lyria" ? " selected" : ""}>ElevenLabs</option><option value="lyria"${d.music.wanted === "lyria" ? " selected" : ""}>Google Lyria</option></select><small>Lyria: bir qo'shiq ≈ $0.08, sotilganda qo'shimcha xarajat yo'q</small></label>
           <label class="f">Lyria kaliti<input class="in" type="password" name="gemini_key" autocomplete="new-password" data-lpignore="true" data-1p-ignore spellcheck="false" placeholder="${d.music.lyria_key ? "saqlangan ✓ — almashtirish uchun yangisini qo'ying" : "aistudio.google.com dagi API kalit"}"><small>Kalit hech qayerda ko'rsatilmaydi</small></label>
+          <label class="f">Ovoz va musiqa balansi<select class="in" name="mix">${[["soft", "Ovoz oldinda (tavsiya)"], ["strong", "Ovoz kuchli oldinda"], ["off", "Ishlovsiz"]]
+            .map(([k, l]) => `<option value="${k}"${(d.music.mix || "soft") === k ? " selected" : ""}>${l}</option>`).join("")}</select><small>So'zlar aniq eshitilishi uchun musiqa ovoz ortiga suriladi</small></label>
           <label class="f">Ko'rsatma tili<select class="in" name="lang"><option value="uz"${d.music.lang !== "en" ? " selected" : ""}>O'zbekcha</option><option value="en"${d.music.lang === "en" ? " selected" : ""}>Inglizcha</option></select><small>Sinovda qaysi biri yaxshi kuylasa</small></label>
           <div><button class="btn primary" type="submit">Saqlash</button></div></div></form>
+        ${(() => { const r = d.music.remix || {}; const lv = { soft: "me'yorida", strong: "kuchli", off: "ishlovsiz" };
+          return `<div class="row" style="margin-top:12px;align-items:center">${r.running
+            ? `<button class="btn bad" id="remix-stop">To'xtatish</button><span class="muted" style="font-size:12.5px">Mavjud qo'shiqlar qayta ishlanmoqda: ${fmt(r.done)} / ${fmt(r.total)}${r.failed ? ` · xato ${fmt(r.failed)}` : ""} — sahifani yangilab kuzating</span>`
+            : `<button class="btn" id="remix-go">Mavjud namuna va qo'shiqlarga qo'llash</button><span class="muted" style="font-size:12.5px">${r.finished ? `Oxirgi marta: ${fmt(r.done)} ta qo'shiq (${lv[r.level] || r.level}), ${dt(r.finished)}. ` : ""}Havolalar o'zgarmaydi — saytdagi qo'shiqlar ham yangilanadi. Tayyor videolar o'zgarmaydi.</span>`}</div>`; })()}
         <div class="row" style="margin-top:12px"><button class="btn" id="mus-test"${d.music.lyria_key ? "" : " disabled"}>Lyria sinovi: 2 ta qo'shiq (≈ 2 000 so'm)</button><span class="muted" style="font-size:12.5px">Bitta she'r o'zbekcha va inglizcha ko'rsatma bilan — natija 2–5 daqiqada botga keladi</span></div></section>` : ""}
       <section class="blk"><div class="bh"><h2>Oxirgi xatolar</h2></div>
         ${table(["Video", "Xato", "Qachon"], d.errors.map((e) => `<tr><td class="num">#${e.id}<span class="sub">${esc(e.design)}</span></td><td style="max-width:520px;word-break:break-word">${esc(e.error) || "—"}</td><td class="num">${dt(e.at)}</td></tr>`), "Xato yo'q")}</section>
@@ -852,11 +858,18 @@
     const mus = $("#mus");
     if (mus) mus.onsubmit = async (e) => {
       e.preventDefault(); const fd = new FormData(mus); const key = (fd.get("gemini_key") || "").trim();
-      const body = { provider: fd.get("provider"), lang: fd.get("lang") };
+      const body = { provider: fd.get("provider"), lang: fd.get("lang"), mix: fd.get("mix") };
       if (key) body.gemini_key = key;
       try { const r = await api("/api/admin/song-provider", body); toast(r.provider === body.provider ? "Saqlandi" : "Saqlandi, lekin Lyria kaliti yo'q"); render(); }
       catch (err) { toast(err.message, true); }
     };
+    const rg = $("#remix-go"), rs = $("#remix-stop");
+    if (rg) rg.onclick = async () => {
+      if (!confirm("Barcha mavjud namuna va sotilgan qo'shiqlar tanlangan balans bilan qayta ishlansinmi? Fonda bittadan bajariladi.")) return;
+      rg.disabled = true;
+      try { await api("/api/admin/song-remix", { on: true }); toast("Boshlandi — sahifani yangilab kuzating"); render(); } catch (err) { toast(err.message, true); rg.disabled = false; }
+    };
+    if (rs) rs.onclick = async () => { try { await api("/api/admin/song-remix", { on: false }); toast("To'xtatildi"); render(); } catch (err) { toast(err.message, true); } };
     const mt = $("#mus-test");
     if (mt) mt.onclick = async () => {
       mt.disabled = true;

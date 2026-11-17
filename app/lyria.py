@@ -23,6 +23,11 @@ API_REVISION = "2026-05-20"
 SECTION_TAG = {"intro": "Intro", "verse": "Verse", "chorus": "Chorus", "bridge": "Bridge", "outro": "Outro"}
 VOICE_UZ = {"male": "erkak xonanda", "female": "ayol xonanda"}
 VOICE_EN = {"male": "warm male vocals", "female": "warm female vocals"}
+# so'zlar aniq eshitilsin: cholg'u ovozni bosib ketmasin
+MIX_UZ = ("Xonanda ovozi oldinda — musiqadan balandroq va juda aniq eshitilsin, cholg'u ovozni bosib ketmasin, "
+          "faqat orqa fonda yumshoq jo'r bo'lsin. Har bir so'z tushunarli bo'lsin.")
+MIX_EN = ("Lead vocals upfront and loud in the mix, clearly louder than the instruments; the backing track stays soft "
+          "and supportive, never covering the voice. Every word must be clearly intelligible.")
 
 
 class LyriaError(Exception):
@@ -62,20 +67,20 @@ def prompt(sections: list[dict], style_name: str, style_tags: list[str], voice: 
         if lang == "en":
             return (f"Create a {style_name} song chorus sung in Uzbek language by a native Uzbek singer, "
                     f"{VOICE_EN.get(voice, VOICE_EN['female'])}, clear native Uzbek pronunciation. Style: {tags}. "
-                    f"Start singing right away. Sing exactly these lyrics:\n\n{words}")
+                    f"Start singing right away. {MIX_EN} Sing exactly these lyrics:\n\n{words}")
         return (f"O'zbek tilidagi qo'shiqning naqorati. Janr: {style_name} ({tags}). {VOICE_UZ.get(voice, VOICE_UZ['female']).capitalize()} "
-                f"ona tili o'zbek bo'lgan xonandadek aniq o'zbekcha talaffuz bilan kuylaydi. Qo'shiq darhol boshlansin. "
+                f"ona tili o'zbek bo'lgan xonandadek aniq o'zbekcha talaffuz bilan kuylaydi. Qo'shiq darhol boshlansin. {MIX_UZ} "
                 f"Quyidagi so'zlarni aynan shunday kuylang:\n\n{words}")
     minutes = 1.5  # sovg'a qo'shig'i uchun yetarli va tezroq tayyorlanadi
     tags = ", ".join([*style_tags, *extra][:12])
     if lang == "en":
         return (f"Create a {style_name} song sung entirely in Uzbek language by a native Uzbek singer, "
                 f"{VOICE_EN.get(voice, VOICE_EN['female'])}, clear native Uzbek pronunciation. Style: {tags}. "
-                f"Occasion: {occasion}. Length about 90 seconds. Sing exactly these lyrics, do not change or add words.\n\n"
+                f"Occasion: {occasion}. Length about 90 seconds. {MIX_EN} Sing exactly these lyrics, do not change or add words.\n\n"
                 f"Lyrics:\n{words}")
     return (f"O'zbek tilida qo'shiq yarating. Janr: {style_name} ({tags}). Qo'shiqni {VOICE_UZ.get(voice, VOICE_UZ['female'])} "
             f"kuylaydi — ona tili o'zbek bo'lgan xonandadek aniq va tabiiy o'zbekcha talaffuz bilan. Munosabat: {occasion}. "
-            f"Davomiyligi taxminan 1,5 daqiqa (90 soniya). Quyidagi so'zlarni aynan shunday kuylang, so'z qo'shmang va o'zgartirmang.\n\n"
+            f"Davomiyligi taxminan 1,5 daqiqa (90 soniya). {MIX_UZ} Quyidagi so'zlarni aynan shunday kuylang, so'z qo'shmang va o'zgartirmang.\n\n"
             f"Qo'shiq so'zlari:\n{words}")
 
 
