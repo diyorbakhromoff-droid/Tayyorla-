@@ -909,7 +909,11 @@
               <label class="f">Amal qilish muddati, soat<input class="in" type="number" min="1" max="168" id="pm-hours" value="${d.promo.hours}"><small>shundan keyin narx qaytadi</small></label>
               <label class="f">Qachon taklif qilinsin, soat<input class="in" type="number" min="0" max="72" id="pm-delay" value="${d.promo.delay}"><small>namuna tayyor bo'lgandan necha soat keyin</small></label>
             </div>
-            <p class="muted" style="font-size:12.5px">Har bir qo'shiqqa bir marta, faqat bitta qo'shiq xaridiga. Botga xabar yuboriladi, ilovada vaqt sanog'i chiqadi. Xabar progrev soatlarida yuboriladi. Paketi bor mijozga taklif qilinmaydi.</p>
+            <div class="fields">
+              <label class="f">Tugashidan oldin eslatmalar, soat qolganda<input class="in" id="pm-rem" value="${esc((d.promo.reminders || []).map((m) => +(m / 60).toFixed(2)).join(", "))}" placeholder="6, 2, 0.5">
+                <small>vergul bilan, ko'pi 5 ta. 0.5 = 30 daqiqa. Bo'sh qoldirilsa — eslatma yuborilmaydi</small></label>
+            </div>
+            <p class="muted" style="font-size:12.5px">Har bir qo'shiqqa bir marta, faqat bitta qo'shiq xaridiga. Botga xabar yuboriladi, ilovada vaqt sanog'i chiqadi. Xabarlar progrev soatlarida yuboriladi; chegirma tunda tugaydigan bo'lsa, eslatmalar yetib borishi uchun ertasi kunga suriladi. Sotib olgan yoki paketi bor mijozga yuborilmaydi.</p>
           </div>
           <div class="kpis pr-kpi"><div><b>${fmt(st.offered)}</b><span>chegirma taklif qilindi</span></div>
             <div><b>${fmt(st.used)}</b><span>chegirmada sotib oldi · ${conv}%</span></div>
@@ -929,7 +933,8 @@
         x.n = +$("[data-k=n]", tr).value || 0; x.price = +$("[data-k=price]", tr).value || 0;
         x.label = $("[data-k=label]", tr).value.trim(); x.on = $("[data-k=on]", tr).checked;
       });
-      d.promo = { on: $("#pm-on").checked, price: +$("#pm-price").value || 0, hours: +$("#pm-hours").value || 0, delay: +$("#pm-delay").value || 0 };
+      d.promo = { on: $("#pm-on").checked, price: +$("#pm-price").value || 0, hours: +$("#pm-hours").value || 0, delay: +$("#pm-delay").value || 0,
+        reminders: $("#pm-rem").value.split(/[,;\s]+/).map((x) => parseFloat(x.replace(",", "."))).filter((x) => x > 0).map((x) => Math.round(x * 60)) };
     };
     draw();
   }

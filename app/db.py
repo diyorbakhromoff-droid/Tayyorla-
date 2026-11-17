@@ -287,6 +287,7 @@ class Song(Base):
     paid: Mapped[bool] = mapped_column(Boolean, default=False)
     promo_until: Mapped[datetime | None] = mapped_column(DateTime, nullable=True)  # namunadan keyingi chegirma tugash vaqti
     promo_price: Mapped[int] = mapped_column(Integer, default=0)
+    promo_sent: Mapped[int] = mapped_column(Integer, default=0)  # chegirma tugashi haqida nechanchi eslatma yuborilgan
     site_slug: Mapped[str] = mapped_column(String(32), default="")      # qaysi saytga qo'yilgan
     error: Mapped[str] = mapped_column(String(255), default="")
     created_at: Mapped[datetime] = mapped_column(DateTime, default=utcnow)
@@ -359,6 +360,7 @@ _NEW_COLUMNS = [
     ("payments", "pack", "INTEGER DEFAULT 0 NOT NULL"),
     ("songs", "promo_until", "TIMESTAMP"),
     ("songs", "promo_price", "INTEGER DEFAULT 0 NOT NULL"),
+    ("songs", "promo_sent", "INTEGER DEFAULT 0 NOT NULL"),
 ]
 
 

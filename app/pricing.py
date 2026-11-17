@@ -32,7 +32,7 @@ DEFAULT_PACKS = [
     {"n": 5, "price": 189000, "label": "", "on": True},
     {"n": 10, "price": 349000, "label": "Eng foydali", "on": True},
 ]
-DEFAULT_PROMO = {"on": True, "price": 39000, "hours": 12, "delay": 1}
+DEFAULT_PROMO = {"on": True, "price": 39000, "hours": 12, "delay": 1, "reminders": [360, 120, 30]}  # eslatmalar: tugashiga necha daqiqa qolganda
 FRESH_HOURS = 48  # shundan eski namunalarga chegirma taklif qilinmaydi (ishga tushganda eski mijozlarga yoppasiga ketmasin)
 TZ = timezone(timedelta(hours=5))
 
@@ -68,6 +68,8 @@ def clean(raw: dict | None) -> dict:
     pr = {**DEFAULT_PROMO, **(raw.get("promo") or {})}
     promo = {"on": bool(pr["on"]), "price": _int(pr["price"], 1000, 10_000_000, "Chegirma narxi"),
              "hours": _int(pr["hours"], 1, 168, "Chegirma muddati"), "delay": _int(pr["delay"], 0, 72, "Taklif vaqti")}
+    rem = sorted({_int(m, 5, 10080, "Eslatma vaqti") for m in (pr.get("reminders") or [])}, reverse=True)
+    promo["reminders"] = [m for m in rem if m < promo["hours"] * 60][:5]  # muddatdan uzun eslatma ma'nosiz
     if promo["price"] >= prices["song"]:
         raise PriceError("Chegirma narxi qo'shiqning oddiy narxidan kichik bo'lishi kerak")
     return {"prices": prices, "packs": packs, "promo": promo}
@@ -169,7 +171,8 @@ async def offer_due(bot, now: datetime | None = None) -> int:
         return 0
     now = now or utcnow()
     from .nudges import config as ncfg, in_hours
-    if not in_hours(await ncfg(), now.replace(tzinfo=timezone.utc).astimezone(TZ)):
+    hours = await ncfg()
+    if not in_hours(hours, now.replace(tzinfo=timezone.utc).astimezone(TZ)):
         return 0  # kechasi yubormaymiz — ertalab davom etadi
     async with Session() as s:
         rows = (await s.execute(select(Song).where(
@@ -183,7 +186,7 @@ async def offer_due(bot, now: datetime | None = None) -> int:
             if not user or user.blocked or user.song_credits > 0 or song.owner_id in seen_users:
                 continue
             seen_users.add(song.owner_id)  # bir odamga bir aylanishda bitta xabar
-            song.promo_until, song.promo_price = now + timedelta(hours=promo["hours"]), promo["price"]
+            song.promo_until, song.promo_price, song.promo_sent = _end_in_hours(now + timedelta(hours=promo["hours"]), hours, promo), promo["price"], 0
             picked.append((song, user))
         await s.commit()
     sent = 0
@@ -206,13 +209,88 @@ async def offer_due(bot, now: datetime | None = None) -> int:
     return sent
 
 
-async def loop(bot, interval: int = 600) -> None:
+def _end_in_hours(end: datetime, hours: dict, promo: dict) -> datetime:
+    """Chegirma tunda tugasa, eslatmalar yuborilmay qoladi: tugashni ertasi kuni ertalabga suramiz —
+    eng birinchi eslatma ish vaqti boshlanganda chiqadigan qilib (masalan 9:00 + 6 soat = 15:00)."""
+    loc = end.replace(tzinfo=timezone.utc).astimezone(TZ)
+    h = loc.hour + loc.minute / 60
+    if hours["from_hour"] <= h <= hours["to_hour"]:
+        return end
+    day = loc.date() if h < hours["from_hour"] else loc.date() + timedelta(days=1)
+    first = max(promo["reminders"] or [0])
+    start = datetime(day.year, day.month, day.day, hours["from_hour"], tzinfo=TZ) + timedelta(minutes=first)
+    return start.astimezone(timezone.utc).replace(tzinfo=None)
+
+
+def _left_text(minutes: int) -> str:
+    if minutes < 60:
+        return f"{max(5, minutes // 5 * 5)} daqiqa"
+    h, m = divmod(minutes, 60)
+    return f"{h} soat" + (f" {m} daqiqa" if m >= 10 and h < 3 else "")
+
+
+def reminder_text(stage: int, last: bool, name: str, song: Song, left: int) -> str:
+    from .videobot import money
+    who = f"{name}, " if name else ""
+    title = song.title or "Qo‘shiq"
+    for_whom = f"{song.recipient} uchun qo‘shiq" if song.recipient else "Qo‘shig‘ingiz"
+    reg, pr, lt = money(settings.song_price), money(song.promo_price), _left_text(left)
+    if last:
+        return (f"⚠️ <b>{who}oxirgi imkoniyat!</b>\n\nChegirma <b>{lt}dan keyin</b> tugaydi.\n"
+                f"«{title}» hozir <b>{pr}</b> — keyin {reg} bo‘ladi.\n\nBir bosishda oling 👇")
+    if stage == 0:
+        return (f"⏰ <b>{who}chegirma tugashiga {lt} qoldi!</b>\n\n{for_whom} tayyor turibdi — «{title}».\n"
+                f"Hozir <b>{pr}</b>, chegirma tugagach {reg}.")
+    return (f"🔥 <b>Atigi {lt} qoldi!</b>\n\n{who}«{title}» qo‘shig‘ini hali ham <b>{pr}</b>ga olishingiz mumkin. "
+            f"Yaqiningizni quvontiradigan sovg‘a bir bosishda tayyor bo‘ladi.\n\nKeyin narx {reg}ga qaytadi.")
+
+
+async def remind_due(bot, now: datetime | None = None) -> int:
+    """Chegirma tugashidan oldin eslatmalar (masalan 6 soat, 2 soat, 30 daqiqa qolganda). Yuborilganlar soni."""
+    cfg = await config()
+    stages = cfg["promo"]["reminders"]
+    if not stages or not bot:
+        return 0
+    now = now or utcnow()
+    from .nudges import config as ncfg, in_hours
+    if not in_hours(await ncfg(), now.replace(tzinfo=timezone.utc).astimezone(TZ)):
+        return 0
+    jobs = []
+    async with Session() as s:
+        rows = (await s.execute(select(Song).where(
+            Song.promo_until > now, Song.paid.is_(False), Song.status == "preview_ready",
+            Song.promo_sent < len(stages)).order_by(Song.promo_until).limit(500))).scalars().all()
+        for song in rows:
+            left = int((song.promo_until - now).total_seconds() // 60)
+            due = [i for i, m in enumerate(stages) if left <= m]
+            if not due or due[-1] < song.promo_sent:
+                continue
+            k = due[-1]  # o'tib ketgan bosqichlar qayta yuborilmaydi — eng so'nggisi
+            user = await s.get(User, song.owner_id)
+            song.promo_sent = k + 1
+            if user and not user.blocked and user.song_credits <= 0:
+                jobs.append((song, user, k, left))
+        await s.commit()
+    sent = 0
+    for song, user, k, left in jobs:
+        text = reminder_text(k, k == len(stages) - 1, (user.first_name or "").strip(), song, left)
+        try:
+            await bot.send_message(song.owner_id, text, reply_markup=_keyboard(song, song.promo_price))
+            sent += 1
+        except Exception:
+            log.warning("Chegirma eslatmasini yuborib bo'lmadi: %s", song.owner_id)
+        await asyncio.sleep(0.05)
+    return sent
+
+
+async def loop(bot, interval: int = 180) -> None:
     await asyncio.sleep(90)
     while True:
         try:
             n = await offer_due(bot)
-            if n:
-                log.info("Chegirma taklifi: %s ta xabar", n)
+            r = await remind_due(bot)
+            if n or r:
+                log.info("Chegirma: %s ta taklif, %s ta eslatma", n, r)
         except Exception:
             log.exception("Chegirma tsiklida xato")
         await asyncio.sleep(interval)

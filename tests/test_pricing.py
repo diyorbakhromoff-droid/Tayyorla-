@@ -40,7 +40,9 @@ async def main():
     # --- narxlar: standart, saqlash, tekshiruv
     cfg = await pricing.config()
     assert cfg["prices"]["song"] == 69000 and [p["n"] for p in cfg["packs"]] == [2, 3, 5, 10]
-    assert cfg["promo"] == {"on": True, "price": 39000, "hours": 12, "delay": 1}
+    assert cfg["promo"] == {"on": True, "price": 39000, "hours": 12, "delay": 1, "reminders": [360, 120, 30]}
+    out = await admin.pricing_save({"packs": cfg["packs"], "promo": {**cfg["promo"], "reminders": [30, 600, 30, 1000]}}, uid=999)
+    assert out["promo"]["reminders"] == [600, 30], "takrorlar va muddatdan uzunlari olib tashlanadi"
     try:
         await admin.pricing_save({"promo": {"price": 70000}}, uid=999)
         raise AssertionError("chegirma oddiy narxdan qimmat bo'lmasligi kerak")
@@ -88,10 +90,32 @@ async def main():
     assert await pricing.offer_due(bot, night) == 0
     async with Session() as s:
         s2 = await s.get(Song, 20)
-        assert s2.promo_until == now + timedelta(hours=12) and s2.promo_price == 39000
+        # 12:00 + 12 soat = yarim tun: eslatmalar yetib borishi uchun ertasi kuni 9:00 + 6 soat = 15:00 (Toshkent) ga suriladi
+        assert s2.promo_until == datetime(2026, 11, 18, 10, 0) and s2.promo_price == 39000
         assert pricing.promo_of(s2, now + timedelta(hours=1))["price"] == 39000
-        assert pricing.promo_of(s2, now + timedelta(hours=13)) is None, "muddat tugagach narx qaytadi"
+        assert pricing.promo_of(s2, now + timedelta(hours=28)) is None, "muddat tugagach narx qaytadi"
         assert (await s.get(Song, 40)).promo_until is None and (await s.get(Song, 11)).promo_until is None
+
+    # --- tugashidan oldin 3 ta eslatma: 6 soat, 2 soat, 30 daqiqa qolganda (faqat progrev soatlarida)
+    bot = Bot()
+    d18 = datetime(2026, 11, 18)
+    assert await pricing.remind_due(bot, d18.replace(hour=3)) == 0, "08:00 — hali erta"
+    assert await pricing.remind_due(bot, d18.replace(hour=4)) == 1 and "6 soat qoldi" in bot.msgs[-1][1]
+    assert await pricing.remind_due(bot, d18.replace(hour=4, minute=5)) == 0, "bir bosqich bir marta"
+    assert await pricing.remind_due(bot, d18.replace(hour=8)) == 1 and "Atigi 2 soat" in bot.msgs[-1][1]
+    assert await pricing.remind_due(bot, d18.replace(hour=9, minute=30)) == 1
+    assert "oxirgi imkoniyat" in bot.msgs[-1][1] and "30 daqiqa" in bot.msgs[-1][1] and "39 000" in bot.msgs[-1][1]
+    assert await pricing.remind_due(bot, d18.replace(hour=9, minute=40)) == 0
+    assert [c for c, *_ in bot.msgs] == [2, 2, 2] and "song=20" in bot.msgs[-1][2].inline_keyboard[0][0].web_app.url
+    # o'tib ketgan bosqichlar qayta yuborilmaydi: 25 daqiqa qolgan bo'lsa — faqat oxirgisi
+    await mk_song(6, 60, now - timedelta(hours=2))
+    async with Session() as s:
+        s6 = await s.get(Song, 60)
+        s6.promo_until, s6.promo_price = d18.replace(hour=9, minute=55), 39000
+        await s.commit()
+    bot = Bot()
+    assert await pricing.remind_due(bot, d18.replace(hour=9, minute=30)) == 1 and "oxirgi" in bot.msgs[0][1]
+    assert await pricing.remind_due(bot, d18.replace(hour=9, minute=35)) == 0
 
     # chegirma faol: haqiqiy vaqtga moslab, narx 39 000 va shu summa yechiladi
     async with Session() as s:
@@ -105,7 +129,7 @@ async def main():
         u2 = await s.get(User, 2)
         assert u2.balance == 11000
     st = await pricing.stats()
-    assert st["offered"] == 1 and st["used"] == 1 and st["revenue"] == 39000
+    assert st["offered"] == 2 and st["used"] == 1 and st["revenue"] == 39000
 
     # --- Click orqali paket: to'lov tushgach paket o'zi faollashadi va qo'shiq paketdan olinadi
     from app.bot.money import after_topup
