@@ -289,7 +289,7 @@
               <b>${esc(T("sp.n", { n: x.n }))}</b><span class="pr">${esc(money(x.price))}</span>
               <small>${esc(T("sp.each", { sum: money(x.each) }))}${x.off ? ` · <i>−${+x.off}%</i>` : ""}</small></button>`).join("")}</div></section>` : "");
       const mine = list.length ? `<section class="stack"><h2 class="mz-h" style="margin-bottom:0">${esc(T("song.mine"))}</h2>${list.map(row).join("")}</section>` : "";
-      box.innerHTML = hero + packs + (list.length ? styles + mine : how + styles);
+      box.innerHTML = hero + styles + packs + (list.length ? mine : how);
       $$("[data-pack]", box).forEach((b) => (b.onclick = () => { haptic(); App.songPacks({ pick: +b.dataset.pack, onDone: () => App.render() }); }));
       const nb = $("#slNew"); if (nb) nb.onclick = () => { haptic(); App.songWizard(); };
       $$("[data-demo]", box).forEach((b) => (b.onclick = () => { haptic(); playDemo(b); }));
