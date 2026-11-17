@@ -18,7 +18,7 @@ from .config import settings
 from .db import init_db
 from .i18n import tr
 from .reminders import reminder_loop
-from . import nudges, songs
+from . import nudges, pricing, songs
 
 
 async def main() -> None:
@@ -76,7 +76,8 @@ async def main() -> None:
 
     server = uvicorn.Server(uvicorn.Config(web.app, host=settings.host, port=settings.port, log_level="info",
                                            proxy_headers=True, forwarded_allow_ips="*"))  # haqiqiy IP Caddy dan (app porti tashqariga ochilmagan)
-    await asyncio.gather(server.serve(), dp.start_polling(bot), reminder_loop(bot), songs.worker(bot), nudges.loop(bot))
+    await pricing.apply()  # admin paneldagi narxlar
+    await asyncio.gather(server.serve(), dp.start_polling(bot), reminder_loop(bot), songs.worker(bot), nudges.loop(bot), pricing.loop(bot))
 
 
 if __name__ == "__main__":

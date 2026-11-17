@@ -313,7 +313,7 @@
   // ---------------------------------------------------------------- balansni to'ldirish (umumiy oyna)
   /** need — yetishmayotgan summa; amounts — tanlov; onSent — to'lov ko'rsatmasi botga ketgach.
    *  site / song — to'lov tasdiqlangach balansdan avtomatik to'lanadigan sayt yoki qo'shiq. */
-  App.topupSheet = ({ need = 0, title, text, onSent, site = "", song = 0 } = {}) => {
+  App.topupSheet = ({ need = 0, title, text, onSent, site = "", song = 0, pack = 0 } = {}) => {
     const q = (S.me && S.me.quota) || {};
     const price = q.price || 9900;
     const vm = S.vm || {};
@@ -353,7 +353,7 @@
       if (pick < lo || pick > hi) return;
       busy(e.currentTarget, true);
       try {
-        const r = await api("/api/pay/topup", { amount: pick, site, ...(song ? { song: +song } : {}) });
+        const r = await api("/api/pay/topup", { amount: pick, site, ...(song ? { song: +song } : {}), ...(pack ? { pack: +pack } : {}) });
         notify("success");
         s.close();
         if (r && r.click_url) openLink(r.click_url); // Click to'lov sahifasi; to'lov o'tgach balans o'zi to'ladi
@@ -397,7 +397,7 @@
     // qo'shiq: ?song=12 — qo'shiq sahifasi, ?song=new yoki ?tab=songs — yangi qo'shiq / ro'yxat
     const song = Q.get("song") || (sp.startsWith("song_") ? sp.slice(5) : "");
     if (song === "new") { App.tab("songs"); App.go("song_new", { step: 0 }); return true; }
-    if (+song > 0) { App.tab("songs"); App.go("song", { id: +song }); return true; }
+    if (+song > 0) { App.tab("songs"); App.go("song", { id: +song, packs: Q.get("packs") ? 1 : 0 }); return true; }
     const ev = Q.get("ev") || (sp.startsWith("ev_") ? sp.slice(3) : "");
     if (ev) { App.tab("events"); App.go("event", { slug: ev }); return true; }
     const tosite = Q.get("tosite") || (sp.startsWith("site_") ? sp.slice(5) : "");

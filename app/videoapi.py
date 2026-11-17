@@ -450,6 +450,7 @@ class TopupIn(BaseModel):
     amount: int = Field(ge=1000, le=10_000_000)
     site: str = Field("", max_length=40)  # to'langach balansdan faollashtiriladigan sayt
     song: int = Field(0, ge=0)  # to'langach balansdan to'lanadigan qo'shiq
+    pack: int = Field(0, ge=0, le=50)  # to'langach sotib olinadigan qo'shiq paketi
 
 
 @router.post("/api/pay/topup")
@@ -468,7 +469,9 @@ async def topup(body: TopupIn, x_init_data: str = Header("")):
             from .db import Song
             song = await s.get(Song, body.song)
             song_id = song.id if song and song.owner_id == uid and not song.paid else None
-        p = Payment(user_id=uid, amount=body.amount, site_id=site_id, song_id=song_id)
+        from . import pricing
+        pack = body.pack if body.pack and await pricing.pack_price(body.pack) else 0
+        p = Payment(user_id=uid, amount=body.amount, site_id=site_id, song_id=song_id, pack=pack)
         s.add(p)
         await s.commit()
     await videobot.send_payment_prompt(p.id)

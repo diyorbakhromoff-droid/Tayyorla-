@@ -301,13 +301,19 @@ def _public_name(prefix: str) -> str:
 
 # ---------------------------------------------------------------- narx va namunalar
 
-async def price_for(s, uid: int) -> int:
-    """Sayt egasi uchun (song_site_price > 0 bo'lsa) arzonroq narx."""
+async def price_for(s, uid: int, song: Song | None = None) -> int:
+    """Sayt egasi uchun (song_site_price > 0 bo'lsa) arzonroq narx; qo'shiqda faol chegirma bo'lsa — chegirma narxi."""
+    price = settings.song_price
     if settings.song_site_price > 0:
         has_site = await s.scalar(select(func.count()).select_from(Site).where(Site.owner_id == uid, Site.status == "paid", Site.kind == "site"))
         if has_site:
-            return settings.song_site_price
-    return settings.song_price
+            price = settings.song_site_price
+    if song is not None:
+        from .pricing import promo_of
+        promo = promo_of(song)
+        if promo:
+            price = min(price, promo["price"])
+    return price
 
 
 PV_EVENT = "song_pv"  # har bir bepul namuna so'rovi — kunlik limitlar shu hodisalar bo'yicha sanaladi
@@ -477,7 +483,11 @@ async def pay(s, song: Song, uid: int) -> bool:
     """Balansdan to'laydi va to'liq tayyorlashni navbatga qo'yadi. Yetmasa False."""
     if song.paid:
         return True
-    price = await price_for(s, uid)
+    from .pricing import use_credit
+    if await use_credit(s, uid, song):  # paketdagi qo'shiq — pul yechilmaydi
+        song.paid, song.price, song.status, song.error, song.updated_at = True, 0, "paid_queued", "", utcnow()
+        return True
+    price = await price_for(s, uid, song)
     if not await billing.spend(s, uid, price, "song", f"song:{song.id}"):
         return False
     song.paid, song.price, song.status, song.error, song.updated_at = True, price, "paid_queued", "", utcnow()

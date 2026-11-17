@@ -111,12 +111,13 @@
     users: '<circle cx="9" cy="8" r="4"/><path d="M2 21a7 7 0 0 1 14 0M17 4a4 4 0 0 1 0 8M22 21a6 6 0 0 0-4-5.6"/>',
     broadcast: '<path d="M3 11v2a1 1 0 0 0 1 1h3l6 5V5L7 10H4a1 1 0 0 0-1 1ZM17 8a5 5 0 0 1 0 8M20 5a9 9 0 0 1 0 14"/>',
     nudges: '<path d="M6 8a6 6 0 0 1 12 0c0 7 3 8 3 8H3s3-1 3-8ZM10 20a2 2 0 0 0 4 0"/>',
+    pricing: '<path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8Z"/><circle cx="7.5" cy="7.5" r="1.5"/>',
     system: '<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-2.9 1.2V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-2.9-1.2l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0-1.2-2.9H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.2-2.9l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 2.9-1.2V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 2.9 1.2l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0 1.2 2.9H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1Z"/>',
   };
   const icon = (k) => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${IC[k]}</svg>`;
   const TABS = [
     ["overview", "Umumiy"], ["sources", "Trafik manbalari"], ["sales", "Sotuvlar"], ["payments", "To'lovlar"],
-    ["users", "Foydalanuvchilar"], ["broadcast", "Xabar yuborish"], ["nudges", "Progrev"], ["system", "Tizim"],
+    ["users", "Foydalanuvchilar"], ["broadcast", "Xabar yuborish"], ["nudges", "Progrev"], ["pricing", "Narxlar"], ["system", "Tizim"],
   ];
   function nav() {
     $("#nav").innerHTML = TABS.map(([k, l]) => `<button type="button" data-tab="${k}" aria-current="${S.tab === k ? "page" : "false"}">${icon(k)}<span>${l}</span>${k === "payments" && S.pending ? `<span class="badge">${S.pending}</span>` : ""}</button>`).join("");
@@ -870,7 +871,69 @@
     };
   }
 
-  const VIEWS = { overview, sources, sales, payments, users, broadcast, nudges: nudgesPage, system };
+
+  // ---------------------------------------------------------------- Narxlar, paketlar, chegirma
+  async function pricingPage(alive) {
+    loading("Narxlar va chegirmalar");
+    let d = await api("/api/admin/pricing");
+    if (!alive()) return;
+    const P = [["song", "Qo'shiq (1 ta)", "so'm"], ["video", "Video taklifnoma", "bepul limitdan keyin"],
+      ["standart", "Sayt — Standart", ""], ["premium", "Sayt — Premium", ""], ["vip", "Sayt — VIP", ""]];
+    const each = (x, one) => ({ each: Math.floor(x.price / x.n), off: Math.max(0, Math.round(100 - (100 * x.price) / (one * x.n))) });
+    const draw = () => {
+      const one = d.prices.song, st = d.stats;
+      const sold = st.packs_sold || {};
+      const conv = st.offered ? Math.round((100 * st.used) / st.offered) : 0;
+      main().innerHTML = `
+        <div class="head"><div><h1>Narxlar va chegirmalar</h1><p>Narxlar shu yerdan o'zgaradi — ilova, bot va oferta sahifasi darhol yangilanadi.</p></div>
+          <button type="button" class="btn primary" id="pr-save">Saqlash</button></div>
+        <section class="blk"><div class="bh"><h2>Asosiy narxlar</h2></div>
+          <div class="form"><div class="fields">${P.map(([k, l, h]) => `<label class="f">${l}<input class="in" type="number" min="1000" step="100" data-price="${k}" value="${d.prices[k]}">${h ? `<small>${h}</small>` : ""}</label>`).join("")}</div></div></section>
+        <section class="blk"><div class="bh"><h2>Qo'shiq paketlari</h2><span class="sub">«Har biri» va tejash foizi o'zi hisoblanadi</span></div>
+          ${table(["Soni", ">Narxi, so'm", ">Har biri", ">Tejash", "Belgi", "Holat", ">Sotildi", ""], d.packs.map((x, i) => {
+            const e = each(x, one);
+            return `<tr data-i="${i}"><td><input class="in sm" type="number" min="2" max="50" data-k="n" value="${x.n}" aria-label="Paketdagi qo'shiqlar soni"></td>
+              <td class="r"><input class="in sm" type="number" min="1000" step="1000" data-k="price" value="${x.price}" aria-label="Paket narxi"></td>
+              <td class="r num">${fmt(e.each)}</td><td class="r num">${e.off ? `−${e.off}%` : "—"}</td>
+              <td><input class="in sm" data-k="label" maxlength="20" value="${esc(x.label)}" placeholder="—" aria-label="Belgi"></td>
+              <td><label class="row sw"><input type="checkbox" data-k="on" ${x.on ? "checked" : ""}> ${x.on ? "Faol" : "O'chiq"}</label></td>
+              <td class="r num">${fmt(sold[x.n] || 0)}</td>
+              <td class="r"><button type="button" class="btn sm bad" data-del="${i}" aria-label="O'chirish">✕</button></td></tr>`;
+          }), "Paket yo'q")}
+          <div class="row" style="margin-top:10px"><button type="button" class="btn sm" id="pk-add">+ Paket qo'shish</button></div></section>
+        <section class="blk"><div class="bh"><h2>Namunadan keyingi chegirma</h2>${tag(d.promo.on ? "Yoqilgan" : "O'chirilgan", d.promo.on ? "good" : "")}</div>
+          <div class="form">
+            <label class="row sw"><input type="checkbox" id="pm-on" ${d.promo.on ? "checked" : ""}> Namuna olib, sotib olmaganlarga 1 ta qo'shiq uchun chegirma taklif qilish</label>
+            <div class="fields">
+              <label class="f">Chegirma narxi<input class="in" type="number" min="1000" step="1000" id="pm-price" value="${d.promo.price}"><small>oddiy narx ${fmt(one)} → −${Math.max(0, Math.round(100 - (100 * d.promo.price) / one))}%</small></label>
+              <label class="f">Amal qilish muddati, soat<input class="in" type="number" min="1" max="168" id="pm-hours" value="${d.promo.hours}"><small>shundan keyin narx qaytadi</small></label>
+              <label class="f">Qachon taklif qilinsin, soat<input class="in" type="number" min="0" max="72" id="pm-delay" value="${d.promo.delay}"><small>namuna tayyor bo'lgandan necha soat keyin</small></label>
+            </div>
+            <p class="muted" style="font-size:12.5px">Har bir qo'shiqqa bir marta, faqat bitta qo'shiq xaridiga. Botga xabar yuboriladi, ilovada vaqt sanog'i chiqadi. Xabar progrev soatlarida yuboriladi. Paketi bor mijozga taklif qilinmaydi.</p>
+          </div>
+          <div class="kpis pr-kpi"><div><b>${fmt(st.offered)}</b><span>chegirma taklif qilindi</span></div>
+            <div><b>${fmt(st.used)}</b><span>chegirmada sotib oldi · ${conv}%</span></div>
+            <div><b>${fmt(st.revenue)}</b><span>chegirmadan tushum, so'm</span></div></div></section>`;
+      $$("[data-del]").forEach((b) => (b.onclick = () => { read(); d.packs.splice(+b.dataset.del, 1); draw(); }));
+      $("#pk-add").onclick = () => { read(); const n = Math.max(1, ...d.packs.map((x) => x.n)) + 1; d.packs.push({ n, price: one * n, label: "", on: true }); draw(); };
+      $("#pr-save").onclick = async (e) => {
+        const btn = e.currentTarget; btn.disabled = true;
+        try { read(); d = await api("/api/admin/pricing", { prices: d.prices, packs: d.packs, promo: d.promo }); toast("Saqlandi — yangi narxlar ishlayapti"); draw(); }
+        catch (err) { toast(err.message, true); btn.disabled = false; }
+      };
+    };
+    const read = () => {
+      $$("[data-price]").forEach((x) => (d.prices[x.dataset.price] = +x.value || 0));
+      $$("tr[data-i]").forEach((tr) => {
+        const x = d.packs[+tr.dataset.i];
+        x.n = +$("[data-k=n]", tr).value || 0; x.price = +$("[data-k=price]", tr).value || 0;
+        x.label = $("[data-k=label]", tr).value.trim(); x.on = $("[data-k=on]", tr).checked;
+      });
+      d.promo = { on: $("#pm-on").checked, price: +$("#pm-price").value || 0, hours: +$("#pm-hours").value || 0, delay: +$("#pm-delay").value || 0 };
+    };
+    draw();
+  }
+  const VIEWS = { overview, sources, sales, payments, users, broadcast, nudges: nudgesPage, pricing: pricingPage, system };
 
   // ---------------------------------------------------------------- oyna
   function sheet(html) {

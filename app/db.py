@@ -119,6 +119,7 @@ class User(Base):
     ref: Mapped[str] = mapped_column(String(32), default="")  # kim taklif qilgan yoki qayerdan kelgan
     balance: Mapped[int] = mapped_column(Integer, default=0)  # so'm
     bonus_videos: Mapped[int] = mapped_column(Integer, default=0)  # do'st taklif qilgani uchun
+    song_credits: Mapped[int] = mapped_column(Integer, default=0)  # sotib olingan paketdagi ishlatilmagan qo'shiqlar
     blocked: Mapped[bool] = mapped_column(Boolean, default=False)  # botni bloklagan (xabar yetmaydi)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=utcnow)
     last_seen: Mapped[datetime] = mapped_column(DateTime, default=utcnow)
@@ -202,6 +203,7 @@ class Payment(Base):
     receipt: Mapped[str] = mapped_column(String(255), default="")  # chek fayli (Telegram file_id), admin paneli uchun
     site_id: Mapped[int | None] = mapped_column(Integer, nullable=True)  # to'lovdan keyin balansdan to'lanadigan sayt
     song_id: Mapped[int | None] = mapped_column(Integer, nullable=True)  # to'lovdan keyin balansdan to'lanadigan qo'shiq
+    pack: Mapped[int] = mapped_column(Integer, default=0)  # to'lovdan keyin sotib olinadigan qo'shiq paketi (soni)
     provider: Mapped[str] = mapped_column(String(12), default="")  # "" — chek orqali, "click"
     ext_id: Mapped[str] = mapped_column(String(40), default="")  # to'lov tizimidagi tranzaksiya raqami
     created_at: Mapped[datetime] = mapped_column(DateTime, default=utcnow)
@@ -283,6 +285,8 @@ class Song(Base):
     chosen: Mapped[int] = mapped_column(Integer, default=-1)
     price: Mapped[int] = mapped_column(Integer, default=0)
     paid: Mapped[bool] = mapped_column(Boolean, default=False)
+    promo_until: Mapped[datetime | None] = mapped_column(DateTime, nullable=True)  # namunadan keyingi chegirma tugash vaqti
+    promo_price: Mapped[int] = mapped_column(Integer, default=0)
     site_slug: Mapped[str] = mapped_column(String(32), default="")      # qaysi saytga qo'yilgan
     error: Mapped[str] = mapped_column(String(255), default="")
     created_at: Mapped[datetime] = mapped_column(DateTime, default=utcnow)
@@ -351,6 +355,10 @@ _NEW_COLUMNS = [
     ("payments", "song_id", "INTEGER"),
     ("songs", "preview_at", "TIMESTAMP"),
     ("cost_log", "model", "VARCHAR(40) DEFAULT '' NOT NULL"),
+    ("users", "song_credits", "INTEGER DEFAULT 0 NOT NULL"),
+    ("payments", "pack", "INTEGER DEFAULT 0 NOT NULL"),
+    ("songs", "promo_until", "TIMESTAMP"),
+    ("songs", "promo_price", "INTEGER DEFAULT 0 NOT NULL"),
 ]
 
 

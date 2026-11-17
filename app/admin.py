@@ -35,7 +35,7 @@ router = APIRouter(prefix="/api/admin")
 public = APIRouter()
 STARTED = _time.time()
 
-SPEND_KINDS = ("site", "upgrade", "video", "package", "song")
+SPEND_KINDS = ("site", "upgrade", "video", "package", "song", "song_pack")
 VIDEO_SECTIONS = {"toy": "To'y", "osh": "Osh", "gap": "Gap", "choy": "Choyxona", "tk": "Tug'ilgan kun"}
 TIER_NAMES = {"standart": "Standart", "premium": "Premium", "vip": "VIP"}
 SOURCE_GROUPS = {"": "Organik (to'g'ridan-to'g'ri)", "ref_": "Do'st taklifi (referal)", "r_": "Tabrik sahifasidan",
@@ -294,7 +294,7 @@ async def collect(a: datetime, b: datetime, days: list[date] | None = None) -> d
 
 
 SPEND_LABELS = {"site": "Taklifnoma (sayt)", "upgrade": "Tarifni oshirish", "video": "Video taklifnoma",
-                "package": "Mehmonlarga video paketi", "song": "Shaxsiy qo'shiq"}
+                "package": "Mehmonlarga video paketi", "song": "Shaxsiy qo'shiq", "song_pack": "Qo'shiq paketi"}
 
 
 @router.get("/spend")
@@ -1371,3 +1371,22 @@ async def admin_page():
     v = str(int(max((f.stat().st_mtime for f in files if f.exists()), default=0)))
     html = (ROOT / "templates" / "admin.html").read_text(encoding="utf-8").replace("__V__", v)
     return HTMLResponse(html, headers={"Cache-Control": "no-cache", "X-Robots-Tag": "noindex", "Referrer-Policy": "no-referrer"})
+
+
+# ---------------------------------------------------------------- narxlar, paketlar, chegirma
+
+@router.get("/pricing")
+async def pricing_get(uid: int = Depends(admin_uid)):
+    from . import pricing
+    cfg = await pricing.config()
+    return {**cfg, "packs_public": pricing.packs_public(cfg), "stats": await pricing.stats()}
+
+
+@router.post("/pricing")
+async def pricing_save(body: dict, uid: int = Depends(admin_uid)):
+    from . import pricing
+    try:
+        cfg = await pricing.save(body)
+    except pricing.PriceError as e:
+        raise HTTPException(400, str(e))
+    return {**cfg, "packs_public": pricing.packs_public(cfg), "stats": await pricing.stats()}

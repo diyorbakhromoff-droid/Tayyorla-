@@ -61,6 +61,55 @@
     players = [];
   };
   App.stopSongAudio = stopPlayers;
+  /** Chegirma tugashiga qolgan vaqt: «11:42:08». */
+  const left = (until) => {
+    const sec = Math.max(0, Math.floor((Date.parse(until) - Date.now()) / 1000));
+    return [Math.floor(sec / 3600), Math.floor((sec % 3600) / 60), sec % 60].map((x, i) => (i ? String(x).padStart(2, "0") : String(x))).join(":");
+  };
+  /** Qo'shiq paketlari: tanlash va balansdan sotib olish (yetmasa — Click orqali to'ldirish, keyin o'zi faollashadi). */
+  App.songPacks = ({ song = 0, onSingle, onDone } = {}) => {
+    const m = S.sm || {};
+    const packs = m.packs || [];
+    if (!packs.length) return;
+    const rows = [...(song && onSingle ? [{ n: 1, price: m.price, single: true }] : []), ...packs];
+    let pick = (packs.find((x) => x.n === 3) || packs[0]).n;
+    const s = App.sheet(`<div class="sh-head"><div><h1>${esc(T("sp.title"))}</h1><p>${esc(T("sp.sub"))}</p></div></div>
+      <div class="tiers sp-packs" role="radiogroup">${rows.map((x) => `<button type="button" class="tier" role="radio" data-n="${x.n}" aria-checked="${x.n === pick}">
+        <span class="r1"><b>${esc(T("sp.n", { n: x.n }))}${x.label ? ` <span class="badge ${x.off >= 45 ? "green" : "gold"}">${esc(x.label)}</span>` : ""}</b><span>${esc(money(x.price))}</span></span>
+        <span class="sp-each">${x.single ? esc(T("sp.regular")) : `${esc(T("sp.each", { sum: money(x.each) }))}${x.off ? ` · <b>−${x.off}%</b>` : ""}`}</span></button>`).join("")}</div>
+      <p class="hint" id="spHint" style="margin-top:12px"></p>
+      <button type="button" class="btn" id="spGo" style="margin-top:14px;width:100%"></button>`, { label: T("sp.title") });
+    const go = $("#spGo", s.el), hint = $("#spHint", s.el);
+    const show = () => {
+      const x = rows.find((r) => r.n === pick);
+      $$("[data-n]", s.el).forEach((b) => b.setAttribute("aria-checked", +b.dataset.n === pick));
+      go.textContent = x.single ? T("song.buy_full", { sum: money(x.price) }) : T("sp.buy", { n: x.n, sum: money(x.price) });
+      hint.textContent = x.single ? "" : T("sp.example", { n: x.n, full: money(m.price * x.n), sum: money(x.price) });
+    };
+    $$("[data-n]", s.el).forEach((b) => (b.onclick = () => { haptic(); pick = +b.dataset.n; show(); }));
+    go.onclick = async () => {
+      const x = rows.find((r) => r.n === pick);
+      if (x.single) { s.close(); if (onSingle) onSingle(); return; }
+      App.busy(go, true);
+      try {
+        const r = await api(`/api/songs/packs/${x.n}`, {});
+        if (S.sm) S.sm.credits = r.credits;
+        notify("success"); toast(T("sp.done", { n: x.n }), 3200);
+        s.close(); App.refreshMe().catch(() => {});
+        if (onDone) onDone();
+      } catch (e) {
+        App.busy(go, false);
+        if (e.status === 402 && e.detail && e.detail.code === "paywall") {
+          s.close();
+          const need = e.detail.need || x.price, bal = e.detail.balance || 0;
+          App.topupSheet({ pack: x.n, song, need: Math.max(0, need - bal), title: T("sites.need_title"),
+            text: T("sp.need_text", { sum: money(need), balance: money(bal) }) });
+        } else toast(e.message);
+      }
+    };
+    show();
+    return s;
+  };
   const seedOf = (s) => [...String(s)].reduce((a, c) => (a * 31 + c.charCodeAt(0)) >>> 0, 7);
   function playerHtml(src, label) {
     const seed = seedOf(src);
@@ -428,7 +477,8 @@
     let timer = null, stopped = false;
     const onVis = () => { if (document.visibilityState === "visible") tick(); };
     document.addEventListener("visibilitychange", onVis);
-    App.onLeave(() => { stopped = true; clearTimeout(timer); stopPlayers(); document.removeEventListener("visibilitychange", onVis); });
+    let dealTimer = null;
+    App.onLeave(() => { stopped = true; clearTimeout(timer); clearInterval(dealTimer); stopPlayers(); document.removeEventListener("visibilitychange", onVis); });
 
     let drawnWithMeta = false;
     const sig = (s) => s && [s.status, s.lyrics, s.title, s.preview, s.chosen, s.site, s.error, (s.variants || []).length].join("|");
@@ -457,9 +507,13 @@
 
     function draw() {
       stopPlayers();
+      clearInterval(dealTimer);
       drawnWithMeta = !!S.sm;
       const s = song, m = S.sm || {};
-      const price = s.paid ? s.price : m.price || 0;
+      const promo = !s.paid && s.promo && Date.parse(s.promo.until) > Date.now() ? s.promo : null;
+      const credits = s.paid ? 0 : m.credits || 0;
+      const packs = m.packs || [];
+      const price = s.paid ? s.price : promo ? Math.min(promo.price, m.price || promo.price) : m.price || 0;
       const st = s.status;
       const stepCls = (i) => {
         const at = st === "lyrics" ? 0 : st.startsWith("preview") ? (st === "preview_ready" ? 2 : 1) : st === "ready" ? 3 : 2;
@@ -493,13 +547,20 @@
       } else if (st === "preview_queued" || st === "preview_gen") {
         body += gen(T("song.gen_preview"), T("song.gen_preview_s")) + lyrCard(false);
       } else if (st === "preview_ready") {
+        if (promo && !credits) body += `<section class="card sp-deal" role="status">
+            <div class="sp-deal-top"><span class="badge gold">${esc(T("sp.deal_badge"))}</span><span class="sp-timer" aria-label="${esc(T("sp.timer_aria"))}">⏳ <b id="dealT">${esc(left(promo.until))}</b></span></div>
+            <div class="sp-price"><s>${esc(money(m.price || s.regular))}</s><b>${esc(money(promo.price))}</b>${(m.price || s.regular) > promo.price ? `<span class="badge pink">−${Math.round(100 - (100 * promo.price) / (m.price || s.regular))}%</span>` : ""}</div>
+            <p>${esc(T("sp.deal_text", { sum: money(m.price || s.regular) }))}</p></section>`;
         body += `<section class="card sg-pv"><div class="card-h"><h2>${icon("headphones", "s")}${esc(T("song.preview_t", { n: m.preview_seconds || 20 }))}</h2></div>
             ${s.preview ? playerHtml(s.preview, T("song.preview_t", { n: m.preview_seconds || 20 })) : ""}
             <p class="sg-pv-note">${esc(T("song.preview_note", { sum: money(price) }))}</p>
             <ul class="sg-get">${["song.get1", "song.get2", "song.get3"].map((k) => `<li>${icon("check", "s")}${esc(T(k))}</li>`).join("")}</ul></section>`
           + lyrCard(editable);
-        cta = `<button type="button" class="btn" id="buyBtn">${esc(T("song.buy_full", { sum: money(price) }))}</button>
-          <small>${esc(T("song.balance", { balance: money(m.balance != null ? m.balance : ((S.me.quota || {}).balance || 0)) }))}</small>`;
+        const best = packs.find((x) => x.n === 3) || packs[0];
+        cta = credits ? `<button type="button" class="btn" id="buyBtn">🎟 ${esc(T("sp.use", { n: credits }))}</button><small>${esc(T("sp.use_s"))}</small>`
+          : `<button type="button" class="btn" id="buyBtn">${esc(T("song.buy_full", { sum: money(price) }))}</button>
+          ${best ? `<button type="button" class="link sg-buy" id="packBtn">${esc(T("sp.or", { n: best.n, sum: money(best.price) }))}</button>`
+            : `<small>${esc(T("song.balance", { balance: money(m.balance != null ? m.balance : ((S.me.quota || {}).balance || 0)) }))}</small>`}`;
       } else if (st === "paid_queued" || st === "paid_gen") {
         body += gen(T("song.gen_full"), T("song.gen_full_s")) + lyrCard(false);
       } else if (st === "failed") {
@@ -533,6 +594,15 @@
       on("toChat", () => App.closeApp());
       on("pvBtn", (e) => preview(e.currentTarget));
       on("buyBtn", (e) => pay(e.currentTarget));
+      on("packBtn", () => { haptic(); packsFor(); });
+      if (promo && $("#dealT", el)) {
+        dealTimer = setInterval(() => {
+          const t = $("#dealT", el);
+          if (!t || Date.parse(promo.until) <= Date.now()) { clearInterval(dealTimer); if (t) { song.promo = null; draw(); } return; }
+          t.textContent = left(promo.until);
+        }, 1000);
+      }
+      if (p.packs && drawnWithMeta && !s.paid) { p.packs = 0; setTimeout(packsFor, 120); }
       on("edBtn", () => guardReset(editSheet));
       on("aiBtn", () => guardReset(aiSheet));
       on("retryBtn", (e) => retry(e.currentTarget));
@@ -551,6 +621,8 @@
 
     // --- amallar
     const fail = (e) => { notify("error"); toast(errMsg(e)); };
+    // paket sotib olingach shu qo'shiq darhol paketdan olinadi
+    const packsFor = () => App.songPacks({ song: song.id, onSingle: () => pay($("#buyBtn", el)), onDone: () => pay($("#buyBtn", el)) });
     async function preview(btn) {
       App.busy(btn, true);
       try {

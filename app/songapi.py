@@ -7,6 +7,7 @@ from fastapi.responses import FileResponse
 from pydantic import BaseModel, Field
 from sqlalchemy import select
 
+from . import pricing
 from . import billing, costs, songs
 from .config import settings
 from .db import CostLog, Session, Site, Song, User, utcnow
@@ -48,6 +49,8 @@ def song_out(song: Song) -> dict:
         "chosen": song.chosen if paid_files else -1, "file": paid_files[song.chosen] if paid_files and 0 <= song.chosen < len(paid_files) else None,
         "paid": song.paid, "price": song.price, "site": song.site_slug or None, "error": song.error or None,
         "busy": song.status in ("preview_queued", "preview_gen", "paid_queued", "paid_gen"),
+        "promo": pricing.promo_of(song),
+        "regular": settings.song_price,
         # naqorat boshlanishi (soniya) — videoga qo'yilganda 20 soniyalik bo'lak shu yerdan olinadi
         "chorus_at": round((song.plan or {}).get("_chorus_at", 0) / 1000) if paid_files else 0,
         "created_at": song.created_at.isoformat() if song.created_at else None,
@@ -68,10 +71,12 @@ async def songs_meta(x_init_data: str = Header("")):
         price = await songs.price_for(s, uid)
         left = await songs.free_previews_left(s, uid)
         user = await s.get(User, uid)
+    cfg = await pricing.config()
     sub = bool(settings.song_preview_sub and settings.channel_username)
     per_user, _ = await songs.limits()
     return {**songs.meta(), "on": settings.songs_on, "price": price, "free_previews": left, "free_per_day": per_user,
-            "balance": user.balance if user else 0,
+            "balance": user.balance if user else 0, "credits": user.song_credits if user else 0,
+            "packs": pricing.packs_public(cfg),
             "preview_sub": sub, "channel": settings.channel_link if sub else ""}
 
 
@@ -241,12 +246,28 @@ async def song_pay(song_id: int, x_init_data: str = Header("")):
                 raise HTTPException(503, "Qo'shiq xizmati vaqtincha band — pul yechilmadi. Birozdan so'ng qayta urinib ko'ring.")
             if not await songs.pay(s, song, uid):
                 user = await s.get(User, uid)
-                price = await songs.price_for(s, uid)
+                price = await songs.price_for(s, uid, song)
                 raise HTTPException(402, {"code": "paywall", "need": price, "balance": user.balance if user else 0, "topups": settings.topups})
             await s.commit()
         out = song_out(song)
     songs.wake()
     return out
+
+
+@router.post("/api/songs/packs/{n}")
+async def pack_buy(n: int, x_init_data: str = Header("")):
+    """Qo'shiq paketini balansdan sotib olish. Yetmasa 402 (ilova balansni to'ldirish oynasini ochadi)."""
+    uid, _ = _uid(x_init_data)
+    async with Session() as s:
+        ok = await pricing.buy_pack(s, uid, n)
+        if ok is None:
+            raise HTTPException(404, "Bunday paket yo'q")
+        user = await s.get(User, uid)
+        if not ok:
+            raise HTTPException(402, {"code": "paywall", "need": await pricing.pack_price(n), "balance": user.balance if user else 0})
+        await s.commit()
+        await s.refresh(user)
+    return {"ok": True, "credits": user.song_credits, "balance": user.balance}
 
 
 @router.post("/api/songs/{song_id}/retry")

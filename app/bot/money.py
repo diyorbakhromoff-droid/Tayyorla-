@@ -103,6 +103,17 @@ async def after_topup(bot, p: Payment, user: User | None) -> None:
             await s.commit()
         if paid:
             await videobot.site_paid_notice(p.site_id)
+    if getattr(p, "pack", 0):
+        from .. import pricing
+        async with Session() as s:
+            ok = await pricing.buy_pack(s, p.user_id, p.pack)
+            await s.commit()
+        if ok and bot:
+            try:
+                await bot.send_message(p.user_id, f"🎟 Qo‘shiq paketi faollashdi: hisobingizga {p.pack} ta qo‘shiq qo‘shildi. "
+                                                  "Keyingi qo‘shiqlaringiz paketdan olinadi — pul yechilmaydi.")
+            except Exception:
+                log.exception("Paket xabarini yuborib bo'lmadi: %s", p.user_id)
     if getattr(p, "song_id", None):
         from .. import songs
         async with Session() as s:
