@@ -920,8 +920,17 @@
             <div><b>${fmt(st.revenue)}</b><span>chegirmadan tushum, so'm</span></div></div></section>
         <section class="blk"><div class="bh"><h2>Eski namunalarga chegirma</h2>${tag(bf.on ? "Yuborilmoqda" : bf.finished ? "Tugadi" : "To'xtatilgan", bf.on ? "warn" : bf.finished ? "good" : "")}</div>
           <div class="form">
-            <p>Avval namuna olib, sotib olmaganlarga (48 soatdan oldingi) bir martalik chegirma — yuqoridagi narx, muddat va eslatmalar bilan.
-              Har bir odamga eng oxirgi qo'shig'i bo'yicha bitta xabar. Botni bloklagan, paketi bor yoki allaqachon chegirma olganlarga yuborilmaydi.</p>
+            <p>Kimga yuborilishini tizim o'zi hisoblaydi — sonini kiritish shart emas. Shart: namunasi <b>tayyor</b> bo'lgan, sotib olmagan,
+              48 soatdan oldin namuna olgan odam. Har bir odamga bitta xabar.</p>
+            ${table(["Sotib olinmagan qo'shiqlar — odamlar bo'yicha", ">Kishi"], [
+              ["Sotib olinmagan qo'shig'i bor (jami " + fmt(bf.songs_unpaid || 0) + " ta qo'shiq)", bf.people_unpaid],
+              ["— namunasi tayyor", bf.people_ready],
+              ["&nbsp;&nbsp;· oxirgi 48 soatda — ularga chegirma <b>avtomatik</b> boradi (bu yerda emas)", bf.people_fresh],
+              ["— namunasi yo'q: faqat she'r yoki namuna xato bilan tugagan (chegirma yuborilmaydi)", bf.people_lyrics],
+              ["Allaqachon chegirma olgan", bf.people_promo],
+              ["Botni bloklagan", bf.people_blocked],
+              ["<b>Shu tugma bilan yuboriladi</b>", bf.eligible],
+            ].map(([l, n]) => `<tr><td>${l}</td><td class="r num"><b>${fmt(n || 0)}</b></td></tr>`))}
             <div class="fields">
               <label class="f">Har 3 daqiqada nechta xabar<input class="in" type="number" min="10" max="500" id="bf-batch" value="${bf.batch}">
                 <small>100 → soatiga ~2 000 ta. Faqat progrev soatlarida yuboriladi</small></label>

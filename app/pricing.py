@@ -342,6 +342,27 @@ async def backfill_eligible(now: datetime | None = None) -> int:
         return await s.scalar(q) or 0
 
 
+async def backfill_breakdown(now: datetime | None = None) -> dict:
+    """Admin uchun: «nega shuncha kishi?» — sotib olinmagan qo'shiqlar odamlar bo'yicha qayerga tushadi."""
+    from sqlalchemy import func
+    now = now or utcnow()
+    people = lambda *w: select(func.count(func.distinct(Song.owner_id))).where(Song.paid.is_(False), *w)  # noqa: E731
+    old = (Song.preview_at.is_(None)) | (Song.preview_at < now - timedelta(hours=FRESH_HOURS))
+    async with Session() as s:
+        q = lambda x: s.scalar(x)  # noqa: E731
+        out = {
+            "songs_unpaid": await q(select(func.count()).select_from(Song).where(Song.paid.is_(False))) or 0,
+            "people_unpaid": await q(people()) or 0,
+            "people_ready": await q(people(Song.status == "preview_ready")) or 0,
+            "people_fresh": await q(people(Song.status == "preview_ready", ~old)) or 0,
+            "people_lyrics": await q(people(Song.status.in_(("lyrics", "failed")))) or 0,
+            "people_promo": await q(select(func.count(func.distinct(Song.owner_id))).where(Song.promo_until.is_not(None))) or 0,
+            "people_blocked": await q(people(Song.status == "preview_ready").join(User, User.tg_id == Song.owner_id).where(User.blocked.is_(True))) or 0,
+        }
+    out["eligible"] = await backfill_eligible(now)
+    return out
+
+
 async def backfill_set(on: bool, batch: int | None = None) -> dict:
     st = await backfill_state()
     if batch is not None:

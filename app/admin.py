@@ -1380,7 +1380,7 @@ async def pricing_get(uid: int = Depends(admin_uid)):
     from . import pricing
     cfg = await pricing.config()
     return {**cfg, "packs_public": pricing.packs_public(cfg), "stats": await pricing.stats(),
-            "backfill": {**await pricing.backfill_state(), "eligible": await pricing.backfill_eligible()}}
+            "backfill": {**await pricing.backfill_state(), **await pricing.backfill_breakdown()}}
 
 
 class BackfillIn(BaseModel):
@@ -1395,7 +1395,7 @@ async def pricing_backfill(body: BackfillIn, uid: int = Depends(admin_uid)):
         st = await pricing.backfill_set(body.on, body.batch)
     except pricing.PriceError as e:
         raise HTTPException(400, str(e))
-    return {**st, "eligible": await pricing.backfill_eligible()}
+    return {**st, **await pricing.backfill_breakdown()}
 
 
 @router.post("/pricing")
@@ -1406,4 +1406,4 @@ async def pricing_save(body: dict, uid: int = Depends(admin_uid)):
     except pricing.PriceError as e:
         raise HTTPException(400, str(e))
     return {**cfg, "packs_public": pricing.packs_public(cfg), "stats": await pricing.stats(),
-            "backfill": {**await pricing.backfill_state(), "eligible": await pricing.backfill_eligible()}}
+            "backfill": {**await pricing.backfill_state(), **await pricing.backfill_breakdown()}}

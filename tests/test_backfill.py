@@ -50,6 +50,8 @@ async def main():
         await s.commit()
 
     assert await pricing.backfill_eligible(NOW) == 3  # 1, 2, 5
+    br = await pricing.backfill_breakdown(NOW)
+    assert (br["people_unpaid"], br["people_ready"], br["people_fresh"], br["people_lyrics"], br["people_blocked"], br["eligible"]) == (7, 6, 1, 1, 1, 3), br
     page = await admin.pricing_get(uid=999)
     assert page["backfill"]["on"] is False
     bot = Bot(deny={5})
