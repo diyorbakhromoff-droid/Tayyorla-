@@ -33,6 +33,7 @@
           <button type="button" data-go="wallet"><span class="ic">${icon("wallet", "s")}</span><span class="t"><b>${esc(T("pr.history"))}</b><small>${esc(T("pr.history_s"))}</small></span>${icon("chev", "s chev")}</button>
           <button type="button" id="channel"><span class="ic">${icon("channel", "s")}</span><span class="t"><b>${esc(T("pr.channel"))}</b><small>${esc(T("pr.channel_s"))}</small></span><span class="badge solid">${esc(T("pr.subscribe"))}</span></button>
           <button type="button" id="help"><span class="ic">${icon("help", "s")}</span><span class="t"><b>${esc(T("pr.help"))}</b><small>${esc(T("pr.help_s"))}</small></span>${icon("chev", "s chev")}</button>
+          <button type="button" id="legal"><span class="ic">${icon("help", "s")}</span><span class="t"><b>${esc(T("pr.legal"))}</b><small>${esc(T("pr.legal_s"))}</small></span>${icon("chev", "s chev")}</button>
           ${me.admin ? `<button type="button" data-go="admin"><span class="ic">${icon("sliders", "s")}</span><span class="t"><b>${esc(T("pr.admin"))}</b><small>${esc(T("pr.admin_s"))}</small></span>${icon("chev", "s chev")}</button>` : ""}
         </nav>
         ${(me.messages || []).length ? `<h2 style="font-size:21px;margin-top:8px">${esc(T("pr.answers"))}</h2>
@@ -45,6 +46,13 @@
     $("#cardLang").onclick = () => { haptic(); cardLangSheet(); };
     $("#channel").onclick = () => App.openLink(me.channel || S.vm.channel);
     $("#help").onclick = () => App.openLink(`https://t.me/${S.vm.bot}?start=help`);
+    $("#legal").onclick = () => {
+      haptic();
+      const s = App.sheet(`<div class="sh-head"><div><h1>${esc(T("pr.legal"))}</h1></div></div>
+        <nav class="menu"><button type="button" data-doc="/oferta"><span class="t"><b>${esc(T("pr.oferta"))}</b></span>${icon("chev", "s chev")}</button>
+          <button type="button" data-doc="/maxfiylik"><span class="t"><b>${esc(T("pr.privacy"))}</b></span>${icon("chev", "s chev")}</button></nav>`);
+      $$("[data-doc]", s.el).forEach((b) => (b.onclick = () => App.openLink(location.origin + b.dataset.doc)));
+    };
   };
 
   function cardLangSheet() {

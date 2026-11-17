@@ -61,6 +61,7 @@ async def main() -> None:
         BotCommand(command="yaqinlar", description="Yaqinlarim kalendari"),
         BotCommand(command="mysites", description="Mening saytlarim"),
         BotCommand(command="help", description="Yordam"),
+        BotCommand(command="oferta", description="Oferta va maxfiylik siyosati"),
     ]
     await bot.set_my_commands(commands)
     for admin_id in settings.admins:  # adminlarga panel buyruqlari ham ko'rinadi

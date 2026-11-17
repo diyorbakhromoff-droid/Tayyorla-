@@ -11,7 +11,7 @@ from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
-from . import admin, click, events, songapi
+from . import admin, click, events, legal, songapi
 from .config import MEDIA_DIR, ROOT, settings
 from .db import Guest, Reaction, Rsvp, Session, Site, get_site, utcnow
 from . import catalog2
@@ -34,6 +34,7 @@ app.include_router(admin.router)
 app.include_router(admin.public)
 app.include_router(click.router)
 app.include_router(songapi.router)
+app.include_router(legal.router)
 
 
 def page_for(site, preview: bool, guest: Guest | None = None) -> str:
@@ -55,7 +56,7 @@ def _unlock_token(slug: str, password: str) -> str:
 
 @app.get("/", response_class=HTMLResponse)
 async def home():
-    return f'<meta charset="utf-8"><div style="font:18px sans-serif;text-align:center;padding:20vh 20px">💌 <b>Tayyorla</b> — yaqinlaringiz uchun tabrik saytlari.<br><a href="https://t.me/{settings.bot_username}">Telegram bot orqali yarating</a></div>'
+    return f'<meta charset="utf-8"><div style="font:18px sans-serif;text-align:center;padding:20vh 20px">💌 <b>Tayyorla</b> — yaqinlaringiz uchun tabrik saytlari.<br><a href="https://t.me/{settings.bot_username}">Telegram bot orqali yarating</a><p style="font-size:14px;margin-top:40px"><a href="/oferta">Ommaviy oferta</a> · <a href="/maxfiylik">Maxfiylik siyosati</a></p></div>'
 
 
 @app.get("/namuna/{tid}", response_class=HTMLResponse)

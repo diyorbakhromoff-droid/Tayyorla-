@@ -221,6 +221,13 @@ async def home(cb: CallbackQuery, state: FSMContext):
     await cb.answer()
 
 
+@router.message(Command("oferta"))
+async def oferta_cmd(message: Message):
+    lang = await videobot.user_lang(message.from_user.id)
+    base = settings.base_url.rstrip("/")
+    await message.answer(tr(lang, "bot.legal", oferta=f"{base}/oferta", privacy=f"{base}/maxfiylik"), disable_web_page_preview=True)
+
+
 @router.message(Command("help"))
 async def help_cmd(message: Message):
     lang = await user_lang(message.from_user.id)

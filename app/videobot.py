@@ -202,7 +202,9 @@ async def send_payment_prompt(payment_id: int) -> None:
         log.error("Click sozlanmagan — to'lov #%s uchun havola yuborilmadi", payment_id)
         return
     try:
-        await bot.send_message(p.user_id, tr(lang, "bot.pay_click", amount=money(p.amount)), reply_markup=pay_keyboard(p.id, p.amount, lang))
+        note = tr(lang, "bot.pay_legal", url=f"{settings.base_url.rstrip('/')}/oferta")
+        await bot.send_message(p.user_id, tr(lang, "bot.pay_click", amount=money(p.amount)) + "\n\n" + note,
+                               reply_markup=pay_keyboard(p.id, p.amount, lang), disable_web_page_preview=True)
     except Exception:
         log.exception("To'lov ko'rsatmasini yuborib bo'lmadi")
 
