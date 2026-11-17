@@ -15,9 +15,6 @@ class Settings(BaseSettings):
     bot_token: str = ""
     anthropic_api_key: str = ""
     base_url: str = "http://localhost:8000"
-    legal_phone: str = ""    # oferta va maxfiylik sahifalarida ko'rsatiladi (bo'sh bo'lsa — yashiriladi)
-    legal_email: str = ""
-    legal_address: str = ""
     admin_ids: str = ""
     rahmat_url: str = ""
     # Qo'shiq (ElevenLabs Music): kalit faqat serverdagi .env da

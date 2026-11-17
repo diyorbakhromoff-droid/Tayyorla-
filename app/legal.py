@@ -1,7 +1,7 @@
 """Ommaviy oferta va maxfiylik siyosati (to'lov tizimlarini ulash uchun talab qilinadi).
 
 Sahifalar: /oferta va /maxfiylik. Narxlar sozlamalardan olinadi, shuning uchun hujjat har doim amaldagi narxni ko'rsatadi.
-Telefon, e-pochta va manzil .env orqali (LEGAL_PHONE, LEGAL_EMAIL, LEGAL_ADDRESS) — kiritilmasa ko'rsatilmaydi.
+Murojaat uchun: Telegram bot va Ijrochining e-pochtasi.
 """
 
 import html
@@ -16,6 +16,7 @@ router = APIRouter()
 EDITION = "17.11.2026"
 SELLER = "YATT Baxromov Diyorbek Ulug‘bek o‘g‘li"
 PINFL = "52401026300010"
+EMAIL = "diyorbakhromoff@gmail.com"
 
 
 def _money(n: int) -> str:
@@ -32,12 +33,7 @@ def requisites() -> str:
         ("JSHSHIR", PINFL),
         ("Xizmat", f"Tayyorla — Telegram bot @{settings.bot_username} va {_site()}"),
     ]
-    if settings.legal_address:
-        rows.append(("Manzil", settings.legal_address))
-    if settings.legal_phone:
-        rows.append(("Telefon", settings.legal_phone))
-    if settings.legal_email:
-        rows.append(("E-pochta", settings.legal_email))
+    rows.append(("E-pochta", EMAIL))
     rows.append(("Murojaat", f"Telegram: @{settings.bot_username} (/help)"))
     return "<table class='req'>" + "".join(f"<tr><th>{html.escape(k)}</th><td>{html.escape(v)}</td></tr>" for k, v in rows) + "</table>"
 
@@ -109,7 +105,8 @@ Mahsulotlar sun’iy intellekt vositalari yordamida avtomatik yaratiladi. Xizmat
 <li>To‘lov Click va Ijrochi ulagan boshqa to‘lov tizimlari orqali milliy valyutada (so‘m) amalga oshiriladi. Bank kartasi ma’lumotlari
 to‘lov tizimi tomonida qayta ishlanadi, Ijrochi ularni olmaydi va saqlamaydi.</li>
 <li>To‘lov muvaffaqiyatli o‘tgach, mablag‘ avtomatik ravishda Balansga tushadi yoki buyurtmaga yo‘naltiriladi.</li>
-<li>Balansdagi mablag‘ Xizmatdagi istalgan Mahsulot uchun ishlatilishi mumkin; muddatsiz saqlanadi.</li>
+<li>Balansdagi mablag‘ faqat Xizmatdagi Mahsulotlar uchun sarflanadi va muddatsiz saqlanadi. Balansdagi mablag‘ni naqd pulga
+yoki kartaga yechib olish (chiqarish) imkoniyati mavjud emas, 6-bo‘limda ko‘rsatilgan hollar bundan mustasno.</li>
 </ol>
 
 <h2>5. Xizmatni ko‘rsatish (yetkazib berish)</h2>
@@ -123,11 +120,15 @@ to‘lov tizimi tomonida qayta ishlanadi, Ijrochi ularni olmaydi va saqlamaydi.<
 <h2>6. Qaytarish (refund) shartlari</h2>
 <ul>
 <li>Mahsulot to‘lovdan oldin bepul Namuna sifatida ko‘rsatilgani sababli, to‘liq yetkazilgan raqamli Mahsulot uchun to‘langan pul qaytarilmaydi.</li>
-<li>Agar Mahsulot Ijrochi aybi bilan yetkazilmasa yoki texnik nosozlik tufayli yaratilmasa, mablag‘ Balansga qaytariladi yoki
-Foydalanuvchi talabiga ko‘ra to‘lov qilingan karta/hisobga qaytariladi.</li>
-<li>Balansdagi ishlatilmagan mablag‘ni qaytarish uchun Foydalanuvchi to‘lovdan keyin 14 kun ichida @{bot} orqali murojaat qiladi.
-Qaytarish murojaat tasdiqlangan kundan boshlab 10 ish kuni ichida, to‘lov tizimi qoidalariga muvofiq amalga oshiriladi.</li>
-<li>Xato yoki ikki marta to‘lov qilingan bo‘lsa, ortiqcha summa to‘liq qaytariladi.</li>
+<li>Balansga to‘langan mablag‘ Xizmatdagi Mahsulotlarga sarflash uchun mo‘ljallangan va Foydalanuvchi xohishiga ko‘ra qaytarilmaydi.</li>
+<li>Mablag‘ faqat quyidagi hollarda qaytariladi:
+<ul>
+<li>Ijrochi xatosi bilan Balansdan ortiqcha summa yechilgan bo‘lsa;</li>
+<li>to‘langan xizmat belgilangan vaqtda bajarilmagan yoki texnik nosozlik tufayli umuman bajarilmagan bo‘lsa;</li>
+<li>to‘lov tizimidagi xatolik yoki ikki marta to‘lov sababli ortiqcha pul yechilgan bo‘lsa.</li>
+</ul></li>
+<li>Bunday hollarda Foydalanuvchi @{bot} yoki <a href="mailto:{EMAIL}">{EMAIL}</a> orqali murojaat qiladi. Mablag‘ Foydalanuvchi tanlovi bo‘yicha
+Balansga yoki to‘lov qilingan karta/hisobga, murojaat tasdiqlangan kundan boshlab 15 ish kuni ichida qaytariladi.</li>
 </ul>
 
 <h2>7. Tomonlarning majburiyatlari</h2>
@@ -206,7 +207,7 @@ Reklama kuzatuvchilari ishlatilmaydi.</p>
 
 <h2>7. Sizning huquqlaringiz</h2>
 <p>Siz o‘zingiz haqingizdagi ma’lumotlar bilan tanishish, ularni tuzatish yoki o‘chirishni talab qilishingiz mumkin. Buning uchun @{bot}
-orqali murojaat qiling — so‘rov 10 ish kuni ichida bajariladi. Ma’lumotlar o‘chirilgach, yaratilgan saytlar ham o‘chiriladi.</p>
+yoki <a href="mailto:{EMAIL}">{EMAIL}</a> orqali murojaat qiling — so‘rov 15 ish kuni ichida bajariladi. Ma’lumotlar o‘chirilgach, yaratilgan saytlar ham o‘chiriladi.</p>
 
 <h2>8. Bolalar</h2>
 <p>Xizmat 16 yoshdan katta foydalanuvchilar uchun mo‘ljallangan. Yoshi kichiklar ota-ona roziligi bilan foydalanadi.</p>

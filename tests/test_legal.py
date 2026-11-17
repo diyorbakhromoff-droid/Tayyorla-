@@ -21,11 +21,11 @@ async def main():
     for price in (settings.price_standart, settings.price_premium, settings.price_vip, settings.song_price, settings.video_price):
         assert legal._money(price) in of, price
     assert "Qaytarish" in of and 'href="/maxfiylik"' in of
-    assert "Telefon" not in of, "kiritilmagan telefon ko'rsatilmaydi"
+    assert "diyorbakhromoff@gmail.com" in of and "15 ish kuni" in of
+    assert "14 kun" not in of, "balansdagi pulni istalgan vaqtda qaytarish sharti olib tashlangan"
 
-    settings.legal_phone = "+998 90 000 00 00"
     pv = await legal.privacy()
-    assert "52401026300010" in pv and "+998 90 000 00 00" in pv and 'href="/oferta"' in pv
+    assert "52401026300010" in pv and "diyorbakhromoff@gmail.com" in pv and 'href="/oferta"' in pv
     assert "karta" in pv.lower()
     print("✅ Oferta va maxfiylik sahifalari tekshiruvi o'tdi")
 
