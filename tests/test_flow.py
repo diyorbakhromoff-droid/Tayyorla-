@@ -11,6 +11,9 @@ from datetime import datetime
 os.environ["DATABASE_URL"] = f"sqlite+aiosqlite:///{tempfile.mkdtemp()}/test.db"
 os.environ["BOT_TOKEN"] = "123456:TEST"
 os.environ["ADMIN_IDS"] = "999"
+os.environ["CLICK_SERVICE_ID"] = "777"
+os.environ["CLICK_MERCHANT_ID"] = "555"
+os.environ["CLICK_SECRET_KEY"] = "test-secret"
 
 from aiogram import Bot, Dispatcher  # noqa: E402
 from aiogram.client.default import DefaultBotProperties  # noqa: E402
@@ -166,12 +169,15 @@ async def main():
 
     # --- to'lov
     await click(f"buy:{site.id}")
+    assert "Click" in last() and "chek" not in last().lower()
+    # chek endi qabul qilinmaydi: eski «To'ladim» tugmasi bosilsa ham adminga hech narsa bormaydi
     await click(f"paid:{site.id}")
     await send(photo=[PhotoSize(file_id="chek", file_unique_id="c", width=10, height=10)])
-    assert any(chat == 999 and "Yangi to'lov" in text for chat, text, _ in session.sent)
+    assert not any(chat == 999 and "Yangi to'lov" in text for chat, text, _ in session.sent)
+    assert "Chek endi qabul qilinmaydi" in last()
     await click(f"approve:{site.id}", user=USER)  # oddiy foydalanuvchi tasdiqlay olmaydi
     async with Session() as s:
-        assert (await s.get(Site, site.id)).status == "pending"
+        assert (await s.get(Site, site.id)).status == "draft"
     await click(f"approve:{site.id}", user=ADMIN)
     async with Session() as s:
         site = await s.get(Site, site.id)
@@ -259,8 +265,6 @@ async def main():
     assert "«Muhrlangan maktub»" in last() and "VIP" in last()
     await click(f"buy:{csite.id}")
     assert "99 000" in last()
-    await click(f"paid:{csite.id}")
-    await send(photo=[PhotoSize(file_id="chek2", file_unique_id="c2", width=10, height=10)])
     await click(f"approve:{csite.id}", user=ADMIN)
     page = await web.show("vip-toy", type("R", (), {"cookies": {}, "query_params": {}})())
     assert "HALI TO'LOV QILINMADI • NAMUNA" not in page and '"rang": 12' in page

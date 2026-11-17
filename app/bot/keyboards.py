@@ -122,11 +122,8 @@ def pay(site, balance: int = 0) -> InlineKeyboardMarkup:
     kb = InlineKeyboardBuilder()
     if balance >= site_price(site.config):
         kb.button(text=f"💰 Balansdan to'lash ({money(balance)})", callback_data=f"sbal:{site_id}")
-    elif settings.click_on:
+    else:
         kb.button(text=f"💳 Click orqali to'lash — {money(site_price(site.config) - balance)}", callback_data=f"sclick:{site_id}")
-    if settings.rahmat_url:
-        kb.button(text=f"💳 To'lash — {money(site_price(site.config))}", url=settings.rahmat_url)
-    kb.button(text="✅ To'ladim", callback_data=f"paid:{site_id}")
     kb.button(text="⬅️ Orqaga", callback_data=f"site:{site_id}")
     kb.adjust(1)
     return kb.as_markup()

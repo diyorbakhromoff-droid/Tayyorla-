@@ -10,6 +10,9 @@ TMP = tempfile.mkdtemp()
 os.environ["DATABASE_URL"] = f"sqlite+aiosqlite:///{TMP}/video.db"
 os.environ["BOT_TOKEN"] = "123456:TEST"
 os.environ["ADMIN_IDS"] = "999"
+os.environ["CLICK_SERVICE_ID"] = "777"
+os.environ["CLICK_MERCHANT_ID"] = "555"
+os.environ["CLICK_SECRET_KEY"] = "test-secret"
 os.environ["CHANNEL_ID"] = "https://t.me/tayyorlaai"
 os.environ["BASE_URL"] = "https://tayyorla.test"
 
@@ -170,12 +173,15 @@ async def main():
     # to'lovni kutib turgan video: chek -> admin tasdig'i -> navbat
     r3 = await videoapi.create_video(videoapi.VideoIn(design="v-atlas", data={**TOY, "kimga": "Ali"}, pay="wait"), U)
     assert r3["status"] == "awaiting_payment"
-    assert "Video uchun to‘lov" in session.texts()[-1]
+    assert "Click orqali to‘lash" in session.texts()[-1] and "chek" not in session.texts()[-1].lower()
+    # chek endi qabul qilinmaydi: eski «To'ladim» tugmasi Click havolasini qayta yuboradi, to'lov «new» qoladi
     await click(f"tpaid:{r3['payment']}")
-    await send(photo=[PhotoSize(file_id="chek", file_unique_id="c", width=10, height=10)])
-    assert "Chek qabul qilindi" in session.texts()[-1]
+    assert "Click orqali to‘lash" in session.texts()[-1]
     async with Session() as s:
-        assert (await s.get(Payment, r3["payment"])).status == "pending"
+        p3 = await s.get(Payment, r3["payment"])
+        assert p3.status == "new" and not p3.receipt
+        p3.status = "pending"  # eski (o'tish davridagi) chek: admin tugmasi hali ishlaydi
+        await s.commit()
     await click(f"tok:{r3['payment']}", user=ADMIN)
     async with Session() as s:
         j3 = await s.get(RenderJob, r3["job"])

@@ -14,7 +14,7 @@ from aiogram.fsm.state import State, StatesGroup
 from aiogram.types import CallbackQuery, FSInputFile, InputMediaPhoto, Message
 from sqlalchemy import select
 
-from .. import ai, billing, track
+from .. import ai, billing, track, videobot
 from ..catalog import photo_limit, site_price, site_title
 from ..i18n import tr
 from ..surprise import human, locked_until
@@ -585,9 +585,7 @@ async def buy(cb: CallbackQuery):
     balance = u.balance if u else 0
     await cb.message.answer(
         f"💳 <b>To'lov: {kb.money(site_price(site.config))}</b>\n{site_title(site.config)}\n\n"
-        "1. «To'lash» tugmasini bosing va istalgan ilova (Click, Payme, Uzum va b.) orqali to'lang.\n"
-        "2. To'lovdan so'ng «✅ To'ladim» ni bosing va chek skrinshotini yuboring.\n\n"
-        "Tekshiruvdan so'ng toza link darhol sizga yuboriladi ✨"
+        "«Click orqali to'lash» tugmasini bosing. To'lov o'tishi bilan toza link avtomatik sizga yuboriladi ✨"
         + (f"\n\n💰 Balansingiz: {kb.money(balance)}" if balance else ""),
         reply_markup=kb.pay(site, balance),
     )
@@ -596,41 +594,15 @@ async def buy(cb: CallbackQuery):
 
 @router.callback_query(F.data.startswith("paid:"))
 async def paid(cb: CallbackQuery, state: FSMContext):
-    site_id = int(cb.data.split(":")[1])
-    await state.set_state(Pay.receipt)
-    await state.update_data(site_id=site_id)
-    await cb.message.answer("🧾 To'lov chekining skrinshotini yuboring:")
-    await cb.answer()
-
-
-@router.message(Pay.receipt, F.photo | F.document)
-async def receipt(message: Message, state: FSMContext):
-    site_id = (await state.get_data())["site_id"]
+    """Eski xabarlardagi «To'ladim» tugmasi: chek endi qabul qilinmaydi, faqat Click."""
     await state.clear()
-    async with Session() as s:
-        site = await s.get(Site, site_id)
-        if not site or site.owner_id != message.from_user.id:
-            return
-        site.status = "pending"
-        await s.commit()
-    user = message.from_user
-    caption = (
-        f"💰 <b>Yangi to'lov</b> #{site.id}\n"
-        f"👤 {html.escape(user.full_name)} (@{user.username or '-'}, id {user.id})\n"
-        f"📦 {site_title(site.config)}\n💵 {kb.money(site_price(site.config))}\n🔗 {site.url}"
-    )
-    for admin in settings.admins:
-        try:
-            await message.copy_to(admin)
-            await message.bot.send_message(admin, caption, reply_markup=kb.admin_review(site.id))
-        except Exception:
-            log.exception("Adminga yuborib bo'lmadi: %s", admin)
-    await message.answer("✅ Rahmat! Chek qabul qilindi. Tekshiruvdan so'ng link shu yerga keladi (odatda bir necha daqiqa) ⏳")
+    await cb.answer(tr(await videobot.user_lang(cb.from_user.id), "bot.receipt_off"), show_alert=True)
 
 
 @router.message(Pay.receipt)
-async def receipt_wrong(message: Message):
-    await message.answer("Iltimos, chek skrinshotini rasm ko'rinishida yuboring 🧾")
+async def receipt_wrong(message: Message, state: FSMContext):
+    await state.clear()
+    await message.answer(tr(await videobot.user_lang(message.from_user.id), "bot.receipt_off"))
 
 
 @router.callback_query(F.data.startswith(("approve:", "reject:")))

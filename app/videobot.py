@@ -182,17 +182,14 @@ async def status_text(job: RenderJob, lang: str) -> str:
 def pay_keyboard(payment_id: int, amount: int, lang: str) -> InlineKeyboardMarkup:
     from .click import pay_url
     kb = InlineKeyboardBuilder()
-    if settings.click_on:
-        kb.button(text=tr(lang, "bot.btn_click", amount=money(amount)), url=pay_url(payment_id, amount))
-    if settings.rahmat_url:
-        kb.button(text=tr(lang, "bot.btn_pay", amount=money(amount)), url=settings.rahmat_url)
-    kb.button(text=tr(lang, "bot.btn_paid"), callback_data=f"tpaid:{payment_id}")
+    # to'lov faqat Click orqali: pul avtomatik tushadi, chek yuborilmaydi
+    kb.button(text=tr(lang, "bot.btn_click", amount=money(amount)), url=pay_url(payment_id, amount))
     kb.adjust(1)
     return kb.as_markup()
 
 
 async def send_payment_prompt(payment_id: int) -> None:
-    """Balansni to'ldirish ko'rsatmasi: to'lash havolasi va «To'ladim» tugmasi."""
+    """Balansni to'ldirish ko'rsatmasi: Click orqali to'lash havolasi."""
     from .db import Payment
     bot = BOT
     if not bot:
@@ -201,9 +198,11 @@ async def send_payment_prompt(payment_id: int) -> None:
         p = await s.get(Payment, payment_id)
         job = await s.get(RenderJob, p.job_id) if p.job_id else None
     lang = await user_lang(p.user_id)
-    key = "bot.pay_click" if settings.click_on else ("bot.pay_video" if job else "bot.pay_topup")
+    if not settings.click_on:
+        log.error("Click sozlanmagan — to'lov #%s uchun havola yuborilmadi", payment_id)
+        return
     try:
-        await bot.send_message(p.user_id, tr(lang, key, amount=money(p.amount)), reply_markup=pay_keyboard(p.id, p.amount, lang))
+        await bot.send_message(p.user_id, tr(lang, "bot.pay_click", amount=money(p.amount)), reply_markup=pay_keyboard(p.id, p.amount, lang))
     except Exception:
         log.exception("To'lov ko'rsatmasini yuborib bo'lmadi")
 

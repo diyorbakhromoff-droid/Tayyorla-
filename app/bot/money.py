@@ -27,7 +27,6 @@ class Topup(StatesGroup):
 
 
 OPEN = ("new", "pending")                    # hali ko'rib chiqilmagan to'lov
-RECEIPT_OK = ("new", "pending", "rejected")  # chek yuborish mumkin bo'lgan holatlar
 
 
 def admin_keyboard(payment_id: int):
@@ -40,54 +39,21 @@ def admin_keyboard(payment_id: int):
 
 @router.callback_query(F.data.startswith("tpaid:"))
 async def topup_paid(cb: CallbackQuery, state: FSMContext):
+    """Eski xabarlardagi «To'ladim» tugmasi: chek endi qabul qilinmaydi — Click havolasini qayta yuboramiz."""
+    await state.clear()
     pid = int(cb.data.split(":")[1])
     async with Session() as s:
         p = await s.get(Payment, pid)
-    # chek faqat hali ko'rib chiqilmagan, Click orqali to'lanmayotgan to'lovga qabul qilinadi
-    if not p or p.user_id != cb.from_user.id or p.status not in RECEIPT_OK or p.provider == "click":
-        return await cb.answer()
-    lang = await videobot.user_lang(cb.from_user.id)
-    await state.set_state(Topup.receipt)
-    await state.update_data(payment_id=pid)
-    await cb.message.answer(tr(lang, "bot.send_receipt"))
-    await cb.answer()
-
-
-@router.message(Topup.receipt, F.photo | F.document)
-async def topup_receipt(message: Message, state: FSMContext):
-    pid = (await state.get_data()).get("payment_id")
-    await state.clear()
-    media = message.photo[-1] if message.photo else message.document
-    async with Session() as s:
-        # holat sharti bilan: tasdiqlangan yoki Click orqali to'langan to'lov qayta «kutilmoqda» bo'lib qolmaydi
-        res = await s.execute(update(Payment).where(
-            Payment.id == (pid or 0), Payment.user_id == message.from_user.id, Payment.status.in_(RECEIPT_OK), Payment.provider != "click",
-        ).values(status="pending", receipt=media.file_id[:255] if media else "").execution_options(synchronize_session=False))
-        await s.commit()
-        if res.rowcount != 1:
-            lang = await videobot.user_lang(message.from_user.id)
-            return await message.answer(tr(lang, "bot.receipt_done"))
-        p = await s.get(Payment, pid)
-        job = await s.get(RenderJob, p.job_id) if p.job_id else None
-    user = message.from_user
-    what = "🎬 Video uchun" if job else "💰 Balansni to'ldirish"
-    caption = (f"💳 <b>Yangi to'lov</b> #{p.id} — {what}\n"
-               f"👤 {html.escape(user.full_name)} (@{user.username or '-'}, id {user.id})\n"
-               f"💵 {videobot.money(p.amount)}")
-    for admin in settings.admins:
-        try:
-            await message.copy_to(admin)
-            await message.bot.send_message(admin, caption, reply_markup=admin_keyboard(p.id))
-        except Exception:
-            log.exception("Adminga yuborib bo'lmadi: %s", admin)
-    lang = await videobot.user_lang(user.id)
-    await message.answer(tr(lang, "bot.receipt_ok"))
+    await cb.answer(tr(await videobot.user_lang(cb.from_user.id), "bot.receipt_off"), show_alert=True)
+    if p and p.user_id == cb.from_user.id and p.status == "new":
+        await videobot.send_payment_prompt(p.id)
 
 
 @router.message(Topup.receipt)
-async def topup_receipt_wrong(message: Message):
-    lang = await videobot.user_lang(message.from_user.id)
-    await message.answer(tr(lang, "bot.receipt_wrong"))
+async def topup_receipt_wrong(message: Message, state: FSMContext):
+    """Chek kutayotgan holatda qolib ketgan foydalanuvchi: holat tozalanadi, Click'ga yo'naltiriladi."""
+    await state.clear()
+    await message.answer(tr(await videobot.user_lang(message.from_user.id), "bot.receipt_off"))
 
 
 async def decide_payment(bot, pid: int, approve: bool, admin_id: int) -> str:
