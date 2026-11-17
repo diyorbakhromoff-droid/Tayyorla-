@@ -279,14 +279,15 @@
       // qo'shiq paketlari: bo'limning o'zida ko'rinadi (faqat qo'shiq boshlagandan keyin emas)
       const pk = m.packs || [];
       const maxOff = Math.max(0, ...pk.map((x) => x.off || 0));
-      const packs = !m.on ? "" : (m.credits || 0) > 0
-        ? `<section class="mz-credit">${icon("music")}<span><b>${esc(T("sp.have", { n: m.credits }))}</b>${esc(T("sp.have_s"))}</span></section>`
-        : pk.length ? `<section><div class="mz-ph"><h2 class="mz-h">${esc(T("sp.title"))}</h2>${maxOff ? `<span class="badge green">${esc(T("sp.upto", { n: maxOff }))}</span>` : ""}</div>
+      // paketi bor mijozga ham — qoldiq eslatmasi va «yana paket olish» kartochkalari
+      const has = (m.credits || 0) > 0;
+      const packs = !m.on ? "" : (has ? `<section class="mz-credit">${icon("music")}<span><b>${esc(T("sp.have", { n: m.credits }))}</b>${esc(T("sp.have_s"))}</span></section>` : "")
+        + (pk.length ? `<section><div class="mz-ph"><h2 class="mz-h">${esc(T(has ? "sp.more" : "sp.title"))}</h2>${maxOff ? `<span class="badge green">${esc(T("sp.upto", { n: maxOff }))}</span>` : ""}</div>
             <p class="mz-pk-sub">${esc(T("sp.list_s"))}</p>
             <div class="mz-packs">${pk.map((x) => `<button type="button" class="mz-pack${x.n === 3 ? " hot" : ""}" data-pack="${x.n}">
               ${x.label ? `<span class="badge ${x.off >= 45 ? "green" : "gold"}">${esc(x.label)}</span>` : ""}
               <b>${esc(T("sp.n", { n: x.n }))}</b><span class="pr">${esc(money(x.price))}</span>
-              <small>${esc(T("sp.each", { sum: money(x.each) }))}${x.off ? ` · <i>−${+x.off}%</i>` : ""}</small></button>`).join("")}</div></section>` : "";
+              <small>${esc(T("sp.each", { sum: money(x.each) }))}${x.off ? ` · <i>−${+x.off}%</i>` : ""}</small></button>`).join("")}</div></section>` : "");
       const mine = list.length ? `<section class="stack"><h2 class="mz-h" style="margin-bottom:0">${esc(T("song.mine"))}</h2>${list.map(row).join("")}</section>` : "";
       box.innerHTML = hero + packs + (list.length ? styles + mine : how + styles);
       $$("[data-pack]", box).forEach((b) => (b.onclick = () => { haptic(); App.songPacks({ pick: +b.dataset.pack, onDone: () => App.render() }); }));
@@ -569,7 +570,8 @@
             <ul class="sg-get">${["song.get1", "song.get2", "song.get3"].map((k) => `<li>${icon("check", "s")}${esc(T(k))}</li>`).join("")}</ul></section>`
           + lyrCard(editable);
         const best = packs.find((x) => x.n === 3) || packs[0];
-        cta = credits ? `<button type="button" class="btn" id="buyBtn">🎟 ${esc(T("sp.use", { n: credits }))}</button><small>${esc(T("sp.use_s"))}</small>`
+        cta = credits ? `<button type="button" class="btn" id="buyBtn">🎟 ${esc(T("sp.use", { n: credits }))}</button><small>${esc(T("sp.use_s"))}</small>
+          ${packs.length ? `<button type="button" class="link sg-buy" id="packMore">${esc(T("sp.more"))}</button>` : ""}`
           : `<button type="button" class="btn" id="buyBtn">${esc(T("song.buy_full", { sum: money(price) }))}</button>
           ${best ? `<button type="button" class="link sg-buy" id="packBtn">${esc(T("sp.or", { n: best.n, sum: money(best.price) }))}</button>`
             : `<small>${esc(T("song.balance", { balance: money(m.balance != null ? m.balance : ((S.me.quota || {}).balance || 0)) }))}</small>`}`;
@@ -607,6 +609,7 @@
       on("pvBtn", (e) => preview(e.currentTarget));
       on("buyBtn", (e) => pay(e.currentTarget));
       on("packBtn", () => { haptic(); packsFor(); });
+      on("packMore", () => { haptic(); App.songPacks({ onDone: () => { App.songMeta(true).then(() => draw()).catch(() => {}); } }); });
       if (promo && $("#dealT", el)) {
         dealTimer = setInterval(() => {
           const t = $("#dealT", el);
