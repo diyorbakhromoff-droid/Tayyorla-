@@ -209,7 +209,7 @@
     document.body.classList.toggle("no-tabs", !tabs);
     document.body.classList.toggle("no-cta", !tabs && !cta);
     if (tabs) drawTabs(nav[0] && nav[0].v);
-    try { tg.setHeaderColor(night ? (document.documentElement.dataset.theme === "dark" ? "#2A2468" : "#211C52") : (document.documentElement.dataset.theme === "dark" ? "#14112E" : "#F7F5FC")); } catch { /* eski Telegram */ }
+    try { tg.setHeaderColor(night ? (document.documentElement.dataset.theme === "dark" ? "#262148" : "#1F1B38") : (document.documentElement.dataset.theme === "dark" ? "#1A1730" : "#F5F2F7")); } catch { /* eski Telegram */ }
   };
   function syncBack() {
     try { nav.length > 1 || sheets.length ? tg.BackButton.show() : tg.BackButton.hide(); } catch { /* brauzer */ }
@@ -425,7 +425,7 @@
       try { tg.disableVerticalSwipes(); } catch { /* eski Telegram */ }
       try { tg.BackButton.onClick(() => App.back()); } catch { /* eski Telegram */ }
       if (tg.colorScheme === "dark") document.documentElement.dataset.theme = "dark";
-      try { tg.setBackgroundColor(tg.colorScheme === "dark" ? "#14112E" : "#F7F5FC"); tg.setBottomBarColor("#FFFFFF"); } catch { /* eski Telegram */ }
+      try { tg.setBackgroundColor(tg.colorScheme === "dark" ? "#1A1730" : "#F5F2F7"); tg.setBottomBarColor(tg.colorScheme === "dark" ? "#171429" : "#FFFFFF"); } catch { /* eski Telegram */ }
     }
     if (!initData) {
       const sp = $("#splash"); if (sp) sp.remove();
