@@ -1,0 +1,106 @@
+<style>
+:root { --f-display: 'Cormorant Garamond', Georgia, serif; --f-body: 'Onest', system-ui, sans-serif; --msg-style: italic; }
+#tv { background: linear-gradient(165deg, var(--card) 0%, var(--bg) 62%); }
+
+/* yorug'lik dog'lari (shisha ortida suzadi) */
+.oy-blob { position: absolute; border-radius: 50%; filter: blur(34px); opacity: .85; }
+.oy-blob.a { left: -70px; top: 40px; width: 270px; height: 270px; background: var(--glow1); animation: oy-drift-a 11s ease-in-out -2s infinite alternate both; }
+.oy-blob.b { right: -90px; top: 250px; width: 300px; height: 300px; background: var(--glow2); animation: oy-drift-b 13s ease-in-out -5s infinite alternate both; }
+.oy-blob.c { left: 30px; bottom: -80px; width: 240px; height: 240px; background: var(--glow3); animation: oy-drift-c 9s ease-in-out -1s infinite alternate both; }
+@keyframes oy-drift-a { from { transform: translate(0, 0) scale(1); } to { transform: translate(130px, 120px) scale(1.15); } }
+@keyframes oy-drift-b { from { transform: translate(0, 0) scale(1.1); } to { transform: translate(-150px, -90px) scale(.9); } }
+@keyframes oy-drift-c { from { transform: translate(0, 0); } to { transform: translate(120px, -170px) scale(1.2); } }
+
+/* shisha panel */
+.oy-pane { position: absolute; left: 24px; right: 24px; top: 46px; bottom: 46px; border-radius: 28px; overflow: hidden;
+  background: linear-gradient(155deg, var(--glass) 0%, var(--glass2) 100%);
+  -webkit-backdrop-filter: blur(22px) saturate(1.35); backdrop-filter: blur(22px) saturate(1.35);
+  border: 1px solid var(--edge); box-shadow: 0 30px 60px -30px rgba(0, 0, 0, .45), inset 0 1px 0 var(--edge);
+  animation: oy-pane 1.5s cubic-bezier(.2, .8, .2, 1) .1s both; }
+@keyframes oy-pane { from { opacity: 0; transform: translateY(40px) scale(.94); } to { opacity: 1; transform: none; } }
+.oy-pane::before { content: ""; position: absolute; inset: 9px; border-radius: 21px; border: 1px solid var(--gold); opacity: .55; }
+.oy-corner { position: absolute; width: 18px; height: 18px; border-color: var(--gold); border-style: solid; border-width: 0; opacity: .9; }
+.oy-corner.tl { left: 16px; top: 16px; border-left-width: 1.5px; border-top-width: 1.5px; border-top-left-radius: 14px; }
+.oy-corner.tr { right: 16px; top: 16px; border-right-width: 1.5px; border-top-width: 1.5px; border-top-right-radius: 14px; }
+.oy-corner.bl { left: 16px; bottom: 16px; border-left-width: 1.5px; border-bottom-width: 1.5px; border-bottom-left-radius: 14px; }
+.oy-corner.br { right: 16px; bottom: 16px; border-right-width: 1.5px; border-bottom-width: 1.5px; border-bottom-right-radius: 14px; }
+.oy-sheen { position: absolute; top: -20%; bottom: -20%; left: 0; width: 70%;
+  background: linear-gradient(100deg, transparent 0%, rgba(255, 255, 255, .0) 30%, rgba(255, 255, 255, .34) 50%, rgba(255, 255, 255, 0) 70%, transparent 100%);
+  transform: translateX(-160%) skewX(-12deg); animation: oy-sheen 20s linear 0s both; }
+@keyframes oy-sheen {
+  0%, 6% { transform: translateX(-160%) skewX(-12deg); } 14% { transform: translateX(260%) skewX(-12deg); }
+  14.01%, 28% { transform: translateX(-160%) skewX(-12deg); } 35% { transform: translateX(260%) skewX(-12deg); }
+  35.01%, 53% { transform: translateX(-160%) skewX(-12deg); } 60% { transform: translateX(260%) skewX(-12deg); }
+  60.01%, 79% { transform: translateX(-160%) skewX(-12deg); } 86%, 100% { transform: translateX(260%) skewX(-12deg); } }
+
+/* 1. Ismlar */
+.oy-box { position: absolute; left: 46px; right: 46px; top: 82px; bottom: 82px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; text-align: center; }
+.oy-inv { font-size: 14px; font-weight: 500; letter-spacing: .06em; color: var(--muted); }
+.oy-dear { width: 100%; overflow: hidden; white-space: nowrap; font-family: var(--f-display); font-style: italic; font-weight: 500; font-size: 28px; line-height: 1.3; }
+.oy-line { width: 56px; height: 1px; margin: 22px 0; background: var(--gold); transform-origin: 50% 50%; animation: oy-line 1s cubic-bezier(.6, 0, .2, 1) calc(var(--s) + var(--d, 0s)) both; }
+@keyframes oy-line { from { transform: scaleX(0); } to { transform: none; } }
+.oy-name { width: 100%; overflow: hidden; white-space: nowrap; font-family: var(--f-display); font-weight: 600; font-size: 60px; line-height: 1.05; color: var(--ink); }
+.oy-amp { font-family: var(--f-display); font-style: italic; font-weight: 500; font-size: 40px; line-height: 1; color: var(--accent); margin: 2px 0; }
+.oy-from { font-size: 14px; font-weight: 500; letter-spacing: .04em; color: var(--muted); }
+.oy-up { animation: oy-up 1.4s cubic-bezier(.2, .8, .2, 1) calc(var(--s) + var(--d, 0s)) both; }
+@keyframes oy-up { from { opacity: 0; transform: translateY(26px); filter: blur(8px); } to { opacity: 1; transform: none; filter: blur(0); } }
+
+/* 2. Sana */
+.oy-ev { font-size: 12px; font-weight: 600; letter-spacing: .22em; text-transform: uppercase; color: var(--accent); }
+.oy-nl { width: 100%; overflow: hidden; white-space: nowrap; font-family: var(--f-display); font-weight: 600; font-size: 40px; line-height: 1.2; margin-top: 8px; }
+.oy-day { font-variant-numeric: lining-nums; width: 100%; overflow: hidden; white-space: nowrap; font-family: var(--f-display); font-weight: 500; font-size: 132px; line-height: .9; color: var(--accent); }
+.oy-month { width: 100%; overflow: hidden; white-space: nowrap; font-family: var(--f-display); font-style: italic; font-weight: 500; font-size: 30px; line-height: 1.2; }
+.oy-year { font-size: 13px; font-weight: 600; letter-spacing: .4em; color: var(--muted); margin: 2px 0 14px .4em; }
+.oy-wt { padding: 8px 18px; border-radius: 99px; border: 1px solid var(--edge); background: var(--glass2); font-size: 14px; font-weight: 500; color: var(--ink); }
+
+/* 3-4 */
+.s3 .tv-details { padding: 74px 48px 74px; gap: 14px; }
+.s4 .tv-final { padding: 70px 44px 100px; }
+.d-msg { font-weight: 500; font-size: 22px; }
+.d-day { font-weight: 500; font-variant-numeric: lining-nums; }
+.d-month, .d-venue, .f-names, .f-date { font-weight: 600; }
+.d-qrbox { box-shadow: 0 0 0 1px var(--edge); }
+.f-photo { border-width: 2px; }
+</style>
+<div class="bgk">
+  <div class="oy-blob a"></div><div class="oy-blob b"></div><div class="oy-blob c"></div>
+  <div class="oy-pane">
+    <div class="oy-sheen"></div>
+    <i class="oy-corner tl"></i><i class="oy-corner tr"></i><i class="oy-corner bl"></i><i class="oy-corner br"></i>
+  </div>
+  <div class="ptc" data-particles="star" data-n="26" data-colors="var(--gold),#FFFFFF"></div>
+</div>
+
+<section class="sc s1">
+  <div class="oy-box">
+    <p class="oy-inv a-fade" style="--d:.9s" data-t="invite"></p>
+    <p class="oy-dear a-blur" style="--d:1.1s" data-t="dear" data-if="guest" data-fit="28,15"></p>
+    <i class="oy-line" style="--d:1.4s"></i>
+    <p class="oy-name oy-up" style="--d:1.6s" data-t="name1" data-fit="60,16"></p>
+    <p class="oy-amp a-fade" style="--d:2.2s">&amp;</p>
+    <p class="oy-name oy-up" style="--d:2.4s" data-t="name2" data-fit="60,16"></p>
+    <i class="oy-line" style="--d:3s"></i>
+    <p class="oy-from a-rise" style="--d:3.2s" data-t="from"></p>
+  </div>
+</section>
+
+<section class="sc s2">
+  <div class="oy-box">
+    <p class="oy-ev a-fade" style="--d:.2s" data-t="event"></p>
+    <p class="oy-nl oy-up" style="--d:.4s" data-t="names_line" data-fit="40,18,14"></p>
+    <i class="oy-line" style="--d:.9s"></i>
+    <p class="oy-day oy-up" style="--d:1.1s" data-t="day" data-fit="132,60"></p>
+    <p class="oy-month a-rise" style="--d:1.5s" data-t="month" data-fit="30,16"></p>
+    <p class="oy-year a-fade" style="--d:1.7s" data-t="year"></p>
+    <p class="oy-wt a-rise" style="--d:2s" data-t="wt"></p>
+  </div>
+</section>
+
+<section class="sc s3">
+  <div class="tv-details" data-std="details"></div>
+</section>
+
+<section class="sc s4">
+  <div class="tv-final" data-std="final"></div>
+  <div class="tv-brand" data-std="brand" data-if="free"></div>
+</section>

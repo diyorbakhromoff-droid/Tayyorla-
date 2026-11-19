@@ -1,0 +1,140 @@
+<style>
+:root { --f-display: 'Lora', Georgia, serif; --f-body: 'Onest', system-ui, sans-serif; --msg-style: italic; }
+#tv { background: linear-gradient(180deg, var(--sky1) 0%, var(--sky2) 78%); }
+
+/* bulutlar */
+.kp-cl { position: absolute; height: 34px; border-radius: 99px; background: var(--cloud); filter: blur(5px); animation: kp-cloud 26s linear infinite both; }
+.kp-cl::before, .kp-cl::after { content: ""; position: absolute; border-radius: 50%; background: inherit; }
+.kp-cl::before { left: 18%; bottom: 40%; width: 46%; height: 150%; }
+.kp-cl::after { left: 50%; bottom: 30%; width: 32%; height: 110%; }
+.kp-cl.a { left: -30px; top: 84px; width: 150px; animation-delay: -4s; }
+.kp-cl.b { left: 230px; top: 190px; width: 110px; opacity: .7; animation-duration: 34s; animation-delay: -12s; }
+.kp-cl.c { left: 20px; top: 520px; width: 190px; animation-duration: 30s; animation-delay: -20s; }
+.kp-cl.d { left: 250px; top: 470px; width: 140px; opacity: .8; animation-duration: 22s; animation-delay: -2s; }
+@keyframes kp-cloud { from { transform: translateX(-40px); } to { transform: translateX(60px); } }
+.kp-sun { position: absolute; left: 50%; top: 220px; width: 420px; height: 420px; margin-left: -210px; border-radius: 50%;
+  background: radial-gradient(circle, var(--sun) 0%, transparent 62%); }
+
+/* kaptar */
+.kp-body { fill: var(--dove); stroke: var(--doveline); stroke-width: .9; stroke-linejoin: round; }
+.kp-wg { fill: var(--dove); stroke: var(--doveline); stroke-width: .9; stroke-linejoin: round; }
+.kp-wg2 { fill: color-mix(in srgb, var(--doveline) 35%, var(--dove)); stroke: var(--doveline); stroke-width: .8; }
+.kp-fth { fill: none; stroke: var(--doveline); stroke-width: .8; stroke-linecap: round; }
+.kp-eye { fill: #2A2D45; } .kp-beak { fill: var(--gold); }
+.kp-dove { display: block; width: 100%; height: 100%; overflow: visible; filter: drop-shadow(0 6px 8px rgba(30, 40, 70, .18)); }
+.kp-wing { transform-box: fill-box; transform-origin: 30% 95%; animation: kp-flap .42s ease-in-out infinite alternate both; }
+.kp-wing.b { animation-delay: -.12s; transform-origin: 20% 95%; }
+@keyframes kp-flap { from { transform: scaleY(1); } to { transform: scaleY(-.5); } }
+
+/* 1. Uchib kelish va lenta */
+.kp-head { position: absolute; left: 24px; right: 24px; top: 176px; display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center; }
+.kp-inv { font-size: 15px; font-weight: 500; letter-spacing: .05em; color: var(--muted); }
+.kp-dear { width: 100%; overflow: hidden; white-space: nowrap; font-family: var(--f-display); font-style: italic; font-weight: 500; font-size: 28px; line-height: 1.3; }
+.kp-dv { position: absolute; top: 290px; width: 72px; height: 50px; z-index: 3; }
+.kp-dv.l { left: -4px; } .kp-dv.r { left: 292px; }
+.kp-dv.r .kp-dove { transform: scaleX(-1); }
+.kp-dv.l .kp-in { animation: kp-in-l 1.5s cubic-bezier(.2, .7, .3, 1) .3s both; }
+.kp-dv.r .kp-in { animation: kp-in-r 1.5s cubic-bezier(.2, .7, .3, 1) .3s both; }
+@keyframes kp-in-l { from { transform: translate(-150px, -230px) rotate(-14deg); } to { transform: translate(110px, 0); } }
+@keyframes kp-in-r { from { transform: translate(150px, -230px) rotate(14deg); } to { transform: translate(-110px, 0); } }
+.kp-dv.l .kp-out { animation: kp-out-l 1.4s cubic-bezier(.45, 0, .25, 1) 1.9s both; }
+.kp-dv.r .kp-out { animation: kp-out-r 1.4s cubic-bezier(.45, 0, .25, 1) 1.9s both; }
+@keyframes kp-out-l { from { transform: none; } to { transform: translateX(-110px); } }
+@keyframes kp-out-r { from { transform: none; } to { transform: translateX(110px); } }
+.kp-bob { width: 100%; height: 100%; animation: kp-bob 1.8s ease-in-out infinite alternate both; }
+.kp-dv.r .kp-bob { animation-delay: -.9s; }
+@keyframes kp-bob { from { transform: translateY(-4px); } to { transform: translateY(4px); } }
+.kp-in, .kp-out { width: 100%; height: 100%; }
+.kp-ribw { position: absolute; left: 64px; right: 64px; top: 308px; height: 64px; z-index: 2; animation: kp-unroll 1.4s cubic-bezier(.45, 0, .25, 1) 1.9s both; }
+@keyframes kp-unroll { from { clip-path: inset(-30px 50% -30px 50%); } to { clip-path: inset(-30px -40px -30px -40px); } }
+.kp-ribw .kp-bobr { position: absolute; inset: 0; animation: kp-bob 1.8s ease-in-out -.45s infinite alternate both; }
+.kp-tail { position: absolute; top: 14px; width: 38px; height: 60px; background: var(--rib2); }
+.kp-tail.l { left: -24px; clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 34% 50%); }
+.kp-tail.r { right: -24px; clip-path: polygon(0 0, 100% 0, 66% 50%, 100% 100%, 0 100%); }
+.kp-rib { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; padding: 0 16px;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--rib1) 82%, #FFFFFF) 0%, var(--rib1) 40%, var(--rib2) 100%);
+  box-shadow: 0 10px 20px -10px rgba(30, 20, 40, .45); }
+.kp-rib::before, .kp-rib::after { content: ""; position: absolute; left: 6px; right: 6px; height: 1px; background: var(--ribink); opacity: .45; }
+.kp-rib::before { top: 6px; } .kp-rib::after { bottom: 6px; }
+.kp-names { width: 100%; overflow: hidden; white-space: nowrap; text-align: center; font-family: var(--f-display); font-style: italic; font-weight: 600;
+  font-size: 30px; line-height: 1.2; color: var(--ribink); }
+.kp-from { position: absolute; left: 24px; right: 24px; top: 408px; text-align: center; font-family: var(--f-display); font-style: italic; font-weight: 500; font-size: 18px; color: var(--accent); }
+
+/* 2. Ismlar */
+.kp-card { position: absolute; left: 30px; right: 30px; top: 70px; bottom: 70px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; text-align: center; }
+.kp-pair { width: 132px; height: 56px; margin-bottom: 10px; overflow: visible; }
+.kp-event { font-size: 13px; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: var(--accent); }
+.kp-name { width: 100%; overflow: hidden; white-space: nowrap; font-family: var(--f-display); font-weight: 500; font-size: 54px; line-height: 1.15; }
+.kp-amp { font-family: var(--f-display); font-style: italic; font-size: 30px; line-height: 1; color: var(--accent); }
+.kp-bar { width: 120px; height: 10px; margin: 18px 0 8px; border-radius: 2px; background: linear-gradient(90deg, var(--rib2), var(--rib1), var(--rib2)); }
+.kp-date { width: 100%; overflow: hidden; white-space: nowrap; font-family: var(--f-display); font-weight: 600; font-size: 26px; }
+.kp-wt { font-size: 15px; color: var(--muted); }
+
+/* 3-4 */
+.kp-fly { position: absolute; left: 0; top: 40px; width: 60px; height: 42px; animation: kp-across 5s linear var(--s) both; }
+@keyframes kp-across { from { transform: translate(-80px, 30px); } to { transform: translate(420px, -10px); } }
+.s3 .tv-details { padding-top: 96px; }
+.d-sign b { font-weight: 600; }
+.s4 .tv-final { padding-top: 56px; }
+.f-names { font-style: italic; }
+.s4 .ptc { z-index: 0; }
+</style>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <g id="kp-d">
+    <path class="kp-body" d="M4 39L14 32C22 30 30 31 38 30C44 24 52 17 60 16C68 15 72 19 73 22L73 25.5C72 32 64 40 50 42C38 44 24 42 16 40L6 47L9 40Z"/>
+    <path class="kp-beak" d="M72.4 21.2L79 23.2L72.6 25.4Z"/>
+    <circle class="kp-eye" cx="66" cy="20.5" r="1.5"/>
+  </g>
+  <g id="kp-w"><path class="kp-wg" d="M33 32C28 19 35 6 50 1C47 9 50 14 57 16C52 23 46 29 42 32Z"/>
+    <path class="kp-fth" d="M38 28C39 20 42 13 48 6M43 29C45 23 48 19 53 16"/></g>
+  <g id="kp-w2"><path class="kp-wg2" d="M44 30C44 18 52 8 64 4C60 11 61 15 64 18C58 22 52 27 50 30Z"/></g>
+</defs></svg>
+<div class="bgk">
+  <div class="kp-sun"></div>
+  <div class="kp-cl a"></div><div class="kp-cl b"></div><div class="kp-cl c"></div><div class="kp-cl d"></div>
+</div>
+
+<section class="sc s1">
+  <div class="kp-head">
+    <p class="kp-inv a-fade" style="--d:.2s" data-t="invite"></p>
+    <p class="kp-dear a-blur" style="--d:.5s" data-t="dear" data-if="guest" data-fit="28,15"></p>
+  </div>
+  <div class="kp-ribw"><div class="kp-bobr">
+    <span class="kp-tail l"></span><span class="kp-tail r"></span>
+    <div class="kp-rib"><p class="kp-names a-fade" style="--d:2.5s" data-t="names_line" data-fit="30,15,12"></p></div>
+  </div></div>
+  <div class="kp-dv l"><div class="kp-in"><div class="kp-out"><div class="kp-bob">
+    <svg class="kp-dove" viewBox="0 0 80 56" aria-hidden="true"><g class="kp-wing b"><use href="#kp-w2"/></g><use href="#kp-d"/><g class="kp-wing"><use href="#kp-w"/></g></svg>
+  </div></div></div></div>
+  <div class="kp-dv r"><div class="kp-in"><div class="kp-out"><div class="kp-bob">
+    <svg class="kp-dove" viewBox="0 0 80 56" aria-hidden="true"><g class="kp-wing b"><use href="#kp-w2"/></g><use href="#kp-d"/><g class="kp-wing"><use href="#kp-w"/></g></svg>
+  </div></div></div></div>
+  <p class="kp-from a-rise" style="--d:3.2s" data-t="from"></p>
+</section>
+
+<section class="sc s2">
+  <div class="kp-card">
+    <svg class="kp-pair a-pop" style="--d:.1s" viewBox="0 0 132 56" aria-hidden="true">
+      <g><g class="kp-wing b"><use href="#kp-w2"/></g><use href="#kp-d"/><g class="kp-wing"><use href="#kp-w"/></g></g>
+      <g transform="translate(132 0) scale(-1 1)"><g class="kp-wing b"><use href="#kp-w2"/></g><use href="#kp-d"/><g class="kp-wing"><use href="#kp-w"/></g></g>
+    </svg>
+    <p class="kp-event a-fade" style="--d:.3s" data-t="event"></p>
+    <p class="kp-name a-blur" style="--d:.5s" data-t="name1" data-fit="54,15"></p>
+    <p class="kp-amp a-fade" style="--d:.9s">&amp;</p>
+    <p class="kp-name a-blur" style="--d:1.1s" data-t="name2" data-fit="54,15"></p>
+    <i class="kp-bar a-wipe" style="--d:1.5s"></i>
+    <p class="kp-date a-rise" style="--d:1.7s" data-t="date" data-fit="26,15"></p>
+    <p class="kp-wt a-rise" style="--d:1.9s" data-t="wt"></p>
+  </div>
+</section>
+
+<section class="sc s3">
+  <div class="kp-fly"><svg class="kp-dove" viewBox="0 0 80 56" aria-hidden="true"><g class="kp-wing b"><use href="#kp-w2"/></g><use href="#kp-d"/><g class="kp-wing"><use href="#kp-w"/></g></svg></div>
+  <div class="tv-details" data-std="details"></div>
+</section>
+
+<section class="sc s4">
+  <div class="ptc" data-particles="petal" data-n="18" data-colors="var(--dove),var(--rib1),var(--dove)"></div>
+  <div class="tv-final" data-std="final"></div>
+  <div class="tv-brand" data-std="brand" data-if="free"></div>
+</section>
