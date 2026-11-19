@@ -1,0 +1,128 @@
+<style>
+:root { --f-display: 'Yeseva One', Georgia, serif; --f-body: 'Onest', system-ui, sans-serif; --msg-style: normal; }
+#tv { background: var(--bg); }
+.rd-sun { position: absolute; left: 50%; top: 300px; width: 1000px; height: 1000px; margin: -500px 0 0 -500px; border-radius: 50%;
+  background: repeating-conic-gradient(from 0deg, var(--ray) 0 7.5deg, transparent 7.5deg 15deg);
+  -webkit-mask: radial-gradient(closest-side, #000 20%, transparent 78%); mask: radial-gradient(closest-side, #000 20%, transparent 78%);
+  animation: rd-rot 80s linear infinite both; }
+@keyframes rd-rot { to { transform: rotate(360deg); } }
+.rd-stripes { position: absolute; left: 0; right: 0; bottom: 0; height: 30px;
+  background: linear-gradient(180deg, var(--accent) 0 10px, var(--gold) 10px 20px, var(--accent2) 20px 30px); }
+.rd-grain { position: absolute; inset: 0; opacity: .5; background: radial-gradient(color-mix(in srgb, var(--ink) 12%, transparent) 1px, transparent 1.3px) 0 0 / 6px 6px;
+  -webkit-mask: linear-gradient(180deg, #000, transparent 30%, transparent 70%, #000); mask: linear-gradient(180deg, #000, transparent 30%, transparent 70%, #000); }
+
+/* 1. Radio */
+.rd-head { position: absolute; left: 24px; right: 24px; top: 58px; display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center; }
+.rd-inv { max-width: 100%; padding: 6px 16px; border: 2px solid var(--ink); border-radius: 999px; font-size: 12px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; }
+.rd-dear { width: 100%; overflow: hidden; white-space: nowrap; font-family: var(--f-display); font-size: 32px; line-height: 1.2; }
+.rd-set { position: absolute; left: 36px; top: 180px; width: 288px; height: 230px; overflow: visible; animation: rd-in 1s cubic-bezier(.2, 1.3, .4, 1) .2s both; }
+@keyframes rd-in { from { opacity: 0; transform: translateY(40px) rotate(-6deg) scale(.9); } to { opacity: 1; transform: none; } }
+.rd-body { fill: var(--body); stroke: var(--line); stroke-width: 3; }
+.rd-trim { fill: none; stroke: var(--trim); stroke-width: 3; }
+.rd-ink { stroke: var(--line); stroke-width: 3; fill: none; stroke-linecap: round; }
+.rd-ink.rd-ant { stroke: var(--ant); }
+.rd-grille { fill: var(--grille); stroke: var(--line); stroke-width: 3; }
+.rd-slot { stroke: color-mix(in srgb, var(--line) 55%, transparent); stroke-width: 3; stroke-linecap: round; }
+.rd-dial { fill: var(--dial); stroke: var(--line); stroke-width: 3; }
+.rd-tick { stroke: var(--line); stroke-width: 1.5; }
+.rd-needle { stroke: var(--needle); stroke-width: 3; stroke-linecap: round; animation: rd-tune 2s cubic-bezier(.5, 0, .3, 1) .9s both; }
+@keyframes rd-tune { 0% { transform: translateX(0); } 55% { transform: translateX(112px); } 75% { transform: translateX(70px); } 88% { transform: translateX(82px); } 100% { transform: translateX(78px); } }
+.rd-knob { fill: var(--knob); stroke: var(--line); stroke-width: 3; }
+.rd-kn { transform-box: fill-box; transform-origin: 50% 50%; animation: rd-turn 2s cubic-bezier(.5, 0, .3, 1) .9s both; }
+@keyframes rd-turn { 0% { transform: rotate(0); } 55% { transform: rotate(280deg); } 100% { transform: rotate(200deg); } }
+.rd-lamp { fill: var(--needle); opacity: .25; animation: rd-on .4s ease 2.7s both; }
+@keyframes rd-on { to { opacity: 1; } }
+.rd-wave { fill: none; stroke: var(--accent); stroke-width: 4; stroke-linecap: round; transform-box: view-box; transform-origin: 236px 18px; opacity: 0;
+  animation: rd-wave 1.6s ease-out 2.8s infinite both; }
+.rd-wave.b { animation-delay: 3.3s; } .rd-wave.c { animation-delay: 3.8s; }
+@keyframes rd-wave { 0% { opacity: 0; transform: scale(.3); } 20% { opacity: 1; } 100% { opacity: 0; transform: scale(1.5); } }
+.rd-foot { position: absolute; left: 22px; right: 22px; top: 444px; display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center; }
+.rd-title { width: 100%; overflow: hidden; white-space: nowrap; padding: 0 4px 4px 0; font-family: var(--f-display); font-size: 46px; line-height: 1.12; color: var(--accent); text-shadow: 3px 3px 0 var(--shade); }
+.rd-from { width: 100%; overflow: hidden; white-space: nowrap; font-size: 15px; font-weight: 600; letter-spacing: .06em; color: var(--muted); }
+
+/* 2. Efir */
+.rd-card { position: absolute; left: 28px; right: 28px; top: 56px; bottom: 70px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; text-align: center; }
+.rd-ev { width: 100%; overflow: hidden; white-space: nowrap; padding: 0 3px 3px 0; font-family: var(--f-display); font-size: 32px; line-height: 1.15; text-shadow: 2px 2px 0 var(--shade); }
+.rd-badge { position: relative; width: 168px; height: 168px; margin: 8px 0; display: flex; align-items: center; justify-content: center; animation: tv-pop .8s cubic-bezier(.2, 1.5, .4, 1) calc(var(--s) + .4s) both; }
+.rd-badge svg { position: absolute; inset: 0; width: 100%; height: 100%; animation: rd-rot 30s linear infinite both; }
+.rd-star { fill: var(--accent); stroke: var(--line); stroke-width: 2; }
+.rd-disc { fill: var(--dial); stroke: var(--line); stroke-width: 2; }
+.rd-day { position: relative; display: block; max-width: 110px; overflow: hidden; white-space: nowrap; font-family: var(--f-display); font-size: 66px; line-height: 1; color: var(--line); }
+.rd-month { width: 100%; overflow: hidden; white-space: nowrap; font-family: var(--f-display); font-size: 30px; line-height: 1.15; color: var(--accent); }
+.rd-wt { font-size: 15px; font-weight: 500; color: var(--muted); }
+.rd-sine { width: 240px; height: 24px; overflow: visible; }
+.rd-sine path { fill: none; stroke: var(--accent2); stroke-width: 3; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 1; animation: rd-draw 1.4s ease calc(var(--s) + 1.1s) both; }
+@keyframes rd-draw { to { stroke-dashoffset: 0; } }
+.rd-turn { max-width: 100%; overflow: hidden; white-space: nowrap; padding: 8px 18px; border-radius: 999px; background: var(--chip); color: var(--chip-ink); font-weight: 700; font-size: 17px; line-height: 1.2; }
+.rd-kassa { font-size: 15px; font-weight: 700; letter-spacing: .04em; }
+
+/* 3-4 */
+.rd-mini { position: absolute; left: 156px; top: 40px; width: 48px; height: 40px; overflow: visible; }
+.s3 .tv-details { padding-top: 84px; padding-bottom: 50px; }
+.s3 .d-msg { font-size: 22px; }
+.s3 .d-day { font-weight: 400; color: var(--accent); text-shadow: 3px 3px 0 var(--shade); padding: 0 4px 4px 0; }
+.s3 .d-month, .s3 .d-venue, .s4 .f-names, .s4 .f-date, .s3 .d-sign b { font-weight: 400; }
+.s3 .d-sign { font-style: normal; }
+.s4 .f-names { color: var(--accent); text-shadow: 3px 3px 0 var(--shade); padding: 0 4px 4px 0; }
+/* uzun matn bir necha qatorga bo'linganda balandlik chegarasi */
+.rd-dear { max-height: 76px !important; }
+.rd-title { max-height: 92px !important; }
+.rd-ev { max-height: 76px !important; }
+</style>
+<div class="bgk"><div class="rd-sun"></div><div class="rd-grain"></div><div class="rd-stripes"></div></div>
+
+<section class="sc s1">
+  <div class="rd-head">
+    <p class="rd-inv a-pop" style="--d:.2s" data-t="invite"></p>
+    <p class="rd-dear a-rise" style="--d:.5s" data-t="dear" data-if="guest" data-fit="32,18,14"></p>
+  </div>
+  <svg class="rd-set" viewBox="0 0 288 230" aria-hidden="true">
+    <path class="rd-wave" d="M222 8A20 20 0 0 1 250 8"/><path class="rd-wave b" d="M222 8A20 20 0 0 1 250 8"/><path class="rd-wave c" d="M222 8A20 20 0 0 1 250 8"/>
+    <path class="rd-ink rd-ant" d="M196 70L236 18"/><circle cx="236" cy="18" r="6" fill="var(--needle)" stroke="var(--ant)" stroke-width="3"/>
+    <path class="rd-ink rd-ant" d="M90 70C90 40 198 40 198 70"/>
+    <rect class="rd-body" x="10" y="66" width="268" height="150" rx="26"/>
+    <path class="rd-trim" d="M24 92H264"/>
+    <circle class="rd-grille" cx="82" cy="148" r="52"/>
+    <defs><clipPath id="rd-gc"><circle cx="82" cy="148" r="50"/></clipPath></defs>
+    <g clip-path="url(#rd-gc)">
+      <path class="rd-slot" d="M30 112H134M30 124H134M30 136H134M30 148H134M30 160H134M30 172H134M30 184H134"/>
+    </g>
+    <rect class="rd-dial" x="150" y="104" width="114" height="46" rx="8"/>
+    <path class="rd-tick" d="M160 118v10M168 121v6M176 118v10M184 121v6M192 118v10M200 121v6M208 118v10M216 121v6M224 118v10M232 121v6M240 118v10M248 121v6M256 118v10"/>
+    <path class="rd-tick" d="M160 138H256" opacity=".5"/>
+    <path class="rd-needle" d="M164 110V144"/>
+    <circle class="rd-knob" cx="178" cy="184" r="18"/><path class="rd-ink rd-kn" d="M178 184V169"/>
+    <circle class="rd-knob" cx="236" cy="184" r="18"/><path class="rd-ink rd-kn" d="M236 184V169"/>
+    <circle class="rd-lamp" cx="207" cy="186" r="5"/>
+    <rect x="34" y="212" width="26" height="10" rx="3" fill="var(--line)"/><rect x="228" y="212" width="26" height="10" rx="3" fill="var(--line)"/>
+  </svg>
+  <div class="rd-foot">
+    <p class="rd-title a-pop" style="--d:2.6s" data-t="title" data-fit="46,24,17"></p>
+    <p class="rd-from a-rise" style="--d:3s" data-t="from" data-fit="15,11"></p>
+  </div>
+</section>
+
+<section class="sc s2">
+  <div class="rd-card">
+    <p class="rd-ev a-rise" style="--d:.1s" data-t="title" data-fit="32,18,14"></p>
+    <div class="rd-badge">
+      <svg viewBox="0 0 168 168" aria-hidden="true"><path class="rd-star" d="M84 2L94 22L114 8L117 31L140 26L134 49L157 54L142 72L162 84L142 96L157 114L134 119L140 142L117 137L114 160L94 146L84 166L74 146L54 160L51 137L28 142L34 119L11 114L26 96L6 84L26 72L11 54L34 49L28 26L51 31L54 8L74 22Z"/><circle class="rd-disc" cx="84" cy="84" r="54"/></svg>
+      <span class="rd-day" data-t="day" data-fit="66,32"></span>
+    </div>
+    <p class="rd-month a-rise" style="--d:.9s" data-t="month" data-fit="30,16"></p>
+    <p class="rd-wt a-rise" style="--d:1s" data-t="wt"></p>
+    <svg class="rd-sine" viewBox="0 0 240 24" aria-hidden="true"><path pathLength="1" d="M2 12C12 2 22 2 32 12S52 22 62 12 82 2 92 12 112 22 122 12 142 2 152 12 172 22 182 12 202 2 212 12 232 22 238 14"/></svg>
+    <p class="rd-turn a-pop" style="--d:1.5s" data-t="turn" data-if="turn" data-fit="17,12"></p>
+    <p class="rd-kassa a-rise" style="--d:1.7s" data-t="kassa" data-if="kassa"></p>
+  </div>
+</section>
+
+<section class="sc s3">
+  <svg class="rd-mini a-pop" style="--d:.1s" viewBox="0 0 48 40" aria-hidden="true"><rect class="rd-body" x="3" y="12" width="42" height="26" rx="6" style="stroke-width:2.5"/><circle class="rd-grille" cx="16" cy="25" r="7" style="stroke-width:2"/><path class="rd-ink" d="M28 21h11M28 28h11" style="stroke-width:2.5"/><path class="rd-ink" d="M30 12L40 2" style="stroke-width:2.5"/></svg>
+  <div class="tv-details" data-std="details"></div>
+</section>
+
+<section class="sc s4">
+  <div class="tv-final" data-std="final"></div>
+  <div class="tv-brand" data-std="brand" data-if="free"></div>
+</section>

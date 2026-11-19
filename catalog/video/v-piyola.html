@@ -1,0 +1,154 @@
+<style>
+:root { --f-display: 'Cormorant Garamond', Georgia, serif; --f-body: 'Onest', system-ui, sans-serif; --msg-style: italic; }
+#tv { background: var(--bg); }
+.pi-wood { position: absolute; inset: 0;
+  background:
+    radial-gradient(90% 55% at 70% 18%, color-mix(in srgb, var(--copper2) 26%, transparent) 0%, transparent 70%),
+    radial-gradient(120% 70% at 50% 62%, color-mix(in srgb, var(--card) 90%, transparent) 0%, transparent 75%),
+    repeating-linear-gradient(176deg, transparent 0 13px, color-mix(in srgb, var(--grain) 22%, transparent) 13px 14px, transparent 14px 31px, color-mix(in srgb, var(--grain) 12%, transparent) 31px 33px); }
+.pi-vig { position: absolute; inset: 0; background: radial-gradient(110% 80% at 50% 50%, transparent 55%, rgba(0, 0, 0, var(--vig, .45)) 100%); }
+.pi-glow { position: absolute; left: 30px; top: 300px; width: 300px; height: 260px; border-radius: 50%;
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--copper2) 30%, transparent), transparent); filter: blur(6px);
+  animation: pi-breath 4s ease-in-out infinite alternate both; }
+@keyframes pi-breath { from { opacity: .55; transform: scale(.94); } to { opacity: 1; transform: scale(1.04); } }
+
+/* 1. Quyilish */
+.pi-head { position: absolute; left: 26px; right: 26px; top: 56px; display: flex; flex-direction: column; align-items: flex-start; gap: 6px; }
+.pi-inv { font-size: 12px; font-weight: 600; letter-spacing: .22em; text-transform: uppercase; color: var(--accent); }
+.pi-dear { width: 68%; overflow: hidden; white-space: nowrap; font-family: var(--f-display); font-weight: 600; font-size: 34px; line-height: 1.1; }
+.pi-rule { width: 54px; height: 2px; margin-top: 6px; background: var(--copper); animation: tv-wipe .9s cubic-bezier(.6, 0, .2, 1) .9s both; }
+.pi-pot { position: absolute; left: 170px; top: 120px; width: 220px; height: 200px; overflow: visible; transform-box: view-box; transform-origin: 150px 90px;
+  animation: pi-pot 4.4s cubic-bezier(.45, 0, .25, 1) .1s both; }
+.pi-pot g { transform-origin: 150px 90px; }
+@keyframes pi-pot { 0% { opacity: 0; transform: translate(70px, -40px) rotate(-26deg); } 16% { opacity: 1; transform: none; } 82% { opacity: 1; transform: none; } 100% { opacity: 1; transform: translate(14px, -10px) rotate(-17deg); } }
+.pi-cop { fill: url(#pi-cop); } .pi-cop-d { fill: var(--copper); } .pi-line { fill: none; stroke: var(--copper2); stroke-width: 2; opacity: .6; }
+.pi-stream { position: absolute; left: 181px; top: 256px; width: 7px; height: 146px; border-radius: 4px 4px 3px 3px; overflow: hidden;
+  background: linear-gradient(90deg, var(--tea) 0%, var(--tea2) 45%, var(--tea) 100%);
+  animation: pi-pour 3.2s linear .8s both; }
+.pi-stream::after { content: ""; position: absolute; left: 2px; top: -40px; width: 2px; height: 220px;
+  background: repeating-linear-gradient(180deg, transparent 0 10px, rgba(255, 255, 255, .55) 10px 16px, transparent 16px 28px);
+  animation: pi-flow .5s linear infinite both; }
+@keyframes pi-pour { 0% { clip-path: inset(0 0 100% 0); } 9% { clip-path: inset(0 0 0 0); } 86% { clip-path: inset(0 0 0 0); } 100% { clip-path: inset(100% 0 0 0); } }
+@keyframes pi-flow { from { transform: translateY(0); } to { transform: translateY(28px); } }
+.pi-cup { position: absolute; left: 40px; top: 370px; width: 280px; height: 160px; overflow: visible; animation: tv-rise 1s cubic-bezier(.2, .8, .2, 1) .15s both; }
+.pi-c1 { stop-color: var(--cup); } .pi-c2 { stop-color: var(--cup2); } .pi-k1 { stop-color: var(--copper2); } .pi-k2 { stop-color: var(--copper); }
+.pi-t1 { stop-color: var(--tea2); } .pi-t2 { stop-color: var(--tea); }
+.pi-body { fill: url(#pi-cup); } .pi-rim { fill: var(--cup); } .pi-in { fill: var(--cupin); }
+.pi-band { fill: none; stroke: var(--pat); stroke-width: 6; } .pi-band.d { stroke-width: 3; stroke-dasharray: 2 7; stroke-linecap: round; }
+.pi-foot { fill: var(--cup2); } .pi-shadow { fill: rgba(0, 0, 0, .35); }
+.pi-tea { fill: url(#pi-tea); transform-box: fill-box; transform-origin: 50% 50%; animation: pi-fill 2.9s cubic-bezier(.3, .1, .4, 1) .95s both; }
+@keyframes pi-fill { from { transform: translateY(16px) scale(.5); opacity: 0; } 8% { opacity: 1; } to { transform: none; opacity: 1; } }
+.pi-wave { fill: none; stroke: color-mix(in srgb, var(--tea2) 45%, #FFFFFF); stroke-width: 1.4; transform-box: fill-box; transform-origin: center; opacity: 0;
+  animation: pi-wave 1.1s ease-out 1.2s 3 both; }
+.pi-wave.b { animation-delay: 1.55s; } .pi-wave.c { animation-delay: 1.9s; }
+@keyframes pi-wave { 0% { opacity: .95; transform: scale(.15); } 100% { opacity: 0; transform: scale(2.6); } }
+.pi-hl { fill: none; stroke: #FFFFFF; stroke-opacity: .55; stroke-width: 3; stroke-linecap: round; }
+.pi-steam { position: absolute; left: 110px; top: 280px; width: 140px; height: 120px; }
+.pi-foot-t { position: absolute; left: 24px; right: 24px; bottom: 34px; display: flex; flex-direction: column; align-items: center; gap: 4px; text-align: center; }
+.pi-title { width: 100%; overflow: hidden; white-space: nowrap; font-family: var(--f-display); font-weight: 700; font-size: 44px; line-height: 1.1; color: var(--accent); }
+.pi-from { width: 100%; overflow: hidden; white-space: nowrap; font-size: 14px; font-weight: 500; letter-spacing: .06em; color: var(--muted); }
+
+/* 2. Mis ramka */
+.pi-frame { position: absolute; left: 26px; top: 60px; width: 308px; height: 520px; overflow: visible; }
+.pi-fr { fill: none; stroke: var(--copper); stroke-width: 1.5; stroke-dasharray: 1; stroke-dashoffset: 1; animation: pi-draw 1.8s cubic-bezier(.6, 0, .3, 1) calc(var(--s) + var(--d, 0s)) both; }
+.pi-fr.i { stroke-width: .8; opacity: .55; }
+@keyframes pi-draw { to { stroke-dashoffset: 0; } }
+.pi-card { position: absolute; left: 44px; right: 44px; top: 84px; bottom: 84px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; text-align: center; }
+.pi-ev { width: 100%; overflow: hidden; white-space: nowrap; font-family: var(--f-display); font-weight: 700; font-size: 36px; line-height: 1.1; color: var(--accent); }
+.pi-icon { width: 54px; height: 30px; margin: 6px 0; overflow: visible; }
+.pi-icon .pi-ic { fill: none; stroke: var(--copper2); stroke-width: 1.6; stroke-linecap: round; }
+.pi-day { display: block; max-width: 100%; overflow: hidden; white-space: nowrap; font-family: var(--f-display); font-weight: 700; font-size: 104px; line-height: .9; font-variant-numeric: lining-nums; }
+.pi-month { width: 100%; overflow: hidden; white-space: nowrap; font-family: var(--f-display); font-style: italic; font-weight: 600; font-size: 30px; line-height: 1.1; color: var(--accent2); }
+.pi-wt { font-size: 14px; letter-spacing: .04em; color: var(--muted); }
+.pi-row { width: 100%; display: flex; flex-direction: column; align-items: center; gap: 6px; margin-top: 14px; padding-top: 14px; border-top: 1px solid color-mix(in srgb, var(--copper) 55%, transparent); }
+.pi-turn { width: 100%; overflow: hidden; white-space: nowrap; font-family: var(--f-display); font-weight: 600; font-size: 22px; line-height: 1.2; }
+.pi-kassa { font-size: 14px; font-weight: 600; letter-spacing: .05em; color: var(--accent); }
+
+/* 3-4 */
+.pi-top { position: absolute; left: 153px; top: 48px; width: 54px; height: 30px; overflow: visible; }
+.pi-top .pi-ic { fill: none; stroke: var(--copper2); stroke-width: 1.6; stroke-linecap: round; }
+.s3, .s4 { font-variant-numeric: lining-nums; }
+.s3 .tv-details { padding-top: 86px; }
+.s3 .d-msg { font-size: 25px; font-weight: 600; }
+.s3 .d-day, .s3 .d-month, .s3 .d-venue, .s4 .f-names, .s4 .f-date { font-weight: 700; }
+.s3 .d-day { font-size: 92px; }
+.s3 .d-sign { font-weight: 600; }
+.s4 .f-names { color: var(--accent); }
+.s4 .f-date { font-size: 24px; }
+/* uzun matn bir necha qatorga bo'linganda balandlik chegarasi */
+.pi-title { max-height: 78px !important; }
+.pi-dear { max-height: 80px !important; }
+.pi-ev { max-height: 84px !important; }
+</style>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <linearGradient id="pi-cup" x1="0" y1="0" x2="1" y2="0"><stop class="pi-c2" offset="0"/><stop class="pi-c1" offset=".35"/><stop class="pi-c1" offset=".55"/><stop class="pi-c2" offset="1"/></linearGradient>
+  <linearGradient id="pi-cop" x1="0" y1="0" x2="1" y2="1"><stop class="pi-k1" offset="0"/><stop class="pi-k2" offset=".55"/><stop class="pi-k2" offset="1"/></linearGradient>
+  <radialGradient id="pi-tea" cx=".42" cy=".4" r=".7"><stop class="pi-t1" offset="0"/><stop class="pi-t2" offset="1"/></radialGradient>
+  <clipPath id="pi-clip"><ellipse cx="140" cy="27" rx="119" ry="18"/></clipPath>
+</defs></svg>
+<div class="bgk"><div class="pi-wood"></div><div class="pi-vig"></div></div>
+
+<section class="sc s1">
+  <div class="pi-glow"></div>
+  <div class="pi-head">
+    <p class="pi-inv a-left" style="--d:.3s" data-t="invite"></p>
+    <p class="pi-dear a-left" style="--d:.5s" data-t="dear" data-if="guest" data-fit="34,18,13"></p>
+    <span class="pi-rule"></span>
+  </div>
+  <svg class="pi-pot" viewBox="0 0 220 200" aria-hidden="true"><g>
+    <path class="pi-cop-d" d="M84 98C56 100 38 114 12 134L19 143C44 126 62 124 86 128Z"/>
+    <ellipse class="pi-cop" cx="150" cy="96" rx="80" ry="72"/>
+    <path class="pi-line" d="M76 84C110 98 190 98 226 84"/><path class="pi-line" d="M74 110C110 124 190 124 228 110"/>
+    <ellipse class="pi-cop-d" cx="150" cy="28" rx="44" ry="10"/><path class="pi-cop" d="M140 20h20l-3-12h-14z"/>
+    <ellipse cx="122" cy="62" rx="14" ry="26" fill="#FFFFFF" opacity=".18" transform="rotate(22 122 62)"/>
+  </g></svg>
+  <div class="pi-stream"></div>
+  <svg class="pi-cup" viewBox="0 0 280 160" aria-hidden="true">
+    <ellipse class="pi-shadow" cx="140" cy="150" rx="112" ry="8"/>
+    <ellipse class="pi-foot" cx="140" cy="140" rx="42" ry="8"/>
+    <path class="pi-body" d="M12 26C16 96 66 138 140 138S264 96 268 26Z"/>
+    <path class="pi-band" d="M17 44A123 30 0 0 0 263 44"/>
+    <path class="pi-band d" d="M28 64A112 32 0 0 0 252 64"/>
+    <ellipse class="pi-rim" cx="140" cy="25" rx="128" ry="22"/>
+    <ellipse class="pi-in" cx="140" cy="27" rx="119" ry="18"/>
+    <g clip-path="url(#pi-clip)">
+      <ellipse class="pi-tea" cx="140" cy="31" rx="112" ry="15"/>
+      <ellipse class="pi-wave" cx="144" cy="31" rx="18" ry="3.5"/><ellipse class="pi-wave b" cx="144" cy="31" rx="18" ry="3.5"/><ellipse class="pi-wave c" cx="144" cy="31" rx="18" ry="3.5"/>
+    </g>
+    <path class="pi-hl" d="M40 70C52 96 70 112 92 122"/>
+  </svg>
+  <div class="ptc pi-steam" data-particles="steam" data-n="9" data-at="3.3" data-colors="color-mix(in srgb, var(--ink) 40%, transparent)"></div>
+  <div class="pi-foot-t">
+    <p class="pi-title a-blur" style="--d:2.4s" data-t="title" data-fit="44,26,16"></p>
+    <p class="pi-from a-rise" style="--d:2.8s" data-t="from" data-fit="14,11"></p>
+  </div>
+</section>
+
+<section class="sc s2">
+  <svg class="pi-frame" viewBox="0 0 308 520" aria-hidden="true">
+    <rect class="pi-fr" pathLength="1" style="--d:.05s" x="1" y="1" width="306" height="518" rx="4"/>
+    <rect class="pi-fr i" pathLength="1" style="--d:.3s" x="8" y="8" width="292" height="504" rx="2"/>
+  </svg>
+  <div class="pi-card">
+    <p class="pi-ev a-rise" style="--d:.3s" data-t="title" data-fit="36,26,16"></p>
+    <svg class="pi-icon a-fade" style="--d:.6s" viewBox="0 0 54 30" aria-hidden="true"><path class="pi-ic" d="M5 8h44C47 21 38 27 27 27S7 21 5 8Z"/><path class="pi-ic" d="M22 27v2h10v-2"/><path class="pi-ic" d="M23 4c-2-2 2-3 0-5M31 4c-2-2 2-3 0-5"/></svg>
+    <span class="pi-day a-blur" style="--d:.7s" data-t="day" data-fit="104,48"></span>
+    <p class="pi-month a-rise" style="--d:1s" data-t="month" data-fit="30,16"></p>
+    <p class="pi-wt a-rise" style="--d:1.15s" data-t="wt"></p>
+    <div class="pi-row a-rise" style="--d:1.4s" data-if="extra">
+      <p class="pi-turn" data-t="turn" data-if="turn" data-fit="22,13"></p>
+      <p class="pi-kassa" data-t="kassa" data-if="kassa"></p>
+    </div>
+  </div>
+</section>
+
+<section class="sc s3">
+  <svg class="pi-top a-fade" style="--d:.1s" viewBox="0 0 54 30" aria-hidden="true"><path class="pi-ic" d="M5 8h44C47 21 38 27 27 27S7 21 5 8Z"/><path class="pi-ic" d="M22 27v2h10v-2"/><path class="pi-ic" d="M23 4c-2-2 2-3 0-5M31 4c-2-2 2-3 0-5"/></svg>
+  <div class="tv-details" data-std="details"></div>
+</section>
+
+<section class="sc s4">
+  <div class="tv-final" data-std="final"></div>
+  <div class="ptc" data-particles="dust" data-n="22" data-colors="var(--copper2),var(--accent)"></div>
+  <div class="tv-brand" data-std="brand" data-if="free"></div>
+</section>
