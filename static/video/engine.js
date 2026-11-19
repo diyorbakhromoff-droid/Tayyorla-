@@ -130,6 +130,9 @@
     if (!el.offsetParent && el.style.display === 'none') return;
     var spec = (el.getAttribute('data-fit') || '').split(',');
     var size = +spec[0] || 40, min = +spec[1] || 10;
+    // qayta sig'dirishda (shriftlar yuklangach) oldingi bo'linish holatini tozalaymiz — aks holda bir qatorli matn
+    // boshidanoq ko'p qatorli deb olinib, faqat o'rta qiymatgacha kichrayadi va uzun so'z kesilib qoladi
+    if (el.getAttribute('data-wrapped')) { el.style.whiteSpace = ''; el.style.maxHeight = ''; el.removeAttribute('data-wrapped'); }
     // bir qatorli matn eni bo'yicha, ko'p qatorli matn balandligi bo'yicha sig'diriladi
     var line = getComputedStyle(el).whiteSpace === 'nowrap';
     var over = function () { return line ? el.scrollWidth > el.clientWidth + 1 : el.scrollHeight > el.clientHeight + 4 || el.scrollWidth > el.clientWidth + 1; };
@@ -142,7 +145,7 @@
     // data-fit="katta,kichik,qatorli": bir qatorga sig'masa, 3 qatorgacha bo'linib yana kichrayadi (uzun ismlar)
     var wrapMin = +spec[2];
     if (wrapMin && line && over()) {
-      el.style.whiteSpace = 'normal'; el.style.maxHeight = '3.6em'; line = false;
+      el.style.whiteSpace = 'normal'; el.style.maxHeight = '3.6em'; line = false; el.setAttribute('data-wrapped', '1');
       size = +spec[1]; el.style.fontSize = size + 'px';
       while (guard-- > 0 && size > wrapMin && over()) {
         size -= 1;
