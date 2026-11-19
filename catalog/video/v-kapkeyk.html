@@ -1,0 +1,186 @@
+<style>
+:root { --f-display: 'Comfortaa', system-ui, sans-serif; --f-body: 'Onest', system-ui, sans-serif; --msg-style: normal; }
+#tv { background: radial-gradient(100% 60% at 50% 45%, var(--card) 0%, var(--bg) 75%); }
+.kp-spr-bg { position: absolute; inset: 0; opacity: .5;
+  background: radial-gradient(circle, var(--spr1) 1.6px, transparent 2.2px) 0 0 / 46px 46px, radial-gradient(circle, var(--spr2) 1.6px, transparent 2.2px) 23px 23px / 46px 46px; }
+.kp-liner { fill: var(--liner); } .kp-pleat { stroke: var(--liner2); stroke-width: 3; stroke-linecap: round; fill: none; }
+.kp-rim { fill: var(--liner2); }
+.kp-cream { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.kp-cream.c0 { stroke: var(--cream2); stroke-width: 36; }
+.kp-cream.c1 { stroke: var(--cream); stroke-width: 32; }
+.kp-cream.c2 { stroke: var(--cream3); stroke-width: 7; opacity: .9; }
+.kp-pipe .kp-cream { stroke-dasharray: 1; stroke-dashoffset: 1; animation: kp-draw 1.8s cubic-bezier(.45, .1, .55, .95) .9s both; }
+.kp-pipe .kp-cream.c2 { transform: translate(-2px, -6px); }
+@keyframes kp-draw { to { stroke-dashoffset: 0; } }
+.kp-spr rect { rx: 1.5; }
+.kp-wick { stroke: var(--ink); stroke-width: 2; stroke-linecap: round; }
+.kp-candle { fill: var(--candle); } .kp-cstripe { fill: none; stroke: var(--spr2); stroke-width: 3; }
+.kp-fl { fill: var(--flame); transform-box: fill-box; transform-origin: 50% 100%; animation: kp-flick .18s ease-in-out infinite alternate both; }
+.kp-fl.b { fill: #FFFFFF; opacity: .9; }
+@keyframes kp-flick { from { transform: scale(.94, 1.04) rotate(-4deg); } to { transform: scale(1.04, .94) rotate(4deg); } }
+.kp-glow { fill: var(--flame); opacity: .3; filter: blur(6px); }
+.kp-light { transform-box: fill-box; transform-origin: 50% 100%; animation: kp-light .5s cubic-bezier(.2, 1.6, .4, 1) calc(var(--s) + var(--d)) both; }
+@keyframes kp-light { from { transform: scale(0); opacity: 0; } to { transform: none; opacity: 1; } }
+
+/* 1. Krem siqiladi */
+.kp-head { position: absolute; left: 24px; right: 24px; top: 40px; display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center; }
+.kp-inv { font-size: 15px; font-weight: 600; color: var(--muted); }
+.kp-dear { width: 100%; overflow: hidden; white-space: nowrap; font-family: var(--f-display); font-weight: 700; font-size: 26px; line-height: 1.3; }
+.kp-cake { position: absolute; left: 70px; top: 150px; width: 220px; height: 280px; }
+.kp-cake > svg { position: absolute; inset: 0; width: 220px; height: 280px; overflow: visible; }
+.kp-base { animation: tv-rise .9s cubic-bezier(.2, .8, .2, 1) .2s both; }
+.kp-num { position: absolute; left: 60px; right: 60px; top: 246px; text-align: center; font-family: var(--f-display); font-weight: 700; font-size: 44px; line-height: 1; color: var(--liner-ink);
+  white-space: nowrap; animation: tv-pop .6s cubic-bezier(.2, 1.6, .4, 1) .7s both; }
+.kp-bag { position: absolute; left: 0; top: 0; width: 46px; height: 76px; z-index: 3; offset-anchor: 50% 100%; offset-rotate: 0deg;
+  offset-path: path('M38 214Q110 236 182 214Q190 186 110 190Q34 186 48 160Q110 140 172 160Q180 130 110 134Q56 132 66 108Q110 88 154 108Q160 82 110 82Q84 80 96 60Q110 50 122 58');
+  animation: kp-go 1.8s cubic-bezier(.45, .1, .55, .95) .9s both, kp-bagin .4s ease .5s both, kp-bagout .6s ease-in 2.7s forwards; }
+@keyframes kp-go { from { offset-distance: 0%; } to { offset-distance: 100%; } }
+@keyframes kp-bagin { from { opacity: 0; translate: -40px -60px; } to { opacity: 1; translate: 0 0; } }
+@keyframes kp-bagout { to { opacity: 0; translate: 60px -120px; rotate: 30deg; } }
+.kp-bag svg { width: 46px; height: 76px; overflow: visible; }
+.kp-bag .bag { fill: var(--bag); stroke: color-mix(in srgb, var(--bag) 70%, #000); stroke-width: 1.5; }
+.kp-bag .tip { fill: #C9CED6; }
+.kp-spr rect { transform-box: fill-box; transform-origin: center; animation: kp-sp .35s cubic-bezier(.2, 1.6, .4, 1) calc(var(--s) + var(--d)) both; }
+@keyframes kp-sp { from { opacity: 0; transform: translateY(-30px) scale(.3); } to { opacity: 1; transform: none; } }
+.kp-cdl { animation: tv-drop .7s cubic-bezier(.2, 1.3, .4, 1) calc(var(--s) + var(--d)) both; }
+.kp-ev { position: absolute; left: 24px; right: 24px; top: 478px; text-align: center; font-size: 13px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--accent); }
+.kp-name { position: absolute; left: 22px; right: 22px; top: 502px; max-height: 120px; overflow: hidden; white-space: nowrap; text-align: center; font-family: var(--f-display); font-weight: 700;
+  font-size: 50px; line-height: 1.15; color: var(--ink); }
+
+/* 2. Puflash */
+.s2 .kp-num { left: 50px; right: 50px; top: 212px; font-size: 36px; }
+.s2 .kp-cake { left: 85px; top: 48px; width: 190px; height: 242px; }
+.s2 .kp-cake > svg { width: 190px; height: 242px; }
+.kp-out { transform-box: fill-box; transform-origin: 50% 100%; animation: kp-blow .55s ease-in calc(var(--s) + 1.95s) both; }
+@keyframes kp-blow { 0% { transform: none; opacity: 1; } 50% { transform: skewX(-28deg) scale(1.1, .7); opacity: 1; } 100% { transform: skewX(-40deg) scale(0); opacity: 0; } }
+.kp-wind path { fill: none; stroke: var(--muted); stroke-width: 3; stroke-linecap: round; stroke-dasharray: .35 1; stroke-dashoffset: .35; opacity: .8;
+  animation: kp-wind .9s ease-out calc(var(--s) + 1.45s + var(--k, 0s)) both; }
+@keyframes kp-wind { 0% { stroke-dashoffset: .35; opacity: 0; } 15% { opacity: .8; } 100% { stroke-dashoffset: -1; opacity: .8; } }
+.kp-smoke { fill: none; stroke: var(--muted); stroke-width: 3; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 1; opacity: 0;
+  animation: kp-smoke 2.2s ease-out calc(var(--s) + 2.3s) both; }
+@keyframes kp-smoke { 0% { stroke-dashoffset: 1; opacity: .7; transform: none; } 60% { stroke-dashoffset: 0; opacity: .55; } 100% { stroke-dashoffset: 0; opacity: 0; transform: translateY(-24px); } }
+.kp-col { position: absolute; left: 24px; right: 24px; top: 320px; bottom: 34px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; text-align: center; }
+.kp-event { font-size: 13px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--accent); }
+.kp-big { width: 100%; max-height: 120px; overflow: hidden; white-space: nowrap; font-family: var(--f-display); font-weight: 700; font-size: 50px; line-height: 1.15; }
+.kp-age { padding: 6px 18px; border-radius: 99px; background: var(--accent); color: var(--on-accent); font-size: 17px; font-weight: 700; white-space: nowrap; }
+.kp-date { margin-top: 6px; width: 100%; overflow: hidden; white-space: nowrap; font-family: var(--f-display); font-weight: 700; font-size: 25px; color: var(--accent2); }
+.kp-wt { font-size: 15px; color: var(--muted); }
+
+/* 3-4 */
+.kp-scal { position: absolute; left: 0; right: 0; height: 40px; z-index: 0;
+  background: radial-gradient(circle at 18px 0, var(--liner) 17px, transparent 18px) 0 0 / 36px 40px repeat-x; animation: tv-fade .8s ease var(--s) both; }
+.kp-scal.t { top: 0; } .kp-scal.b { bottom: 0; transform: scaleY(-1); }
+.kp-scal::after { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 24px;
+  background: radial-gradient(circle at 18px 0, var(--cream2) 10px, transparent 11px) 0 0 / 36px 24px repeat-x; opacity: .8; }
+.s3 .tv-details { padding: 64px 36px 56px; }
+.s3 .d-msg { font-family: var(--f-display); font-weight: 700; font-size: 19px; line-height: 1.4; }
+.s3 .d-day { font-weight: 700; font-size: 80px; }
+.s3 .d-month, .s3 .d-venue { font-weight: 700; font-size: 22px; }
+.s3 .d-sign { font-family: var(--f-body); font-style: normal; font-size: 17px; }
+.kp-mini { position: absolute; left: 132px; top: 40px; width: 96px; height: 178px; overflow: visible; animation: tv-pop .7s cubic-bezier(.2, 1.5, .4, 1) calc(var(--s) + .2s) both; }
+.s4 .tv-final { padding-top: 170px; }
+.s4 .f-names { font-weight: 700; font-size: 46px; color: var(--ink); }
+.s4 .f-date { font-weight: 700; color: var(--accent2); }
+</style>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <g id="kp-base">
+    <path class="kp-liner" d="M30 196H190L166 300H54Z"/>
+    <path class="kp-pleat" d="M58 232L68 294M86 232L91 294M110 232V294M134 232L129 294M162 232L152 294"/>
+    <rect class="kp-rim" x="26" y="192" width="168" height="10" rx="5"/>
+  </g>
+  <path id="kp-swirl" d="M38 214Q110 236 182 214Q190 186 110 190Q34 186 48 160Q110 140 172 160Q180 130 110 134Q56 132 66 108Q110 88 154 108Q160 82 110 82Q84 80 96 60Q110 50 122 58"/>
+  <g id="kp-candle">
+    <rect class="kp-candle" x="103" y="10" width="14" height="44" rx="4"/>
+    <path class="kp-cstripe" d="M103 20L117 14M103 32L117 26M103 44L117 38"/>
+    <path class="kp-wick" d="M110 10V2"/>
+  </g>
+  <g id="kp-sprs">
+    <rect x="70" y="200" width="10" height="4" transform="rotate(30 75 202)" style="fill:var(--spr1)"/>
+    <rect x="130" y="206" width="10" height="4" transform="rotate(-40 135 208)" style="fill:var(--spr2)"/>
+    <rect x="160" y="176" width="10" height="4" transform="rotate(70 165 178)" style="fill:var(--spr3)"/>
+    <rect x="60" y="168" width="10" height="4" transform="rotate(-20 65 170)" style="fill:var(--spr2)"/>
+    <rect x="104" y="160" width="10" height="4" transform="rotate(50 109 162)" style="fill:var(--spr1)"/>
+    <rect x="140" y="140" width="10" height="4" transform="rotate(-60 145 142)" style="fill:var(--spr3)"/>
+    <rect x="78" y="124" width="10" height="4" transform="rotate(15 83 126)" style="fill:var(--spr3)"/>
+    <rect x="124" y="110" width="10" height="4" transform="rotate(-25 129 112)" style="fill:var(--spr2)"/>
+    <rect x="94" y="88" width="10" height="4" transform="rotate(80 99 90)" style="fill:var(--spr1)"/>
+    <rect x="44" y="196" width="10" height="4" transform="rotate(-70 49 198)" style="fill:var(--spr3)"/>
+    <rect x="166" y="206" width="10" height="4" transform="rotate(20 171 208)" style="fill:var(--spr1)"/>
+  </g>
+</defs></svg>
+<div class="bgk"><div class="kp-spr-bg"></div></div>
+
+<section class="sc s1">
+  <div class="kp-head">
+    <p class="kp-inv a-rise" style="--d:.15s" data-t="invite"></p>
+    <p class="kp-dear a-rise" style="--d:.35s" data-t="dear" data-if="guest" data-fit="26,14"></p>
+  </div>
+  <div class="kp-cake">
+    <svg viewBox="0 0 220 280" aria-hidden="true">
+      <g class="kp-base"><use href="#kp-base"/></g>
+      <g class="kp-pipe">
+        <path class="kp-cream c0" pathLength="1" d="M38 214Q110 236 182 214Q190 186 110 190Q34 186 48 160Q110 140 172 160Q180 130 110 134Q56 132 66 108Q110 88 154 108Q160 82 110 82Q84 80 96 60Q110 50 122 58"/>
+        <path class="kp-cream c1" pathLength="1" d="M38 214Q110 236 182 214Q190 186 110 190Q34 186 48 160Q110 140 172 160Q180 130 110 134Q56 132 66 108Q110 88 154 108Q160 82 110 82Q84 80 96 60Q110 50 122 58"/>
+        <path class="kp-cream c2" pathLength="1" d="M38 214Q110 236 182 214Q190 186 110 190Q34 186 48 160Q110 140 172 160Q180 130 110 134Q56 132 66 108Q110 88 154 108Q160 82 110 82Q84 80 96 60Q110 50 122 58"/>
+      </g>
+      <g class="kp-spr">
+        <rect x="70" y="200" width="10" height="4" transform="rotate(30 75 202)" style="fill:var(--spr1);--d:2.6s"/>
+        <rect x="130" y="206" width="10" height="4" transform="rotate(-40 135 208)" style="fill:var(--spr2);--d:2.65s"/>
+        <rect x="160" y="176" width="10" height="4" transform="rotate(70 165 178)" style="fill:var(--spr3);--d:2.7s"/>
+        <rect x="60" y="168" width="10" height="4" transform="rotate(-20 65 170)" style="fill:var(--spr2);--d:2.75s"/>
+        <rect x="104" y="160" width="10" height="4" transform="rotate(50 109 162)" style="fill:var(--spr1);--d:2.8s"/>
+        <rect x="140" y="140" width="10" height="4" transform="rotate(-60 145 142)" style="fill:var(--spr3);--d:2.85s"/>
+        <rect x="78" y="124" width="10" height="4" transform="rotate(15 83 126)" style="fill:var(--spr3);--d:2.9s"/>
+        <rect x="124" y="110" width="10" height="4" transform="rotate(-25 129 112)" style="fill:var(--spr2);--d:2.95s"/>
+        <rect x="94" y="88" width="10" height="4" transform="rotate(80 99 90)" style="fill:var(--spr1);--d:3s"/>
+        <rect x="44" y="196" width="10" height="4" transform="rotate(-70 49 198)" style="fill:var(--spr3);--d:3.05s"/>
+        <rect x="166" y="206" width="10" height="4" transform="rotate(20 171 208)" style="fill:var(--spr1);--d:3.1s"/>
+      </g>
+      <g class="kp-cdl" style="--d:3s"><use href="#kp-candle"/></g>
+      <g class="kp-light" style="--d:3.55s"><ellipse class="kp-glow" cx="110" cy="-8" rx="16" ry="20"/>
+        <path class="kp-fl" d="M110 -24C102 -12 100 -4 110 2C120 -4 118 -12 110 -24Z"/><path class="kp-fl b" d="M110 -12C106 -6 106 -2 110 1C114 -2 114 -6 110 -12Z"/></g>
+    </svg>
+    <p class="kp-num" data-t="age_n" data-if="age"></p>
+    <div class="kp-bag"><svg viewBox="0 0 46 76" aria-hidden="true"><path class="bag" d="M2 4Q23 -4 44 4L28 62H18Z"/><path class="tip" d="M17 60H29L25 76H21Z"/></svg></div>
+  </div>
+  <p class="kp-ev a-fade" style="--d:3.2s" data-t="event"></p>
+  <p class="kp-name a-blur" style="--d:3.4s" data-t="name" data-fit="50,22,16"></p>
+</section>
+
+<section class="sc s2">
+  <div class="kp-cake">
+    <svg viewBox="0 0 220 280" aria-hidden="true">
+      <use href="#kp-base"/>
+      <use href="#kp-swirl" class="kp-cream c0"/><use href="#kp-swirl" class="kp-cream c1"/><use href="#kp-swirl" class="kp-cream c2" transform="translate(-2 -6)"/>
+      <use href="#kp-sprs"/><use href="#kp-candle"/>
+      <g class="kp-out"><ellipse class="kp-glow" cx="110" cy="-8" rx="16" ry="20"/>
+        <path class="kp-fl" d="M110 -24C102 -12 100 -4 110 2C120 -4 118 -12 110 -24Z"/><path class="kp-fl b" d="M110 -12C106 -6 106 -2 110 1C114 -2 114 -6 110 -12Z"/></g>
+      <path class="kp-smoke" pathLength="1" d="M110 0C100 -14 122 -24 110 -38C98 -52 120 -60 112 -76"/>
+      <g class="kp-wind"><path pathLength="1" d="M-70 -20Q0 -30 96 -12"/><path pathLength="1" style="--k:.12s" d="M-80 4Q0 -6 92 -2"/><path pathLength="1" style="--k:.06s" d="M-70 -44Q10 -40 92 -24"/></g>
+    </svg>
+    <p class="kp-num" style="animation:none" data-t="age_n" data-if="age"></p>
+  </div>
+  <div class="ptc" data-particles="confetti" data-n="30" data-at="7.3" data-colors="var(--spr1),var(--spr2),var(--spr3),var(--accent)"></div>
+  <div class="kp-col">
+    <p class="kp-event a-fade" style="--d:.3s" data-t="event"></p>
+    <p class="kp-big a-blur" style="--d:.45s" data-t="name" data-fit="50,22,16"></p>
+    <p class="kp-age a-pop" style="--d:.8s" data-t="age" data-if="age"></p>
+    <p class="kp-date a-rise" style="--d:1s" data-t="date" data-fit="25,14"></p>
+    <p class="kp-wt a-rise" style="--d:1.2s" data-t="wt"></p>
+  </div>
+</section>
+
+<section class="sc s3">
+  <div class="kp-scal t"></div><div class="kp-scal b"></div>
+  <div class="tv-details" data-std="details"></div>
+</section>
+
+<section class="sc s4">
+  <svg class="kp-mini" viewBox="20 -30 180 334" aria-hidden="true">
+    <use href="#kp-base"/><use href="#kp-swirl" class="kp-cream c0"/><use href="#kp-swirl" class="kp-cream c1"/><use href="#kp-sprs"/><use href="#kp-candle"/>
+    <path class="kp-fl" d="M110 -24C102 -12 100 -4 110 2C120 -4 118 -12 110 -24Z"/>
+  </svg>
+  <div class="tv-final" data-std="final"></div>
+  <div class="ptc" data-particles="confetti" data-n="40" data-at="15.2" data-colors="var(--spr1),var(--spr2),var(--spr3),var(--accent)"></div>
+  <div class="tv-brand" data-std="brand" data-if="free"></div>
+</section>
