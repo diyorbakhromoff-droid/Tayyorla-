@@ -931,6 +931,13 @@
           <div class="kpis pr-kpi"><div><b>${fmt(st.offered)}</b><span>chegirma taklif qilindi</span></div>
             <div><b>${fmt(st.used)}</b><span>chegirmada sotib oldi · ${conv}%</span></div>
             <div><b>${fmt(st.revenue)}</b><span>chegirmadan tushum, so'm</span></div></div></section>
+        <section class="blk"><div class="bh"><h2>Chegirma — kunlar bo'yicha</h2><span class="sub">oxirgi 14 kun, Toshkent vaqti</span></div>
+          ${table(["Kun", ">Yangi namunalarga", ">Eski namunalarga", ">Eslatmalar", ">Chegirmada sotib oldi", ">Tushum, so'm"], (d.daily || []).map((r) => {
+            const sent = r.offer + r.bf;
+            return `<tr><td class="num">${day(r.day)}</td><td class="r num">${fmt(r.offer)}</td><td class="r num">${fmt(r.bf)}</td><td class="r num">${fmt(r.rem)}</td>
+              <td class="r num"><b>${fmt(r.buy)}</b>${sent && r.buy ? `<span class="sub">${Math.round((100 * r.buy) / sent)}%</span>` : ""}</td><td class="r num">${r.revenue ? fmt(r.revenue) : "—"}</td></tr>`;
+          }), "Hali ma'lumot yo'q")}
+          <p class="muted" style="font-size:12.5px;margin-top:8px">«Yangi» va «eski namunalarga» — nechta kishiga taklif yuborilgani (bir kishi kuniga bir marta sanaladi). Hisob shu yangilanishdan boshlab yuritiladi.</p></section>
         <section class="blk"><div class="bh"><h2>Eski namunalarga chegirma</h2>${tag(bf.on ? "Yuborilmoqda" : bf.finished ? "Tugadi" : "To'xtatilgan", bf.on ? "warn" : bf.finished ? "good" : "")}</div>
           <div class="form">
             <p>Kimga yuborilishini tizim o'zi hisoblaydi — sonini kiritish shart emas. Shart: namunasi <b>tayyor</b> bo'lgan, sotib olmagan,

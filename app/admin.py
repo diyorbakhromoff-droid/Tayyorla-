@@ -1398,7 +1398,7 @@ async def admin_page():
 async def pricing_get(uid: int = Depends(admin_uid)):
     from . import pricing
     cfg = await pricing.config()
-    return {**cfg, "packs_public": pricing.packs_public(cfg), "stats": await pricing.stats(),
+    return {**cfg, "packs_public": pricing.packs_public(cfg), "stats": await pricing.stats(), "daily": await pricing.daily(14),
             "backfill": {**await pricing.backfill_state(), **await pricing.backfill_breakdown()}}
 
 

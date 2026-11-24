@@ -149,6 +149,11 @@ async def main():
         kinds = (await s.execute(__import__("sqlalchemy").select(BalanceTx.kind).where(BalanceTx.user_id == 5))).scalars().all()
         assert "song_pack" in kinds and "song_credit" in kinds
     assert any("paketi faollashdi" in t for _, t, _ in bot.msgs)
+    # kunlik hisobot (bugungi kun): 1 kishiga taklif (2), eslatmalar (3 ta 2 ga + 1 ta 6 ga), chegirmada 1 xarid (39 000)
+    d0 = (await pricing.daily(14))[0]
+    assert (d0["offer"], d0["rem"], d0["buy"], d0["revenue"]) == (1, 4, 1, 39000), d0
+    page = await admin.pricing_get(uid=999)
+    assert len(page["daily"]) == 14 and page["daily"][0] == d0
     store.forget()
     print("✅ Narxlar, paketlar va chegirma tekshiruvi o'tdi")
 

@@ -82,6 +82,7 @@ async def main():
     async with Session() as s:
         until = (await s.get(Song, 11)).promo_until
     assert await pricing.remind_due(bot, until - timedelta(minutes=359)) >= 1
+    assert (await pricing.daily(3))[0]["bf"] == 2, "eski namunalarga yuborilganlar kunlik hisobotda"
     print("✅ Eski namunalarga chegirma tarqatmasi tekshiruvi o'tdi")
 
 

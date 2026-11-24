@@ -18,7 +18,7 @@ from sqlalchemy import select, update
 
 from . import billing, store
 from .config import settings
-from .db import BalanceTx, Session, Song, User, utcnow
+from .db import BalanceTx, Event, Session, Song, User, utcnow
 
 log = logging.getLogger(__name__)
 
@@ -203,6 +203,7 @@ async def offer_due(bot, now: datetime | None = None) -> int:
         try:
             await bot.send_message(song.owner_id, text, reply_markup=_keyboard(song, promo["price"]))
             sent += 1
+            await log_event(song.owner_id, EV_OFFER, song.id)
         except Exception:
             log.warning("Chegirma xabarini yuborib bo'lmadi: %s", song.owner_id)
         await asyncio.sleep(0.05)
@@ -277,6 +278,7 @@ async def remind_due(bot, now: datetime | None = None) -> int:
         try:
             await bot.send_message(song.owner_id, text, reply_markup=_keyboard(song, song.promo_price))
             sent += 1
+            await log_event(song.owner_id, EV_REMIND, song.id, f":{k + 1}")
         except Exception:
             log.warning("Chegirma eslatmasini yuborib bo'lmadi: %s", song.owner_id)
         await asyncio.sleep(0.04)  # ~25 xabar/soniya — Telegram chegarasidan past
@@ -295,6 +297,54 @@ async def loop(bot, interval: int = 180) -> None:
         except Exception:
             log.exception("Chegirma tsiklida xato")
         await asyncio.sleep(interval)
+
+
+# ---------------------------------------------------------------- kunlik hisobot (admin)
+EV_OFFER, EV_BACKFILL, EV_REMIND, EV_BUY = "promo_offer", "promo_bf", "promo_rem", "promo_buy"
+EV_KINDS = (EV_OFFER, EV_BACKFILL, EV_REMIND, EV_BUY)
+
+
+async def log_event(uid: int, kind: str, song_id: int, extra: str = "", s=None) -> None:
+    """Chegirma hodisasi (src = qo'shiq id). s berilsa — o'sha tranzaksiyaga qo'shiladi."""
+    ev = Event(user_id=uid, kind=kind, src=f"{song_id}{extra}"[:32])
+    if s is not None:
+        s.add(ev)
+        return
+    async with Session() as s2:
+        s2.add(ev)
+        await s2.commit()
+
+
+async def daily(days: int = 14, now: datetime | None = None) -> list[dict]:
+    """Oxirgi `days` kun (Toshkent vaqti), yangisi tepada: nechta kishiga taklif, eski namunalarga, eslatma, xarid va tushum."""
+    now = now or utcnow()
+    today = now.replace(tzinfo=timezone.utc).astimezone(TZ).date()
+    start = datetime(today.year, today.month, today.day, tzinfo=TZ) - timedelta(days=days - 1)
+    start = start.astimezone(timezone.utc).replace(tzinfo=None)
+    async with Session() as s:
+        rows = (await s.execute(select(Event.kind, Event.user_id, Event.src, Event.created_at).where(
+            Event.kind.in_(EV_KINDS), Event.created_at >= start))).all()
+        bought = [int(r[2].split(":")[0]) for r in rows if r[0] == EV_BUY and r[2].split(":")[0].isdigit()]
+        prices = dict((await s.execute(select(Song.id, Song.price).where(Song.id.in_(bought or [0])))).all())
+    out = {}
+    for i in range(days):
+        d = today - timedelta(days=i)
+        out[d] = {"day": d.isoformat(), "offer": set(), "bf": set(), "rem": 0, "buy": 0, "revenue": 0}
+    for kind, uid, src, at in rows:
+        row = out.get(at.replace(tzinfo=timezone.utc).astimezone(TZ).date())
+        if not row:
+            continue
+        if kind == EV_OFFER:
+            row["offer"].add(uid)
+        elif kind == EV_BACKFILL:
+            row["bf"].add(uid)
+        elif kind == EV_REMIND:
+            row["rem"] += 1
+        elif kind == EV_BUY:
+            row["buy"] += 1
+            sid = src.split(":")[0]
+            row["revenue"] += prices.get(int(sid), 0) if sid.isdigit() else 0
+    return [{**r, "offer": len(r["offer"]), "bf": len(r["bf"])} for r in out.values()]
 
 
 async def stats() -> dict:
@@ -419,6 +469,7 @@ async def backfill_due(bot, now: datetime | None = None) -> int:
             await bot.send_message(song.owner_id, backfill_text((user.first_name or "").strip(), song, promo, song.promo_until, now),
                                    reply_markup=_keyboard(song, promo["price"]))
             sent += 1
+            await log_event(song.owner_id, EV_BACKFILL, song.id)
         except TelegramForbiddenError:
             blocked.append(song.owner_id)
         except Exception:

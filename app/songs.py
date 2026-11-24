@@ -535,6 +535,10 @@ async def pay(s, song: Song, uid: int) -> bool:
     price = await price_for(s, uid, song)
     if not await billing.spend(s, uid, price, "song", f"song:{song.id}"):
         return False
+    from .pricing import EV_BUY, log_event, promo_of
+    promo = promo_of(song)
+    if promo and price == promo["price"]:
+        await log_event(uid, EV_BUY, song.id, s=s)  # chegirmada sotib oldi (kunlik hisobot uchun)
     song.paid, song.price, song.status, song.error, song.updated_at = True, price, "paid_queued", "", utcnow()
     return True
 
