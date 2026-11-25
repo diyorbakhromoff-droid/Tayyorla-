@@ -25,8 +25,8 @@ KEY = "cardpay"
 TZ = timezone(timedelta(hours=5))  # cheklardagi vaqt — Toshkent vaqti
 DEFAULTS = {
     "on": True,                     # admin paneldan o'chirsa bo'ladi
-    "card": "9860 0201 0280 3622",  # mijozlarga ko'rsatiladigan karta (admin paneldan o'zgartiriladi)
-    "owner": "Bakhromov Diyor",
+    "card": "5614 6818 1341 4798",  # mijozlarga ko'rsatiladigan karta (admin paneldan o'zgartiriladi)
+    "owner": "Bakhromov Diyorbek",
     "auto": True,          # shartlar bajarilsa admin kutmasdan tasdiqlansin
     "auto_max": 300_000,   # bundan katta summalar doim qo'lda tekshiriladi
     "window_min": 180,     # chekdagi vaqt to'lov ochilganidan keyin shuncha daqiqa ichida bo'lishi kerak
