@@ -17,7 +17,7 @@ import time as _time
 from collections import Counter, defaultdict
 from datetime import date, datetime, time, timedelta, timezone
 
-from fastapi import APIRouter, Depends, Header, HTTPException, Query, Request
+from fastapi import APIRouter, Depends, File, Header, HTTPException, Query, Request, UploadFile
 from fastapi.responses import HTMLResponse, RedirectResponse, Response
 from pydantic import BaseModel, Field
 from sqlalchemy import func, select, update
@@ -1067,6 +1067,40 @@ class BroadcastIn(BaseModel):
     code: str = ""
     text: str = Field("", max_length=3500)
     button: bool = True
+    media: str = Field("", max_length=200)   # Telegram file_id (/broadcast/media dan)
+    kind: str = Field("", max_length=8)      # photo | video
+
+
+CAPTION_MAX = 1024                            # Telegram: rasm/video izohi chegarasi
+MEDIA_MAX = {"photo": 10 * 1024 * 1024, "video": 20 * 1024 * 1024}  # Caddy 25 MB gacha o'tkazadi
+
+
+@router.post("/broadcast/media")
+async def broadcast_media(file: UploadFile = File(...), uid: int = Depends(admin_uid)):
+    """Rasm yoki videoni Telegramga yuklaydi (adminning o'ziga namuna sifatida yuboriladi) va file_id qaytaradi.
+    Tarqatmada fayl qayta yuklanmaydi — hammaga shu file_id bilan yuboriladi."""
+    from aiogram.types import BufferedInputFile
+    if not videobot.BOT:
+        raise HTTPException(503, "Bot ishlamayapti")
+    ct = (file.content_type or "").lower()
+    kind = "photo" if ct in ("image/jpeg", "image/png", "image/webp") else "video" if ct in ("video/mp4", "video/quicktime") else ""
+    if not kind:
+        raise HTTPException(400, "Faqat rasm (JPG, PNG, WEBP) yoki video (MP4, MOV)")
+    data = await file.read(MEDIA_MAX[kind] + 1)
+    if len(data) > MEDIA_MAX[kind]:
+        raise HTTPException(413, f"Fayl juda katta: {'rasm 10' if kind == 'photo' else 'video 20'} MB gacha")
+    inp = BufferedInputFile(data, filename=(file.filename or ("media.jpg" if kind == "photo" else "media.mp4"))[:60])
+    try:
+        if kind == "photo":
+            m = await videobot.BOT.send_photo(uid, inp, caption="🖼 Tarqatma uchun yuklandi")
+            fid = m.photo[-1].file_id
+        else:
+            m = await videobot.BOT.send_video(uid, inp, caption="🎬 Tarqatma uchun yuklandi", supports_streaming=True)
+            fid = (m.video or m.document or m.animation).file_id
+    except Exception as e:
+        log.warning("Tarqatma faylini yuklab bo'lmadi: %s", e)
+        raise HTTPException(400, "Telegram faylni qabul qilmadi. Boshqa formatda yoki kichikroq qilib yuklang.")
+    return {"media": fid, "kind": kind}
 
 
 @router.post("/broadcast/count")
@@ -1083,8 +1117,12 @@ async def broadcast_state(uid: int = Depends(admin_uid)):
 
 @router.post("/broadcast")
 async def broadcast_start(body: BroadcastIn, uid: int = Depends(admin_uid)):
-    if body.segment not in SEGMENTS or not body.text.strip():
-        raise HTTPException(400, "Segment va matnni kiriting")
+    if body.segment not in SEGMENTS or not (body.text.strip() or body.media):
+        raise HTTPException(400, "Segment va matn (yoki rasm/video) kiriting")
+    if body.media and body.kind not in ("photo", "video"):
+        raise HTTPException(400, "Fayl turi noma'lum")
+    if body.media and len(body.text.strip()) > CAPTION_MAX:
+        raise HTTPException(400, f"Rasm/video bilan matn {CAPTION_MAX} belgidan oshmasin (hozir {len(body.text.strip())})")
     if BROADCAST.get("running"):
         raise HTTPException(409, "Avvalgi tarqatma hali tugamagan")
     if not videobot.BOT:
@@ -1093,11 +1131,11 @@ async def broadcast_start(body: BroadcastIn, uid: int = Depends(admin_uid)):
     BROADCAST.clear()
     BROADCAST.update(running=True, total=len(ids), sent=0, failed=0, blocked=0, segment=SEGMENTS[body.segment],
                      started=utcnow().isoformat(), by=uid)
-    asyncio.create_task(_run_broadcast(ids, body.text.strip(), body.button))
+    asyncio.create_task(_run_broadcast(ids, body.text.strip(), body.button, body.media, body.kind))
     return {"ok": True, "total": len(ids)}
 
 
-async def _run_broadcast(ids: list[int], text: str, button: bool) -> None:
+async def _run_broadcast(ids: list[int], text: str, button: bool, media: str = "", kind: str = "") -> None:
     from aiogram.exceptions import TelegramForbiddenError, TelegramRetryAfter
     from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup, WebAppInfo
     bot = videobot.BOT
@@ -1109,7 +1147,13 @@ async def _run_broadcast(ids: list[int], text: str, button: bool) -> None:
         for uid in ids:
             for attempt in range(2):
                 try:
-                    await bot.send_message(uid, text, parse_mode=None, reply_markup=markup)
+                    if media and kind == "photo":
+                        await bot.send_photo(uid, media, caption=text or None, parse_mode=None, reply_markup=markup)
+                    elif media:
+                        await bot.send_video(uid, media, caption=text or None, parse_mode=None, reply_markup=markup,
+                                             supports_streaming=True)
+                    else:
+                        await bot.send_message(uid, text, parse_mode=None, reply_markup=markup)
                     BROADCAST["sent"] += 1
                     break
                 except TelegramRetryAfter as e:

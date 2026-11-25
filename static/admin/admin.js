@@ -30,7 +30,8 @@
     if (tg && tg.initData) headers["X-Init-Data"] = tg.initData;
     if (S.token) headers["X-Admin-Token"] = S.token;
     const opt = { method: method || (body ? "POST" : "GET"), headers };
-    if (body) { headers["Content-Type"] = "application/json"; opt.body = JSON.stringify(body); }
+    if (body instanceof FormData) opt.body = body; // fayl yuklash: brauzer o'zi multipart qiladi
+    else if (body) { headers["Content-Type"] = "application/json"; opt.body = JSON.stringify(body); }
     const r = await fetch(path, opt);
     if (!r.ok) {
       let msg = `Xato ${r.status}`;
@@ -677,7 +678,11 @@
         <label class="f">Kimga<select class="in" name="segment">${d.segments.map((s) => `<option value="${s.key}">${esc(s.name)}</option>`).join("")}</select></label>
         <label class="f" id="bc-src" hidden>Manba<select class="in" name="code">${src.links.map((l) => `<option value="${esc(l.code)}">${esc(l.name)}</option>`).join("")}</select></label>
         <p class="muted" id="bc-n">Hisoblanmoqda…</p>
-        <label class="f">Matn<textarea class="in" name="text" maxlength="3500" required placeholder="Xabar matni"></textarea></label>
+        <div class="f">Rasm yoki video <small>ixtiyoriy · rasm 10 MB, video (MP4) 20 MB gacha</small>
+          <div class="row" style="margin-top:6px"><label class="btn" style="cursor:pointer">Fayl tanlash<input type="file" id="bc-file" accept="image/jpeg,image/png,image/webp,video/mp4,video/quicktime" hidden></label>
+            <button type="button" class="btn" id="bc-rm" hidden>Olib tashlash</button><span class="muted" id="bc-fs" style="font-size:12.5px"></span></div>
+          <div id="bc-prev" style="margin-top:8px"></div></div>
+        <label class="f">Matn <small id="bc-lim">3500 belgigacha</small><textarea class="in" name="text" maxlength="3500" placeholder="Xabar matni"></textarea></label>
         <label class="row" style="font-size:13px"><input type="checkbox" name="button" checked> Xabar ostida «Ilovani ochish» tugmasi bo'lsin</label>
         <div class="row"><button class="btn primary" type="submit" ${st.running ? "disabled" : ""}>Yuborish</button>
           <span class="muted" style="font-size:12.5px">Avval «Faqat o'zim (sinov)» bilan tekshirib ko'ring.</span></div>
@@ -691,10 +696,35 @@
     };
     form.segment.onchange = count; if (form.code) form.code.onchange = count;
     count();
+    let media = null; // {media, kind} — Telegramga yuklangan fayl
+    const setLimit = () => {
+      const lim = media ? 1024 : 3500;
+      form.text.maxLength = lim;
+      $("#bc-lim").textContent = media ? "rasm/video izohi — 1024 belgigacha" : "3500 belgigacha";
+    };
+    $("#bc-file").onchange = async (e) => {
+      const f = e.target.files[0]; if (!f) return;
+      const isV = f.type.startsWith("video/");
+      if (f.size > (isV ? 20 : 10) * 1024 * 1024) { toast(`Fayl juda katta: ${isV ? "video 20" : "rasm 10"} MB gacha`, true); e.target.value = ""; return; }
+      const url = URL.createObjectURL(f);
+      $("#bc-prev").innerHTML = isV ? `<video src="${url}" controls muted playsinline style="max-width:320px;max-height:320px;border-radius:12px"></video>`
+        : `<img src="${url}" alt="Tanlangan rasm" style="max-width:320px;max-height:320px;border-radius:12px">`;
+      $("#bc-fs").textContent = "Telegramga yuklanmoqda…"; media = null;
+      const fd = new FormData(); fd.append("file", f);
+      try {
+        media = await api("/api/admin/broadcast/media", fd);
+        $("#bc-fs").textContent = `${isV ? "Video" : "Rasm"} tayyor (${(f.size / 1048576).toFixed(1)} MB) — namunasi botda sizga yuborildi`;
+        $("#bc-rm").hidden = false;
+      } catch (err) { toast(err.message, true); $("#bc-fs").textContent = ""; $("#bc-prev").innerHTML = ""; e.target.value = ""; }
+      setLimit();
+    };
+    $("#bc-rm").onclick = () => { media = null; $("#bc-file").value = ""; $("#bc-prev").innerHTML = ""; $("#bc-fs").textContent = ""; $("#bc-rm").hidden = true; setLimit(); };
     form.onsubmit = async (e) => {
       e.preventDefault(); const fd = new FormData(form);
+      if (!media && !String(fd.get("text") || "").trim()) { toast("Matn yozing yoki rasm/video yuklang", true); return; }
+      if ($("#bc-fs").textContent.endsWith("…")) { toast("Fayl hali yuklanmoqda", true); return; }
       if (!confirm(`Xabar ${fmt(+form.dataset.n || 0)} kishiga yuborilsinmi? Buni ortga qaytarib bo'lmaydi.`)) return;
-      try { const r = await api("/api/admin/broadcast", { segment: fd.get("segment"), code: fd.get("code") || "", text: fd.get("text"), button: !!fd.get("button") }); toast(`Boshlandi: ${fmt(r.total)} kishi`); poll(); }
+      try { const r = await api("/api/admin/broadcast", { segment: fd.get("segment"), code: fd.get("code") || "", text: fd.get("text"), button: !!fd.get("button"), ...(media || {}) }); toast(`Boshlandi: ${fmt(r.total)} kishi`); poll(); }
       catch (err) { toast(err.message, true); }
     };
     if (st.running) poll();
