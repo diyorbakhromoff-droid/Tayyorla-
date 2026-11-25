@@ -11,7 +11,7 @@ from fastapi.responses import HTMLResponse, Response
 from pydantic import BaseModel, Field
 from sqlalchemy import func, select
 
-from . import ai, billing, i18n, video, videobot
+from . import ai, billing, i18n, receipt, video, videobot
 from .config import MEDIA_DIR, MUSIC_DIR, settings
 from .db import BalanceTx, MusicTrack, Payment, RenderJob, Session, Site, User, new_slug, utcnow
 from .webapp import _rate_limit, check_init_data
@@ -74,6 +74,7 @@ async def video_meta(lang: str = "uz"):
         "langs": [{"key": k, "name": v} for k, v in i18n.LANG_NAMES.items()],
         "price": settings.video_price, "free_per_day": settings.free_videos_per_day, "topups": settings.topups,
         "topup_min": settings.topup_min, "topup_max": 10_000_000, "click": settings.click_on,
+        "card": receipt.enabled(await receipt.config()),
         "packages": [{"size": n, "price": p} for n, p in settings.packages],
         "channel": settings.channel_link, "channel_name": settings.channel_username, "bot": settings.bot_username,
         "seconds": settings.video_seconds, "event_names": i18n.card(lang)["events"],
@@ -476,7 +477,22 @@ async def topup(body: TopupIn, x_init_data: str = Header("")):
         await s.commit()
     await videobot.send_payment_prompt(p.id)
     from .click import pay_url
-    return {"ok": True, "payment": p.id, "click_url": pay_url(p.id, p.amount)}
+    card = receipt.enabled(await receipt.config())
+    return {"ok": True, "payment": p.id, "amount": p.amount, "card": card,
+            "click_url": pay_url(p.id, p.amount) if settings.click_on else ""}
+
+
+@router.post("/api/pay/{pid}/card")
+async def pay_by_card(pid: int, x_init_data: str = Header("")):
+    """Mini App: «Karta raqamiga o'tkazish» tanlandi — karta ma'lumoti (botga ham yuboriladi)."""
+    uid, _ = _uid(x_init_data)
+    from .bot.money import card_payment
+    p = await card_payment(pid, uid)
+    if not p:
+        raise HTTPException(404, "To'lov topilmadi yoki yopilgan")
+    cfg = await receipt.config()
+    return {"ok": True, "card": cfg["card"], "owner": cfg["owner"], "amount": p.amount,
+            "bot": f"https://t.me/{settings.bot_username}"}
 
 
 @router.post("/api/sites/{slug}/pay")

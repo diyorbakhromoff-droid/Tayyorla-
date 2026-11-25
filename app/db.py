@@ -204,8 +204,9 @@ class Payment(Base):
     site_id: Mapped[int | None] = mapped_column(Integer, nullable=True)  # to'lovdan keyin balansdan to'lanadigan sayt
     song_id: Mapped[int | None] = mapped_column(Integer, nullable=True)  # to'lovdan keyin balansdan to'lanadigan qo'shiq
     pack: Mapped[int] = mapped_column(Integer, default=0)  # to'lovdan keyin sotib olinadigan qo'shiq paketi (soni)
-    provider: Mapped[str] = mapped_column(String(12), default="")  # "" — chek orqali, "click"
+    provider: Mapped[str] = mapped_column(String(12), default="")  # "" — eski chek, "click", "card" — karta raqamiga o'tkazma
     ext_id: Mapped[str] = mapped_column(String(40), default="")  # to'lov tizimidagi tranzaksiya raqami
+    receipt_hash: Mapped[str] = mapped_column(String(64), default="", index=True)  # chek faylining sha256 (takror chek)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=utcnow)
     decided_at: Mapped[datetime | None] = mapped_column(DateTime, nullable=True)
 
@@ -361,6 +362,7 @@ _NEW_COLUMNS = [
     ("songs", "promo_until", "TIMESTAMP"),
     ("songs", "promo_price", "INTEGER DEFAULT 0 NOT NULL"),
     ("songs", "promo_sent", "INTEGER DEFAULT 0 NOT NULL"),
+    ("payments", "receipt_hash", "VARCHAR(64) DEFAULT '' NOT NULL"),
 ]
 
 

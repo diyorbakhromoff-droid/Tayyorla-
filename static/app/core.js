@@ -356,11 +356,46 @@
         const r = await api("/api/pay/topup", { amount: pick, site, ...(song ? { song: +song } : {}), ...(pack ? { pack: +pack } : {}) });
         notify("success");
         s.close();
-        if (r && r.click_url) openLink(r.click_url); // Click to'lov sahifasi; to'lov o'tgach balans o'zi to'ladi
-        App.paySentSheet(onSent);
+        if (r && r.card && r.click_url) App.payChooseSheet(r, onSent);
+        else if (r && r.card) App.cardSheet(r.payment, onSent);
+        else {
+          if (r && r.click_url) openLink(r.click_url); // Click to'lov sahifasi; to'lov o'tgach balans o'zi to'ladi
+          App.paySentSheet(onSent);
+        }
       } catch (err) { busy(e.currentTarget, false); toast(err.message); }
     };
     return s;
+  };
+  /** Click yoki karta raqamiga o'tkazma — ikkalasi yoqilgan bo'lsa tanlash. */
+  App.payChooseSheet = (r, onSent) => {
+    const s = sheet(`
+      <div class="sh-head"><span class="sh-ic">${icon("wallet")}</span><div><h1>${esc(T("pay.choose_t"))}</h1>
+        <p>${esc(T("pay.choose_s", { sum: money(r.amount) }))}</p></div></div>
+      <button type="button" class="btn" id="pcClick">${esc(T("pay.via_click"))}<small style="display:block;font-weight:500;opacity:.8">${esc(T("pay.via_click_s"))}</small></button>
+      <button type="button" class="btn ghost" id="pcCard">${esc(T("pay.via_card"))}<small style="display:block;font-weight:500;opacity:.8">${esc(T("pay.via_card_s"))}</small></button>`, { label: T("pay.choose_t") });
+    $("#pcClick", s.el).onclick = () => { haptic(); s.close(); openLink(r.click_url); App.paySentSheet(onSent); };
+    $("#pcCard", s.el).onclick = () => { haptic(); s.close(); App.cardSheet(r.payment, onSent); };
+  };
+  /** Karta raqami: nusxalash, aniq summa, keyin chekni botga yuborish. */
+  App.cardSheet = async (pid, onSent) => {
+    let c;
+    try { c = await api(`/api/pay/${pid}/card`, {}); } catch (err) { toast(err.message); return; }
+    const s = sheet(`
+      <div class="sh-head"><span class="sh-ic">${icon("wallet")}</span><div><h1>${esc(T("pay.card_t"))}</h1>
+        <p>${esc(T("pay.card_s", { sum: money(c.amount) }))}</p></div></div>
+      <div class="field" style="display:flex;align-items:center;justify-content:space-between;gap:12px">
+        <div><b style="font-size:20px;letter-spacing:.04em;font-variant-numeric:tabular-nums">${esc(c.card)}</b>
+          <small style="display:block;opacity:.75">${esc(T("pay.card_owner"))}: ${esc(c.owner)}</small></div>
+        <button type="button" class="btn ghost" id="cdCopy" style="width:auto">${esc(T("pay.copy"))}</button></div>
+      <div class="field" style="display:flex;align-items:center;justify-content:space-between;gap:12px">
+        <b style="font-size:20px">${esc(money(c.amount))}</b>
+        <button type="button" class="btn ghost" id="cdCopySum" style="width:auto">${esc(T("pay.copy"))}</button></div>
+      <button type="button" class="btn night" id="cdGo">${esc(T("pay.card_go"))}</button>
+      <button type="button" class="btn ghost" id="cdStay">${esc(T("stay_here"))}</button>`, { label: T("pay.card_t") });
+    $("#cdCopy", s.el).onclick = () => { haptic(); copyText(c.card.replace(/\s/g, "")); toast(T("pay.copied")); };
+    $("#cdCopySum", s.el).onclick = () => { haptic(); copyText(String(c.amount)); toast(T("pay.copied")); };
+    $("#cdGo", s.el).onclick = () => closeApp();
+    $("#cdStay", s.el).onclick = () => { s.close(); if (onSent) onSent(); };
   };
   /** To'lov ko'rsatmasi botga yuborilgach: chatga o'tish. */
   App.paySentSheet = (after) => {

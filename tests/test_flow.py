@@ -174,7 +174,7 @@ async def main():
     await click(f"paid:{site.id}")
     await send(photo=[PhotoSize(file_id="chek", file_unique_id="c", width=10, height=10)])
     assert not any(chat == 999 and "Yangi to'lov" in text for chat, text, _ in session.sent)
-    assert "Chek endi qabul qilinmaydi" in last()
+    assert "Click orqali to‘lash" in last()  # eski chek oqimi: to‘lov tugmalariga yo‘naltiriladi
     await click(f"approve:{site.id}", user=USER)  # oddiy foydalanuvchi tasdiqlay olmaydi
     async with Session() as s:
         assert (await s.get(Site, site.id)).status == "draft"

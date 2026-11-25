@@ -813,6 +813,7 @@ async def payments(status: str = "pending", limit: int = Query(100, le=500), uid
         out.append({"id": p.id, "user_id": p.user_id, "name": u.first_name if u else "", "username": u.username if u else "",
                     "amount": p.amount, "status": p.status, "for_video": bool(p.job_id), "receipt": bool(p.receipt),
                     "provider": p.provider or "", "ext_id": p.ext_id or "",
+                    "auto": p.admin_id == 0 and p.status == "approved",
                     "admin": (a.first_name if a else p.admin_id) if p.admin_id else None,
                     "created_at": p.created_at.isoformat() if p.created_at else None,
                     "decided_at": p.decided_at.isoformat() if p.decided_at else None})
@@ -837,6 +838,44 @@ async def payment_decide(pid: int, body: Decision, uid: int = Depends(admin_uid)
     if res == "not_found":
         raise HTTPException(404)
     return {"ok": res == "ok", "already": res == "done"}
+
+
+class CardPayIn(BaseModel):
+    on: bool | None = None
+    card: str | None = Field(None, max_length=30)
+    owner: str | None = Field(None, max_length=60)
+    auto: bool | None = None
+    auto_max: int | None = Field(None, ge=0, le=10_000_000)
+    window_min: int | None = Field(None, ge=10, le=24 * 60)
+    daily_auto: int | None = Field(None, ge=0, le=50)
+
+
+@router.get("/cardpay")
+async def cardpay_get(uid: int = Depends(admin_uid)):
+    from . import receipt
+    cfg = await receipt.config()
+    return {**cfg, "enabled": receipt.enabled(cfg)}
+
+
+@router.post("/cardpay")
+async def cardpay_set(body: CardPayIn, uid: int = Depends(admin_uid)):
+    from . import receipt
+    cfg = await receipt.save(body.model_dump())
+    if cfg["on"] and not receipt.enabled(cfg):
+        raise HTTPException(400, "Karta raqami 16 xonali bo'lishi kerak")
+    return {**cfg, "enabled": receipt.enabled(cfg)}
+
+
+@router.post("/payments/{pid}/revert")
+async def payment_revert(pid: int, uid: int = Depends(admin_uid)):
+    """Avtomatik tasdiqlangan karta to'lovini bekor qilish (soxta chek)."""
+    from .bot.money import revert_payment
+    res = await revert_payment(pid, uid)
+    if res == "not_found":
+        raise HTTPException(404)
+    if res == "done":
+        raise HTTPException(409, "Bu to'lovni bekor qilib bo'lmaydi")
+    return {"ok": True, "partial": res == "spent"}
 
 
 @router.get("/payments/{pid}/receipt")

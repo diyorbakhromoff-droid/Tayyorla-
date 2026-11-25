@@ -179,17 +179,21 @@ async def status_text(job: RenderJob, lang: str) -> str:
 
 # ---------------------------------------------------------------- to'lovlar
 
-def pay_keyboard(payment_id: int, amount: int, lang: str) -> InlineKeyboardMarkup:
+def pay_keyboard(payment_id: int, amount: int, lang: str, card: bool = False) -> InlineKeyboardMarkup:
     from .click import pay_url
     kb = InlineKeyboardBuilder()
-    # to'lov faqat Click orqali: pul avtomatik tushadi, chek yuborilmaydi
-    kb.button(text=tr(lang, "bot.btn_click", amount=money(amount)), url=pay_url(payment_id, amount))
+    # Click — pul avtomatik tushadi; karta — mijoz chek yuboradi, AI tekshiradi
+    if settings.click_on:
+        kb.button(text=tr(lang, "bot.btn_click", amount=money(amount)), url=pay_url(payment_id, amount))
+    if card:
+        kb.button(text=tr(lang, "bot.btn_card"), callback_data=f"tcard:{payment_id}")
     kb.adjust(1)
     return kb.as_markup()
 
 
 async def send_payment_prompt(payment_id: int) -> None:
-    """Balansni to'ldirish ko'rsatmasi: Click orqali to'lash havolasi."""
+    """Balansni to'ldirish ko'rsatmasi: Click havolasi va/yoki karta raqamiga o'tkazish tugmasi."""
+    from . import receipt
     from .db import Payment
     bot = BOT
     if not bot:
@@ -198,13 +202,15 @@ async def send_payment_prompt(payment_id: int) -> None:
         p = await s.get(Payment, payment_id)
         job = await s.get(RenderJob, p.job_id) if p.job_id else None
     lang = await user_lang(p.user_id)
-    if not settings.click_on:
-        log.error("Click sozlanmagan — to'lov #%s uchun havola yuborilmadi", payment_id)
+    card = receipt.enabled(await receipt.config())
+    if not settings.click_on and not card:
+        log.error("Click ham, karta ham sozlanmagan — to'lov #%s uchun ko'rsatma yuborilmadi", payment_id)
         return
+    key = "bot.pay_both" if settings.click_on and card else "bot.pay_click" if settings.click_on else "bot.pay_card_only"
     try:
         note = tr(lang, "bot.pay_legal", url=f"{settings.base_url.rstrip('/')}/oferta")
-        await bot.send_message(p.user_id, tr(lang, "bot.pay_click", amount=money(p.amount)) + "\n\n" + note,
-                               reply_markup=pay_keyboard(p.id, p.amount, lang), disable_web_page_preview=True)
+        await bot.send_message(p.user_id, tr(lang, key, amount=money(p.amount)) + "\n\n" + note,
+                               reply_markup=pay_keyboard(p.id, p.amount, lang, card), disable_web_page_preview=True)
     except Exception:
         log.exception("To'lov ko'rsatmasini yuborib bo'lmadi")
 

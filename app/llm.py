@@ -88,13 +88,20 @@ async def active(tier: str) -> tuple[str, str]:
 
 
 async def generate(tier: str, system: str, prompt: str, max_tokens: int, effort: str = "medium",
-                   schema: dict | None = None, provider: str | None = None, model: str | None = None):
-    """Matn (schema bo'lsa — JSON matn) va usage (input_tokens, output_tokens, model)."""
+                   schema: dict | None = None, provider: str | None = None, model: str | None = None,
+                   image: tuple[bytes, str] | None = None):
+    """Matn (schema bo'lsa — JSON matn) va usage (input_tokens, output_tokens, model).
+    image=(baytlar, mime) — rasm yoki PDF (masalan, to'lov cheki) so'rovga qo'shiladi."""
     if not provider or not model:
         provider, model = await active(tier)
     if provider == "gemini":
-        return await _gemini(model, system, prompt, max_tokens, effort, schema)
-    return await _anthropic(model, system, prompt, max_tokens, effort, schema)
+        return await _gemini(model, system, prompt, max_tokens, effort, schema, image)
+    return await _anthropic(model, system, prompt, max_tokens, effort, schema, image)
+
+
+def _b64(data: bytes) -> str:
+    import base64
+    return base64.standard_b64encode(data).decode()
 
 
 # ---------------------------------------------------------------- Anthropic
@@ -106,12 +113,18 @@ def _anthropic_client() -> anthropic.AsyncAnthropic:
     return _client
 
 
-async def _anthropic(model, system, prompt, max_tokens, effort, schema):
+async def _anthropic(model, system, prompt, max_tokens, effort, schema, image=None):
     output_config = {"effort": effort}
     if schema:
         output_config["format"] = {"type": "json_schema", "schema": schema}
     args = dict(model=model, max_tokens=max_tokens, output_config=output_config, system=system,
                 messages=[{"role": "user", "content": prompt}])
+    if image:
+        data, mime = image
+        kind = "document" if mime == "application/pdf" else "image"
+        args["messages"] = [{"role": "user", "content": [
+            {"type": kind, "source": {"type": "base64", "media_type": mime, "data": _b64(data)}},
+            {"type": "text", "text": prompt}]}]
     if model != "claude-haiku-5-5":  # Haiku 5.5 da server tomonidagi zaxira model yo'q
         args.update(betas=["server-side-fallback-2026-07-01"], fallbacks="default")
         resp = await _anthropic_client().beta.messages.create(**args)
@@ -127,7 +140,7 @@ async def _anthropic(model, system, prompt, max_tokens, effort, schema):
 
 # ---------------------------------------------------------------- Google Gemini (generateContent)
 
-async def _gemini(model, system, prompt, max_tokens, effort, schema):
+async def _gemini(model, system, prompt, max_tokens, effort, schema, image=None):
     key = settings.gemini_key
     if not key:
         raise LLMError("Gemini kaliti kiritilmagan")
@@ -137,7 +150,10 @@ async def _gemini(model, system, prompt, max_tokens, effort, schema):
            "thinkingConfig": {"thinkingLevel": effort if effort in ("low", "medium", "high") else "medium"}}
     if schema:
         gen["responseFormat"] = {"text": {"mimeType": "APPLICATION_JSON", "schema": schema}}
-    body = {"system_instruction": {"parts": [{"text": system}]}, "contents": [{"role": "user", "parts": [{"text": prompt}]}],
+    parts = [{"text": prompt}]
+    if image:
+        parts.insert(0, {"inline_data": {"mime_type": image[1], "data": _b64(image[0])}})
+    body = {"system_instruction": {"parts": [{"text": system}]}, "contents": [{"role": "user", "parts": parts}],
             "generationConfig": gen}
     async with aiohttp.ClientSession(timeout=aiohttp.ClientTimeout(total=300)) as http:
         async with http.post(GEMINI_URL.format(model=model), headers={"x-goog-api-key": key, "Content-Type": "application/json"},

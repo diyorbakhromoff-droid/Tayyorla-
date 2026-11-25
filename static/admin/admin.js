@@ -429,26 +429,28 @@
   // ---------------------------------------------------------------- 4. To'lovlar
   // «new» — mijoz to'lov oynasini ochgan, lekin pul to'lamagan (Click tugallanmagan). Pul tushmagan, tasdiqlanmaydi.
   const PST = { pending: ["Chekni tekshirish", "warn"], new: ["To'lanmagan", ""], approved: ["To'landi", "good"], rejected: ["Rad etilgan", "bad"], cancelled: ["Bekor qilingan", "bad"] };
-  const pstOf = (p) => p.status === "approved" ? [p.provider === "click" ? "To'landi · Click" : "Tasdiqlangan (chek)", "good"]
+  const pstOf = (p) => p.status === "approved" ? [p.provider === "click" ? "To'landi · Click" : p.provider === "card" ? (p.auto ? "Karta · avtomatik" : "Karta · qo'lda") : "Tasdiqlangan (chek)", "good"]
     : p.status === "new" ? [p.provider === "click" ? "Click'da to'lanmadi" : "To'lanmagan", ""] : PST[p.status] || [p.status, ""];
   async function payments(alive) {
     loading("To'lovlar");
     S.payStatus = S.payStatus || "approved";
-    const d = await api(`/api/admin/payments?status=${S.payStatus}`);
+    const [d, cp] = await Promise.all([api(`/api/admin/payments?status=${S.payStatus}`), api("/api/admin/cardpay").catch(() => null)]);
     if (!alive()) return;
     if (S.payStatus === "pending") { S.pending = d.payments.length; nav(); }
     const rows = d.payments.map((p) => `<tr>
       <td class="num">#${p.id}<span class="sub">${dt(p.created_at)}</span></td>
       <td>${userLink(p)}</td>
-      <td class="r num"><b>${som(p.amount)}</b><span class="sub">${p.for_video ? "video uchun" : "balansga"}${p.provider === "click" ? ` · Click${p.ext_id ? ` ${esc(p.ext_id)}` : ""}` : ""}</span></td>
+      <td class="r num"><b>${som(p.amount)}</b><span class="sub">${p.for_video ? "video uchun" : "balansga"}${p.provider === "click" ? ` · Click${p.ext_id ? ` ${esc(p.ext_id)}` : ""}` : p.provider === "card" ? ` · karta${p.ext_id ? ` ${esc(p.ext_id)}` : ""}` : ""}</span></td>
       <td>${tag(...pstOf(p))}${p.decided_at ? `<span class="sub">${dt(p.decided_at)}${p.admin ? ` · ${esc(p.admin)}` : ""}</span>` : ""}</td>
       <td class="r"><div class="row" style="justify-content:flex-end">
         ${p.receipt ? `<button type="button" class="btn sm" data-receipt="${p.id}">Chek</button>` : ""}
         ${p.status === "pending" ? `<button type="button" class="btn sm good" data-ok="${p.id}">Tasdiqlash</button><button type="button" class="btn sm bad" data-no="${p.id}">Rad etish</button>` : ""}
+        ${p.status === "approved" && p.provider === "card" ? `<button type="button" class="btn sm bad" data-rev="${p.id}" title="Soxta chek bo'lsa: pul balansdan qaytarib yechiladi">Bekor qilish</button>` : ""}
         <button type="button" class="btn sm" data-user="${p.user_id}">Mijoz</button></div></td></tr>`);
     main().innerHTML = `
-      <div class="head"><div><h1>To'lovlar</h1><p>Click orqali to'lovlar avtomatik tushadi — tasdiqlash shart emas. «To'lanmagan» — mijoz to'lov oynasini ochgan, lekin to'lamagan.</p></div>
+      <div class="head"><div><h1>To'lovlar</h1><p>Click orqali to'lovlar avtomatik tushadi. Karta raqamiga o'tkazmalarda mijoz chek yuboradi: AI o'qiydi, shartlar bajarilsa avtomatik tasdiqlanadi, aks holda «Chekni tekshirish»ga tushadi. «To'lanmagan» — mijoz to'lov oynasini ochgan, lekin to'lamagan.</p></div>
         <button type="button" class="btn" id="exp-pay">To'lovlar CSV</button></div>
+      ${cp ? cardBlock(cp) : ""}
       <div class="period" role="group" aria-label="Holat">${[["approved", "To'langan"], ["new", "To'lanmagan"], ["pending", `Chekni tekshirish${S.pending ? ` (${S.pending})` : ""}`], ["rejected", "Rad etilgan"], ["all", "Hammasi"]]
         .map(([k, l]) => `<button type="button" class="chip" data-st="${k}" aria-pressed="${S.payStatus === k}">${l}</button>`).join("")}</div>
       <section class="blk">${table(["To'lov", "Mijoz", ">Summa", "Holat", ""], rows, S.payStatus === "pending" ? "Tekshirilishi kerak bo'lgan to'lov yo'q" : "To'lov yo'q")}</section>`;
@@ -464,8 +466,44 @@
       catch (err) { toast(err.message, true); btn.disabled = false; }
     };
     $$("[data-ok]").forEach((b) => (b.onclick = () => decide(+b.dataset.ok, true, b)));
+    $$("[data-rev]").forEach((b) => (b.onclick = async () => {
+      const p = d.payments.find((x) => x.id === +b.dataset.rev);
+      if (!confirm(`Bekor qilasizmi: #${p.id}, ${som(p.amount)}, ${p.name || p.user_id}? Pul mijoz balansidan qaytarib yechiladi.`)) return;
+      b.disabled = true;
+      try { const r = await api(`/api/admin/payments/${p.id}/revert`, {}); toast(r.partial ? "Bekor qilindi — pulning bir qismi ishlatib bo'lingan" : "Bekor qilindi, balansdan yechildi"); render(); }
+      catch (err) { toast(err.message, true); b.disabled = false; }
+    }));
+    if ($("#cardpay")) $("#cardpay").onsubmit = async (e) => {
+      e.preventDefault();
+      const f = e.target, btn = f.querySelector("button[type=submit]");
+      btn.disabled = true;
+      try {
+        await api("/api/admin/cardpay", { on: f.on.checked, card: f.card.value, owner: f.owner.value, auto: f.auto.checked,
+          auto_max: +f.auto_max.value || 0, window_min: +f.window_min.value || 180, daily_auto: +f.daily_auto.value || 0 });
+        toast("Saqlandi"); render();
+      } catch (err) { toast(err.message, true); btn.disabled = false; }
+    };
     $$("[data-no]").forEach((b) => (b.onclick = () => decide(+b.dataset.no, false, b)));
     main().decide = decide;
+  }
+  function cardBlock(c) {
+    return `<section class="blk"><details${c.enabled ? "" : " open"}><summary><b>Karta raqamiga to'lov</b> — ${c.enabled ? tag("yoqilgan", "good") : tag("o'chirilgan", "")}
+        ${c.enabled ? `<span class="muted"> · ${esc(c.card)} · ${c.auto ? `avtomatik ${som(c.auto_max)} gacha` : "faqat qo'lda"}</span>` : ""}</summary>
+      <form class="form" id="cardpay" style="margin-top:12px">
+        <label class="row" style="font-size:13px"><input type="checkbox" name="on" ${c.on ? "checked" : ""}> Mijozlarga «Karta raqamiga o'tkazish» usulini ko'rsatish</label>
+        <div class="fields">
+          <label class="f">Karta raqami<input class="in" name="card" maxlength="30" inputmode="numeric" value="${esc(c.card)}" placeholder="9860 0000 0000 0000"></label>
+          <label class="f">Karta egasi <small>mijozga ko'rinadi</small><input class="in" name="owner" maxlength="60" value="${esc(c.owner)}" placeholder="Ism Familiya"></label>
+        </div>
+        <label class="row" style="font-size:13px"><input type="checkbox" name="auto" ${c.auto ? "checked" : ""}> Chekni AI tekshirib, shartlar bajarilsa admin kutmasdan avtomatik tasdiqlasin</label>
+        <div class="fields">
+          <label class="f">Avtomatik chegara <small>so'm, bundan kattasi qo'lda</small><input class="in" name="auto_max" type="number" min="0" step="1000" value="${c.auto_max}"></label>
+          <label class="f">Chek muddati <small>daqiqa</small><input class="in" name="window_min" type="number" min="10" max="1440" value="${c.window_min}"></label>
+          <label class="f">Bir kishiga kuniga <small>avtomatik tasdiq</small><input class="in" name="daily_auto" type="number" min="0" max="50" value="${c.daily_auto}"></label>
+        </div>
+        <p class="muted" style="font-size:12.5px">Avtomatik tasdiq shartlari: chekda «muvaffaqiyatli», summa aynan to'g'ri, qabul qiluvchi karta oxiri ${esc((c.card || "").slice(-4) || "····")}, vaqt to'lov ochilgandan keyin va muddat ichida, tranzaksiya raqami va chek fayli takrorlanmagan. Bittasi bajarilmasa — chek sizga botda va «Chekni tekshirish»da keladi. Avtomatik tasdiqlangan har bir chek ham botga keladi: pul kartaga tushmagan bo'lsa «Bekor qilish»ni bosing.</p>
+        <div class="row"><button class="btn primary" type="submit">Saqlash</button></div>
+      </form></details></section>`;
   }
   function receiptSheet(p) {
     sheet(`<h2 class="big" id="sheet-title">Chek #${p.id}</h2><p class="muted">${esc(p.name || "")} · ${som(p.amount)} · ${dt(p.created_at)}</p>
