@@ -1,0 +1,717 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<title>To’y taklifnomasi: Zarhal eshik</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preload" as="image" href="/katalog/v2/art/toy12-eshik/door-frame.webp">
+<link rel="preload" as="image" href="/katalog/v2/art/toy12-eshik/door-leaves.webp">
+<link rel="preload" as="image" href="/katalog/v2/art/toy12-eshik/card.webp">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&amp;family=Lato:wght@300;400;700&amp;display=swap">
+<style>
+body{margin:0;background:#F6F1EB}
+.ze-root{background:#F6F1EB;color:#6E6252;font-family:'Lato','Helvetica Neue',Arial,sans-serif;font-weight:400}
+.ze-serif{font-family:'Cormorant Garamond',Georgia,'Times New Roman',serif}
+.ze-num{font-variant-numeric:lining-nums tabular-nums}
+.ze-icon{fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.ze-vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* ================= kirish: zarhal eshik ================= */
+.ze-i{position:absolute;left:0;top:0;width:390px;height:844px;z-index:40;background:#2A0D0B}
+/* past ekranlarda dvigatel sahnani kichraytiradi: yon va pastdagi bo'shliq eshik ochilguncha qorong'i devor bo'lib turadi */
+.ze-i::before{content:"";position:absolute;left:-240px;top:0;width:870px;height:1280px;background:#F3E3C8}
+.ze-wing{position:absolute;left:-240px;top:0;width:870px;height:1280px;background:#2A0D0B}
+.ze-wing::before{content:"";position:absolute;left:0;top:0;width:870px;height:844px;background:linear-gradient(90deg,#7A5A22,#E6C36E 30%,#F6E3A8 50%,#E6C36E 70%,#7A5A22) 0 35px/100% 3px no-repeat,linear-gradient(90deg,#7A5A22,#E6C36E 30%,#F6E3A8 50%,#E6C36E 70%,#7A5A22) 0 781px/100% 3px no-repeat,linear-gradient(180deg,#2A0D0B 0%,#4A1A14 100%) 0 0/100% 38px no-repeat,linear-gradient(180deg,#1C0806 0%,#33120E 26%,#2A0D0B 100%) 0 781px/100% 63px no-repeat,linear-gradient(90deg,#2A0D0B 0%,#3B1611 26%,#3B1611 74%,#2A0D0B 100%)}
+.ze-i--open .ze-wing{animation:ze-fade .6s ease 1.5s forwards}
+.ze-i--open .ze-wing::before{animation:ze-fade .4s ease forwards}
+.ze-scene{position:absolute;left:0;top:0;width:390px;height:844px;overflow:hidden}
+.ze-i--open{pointer-events:none;animation:ze-iOut 1s ease 2.5s forwards}
+@keyframes ze-iOut{to{opacity:0;visibility:hidden}}
+
+/* eshik ortidagi yorug' xona: iliq devor, deraza nuri va panjara soyasi */
+.ze-room{position:absolute;left:0;top:0;width:390px;height:844px;overflow:hidden;transform-origin:195px 470px;background:radial-gradient(90% 60% at 50% 44%,#FBEFDA 0%,#F2E0C3 55%,#E3CAA2 100%)}
+.ze-i--open .ze-room{animation:ze-room 3.1s cubic-bezier(.4,.1,.5,1) .3s forwards}
+@keyframes ze-room{from{transform:scale(1)}to{transform:scale(1.16)}}
+.ze-room-floor{position:absolute;left:0;top:668px;width:390px;height:176px;background:linear-gradient(180deg,rgba(186,150,104,.34) 0,rgba(186,150,104,0) 5px),linear-gradient(180deg,#F3E2C6 0%,#FCF3E3 100%)}
+.ze-win{position:absolute;width:168px;height:430px;transform-origin:0 0;transform:skewY(-21deg);filter:blur(4px);opacity:.92;
+  background:
+    linear-gradient(90deg,rgba(0,0,0,0) 0 46.5%,rgba(190,152,104,.5) 46.5% 53.5%,rgba(0,0,0,0) 53.5%),
+    repeating-linear-gradient(180deg,rgba(0,0,0,0) 0 98px,rgba(190,152,104,.46) 98px 108px),
+    repeating-linear-gradient(60deg,rgba(190,152,104,.3) 0 3px,rgba(0,0,0,0) 3px 17px),
+    repeating-linear-gradient(-60deg,rgba(190,152,104,.3) 0 3px,rgba(0,0,0,0) 3px 17px),
+    linear-gradient(180deg,#FFFFFA 0%,#FFF9EA 100%);
+  background-size:100% 100%,100% 100%,100% 98px,100% 98px,100% 100%;background-repeat:no-repeat;
+  -webkit-mask-image:linear-gradient(180deg,rgba(0,0,0,0) 0,#000 14%,#000 72%,rgba(0,0,0,0) 100%);mask-image:linear-gradient(180deg,rgba(0,0,0,0) 0,#000 14%,#000 72%,rgba(0,0,0,0) 100%)}
+.ze-room-haze{position:absolute;left:0;top:0;width:390px;height:844px;background:linear-gradient(118deg,rgba(255,255,255,0) 22%,rgba(255,255,255,.5) 34%,rgba(255,255,255,0) 47%,rgba(255,255,255,.34) 58%,rgba(255,255,255,0) 70%)}
+
+/* kamera va eshik (o'lchamlar tayyor rasmlardan o'lchangan) */
+.ze-cam{position:absolute;left:0;top:0;width:390px;height:844px;transform-origin:195px 470px;perspective:1100px;perspective-origin:195px 440px}
+.ze-i--open .ze-cam{animation:ze-push 2.9s cubic-bezier(.55,.05,.6,.4) .35s forwards}
+@keyframes ze-push{0%{transform:scale(1)}100%{transform:scale(2.7)}}
+.ze-leaf,.ze-frame{filter:saturate(.72) brightness(.88) hue-rotate(-6deg)}
+.ze-leaf{position:absolute;top:38px;height:743px;background:url('/katalog/v2/art/toy12-eshik/door-leaves.webp') no-repeat;background-size:418px 743px;backface-visibility:hidden;-webkit-backface-visibility:hidden;will-change:transform}
+.ze-leaf--l{left:6.9px;width:187.2px;background-position:-20.9px 0;transform-origin:14.66px 50%}
+.ze-leaf--r{left:194.1px;width:187.2px;background-position:-208.1px 0;transform-origin:172.54px 50%}
+.ze-i--open .ze-leaf--l{animation:ze-openL 2.5s cubic-bezier(.45,.02,.3,1) .25s forwards}
+.ze-i--open .ze-leaf--r{animation:ze-openR 2.5s cubic-bezier(.45,.02,.3,1) .25s forwards}
+@keyframes ze-openL{0%{transform:rotateY(0)}100%{transform:rotateY(104deg)}}
+@keyframes ze-openR{0%{transform:rotateY(0)}100%{transform:rotateY(-104deg)}}
+.ze-shade{position:absolute;left:0;top:0;width:100%;height:100%;background:linear-gradient(90deg,rgba(20,6,4,0),rgba(20,6,4,.55));opacity:0}
+.ze-leaf--r .ze-shade{transform:scaleX(-1)}
+.ze-i--open .ze-shade{animation:ze-shade 2.5s ease .25s forwards}
+@keyframes ze-shade{to{opacity:1}}
+.ze-frame{position:absolute;left:-14px;top:38px;width:418px;height:743px;background:url('/katalog/v2/art/toy12-eshik/door-frame.webp') no-repeat;background-size:418px 743px;pointer-events:none}
+.ze-floor{position:absolute;left:0;top:781px;width:390px;height:63px;background:linear-gradient(180deg,#1C0806 0%,#33120E 26%,#2A0D0B 100%)}
+.ze-floor::before{content:"";position:absolute;left:0;top:0;width:390px;height:3px;background:linear-gradient(90deg,#7A5A22,#E6C36E 30%,#F6E3A8 50%,#E6C36E 70%,#7A5A22)}
+.ze-lintel{position:absolute;left:0;top:0;width:390px;height:38px;background:linear-gradient(180deg,#2A0D0B 0%,#4A1A14 100%)}
+.ze-lintel::after{content:"";position:absolute;left:0;bottom:0;width:390px;height:3px;background:linear-gradient(90deg,#7A5A22,#E6C36E 30%,#F6E3A8 50%,#E6C36E 70%,#7A5A22)}
+.ze-glow{position:absolute;left:95px;top:60px;width:200px;height:720px;background:radial-gradient(50% 50% at 50% 50%,rgba(255,246,220,.95),rgba(255,236,190,.5) 40%,rgba(255,236,190,0) 70%);opacity:0;mix-blend-mode:screen;pointer-events:none}
+.ze-i--open .ze-glow{animation:ze-glow 2.6s ease .3s forwards}
+@keyframes ze-glow{0%{opacity:0;transform:scaleX(.2)}35%{opacity:1;transform:scaleX(.8)}100%{opacity:.9;transform:scaleX(2.4)}}
+
+/* yopiq holat: zarhalda sokin jilo, tutqichlarda uchqun */
+.ze-sheen{position:absolute;left:0;top:38px;width:390px;height:743px;overflow:hidden;pointer-events:none;transition:opacity .25s ease}
+.ze-sheen::before{content:"";position:absolute;left:-170px;top:-40px;width:76px;height:830px;background:linear-gradient(90deg,rgba(255,240,196,0),rgba(255,240,196,.13) 40%,rgba(255,250,226,.24) 50%,rgba(255,240,196,.13) 60%,rgba(255,240,196,0));transform:skewX(-14deg);animation:ze-sheen 6.5s cubic-bezier(.4,0,.3,1) 1.2s infinite}
+@keyframes ze-sheen{0%{transform:translateX(0) skewX(-14deg)}46%,100%{transform:translateX(640px) skewX(-14deg)}}
+.ze-seam{position:absolute;left:191px;top:150px;width:7px;height:560px;background:linear-gradient(180deg,rgba(255,236,180,0),rgba(255,240,196,.55) 50%,rgba(255,236,180,0));background-size:100% 180px;background-repeat:no-repeat;pointer-events:none;animation:ze-seam 6.5s ease-in-out 2.4s infinite;opacity:0;transition:opacity .2s}
+@keyframes ze-seam{0%{opacity:0;background-position:0 -180px}12%{opacity:1}34%{opacity:1}46%,100%{opacity:0;background-position:0 560px}}
+.ze-glint{position:absolute;width:22px;height:22px;margin:-11px 0 0 -11px;pointer-events:none;opacity:0;animation:ze-glint 4.6s ease-in-out infinite;
+  background:radial-gradient(circle,rgba(255,252,236,.98) 0 1.6px,rgba(255,236,170,.6) 3px,rgba(255,236,170,0) 6px),linear-gradient(90deg,rgba(255,244,206,0),rgba(255,248,224,.95) 50%,rgba(255,244,206,0)) 50% 50%/100% 1.4px no-repeat,linear-gradient(180deg,rgba(255,244,206,0),rgba(255,248,224,.95) 50%,rgba(255,244,206,0)) 50% 50%/1.4px 100% no-repeat}
+@keyframes ze-glint{0%,62%,100%{opacity:0;transform:scale(.3) rotate(0)}76%{opacity:1;transform:scale(1) rotate(30deg)}88%{opacity:0;transform:scale(.5) rotate(45deg)}}
+.ze-i--open .ze-sheen,.ze-i--open .ze-seam,.ze-i--open .ze-glint,.ze-i--open .ze-ring{opacity:0 !important;animation:none}
+.ze-ring{position:absolute;left:194px;top:502px;width:0;height:0;pointer-events:none}
+.ze-ring::before,.ze-ring::after{content:"";position:absolute;left:-34px;top:-34px;width:68px;height:68px;box-sizing:border-box;border-radius:50%;border:1px solid rgba(255,238,188,.75);opacity:0;animation:ze-ring 3.2s ease-out infinite}
+.ze-ring::after{animation-delay:1.1s}
+@keyframes ze-ring{0%{opacity:0;transform:scale(.45)}18%{opacity:.85}100%{opacity:0;transform:scale(1.7)}}
+
+/* zarralar: yopiq eshik oldida suzuvchi chang, ochilganda zarrin iz */
+.ze-fx{position:absolute;left:0;top:0;width:390px;height:844px;pointer-events:none}
+.ze-mote{position:absolute;width:3px;height:3px;border-radius:50%;background:#FFF3CF;box-shadow:0 0 6px 1px rgba(255,226,150,.75);opacity:0;animation:ze-mote 8s linear infinite}
+@keyframes ze-mote{0%{opacity:0;transform:translate(0,0)}18%{opacity:.95}78%{opacity:.55}100%{opacity:0;transform:translate(16px,-110px)}}
+.ze-arc{position:absolute;left:0;top:130px;width:0;height:0;transform:scaleY(1.238);pointer-events:none}
+.ze-arc-c{position:absolute;right:0;top:0;width:470px;height:470px;overflow:hidden;transform-origin:100% 0;opacity:0;
+  -webkit-mask-image:conic-gradient(from 180deg at 100% 0%,rgba(0,0,0,0) 0deg,#000 2.5deg,#000 10deg,rgba(0,0,0,.72) 38deg,rgba(0,0,0,0) 88deg,rgba(0,0,0,0) 360deg);mask-image:conic-gradient(from 180deg at 100% 0%,rgba(0,0,0,0) 0deg,#000 2.5deg,#000 10deg,rgba(0,0,0,.72) 38deg,rgba(0,0,0,0) 88deg,rgba(0,0,0,0) 360deg)}
+.ze-arc-c::before{content:"";position:absolute;right:-470px;top:-470px;width:940px;height:940px;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,252,236,.98) 0 1px,rgba(255,236,170,0) 1.9px) 0 0/11px 9px,radial-gradient(circle,rgba(255,244,200,.96) 0 1.5px,rgba(255,236,170,0) 2.7px) 5px 4px/23px 19px,radial-gradient(circle,rgba(255,255,255,.96) 0 .8px,rgba(255,255,255,0) 1.5px) 9px 7px/17px 13px,radial-gradient(circle,rgba(255,238,180,.95) 0 2.1px,rgba(255,226,150,.35) 3.4px,rgba(255,226,150,0) 5px) 13px 2px/41px 31px,radial-gradient(circle,rgba(255,250,226,.95) 0 1.2px,rgba(255,236,170,0) 2.2px) 3px 11px/29px 37px,radial-gradient(circle,rgba(255,246,210,.95) 0 2.6px,rgba(255,226,150,.3) 4.4px,rgba(255,226,150,0) 6.5px) 21px 17px/67px 53px;
+  -webkit-mask-image:radial-gradient(closest-side,rgba(0,0,0,0) 0,rgba(0,0,0,0) 73%,rgba(0,0,0,.5) 84%,#000 89.4%,rgba(0,0,0,.5) 94%,rgba(0,0,0,0) 99.6%);mask-image:radial-gradient(closest-side,rgba(0,0,0,0) 0,rgba(0,0,0,0) 73%,rgba(0,0,0,.5) 84%,#000 89.4%,rgba(0,0,0,.5) 94%,rgba(0,0,0,0) 99.6%)}
+.ze-arc-c::after{content:"";position:absolute;right:-420px;top:-420px;width:840px;height:840px;box-sizing:border-box;border-radius:50%;border:3px solid rgba(255,250,228,.95);box-shadow:0 0 10px 4px rgba(255,232,160,.85),0 0 34px 14px rgba(255,216,130,.42),0 0 70px 26px rgba(255,208,120,.16),inset 0 0 10px 4px rgba(255,232,160,.85),inset 0 0 34px 14px rgba(255,216,130,.42),inset 0 0 70px 26px rgba(255,208,120,.16)}
+.ze-i--open .ze-arc-c{animation:ze-arc 1.75s cubic-bezier(.33,.2,.4,1) .45s both}
+@keyframes ze-arc{0%{opacity:0;transform:rotate(22deg)}12%{opacity:1}66%{opacity:1}100%{opacity:0;transform:rotate(-104deg)}}
+.ze-sp{position:absolute;border-radius:50%;background:radial-gradient(circle,#FFFDF0 0 34%,#F8E2A0 58%,rgba(248,226,160,0) 74%);box-shadow:0 0 7px 2px rgba(255,228,150,.8);opacity:0;pointer-events:none}
+.ze-sp--star{border-radius:0;box-shadow:none;background:radial-gradient(circle,#FFFDF0 0 12%,rgba(255,236,170,.7) 22%,rgba(255,236,170,0) 44%),linear-gradient(90deg,rgba(255,244,206,0),#FFF9E2 50%,rgba(255,244,206,0)) 50% 50%/100% 1.3px no-repeat,linear-gradient(180deg,rgba(255,244,206,0),#FFF9E2 50%,rgba(255,244,206,0)) 50% 50%/1.3px 100% no-repeat}
+.ze-i--open .ze-sp{animation:ze-sp 1.4s ease-out var(--d,.6s) forwards}
+@keyframes ze-sp{0%{opacity:0;transform:translate(-10px,8px) scale(.2)}22%{opacity:1;transform:translate(0,0) scale(1.15)}60%{opacity:.9}100%{opacity:0;transform:translate(var(--x,16px),var(--y,10px)) scale(.35)}}
+/* xona nuri oqqa to'ladi, undan taklifnoma chiqadi */
+.ze-veil{position:absolute;left:-240px;top:0;width:870px;height:1280px;background:radial-gradient(60% 46% at 50% 28%,#FFFEFA,#FFF8EC);opacity:0;pointer-events:none}
+.ze-i--open .ze-veil{animation:ze-veil .95s ease-in 1.7s forwards}
+@keyframes ze-veil{to{opacity:.97}}
+
+/* butun eshik — bitta tugma */
+.ze-tap{position:absolute;left:-240px;top:0;width:870px;height:844px;margin:0;padding:0;border:0;background:rgba(0,0,0,0);cursor:pointer;display:block;font:inherit;color:inherit;-webkit-tap-highlight-color:rgba(0,0,0,0)}
+.ze-tap:focus{outline:none}
+.ze-tap:focus-visible .ze-hint-t{outline:1px solid #F6E3A8;outline-offset:7px}
+.ze-i--open .ze-tap{animation:ze-fade .35s ease forwards}
+@keyframes ze-fade{to{opacity:0}}
+.ze-hint{position:absolute;left:240px;top:784px;width:390px;height:60px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px}
+.ze-hint-g{display:block;max-width:356px;font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-weight:500;line-height:23px;color:#F8EBC6;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ze-hint-t{display:flex;align-items:center;gap:11px;font-size:10.5px;line-height:16px;font-weight:400;letter-spacing:.25em;text-transform:uppercase;color:#EBD291;animation:ze-hintP 2.6s ease-in-out infinite}
+.ze-hint-t::before,.ze-hint-t::after{content:"";display:block;width:24px;height:1px;background:linear-gradient(90deg,rgba(235,210,145,0),#EBD291)}
+.ze-hint-t::after{transform:scaleX(-1)}
+@keyframes ze-hintP{0%,100%{opacity:.62}50%{opacity:1}}
+
+.ze-music{position:absolute;top:14px;right:14px;z-index:60;width:44px;height:44px;border-radius:50%;border:1px solid #C9A24A;background:rgba(42,13,11,.74);color:#F3DFA6;display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0;transition:background-color .6s ease 2.6s,color .6s ease 2.6s,border-color .6s ease 2.6s}
+.ze-music--lite{background:rgba(255,255,255,.86);color:#6F5B36;border-color:rgba(184,149,82,.6);box-shadow:0 8px 20px -12px rgba(111,91,54,.5)}
+.ze-music--on{box-shadow:0 0 0 4px rgba(201,162,74,.2)}
+.ze-eq{display:flex;align-items:flex-end;gap:2.5px;height:15px}
+.ze-eq i{display:block;width:2.5px;height:100%;border-radius:2px;background:currentColor;transform-origin:50% 100%;animation:ze-eq .9s ease-in-out infinite alternate}
+.ze-eq i:nth-child(2){animation-delay:-.3s}.ze-eq i:nth-child(3){animation-delay:-.6s}.ze-eq i:nth-child(4){animation-delay:-.15s}
+@keyframes ze-eq{from{transform:scaleY(.25)}to{transform:scaleY(1)}}
+
+/* ================= bosh qism: marmar ravoqli taklifnoma ================= */
+.ze-hero{position:relative;flex:none;width:390px;height:693px;overflow:hidden;background:#F3EADB url('/katalog/v2/art/toy12-eshik/card.webp') center/390px 693px no-repeat}
+.ze-col{position:absolute;left:66px;top:112px;width:258px;height:412px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.ze-l{margin:0;opacity:0}
+.ze-hero--on .ze-l{animation:ze-line .9s cubic-bezier(.22,.61,.36,1) var(--d,2.4s) both}
+@keyframes ze-line{from{opacity:0;filter:blur(5px);transform:translateY(9px)}to{opacity:1;filter:none;transform:none}}
+.ze-fam{max-width:196px;font-family:'Cormorant Garamond',Georgia,serif;font-weight:500;line-height:1.2;color:#5F5137;text-wrap:balance;overflow-wrap:anywhere;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden}
+.ze-phr{max-width:236px;margin-top:9px;font-size:12px;line-height:17px;letter-spacing:.02em;color:#6B5B3E;text-wrap:balance}
+.ze-nm{max-width:236px;margin-top:13px;font-family:'Cormorant Garamond',Georgia,serif;font-weight:500;line-height:1.08;color:#7A6842;overflow-wrap:anywhere}
+.ze-amp{margin:1px 0 -12px;font-family:'Cormorant Garamond',Georgia,serif;font-weight:400;font-size:19px;line-height:20px;color:#A8997C}
+.ze-dets{margin-top:13px;display:flex;flex-direction:column;align-items:center}
+.ze-det{max-width:230px;font-size:12.5px;line-height:20px;color:#6F6048;overflow-wrap:anywhere;text-wrap:balance}
+.ze-det--2{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden}
+.ze-wish{max-width:214px;margin-top:10px;font-size:12px;line-height:17px;color:#6B5B3E;text-wrap:balance}
+.ze-plq{position:absolute;left:109px;top:536px;width:172px;height:36px;box-sizing:border-box;padding-left:.16em;border-radius:18px;border:1px solid rgba(176,142,78,.6);background:rgba(255,255,255,.42);box-shadow:inset 0 1px 0 rgba(255,255,255,.7),0 6px 14px -10px rgba(111,91,54,.55);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',Georgia,serif;font-weight:700;font-size:15px;line-height:20px;letter-spacing:.16em;text-transform:uppercase;white-space:nowrap;color:#6F5B36}
+
+/* ================= sahifa ================= */
+.ze-sec{position:relative;padding:68px 26px 0;display:flex;flex-direction:column;align-items:center;text-align:center}
+.ze-lbl{margin:0;padding-left:.3em;font-size:10.5px;line-height:16px;font-weight:400;letter-spacing:.3em;text-transform:uppercase;color:#A8997C}
+.ze-h2{margin:10px 0 0;max-width:336px;font-family:'Cormorant Garamond',Georgia,serif;font-weight:500;font-size:31px;line-height:37px;color:#6F5B36;overflow-wrap:anywhere;text-wrap:balance}
+.ze-txt{margin:0;font-size:14.5px;line-height:24px;font-weight:400;color:#7A6E5E}
+.ze-card{background:#FFFFFF;border-radius:8px;box-shadow:0 20px 44px -26px rgba(111,91,54,.4),0 2px 8px -3px rgba(111,91,54,.1)}
+.ze-marble{position:relative;border-radius:8px;background:linear-gradient(rgba(255,253,249,.42),rgba(255,253,249,.42)),#F5EFE7 url('/katalog/v2/art/toy12-eshik/marble.webp') center/cover no-repeat;box-shadow:0 24px 50px -28px rgba(111,91,54,.5),0 2px 8px -3px rgba(111,91,54,.12)}
+.ze-marble::before{content:"";position:absolute;left:8px;top:8px;right:8px;bottom:8px;border:1px solid rgba(184,149,82,.5);border-radius:4px;pointer-events:none}
+.ze-band{display:flex;align-items:center;justify-content:center;height:16px;margin-bottom:44px}
+.ze-band i{display:block;width:112px;height:14px;background:url('/katalog/v2/art/toy12-eshik/band.webp') -6px -2px/360px 18px no-repeat;-webkit-mask-image:linear-gradient(90deg,rgba(0,0,0,0),#000 55%);mask-image:linear-gradient(90deg,rgba(0,0,0,0),#000 55%)}
+.ze-band i+b+i{transform:scaleX(-1)}
+.ze-band b{display:block;width:9px;height:9px;margin:0 7px;border-radius:50%;background:radial-gradient(circle at 36% 30%,#FFFFFF 0,#F1E8D8 45%,#CDB88E 100%);box-shadow:0 0 0 1px rgba(184,149,82,.65),0 2px 4px -1px rgba(111,91,54,.5)}
+.ze-roses{position:absolute;left:0;bottom:0;width:118px;height:122px;border-radius:0 0 0 8px;pointer-events:none;background:url('/katalog/v2/art/toy12-eshik/roses.webp') 0 0/100% 100% no-repeat;-webkit-mask-image:linear-gradient(0deg,#000 58%,rgba(0,0,0,0) 100%),linear-gradient(90deg,#000 58%,rgba(0,0,0,0) 100%);mask-image:linear-gradient(0deg,#000 58%,rgba(0,0,0,0) 100%),linear-gradient(90deg,#000 58%,rgba(0,0,0,0) 100%);-webkit-mask-composite:source-in;mask-composite:intersect}
+.ze-out{display:inline-flex;align-items:center;justify-content:center;gap:9px;height:44px;padding:0 22px;border-radius:8px;border:1px solid rgba(184,149,82,.55);box-sizing:border-box;background:rgba(255,255,255,.6);color:#6F5B36;font-family:inherit;font-size:12px;font-weight:400;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;cursor:pointer}
+.ze-out:hover{background:#FFFFFF;border-color:#B89552}
+.ze-btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;height:52px;padding:0 26px;border-radius:8px;border:0;box-sizing:border-box;background:linear-gradient(180deg,#8C7548 0%,#6F5B36 100%);color:#FFFBF2;font-family:inherit;font-size:12.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;text-decoration:none;cursor:pointer;box-shadow:0 16px 26px -16px rgba(80,62,28,.85),inset 0 1px 0 rgba(255,240,204,.35)}
+.ze-btn:hover{background:linear-gradient(180deg,#97804F 0%,#77623B 100%)}
+.ze-btn:disabled{opacity:.65;cursor:default}
+
+/* javobga chorlov */
+.ze-pill{display:flex;align-items:center;justify-content:center;gap:14px;width:272px;min-height:60px;margin:34px auto 0;padding:10px 18px;box-sizing:border-box;border:0;font-family:inherit;text-align:center;cursor:pointer;color:#A8997C}
+.ze-pill b{display:block;font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;font-size:17px;line-height:21px;color:#6F5B36}
+.ze-pill span span{display:block;margin-top:2px;font-size:11.5px;line-height:16px;color:#A8997C}
+.ze-pill svg{animation:ze-cue 2.4s ease-in-out infinite}
+@keyframes ze-cue{0%,100%{transform:translateY(-2px);opacity:.6}50%{transform:translateY(3px);opacity:1}}
+
+/* taymer */
+.ze-tiles{display:flex;justify-content:center;gap:14px;margin-top:30px}
+.ze-tile{display:flex;flex-direction:column;align-items:center;gap:10px;width:66px}
+.ze-tile-n{display:flex;align-items:center;justify-content:center;width:66px;height:66px;font-weight:300;font-size:27px;line-height:1;color:#6F5B36}
+.ze-tile-l{font-size:9px;line-height:12px;letter-spacing:.22em;padding-left:.22em;color:#A8997C}
+.ze-kun{margin:26px 0 0;font-size:13.5px;line-height:20px;letter-spacing:.06em;color:#7A6E5E}
+
+/* manzil */
+.ze-addr{display:flex;align-items:flex-start;justify-content:center;gap:7px;max-width:310px;margin:10px 0 0;font-size:12.5px;line-height:19px;color:#9A8C74;overflow-wrap:anywhere}
+.ze-addr svg{margin-top:2px;color:#B9A27C}
+.ze-map{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;width:304px;height:150px;margin-top:28px;overflow:hidden;text-decoration:none;font-size:12px;line-height:16px;letter-spacing:.06em;color:#8A7C66}
+.ze-map::before{content:"";position:absolute;left:0;top:0;width:100%;height:100%;background:linear-gradient(118deg,rgba(0,0,0,0) 0 44%,rgba(168,153,124,.11) 44% 45.6%,rgba(0,0,0,0) 45.6%),linear-gradient(24deg,rgba(0,0,0,0) 0 60%,rgba(168,153,124,.09) 60% 61.4%,rgba(0,0,0,0) 61.4%),linear-gradient(164deg,rgba(0,0,0,0) 0 27%,rgba(168,153,124,.08) 27% 28.2%,rgba(0,0,0,0) 28.2%),linear-gradient(74deg,rgba(0,0,0,0) 0 78%,rgba(168,153,124,.07) 78% 79%,rgba(0,0,0,0) 79%)}
+.ze-map svg{position:relative;color:#C7A98A}
+.ze-map span{position:relative}
+.ze-map:hover{color:#6F5B36}
+
+/* zarhal taqa ravoq — suratlar uchun */
+.ze-arch{position:relative;flex:none;filter:drop-shadow(0 18px 20px rgba(111,91,54,.34))}
+.ze-arch-o{position:absolute;left:0;top:0;width:100%;height:100%;background:linear-gradient(128deg,#B08A3C 0%,#7C5E22 40%,#A8853A 70%,#6E531E 100%)}
+.ze-arch-m{position:absolute;background:linear-gradient(128deg,#FBF0CB 0%,#DDBD6E 20%,#B08C3E 45%,#F0DA9E 66%,#C6A452 84%,#9A7930 100%)}
+.ze-arch-n{position:absolute;background:#7C5E22}
+.ze-arch-i{position:absolute;overflow:hidden;background:#E9DFCF}
+.ze-arch-i img{position:absolute;left:0;top:0;width:100%;height:100%;display:block;object-fit:cover}
+.ze-arch-i::after{content:"";position:absolute;left:0;top:0;width:100%;height:100%;background:linear-gradient(155deg,rgba(60,40,10,.3) 0,rgba(60,40,10,0) 26%);pointer-events:none}
+.ze-arch-base{position:absolute;left:-8px;right:-8px;bottom:-6px;height:6px;border-radius:1px;background:linear-gradient(90deg,#8E6E2A,#E9D08E 28%,#FBF0CB 50%,#D2AE5C 74%,#8E6E2A);box-shadow:inset 0 1px 0 rgba(255,250,224,.7),inset 0 -1px 0 rgba(110,83,30,.8)}
+.ze-arch--g{width:264px;height:356px}
+.ze-arch--g .ze-arch-o{clip-path:path('M22 356V205A132 132 0 1 1 242 205V356Z')}
+.ze-arch--g .ze-arch-m{left:1.5px;top:1.5px;width:261px;height:354.5px;clip-path:path('M22 354.5V203A130.5 130.5 0 1 1 239 203V354.5Z')}
+.ze-arch--g .ze-arch-n{left:6px;top:6px;width:252px;height:350px;clip-path:path('M22 350V197.2A126 126 0 1 1 230 197.2V350Z')}
+.ze-arch--g .ze-arch-i{left:7.5px;top:7.5px;width:249px;height:348.5px;clip-path:path('M22 348.5V195.1A124.5 124.5 0 1 1 227 195.1V348.5Z')}
+.ze-arch--v{width:232px;height:300px}
+.ze-arch--v .ze-arch-o{clip-path:path('M20 300V181.1A116 116 0 1 1 212 181.1V300Z')}
+.ze-arch--v .ze-arch-m{left:1.5px;top:1.5px;width:229px;height:298.5px;clip-path:path('M20 298.5V179.1A114.5 114.5 0 1 1 209 179.1V298.5Z')}
+.ze-arch--v .ze-arch-n{left:5px;top:5px;width:222px;height:295px;clip-path:path('M20 295V174.6A111 111 0 1 1 202 174.6V295Z')}
+.ze-arch--v .ze-arch-i{left:6.5px;top:6.5px;width:219px;height:293.5px;clip-path:path('M20 293.5V172.5A109.5 109.5 0 1 1 199 172.5V293.5Z')}
+.ze-gimg{opacity:0;transform:scale(1.05);transition:opacity .9s ease,transform 1.8s ease}
+.ze-gimg--on{opacity:1;transform:none}
+.ze-th{position:relative;flex:none;width:44px;height:60px;padding:0;border:0;background:rgba(0,0,0,0);cursor:pointer;opacity:.72;transition:transform .3s ease,opacity .3s ease;filter:drop-shadow(0 8px 8px rgba(111,91,54,.3))}
+.ze-th .ze-arch-o{clip-path:path('M4 60V34.6A22 22 0 1 1 40 34.6V60Z');background:linear-gradient(128deg,#FBF0CB 0%,#DDBD6E 20%,#B08C3E 45%,#F0DA9E 66%,#C6A452 84%,#9A7930 100%)}
+.ze-th .ze-arch-i{left:2px;top:2px;width:40px;height:58px;clip-path:path('M4 58V32A20 20 0 1 1 36 32V58Z')}
+.ze-th .ze-arch-i::after{display:none}
+.ze-th--on{transform:translateY(-7px);opacity:1}
+
+/* dastur va hikoya */
+.ze-prog{width:100%;margin-top:28px;padding:6px 22px;box-sizing:border-box;text-align:left}
+.ze-prow{display:grid;grid-template-columns:64px minmax(0,1fr);gap:16px;align-items:center;padding:17px 0;border-top:1px solid #F1EAE0}
+.ze-prow:first-child{border-top:0}
+.ze-prow-t{font-weight:300;font-size:21px;line-height:26px;color:#8C7548}
+.ze-prow-n{font-size:14.5px;line-height:21px;color:#6E6252;overflow-wrap:anywhere}
+.ze-story{width:100%;margin-top:26px;display:flex;flex-direction:column;align-items:center}
+.ze-st{display:flex;flex-direction:column;align-items:center;max-width:300px}
+.ze-st+.ze-st::before{content:"";display:block;width:1px;height:34px;margin:16px 0 18px;background:linear-gradient(180deg,rgba(184,149,82,0),rgba(184,149,82,.8),rgba(184,149,82,0))}
+.ze-st-y{font-size:11px;line-height:16px;letter-spacing:.3em;padding-left:.3em;color:#B89552}
+.ze-st-h{margin:6px 0 0;font-family:'Cormorant Garamond',Georgia,serif;font-weight:500;font-size:24px;line-height:29px;color:#6F5B36;overflow-wrap:anywhere}
+.ze-st-p{margin:6px 0 0;font-size:14px;line-height:22px;color:#7A6E5E;overflow-wrap:anywhere}
+
+/* kiyinish uslubi */
+.ze-sw{display:block;width:46px;height:46px;border-radius:50%;box-shadow:0 0 0 3px #FFFFFF,0 0 0 4px rgba(184,149,82,.55),0 12px 16px -8px rgba(111,91,54,.45)}
+
+/* javob shakli */
+.ze-form{width:100%;margin-top:28px;padding:30px 24px 26px;box-sizing:border-box;text-align:left}
+.ze-flbl{display:block;font-size:10px;line-height:15px;letter-spacing:.26em;text-transform:uppercase;color:#9A8660}
+.ze-field{display:block;width:100%;box-sizing:border-box;border:1px solid #E4D9C6;border-radius:8px;background:rgba(255,255,255,.86);color:#5F5137;font-family:inherit;font-size:16px;outline:none}
+.ze-field:focus{border-color:#B89552}
+.ze-field::placeholder{color:#B5A88F}
+.ze-in{height:50px;margin:8px 0 18px;padding:0 16px}
+.ze-ta{min-height:84px;margin-top:8px;padding:13px 16px;line-height:23px;resize:vertical}
+.ze-opt{flex:1 1 0;min-width:0;height:50px;border-radius:8px;border:1px solid #E4D9C6;background:rgba(255,255,255,.86);color:#6E6252;font-family:inherit;font-size:13.5px;cursor:pointer;padding:0 6px;white-space:nowrap;transition:background-color .2s,color .2s,border-color .2s}
+.ze-opt--on{background:#6F5B36;border-color:#6F5B36;color:#FFFBF2}
+.ze-stepper{display:flex;align-items:center;gap:14px;transition:opacity .2s}
+.ze-stepper--off{opacity:.35}
+.ze-step{width:42px;height:42px;border-radius:50%;border:1px solid #D9CBB2;background:rgba(255,255,255,.86);color:#8C7548;display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0}
+.ze-step:disabled{opacity:.4;cursor:default}
+.ze-opt:focus-visible,.ze-step:focus-visible,.ze-btn:focus-visible,.ze-out:focus-visible,.ze-pill:focus-visible,.ze-th:focus-visible,.ze-map:focus-visible,.ze-music:focus-visible{outline:2px solid #B89552;outline-offset:2px}
+
+/* aloqa */
+.ze-row{display:flex;align-items:center;gap:14px;width:100%;min-height:74px;padding:14px 16px 14px 20px;box-sizing:border-box;text-align:left}
+.ze-row-ic{flex:none;width:44px;height:44px;border-radius:50%;border:1px solid rgba(184,149,82,.55);background:rgba(255,255,255,.6);display:flex;align-items:center;justify-content:center;color:#6F5B36;text-decoration:none}
+.ze-row-ic:hover{border-color:#B89552}
+.ze-row-h{margin:0;font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;font-size:19px;line-height:23px;color:#6F5B36}
+.ze-row-s{margin:1px 0 0;font-size:12px;line-height:17px;color:#A8997C}
+
+/* yakun: eshik naqshi qaytadi */
+.ze-foot{position:relative;margin-top:auto;padding-top:88px}
+.ze-foot-in{position:relative;padding:62px 28px 60px;display:flex;flex-direction:column;align-items:center;text-align:center;background:#17110E url('/katalog/v2/art/toy12-eshik/lattice.webp') 0 -404px/390px 780px no-repeat}
+.ze-foot-in::before{content:"";position:absolute;left:0;top:0;width:100%;height:100%;background:radial-gradient(90% 80% at 50% 46%,rgba(18,13,10,.93) 0%,rgba(18,13,10,.88) 60%,rgba(18,13,10,.82) 100%)}
+.ze-foot-in::after{content:"";position:absolute;left:0;top:0;width:100%;height:2px;background:linear-gradient(90deg,#7A5A22,#E6C36E 30%,#F6E3A8 50%,#E6C36E 70%,#7A5A22)}
+.ze-foot-in>*{position:relative}
+.ze-foot-nm{margin:0;max-width:330px;font-family:'Cormorant Garamond',Georgia,serif;font-weight:400;font-size:32px;line-height:1.15;color:#FBF4E6;overflow-wrap:anywhere}
+.ze-foot-nm i{font-style:normal;color:#D9BF86}
+
+@media (prefers-reduced-motion: reduce){
+  .ze-i *,.ze-i *::before,.ze-i *::after,.ze-pill svg,.ze-eq i{animation:none !important}
+  .ze-i--open{animation:ze-iOut .7s ease forwards}
+  .ze-hero--on .ze-l{animation:ze-lineR .7s ease .35s both}
+  .ze-gimg,.ze-th,.ze-opt,.ze-stepper,.ze-music{transition:none}
+}
+@keyframes ze-lineR{from{opacity:0}to{opacity:1}}
+</style>
+</helmet>
+<div class="ze-root" style="width: 390px; min-height: var(--vh, 100vh); position: relative; overflow: hidden; display: flex; flex-direction: column">
+
+  <sc-if value="{{ has.music }}">
+  <button type="button" class="{{ musicCls }}" aria-label="{{ musicLabel }}" aria-pressed="{{ musicOn }}" onClick="{{ toggleMusic }}">
+    <sc-if value="{{ musicOn }}"><span class="ze-eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span></sc-if>
+    <sc-if value="{{ musicOff }}"><svg class="ze-icon" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V5.5l11-2.2v12.5"></path><circle cx="6.2" cy="18" r="2.8"></circle><circle cx="17.2" cy="15.8" r="2.8"></circle></svg></sc-if>
+  </button>
+  </sc-if>
+
+  <!-- kirish: naqshin zarhal eshik; butun sahna bitta tugma -->
+  <div data-intro class="{{ introCls }}" aria-hidden="{{ introHidden }}">
+    <i class="ze-wing" aria-hidden="true"></i>
+    <div class="ze-scene" aria-hidden="true">
+    <div class="ze-room">
+      <i class="ze-win" style="left: 118px; top: 262px"></i>
+      <i class="ze-win" style="left: 306px; top: 196px; opacity: 0.7"></i>
+      <i class="ze-room-floor"></i>
+      <i class="ze-room-haze"></i>
+    </div>
+    <div class="ze-cam">
+      <div class="ze-leaf ze-leaf--l"><i class="ze-shade"></i><i class="ze-glint" style="left: 164.7px; top: 398px"></i></div>
+      <div class="ze-leaf ze-leaf--r"><i class="ze-shade"></i><i class="ze-glint" style="left: 21.8px; top: 398px; animation-delay: 2.3s"></i></div>
+      <div class="ze-sheen"></div>
+      <i class="ze-seam"></i>
+      <div class="ze-frame"></div>
+      <div class="ze-lintel"></div>
+      <div class="ze-floor"></div>
+      <div class="ze-glow"></div>
+      <i class="ze-ring"></i>
+    </div>
+    <div class="ze-fx">
+      <sc-for list="{{ motes }}" as="m"><i class="ze-mote" style="{{ m }}"></i></sc-for>
+      <i class="ze-arc"><i class="ze-arc-c"></i></i>
+      <sc-for list="{{ sparks }}" as="s"><i class="{{ s.c }}" style="{{ s.st }}"></i></sc-for>
+    </div>
+    </div>
+    <div class="ze-veil" aria-hidden="true"></div>
+    <button type="button" class="ze-tap" aria-label="{{ tapLabel }}" onClick="{{ open }}">
+      <span class="ze-hint">
+        <sc-if value="{{ guestLine }}"><span class="ze-hint-g" style="font-size: {{ fsGuest }}px">{{ guestLine }}</span></sc-if>
+        <span class="ze-hint-t">Ochish uchun eshikka bosing</span>
+      </span>
+    </button>
+  </div>
+
+  <header class="{{ heroCls }}">
+    <h1 class="ze-vh">{{ pair }}</h1>
+    <div class="ze-col">
+      <sc-if value="{{ fam }}"><p class="ze-l ze-fam" style="--d: 2.4s; font-size: {{ fsFam }}px">{{ fam }}</p></sc-if>
+      <p class="ze-l ze-phr" style="--d: 2.65s">Sizni nikoh to’yimizga taklif etamiz</p>
+      <sc-if value="{{ kuyov }}"><p class="ze-l ze-nm" style="--d: 2.9s; font-size: {{ fsName }}px">{{ kuyov }}</p></sc-if>
+      <sc-if value="{{ both }}"><p class="ze-l ze-amp" aria-hidden="true" style="--d: 3.1s">&amp;</p></sc-if>
+      <sc-if value="{{ kelin }}"><p class="ze-l ze-nm" style="--d: 3.25s; font-size: {{ fsName }}px">{{ kelin }}</p></sc-if>
+      <div class="ze-dets">
+        <sc-if value="{{ w.Weekday }}"><p class="ze-l ze-det" style="--d: 3.5s">{{ w.Weekday }}</p></sc-if>
+        <sc-if value="{{ w.date }}"><p class="ze-l ze-det" style="--d: 3.62s">{{ w.date }}</p></sc-if>
+        <sc-if value="{{ d.vaqt }}"><p class="ze-l ze-det" style="--d: 3.74s">Soat {{ d.vaqt }}</p></sc-if>
+        <sc-if value="{{ d.manzil_nomi }}"><p class="ze-l ze-det ze-det--2" style="--d: 3.86s">{{ d.manzil_nomi }}</p></sc-if>
+      </div>
+      <p class="ze-l ze-wish" style="--d: 4s">Sizni oramizda ko’rishdan baxtiyor bo’lamiz</p>
+    </div>
+    <p class="ze-l ze-plq" style="--d: 4.15s">Nikoh to’yi</p>
+  </header>
+
+  <sc-if value="{{ b.rsvp }}">
+  <button type="button" class="ze-card ze-pill" onClick="{{ toRsvp }}">
+    <span><b>Javobingizni kutamiz</b><span>Nikoh to’yiga kelasizmi?</span></span>
+    <svg class="ze-icon" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg>
+  </button>
+  </sc-if>
+
+  <sc-if value="{{ anyKun }}">
+  <section class="ze-sec" style="padding-top: 46px">
+    <p class="ze-lbl">{{ kunLbl }}</p>
+    <sc-if value="{{ w.date }}"><h2 class="ze-h2">{{ w.date }}</h2></sc-if>
+    <sc-if value="{{ b.taymer }}">
+      <div class="ze-tiles" role="timer" aria-label="{{ cdText }}">
+        <sc-for list="{{ tiles }}" as="t"><div class="ze-tile"><span class="ze-card ze-tile-n ze-num">{{ t.n }}</span><span class="ze-tile-l">{{ t.l }}</span></div></sc-for>
+      </div>
+    </sc-if>
+    <sc-if value="{{ b.kun }}">
+      <sc-if value="{{ kunLine }}"><p class="ze-kun ze-num">{{ kunLine }}</p></sc-if>
+      <sc-if value="{{ cal }}">
+        <a class="ze-out" href="{{ cal }}" target="_blank" rel="noopener" style="margin-top: 18px">
+          <svg class="ze-icon" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="2"></rect><path d="M3.5 10h17M8 3v4M16 3v4"></path></svg>
+          Taqvimga qo’shish
+        </a>
+      </sc-if>
+    </sc-if>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.manzil }}">
+  <section class="ze-sec">
+    <p class="ze-lbl">Manzil</p>
+    <h2 class="ze-h2" style="font-size: 27px; line-height: 33px">{{ d.manzil_nomi }}</h2>
+    <sc-if value="{{ d.manzil }}"><p class="ze-addr"><svg class="ze-icon" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6.5-6-6.5-11a6.5 6.5 0 0 1 13 0c0 5-6.5 11-6.5 11Z"></path><circle cx="12" cy="10" r="2.3"></circle></svg><span>{{ d.manzil }}</span></p></sc-if>
+    <sc-if value="{{ d.xarita }}">
+      <a class="ze-card ze-map" href="{{ d.xarita }}" target="_blank" rel="noopener">
+        <svg class="ze-icon" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6.5-6-6.5-11a6.5 6.5 0 0 1 13 0c0 5-6.5 11-6.5 11Z"></path><circle cx="12" cy="10" r="2.3"></circle></svg>
+        <span>Xaritada ko’rish</span>
+      </a>
+    </sc-if>
+    <sc-if value="{{ d.joy_rasmi }}">
+      <div class="ze-arch ze-arch--v" style="margin-top: 40px; margin-bottom: 6px">
+        <div class="ze-arch-o"></div><div class="ze-arch-m"></div><div class="ze-arch-n"></div>
+        <div class="ze-arch-i"><img src="{{ d.joy_rasmi }}" alt="{{ d.manzil_nomi }}"></div>
+        <i class="ze-arch-base"></i>
+      </div>
+    </sc-if>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.taklif }}">
+  <section class="ze-sec">
+    <div class="ze-band" aria-hidden="true"><i></i><b></b><i></i></div>
+    <p class="ze-lbl">Nikoh to’yiga taklifnoma</p>
+    <h2 class="ze-h2" style="font-size: {{ fsHello }}px; line-height: 1.2">{{ hello }}</h2>
+    <div class="ze-marble" style="width: 100%; margin-top: 28px; padding: 40px 28px 46px; box-sizing: border-box">
+      <p class="ze-serif" style="position: relative; margin: 0; font-weight: 500; font-size: 19.5px; line-height: 30px; color: #5F5137; white-space: pre-line; overflow-wrap: anywhere; text-wrap: pretty">{{ d.matn }}</p>
+      <sc-if value="{{ fam }}">
+        <span aria-hidden="true" style="position: relative; display: block; width: 44px; height: 1px; margin: 24px auto 16px; background: #C9B284"></span>
+        <p class="ze-lbl" style="position: relative; font-size: 9.5px">Hurmat bilan</p>
+        <p class="ze-serif" style="position: relative; max-width: 164px; margin: 6px auto 0; font-style: italic; font-weight: 500; font-size: 21px; line-height: 26px; color: #6F5B36; overflow-wrap: anywhere; text-wrap: balance">{{ fam }}</p>
+      </sc-if>
+      <sc-if value="{{ noFam }}"><span aria-hidden="true" style="display: block; height: 62px"></span></sc-if>
+      <i class="ze-roses" aria-hidden="true"></i>
+    </div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.dastur }}">
+  <section class="ze-sec">
+    <p class="ze-lbl">Dastur</p>
+    <h2 class="ze-h2">Kun tartibi</h2>
+    <div class="ze-card ze-prog">
+      <sc-for list="{{ prog }}" as="x">
+        <div class="ze-prow"><span class="ze-prow-t ze-num">{{ x.vaqt }}</span><span class="ze-prow-n">{{ x.nomi }}</span></div>
+      </sc-for>
+    </div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.hikoya }}">
+  <section class="ze-sec">
+    <p class="ze-lbl">Sevgi tarixi</p>
+    <h2 class="ze-h2">Bizning hikoyamiz</h2>
+    <div class="ze-story">
+      <sc-for list="{{ story }}" as="h">
+        <div class="ze-st">
+          <sc-if value="{{ h.yil }}"><span class="ze-st-y ze-num">{{ h.yil }}</span></sc-if>
+          <sc-if value="{{ h.sarlavha }}"><p class="ze-st-h">{{ h.sarlavha }}</p></sc-if>
+          <sc-if value="{{ h.matn }}"><p class="ze-st-p">{{ h.matn }}</p></sc-if>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.galereya }}">
+  <section class="ze-sec">
+    <div class="ze-band" aria-hidden="true"><i></i><b></b><i></i></div>
+    <p class="ze-lbl">Suratlar</p>
+    <h2 class="ze-h2">Yorqin lahzalar</h2>
+    <div class="ze-arch ze-arch--g" style="margin-top: 32px">
+      <div class="ze-arch-o"></div><div class="ze-arch-m"></div><div class="ze-arch-n"></div>
+      <div class="ze-arch-i"><sc-for list="{{ gal }}" as="g"><img class="{{ g.cls }}" src="{{ g.src }}" alt="{{ g.alt }}"></sc-for></div>
+      <i class="ze-arch-base"></i>
+    </div>
+    <sc-if value="{{ galMany }}">
+      <div style="margin-top: 30px; display: flex; gap: 10px; justify-content: center; align-items: flex-end; height: 68px">
+        <sc-for list="{{ gal }}" as="g"><button type="button" class="{{ g.th }}" aria-label="{{ g.alt }}" aria-pressed="{{ g.on }}" onClick="{{ g.pick }}"><span class="ze-arch-o"></span><span class="ze-arch-i"><img src="{{ g.src }}" alt=""></span></button></sc-for>
+      </div>
+    </sc-if>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.dress }}">
+  <section class="ze-sec">
+    <p class="ze-lbl">Kiyinish uslubi</p>
+    <h2 class="ze-h2">Libos ranglari</h2>
+    <p class="ze-txt" style="margin-top: 16px; max-width: 320px; white-space: pre-line; overflow-wrap: anywhere">{{ d.dress_kod }}</p>
+    <sc-if value="{{ sw.length }}"><div style="margin-top: 28px; width: 100%; display: grid; grid-template-columns: {{ swCols }}; gap: 22px 8px; justify-items: center">
+      <sc-for list="{{ sw }}" as="c"><div style="display: flex; flex-direction: column; align-items: center; gap: 12px"><span class="ze-sw" style="background: {{ c.bg }}"></span><span style="font-size: 11.5px; line-height: 16px; letter-spacing: 0.04em; color: #7A6E5E">{{ c.name }}</span></div></sc-for>
+    </div></sc-if>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.rsvp }}">
+  <section id="ze-rsvp" class="ze-sec">
+    <div class="ze-band" aria-hidden="true"><i></i><b></b><i></i></div>
+    <p class="ze-lbl">Javobingiz</p>
+    <h2 class="ze-h2">Tashrif buyurasizmi?</h2>
+    <p class="ze-txt" style="margin-top: 10px; font-size: 13.5px; line-height: 21px">{{ deadline }}</p>
+    <div class="ze-marble ze-form">
+      <div style="position: relative">
+        <sc-if value="{{ askName }}"><label for="ze-name" class="ze-flbl">Ismingiz</label><input id="ze-name" class="ze-field ze-in" type="text" maxlength="100" autocomplete="name" placeholder="Masalan: Dilnoza opa" onInput="{{ onName }}"></sc-if>
+        <div style="display: flex; gap: 8px">
+          <button type="button" class="{{ optYesCls }}" aria-pressed="{{ isYes }}" onClick="{{ sayYes }}">Albatta boraman</button>
+          <button type="button" class="{{ optNoCls }}" aria-pressed="{{ isNo }}" onClick="{{ sayNo }}">Kela olmayman</button>
+        </div>
+        <div style="margin-top: 18px; display: flex; align-items: center; justify-content: space-between; gap: 12px; height: 46px">
+          <span class="ze-flbl">Necha kishi</span>
+          <div class="{{ stepperCls }}">
+            <button type="button" class="ze-step" aria-label="Kamaytirish" disabled="{{ minusOff }}" onClick="{{ dec }}"><svg class="ze-icon" width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12"></path></svg></button>
+            <span class="ze-num" aria-live="polite" style="min-width: 26px; text-align: center; font-weight: 300; font-size: 27px; line-height: 32px; color: #6F5B36">{{ guests }}</span>
+            <button type="button" class="ze-step" aria-label="Ko’paytirish" disabled="{{ plusOff }}" onClick="{{ inc }}"><svg class="ze-icon" width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12M12 6v12"></path></svg></button>
+          </div>
+        </div>
+        <label for="ze-wish" class="ze-flbl" style="margin-top: 18px">Tilaklaringiz</label>
+        <textarea id="ze-wish" class="ze-field ze-ta" rows="2" maxlength="300" placeholder="Yoshlarga ezgu tilaklaringiz…" onInput="{{ onWish }}"></textarea>
+        <button type="button" class="ze-btn" style="margin-top: 20px; width: 100%" disabled="{{ busy }}" onClick="{{ send }}">
+          <sc-if value="{{ sent }}"><svg class="ze-icon" width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"></path></svg></sc-if>
+          {{ sendLabel }}
+        </button>
+        <p aria-live="polite" style="margin: 12px 0 0; min-height: 21px; text-align: center; font-size: 13.5px; line-height: 21px; color: #6E6252">{{ rsvpNote }}</p>
+      </div>
+    </div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ anyRow }}">
+  <section class="ze-sec" style="padding-top: 56px">
+    <div style="width: 100%; display: flex; flex-direction: column; gap: 12px">
+      <sc-if value="{{ b.guruh }}">
+        <div class="ze-card ze-row">
+          <div style="flex: 1; min-width: 0">
+            <p class="ze-row-h">Mehmonlar guruhi</p>
+            <p class="ze-row-s">Telegram’dagi umumiy guruh</p>
+          </div>
+          <a class="ze-out" href="{{ d.telegram_guruh }}" target="_blank" rel="noopener" style="flex: none; height: 42px; padding: 0 14px; font-size: 11px"><svg class="ze-icon" width="15" height="15" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 4 3 11l6 2.2M21 4l-3 16-7.5-5.6M21 4 9 13.2v5.3l3-3.1"></path></svg>Qo’shilish</a>
+        </div>
+      </sc-if>
+      <sc-if value="{{ b.telefon }}">
+        <div class="ze-card ze-row">
+          <div style="flex: 1; min-width: 0">
+            <p class="ze-row-s" style="margin: 0">Savollar uchun</p>
+            <p class="ze-num" style="margin: 2px 0 0; font-weight: 300; font-size: 20px; line-height: 26px; color: #6F5B36; overflow-wrap: anywhere">{{ d.telefon }}</p>
+          </div>
+          <a class="ze-row-ic" href="{{ tel }}" aria-label="Qo’ng’iroq qilish"><svg class="ze-icon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M5.2 3.5h3.1l1.6 4.2-2.1 1.5a12.2 12.2 0 0 0 7 7l1.5-2.1 4.2 1.6v3.1a1.9 1.9 0 0 1-2.1 1.9A16.6 16.6 0 0 1 3.3 5.6a1.9 1.9 0 0 1 1.9-2.1Z"></path></svg></a>
+        </div>
+      </sc-if>
+    </div>
+  </section>
+  </sc-if>
+
+  <footer class="ze-foot">
+    <div class="ze-foot-in">
+      <p class="ze-foot-nm">{{ kuyov }}<sc-if value="{{ both }}"> <i>&amp;</i> </sc-if>{{ kelin }}</p>
+      <sc-if value="{{ w.date }}"><p class="ze-num" style="margin: 12px 0 0; font-size: 11px; line-height: 16px; letter-spacing: 0.3em; text-transform: uppercase; color: #C9B48A">{{ w.date }}</p></sc-if>
+      <span aria-hidden="true" style="display: block; width: 9px; height: 9px; margin: 24px 0 22px; border-radius: 50%; background: radial-gradient(circle at 36% 30%, #FFFFFF 0, #F1E8D8 45%, #CDB88E 100%); box-shadow: 0 0 0 1px rgba(201, 162, 74, 0.8), 0 0 0 5px rgba(201, 162, 74, 0.14)"></span>
+      <p style="margin: 0; max-width: 300px; font-size: 13px; line-height: 21px; color: #D8CDBB; text-wrap: balance">Sizni intizorlik bilan kutamiz. Tashrifingiz biz uchun katta quvonch.</p>
+      <sc-if value="{{ fam }}"><p style="margin: 20px 0 0; max-width: 320px; font-size: 10px; line-height: 16px; letter-spacing: 0.26em; text-transform: uppercase; color: #A8997C; overflow-wrap: anywhere">{{ fam }}</p></sc-if>
+    </div>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":5600}}'>
+const D = SITE.d;
+function hhmm(t) { t = String(t || ''); return /^\d:\d\d$/.test(t) ? '0' + t : t; }
+function stamp(iso, time) { const t = Date.parse(String(iso || '').slice(0, 10) + 'T' + (hhmm(time) || '12:00') + ':00+05:00'); return isNaN(t) ? null : t; }
+function fitPx(text, max, width, em) { const n = String(text || '').length || 1; return Math.max(Math.round(max * 0.42), Math.min(max, Math.floor(width / (n * em)))); }
+function fitWord(text, max, width, em) { const L = Math.max(1, ...String(text || '').split(/\s+/).map((x) => x.length)); return Math.max(Math.round(max * 0.5), Math.min(max, Math.floor(width / (L * em)))); }
+function telHref(t) { return 'tel:' + String(t || '').replace(/[^\d+]/g, ''); }
+/* ism bir qatorga sig'adigan eng katta o'lcham: haqiqiy shrift bilan o'lchanadi (yuklanmagan bo'lsa — zaxira shrift bilan) */
+let pen = null;
+function nameSize(text, max, width) {
+  if (!text) return max;
+  try {
+    pen = pen || document.createElement('canvas').getContext('2d');
+    pen.font = '500 100px "Cormorant Garamond", Georgia, serif';
+    const w = pen.measureText(text).width;
+    if (w > 0) return Math.max(20, Math.min(max, Math.floor(width * 100 / w)));
+  } catch (e) { /* o'lchab bo'lmasa — taxminiy hisob */ }
+  return fitPx(text, max, width, 0.56);
+}
+const KUYOV = String(D.kuyov || '').trim();
+const KELIN = String(D.kelin || '').trim();
+const GUEST = String(D.mehmon || '').trim();
+const FAM = String(D.taklif_qiluvchilar || '').trim();
+function calUrl() {
+  const t = stamp(D.sana, D.vaqt); if (t == null) return '';
+  const f = (ms) => new Date(ms).toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
+  const title = [KUYOV, KELIN].filter(Boolean).join(' va ') + (KUYOV || KELIN ? ': ' : '') + 'nikoh to’yi';
+  const loc = [D.manzil_nomi, D.manzil].filter(Boolean).join(', ');
+  return 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + encodeURIComponent(title) + '&dates=' + f(t) + '/' + f(t + 5 * 3600e3) + (loc ? '&location=' + encodeURIComponent(loc) : '');
+}
+function deadlineText(tail) {
+  const t = stamp(D.sana, '12:00'); if (t == null) return 'Iltimos, ' + tail + '.';
+  const dl = t - 7 * 864e5;
+  if (dl < Date.now()) return 'Iltimos, imkon qadar tezroq ' + tail + '.';
+  return 'Iltimos, ' + SITE.when(new Date(dl + 5 * 3600e3).toISOString().slice(0, 10)).dm + 'gacha ' + tail + '.';
+}
+
+const SW = [
+  ['fil suyagi', '#F1E8D6'], ['to\'q ko\'k', '#1C3358'], ['to\'q yashil', '#17463A'], ['zumrad', '#1B5E50'],
+  ['shampan', '#EEDDB8'], ['oltin', 'linear-gradient(128deg, #F1DDA2, #C9A24A 55%, #8E6E2A)'],
+  ['kumush', 'linear-gradient(128deg, #F1F3F5, #B8BDC2 55%, #7D8287)'], ['marvarid', '#EEE5E3'],
+  ['bordo', '#74202F'], ['pudra', '#EBCBC3'], ['oq', '#F7F5F1'], ['krem', '#F1E4CC'], ['bej', '#DCC7A6'],
+  ['moviy', '#8DB7DF'], ['ko\'k', '#4A7FBC'], ['yashil', '#5A9A68'], ['pushti', '#E9AABA'], ['qizil', '#B83A33'],
+  ['jigarrang', '#80583C'], ['kulrang', '#A5A8AB'], ['lavanda', '#C2B0E0'], ['binafsha', '#745AA2'], ['sariq', '#E8C455'], ['qora', '#1C1816']
+];
+function swatches(text) {
+  let t = ' ' + String(text || '').toLowerCase().replace(/[’‘ʻʼ`]/g, '\'') + ' ';
+  const found = [];
+  SW.forEach(([k, bg]) => {
+    const re = new RegExp('(^|[^a-z\'])' + k + '(?![a-z])');
+    const m = re.exec(t);
+    if (m) {
+      found.push({ at: m.index, name: SITE.cap(k.replace(/'/g, '’')), bg });
+      t = t.slice(0, m.index + m[1].length) + ' '.repeat(k.length) + t.slice(m.index + m[1].length + k.length);
+    }
+  });
+  return found.sort((a, b) => a.at - b.at).slice(0, 8);
+}
+
+/* zarralar: joylashuvi bir xil chiqishi uchun urug'li tasodif */
+let seed = 29;
+function rnd() { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; }
+const MOTES = [];
+for (let i = 0; i < 10; i++) MOTES.push('left: ' + Math.round(36 + rnd() * 318) + 'px; top: ' + Math.round(170 + rnd() * 590) + 'px; animation-delay: ' + (-rnd() * 9).toFixed(2) + 's; animation-duration: ' + (6.5 + rnd() * 4).toFixed(2) + 's');
+/* zarrin iz bo'ylab uchqunlar: pastki chapdan yuqori o'ngga, yoy bo'ylab */
+const SPARKS = [];
+for (let i = 0; i < 44; i++) {
+  const u = i / 43, star = i % 4 === 1;
+  const f = (184 - u * 90) * Math.PI / 180, off = (rnd() - 0.5) * (star ? 44 : 84) - (star ? 0 : 10);
+  const x = (420 + off) * Math.sin(f), y = 130 - (520 + off * 1.24) * Math.cos(f);
+  const s = star ? 14 + rnd() * 12 : 2.6 + rnd() * 3.8;
+  SPARKS.push({
+    c: star ? 'ze-sp ze-sp--star' : 'ze-sp',
+    st: 'left: ' + (x - s / 2).toFixed(1) + 'px; top: ' + (y - s / 2).toFixed(1) + 'px; width: ' + s.toFixed(1) + 'px; height: ' + s.toFixed(1) + 'px; --d: ' + (0.5 + Math.pow(0.15 + u * 0.7, 1.1) * 1.75 + rnd() * 0.22).toFixed(2) + 's; --x: ' + Math.round(-8 + rnd() * 24) + 'px; --y: ' + Math.round(8 + rnd() * 46) + 'px'
+  });
+}
+
+const NPH = Math.max(1, Math.min(6, SITE.has.photos || 0));
+const GAL = SITE.p.slice(0, NPH);
+
+class Component extends DCLogic {
+  constructor(...args) {
+    super(...args);
+    this.state = { opened: false, g: 0, rsvp: '', guests: 1, sent: false, busy: false, warn: '' };
+    this.nm = ''; this.wish = ''; this.n = 0; this.picked = false;
+  }
+  componentDidMount() {
+    /* shrift yuklangach ism o'lchami qayta hisoblanadi */
+    try { document.fonts.load('500 52px "Cormorant Garamond"', KUYOV + KELIN).then(() => this.forceUpdate(), () => {}); } catch (e) { /* eski brauzer */ }
+    this.timer = setInterval(() => {
+      this.n++;
+      if (!this.picked && GAL.length > 1 && this.n % 5 === 0) this.setState({ g: (this.state.g + 1) % GAL.length });
+      else this.forceUpdate();
+    }, 1000);
+  }
+  componentWillUnmount() { clearInterval(this.timer); }
+  open() { if (this.state.opened) return; this.setState({ opened: true }); SITE.opened(); }
+  send() {
+    const s = this.state;
+    if (!s.rsvp) { this.setState({ warn: 'Iltimos, avval javobingizni tanlang.' }); return; }
+    const name = this.nm.trim();
+    if (!SITE.has.guest && !name) { this.setState({ warn: 'Iltimos, ismingizni yozing.' }); return; }
+    if (s.busy) return;
+    this.setState({ busy: true, warn: '' });
+    SITE.rsvp(s.rsvp === 'yes', s.rsvp === 'yes' ? s.guests : 1, name, this.wish.trim())
+      .then(() => this.setState({ sent: true, busy: false }))
+      .catch(() => this.setState({ busy: false, warn: 'Javob yuborilmadi. Iltimos, qayta urinib ko’ring.' }));
+  }
+  rsvpVals() {
+    const s = this.state || {};
+    const isYes = s.rsvp === 'yes', isNo = s.rsvp === 'no', guests = s.guests || 1;
+    const who = (GUEST || this.nm.trim());
+    let note = '';
+    if (s.sent && isYes) note = (who ? 'Rahmat, ' + who + '! ' : 'Rahmat! ') + (guests > 1 ? 'Sizni ' + guests + ' kishi bilan kutamiz.' : 'Sizni intiqlik bilan kutamiz.');
+    else if (s.sent && isNo) note = (who ? 'Rahmat, ' + who + '! ' : 'Rahmat! ') + 'Duolaringiz biz bilan bo’lsin.';
+    else if (s.warn) note = s.warn;
+    return {
+      deadline: deadlineText('javob bering'),
+      askName: !SITE.has.guest,
+      onName: (e) => { this.nm = e.target.value; },
+      onWish: (e) => { this.wish = e.target.value; },
+      isYes, isNo, guests,
+      optYesCls: isYes ? 'ze-opt ze-opt--on' : 'ze-opt',
+      optNoCls: isNo ? 'ze-opt ze-opt--on' : 'ze-opt',
+      sayYes: () => this.setState({ rsvp: 'yes', sent: false, warn: '' }),
+      sayNo: () => this.setState({ rsvp: 'no', sent: false, warn: '' }),
+      stepperCls: isNo ? 'ze-stepper ze-stepper--off' : 'ze-stepper',
+      minusOff: isNo || guests <= 1, plusOff: isNo || guests >= 10,
+      dec: () => this.setState({ guests: Math.max(1, guests - 1), sent: false }),
+      inc: () => this.setState({ guests: Math.min(10, guests + 1), sent: false }),
+      send: () => this.send(),
+      busy: !!s.busy, sent: !!s.sent,
+      sendLabel: s.busy ? 'Yuborilmoqda…' : (s.sent ? 'Javob yuborildi' : 'Javobni yuborish'),
+      rsvpNote: note
+    };
+  }
+  renderVals() {
+    const s = this.state || {};
+    const w = SITE.when(D.sana, D.vaqt);
+    const cd = SITE.countdown(D.sana, D.vaqt);
+    const music = SITE.music.playing;
+    const guestLine = GUEST ? 'Hurmatli ' + GUEST + '!' : '';
+    const hello = 'Hurmatli ' + (GUEST || 'mehmon') + '!';
+    const sw = swatches(D.dress_kod);
+    const story = Array.isArray(D.hikoya) ? D.hikoya.filter((x) => x && (x.yil || x.sarlavha || x.matn)) : [];
+    const cur = (s.g || 0) % GAL.length;
+    const tile = (v, l) => ({ n: SITE.pad(v), l });
+    const fsName = Math.min(nameSize(KUYOV, 52, 228), nameSize(KELIN, 52, 228)); /* ikki ism bir xil o'lchamda */
+    return Object.assign({
+      introCls: s.opened ? 'ze-i ze-i--open' : 'ze-i',
+      introHidden: !!s.opened,
+      heroCls: s.opened ? 'ze-hero ze-hero--on' : 'ze-hero',
+      open: () => this.open(),
+      tapLabel: (guestLine ? guestLine + ' ' : '') + 'Taklifnomani ochish uchun eshikka bosing',
+      guestLine, fsGuest: fitPx(guestLine, 19, 350, 0.46),
+      motes: MOTES, sparks: SPARKS, w,
+      kuyov: KUYOV, kelin: KELIN, both: !!(KUYOV && KELIN),
+      fsName,
+      fam: FAM, noFam: !FAM, fsFam: FAM.length <= 36 ? 19 : (FAM.length <= 54 ? 17 : 15),
+      pair: [KUYOV, KELIN].filter(Boolean).join(' va '),
+      hello, fsHello: fitWord(hello, 31, 330, 0.5),
+      toRsvp: () => { const el = document.getElementById('ze-rsvp'); if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' }); },
+      anyKun: !!(SITE.b.taymer || SITE.b.kun),
+      kunLbl: SITE.b.taymer ? (cd.done ? 'Quvonchli kun keldi' : 'Quvonchli kungacha qoldi') : 'Sana va vaqt',
+      kunLine: [w.Weekday, D.vaqt ? 'soat ' + D.vaqt : ''].filter(Boolean).join(' · '),
+      cal: calUrl(),
+      tiles: [tile(cd.d, 'KUN'), tile(cd.h, 'SOAT'), tile(cd.m, 'DAQIQA'), tile(cd.s, 'SONIYA')],
+      cdText: cd.d + ' kun, ' + cd.h + ' soat, ' + cd.m + ' daqiqa qoldi',
+      prog: (Array.isArray(D.dastur) ? D.dastur.filter((x) => x && (x.vaqt || x.nomi)) : []).map((x) => ({ vaqt: x.vaqt || '', nomi: x.nomi || '' })),
+      story: story.map((x) => ({ yil: x.yil || '', sarlavha: x.sarlavha || '', matn: x.matn || '' })),
+      gal: GAL.map((src, k) => ({ src, alt: 'Surat ' + (k + 1), on: k === cur, cls: k === cur ? 'ze-gimg ze-gimg--on' : 'ze-gimg', th: k === cur ? 'ze-th ze-th--on' : 'ze-th', pick: () => { this.picked = true; this.setState({ g: k }); } })),
+      galMany: GAL.length > 1,
+      sw, swCols: 'repeat(' + Math.max(1, Math.min(4, sw.length)) + ', minmax(0, 1fr))',
+      anyRow: !!(SITE.b.guruh || SITE.b.telefon),
+      tel: telHref(D.telefon),
+      musicOn: music, musicOff: !music,
+      musicCls: 'ze-music' + (s.opened ? ' ze-music--lite' : '') + (music ? ' ze-music--on' : ''),
+      musicLabel: music ? 'Musiqani o’chirish' : 'Musiqani yoqish',
+      toggleMusic: () => { SITE.music.toggle(); }
+    }, this.rsvpVals());
+  }
+}
+</script>
+</body>
+</html>
