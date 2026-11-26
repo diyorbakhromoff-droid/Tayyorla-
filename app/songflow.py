@@ -144,7 +144,10 @@ def reason_of(e: BaseException) -> str:
 def error_text(e: BaseException) -> str:
     """Panelda ko'rsatiladigan qisqa xato matni (kalit yoki uzun belgilar ketma-ketligi tushib qolmasin)."""
     text = str(e) if getattr(e, "reason", "") else f"{type(e).__name__}: {e}"
-    return re.sub(r"[A-Za-z0-9_\-]{28,}", "…", " ".join(text.split()))[:200]
+    detail = getattr(e, "detail", "")
+    if detail:  # xizmatning asl javobi (masalan, Google rad etish sababi) — panelda ko'rinadi
+        text = f"{text} — {detail}"
+    return re.sub(r"[A-Za-z0-9_\-]{28,}", "…", " ".join(text.split()))[:400]
 
 
 def guess_reason(text: str) -> str:

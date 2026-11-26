@@ -33,10 +33,45 @@ MIX_EN = ("Lead vocals upfront and loud in the mix, clearly louder than the inst
 class LyriaError(Exception):
     """Foydalanuvchiga ko'rsatsa bo'ladigan xato matni bilan."""
 
-    def __init__(self, message: str, quota: bool = False, reason: str = "service"):
+    def __init__(self, message: str, quota: bool = False, reason: str = "service", detail: str = ""):
         super().__init__(message)
         self.quota = quota
         self.reason = "quota" if quota else reason  # statistika uchun sabab kodi (app/songflow.py: REASONS)
+        self.detail = detail  # Google'ning asl javobidan qisqa sabab (admin panel «Oxirgi xatolar» uchun)
+
+
+def detail_of(status: int, body: str) -> str:
+    """Google javobidan qisqa sabab: error.status / error.message, blockReason, finishReason, safety toifalari.
+    Kalit yoki uzun belgilar ketma-ketligi kirmaydi."""
+    parts: list[str] = [str(status)] if status and status != 200 else []
+    try:
+        data = json.loads(body)
+    except ValueError:
+        data = None
+    if isinstance(data, dict):
+        err = data.get("error") if isinstance(data.get("error"), dict) else {}
+        for k in ("status", "message"):
+            if err.get(k):
+                parts.append(str(err[k]))
+        seen: list[str] = []
+
+        def walk(node):
+            if isinstance(node, dict):
+                for k, v in node.items():
+                    if k in ("blockReason", "block_reason", "finishReason", "finish_reason", "category", "reason",
+                             "status", "message", "error_message") and isinstance(v, str) and v and v not in seen:
+                        seen.append(v)
+                    elif isinstance(v, (dict, list)):
+                        walk(v)
+            elif isinstance(node, list):
+                for v in node:
+                    walk(v)
+        walk({k: v for k, v in data.items() if k != "error"})
+        parts.extend(seen[:6])
+    elif body:
+        parts.append(body[:160])
+    text = " ".join(" · ".join(dict.fromkeys(p for p in parts if p)).split())
+    return re.sub(r"[A-Za-z0-9_\-]{28,}", "…", text)[:220]
 
 
 def key() -> str:
@@ -174,19 +209,20 @@ async def compose(text: str, model: str | None = None) -> tuple[bytes, str]:
                     _raise(r.status, body)
                 data = json.loads(body)
     log.warning("Lyria javobida audio yo'q: %s", body[:1500])
-    raise LyriaError("Qo'shiq tayyorlanmadi, qayta urinib ko'ring.", reason="empty")
+    raise LyriaError("Qo'shiq tayyorlanmadi, qayta urinib ko'ring.", reason="empty", detail=detail_of(200, body))
 
 
 def _raise(status: int, body: str) -> None:
     low = body.lower()
     log.warning("Lyria %s: %s", status, body[:2000])
+    d = detail_of(status, body)
     if status in (401, 403) or "api key" in low or "permission" in low:
-        raise LyriaError("Qo'shiq xizmati vaqtincha band. Birozdan so'ng qayta urinib ko'ring — buyurtmangiz saqlanib qoladi.", quota=True)
+        raise LyriaError("Qo'shiq xizmati vaqtincha band. Birozdan so'ng qayta urinib ko'ring — buyurtmangiz saqlanib qoladi.", quota=True, detail=d)
     if "billing" in low or "quota" in low or "exhausted" in low or status == 402:
-        raise LyriaError("Qo'shiq xizmati vaqtincha band. Birozdan so'ng qayta urinib ko'ring — buyurtmangiz saqlanib qoladi.", quota=True)
+        raise LyriaError("Qo'shiq xizmati vaqtincha band. Birozdan so'ng qayta urinib ko'ring — buyurtmangiz saqlanib qoladi.", quota=True, detail=d)
     if status == 429:
-        raise LyriaError("Navbat band, bir necha daqiqadan so'ng qayta urinib ko'ring.", reason="busy")
+        raise LyriaError("Navbat band, bir necha daqiqadan so'ng qayta urinib ko'ring.", reason="busy", detail=d)
     if "safety" in low or "blocked" in low or "copyright" in low or "recitation" in low:
         raise LyriaError("Matnda mualliflik huquqi bilan himoyalangan so'z yoki taqiqlangan ibora bor. Matnni o'zgartirib ko'ring.",
-                         reason="content")
-    raise LyriaError("Qo'shiq tayyorlashda xato bo'ldi, qayta urinib ko'ring.")
+                         reason="content", detail=d)
+    raise LyriaError("Qo'shiq tayyorlashda xato bo'ldi, qayta urinib ko'ring.", detail=d)

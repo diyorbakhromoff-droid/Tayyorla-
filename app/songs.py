@@ -71,16 +71,17 @@ SECTION_EN = {"intro": "Intro", "verse": "Verse", "chorus": "Chorus", "bridge": 
 class SongError(Exception):
     """Foydalanuvchiga ko'rsatiladigan xato (o'zbekcha). reason — statistika uchun sabab kodi (app/songflow.py: REASONS)."""
 
-    def __init__(self, message: str = "", reason: str = "service"):
+    def __init__(self, message: str = "", reason: str = "service", detail: str = ""):
         super().__init__(message)
         self.reason = reason
+        self.detail = detail  # xizmatning asl javobidan qisqa sabab (faqat admin panel uchun)
 
 
 class QuotaError(SongError):
     """ElevenLabs krediti tugagan yoki kalit ishlamayapti."""
 
-    def __init__(self, message: str = "", reason: str = "quota"):
-        super().__init__(message, reason)
+    def __init__(self, message: str = "", reason: str = "quota", detail: str = ""):
+        super().__init__(message, reason, detail)
 
 
 def meta() -> dict:
@@ -586,6 +587,8 @@ async def check_credits(bot) -> None:
     import time
     if not bot or not settings.song_credit_alert or time.time() - _ALERT["at"] < 12 * 3600:
         return
+    if await provider() != "elevenlabs":
+        return  # qo'shiqni boshqa xizmat (Lyria) tayyorlayapti — ElevenLabs krediti ahamiyatsiz
     c = await credits(force=True)
     if not c or c["remaining"] >= settings.song_credit_alert:
         return
@@ -722,6 +725,12 @@ async def _generate_from_demo(s, song: Song) -> Path | None:
     return path
 
 
+def _lyria_detail(e, song: Song) -> str:
+    """Admin uchun: Google'ning asl sababi va so'rovdagi uslub/teglar (rad etish qaysi qismdan ekanini ko'rish uchun)."""
+    tags = ", ".join(song.tags or [])[:90]
+    return " · ".join(x for x in (getattr(e, "detail", ""), f"uslub: {song.style}", f"teglar: {tags}" if tags else "") if x)
+
+
 async def _generate_lyria(s, song: Song, purpose: str) -> Path:
     """Lyria: bitta to'liq qo'shiq. Namuna shu qo'shiqning naqoratidan kesiladi, sotilsa aynan shu qo'shiq beriladi."""
     sections = parse_lyrics(song.lyrics)
@@ -736,8 +745,8 @@ async def _generate_lyria(s, song: Song, purpose: str) -> Path:
     except lyria.LyriaError as e:
         if e.quota:
             _ALERT["at"] = 0.0
-            raise QuotaError(str(e))
-        raise SongError(str(e), getattr(e, "reason", "service"))
+            raise QuotaError(str(e), detail=_lyria_detail(e, song))
+        raise SongError(str(e), getattr(e, "reason", "service"), _lyria_detail(e, song))
     s.add(costs.lyria_row(purpose, song.owner_id, f"song:{song.id}", settings.lyria_model))
     PRIVATE_DIR.mkdir(parents=True, exist_ok=True)
     path = PRIVATE_DIR / f"{song.id}-l-{secrets.token_hex(4)}.mp3"
@@ -764,8 +773,8 @@ async def _generate_lyria_clip(s, song: Song) -> Path:
     except lyria.LyriaError as e:
         if e.quota:
             _ALERT["at"] = 0.0
-            raise QuotaError(str(e))
-        raise SongError(str(e), getattr(e, "reason", "service"))
+            raise QuotaError(str(e), detail=_lyria_detail(e, song))
+        raise SongError(str(e), getattr(e, "reason", "service"), _lyria_detail(e, song))
     s.add(costs.lyria_row("song_preview", song.owner_id, f"song:{song.id}", settings.lyria_clip_model))
     PRIVATE_DIR.mkdir(parents=True, exist_ok=True)
     path = PRIVATE_DIR / f"{song.id}-clip-{secrets.token_hex(4)}.mp3"
