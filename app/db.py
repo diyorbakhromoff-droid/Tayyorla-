@@ -1,7 +1,7 @@
 import secrets
 from datetime import datetime, timezone
 
-from sqlalchemy import JSON, BigInteger, Boolean, DateTime, ForeignKey, Integer, String, Text, func, inspect, select, text
+from sqlalchemy import JSON, BigInteger, Boolean, DateTime, ForeignKey, Index, Integer, String, Text, func, inspect, select, text
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 
@@ -207,6 +207,7 @@ class Payment(Base):
     provider: Mapped[str] = mapped_column(String(12), default="")  # "" — eski chek, "click", "card" — karta raqamiga o'tkazma
     ext_id: Mapped[str] = mapped_column(String(40), default="")  # to'lov tizimidagi tranzaksiya raqami
     receipt_hash: Mapped[str] = mapped_column(String(64), default="", index=True)  # chek faylining sha256 (takror chek)
+    purpose: Mapped[str] = mapped_column(String(8), default="")  # nima uchun: song | pack | site | video | balance (app/payflow.py)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=utcnow)
     decided_at: Mapped[datetime | None] = mapped_column(DateTime, nullable=True)
 
@@ -224,13 +225,18 @@ class BalanceTx(Base):
 
 
 class Event(Base):
-    """Faollik hodisasi: /start bosildi, ilovaga kirdi (kuniga bir marta), reklama havolasi bosildi."""
+    """Faollik hodisasi: /start bosildi, ilovaga kirdi (kuniga bir marta), reklama havolasi bosildi,
+    voronka qadamlari (pay_open, pay_success... — app/track.py: event())."""
     __tablename__ = "events"
+    __table_args__ = (Index("ix_events_kind_created", "kind", "created_at"),)
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     user_id: Mapped[int | None] = mapped_column(BigInteger, nullable=True, index=True)
-    kind: Mapped[str] = mapped_column(String(12), index=True)  # start | app | click
-    src: Mapped[str] = mapped_column(String(32), default="", index=True)  # start parametri yoki havola kodi
+    kind: Mapped[str] = mapped_column(String(24), index=True)  # start | app | click | pay_open | sample_requested ...
+    src: Mapped[str] = mapped_column(String(32), default="", index=True)  # start parametri, havola kodi yoki foydalanuvchi manbasi
+    ref: Mapped[str] = mapped_column(String(24), default="", index=True)  # qaysi obyekt: pay:<id> | song:<id> | site:<id>
+    num: Mapped[int | None] = mapped_column(Integer, nullable=True)  # son qiymat: summa (so'm), soniya, javob raqami
+    meta: Mapped[dict | None] = mapped_column(JSON, nullable=True)  # qisqa qo'shimcha ma'lumot (mahsulot, usul, sabab)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=utcnow, index=True)
 
 
@@ -337,6 +343,8 @@ async def init_db() -> None:
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
         await conn.run_sync(_add_missing_columns)
+        await conn.run_sync(_widen_columns)
+        await conn.run_sync(_add_missing_indexes)
 
 
 # Oddiy migratsiya: create_all mavjud jadvalga yangi ustun qo'shmaydi.
@@ -363,6 +371,25 @@ _NEW_COLUMNS = [
     ("songs", "promo_price", "INTEGER DEFAULT 0 NOT NULL"),
     ("songs", "promo_sent", "INTEGER DEFAULT 0 NOT NULL"),
     ("payments", "receipt_hash", "VARCHAR(64) DEFAULT '' NOT NULL"),
+    # statistika TZ: hodisaga obyekt (ref), son (num) va qo'shimcha ma'lumot (meta)
+    ("events", "ref", "VARCHAR(24) DEFAULT '' NOT NULL"),
+    ("events", "num", "INTEGER"),
+    ("events", "meta", "JSON"),
+    # to'lov nima uchun: eski yozuvlar mavjud ustunlardan tiklanadi (aniqlab bo'lmaganlari — balans)
+    ("payments", "purpose", "VARCHAR(8) DEFAULT '' NOT NULL",
+     "UPDATE payments SET purpose = CASE WHEN pack > 0 THEN 'pack' WHEN song_id IS NOT NULL THEN 'song' "
+     "WHEN site_id IS NOT NULL THEN 'site' WHEN job_id IS NOT NULL THEN 'video' ELSE 'balance' END"),
+]
+
+# Ustunni kengaytirish: (jadval, ustun, yangi uzunlik). Faqat PostgreSQL da kerak — SQLite VARCHAR uzunligini tekshirmaydi.
+_WIDER_COLUMNS = [
+    ("events", "kind", 24),  # TZ hodisa nomlari 12 belgidan uzun: sample_requested, song_form_done...
+]
+
+# Mavjud jadvalga yangi indeks: (nomi, jadval, ustunlar). create_all yangi jadvalda o'zi yaratadi.
+_NEW_INDEXES = [
+    ("ix_events_ref", "events", "ref"),
+    ("ix_events_kind_created", "events", "kind, created_at"),
 ]
 
 
@@ -373,6 +400,23 @@ def _add_missing_columns(conn) -> None:
             conn.execute(text(f"ALTER TABLE {table} ADD COLUMN {col} {ddl}"))
             for sql in after:
                 conn.execute(text(sql))
+
+
+def _widen_columns(conn) -> None:
+    """VARCHAR ustunini uzaytiradi (qisqartirmaydi). Uzunlik yetarli bo'lsa hech narsa qilmaydi — qayta ishga tushirish xavfsiz."""
+    if conn.dialect.name != "postgresql":
+        return
+    insp = inspect(conn)
+    for table, col, size in _WIDER_COLUMNS:
+        cur = next((c for c in insp.get_columns(table) if c["name"] == col), None)
+        length = getattr(cur["type"], "length", None) if cur else None
+        if length is not None and length < size:
+            conn.execute(text(f"ALTER TABLE {table} ALTER COLUMN {col} TYPE VARCHAR({size})"))
+
+
+def _add_missing_indexes(conn) -> None:
+    for name, table, cols in _NEW_INDEXES:
+        conn.execute(text(f"CREATE INDEX IF NOT EXISTS {name} ON {table} ({cols})"))
 
 
 def new_slug() -> str:

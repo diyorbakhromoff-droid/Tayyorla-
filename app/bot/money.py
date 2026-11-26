@@ -11,7 +11,7 @@ from aiogram.fsm.state import State, StatesGroup
 from aiogram.types import CallbackQuery, Message
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 
-from .. import billing, receipt, videobot
+from .. import billing, payflow, receipt, videobot
 from ..catalog import site_price, site_title
 from ..config import settings
 from sqlalchemy import func, select, update
@@ -62,9 +62,12 @@ async def card_payment(pid: int, uid: int) -> Payment | None:
         p = await s.get(Payment, pid)
         if not p or p.user_id != uid or p.status not in OPEN:
             return None
-        if p.provider != "card":
+        first = p.provider != "card"
+        if first:
             p.provider, p.created_at = "card", utcnow()  # vaqt oynasi karta tanlangan paytdan hisoblanadi
             await s.commit()
+    if first:
+        await payflow.step("pay_card", p)  # statistika: karta raqami ko'rsatildi
     if videobot.BOT:
         lang = await videobot.user_lang(uid)
         try:
@@ -141,6 +144,7 @@ async def process_receipt(message: Message, p: Payment) -> str:
     file_id, mime, size = _receipt_media(message)
     if size > 10 * 1024 * 1024:
         await message.answer(tr(lang, "bot.card_need_photo"))
+        await payflow.step("pay_badrcpt", p, why="big")
         return "big"
     try:
         f = await bot.get_file(file_id)
@@ -152,12 +156,14 @@ async def process_receipt(message: Message, p: Payment) -> str:
     async with Session() as s:
         if h and await s.scalar(select(func.count()).select_from(Payment).where(Payment.receipt_hash == h, Payment.id != p.id)):
             await message.answer(tr(lang, "bot.card_dup"))
+            await payflow.step("pay_badrcpt", p, why="dup")
             return "dup"
     wait = await message.answer(tr(lang, "bot.card_checking"))
     r = await receipt.read(data, mime, uid) if data else None
     if r is not None and not r.get("is_receipt"):
         await _safe_delete(wait)
         await message.answer(tr(lang, "bot.card_not_receipt"))
+        await payflow.step("pay_badrcpt", p, why="not_receipt")
         return "not_receipt"
     cfg = await receipt.config()
     async with Session() as s:
@@ -171,6 +177,7 @@ async def process_receipt(message: Message, p: Payment) -> str:
             cur.ext_id = r["transaction_id"][:40]
         await s.commit()
         p = cur
+    await payflow.step("pay_receipt", p, auto=int(bool(ok)))  # statistika: chek yuborildi
     await _safe_delete(wait)
     user_line = await _user_line(uid)
     info = receipt.summary(r)
@@ -235,6 +242,7 @@ async def revert_payment(pid: int, admin_id: int) -> str:
             take = 0
         p.status, p.admin_id, p.decided_at = "rejected", admin_id, utcnow()
         await s.commit()
+    await payflow.reverted(p)
     lang = (user.lang if user else "") or "uz"
     try:
         if videobot.BOT:
@@ -284,8 +292,10 @@ async def decide_payment(bot, pid: int, approve: bool, admin_id: int) -> str:
         await s.commit()
         user = await s.get(User, p.user_id)
     if approve:
+        await payflow.paid(p)
         await after_topup(bot, p, user)
         return "ok"
+    await payflow.step("pay_reject", p)
     lang = (user.lang if user else "") or "uz"
     try:
         await bot.send_message(p.user_id, tr(lang, "bot.topup_rejected"))
@@ -368,10 +378,32 @@ async def site_click(cb: CallbackQuery):
             return await cb.answer("✅")
         user = await s.get(User, cb.from_user.id)
         amount = max(1000, site_price(site.config) - (user.balance if user else 0))
-        p = Payment(user_id=cb.from_user.id, amount=amount, site_id=site.id)
+        p = Payment(user_id=cb.from_user.id, amount=amount, site_id=site.id, purpose="site")
         s.add(p)
         await s.commit()
+    await payflow.opened(p, via="bot")
     await videobot.send_payment_prompt(p.id)
+    await cb.answer()
+
+
+@router.callback_query(F.data.startswith("pw:"))
+async def pay_why(cb: CallbackQuery):
+    """«Nega to'lamadingiz» so'roviga javob: bir bosishda tanlanadi, tugmalar olib tashlanadi."""
+    from .. import paysurvey
+    try:
+        _, pid, n = cb.data.split(":")
+        pid, n = int(pid), int(n)
+    except ValueError:
+        return await cb.answer()
+    lang = await videobot.user_lang(cb.from_user.id)
+    res = await paysurvey.answer(cb.from_user.id, pid, n)
+    if res == "bad":
+        return await cb.answer()
+    try:
+        await cb.message.edit_text(f"{paysurvey.question(lang)}\n\n✅ <b>{html.escape(paysurvey.label(n, lang))}</b>\n\n"
+                                   f"{tr(lang, 'bot.why_thanks')}")
+    except Exception:
+        log.warning("So'rov xabarini yangilab bo'lmadi")
     await cb.answer()
 
 

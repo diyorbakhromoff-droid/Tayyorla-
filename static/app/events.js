@@ -231,7 +231,7 @@
     if (go) go.onclick = async () => {
       if (cost > bal) {
         s.close();
-        App.topupSheet({ need: cost - bal, title: T("pk.topup_t"), text: T("pk.topup_s", { sum: money(cost), balance: money(bal) }) });
+        App.topupSheet({ what: "video", need: cost - bal, title: T("pk.topup_t"), text: T("pk.topup_s", { sum: money(cost), balance: money(bal) }) });
         return;
       }
       App.busy(go, true);
@@ -246,7 +246,7 @@
         App.busy(go, false);
         if (e.status === 402 && e.detail && e.detail.code === "paywall") {
           s.close();
-          App.topupSheet({ need: Math.max(0, e.detail.need - e.detail.balance), title: T("pk.topup_t"), text: T("pk.topup_s", { sum: money(e.detail.need), balance: money(e.detail.balance) }) });
+          App.topupSheet({ what: "video", need: Math.max(0, e.detail.need - e.detail.balance), title: T("pk.topup_t"), text: T("pk.topup_s", { sum: money(e.detail.need), balance: money(e.detail.balance) }) });
         } else toast(e.message);
       }
     };

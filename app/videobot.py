@@ -179,12 +179,13 @@ async def status_text(job: RenderJob, lang: str) -> str:
 
 # ---------------------------------------------------------------- to'lovlar
 
-def pay_keyboard(payment_id: int, amount: int, lang: str, card: bool = False) -> InlineKeyboardMarkup:
+def pay_keyboard(payment_id: int, amount: int, lang: str, card: bool = False, click_url: str = "") -> InlineKeyboardMarkup:
     from .click import pay_url
     kb = InlineKeyboardBuilder()
     # Click — pul avtomatik tushadi; karta — mijoz chek yuboradi, AI tekshiradi
     if settings.click_on:
-        kb.button(text=tr(lang, "bot.btn_click", amount=money(amount)), url=pay_url(payment_id, amount))
+        # click_url — kuzatuv havolasi (click.link); berilmasa to'g'ridan-to'g'ri Click sahifasi
+        kb.button(text=tr(lang, "bot.btn_click", amount=money(amount)), url=click_url or pay_url(payment_id, amount))
     if card:
         kb.button(text=tr(lang, "bot.btn_card"), callback_data=f"tcard:{payment_id}")
     kb.adjust(1)
@@ -208,9 +209,11 @@ async def send_payment_prompt(payment_id: int) -> None:
         return
     key = "bot.pay_both" if settings.click_on and card else "bot.pay_click" if settings.click_on else "bot.pay_card_only"
     try:
+        from .click import link
         note = tr(lang, "bot.pay_legal", url=f"{settings.base_url.rstrip('/')}/oferta")
         await bot.send_message(p.user_id, tr(lang, key, amount=money(p.amount)) + "\n\n" + note,
-                               reply_markup=pay_keyboard(p.id, p.amount, lang, card), disable_web_page_preview=True)
+                               reply_markup=pay_keyboard(p.id, p.amount, lang, card, await link(p.id, p.amount)),
+                               disable_web_page_preview=True)
     except Exception:
         log.exception("To'lov ko'rsatmasini yuborib bo'lmadi")
 

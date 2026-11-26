@@ -11,7 +11,7 @@ from fastapi.responses import HTMLResponse, Response
 from pydantic import BaseModel, Field
 from sqlalchemy import func, select
 
-from . import ai, billing, i18n, receipt, video, videobot
+from . import ai, billing, i18n, payflow, receipt, track, video, videobot
 from .config import MEDIA_DIR, MUSIC_DIR, settings
 from .db import BalanceTx, MusicTrack, Payment, RenderJob, Session, Site, User, new_slug, utcnow
 from .webapp import _rate_limit, check_init_data
@@ -221,11 +221,12 @@ async def create_video(body: VideoIn, x_init_data: str = Header("")):
         payment = None
         if status == "awaiting_payment":
             amount = body.topup if body.topup and body.topup >= settings.video_price else settings.video_price
-            payment = Payment(user_id=uid, amount=amount, job_id=job.id)
+            payment = Payment(user_id=uid, amount=amount, job_id=job.id, purpose="video")
             s.add(payment)
         await s.commit()
         q = await billing.quota(s, user)
     if payment:
+        await payflow.opened(payment)
         await videobot.send_payment_prompt(payment.id)
         return {"status": "awaiting_payment", "job": job.id, "site": site.slug, "payment": payment.id, "quota": q}
     await notify_queued(job.id)
@@ -452,6 +453,7 @@ class TopupIn(BaseModel):
     site: str = Field("", max_length=40)  # to'langach balansdan faollashtiriladigan sayt
     song: int = Field(0, ge=0)  # to'langach balansdan to'lanadigan qo'shiq
     pack: int = Field(0, ge=0, le=50)  # to'langach sotib olinadigan qo'shiq paketi
+    what: str = Field("", max_length=12)  # mahsulot ko'rsatilmaganda nima uchun: video | site (statistika uchun)
 
 
 @router.post("/api/pay/topup")
@@ -472,14 +474,44 @@ async def topup(body: TopupIn, x_init_data: str = Header("")):
             song_id = song.id if song and song.owner_id == uid and not song.paid else None
         from . import pricing
         pack = body.pack if body.pack and await pricing.pack_price(body.pack) else 0
-        p = Payment(user_id=uid, amount=body.amount, site_id=site_id, song_id=song_id, pack=pack)
+        p = Payment(user_id=uid, amount=body.amount, site_id=site_id, song_id=song_id, pack=pack,
+                    purpose=payflow.guess_purpose(site_id, song_id, pack, hint=body.what))
         s.add(p)
         await s.commit()
+    await payflow.opened(p)
     await videobot.send_payment_prompt(p.id)
-    from .click import pay_url
+    from .click import link
     card = receipt.enabled(await receipt.config())
     return {"ok": True, "payment": p.id, "amount": p.amount, "card": card,
-            "click_url": pay_url(p.id, p.amount) if settings.click_on else ""}
+            "click_url": await link(p.id, p.amount) if settings.click_on else ""}
+
+
+class TrackIn(BaseModel):
+    kind: str = Field(max_length=24)
+    ref: str = Field("", max_length=24)
+    num: int | None = Field(None, ge=0, le=10**9)
+    meta: dict | None = None
+
+
+_TRACK_CALLS: dict[int, list] = {}
+
+
+@router.post("/api/track")
+async def track_event(body: TrackIn, x_init_data: str = Header("")):
+    """Mini App voronka hodisasi (masalan, summa tanlash oynasi ko'rsatildi). Faqat ruxsat etilgan nomlar yoziladi."""
+    uid, _ = _uid(x_init_data)
+    if body.kind not in track.CLIENT_KINDS:
+        return {"ok": False}
+    now = time.time()
+    calls = _TRACK_CALLS.setdefault(uid, [])
+    calls[:] = [t for t in calls if now - t < 3600]
+    if len(calls) >= 300:  # bitta odamdan soatiga ko'pi bilan shuncha hodisa
+        return {"ok": False}
+    calls.append(now)
+    if len(_TRACK_CALLS) > 50_000:
+        _TRACK_CALLS.clear()
+    await track.event(body.kind, uid, body.ref, body.num, track.clean_meta(body.meta))
+    return {"ok": True}
 
 
 @router.post("/api/pay/{pid}/card")

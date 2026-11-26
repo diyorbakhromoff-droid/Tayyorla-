@@ -99,6 +99,8 @@
     return opt.raw ? r.text() : r.json();
   }
   App.api = api;
+  /** Voronka hodisasi (statistika): javobi kutilmaydi, xato bo'lsa jim. Masalan App.track("pay_sheet", { num: 69000, meta: { p: "song" } }). */
+  App.track = (kind, data = {}) => { api("/api/track", { kind, ...data }).catch(() => { /* statistika ilovani to'xtatmaydi */ }); };
 
   // ---------------------------------------------------------------- rasm tanlash va yuklash
   // Telegram (ayniqsa Android) ichida bitta <input type=file> ikkinchi marta ochilmay qolishi mumkin:
@@ -312,8 +314,10 @@
 
   // ---------------------------------------------------------------- balansni to'ldirish (umumiy oyna)
   /** need — yetishmayotgan summa; amounts — tanlov; onSent — to'lov ko'rsatmasi botga ketgach.
-   *  site / song — to'lov tasdiqlangach balansdan avtomatik to'lanadigan sayt yoki qo'shiq. */
-  App.topupSheet = ({ need = 0, title, text, onSent, site = "", song = 0, pack = 0 } = {}) => {
+   *  site / song — to'lov tasdiqlangach balansdan avtomatik to'lanadigan sayt yoki qo'shiq.
+   *  what — mahsulot ko'rsatilmaganda pul nima uchunligi ("video" | "site"), faqat statistika uchun. */
+  App.topupSheet = ({ need = 0, title, text, onSent, site = "", song = 0, pack = 0, what = "" } = {}) => {
+    App.track("pay_sheet", { num: need || 0, meta: { p: pack ? "pack" : song ? "song" : site ? "site" : what || "balance" } });
     const q = (S.me && S.me.quota) || {};
     const price = q.price || 9900;
     const vm = S.vm || {};
@@ -353,7 +357,7 @@
       if (pick < lo || pick > hi) return;
       busy(e.currentTarget, true);
       try {
-        const r = await api("/api/pay/topup", { amount: pick, site, ...(song ? { song: +song } : {}), ...(pack ? { pack: +pack } : {}) });
+        const r = await api("/api/pay/topup", { amount: pick, site, ...(song ? { song: +song } : {}), ...(pack ? { pack: +pack } : {}), ...(what ? { what } : {}) });
         notify("success");
         s.close();
         if (r && r.card && r.click_url) App.payChooseSheet(r, onSent);

@@ -432,16 +432,91 @@
   const PST = { pending: ["Chekni tekshirish", "warn"], new: ["To'lanmagan", ""], approved: ["To'landi", "good"], rejected: ["Rad etilgan", "bad"], cancelled: ["Bekor qilingan", "bad"] };
   const pstOf = (p) => p.status === "approved" ? [p.provider === "click" ? "To'landi · Click" : p.provider === "card" ? (p.auto ? "Karta · avtomatik" : "Karta · qo'lda") : "Tasdiqlangan (chek)", "good"]
     : p.status === "new" ? [p.provider === "click" ? "Click'da to'lanmadi" : "To'lanmagan", ""] : PST[p.status] || [p.status, ""];
+  // vaqt oralig'i: soniyadan kungacha, qisqa ko'rinishda
+  const dur = (s) => (s == null ? "—" : s < 90 ? `${Math.round(s)} soniya` : s < 5400 ? `${Math.round(s / 60)} daqiqa` : s < 172800 ? `${Math.round(s / 360) / 10} soat` : `${Math.round(s / 8640) / 10} kun`);
+  const hm = (s) => { const d = fromUTC(s); return d ? d.toLocaleTimeString("ru-RU", { timeZone: TZ, hour: "2-digit", minute: "2-digit" }) : ""; };
+  // «To'lovlar» tepasidagi xulosa (TZ 3-band): hammasi ODAMLAR soni, Toshkent vaqti
+  function payStatsBlock(d) {
+    const t = d.total, rp = d.repeat, tm = d.time, sv = d.survey, st = d.settings, sh = d.sheet;
+    const share = (n, of) => `${pctOf(n, of)}%<div class="mini-bar"><i style="width:${Math.min(100, pctOf(n, of))}%"></i></div>`;
+    const cut = (title, rows) => `<div><div class="bh"><h2>${title}</h2></div>${table(["", ">Oynani ochdi", ">To'ladi", ">Ulushi"], rows.map((x) => `<tr>
+      <td>${esc(x.label)}${x.attempts > x.people ? `<span class="sub">${fmt(x.attempts)} ta urinish</span>` : ""}</td>
+      <td class="r num">${fmt(x.people)}</td><td class="r num">${fmt(x.paid)}</td><td class="r num">${share(x.paid, x.people)}</td></tr>`), "Bu davrda to'lov oynasi ochilmagan")}</div>`;
+    const stops = (title, s) => `<div><div class="bh"><h2>${title}</h2><p>${fmt(s.people)} kishi shu usulni tanladi</p></div>${table(["Eng uzoq yetgan qadami", ">Kishi", ">Ulushi"], s.steps.map((x) => `<tr>
+      <td>${x.key === "paid" ? tag(x.label, "good") : esc(x.label)}</td><td class="r num">${fmt(x.n)}</td><td class="r num">${share(x.n, s.people)}</td></tr>`))}</div>`;
+    const since = d.since ? `Qadamlar vaqti («Click sahifasiga o'tdi», «qaytdi», «karta raqami ko'rsatildi», summa tanlash oynasi) va so'rov <b>${dt(d.since)}</b> dan beri yoziladi; undan oldingi to'lovlarda nima uchunligi, usuli, cheki va natijasi mavjud yozuvlardan tiklangan.`
+      : "Qadamlar hali yozila boshlamagan (server qayta ishga tushgach boshlanadi).";
+    return `
+      <section class="blk"><div class="bh"><h2>To'lov bosqichi: kim ochdi, kim to'ladi</h2>
+        <div class="row"><button type="button" class="btn sm" data-pexp="paystats">Xulosa CSV</button></div></div>
+        <div class="now">
+          <div><b>${fmt(t.people)}</b><span>kishi to'lov oynasini ochdi · ${fmt(t.attempts)} ta urinish</span></div>
+          <div class="${t.people && !t.paid ? "alert" : ""}"><b>${fmt(t.paid)} <small style="font-size:14px;font-weight:600">(${t.conv}%)</small></b><span>kishi to'ladi · ${som(t.paid_sum)}</span></div>
+          <div><b>${dur(tm.median_s)}</b><span>oynani ochishdan to'lovgacha (mediana) · o'rtacha ${dur(tm.avg_s)}${tm.click.n ? ` · Click ${dur(tm.click.median_s)}` : ""}${tm.card.n ? ` · karta ${dur(tm.card.median_s)}` : ""}</span></div>
+          <div><b>${String(rp.avg).replace(".", ",")}</b><span>urinish bir odamga · ${fmt(rp.multi)} kishi qayta urindi, ${fmt(rp.multi_unpaid)} tasi baribir to'lamadi</span></div>
+        </div>
+        <p class="muted" style="font-size:12.5px;margin-top:8px">Sanash odam bo'yicha: bir kishi besh marta urinsa ham bitta. Admin va sinov akkauntlari (${fmt(d.excluded)} ta) hisobga kirmaydi. ${since}
+          ${sh.people ? `<br>Ilovada summa tanlash oynasini <b>${fmt(sh.people)}</b> kishi ko'rdi, shundan <b>${fmt(sh.chose)}</b> tasi (${pctOf(sh.chose, sh.people)}%) summani tanlab, to'lov oynasini ochdi.` : ""}</p>
+      </section>
+      <section class="blk two">
+        ${stops("Click: qaysi qadamda to'xtashdi", d.stops.click)}
+        ${stops("Karta: qaysi qadamda to'xtashdi", d.stops.card)}
+      </section>
+      <p class="muted" style="font-size:12.5px;margin-top:8px">Usul tanlamay chiqib ketganlar (oynani ochdi, Click'ni ham, kartani ham bosmadi): <b>${fmt(d.stops.none)}</b> kishi (${pctOf(d.stops.none, t.people)}%).
+        Bir kishi ikkala usulni ham sinagan bo'lsa, ikkala jadvalda sanaladi.</p>
+      <section class="blk two">${cut("Mahsulot bo'yicha", d.by_product)}${cut("To'lov usuli bo'yicha", d.by_method)}</section>
+      <section class="blk two">${cut("Summa bo'yicha", d.by_amount)}
+        <div><div class="bh"><h2>Takroriy urinishlar</h2></div>${table(["Bir odam necha marta urindi", ">Kishi", ">Ulushi"], rp.dist.map((x) => `<tr>
+          <td>${esc(x.label)}</td><td class="r num">${fmt(x.n)}</td><td class="r num">${share(x.n, t.people)}</td></tr>`))}
+          <p class="muted" style="font-size:12.5px;margin-top:8px">Eng ko'pi ${fmt(rp.max)} marta.${rp.paid_avg_try ? ` To'laganlar o'rtacha ${String(rp.paid_avg_try).replace(".", ",")}-urinishda to'lagan; ${fmt(rp.paid_first_try)} tasi birinchi urinishdayoq.` : ""}</p></div>
+      </section>
+      <section class="blk"><details><summary><b>Kunlar bo'yicha</b> <span class="muted">— oynani ochganlar va to'laganlar</span></summary><div style="margin-top:10px">
+        ${table(["Kun", ">Oynani ochdi", ">To'ladi", ">Ulushi"], d.by_day.slice().reverse().map((x) => `<tr><td class="num">${esc(x.label.split("-").reverse().join("."))}</td>
+          <td class="r num">${fmt(x.people)}</td><td class="r num">${fmt(x.paid)}</td><td class="r num">${share(x.paid, x.people)}</td></tr>`), "Bu davrda to'lov oynasi ochilmagan")}</div></details></section>
+      <section class="blk two">
+        <div><div class="bh"><h2>Balans to'ldirib, hech narsa sotib olmaganlar</h2><div class="row"><button type="button" class="btn sm" data-pexp="payidle">CSV</button></div></div>
+          <div class="stat-line" style="margin-bottom:10px"><div><b>${fmt(d.idle.people)}</b><span>kishi (${fmt(d.idle.payers)} to'lovchidan)</span></div>
+            <div><b class="c-warn">${som(d.idle.balance)}</b><span>balansida turgan qoldiq pul</span></div></div>
+          ${table(["Mijoz", ">To'lagan", ">Qoldiq balans"], d.idle.rows.slice(0, 12).map((x) => `<tr class="click" data-user="${x.id}">
+            <td>${userLink(x)}<span class="sub">oxirgi to'lov: ${dt(x.last_paid_at)}</span></td><td class="r num">${som(x.paid_sum)}</td><td class="r num"><b>${som(x.balance)}</b></td></tr>`), "Bunday mijoz yo'q")}
+          ${d.idle.people > 12 ? `<p class="muted" style="font-size:12.5px;margin-top:8px">Qoldig'i eng ko'p 12 kishi ko'rsatildi — to'liq ro'yxat CSV da.</p>` : ""}
+          <p class="muted" style="font-size:12.5px;margin-top:8px">Shu davrda pul to'lab, to'lovdan keyin birorta ham xarid qilmaganlar. Qoldiq — hozirgi balans.</p></div>
+        <div><div class="bh"><h2>«Nega to'lamadingiz» so'rovi</h2><div class="row"><button type="button" class="btn sm" data-pexp="paywhy">Javoblar CSV</button></div></div>
+          <label class="row sw"><input type="checkbox" id="ps-survey" ${st.survey_on ? "checked" : ""}> So'rov yoqilgan</label>
+          <p class="muted" style="font-size:12.5px;margin:6px 0 10px">To'lov oynasini ochib, ${st.delay_min} daqiqa ichida to'lamagan odamga bot bitta savol yuboradi. Bir odamga umrida bir marta; faqat ${st.from_hour}:00–${st.to_hour}:00 (Toshkent) oralig'ida — tunda ochgan bo'lsa ertalab; botni bloklagan, shu orada to'lagan yoki cheki tekshiruvda turganlarga yuborilmaydi.</p>
+          <div class="stat-line" style="margin-bottom:10px"><div><b>${fmt(sv.sent)}</b><span>kishiga yuborildi${sv.failed ? ` · ${fmt(sv.failed)} tasiga yetmadi` : ""}</span></div>
+            <div><b>${fmt(sv.answered)}</b><span>kishi javob berdi (${sv.answer_rate}%)</span></div></div>
+          ${table(["Javob", ">Kishi", ">Ulushi"], sv.answers.map((x) => `<tr><td>${esc(x.label)}</td><td class="r num">${fmt(x.n)}</td><td class="r num">${share(x.n, sv.answered)}</td></tr>`))}
+          <div class="row" style="margin-top:10px"><button type="button" class="btn sm" id="ps-test">O'zimga sinov yuborish</button>
+            <span class="muted" style="font-size:12.5px">${sv.last_run ? `oxirgi tekshiruv: ${ago(sv.last_run)}` : ""}</span></div></div>
+      </section>
+      <section class="blk"><details><summary><b>Statistika sozlamalari</b> <span class="muted">— sinov akkauntlari: ${fmt(st.test_ids.length)} ta · Click kuzatuvi ${st.click_track ? "yoqilgan" : "o'chirilgan"}</span></summary>
+        <form class="form" id="ps-set" style="margin-top:12px">
+          <label class="f">Sinov akkauntlari (Telegram id) <small>vergul, bo'sh joy yoki yangi qator bilan ajrating. Adminlar (${esc(st.admins.join(", ") || "yo'q")}) o'zi chiqarib tashlangan.</small>
+            <textarea class="in" name="test_ids" rows="2" maxlength="4000" style="min-height:64px" placeholder="123456789, 987654321">${esc(st.test_ids.join(", "))}</textarea></label>
+          <label class="row" style="font-size:13px"><input type="checkbox" name="click_track" ${st.click_track ? "checked" : ""}> Click havolasi kuzatuv orqali ochilsin: «Click sahifasiga o'tdi» va «qaytdi» qadamlari yoziladi</label>
+          <p class="muted" style="font-size:12.5px">Kuzatuv yoqilganda bot va ilovadagi Click tugmasi avval saytimizga, u yerdan darhol Click sahifasiga o'tkazadi${st.click_tracked ? "" : " (hozir ishlamayapti: Click sozlanmagan yoki sayt HTTPS da emas)"}. Click sahifasi ochilmay qolsa — o'chirib qo'ying: mijoz to'g'ridan-to'g'ri Click'ka o'tadi, faqat bu ikki qadam sanalmaydi.
+            Ro'yxatdagi akkauntlar shu xulosada sanalmaydi va ularga so'rov yuborilmaydi; jadvalda «sinov» belgisi bilan ko'rinadi.</p>
+          <div class="row"><button class="btn primary" type="submit">Saqlash</button></div>
+        </form></details></section>`;
+  }
   async function payments(alive) {
     loading("To'lovlar");
     S.payStatus = S.payStatus || "approved";
-    const [d, cp] = await Promise.all([api(`/api/admin/payments?status=${S.payStatus}`), api("/api/admin/cardpay").catch(() => null)]);
+    const [f, t] = range();
+    const pq = S.period.preset === "all" ? "all_time=1" : `from=${f}&to=${t}`;
+    const [d, cp, ps] = await Promise.all([api(`/api/admin/payments?status=${S.payStatus}&limit=300&${pq}`), api("/api/admin/cardpay").catch(() => null),
+      api(`/api/admin/paystats?${pq}`).catch((e) => ({ error: e.message }))]);
     if (!alive()) return;
     if (S.payStatus === "pending") { S.pending = d.payments.length; nav(); }
+    const stepCell = (p) => `${p.step === "paid" ? tag("To'ladi", "good") : esc(p.step_label)}
+      <span class="sub">${p.timeline.map((x) => `${hm(x.at)} ${esc(x.label)}`).join(" → ")}${p.took_s != null ? ` · ${dur(p.took_s)}da` : ""}</span>`;
     const rows = d.payments.map((p) => `<tr>
       <td class="num">#${p.id}<span class="sub">${dt(p.created_at)}</span></td>
-      <td>${userLink(p)}</td>
-      <td class="r num"><b>${som(p.amount)}</b><span class="sub">${p.for_video ? "video uchun" : "balansga"}${p.provider === "click" ? ` · Click${p.ext_id ? ` ${esc(p.ext_id)}` : ""}` : p.provider === "card" ? ` · karta${p.ext_id ? ` ${esc(p.ext_id)}` : ""}` : ""}</span></td>
+      <td>${userLink(p)}${p.test ? ` ${tag("sinov", "warn")}` : ""}</td>
+      <td class="r num"><b>${som(p.amount)}</b><span class="sub">${p.provider === "click" ? `Click${p.ext_id ? ` ${esc(p.ext_id)}` : ""}` : p.provider === "card" ? `karta${p.ext_id ? ` ${esc(p.ext_id)}` : ""}` : p.method === "click" ? "Click" : ""}</span></td>
+      <td>${esc(p.purpose_label)}${p.purpose_detail ? `<span class="sub">${esc(p.purpose_detail)}</span>` : ""}</td>
+      <td style="min-width:200px">${stepCell(p)}</td>
       <td>${tag(...pstOf(p))}${p.decided_at ? `<span class="sub">${dt(p.decided_at)}${p.admin ? ` · ${esc(p.admin)}` : ""}</span>` : ""}</td>
       <td class="r"><div class="row" style="justify-content:flex-end">
         ${p.receipt ? `<button type="button" class="btn sm" data-receipt="${p.id}">Chek</button>` : ""}
@@ -449,15 +524,35 @@
         ${p.status === "approved" && p.provider === "card" ? `<button type="button" class="btn sm bad" data-rev="${p.id}" title="Soxta chek bo'lsa: pul balansdan qaytarib yechiladi">Bekor qilish</button>` : ""}
         <button type="button" class="btn sm" data-user="${p.user_id}">Mijoz</button></div></td></tr>`);
     main().innerHTML = `
-      <div class="head"><div><h1>To'lovlar</h1><p>Click orqali to'lovlar avtomatik tushadi. Karta raqamiga o'tkazmalarda mijoz chek yuboradi: AI o'qiydi, shartlar bajarilsa avtomatik tasdiqlanadi, aks holda «Chekni tekshirish»ga tushadi. «To'lanmagan» — mijoz to'lov oynasini ochgan, lekin to'lamagan.</p></div>
+      <div class="head"><div><h1>To'lovlar</h1><p>${S.period.preset === "all" ? "Butun davr" : periodLabel()} · Click orqali to'lovlar avtomatik tushadi. Karta raqamiga o'tkazmalarda mijoz chek yuboradi: AI o'qiydi, shartlar bajarilsa avtomatik tasdiqlanadi, aks holda «Chekni tekshirish»ga tushadi. «To'lanmagan» — mijoz to'lov oynasini ochgan, lekin to'lamagan.</p></div>
         <button type="button" class="btn" id="exp-pay">To'lovlar CSV</button></div>
+      ${periodBar([["all", "Butun davr"]])}
+      ${ps.error ? `<p class="note" style="margin-top:14px">Xulosani yuklab bo'lmadi: ${esc(ps.error)}</p>` : payStatsBlock(ps)}
       ${cp ? cardBlock(cp) : ""}
-      <div class="period" role="group" aria-label="Holat">${[["approved", "To'langan"], ["new", "To'lanmagan"], ["pending", `Chekni tekshirish${S.pending ? ` (${S.pending})` : ""}`], ["rejected", "Rad etilgan"], ["all", "Hammasi"]]
+      <section class="blk"><div class="bh"><h2>To'lov urinishlari</h2><p>${S.payStatus === "pending" ? "tekshirilishi kerak bo'lgan cheklar — davrdan qat'i nazar hammasi" : "tanlangan davrda ochilganlar"} · vaqt Toshkent bo'yicha</p></div>
+      <div class="period" role="group" aria-label="Holat" style="margin-bottom:10px">${[["approved", "To'langan"], ["new", "To'lanmagan"], ["pending", `Chekni tekshirish${S.pending ? ` (${S.pending})` : ""}`], ["rejected", "Rad etilgan"], ["all", "Hammasi"]]
         .map(([k, l]) => `<button type="button" class="chip" data-st="${k}" aria-pressed="${S.payStatus === k}">${l}</button>`).join("")}</div>
-      <section class="blk">${table(["To'lov", "Mijoz", ">Summa", "Holat", ""], rows, S.payStatus === "pending" ? "Tekshirilishi kerak bo'lgan to'lov yo'q" : "To'lov yo'q")}</section>`;
+      ${table(["To'lov", "Mijoz", ">Summa", "Nima uchun", "Qaysi qadamda to'xtadi", "Holat", ""], rows, S.payStatus === "pending" ? "Tekshirilishi kerak bo'lgan to'lov yo'q" : "Bu davrda to'lov yo'q")}
+      ${d.payments.length >= d.limit ? `<p class="muted" style="font-size:12.5px;margin-top:8px">Oxirgi ${fmt(d.limit)} ta urinish ko'rsatildi — to'liq ro'yxat «To'lovlar CSV» da.</p>` : ""}</section>`;
+    bindPeriod(main(), render);
     $$("[data-st]").forEach((b) => (b.onclick = () => { S.payStatus = b.dataset.st; render(); }));
-    $("#exp-pay").onclick = () => download("/api/admin/export/payments.csv");
+    $("#exp-pay").onclick = () => download(`/api/admin/export/payments.csv?${pq}`);
+    $$("[data-pexp]").forEach((b) => (b.onclick = () => download(`/api/admin/export/${b.dataset.pexp}.csv?${pq}`)));
     $$("[data-user]").forEach((b) => (b.onclick = () => userSheet(+b.dataset.user)));
+    const saveStats = async (body, okMsg) => {
+      try { await api("/api/admin/paystats/settings", body); toast(okMsg); render(); } catch (err) { toast(err.message, true); render(); }
+    };
+    if ($("#ps-survey")) $("#ps-survey").onchange = (e) => saveStats({ survey_on: e.target.checked }, e.target.checked ? "So'rov yoqildi" : "So'rov o'chirildi");
+    if ($("#ps-test")) $("#ps-test").onclick = async (e) => {
+      const btn = e.currentTarget; btn.disabled = true;
+      try { await api("/api/admin/paystats/survey-test", {}); toast("Botga yuborildi — chatni tekshiring"); } catch (err) { toast(err.message, true); }
+      btn.disabled = false;
+    };
+    if ($("#ps-set")) $("#ps-set").onsubmit = (e) => {
+      e.preventDefault();
+      const f = e.target; f.querySelector("button[type=submit]").disabled = true;
+      saveStats({ test_ids: f.test_ids.value, click_track: f.click_track.checked }, "Saqlandi");
+    };
     $$("[data-receipt]").forEach((b) => (b.onclick = () => receiptSheet(d.payments.find((p) => p.id === +b.dataset.receipt))));
     const decide = async (id, approve, btn) => {
       const p = d.payments.find((x) => x.id === id);

@@ -470,6 +470,7 @@
   function paywall(retry) {
     const q = S.me.quota || {};
     const price = q.price || S.vm.price;
+    App.track("pay_sheet", { num: price, meta: { p: "video" } });
     const amounts = (S.vm.topups || []).filter((a) => a > price).slice(0, 3);
     let opt = "balance", amount = amounts[0] || price;
     const OPTS = [

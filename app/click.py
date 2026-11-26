@@ -13,11 +13,12 @@ from urllib.parse import urlencode
 
 from fastapi import APIRouter, Request
 from sqlalchemy import update
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, RedirectResponse
 
-from . import billing
+from . import billing, payflow
 from .config import settings
 from .db import Payment, Session, User, utcnow
+from .track import BOT_UA
 
 log = logging.getLogger(__name__)
 router = APIRouter()
@@ -31,12 +32,67 @@ NOTES = {OK: "Success", SIGN: "SIGN CHECK FAILED!", AMOUNT: "Incorrect parameter
          UPDATE: "Failed to update user", REQUEST: "Error in request from click", CANCELLED: "Transaction cancelled"}
 
 
-def pay_url(payment_id: int, amount: int) -> str:
+def pay_url(payment_id: int, amount: int, back: str = "") -> str:
+    """Click to'lov sahifasi. back — to'lovdan keyin qaytish manzili (berilmasa — bot)."""
     if not settings.click_on:
         return ""
     q = {"service_id": settings.click_service_id, "merchant_id": settings.click_merchant_id, "amount": f"{amount}.00",
-         "transaction_param": str(payment_id), "return_url": f"https://t.me/{settings.bot_username}"}
+         "transaction_param": str(payment_id), "return_url": back or f"https://t.me/{settings.bot_username}"}
     return f"{PAY_URL}?{urlencode(q)}"
+
+
+# ---------------------------------------------------------------- kuzatuv havolasi (statistika: Click sahifasiga o'tdi / qaytdi)
+
+def _key(payment_id: int, amount: int) -> str:
+    """Kuzatuv havolasining imzosi: begona odam to'lov raqamlarini terib, statistikani buza olmasin."""
+    return hmac.new(settings.bot_token.encode(), f"pay:{payment_id}:{amount}".encode(), hashlib.sha256).hexdigest()[:12]
+
+
+async def link(payment_id: int, amount: int) -> str:
+    """Mijozga beriladigan Click havolasi (bot tugmasi va Mini App).
+
+    Kuzatuv yoqilgan bo'lsa havola bizning /pay/c/… orqali o'tadi: bosilgani («Click sahifasiga o'tdi») yoziladi va
+    mijoz darhol Click sahifasiga yo'naltiriladi. Sayt HTTPS da bo'lmasa yoki admin kuzatuvni o'chirgan bo'lsa —
+    avvalgidek to'g'ridan-to'g'ri Click havolasi."""
+    if not settings.click_on:
+        return ""
+    base = settings.base_url.rstrip("/")
+    try:
+        on = base.startswith("https://") and (await payflow.config())["click_track"]
+    except Exception:
+        on = False
+    return f"{base}/pay/c/{payment_id}/{amount}/{_key(payment_id, amount)}" if on else pay_url(payment_id, amount)
+
+
+async def _visit(kind: str, pid: int, request: Request, only_open: bool) -> None:
+    """Kuzatuv havolasidan o'tishni yozadi. Xato bo'lsa jim — mijozni yo'naltirish to'xtamasligi kerak."""
+    try:
+        if BOT_UA.search(request.headers.get("user-agent", "")):
+            return  # havola ko'rinishini (preview) olayotgan robotlar sanalmaydi
+        async with Session() as s:
+            p = await s.get(Payment, pid)
+        if p and (p.status in ("new", "pending") or not only_open):
+            await payflow.step(kind, p)
+    except Exception:
+        log.exception("To'lov qadamini yozib bo'lmadi: %s #%s", kind, pid)
+
+
+@router.get("/pay/c/{pid}/{amount}/{key}")
+async def to_click(pid: int, amount: int, key: str, request: Request):
+    """Kuzatuv havolasi: «Click sahifasiga o'tdi» qadamini yozadi va Click to'lov sahifasiga yo'naltiradi."""
+    if not settings.click_on or not hmac.compare_digest(key, _key(pid, amount)):
+        return RedirectResponse(f"https://t.me/{settings.bot_username}", status_code=302)
+    await _visit("pay_click", pid, request, only_open=True)
+    back = f"{settings.base_url.rstrip('/')}/pay/r/{pid}/{amount}/{key}"
+    return RedirectResponse(pay_url(pid, amount, back), status_code=302)
+
+
+@router.get("/pay/r/{pid}/{amount}/{key}")
+async def from_click(pid: int, amount: int, key: str, request: Request):
+    """Click sahifasidan qaytish: «qaytdi» qadamini yozadi va botga yo'naltiradi."""
+    if hmac.compare_digest(key, _key(pid, amount)):
+        await _visit("pay_return", pid, request, only_open=False)
+    return RedirectResponse(f"https://t.me/{settings.bot_username}", status_code=302)
 
 
 def sign(f: dict, complete: bool) -> str:
@@ -94,6 +150,7 @@ async def prepare(request: Request):
             return _answer(f, AMOUNT)
         p.provider, p.ext_id = "click", f["click_trans_id"][:40]
         await s.commit()
+    await payflow.step("pay_prepare", p)
     return _answer(f, OK, merchant_prepare_id=p.id)
 
 
@@ -123,6 +180,7 @@ async def complete(request: Request):
         if click_error < 0:  # Click tomonida to'lov amalga oshmadi
             p.status, p.decided_at = "cancelled", utcnow()
             await s.commit()
+            await payflow.step("pay_cancel", p, err=click_error)
             return _answer(f, CANCELLED)
         # Click so'rovni qayta yuborsa ham (bir vaqtda ikki complete) pul faqat bir marta tushadi
         res = await s.execute(update(Payment).where(Payment.id == p.id, Payment.status.in_(("new", "pending")))
@@ -135,6 +193,7 @@ async def complete(request: Request):
         await s.refresh(p)
         user = await s.get(User, p.user_id)
     log.info("Click to'lovi: #%s, %s so'm, foydalanuvchi %s", p.id, p.amount, p.user_id)
+    await payflow.paid(p)
     try:
         from . import videobot
         from .bot.money import after_topup

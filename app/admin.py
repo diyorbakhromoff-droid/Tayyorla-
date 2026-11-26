@@ -25,7 +25,7 @@ from sqlalchemy import func, select, update
 from . import track, video, videobot
 from .catalog import SECTIONS, TEMPLATES, site_price, site_title
 from .config import MEDIA_DIR, ROOT, settings
-from . import costs, nudges, songs, store
+from . import costs, nudges, payflow, paysurvey, songs, store
 from .db import BalanceTx, Event, MusicTrack, Payment, RenderJob, Session, Site, Snapshot, Song, TrafficLink, User, utcnow
 from .reminders import TZ, today
 from .webapp import check_init_data
@@ -40,8 +40,7 @@ VIDEO_SECTIONS = {"toy": "To'y", "osh": "Osh", "gap": "Gap", "choy": "Choyxona",
 TIER_NAMES = {"standart": "Standart", "premium": "Premium", "vip": "VIP"}
 SOURCE_GROUPS = {"": "Organik (to'g'ridan-to'g'ri)", "ref_": "Do'st taklifi (referal)", "r_": "Tabrik sahifasidan",
                  "other": "Boshqa havolalar"}
-# Telegram/ijtimoiy tarmoqlar havola ko'rinishini (preview) olayotganda bosish sanalmaydi
-BOT_UA = re.compile(r"bot|crawler|spider|preview|facebookexternalhit|whatsapp|slurp|curl|python", re.I)
+BOT_UA = track.BOT_UA  # havola ko'rinishini (preview) olayotgan robotlar — bosish sanalmaydi
 
 
 # ---------------------------------------------------------------- kirish
@@ -798,14 +797,32 @@ async def _user_map(s, ids) -> dict:
     return {u.tg_id: u for u in (await s.execute(select(User).where(User.tg_id.in_(ids)))).scalars().all()}
 
 
+def _pay_range(frm, to, all_time: int = 0, default_all: bool = False) -> tuple[datetime | None, datetime, date | None, date]:
+    """To'lovlar bo'limi davri: (boshi yoki None — butun davr, oxiri, birinchi va oxirgi kun).
+    default_all — sana berilmaganda butun davr olinadi (aks holda oxirgi 7 kun)."""
+    frm, to = (x if isinstance(x, str) and x else None for x in (frm, to))
+    if all_time or (default_all and not frm and not to):
+        return None, utc_of(today() + timedelta(days=1)), None, today()
+    d1, d2 = parse_range(frm, to)
+    return utc_of(d1), utc_of(d2 + timedelta(days=1)), d1, d2
+
+
 @router.get("/payments")
-async def payments(status: str = "pending", limit: int = Query(100, le=500), uid: int = Depends(admin_uid)):
+async def payments(status: str = "pending", limit: int = Query(100, le=500), frm: str | None = Query(None, alias="from"),
+                   to: str | None = None, all_time: int = 0, uid: int = Depends(admin_uid)):
+    """To'lov urinishlari: «nima uchun» va «qaysi qadamda to'xtadi» bilan. Davr berilsa — shu davrda ochilganlar;
+    «Chekni tekshirish» (pending) har doim to'liq chiqadi — bu ish navbati, davrga bog'liq emas."""
+    excl = await track.excluded_ids()
     async with Session() as s:
         q = select(Payment).order_by(Payment.id.desc()).limit(limit)
         if status != "all":
             q = q.where(Payment.status == status)
+        t1, t2, _, _ = _pay_range(frm, to, all_time, default_all=True)
+        if status != "pending" and t1:
+            q = q.where(Payment.created_at >= t1, Payment.created_at < t2)
         rows = (await s.execute(q)).scalars().all()
         users = await _user_map(s, [p.user_id for p in rows] + [p.admin_id for p in rows])
+        steps = await payflow.load_steps(s, ids=[p.id for p in rows])  # hamma qatorlar uchun bitta so'rov
     out = []
     for p in rows:
         u = users.get(p.user_id)
@@ -816,8 +833,60 @@ async def payments(status: str = "pending", limit: int = Query(100, le=500), uid
                     "auto": p.admin_id == 0 and p.status == "approved",
                     "admin": (a.first_name if a else p.admin_id) if p.admin_id else None,
                     "created_at": p.created_at.isoformat() if p.created_at else None,
-                    "decided_at": p.decided_at.isoformat() if p.decided_at else None})
-    return {"payments": out}
+                    "decided_at": p.decided_at.isoformat() if p.decided_at else None,
+                    "test": p.user_id in excl, **payflow.describe(p, steps.get(p.id, {}))})
+    return {"payments": out, "limit": limit}
+
+
+# ---------------------------------------------------------------- to'lov bosqichi statistikasi (xulosa, so'rov, sinov akkauntlari)
+
+async def _paystats_settings() -> dict:
+    cfg = await payflow.config()
+    hours = await nudges.config()
+    return {"survey_on": cfg["survey_on"], "click_track": cfg["click_track"],
+            "click_tracked": bool(cfg["click_track"] and settings.click_on and settings.base_url.startswith("https://")),
+            "test_ids": await track.test_ids(), "admins": sorted(settings.admins),
+            "delay_min": paysurvey.DELAY_MIN, "from_hour": hours["from_hour"], "to_hour": hours["to_hour"]}
+
+
+@router.get("/paystats")
+async def paystats(frm: str | None = Query(None, alias="from"), to: str | None = None, all_time: int = 0,
+                   uid: int = Depends(admin_uid)):
+    """«To'lovlar» bo'limi tepasidagi xulosa: oynani ochgan odamlar, to'laganlar ulushi, qaysi qadamda to'xtashgani,
+    takroriy urinishlar, to'lovgacha vaqt, balans to'ldirib sotib olmaganlar va «nega to'lamadingiz» javoblari."""
+    a, b, d1, d2 = _pay_range(frm, to, all_time)
+    out = await payflow.summary(a, b, SPEND_KINDS)
+    return {"from": d1.isoformat() if d1 else None, "to": d2.isoformat(), **out, "settings": await _paystats_settings()}
+
+
+class PayStatsIn(BaseModel):
+    survey_on: bool | None = None
+    click_track: bool | None = None
+    test_ids: str | None = Field(None, max_length=4000)  # Telegram id lar: vergul, bo'sh joy yoki yangi qator bilan
+
+
+@router.post("/paystats/settings")
+async def paystats_save(body: PayStatsIn, uid: int = Depends(admin_uid)):
+    cfg = await payflow.save({"survey_on": body.survey_on, "click_track": body.click_track})
+    if body.test_ids is not None:
+        if re.search(r"[^\d\s,;]", body.test_ids):
+            raise HTTPException(400, "Faqat Telegram id raqamlarini kiriting (vergul yoki bo'sh joy bilan ajrating)")
+        await track.set_test_ids(re.findall(r"\d+", body.test_ids))
+    log.info("To'lov statistikasi sozlamasi o'zgardi (admin %s): so'rov=%s, kuzatuv=%s", uid, cfg["survey_on"], cfg["click_track"])
+    return {"ok": True, "settings": await _paystats_settings()}
+
+
+@router.post("/paystats/survey-test")
+async def paystats_survey_test(uid: int = Depends(admin_uid)):
+    """Adminning o'ziga «nega to'lamadingiz» savolining namunasi (javobi statistikaga yozilmaydi)."""
+    if not videobot.BOT:
+        raise HTTPException(503, "Bot ishlamayapti")
+    try:
+        await paysurvey.send_test(videobot.BOT, uid)
+    except Exception as e:
+        log.exception("So'rov namunasini yuborib bo'lmadi")
+        raise HTTPException(502, f"Yuborib bo'lmadi: {e}")
+    return {"ok": True}
 
 
 class Decision(BaseModel):
@@ -1437,8 +1506,55 @@ def _ts(dt: datetime | None) -> str:
     return dt.replace(tzinfo=timezone.utc).astimezone(TZ).strftime("%Y-%m-%d %H:%M") if dt else ""
 
 
+def _mins(sec) -> str:
+    return "" if sec is None else str(round(sec / 60, 1)).replace(".", ",")
+
+
+def _paystats_rows(d: dict) -> list[list]:
+    """Xulosa bloklari bitta jadval ko'rinishida: bo'lim, ko'rsatkich, odamlar, to'laganlar, foiz."""
+    t, rp, tm, sv = d["total"], d["repeat"], d["time"], d["survey"]
+    rows = [["Jami", "To'lov oynasini ochgan odamlar", t["people"], t["paid"], t["conv"]],
+            ["Jami", "Urinishlar (yozuvlar)", t["attempts"], t["paid_attempts"], pct(t["paid_attempts"], t["attempts"])],
+            ["Jami", "Summa tanlash oynasini ko'rganlar", d["sheet"]["people"], "", ""],
+            ["Jami", "…shundan summani tanlab, to'lov oynasini ochganlar", d["sheet"]["chose"], "", pct(d["sheet"]["chose"], d["sheet"]["people"])]]
+    for name, key in (("Mahsulot", "by_product"), ("Usul", "by_method"), ("Summa", "by_amount"), ("Kun", "by_day")):
+        rows += [[name, x["label"], x["people"], x["paid"], x["conv"]] for x in d[key]]
+    rows.append(["To'xtagan qadam", "Usul tanlamadi", d["stops"]["none"], "", pct(d["stops"]["none"], t["people"])])
+    for m, name in (("click", "To'xtagan qadam: Click"), ("card", "To'xtagan qadam: karta")):
+        st = d["stops"][m]
+        rows += [[name, x["label"], x["n"], "", pct(x["n"], st["people"])] for x in st["steps"]]
+    rows += [["Takroriy urinishlar", x["label"], x["n"], "", pct(x["n"], t["people"])] for x in rp["dist"]]
+    rows += [["Takroriy urinishlar", "Bir odamga o'rtacha urinish", str(rp["avg"]).replace(".", ","), "", ""],
+             ["Takroriy urinishlar", "Bir necha marta urinib, to'lamaganlar", rp["multi_unpaid"], "", ""],
+             ["To'lovgacha vaqt (daqiqa)", "O'rtacha", _mins(tm["avg_s"]), tm["n"], ""],
+             ["To'lovgacha vaqt (daqiqa)", "Mediana", _mins(tm["median_s"]), tm["n"], ""],
+             ["To'lovgacha vaqt (daqiqa)", "Click: mediana", _mins(tm["click"]["median_s"]), tm["click"]["n"], ""],
+             ["To'lovgacha vaqt (daqiqa)", "Karta: mediana", _mins(tm["card"]["median_s"]), tm["card"]["n"], ""],
+             ["Balans to'ldirib, sotib olmaganlar", "Odamlar", d["idle"]["people"], d["idle"]["payers"], pct(d["idle"]["people"], d["idle"]["payers"])],
+             ["Balans to'ldirib, sotib olmaganlar", "Qoldiq balans, so'm", d["idle"]["balance"], "", ""],
+             ["«Nega to'lamadingiz» so'rovi", "Yuborildi", sv["sent"], sv["answered"], sv["answer_rate"]]]
+    rows += [["«Nega to'lamadingiz» so'rovi", x["label"], x["n"], "", x["pct"]] for x in sv["answers"]]
+    return [[str(v).replace(".", ",") if isinstance(v, float) else v for v in row] for row in rows]  # Excel uchun o'nlik vergul
+
+
 @router.get("/export/{what}.csv")
-async def export(what: str, uid: int = Depends(admin_uid)):
+async def export(what: str, frm: str | None = Query(None, alias="from"), to: str | None = None, all_time: int = 0,
+                 uid: int = Depends(admin_uid)):
+    a, b, _, _ = _pay_range(frm, to, all_time, default_all=True)  # davr berilmasa — butun tarix (eski tugmalar shunday ishlaydi)
+    if what == "paystats":
+        d = await payflow.summary(a, b, SPEND_KINDS)
+        return _csv("tolov_xulosa.csv", ["bo'lim", "ko'rsatkich", "odamlar", "to'laganlar", "foiz"], _paystats_rows(d))
+    if what == "payidle":
+        excl = await track.excluded_ids()
+        async with Session() as s:
+            idle = await payflow.idle(s, a, b, excl, SPEND_KINDS, limit=None)
+        return _csv("balans_toldirib_olmaganlar.csv", ["id", "ism", "username", "to'lagan", "oxirgi to'lov", "qoldiq balans"],
+                    [[x["id"], x["name"], x["username"], x["paid_sum"], _ts(datetime.fromisoformat(x["last_paid_at"])) if x["last_paid_at"] else "",
+                      x["balance"]] for x in idle["rows"]])
+    if what == "paywhy":
+        return _csv("nega_tolamadingiz.csv", ["foydalanuvchi", "ism", "username", "javob", "to'lov", "vaqt"],
+                    [[x["user_id"], x["name"], x["username"], x["answer"], x["payment"], _ts(x["at"])]
+                     for x in await paysurvey.answers_list(a, b)])
     async with Session() as s:
         names = await _link_names(s)
         if what == "users":
@@ -1453,10 +1569,23 @@ async def export(what: str, uid: int = Depends(admin_uid)):
                           int(paid.get(u.tg_id) or 0), int(spent.get(u.tg_id) or 0), "ha" if u.blocked else "",
                           _ts(u.created_at), _ts(u.last_seen)] for u in rows])
         if what == "payments":
-            rows = (await s.execute(select(Payment).order_by(Payment.id))).scalars().all()
-            return _csv("tolovlar.csv", ["id", "foydalanuvchi", "summa", "holat", "video uchun", "yaratilgan", "ko'rib chiqilgan", "admin"],
-                        [[p.id, p.user_id, p.amount, p.status, "ha" if p.job_id else "", _ts(p.created_at), _ts(p.decided_at),
-                          p.admin_id or ""] for p in rows])
+            q = select(Payment).order_by(Payment.id)
+            cond = [Payment.created_at >= a, Payment.created_at < b] if a else None
+            if cond:
+                q = q.where(*cond)
+            rows = (await s.execute(q)).scalars().all()
+            steps = await payflow.load_steps(s, cond=cond)
+            excl = await track.excluded_ids()
+            out = []
+            for p in rows:
+                d = payflow.describe(p, steps.get(p.id, {}))
+                line = " → ".join(f"{x['label']} {_ts(datetime.fromisoformat(x['at']))[11:]}" for x in d["timeline"])
+                out.append([p.id, p.user_id, p.amount, p.status, "ha" if p.job_id else "", _ts(p.created_at), _ts(p.decided_at),
+                            p.admin_id or "", d["purpose_label"], d["method_label"], d["step_label"], _mins(d["took_s"]), line,
+                            "ha" if p.user_id in excl else ""])
+            return _csv("tolovlar.csv", ["id", "foydalanuvchi", "summa", "holat", "video uchun", "yaratilgan", "ko'rib chiqilgan", "admin",
+                                         "nima uchun", "usul", "qaysi qadamda to'xtadi", "to'lovgacha (daqiqa)", "qadamlar (Toshkent vaqti)",
+                                         "sinov akkaunt"], out)
         if what == "sites":
             rows = (await s.execute(select(Site).where(Site.kind == "site").order_by(Site.id))).scalars().all()
             return _csv("taklifnomalar.csv", ["slug", "egasi", "nomi", "shablon", "tarif", "narx", "holat", "ko'rishlar", "yaratilgan"],
