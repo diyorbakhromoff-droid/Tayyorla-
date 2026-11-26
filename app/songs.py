@@ -795,8 +795,8 @@ async def _generate_lyria(s, song: Song, purpose: str) -> Path:
         sections = parse_lyrics(song.lyrics)
         plan, chorus_at, _ = build_plan(sections, song.style, song.voice, song.tags or [])
         cur.update(total=sum(c["duration_ms"] for c in plan["chunks"]), chorus_at=chorus_at)
-        return lyria.prompt(sections, name, base, song.voice, "" if plain else OCCASIONS.get(song.occasion, song.occasion or ""),
-                            [] if plain else lyria_tags(song), cur["total"] / 1000, lang)
+        return lyria.prompt(sections, name, base, song.voice, OCCASIONS.get(song.occasion, song.occasion or ""),
+                            lyria_tags(song), cur["total"] / 1000, lang, plain=plain)
 
     data, info = await _lyria_try(s, song, make_text)
     total, chorus_at = cur["total"], cur["chorus_at"]
@@ -821,8 +821,8 @@ async def _generate_lyria_clip(s, song: Song) -> Path:
     def make_text(plain: bool) -> str:
         sections = parse_lyrics(song.lyrics)
         chorus = [x for x in sections if x["kind"] == "chorus" and x["lines"]][:1] or [x for x in sections if x["lines"]][:1]
-        return lyria.prompt(chorus, name, base, song.voice, "" if plain else OCCASIONS.get(song.occasion, song.occasion or ""),
-                            [] if plain else lyria_tags(song), 30, lang, clip=True)
+        return lyria.prompt(chorus, name, base, song.voice, OCCASIONS.get(song.occasion, song.occasion or ""),
+                            lyria_tags(song), 30, lang, clip=True, plain=plain)
 
     data, info = await _lyria_try(s, song, make_text, settings.lyria_clip_model)
     s.add(costs.lyria_row("song_preview", song.owner_id, f"song:{song.id}", settings.lyria_clip_model))

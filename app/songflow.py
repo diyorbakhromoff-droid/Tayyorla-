@@ -521,7 +521,8 @@ async def last_hour(now: datetime | None = None) -> dict:
     lo = now - timedelta(hours=1)
     async with Session() as s:
         rows = (await s.execute(select(Event.kind, Event.meta).where(
-            Event.kind.in_(("sample_ready", "song_delivered", "sample_failed", "song_failed")), Event.created_at >= lo, Event.created_at <= now))).all()
+            Event.kind.in_(("sample_ready", "song_delivered", "sample_failed", "song_failed")), Event.created_at >= lo, Event.created_at <= now)
+            .order_by(Event.id.desc()))).all()
         old = now - timedelta(minutes=STUCK_MIN)
         stuck = await s.scalar(select(func.count()).select_from(Song).where(
             (Song.status.in_(("preview_queued", "preview_gen")) & (func.coalesce(Song.preview_at, Song.updated_at) < old))
@@ -531,7 +532,17 @@ async def last_hour(now: datetime | None = None) -> dict:
         reasons.pop(r, None)
     errors = sum(reasons.values())
     ok = sum(1 for k, _ in rows if k in ("sample_ready", "song_delivered"))
-    return {"attempts": ok + errors, "errors": errors, "pct": _pct(errors, ok + errors), "stuck": stuck,
+    # xizmatning asl javobi (xato matnidagi « — » dan keyingi qism): eng yangi 2 xil javob
+    said: list[str] = []
+    for k, m in rows:
+        e = (m or {}).get("e") or ""
+        if k in ("sample_failed", "song_failed") and (m or {}).get("r") not in USER_SIDE and " — " in e:
+            d = e.split(" — ", 1)[1].strip()[:180]
+            if d and d not in said:
+                said.append(d)
+        if len(said) >= 2:
+            break
+    return {"attempts": ok + errors, "errors": errors, "pct": _pct(errors, ok + errors), "stuck": stuck, "said": said,
             "down": sum(n for r, n in reasons.items() if r in DOWN),
             "reasons": [{"key": k, "label": REASONS.get(k, k), "n": n} for k, n in reasons.most_common()]}
 
@@ -540,6 +551,8 @@ def alert_texts(h: dict, cfg: dict) -> dict[str, str]:
     """Hozir ogohlantirishga arziydigan sabablar: {sabab: xabar matni}."""
     out = {}
     why = "; ".join(f"{x['label']} — {x['n']}" for x in h["reasons"])
+    if h.get("said"):
+        why += ".\nXizmat javobi: " + " | ".join(h["said"])
     if h["down"] or h["stuck"]:
         parts = []
         if h["down"]:

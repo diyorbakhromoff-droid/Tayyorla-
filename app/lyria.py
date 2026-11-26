@@ -94,10 +94,27 @@ def lyrics_block(sections: list[dict]) -> str:
     return "\n\n".join(out)
 
 
+# Matn rad etilganda ikkinchi urinish uchun: Google so'rovdagi ismni xonanda nomi deb o'ylamasin
+ORIGINAL_UZ = ("Bu — yaqin insonga sovg'a uchun yozilgan yangi, original qo'shiq. Matndagi ismlar oddiy insonlarning ismlari "
+               "(qo'shiq bag'ishlangan odam), hech qanday xonanda, mashhur shaxs yoki mavjud qo'shiqqa taqlid emas.")
+ORIGINAL_EN = ("This is a new, original song written as a personal gift. Names in the lyrics belong to private individuals "
+               "(the person the song is dedicated to), not to any artist or celebrity; do not imitate any existing song or artist.")
+
+
 def prompt(sections: list[dict], style_name: str, style_tags: list[str], voice: str, occasion: str,
-           extra: list[str], seconds: float, lang: str = "uz", clip: bool = False) -> str:
-    """Ko'rsatma va so'zlar alohida (hujjat tavsiyasi). Til — talaffuzga ta'sir qiladi, shuning uchun asosan o'zbekcha."""
+           extra: list[str], seconds: float, lang: str = "uz", clip: bool = False, plain: bool = False) -> str:
+    """Ko'rsatma va so'zlar alohida (hujjat tavsiyasi). Til — talaffuzga ta'sir qiladi, shuning uchun asosan o'zbekcha.
+    plain=True — matn rad etilgandan keyingi urinish: eng qisqa ko'rsatma (teglar, munosabat va qo'shimcha talablarsiz)."""
     words = lyrics_block(sections)
+    if plain:
+        part = "naqorati" if clip else "qo'shig'i"
+        if lang == "en":
+            length = "" if clip else " Length about 90 seconds."
+            return (f"A {style_name} song{' chorus' if clip else ''} sung in Uzbek, {VOICE_EN.get(voice, VOICE_EN['female'])}.{length} "
+                    f"{ORIGINAL_EN} Sing these lyrics:\n\n{words}")
+        length = "" if clip else " Davomiyligi taxminan 1,5 daqiqa."
+        return (f"O'zbek tilidagi {style_name} {part}, {VOICE_UZ.get(voice, VOICE_UZ['female'])} kuylaydi.{length} {ORIGINAL_UZ} "
+                f"Quyidagi so'zlarni kuylang:\n\n{words}")
     if clip:  # namuna: faqat naqorat, 30 soniyalik bo'lak
         tags = ", ".join([*style_tags, *extra][:12])
         if lang == "en":
