@@ -383,3 +383,57 @@ async def control_compare(spend_kinds: tuple = ()) -> dict:
         out["groups"].append({"key": "control" if key else "main", "label": label, "users": t, "bought": b, "bought_pct": _pct(b, t),
                               "blocked": bl, "blocked_pct": _pct(bl, t), "got": g, "revenue": p, "arpu": round(p / t) if t else 0})
     return out
+
+
+# ---------------------------------------------------------------- chegirma voronkasi va A/B (statistika TZ, 5-band)
+
+DISCOUNT_STEPS = [("offered", "Taklif yuborildi"), ("opened", "Ochdi (tugma yoki ilova)"), ("buy_click", "«Sotib olish»ni bosdi"),
+                  ("pay_open", "To'lov oynasini ochdi"), ("paid", "To'ladi yoki sotib oldi")]
+ARMS = {"": "Bitta narx (A/B o'chiq)", "a": "A — asosiy chegirma narxi", "b": "B — ikkinchi narx"}
+OFFER_H = 48  # taklifdan keyin shuncha soat ichidagi harakatlar hisoblanadi
+
+
+async def discount_funnel(a: datetime | None, b: datetime) -> dict:
+    """Chegirma voronkasi har A/B guruhi bo'yicha, ODAMLAR soni: taklif (offer yoki bf) yuborildi → 48 soat ichida ochdi
+    (chegirma tugmasi yoki ilovada bo'ldi) → «sotib olish» → to'lov oynasi → to'ladi (pul tushdi yoki chegirmada sotib oldi).
+    Bitta so'rov: GROUP BY guruh, qadamlar EXISTS bilan."""
+    from .db import Song
+    excl = sorted(await track.excluded_ids())
+    scope = [NudgeLog.seq.in_(("offer", "bf")), NudgeLog.status == "sent", NudgeLog.created_at < b]
+    if a is not None:
+        scope.append(NudgeLog.created_at >= a)
+    if excl:
+        scope.append(NudgeLog.user_id.notin_(excl))
+    opened = or_(exists().where(Event.user_id == NudgeLog.user_id, Event.kind == track.CLICK,
+                                or_(Event.ref.in_(("n:offer.0", "n:bf.0")), Event.ref.startswith("n:rem.", autoescape=True)),
+                                Event.created_at >= NudgeLog.created_at, Event.created_at <= plus_hours(NudgeLog.created_at, OFFER_H)),
+                 _after(APP_KINDS, OFFER_H))
+    raw = [("opened", opened), ("buy_click", _after("buy_click", OFFER_H)), ("pay_open", _after("pay_open", OFFER_H)),
+           ("paid", or_(_after("pay_success", OFFER_H), _after("promo_buy", OFFER_H)))]
+    # keyingi qadamga yetgan odam oldingilaridan ham o'tgan hisoblanadi (balansidagi puldan to'lagan — to'lov oynasisiz):
+    # sonlar faqat kamayadi, «Voronka» bo'limidagi kabi
+    steps = {k: or_(*(c for _, c in raw[i:])) for i, (k, _) in enumerate(raw)}
+
+    def people(cond):
+        return func.count(func.distinct(case((cond, NudgeLog.user_id))))
+
+    song_ref = literal("song:") + cast(Song.id, String)
+    async with Session() as s:
+        rows = (await s.execute(select(NudgeLog.arm, func.count(func.distinct(NudgeLog.user_id)), *(people(c) for c in steps.values()),
+                                       people(_after("promo_buy", OFFER_H)))
+                                .where(*scope).group_by(NudgeLog.arm))).all()
+        prices = dict((await s.execute(select(NudgeLog.arm, func.max(Song.promo_price)).join(Song, NudgeLog.ref == song_ref)
+                                       .where(*scope).group_by(NudgeLog.arm))).all())
+    arms = []
+    for arm, offered, *vals in sorted(rows, key=lambda r: r[0] or ""):
+        counts = dict(zip(["offered", *steps], [offered, *vals[:len(steps)]]))
+        prev = offered
+        out_steps = []
+        for key, label in DISCOUNT_STEPS:
+            n = int(counts[key] or 0)
+            out_steps.append({"key": key, "label": label, "n": n, "pct": _pct(n, prev) if key != "offered" else 100.0,
+                              "of_first": _pct(n, offered)})
+            prev = n
+        arms.append({"arm": arm or "", "label": ARMS.get(arm or "", arm), "price": int(prices.get(arm) or 0), "offered": int(offered),
+                     "steps": out_steps, "promo_buy": int(vals[-1] or 0), "conv": _pct(int(counts["paid"] or 0), int(offered))})
+    return {"arms": arms, "window_h": OFFER_H, "since": (await config())["since"]}

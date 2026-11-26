@@ -330,6 +330,57 @@ async def main() -> None:
     c = await admin.control_save(admin.ControlIn(on=False), uid=999)
     assert not c["on"] and c["until"] and len(c["groups"]) == 2, "o'chirilgach taqqoslash o'sha oraliq bo'yicha qoladi"
     assert control.member_sql(await control.config(), User.tg_id, User.created_at) is None
+
+    # ---------- 11) chegirma A/B: standart o'chiq; yoqilsa teng yarmi ikkinchi narxni oladi; voronka guruhlar bo'yicha
+    pc = await pricing.config()
+    assert pc["ab"] == {"on": False, "price": 0, "since": None} and pricing.offer_price(pc, 12345) == (39000, "")
+    for bad, word in (({"on": True, "price": 0}, "kiriting"), ({"on": True, "price": 69000}, "kichik"), ({"on": True, "price": 39000}, "farq")):
+        try:
+            await admin.pricing_save({"packs": pc["packs"], "promo": pc["promo"], "ab": bad}, uid=999)
+            raise AssertionError(bad)
+        except Exception as e:
+            assert getattr(e, "status_code", 0) == 400 and word in e.detail, (bad, e)
+    out = await admin.pricing_save({"packs": pc["packs"], "promo": pc["promo"], "ab": {"on": True, "price": 29000}}, uid=999)
+    assert out["ab"]["on"] and out["ab"]["price"] == 29000 and out["ab"]["since"]
+    since_ab = out["ab"]["since"]
+    out = await admin.pricing_save({"packs": pc["packs"], "promo": pc["promo"]}, uid=999)  # A/B yuborilmasa — o'zgarmaydi
+    assert out["ab"] == {"on": True, "price": 29000, "since": since_ab}
+    ua = next(u for u in range(2000, 2100) if control.arm(u) == "a" and control.bucket(u) >= 50)
+    ub = next(u for u in range(2000, 2100) if control.arm(u) == "b" and control.bucket(u) >= 50)
+    t3 = utcnow() - 3 * H
+    async with Session() as s:
+        for u in (ua, ub):
+            s.add(User(tg_id=u, first_name="AB", created_at=t3 - timedelta(days=3)))
+            s.add(song(u, t3 - 2 * H))
+        await s.commit()
+    abot = Bot()
+    await pricing.offer_due(abot, t3)
+    msg = {u: text for u, text, _ in abot.sent}
+    assert "<b>39 000 so‘m</b>" in msg[ua] and "<b>29 000 so‘m</b>" in msg[ub], msg
+    async with Session() as s:
+        prices_ = dict((await s.execute(select(Song.owner_id, Song.promo_price).where(Song.owner_id.in_([ua, ub])))).all())
+        arms_ = dict((await s.execute(select(NudgeLog.user_id, NudgeLog.arm).where(NudgeLog.seq == "offer", NudgeLog.user_id.in_([ua, ub])))).all())
+    assert prices_ == {ua: 39000, ub: 29000} and arms_ == {ua: "a", ub: "b"}
+    async with Session() as s:  # B guruhidagi odam: tugma → «sotib olish» → to'lov oynasi → pul tushdi
+        for k, ref in ((track.CLICK, "n:offer.0"), ("buy_click", ""), ("pay_open", "pay:9"), ("pay_success", "pay:9")):
+            s.add(Event(user_id=ub, kind=k, ref=ref, created_at=t3 + H))
+        s.add(Event(user_id=ua, kind="app", created_at=t3 + 50 * H))  # 48 soatdan keyin — hisoblanmaydi
+        await s.commit()
+    fu = await admin.discount_get(frm=None, to=None, all_time=1, uid=999)
+    arms = {x["arm"]: x for x in fu["arms"]}
+    assert arms["b"]["price"] == 29000 and [x["n"] for x in arms["b"]["steps"]] == [1, 1, 1, 1, 1], arms["b"]
+    assert arms["a"]["price"] == 39000 and [x["n"] for x in arms["a"]["steps"]] == [1, 0, 0, 0, 0], arms["a"]
+    assert arms[""]["offered"] >= 1 and fu["ab"]["on"]
+    r = await admin.export("discount", frm=None, to=None, all_time=1, uid=999)
+    assert "B — ikkinchi narx;29000;To'ladi yoki sotib oldi;1" in r.body.decode("utf-8-sig")
+    # eslatma ham shu guruh bilan yoziladi
+    async with Session() as s:
+        until_b = (await s.execute(select(Song.promo_until).where(Song.owner_id == ub))).scalar_one()
+    await pricing.remind_due(abot, until_b - 6 * H + timedelta(minutes=1))
+    async with Session() as s:
+        assert (await s.execute(select(NudgeLog.arm).where(NudgeLog.seq == "rem", NudgeLog.user_id == ub))).scalars().all() == ["b"]
+    await admin.pricing_save({"packs": pc["packs"], "promo": pc["promo"], "ab": {"on": False, "price": 29000}}, uid=999)
+    assert pricing.offer_price(await pricing.config(), ub) == (39000, "")
     store.forget()
     print("test_msgstats: OK")
 

@@ -72,7 +72,20 @@ def clean(raw: dict | None) -> dict:
     promo["reminders"] = [m for m in rem if m < promo["hours"] * 60][:5]  # muddatdan uzun eslatma ma'nosiz
     if promo["price"] >= prices["song"]:
         raise PriceError("Chegirma narxi qo'shiqning oddiy narxidan kichik bo'lishi kerak")
-    return {"prices": prices, "packs": packs, "promo": promo}
+    # chegirma A/B (statistika TZ, 5-band): standart o'chiq; yoqilsa taklif qilinadiganlarning teng yarmi (app/control.py: arm)
+    # ikkinchi narxni oladi. since — oxirgi marta yoqilgan vaqt (panel voronkani shundan beri ko'rsatadi)
+    ab_raw = raw.get("ab") or {}
+    ab = {"on": bool(ab_raw.get("on")), "price": 0, "since": ab_raw.get("since") if isinstance(ab_raw.get("since"), str) else None}
+    if ab_raw.get("price") not in (None, "", 0):
+        ab["price"] = _int(ab_raw.get("price"), 1000, 10_000_000, "Ikkinchi chegirma narxi")
+    if ab["on"]:
+        if not ab["price"]:
+            raise PriceError("A/B uchun ikkinchi chegirma narxini kiriting")
+        if ab["price"] >= prices["song"]:
+            raise PriceError("Ikkinchi chegirma narxi qo'shiqning oddiy narxidan kichik bo'lishi kerak")
+        if ab["price"] == promo["price"]:
+            raise PriceError("Ikkinchi chegirma narxi birinchisidan farq qilsin")
+    return {"prices": prices, "packs": packs, "promo": promo, "ab": ab}
 
 
 async def config() -> dict:
@@ -97,6 +110,14 @@ async def apply() -> dict:
 
 
 async def save(raw: dict) -> dict:
+    old = await config()
+    raw = dict(raw or {})
+    if not isinstance(raw.get("ab"), dict):  # A/B yuborilmagan (eski so'rov) — avvalgisi qoladi
+        raw["ab"] = old["ab"]
+    elif raw["ab"].get("on") and not old["ab"]["on"]:
+        raw["ab"] = {**raw["ab"], "since": utcnow().isoformat(timespec="seconds")}
+    else:
+        raw["ab"] = {**raw["ab"], "since": old["ab"]["since"]}
     cfg = clean(raw)
     await store.put(KEY, cfg)
     _apply(cfg)
@@ -208,8 +229,13 @@ def _offer_conds(now: datetime, promo: dict) -> list:
 
 
 def offer_price(cfg: dict, uid: int) -> tuple[int, str]:
-    """Shu odamga taklif qilinadigan chegirma narxi va A/B guruhi (A/B o'chiq bo'lsa guruh bo'sh)."""
-    return cfg["promo"]["price"], ""
+    """Shu odamga taklif qilinadigan chegirma narxi va A/B guruhi (A/B o'chiq bo'lsa guruh bo'sh).
+    A — asosiy chegirma narxi, B — ikkinchi narx; guruh id dan (control.arm) — bir odam doim bir guruhda."""
+    ab = cfg.get("ab") or {}
+    if not ab.get("on") or not ab.get("price"):
+        return cfg["promo"]["price"], ""
+    arm = control.arm(uid)
+    return (ab["price"] if arm == "b" else cfg["promo"]["price"]), arm
 
 
 async def offer_due(bot, now: datetime | None = None) -> int:

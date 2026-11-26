@@ -1872,6 +1872,11 @@ async def export(what: str, frm: str | None = Query(None, alias="from"), to: str
         return _csv("qoshiq_xatolari.csv", ["vaqt (Toshkent)", "turi", "qo'shiq", "foydalanuvchi", "sabab", "xato matni", "eski yozuvdan tiklangan"],
                     [[_ts(at), songflow.KIND_LABELS.get(kind, kind), ref[5:], user, songflow.REASONS.get((meta or {}).get("r"), songflow.REASONS["unknown"]),
                       (meta or {}).get("e") or "", "ha" if (meta or {}).get("bf") else ""] for at, kind, ref, user, meta in rows])
+    if what == "discount":
+        d = await msgstats.discount_funnel(a, b)
+        return _csv("chegirma_voronkasi.csv", ["guruh", "chegirma narxi", "qadam", "odamlar", "oldingi qadamdan, %", "taklifdan, %"],
+                    [[x["label"], x["price"] or "", st["label"], st["n"], _cell(st["pct"]), _cell(st["of_first"])]
+                     for x in d["arms"] for st in x["steps"]])
     if what == "control":
         d = await msgstats.control_compare(SPEND_KINDS)
         return _csv("nazorat_guruhi.csv", ["guruh", "odamlar", "progrev/chegirma olgan", "sotib oldi", "sotib oldi, %", "bloklagan",
@@ -1977,6 +1982,17 @@ async def pricing_get(uid: int = Depends(admin_uid)):
     cfg = await pricing.config()
     return {**cfg, "packs_public": pricing.packs_public(cfg), "stats": await pricing.stats(), "daily": await pricing.daily(14),
             "backfill": {**await pricing.backfill_state(), **await pricing.backfill_breakdown()}}
+
+
+@router.get("/discount")
+async def discount_get(frm: str | None = Query(None, alias="from"), to: str | None = None, all_time: int = 0,
+                       uid: int = Depends(admin_uid)):
+    """«Narxlar»: chegirma voronkasi har A/B guruhi bo'yicha (statistika TZ, 5-band)."""
+    from . import pricing
+    a, b, d1, d2 = _pay_range(frm, to, all_time)
+    cfg = await pricing.config()
+    return {"from": d1.isoformat() if d1 else None, "to": d2.isoformat(), **await msgstats.discount_funnel(a, b), "ab": cfg["ab"],
+            "promo_price": cfg["promo"]["price"]}
 
 
 class BackfillIn(BaseModel):

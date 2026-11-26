@@ -1475,10 +1475,27 @@
   // ---------------------------------------------------------------- Narxlar, paketlar, chegirma
   async function pricingPage(alive) {
     loading("Narxlar va chegirmalar");
-    let d = await api("/api/admin/pricing");
+    const fq = () => { const [f, t] = range(); return S.period.preset === "all" ? "all_time=1" : `from=${f}&to=${t}`; };
+    let [d, fu] = await Promise.all([api("/api/admin/pricing"), api(`/api/admin/discount?${fq()}`)]);
     if (!alive()) return;
+    // chegirma voronkasi: taklif → ochdi → «sotib olish» → to'lov oynasi → to'ladi, har A/B guruhi alohida (statistika TZ, 5-band)
+    const funnelHtml = () => {
+      const arms = fu.arms || [];
+      const cols = arms.map((x) => `${x.label}${x.price ? ` · ${fmt(x.price)} so'm` : ""}`);
+      const rows = (arms[0] ? arms[0].steps : []).map((st, i) => `<tr><td><b>${i + 1}. ${esc(st.label)}</b></td>${arms.map((x) => {
+        const y = x.steps[i];
+        return `<td class="r num"><b>${fmt(y.n)}</b>${i ? `<span class="sub">${y.pct}% oldingidan · ${y.of_first}% taklifdan</span>` : ""}</td>`;
+      }).join("")}</tr>`);
+      return `<section class="blk" id="pr-funnel"><div class="bh"><h2>Chegirma voronkasi</h2><button type="button" class="btn sm" id="fu-csv">CSV</button></div>
+        ${periodBar([["all", "Butun davr"]])}
+        <div style="margin-top:10px">${table(["Qadam", ...cols.map((c) => ">" + esc(c))], rows, "Bu davrda chegirma taklif qilinmagan")}</div>
+        <p class="muted" style="font-size:12.5px;margin-top:8px">Sanash odam bo'yicha: taklif (yangi yoki eski namunaga) yuborilgan odamlar va ularning taklifdan keyin ${fu.window_h} soat ichidagi harakati.
+          «Ochdi» — chegirma xabaridagi tugmani bosgan yoki ilovada bo'lgan; «To'ladi» — pul tushgan yoki chegirmada sotib olgan. Keyingi qadamga yetgan odam oldingilaridan ham o'tgan hisoblanadi.
+          ${fu.since ? `Tugma bosilishi <b>${dt(fu.since)}</b> dan beri yoziladi.` : ""}${fu.ab && fu.ab.since ? ` A/B <b>${dt(fu.ab.since)}</b> da yoqilgan.` : ""}</p></section>`;
+    };
     const P = [["song", "Qo'shiq (1 ta)", "so'm"], ["video", "Video taklifnoma", "bepul limitdan keyin"],
       ["standart", "Sayt — Standart", ""], ["premium", "Sayt — Premium", ""], ["vip", "Sayt — VIP", ""]];
+    d.ab0 = d.ab;
     const each = (x, one) => ({ each: Math.floor(x.price / x.n), off: Math.max(0, Math.round(100 - (100 * x.price) / (one * x.n))) });
     const draw = () => {
       const one = d.prices.song, st = d.stats, bf = d.backfill || {};
@@ -1513,11 +1530,17 @@
               <label class="f">Tugashidan oldin eslatmalar, soat qolganda<input class="in" id="pm-rem" value="${esc((d.promo.reminders || []).map((m) => +(m / 60).toFixed(2)).join(", "))}" placeholder="6, 2, 0.5">
                 <small>vergul bilan, ko'pi 5 ta. 0.5 = 30 daqiqa. Bo'sh qoldirilsa — eslatma yuborilmaydi</small></label>
             </div>
+            <div class="fields">
+              <label class="f">A/B sinov: ikkinchi chegirma narxi<input class="in" type="number" min="1000" step="1000" id="ab-price" value="${d.ab.price || ""}" placeholder="masalan 29000">
+                <small>chegirma oladiganlarning teng yarmi (B) shu narxni, qolgani (A) yuqoridagi narxni oladi</small></label>
+            </div>
+            <label class="row sw"><input type="checkbox" id="ab-on" ${d.ab.on ? "checked" : ""}> Ikki xil chegirma narxini solishtirish (A/B) yoqilgan</label>
             <p class="muted" style="font-size:12.5px">Har bir qo'shiqqa bir marta, faqat bitta qo'shiq xaridiga. Botga xabar yuboriladi, ilovada vaqt sanog'i chiqadi. Xabarlar progrev soatlarida yuboriladi; chegirma tunda tugaydigan bo'lsa, eslatmalar yetib borishi uchun ertasi kunga suriladi. Sotib olgan yoki paketi bor mijozga yuborilmaydi.</p>
           </div>
           <div class="kpis pr-kpi"><div><b>${fmt(st.offered)}</b><span>chegirma taklif qilindi</span></div>
             <div><b>${fmt(st.used)}</b><span>chegirmada sotib oldi · ${conv}%</span></div>
             <div><b>${fmt(st.revenue)}</b><span>chegirmadan tushum, so'm</span></div></div></section>
+        ${funnelHtml()}
         <section class="blk"><div class="bh"><h2>Chegirma — kunlar bo'yicha</h2><span class="sub">oxirgi 14 kun, Toshkent vaqti</span></div>
           ${table(["Kun", ">Yangi namunalarga", ">Eski namunalarga", ">Eslatmalar", ">Chegirmada sotib oldi", ">Tushum, so'm"], (d.daily || []).map((r) => {
             const sent = r.offer + r.bf;
@@ -1556,10 +1579,21 @@
       if ($("#bf-start")) $("#bf-start").onclick = (e) => { if (confirm(`${fmt(bf.eligible)} kishiga chegirma xabari yuborilsinmi? Narx: ${fmt(d.promo.price)} so'm, ${d.promo.hours} soat.`)) bfGo(true, e.currentTarget); };
       if ($("#bf-stop")) $("#bf-stop").onclick = (e) => bfGo(false, e.currentTarget);
       $$("[data-del]").forEach((b) => (b.onclick = () => { read(); d.packs.splice(+b.dataset.del, 1); draw(); }));
+      bindPeriod($("#pr-funnel"), async () => {
+        read();
+        try { fu = await api(`/api/admin/discount?${fq()}`); } catch (err) { toast(err.message, true); return; }
+        if (alive()) { const y = window.scrollY; draw(); window.scrollTo(0, y); }
+      });
+      $("#fu-csv").onclick = () => download(`/api/admin/export/discount.csv?${fq()}`);
       $("#pk-add").onclick = () => { read(); const n = Math.max(1, ...d.packs.map((x) => x.n)) + 1; d.packs.push({ n, price: one * n, label: "", on: true }); draw(); };
       $("#pr-save").onclick = async (e) => {
         const btn = e.currentTarget; btn.disabled = true;
-        try { read(); d = await api("/api/admin/pricing", { prices: d.prices, packs: d.packs, promo: d.promo }); toast("Saqlandi — yangi narxlar ishlayapti"); draw(); }
+        try {
+          read();
+          if (d.ab.on && !(d.ab0 || {}).on && !confirm(`A/B yoqilsinmi? Chegirma oladiganlarning yarmi ${fmt(d.ab.price)} so'm, qolgani ${fmt(d.promo.price)} so'm taklif oladi.`)) { btn.disabled = false; return; }
+          const r = await api("/api/admin/pricing", { prices: d.prices, packs: d.packs, promo: d.promo, ab: d.ab });
+          d = { ...d, ...r, ab0: r.ab }; toast("Saqlandi — yangi narxlar ishlayapti"); draw();
+        }
         catch (err) { toast(err.message, true); btn.disabled = false; }
       };
     };
@@ -1570,6 +1604,7 @@
         x.n = +$("[data-k=n]", tr).value || 0; x.price = +$("[data-k=price]", tr).value || 0;
         x.label = $("[data-k=label]", tr).value.trim(); x.on = $("[data-k=on]", tr).checked;
       });
+      d.ab = { on: $("#ab-on").checked, price: +$("#ab-price").value || 0 };
       d.promo = { on: $("#pm-on").checked, price: +$("#pm-price").value || 0, hours: +$("#pm-hours").value || 0, delay: +$("#pm-delay").value || 0,
         reminders: $("#pm-rem").value.split(/[,;\s]+/).map((x) => parseFloat(x.replace(",", "."))).filter((x) => x > 0).map((x) => Math.round(x * 60)) };
     };
