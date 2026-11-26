@@ -28,6 +28,11 @@ async def main() -> None:
         await payflow.start()  # to'lov statistikasi: birinchi ishga tushishda eski to'lovlardan hodisalar tiklanadi
     except Exception:
         logging.exception("To'lov statistikasini boshlab bo'lmadi")
+    try:
+        from . import songflow
+        await songflow.start()  # qo'shiq voronkasi: birinchi ishga tushishda mavjud qo'shiqlardan hodisalar tiklanadi
+    except Exception:
+        logging.exception("Qo'shiq voronkasini boshlab bo'lmadi")
     from . import songs as _songs
     await _songs.music_cfg()  # admin paneldagi Lyria kaliti (menyu va qo'shiq bo'limi shunga qarab yoqiladi)
 

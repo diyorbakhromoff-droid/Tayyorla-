@@ -498,7 +498,8 @@ _TRACK_CALLS: dict[int, list] = {}
 
 @router.post("/api/track")
 async def track_event(body: TrackIn, x_init_data: str = Header("")):
-    """Mini App voronka hodisasi (masalan, summa tanlash oynasi ko'rsatildi). Faqat ruxsat etilgan nomlar yoziladi."""
+    """Mini App voronka hodisasi (summa tanlash oynasi ko'rsatildi, qo'shiq bo'limiga kirdi, namunani eshitdi...).
+    Faqat ruxsat etilgan nomlar yoziladi; bir odamdan soatiga cheklangan miqdorda."""
     uid, _ = _uid(x_init_data)
     if body.kind not in track.CLIENT_KINDS:
         return {"ok": False}
@@ -510,6 +511,9 @@ async def track_event(body: TrackIn, x_init_data: str = Header("")):
     calls.append(now)
     if len(_TRACK_CALLS) > 50_000:
         _TRACK_CALLS.clear()
+    if body.kind in track.SONG_CLIENT_KINDS:  # qo'shiq voronkasi: qo'shiq egasi va qiymatlar tekshiriladi
+        from . import songflow
+        return {"ok": bool(await songflow.client_event(uid, body.kind, body.ref, body.num, body.meta))}
     await track.event(body.kind, uid, body.ref, body.num, track.clean_meta(body.meta))
     return {"ok": True}
 

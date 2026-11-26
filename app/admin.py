@@ -25,7 +25,7 @@ from sqlalchemy import func, select, update
 from . import track, video, videobot
 from .catalog import SECTIONS, TEMPLATES, site_price, site_title
 from .config import MEDIA_DIR, ROOT, settings
-from . import costs, nudges, payflow, paysurvey, songs, store
+from . import costs, funnel, nudges, payflow, paysurvey, songflow, songs, store
 from .db import BalanceTx, Event, MusicTrack, Payment, RenderJob, Session, Site, Snapshot, Song, TrafficLink, User, utcnow
 from .reminders import TZ, today
 from .webapp import check_init_data
@@ -168,6 +168,7 @@ async def _sets(s) -> dict:
 
 async def collect(a: datetime, b: datetime, days: list[date] | None = None) -> dict:
     """[a, b) oralig'idagi ko'rsatkichlar; days berilsa kunlik qatorlar ham."""
+    excl = await track.excluded_ids()
     async with Session() as s:
         users = (await s.execute(select(User.tg_id, User.created_at, User.ref).where(User.created_at >= a, User.created_at < b))).all()
         total_users = await s.scalar(select(func.count()).select_from(User).where(User.created_at < b))
@@ -187,6 +188,7 @@ async def collect(a: datetime, b: datetime, days: list[date] | None = None) -> d
                                           .where(Payment.status == "approved").group_by(Payment.user_id))).all())
         ever = await _sets(s) if days is not None else None
         cost = await costs.summary(s, a, b)
+        song_fails = await songflow.failed_counts(s, a, b, excl)
 
     new_ids = {u[0] for u in users}
     app_ev = [e for e in events if e[1] == "app"]
@@ -230,7 +232,9 @@ async def collect(a: datetime, b: datetime, days: list[date] | None = None) -> d
             "created": len(song_rows), "previews": sum(r[1] or 0 for r in song_rows),
             "paid_of_created": sum(1 for r in song_rows if r[2]), "conv": pct(sum(1 for r in song_rows if r[2]), len(song_rows)),
             "sold": by_kind["song"][0], "sold_sum": by_kind["song"][1],
-            "failed": sum(1 for r in song_rows if r[3] == "failed"),
+            # xatolar hodisalardan sanaladi (sample_failed, song_failed): namuna xatosida qo'shiq holati «she'r»ga qaytadi,
+            # to'liq qo'shiq xatosi qayta urinilganda o'chadi — shuning uchun holat bo'yicha sanash doim 0 ko'rsatar edi
+            **song_fails,
         },
         "money": {
             "topup": topup, "topups": len(pays), "payers": len(payers),
@@ -889,6 +893,83 @@ async def paystats_survey_test(uid: int = Depends(admin_uid)):
     return {"ok": True}
 
 
+# ---------------------------------------------------------------- voronka (qo'shiq, sayt, video) va namunasiz qolganlar
+
+def _funnel_args(product: str, mode: str, src: str) -> tuple[str, str, str]:
+    if product not in funnel.SPECS:
+        raise HTTPException(400, "Noma'lum mahsulot")
+    return product, mode if mode in funnel.MODES else "cohort", (src if isinstance(src, str) else "")[:40]
+
+
+async def _source_options() -> list[dict]:
+    """Manba filtri uchun ro'yxat: reklama havolalari va havolasiz guruhlar."""
+    async with Session() as s:
+        links = (await s.execute(select(TrafficLink.code, TrafficLink.name, TrafficLink.archived)
+                                 .order_by(TrafficLink.archived, TrafficLink.id.desc()))).all()
+    return ([{"key": "", "label": "Barcha manbalar"}]
+            + [{"key": f"src_{code}", "label": name + (" (arxivda)" if arch else "")} for code, name, arch in links]
+            + [{"key": k or "organic", "label": v} for k, v in SOURCE_GROUPS.items()])
+
+
+@router.get("/funnel")
+async def funnel_report(product: str = "song", mode: str = "cohort", src: str = "", frm: str | None = Query(None, alias="from"),
+                        to: str | None = None, all_time: int = 0, uid: int = Depends(admin_uid)):
+    """Voronka: qadamlar ketma-ket, ODAMLAR soni bilan. mode=cohort — shu davrda kelgan yangi odamlar keyin nima qilgani,
+    mode=period — shu davrdagi harakatlar. Qo'shiq uchun «Namunasiz qolganlar» bo'linishi ham qaytadi."""
+    product, mode, src = _funnel_args(product, mode, src)
+    a, b, d1, d2 = _pay_range(frm, to, all_time)
+    out = await funnel.report(product, a, b, mode, src)
+    if product == "song":
+        out["nosample"] = await funnel.nosample(a, b, mode, src)
+    return {"from": d1.isoformat() if d1 else None, "to": d2.isoformat(), **out,
+            "products": [{"key": k, "label": v["label"]} for k, v in funnel.SPECS.items()], "sources": await _source_options()}
+
+
+async def _funnel_people(product, mode, src, step, group, a, b, limit: int | None = 200) -> dict:
+    d = await (funnel.nosample_people(a, b, mode, src, group, limit) if group else funnel.people(product, a, b, mode, src, step, limit))
+    async with Session() as s:
+        names = await _link_names(s)
+    for r in d["rows"]:
+        r["source"] = source_label(r["ref"], names)
+    return d
+
+
+@router.get("/funnel/people")
+async def funnel_people(product: str = "song", mode: str = "cohort", src: str = "", step: str = "", group: str = "",
+                        frm: str | None = Query(None, alias="from"), to: str | None = None, all_time: int = 0,
+                        uid: int = Depends(admin_uid)):
+    """Tushib qolganlar ro'yxati: step — shu qadamda to'xtaganlar; group — namunasiz qolganlarning bitta guruhi."""
+    product, mode, src = _funnel_args(product, mode, src)
+    a, b, _, _ = _pay_range(frm, to, all_time)
+    return await _funnel_people(product, mode, src, step, group, a, b)
+
+
+class SongAlertIn(BaseModel):
+    alert_on: bool | None = None
+    alert_pct: int | None = Field(None, ge=1, le=100)
+    alert_min: int | None = Field(None, ge=1, le=1000)
+
+
+@router.post("/songflow/settings")
+async def songflow_save(body: SongAlertIn, uid: int = Depends(admin_uid)):
+    """Qo'shiq xatolari bo'yicha adminlarga Telegram ogohlantirish: yoqish/o'chirish va chegaralar."""
+    cfg = await songflow.save(body.model_dump())
+    log.info("Qo'shiq ogohlantirishi sozlamasi o'zgardi (admin %s): yoqilgan=%s, chegara %s%%", uid, cfg["alert_on"], cfg["alert_pct"])
+    return {"ok": True, "alert": {"on": cfg["alert_on"], "pct": cfg["alert_pct"], "min": cfg["alert_min"]}}
+
+
+@router.post("/songflow/alert-test")
+async def songflow_alert_test(uid: int = Depends(admin_uid)):
+    if not videobot.BOT:
+        raise HTTPException(503, "Bot ishlamayapti")
+    try:
+        await songflow.alert_test(videobot.BOT, uid)
+    except Exception as e:
+        log.exception("Sinov ogohlantirishini yuborib bo'lmadi")
+        raise HTTPException(502, f"Yuborib bo'lmadi: {type(e).__name__}")
+    return {"ok": True}
+
+
 class Decision(BaseModel):
     approve: bool
 
@@ -1282,6 +1363,8 @@ async def system(uid: int = Depends(admin_uid)):
         "music": await music_info(),
         "ai": await ai_info(),
         "song_limits": await songs.user_limits(),
+        # qo'shiq namunasi va to'liq qo'shiq: tayyorlash vaqti, xatolar sababi bilan, qayta urinishlar, ogohlantirish
+        "songflow": await songflow.system(),
         "songs": {"on": settings.songs_on, "price": settings.song_price, "daily_previews": per_day, "per_user": per_user,
                   "previews_today": pv_today, "credits": await songs.credits(), "alert": settings.song_credit_alert},
     }
@@ -1537,10 +1620,56 @@ def _paystats_rows(d: dict) -> list[list]:
     return [[str(v).replace(".", ",") if isinstance(v, float) else v for v in row] for row in rows]  # Excel uchun o'nlik vergul
 
 
+def _funnel_rows(d: dict) -> list[list]:
+    rows = [[i, x["label"], x["event"], x["n"], "" if x["pct"] is None else x["pct"], x["of_first"], "" if x["lost"] is None else x["lost"],
+             x["exact"], _mins((x["time"] or {}).get("avg_s")), _mins((x["time"] or {}).get("median_s")), (x["time"] or {}).get("n", ""),
+             _ts(datetime.fromisoformat(x["since"])) if x["since"] else ""] for i, x in enumerate(d["steps"], 1)]
+    rows += [["", f"↳ {x['label']}", x["key"], "", "", "", "", x["n"], "", "", "",
+              _ts(datetime.fromisoformat(x["since"])) if x["since"] else ""] for x in d["side"]]
+    rows += [["", f"Vaqt: {x['label']}", "", "", "", "", "", "", _mins(x["avg_s"]), _mins(x["median_s"]), x["n"], ""] for x in d["spans"]]
+    return [[str(v).replace(".", ",") if isinstance(v, float) else v for v in row] for row in rows]
+
+
 @router.get("/export/{what}.csv")
 async def export(what: str, frm: str | None = Query(None, alias="from"), to: str | None = None, all_time: int = 0,
+                 product: str = "song", mode: str = "cohort", src: str = "", step: str = "", group: str = "",
                  uid: int = Depends(admin_uid)):
     a, b, _, _ = _pay_range(frm, to, all_time, default_all=True)  # davr berilmasa — butun tarix (eski tugmalar shunday ishlaydi)
+    if what in ("funnel", "funnelpeople", "nosample"):
+        product, mode, src = _funnel_args(product, mode, src)
+        if what == "funnel":
+            return _csv(f"voronka_{product}.csv", ["#", "qadam", "hodisa", "odamlar (yetib kelgan)", "oldingi qadamdan o'tdi, %", "boshidan, %",
+                                                   "tushib qoldi", "shu hodisa yozilgan odamlar", "oldingi qadamdan beri o'rtacha (daqiqa)",
+                                                   "mediana (daqiqa)", "vaqt hisoblangan odamlar", "hisob boshlangan (Toshkent)"],
+                        _funnel_rows(await funnel.report(product, a, b, mode, src)))
+        if what == "funnelpeople":
+            d = await _funnel_people(product, mode, src, step, group, a, b, limit=None)
+            return _csv("voronka_odamlar.csv", ["id", "ism", "username", "manba", "qayerda to'xtadi", "qachon (Toshkent)", "bloklagan", "oxirgi faollik"],
+                        [[x["id"], x["name"], x["username"], x["source"], d["label"], _ts(datetime.fromisoformat(x["at"])) if x["at"] else "",
+                          "ha" if x["blocked"] else "", _ts(datetime.fromisoformat(x["last_seen"])) if x["last_seen"] else ""] for x in d["rows"]])
+        d = await funnel.nosample(a, b, mode, src)
+        rows = [["She'ri tayyor odamlar", "", d["lyrics"], "", ""], ["Namunasi bor", "", d["with_sample"], "", ""],
+                ["Namunasiz sotib olgan", "", d["bought"], "", ""], ["Namunasiz qolganlar", "", d["none"], "", ""]]
+        for g in d["groups"]:
+            rows.append([g["label"], g["about"], g["n"], str(g["pct"]).replace(".", ","), g["todo"]])
+            rows += [[f"↳ {x['label']}", "", x["n"], "", ""] for x in g["sub"]]
+        return _csv("namunasiz_qolganlar.csv", ["guruh", "ta'rifi", "odamlar", "ulushi, %", "nima qilinadi"], rows)
+    if what == "sampletime":
+        d = await songflow.system(days=90)
+        return _csv("namuna_vaqti.csv", ["kun", "so'raldi", "tayyor bo'ldi", "xato", "xato ulushi, %", "o'rtacha kutish (soniya)",
+                                         "eng uzun kutish (soniya)", "vaqti yozilgan namunalar"],
+                    [[x["day"], x["asked"], x["ready"], x["failed"], str(x["fail_pct"]).replace(".", ","), "" if x["avg_s"] is None else x["avg_s"],
+                      "" if x["max_s"] is None else x["max_s"], x["timed"]] for x in d["by_day"]])
+    if what == "songerrors":
+        cond = [Event.kind.in_(("sample_failed", "song_failed")), Event.created_at < b]
+        if a:
+            cond.append(Event.created_at >= a)
+        async with Session() as s:
+            rows = (await s.execute(select(Event.created_at, Event.kind, Event.ref, Event.user_id, Event.meta).where(*cond)
+                                    .order_by(Event.id.desc()).limit(20000))).all()
+        return _csv("qoshiq_xatolari.csv", ["vaqt (Toshkent)", "turi", "qo'shiq", "foydalanuvchi", "sabab", "xato matni", "eski yozuvdan tiklangan"],
+                    [[_ts(at), songflow.KIND_LABELS.get(kind, kind), ref[5:], user, songflow.REASONS.get((meta or {}).get("r"), songflow.REASONS["unknown"]),
+                      (meta or {}).get("e") or "", "ha" if (meta or {}).get("bf") else ""] for at, kind, ref, user, meta in rows])
     if what == "paystats":
         d = await payflow.summary(a, b, SPEND_KINDS)
         return _csv("tolov_xulosa.csv", ["bo'lim", "ko'rsatkich", "odamlar", "to'laganlar", "foiz"], _paystats_rows(d))

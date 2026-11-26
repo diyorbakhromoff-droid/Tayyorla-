@@ -69,11 +69,18 @@ SECTION_EN = {"intro": "Intro", "verse": "Verse", "chorus": "Chorus", "bridge": 
 
 
 class SongError(Exception):
-    """Foydalanuvchiga ko'rsatiladigan xato (o'zbekcha)."""
+    """Foydalanuvchiga ko'rsatiladigan xato (o'zbekcha). reason — statistika uchun sabab kodi (app/songflow.py: REASONS)."""
+
+    def __init__(self, message: str = "", reason: str = "service"):
+        super().__init__(message)
+        self.reason = reason
 
 
 class QuotaError(SongError):
     """ElevenLabs krediti tugagan yoki kalit ishlamayapti."""
+
+    def __init__(self, message: str = "", reason: str = "quota"):
+        super().__init__(message, reason)
 
 
 def meta() -> dict:
@@ -258,7 +265,7 @@ async def compose(plan: dict, store: bool = False, info: dict | None = None) -> 
     """Kompozitsiya rejasi bo'yicha mp3. Xatoda SongError (foydalanuvchiga tushunarli matn bilan).
     store=True — ElevenLabs qo'shiqni keyingi inpainting uchun saqlaydi, uning raqami info["song_id"] ga yoziladi."""
     if not settings.elevenlabs_api_key:
-        raise SongError("Qo'shiq xizmati hozircha sozlanmagan.")
+        raise SongError("Qo'shiq xizmati hozircha sozlanmagan.", "config")
     body = {"composition_plan": plan, "model_id": settings.song_model}
     if store:
         body["store_for_inpainting"] = True
@@ -270,16 +277,16 @@ async def compose(plan: dict, store: bool = False, info: dict | None = None) -> 
             if r.status == 200:
                 data = await r.read()
                 if len(data) < 5_000:
-                    raise SongError("Qo'shiq tayyorlanmadi, qayta urinib ko'ring.")
+                    raise SongError("Qo'shiq tayyorlanmadi, qayta urinib ko'ring.", "empty")
                 if info is not None:
                     info["song_id"] = r.headers.get("song-id", "")
                 return data
             body = (await r.text())[:2000]
             log.warning("ElevenLabs music %s: %s", r.status, body)
             if "bad_prompt" in body or "bad_composition_plan" in body:
-                raise SongError("Matnda mualliflik huquqi bilan himoyalangan so'z yoki nom bor. Matnni o'zgartirib ko'ring.")
+                raise SongError("Matnda mualliflik huquqi bilan himoyalangan so'z yoki nom bor. Matnni o'zgartirib ko'ring.", "content")
             if r.status == 429:
-                raise SongError("Navbat band, bir necha daqiqadan so'ng qayta urinib ko'ring.")
+                raise SongError("Navbat band, bir necha daqiqadan so'ng qayta urinib ko'ring.", "busy")
             if "quota" in body or "credit" in body or r.status in (401, 402):
                 _CREDITS.update(at=0.0, data=None)  # keyingi tekshiruv yangidan o'qisin
                 _ALERT["at"] = 0.0                  # adminga darhol ogohlantirish
@@ -730,7 +737,7 @@ async def _generate_lyria(s, song: Song, purpose: str) -> Path:
         if e.quota:
             _ALERT["at"] = 0.0
             raise QuotaError(str(e))
-        raise SongError(str(e))
+        raise SongError(str(e), getattr(e, "reason", "service"))
     s.add(costs.lyria_row(purpose, song.owner_id, f"song:{song.id}", settings.lyria_model))
     PRIVATE_DIR.mkdir(parents=True, exist_ok=True)
     path = PRIVATE_DIR / f"{song.id}-l-{secrets.token_hex(4)}.mp3"
@@ -758,7 +765,7 @@ async def _generate_lyria_clip(s, song: Song) -> Path:
         if e.quota:
             _ALERT["at"] = 0.0
             raise QuotaError(str(e))
-        raise SongError(str(e))
+        raise SongError(str(e), getattr(e, "reason", "service"))
     s.add(costs.lyria_row("song_preview", song.owner_id, f"song:{song.id}", settings.lyria_clip_model))
     PRIVATE_DIR.mkdir(parents=True, exist_ok=True)
     path = PRIVATE_DIR / f"{song.id}-clip-{secrets.token_hex(4)}.mp3"
@@ -771,11 +778,14 @@ async def _generate_lyria_clip(s, song: Song) -> Path:
 
 
 async def process(song_id: int, bot=None) -> None:
+    from . import songflow
+    flow: dict = {}  # voronka hodisalari uchun: nima bo'ldi, qancha kutildi (tranzaksiyadan keyin yoziladi)
     async with Session() as s:
         song = await s.get(Song, song_id)
         if not song or song.status not in ("preview_gen", "paid_gen"):
             return
         mode = song.status
+        asked = (song.preview_at if mode == "preview_gen" else song.updated_at) or utcnow()  # so'ralgan (to'langan) vaqt
         try:
             if mode == "preview_gen":
                 if song.variants:
@@ -823,16 +833,20 @@ async def process(song_id: int, bot=None) -> None:
             else:
                 log.exception("Qo'shiq tayyorlashda kutilmagan xato: %s", song_id)
                 song.error = "Qo'shiq tayyorlashda xato bo'ldi, qayta urinib ko'ring."
+            flow.update(reason=songflow.reason_of(e), error=songflow.error_text(e))  # sababi bilan saqlanadi (panel: «Tizim»)
             if mode == "preview_gen":
                 song.previews = max(0, (song.previews or 0) - 1)  # muvaffaqiyatsiz namuna bepul hisobdan qaytariladi
                 await refund_preview(s, song)
             song.status = "failed" if song.paid else "lyrics"
         song.updated_at = utcnow()
+        flow.update(mode=mode, at=song.updated_at, wait=max(0, int((song.updated_at - asked).total_seconds())))
         await s.commit()
         await s.refresh(song)
+    flow["away"] = not songflow.present(song.id)  # namuna tayyor bo'lganda egasi ilovada kutib turgan edimi
+    sent = False
     if bot:
         try:
-            await notify(bot, song)
+            sent = await _tell(bot, song, mode)
         except Exception:
             log.exception("Qo'shiq xabarini yuborib bo'lmadi: %s", song_id)
         if song.error and "vaqtincha band" in song.error:
@@ -840,18 +854,47 @@ async def process(song_id: int, bot=None) -> None:
                 await check_credits(bot)
             except Exception:
                 log.exception("Kredit ogohlantirishida xato")
+    await songflow.processed(song, flow, sent)
+    if flow.get("reason"):
+        await songflow.alert_check(bot)  # xatolar ko'paygan yoki xizmat javob bermayotgan bo'lsa — adminlarga xabar
+
+
+async def _tell(bot, song: Song, mode: str) -> bool:
+    """Egasiga bot xabari (namuna tayyor, qo'shiq tayyor yoki xato). True — yetdi.
+    Namuna har doim botga ham xabar qilinadi — kutib o'tirmay ilovadan chiqqan odam shu xabardan qaytadi (har namunaga bir marta).
+    Botni bloklagan odamga namuna xabari yuborilmaydi; yuborishda blok aniqlansa — belgilab qo'yiladi."""
+    from aiogram.exceptions import TelegramForbiddenError
+    from sqlalchemy import update
+    if mode == "preview_gen":
+        async with Session() as s:
+            if await s.scalar(select(User.blocked).where(User.tg_id == song.owner_id)):
+                return False
+    try:
+        await notify(bot, song)
+        return True
+    except TelegramForbiddenError:
+        async with Session() as s:
+            await s.execute(update(User).where(User.tg_id == song.owner_id).values(blocked=True))
+            await s.commit()
+        log.info("Qo'shiq xabari yetmadi — foydalanuvchi botni bloklagan: %s", song.owner_id)
+        return False
 
 
 async def worker(bot=None) -> None:
     """Navbatdagi qo'shiqlarni tayyorlaydi. Qayta ishga tushganda yarim qolganlarini davom ettiradi."""
+    from . import songflow
+    requeued = []
     async with Session() as s:
         for song in (await s.execute(select(Song).where(Song.status.in_(("preview_gen", "paid_gen"))))).scalars().all():
+            requeued.append((song.id, song.owner_id, song.status))
             song.status = song.status.replace("_gen", "_queued")
         await s.commit()
+    await songflow.requeued(requeued)  # statistika: avtomatik qayta urinishlar
     sem = asyncio.Semaphore(max(1, settings.song_workers))
     running: set[int] = set()
     import time
     last_check = 0.0
+    last_watch = time.time()
 
     async def run(sid: int) -> None:
         async with sem:
@@ -883,6 +926,9 @@ async def worker(bot=None) -> None:
                 await check_credits(bot)
             except Exception:
                 log.exception("Kredit tekshiruvida xato")
+        if settings.songs_on and time.time() - last_watch > 300:
+            last_watch = time.time()
+            await songflow.alert_check(bot)  # navbatda qotib qolgan qo'shiqlar va xatolar ulushi (o'zi xato chiqarmaydi)
         _wake.clear()
         try:
             await asyncio.wait_for(_wake.wait(), timeout=5)

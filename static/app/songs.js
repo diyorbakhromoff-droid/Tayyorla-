@@ -42,6 +42,20 @@
   const errMsg = (e) => (e.status === 503 ? T("song.soon_t") : e.status === 502 ? T("song.err_ai") : e.message);
   const songTitle = (s) => s.title || T("song.title");
 
+  // ---------------------------------------------------------------- voronka hodisalari (statistika; javobi kutilmaydi)
+  const refOf = (id) => (id ? `song:${id}` : "");
+  let openSent = false, openInfo = null;
+  /** Qo'shiq bo'limiga kirdi — ilova ochilganidan beri bir marta yoziladi. Havola orqali kirilganda avval bo'lim,
+   *  darhol keyin qo'shiq sahifasi chiziladi — shunda aniqrog'i (qaysi qo'shiq) yoziladi. */
+  const trackOpen = (from, id) => {
+    if (openSent) return;
+    const first = !openInfo;
+    if (first || id) openInfo = { ref: refOf(id), meta: { from } };
+    if (first) setTimeout(() => { openSent = true; App.track("song_open", openInfo); }, 0);
+  };
+  const promoOn = (s) => !!(s && !s.paid && s.promo && Date.parse(s.promo.until) > Date.now());
+  const limitSeen = new Set(); // «bepul namuna tugadi» ko'rsatilgan qo'shiqlar (har biri bir marta yoziladi)
+
   function statusBadge(s) {
     if (s.status === "ready") return ["green", "song.st.ready"];
     if (s.status === "preview_ready") return ["pink", "song.st.preview_ready"];
@@ -90,6 +104,7 @@
     go.onclick = async () => {
       const x = rows.find((r) => r.n === pick);
       if (x.single) { s.close(); if (onSingle) onSingle(); return; }
+      App.track("buy_click", { ref: refOf(song), num: x.price, meta: { kind: "pack", n: x.n, disc: promoOn((S.songs || []).find((y) => y.id === song)), at: "packs" } });
       App.busy(go, true);
       try {
         const r = await api(`/api/songs/packs/${x.n}`, {});
@@ -122,7 +137,8 @@
       <div class="sbars" role="slider" tabindex="0" aria-label="${esc(label || T("play"))}" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">${bars.map((h) => `<i style="height:${h}%"></i>`).join("")}</div>
       <span class="tm">0:00</span></div>`;
   }
-  function bindPlayers(root) {
+  /** onListen(soniya, oxirigacha, uzunligi) — berilsa, haqiqatda necha soniya eshitilgani xabar qilinadi (namuna statistikasi). */
+  function bindPlayers(root, onListen) {
     $$(".splay", root).forEach((el) => {
       const audio = new Audio();
       audio.preload = "metadata";
@@ -137,11 +153,25 @@
         wave.setAttribute("aria-valuenow", Math.round(k * 100));
       };
       const mark = (on) => { pp.innerHTML = icon(on ? "pause" : "play"); pp.setAttribute("aria-label", T(on ? "pause" : "play")); el.classList.toggle("on", on); };
+      // eshitilgan vaqt: ijro paytidagi kichik qadamlar yig'iladi (oldinga-orqaga surish sanalmaydi)
+      let heard = 0, prevT = 0, toldSec = 0, toldEnd = false, ended = false;
+      const tell = () => {
+        const sec = Math.round(heard);
+        if (!onListen || sec < 1 || (sec === toldSec && ended === toldEnd)) return;
+        toldSec = sec; toldEnd = ended;
+        onListen(sec, ended, isFinite(audio.duration) ? Math.round(audio.duration) : 0);
+      };
       audio.addEventListener("loadedmetadata", paint);
-      audio.addEventListener("timeupdate", paint);
+      audio.addEventListener("timeupdate", () => {
+        const t = audio.currentTime || 0, step = t - prevT;
+        if (!audio.paused && step > 0 && step < 1.5) heard += step;
+        prevT = t;
+        if (!toldSec && heard >= 2) tell(); // ilova shu payt yopilsa ham «eshitdi» yozilgan bo'ladi
+        paint();
+      });
       audio.addEventListener("play", () => mark(true));
-      audio.addEventListener("pause", () => mark(false));
-      audio.addEventListener("ended", () => { mark(false); audio.currentTime = 0; paint(); });
+      audio.addEventListener("pause", () => { mark(false); if (!audio.ended) tell(); });
+      audio.addEventListener("ended", () => { ended = true; tell(); mark(false); audio.currentTime = 0; prevT = 0; paint(); });
       pp.onclick = () => {
         haptic();
         if (!audio.paused) { audio.pause(); return; }
@@ -250,6 +280,7 @@
       <div class="wrap stack fade" id="slBody" style="padding-top:10px"><div class="empty"><span class="spin"></span></div></div>`;
     const box = $("#slBody");
     App.onLeave(stopDemo);
+    trackOpen("tab");
     Promise.all([App.songMeta(true), App.songList(true)]).then(([m, list]) => {
       if (!box.isConnected) return;
       const secs = m.preview_seconds || 20;
@@ -312,6 +343,7 @@
   App.views.song_new = (p, el) => {
     if (!wiz) wiz = { ...blank(), ...(store.json(DKEY) || {}) };
     wiz.answers = wiz.answers || {};
+    trackOpen("new");
     const step = Math.min(3, p.step || 0);
     const bar = (sub) => `<div class="bar light"><button type="button" class="icon-btn" id="bk" aria-label="${esc(T("back"))}">${icon("back")}</button>
         <div class="ttl"><b>${esc(T("song.title"))}</b><span>${esc(sub)}</span></div></div>`;
@@ -485,6 +517,7 @@
   // ---------------------------------------------------------------- qo'shiq sahifasi
   App.views.song = (p, el) => {
     App.chrome({ night: true });
+    trackOpen("song", p.id);
     let song = p.song || (S.songs || []).find((x) => x.id === p.id) || null;
     delete p.song;
     let timer = null, stopped = false;
@@ -553,6 +586,8 @@
       if (st === "lyrics") {
         body += lyrCard(true) + `<p class="hint" style="text-align:center">${esc(T("song.lyrics_hint"))}</p>`;
         const free = (m.free_previews || 0) > 0;
+        // bepul namuna tugagan: tugma chiqmaydi — statistikada «limitga yetgan» bo'lib ko'rinsin (qaysi limitligini server aniqlaydi)
+        if (!free && S.sm && !limitSeen.has(s.id)) { limitSeen.add(s.id); App.track("sample_limit", { ref: refOf(s.id) }); }
         cta = free ? `<button type="button" class="btn" id="pvBtn">${icon("headphones", "s")}${esc(T("song.listen", { n: m.preview_seconds || 20 }))}</button>
             <button type="button" class="link sg-buy" id="buyBtn">${esc(T("song.buy_now", { sum: money(price) }))}</button>
             <small class="hint" style="display:block;text-align:center">${esc(T("song.free_left", { n: m.free_previews }))}</small>`
@@ -600,7 +635,9 @@
       }
       el.innerHTML = hero + `<div class="wrap stack fade sg-body">${body}${cta ? '<div style="height:28px"></div>' : ""}</div>` + (cta ? `<div class="cta">${cta}</div>` : "");
       App.chrome({ night: true, cta: !!cta });
-      bindPlayers(el);
+      // namuna pleyeri: necha soniya eshitilgani va oxirigacha eshitilgani yoziladi
+      bindPlayers(el, st === "preview_ready" && !s.paid
+        ? (sec, end, of) => App.track("sample_played", { ref: refOf(s.id), num: sec, meta: { end, of } }) : null);
       const on = (id, fn) => { const b = $("#" + id, el); if (b) b.onclick = fn; };
       on("bk", App.back);
       on("toList", () => { haptic(); App.tab("songs"); });
@@ -623,8 +660,11 @@
       on("retryBtn", (e) => retry(e.currentTarget));
       on("toSite", () => { haptic(); siteSheet(); });
       on("toVideo", () => { haptic(); toVideo(); });
-      on("dlBtn", () => { haptic(); download(); });
-      on("shBtn", () => { haptic(); App.shareUrl(absUrl(s.file), T("song.share_text", { title: songTitle(s), name: s.recipient })); });
+      on("dlBtn", () => { haptic(); App.track("song_shared", { ref: refOf(s.id), meta: { how: "download" } }); download(); });
+      on("shBtn", () => {
+        haptic(); App.track("song_shared", { ref: refOf(s.id), meta: { how: "share" } });
+        App.shareUrl(absUrl(s.file), T("song.share_text", { title: songTitle(s), name: s.recipient }));
+      });
       on("openSite", () => { const r = (S.me.sites || []).find((x) => x.slug === s.site); if (r) App.openLink(r.public || r.url); });
       $$("[data-choose]", el).forEach((b) => (b.onclick = () => choose(+b.dataset.choose, b)));
     }
@@ -637,7 +677,8 @@
     // --- amallar
     const fail = (e) => { notify("error"); toast(errMsg(e)); };
     // paket sotib olingach shu qo'shiq darhol paketdan olinadi
-    const packsFor = () => App.songPacks({ song: song.id, onSingle: () => pay($("#buyBtn", el)), onDone: () => pay($("#buyBtn", el)) });
+    const packsFor = () => App.songPacks({ song: song.id, onSingle: () => pay($("#buyBtn", el), { at: "packs" }),
+      onDone: () => pay($("#buyBtn", el), { auto: true }) });
     async function preview(btn) {
       App.busy(btn, true);
       try {
@@ -655,8 +696,16 @@
         } else fail(e);
       }
     }
-    async function pay(btn) {
+    /** opt.auto — paket olingach o'zi chaqirilgan (bosish emas, statistikaga yozilmaydi); opt.at — qayerdan bosildi. */
+    async function pay(btn, opt = {}) {
       const price = (S.sm && S.sm.price) || 0;
+      if (!opt.auto && !song.paid) {
+        // «Sotib olish» bosildi: mijoz ko'rgan narx, chegirma bormi, 1 ta yoki paketdagi qo'shiq hisobidan
+        const credits = (S.sm && S.sm.credits) || 0, disc = promoOn(song) && !credits;
+        const shown = credits ? 0 : disc ? Math.min(song.promo.price, price || song.promo.price) : price;
+        App.track("buy_click", { ref: refOf(song.id), num: shown, meta: { kind: credits ? "credit" : "single", disc,
+          at: opt.at || (song.status === "preview_ready" ? "sample" : "lyrics") } });
+      }
       App.busy(btn, true);
       try {
         song = await api(`/api/songs/${song.id}/pay`, {}); remember(song);
@@ -709,7 +758,7 @@
           <p>${esc(total ? T("song.limit_total_s") : daily ? T("song.limit_daily_s") : T("song.limit_s", { n: (S.sm && S.sm.free_per_day) || 2 }))}</p></div></div>
         <button type="button" class="btn" id="lmBuy">${esc(T("song.buy", { sum: money(price) }))}</button>
         <button type="button" class="btn ghost" id="lmLater">${esc(T("close"))}</button>`, { label: T("song.limit_t") });
-      $("#lmBuy", sh.el).onclick = (e) => { sh.close(); pay(e.currentTarget); };
+      $("#lmBuy", sh.el).onclick = (e) => { sh.close(); pay(e.currentTarget, { at: "limit" }); };
       $("#lmLater", sh.el).onclick = () => sh.close();
     }
     async function guardReset(open) {

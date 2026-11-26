@@ -8,7 +8,7 @@ from pydantic import BaseModel, Field
 from sqlalchemy import select
 
 from . import pricing
-from . import billing, costs, songs
+from . import billing, costs, songflow, songs
 from .config import settings
 from .db import CostLog, Session, Site, Song, User, utcnow
 from .webapp import _rate_limit, check_init_data
@@ -30,9 +30,20 @@ async def _lyrics_quota(uid: int) -> None:
         total = await s.scalar(q) or 0
         today = await s.scalar(q.where(CostLog.created_at >= billing.day_start_utc())) or 0
     if lim["ly_total"] and total >= lim["ly_total"]:
-        raise HTTPException(429, "Bepul she'r yozish imkoniyatingiz tugadi. Balansni to'ldirsangiz, yangi qo'shiq tayyorlashingiz mumkin.")
+        raise _limit("limit_total", "Bepul she'r yozish imkoniyatingiz tugadi. Balansni to'ldirsangiz, yangi qo'shiq tayyorlashingiz mumkin.")
     if lim["ly_day"] and today >= lim["ly_day"]:
-        raise HTTPException(429, "Bugungi she'r yozish imkoniyati tugadi — ertaga yana urinib ko'ring yoki matnni o'zingiz tahrirlang.")
+        raise _limit("limit_day", "Bugungi she'r yozish imkoniyati tugadi — ertaga yana urinib ko'ring yoki matnni o'zingiz tahrirlang.")
+
+
+def _limit(why: str, text: str) -> HTTPException:
+    e = HTTPException(429, text)
+    e.why = why  # statistika uchun: qaysi limit (lyrics_failed hodisasi)
+    return e
+
+
+def _why(e: HTTPException) -> str:
+    """She'r yozilmaganining sababi: limit (qaysi biri), juda ko'p so'rov yoki AI xizmati xatosi."""
+    return getattr(e, "why", "rate") if e.status_code == 429 else "ai"
 
 
 def _uid(x_init_data: str) -> tuple[int, dict]:
@@ -106,7 +117,9 @@ async def song_listen(song_id: int, d: int = 0, t: str = ""):
 async def song_get(song_id: int, x_init_data: str = Header("")):
     uid, _ = _uid(x_init_data)
     async with Session() as s:
-        return song_out(await _own(s, song_id, uid))
+        out = song_out(await _own(s, song_id, uid))
+    songflow.seen(song_id)  # egasi hozir ilovada (namuna tayyor bo'lganda kutib turgan-turmagani shundan bilinadi)
+    return out
 
 
 class SongIn(BaseModel):
@@ -133,15 +146,21 @@ async def song_create(body: SongIn, x_init_data: str = Header("")):
     answers = _clean_answers(body.answers)
     if body.style == "custom" and not answers.get("janr"):
         raise HTTPException(400, "O'z janringizni qisqacha yozing")
-    _rate_limit(user)
-    await _lyrics_quota(uid)
-    song = Song(owner_id=uid, recipient=body.recipient.strip(), relation=body.relation, occasion=body.occasion, style=body.style,
-                voice=body.voice, answers=answers)
+    sent_at = utcnow()  # so'rovnoma to'ldirib yuborilgan vaqt (she'r 10–30 soniyada yoziladi)
     try:
-        song.title, song.lyrics, song.tags = await songs.write_lyrics(song)
-    except Exception:
-        log.exception("Qo'shiq matnini yozib bo'lmadi")
-        raise HTTPException(502, "Hozir she'r yozib bo'lmadi, qayta urinib ko'ring")
+        _rate_limit(user)
+        await _lyrics_quota(uid)
+        song = Song(owner_id=uid, recipient=body.recipient.strip(), relation=body.relation, occasion=body.occasion, style=body.style,
+                    voice=body.voice, answers=answers)
+        try:
+            song.title, song.lyrics, song.tags = await songs.write_lyrics(song)
+        except Exception:
+            log.exception("Qo'shiq matnini yozib bo'lmadi")
+            raise HTTPException(502, "Hozir she'r yozib bo'lmadi, qayta urinib ko'ring")
+    except HTTPException as e:
+        await songflow.form_done(uid, body.relation, body.occasion, body.recipient, at=sent_at)
+        await songflow.lyrics_failed(uid, _why(e), e.status_code)
+        raise
     async with Session() as s:
         s.add(song)
         await s.flush()
@@ -150,6 +169,8 @@ async def song_create(body: SongIn, x_init_data: str = Header("")):
             s.add(row)
         await s.commit()
         await s.refresh(song)
+    await songflow.form_done(uid, body.relation, body.occasion, body.recipient, song.id, at=sent_at)
+    await songflow.lyrics_ready(song)
     return song_out(song)
 
 
@@ -162,68 +183,89 @@ class LyricsIn(BaseModel):
 @router.post("/api/songs/{song_id}/lyrics")
 async def song_lyrics(song_id: int, body: LyricsIn, x_init_data: str = Header("")):
     uid, user = _uid(x_init_data)
-    async with Session() as s:
-        song = await _own(s, song_id, uid)
-        if song.paid or song.status in ("preview_queued", "preview_gen"):
-            raise HTTPException(409, "Qo'shiq tayyorlangandan keyin matnni o'zgartirib bo'lmaydi")
-        if body.instruction:
-            _rate_limit(user)
-            await _lyrics_quota(uid)
-            try:
-                title, text, tags = await songs.write_lyrics(song, body.instruction)
-            except Exception:
-                log.exception("Qo'shiq matnini qayta yozib bo'lmadi")
-                raise HTTPException(502, "Hozir she'r yozib bo'lmadi, qayta urinib ko'ring")
-            song.title, song.lyrics, song.tags = title, text, tags or song.tags
-            row = costs.ai_row(getattr(song, "_lyrics_usage", None), "lyrics_edit", uid, f"song:{song.id}")
-            if row is not None:
-                s.add(row)
-        elif body.text is not None:
-            sections = songs.parse_lyrics(body.text)
-            try:
-                songs.validate_lyrics(sections)
-            except songs.SongError as e:
-                raise HTTPException(400, str(e))
-            song.lyrics = songs.render_lyrics(sections)
-        if body.title:
-            song.title = body.title.strip()
-        # matn o'zgardi — eski namuna va tayyorlangan variant endi mos emas
-        song.preview, song.variants, song.plan, song.status, song.error, song.updated_at = "", [], {}, "lyrics", "", utcnow()
-        await s.commit()
-        return song_out(song)
+    how = ""  # voronka: she'r qanday yangilandi (ai — qayta yozildi, manual — mijoz o'zi tahrirladi)
+    try:
+        async with Session() as s:
+            song = await _own(s, song_id, uid)
+            if song.paid or song.status in ("preview_queued", "preview_gen"):
+                raise HTTPException(409, "Qo'shiq tayyorlangandan keyin matnni o'zgartirib bo'lmaydi")
+            if body.instruction:
+                how = "ai"
+                _rate_limit(user)
+                await _lyrics_quota(uid)
+                try:
+                    title, text, tags = await songs.write_lyrics(song, body.instruction)
+                except Exception:
+                    log.exception("Qo'shiq matnini qayta yozib bo'lmadi")
+                    raise HTTPException(502, "Hozir she'r yozib bo'lmadi, qayta urinib ko'ring")
+                song.title, song.lyrics, song.tags = title, text, tags or song.tags
+                row = costs.ai_row(getattr(song, "_lyrics_usage", None), "lyrics_edit", uid, f"song:{song.id}")
+                if row is not None:
+                    s.add(row)
+            elif body.text is not None:
+                sections = songs.parse_lyrics(body.text)
+                try:
+                    songs.validate_lyrics(sections)
+                except songs.SongError as e:
+                    raise HTTPException(400, str(e))
+                song.lyrics = songs.render_lyrics(sections)
+                how = "manual"
+            if body.title:
+                song.title = body.title.strip()
+            # matn o'zgardi — eski namuna va tayyorlangan variant endi mos emas
+            song.preview, song.variants, song.plan, song.status, song.error, song.updated_at = "", [], {}, "lyrics", "", utcnow()
+            await s.commit()
+            out = song_out(song)
+    except HTTPException as e:
+        if how == "ai" and e.status_code in (429, 502):
+            await songflow.lyrics_failed(uid, _why(e), e.status_code, song_id)
+        raise
+    if how:
+        await songflow.lyrics_ready(song, how)
+    return out
 
 
 @router.post("/api/songs/{song_id}/preview")
 async def song_preview(song_id: int, x_init_data: str = Header("")):
     uid, _ = _uid(x_init_data)
-    async with Session() as s:
-        await billing.lock_user(s, uid)  # bir vaqtdagi so'rovlar bilan bepul namunani oshirib bo'lmasin
-        song = await _own(s, song_id, uid)
-        if song.paid or song.preview or song.status != "lyrics":
-            return song_out(song)
-        try:
-            songs.validate_lyrics(songs.parse_lyrics(song.lyrics))
-        except songs.SongError as e:
-            raise HTTPException(400, str(e))
-        if await songs.free_previews_left(s, uid) <= 0:
-            lim = await songs.user_limits()
-            total = lim["pv_total"] and await songs.previews_used_total(s, uid) >= lim["pv_total"]
-            raise HTTPException(402, {"code": "preview_limit", "reason": "total" if total else "used", "price": await songs.price_for(s, uid)})
-        _, per_day = await songs.limits()
-        if per_day and await songs.previews_today(s) >= per_day:
-            raise HTTPException(402, {"code": "preview_limit", "reason": "daily", "price": await songs.price_for(s, uid)})
-        if settings.song_preview_sub and settings.channel_username:
-            from . import videobot
-            if videobot.BOT and not await videobot.is_subscribed(videobot.BOT, uid):
-                raise HTTPException(403, {"code": "need_sub", "channel": settings.channel_link})
-        if await songs.provider() == "elevenlabs" and not await songs.enough_credits(songs.preview_credits(song)):
-            raise HTTPException(503, "Qo'shiq xizmati vaqtincha band. Birozdan so'ng qayta urinib ko'ring.")
-        song.previews = (song.previews or 0) + 1
-        song.preview_at = utcnow()
-        songs.count_preview(s, song)
-        song.status, song.error, song.updated_at = "preview_queued", "", utcnow()
-        await s.commit()
-        out = song_out(song)
+    flow: dict = {}  # voronka: tugma bosildi va nima bo'ldi (limit, xato) — tranzaksiya yopilgach yoziladi
+    try:
+        async with Session() as s:
+            await billing.lock_user(s, uid)  # bir vaqtdagi so'rovlar bilan bepul namunani oshirib bo'lmasin
+            song = await _own(s, song_id, uid)
+            if song.paid or song.preview or song.status != "lyrics":
+                return song_out(song)
+            flow.update(song=song.id, at=utcnow())
+            try:
+                songs.validate_lyrics(songs.parse_lyrics(song.lyrics))
+            except songs.SongError as e:
+                flow.update(fail="text", error=str(e))
+                raise HTTPException(400, str(e))
+            if await songs.free_previews_left(s, uid) <= 0:
+                lim = await songs.user_limits()
+                total = lim["pv_total"] and await songs.previews_used_total(s, uid) >= lim["pv_total"]
+                flow["limit"] = "user_total" if total else "user_day"
+                raise HTTPException(402, {"code": "preview_limit", "reason": "total" if total else "used", "price": await songs.price_for(s, uid)})
+            _, per_day = await songs.limits()
+            if per_day and await songs.previews_today(s) >= per_day:
+                flow["limit"] = "all_day"
+                raise HTTPException(402, {"code": "preview_limit", "reason": "daily", "price": await songs.price_for(s, uid)})
+            if settings.song_preview_sub and settings.channel_username:
+                from . import videobot
+                if videobot.BOT and not await videobot.is_subscribed(videobot.BOT, uid):
+                    flow["limit"] = "sub"
+                    raise HTTPException(403, {"code": "need_sub", "channel": settings.channel_link})
+            if await songs.provider() == "elevenlabs" and not await songs.enough_credits(songs.preview_credits(song)):
+                flow["fail"] = "no_credits"
+                raise HTTPException(503, "Qo'shiq xizmati vaqtincha band. Birozdan so'ng qayta urinib ko'ring.")
+            song.previews = (song.previews or 0) + 1
+            song.preview_at = flow["at"]
+            songs.count_preview(s, song)
+            song.status, song.error, song.updated_at = "preview_queued", "", utcnow()
+            await s.commit()
+            out = song_out(song)
+    finally:
+        await songflow.preview_asked(uid, flow)
     songs.wake()
     return out
 
@@ -276,10 +318,13 @@ async def song_retry(song_id: int, x_init_data: str = Header("")):
     uid, _ = _uid(x_init_data)
     async with Session() as s:
         song = await _own(s, song_id, uid)
-        if song.paid and song.status == "failed":
+        again = song.paid and song.status == "failed"
+        if again:
             song.status, song.error, song.updated_at = "paid_queued", "", utcnow()
             await s.commit()
         out = song_out(song)
+    if again:
+        await songflow.retried(song)
     songs.wake()
     return out
 

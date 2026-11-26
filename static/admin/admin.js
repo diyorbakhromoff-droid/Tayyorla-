@@ -1,4 +1,4 @@
-/* Tayyorla admin paneli: Umumiy, Trafik manbalari, Sotuvlar, To'lovlar, Foydalanuvchilar, Xabar yuborish, Tizim */
+/* Tayyorla admin paneli: Umumiy, Voronka, Trafik manbalari, Sotuvlar, To'lovlar, Foydalanuvchilar, Xabar yuborish, Tizim */
 (() => {
   "use strict";
   const tg = window.Telegram && window.Telegram.WebApp;
@@ -106,6 +106,7 @@
   // ---------------------------------------------------------------- belgilar
   const IC = {
     overview: '<path d="M4 19V10M10 19V5M16 19v-7M22 19H2"/>',
+    funnel: '<path d="M3 4h18l-7 8.5V20l-4-2v-5.5L3 4Z"/>',
     sources: '<path d="M10 14a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1"/><path d="M14 10a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"/>',
     sales: '<path d="M3 7h18l-2 12H5L3 7Z"/><path d="M8 7a4 4 0 0 1 8 0"/>',
     payments: '<rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20M6 15h4"/>',
@@ -117,7 +118,7 @@
   };
   const icon = (k) => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${IC[k]}</svg>`;
   const TABS = [
-    ["overview", "Umumiy"], ["sources", "Trafik manbalari"], ["sales", "Sotuvlar"], ["payments", "To'lovlar"],
+    ["overview", "Umumiy"], ["funnel", "Voronka"], ["sources", "Trafik manbalari"], ["sales", "Sotuvlar"], ["payments", "To'lovlar"],
     ["users", "Foydalanuvchilar"], ["broadcast", "Xabar yuborish"], ["nudges", "Progrev"], ["pricing", "Narxlar"], ["system", "Tizim"],
   ];
   function nav() {
@@ -250,7 +251,7 @@
           ${kpi(c.songs.created, "She'r yozildi", `${fmt(c.songs.previews)} ta namuna eshitildi`, p.songs ? p.songs.created : 0)}
           ${kpi(c.songs.sold, "Sotildi", som(c.songs.sold_sum), p.songs ? p.songs.sold : 0)}
           ${kpi(c.songs.created - c.songs.paid_of_created, "Yozildi, ammo sotib olinmadi", `konversiya ${c.songs.conv}%`, p.songs ? p.songs.created - p.songs.paid_of_created : 0, { invert: true })}
-          ${kpi(c.songs.failed, "Xato bilan tugagan", "qayta urinish kerak", p.songs ? p.songs.failed : 0, { invert: true })}
+          ${kpi(c.songs.failed, "Xato bilan tugagan", c.songs.failed ? `namuna ${fmt(c.songs.failed_sample)} · to'liq qo'shiq ${fmt(c.songs.failed_full)} · ${fmt(c.songs.failed_people)} kishi` : "namuna va to'liq qo'shiq xatolari", p.songs ? p.songs.failed : 0, { invert: true, open: "errors" })}
           ${c.costs ? kpi(c.costs.song_profit, "Qo'shiqdan sof natija", `sotuv ${som(c.songs.sold_sum)} − xarajat ${som(c.costs.song)} · ${fmt(c.costs.demo_n)} ta demo`, p.costs ? p.costs.song_profit : 0, { money: true, open: "costs" }) : ""}
         </div></div>` : ""}
         <div class="group"><h2><i></i>Pul</h2><div class="kpis">
@@ -264,11 +265,27 @@
       <section class="blk"><div class="bh"><h2>Kunlar bo'yicha</h2></div>
         <div class="chart-card"><div class="metric-tabs" role="group" aria-label="Ko'rsatkich">${METRICS.map(([k, l]) => `<button type="button" class="chip" data-metric="${k}" aria-pressed="${S.metric === k}">${l}</button>`).join("")}</div>
         <div id="chart"></div></div></section>
-      <section class="blk"><div class="bh"><h2>Voronka: shu davrda kelgan yangi foydalanuvchilar</h2><p>Keyin nima qilishgan (hozirgacha)</p></div>
-        <div class="chart-card funnel">${funnel(c.funnel)}</div></section>`;
+      <section class="blk"><div class="bh"><h2>Voronka: shu davrda kelgan yangi foydalanuvchilar</h2>
+          <p>Keyin nima qilishgan (hozirgacha) · <button type="button" class="link" data-go="funnel">To'liq voronka: filtrlar va namunasiz qolganlar ›</button></p></div>
+        <div class="period" role="group" aria-label="Mahsulot" style="margin-bottom:10px">${FN_PRODUCTS.map(([k, l]) => `<button type="button" class="chip" data-ovf="${k}" aria-pressed="${(S.ovf || "song") === k}">${l}</button>`).join("")}</div>
+        <div class="chart-card funnel" id="ov-funnel"><p class="boot">Yuklanmoqda…</p></div></section>`;
     bindPeriod(main(), render);
     $$("[data-go]").forEach((b) => (b.onclick = () => go(b.dataset.go)));
-    const SHEETS = { spend: () => spendSheet(), costs: () => costsSheet() };
+    const SHEETS = { spend: () => spendSheet(), costs: () => costsSheet(), errors: () => go("system") };
+    // voronka: Qo'shiq / Sayt / Video (qo'shiq — standart ko'rinish), kogorta bo'yicha
+    const drawFunnel = async () => {
+      const o = { product: S.ovf || "song", mode: "cohort", src: "" };
+      try { o.data = await api(`/api/admin/funnel?${fnQuery(o)}`); }
+      catch (e) { if (alive() && $("#ov-funnel")) $("#ov-funnel").innerHTML = `<p class="note">${esc(e.message)}</p>`; return; }
+      if (!alive() || !$("#ov-funnel") || o.product !== (S.ovf || "song")) return;
+      $("#ov-funnel").innerHTML = funnelSteps(o.data) + `<p class="muted" style="font-size:12.5px">Foizlar — oldingi qadamdan o'tganlar ulushi. Tushib qolganlar soniga bosilsa, o'sha odamlar ro'yxati ochiladi.</p>`;
+      bindFunnel($("#ov-funnel"), o);
+    };
+    $$("[data-ovf]").forEach((b) => (b.onclick = () => {
+      S.ovf = b.dataset.ovf; $$("[data-ovf]").forEach((x) => x.setAttribute("aria-pressed", x === b));
+      $("#ov-funnel").innerHTML = `<p class="boot">Yuklanmoqda…</p>`; drawFunnel();
+    }));
+    drawFunnel();
     $$("[data-kpi]").forEach((b) => { const open = SHEETS[b.dataset.kpi]; if (!open) return; b.onclick = open; b.onkeydown = (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(); } }; });
     const drawChart = () => {
       const m = METRICS.find((x) => x[0] === S.metric);
@@ -281,12 +298,108 @@
     drawChart();
     window.onresize = () => { clearTimeout(drawChart.t); drawChart.t = setTimeout(() => $("#chart") && drawChart(), 150); };
   }
-  function funnel(steps) {
-    const top = steps[0].n || 1;
-    return steps.map((s, i) => `<div class="fstep"><span class="t">${esc(s.label)}</span>
+
+  // ---------------------------------------------------------------- 1b. Voronka: qo'shiq, sayt, video (statistika TZ, 1 va 2-bandlar)
+  const FN_PRODUCTS = [["song", "Qo'shiq"], ["site", "Sayt"], ["video", "Video"]];
+  const FN_MODES = [["cohort", "Shu davrda kelgan yangi odamlar (kogorta)"], ["period", "Shu davrdagi harakatlar"]];
+  const dayISO = (iso) => (iso || "").slice(0, 10).split("-").reverse().join(".");
+  const fnQuery = (o) => {
+    const [f, t] = range();
+    return `${S.period.preset === "all" ? "all_time=1" : `from=${f}&to=${t}`}&product=${o.product}&mode=${o.mode}&src=${encodeURIComponent(o.src || "")}`;
+  };
+  // qadamlar ustma-ust: odamlar soni, oldingi qadamdan o'tganlar foizi, tushib qolganlar (bosilsa ro'yxat) va qadamlar orasidagi vaqt
+  function funnelSteps(d) {
+    const top = d.steps[0].n || 1;
+    return d.steps.map((s, i) => `<div class="fstep fx"><span class="t"><b class="num">${i + 1}.</b> ${esc(s.label)}${s.since ? `<small class="sub">hisob ${day(s.since)} dan</small>` : ""}</span>
       <div class="track"><div class="fill" style="width:${Math.max(0.5, (100 * s.n) / top)}%"></div></div>
-      <span class="n num">${fmt(s.n)}<small>${i ? `${pctOf(s.n, steps[i - 1].n)}%` : ""}</small></span></div>`).join("") +
-      `<p class="muted" style="font-size:12.5px">Foizlar — oldingi bosqichdan o'tganlar ulushi.</p>`;
+      <span class="n num">${fmt(s.n)}<small>${i ? `${s.pct}%` : ""}</small></span>
+      <span class="d">${!i ? "" : s.lost ? `<button type="button" class="link" data-lost="${s.lost_at}" title="Shu qadamga yetmay to'xtaganlar ro'yxati">−${fmt(s.lost)} tushib qoldi</button>` : `<span class="muted">hamma o'tdi</span>`}
+        ${s.time && s.time.n ? `<small class="sub" title="Oldingi qadamdan shu qadamgacha: ikkalasi ham yozilgan ${fmt(s.time.n)} kishi bo'yicha">oldingi qadamdan o'rtacha ${dur(s.time.avg_s)} keyin · mediana ${dur(s.time.median_s)}</small>` : ""}</span></div>
+      ${d.side.filter((x) => x.under === s.key && x.n).map((x) => `<div class="fside">↳ ${esc(x.label)}: <b>${fmt(x.n)}</b> kishi</div>`).join("")}`).join("");
+  }
+  function bindFunnel(root, o) {
+    $$("[data-lost]", root).forEach((b) => (b.onclick = () => {
+      const st = o.data.steps.find((x) => x.key === b.dataset.lost);
+      peopleSheet(`«${st.label}» qadamida to'xtaganlar`, `${fnQuery(o)}&step=${b.dataset.lost}`);
+    }));
+  }
+  // tushib qolganlar ro'yxati: mijoz kartasiga o'tish va to'liq CSV
+  async function peopleSheet(title, query) {
+    sheet(`<p class="boot">Yuklanmoqda…</p>`);
+    let d;
+    try { d = await api(`/api/admin/funnel/people?${query}`); } catch (e) { $("#sheet-body").innerHTML = `<p class="note">${esc(e.message)}</p>`; return; }
+    $("#sheet-body").innerHTML = `<h2 class="big" id="sheet-title">${esc(title)}</h2>
+      <p class="muted">${fmt(d.total)} kishi${d.total > d.rows.length ? ` · oxirgi ${fmt(d.rows.length)} tasi ko'rsatildi` : ""} · vaqt Toshkent bo'yicha</p>
+      <div class="row" style="margin:10px 0"><button type="button" class="btn sm" id="pp-csv">To'liq ro'yxat CSV</button></div>
+      ${table(["Mijoz", "Manba", "Qachon"], d.rows.map((u) => `<tr class="click" data-user="${u.id}"><td>${userLink(u)}${u.blocked ? ` ${tag("bloklagan", "bad")}` : ""}</td>
+        <td>${esc(u.source)}</td><td class="num">${dt(u.at)}<span class="sub">oxirgi faollik: ${ago(u.last_seen)}</span></td></tr>`), "Hech kim yo'q")}`;
+    $("#pp-csv").onclick = () => download(`/api/admin/export/funnelpeople.csv?${query}`);
+    $$("[data-user]", $("#sheet")).forEach((tr) => (tr.onclick = () => userSheet(+tr.dataset.user)));
+  }
+  // «Namunasiz qolganlar»: she'ri bor, namunasi yo'q odamlar — sabab bo'yicha
+  function nosampleBlock(ns) {
+    const rows = ns.groups.filter((g) => g.n || !["pending", "old"].includes(g.key)).map((g) => `<tr${g.n ? ` class="click" data-nsg="${g.key}"` : ""}>
+      <td><b>${esc(g.label)}</b><span class="sub">${esc(g.about)}</span>${g.sub.length ? `<span class="sub">${g.sub.map((x) => `${esc(x.label)}: ${fmt(x.n)}`).join(" · ")}</span>` : ""}</td>
+      <td class="r num"><b>${fmt(g.n)}</b></td><td class="r num">${g.pct}%<div class="mini-bar"><i style="width:${Math.min(100, g.pct)}%"></i></div></td>
+      <td>${esc(g.todo)}</td></tr>`);
+    return `<section class="blk"><div class="bh"><h2>Namunasiz qolganlar</h2><div class="row"><button type="button" class="btn sm" id="ns-csv">CSV</button></div></div>
+      <div class="now">
+        <div><b>${fmt(ns.lyrics)}</b><span>kishida she'r tayyor</span></div>
+        <div><b>${fmt(ns.with_sample)}</b><span>kishi namunasini oldi (${pctOf(ns.with_sample, ns.lyrics)}%)</span></div>
+        <div class="${ns.none ? "alert" : ""}"><b>${fmt(ns.none)}</b><span>kishi namunasiz qoldi (${pctOf(ns.none, ns.lyrics)}%)</span></div>
+        <div><b>${fmt(ns.bought)}</b><span>kishi namunasiz sotib oldi</span></div>
+      </div>
+      <div style="margin-top:12px">${table(["Nega namunasiz", ">Kishi", ">Ulushi", "Nima qilinadi"], rows)}</div>
+      <p class="muted" style="font-size:12.5px;margin-top:8px">Har bir odam bitta guruhda: bir necha to'siq bo'lsa, eng oxirgisi sanaladi. Qatorga bosilsa, odamlar ro'yxati ochiladi.
+        «Kutib o'tirmagan» — namuna tayyor bo'lganda ilovada yo'q edi va keyin ham eshitmadi; bot har bir tayyor namuna haqida bir marta xabar yuboradi (botni bloklaganlarga emas)${ns.notified ? ` — shu guruhdan ${fmt(ns.notified)} kishiga xabar yetgan` : ""}.
+        ${ns.since ? `Tugma bosilgani, limit va xato sabablari <b>${dt(ns.since)}</b> dan beri yoziladi; undan oldingi she'rlar «Sababi yozilmagan (eski)» qatorida.` : "Sabablar hali yozila boshlamagan (server qayta ishga tushgach boshlanadi)."}</p></section>`;
+  }
+  async function funnelPage(alive) {
+    loading("Voronka");
+    const o = (S.fn = S.fn || { product: "song", mode: "cohort", src: "" });
+    const d = await api(`/api/admin/funnel?${fnQuery(o)}`);
+    if (!alive()) return;
+    o.data = d;
+    const q = fnQuery(o), span = S.period.preset === "all" ? "Butun davr" : periodLabel();
+    const detail = d.steps.map((s, i) => `<tr><td><b>${i + 1}. ${esc(s.label)}</b>${s.event ? `<span class="sub">${esc(s.event)}${s.since ? ` · hisob ${dt(s.since)} dan` : ""}</span>` : ""}</td>
+      <td class="r num"><b>${fmt(s.n)}</b></td><td class="r num">${i ? `${s.pct}%` : "—"}</td><td class="r num">${s.of_first}%</td>
+      <td class="r num">${i ? fmt(s.lost) : "—"}</td><td class="r num">${fmt(s.exact)}</td>
+      <td class="r num">${s.time && s.time.n ? `${dur(s.time.avg_s)}<span class="sub">mediana ${dur(s.time.median_s)} · ${fmt(s.time.n)} kishi</span>` : "—"}</td></tr>`)
+      .concat(d.side.map((x) => `<tr><td class="muted">↳ ${esc(x.label)}<span class="sub">${esc(x.key)}${x.since ? ` · hisob ${dt(x.since)} dan` : ""}</span></td>
+        <td></td><td></td><td></td><td></td><td class="r num">${fmt(x.n)}</td><td></td></tr>`));
+    const spans = d.spans.map((x) => `<tr><td>${esc(x.label)}</td><td class="r num">${fmt(x.n)}</td><td class="r num"><b>${dur(x.avg_s)}</b></td><td class="r num">${dur(x.median_s)}</td></tr>`);
+    main().innerHTML = `
+      <div class="head"><div><h1>Voronka</h1><p>${span} · odamlar qaysi qadamda to'xtab qolyapti. Sanash odam bo'yicha: bir kishi besh marta boshlasa ham bitta.</p></div>
+        <button type="button" class="btn" id="fn-csv">Voronka CSV</button></div>
+      ${periodBar([["all", "Butun davr"]])}
+      <div class="period" role="group" aria-label="Mahsulot" style="margin-top:10px">
+        ${d.products.map((x) => `<button type="button" class="chip" data-fprod="${x.key}" aria-pressed="${o.product === x.key}">${esc(x.label)}</button>`).join("")}</div>
+      <div class="period" role="group" aria-label="Ko'rinish va manba" style="margin-top:10px">
+        ${FN_MODES.map(([k, l]) => `<button type="button" class="chip" data-fmode="${k}" aria-pressed="${o.mode === k}">${l}</button>`).join("")}
+        <select class="in" id="fn-src" style="width:auto;max-width:280px" aria-label="Manba">${d.sources.map((x) => `<option value="${esc(x.key)}"${x.key === o.src ? " selected" : ""}>${esc(x.label)}</option>`).join("")}</select></div>
+      <section class="blk"><div class="bh"><h2>${esc(d.label)} voronkasi</h2><p>${o.mode === "cohort" ? "shu davrda botga birinchi marta kelganlar va ularning keyingi (hozirgacha) harakatlari" : "kim qachon kelganidan qat'i nazar, shu davr ichidagi harakatlar"}</p></div>
+        <div class="chart-card funnel">${funnelSteps(d)}</div>
+        <p class="muted" style="font-size:12.5px;margin-top:8px">Har bir qatorda: shu qadamga yetib kelgan odamlar, oldingi qadamdan o'tganlar foizi va tushib qolganlar — soniga bosilsa, o'sha odamlar ro'yxati ochiladi.
+          Keyingi qadamga yetgan odam oldingi qadamlardan ham o'tgan hisoblanadi (masalan, namunasiz sotib olgan yoki balansidagi puldan to'lagan), shuning uchun sonlar faqat kamayadi; aynan shu hodisasi yozilgan odamlar soni pastdagi jadvalda.
+          Admin va sinov akkauntlari (${fmt(d.excluded)} ta) sanalmaydi. Vaqtlar Toshkent bo'yicha.
+          ${d.product === "song" ? (d.since ? `«hisob … dan» belgili qadamlar <b>${dt(d.since)}</b> dan beri yoziladi; undan oldingi davr mavjud Qo'shiqlar, Hodisalar va To'lovlar jadvallaridan tiklangan (she'r, namuna so'rovi, tayyor namuna, saqlanib qolgan xatolar, to'lov, to'liq qo'shiq).` : "Yangi qadamlar hali yozila boshlamagan (server qayta ishga tushgach boshlanadi).")
+            : "Bu voronka mavjud jadvallardan (saytlar, videolar, to'lovlar, balans harakati) olinadi — butun tarix uchun bor."}</p></section>
+      <section class="blk"><details open><summary><b>Qadamlar jadvali</b> <span class="muted">— bazadagi sonlar bilan solishtirish uchun</span></summary><div style="margin-top:10px">
+        ${table(["Qadam", ">Yetib kelgan", ">Oldingidan", ">Boshidan", ">Tushib qoldi", ">Hodisasi yozilgan", ">Oldingi qadamdan beri (o'rtacha)"], detail)}</div></details></section>
+      <section class="blk"><div class="bh"><h2>Qadamlar orasidagi vaqt</h2><p>birinchi hodisadan birinchi hodisagacha, ikkalasi ham bor odamlar bo'yicha</p></div>
+        ${table(["Oraliq", ">Kishi", ">O'rtacha", ">Mediana"], spans, "Ma'lumot yo'q")}</section>
+      ${d.nosample ? nosampleBlock(d.nosample) : ""}`;
+    bindPeriod(main(), render);
+    bindFunnel(main(), o);
+    $$("[data-fprod]").forEach((b) => (b.onclick = () => { o.product = b.dataset.fprod; render(); }));
+    $$("[data-fmode]").forEach((b) => (b.onclick = () => { o.mode = b.dataset.fmode; render(); }));
+    $("#fn-src").onchange = (e) => { o.src = e.target.value; render(); };
+    $("#fn-csv").onclick = () => download(`/api/admin/export/funnel.csv?${q}`);
+    if ($("#ns-csv")) $("#ns-csv").onclick = () => download(`/api/admin/export/nosample.csv?${q}`);
+    $$("[data-nsg]").forEach((tr) => (tr.onclick = () => {
+      const g = d.nosample.groups.find((x) => x.key === tr.dataset.nsg);
+      peopleSheet(`Namunasiz qolganlar: ${g.label}`, `${q}&group=${g.key}`);
+    }));
   }
 
   // ---------------------------------------------------------------- 2. Trafik manbalari
@@ -946,8 +1059,45 @@
     const d = await api("/api/admin/system");
     if (!alive()) return;
     const q = d.queue;
+    const sf = d.songflow;
+    // oxirgi xatolar: video, qo'shiq namunasi va to'liq qo'shiq — bitta ro'yxatda, yangisi tepada
+    const errRows = [
+      ...d.errors.map((e) => ({ at: e.at || "", html: `<tr><td class="num">Video #${e.id}<span class="sub">${esc(e.design)}</span></td>
+        <td style="max-width:520px;word-break:break-word">${esc(e.error) || "—"}</td><td class="num">${dt(e.at)}</td></tr>` })),
+      ...((sf && sf.errors) || []).map((e) => ({ at: e.at || "", html: `<tr${e.user_id ? ` class="click" data-user="${e.user_id}"` : ""}>
+        <td class="num">${esc(e.kind_label)}${e.song_id ? ` #${e.song_id}` : ""}<span class="sub">${esc([e.title, e.name].filter(Boolean).join(" · "))}${e.test ? " · sinov akkaunt" : ""}${e.old ? " · eski yozuvdan tiklangan" : ""}</span></td>
+        <td style="max-width:520px;word-break:break-word"><b>${esc(e.reason_label)}</b>${e.error ? `<span class="sub">${esc(e.error)}</span>` : ""}</td><td class="num">${dt(e.at)}</td></tr>` })),
+    ].sort((x, y) => y.at.localeCompare(x.at)).slice(0, 25).map((x) => x.html);
+    const songflowBlock = () => {
+      const w = sf.wait, h = sf.hour, al = sf.alert, last = Object.entries(al.last || {});
+      const days = sf.by_day.map((x) => `<tr><td class="num">${dayISO(x.day)}</td><td class="r num">${fmt(x.asked)}</td><td class="r num">${fmt(x.ready)}</td>
+        <td class="r num">${x.avg_s == null ? "—" : dur(x.avg_s)}</td><td class="r num">${x.max_s == null ? "—" : dur(x.max_s)}</td>
+        <td class="r num">${x.failed ? tag(fmt(x.failed), "bad") : "0"}<span class="sub">${x.fail_pct}%</span></td></tr>`);
+      return `<section class="blk"><div class="bh"><h2>Qo'shiq: namuna tayyorlash vaqti va xatolar</h2><p>oxirgi ${sf.days} kun · Toshkent vaqti</p>
+          <div class="row"><button type="button" class="btn sm" data-exp="sampletime">Kunlar bo'yicha CSV</button></div></div>
+        <div class="now">
+          <div><b>${w.avg_s == null ? "—" : dur(w.avg_s)}</b><span>namuna o'rtacha shuncha vaqtda tayyor bo'ladi · ${fmt(w.n)} ta namuna</span></div>
+          <div><b>${w.max_s == null ? "—" : dur(w.max_s)}</b><span>eng uzun kutish</span></div>
+          <div class="${sf.samples.failed ? "alert" : ""}"><b>${fmt(sf.samples.failed)} <small style="font-size:14px;font-weight:600">(${sf.samples.fail_pct}%)</small></b><span>namuna xato bilan tugadi · to'liq qo'shiq xatosi: ${fmt(sf.full.failed)}${sf.full.retried ? ` (mijoz ${fmt(sf.full.retried)} marta qayta urindi)` : ""}</span></div>
+          <div><b>${fmt(sf.retries.auto)}</b><span>marta namuna avtomatik qayta urinildi · xatodan keyin mijoz o'zi qayta so'radi: ${fmt(sf.retries.manual)}</span></div>
+        </div>
+        <p class="muted" style="font-size:12.5px;margin-top:8px">Avtomatik qayta urinish faqat server qayta ishga tushganda yarim qolgan namunalar uchun bo'ladi. Musiqa xizmati xato qaytarganda namuna o'zi qayta so'ralmaydi (har bir urinish pullik): mijozga xato ko'rsatiladi, bepul namunasi qaytariladi va u o'zi qayta so'raydi.
+          ${sf.reasons.length ? `Xato sabablari: ${sf.reasons.map((x) => `${esc(x.label)} — <b>${fmt(x.n)}</b>`).join("; ")}.` : ""}
+          ${sf.since ? `Kutish vaqti va xato sabablari ${dt(sf.since)} dan beri to'liq yoziladi; undan oldingi namunalar mavjud yozuvlardan tiklangan (kutish vaqti faqat hozir ham tayyor turgan namunalarda bor).` : ""}</p>
+        <div style="margin-top:12px">${table(["Kun", ">So'raldi", ">Tayyor bo'ldi", ">O'rtacha kutish", ">Eng uzun kutish", ">Xato"], days, "Bu davrda namuna so'ralmagan")}</div>
+        <form class="form" id="sf-alert" style="margin-top:14px">
+          <label class="row sw"><input type="checkbox" name="on" ${al.on ? "checked" : ""}> Xatolar ko'payganda yoki musiqa xizmati javob bermaganda adminlarga Telegram orqali xabar berilsin</label>
+          <div class="fields">
+            <label class="f">Xatolar ulushi, %<input class="in" type="number" name="pct" min="1" max="100" value="${al.pct}"><small>bir soatda shundan oshsa</small></label>
+            <label class="f">Kamida necha urinish<input class="in" type="number" name="min" min="1" max="1000" value="${al.min}"><small>shu soatda shuncha urinish bo'lgandagina</small></label>
+            <div class="row"><button class="btn primary" type="submit">Saqlash</button><button class="btn" type="button" id="sf-test">O'zimga sinov yuborish</button></div></div>
+          <p class="muted" style="font-size:12.5px">Hozir: oxirgi 1 soatda ${fmt(h.attempts)} ta urinish, ${fmt(h.errors)} tasi xato (${h.pct}%)${h.stuck ? ` · ${fmt(h.stuck)} ta qo'shiq ${al.stuck_min} daqiqadan beri navbatda` : ""}.
+            Musiqa xizmati javob bermasa (vaqt tugashi, ulanib bo'lmasligi, so'rovni rad etishi yoki qo'shiq ${al.stuck_min} daqiqada tayyor bo'lmasligi) — ulushga qaramay xabar keladi. Har bir sabab bo'yicha soatiga ko'pi bilan bitta xabar.
+            ${last.length ? `Oxirgi xabar: ${last.map(([k, v]) => `${k === "down" ? "xizmat javob bermadi" : "xatolar ulushi"} — ${dt(v)}`).join(", ")}.` : ""}</p>
+        </form></section>`;
+    };
     main().innerHTML = `
-      <div class="head"><div><h1>Tizim</h1><p>Video navbati, xatolar, server joyi va eksport.</p></div></div>
+      <div class="head"><div><h1>Tizim</h1><p>Video navbati, qo'shiq namunasi vaqti, xatolar, server joyi va eksport.</p></div></div>
       <section class="blk"><div class="now">
         <div class="${q.queued > 5 ? "alert" : ""}"><b>${fmt(q.queued)}</b><span>navbatda${d.oldest_wait_min ? ` · eng eskisi ${d.oldest_wait_min} daqiqa` : ""}</span></div>
         <div><b>${fmt(q.rendering)}</b><span>hozir tayyorlanmoqda</span></div>
@@ -994,11 +1144,27 @@
             ? `<button class="btn bad" id="remix-stop">To'xtatish</button><span class="muted" style="font-size:12.5px">Mavjud qo'shiqlar qayta ishlanmoqda: ${fmt(r.done)} / ${fmt(r.total)}${r.failed ? ` · xato ${fmt(r.failed)}` : ""} — sahifani yangilab kuzating</span>`
             : `<button class="btn" id="remix-go">Mavjud namuna va qo'shiqlarga qo'llash</button><span class="muted" style="font-size:12.5px">${r.finished ? `Oxirgi marta: ${fmt(r.done)} ta qo'shiq (${lv[r.level] || r.level}), ${dt(r.finished)}. ` : ""}Havolalar o'zgarmaydi — saytdagi qo'shiqlar ham yangilanadi. Tayyor videolar o'zgarmaydi.</span>`}</div>`; })()}
         <div class="row" style="margin-top:12px"><button class="btn" id="mus-test"${d.music.lyria_key ? "" : " disabled"}>Lyria sinovi: 2 ta qo'shiq (≈ 2 000 so'm)</button><span class="muted" style="font-size:12.5px">Bitta she'r o'zbekcha va inglizcha ko'rsatma bilan — natija 2–5 daqiqada botga keladi</span></div></section>` : ""}
-      <section class="blk"><div class="bh"><h2>Oxirgi xatolar</h2></div>
-        ${table(["Video", "Xato", "Qachon"], d.errors.map((e) => `<tr><td class="num">#${e.id}<span class="sub">${esc(e.design)}</span></td><td style="max-width:520px;word-break:break-word">${esc(e.error) || "—"}</td><td class="num">${dt(e.at)}</td></tr>`), "Xato yo'q")}</section>
+      ${sf ? songflowBlock() : ""}
+      <section class="blk"><div class="bh"><h2>Oxirgi xatolar</h2><p>video, qo'shiq namunasi va to'liq qo'shiq — sababi bilan</p>
+          <div class="row"><button type="button" class="btn sm" data-exp="songerrors">Qo'shiq xatolari CSV</button></div></div>
+        ${table(["Nima", "Xato", "Qachon"], errRows, "Xato yo'q")}</section>
       <section class="blk"><div class="bh"><h2>Eksport</h2><p>Excel'da ochiladigan CSV fayllar</p></div>
         <div class="row"><button class="btn" data-exp="users">Foydalanuvchilar</button><button class="btn" data-exp="payments">To'lovlar</button><button class="btn" data-exp="sites">Taklifnomalar</button></div></section>`;
     $$("[data-exp]").forEach((b) => (b.onclick = () => download(`/api/admin/export/${b.dataset.exp}.csv`)));
+    $$("tr[data-user]").forEach((tr) => (tr.onclick = () => userSheet(+tr.dataset.user)));
+    const sfa = $("#sf-alert");
+    if (sfa) {
+      sfa.onsubmit = async (e) => {
+        e.preventDefault();
+        try { await api("/api/admin/songflow/settings", { alert_on: sfa.on.checked, alert_pct: +sfa.pct.value || 5, alert_min: +sfa.min.value || 1 }); toast("Saqlandi"); render(); }
+        catch (err) { toast(err.message, true); }
+      };
+      $("#sf-test").onclick = async (e) => {
+        const btn = e.currentTarget; btn.disabled = true;
+        try { await api("/api/admin/songflow/alert-test", {}); toast("Botga yuborildi — chatni tekshiring"); } catch (err) { toast(err.message, true); }
+        btn.disabled = false;
+      };
+    }
     const aic = $("#aicfg");
     if (aic) {
       const val = () => { const fd = new FormData(aic); return { provider: fd.get("provider"),
@@ -1151,7 +1317,7 @@
     };
     draw();
   }
-  const VIEWS = { overview, sources, sales, payments, users, broadcast, nudges: nudgesPage, pricing: pricingPage, system };
+  const VIEWS = { overview, funnel: funnelPage, sources, sales, payments, users, broadcast, nudges: nudgesPage, pricing: pricingPage, system };
 
   // ---------------------------------------------------------------- oyna
   function sheet(html) {

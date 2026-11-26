@@ -33,9 +33,10 @@ MIX_EN = ("Lead vocals upfront and loud in the mix, clearly louder than the inst
 class LyriaError(Exception):
     """Foydalanuvchiga ko'rsatsa bo'ladigan xato matni bilan."""
 
-    def __init__(self, message: str, quota: bool = False):
+    def __init__(self, message: str, quota: bool = False, reason: str = "service"):
         super().__init__(message)
         self.quota = quota
+        self.reason = "quota" if quota else reason  # statistika uchun sabab kodi (app/songflow.py: REASONS)
 
 
 def key() -> str:
@@ -161,7 +162,7 @@ async def compose(text: str, model: str | None = None) -> tuple[bytes, str]:
             audio, info = parse(data)
             if audio:
                 if len(audio) < 5_000:
-                    raise LyriaError("Qo'shiq tayyorlanmadi, qayta urinib ko'ring.")
+                    raise LyriaError("Qo'shiq tayyorlanmadi, qayta urinib ko'ring.", reason="empty")
                 return audio, info
             st = str(data.get("status", "")).lower()
             if not data.get("id") or st in ("failed", "cancelled", "completed"):
@@ -173,7 +174,7 @@ async def compose(text: str, model: str | None = None) -> tuple[bytes, str]:
                     _raise(r.status, body)
                 data = json.loads(body)
     log.warning("Lyria javobida audio yo'q: %s", body[:1500])
-    raise LyriaError("Qo'shiq tayyorlanmadi, qayta urinib ko'ring.")
+    raise LyriaError("Qo'shiq tayyorlanmadi, qayta urinib ko'ring.", reason="empty")
 
 
 def _raise(status: int, body: str) -> None:
@@ -184,7 +185,8 @@ def _raise(status: int, body: str) -> None:
     if "billing" in low or "quota" in low or "exhausted" in low or status == 402:
         raise LyriaError("Qo'shiq xizmati vaqtincha band. Birozdan so'ng qayta urinib ko'ring — buyurtmangiz saqlanib qoladi.", quota=True)
     if status == 429:
-        raise LyriaError("Navbat band, bir necha daqiqadan so'ng qayta urinib ko'ring.")
+        raise LyriaError("Navbat band, bir necha daqiqadan so'ng qayta urinib ko'ring.", reason="busy")
     if "safety" in low or "blocked" in low or "copyright" in low or "recitation" in low:
-        raise LyriaError("Matnda mualliflik huquqi bilan himoyalangan so'z yoki taqiqlangan ibora bor. Matnni o'zgartirib ko'ring.")
+        raise LyriaError("Matnda mualliflik huquqi bilan himoyalangan so'z yoki taqiqlangan ibora bor. Matnni o'zgartirib ko'ring.",
+                         reason="content")
     raise LyriaError("Qo'shiq tayyorlashda xato bo'ldi, qayta urinib ko'ring.")

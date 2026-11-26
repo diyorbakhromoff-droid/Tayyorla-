@@ -70,8 +70,10 @@ async def event(kind: str, user_id: int | None = None, ref: str = "", num: int |
         return False
 
 
-# Mini App o'zi yuboradigan hodisalar (POST /api/track): faqat shu ro'yxatdagilar qabul qilinadi
-CLIENT_KINDS = {"pay_sheet"}
+# Mini App o'zi yuboradigan hodisalar (POST /api/track): faqat shu ro'yxatdagilar qabul qilinadi.
+# Qo'shiq voronkasi hodisalari qo'shimcha tekshiriladi (qo'shiq o'ziniki ekani, qiymatlar) — app/songflow.py: client_event()
+SONG_CLIENT_KINDS = {"song_open", "sample_played", "buy_click", "song_shared", "sample_limit"}
+CLIENT_KINDS = {"pay_sheet"} | SONG_CLIENT_KINDS
 
 
 def clean_meta(raw) -> dict | None:

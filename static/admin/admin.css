@@ -271,3 +271,16 @@ tr.click { cursor: pointer; }
 .pr-kpi span { font-size: 12.5px; color: var(--muted); }
 .in.sm { max-width: 130px; padding: 6px 10px; }
 @media (max-width: 700px) { .pr-kpi { grid-template-columns: 1fr; } }
+
+/* voronka (qo'shiq / sayt / video): tushib qolganlar ustuni, qadamlar orasidagi vaqt, yon hodisalar */
+.fstep.fx { grid-template-columns: 250px minmax(0, 1fr) 110px 200px; }
+.fstep .t small.sub, .fstep .d small.sub { display: block; color: var(--muted); font-size: 12px; font-weight: 500; }
+.fstep .d { font-size: 13px; min-width: 0; }
+.fside { margin: -4px 0 0 264px; font-size: 12.5px; color: var(--muted); }
+main button.link { border: 0; background: none; padding: 0; color: var(--atlas); font: inherit; font-weight: 600; cursor: pointer; text-align: left; }
+main button.link:hover { text-decoration: underline; }
+@media (max-width: 900px) {
+  .fstep.fx { grid-template-columns: minmax(0, 1fr) 100px; }
+  .fstep.fx .d { grid-column: 1 / -1; grid-row: 3; }
+  .fside { margin-left: 0; }
+}
