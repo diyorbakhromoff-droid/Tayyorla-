@@ -1664,6 +1664,28 @@ async def blocks_get(frm: str | None = Query(None, alias="from"), to: str | None
     return {"from": d1.isoformat() if d1 else None, "to": d2.isoformat(), **out}
 
 
+@router.get("/control")
+async def control_get(uid: int = Depends(admin_uid)):
+    """Nazorat guruhi: sozlama va ikki guruhning sotuv va blok foizi yonma-yon (statistika TZ, 5-band)."""
+    return await msgstats.control_compare(SPEND_KINDS)
+
+
+class ControlIn(BaseModel):
+    on: bool | None = None
+    pct: int | None = Field(None, ge=1, le=50)
+
+
+@router.post("/control")
+async def control_save(body: ControlIn, uid: int = Depends(admin_uid)):
+    from . import control
+    try:
+        cfg = await control.save(body.on, body.pct)
+    except ValueError as e:
+        raise HTTPException(400, str(e))
+    log.info("Nazorat guruhi sozlamasi o'zgardi (admin %s): yoqilgan=%s, %s%%", uid, cfg["on"], cfg["pct"])
+    return await msgstats.control_compare(SPEND_KINDS)
+
+
 class NudgesIn(BaseModel):
     config: dict
 
@@ -1850,6 +1872,12 @@ async def export(what: str, frm: str | None = Query(None, alias="from"), to: str
         return _csv("qoshiq_xatolari.csv", ["vaqt (Toshkent)", "turi", "qo'shiq", "foydalanuvchi", "sabab", "xato matni", "eski yozuvdan tiklangan"],
                     [[_ts(at), songflow.KIND_LABELS.get(kind, kind), ref[5:], user, songflow.REASONS.get((meta or {}).get("r"), songflow.REASONS["unknown"]),
                       (meta or {}).get("e") or "", "ha" if (meta or {}).get("bf") else ""] for at, kind, ref, user, meta in rows])
+    if what == "control":
+        d = await msgstats.control_compare(SPEND_KINDS)
+        return _csv("nazorat_guruhi.csv", ["guruh", "odamlar", "progrev/chegirma olgan", "sotib oldi", "sotib oldi, %", "bloklagan",
+                                           "blok, %", "to'lagan pul, so'm", "bir kishiga, so'm"],
+                    [[g["label"], g["users"], g["got"], g["bought"], _cell(g["bought_pct"]), g["blocked"], _cell(g["blocked_pct"]),
+                      g["revenue"], g["arpu"]] for g in d["groups"]])
     if what == "blocks":
         d = await msgstats.blocks(a, b, (src if isinstance(src, str) else "")[:40])
         async with Session() as s:

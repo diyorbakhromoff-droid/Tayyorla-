@@ -22,7 +22,7 @@ from aiogram.methods import SendMessage  # noqa: E402
 from sqlalchemy import select  # noqa: E402
 
 from app import admin, msgstats, nudges, pricing, store, track, webapp  # noqa: E402
-from app.db import BalanceTx, Event, NudgeLog, Session, Song, User, init_db  # noqa: E402
+from app.db import BalanceTx, Event, NudgeLog, Payment, Session, Song, User, init_db  # noqa: E402
 
 # 2026-10-10 12:00 Toshkent = 07:00 UTC (hammasi bugungi kundan oldin — «Butun davr» bugun bilan tugaydi)
 NOON = datetime(2026, 10, 10, 7, 0)
@@ -276,6 +276,60 @@ async def main() -> None:
     assert "Botni bloklagan" in text and "o'tkazib yuborildi" in text
     ng = await admin.nudges_get(uid=999)
     assert "diagnose" in ng
+
+    # ---------- 10) nazorat guruhi: standart o'chiq; yoqilgach yangi odamlarning bir qismi progrev va chegirma olmaydi
+    from app import control
+    from app.db import utcnow
+    c = await admin.control_get(uid=999)
+    assert not c["on"] and c["groups"] == [] and control.member_sql(await control.config(), User.tg_id, User.created_at) is None
+    assert all(control.bucket(u) == control.bucket(u) for u in (1, 2)) and 0 <= control.bucket(123456789) < 100
+    split = [sum(control.bucket(u) < 10 for u in range(10**6, 10**6 + 5000)), sum(control.arm(u) == "b" for u in range(10**6, 10**6 + 5000))]
+    assert 400 < split[0] < 600 and 2300 < split[1] < 2700, split  # ~10% va ~50%
+    try:
+        await admin.control_save(admin.ControlIn(on=True, pct=60), uid=999)
+        raise AssertionError("60% qabul qilinmasligi kerak")
+    except Exception as e:
+        assert "50" in str(e) or getattr(e, "status_code", 0) in (400, 422)
+    c = await admin.control_save(admin.ControlIn(on=True, pct=50), uid=999)
+    assert c["on"] and c["since"] and c["pct"] == 50
+    ccfg = await control.config()
+    now = utcnow()
+    ctl_uid = next(u for u in range(500, 900) if control.bucket(u) < 50)
+    main_uid = next(u for u in range(500, 900) if control.bucket(u) >= 50)
+    old_uid = next(u for u in range(900, 1300) if control.bucket(u) < 50)
+    async with Session() as s:
+        s.add(User(tg_id=ctl_uid, first_name="Nazorat", created_at=now + timedelta(seconds=1)))
+        s.add(User(tg_id=main_uid, first_name="Asosiy", created_at=now + timedelta(seconds=1)))
+        s.add(User(tg_id=old_uid, first_name="Eski", created_at=ccfg["since_dt"] - timedelta(days=1)))  # yoqilishidan oldin kelgan
+        for u in (ctl_uid, main_uid, old_uid):
+            s.add(song(u, now - 2 * H))
+        await s.commit()
+    assert control.is_member(ccfg, ctl_uid, now + timedelta(seconds=1)) and not control.is_member(ccfg, main_uid, now)
+    assert not control.is_member(ccfg, old_uid, ccfg["since_dt"] - timedelta(days=1)), "eski foydalanuvchilarga ta'sir qilmaydi"
+    nbot = Bot()
+    await nudges.run_once(nbot, now + 2 * H, force=True)
+    got = {u for u, *_ in nbot.sent}
+    assert main_uid in got and old_uid in got and ctl_uid not in got, got
+    assert await rows(ctl_uid) == [], "nazorat guruhi jurnalga ham yozilmaydi"
+    await nudges.save({**(await nudges.config()), "from_hour": 0, "to_hour": 24})
+    pbot = Bot()
+    await pricing.offer_due(pbot, now + 2 * H)
+    got = {u for u, *_ in pbot.sent}
+    assert main_uid in got and ctl_uid not in got, got
+    async with Session() as s:
+        assert (await s.execute(select(Song.promo_until).where(Song.owner_id == ctl_uid))).scalar_one() is None, "chegirmaning o'zi ham yo'q"
+        s.add(Payment(user_id=main_uid, amount=69000, status="approved", purpose="song"))
+        await s.commit()
+    await track.mark_blocked(ctl_uid, "update")
+    c = await admin.control_get(uid=999)
+    g = {x["key"]: x for x in c["groups"]}
+    assert (g["main"]["users"], g["main"]["bought"], g["main"]["got"], g["main"]["revenue"]) == (1, 1, 1, 69000), g
+    assert (g["control"]["users"], g["control"]["blocked"], g["control"]["blocked_pct"], g["control"]["got"]) == (1, 1, 100.0, 0), g
+    r = await admin.export("control", frm=None, to=None, all_time=0, uid=999)
+    assert "Nazorat guruhi (hech narsa olmaydi);1;0;0" in r.body.decode("utf-8-sig")
+    c = await admin.control_save(admin.ControlIn(on=False), uid=999)
+    assert not c["on"] and c["until"] and len(c["groups"]) == 2, "o'chirilgach taqqoslash o'sha oraliq bo'yicha qoladi"
+    assert control.member_sql(await control.config(), User.tg_id, User.created_at) is None
     store.forget()
     print("test_msgstats: OK")
 

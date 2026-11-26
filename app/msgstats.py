@@ -343,3 +343,43 @@ async def history(uid: int, limit: int = 300) -> list[dict]:
                     "detail": " · ".join(x for x in (why, f"qo'shiq #{ref[5:]}" if ref.startswith("song:") else "") if x)})
     out.sort(key=lambda x: x["at"], reverse=True)
     return out[:limit]
+
+
+# ---------------------------------------------------------------- nazorat guruhi bilan taqqoslash (statistika TZ, 5-band)
+
+async def control_compare(spend_kinds: tuple = ()) -> dict:
+    """Guruh yoqilgandan (o'chirilgan bo'lsa — o'chirilgunga qadar) keyin kelgan yangi odamlar ikki guruhda: progrev va chegirma
+    oladiganlar va nazorat guruhi (hech narsa olmaydi). Sotib oldi — tasdiqlangan to'lov yoki balansdan xarid (hozirgacha),
+    blokladi — hozir botni bloklab turibdi. Bitta so'rov, GROUP BY guruh."""
+    from . import control
+    from .db import Payment
+    cfg = await control.config()
+    since = cfg["since_dt"]
+    out = {"on": cfg["on"], "pct": cfg["pct"], "since": cfg["since"], "until": cfg["until"], "groups": []}
+    if not since:
+        return out
+    excl = sorted(await track.excluded_ids())
+    conds = [User.created_at >= since] + ([User.created_at < cfg["until_dt"]] if cfg["until_dt"] else [])
+    if excl:
+        conds.append(User.tg_id.notin_(excl))
+    uid = User.tg_id
+    bought = or_(exists().where(Payment.user_id == uid, Payment.status == "approved"),
+                 exists().where(BalanceTx.user_id == uid, BalanceTx.kind.in_(spend_kinds or ("song",))))
+    got = exists().where(NudgeLog.user_id == uid, NudgeLog.status == "sent")
+    paid = select(func.coalesce(func.sum(Payment.amount), 0)).where(Payment.user_id == uid, Payment.status == "approved").scalar_subquery()
+    grp = control.bucket_sql(uid) < cfg["pct"]
+
+    def n(cond):
+        return func.sum(case((cond, 1), else_=0))
+
+    async with Session() as s:
+        sub = select(grp.label("ctl"), bought.label("bought"), User.blocked.label("blocked"), got.label("got"), paid.label("paid")) \
+            .where(*conds).subquery()
+        rows = (await s.execute(select(sub.c.ctl, func.count(), n(sub.c.bought), n(sub.c.blocked), n(sub.c.got), func.sum(sub.c.paid))
+                                .group_by(sub.c.ctl))).all()
+    by = {bool(c): (int(t), int(b or 0), int(bl or 0), int(g or 0), int(p or 0)) for c, t, b, bl, g, p in rows}
+    for key, label in ((False, "Progrev va chegirma oladiganlar"), (True, "Nazorat guruhi (hech narsa olmaydi)")):
+        t, b, bl, g, p = by.get(key, (0, 0, 0, 0, 0))
+        out["groups"].append({"key": "control" if key else "main", "label": label, "users": t, "bought": b, "bought_pct": _pct(b, t),
+                              "blocked": bl, "blocked_pct": _pct(bl, t), "got": g, "revenue": p, "arpu": round(p / t) if t else 0})
+    return out

@@ -1095,9 +1095,28 @@
   async function nudgesPage(alive) {
     loading("Progrev");
     const msq = () => { const [f, t] = range(); return `${S.period.preset === "all" ? "all_time=1" : `from=${f}&to=${t}`}&src=${encodeURIComponent(S.ngsrc || "")}`; };
-    const [d, m0, b0] = await Promise.all([api("/api/admin/nudges"), api(`/api/admin/msgstats?${msq()}`), api(`/api/admin/blocks?${msq()}`)]);
+    const [d, m0, b0, c0] = await Promise.all([api("/api/admin/nudges"), api(`/api/admin/msgstats?${msq()}`), api(`/api/admin/blocks?${msq()}`),
+      api("/api/admin/control")]);
     if (!alive()) return;
-    let cfg = d.config, m = m0, bl = b0;
+    let cfg = d.config, m = m0, bl = b0, ctl = c0;
+    // nazorat guruhi: progrev haqiqatan sotuv qo'shyaptimi — ikki guruh yonma-yon (statistika TZ, 5-band)
+    const controlHtml = () => {
+      const g = ctl.groups || [];
+      return `<section class="blk" id="ng-ctl"><div class="bh"><h2>Nazorat guruhi</h2>${tag(ctl.on ? "Yoqilgan" : "O'chirilgan", ctl.on ? "good" : "")}
+          ${g.length ? `<button type="button" class="btn sm" id="ctl-csv">CSV</button>` : ""}</div>
+        <div class="form"><label class="row sw"><input type="checkbox" id="ctl-on" ${ctl.on ? "checked" : ""}> Yangi foydalanuvchilarning bir qismi hech qanday progrev va chegirma olmasin</label>
+          <div class="fields"><label class="f">Nazorat guruhi, %<input class="in" type="number" min="1" max="50" id="ctl-pct" value="${ctl.pct}"><small>yoqilgandan keyin kelgan yangi odamlardan</small></label></div>
+          <div><button type="button" class="btn" id="ctl-save">Saqlash</button></div>
+          <p class="muted" style="font-size:12.5px">Guruh foydalanuvchi id sidan hisoblanadi — bir odam doim bir guruhda qoladi. Nazorat guruhidagilar progrev xabarlari,
+            chegirma taklifi va eslatmalarini olmaydi (chegirmaning o'zi ham berilmaydi). Eski foydalanuvchilarga ta'sir qilmaydi. O'chirilsa, hamma odatdagidek xabar oladi.</p></div>
+        ${g.length ? `${table(["Guruh", ">Odamlar", ">Progrev/chegirma olgan", ">Sotib oldi", ">Sotuv %", ">Bloklagan", ">Blok %", ">Bir kishiga, so'm"], g.map((x) => `<tr>
+            <td><b>${esc(x.label)}</b></td><td class="r num">${fmt(x.users)}</td><td class="r num">${x.key === "control" ? "—" : fmt(x.got)}</td>
+            <td class="r num">${fmt(x.bought)}</td><td class="r num"><b>${x.bought_pct}%</b></td><td class="r num">${fmt(x.blocked)}</td>
+            <td class="r num"><b>${x.blocked_pct}%</b></td><td class="r num">${fmt(x.arpu)}</td></tr>`))}
+          <p class="muted" style="font-size:12.5px;margin-top:8px">Taqqoslash <b>${dt(ctl.since)}</b> dan${ctl.until ? ` <b>${dt(ctl.until)}</b> gacha` : ""} kelgan yangi odamlar bo'yicha, hozirgacha bo'lgan natija.
+            Sotib oldi — to'lov tasdiqlangan yoki balansdan xarid qilgan; bloklagan — hozir botni bloklab turibdi. Guruhlar kichik bo'lsa, farq tasodifiy bo'lishi mumkin — bir necha yuz kishidan keyin xulosa qiling.</p>`
+          : `<p class="muted" style="margin-top:8px">Hali yoqilmagan — yoqilgandan keyin kelgan odamlar shu yerda ikki guruhga bo'linib ko'rinadi.</p>`}</section>`;
+    };
     // bloklar: kunlar, manba, oxirgi xabar, Start → blok (statistika TZ, 5-band)
     const blockDays = () => {
       const [f, t] = range(), first = f || (bl.by_day[0] || {}).day || t;
@@ -1225,7 +1244,16 @@
           <details style="margin-top:8px"><summary><b>O'tkazib yuborish sabablari nimani anglatadi</b></summary>
             ${table(["Sabab", "Izoh"], m.skip_reasons.map((r) => `<tr><td><b>${esc(r.label)}</b></td><td>${esc(r.about)}</td></tr>`))}</details></section>
         ${blocksHtml()}
+        ${controlHtml()}
         ${d.seqs.map(seqHtml).join("")}`;
+      $("#ctl-save").onclick = async (e) => {
+        const on = $("#ctl-on").checked, pct = +$("#ctl-pct").value;
+        if (on && !ctl.on && !confirm(`Yangi foydalanuvchilarning ${pct}% i progrev va chegirma olmaydi. Yoqilsinmi?`)) return;
+        const btn = e.currentTarget; btn.disabled = true;
+        try { ctl = await api("/api/admin/control", { on, pct }); toast("Saqlandi"); cfg = read(); const y = window.scrollY; draw(); window.scrollTo(0, y); }
+        catch (err) { toast(err.message, true); btn.disabled = false; }
+      };
+      if ($("#ctl-csv")) $("#ctl-csv").onclick = () => download("/api/admin/export/control.csv");
       const [bd, bv] = blockDays(), ch = barChart(bd, bv, fmt, $("#bl-chart").clientWidth);
       $("#bl-chart").innerHTML = ch.html; ch.bind($("#bl-chart"));
       $("#bl-csv").onclick = () => download(`/api/admin/export/blocks.csv?${msq()}`);

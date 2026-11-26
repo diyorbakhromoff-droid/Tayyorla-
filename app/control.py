@@ -23,7 +23,7 @@ from . import store
 from .db import utcnow
 
 KEY = "control"
-DEFAULTS = {"on": False, "pct": 10, "since": None}
+DEFAULTS = {"on": False, "pct": 10, "since": None, "until": None}  # since — oxirgi yoqilgan, until — o'chirilgan vaqt
 
 
 def bucket(uid: int) -> int:
@@ -48,7 +48,7 @@ def _dt(v) -> datetime | None:
 async def config() -> dict:
     v = await store.get(KEY) or {}
     out = {k: v.get(k, d) for k, d in DEFAULTS.items()}
-    out["since_dt"] = _dt(out["since"])
+    out["since_dt"], out["until_dt"] = _dt(out["since"]), _dt(out["until"])
     return out
 
 
@@ -61,7 +61,9 @@ async def save(on: bool | None = None, pct: int | None = None) -> dict:
         cfg["pct"] = pct
     if on is not None:
         if on and not cfg["on"]:
-            cfg["since"] = utcnow().isoformat(timespec="seconds")  # taqqoslash shu paytdan keyin kelganlar bo'yicha
+            cfg["since"], cfg["until"] = utcnow().isoformat(timespec="seconds"), None  # taqqoslash shu paytdan keyin kelganlar
+        elif not on and cfg["on"]:
+            cfg["until"] = utcnow().isoformat(timespec="seconds")  # shundan keyin nazorat guruhi ham xabar oladi
         cfg["on"] = bool(on)
     await store.put(KEY, cfg)
     return await config()
@@ -79,8 +81,3 @@ def member_sql(cfg: dict, uid_col, created_col):
     if not (cfg.get("on") and since):
         return None
     return and_(created_col >= since, bucket_sql(uid_col) < cfg["pct"])
-
-
-def group_sql(cfg: dict, uid_col, created_col):
-    """Taqqoslash uchun (guruh yoqilgan yoki yoqilmaganidan qat'i nazar): since dan keyin kelganlar orasida — nazoratdami."""
-    return bucket_sql(uid_col) < cfg["pct"]
