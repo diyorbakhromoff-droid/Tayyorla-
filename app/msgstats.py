@@ -17,7 +17,7 @@ Tugma bosilishi, blok vaqti va o'tkazib yuborish sababi hisob boshlangan sanadan
 
 from datetime import datetime, timedelta, timezone
 
-from sqlalchemy import String, case, cast, exists, func, literal, or_, select
+from sqlalchemy import Integer, String, case, cast, exists, func, literal, or_, select
 
 from . import nudges, store, track
 from .db import BalanceTx, Event, NudgeLog, Session, User, engine, utcnow
@@ -417,12 +417,13 @@ async def discount_funnel(a: datetime | None, b: datetime) -> dict:
     def people(cond):
         return func.count(func.distinct(case((cond, NudgeLog.user_id))))
 
-    song_ref = literal("song:") + cast(Song.id, String)
+    # qo'shiq id si ref dan (song:<id>) — Song.id indeksi bo'yicha birlashadi
+    song_id = case((NudgeLog.ref.startswith("song:", autoescape=True), cast(func.substr(NudgeLog.ref, 6), Integer)), else_=-1)
     async with Session() as s:
         rows = (await s.execute(select(NudgeLog.arm, func.count(func.distinct(NudgeLog.user_id)), *(people(c) for c in steps.values()),
                                        people(_after("promo_buy", OFFER_H)))
                                 .where(*scope).group_by(NudgeLog.arm))).all()
-        prices = dict((await s.execute(select(NudgeLog.arm, func.max(Song.promo_price)).join(Song, NudgeLog.ref == song_ref)
+        prices = dict((await s.execute(select(NudgeLog.arm, func.max(Song.promo_price)).join(Song, Song.id == song_id)
                                        .where(*scope).group_by(NudgeLog.arm))).all())
     arms = []
     for arm, offered, *vals in sorted(rows, key=lambda r: r[0] or ""):
