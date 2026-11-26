@@ -865,30 +865,36 @@
   }
 
   // ---------------------------------------------------------------- 5. Foydalanuvchilar
+  const U_FILTERS = [["", "Hammasi"], ["played", "Namuna eshitgan"], ["payopen", "To'lov oynasini ochib, to'lamagan"],
+    ["idle", "Balansi bor, xarid qilmagan"], ["blocked", "Botni bloklagan"]];
   async function users(alive) {
-    S.uq = S.uq || ""; S.usort = S.usort || "new"; S.upage = S.upage || 0;
+    S.uq = S.uq || ""; S.usort = S.usort || "new"; S.upage = S.upage || 0; S.uflt = S.uflt || "";
     if (!$("#u-list")) {
       main().innerHTML = `<div class="head"><div><h1>Foydalanuvchilar</h1><p>Qidiring, mijoz kartasini oching: manbasi, xaridlari, balansi. Balansni tuzatish va xabar yozish mumkin.</p></div>
         <button type="button" class="btn" id="exp-users">Foydalanuvchilar CSV</button></div>
         <div class="row"><input class="in search" id="u-q" type="search" placeholder="Ism, @username yoki ID" value="${esc(S.uq)}" aria-label="Qidiruv">
-          <select class="in" id="u-sort" style="width:auto" aria-label="Tartib"><option value="new">Yangi qo'shilganlar</option><option value="seen">Oxirgi faollik</option><option value="balance">Balans</option></select></div>
+          <select class="in" id="u-sort" style="width:auto" aria-label="Tartib"><option value="new">Yangi qo'shilganlar</option><option value="seen">Oxirgi faollik</option><option value="balance">Balans</option></select>
+          <select class="in" id="u-flt" style="width:auto" aria-label="Filtr">${U_FILTERS.map(([k, l]) => `<option value="${k}">${l}</option>`).join("")}</select></div>
         <section class="blk" id="u-list"><p class="boot">Yuklanmoqda…</p></section>`;
-      $("#u-sort").value = S.usort;
+      $("#u-sort").value = S.usort; $("#u-flt").value = S.uflt;
+      $("#u-flt").onchange = (e) => { S.uflt = e.target.value; S.upage = 0; render(); };
       let t;
       $("#u-q").oninput = (e) => { clearTimeout(t); t = setTimeout(() => { S.uq = e.target.value; S.upage = 0; render(); }, 300); };
       $("#u-sort").onchange = (e) => { S.usort = e.target.value; S.upage = 0; render(); };
-      $("#exp-users").onclick = () => download("/api/admin/export/users.csv");
+      $("#exp-users").onclick = () => download(`/api/admin/export/users.csv${S.uflt ? `?flt=${S.uflt}` : ""}`);
     }
-    const d = await api(`/api/admin/users?q=${encodeURIComponent(S.uq)}&sort=${S.usort}&page=${S.upage}`);
+    const d = await api(`/api/admin/users?q=${encodeURIComponent(S.uq)}&sort=${S.usort}&page=${S.upage}&flt=${S.uflt}`);
     if (!alive()) return;
     const rows = d.users.map((u) => `<tr class="click" data-user="${u.id}">
       <td>${userLink(u)}</td><td>${esc(u.source)}</td>
-      <td class="r num">${fmt(u.sites)}</td><td class="r num">${fmt(u.videos)}</td><td class="r num">${u.spent ? som(u.spent) : "—"}</td>
+      <td class="r num">${fmt(u.sites)}</td><td class="r num">${fmt(u.videos)}</td>
+      <td class="r num">${u.songs ? `${fmt(u.songs)}${u.songs_paid ? `<span class="sub">${fmt(u.songs_paid)} sotib olingan</span>` : ""}` : "—"}</td>
+      <td class="r num">${u.spent ? som(u.spent) : "—"}</td>
       <td class="r num hide-m">${som(u.balance)}</td><td class="num hide-m">${day(u.created_at)}<span class="sub">${ago(u.last_seen)}</span></td>
       <td>${u.blocked ? tag("bloklagan", "bad") : ""}</td></tr>`);
     const pages = Math.ceil(d.total / d.size);
     $("#u-list").innerHTML = `<p class="muted" style="margin-bottom:8px">${fmt(d.total)} ta topildi</p>
-      ${table(["Foydalanuvchi", "Manba", ">Sayt", ">Video", ">Sarflagan", ">Balans", "Qo'shilgan", ""], rows, "Hech kim topilmadi")}
+      ${table(["Foydalanuvchi", "Manba", ">Sayt", ">Video", ">Qo'shiq", ">Sarflagan", ">Balans", "Qo'shilgan", ""], rows, "Hech kim topilmadi")}
       ${pages > 1 ? `<div class="row" style="margin-top:10px"><button class="btn sm" id="pg-prev" ${S.upage ? "" : "disabled"}>Oldingi</button>
         <span class="muted">${S.upage + 1} / ${pages}</span><button class="btn sm" id="pg-next" ${S.upage + 1 < pages ? "" : "disabled"}>Keyingi</button></div>` : ""}`;
     $$("[data-user]", $("#u-list")).forEach((tr) => (tr.onclick = () => userSheet(+tr.dataset.user)));
@@ -958,6 +964,8 @@
       catch (err) { toast(err.message, true); }
     };
   }
+  const histTable = (items) => table(["Vaqt", "Hodisa"], items.map((h) => `<tr><td class="num" style="white-space:nowrap">${dt(h.at)}</td>
+    <td${/block|failed/.test(h.kind) ? ' class="c-bad"' : h.kind === "pay_success" ? ' class="c-good"' : ""}>${esc(h.label)}${h.detail ? `<span class="sub">${esc(h.detail)}</span>` : ""}</td></tr>`));
   async function userSheet(id) {
     sheet(`<p class="boot">Yuklanmoqda…</p>`);
     let d;
@@ -984,6 +992,8 @@
           ${g.preview ? `<div class="song-a"><span>Namuna (20 s)</span><audio controls preload="none" src="${esc(g.preview)}"></audio></div>` : ""}
           ${g.lyrics ? `<details><summary>She'r</summary><pre class="lyr">${esc(g.lyrics)}</pre></details>` : ""}</div>`).join("") : `<p class="muted">Yo'q</p>`}</section>
       <section><h3>Videolar</h3>${d.videos.length ? `<p>${d.videos.map((v) => `${JOB[v.charge] || v.charge}, ${JST[v.status] || v.status}: <b>${v.n}</b>`).join("<br>")}</p>` : `<p class="muted">Yo'q</p>`}</section>
+      <section><h3>Hodisalar tarixi</h3><p class="muted" style="font-size:12.5px;margin-bottom:6px">Yangisi tepada, Toshkent vaqti bilan: botdagi va ilovadagi qadamlari, to'lovlar, olgan progrev va chegirma xabarlari.</p>
+        ${(d.history || []).length ? histTable(d.history.slice(0, 60)) + (d.history.length > 60 ? `<details style="margin-top:6px"><summary>Yana ${fmt(d.history.length - 60)} ta hodisa</summary>${histTable(d.history.slice(60))}</details>` : "") : `<p class="muted">Yo'q</p>`}</section>
       <section><h3>Balans tarixi</h3>${d.tx.length ? table(["Sana", "Turi", ">Summa"], d.tx.map((t) => `<tr><td class="num">${dt(t.created_at)}</td><td>${esc(TX[t.kind] || t.kind)}</td>
         <td class="r num" style="color:var(${t.amount > 0 ? "--good" : "--ink"})">${t.amount > 0 ? "+" : "−"}${som(Math.abs(t.amount))}</td></tr>`)) : `<p class="muted">Yo'q</p>`}</section>
       <section><h3>Balansni tuzatish</h3><form class="form" id="bal">
@@ -1085,9 +1095,41 @@
   async function nudgesPage(alive) {
     loading("Progrev");
     const msq = () => { const [f, t] = range(); return `${S.period.preset === "all" ? "all_time=1" : `from=${f}&to=${t}`}&src=${encodeURIComponent(S.ngsrc || "")}`; };
-    const [d, m0] = await Promise.all([api("/api/admin/nudges"), api(`/api/admin/msgstats?${msq()}`)]);
+    const [d, m0, b0] = await Promise.all([api("/api/admin/nudges"), api(`/api/admin/msgstats?${msq()}`), api(`/api/admin/blocks?${msq()}`)]);
     if (!alive()) return;
-    let cfg = d.config, m = m0;
+    let cfg = d.config, m = m0, bl = b0;
+    // bloklar: kunlar, manba, oxirgi xabar, Start → blok (statistika TZ, 5-band)
+    const blockDays = () => {
+      const [f, t] = range(), first = f || (bl.by_day[0] || {}).day || t;
+      const days = []; for (let x = first; x <= t && days.length < 800; x = addDays(x, 1)) days.push(x);
+      const by = Object.fromEntries(bl.by_day.map((x) => [x.day, x.n]));
+      return [days, days.map((x) => by[x] || 0)];
+    };
+    const blocksHtml = () => {
+      const sb = bl.start_to_block;
+      return `<section class="blk" id="ng-blocks"><div class="bh"><h2>Bloklar</h2><button type="button" class="btn sm" id="bl-csv">CSV</button></div>
+        <div class="now">
+          <div class="alert"><b>${fmt(bl.blocked_now)}</b><span>hozir botni bloklab turibdi — ${bl.blocked_pct}% (${fmt(bl.users)} kishidan)</span></div>
+          <div><b>${fmt(bl.in_period)}</b><span>tanlangan davrda bloklagan (vaqti yozilgan)</span></div>
+          <div><b>${fmt(bl.unknown)}</b><span>bloklagan, vaqti noma'lum (hisob boshlanishidan oldin)</span></div>
+          <div><b>${sb.n ? `${sb.h1_pct}%` : "—"}</b><span>Start bosgandan 1 soat ichida bloklagan</span></div>
+        </div>
+        <div class="two" style="margin-top:12px">
+          <div><h3 style="margin-bottom:6px">Kunlar bo'yicha</h3><div id="bl-chart"></div></div>
+          <div><h3 style="margin-bottom:6px">Start bosgandan blokgacha</h3>${table(["Qancha vaqtda", ">Kishi", ">Ulushi"], [["1 soat ichida", "h1"], ["1 kun ichida", "d1"], ["Keyinroq", "later"]]
+            .map(([l, k]) => `<tr><td>${l}</td><td class="r num"><b>${fmt(sb[k])}</b></td><td class="r num">${sb[`${k}_pct`]}%<div class="mini-bar"><i style="width:${Math.min(100, sb[`${k}_pct`])}%"></i></div></td></tr>`), "Bu davrda vaqti yozilgan blok yo'q")}</div>
+        </div>
+        <div class="two" style="margin-top:12px">
+          <div><h3 style="margin-bottom:6px">Blokdan oldin oxirgi olingan xabar</h3>${table(["Xabar", ">Kishi", ">Ulushi"], bl.last_msg.map((x) => `<tr><td>${esc(x.label)}${x.key ? `<span class="sub">${esc(x.key)}</span>` : ""}</td>
+            <td class="r num"><b>${fmt(x.n)}</b></td><td class="r num">${x.pct}%</td></tr>`), "Ma'lumot yo'q")}
+            <p class="muted" style="font-size:12px;margin-top:6px">${bl.last_scope === "now" ? "Butun davr: hozir bloklab turgan hamma odam (eski bloklar ham) — bloklagan odamga keyin hech narsa yetmaydi, demak jurnaldagi oxirgi yetgan xabar blokdan oldingi oxirgisi." : "Tanlangan davrda bloklaganlar (vaqti yozilgan bloklar)."}</p></div>
+          <div><h3 style="margin-bottom:6px">Manba bo'yicha</h3>${table(["Manba (shu davrda kelganlar)", ">Kelgan", ">Bloklagan", ">Blok %"], bl.by_source.filter((x) => x.users).map((x) => `<tr><td>${esc(x.label)}</td>
+            <td class="r num">${fmt(x.users)}</td><td class="r num">${fmt(x.blocked)}</td><td class="r num"><b>${x.pct}%</b></td></tr>`), "Bu davrda yangi odam yo'q")}</div>
+        </div>
+        <p class="muted" style="font-size:12.5px;margin-top:8px">Botni bloklagan vaqt alohida yoziladi: Telegram o'zi xabar berganda (aniq vaqt) yoki bot xabar yubora olmaganda.
+          ${bl.since ? `Kunlar va «Start bosgandan blokgacha» <b>${dt(bl.since)}</b> dan beri hisoblanadi — undan oldingi bloklarning vaqti bazada yo'q (${fmt(bl.unknown)} kishi).` : "Blok vaqti hali yozila boshlamagan."}
+          Manba bo'yicha blok foizi — shu davrda kelganlardan hozir bloklab turganlar.</p></section>`;
+    };
     const st = d.stats;
     const mrow = (key) => m.rows.find((x) => x.key === key);
     const share = (n, p) => `${fmt(n)} <span class="muted">(${p}%)</span>`;
@@ -1182,7 +1224,11 @@
             ${m.since ? `Tugma bosilishi, blok vaqti va o'tkazib yuborish sabablari <b>${dt(m.since)}</b> dan beri yoziladi — undan oldingi xabarlarda bu ustunlar to'liq emas, sababi esa «eski yozuv» deb ko'rsatiladi.` : "Tugma, blok va sabablar hali yozila boshlamagan (server qayta ishga tushgach boshlanadi)."}</p>
           <details style="margin-top:8px"><summary><b>O'tkazib yuborish sabablari nimani anglatadi</b></summary>
             ${table(["Sabab", "Izoh"], m.skip_reasons.map((r) => `<tr><td><b>${esc(r.label)}</b></td><td>${esc(r.about)}</td></tr>`))}</details></section>
+        ${blocksHtml()}
         ${d.seqs.map(seqHtml).join("")}`;
+      const [bd, bv] = blockDays(), ch = barChart(bd, bv, fmt, $("#bl-chart").clientWidth);
+      $("#bl-chart").innerHTML = ch.html; ch.bind($("#bl-chart"));
+      $("#bl-csv").onclick = () => download(`/api/admin/export/blocks.csv?${msq()}`);
       bindPeriod($("#ng-stats"), reload);
       $("#ng-src").onchange = (e) => { S.ngsrc = e.target.value; reload(); };
       $("#ng-csv").onclick = () => download(`/api/admin/export/msgstats.csv?${msq()}`);
@@ -1223,7 +1269,7 @@
     // davr yoki manba o'zgardi: faqat statistika qayta olinadi, saqlanmagan sozlamalar yo'qolmaydi
     const reload = async () => {
       cfg = read();
-      try { m = await api(`/api/admin/msgstats?${msq()}`); } catch (e) { toast(e.message, true); return; }
+      try { [m, bl] = await Promise.all([api(`/api/admin/msgstats?${msq()}`), api(`/api/admin/blocks?${msq()}`)]); } catch (e) { toast(e.message, true); return; }
       if (alive()) { const y = window.scrollY; draw(); window.scrollTo(0, y); }
     };
     draw();

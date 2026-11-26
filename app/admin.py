@@ -1124,11 +1124,49 @@ async def _link_names(s) -> dict:
     return dict((await s.execute(select(TrafficLink.code, TrafficLink.name))).all())
 
 
+USER_FILTERS = {
+    "played": "Namuna eshitgan",
+    "payopen": "To'lov oynasini ochib, to'lamagan",
+    "idle": "Balansi bor, lekin xarid qilmagan",
+    "blocked": "Botni bloklagan",
+}
+
+
+def _user_filter(flt: str) -> list:
+    """Foydalanuvchilar filtri (statistika TZ, 6-band): bazaning o'zida EXISTS bilan."""
+    from sqlalchemy import exists
+    ev = lambda kind: exists().where(Event.user_id == User.tg_id, Event.kind == kind)  # noqa: E731
+    if flt == "played":
+        return [ev("sample_played")]
+    if flt == "payopen":
+        return [ev("pay_open"), ~ev("pay_success")]
+    if flt == "idle":
+        return [User.balance > 0, ~exists().where(BalanceTx.user_id == User.tg_id, BalanceTx.kind.in_(SPEND_KINDS))]
+    if flt == "blocked":
+        return [User.blocked.is_(True)]
+    return []
+
+
+async def _song_counts_all(s) -> dict:
+    from sqlalchemy import case as _case
+    rows = (await s.execute(select(Song.owner_id, func.count(), func.sum(_case((Song.paid.is_(True), 1), else_=0)))
+                            .group_by(Song.owner_id))).all()
+    return {o: (n, int(p or 0)) for o, n, p in rows}
+
+
+async def _song_counts(s, ids) -> dict:
+    """Odam -> (qo'shiqlar soni, sotib olinganlari) — bitta so'rov."""
+    from sqlalchemy import case as _case
+    rows = (await s.execute(select(Song.owner_id, func.count(), func.sum(_case((Song.paid.is_(True), 1), else_=0)))
+                            .where(Song.owner_id.in_(list(ids) or [0])).group_by(Song.owner_id))).all()
+    return {o: (n, int(p or 0)) for o, n, p in rows}
+
+
 @router.get("/users")
-async def users_list(q: str = "", sort: str = "new", page: int = Query(0, ge=0), uid: int = Depends(admin_uid)):
+async def users_list(q: str = "", sort: str = "new", page: int = Query(0, ge=0), flt: str = "", uid: int = Depends(admin_uid)):
     size = 50
     async with Session() as s:
-        stmt = select(User)
+        stmt = select(User).where(*_user_filter(flt))
         q = q.strip().lstrip("@")
         if q:
             like = f"%{q.lower()}%"
@@ -1146,10 +1184,12 @@ async def users_list(q: str = "", sort: str = "new", page: int = Query(0, ge=0),
                                        .group_by(Site.owner_id))).all())
         nvid = dict((await s.execute(select(RenderJob.owner_id, func.count()).where(
             RenderJob.guest_id.is_(None), RenderJob.status == "done", RenderJob.owner_id.in_(ids or [0])).group_by(RenderJob.owner_id))).all())
+        nsongs = await _song_counts(s, ids)
         names = await _link_names(s)
-    return {"total": total, "page": page, "size": size,
+    return {"total": total, "page": page, "size": size, "filters": [{"key": k, "label": v} for k, v in USER_FILTERS.items()],
             "users": [{**_user_out(u, names), "spent": int(spent.get(u.tg_id) or 0), "sites": nsites.get(u.tg_id, 0),
-                       "videos": nvid.get(u.tg_id, 0)} for u in rows]}
+                       "videos": nvid.get(u.tg_id, 0), "songs": nsongs.get(u.tg_id, (0, 0))[0],
+                       "songs_paid": nsongs.get(u.tg_id, (0, 0))[1]} for u in rows]}
 
 
 @router.get("/users/{user_id}")
@@ -1184,6 +1224,7 @@ async def user_card(user_id: int, uid: int = Depends(admin_uid)):
         "tx": [{"amount": t.amount, "kind": t.kind, "ref": t.ref, "created_at": t.created_at.isoformat() if t.created_at else None}
                for t in txs],
         "activity": [{"kind": k, "last": d.isoformat() if d else None, "n": n} for k, d, n in last],
+        "history": await msgstats.history(user_id),  # hodisalar va olgan xabarlari, yangisi tepada (statistika TZ, 6-band)
     }
 
 
@@ -1610,6 +1651,19 @@ async def msgstats_get(frm: str | None = Query(None, alias="from"), to: str | No
     return {"from": d1.isoformat() if d1 else None, "to": d2.isoformat(), **out, "sources": await _source_options()}
 
 
+@router.get("/blocks")
+async def blocks_get(frm: str | None = Query(None, alias="from"), to: str | None = None, all_time: int = 0, src: str = "",
+                     uid: int = Depends(admin_uid)):
+    """Bloklar hisoboti: kunlar, manba, blokdan oldingi oxirgi xabar, Start bosgandan blokgacha vaqt (statistika TZ, 5-band)."""
+    a, b, d1, d2 = _pay_range(frm, to, all_time)
+    out = await msgstats.blocks(a, b, (src if isinstance(src, str) else "")[:40])
+    async with Session() as s:
+        names = await _link_names(s)
+    for x in out["by_source"]:
+        x["label"] = source_label(x["key"], names)
+    return {"from": d1.isoformat() if d1 else None, "to": d2.isoformat(), **out}
+
+
 class NudgesIn(BaseModel):
     config: dict
 
@@ -1756,7 +1810,7 @@ async def _sources_export(what: str, frm: str | None, to: str | None, all_time: 
 
 @router.get("/export/{what}.csv")
 async def export(what: str, frm: str | None = Query(None, alias="from"), to: str | None = None, all_time: int = 0,
-                 product: str = "song", mode: str = "cohort", src: str = "", step: str = "", group: str = "",
+                 product: str = "song", mode: str = "cohort", src: str = "", step: str = "", group: str = "", flt: str = "",
                  uid: int = Depends(admin_uid)):
     if what in ("sources", "sourcecohort", "adspend"):  # «Trafik manbalari»: davr shu bo'limdagidek (standart — 30 kun)
         return await _sources_export(what, frm, to, all_time)
@@ -1796,6 +1850,21 @@ async def export(what: str, frm: str | None = Query(None, alias="from"), to: str
         return _csv("qoshiq_xatolari.csv", ["vaqt (Toshkent)", "turi", "qo'shiq", "foydalanuvchi", "sabab", "xato matni", "eski yozuvdan tiklangan"],
                     [[_ts(at), songflow.KIND_LABELS.get(kind, kind), ref[5:], user, songflow.REASONS.get((meta or {}).get("r"), songflow.REASONS["unknown"]),
                       (meta or {}).get("e") or "", "ha" if (meta or {}).get("bf") else ""] for at, kind, ref, user, meta in rows])
+    if what == "blocks":
+        d = await msgstats.blocks(a, b, (src if isinstance(src, str) else "")[:40])
+        async with Session() as s:
+            names = await _link_names(s)
+        rows = [["Jami", "Hozir botni bloklab turganlar", d["blocked_now"], _cell(d["blocked_pct"])],
+                ["Jami", "Shu davrda bloklagan (vaqti yozilgan)", d["in_period"], ""],
+                ["Jami", "Bloklagan, vaqti noma'lum (hisob boshlanishidan oldin)", d["unknown"], ""]]
+        rows += [["Kun", x["day"], x["n"], ""] for x in d["by_day"]]
+        rows += [["Manba (shu davrda kelganlar)", f"{source_label(x['key'], names)} — {x['users']} kishidan", x["blocked"], _cell(x["pct"])]
+                 for x in d["by_source"]]
+        rows += [["Blokdan oldingi oxirgi xabar", x["label"], x["n"], _cell(x["pct"])] for x in d["last_msg"]]
+        sb = d["start_to_block"]
+        rows += [["Start bosgandan blokgacha", lbl, sb[k], _cell(sb[f"{k}_pct"])]
+                 for k, lbl in (("h1", "1 soat ichida"), ("d1", "1 kun ichida"), ("later", "keyinroq"))]
+        return _csv("bloklar.csv", ["bo'lim", "ko'rsatkich", "odamlar", "foiz"], rows)
     if what in ("msgstats", "msgskips"):
         d = await msgstats.report(a, b, (src if isinstance(src, str) else "")[:40], SPEND_KINDS)
         if what == "msgstats":
@@ -1829,12 +1898,13 @@ async def export(what: str, frm: str | None = Query(None, alias="from"), to: str
                                           .where(BalanceTx.kind.in_(SPEND_KINDS)).group_by(BalanceTx.user_id))).all())
             paid = dict((await s.execute(select(Payment.user_id, func.sum(Payment.amount))
                                          .where(Payment.status == "approved").group_by(Payment.user_id))).all())
-            rows = (await s.execute(select(User).order_by(User.created_at))).scalars().all()
+            rows = (await s.execute(select(User).where(*_user_filter(flt)).order_by(User.created_at))).scalars().all()
+            nsongs = await _song_counts_all(s)
             return _csv("foydalanuvchilar.csv", ["id", "ism", "username", "til", "manba", "balans", "bonus", "to'lagan", "sarflagan",
-                                                 "bloklagan", "qo'shilgan", "oxirgi faollik"],
+                                                 "qo'shiqlar", "sotib olingan qo'shiqlar", "bloklagan", "qo'shilgan", "oxirgi faollik"],
                         [[u.tg_id, u.first_name, u.username, u.lang, source_label(u.ref, names), u.balance, u.bonus_videos,
-                          int(paid.get(u.tg_id) or 0), int(spent.get(u.tg_id) or 0), "ha" if u.blocked else "",
-                          _ts(u.created_at), _ts(u.last_seen)] for u in rows])
+                          int(paid.get(u.tg_id) or 0), int(spent.get(u.tg_id) or 0), nsongs.get(u.tg_id, (0, 0))[0],
+                          nsongs.get(u.tg_id, (0, 0))[1], "ha" if u.blocked else "", _ts(u.created_at), _ts(u.last_seen)] for u in rows])
         if what == "payments":
             q = select(Payment).order_by(Payment.id)
             cond = [Payment.created_at >= a, Payment.created_at < b] if a else None

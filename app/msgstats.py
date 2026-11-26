@@ -15,7 +15,7 @@ boshiga so'rov yo'q. Admin va sinov akkauntlari (track.excluded_ids) sanalmaydi.
 Tugma bosilishi, blok vaqti va o'tkazib yuborish sababi hisob boshlangan sanadan (since) beri yoziladi — panel shuni ko'rsatadi.
 """
 
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 from sqlalchemy import String, case, cast, exists, func, literal, or_, select
 
@@ -178,3 +178,168 @@ async def report(a: datetime | None, b: datetime, src: str = "", spend_kinds: tu
     return {"rows": rows, "since": (await config())["since"], "excluded": len(excl),
             "skip_reasons": [{"key": k, "label": v, "about": SKIP_ABOUT[k]} for k, v in SKIP_REASONS.items()],
             "windows": {"return_h": RETURN_H, "buy_h": BUY_H, "block_h": BLOCK_H}}
+
+
+# ---------------------------------------------------------------- bloklar hisoboti (statistika TZ, 5-band)
+
+def _key_label(key: str | None, ncfg: dict) -> str:
+    if not key:
+        return "Progrev yoki chegirma xabari olmagan"
+    for m in labels(ncfg, 9):
+        if m["key"] == key:
+            return m["label"]
+    seq, _, step = key.partition(".")
+    return f"{nudges.SEQ_NAMES.get(seq, seq)} — {int(step) + 1 if step.isdigit() else step}-xabar"
+
+
+async def blocks(a: datetime | None, b: datetime, src: str = "") -> dict:
+    """Bloklar: kunlar bo'yicha (blok vaqti yozilganlar), manba bo'yicha blok foizi (shu davrda kelganlar, hozirgi holat),
+    blokdan oldin oxirgi olingan xabar va Start bosgandan blokgacha vaqt. users.blocked da vaqt yo'q — vaqtga bog'liq
+    ko'rsatkichlar hisob boshlangan sanadan (since) beri. «Oxirgi xabar» butun davr uchun eski bloklarni ham qamraydi:
+    bloklagan odamga shundan keyin hech narsa yetmagan, demak jurnaldagi oxirgi yetgan xabar — blokdan oldingi oxirgisi."""
+    from .adstats import source_key
+    excl = sorted(await track.excluded_ids())
+    ncfg = await nudges.config()
+    ucond = src_cond(src) + ([User.tg_id.notin_(excl)] if excl else [])
+    ev_when = [Event.kind == track.BLOCK, Event.created_at < b] + ([Event.created_at >= a] if a is not None else [])
+    key_expr = NudgeLog.seq + literal(".") + cast(NudgeLog.step, String)
+    last_key = (select(key_expr).where(NudgeLog.user_id == User.tg_id, NudgeLog.status == "sent", NudgeLog.created_at <= Event.created_at)
+                .order_by(NudgeLog.created_at.desc(), NudgeLog.id.desc()).limit(1).scalar_subquery())
+    last_key_now = (select(key_expr).where(NudgeLog.user_id == User.tg_id, NudgeLog.status == "sent")
+                    .order_by(NudgeLog.created_at.desc(), NudgeLog.id.desc()).limit(1).scalar_subquery())
+    async with Session() as s:
+        # davrdagi blok hodisalari: odam, vaqt, kelgan vaqti, blokdan oldingi oxirgi xabar — bitta so'rov
+        evs = (await s.execute(select(Event.user_id, Event.created_at, User.created_at, last_key)
+                               .join(User, User.tg_id == Event.user_id).where(*ev_when, *ucond))).all()
+        now_blocked = await s.scalar(select(func.count()).select_from(User).where(User.blocked.is_(True), *ucond)) or 0
+        users_all = await s.scalar(select(func.count()).select_from(User).where(*ucond)) or 0
+        timed = exists().where(Event.user_id == User.tg_id, Event.kind == track.BLOCK)
+        unknown = await s.scalar(select(func.count()).select_from(User).where(User.blocked.is_(True), ~timed, *ucond)) or 0
+        # manba bo'yicha: shu davrda kelgan odamlar va ulardan hozir bloklab turganlar
+        coh = [User.created_at < b] + ([User.created_at >= a] if a is not None else [])
+        k = source_key()
+        by_src = (await s.execute(select(k, func.count(), func.sum(case((User.blocked.is_(True), 1), else_=0)))
+                                  .where(*coh, *ucond).group_by(k))).all()
+        last_all = None
+        if a is None:  # butun davr: hozir bloklab turgan hamma odamning oxirgi olgan xabari (eski bloklar ham)
+            sub = select(User.tg_id, last_key_now.label("k")).where(User.blocked.is_(True), *ucond).subquery()
+            last_all = (await s.execute(select(sub.c.k, func.count()).group_by(sub.c.k))).all()
+    days: dict[str, set] = {}
+    first: dict[int, tuple] = {}
+    for uid, at, created, key in evs:
+        days.setdefault(at.replace(tzinfo=timezone.utc).astimezone(nudges.TZ).date().isoformat(), set()).add(uid)
+        if uid not in first or at < first[uid][0]:
+            first[uid] = (at, created, key)
+    spans = {"h1": 0, "d1": 0, "later": 0}
+    for at, created, _ in first.values():
+        if created is None:
+            continue
+        gone = at - created
+        spans["h1" if gone <= timedelta(hours=1) else "d1" if gone <= timedelta(days=1) else "later"] += 1
+    if last_all is not None:
+        counts, base = {key: n for key, n in last_all}, now_blocked
+    else:
+        counts, base = {}, len(first)
+        for _, _, key in first.values():
+            counts[key] = counts.get(key, 0) + 1
+    last = [{"key": key or "", "label": _key_label(key, ncfg), "n": n, "pct": _pct(n, base)}
+            for key, n in sorted(counts.items(), key=lambda x: -x[1])]
+    timed_n = sum(spans.values())
+    return {
+        "since": (await config())["since"], "blocked_now": now_blocked, "users": users_all, "blocked_pct": _pct(now_blocked, users_all),
+        "unknown": unknown, "in_period": len(first),
+        "by_day": [{"day": d, "n": len(v)} for d, v in sorted(days.items())],
+        "by_source": [{"key": key, "users": int(u or 0), "blocked": int(bl or 0), "pct": _pct(int(bl or 0), int(u or 0))}
+                      for key, u, bl in sorted(by_src, key=lambda x: -(x[1] or 0))],
+        "last_msg": last, "last_base": base, "last_scope": "now" if last_all is not None else "period",
+        "start_to_block": {**spans, "n": timed_n, **{f"{x}_pct": _pct(v, timed_n) for x, v in spans.items()}},
+    }
+
+
+# ---------------------------------------------------------------- mijoz kartasi: hodisalar tarixi
+
+EVENT_LABELS = {
+    "start": "Botda Start bosdi", "app": "Ilovani ochdi (kuniga bir marta yoziladi)", "click": "Reklama havolasini bosdi",
+    "song_open": "Qo'shiq bo'limiga kirdi", "song_form_done": "Qo'shiq so'rovnomasini to'ldirdi", "lyrics_ready": "She'r tayyor bo'ldi",
+    "lyrics_failed": "She'r yozilmadi", "sample_requested": "«Namunani tinglash»ni bosdi", "sample_ready": "Namuna tayyor bo'ldi",
+    "sample_failed": "Namuna xato bilan tugadi", "sample_limit": "Limit sabab namuna berilmadi", "sample_played": "Namunani eshitdi",
+    "sample_away": "Namuna tayyor bo'lganda ilovada emas edi", "sample_retry": "Namuna qayta navbatga qo'yildi",
+    "buy_click": "«Sotib olish»ni bosdi", "song_delivered": "To'liq qo'shiq berildi", "song_shared": "Qo'shiqni yuklab oldi yoki ulashdi",
+    "song_failed": "To'liq qo'shiq xato bilan tugadi", "song_retry": "To'liq qo'shiq qayta so'raldi", "song_pv": "Bepul namuna hisoblandi",
+    "pay_sheet": "Summa tanlash oynasini ko'rdi", "pay_open": "To'lov oynasini ochdi", "pay_click": "Click sahifasiga o'tdi",
+    "pay_prepare": "Click'da to'lovni boshladi", "pay_return": "Click sahifasidan qaytdi", "pay_cancel": "Click to'lovni bekor qildi",
+    "pay_card": "Karta raqami ko'rsatildi", "pay_badrcpt": "Chek qabul qilinmadi", "pay_receipt": "Chek yubordi",
+    "pay_success": "Pul tushdi", "pay_reject": "Chek rad etildi", "pay_ask": "«Nega to'lamadingiz» savoli yuborildi",
+    "pay_why": "«Nega to'lamadingiz»ga javob berdi", "promo_buy": "Chegirmada sotib oldi", track.CLICK: "Xabardagi tugmani bosdi",
+    track.BLOCK: "Botni blokladi", track.UNBLOCK: "Blokdan chiqardi",
+}
+STATUS_LABELS = {"sent": "yetdi", "failed": "yetmadi", "skipped": "o'tkazib yuborildi"}
+VIA = {"update": "Telegram xabar berdi", "nudge": "progrev xabari yetmadi", "promo": "chegirma xabari yetmadi", "survey": "so'rov yetmadi",
+       "song": "qo'shiq xabari yetmadi", "broadcast": "tarqatma yetmadi", "touch": "yana botga yozdi yoki ilovani ochdi"}
+
+
+def _money(n) -> str:
+    return f"{int(n):,}".replace(",", " ") + " so'm"
+
+
+def event_detail(kind: str, ref: str, num, meta: dict | None, ncfg: dict) -> str:
+    """Hodisaning qisqa izohi: summa, sabab, qaysi xabar..."""
+    from . import payflow, paysurvey, songflow
+    meta = meta if isinstance(meta, dict) else {}
+    parts = []
+    if ref.startswith("song:"):
+        parts.append(f"qo'shiq #{ref[5:]}")
+    elif ref.startswith("pay:"):
+        parts.append(f"to'lov #{ref[4:]}")
+    if kind.startswith("pay_") and num and kind not in ("pay_ask", "pay_why"):
+        parts.append(_money(num))
+    if kind == "pay_open":
+        parts += [payflow.PURPOSES.get(meta.get("p"), ""), payflow.METHODS.get(meta.get("m"), "")]
+    if kind == "buy_click":
+        parts += [_money(num) if num else "", {"single": "1 ta", "pack": "paket", "credit": "paketdan"}.get(meta.get("kind"), ""),
+                  "chegirmada" if meta.get("disc") else ""]
+    if kind in ("sample_ready", "song_delivered") and num:
+        parts.append(f"kutish {num} s")
+    if kind == "sample_played" and num:
+        parts.append(f"{num} s eshitdi" + (", oxirigacha" if meta.get("end") else ""))
+    if kind in ("sample_failed", "song_failed") and meta.get("r"):
+        parts.append(songflow.REASONS.get(meta["r"], str(meta["r"])))
+    if kind == "sample_limit" and meta.get("l"):
+        parts.append(songflow.LIMITS.get(meta["l"], str(meta["l"])))
+    if kind == "lyrics_failed" and meta.get("r"):
+        parts.append(songflow.LYRICS_WHY.get(meta["r"], str(meta["r"])))
+    if kind == "song_form_done":
+        parts += [str(meta.get("rel") or ""), str(meta.get("occ") or "")]
+    if kind == "pay_why" and num and 1 <= num <= len(paysurvey.ANSWERS):
+        parts.append(f"«{paysurvey.ANSWERS[num - 1][1]}»")
+    if kind == track.CLICK and ref.startswith("n:"):
+        parts = [_key_label(ref[2:], ncfg)]
+    if kind in (track.BLOCK, track.UNBLOCK) and meta.get("via"):
+        parts.append(VIA.get(meta["via"], str(meta["via"])))
+    if kind == "song_shared" and meta.get("how"):
+        parts.append({"download": "yuklab oldi", "share": "ulashdi"}.get(meta["how"], str(meta["how"])))
+    return " · ".join(p for p in parts if p)
+
+
+async def history(uid: int, limit: int = 300) -> list[dict]:
+    """Odamning hodisalari va olgan progrev/chegirma xabarlari, yangisi tepada (vaqt UTC — panel Toshkentda ko'rsatadi)."""
+    ncfg = await nudges.config()
+    async with Session() as s:
+        evs = (await s.execute(select(Event.kind, Event.ref, Event.num, Event.meta, Event.src, Event.created_at)
+                               .where(Event.user_id == uid).order_by(Event.created_at.desc(), Event.id.desc()).limit(limit))).all()
+        msgs = (await s.execute(select(NudgeLog.seq, NudgeLog.step, NudgeLog.status, NudgeLog.reason, NudgeLog.ref, NudgeLog.created_at)
+                                .where(NudgeLog.user_id == uid).order_by(NudgeLog.created_at.desc()).limit(limit))).all()
+    out = []
+    for kind, ref, num, meta, src, at in evs:
+        if kind in ("promo_offer", "promo_bf", "promo_rem") and msgs:  # bu xabarlar jurnaldan (pastda) to'liqroq chiqadi
+            continue
+        detail = f"parametr: {src}" if kind == "start" and src else event_detail(kind, ref or "", num, meta, ncfg)
+        out.append({"at": at.isoformat(), "kind": kind, "label": EVENT_LABELS.get(kind, {"promo_offer": "Chegirma taklif qilindi",
+                    "promo_bf": "Eski namunaga chegirma yuborildi", "promo_rem": "Chegirma eslatmasi yuborildi"}.get(kind, kind)), "detail": detail})
+    for seq, step, status, reason, ref, at in msgs:
+        why = SKIP_REASONS.get(reason or "old", "") if status == "skipped" else FAIL_REASONS.get(reason, "") if status == "failed" else ""
+        out.append({"at": at.isoformat(), "kind": f"msg_{status}",
+                    "label": f"{'Chegirma' if seq in DISCOUNT else 'Progrev'}: {_key_label(f'{seq}.{step}', ncfg)} — {STATUS_LABELS.get(status, status)}",
+                    "detail": " · ".join(x for x in (why, f"qo'shiq #{ref[5:]}" if ref.startswith("song:") else "") if x)})
+    out.sort(key=lambda x: x["at"], reverse=True)
+    return out[:limit]

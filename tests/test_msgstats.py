@@ -215,6 +215,58 @@ async def main() -> None:
     d = await admin.msgstats_get(frm=None, to=None, all_time=1, src="", uid=999)
     assert {x["key"]: x for x in d["rows"]}["offer.0"]["bought"] == 1
 
+    # ---------- 9a) bloklar hisoboti: kunlar, manba, oxirgi xabar, Start → blok
+    await track.mark_blocked([300], "promo")
+    async with Session() as s:
+        s.add(User(tg_id=400, first_name="Tez", ref="src_qoshiq_v1", created_at=t2))
+        await s.commit()
+    await track.mark_blocked(400, "update")
+    async with Session() as s:
+        for e in (await s.execute(select(Event).where(Event.kind == track.BLOCK, Event.user_id.in_([300, 400])))).scalars().all():
+            e.created_at = t2 + (H if e.user_id == 300 else timedelta(minutes=30))
+        await s.commit()
+    bl = await admin.blocks_get(frm=None, to=None, all_time=1, src="", uid=999)
+    assert bl["blocked_now"] == 9 and bl["unknown"] == 7, bl  # 110–115 va 301 — blok vaqti yozilmagan (eski)
+    lm = {x["key"]: x["n"] for x in bl["last_msg"]}
+    assert lm == {"": 8, "rem.2": 1}, lm  # butun davr: hozirgi bloklar, oxirgi yetgan xabar
+    assert bl["last_scope"] == "now" and bl["start_to_block"]["h1"] == 1 and bl["start_to_block"]["later"] == 2  # 100 (keyin blokdan chiqdi), 300; 400 — 30 daqiqada
+    assert any(x["key"] == "src_qoshiq_v1" and x["blocked"] == 1 and x["pct"] == 100.0 for x in bl["by_source"])
+    day2 = t2.replace(tzinfo=timezone.utc).astimezone(nudges.TZ).date().isoformat()
+    bl = await admin.blocks_get(frm=day2, to=day2, all_time=0, src="", uid=999)
+    assert bl["by_day"] == [{"day": day2, "n": 2}] and bl["in_period"] == 2
+    assert {x["key"]: x["n"] for x in bl["last_msg"]} == {"offer.0": 1, "": 1}, bl["last_msg"]  # blok paytigacha oxirgisi — taklif
+    assert [x for x in bl["by_source"] if x["key"] == "src_qoshiq_v1"][0]["users"] == 1
+    r = await admin.export("blocks", frm=day2, to=day2, all_time=0, uid=999)
+    assert "Blokdan oldingi oxirgi xabar;Chegirma taklifi (namunadan keyin);1" in r.body.decode("utf-8-sig")
+
+    # ---------- 9b) foydalanuvchilar: filtrlar va «Qo'shiq» ustuni; mijoz kartasida hodisalar tarixi
+    async with Session() as s:
+        s.add(Event(user_id=300, kind="sample_played", num=20, created_at=t2 + H))
+        s.add(Event(user_id=400, kind="pay_open", num=69000, ref="pay:1", created_at=t2 + H))
+        s.add(Event(user_id=100, kind="pay_open", num=69000, ref="pay:2", created_at=t0 + 29 * H))
+        s.add(User(tg_id=401, first_name="Balans", balance=5000, created_at=t2))
+        (await s.get(User, 300)).balance = 1000
+        await s.commit()
+    ids = lambda d: {u["id"] for u in d["users"]}  # noqa: E731
+    assert ids(await admin.users_list(q="", sort="new", page=0, flt="played", uid=999)) == {300}
+    assert ids(await admin.users_list(q="", sort="new", page=0, flt="payopen", uid=999)) == {400}, "100 to'lagan"
+    assert ids(await admin.users_list(q="", sort="new", page=0, flt="idle", uid=999)) == {401}, "300 balansidan xarid qilgan"
+    d = await admin.users_list(q="300", sort="new", page=0, flt="", uid=999)
+    assert d["users"][0]["songs"] == 1 and d["users"][0]["songs_paid"] == 0 and len(d["filters"]) == 4
+    r = await admin.export("users", frm=None, to=None, all_time=0, flt="idle", uid=999)
+    lines = r.body.decode("utf-8-sig").strip().splitlines()
+    assert len(lines) == 2 and lines[1].startswith("401;") and "qo'shiqlar" in lines[0]
+    card = await admin.user_card(100, uid=999)
+    hist = card["history"]
+    assert hist == sorted(hist, key=lambda x: x["at"], reverse=True), "yangisi tepada"
+    labels_ = [(h["label"], h["detail"]) for h in hist]
+    assert ("Xabardagi tugmani bosdi", "Qo'shiq boshlab, sotib olmaganlar — 3-xabar") in labels_, labels_
+    assert ("Botni blokladi", "Telegram xabar berdi") in labels_ and ("Pul tushdi", "69 000 so'm") in labels_
+    assert any(lb.startswith("Progrev: Qo'shiq boshlab, sotib olmaganlar — 3-xabar — yetdi") for lb, _ in labels_)
+    assert any(lb.endswith("1-xabar — o'tkazib yuborildi") and det.startswith("36 soatdan") for lb, det in labels_), labels_
+    card = await admin.user_card(300, uid=999)
+    assert any(h["label"].startswith("Chegirma: Chegirma taklifi") for h in card["history"])
+
     # ---------- 9) CSV
     r = await admin.export("msgstats", frm=None, to=None, all_time=1, uid=999)
     text = r.body.decode("utf-8-sig")
