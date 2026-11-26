@@ -137,7 +137,9 @@ def app_version() -> str:
 
 
 @router.get("/app", response_class=HTMLResponse)
-async def app_page():
+async def app_page(mt: str = ""):
+    if mt:  # progrev yoki chegirma xabaridagi tugma orqali ochildi (app/track.py: msg_click) — sahifa o'zgarmaydi
+        await track.msg_click(mt)
     html = (ROOT / "templates" / "webapp.html").read_text(encoding="utf-8")
     return HTMLResponse(html.replace("__V__", app_version()), headers={"Cache-Control": "no-cache"})
 

@@ -6,7 +6,7 @@ from sqlalchemy import func, select, update
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from .config import settings
-from .db import BalanceTx, RenderJob, User, utcnow
+from .db import BalanceTx, Event, RenderJob, User, utcnow
 from .reminders import TZ
 
 
@@ -34,6 +34,8 @@ async def touch_user(s: AsyncSession, uid: int, first_name: str = "", username: 
     if language_code:
         user.language_code = language_code[:16]
     user.last_seen = utcnow()
+    if user.blocked:  # yana yozdi yoki ilovani ochdi — demak blokdan chiqargan (blok hisoboti uchun vaqti yoziladi)
+        s.add(Event(user_id=uid, kind="bot_unblock", src=(user.ref or "")[:32], meta={"via": "touch"}))
     user.blocked = False
     return user, False
 

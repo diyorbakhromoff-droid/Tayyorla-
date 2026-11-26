@@ -11,7 +11,7 @@ from aiogram.enums import ChatAction
 from aiogram.filters import Command, CommandObject, CommandStart
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import State, StatesGroup
-from aiogram.types import CallbackQuery, FSInputFile, InputMediaPhoto, Message
+from aiogram.types import CallbackQuery, ChatMemberUpdated, FSInputFile, InputMediaPhoto, Message
 from sqlalchemy import select
 
 from .. import ai, billing, track, videobot
@@ -204,6 +204,19 @@ async def start(message: Message, state: FSMContext, command: CommandObject | No
     key = "bot.welcome_gift" if args.startswith("r_") else "bot.welcome"
     await send_start_album(message)
     await message.answer(tr(lang, key, name=name, free=settings.free_videos_per_day), reply_markup=kb.main_menu(lang))
+
+
+@router.my_chat_member()
+async def bot_member(upd: ChatMemberUpdated):
+    """Shaxsiy chatda Telegram faqat botni bloklash va blokdan chiqarishni bildiradi — blok hisoboti uchun aniq vaqt.
+    Bu yangilanish turi ro'yxatdan o'tgan handler'lar bo'yicha o'zi so'raladi (aiogram: allowed_updates)."""
+    if upd.chat.type != "private" or not upd.from_user:
+        return
+    new, old = (str(getattr(m.status, "value", m.status)) for m in (upd.new_chat_member, upd.old_chat_member))
+    if new == "kicked":
+        await track.mark_blocked(upd.from_user.id, "update")
+    elif new == "member" and old == "kicked":
+        await track.mark_unblocked(upd.from_user.id, "update")
 
 
 @router.callback_query(F.data == "legacy")

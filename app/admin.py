@@ -20,12 +20,12 @@ from datetime import date, datetime, time, timedelta, timezone
 from fastapi import APIRouter, Depends, File, Header, HTTPException, Query, Request, UploadFile
 from fastapi.responses import HTMLResponse, RedirectResponse, Response
 from pydantic import BaseModel, Field
-from sqlalchemy import func, select, update
+from sqlalchemy import func, select
 
 from . import track, video, videobot
 from .catalog import SECTIONS, TEMPLATES, site_price, site_title
 from .config import MEDIA_DIR, ROOT, settings
-from . import adstats, costs, funnel, nudges, payflow, paysurvey, songflow, songs, store
+from . import adstats, costs, funnel, msgstats, nudges, payflow, paysurvey, songflow, songs, store
 from .db import BalanceTx, Event, MusicTrack, Payment, RenderJob, Session, Site, Snapshot, Song, TrafficLink, User, utcnow
 from .reminders import TZ, today
 from .webapp import check_init_data
@@ -1388,9 +1388,7 @@ async def _run_broadcast(ids: list[int], text: str, button: bool, media: str = "
                     break
             await asyncio.sleep(1 / 25)
         if blocked:
-            async with Session() as s:
-                await s.execute(update(User).where(User.tg_id.in_(blocked)).values(blocked=True))
-                await s.commit()
+            await track.mark_blocked(blocked, "broadcast")  # bayroq va blok vaqti (bot_block hodisasi)
     finally:
         BROADCAST.update(running=False, finished=utcnow().isoformat())
 
@@ -1599,7 +1597,17 @@ def _nudge_meta() -> dict:
 
 @router.get("/nudges")
 async def nudges_get(uid: int = Depends(admin_uid)):
-    return {"config": await nudges.config(), "stats": await nudges.stats(), **_nudge_meta()}
+    cfg = await nudges.config()
+    return {"config": cfg, "stats": await nudges.stats(), "diagnose": nudges.diagnose(cfg), **_nudge_meta()}
+
+
+@router.get("/msgstats")
+async def msgstats_get(frm: str | None = Query(None, alias="from"), to: str | None = None, all_time: int = 0, src: str = "",
+                       uid: int = Depends(admin_uid)):
+    """«Progrev» bo'limi: har bir progrev va chegirma xabaridan keyin odamlar nima qilgani (statistika TZ, 5-band)."""
+    a, b, d1, d2 = _pay_range(frm, to, all_time)
+    out = await msgstats.report(a, b, (src if isinstance(src, str) else "")[:40], SPEND_KINDS)
+    return {"from": d1.isoformat() if d1 else None, "to": d2.isoformat(), **out, "sources": await _source_options()}
 
 
 class NudgesIn(BaseModel):
@@ -1788,6 +1796,18 @@ async def export(what: str, frm: str | None = Query(None, alias="from"), to: str
         return _csv("qoshiq_xatolari.csv", ["vaqt (Toshkent)", "turi", "qo'shiq", "foydalanuvchi", "sabab", "xato matni", "eski yozuvdan tiklangan"],
                     [[_ts(at), songflow.KIND_LABELS.get(kind, kind), ref[5:], user, songflow.REASONS.get((meta or {}).get("r"), songflow.REASONS["unknown"]),
                       (meta or {}).get("e") or "", "ha" if (meta or {}).get("bf") else ""] for at, kind, ref, user, meta in rows])
+    if what in ("msgstats", "msgskips"):
+        d = await msgstats.report(a, b, (src if isinstance(src, str) else "")[:40], SPEND_KINDS)
+        if what == "msgstats":
+            return _csv("xabarlar_natijasi.csv", ["xabar", "kalit", "yuborildi (yetdi)", "yetmadi", "tugmani bosdi", "tugma, %",
+                                                  "ilovaga qaytdi (24 soat)", "qaytdi, %", "sotib oldi (48 soat)", "sotib oldi, %",
+                                                  "blokladi (24 soat)", "blok, %", "o'tkazib yuborildi"],
+                        [[x["label"], x["key"], x["sent"], x["failed"], x["clicked"], _cell(x["pct"]["clicked"]), x["returned"],
+                          _cell(x["pct"]["returned"]), x["bought"], _cell(x["pct"]["bought"]), x["blocked"], _cell(x["pct"]["blocked"]),
+                          x["skipped"]] for x in d["rows"]])
+        return _csv("otkazib_yuborilganlar.csv", ["xabar", "kalit", "holat", "sabab", "odamlar"],
+                    [[x["label"], x["key"], holat, r["label"], r["n"]] for x in d["rows"]
+                     for holat, items in (("o'tkazib yuborildi", x["skips"]), ("yetmadi", x["fails"])) for r in items])
     if what == "paystats":
         d = await payflow.summary(a, b, SPEND_KINDS)
         return _csv("tolov_xulosa.csv", ["bo'lim", "ko'rsatkich", "odamlar", "to'laganlar", "foiz"], _paystats_rows(d))

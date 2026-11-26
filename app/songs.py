@@ -864,7 +864,7 @@ async def _tell(bot, song: Song, mode: str) -> bool:
     Namuna har doim botga ham xabar qilinadi — kutib o'tirmay ilovadan chiqqan odam shu xabardan qaytadi (har namunaga bir marta).
     Botni bloklagan odamga namuna xabari yuborilmaydi; yuborishda blok aniqlansa — belgilab qo'yiladi."""
     from aiogram.exceptions import TelegramForbiddenError
-    from sqlalchemy import update
+    from . import track
     if mode == "preview_gen":
         async with Session() as s:
             if await s.scalar(select(User.blocked).where(User.tg_id == song.owner_id)):
@@ -873,9 +873,7 @@ async def _tell(bot, song: Song, mode: str) -> bool:
         await notify(bot, song)
         return True
     except TelegramForbiddenError:
-        async with Session() as s:
-            await s.execute(update(User).where(User.tg_id == song.owner_id).values(blocked=True))
-            await s.commit()
+        await track.mark_blocked(song.owner_id, "song")  # bayroq va blok vaqti (bot_block hodisasi)
         log.info("Qo'shiq xabari yetmadi — foydalanuvchi botni bloklagan: %s", song.owner_id)
         return False
 

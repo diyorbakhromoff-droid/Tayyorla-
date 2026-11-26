@@ -229,7 +229,8 @@ class Event(Base):
     """Faollik hodisasi: /start bosildi, ilovaga kirdi (kuniga bir marta), reklama havolasi bosildi,
     voronka qadamlari (pay_open, pay_success... — app/track.py: event())."""
     __tablename__ = "events"
-    __table_args__ = (Index("ix_events_kind_created", "kind", "created_at"),)
+    # (user_id, kind, created_at) — «shu odamda xabardan keyin 24 soat ichida X bo'ldimi» so'rovlari uchun (app/msgstats.py)
+    __table_args__ = (Index("ix_events_kind_created", "kind", "created_at"), Index("ix_events_user_kind", "user_id", "kind", "created_at"))
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     user_id: Mapped[int | None] = mapped_column(BigInteger, nullable=True, index=True)
@@ -345,15 +346,21 @@ class CostLog(Base):
 
 
 class NudgeLog(Base):
-    """Progrev xabari jurnali: bir qadam bir obyekt uchun bir marta yuboriladi (app/nudges.py)."""
+    """Progrev va chegirma xabarlari jurnali: bir qadam bir obyekt uchun bir marta yuboriladi (app/nudges.py, app/pricing.py).
+    Progrev: seq = site | song | new. Chegirma (statistika TZ, 5-band): seq = offer (namunadan keyingi taklif), bf (eski namunalarga),
+    rem (tugashidan oldingi eslatma; step — nechanchi eslatma, 1 dan). Chegirma yozuvlari progrevning tanaffus hisobiga kirmaydi."""
     __tablename__ = "nudge_log"
+    __table_args__ = (Index("ix_nudge_log_user_created", "user_id", "created_at"),)
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     user_id: Mapped[int] = mapped_column(BigInteger, index=True)
-    seq: Mapped[str] = mapped_column(String(12), index=True)   # site | song | new
+    seq: Mapped[str] = mapped_column(String(12), index=True)   # site | song | new | offer | bf | rem
     step: Mapped[int] = mapped_column(Integer)                 # 0, 1, 2...
     ref: Mapped[str] = mapped_column(String(24), default="")   # site:<id> | song:<id> | ""
     status: Mapped[str] = mapped_column(String(8), default="sent")  # sent | failed | skipped
+    # skipped: nega o'tkazib yuborildi (late | gap | night | bought | made | blocked | pack); failed: blocked | error. Eski yozuvlarda bo'sh
+    reason: Mapped[str] = mapped_column(String(12), default="")
+    arm: Mapped[str] = mapped_column(String(2), default="")    # chegirma A/B: a | b (o'chiq bo'lsa bo'sh)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=utcnow, index=True)
 
 
@@ -394,6 +401,9 @@ _NEW_COLUMNS = [
     ("events", "num", "INTEGER"),
     ("events", "meta", "JSON"),
     # to'lov nima uchun: eski yozuvlar mavjud ustunlardan tiklanadi (aniqlab bo'lmaganlari — balans)
+    # progrev va chegirma xabarlari: o'tkazib yuborish yoki yetmaslik sababi va chegirma A/B guruhi (statistika TZ, 5-band)
+    ("nudge_log", "reason", "VARCHAR(12) DEFAULT '' NOT NULL"),
+    ("nudge_log", "arm", "VARCHAR(2) DEFAULT '' NOT NULL"),
     ("payments", "purpose", "VARCHAR(8) DEFAULT '' NOT NULL",
      "UPDATE payments SET purpose = CASE WHEN pack > 0 THEN 'pack' WHEN song_id IS NOT NULL THEN 'song' "
      "WHEN site_id IS NOT NULL THEN 'site' WHEN job_id IS NOT NULL THEN 'video' ELSE 'balance' END"),
@@ -408,6 +418,8 @@ _WIDER_COLUMNS = [
 _NEW_INDEXES = [
     ("ix_events_ref", "events", "ref"),
     ("ix_events_kind_created", "events", "kind, created_at"),
+    ("ix_events_user_kind", "events", "user_id, kind, created_at"),
+    ("ix_nudge_log_user_created", "nudge_log", "user_id, created_at"),
 ]
 
 

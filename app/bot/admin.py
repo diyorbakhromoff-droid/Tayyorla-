@@ -12,7 +12,7 @@ from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import State, StatesGroup
 from aiogram.types import CallbackQuery, InlineKeyboardButton, InlineKeyboardMarkup, Message, WebAppInfo
 from aiogram.utils.keyboard import InlineKeyboardBuilder
-from sqlalchemy import func, select, update
+from sqlalchemy import func, select
 
 from ..admin import make_token
 from ..config import MUSIC_DIR, settings
@@ -144,9 +144,8 @@ async def run_broadcast(bot: Bot, report_chat: int, report_msg: int, from_chat: 
             except Exception:
                 pass
     if blocked:
-        async with Session() as s:
-            await s.execute(update(User).where(User.tg_id.in_(blocked)).values(blocked=True))
-            await s.commit()
+        from .. import track
+        await track.mark_blocked(blocked, "broadcast")  # bayroq va blok vaqti (bot_block hodisasi)
     await bot.edit_message_text(f"✅ Tarqatma tugadi: {sent} ta yetdi, {failed} ta yetmadi ({len(blocked)} kishi botni bloklagan).",
                                 chat_id=report_chat, message_id=report_msg)
 

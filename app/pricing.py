@@ -14,11 +14,11 @@ import uuid
 from datetime import datetime, timedelta, timezone
 
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup, WebAppInfo
-from sqlalchemy import select, update
+from sqlalchemy import String, cast, literal, select, update
 
-from . import billing, store
+from . import billing, control, store, track
 from .config import settings
-from .db import BalanceTx, Event, Session, Song, User, utcnow
+from .db import BalanceTx, Event, NudgeLog, Session, Song, User, utcnow
 
 log = logging.getLogger(__name__)
 
@@ -155,12 +155,61 @@ async def use_credit(s, uid: int, song: Song) -> bool:
 
 # ---------------------------------------------------------------- chegirma: taklif qilish
 
-def _keyboard(song: Song, price: int) -> InlineKeyboardMarkup:
+def _keyboard(song: Song, price: int, m: str = "", uid: int | None = None) -> InlineKeyboardMarkup:
+    """m — xabar kaliti (offer.0, bf.0, rem.1): berilsa tugma havolasiga bosishni sanaydigan belgi qo'shiladi (app/track.py).
+    Mijoz ko'radigan tugma o'zgarmaydi."""
     from .videobot import app_url, money
+    mark = (lambda u: track.click_url(u, m, uid)) if m and uid else (lambda u: u)
     return InlineKeyboardMarkup(inline_keyboard=[
-        [InlineKeyboardButton(text=f"🎧 Qo‘shiqni olish — {money(price)}", web_app=WebAppInfo(url=app_url(song=song.id)))],
-        [InlineKeyboardButton(text="🎟 Qo‘shiq paketlari", web_app=WebAppInfo(url=app_url(song=song.id, packs=1)))],
+        [InlineKeyboardButton(text=f"🎧 Qo‘shiqni olish — {money(price)}", web_app=WebAppInfo(url=mark(app_url(song=song.id))))],
+        [InlineKeyboardButton(text="🎟 Qo‘shiq paketlari", web_app=WebAppInfo(url=mark(app_url(song=song.id, packs=1))))],
     ])
+
+
+async def msg_log(uid: int, seq: str, step: int, song_id: int, status: str, reason: str = "", arm: str = "",
+                  at: datetime | None = None) -> None:
+    """Chegirma xabari jurnalga (nudge_log, seq = offer | bf | rem): progrev xabarlari bilan bir xil statistika uchun."""
+    try:
+        async with Session() as s:
+            s.add(NudgeLog(user_id=uid, seq=seq, step=step, ref=f"song:{song_id}", status=status, reason=reason, arm=arm,
+                           created_at=at or utcnow()))
+            await s.commit()
+    except Exception:
+        log.exception("Chegirma xabarini jurnalga yozib bo'lmadi")
+
+
+async def _send(bot, uid: int, text: str, markup) -> str:
+    """sent | blocked | error. Bloklagan bo'lsa — bayroq va blok vaqti (bot_block hodisasi)."""
+    from aiogram.exceptions import TelegramForbiddenError
+    try:
+        await bot.send_message(uid, text, reply_markup=markup)
+        return "sent"
+    except TelegramForbiddenError:
+        await track.mark_blocked(uid, "promo")
+        return "blocked"
+    except Exception:
+        return "error"
+
+
+async def _offer_skips(s, now: datetime, promo: dict) -> None:
+    """Taklif vaqti kelgan, lekin egasi botni bloklagan yoki paketi bor qo'shiqlar: har biri jurnalga bir marta
+    «o'tkazib yuborildi» bo'lib yoziladi. Taklif navbatidan ular SQL ning o'zida chiqariladi (avval Python da tashlab
+    ketilardi va 200 talik navbatni egallab turishi mumkin edi); blokdan chiqsa yoki paket tugasa — taklif odatdagidek boradi."""
+    logged = select(NudgeLog.id).where(NudgeLog.seq == "offer", NudgeLog.ref == literal("song:") + cast(Song.id, String))
+    rows = (await s.execute(select(Song.id, Song.owner_id, User.blocked).join(User, User.tg_id == Song.owner_id).where(
+        *_offer_conds(now, promo), (User.blocked.is_(True)) | (User.song_credits > 0), ~logged.exists()).limit(500))).all()
+    for sid, uid, blk in rows:
+        s.add(NudgeLog(user_id=uid, seq="offer", step=0, ref=f"song:{sid}", status="skipped", reason="blocked" if blk else "pack", created_at=now))
+
+
+def _offer_conds(now: datetime, promo: dict) -> list:
+    return [Song.status == "preview_ready", Song.paid.is_(False), Song.promo_until.is_(None), Song.preview_at.is_not(None),
+            Song.preview_at <= now - timedelta(hours=promo["delay"]), Song.preview_at >= now - timedelta(hours=FRESH_HOURS)]
+
+
+def offer_price(cfg: dict, uid: int) -> tuple[int, str]:
+    """Shu odamga taklif qilinadigan chegirma narxi va A/B guruhi (A/B o'chiq bo'lsa guruh bo'sh)."""
+    return cfg["promo"]["price"], ""
 
 
 async def offer_due(bot, now: datetime | None = None) -> int:
@@ -174,23 +223,27 @@ async def offer_due(bot, now: datetime | None = None) -> int:
     hours = await ncfg()
     if not in_hours(hours, now.replace(tzinfo=timezone.utc).astimezone(TZ)):
         return 0  # kechasi yubormaymiz — ertalab davom etadi
+    ctl = await control.config()
     async with Session() as s:
-        rows = (await s.execute(select(Song).where(
-            Song.status == "preview_ready", Song.paid.is_(False), Song.promo_until.is_(None),
-            Song.preview_at.is_not(None), Song.preview_at <= now - timedelta(hours=promo["delay"]),
-            Song.preview_at >= now - timedelta(hours=FRESH_HOURS)).order_by(Song.id).limit(200))).scalars().all()
+        q = select(Song, User).join(User, User.tg_id == Song.owner_id).where(
+            *_offer_conds(now, promo), User.blocked.is_(False), User.song_credits <= 0)
+        skip_ctl = control.member_sql(ctl, User.tg_id, User.created_at)
+        if skip_ctl is not None:
+            q = q.where(~skip_ctl)  # nazorat guruhi chegirma olmaydi
+        rows = (await s.execute(q.order_by(Song.id).limit(200))).all()
         picked = []
         seen_users = set()
-        for song in rows:
-            user = await s.get(User, song.owner_id)
-            if not user or user.blocked or user.song_credits > 0 or song.owner_id in seen_users:
+        for song, user in rows:
+            if song.owner_id in seen_users:
                 continue
             seen_users.add(song.owner_id)  # bir odamga bir aylanishda bitta xabar
-            song.promo_until, song.promo_price, song.promo_sent = _end_in_hours(now + timedelta(hours=promo["hours"]), hours, promo), promo["price"], 0
-            picked.append((song, user))
+            price, arm = offer_price(cfg, user.tg_id)
+            song.promo_until, song.promo_price, song.promo_sent = _end_in_hours(now + timedelta(hours=promo["hours"]), hours, promo), price, 0
+            picked.append((song, user, arm))
+        await _offer_skips(s, now, promo)
         await s.commit()
     sent = 0
-    for song, user in picked:
+    for song, user, arm in picked:
         if not bot:
             break
         until = song.promo_until.replace(tzinfo=timezone.utc).astimezone(TZ)
@@ -198,14 +251,15 @@ async def offer_due(bot, now: datetime | None = None) -> int:
         name = (user.first_name or "").strip()
         from .videobot import money
         text = (f"🎁 <b>{name + ', ' if name else ''}«{song.title or 'Qo‘shiq'}» qo‘shig‘ingiz sizni kutyapti!</b>\n\n"
-                f"Faqat siz uchun {promo['hours']} soatlik chegirma:\n<s>{money(settings.song_price)}</s> → <b>{money(promo['price'])}</b>\n\n"
+                f"Faqat siz uchun {promo['hours']} soatlik chegirma:\n<s>{money(settings.song_price)}</s> → <b>{money(song.promo_price)}</b>\n\n"
                 f"⏳ Chegirma <b>{day} {until:%H:%M}</b> gacha amal qiladi. Keyin narx odatdagidek {money(settings.song_price)} bo‘ladi.")
-        try:
-            await bot.send_message(song.owner_id, text, reply_markup=_keyboard(song, promo["price"]))
+        st = await _send(bot, song.owner_id, text, _keyboard(song, song.promo_price, "offer.0", song.owner_id))
+        if st == "sent":
             sent += 1
             await log_event(song.owner_id, EV_OFFER, song.id)
-        except Exception:
+        else:
             log.warning("Chegirma xabarini yuborib bo'lmadi: %s", song.owner_id)
+        await msg_log(song.owner_id, "offer", 0, song.id, "sent" if st == "sent" else "failed", "" if st == "sent" else st, arm, now)
         await asyncio.sleep(0.05)
     return sent
 
@@ -256,33 +310,51 @@ async def remind_due(bot, now: datetime | None = None) -> int:
     from .nudges import config as ncfg, in_hours
     if not in_hours(await ncfg(), now.replace(tzinfo=timezone.utc).astimezone(TZ)):
         return 0
+    hours = await ncfg()
     jobs = []
     async with Session() as s:
         rows = (await s.execute(select(Song).where(
             Song.promo_until > now, Song.paid.is_(False), Song.status == "preview_ready",
             Song.promo_sent < len(stages)).order_by(Song.promo_until).limit(4000))).scalars().all()
+        users = {u.tg_id: u for u in (await s.execute(select(User).where(
+            User.tg_id.in_({x.owner_id for x in rows} or {0})))).scalars().all()}
         for song in rows:
             left = int((song.promo_until - now).total_seconds() // 60)
             due = [i for i, m in enumerate(stages) if left <= m]
             if not due or due[-1] < song.promo_sent:
                 continue
             k = due[-1]  # o'tib ketgan bosqichlar qayta yuborilmaydi — eng so'nggisi
-            user = await s.get(User, song.owner_id)
+            user = users.get(song.owner_id)
+            arm = await _arm_of(s, song)
+            for j in range(song.promo_sent, k):  # o'tib ketgan bosqichlar: vaqti tunga to'g'ri kelgan bo'lsa — «tungi vaqt»
+                at = (song.promo_until - timedelta(minutes=stages[j])).replace(tzinfo=timezone.utc).astimezone(TZ)
+                s.add(NudgeLog(user_id=song.owner_id, seq="rem", step=j + 1, ref=f"song:{song.id}", status="skipped",
+                               reason="late" if in_hours(hours, at) else "night", arm=arm, created_at=now))
             song.promo_sent = k + 1
             if user and not user.blocked and user.song_credits <= 0:
-                jobs.append((song, user, k, left))
+                jobs.append((song, user, k, left, arm))
+            else:
+                s.add(NudgeLog(user_id=song.owner_id, seq="rem", step=k + 1, ref=f"song:{song.id}", status="skipped",
+                               reason="pack" if user and not user.blocked else "blocked", arm=arm, created_at=now))
         await s.commit()
     sent = 0
-    for song, user, k, left in jobs:
+    for song, user, k, left, arm in jobs:
         text = reminder_text(k, k == len(stages) - 1, (user.first_name or "").strip(), song, left)
-        try:
-            await bot.send_message(song.owner_id, text, reply_markup=_keyboard(song, song.promo_price))
+        st = await _send(bot, song.owner_id, text, _keyboard(song, song.promo_price, f"rem.{k + 1}", song.owner_id))
+        if st == "sent":
             sent += 1
             await log_event(song.owner_id, EV_REMIND, song.id, f":{k + 1}")
-        except Exception:
+        else:
             log.warning("Chegirma eslatmasini yuborib bo'lmadi: %s", song.owner_id)
+        await msg_log(song.owner_id, "rem", k + 1, song.id, "sent" if st == "sent" else "failed", "" if st == "sent" else st, arm, now)
         await asyncio.sleep(0.04)  # ~25 xabar/soniya — Telegram chegarasidan past
     return sent
+
+
+async def _arm_of(s, song: Song) -> str:
+    """Eslatma qaysi A/B guruhidagi taklifga tegishli: shu qo'shiq taklifi jurnalda qaysi guruh bilan yozilgan."""
+    return await s.scalar(select(NudgeLog.arm).where(NudgeLog.ref == f"song:{song.id}", NudgeLog.seq.in_(("offer", "bf")),
+                                                     NudgeLog.status == "sent").order_by(NudgeLog.id.desc()).limit(1)) or ""
 
 
 async def loop(bot, interval: int = 180) -> None:
@@ -376,18 +448,20 @@ async def backfill_state() -> dict:
     return {**BF_DEFAULT, **(await store.get(BF_KEY, {}) or {})}
 
 
-def _bf_query(now: datetime):
-    """Eski (48 soatdan oldingi) sotib olinmagan namunalar; chegirma olgan odamlar chiqarib tashlanadi."""
+def _bf_query(now: datetime, ctl: dict | None = None):
+    """Eski (48 soatdan oldingi) sotib olinmagan namunalar; chegirma olgan odamlar va nazorat guruhi chiqarib tashlanadi."""
     had = select(Song.owner_id).where(Song.promo_until.is_not(None))
-    return (select(Song, User).join(User, User.tg_id == Song.owner_id).where(
+    q = (select(Song, User).join(User, User.tg_id == Song.owner_id).where(
         Song.status == "preview_ready", Song.paid.is_(False), Song.promo_until.is_(None),
         (Song.preview_at.is_(None)) | (Song.preview_at < now - timedelta(hours=FRESH_HOURS)),
         Song.owner_id.not_in(had), User.blocked.is_(False), User.song_credits <= 0))
+    member = control.member_sql(ctl or {}, User.tg_id, User.created_at)
+    return q if member is None else q.where(~member)
 
 
 async def backfill_eligible(now: datetime | None = None) -> int:
     from sqlalchemy import func
-    q = _bf_query(now or utcnow()).with_only_columns(func.count(func.distinct(Song.owner_id))).order_by(None)
+    q = _bf_query(now or utcnow(), await control.config()).with_only_columns(func.count(func.distinct(Song.owner_id))).order_by(None)
     async with Session() as s:
         return await s.scalar(q) or 0
 
@@ -450,35 +524,31 @@ async def backfill_due(bot, now: datetime | None = None) -> int:
         return 0
     picked = []
     async with Session() as s:
-        rows = (await s.execute(_bf_query(now).order_by(Song.id.desc()).limit(st["batch"] * 4))).all()
+        rows = (await s.execute(_bf_query(now, await control.config()).order_by(Song.id.desc()).limit(st["batch"] * 4))).all()
         seen = set()
         for song, user in rows:
             if song.owner_id in seen:
                 continue  # bir odamga — eng oxirgi qo'shig'i bo'yicha bitta taklif
             seen.add(song.owner_id)
             song.promo_until = _end_in_hours(now + timedelta(hours=promo["hours"]), hours, promo)
-            song.promo_price, song.promo_sent = promo["price"], 0
-            picked.append((song, user))
+            price, arm = offer_price(cfg, user.tg_id)
+            song.promo_price, song.promo_sent = price, 0
+            picked.append((song, user, arm))
             if len(picked) >= st["batch"]:
                 break
         await s.commit()
-    from aiogram.exceptions import TelegramForbiddenError
-    sent, blocked = 0, []
-    for song, user in picked:
-        try:
-            await bot.send_message(song.owner_id, backfill_text((user.first_name or "").strip(), song, promo, song.promo_until, now),
-                                   reply_markup=_keyboard(song, promo["price"]))
+    sent = 0
+    for song, user, arm in picked:
+        res = await _send(bot, song.owner_id, backfill_text((user.first_name or "").strip(), song, {**promo, "price": song.promo_price},
+                                                            song.promo_until, now),
+                          _keyboard(song, song.promo_price, "bf.0", song.owner_id))
+        if res == "sent":
             sent += 1
             await log_event(song.owner_id, EV_BACKFILL, song.id)
-        except TelegramForbiddenError:
-            blocked.append(song.owner_id)
-        except Exception:
+        elif res == "error":
             log.warning("Eski namuna chegirmasini yuborib bo'lmadi: %s", song.owner_id)
+        await msg_log(song.owner_id, "bf", 0, song.id, "sent" if res == "sent" else "failed", "" if res == "sent" else res, arm, now)
         await asyncio.sleep(0.05)
-    if blocked:
-        async with Session() as s:
-            await s.execute(update(User).where(User.tg_id.in_(blocked)).values(blocked=True))
-            await s.commit()
     st = await backfill_state()
     st["sent"] = st.get("sent", 0) + sent
     if not picked:

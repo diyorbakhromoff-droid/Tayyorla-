@@ -1,0 +1,232 @@
+"""Progrev va chegirma xabarlari natijasi (statistika TZ, 5-band): o'tkazib yuborish sabablari, 3-xabar tuzatishi (bloklaganlar
+navbatni egallamaydi), tugma bosilishi (imzolangan belgi), blok vaqti (my_chat_member va yuborishdagi «Forbidden»),
+chegirma xabarlari jurnali, har bir xabar ko'rsatkichlari (tugma, ilovaga qaytdi 24 s, sotib oldi 48 s, blokladi 24 s), CSV.
+
+Ishga tushirish: python -m tests.test_msgstats
+"""
+
+import asyncio
+import os
+import re
+import tempfile
+from datetime import datetime, timedelta, timezone
+from types import SimpleNamespace
+
+os.environ["DATABASE_URL"] = os.environ.get("TEST_DATABASE_URL") or f"sqlite+aiosqlite:///{tempfile.mkdtemp()}/msgstats.db"
+os.environ["BOT_TOKEN"] = "123456:TEST"
+os.environ["ADMIN_IDS"] = "999"
+os.environ["BASE_URL"] = "https://example.uz"
+
+from aiogram.exceptions import TelegramForbiddenError  # noqa: E402
+from aiogram.methods import SendMessage  # noqa: E402
+from sqlalchemy import select  # noqa: E402
+
+from app import admin, msgstats, nudges, pricing, store, track, webapp  # noqa: E402
+from app.db import BalanceTx, Event, NudgeLog, Session, Song, User, init_db  # noqa: E402
+
+# 2026-10-10 12:00 Toshkent = 07:00 UTC (hammasi bugungi kundan oldin — «Butun davr» bugun bilan tugaydi)
+NOON = datetime(2026, 10, 10, 7, 0)
+H = timedelta(hours=1)
+
+
+class Bot:
+    def __init__(self):
+        self.sent, self.blocked = [], set()
+
+    async def send_message(self, chat_id, text, **kw):
+        if chat_id in self.blocked:
+            raise TelegramForbiddenError(method=SendMessage(chat_id=chat_id, text="x"), message="Forbidden: bot was blocked by the user")
+        self.sent.append((chat_id, text, kw.get("reply_markup")))
+
+
+async def rows(uid=None, seq=None):
+    async with Session() as s:
+        q = select(NudgeLog).order_by(NudgeLog.id)
+        if uid:
+            q = q.where(NudgeLog.user_id == uid)
+        if seq:
+            q = q.where(NudgeLog.seq == seq)
+        return [(x.seq, x.step, x.status, x.reason) for x in (await s.execute(q)).scalars().all()]
+
+
+async def events(uid, kind):
+    async with Session() as s:
+        return list((await s.execute(select(Event).where(Event.user_id == uid, Event.kind == kind).order_by(Event.id))).scalars().all())
+
+
+def song(uid, at, **kw):
+    return Song(owner_id=uid, status="preview_ready", title="Opajonim", recipient="Ozoda", lyrics="x", preview="/media/p.mp3",
+                created_at=at, preview_at=at, **kw)
+
+
+async def main() -> None:
+    await init_db()
+    await msgstats.start()
+    cfg = await nudges.config()
+    gap = timedelta(hours=cfg["gap_hours"])
+
+    # ---------- 1) o'tkazib yuborish sababi: tanaffus, tungi vaqt, «kech»
+    t = NOON
+    assert nudges.late_reason([t - 5 * H], t, t + 36 * H, gap, cfg) == "late"            # kunduz bo'sh vaqt bor edi
+    assert nudges.late_reason([t - 5 * H], t, t + 36 * H, gap, cfg, "gap") == "gap"      # oxirgi marta tanaffus sabab kutilgan
+    assert nudges.late_reason([t - H, t + 18 * H], t, t + 36 * H, gap, cfg) == "gap"     # 36 soat davomida tanaffus tugamadi
+    # tanaffus 21:00 da tugaydi (Toshkent), keyingi xabar 09:00 da: bo'sh qolgan payt faqat tunda
+    evening = datetime(2026, 10, 10, 15, 50)  # 20:50 Toshkent
+    assert nudges.late_reason([evening - 20 * H + timedelta(minutes=20)], evening, evening + 12 * H, gap, cfg) == "night"
+
+    # ---------- 2) sozlama tashxisi: tanaffus 36 soatdan tashqari — 3-xabar hech qachon yuborilmaydi
+    bad = {**cfg, "gap_hours": 90}
+    diag = nudges.diagnose(bad)
+    assert any(w["level"] == "bad" and w["seq"] == "song" and w["step"] == 2 for w in diag), diag
+    assert not [w for w in nudges.diagnose(cfg) if w["level"] == "bad"]
+    assert any(w["level"] == "info" and w["seq"] == "song" for w in nudges.diagnose(cfg)), "«new» va «song» bir-birini kutadi"
+
+    # ---------- 3) 3-xabar tuzatishi: bloklaganlar 300 talik navbatni egallamaydi, eng eski qadam birinchi
+    nudges.MAX_PER_PASS = 3
+    t0 = NOON + timedelta(days=5)
+    async with Session() as s:
+        s.add(User(tg_id=100, first_name="Faol", created_at=t0 - timedelta(days=30)))
+        s.add(song(100, t0 - 73 * H))  # 3-xabar vaqti (72 soat) keldi
+        s.add(NudgeLog(user_id=100, seq="song", step=0, ref="", status="sent", created_at=t0 - 71 * H))  # boshqa obyekt, eski
+        for i in range(6):  # 6 ta bloklagan odam, yangi qo'shiqlar (1-xabar vaqti keldi)
+            s.add(User(tg_id=110 + i, first_name="Blok", blocked=True, created_at=t0 - timedelta(days=30)))
+            s.add(song(110 + i, t0 - 3 * H))
+        await s.commit()
+    async with Session() as s:
+        sid100 = (await s.execute(select(Song.id).where(Song.owner_id == 100))).scalar_one()
+    bot = Bot()
+    res = await nudges.run_once(bot, t0)
+    assert res["sent"] == 1 and bot.sent[0][0] == 100, (res, bot.sent)  # avval bloklaganlar navbatni to'ldirib, bu odam qolib ketardi
+    assert (await rows(100, "song"))[-3:] == [("song", 0, "skipped", "late"), ("song", 1, "skipped", "late"), ("song", 2, "sent", "")]
+    url = bot.sent[0][2].inline_keyboard[0][0].web_app.url
+    assert url.startswith(f"https://example.uz/app?song={sid100}&mt=song.2_100_"), url
+    assert await rows(110) == [], "bloklagan odamning qadami muddat tugaguncha kutadi (blokdan chiqsa — boradi)"
+    await nudges.run_once(bot, t0 + 46 * H)  # 1-xabar muddati (2 + 36 soat) tugadi; 10:00 Toshkent
+    assert ("song", 0, "skipped", "blocked") in await rows(110), await rows(110)
+    nudges.MAX_PER_PASS = 300
+
+    # ---------- 4) sotib olgan: keyingi qadamlar «allaqachon sotib olgan» sababi bilan
+    t1 = NOON + timedelta(days=12)
+    async with Session() as s:
+        s.add(User(tg_id=200, first_name="Xaridor", created_at=t1 - timedelta(days=30)))
+        s.add(song(200, t1 - 3 * H, paid=True))
+        await s.commit()
+    await nudges.run_once(bot, t1)
+    assert await rows(200) == [("song", 0, "skipped", "bought")], await rows(200)
+
+    # ---------- 5) tugma bosildi: imzolangan belgi; noto'g'ri belgi yozilmaydi; sahifa o'zgarmaydi
+    token = url.split("mt=")[1]
+    assert track.parse_click(token) == ("song.2", 100)
+    assert track.parse_click(token[:-1] + ("0" if token[-1] != "0" else "1")) is None
+    assert track.parse_click("song.2_101_" + token.rsplit("_", 1)[1]) is None, "boshqa odam nomidan bo'lmaydi"
+    page = await webapp.app_page(mt=token)
+    plain = await webapp.app_page()
+    assert page.body == plain.body
+    await webapp.app_page(mt="junk")
+    clicks = await events(100, track.CLICK)
+    assert len(clicks) == 1 and clicks[0].ref == "n:song.2"
+
+    # ---------- 6) blok vaqti: Telegram xabari (my_chat_member) va yuborishda «Forbidden»
+    from app.bot import handlers
+
+    def upd(uid, old, new):
+        return SimpleNamespace(chat=SimpleNamespace(type="private"), from_user=SimpleNamespace(id=uid),
+                               old_chat_member=SimpleNamespace(status=old), new_chat_member=SimpleNamespace(status=new))
+
+    await handlers.bot_member(upd(100, "member", "kicked"))
+    await handlers.bot_member(upd(100, "member", "kicked"))  # takror — bitta hodisa
+    assert len(await events(100, track.BLOCK)) == 1
+    async with Session() as s:
+        assert (await s.get(User, 100)).blocked
+    await handlers.bot_member(upd(100, "kicked", "member"))
+    async with Session() as s:
+        assert not (await s.get(User, 100)).blocked
+    assert len(await events(100, track.UNBLOCK)) == 1
+    async with Session() as s:  # blok hodisasini xabardan 2 soat keyinga suramiz (24 soat ichida blokladi)
+        ev = (await s.execute(select(Event).where(Event.user_id == 100, Event.kind == track.BLOCK))).scalar_one()
+        ev.created_at = t0 + 2 * H
+        s.add(Event(user_id=100, kind="app", created_at=t0 + 3 * H))                 # 24 soat ichida ilovaga qaytdi
+        s.add(Event(user_id=100, kind="pay_success", num=69000, created_at=t0 + 30 * H))  # 48 soat ichida to'ladi
+        clk = (await s.execute(select(Event).where(Event.user_id == 100, Event.kind == track.CLICK))).scalar_one()
+        clk.created_at = t0 + H
+        await s.commit()
+
+    # ---------- 7) chegirma xabarlari jurnalga: taklif, bloklagan odam (bir marta), eslatmalar
+    t2 = NOON + timedelta(days=20)
+    async with Session() as s:
+        s.add(User(tg_id=300, first_name="Ali", created_at=t2 - timedelta(days=30)))
+        s.add(song(300, t2 - 2 * H))
+        s.add(User(tg_id=301, first_name="Blok", blocked=True, created_at=t2 - timedelta(days=30)))
+        s.add(song(301, t2 - 2 * H))
+        s.add(User(tg_id=302, first_name="Paket", song_credits=2, created_at=t2 - timedelta(days=30)))
+        s.add(song(302, t2 - 2 * H))
+        await s.commit()
+    pbot = Bot()
+    assert await pricing.offer_due(pbot, t2) == 1 and pbot.sent[0][0] == 300
+    kb = pbot.sent[0][2].inline_keyboard
+    assert "mt=offer.0_300_" in kb[0][0].web_app.url and "packs=1" in kb[1][0].web_app.url and "mt=offer.0_300_" in kb[1][0].web_app.url
+    async with Session() as s:
+        sid300 = (await s.execute(select(Song.id).where(Song.owner_id == 300))).scalar_one()
+    assert re.sub(r"&mt=[^&]*$", "", kb[0][0].web_app.url) == f"https://example.uz/app?song={sid300}", "mijoz ochadigan sahifa o'sha"
+    assert await rows(300, "offer") == [("offer", 0, "sent", "")]
+    assert await rows(301, "offer") == [("offer", 0, "skipped", "blocked")] and await rows(302, "offer") == [("offer", 0, "skipped", "pack")]
+    await pricing.offer_due(pbot, t2 + timedelta(minutes=5))
+    assert len(await rows(301, "offer")) == 1, "o'tkazib yuborish bir marta yoziladi"
+    async with Session() as s:
+        promo_until = (await s.execute(select(Song.promo_until).where(Song.owner_id == 300))).scalar_one()
+    # 6 soat qolganda — 1-eslatma o'tib ketgan holda 2-eslatma (2 soat qolganda) yuboriladi: 1-si «o'tkazib yuborildi»
+    loc = (promo_until - 2 * H + timedelta(minutes=1))
+    assert await pricing.remind_due(pbot, loc) == 1
+    assert await rows(300, "rem") == [("rem", 1, "skipped", "late"), ("rem", 2, "sent", "")], await rows(300, "rem")
+    assert "mt=rem.2_300_" in pbot.sent[-1][2].inline_keyboard[0][0].web_app.url
+
+    # ---------- 8) panel: har bir xabar ko'rsatkichlari (odamlar bo'yicha), sinov akkauntlari chiqariladi
+    d = await admin.msgstats_get(frm=None, to=None, all_time=1, src="", uid=999)
+    by = {x["key"]: x for x in d["rows"]}
+    s3 = by["song.2"]
+    assert (s3["sent"], s3["clicked"], s3["returned"], s3["bought"], s3["blocked"]) == (1, 1, 1, 1, 1), s3
+    assert s3["pct"]["clicked"] == 100.0
+    s1 = by["song.0"]
+    assert {x["key"]: x["n"] for x in s1["skips"]} == {"late": 1, "blocked": 6, "bought": 1}, s1["skips"]
+    assert by["offer.0"]["sent"] == 1 and {x["key"] for x in by["offer.0"]["skips"]} == {"blocked", "pack"}, by["offer.0"]
+    assert by["rem.2"]["sent"] == 1 and by["rem.1"]["skips"][0]["key"] == "late"
+    assert d["since"] and any(r["key"] == "gap" for r in d["skip_reasons"])
+    # eski yozuv (sababsiz) — hozir bloklab turganlar alohida
+    async with Session() as s:
+        s.add(NudgeLog(user_id=110, seq="song", step=2, ref="song:1", status="skipped", reason="", created_at=t0))
+        s.add(NudgeLog(user_id=200, seq="song", step=2, ref="song:2", status="skipped", reason="", created_at=t0))
+        await s.commit()
+    d = await admin.msgstats_get(frm=None, to=None, all_time=1, src="", uid=999)
+    s3 = {x["key"]: x for x in d["rows"]}["song.2"]
+    assert {x["key"]: x["n"] for x in s3["skips"]} == {"old_blocked": 1, "old": 1}, s3["skips"]
+    # sinov akkaunti: 100 chiqarilsa — 3-xabar yuborilmagandek
+    await track.set_test_ids([100])
+    d = await admin.msgstats_get(frm=None, to=None, all_time=1, src="", uid=999)
+    assert {x["key"]: x for x in d["rows"]}["song.2"]["sent"] == 0
+    await track.set_test_ids([])
+    # davr: 3-xabar yuborilgan kun
+    day = (t0 + 5 * H).replace(tzinfo=timezone.utc).astimezone(nudges.TZ).date().isoformat()
+    d = await admin.msgstats_get(frm=day, to=day, all_time=0, src="", uid=999)
+    assert {x["key"]: x for x in d["rows"]}["song.2"]["sent"] == 1 and {x["key"]: x for x in d["rows"]}["offer.0"]["sent"] == 0
+    # balansdan xarid ham «sotib oldi» (48 soat ichida)
+    async with Session() as s:
+        s.add(BalanceTx(user_id=300, amount=-39000, kind="song", ref="song:x", created_at=t2 + 3 * H))
+        await s.commit()
+    d = await admin.msgstats_get(frm=None, to=None, all_time=1, src="", uid=999)
+    assert {x["key"]: x for x in d["rows"]}["offer.0"]["bought"] == 1
+
+    # ---------- 9) CSV
+    r = await admin.export("msgstats", frm=None, to=None, all_time=1, uid=999)
+    text = r.body.decode("utf-8-sig")
+    assert "xabar;kalit;yuborildi (yetdi)" in text and "song.2" in text
+    r = await admin.export("msgskips", frm=None, to=None, all_time=1, uid=999)
+    text = r.body.decode("utf-8-sig")
+    assert "Botni bloklagan" in text and "o'tkazib yuborildi" in text
+    ng = await admin.nudges_get(uid=999)
+    assert "diagnose" in ng
+    store.forget()
+    print("test_msgstats: OK")
+
+
+if __name__ == "__main__":
+    asyncio.run(main())

@@ -9,11 +9,13 @@ Har bir hodisada: foydalanuvchi, vaqt (bazada UTC; panelda Toshkent vaqti), manb
 Eski hodisa nomlari o'zgarmagan: TZ dagi bot_start = "start", app_open = "app".
 """
 
+import hashlib
+import hmac
 import logging
 import re
 from datetime import date, datetime
 
-from sqlalchemy import func, insert, select
+from sqlalchemy import func, insert, select, update
 
 from . import store
 from .billing import day_start_utc
@@ -140,3 +142,87 @@ async def app_open(uid: int, src: str = "") -> None:
                 await s.commit()
     except Exception:
         log.exception("Ilovaga kirishni yozib bo'lmadi")
+
+
+# ---------------------------------------------------------------- botni bloklash (statistika TZ, 5-band)
+# users.blocked — vaqtsiz bayroq. Blok aniqlangan payt alohida hodisa sifatida yoziladi: «xabardan keyin 24 soat ichida
+# blokladi», «Start bosgandan blokgacha» va «kunlar bo'yicha bloklar» shu vaqt bilan hisoblanadi.
+#   bot_block   — botni bloklagani aniqlandi. meta.via: update — Telegram o'zi xabar berdi (my_chat_member, aniq vaqt);
+#                 qolganlari — xabar yuborishda «Forbidden» qaytdi (nudge, promo, survey, song, broadcast) — aniqlangan vaqt
+#   bot_unblock — blokdan chiqardi (Telegram xabari yoki yana botga yozdi / ilovani ochdi — billing.touch_user)
+BLOCK, UNBLOCK = "bot_block", "bot_unblock"
+
+
+async def mark_blocked(ids, via: str) -> int:
+    """Botni bloklaganlar: users.blocked = True va har biriga bot_block hodisasi — faqat hali bloklanmagan deb turganlarga
+    (takroriy aniqlash hodisani ko'paytirmaydi). Xato chaqiruvchiga chiqmaydi. Nechta odam yangi bloklangani qaytadi."""
+    ids = sorted({int(i) for i in ([ids] if isinstance(ids, int) else ids or []) if i})
+    if not ids:
+        return 0
+    try:
+        async with Session() as s:
+            fresh = (await s.execute(select(User.tg_id, User.ref).where(User.tg_id.in_(ids), User.blocked.is_(False)))).all()
+            await s.execute(update(User).where(User.tg_id.in_(ids)).values(blocked=True))
+            now = utcnow()
+            for uid, ref in fresh:
+                s.add(Event(user_id=uid, kind=BLOCK, src=(ref or "")[:32], meta={"via": via[:12]}, created_at=now))
+            await s.commit()
+        return len(fresh)
+    except Exception:
+        log.exception("Blokni yozib bo'lmadi")
+        return 0
+
+
+async def mark_unblocked(uid: int, via: str) -> None:
+    """Telegram «blokdan chiqardi» deb xabar berdi: bayroq olinadi va bot_unblock yoziladi (bloklangan deb turgan bo'lsa)."""
+    try:
+        async with Session() as s:
+            u = await s.get(User, uid)
+            if u and u.blocked:
+                u.blocked = False
+                s.add(Event(user_id=uid, kind=UNBLOCK, src=(u.ref or "")[:32], meta={"via": via[:12]}))
+                await s.commit()
+    except Exception:
+        log.exception("Blokdan chiqishni yozib bo'lmadi")
+
+
+# ---------------------------------------------------------------- xabardagi tugma bosildi (msg_click)
+# Progrev va chegirma tugmalari Mini App'ni ochadi (WebApp tugmasi) — Telegram bosilganini botga aytmaydi. Shuning uchun
+# tugma havolasiga imzolangan belgi qo'shiladi: /app?song=12&mt=song.2_123456_<imzo>. Mini App sahifasi so'ralganda server
+# belgini tekshiradi va «msg_click» hodisasini yozadi (ref = n:<xabar>: n:song.2, n:offer.0, n:rem.1).
+# Mijoz uchun hech narsa o'zgarmaydi: tugma yozuvi va ochiladigan sahifa o'sha-o'sha, ilova noma'lum parametrga qaramaydi.
+CLICK = "msg_click"
+_MSG_RE = re.compile(r"^[a-z]{2,6}\.\d{1,2}$")
+
+
+def _click_sig(m: str, uid: int) -> str:
+    return hmac.new(settings.bot_token.encode(), f"mc:{m}:{uid}".encode(), hashlib.sha256).hexdigest()[:12]
+
+
+def click_token(m: str, uid: int) -> str:
+    """m — xabar kaliti «ketma-ketlik.qadam»: song.2, new.0, offer.0, bf.0, rem.1."""
+    return f"{m}_{uid}_{_click_sig(m, uid)}"
+
+
+def click_url(url: str, m: str, uid: int) -> str:
+    return f"{url}{'&' if '?' in url else '?'}mt={click_token(m, uid)}"
+
+
+def parse_click(token: str) -> tuple[str, int] | None:
+    try:
+        m, uid, sig = (token or "")[:60].rsplit("_", 2)
+        uid_i = int(uid)
+    except ValueError:
+        return None
+    if not _MSG_RE.match(m) or uid_i <= 0 or not hmac.compare_digest(_click_sig(m, uid_i), sig):
+        return None
+    return m, uid_i
+
+
+async def msg_click(token: str) -> bool:
+    """Mini App xabardagi tugma orqali ochildi: imzo to'g'ri bo'lsa hodisa yoziladi (bitta INSERT, xato chiqmaydi)."""
+    got = parse_click(token)
+    if not got:
+        return False
+    m, uid = got
+    return await event(CLICK, uid, f"n:{m}")

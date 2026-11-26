@@ -118,9 +118,9 @@ async def run_once(bot, now: datetime | None = None) -> dict:
         if status != "sent":
             async with Session() as s:
                 await s.execute(update(Event).where(Event.kind == "pay_ask", Event.user_id == uid).values(num=0))
-                if status == "blocked":
-                    await s.execute(update(User).where(User.tg_id == uid).values(blocked=True))
                 await s.commit()
+            if status == "blocked":
+                await track.mark_blocked(uid, "survey")  # bayroq va blok vaqti (bot_block hodisasi)
         res[status] += 1
         await asyncio.sleep(1 / 20)
     STATE.update(last_run=utcnow().isoformat(), last_sent=res["sent"])

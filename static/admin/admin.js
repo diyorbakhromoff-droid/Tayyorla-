@@ -1084,16 +1084,39 @@
   // ---------------------------------------------------------------- 6b. Progrev (eslatma xabarlari ketma-ketligi)
   async function nudgesPage(alive) {
     loading("Progrev");
-    const d = await api("/api/admin/nudges");
+    const msq = () => { const [f, t] = range(); return `${S.period.preset === "all" ? "all_time=1" : `from=${f}&to=${t}`}&src=${encodeURIComponent(S.ngsrc || "")}`; };
+    const [d, m0] = await Promise.all([api("/api/admin/nudges"), api(`/api/admin/msgstats?${msq()}`)]);
     if (!alive()) return;
-    let cfg = d.config;
+    let cfg = d.config, m = m0;
     const st = d.stats;
+    const mrow = (key) => m.rows.find((x) => x.key === key);
+    const share = (n, p) => `${fmt(n)} <span class="muted">(${p}%)</span>`;
+    const reasons = (items, max = 4) => items.slice(0, max).map((r) => `${esc(r.label)}: ${fmt(r.n)}`).join("<br>");
+    // har bir xabar: yetdi → tugma → ilovaga qaytdi → sotib oldi, blok va o'tkazib yuborish sabablari (tanlangan davr)
+    const msgTable = () => {
+      const rows = m.rows.filter((x) => x.group === "progrev" || x.sent || x.failed || x.skipped).map((x) => `<tr>
+        <td><b>${esc(x.label)}</b><span class="sub">${esc(x.key)}${x.about ? ` · ${esc(x.about)}` : ""}</span></td>
+        <td class="r num"><b>${fmt(x.sent)}</b></td>
+        <td class="r num">${x.failed ? fmt(x.failed) : "—"}${x.fails.length ? `<span class="sub">${reasons(x.fails)}</span>` : ""}</td>
+        <td class="r num">${share(x.clicked, x.pct.clicked)}</td><td class="r num">${share(x.returned, x.pct.returned)}</td>
+        <td class="r num"><b>${fmt(x.bought)}</b> <span class="muted">(${x.pct.bought}%)</span></td>
+        <td class="r num">${x.blocked ? `<span class="c-bad">${fmt(x.blocked)}</span>` : "0"} <span class="muted">(${x.pct.blocked}%)</span></td>
+        <td class="r num">${x.skipped ? `<b>${fmt(x.skipped)}</b>` : "—"}${x.skips.length ? `<span class="sub">${reasons(x.skips)}</span>` : ""}</td></tr>`);
+      return table(["Xabar", ">Yetdi", ">Yetmadi", ">Tugmani bosdi", `>Ilovaga qaytdi (${m.windows.return_h} s)`, `>Sotib oldi (${m.windows.buy_h} s)`,
+        `>Blokladi (${m.windows.block_h} s)`, ">O'tkazib yuborildi"], rows, "Bu davrda xabar yo'q", "dense");
+    };
     const WON = { site: "sotib oldi", song: "sotib oldi", new: "biror narsa yasadi" };
     const ANCHOR = { site: "sayt yaratilgandan", song: "namuna yoki she'r tayyor bo'lgandan", new: "botga qo'shilgandan" };
     const when = (h) => (h < 24 ? `${h} soat` : h % 24 === 0 ? `${h / 24} kun` : `${Math.floor(h / 24)} kun ${h % 24} soat`);
     const stepStat = (k, i) => {
-      const x = (st.steps[k] || {})[i];
-      return x ? `<span class="muted">Yuborildi ${fmt(x.sent)}${x.failed ? ` · yetmadi ${fmt(x.failed)}` : ""}${x.skipped ? ` · o'tkazib yuborildi ${fmt(x.skipped)}` : ""}</span>` : `<span class="muted">Hali yuborilmagan</span>`;
+      const x = (st.steps[k] || {})[i], r = mrow(`${k}.${i}`);
+      const all = x ? `Butun davr: yuborildi ${fmt(x.sent)}${x.failed ? ` · yetmadi ${fmt(x.failed)}` : ""}${x.skipped ? ` · o'tkazib yuborildi ${fmt(x.skipped)}` : ""}` : "Hali yuborilmagan";
+      const per = r && (r.sent || r.failed || r.skipped) ? `<div class="step-m">Tanlangan davrda: yetdi <b>${fmt(r.sent)}</b>${r.failed ? ` · yetmadi ${fmt(r.failed)}` : ""}
+        · tugmani bosdi <b>${fmt(r.clicked)}</b> (${r.pct.clicked}%) · ilovaga qaytdi ${fmt(r.returned)} (${r.pct.returned}%)
+        · sotib oldi <b>${fmt(r.bought)}</b> (${r.pct.bought}%) · blokladi ${fmt(r.blocked)} (${r.pct.blocked}%)
+        ${r.skipped ? `<br>O'tkazib yuborildi <b>${fmt(r.skipped)}</b>: ${r.skips.map((y) => `${esc(y.label)} — ${fmt(y.n)}`).join("; ")}` : ""}</div>` : "";
+      const warn = (d.diagnose || []).filter((w) => w.seq === k && w.step === i && w.level !== "info").map((w) => `<p class="note" style="margin-top:6px">${esc(w.text)}</p>`).join("");
+      return `<span class="muted">${all}</span>${per}${warn}`;
     };
     const stepHtml = (k, s, i) => `
       <fieldset class="step" data-step="${i}">
@@ -1147,7 +1170,23 @@
             </div>
             <p class="muted" style="font-size:12.5px">Matnda ishlatish mumkin: ${d.placeholders.map((p) => `<code>${esc(p.key)}</code> — ${esc(p.name)}`).join(", ")}. Sotib olgan yoki botni bloklagan odamga xabar yuborilmaydi. ${d.grace_hours} soatdan ko'p kechikkan xabar o'tkazib yuboriladi.</p>
           </div></section>
+        <section class="blk" id="ng-stats"><div class="bh"><h2>Xabarlar natijasi</h2>
+            <div class="row"><button type="button" class="btn sm" id="ng-csv">CSV</button><button type="button" class="btn sm" id="ng-csv2">Sabablar CSV</button></div></div>
+          ${periodBar([["all", "Butun davr"]])}
+          <div class="row" style="margin:10px 0"><select class="in" id="ng-src" style="width:auto;max-width:280px" aria-label="Manba">${m.sources.map((x) => `<option value="${esc(x.key)}"${x.key === (S.ngsrc || "") ? " selected" : ""}>${esc(x.label)}</option>`).join("")}</select></div>
+          ${(d.diagnose || []).length ? `<div style="margin-bottom:10px">${d.diagnose.map((w) => `<p class="note" style="margin-top:6px">${w.level === "info" ? "ℹ️" : "⚠️"} ${esc(w.text)}</p>`).join("")}</div>` : ""}
+          ${msgTable()}
+          <p class="muted" style="font-size:12.5px;margin-top:8px">Sanash odam bo'yicha. «Yetdi» — xabar yetkazilgan odamlar; foizlar shulardan. «Tugmani bosdi» — xabardagi tugma orqali ilova ochilgan.
+            «Ilovaga qaytdi» — xabardan keyin ${m.windows.return_h} soat ichida ilovada bo'lgan; «Sotib oldi» — ${m.windows.buy_h} soat ichida pul to'lagan yoki balansdan xarid qilgan;
+            «Blokladi» — ${m.windows.block_h} soat ichida botni bloklagan. Admin va sinov akkauntlari (${fmt(m.excluded)} ta) sanalmaydi.
+            ${m.since ? `Tugma bosilishi, blok vaqti va o'tkazib yuborish sabablari <b>${dt(m.since)}</b> dan beri yoziladi — undan oldingi xabarlarda bu ustunlar to'liq emas, sababi esa «eski yozuv» deb ko'rsatiladi.` : "Tugma, blok va sabablar hali yozila boshlamagan (server qayta ishga tushgach boshlanadi)."}</p>
+          <details style="margin-top:8px"><summary><b>O'tkazib yuborish sabablari nimani anglatadi</b></summary>
+            ${table(["Sabab", "Izoh"], m.skip_reasons.map((r) => `<tr><td><b>${esc(r.label)}</b></td><td>${esc(r.about)}</td></tr>`))}</details></section>
         ${d.seqs.map(seqHtml).join("")}`;
+      bindPeriod($("#ng-stats"), reload);
+      $("#ng-src").onchange = (e) => { S.ngsrc = e.target.value; reload(); };
+      $("#ng-csv").onclick = () => download(`/api/admin/export/msgstats.csv?${msq()}`);
+      $("#ng-csv2").onclick = () => download(`/api/admin/export/msgskips.csv?${msq()}`);
       $("#ng-save").onclick = async (e) => {
         const btn = e.currentTarget; btn.disabled = true;
         try { const r = await api("/api/admin/nudges", { config: read() }); cfg = r.config; toast("Saqlandi"); draw(); }
@@ -1180,6 +1219,12 @@
           };
         });
       });
+    };
+    // davr yoki manba o'zgardi: faqat statistika qayta olinadi, saqlanmagan sozlamalar yo'qolmaydi
+    const reload = async () => {
+      cfg = read();
+      try { m = await api(`/api/admin/msgstats?${msq()}`); } catch (e) { toast(e.message, true); return; }
+      if (alive()) { const y = window.scrollY; draw(); window.scrollTo(0, y); }
     };
     draw();
   }

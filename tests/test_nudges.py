@@ -8,6 +8,7 @@ import hashlib
 import hmac
 import json
 import os
+import re
 import tempfile
 import time
 from datetime import datetime, timedelta, timezone
@@ -45,6 +46,11 @@ class Bot:
         if chat_id in self.blocked:
             raise TelegramForbiddenError(method=SendMessage(chat_id=chat_id, text="x"), message="Forbidden: bot was blocked by the user")
         self.sent.append((chat_id, text, kw.get("reply_markup")))
+
+
+def plain(url: str) -> str:
+    """Tugma havolasi bosishni sanaydigan belgisiz (mt=…) — mijoz ko'radigan sahifa shu."""
+    return re.sub(r"[?&]mt=[^&]*$", "", url)
 
 
 async def logs(uid=None):
@@ -86,7 +92,7 @@ async def main() -> None:
     assert res["sent"] == 1 and bot.sent[0][0] == 1, (res, bot.sent)
     assert bot.sent[0][1].startswith("Aziz, Tayyorla’ga xush kelibsiz") and "2 ta video" in bot.sent[0][1]
     kb = bot.sent[0][2].inline_keyboard[0][0]
-    assert kb.text == "Bepul video yasash" and kb.web_app.url == "https://example.uz/app?tab=videos"
+    assert kb.text == "Bepul video yasash" and plain(kb.web_app.url) == "https://example.uz/app?tab=videos"
     assert await logs(1) == [(1, "new", 0, "sent")]
     assert await logs(3) == [(3, "new", 0, "skipped")] and await logs(2) == [] and await logs(4) == []
     # takror: shu qadam ikkinchi marta ketmaydi
@@ -98,7 +104,7 @@ async def main() -> None:
     # 72 soat: qo'shiq (kuniga 2 ta bepul namuna)
     res = await nudges.run_once(bot, NOON + timedelta(hours=71))
     assert res["sent"] == 2 and all("2 ta 20 soniyalik namuna" in x[1] for x in bot.sent[3:])
-    assert bot.sent[3][2].inline_keyboard[0][0].web_app.url == "https://example.uz/app?song=new"
+    assert plain(bot.sent[3][2].inline_keyboard[0][0].web_app.url) == "https://example.uz/app?song=new"
     assert (await nudges.run_once(bot, NOON + timedelta(hours=100)))["sent"] == 0
     bot.sent.clear()
 
@@ -131,7 +137,7 @@ async def main() -> None:
     assert res == {"sent": 1, "failed": 0, "blocked": 1}, res
     uid, text, markup = bot.sent[0]
     assert uid == 20 and "«Shohizinda»" in text and "99 000 so‘m" in text and text.startswith("Dilnoza, saytingiz tayyor")
-    assert markup.inline_keyboard[0][0].web_app.url == "https://example.uz/app?tab=sites&mine=1"
+    assert plain(markup.inline_keyboard[0][0].web_app.url) == "https://example.uz/app?tab=sites&mine=1"
     async with Session() as s:
         assert (await s.get(User, 22)).blocked
     # yangi foydalanuvchi xabari 20 soatlik tanaffus tufayli darhol ketmaydi
@@ -162,7 +168,7 @@ async def main() -> None:
     song_id = (await logs(30))[0]
     async with Session() as s:
         sid = (await s.execute(select(Song.id).where(Song.owner_id == 30))).scalar_one()
-    assert bot.sent[0][2].inline_keyboard[0][0].web_app.url == f"https://example.uz/app?song={sid}" and song_id[1:] == ("song", 0, "sent")
+    assert plain(bot.sent[0][2].inline_keyboard[0][0].web_app.url) == f"https://example.uz/app?song={sid}" and song_id[1:] == ("song", 0, "sent")
 
     st = await nudges.stats()
     assert st["reached"]["site"] == 1 and st["won"]["site"] == 1 and st["reached"]["song"] == 1 and st["won"]["song"] == 0

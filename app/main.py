@@ -33,6 +33,11 @@ async def main() -> None:
         await songflow.start()  # qo'shiq voronkasi: birinchi ishga tushishda mavjud qo'shiqlardan hodisalar tiklanadi
     except Exception:
         logging.exception("Qo'shiq voronkasini boshlab bo'lmadi")
+    try:
+        from . import msgstats
+        await msgstats.start()  # progrev xabarlari: tugma, blok vaqti va sabablar shu paytdan beri yoziladi
+    except Exception:
+        logging.exception("Xabarlar statistikasini boshlab bo'lmadi")
     from . import songs as _songs
     await _songs.music_cfg()  # admin paneldagi Lyria kaliti (menyu va qo'shiq bo'limi shunga qarab yoqiladi)
 

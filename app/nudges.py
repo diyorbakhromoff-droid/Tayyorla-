@@ -9,17 +9,33 @@ Har bir qadam: langardan necha soat keyin, matn va tugma. Sozlamalar admin panel
 Qoidalar: bitta qadam bitta obyekt uchun bir marta; bitta odamga xabarlar orasida kamida gap_hours soat;
 faqat kunduzi (Toshkent vaqti); sotib olgan yoki botni bloklagan odamga yuborilmaydi; muddati o'tib ketgan
 qadam (GRACE_H soatdan ko'p kechikkan) tashlab ketiladi — tizim yoqilganda eski foydalanuvchilarga to'satdan xabar ketmaydi.
+Nazorat guruhidagilarga (app/control.py, standart o'chiq) hech narsa yuborilmaydi va jurnalga ham yozilmaydi.
+
+O'tkazib yuborilgan qadam jurnalga sababi bilan yoziladi (nudge_log.reason, statistika TZ 5-band):
+  bought  — allaqachon sotib olgan (shu yoki keyingi sayt/qo'shiq);  made — «new»: shu narsani allaqachon yasagan;
+  blocked — botni bloklagan (qadam muddati tugaguncha kutiladi: shu orada blokdan chiqsa, xabar baribir boradi);
+  gap     — qadam vaqtidan 36 soat o'tguncha tanaffus (gap_hours) tugamadi;
+  night   — tanaffus tugagan paytlar faqat tunga to'g'ri keldi (yuborish soatlaridan tashqarida);
+  late    — vaqti kelganda yuborilmadi, boshqa sabab: progrev o'chiq edi, bot ishlamadi yoki navbat to'lgan edi.
+Yetmagan xabar (failed): blocked — botni bloklagan (bot_block hodisasi ham yoziladi), error — boshqa Telegram xatosi.
+
+Tuzatish (statistika TZ: «qo'shiq ketma-ketligining 3-xabari 45 kishiga ketgan, 5 442 tasi o'tkazib yuborilgan»):
+avval botni bloklagan odamning navbati har aylanishda «yuboriladigan» ro'yxatga tushar, faqat oxirida (MAX_PER_PASS dan
+keyin) olib tashlanar va hech qachon jurnalga yozilmas edi. Ro'yxat eng yangi qo'shiqdan boshlab tuzilgani uchun bunday
+odamlar 300 talik o'rinni doimiy egallab, eng eski qadamlar (3-xabar, 72 soat) navbatga yetmay 36 soatdan kechikib qolardi.
+Endi bloklaganlar navbatga kirmaydi, cheklov ulardan keyin qo'llanadi va navbat muddati eng yaqin tugaydigan qadamdan boshlanadi.
 """
 
 import asyncio
 import copy
 import logging
+from collections import defaultdict
 from dataclasses import dataclass, field
 from datetime import datetime, timedelta, timezone
 
-from sqlalchemy import func, select
+from sqlalchemy import func, or_, select
 
-from . import store
+from . import control, store, track
 from .config import settings
 from .db import NudgeLog, RenderJob, Session, Site, Song, User, utcnow
 from .reminders import TZ
@@ -197,53 +213,119 @@ def next_step(steps: list[dict], done: set[int], anchor: datetime, now: datetime
     return None
 
 
+def _cut(free: list[tuple[datetime, datetime]], a: datetime, b: datetime) -> list[tuple[datetime, datetime]]:
+    """Bo'sh oraliqlardan [a, b) ni olib tashlaydi."""
+    out = []
+    for x, y in free:
+        if b <= x or a >= y:
+            out.append((x, y))
+            continue
+        if x < a:
+            out.append((x, a))
+        if b < y:
+            out.append((b, y))
+    return out
+
+
+def _daytime(a: datetime, b: datetime, cfg: dict) -> timedelta:
+    """[a, b) oralig'ining yuborish soatlariga (Toshkent) to'g'ri keladigan qismi."""
+    la, lb = (x.replace(tzinfo=timezone.utc).astimezone(TZ) for x in (a, b))
+    total, d = timedelta(0), la.date()
+    while d <= lb.date():
+        start = datetime(d.year, d.month, d.day, tzinfo=TZ) + timedelta(hours=cfg["from_hour"])
+        end = datetime(d.year, d.month, d.day, tzinfo=TZ) + timedelta(hours=cfg["to_hour"])
+        if max(start, la) < min(end, lb):
+            total += min(end, lb) - max(start, la)
+        d += timedelta(days=1)
+    return total
+
+
+MIN_SLOT = timedelta(minutes=30)  # undan qisqa kunduzgi bo'shliq hisobga olinmaydi (progrev 10 daqiqada bir tekshiradi)
+HOLD: dict[tuple, str] = {}       # (odam, ketma-ketlik, obyekt, qadam) -> oxirgi marta nega kutib turildi: gap | cap
+
+
+def late_reason(sent: list[datetime], ready: datetime, end: datetime, gap: timedelta, cfg: dict, held: str = "") -> str:
+    """Qadam [ready, end) oralig'ida nega yuborilmadi: tanaffus hech tugamagan bo'lsa — gap; tugagan paytlar faqat
+    tunga to'g'ri kelsa — night; kunduz bo'sh payt bo'lgan, lekin oxirgi marta tanaffus (yoki shu odamga boshqa progrev
+    xabari navbatda) sabab kutilgan bo'lsa — gap; aks holda late (progrev o'chiq, bot ishlamagan yoki navbat to'lgan)."""
+    free = [(ready, end)] if ready < end else []
+    for t in sent:
+        free = _cut(free, t, t + gap)
+    if not free:
+        return "gap"
+    if sum((_daytime(a, b, cfg) for a, b in free), timedelta(0)) < MIN_SLOT:
+        return "night"
+    return "gap" if held == "gap" else "late"
+
+
 async def collect(s, cfg: dict, now: datetime) -> list[Job]:
-    """Hozir yuborilishi kerak bo'lgan xabarlar (bir odamga bittadan). Tashlab ketilgan qadamlar jurnalga yoziladi."""
+    """Hozir yuborilishi kerak bo'lgan xabarlar (bir odamga bittadan). Tashlab ketilgan qadamlar sababi bilan jurnalga yoziladi.
+    Navbat muddati eng yaqin tugaydigan qadamdan boshlanadi; botni bloklaganlar navbatga kirmaydi (pastdagi izohga qarang)."""
     seqs = cfg["seqs"]
     max_after = max([st["after"] for k in SEQS for st in seqs[k]["steps"]] or [0])
     window = timedelta(hours=max_after + GRACE_H + 1)
-    logs = (await s.execute(select(NudgeLog).where(NudgeLog.created_at >= now - window - timedelta(days=2)))).scalars().all()
-    done: dict[tuple, set[int]] = {}
-    last_sent: dict[int, datetime] = {}
-    for r in logs:
-        done.setdefault((r.user_id, r.seq, r.ref), set()).add(r.step)
-        if r.status == "sent" and (r.user_id not in last_sent or r.created_at > last_sent[r.user_id]):
-            last_sent[r.user_id] = r.created_at
+    grace = timedelta(hours=GRACE_H)
     gap = timedelta(hours=cfg["gap_hours"])
-    jobs: dict[int, Job] = {}
+    logs = (await s.execute(select(NudgeLog.user_id, NudgeLog.seq, NudgeLog.ref, NudgeLog.step, NudgeLog.status, NudgeLog.created_at)
+                            .where(NudgeLog.created_at >= now - window - timedelta(days=2), NudgeLog.seq.in_(SEQS)))).all()
+    done: dict[tuple, dict[int, datetime]] = {}   # (odam, ketma-ketlik, obyekt) -> {qadam: hal bo'lgan vaqt}
+    sent: dict[int, list[datetime]] = defaultdict(list)  # odamga yetgan progrev xabarlari vaqti (tanaffus shundan)
+    for uid, seq, ref, step, status, at in logs:
+        mine = done.setdefault((uid, seq, ref), {})
+        mine[step] = min(mine.get(step, at), at)
+        if status == "sent":
+            sent[uid].append(at)
+    ctl = await control.config()
+    jobs: dict[int, tuple[datetime, Job]] = {}  # odam -> (qadam muddati tugaydigan vaqt, xabar)
 
-    def plan(uid: int, seq: str, ref: str, anchor: datetime, make, skip=lambda i: False) -> None:
-        if uid in jobs:
-            return
+    def plan(uid: int, seq: str, ref: str, anchor: datetime, make, blocked: bool = False, why=lambda i: "") -> None:
         steps = seqs[seq]["steps"]
-        mine = done.setdefault((uid, seq, ref), set())
-        while True:
-            nxt = next_step(steps, mine, anchor, now, skip)
-            if not nxt:
-                return
-            i, what = nxt
-            if what == "skip":
-                s.add(NudgeLog(user_id=uid, seq=seq, step=i, ref=ref, status="skipped", created_at=now))
-                mine.add(i)
+        mine = done.setdefault((uid, seq, ref), {})
+        prev = anchor  # oldingi qadam hal bo'lgan vaqt: undan oldin keyingisi yuborilmaydi
+        for i, st in enumerate(steps):
+            if i in mine:
+                prev = max(prev, mine[i])
                 continue
-            if uid in last_sent and now - last_sent[uid] < gap:
-                return  # yaqinda xabar olgan — keyingi aylanishda
-            jobs[uid] = make(i, steps[i])
+            at = anchor + timedelta(hours=st["after"])
+            if now < at:
+                return
+            key = (uid, seq, ref, i)
+            reason = why(i)
+            if not reason and now >= at + grace:
+                reason = "blocked" if blocked else late_reason(sorted(sent.get(uid, ())), max(at, prev), at + grace, gap, cfg,
+                                                               HOLD.get(key, ""))
+            if reason:
+                s.add(NudgeLog(user_id=uid, seq=seq, step=i, ref=ref, status="skipped", reason=reason, created_at=now))
+                HOLD.pop(key, None)
+                mine[i] = prev = min(now, at + grace)  # kechikkan qadam muddati tugagan paytda hal bo'lgan hisoblanadi
+                continue
+            # Botni bloklagan odam navbatga kirmaydi: muddat tugaguncha kutiladi (blokdan chiqsa — xabar boradi), keyin
+            # «blocked» sababi bilan o'tkazib yuboriladi. Avval bunday navbat har aylanishda 300 talik o'rinni egallab turardi.
+            if blocked:
+                return
+            if uid in jobs or (sent.get(uid) and now - max(sent[uid]) < gap):
+                HOLD[key] = "gap"  # bu odamga yaqinda xabar ketgan yoki hozir boshqa progrev xabari navbatda
+                return
+            jobs[uid] = (at + grace, make(i, st))
             return
 
-    # --- 1. to'lanmagan sayt (har egasining eng oxirgi qoralamasi)
+    def outside(uid: int, created: datetime | None) -> bool:
+        return control.is_member(ctl, uid, created)  # nazorat guruhi: progrev umuman yo'q
+
+    # --- 1. to'lanmagan sayt (har egasining eng oxirgi sayti; sotib olingani — «bought»)
     if seqs["site"]["on"]:
         from .catalog import TEMPLATES, site_price
-        rows = (await s.execute(select(Site).where(Site.kind == "site", Site.status == "draft", Site.created_at >= now - window)
-                                .order_by(Site.id.desc()))).scalars().all()
-        latest: dict[int, Site] = {}
-        for x in rows:
-            latest.setdefault(x.owner_id, x)
+        rows = (await s.execute(select(Site, User.blocked, User.created_at).outerjoin(User, User.tg_id == Site.owner_id).where(
+            Site.kind == "site", Site.status.in_(("draft", "paid")), Site.created_at >= now - window).order_by(Site.id.desc()))).all()
+        latest: dict[int, tuple] = {}
+        for x, blk, created in rows:
+            latest.setdefault(x.owner_id, (x, blk, created))
         bought = dict((await s.execute(select(Site.owner_id, func.max(Site.id)).where(
             Site.kind == "site", Site.status == "paid", Site.owner_id.in_(list(latest) or [0])).group_by(Site.owner_id))).all())
-        for uid, site in latest.items():
-            if bought.get(uid, 0) > site.id:
-                continue  # shundan keyin boshqa sayt sotib olgan
+        for uid, (site, blk, created) in latest.items():
+            if outside(uid, created):
+                continue
+            paid = site.status == "paid" or bought.get(uid, 0) > site.id  # shu yoki keyingi saytni sotib olgan
             cfg_s = site.config or {}
             tpl = TEMPLATES.get(cfg_s.get("template")) or {}
             try:
@@ -253,34 +335,36 @@ async def collect(s, cfg: dict, now: datetime) -> list[Job]:
             ctx = {"title": tpl.get("name") or "Sayt", "price": money(price) if price else ""}
             plan(uid, "site", f"site:{site.id}", site.created_at,
                  lambda i, st, ctx=ctx, uid=uid, site=site: Job(uid, "site", i, f"site:{site.id}", st["text"], st["button"],
-                                                               app_url("tab=sites&mine=1"), ctx))
+                                                               app_url("tab=sites&mine=1"), ctx),
+                 blocked=blk, why=lambda i, paid=paid: "bought" if paid else "")
 
-    # --- 2. sotib olinmagan qo'shiq (har egasining eng oxirgisi)
+    # --- 2. sotib olinmagan qo'shiq (har egasining eng oxirgisi; sotib olingani — «bought»)
+    songs_due: dict[int, Song] = {}
     if seqs["song"]["on"]:
-        from . import songs as song_mod
-        rows = (await s.execute(select(Song).where(Song.paid.is_(False), Song.status.in_(("lyrics", "preview_ready")),
-                                                   Song.created_at >= now - window - timedelta(days=1)).order_by(Song.id.desc()))).scalars().all()
-        latest_song: dict[int, Song] = {}
-        for x in rows:
-            latest_song.setdefault(x.owner_id, x)
+        rows = (await s.execute(select(Song, User.blocked, User.created_at).outerjoin(User, User.tg_id == Song.owner_id).where(
+            or_(Song.paid.is_(True), Song.status.in_(("lyrics", "preview_ready"))),
+            Song.created_at >= now - window - timedelta(days=1)).order_by(Song.id.desc()))).all()
+        latest_song: dict[int, tuple] = {}
+        for x, blk, created in rows:
+            latest_song.setdefault(x.owner_id, (x, blk, created))
         bought = dict((await s.execute(select(Song.owner_id, func.max(Song.id)).where(
             Song.paid.is_(True), Song.owner_id.in_(list(latest_song) or [0])).group_by(Song.owner_id))).all())
-        for uid, song in latest_song.items():
-            if bought.get(uid, 0) > song.id:
-                continue
+        for uid, (song, blk, created) in latest_song.items():
             anchor = song.preview_at or song.created_at
-            if anchor < now - window:
+            if anchor < now - window or outside(uid, created):
                 continue
-            price = await song_mod.price_for(s, uid)
-            ctx = {"title": song.title or (f"{song.recipient} uchun qo‘shiq" if song.recipient else "Qo‘shiq"), "price": money(price)}
+            paid = song.paid or bought.get(uid, 0) > song.id
+            songs_due[uid] = song
+            ctx = {"title": song.title or (f"{song.recipient} uchun qo‘shiq" if song.recipient else "Qo‘shiq")}
             plan(uid, "song", f"song:{song.id}", anchor,
                  lambda i, st, ctx=ctx, uid=uid, song=song: Job(uid, "song", i, f"song:{song.id}", st["text"], st["button"],
-                                                               app_url(f"song={song.id}"), ctx))
+                                                               app_url(f"song={song.id}"), ctx),
+                 blocked=blk, why=lambda i, paid=paid: "bought" if paid else "")
 
     # --- 3. yangi qo'shilganlar: hali yasamagan mahsulotini taklif qilamiz
     if seqs["new"]["on"]:
-        fresh = (await s.execute(select(User.tg_id, User.created_at).where(User.created_at >= now - window, User.blocked.is_(False)))).all()
-        ids = [u for u, _ in fresh] or [0]
+        fresh = (await s.execute(select(User.tg_id, User.created_at, User.blocked).where(User.created_at >= now - window))).all()
+        ids = [u for u, _, _ in fresh] or [0]
         made = {
             "videos": set((await s.execute(select(RenderJob.owner_id).where(RenderJob.owner_id.in_(ids)).distinct())).scalars().all()),
             "sites": set((await s.execute(select(Site.owner_id).where(Site.owner_id.in_(ids), Site.kind == "site").distinct())).scalars().all()),
@@ -289,22 +373,42 @@ async def collect(s, cfg: dict, now: datetime) -> list[Job]:
         made["app"] = made["videos"] | made["sites"] | made["song"]
         steps = seqs["new"]["steps"]
         query = {"videos": "tab=videos", "sites": "tab=sites", "song": "song=new", "app": ""}
-        for uid, created in fresh:
+        for uid, created, blk in fresh:
+            if outside(uid, created):
+                continue
             plan(uid, "new", "", created,
                  lambda i, st, uid=uid: Job(uid, "new", i, "", st["text"], st["button"], app_url(query[st.get("target", "app")]), {}),
-                 skip=lambda i, uid=uid: uid in made[steps[i].get("target", "app")])
+                 blocked=blk, why=lambda i, uid=uid: "made" if uid in made[steps[i].get("target", "app")] else "")
 
-    # --- ism, til, blok
-    out = list(jobs.values())[:MAX_PER_PASS]
+    # --- navbat: muddati eng yaqin tugaydiganlar birinchi (cheklov eng eski qadamlarni och qoldirmasin)
+    queue = [j for _, j in sorted(jobs.values(), key=lambda x: x[0])]
+    if len(HOLD) > 200_000:
+        HOLD.clear()
+    for j in queue[MAX_PER_PASS:]:
+        HOLD[(j.user_id, j.seq, j.ref, j.step)] = "cap"  # bu aylanishga sig'madi
+    for j in queue[:MAX_PER_PASS]:
+        HOLD.pop((j.user_id, j.seq, j.ref, j.step), None)
+    out = queue[:MAX_PER_PASS]
     if out:
         from . import songs as song_mod
+        from .pricing import promo_of
         users = {u.tg_id: u for u in (await s.execute(select(User).where(User.tg_id.in_([j.user_id for j in out])))).scalars().all()}
         per_user, _ = await song_mod.limits()
+        song_uids = [j.user_id for j in out if j.seq == "song"]
+        site_buyers = set()
+        if song_uids and settings.song_site_price > 0:  # songs.price_for bilan bir xil, lekin hammasi bitta so'rovda
+            site_buyers = set((await s.execute(select(Site.owner_id).where(
+                Site.owner_id.in_(song_uids), Site.status == "paid", Site.kind == "site").distinct())).scalars().all())
         keep = []
         for j in out:
             u = users.get(j.user_id)
             if u and u.blocked:
                 continue
+            if j.seq == "song":
+                song = songs_due[j.user_id]
+                price = settings.song_site_price if j.user_id in site_buyers else settings.song_price
+                promo = promo_of(song, now)
+                j.ctx["price"] = money(min(price, promo["price"]) if promo else price)
             j.ctx.update(name=(u.first_name if u else "") or "", lang=(u.lang if u else "") or "uz",
                          free_videos=settings.free_videos_per_day, free_songs=per_user)
             keep.append(j)
@@ -322,7 +426,9 @@ def render(job: Job) -> str:
     return text
 
 
-def keyboard(job: Job):
+def keyboard(job: Job, tracked: bool = True):
+    """Tugma Mini App'ni ochadi. tracked — havolaga imzolangan belgi qo'shiladi: bosilgani «msg_click» bo'lib yoziladi
+    (app/track.py). Tugma yozuvi va ochiladigan sahifa o'zgarmaydi."""
     from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup, WebAppInfo
     if not job.button or not settings.base_url.startswith("https://"):
         return None
@@ -330,7 +436,8 @@ def keyboard(job: Job):
     if job.ctx.get("lang") == "cy":
         from .i18n import to_cyrillic
         label = to_cyrillic(label)
-    return InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(text=label, web_app=WebAppInfo(url=job.url))]])
+    url = track.click_url(job.url, f"{job.seq}.{job.step}", job.user_id) if tracked else job.url
+    return InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(text=label, web_app=WebAppInfo(url=url))]])
 
 
 async def deliver(bot, job: Job) -> str:
@@ -372,13 +479,11 @@ async def run_once(bot, now: datetime | None = None, force: bool = False) -> dic
     for job in jobs:
         status = await deliver(bot, job)
         async with Session() as s:
-            s.add(NudgeLog(user_id=job.user_id, seq=job.seq, step=job.step, ref=job.ref,
-                           status="sent" if status == "sent" else "failed", created_at=now))
-            if status == "blocked":
-                u = await s.get(User, job.user_id)
-                if u:
-                    u.blocked = True
+            s.add(NudgeLog(user_id=job.user_id, seq=job.seq, step=job.step, ref=job.ref, status="sent" if status == "sent" else "failed",
+                           reason="" if status == "sent" else "blocked" if status == "blocked" else "error", created_at=now))
             await s.commit()
+        if status == "blocked":
+            await track.mark_blocked(job.user_id, "nudge")  # bayroq va blok vaqti (bot_block hodisasi)
         res[status] += 1
         await asyncio.sleep(1 / 20)
     STATE.update(last_run=utcnow().isoformat(), last_sent=res["sent"])
@@ -400,9 +505,10 @@ async def loop(bot, interval: int = 600) -> None:
 # ---------------------------------------------------------------- admin paneli uchun
 
 async def stats() -> dict:
-    """Har ketma-ketlik va qadam bo'yicha: yuborildi / yetmadi / tashlab ketildi va natija (sotib oldi yoki yasadi)."""
+    """Har ketma-ketlik va qadam bo'yicha (butun davr): yuborildi / yetmadi / tashlab ketildi va natija (sotib oldi yoki yasadi).
+    Davr bo'yicha batafsil ko'rsatkichlar (tugma, qaytish, xarid, blok, sabablar) — app/msgstats.py."""
     async with Session() as s:
-        rows = (await s.execute(select(NudgeLog.seq, NudgeLog.step, NudgeLog.status, func.count())
+        rows = (await s.execute(select(NudgeLog.seq, NudgeLog.step, NudgeLog.status, func.count()).where(NudgeLog.seq.in_(SEQS))
                                 .group_by(NudgeLog.seq, NudgeLog.step, NudgeLog.status))).all()
         steps: dict[str, dict[int, dict]] = {k: {} for k in SEQS}
         for seq, step, status, n in rows:
@@ -426,7 +532,7 @@ async def stats() -> dict:
         makers |= set((await s.execute(select(Song.owner_id).where(Song.owner_id.in_(ids)).distinct())).scalars().all())
         won["new"] = len(makers)
         day = await s.scalar(select(func.count()).select_from(NudgeLog).where(
-            NudgeLog.status == "sent", NudgeLog.created_at >= utcnow() - timedelta(hours=24))) or 0
+            NudgeLog.seq.in_(SEQS), NudgeLog.status == "sent", NudgeLog.created_at >= utcnow() - timedelta(hours=24))) or 0
     return {"steps": {k: {str(i): v for i, v in d.items()} for k, d in steps.items()}, "reached": reached, "won": won,
             "sent_24h": day, "last_run": STATE["last_run"], "last_sent": STATE["last_sent"]}
 
@@ -444,4 +550,42 @@ async def send_test(bot, uid: int, seq: str, step: int, raw_step: dict | None = 
     query = {"site": "tab=sites&mine=1", "song": "tab=songs",
              "new": {"videos": "tab=videos", "sites": "tab=sites", "song": "song=new", "app": ""}.get(st.get("target", "app"), "")}[seq]
     job = Job(uid, seq, step, "", str(st.get("text") or ""), str(st.get("button") or "")[:40], app_url(query), ctx)
-    await bot.send_message(uid, render(job), parse_mode=None, reply_markup=keyboard(job))
+    await bot.send_message(uid, render(job), parse_mode=None, reply_markup=keyboard(job, tracked=False))
+
+
+# ---------------------------------------------------------------- sozlama tashxisi (panelda ogohlantirish)
+
+def diagnose(cfg: dict) -> list[dict]:
+    """Sozlamaning o'zidan kelib chiqadigan muammolar: tanaffus va 36 soat qoidasi bilan qadam hech qachon (yoki ko'pincha)
+    yuborilmay qoladimi. Har biri: {"seq", "step", "level": bad|warn|info, "text"}."""
+    out = []
+    night = 24 - (cfg["to_hour"] - cfg["from_hour"])
+    gap = cfg["gap_hours"]
+    for k in SEQS:
+        sq = cfg["seqs"][k]
+        if not sq["on"]:
+            continue
+        steps = sq["steps"]
+        for i in range(1, len(steps)):
+            spacing = steps[i]["after"] - steps[i - 1]["after"]
+            room = GRACE_H - max(0, gap - spacing)  # oldingisi o'z vaqtida ketsa, shu qadam uchun qolgan soatlar
+            where = f"«{SEQ_NAMES[k]}», {i + 1}-xabar"
+            if room <= 0:
+                out.append({"seq": k, "step": i, "level": "bad", "text": (
+                    f"{where}: oldingi xabardan {spacing} soat keyin turibdi, tanaffus esa {gap} soat — tanaffus tugaguncha "
+                    f"{GRACE_H} soatlik muddat o'tib ketadi, oldingi xabarni olgan odamga bu xabar hech qachon yuborilmaydi. "
+                    f"Tanaffusni {spacing + GRACE_H - 1} soatdan kam qiling yoki xabarni kechroqqa suring.")})
+            elif room <= night:
+                out.append({"seq": k, "step": i, "level": "warn", "text": (
+                    f"{where}: tanaffus ({gap} soat) tugagach yuborish uchun {room} soat qoladi, tun esa {night} soat — "
+                    f"oldingi xabar kechqurun ketgan bo'lsa, bu xabar ko'pincha «tungi vaqt» sababi bilan o'tkazib yuboriladi.")})
+    # bir odamga bir vaqtda ikki ketma-ketlik: «new» va «song» (yoki «site») birinchi xabarlari tanaffus uchun bir-birini kutadi
+    new = cfg["seqs"]["new"]
+    for k in ("song", "site"):
+        sq = cfg["seqs"][k]
+        if new["on"] and sq["on"] and new["steps"] and sq["steps"] and abs(sq["steps"][0]["after"] - new["steps"][0]["after"]) < gap:
+            out.append({"seq": k, "step": 0, "level": "info", "text": (
+                f"Yangi kelib darhol {'qo‘shiq boshlagan' if k == 'song' else 'sayt yasagan'} odam «{SEQ_NAMES['new']}» 1-xabarini "
+                f"({new['steps'][0]['after']} soatda) oladi, «{SEQ_NAMES[k]}» 1-xabari esa tanaffus tufayli taxminan "
+                f"{new['steps'][0]['after'] + gap} soatgacha kutadi (bitta odamga {gap} soatda bitta xabar).")})
+    return out
