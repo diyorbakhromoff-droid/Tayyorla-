@@ -1,0 +1,792 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<title>Tug‘ilgan kun: Bal kechasi</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preload" as="image" href="/katalog/v2/art/tk9-bal/hall.webp">
+<link rel="preload" as="image" href="/katalog/v2/art/tk9-bal/roll-top.webp">
+<link rel="preload" as="image" href="/katalog/v2/art/tk9-bal/roll-bot.webp">
+<link rel="preload" as="image" href="/katalog/v2/art/tk9-bal/bow.webp">
+<link rel="preload" as="image" href="/katalog/v2/art/tk9-bal/girl.webp">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&amp;family=Great+Vibes&amp;display=swap">
+<style>
+body{margin:0;background:#F6DDE0}
+.bl-root{background:#F6DDE0;color:#5A4038;font-family:'Cormorant Garamond',Georgia,'Times New Roman',serif;font-weight:500}
+.bl-sc{font-family:'Great Vibes','Snell Roundhand','Apple Chancery',cursive;font-weight:400}
+.bl-num{font-variant-numeric:lining-nums tabular-nums}
+.bl-icon{fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.bl-vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.bl-gold{fill:#C9A24A}
+.bl-goldl{fill:none;stroke:#C9A24A;stroke-width:1;stroke-linecap:round}
+
+/* ================= kirish: saroy zalida muhrli o'ram ================= */
+.bl-i{position:absolute;left:0;top:0;width:390px;height:844px;z-index:40;background:#C8957C}
+/* past ekranlarda dvigatel sahnani kichraytiradi: yon bo'shliqni zalning davomi to'ldiradi */
+.bl-i::before{content:"";position:absolute;left:-240px;top:0;width:870px;height:1280px;background:#C8957C}
+.bl-hall{position:absolute;left:-240px;top:0;width:870px;height:844px;background:#C8957C url('/katalog/v2/art/tk9-bal/hall.webp') 50% 0/475px 844px repeat-x}
+.bl-shade{position:absolute;left:-240px;top:0;width:870px;height:844px;background:radial-gradient(46% 30% at 50% 56%,rgba(84,26,44,.26),rgba(84,26,44,0) 72%),linear-gradient(180deg,rgba(64,20,34,.14) 0,rgba(64,20,34,0) 26%,rgba(64,20,34,0) 64%,rgba(64,20,34,.38) 100%);transition:opacity 1.6s ease .5s}
+.bl-i--open .bl-shade{opacity:.55}
+.bl-i--open{pointer-events:none;animation:bl-iOut .8s ease 3.3s forwards}
+@keyframes bl-iOut{to{opacity:0;visibility:hidden}}
+
+/* qandil uchqunlari va havodagi nur zarralari */
+.bl-gl{position:absolute;width:22px;height:22px;margin:-11px 0 0 -11px;pointer-events:none;opacity:0;animation:bl-glint 4.4s ease-in-out infinite;
+  background:radial-gradient(circle,rgba(255,253,244,.98) 0 1.6px,rgba(255,238,196,.6) 3px,rgba(255,238,196,0) 6.5px),linear-gradient(90deg,rgba(255,246,216,0),rgba(255,251,236,.96) 50%,rgba(255,246,216,0)) 50% 50%/100% 1.4px no-repeat,linear-gradient(180deg,rgba(255,246,216,0),rgba(255,251,236,.96) 50%,rgba(255,246,216,0)) 50% 50%/1.4px 100% no-repeat}
+@keyframes bl-glint{0%,58%,100%{opacity:0;transform:scale(.3) rotate(0)}74%{opacity:1;transform:scale(1) rotate(28deg)}90%{opacity:0;transform:scale(.5) rotate(45deg)}}
+.bl-mote{position:absolute;width:4px;height:4px;border-radius:50%;background:#FFF6E0;box-shadow:0 0 7px 2px rgba(255,232,190,.7);opacity:0;pointer-events:none;animation:bl-mote 9s linear infinite}
+@keyframes bl-mote{0%{opacity:0;transform:translate(0,0)}16%{opacity:.9}76%{opacity:.5}100%{opacity:0;transform:translate(14px,-120px)}}
+
+/* o'ram (o'lchamlar tayyor rasmlardan o'lchangan; masshtab 0.30): varaq 160…680, yopiq holatda g'altaklar 470 chizig'ida */
+.bl-sg{position:absolute;left:0;top:0;width:390px;height:844px;transform-origin:195px 420px}
+.bl-i--open .bl-sg{animation:bl-grow 1s cubic-bezier(.5,0,.8,.5) 3.15s forwards}
+@keyframes bl-grow{to{transform:scale(1.08)}}
+.bl-ish{position:absolute;left:54.6px;top:160px;width:280.8px;height:520px;box-shadow:0 20px 36px rgba(70,24,40,.42),0 2px 7px rgba(70,24,40,.22);clip-path:inset(310px -70px 210px -70px)}
+.bl-isheet{position:absolute;left:54.6px;top:160px;width:280.8px;height:520px;clip-path:inset(310px 0 210px 0);
+  background:url('/katalog/v2/art/tk9-bal/sheet-top.webp') 0 0/280.8px 121.2px no-repeat,url('/katalog/v2/art/tk9-bal/sheet-bot.webp') 0 100%/280.8px 119.4px no-repeat,url('/katalog/v2/art/tk9-bal/sheet-mid.webp') 0 0/280.8px 180px repeat-y}
+.bl-i--open .bl-ish{animation:bl-unSh 1.75s cubic-bezier(.5,.02,.2,1) .5s forwards}
+.bl-i--open .bl-isheet{animation:bl-un 1.75s cubic-bezier(.5,.02,.2,1) .5s forwards}
+@keyframes bl-un{to{clip-path:inset(0 0 0 0)}}
+@keyframes bl-unSh{to{clip-path:inset(0 -70px -70px -70px)}}
+.bl-iroll{position:absolute;left:22.2px;width:345.6px;background-repeat:no-repeat;background-size:100% 100%;filter:drop-shadow(0 7px 7px rgba(70,24,40,.45));will-change:transform}
+.bl-iroll--t{top:430.4px;height:48px;background-image:url('/katalog/v2/art/tk9-bal/roll-top.webp')}
+.bl-iroll--b{top:465.2px;height:40.2px;background-image:url('/katalog/v2/art/tk9-bal/roll-bot.webp')}
+.bl-i--open .bl-iroll--t{animation:bl-rollT 1.75s cubic-bezier(.5,.02,.2,1) .5s forwards}
+.bl-i--open .bl-iroll--b{animation:bl-rollB 1.75s cubic-bezier(.5,.02,.2,1) .5s forwards}
+@keyframes bl-rollT{to{transform:translateY(-310px)}}
+@keyframes bl-rollB{to{transform:translateY(210px)}}
+
+/* varaqdagi yozuv: zarhal oval ramka va o'zi yozilayotgan satr */
+.bl-icam{position:absolute;left:80.4px;top:124px;opacity:0}
+.bl-i--open .bl-icam{animation:bl-camIn .8s ease 1.15s forwards}
+@keyframes bl-camIn{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:none}}
+.bl-cam{position:relative;border-radius:50%;background:linear-gradient(135deg,#F3DFA4 0%,#C9A24A 26%,#9C7A2E 48%,#E9D08E 68%,#B48E3A 100%);box-shadow:0 0 0 1px rgba(156,122,46,.55),0 0 0 4px #FBF3EA,0 0 0 5px #C9A24A,0 9px 16px -6px rgba(90,40,50,.45)}
+.bl-cam-in{position:absolute;left:3px;top:3px;right:3px;bottom:3px;border-radius:50%;overflow:hidden;background:radial-gradient(circle at 50% 36%,#FFF8F1 0,#F7E1DD 62%,#EFCDCB 100%);box-shadow:inset 0 0 0 1.5px #FBF3EA;display:flex;align-items:center;justify-content:center}
+.bl-cam-in img{position:absolute;left:0;top:0;width:100%;height:100%;display:block;object-fit:cover}
+.bl-cam-in::after{content:"";position:absolute;left:0;top:0;width:100%;height:100%;border-radius:50%;box-shadow:inset 0 0 0 1.5px rgba(251,243,234,.9),inset 0 6px 14px rgba(90,40,50,.22);pointer-events:none}
+.bl-cam-l{position:relative;color:#B4566B;line-height:1;padding:.1em 0 0 .12em}
+.bl-cam-t{position:absolute;left:50%;top:-15px;width:34px;height:14px;margin-left:-17px}
+.bl-iline{position:absolute;left:14px;top:298px;width:252.8px;margin:0;text-align:center;line-height:1.5;color:#8A3B4E;white-space:nowrap;clip-path:inset(-10% 100% -10% -4%)}
+.bl-i--open .bl-iline{animation:bl-write 1.05s cubic-bezier(.4,.1,.6,.95) 2.1s forwards}
+@keyframes bl-write{to{clip-path:inset(-10% -4% -10% -4%)}}
+.bl-iflo{position:absolute;left:85.4px;top:354px;width:110px;height:14px;opacity:0}
+.bl-i--open .bl-iflo{animation:bl-fadeIn .5s ease 2.85s forwards}
+@keyframes bl-fadeIn{to{opacity:1}}
+
+/* bant va muhr: yoshi muhrga o'yib yozilgan */
+.bl-bow{position:absolute;left:74.1px;top:401.5px;width:256px;height:158.2px;background:url('/katalog/v2/art/tk9-bal/bow.webp') 0 0/100% 100% no-repeat;transform-origin:120.9px 68.5px;filter:drop-shadow(0 9px 9px rgba(70,24,40,.42));will-change:transform;animation:bl-sway 5.2s ease-in-out infinite}
+@keyframes bl-sway{0%,100%{transform:rotate(-1.1deg)}50%{transform:rotate(1.1deg)}}
+.bl-bow-n{position:absolute;left:93.9px;top:41.5px;width:54px;height:54px;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',Georgia,serif;font-weight:700;line-height:1;letter-spacing:.02em;color:#933F4D;text-shadow:0 1px 0 rgba(255,214,216,.7),0 -1px 0 rgba(104,34,46,.4)}
+.bl-i--open .bl-bow{animation:bl-bowOff 1.2s cubic-bezier(.45,0,.7,.4) forwards}
+@keyframes bl-bowOff{0%{transform:scale(1) rotate(0);opacity:1}17%{transform:scale(1.13) rotate(-3deg);opacity:1}32%{transform:scale(1.03) rotate(2deg);opacity:1}100%{transform:translateY(200px) scale(.9) rotate(13deg);opacity:0}}
+.bl-ring{position:absolute;left:195px;top:470px;width:0;height:0;pointer-events:none}
+.bl-ring::before,.bl-ring::after{content:"";position:absolute;left:-36px;top:-36px;width:72px;height:72px;box-sizing:border-box;border-radius:50%;border:1px solid rgba(255,240,214,.85);opacity:0;animation:bl-ring 3.2s ease-out infinite}
+.bl-ring::after{animation-delay:1.1s}
+@keyframes bl-ring{0%{opacity:0;transform:scale(.6)}18%{opacity:.9}100%{opacity:0;transform:scale(1.75)}}
+.bl-i--open .bl-ring,.bl-i--open .bl-mote{opacity:0 !important;animation:none}
+
+/* butun sahna — bitta tugma */
+.bl-tap{position:absolute;left:-240px;top:0;width:870px;height:844px;margin:0;padding:0;border:0;background:rgba(0,0,0,0);cursor:pointer;display:block;font:inherit;color:inherit;-webkit-tap-highlight-color:rgba(0,0,0,0)}
+.bl-tap:focus{outline:none}
+.bl-tap:focus-visible .bl-hint-p{outline:2px solid #FBF3EA;outline-offset:3px}
+.bl-i--open .bl-tap{animation:bl-fade .35s ease forwards}
+@keyframes bl-fade{to{opacity:0}}
+.bl-hint{position:absolute;left:240px;top:716px;width:390px;height:112px;display:flex;flex-direction:column;align-items:center;justify-content:flex-end}
+.bl-hint-p{display:flex;flex-direction:column;align-items:center;max-width:350px;box-sizing:border-box;padding:9px 22px 10px;border-radius:26px;background:rgba(255,247,244,.88);border:1px solid rgba(201,162,74,.75);box-shadow:0 10px 24px -10px rgba(70,24,40,.55),inset 0 0 0 3px rgba(255,255,255,.5)}
+.bl-hint-g{display:block;max-width:306px;font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-weight:600;line-height:25px;color:#8A3B4E;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bl-hint-t{display:flex;align-items:center;gap:10px;font-family:'Cormorant Garamond',Georgia,serif;font-size:12px;line-height:18px;font-weight:700;letter-spacing:.22em;padding-left:.22em;text-transform:uppercase;white-space:nowrap;color:#7A3344;animation:bl-hintP 2.6s ease-in-out infinite}
+.bl-hint-t::before,.bl-hint-t::after{content:"";display:block;width:16px;height:1px;background:linear-gradient(90deg,rgba(201,162,74,0),#B48E3A)}
+.bl-hint-t::after{transform:scaleX(-1)}
+@keyframes bl-hintP{0%,100%{opacity:.66}50%{opacity:1}}
+
+.bl-music{position:absolute;top:14px;right:14px;z-index:60;width:44px;height:44px;border-radius:50%;border:1px solid rgba(201,162,74,.85);background:rgba(255,247,244,.88);color:#8A3B4E;display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0;box-shadow:0 8px 18px -10px rgba(70,24,40,.6)}
+.bl-music--on{box-shadow:0 0 0 4px rgba(201,162,74,.24),0 8px 18px -10px rgba(70,24,40,.6)}
+.bl-eq{display:flex;align-items:flex-end;gap:2.5px;height:15px}
+.bl-eq i{display:block;width:2.5px;height:100%;border-radius:2px;background:currentColor;transform-origin:50% 100%;animation:bl-eq .9s ease-in-out infinite alternate}
+.bl-eq i:nth-child(2){animation-delay:-.3s}.bl-eq i:nth-child(3){animation-delay:-.6s}.bl-eq i:nth-child(4){animation-delay:-.15s}
+@keyframes bl-eq{from{transform:scaleY(.25)}to{transform:scaleY(1)}}
+
+/* ================= bosh qism: bal libosidagi qiz zal ostonasida ================= */
+.bl-hero{position:relative;flex:none;width:390px;height:693px;overflow:hidden;background:#C8957C url('/katalog/v2/art/tk9-bal/girl.webp') 50% 0/390px 693px no-repeat}
+.bl-hero-v{position:absolute;left:0;top:0;width:390px;height:693px;pointer-events:none;background:radial-gradient(58% 26% at 50% 80%,rgba(255,246,243,.95) 0,rgba(255,244,241,.88) 50%,rgba(255,240,238,.52) 76%,rgba(255,240,238,0) 100%),linear-gradient(180deg,rgba(246,221,224,0) 0,rgba(246,221,224,0) 560px,rgba(246,221,224,.82) 640px,#F6DDE0 688px),linear-gradient(180deg,rgba(255,240,236,.34) 0,rgba(255,240,236,0) 110px)}
+.bl-hcol{position:absolute;left:20px;top:446px;width:350px;height:216px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.bl-l{margin:0;opacity:0}
+.bl-hero--on .bl-l{animation:bl-line .8s cubic-bezier(.22,.61,.36,1) var(--d,3.85s) both}
+@keyframes bl-line{from{opacity:0;filter:blur(5px);transform:translateY(10px)}to{opacity:1;filter:none;transform:none}}
+.bl-hlbl{font-size:11.5px;line-height:16px;font-weight:700;letter-spacing:.34em;padding-left:.34em;text-transform:uppercase;color:#7E5C1C}
+.bl-hname{max-width:340px;margin-top:4px;padding:0 .14em;line-height:1.08;color:#8A3B4E;overflow-wrap:anywhere;text-wrap:balance;text-shadow:0 1px 0 rgba(255,250,246,.8)}
+.bl-hage{display:flex;align-items:center;gap:12px;margin-top:2px;font-style:italic;font-weight:600;font-size:23px;line-height:28px;color:#7A3344}
+.bl-hage::before,.bl-hage::after{content:"";display:block;width:44px;height:1px;background:linear-gradient(90deg,rgba(201,162,74,0),#B48E3A)}
+.bl-hage::after{transform:scaleX(-1)}
+.bl-hdate{margin-top:7px;font-size:12px;line-height:17px;font-weight:700;letter-spacing:.22em;padding-left:.22em;text-transform:uppercase;color:#6B4A40}
+
+/* ================= o'ram: zal fonida taklif varag'i ================= */
+.bl-scr{position:relative;padding:34px 0 60px;background:#E8C5BF url('/katalog/v2/art/tk9-bal/hall-soft.webp') 50% 50%/cover no-repeat}
+.bl-scr::before{content:"";position:absolute;left:0;top:0;width:100%;height:100%;background:linear-gradient(180deg,#F6DDE0 0,rgba(246,221,224,.5) 60px,rgba(246,221,224,.16) 150px,rgba(246,221,224,.16) 78%,rgba(246,221,224,.7) 93%,#F6DDE0 100%)}
+.bl-scroll{position:relative;width:390px;padding:43.8px 0 39.2px}
+.bl-roll{position:absolute;left:3.75px;width:382.5px;background-repeat:no-repeat;background-size:100% 100%;filter:drop-shadow(0 8px 8px rgba(70,24,40,.42));pointer-events:none}
+.bl-roll--t{top:0;height:53.1px;background-image:url('/katalog/v2/art/tk9-bal/roll-top.webp')}
+.bl-roll--b{bottom:0;height:44.5px;background-image:url('/katalog/v2/art/tk9-bal/roll-bot.webp')}
+.bl-sheet{position:relative;width:310.8px;min-height:330px;margin:0 auto;box-sizing:border-box;padding:66px 30px 128px;display:flex;flex-direction:column;align-items:center;text-align:center;box-shadow:0 26px 44px -16px rgba(70,24,40,.5);
+  background:url('/katalog/v2/art/tk9-bal/sheet-top.webp') 0 0/310.8px 134.1px no-repeat,url('/katalog/v2/art/tk9-bal/sheet-bot.webp') 0 100%/310.8px 132.1px no-repeat,url('/katalog/v2/art/tk9-bal/sheet-mid.webp') 0 0/310.8px 199.2px repeat-y}
+.bl-ann{margin:0;max-width:238px;font-size:16.5px;line-height:23px;font-weight:600;color:#5A4038;overflow-wrap:anywhere;text-wrap:balance}
+.bl-ann-l{display:block;margin-bottom:3px;font-size:10.5px;line-height:15px;font-weight:700;letter-spacing:.3em;padding-left:.3em;text-transform:uppercase;color:#9C7A2E}
+.bl-ann-i{margin:6px 0 0;max-width:236px;font-style:italic;font-size:16px;line-height:22px;font-weight:500;color:#6B4A40;text-wrap:balance}
+.bl-sname{margin:8px 0 0;max-width:262px;padding:0 .14em;line-height:1.1;color:#B4566B;overflow-wrap:anywhere;text-wrap:balance}
+.bl-flo{display:block;flex:none}
+/* sana qatori: OY | katta kun | YIL, ostida hafta kuni | vaqt */
+.bl-dr{display:flex;align-items:center;justify-content:center;gap:9px;width:250.8px;margin-top:6px}
+.bl-dr-b{flex:1 1 0;min-width:0;height:27px;box-sizing:border-box;border-top:1px solid #C9A24A;border-bottom:1px solid #C9A24A;display:flex;align-items:center;justify-content:center;font-weight:700;letter-spacing:.2em;padding-left:.2em;text-transform:uppercase;white-space:nowrap;color:#5A4038}
+.bl-dr-b--l{border-left:1px solid #C9A24A}.bl-dr-b--r{border-right:1px solid #C9A24A}
+.bl-dr-d{flex:none;min-width:46px;font-weight:600;font-size:46px;line-height:46px;color:#9C7A2E}
+.bl-dr2{display:flex;align-items:center;justify-content:center;gap:12px;margin:7px 0 0;font-size:13px;line-height:18px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#5A4038}
+.bl-dr2 i{display:block;width:1px;height:15px;background:#C9A24A}
+.bl-body{margin:16px 0 0;max-width:250.8px;font-size:16.5px;line-height:24px;font-weight:500;color:#5A4038;white-space:pre-line;overflow-wrap:anywhere;text-wrap:pretty}
+.bl-nav{display:flex;justify-content:center;gap:4px;width:258px;margin:14px -3.6px 0}
+.bl-nav-b{flex:0 0 48.4px;display:flex;flex-direction:column;align-items:center;gap:5px;margin:0;padding:0;border:0;background:rgba(0,0,0,0);cursor:pointer;font-family:inherit;font-size:10.5px;line-height:12px;font-weight:600;color:#6B4A40;text-align:center;-webkit-tap-highlight-color:rgba(0,0,0,0)}
+.bl-nav-c{display:flex;align-items:center;justify-content:center;width:44px;height:44px;box-sizing:border-box;border-radius:50%;border:1px solid #C9A24A;background:rgba(255,250,246,.6);color:#B4566B;box-shadow:inset 0 0 0 2.5px rgba(255,255,255,.6),0 5px 10px -6px rgba(90,40,50,.5);transition:transform .2s ease,background-color .2s ease}
+.bl-nav-b:active .bl-nav-c{transform:scale(.94);background:#FFFFFF}
+.bl-sign{position:absolute;left:50%;bottom:28px;width:54px;height:54px;margin-left:-27px}
+.bl-seal{display:flex;align-items:center;justify-content:center;background:url('/katalog/v2/art/tk9-bal/seal.webp') 50% 50%/100% 100% no-repeat;font-family:'Cormorant Garamond',Georgia,serif;font-weight:700;line-height:1;color:#933F4D;text-shadow:0 1px 0 rgba(255,214,216,.7),0 -1px 0 rgba(104,34,46,.38);filter:drop-shadow(0 3px 3px rgba(90,40,50,.3))}
+
+/* ================= sahifa: pushti va fil suyagi ================= */
+.bl-sec{position:relative;padding:58px 24px 0;display:flex;flex-direction:column;align-items:center;text-align:center}
+.bl-lbl{margin:0;padding-left:.32em;font-size:11px;line-height:16px;font-weight:700;letter-spacing:.32em;text-transform:uppercase;color:#9C7A2E}
+.bl-h2{margin:4px 0 0;max-width:340px;padding:0 .12em;font-family:'Great Vibes','Snell Roundhand',cursive;font-weight:400;font-size:44px;line-height:54px;color:#8A3B4E;overflow-wrap:anywhere}
+.bl-rule{display:flex;align-items:center;justify-content:center;gap:9px;height:18px;margin-top:4px}
+.bl-rule i{display:block;width:74px;height:1px;background:linear-gradient(90deg,rgba(201,162,74,0),#C9A24A)}
+.bl-rule i:last-child{transform:scaleX(-1)}
+.bl-rule b{display:block;width:16px;height:16px;background:url('/katalog/v2/art/tk9-bal/seal.webp') 50% 50%/100% 100% no-repeat;filter:drop-shadow(0 1px 1px rgba(90,40,50,.35))}
+.bl-lead{margin:10px 0 0;max-width:310px;font-style:italic;font-size:16.5px;line-height:23px;color:#6B4A40;text-wrap:balance}
+/* pergament karta: o'ramdan kesilgan to'qima, zarhal ingichka hoshiya */
+.bl-ppr{position:relative;box-sizing:border-box;border-radius:4px;background:#F8ECE0 url('/katalog/v2/art/tk9-bal/paper.webp') 0 0/372px 372px;box-shadow:0 22px 40px -24px rgba(90,40,50,.55),0 2px 8px -3px rgba(90,40,50,.18)}
+.bl-ppr::before{content:"";position:absolute;left:8px;top:8px;right:8px;bottom:8px;border:1px solid rgba(201,162,74,.8);border-radius:2px;pointer-events:none}
+.bl-ppr>*{position:relative}
+.bl-rose{position:absolute !important;width:112px;height:107.5px;pointer-events:none;background:url('/katalog/v2/art/tk9-bal/rose.webp') 0 0/100% 100% no-repeat}
+.bl-rose--bl{left:0;bottom:0}
+.bl-rose--br{right:0;bottom:0;transform:scaleX(-1)}
+/* zal bo'laklari: qandillar tasmasi */
+.bl-band{position:relative;width:390px;height:176px;margin-top:54px;background:url('/katalog/v2/art/tk9-bal/hall.webp') 50% 0/390px 693px no-repeat;-webkit-mask-image:linear-gradient(180deg,rgba(0,0,0,0) 0,#000 26%,#000 62%,rgba(0,0,0,0) 100%);mask-image:linear-gradient(180deg,rgba(0,0,0,0) 0,#000 26%,#000 62%,rgba(0,0,0,0) 100%)}
+.bl-band+.bl-sec{padding-top:0;margin-top:-18px}
+.bl-btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 28px;border-radius:26px;border:1px solid #9C7A2E;box-sizing:border-box;background:linear-gradient(180deg,#B4566B 0%,#8A3B4E 100%);color:#FFF7F2;font-family:inherit;font-size:14px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;cursor:pointer;box-shadow:0 14px 24px -14px rgba(110,36,56,.9),inset 0 0 0 2px rgba(255,236,224,.22)}
+.bl-btn:active{transform:translateY(1px)}
+
+/* tilaklar */
+.bl-wl{width:100%;margin-top:24px;padding:26px 26px 30px;text-align:left}
+.bl-w{display:flex;align-items:center;gap:15px;padding:11px 0}
+.bl-w+.bl-w{border-top:1px solid rgba(201,162,74,.38)}
+.bl-w .bl-seal{flex:none;width:42px;height:42px;font-size:14.5px}
+.bl-w-t{min-width:0;font-style:italic;font-weight:600;font-size:22px;line-height:27px;color:#5A4038;overflow-wrap:anywhere}
+
+/* sening yoshing */
+.bl-age{position:relative;width:168px;height:206px;margin-top:26px}
+.bl-age .bl-cam{width:168px;height:206px}
+.bl-age-n{position:relative;font-weight:600;line-height:1;color:#8A3B4E}
+.bl-age-u{position:relative;margin-top:2px;font-style:italic;font-size:22px;line-height:24px;color:#9C7A2E}
+.bl-age-c{position:relative;display:flex;flex-direction:column;align-items:center}
+.bl-tot{width:100%;margin-top:26px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));padding:18px 8px 16px}
+.bl-tot-c{display:flex;flex-direction:column;align-items:center;gap:3px;min-width:0}
+.bl-tot-c+.bl-tot-c{border-left:1px solid rgba(201,162,74,.5)}
+.bl-tot-n{font-weight:600;font-size:27px;line-height:32px;color:#8A3B4E;white-space:nowrap}
+.bl-tot-l{font-size:10.5px;line-height:14px;font-weight:700;letter-spacing:.26em;padding-left:.26em;text-transform:uppercase;color:#9C7A2E}
+
+/* shamni o'chiring */
+.bl-cake{position:relative;width:240px;height:230px;margin-top:10px}
+.bl-cake-glow{position:absolute;left:-40px;top:-50px;width:320px;height:230px;border-radius:50%;background:radial-gradient(circle,rgba(255,226,170,.6),rgba(255,226,170,.18) 46%,rgba(255,226,170,0) 70%);transition:opacity .7s ease}
+.bl-flame{transform-box:fill-box;transform-origin:50% 100%;animation:bl-flick 1.5s ease-in-out infinite;transition:opacity .35s ease}
+@keyframes bl-flick{0%,100%{transform:scale(1,1) rotate(-2deg)}35%{transform:scale(.92,1.08) rotate(2.5deg)}70%{transform:scale(1.05,.94) rotate(-1deg)}}
+.bl-halo{transition:opacity .35s ease}
+.bl-smoke{fill:none;stroke:#B9A39C;stroke-width:1.5;stroke-linecap:round;opacity:0;stroke-dasharray:40;stroke-dashoffset:40}
+.bl-cake--out .bl-flame,.bl-cake--out .bl-halo{opacity:0}
+.bl-cake--out .bl-cake-glow{opacity:0}
+.bl-cake--out .bl-smoke{animation:bl-smoke 2.2s ease-out forwards}
+@keyframes bl-smoke{0%{opacity:0;stroke-dashoffset:40}20%{opacity:.75}100%{opacity:0;stroke-dashoffset:0;transform:translateY(-10px)}}
+.bl-niyat{margin:10px 0 0;font-size:34px;line-height:44px;color:#B4566B;opacity:0;transform:translateY(8px);transition:opacity .7s ease .35s,transform .7s ease .35s}
+.bl-niyat--on{opacity:1;transform:none}
+
+/* sirli tilak: muhrlangan maktub */
+.bl-sec-b{position:relative;display:block;width:100%;min-height:236px;margin:24px 0 0;padding:0;border:0;border-radius:4px;font:inherit;color:inherit;text-align:center;cursor:pointer;-webkit-tap-highlight-color:rgba(0,0,0,0)}
+.bl-sec-tx{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:236px;box-sizing:border-box;padding:34px 30px 36px;opacity:0;transform:scale(.97);transition:opacity .7s ease,transform .7s ease}
+.bl-sec-b--open .bl-sec-tx{opacity:1;transform:none;transition-delay:.55s}
+.bl-sec-w{display:block;margin-top:10px;font-style:italic;font-weight:600;line-height:1.4;color:#5A4038;white-space:pre-line;overflow-wrap:anywhere}
+.bl-sec-cv{position:absolute !important;left:0;top:0;width:100%;height:100%;border-radius:4px;overflow:hidden;background:linear-gradient(153deg,rgba(255,255,255,0) 49.6%,rgba(201,162,74,.5) 49.8%,rgba(201,162,74,.5) 50.1%,rgba(120,70,60,.07) 50.3%,rgba(120,70,60,0) 62%) 0 0/50% 100% no-repeat,linear-gradient(207deg,rgba(255,255,255,0) 49.6%,rgba(201,162,74,.5) 49.8%,rgba(201,162,74,.5) 50.1%,rgba(120,70,60,.07) 50.3%,rgba(120,70,60,0) 62%) 100% 0/50% 100% no-repeat,#F8ECE0 url('/katalog/v2/art/tk9-bal/paper.webp') 0 0/372px 372px;transition:opacity .6s ease .45s,visibility 0s linear 1.05s}
+.bl-sec-b--open .bl-sec-cv{opacity:0;visibility:hidden}
+.bl-sec-bow{position:absolute;left:50%;top:50%;width:176px;height:108.8px;margin:-62px 0 0 -83.2px;background:url('/katalog/v2/art/tk9-bal/bow.webp') 0 0/100% 100% no-repeat;transform-origin:83.2px 47.1px;filter:drop-shadow(0 7px 7px rgba(70,24,40,.36));transition:transform .9s cubic-bezier(.45,0,.7,.4),opacity .9s ease}
+.bl-sec-b--open .bl-sec-bow{transform:translateY(120px) rotate(12deg) scale(.9);opacity:0}
+.bl-sec-h{position:absolute;left:0;right:0;bottom:22px;font-size:11.5px;line-height:16px;font-weight:700;letter-spacing:.26em;padding-left:.26em;text-transform:uppercase;color:#8A3B4E;animation:bl-hintP 2.6s ease-in-out infinite}
+
+/* suratlar: zarhal ramkali portretlar */
+.bl-gal{width:342px;margin-top:26px;display:grid;grid-template-columns:153px 153px;justify-content:center;gap:20px 20px}
+.bl-fr{position:relative;box-sizing:border-box;padding:3px;background:linear-gradient(135deg,#F3DFA4 0%,#C9A24A 24%,#9C7A2E 46%,#E9D08E 66%,#B48E3A 100%);box-shadow:0 0 0 1px rgba(156,122,46,.5),0 20px 30px -18px rgba(90,40,50,.7)}
+.bl-fr span{display:block;width:100%;height:100%;box-sizing:border-box;overflow:hidden;border:2.5px solid #FBF3EA;background:#F1DDD6}
+.bl-fr img{display:block;width:100%;height:100%;object-fit:cover}
+.bl-fr--oval,.bl-fr--oval span,.bl-fr--oval img{border-radius:50%}
+.bl-fr--arch,.bl-fr--arch span{border-radius:160px 160px 4px 4px}
+.bl-fr--arch img{border-radius:156px 156px 2px 2px}
+.bl-fr--wide,.bl-fr--wide span{border-radius:4px}
+
+/* yil xronikasi */
+.bl-xr{position:relative;width:100%;margin-top:28px;padding-left:66px;box-sizing:border-box;text-align:left}
+.bl-xr::before{content:"";position:absolute;left:25.5px;top:8px;bottom:30px;width:1px;background:linear-gradient(180deg,rgba(201,162,74,0),#C9A24A 8%,#C9A24A 92%,rgba(201,162,74,0))}
+.bl-xi{position:relative;padding-bottom:18px}
+.bl-xi .bl-seal{position:absolute;left:-66px;top:10px;width:52px;height:52px}
+.bl-xc{display:flex;align-items:center;gap:14px;min-height:72px;padding:14px 18px 14px 16px}
+.bl-xp{flex:none;width:58px;height:72px;border-radius:50%;padding:2px;box-sizing:border-box;background:linear-gradient(135deg,#F3DFA4,#C9A24A 40%,#9C7A2E 60%,#E9D08E);box-shadow:0 6px 10px -6px rgba(90,40,50,.6)}
+.bl-xp img{display:block;width:100%;height:100%;border-radius:50%;object-fit:cover}
+.bl-xy{margin:0;font-style:italic;font-weight:600;font-size:20px;line-height:24px;color:#B4566B}
+.bl-xt{margin:2px 0 0;font-size:16.5px;line-height:22px;color:#5A4038;overflow-wrap:anywhere}
+
+/* yaqinlar tilaklari: tashrif qog'ozlari */
+.bl-notes{width:100%;margin-top:26px;display:flex;flex-direction:column;gap:16px}
+.bl-note{padding:24px 24px 20px;text-align:left}
+.bl-note-q{display:block;height:20px;font-size:54px;line-height:54px;font-weight:700;color:#C9A24A}
+.bl-note-t{margin:4px 0 0;font-style:italic;font-weight:500;font-size:19px;line-height:26px;color:#5A4038;overflow-wrap:anywhere}
+.bl-note-n{margin:8px 0 0;padding-right:.12em;text-align:right;font-size:27px;line-height:34px;color:#B4566B;overflow-wrap:anywhere}
+
+/* bazmga taklif */
+.bl-bz{width:100%;margin-top:26px;padding:30px 24px 58px;display:flex;flex-direction:column;align-items:center}
+.bl-win{flex:none;width:150px;height:196px;border-radius:75px 75px 4px 4px;padding:3px;box-sizing:border-box;background:linear-gradient(135deg,#F3DFA4 0%,#C9A24A 24%,#9C7A2E 46%,#E9D08E 66%,#B48E3A 100%);box-shadow:0 16px 24px -16px rgba(90,40,50,.7)}
+.bl-win i{display:block;width:100%;height:100%;border-radius:72px 72px 2px 2px;box-shadow:inset 0 0 0 2px #FBF3EA;background:url('/katalog/v2/art/tk9-bal/hall.webp') -147px -163px/438px 779px no-repeat}
+.bl-bz-d{margin:10px 0 0;font-weight:600;font-size:34px;line-height:40px;color:#8A3B4E}
+.bl-bz-s{margin:2px 0 0;font-size:12px;line-height:17px;font-weight:700;letter-spacing:.22em;padding-left:.22em;text-transform:uppercase;color:#6B4A40}
+.bl-bz-j{margin:6px 0 0;max-width:290px;padding:0 .12em;font-size:38px;line-height:46px;color:#B4566B;overflow-wrap:anywhere}
+.bl-bz-a{display:flex;align-items:flex-start;justify-content:center;gap:6px;max-width:280px;margin:2px 0 0;font-size:15.5px;line-height:21px;color:#6B4A40;overflow-wrap:anywhere}
+.bl-bz-a svg{margin-top:3px;color:#B48E3A}
+.bl-dress{display:inline-flex;align-items:center;gap:11px;max-width:100%;box-sizing:border-box;margin-top:18px;padding:9px 18px;border-radius:26px;border:1px solid rgba(201,162,74,.8);background:rgba(255,250,246,.6)}
+.bl-dress-l{flex:none;font-size:10.5px;line-height:15px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:#9C7A2E}
+.bl-dress-t{min-width:0;font-style:italic;font-weight:600;font-size:19px;line-height:23px;color:#5A4038;overflow-wrap:anywhere}
+.bl-dress-s{display:block;width:20px;height:20px;border-radius:50%;box-shadow:0 0 0 1.5px #FBF3EA,0 0 0 2.5px #C9A24A}
+.bl-dress-s+.bl-dress-s{margin-left:-6px}
+.bl-map{position:relative;display:flex;align-items:center;justify-content:center;gap:10px;width:100%;height:84px;margin-top:20px;border-radius:4px;border:1px solid rgba(201,162,74,.8);overflow:hidden;text-decoration:none;font-size:13px;line-height:18px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#8A3B4E;background:linear-gradient(118deg,rgba(0,0,0,0) 0 43%,rgba(201,162,74,.3) 43% 45%,rgba(0,0,0,0) 45%),linear-gradient(26deg,rgba(0,0,0,0) 0 61%,rgba(201,123,139,.24) 61% 62.6%,rgba(0,0,0,0) 62.6%),linear-gradient(162deg,rgba(0,0,0,0) 0 26%,rgba(201,162,74,.22) 26% 27.4%,rgba(0,0,0,0) 27.4%),linear-gradient(74deg,rgba(0,0,0,0) 0 79%,rgba(201,123,139,.2) 79% 80.2%,rgba(0,0,0,0) 80.2%),rgba(255,250,246,.72)}
+.bl-map span{padding:5px 12px;border-radius:14px;background:rgba(255,250,246,.9)}
+.bl-in{display:block;width:100%;height:50px;margin-top:20px;padding:0 18px;box-sizing:border-box;border:1px solid rgba(201,162,74,.8);border-radius:25px;background:rgba(255,255,255,.8);color:#5A4038;font-family:inherit;font-size:17px;font-weight:500;text-align:center;outline:none}
+.bl-in:focus{border-color:#8A3B4E}
+.bl-in::placeholder{color:#B39A92}
+.bl-err{margin:10px 0 0;font-size:14.5px;line-height:19px;font-weight:600;color:#A1343F}
+.bl-go--on{background:rgba(255,250,246,.8);color:#8A3B4E;border-color:#C9A24A;box-shadow:none;cursor:default}
+
+.bl-nav-b:focus-visible .bl-nav-c,.bl-btn:focus-visible,.bl-map:focus-visible,.bl-music:focus-visible,.bl-sec-b:focus-visible{outline:2px solid #8A3B4E;outline-offset:2px}
+
+/* yakun: zal poli va gullar */
+.bl-foot{position:relative;margin-top:auto;padding-top:64px}
+.bl-foot-in{position:relative;min-height:330px;box-sizing:border-box;padding:92px 26px 60px;display:flex;flex-direction:column;align-items:center;text-align:center;background:#D9AE9C url('/katalog/v2/art/tk9-bal/hall.webp') 50% 100%/390px 693px no-repeat}
+.bl-foot-in::before{content:"";position:absolute;left:0;top:0;width:100%;height:100%;background:radial-gradient(64% 46% at 50% 54%,rgba(255,246,243,.95) 0,rgba(255,244,241,.88) 52%,rgba(255,240,238,.45) 80%,rgba(255,240,238,0) 100%),linear-gradient(180deg,#F6DDE0 0,rgba(246,221,224,.6) 56px,rgba(246,221,224,0) 130px)}
+.bl-foot-in>*{position:relative}
+.bl-foot-h{margin:0;font-style:italic;font-weight:600;font-size:19px;line-height:24px;color:#6B4A40}
+.bl-foot-n{margin:0;max-width:300px;padding:0 .14em;line-height:1.1;color:#8A3B4E;overflow-wrap:anywhere;text-wrap:balance;text-shadow:0 1px 0 rgba(255,250,246,.8)}
+.bl-foot-d{margin:10px 0 0;font-size:11.5px;line-height:16px;font-weight:700;letter-spacing:.24em;padding-left:.24em;text-transform:uppercase;color:#6B4A40}
+.bl-foot-f{margin:10px 0 0;max-width:236px;font-style:italic;font-size:16px;line-height:22px;color:#6B4A40;overflow-wrap:anywhere;text-wrap:balance}
+
+@media (prefers-reduced-motion: reduce){
+  .bl-i *,.bl-i *::before,.bl-i *::after,.bl-eq i,.bl-flame,.bl-sec-h,.bl-hero .bl-gl{animation:none !important}
+  .bl-i--open{animation:bl-iOut .7s ease forwards}
+  .bl-hero--on .bl-l{animation:bl-lineR .7s ease .35s both}
+  .bl-sec-tx,.bl-sec-cv,.bl-sec-bow,.bl-niyat,.bl-nav-c,.bl-shade{transition:none}
+}
+@keyframes bl-lineR{from{opacity:0}to{opacity:1}}
+</style>
+</helmet>
+<div class="bl-root" style="width: 390px; min-height: var(--vh, 100vh); position: relative; overflow: hidden; display: flex; flex-direction: column">
+
+  <svg width="0" height="0" aria-hidden="true" style="position: absolute">
+    <defs>
+      <linearGradient id="bl-gGold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" style="stop-color: #F3DFA4"></stop><stop offset="0.4" style="stop-color: #C9A24A"></stop><stop offset="0.62" style="stop-color: #9C7A2E"></stop><stop offset="1" style="stop-color: #E9D08E"></stop></linearGradient>
+      <linearGradient id="bl-gWax" x1="0" y1="0" x2="1" y2="0"><stop offset="0" style="stop-color: #E9C9A0"></stop><stop offset="0.45" style="stop-color: #FFF6E6"></stop><stop offset="1" style="stop-color: #D9B88C"></stop></linearGradient>
+      <linearGradient id="bl-gTier" x1="0" y1="0" x2="1" y2="0"><stop offset="0" style="stop-color: #E9B6BF"></stop><stop offset="0.4" style="stop-color: #F8DADF"></stop><stop offset="1" style="stop-color: #DDA0AC"></stop></linearGradient>
+      <radialGradient id="bl-gHalo"><stop offset="0" style="stop-color: #FFE9A8; stop-opacity: 0.95"></stop><stop offset="0.45" style="stop-color: #FFD98A; stop-opacity: 0.45"></stop><stop offset="1" style="stop-color: #FFD98A; stop-opacity: 0"></stop></radialGradient>
+      <linearGradient id="bl-gTier2" x1="0" y1="0" x2="1" y2="0"><stop offset="0" style="stop-color: #F1DCCB"></stop><stop offset="0.4" style="stop-color: #FFF8F0"></stop><stop offset="1" style="stop-color: #E6CDB9"></stop></linearGradient>
+    </defs>
+  </svg>
+
+  <sc-if value="{{ has.music }}">
+  <button type="button" class="{{ musicCls }}" aria-label="{{ musicLabel }}" aria-pressed="{{ musicOn }}" onClick="{{ toggleMusic }}">
+    <sc-if value="{{ musicOn }}"><span class="bl-eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span></sc-if>
+    <sc-if value="{{ musicOff }}"><svg class="bl-icon" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V5.5l11-2.2v12.5"></path><circle cx="6.2" cy="18" r="2.8"></circle><circle cx="17.2" cy="15.8" r="2.8"></circle></svg></sc-if>
+  </button>
+  </sc-if>
+
+  <!-- kirish: saroy zali, bant va muhr bilan bog'langan o'ram; butun sahna bitta tugma -->
+  <div data-intro class="{{ introCls }}" aria-hidden="{{ introHidden }}">
+    <i class="bl-hall" aria-hidden="true"></i>
+    <i class="bl-shade" aria-hidden="true"></i>
+    <div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; pointer-events: none">
+      <sc-for list="{{ glints }}" as="g"><i class="bl-gl" style="{{ g }}"></i></sc-for>
+      <sc-for list="{{ motes }}" as="m"><i class="bl-mote" style="{{ m }}"></i></sc-for>
+    </div>
+    <div class="bl-sg" aria-hidden="true">
+      <i class="bl-ish"></i>
+      <div class="bl-isheet">
+        <div class="bl-icam">
+          <div class="bl-cam" style="width: 120px; height: 152px">
+            <svg class="bl-cam-t" viewBox="0 0 34 14"><path class="bl-gold" d="M17 0c1.6 3.6 4.4 5.6 8.6 6.4-3 .5-5.2 1.6-6.4 3.6-.9-1.3-1.5-2.6-2.2-4.6-.7 2-1.3 3.3-2.2 4.6-1.2-2-3.4-3.1-6.4-3.6C12.6 5.6 15.4 3.6 17 0Z"></path><path class="bl-goldl" d="M1 11c3.2-.2 5.4-1.4 6.6-3.4M33 11c-3.2-.2-5.4-1.4-6.6-3.4"></path></svg>
+            <div class="bl-cam-in">
+              <sc-if value="{{ has.photo }}"><img src="{{ p.0 }}" alt=""></sc-if>
+              <sc-if value="{{ noPhoto }}"><span class="bl-sc bl-cam-l" style="font-size: 62px">{{ initial }}</span></sc-if>
+            </div>
+          </div>
+        </div>
+        <p class="bl-sc bl-iline" style="font-size: {{ fsLine }}px">{{ lineTxt }}</p>
+        <svg class="bl-iflo" viewBox="0 0 110 14"><path class="bl-goldl" d="M0 7h40M70 7h40"></path><path class="bl-gold" d="M55 1.5c2.4 2.9 5.2 4.5 9 5.5-3.8 1-6.6 2.6-9 5.5-2.4-2.9-5.2-4.5-9-5.5 3.8-1 6.6-2.6 9-5.5Z"></path></svg>
+      </div>
+      <i class="bl-iroll bl-iroll--b"></i>
+      <i class="bl-iroll bl-iroll--t"></i>
+      <i class="bl-ring"></i>
+      <div class="bl-bow"><span class="bl-bow-n bl-num" style="font-size: {{ sealFs }}px">{{ sealTxt }}</span></div>
+    </div>
+    <button type="button" class="bl-tap" aria-label="{{ tapLabel }}" onClick="{{ open }}">
+      <span class="bl-hint">
+        <span class="bl-hint-p">
+          <sc-if value="{{ guestLine }}"><span class="bl-hint-g" style="font-size: {{ fsGuest }}px">{{ guestLine }}</span></sc-if>
+          <span class="bl-hint-t">O‘ramni ochish uchun bosing</span>
+        </span>
+      </span>
+    </button>
+  </div>
+
+  <header class="{{ heroCls }}">
+    <div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 390px; height: 693px; pointer-events: none">
+      <sc-for list="{{ heroGlints }}" as="g"><i class="bl-gl" style="{{ g }}"></i></sc-for>
+    </div>
+    <i class="bl-hero-v" aria-hidden="true"></i>
+    <div class="bl-hcol">
+      <p class="bl-l bl-hlbl" style="--d: 3.85s">Tug‘ilgan kun bazmi</p>
+      <h1 class="bl-l bl-sc bl-hname" style="--d: 4s; font-size: {{ fsHero }}px">{{ name }}</h1>
+      <sc-if value="{{ yosh }}"><p class="bl-l bl-hage bl-num" style="--d: 4.18s">{{ yosh }} yosh</p></sc-if>
+      <sc-if value="{{ heroDate }}"><p class="bl-l bl-hdate bl-num" style="--d: 4.32s">{{ heroDate }}</p></sc-if>
+    </div>
+  </header>
+
+  <!-- o'ram: taklifning yuragi -->
+  <section class="bl-scr">
+    <div class="bl-scroll">
+      <div class="bl-sheet">
+        <div class="bl-cam" style="width: 98px; height: 124px; flex: none">
+          <svg class="bl-cam-t" viewBox="0 0 34 14" aria-hidden="true"><path class="bl-gold" d="M17 0c1.6 3.6 4.4 5.6 8.6 6.4-3 .5-5.2 1.6-6.4 3.6-.9-1.3-1.5-2.6-2.2-4.6-.7 2-1.3 3.3-2.2 4.6-1.2-2-3.4-3.1-6.4-3.6C12.6 5.6 15.4 3.6 17 0Z"></path><path class="bl-goldl" d="M1 11c3.2-.2 5.4-1.4 6.6-3.4M33 11c-3.2-.2-5.4-1.4-6.6-3.4"></path></svg>
+          <div class="bl-cam-in">
+            <sc-if value="{{ has.photo }}"><img src="{{ p.0 }}" alt="{{ name }}"></sc-if>
+            <sc-if value="{{ noPhoto }}"><span class="bl-sc bl-cam-l" aria-hidden="true" style="font-size: 50px">{{ initial }}</span></sc-if>
+          </div>
+        </div>
+        <p class="bl-ann" style="margin-top: 18px"><sc-if value="{{ annLabel }}"><span class="bl-ann-l">{{ annLabel }}</span></sc-if>{{ annNames }}</p>
+        <p class="bl-ann-i">mavsumning eng kutilgan bayramini e’lon qilish sharafiga muyassar…</p>
+        <p class="bl-ann-i">Bal kechasining gavhari va malikasi:</p>
+        <h2 class="bl-sc bl-sname" style="font-size: {{ fsScroll }}px">{{ name }}</h2>
+        <svg class="bl-flo" width="150" height="14" viewBox="0 0 150 14" aria-hidden="true" style="margin-top: 4px"><path class="bl-goldl" d="M0 7h58M92 7h58"></path><path class="bl-gold" d="M75 1.5c2.4 2.9 5.2 4.5 9 5.5-3.8 1-6.6 2.6-9 5.5-2.4-2.9-5.2-4.5-9-5.5 3.8-1 6.6-2.6 9-5.5Z"></path></svg>
+        <sc-if value="{{ dr.day }}">
+          <div class="bl-dr bl-num" aria-label="{{ dr.aria }}">
+            <span class="bl-dr-b bl-dr-b--l" aria-hidden="true" style="font-size: {{ dr.fs }}px">{{ dr.month }}</span>
+            <span class="bl-dr-d" aria-hidden="true">{{ dr.day }}</span>
+            <span class="bl-dr-b bl-dr-b--r" aria-hidden="true" style="font-size: 13px">{{ dr.year }}</span>
+          </div>
+          <p class="bl-dr2 bl-num"><span>{{ dr.weekday }}</span><sc-if value="{{ dr.extra }}"><i aria-hidden="true"></i><span>{{ dr.extra }}</span></sc-if></p>
+        </sc-if>
+        <sc-if value="{{ b.tabrik }}">
+          <p class="bl-body">{{ d.matn }}</p>
+        </sc-if>
+        <sc-if value="{{ nav.length }}">
+          <svg class="bl-flo" width="150" height="14" viewBox="0 0 150 14" aria-hidden="true" style="margin-top: 16px"><path class="bl-goldl" d="M0 7h58M92 7h58"></path><path class="bl-gold" d="M75 1.5c2.4 2.9 5.2 4.5 9 5.5-3.8 1-6.6 2.6-9 5.5-2.4-2.9-5.2-4.5-9-5.5 3.8-1 6.6-2.6 9-5.5Z"></path></svg>
+          <nav class="bl-nav" aria-label="Bo‘limlar">
+            <sc-for list="{{ nav }}" as="n">
+              <button type="button" class="bl-nav-b" onClick="{{ n.go }}"><span class="bl-nav-c"><svg class="bl-icon" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="{{ n.d }}"></path></svg></span>{{ n.t }}</button>
+            </sc-for>
+          </nav>
+        </sc-if>
+        <span class="bl-seal bl-sign bl-num" aria-hidden="true" style="font-size: {{ signFs }}px">{{ sealTxt }}</span>
+      </div>
+      <i class="bl-roll bl-roll--t" aria-hidden="true"></i>
+      <i class="bl-roll bl-roll--b" aria-hidden="true"></i>
+    </div>
+  </section>
+
+  <sc-if value="{{ b.tilaklar }}">
+  <section id="bl-tilak" class="bl-sec">
+    <p class="bl-lbl">Ezgu niyatlar</p>
+    <h2 class="bl-h2">Tilaklarimiz</h2>
+    <div class="bl-rule" aria-hidden="true"><i></i><b></b><i></i></div>
+    <div class="bl-ppr bl-wl">
+      <i class="bl-rose bl-rose--br" aria-hidden="true" style="opacity: 0.5"></i>
+      <sc-for list="{{ wishes }}" as="w">
+        <div class="bl-w"><span class="bl-seal" aria-hidden="true">{{ w.no }}</span><span class="bl-w-t">{{ w.text }}</span></div>
+      </sc-for>
+    </div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.taymer }}">
+  <section id="bl-yosh" data-age class="bl-sec">
+    <p class="bl-lbl">Bugun — sening kuning</p>
+    <h2 class="bl-h2">Sening yoshing</h2>
+    <div class="bl-rule" aria-hidden="true"><i></i><b></b><i></i></div>
+    <div class="bl-age">
+      <div class="bl-cam">
+        <svg class="bl-cam-t" viewBox="0 0 34 14" aria-hidden="true" style="width: 48px; height: 20px; margin-left: -24px; top: -21px"><path class="bl-gold" d="M17 0c1.6 3.6 4.4 5.6 8.6 6.4-3 .5-5.2 1.6-6.4 3.6-.9-1.3-1.5-2.6-2.2-4.6-.7 2-1.3 3.3-2.2 4.6-1.2-2-3.4-3.1-6.4-3.6C12.6 5.6 15.4 3.6 17 0Z"></path><path class="bl-goldl" d="M1 11c3.2-.2 5.4-1.4 6.6-3.4M33 11c-3.2-.2-5.4-1.4-6.6-3.4"></path></svg>
+        <div class="bl-cam-in"><div class="bl-age-c"><span class="bl-age-n bl-num" style="font-size: {{ ageFs }}px">{{ ageY }}</span><span class="bl-age-u">yil</span></div></div>
+      </div>
+    </div>
+    <p class="bl-lead" style="margin-top: 20px">Sen bu dunyoni <span class="bl-num" style="white-space: nowrap">{{ ageDays }} kundan</span> beri yorug‘ qilib kelyapsan</p>
+    <div class="bl-ppr bl-tot">
+      <sc-for list="{{ ageTot }}" as="t"><div class="bl-tot-c"><span class="bl-tot-n bl-num">{{ t.v }}</span><span class="bl-tot-l">{{ t.l }}</span></div></sc-for>
+    </div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.sham }}">
+  <div class="bl-band" aria-hidden="true"></div>
+  <section id="bl-sham" class="bl-sec">
+    <p class="bl-lbl">Niyat qilish payti</p>
+    <h2 class="bl-h2">Shamni o‘chiring</h2>
+    <div class="bl-rule" aria-hidden="true"><i></i><b></b><i></i></div>
+    <p class="bl-lead">Ko‘zingni yum, niyat qil va pufla</p>
+    <div class="{{ cakeCls }}">
+      <div class="bl-cake-glow" aria-hidden="true"></div>
+      <svg aria-hidden="true" width="240" height="230" viewBox="0 0 240 230" style="position: relative; display: block">
+        <path d="M22 204h196l-10 9H32Z" fill="url(#bl-gGold)"></path>
+        <path d="M106 213h28l7 15h-42Z" fill="#B48E3A"></path>
+        <rect x="34" y="136" width="172" height="68" rx="6" fill="url(#bl-gTier)"></rect>
+        <rect x="34" y="186" width="172" height="5" fill="url(#bl-gGold)"></rect>
+        <path d="M34 142q0-6 6-6h160q6 0 6 6v7q-14.3 13-28.7 0-14.3 13-28.6 0-14.4 13-28.7 0-14.3 13-28.7 0-14.3 13-28.6 0-14.4 13-28.7 0Z" fill="#FFF8F0"></path>
+        <circle cx="62.7" cy="152" r="2.6" fill="#C9A24A"></circle><circle cx="91.3" cy="152" r="2.6" fill="#C9A24A"></circle><circle cx="120" cy="152" r="2.6" fill="#C9A24A"></circle><circle cx="148.7" cy="152" r="2.6" fill="#C9A24A"></circle><circle cx="177.3" cy="152" r="2.6" fill="#C9A24A"></circle>
+        <g fill="#C97B8B"><circle cx="56" cy="174" r="6"></circle><circle cx="88" cy="174" r="6"></circle><circle cx="120" cy="174" r="6"></circle><circle cx="152" cy="174" r="6"></circle><circle cx="184" cy="174" r="6"></circle></g>
+        <g fill="#F2B9C3"><circle cx="54.5" cy="172.5" r="2.6"></circle><circle cx="86.5" cy="172.5" r="2.6"></circle><circle cx="118.5" cy="172.5" r="2.6"></circle><circle cx="150.5" cy="172.5" r="2.6"></circle><circle cx="182.5" cy="172.5" r="2.6"></circle></g>
+        <g fill="#8FA878"><path d="M66 176q7-5 12 0-6 4-12 0ZM98 176q7-5 12 0-6 4-12 0ZM130 176q7-5 12 0-6 4-12 0ZM162 176q7-5 12 0-6 4-12 0Z"></path></g>
+        <rect x="64" y="84" width="112" height="54" rx="6" fill="url(#bl-gTier2)"></rect>
+        <rect x="64" y="126" width="112" height="4" fill="url(#bl-gGold)"></rect>
+        <path d="M64 90q0-6 6-6h100q6 0 6 6v6q-11.2 11-22.4 0-11.2 11-22.4 0-11.2 11-22.4 0-11.2 11-22.4 0-11.2 11-22.4 0Z" fill="#F2C3CB"></path>
+        <path class="bl-goldl" d="M82 113q9.5 8 19 0 9.5 8 19 0 9.5 8 19 0 9.5 8 19 0"></path>
+        <g fill="url(#bl-gWax)"><rect x="81" y="32" width="6" height="54" rx="2"></rect><rect x="99" y="32" width="6" height="54" rx="2"></rect><rect x="117" y="32" width="6" height="54" rx="2"></rect><rect x="135" y="32" width="6" height="54" rx="2"></rect><rect x="153" y="32" width="6" height="54" rx="2"></rect></g>
+        <g fill="#C9A24A"><rect x="81" y="48" width="6" height="2"></rect><rect x="99" y="48" width="6" height="2"></rect><rect x="117" y="48" width="6" height="2"></rect><rect x="135" y="48" width="6" height="2"></rect><rect x="153" y="48" width="6" height="2"></rect></g>
+        <g fill="#6B4A40"><rect x="83.2" y="25" width="1.6" height="8"></rect><rect x="101.2" y="25" width="1.6" height="8"></rect><rect x="119.2" y="25" width="1.6" height="8"></rect><rect x="137.2" y="25" width="1.6" height="8"></rect><rect x="155.2" y="25" width="1.6" height="8"></rect></g>
+        <sc-for list="{{ flames }}" as="f">
+          <g transform="{{ f.t }}"><circle class="bl-halo" cx="0" cy="-9" r="19" fill="url(#bl-gHalo)"></circle><g class="bl-flame" style="{{ f.st }}"><path d="M0 -20C6 -11 7 -5 0 0C-7 -5 -6 -11 0 -20Z" fill="#F6C667"></path><path d="M0 -11C3.5 -7 3.5 -3 0 0C-3.5 -3 -3.5 -7 0 -11Z" fill="#FFF8E4"></path></g><path class="bl-smoke" d="M0 -2C-5 -8 5 -13 0 -19C-5 -25 5 -30 0 -36" style="{{ f.st }}"></path></g>
+        </sc-for>
+      </svg>
+    </div>
+    <p class="{{ niyatCls }}" aria-live="polite">Niyating ijobat bo‘lsin!</p>
+    <button type="button" class="bl-btn" style="margin-top: 12px; min-width: 250px" onClick="{{ blow }}">{{ blowLabel }}</button>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.sirli }}">
+  <section id="bl-sirli" class="bl-sec">
+    <p class="bl-lbl">Faqat sen uchun</p>
+    <h2 class="bl-h2">Sirli tilak</h2>
+    <div class="bl-rule" aria-hidden="true"><i></i><b></b><i></i></div>
+    <button type="button" class="{{ secCls }}" aria-pressed="{{ secOn }}" aria-label="{{ secLabel }}" onClick="{{ toggleSec }}">
+      <span class="bl-sec-tx">
+        <span class="bl-lbl">Senga bir tilak</span>
+        <span class="bl-sec-w" style="font-size: {{ secFs }}px">{{ d.sirli_tilak }}</span>
+      </span>
+      <span class="bl-sec-cv" aria-hidden="true">
+        <i class="bl-sec-bow"></i>
+        <span class="bl-sec-h">Muhrni oching</span>
+      </span>
+    </button>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.galereya }}">
+  <section id="bl-gal" class="bl-sec">
+    <p class="bl-lbl">Suratlar</p>
+    <h2 class="bl-h2">Portretlar zali</h2>
+    <div class="bl-rule" aria-hidden="true"><i></i><b></b><i></i></div>
+    <div class="bl-gal">
+      <sc-for list="{{ gal }}" as="g"><div class="{{ g.cls }}" style="{{ g.st }}"><span><img src="{{ g.src }}" alt="{{ g.alt }}"></span></div></sc-for>
+    </div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.xronika }}">
+  <section id="bl-xron" class="bl-sec">
+    <p class="bl-lbl">Umr sahifalari</p>
+    <h2 class="bl-h2">Yil xronikasi</h2>
+    <div class="bl-rule" aria-hidden="true"><i></i><b></b><i></i></div>
+    <div class="bl-xr">
+      <sc-for list="{{ xron }}" as="x">
+        <div class="bl-xi">
+          <span class="bl-seal bl-num" aria-hidden="true" style="font-size: {{ x.fs }}px">{{ x.yosh }}</span>
+          <div class="bl-ppr bl-xc">
+            <sc-if value="{{ has.photo }}"><span class="bl-xp"><img src="{{ x.src }}" alt=""></span></sc-if>
+            <div style="min-width: 0">
+              <sc-if value="{{ x.label }}"><p class="bl-xy bl-num">{{ x.label }}</p></sc-if>
+              <p class="bl-xt">{{ x.matn }}</p>
+            </div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.mehmonlar }}">
+  <section id="bl-mehmon" class="bl-sec">
+    <p class="bl-lbl">Yaqinlar tilaklari</p>
+    <h2 class="bl-h2">Tabrik maktublari</h2>
+    <div class="bl-rule" aria-hidden="true"><i></i><b></b><i></i></div>
+    <div class="bl-notes">
+      <sc-for list="{{ notes }}" as="g">
+        <figure class="bl-ppr bl-note" style="{{ g.st }}">
+          <span class="bl-note-q" aria-hidden="true">“</span>
+          <blockquote class="bl-note-t">{{ g.matn }}</blockquote>
+          <sc-if value="{{ g.ism }}"><figcaption class="bl-sc bl-note-n">{{ g.ism }}</figcaption></sc-if>
+        </figure>
+      </sc-for>
+    </div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.bazm }}">
+  <section id="bl-bazm" class="bl-sec">
+    <p class="bl-lbl">Bal kechasi</p>
+    <h2 class="bl-h2">Bazmga taklif</h2>
+    <div class="bl-rule" aria-hidden="true"><i></i><b></b><i></i></div>
+    <div class="bl-ppr bl-bz">
+      <i class="bl-rose bl-rose--bl" aria-hidden="true" style="opacity: 0.55"></i>
+      <i class="bl-rose bl-rose--br" aria-hidden="true" style="opacity: 0.55"></i>
+      <div class="bl-win" aria-hidden="true"><i></i></div>
+      <p class="bl-lead" style="max-width: 270px; margin-top: 16px">Shu quvonchli kunni birga nishonlaylik! Sizni bal kechamizga taklif qilamiz.</p>
+      <p class="bl-bz-d bl-num">{{ bw.date }}</p>
+      <sc-if value="{{ bazmSub }}"><p class="bl-bz-s bl-num">{{ bazmSub }}</p></sc-if>
+      <svg class="bl-flo" width="150" height="14" viewBox="0 0 150 14" aria-hidden="true" style="margin-top: 12px"><path class="bl-goldl" d="M0 7h58M92 7h58"></path><path class="bl-gold" d="M75 1.5c2.4 2.9 5.2 4.5 9 5.5-3.8 1-6.6 2.6-9 5.5-2.4-2.9-5.2-4.5-9-5.5 3.8-1 6.6-2.6 9-5.5Z"></path></svg>
+      <p class="bl-sc bl-bz-j">{{ d.bazm_joy }}</p>
+      <sc-if value="{{ d.bazm_manzil }}"><p class="bl-bz-a"><svg class="bl-icon" width="15" height="15" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6.5-6-6.5-11a6.5 6.5 0 0 1 13 0c0 5-6.5 11-6.5 11Z"></path><circle cx="12" cy="10" r="2.3"></circle></svg><span>{{ d.bazm_manzil }}</span></p></sc-if>
+      <sc-if value="{{ d.dress_kod }}">
+        <div id="bl-dress" class="bl-dress">
+          <span class="bl-dress-l">Dress-kod</span>
+          <sc-if value="{{ swatches.length }}"><span aria-hidden="true" style="display: flex; flex: none"><sc-for list="{{ swatches }}" as="c"><i class="bl-dress-s" style="{{ c }}"></i></sc-for></span></sc-if>
+          <span class="bl-dress-t">{{ d.dress_kod }}</span>
+        </div>
+      </sc-if>
+      <sc-if value="{{ d.xarita }}">
+        <a class="bl-map" href="{{ d.xarita }}" target="_blank" rel="noopener">
+          <svg class="bl-icon" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" style="position: relative"><path d="M12 21s-6.5-6-6.5-11a6.5 6.5 0 0 1 13 0c0 5-6.5 11-6.5 11Z"></path><circle cx="12" cy="10" r="2.3"></circle></svg>
+          <span>Xaritada ko‘rish</span>
+        </a>
+      </sc-if>
+      <sc-if value="{{ askGuest }}"><input class="bl-in" type="text" maxlength="100" autocomplete="name" placeholder="Ismingiz" aria-label="Ismingiz" onInput="{{ setName }}"></sc-if>
+      <button type="button" class="{{ goCls }}" style="margin-top: 18px; width: 100%" onClick="{{ go }}">
+        <sc-if value="{{ going }}"><svg class="bl-icon" width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"></path></svg></sc-if>
+        {{ goLabel }}
+      </button>
+      <sc-if value="{{ goErr }}"><p class="bl-err" role="alert">{{ goErr }}</p></sc-if>
+    </div>
+  </section>
+  </sc-if>
+
+  <footer class="bl-foot">
+    <div class="bl-foot-in">
+      <p class="bl-foot-h">Tug‘ilgan kuning muborak,</p>
+      <p class="bl-sc bl-foot-n" style="font-size: {{ fsFoot }}px">{{ name }}!</p>
+      <sc-if value="{{ heroDate }}"><p class="bl-foot-d bl-num">{{ heroDate }}</p></sc-if>
+      <sc-if value="{{ footFrom }}"><p class="bl-foot-f">{{ footFrom }}</p></sc-if>
+    </div>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":6200}}'>
+const D = SITE.d;
+const NAME = String(D.kimga || '').trim();
+const YOSH = String(D.yosh || '').trim();
+const GUEST = String(D.mehmon || SITE.guest || '').trim();
+function tkFrom(d) {
+  const kd = String(d.kimdan || '').trim(), ci = kd.indexOf(':');
+  const label = ci > 0 ? kd.slice(0, ci).trim() : '';
+  const names = ci > 0 ? kd.slice(ci + 1).trim() : kd;
+  return { label, names, line: !kd ? '' : (label ? label + 'dan: ' + names : names + 'dan') };
+}
+function fitPx(text, max, width, em) { const n = String(text || '').length || 1; return Math.max(Math.round(max * 0.42), Math.min(max, Math.floor(width / (n * em)))); }
+/* yozma shriftdagi ism: haqiqiy shrift bilan o'lchanadi (yuklanmagan bo'lsa — taxminiy hisob) */
+let pen = null;
+function scriptW(text) {
+  try {
+    pen = pen || document.createElement('canvas').getContext('2d');
+    pen.font = '400 100px "Great Vibes", cursive';
+    const w = pen.measureText(text).width;
+    if (w > 0) return w;
+  } catch (e) { /* o'lchab bo'lmasa — taxminiy */ }
+  return String(text).length * 40;
+}
+/* bir qatorga sig'sa — bir qator; uzun ism eng uzun so'zi bo'yicha ikki qatorga bo'linadi */
+function fitScript(text, max, min, width) {
+  text = String(text || '');
+  if (!text) return max;
+  const one = width * 100 / scriptW(text);
+  if (one >= max * 0.7 || !/\s/.test(text)) return Math.max(min, Math.min(max, Math.floor(one)));
+  const w = Math.max(...text.split(/\s+/).map(scriptW));
+  return Math.max(min, Math.min(Math.round(max * 0.86), Math.floor(width * 100 / w)));
+}
+function roman(n) {
+  if (!(n > 0 && n < 400)) return '';
+  let s = '';
+  [[100, 'C'], [90, 'XC'], [50, 'L'], [40, 'XL'], [10, 'X'], [9, 'IX'], [5, 'V'], [4, 'IV'], [1, 'I']].forEach(([v, r]) => { while (n >= v) { s += r; n -= v; } });
+  return s;
+}
+/* muhrdagi yozuv: yosh rim raqamida (5 belgigacha), uzun bo'lsa — oddiy raqam; yosh yo'q bo'lsa — ismning bosh harfi */
+const AGE_N = (YOSH.match(/\d{1,3}/) || [''])[0];
+const AGE_R = roman(parseInt(AGE_N, 10));
+const SEAL = AGE_N ? (AGE_R && AGE_R.length <= 5 ? AGE_R : AGE_N) : NAME.charAt(0).toUpperCase();
+const SEAL_K = [0, 1, 0.9, 0.74, 0.6, 0.5][Math.min(5, SEAL.length)] || 0.5;
+
+// Kiyinish uslubidagi rang so'zlaridan namunalar (topilmasa — ko'rsatilmaydi)
+const TK_COLORS = [
+  [/oltin|tilla|gold/i, 'linear-gradient(135deg, #F3D27A, #B8862E 55%, #E3B34C)'], [/qora|black/i, '#1C1816'], [/kumush|silver/i, 'linear-gradient(135deg, #F2F2F2, #A9A9B3)'],
+  [/(^|[^a-z’‘'])oq([^a-z’‘']|$)|white/i, '#FFFFFF'], [/qizil|red/i, '#C0392B'], [/bordo/i, '#7B1E2B'], [/pushti|pudra|pink/i, '#F0B4C2'], [/shampan/i, '#F1DDBF'],
+  [/zumrad/i, '#1F8A70'], [/yashil|green/i, '#2E8B57'], [/moviy|havorang/i, '#8DC3E4'], [/ko[’‘'`]?k|blue/i, '#3B6FD8'], [/binafsha|siyohrang|lavanda|purple/i, '#9B7FD0'],
+  [/sariq|yellow/i, '#F3D27A'], [/jigarrang|qahva|brown/i, '#7B4A2A'], [/kulrang|grey|gray/i, '#9A9A9A'], [/bej|beige|krem|fil suyagi/i, '#EADBC2']
+];
+function tkSwatches(text) {
+  const t = String(text || ''), found = [];
+  TK_COLORS.forEach((c) => { const m = t.match(c[0]); if (m) found.push([m.index, c[1]]); });
+  return found.sort((a, b) => a[0] - b[0]).slice(0, 3).map((f) => f[1]);
+}
+
+/* qandil uchqunlari: rasmdagi qandillar ustida (kirish sahnasi 475x844 qilib qo'yilgan zal; bosh qism 390x693) */
+let seed = 37;
+function rnd() { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; }
+function glint(x, y, s) { return 'left: ' + x.toFixed(1) + 'px; top: ' + y.toFixed(1) + 'px; width: ' + s + 'px; height: ' + s + 'px; margin: -' + (s / 2) + 'px 0 0 -' + (s / 2) + 'px; animation-delay: ' + (-rnd() * 4.4).toFixed(2) + 's; animation-duration: ' + (3.4 + rnd() * 2.6).toFixed(2) + 's'; }
+const HALL_PTS = [[282, 150], [236, 126], [326, 128], [258, 196], [306, 190], [213, 160], [352, 158], [282, 236], [64, 236], [112, 226], [92, 268], [452, 232], [498, 242], [474, 272], [176, 410], [388, 412]];
+const GLINTS = HALL_PTS.map((p, i) => glint(p[0] * 0.844 - 42.5, p[1] * 0.844, i < 8 ? 24 : 18));
+const GIRL_PTS = [[286, 84], [232, 60], [338, 62], [258, 132], [312, 128], [196, 96], [380, 96], [286, 176], [78, 196], [126, 186], [108, 236], [446, 196], [498, 190], [468, 238], [92, 318], [478, 320]];
+const HERO_GLINTS = GIRL_PTS.map((p, i) => glint(p[0] * 0.693, p[1] * 0.693, i < 8 ? 22 : 17));
+const MOTES = [];
+for (let i = 0; i < 9; i++) MOTES.push('left: ' + Math.round(24 + rnd() * 342) + 'px; top: ' + Math.round(250 + rnd() * 520) + 'px; animation-delay: ' + (-rnd() * 9).toFixed(2) + 's; animation-duration: ' + (7 + rnd() * 4).toFixed(2) + 's');
+
+const NPH = Math.max(1, Math.min(6, SITE.has.photos || 0));
+const GAL = SITE.p.slice(0, NPH);
+/* bo'limlarga olib boradigan dumaloq tugmalar (o'ram pastida): faqat mavjud bloklar, ko'pi bilan beshta */
+const NAV = [
+  ['bazm', 'bl-bazm', 'Manzil', 'M12 21s-6.5-6-6.5-11a6.5 6.5 0 0 1 13 0c0 5-6.5 11-6.5 11ZM12 12.3a2.3 2.3 0 1 0 0-4.6 2.3 2.3 0 0 0 0 4.6Z'],
+  ['tilaklar', 'bl-tilak', 'Tilaklar', 'M12 20s-7-4.4-7-9.6A4.1 4.1 0 0 1 12 8a4.1 4.1 0 0 1 7 2.4C19 15.6 12 20 12 20Z'],
+  ['sham', 'bl-sham', 'Sham', 'M12 3.2c1.6 1.9 2 3.2 0 4.8-2-1.6-1.6-2.9 0-4.8ZM9.5 10.5h5V20h-5ZM7 20h10'],
+  ['galereya', 'bl-gal', 'Suratlar', 'M5 5.5h14v13H5ZM5 15l3.8-3.6 3.4 3 2.6-2.2L19 15.6M9.2 9.2h.01'],
+  ['dress', 'bl-dress', 'Dress-kod', 'M9.5 3.5v2.6L8 8.2l2 2.3L6.5 20h11L14 10.5l2-2.3-1.5-2.1V3.5M10 10.5h4'],
+  ['sirli', 'bl-sirli', 'Sirli tilak', 'M4 7h16v11H4ZM4 7.5l8 6 8-6'],
+  ['xronika', 'bl-xron', 'Xronika', 'M7 4h10M7 20h10M8 4c0 4 8 4.5 8 8s-8 4-8 8M16 4c0 4-8 4.5-8 8s8 4 8 8'],
+  ['mehmonlar', 'bl-mehmon', 'Tabriklar', 'M5 6h14v9.5h-8l-4 3.2v-3.2H5Z'],
+  ['taymer', 'bl-yosh', 'Yoshing', 'M6 20v-7h12v7ZM4.5 20h15M8 13v-2.5M12 13v-2.5M16 13v-2.5M8 8.2v.1M12 8.2v.1M16 8.2v.1']
+];
+
+class Component extends DCLogic {
+  constructor(...args) {
+    super(...args);
+    this.still = !!(navigator.webdriver || (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches));
+    this.state = { opened: false, blown: false, sec: false, going: false, goErr: '', ak: this.still ? 1 : 0 };
+    this.guestName = '';
+  }
+  componentDidMount() {
+    /* shrift yuklangach ism o'lchami qayta hisoblanadi */
+    try { document.fonts.load('400 60px "Great Vibes"', NAME + ' Aziz').then(() => this.forceUpdate(), () => {}); } catch (e) { /* eski brauzer */ }
+    /* «Sening yoshing»: blok ko'ringanda raqamlar 0 dan sanaladi */
+    const ageEl = document.querySelector('[data-age]');
+    if (this.still || !ageEl || !window.IntersectionObserver) { if (!this.still) this.setState({ ak: 1 }); return; }
+    this.io = new IntersectionObserver((es) => {
+      if (!es.some((e) => e.isIntersecting)) return;
+      this.io.disconnect();
+      const t0 = performance.now();
+      const step = (t) => { const k = Math.min(1, (t - t0) / 1800); this.setState({ ak: 1 - Math.pow(1 - k, 3) }); if (k < 1) this.raf = requestAnimationFrame(step); };
+      this.raf = requestAnimationFrame(step);
+    }, { threshold: 0.3 });
+    this.io.observe(ageEl);
+  }
+  componentWillUnmount() {
+    if (this.io) this.io.disconnect();
+    cancelAnimationFrame(this.raf);
+  }
+  open() { if (this.state.opened) return; this.setState({ opened: true }); SITE.opened(); }
+  go() {
+    if (this.state.going || this.busy) return;
+    const nm = this.guestName.trim();
+    if (!SITE.has.guest && !nm) { this.setState({ goErr: 'Iltimos, ismingizni yozing' }); return; }
+    this.busy = true;
+    SITE.rsvp(true, 1, nm).then(() => { this.busy = false; this.setState({ going: true, goErr: '' }); })
+      .catch(() => { this.busy = false; this.setState({ goErr: 'Yuborilmadi, qayta urinib ko’ring' }); });
+  }
+  renderVals() {
+    const s = this.state || {}, B = SITE.b;
+    const from = tkFrom(D);
+    const w = SITE.when(D.sana);
+    const bw = SITE.when(D.bazm_sana, D.bazm_vaqt);
+    /* o'ramdagi sana qatori: bazm bloki ko'rinsa — bazm kuni va vaqti, aks holda tug'ilgan kun */
+    const dw = B.bazm && bw.day ? bw : w;
+    const extra = B.bazm && bw.day ? (D.bazm_vaqt ? 'soat ' + D.bazm_vaqt : '') : (YOSH ? YOSH + ' yosh' : '');
+    const ag = SITE.age(D.sana, D.yosh), ak = s.ak, cnt = (n) => SITE.num(Math.round(n * ak));
+    const ageY = String(Math.round(ag.y * ak));
+    const music = SITE.music.playing;
+    const guestLine = GUEST ? 'Hurmatli ' + GUEST + '!' : '';
+    const lineTxt = GUEST && GUEST.length <= 16 ? 'Aziz va qadrli ' + GUEST + '…' : 'Aziz va qadrli mehmon…';
+    const list = Array.isArray(D.tilaklar) ? D.tilaklar.filter(Boolean) : [];
+    const xl = Array.isArray(D.xronika) ? D.xronika.filter((x) => x && (x.yosh || x.matn)) : [];
+    const gl = Array.isArray(D.mehmon_tilaklari) ? D.mehmon_tilaklari.filter((g) => g && g.matn) : [];
+    const sec = String(D.sirli_tilak || '');
+    const go = (id) => () => { const el = document.getElementById(id); if (el) el.scrollIntoView({ behavior: this.still ? 'auto' : 'smooth', block: id === 'bl-dress' ? 'center' : 'start' }); };
+    const nav = NAV.filter((n) => n[0] === 'dress' ? !!(B.bazm && D.dress_kod) : !!B[n[0]]).slice(0, 5).map((n) => ({ t: n[2], d: n[3], go: go(n[1]) }));
+    const rest = GAL.length - 1;
+    const gal = GAL.map((src, i) => {
+      const alt = 'Surat ' + (i + 1);
+      if (i === 0) return { src, alt, cls: 'bl-fr bl-fr--arch', st: 'width: 286px; height: 346px; grid-column: 1 / -1; justify-self: center' };
+      if (rest % 2 === 1 && i === GAL.length - 1) return { src, alt, cls: 'bl-fr bl-fr--wide', st: 'width: 326px; height: 214px; grid-column: 1 / -1; justify-self: center' };
+      const row = Math.floor((i - 1) / 2), leftCol = i % 2 === 1;
+      return { src, alt, cls: (row % 2 === 0) === leftCol ? 'bl-fr bl-fr--oval' : 'bl-fr bl-fr--arch', st: 'width: 153px; height: 198px' };
+    });
+    return {
+      introCls: s.opened ? 'bl-i bl-i--open' : 'bl-i',
+      introHidden: !!s.opened,
+      heroCls: s.opened ? 'bl-hero bl-hero--on' : 'bl-hero',
+      open: () => this.open(),
+      tapLabel: (guestLine ? guestLine + ' ' : '') + 'Taklifnomani ochish uchun o‘ramga bosing',
+      guestLine, fsGuest: fitPx(guestLine, 20, 300, 0.47),
+      lineTxt, fsLine: fitScript(lineTxt, 31, 19, 232),
+      glints: GLINTS, heroGlints: HERO_GLINTS, motes: MOTES,
+      name: NAME, yosh: YOSH, from,
+      initial: NAME.charAt(0).toUpperCase(), noPhoto: !SITE.has.photo,
+      sealTxt: SEAL, sealFs: Math.round(30 * SEAL_K), signFs: Math.round(24 * SEAL_K),
+      fsHero: fitScript(NAME, 76, 34, 300),
+      fsScroll: fitScript(NAME, 60, 30, 238),
+      fsFoot: fitScript(NAME + '!', 58, 30, 262),
+      heroDate: [w.date, w.weekday].filter(Boolean).join(' · '),
+      annLabel: B.tabrik && from.names ? from.label : '', annNames: B.tabrik && from.names ? from.names : 'Yaqinlaring',
+      dr: { day: dw.day, month: dw.month, year: dw.year, weekday: dw.weekday, extra, fs: dw.month.length > 7 ? 11 : 13, aria: [dw.date, dw.weekday, extra].filter(Boolean).join(', ') },
+      nav,
+      wishes: list.map((t, i) => ({ text: t, no: roman(i + 1) })),
+      ageY, ageFs: ageY.length > 2 ? 62 : 80,
+      ageDays: SITE.num(ag.d),
+      ageTot: [[ag.mo, 'oy'], [ag.w, 'hafta'], [ag.d, 'kun']].map((x) => ({ v: cnt(x[0]), l: x[1] })),
+      flames: [84, 102, 120, 138, 156].map((x, i) => ({ t: 'translate(' + x + ' 27)', st: 'animation-delay: ' + (-i * 0.31).toFixed(2) + 's' })),
+      cakeCls: s.blown ? 'bl-cake bl-cake--out' : 'bl-cake',
+      niyatCls: s.blown ? 'bl-sc bl-niyat bl-niyat--on' : 'bl-sc bl-niyat',
+      blowLabel: s.blown ? 'Shamlarni qayta yoqish' : 'Shamni o‘chirish',
+      blow: () => this.setState({ blown: !this.state.blown }),
+      secCls: s.sec ? 'bl-ppr bl-sec-b bl-sec-b--open' : 'bl-ppr bl-sec-b',
+      secOn: s.sec ? 'true' : 'false',
+      secLabel: s.sec ? 'Sirli tilakni yopish' : 'Sirli tilakni ochish: muhrga bosing',
+      secFs: sec.length > 150 ? 18 : (sec.length > 80 ? 20 : 22),
+      toggleSec: () => this.setState({ sec: !this.state.sec }),
+      gal,
+      xron: xl.map((x, i) => {
+        const y = String(x.yosh || '').trim();
+        return { yosh: y.slice(0, 4), label: /^\d+$/.test(y) ? y + ' yosh' : y, matn: x.matn || '', fs: y.length > 3 ? 13 : (y.length > 2 ? 16 : 21), src: i === xl.length - 1 ? SITE.p[0] : SITE.p[(i + 1) % SITE.p.length] };
+      }),
+      notes: gl.map((g, i) => ({ ism: g.ism || '', matn: g.matn || '', st: i % 2 ? 'margin-left: 22px' : 'margin-right: 22px' })),
+      bw,
+      bazmSub: [bw.weekday, D.bazm_vaqt ? 'soat ' + D.bazm_vaqt : ''].filter(Boolean).join(' · '),
+      swatches: tkSwatches(D.dress_kod).map((bg) => 'background: ' + bg),
+      askGuest: !SITE.has.guest && !s.going,
+      setName: (e) => { this.guestName = e.target.value; },
+      going: !!s.going, goErr: s.goErr,
+      goCls: s.going ? 'bl-btn bl-go--on' : 'bl-btn',
+      goLabel: s.going ? 'Kutamiz!' : 'Boraman',
+      go: () => this.go(),
+      footFrom: B.tabrik && from.line ? 'Mehr bilan — ' + (from.names || from.line) : '',
+      musicOn: music, musicOff: !music,
+      musicCls: music ? 'bl-music bl-music--on' : 'bl-music',
+      musicLabel: music ? 'Musiqani o‘chirish' : 'Musiqani yoqish',
+      toggleMusic: () => { SITE.music.toggle(); }
+    };
+  }
+}
+</script>
+</body>
+</html>
