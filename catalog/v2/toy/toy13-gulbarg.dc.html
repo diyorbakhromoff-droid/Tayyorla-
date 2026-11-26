@@ -1,0 +1,769 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<title>To’y taklifnomasi: Gulbarg</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preload" as="image" href="/katalog/v2/art/toy13-gulbarg/couple.webp">
+<link rel="preload" as="image" href="/katalog/v2/art/toy13-gulbarg/leaf.webp">
+<link rel="preload" as="image" href="/katalog/v2/art/toy13-gulbarg/peony.webp">
+<link rel="preload" as="image" href="/katalog/v2/art/toy13-gulbarg/seal.webp">
+<link rel="preload" as="image" href="/katalog/v2/art/toy13-gulbarg/twine.webp">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Federo&amp;family=Jost:wght@300;400;500&amp;display=swap">
+<style>
+body{margin:0;background:#FBF4E8}
+.gb-root{background:#FBF4E8;color:#6B5540;font-family:'Jost','Helvetica Neue',Arial,sans-serif;font-weight:400}
+.gb-fed{font-family:'Federo','Forum',Georgia,'Times New Roman',serif;font-weight:400}
+.gb-num{font-variant-numeric:lining-nums tabular-nums}
+.gb-icon{fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.gb-vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+/* suratlar ustidagi oq yozuv: namunadagidek yumshoq to'q soya bilan */
+.gb-w{color:#FFFDF7;text-shadow:0 0 22px rgba(44,28,6,.82),0 0 9px rgba(44,28,6,.6),0 2px 3px rgba(44,28,6,.62)}
+
+/* ================= sahna: ustunli yo'lakdagi kelin-kuyov (kirish va bosh qismda bir xil) ================= */
+.gb-stage{position:absolute;left:0;top:0;width:390px;height:844px}
+.gb-cam{position:absolute;left:0;top:0;width:390px;height:844px;transform-origin:195px 330px}
+.gb-bg{position:absolute;left:-30px;top:0;width:475px;height:844px;background:#D9BA90 url('/katalog/v2/art/toy13-gulbarg/couple.webp') center/100% 100% no-repeat}
+/* past yoki baland ekranlarda sahna chetlari: rasmning ko'zgu aksi bilan uzluksiz davom etadi */
+.gb-bg--ml{left:-505px;transform:scaleX(-1)}
+.gb-bg--mr{left:445px;transform:scaleX(-1)}
+.gb-bg--mb{top:844px;transform:scaleY(-1)}
+.gb-i--open .gb-cam,.gb-hero--on .gb-cam{animation:gb-push 4.6s cubic-bezier(.3,.1,.3,1) .35s forwards}
+@keyframes gb-push{from{transform:scale(1)}to{transform:scale(1.09)}}
+.gb-pts{position:absolute;left:0;top:0;width:390px;height:844px;pointer-events:none}
+.gb-pt{position:absolute;width:10px;height:7px;border-radius:70% 30% 70% 30%/60% 40% 60% 40%;background:radial-gradient(120% 120% at 30% 30%,#FFFDF6 0,#F8E7CB 60%,#EBCFA6 100%);box-shadow:0 1px 2px rgba(120,82,34,.22);opacity:0;animation:gb-pt var(--t,9s) linear var(--dl,0s) infinite}
+@keyframes gb-pt{0%{opacity:0;transform:translate(0,0) rotate(0deg) scale(var(--s,1))}12%{opacity:.95}50%{transform:translate(calc(var(--x) * .55),calc(var(--y) * .42)) rotate(170deg) scale(var(--s,1))}86%{opacity:.85}100%{opacity:0;transform:translate(var(--x),var(--y)) rotate(340deg) scale(var(--s,1))}}
+
+/* ================= kirish: muhrlangan gulbarg o'ram ================= */
+.gb-i{position:absolute;left:0;top:0;width:390px;height:844px;z-index:40;background:#D9BA90}
+.gb-i--open{pointer-events:none;animation:gb-iOut .95s ease 2.9s forwards}
+@keyframes gb-iOut{to{opacity:0;visibility:hidden}}
+.gb-wrap{position:absolute;left:0;top:0;width:390px;height:844px;perspective:1200px;perspective-origin:195px 440px}
+/* ikki tik gulbarg: o'qi ekran chetida, ichki yarmi o'rtada uchrashadi (o'lchamlar tayyor rasmdan) */
+.gb-leaf{position:absolute;top:-15px;width:388.5px;height:909.5px;filter:drop-shadow(0 6px 13px rgba(60,36,14,.4));will-change:transform}
+.gb-leaf--l{left:-206.8px;transform-origin:202.8px 50%}
+.gb-leaf--r{left:208.3px;transform-origin:185.7px 50%}
+.gb-leaf-img{position:absolute;left:0;top:0;width:100%;height:100%;background:url('/katalog/v2/art/toy13-gulbarg/leaf.webp') center/100% 100% no-repeat}
+.gb-leaf--r .gb-leaf-img{transform:rotate(180deg)}
+.gb-i--open .gb-leaf--l{animation:gb-openL 2.05s cubic-bezier(.5,.04,.3,1) .42s forwards}
+.gb-i--open .gb-leaf--r{animation:gb-openR 2.05s cubic-bezier(.5,.04,.3,1) .5s forwards}
+@keyframes gb-openL{0%{transform:translateX(0) rotateY(0) scale(1);opacity:1}80%{opacity:1}100%{transform:translateX(30px) rotateY(87deg) scale(.76);opacity:0}}
+@keyframes gb-openR{0%{transform:translateX(0) rotateY(0) scale(1);opacity:1}80%{opacity:1}100%{transform:translateX(-30px) rotateY(-87deg) scale(.76);opacity:0}}
+/* bog'lam: jut arqon, pionlar va mis muhr — ochilganda birga pastga sirg'aladi */
+.gb-tie{position:absolute;left:0;top:0;width:390px;height:844px}
+.gb-i--open .gb-tie{animation:gb-drop 1.7s cubic-bezier(.5,0,.82,.6) .4s forwards}
+@keyframes gb-drop{to{transform:translateY(640px)}}
+.gb-twg{position:absolute;top:418.5px;width:326px;height:58.9px}
+.gb-twg--l{left:-168px}
+.gb-twg--r{left:232px;transform:scaleX(-1)}
+.gb-tw{position:absolute;left:156px;top:0;width:170px;height:58.9px;background:url('/katalog/v2/art/toy13-gulbarg/twine.webp') center/100% 100% no-repeat;filter:drop-shadow(0 3px 3px rgba(60,36,14,.42))}
+.gb-tw--b{left:0;transform:scaleX(-1)}
+.gb-i--open .gb-twg--l{animation:gb-twL 1.7s ease-in .4s forwards}
+.gb-i--open .gb-twg--r{animation:gb-twR 1.7s ease-in .4s forwards}
+@keyframes gb-twL{to{transform:translate(-26px,10px) rotate(-5deg)}}
+@keyframes gb-twR{to{transform:translate(26px,10px) scaleX(-1) rotate(-5deg)}}
+.gb-pe{position:absolute;width:128px;height:193px;background:url('/katalog/v2/art/toy13-gulbarg/peony.webp') center/100% 100% no-repeat;filter:drop-shadow(0 6px 7px rgba(60,36,14,.38))}
+.gb-pe--l{left:32px;top:289.5px;transform:rotate(10deg);animation:gb-swayL 6.5s ease-in-out infinite}
+.gb-pe--r{left:233px;top:415.5px;transform:rotate(190deg);filter:drop-shadow(0 -6px 7px rgba(60,36,14,.38));animation:gb-swayR 7.2s ease-in-out -2s infinite}
+.gb-pe--leaf{left:238.8px;top:304.2px;transform:rotate(10deg);filter:drop-shadow(0 4px 5px rgba(60,36,14,.3))}
+@keyframes gb-swayL{0%,100%{transform:rotate(10deg)}50%{transform:rotate(8.6deg)}}
+@keyframes gb-swayR{0%,100%{transform:rotate(190deg)}50%{transform:rotate(191.5deg)}}
+.gb-i--open .gb-pe--l{animation:gb-peL 1.7s ease-in .4s forwards}
+.gb-i--open .gb-pe--r{animation:gb-peR 1.7s ease-in .4s forwards}
+@keyframes gb-peL{from{transform:rotate(10deg)}to{transform:translate(-14px,-24px) rotate(-8deg)}}
+@keyframes gb-peR{from{transform:rotate(190deg)}to{transform:translate(16px,30px) rotate(206deg)}}
+.gb-seal{position:absolute;left:133px;top:388px;width:124px;height:123.2px;background:url('/katalog/v2/art/toy13-gulbarg/seal.webp') center/100% 100% no-repeat;filter:drop-shadow(0 6px 6px rgba(60,36,14,.5));animation:gb-sealIdle 3.4s ease-in-out infinite}
+@keyframes gb-sealIdle{0%,100%{transform:scale(1)}50%{transform:scale(1.035)}}
+.gb-i--open .gb-seal{animation:gb-sealOff 2.1s cubic-bezier(.3,.6,.4,1) forwards}
+@keyframes gb-sealOff{0%{transform:scale(1) rotate(0)}17%{transform:scale(1.12) rotate(-7deg)}40%{transform:scale(1.06) rotate(4deg)}100%{transform:scale(1) rotate(19deg)}}
+.gb-ring{position:absolute;left:195px;top:450px;width:0;height:0;pointer-events:none;transition:opacity .25s ease}
+.gb-ring::before,.gb-ring::after{content:"";position:absolute;left:-66px;top:-66px;width:132px;height:132px;box-sizing:border-box;border-radius:50%;border:1.5px solid rgba(255,246,222,.9);box-shadow:0 0 12px 2px rgba(255,226,170,.5),inset 0 0 10px 1px rgba(255,226,170,.35);opacity:0;animation:gb-ring 3.4s ease-out infinite}
+.gb-ring::after{animation-delay:1.25s}
+@keyframes gb-ring{0%{opacity:0;transform:scale(.9)}16%{opacity:.9}100%{opacity:0;transform:scale(1.5)}}
+.gb-i--open .gb-ring{opacity:0}
+/* ochilish chaqnashi (namunadagidek qisqa yorug'lik) */
+.gb-flash{position:absolute;left:-240px;top:0;width:870px;height:1280px;background:radial-gradient(60% 34% at 50% 22%,#FFFCF0 0,rgba(255,247,226,.94) 45%,rgba(255,240,206,.8) 100%);opacity:0;pointer-events:none}
+.gb-i--open .gb-flash{animation:gb-flash .8s ease-out .04s both}
+@keyframes gb-flash{0%{opacity:0}34%{opacity:.84}100%{opacity:0}}
+
+/* butun sahna — bitta tugma */
+.gb-tap{position:absolute;left:-240px;top:0;width:870px;height:1280px;margin:0;padding:0;border:0;background:rgba(0,0,0,0);cursor:pointer;display:block;font:inherit;color:inherit;-webkit-tap-highlight-color:rgba(0,0,0,0)}
+.gb-tap:focus{outline:none}
+.gb-tap:focus-visible .gb-hint-t{outline:2px solid #B5673A;outline-offset:4px}
+.gb-i--open .gb-tap{animation:gb-fade .35s ease forwards}
+@keyframes gb-fade{to{opacity:0}}
+.gb-hint{position:absolute;left:240px;top:736px;width:390px;height:92px;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:8px}
+.gb-hint-g{display:block;max-width:330px;padding:3px 16px 4px;border-radius:16px;background:rgba(253,247,236,.8);font-family:'Federo','Forum',Georgia,serif;line-height:25px;color:#4A3220;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;box-shadow:0 8px 18px -12px rgba(90,56,22,.6)}
+.gb-hint-t{display:flex;align-items:center;gap:9px;height:34px;padding:0 18px 0 16px;border-radius:17px;border:1px solid rgba(181,103,58,.4);background:rgba(253,247,236,.9);box-shadow:0 10px 20px -12px rgba(90,56,22,.7);font-size:11px;line-height:16px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:#7A4526;animation:gb-hintP 2.8s ease-in-out infinite}
+.gb-hint-t::before{content:"";display:block;width:8px;height:8px;border-radius:50%;background:radial-gradient(circle at 34% 30%,#E9A77C 0,#B5673A 55%,#8A4522 100%);box-shadow:0 0 0 3px rgba(181,103,58,.16)}
+@keyframes gb-hintP{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+
+.gb-music{position:absolute;top:14px;right:14px;z-index:60;width:44px;height:44px;border-radius:50%;border:1px solid rgba(181,103,58,.5);background:rgba(253,247,236,.88);color:#8A4D2A;display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0;box-shadow:0 8px 20px -12px rgba(90,56,22,.6)}
+.gb-music--on{box-shadow:0 0 0 4px rgba(181,103,58,.18)}
+.gb-eq{display:flex;align-items:flex-end;gap:2.5px;height:15px}
+.gb-eq i{display:block;width:2.5px;height:100%;border-radius:2px;background:currentColor;transform-origin:50% 100%;animation:gb-eq .9s ease-in-out infinite alternate}
+.gb-eq i:nth-child(2){animation-delay:-.3s}.gb-eq i:nth-child(3){animation-delay:-.6s}.gb-eq i:nth-child(4){animation-delay:-.15s}
+@keyframes gb-eq{from{transform:scaleY(.25)}to{transform:scaleY(1)}}
+
+/* ================= bosh qism: o'sha sahna, pastida marosim nomi va sana ================= */
+.gb-hero{position:relative;flex:none;width:390px;overflow:hidden;background:#D9BA90}
+.gb-hero .gb-stage{transform-origin:195px 0}
+.gb-hero-veil{position:absolute;left:0;bottom:0;width:390px;height:300px;background:linear-gradient(180deg,rgba(251,244,232,0) 0,rgba(251,244,232,.5) 30%,rgba(251,244,232,.86) 58%,#FBF4E8 100%);opacity:0}
+.gb-hero--on .gb-hero-veil{animation:gb-in 1.5s ease 2.7s forwards}
+@keyframes gb-in{to{opacity:1}}
+.gb-hero-txt{position:absolute;left:0;bottom:92px;width:390px;display:flex;flex-direction:column;align-items:center;text-align:center}
+.gb-l{margin:0;opacity:0}
+.gb-hero--on .gb-l{animation:gb-line 1s cubic-bezier(.22,.61,.36,1) var(--d,3s) both}
+@keyframes gb-line{from{opacity:0;filter:blur(5px);transform:translateY(10px)}to{opacity:1;filter:none;transform:none}}
+.gb-hero-k{max-width:350px;font-family:'Federo','Forum',Georgia,serif;font-size:36px;line-height:42px;color:#3A2A1C}
+.gb-orn{display:flex;align-items:center;justify-content:center;gap:9px;height:9px}
+.gb-orn::before,.gb-orn::after{content:"";display:block;width:54px;height:1px;background:linear-gradient(90deg,rgba(181,103,58,0),rgba(181,103,58,.8))}
+.gb-orn::after{transform:scaleX(-1)}
+.gb-orn b{display:block;width:6px;height:6px;transform:rotate(45deg);background:#B5673A}
+.gb-hero-d{max-width:350px;padding-left:.2em;font-size:13px;line-height:18px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:#5B3D26}
+.gb-cue{position:absolute;left:183px;bottom:54px;width:24px;height:24px;color:#8A4D2A}
+.gb-cue svg{display:block;animation:gb-cue 2.4s ease-in-out infinite}
+@keyframes gb-cue{0%,100%{transform:translateY(-3px);opacity:.55}50%{transform:translateY(3px);opacity:1}}
+
+/* ================= to'liq sahnalar: bir-biriga erib o'tadi ================= */
+.gb-scene{position:relative;flex:none;width:390px;overflow:hidden;box-sizing:border-box}
+.gb-mT{margin-top:-84px;-webkit-mask-image:linear-gradient(180deg,rgba(0,0,0,0) 0,#000 84px);mask-image:linear-gradient(180deg,rgba(0,0,0,0) 0,#000 84px)}
+.gb-tail{position:relative;flex:none;width:390px;height:90px;margin-top:-90px;background:linear-gradient(180deg,rgba(251,244,232,0) 0,rgba(251,244,232,.8) 62%,#FBF4E8 100%);pointer-events:none}
+/* ko'ringanda ochiladigan satrlar */
+.gb-rv{opacity:0;transform:translateY(14px);filter:blur(6px);transition:opacity 1.1s ease var(--d,0s),transform 1.25s cubic-bezier(.22,.61,.36,1) var(--d,0s),filter 1.1s ease var(--d,0s)}
+.gb-seen .gb-rv{opacity:1;transform:none;filter:none}
+
+/* ismlar: gulli ravoqli bog' yo'lagi */
+.gb-names{height:693px;background:#5F5330 url('/katalog/v2/art/toy13-gulbarg/garden.webp') center/390px 693px no-repeat;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:64px 20px 0}
+.gb-names::before{content:"";position:absolute;left:0;top:0;width:100%;height:100%;background:radial-gradient(64% 36% at 50% 53%,rgba(44,30,8,.42) 0,rgba(44,30,8,.22) 55%,rgba(44,30,8,0) 100%)}
+.gb-names>*{position:relative}
+.gb-nm{margin:0;max-width:350px;font-family:'Federo','Forum',Georgia,serif;line-height:1.16;overflow-wrap:anywhere}
+.gb-amp{margin:2px 0 0;font-family:'Federo','Forum',Georgia,serif;font-size:38px;line-height:46px}
+.gb-fam{margin:26px 0 0;max-width:300px;padding-left:.18em;font-size:12px;line-height:19px;font-weight:400;letter-spacing:.18em;text-transform:uppercase;overflow-wrap:anywhere;text-wrap:balance}
+.gb-fam-o{display:block;width:44px;height:1px;margin:0 auto 14px;background:rgba(255,253,247,.85);box-shadow:0 0 8px rgba(44,28,6,.8)}
+
+/* taklif matni: o'sha bog', to'qroq parda */
+.gb-quote{min-height:580px;padding:168px 38px 132px;background:#4B4126;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.gb-quote::before{content:"";position:absolute;left:0;top:0;width:100%;height:100%;background:url('/katalog/v2/art/toy13-gulbarg/garden.webp') 61% 0/auto max(100%,1190px) no-repeat;transform:scaleX(-1)}
+.gb-quote::after{content:"";position:absolute;left:0;top:0;width:100%;height:100%;background:radial-gradient(84% 56% at 50% 52%,rgba(40,28,8,.54) 0,rgba(40,28,8,.36) 60%,rgba(40,28,8,.22) 100%)}
+.gb-quote>*{position:relative;z-index:1}
+.gb-q-hi{margin:0 0 20px;max-width:310px;padding-left:.2em;font-size:12px;line-height:18px;letter-spacing:.2em;text-transform:uppercase;overflow-wrap:anywhere}
+.gb-q{margin:0;max-width:314px;font-family:'Federo','Forum',Georgia,serif;font-size:21.5px;line-height:34px;white-space:pre-line;overflow-wrap:anywhere;text-wrap:pretty}
+.gb-q-mark{display:block;margin:0 auto 6px;font-family:'Federo','Forum',Georgia,serif;font-size:54px;line-height:38px;height:30px}
+
+/* tafsilotlar: fata, uzuklar va fonusli yorug' ramka */
+.gb-det{height:693px;background:#F4E6D0 url('/katalog/v2/art/toy13-gulbarg/card.webp') center/390px 693px no-repeat}
+.gb-det::before{content:"";position:absolute;left:-40px;top:20px;width:380px;height:520px;background:radial-gradient(50% 50% at 50% 50%,rgba(254,248,238,.86) 0,rgba(254,248,238,.6) 50%,rgba(254,248,238,0) 100%)}
+.gb-det-col{position:absolute;left:28px;top:70px;width:244px;min-height:392px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:#3A2A1C}
+.gb-dl{margin:0;max-width:244px;font-family:'Federo','Forum',Georgia,serif;font-size:17.5px;line-height:27px;overflow-wrap:anywhere;text-wrap:balance}
+.gb-dl--k{font-size:25px;line-height:32px;margin-bottom:12px}
+.gb-dl--a{margin-top:4px;font-family:'Jost','Helvetica Neue',Arial,sans-serif;font-size:13px;line-height:19px;color:#5B4733;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden}
+.gb-dl--s{font-size:15px;line-height:23px;color:#4A3524}
+.gb-rule{display:flex;align-items:center;justify-content:center;gap:7px;width:168px;height:9px;margin:13px 0}
+.gb-rule::before,.gb-rule::after{content:"";display:block;flex:1;height:1px;background:linear-gradient(90deg,rgba(196,150,82,0),rgba(196,150,82,.95))}
+.gb-rule::after{transform:scaleX(-1)}
+.gb-rule b{display:block;width:5px;height:5px;transform:rotate(45deg);background:#C49652}
+.gb-link{margin:16px 0 0;padding:6px 4px;border:0;background:rgba(0,0,0,0);cursor:pointer;display:inline-flex;align-items:center;gap:7px;font-family:'Federo','Forum',Georgia,serif;font-size:16.5px;line-height:22px;color:#8A4522;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:5px;text-decoration-color:rgba(138,69,34,.55)}
+.gb-link svg{animation:gb-cue 2.4s ease-in-out infinite}
+
+/* surat: o'sha ramka tepasiga yumshoq erib kiradi, ostida ismlar */
+.gb-ph{height:693px;background:#F4E6D0 url('/katalog/v2/art/toy13-gulbarg/card.webp') center/390px 693px no-repeat}
+.gb-ph-img{position:absolute;left:14px;top:34px;width:286px;height:414px;display:block;object-fit:cover;
+  -webkit-mask-image:linear-gradient(180deg,rgba(0,0,0,0) 0,#000 13%,#000 60%,rgba(0,0,0,0) 100%),linear-gradient(90deg,rgba(0,0,0,0) 0,#000 20%,#000 80%,rgba(0,0,0,0) 100%);mask-image:linear-gradient(180deg,rgba(0,0,0,0) 0,#000 13%,#000 60%,rgba(0,0,0,0) 100%),linear-gradient(90deg,rgba(0,0,0,0) 0,#000 20%,#000 80%,rgba(0,0,0,0) 100%);-webkit-mask-composite:source-in;mask-composite:intersect}
+.gb-ph::before{content:"";position:absolute;left:-30px;top:404px;width:400px;height:250px;background:radial-gradient(50% 50% at 50% 50%,rgba(254,248,238,.84) 0,rgba(254,248,238,.55) 52%,rgba(254,248,238,0) 100%)}
+.gb-ph-nm{position:absolute;left:30px;top:446px;width:260px;display:flex;flex-direction:column;align-items:center;text-align:center;color:#3A2A1C;font-family:'Federo','Forum',Georgia,serif}
+.gb-ph-nm p{margin:0;max-width:260px;line-height:1.2;overflow-wrap:anywhere}
+
+/* ================= sahifa: iliq krem, mis va oltin urg'ular ================= */
+.gb-sec{position:relative;padding:66px 26px 0;display:flex;flex-direction:column;align-items:center;text-align:center}
+.gb-lbl{margin:0;padding-left:.3em;font-size:10.5px;line-height:16px;font-weight:500;letter-spacing:.3em;text-transform:uppercase;color:#B5673A}
+.gb-h2{margin:9px 0 0;max-width:338px;font-family:'Federo','Forum',Georgia,serif;font-weight:400;font-size:31px;line-height:38px;color:#3A2A1C;overflow-wrap:anywhere;text-wrap:balance}
+.gb-txt{margin:0;font-size:15px;line-height:24px;font-weight:400;color:#6B5540}
+.gb-card{position:relative;background:#FFFCF6;border:1px solid rgba(181,103,58,.16);border-radius:6px;box-shadow:0 20px 44px -28px rgba(120,82,34,.5),0 2px 8px -3px rgba(120,82,34,.12)}
+/* bog'lam: arqon va muhr — bo'limlar orasidagi ajratgich */
+.gb-knot{display:flex;align-items:center;justify-content:center;height:46px;margin-bottom:34px}
+.gb-knot i{display:block;width:112px;height:38.8px;background:url('/katalog/v2/art/toy13-gulbarg/twine.webp') center/100% 100% no-repeat;-webkit-mask-image:linear-gradient(90deg,rgba(0,0,0,0) 0,#000 46%);mask-image:linear-gradient(90deg,rgba(0,0,0,0) 0,#000 46%)}
+.gb-knot i+b+i{transform:scaleX(-1)}
+.gb-knot b{position:relative;z-index:1;display:block;width:46px;height:45.7px;margin:0 -9px;background:url('/katalog/v2/art/toy13-gulbarg/seal.webp') center/100% 100% no-repeat;filter:drop-shadow(0 3px 3px rgba(60,36,14,.4))}
+/* ramka tepasidagi gul shodasi */
+.gb-garland{position:absolute;left:0;top:0;width:390px;height:150px;background:url('/katalog/v2/art/toy13-gulbarg/card.webp') 0 0/390px 693px no-repeat;-webkit-mask-image:linear-gradient(180deg,#000 0,#000 22%,rgba(0,0,0,0) 100%);mask-image:linear-gradient(180deg,#000 0,#000 22%,rgba(0,0,0,0) 100%);pointer-events:none}
+/* qog'oz gulbarg va pion — kartochka burchaklarida */
+.gb-flap{position:absolute;width:94px;height:220px;background:url('/katalog/v2/art/toy13-gulbarg/leaf.webp') center/100% 100% no-repeat;filter:drop-shadow(0 4px 6px rgba(60,36,14,.26));pointer-events:none}
+.gb-bloom{position:absolute;width:96px;height:144.7px;background:url('/katalog/v2/art/toy13-gulbarg/peony.webp') center/100% 100% no-repeat;filter:drop-shadow(0 5px 6px rgba(60,36,14,.3));pointer-events:none}
+.gb-out{display:inline-flex;align-items:center;justify-content:center;gap:9px;height:44px;padding:0 22px;border-radius:22px;border:1px solid rgba(181,103,58,.5);box-sizing:border-box;background:rgba(255,252,246,.7);color:#8A4522;font-family:inherit;font-size:12px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;cursor:pointer}
+.gb-out:hover{background:#FFFCF6;border-color:#B5673A}
+.gb-btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;height:52px;padding:0 26px;border-radius:26px;border:0;box-sizing:border-box;background:linear-gradient(180deg,#C57A4A 0%,#A85A30 100%);color:#FFF9EE;font-family:inherit;font-size:12.5px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;text-decoration:none;cursor:pointer;box-shadow:0 16px 26px -16px rgba(120,62,26,.9),inset 0 1px 0 rgba(255,226,196,.45)}
+.gb-btn:hover{background:linear-gradient(180deg,#CC8454 0%,#B06236 100%)}
+.gb-btn:disabled{opacity:.65;cursor:default}
+
+/* taymer */
+.gb-tiles{display:flex;justify-content:center;gap:12px;margin-top:28px}
+.gb-tile{display:flex;flex-direction:column;align-items:center;gap:10px;width:68px}
+.gb-tile-n{display:flex;align-items:center;justify-content:center;width:68px;height:72px;border-radius:34px 34px 6px 6px;font-family:'Federo','Forum',Georgia,serif;font-size:29px;line-height:1;color:#3A2A1C}
+.gb-tile-l{font-size:9px;line-height:12px;font-weight:500;letter-spacing:.22em;padding-left:.22em;color:#B5673A}
+.gb-kun{margin:26px 0 0;font-size:14px;line-height:20px;letter-spacing:.05em;color:#6B5540}
+
+/* manzil */
+.gb-addr{display:flex;align-items:flex-start;justify-content:center;gap:7px;max-width:310px;margin:10px 0 0;font-size:13.5px;line-height:20px;color:#7A634C;overflow-wrap:anywhere}
+.gb-addr svg{margin-top:3px;color:#B5673A}
+.gb-map{display:flex;align-items:center;gap:16px;width:306px;height:112px;margin-top:28px;padding:0 20px 0 22px;box-sizing:border-box;overflow:hidden;text-align:left;text-decoration:none;color:#3A2A1C}
+.gb-map::before{content:"";position:absolute;left:0;top:0;width:100%;height:100%;background:linear-gradient(118deg,rgba(0,0,0,0) 0 44%,rgba(181,103,58,.1) 44% 45.6%,rgba(0,0,0,0) 45.6%),linear-gradient(24deg,rgba(0,0,0,0) 0 60%,rgba(181,103,58,.08) 60% 61.4%,rgba(0,0,0,0) 61.4%),linear-gradient(164deg,rgba(0,0,0,0) 0 27%,rgba(78,91,58,.09) 27% 28.2%,rgba(0,0,0,0) 28.2%),linear-gradient(74deg,rgba(0,0,0,0) 0 78%,rgba(78,91,58,.08) 78% 79%,rgba(0,0,0,0) 79%)}
+.gb-map>*{position:relative}
+.gb-map-seal{flex:none;width:62px;height:61.6px;background:url('/katalog/v2/art/toy13-gulbarg/seal.webp') center/100% 100% no-repeat;filter:drop-shadow(0 4px 4px rgba(60,36,14,.4))}
+.gb-map-t{display:block;font-family:'Federo','Forum',Georgia,serif;font-size:20px;line-height:25px}
+.gb-map-s{display:flex;align-items:center;gap:6px;margin-top:3px;font-size:11px;line-height:16px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:#B5673A}
+/* mis ravoq — suratlar uchun */
+.gb-arch{position:relative;flex:none;padding:6px;box-sizing:border-box;background:linear-gradient(128deg,#F1D2B0 0%,#C98557 22%,#A85A30 46%,#EBC29C 68%,#B5673A 86%,#8A4522 100%);box-shadow:0 24px 34px -22px rgba(90,52,20,.75)}
+.gb-arch-i{position:relative;width:100%;height:100%;overflow:hidden;background:#EBD9BE;box-shadow:inset 0 0 0 1px rgba(90,52,20,.35)}
+.gb-arch-i img{position:absolute;left:0;top:0;width:100%;height:100%;display:block;object-fit:cover}
+.gb-arch--g{width:270px;height:360px;border-radius:135px 135px 5px 5px}
+.gb-arch--g .gb-arch-i{border-radius:129px 129px 2px 2px}
+.gb-arch--v{width:236px;height:300px;border-radius:118px 118px 5px 5px}
+.gb-arch--v .gb-arch-i{border-radius:112px 112px 2px 2px}
+.gb-gimg{opacity:0;transform:scale(1.05);transition:opacity .9s ease,transform 1.8s ease}
+.gb-gimg--on{opacity:1;transform:none}
+.gb-th{position:relative;flex:none;width:44px;height:58px;padding:2px;box-sizing:border-box;border:0;border-radius:22px 22px 3px 3px;background:linear-gradient(128deg,#F1D2B0,#B5673A 50%,#8A4522);cursor:pointer;opacity:.7;transition:transform .3s ease,opacity .3s ease;box-shadow:0 8px 10px -6px rgba(90,52,20,.6)}
+.gb-th img{display:block;width:100%;height:100%;object-fit:cover;border-radius:20px 20px 2px 2px}
+.gb-th--on{transform:translateY(-7px);opacity:1}
+
+/* dastur va hikoya */
+.gb-prog{width:100%;margin-top:28px;padding:8px 22px 8px 20px;box-sizing:border-box;text-align:left}
+.gb-prow{display:grid;grid-template-columns:20px 62px minmax(0,1fr);gap:12px;align-items:center;padding:16px 0;border-top:1px solid rgba(181,103,58,.16)}
+.gb-prow:first-child{border-top:0}
+.gb-prow-b{display:block;width:20px;height:19.9px;background:url('/katalog/v2/art/toy13-gulbarg/seal.webp') center/100% 100% no-repeat;filter:drop-shadow(0 1px 1px rgba(60,36,14,.4))}
+.gb-prow-t{font-family:'Federo','Forum',Georgia,serif;font-size:21px;line-height:26px;color:#A85A30}
+.gb-prow-n{font-size:15px;line-height:21px;color:#5B4733;overflow-wrap:anywhere}
+.gb-story{width:100%;margin-top:26px;display:flex;flex-direction:column;align-items:center}
+.gb-st{display:flex;flex-direction:column;align-items:center;max-width:304px}
+.gb-st+.gb-st::before{content:"";display:block;width:1px;height:36px;margin:16px 0 18px;background:linear-gradient(180deg,rgba(181,103,58,0),rgba(181,103,58,.75),rgba(181,103,58,0))}
+.gb-st-y{font-family:'Federo','Forum',Georgia,serif;font-size:17px;line-height:22px;letter-spacing:.14em;padding-left:.14em;color:#B5673A}
+.gb-st-h{margin:5px 0 0;font-family:'Federo','Forum',Georgia,serif;font-size:24px;line-height:30px;color:#3A2A1C;overflow-wrap:anywhere}
+.gb-st-p{margin:6px 0 0;font-size:14.5px;line-height:22px;color:#6B5540;overflow-wrap:anywhere}
+
+/* kiyinish uslubi */
+.gb-sw{display:block;width:46px;height:46px;border-radius:50%;box-shadow:0 0 0 3px #FFFCF6,0 0 0 4px rgba(181,103,58,.5),0 12px 16px -8px rgba(120,82,34,.5)}
+
+/* javob shakli */
+.gb-form{width:100%;margin-top:28px;padding:34px 24px 26px;box-sizing:border-box;text-align:left}
+.gb-flbl{display:block;font-size:10px;line-height:15px;font-weight:500;letter-spacing:.24em;text-transform:uppercase;color:#A0623A}
+.gb-field{display:block;width:100%;box-sizing:border-box;border:1px solid #EAD9C2;border-radius:6px;background:#FFFFFF;color:#3A2A1C;font-family:inherit;font-size:16px;outline:none}
+.gb-field:focus{border-color:#B5673A}
+.gb-field::placeholder{color:#BBA78E}
+.gb-in{height:50px;margin:8px 0 18px;padding:0 16px}
+.gb-ta{min-height:84px;margin-top:8px;padding:13px 16px;line-height:23px;resize:vertical}
+.gb-opt{flex:1 1 0;min-width:0;height:50px;border-radius:25px;border:1px solid #EAD9C2;background:#FFFFFF;color:#5B4733;font-family:inherit;font-size:13.5px;cursor:pointer;padding:0 6px;white-space:nowrap;transition:background-color .2s,color .2s,border-color .2s}
+.gb-opt--on{background:#4E5B3A;border-color:#4E5B3A;color:#FBF4E8}
+.gb-stepper{display:flex;align-items:center;gap:14px;transition:opacity .2s}
+.gb-stepper--off{opacity:.35}
+.gb-step{width:42px;height:42px;border-radius:50%;border:1px solid #E2CDB2;background:#FFFFFF;color:#A85A30;display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0}
+.gb-step:disabled{opacity:.4;cursor:default}
+.gb-opt:focus-visible,.gb-step:focus-visible,.gb-btn:focus-visible,.gb-out:focus-visible,.gb-link:focus-visible,.gb-th:focus-visible,.gb-map:focus-visible,.gb-music:focus-visible,.gb-row-ic:focus-visible{outline:2px solid #B5673A;outline-offset:2px}
+
+/* aloqa */
+.gb-row{display:flex;align-items:center;gap:14px;width:100%;min-height:74px;padding:14px 16px 14px 20px;box-sizing:border-box;text-align:left}
+.gb-row-ic{flex:none;width:44px;height:44px;border-radius:50%;border:1px solid rgba(181,103,58,.5);background:rgba(255,252,246,.7);display:flex;align-items:center;justify-content:center;color:#8A4522;text-decoration:none}
+.gb-row-ic:hover{border-color:#B5673A}
+.gb-row-h{margin:0;font-family:'Federo','Forum',Georgia,serif;font-size:20px;line-height:25px;color:#3A2A1C}
+.gb-row-s{margin:1px 0 0;font-size:12.5px;line-height:17px;color:#8E7459}
+
+/* yakun: kelin-kuyov yo'lak bo'ylab ketmoqda */
+.gb-foot{position:relative;flex:none;width:390px;height:600px;margin-top:auto;overflow:hidden}
+.gb-foot-bg{position:absolute;left:0;top:74px;width:390px;height:526px;background:#D9BA90 url('/katalog/v2/art/toy13-gulbarg/couple.webp') 50% 0/390px 693px no-repeat;-webkit-mask-image:linear-gradient(180deg,rgba(0,0,0,0) 0,#000 120px);mask-image:linear-gradient(180deg,rgba(0,0,0,0) 0,#000 120px)}
+.gb-foot-bg::after{content:"";position:absolute;left:0;top:0;width:100%;height:100%;background:linear-gradient(180deg,rgba(50,34,14,0) 36%,rgba(50,34,14,.5) 62%,rgba(46,30,12,.86) 100%)}
+.gb-foot-in{position:absolute;left:0;bottom:0;width:390px;padding:0 28px 46px;box-sizing:border-box;display:flex;flex-direction:column;align-items:center;text-align:center}
+.gb-foot-nm{margin:0;max-width:334px;font-family:'Federo','Forum',Georgia,serif;font-size:34px;line-height:1.18;overflow-wrap:anywhere}
+
+@media (prefers-reduced-motion: reduce){
+  .gb-i *,.gb-i *::before,.gb-i *::after,.gb-hero *,.gb-link svg,.gb-eq i{animation:none !important}
+  .gb-i--open{animation:gb-iOut .7s ease forwards}
+  .gb-hero--on .gb-l{animation:gb-lineR .7s ease .4s both !important}
+  .gb-hero--on .gb-hero-veil{animation:gb-in .7s ease .2s forwards !important}
+  .gb-rv,.gb-gimg,.gb-th,.gb-opt,.gb-stepper{transition:none}
+}
+@keyframes gb-lineR{from{opacity:0}to{opacity:1}}
+</style>
+</helmet>
+<div class="gb-root" style="width: 390px; min-height: var(--vh, 100vh); position: relative; overflow: hidden; display: flex; flex-direction: column">
+
+  <sc-if value="{{ has.music }}">
+  <button type="button" class="{{ musicCls }}" aria-label="{{ musicLabel }}" aria-pressed="{{ musicOn }}" onClick="{{ toggleMusic }}">
+    <sc-if value="{{ musicOn }}"><span class="gb-eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span></sc-if>
+    <sc-if value="{{ musicOff }}"><svg class="gb-icon" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V5.5l11-2.2v12.5"></path><circle cx="6.2" cy="18" r="2.8"></circle><circle cx="17.2" cy="15.8" r="2.8"></circle></svg></sc-if>
+  </button>
+  </sc-if>
+
+  <!-- kirish: ikki gulbarg, arqon, pionlar va mis muhr; butun sahna bitta tugma -->
+  <div data-intro class="{{ introCls }}" aria-hidden="{{ introHidden }}">
+    <div class="gb-stage" aria-hidden="true">
+      <div class="gb-cam"><i class="gb-bg gb-bg--ml"></i><i class="gb-bg gb-bg--mr"></i><i class="gb-bg gb-bg--mb"></i><i class="gb-bg"></i></div>
+      <div class="gb-pts"><sc-for list="{{ petals }}" as="p"><i class="gb-pt" style="{{ p }}"></i></sc-for></div>
+    </div>
+    <div class="gb-wrap" aria-hidden="true">
+      <div class="gb-leaf gb-leaf--l"><i class="gb-leaf-img"></i><i class="gb-pe gb-pe--leaf"></i></div>
+      <div class="gb-leaf gb-leaf--r"><i class="gb-leaf-img"></i></div>
+      <div class="gb-tie">
+        <i class="gb-twg gb-twg--l"><i class="gb-tw gb-tw--b"></i><i class="gb-tw"></i></i><i class="gb-twg gb-twg--r"><i class="gb-tw gb-tw--b"></i><i class="gb-tw"></i></i>
+        <i class="gb-pe gb-pe--l"></i><i class="gb-pe gb-pe--r"></i>
+        <i class="gb-ring"></i>
+        <i class="gb-seal"></i>
+      </div>
+    </div>
+    <i class="gb-flash" aria-hidden="true"></i>
+    <button type="button" class="gb-tap" aria-label="{{ tapLabel }}" onClick="{{ open }}">
+      <span class="gb-hint">
+        <sc-if value="{{ guestLine }}"><span class="gb-hint-g" style="font-size: {{ fsGuest }}px">{{ guestLine }}</span></sc-if>
+        <span class="gb-hint-t">Ochish uchun muhrga bosing</span>
+      </span>
+    </button>
+  </div>
+
+  <header class="{{ heroCls }}" style="height: {{ heroH }}px">
+    <h1 class="gb-vh">{{ pair }}</h1>
+    <div class="gb-stage" style="transform: scale({{ heroK }})" aria-hidden="true">
+      <div class="gb-cam"><i class="gb-bg gb-bg--ml"></i><i class="gb-bg gb-bg--mr"></i><i class="gb-bg"></i></div>
+      <div class="gb-pts"><sc-for list="{{ petals }}" as="p"><i class="gb-pt" style="{{ p }}"></i></sc-for></div>
+    </div>
+    <i class="gb-hero-veil" aria-hidden="true"></i>
+    <div class="gb-hero-txt">
+      <p class="gb-l gb-hero-k" style="--d: 3s">Nikoh to’yi</p>
+      <span class="gb-l gb-orn" aria-hidden="true" style="--d: 3.2s; margin: 12px 0 13px"><b></b></span>
+      <sc-if value="{{ heroDate }}"><p class="gb-l gb-hero-d gb-num" style="--d: 3.35s">{{ heroDate }}</p></sc-if>
+    </div>
+    <span class="gb-l gb-cue" aria-hidden="true" style="--d: 3.8s"><svg class="gb-icon" width="24" height="24" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"></path></svg></span>
+  </header>
+
+  <!-- ismlar: bog' yo'lagi ustida oq harflar -->
+  <section class="{{ namesCls }}" data-rv="names">
+    <sc-if value="{{ kuyov }}"><p class="gb-rv gb-nm gb-w" style="font-size: {{ fsName }}px">{{ kuyov }}</p></sc-if>
+    <sc-if value="{{ both }}"><p class="gb-rv gb-amp gb-w" aria-hidden="true" style="--d: .35s">&amp;</p></sc-if>
+    <sc-if value="{{ kelin }}"><p class="gb-rv gb-nm gb-w" style="--d: .7s; font-size: {{ fsName }}px">{{ kelin }}</p></sc-if>
+    <sc-if value="{{ fam }}"><p class="gb-rv gb-fam gb-w" style="--d: 1.15s"><span class="gb-fam-o" aria-hidden="true"></span>{{ fam }}</p></sc-if>
+  </section>
+
+  <sc-if value="{{ b.taklif }}">
+  <section class="{{ quoteCls }}" data-rv="quote">
+    <p class="gb-rv gb-q-hi gb-w">{{ hello }}</p>
+    <p class="gb-rv gb-q gb-w" style="--d: .3s">{{ d.matn }}</p>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ anyDet }}">
+  <section class="{{ detCls }}" data-rv="det">
+    <div class="gb-det-col">
+      <p class="gb-rv gb-dl gb-dl--k">Nikoh to’yi</p>
+      <sc-if value="{{ b.kun }}">
+        <sc-if value="{{ detDate }}"><p class="gb-rv gb-dl gb-num" style="--d: .15s">{{ detDate }}</p></sc-if>
+        <sc-if value="{{ d.vaqt }}"><p class="gb-rv gb-dl gb-num" style="--d: .3s">Soat {{ d.vaqt }}</p></sc-if>
+      </sc-if>
+      <sc-if value="{{ b.manzil }}">
+        <span class="gb-rv gb-rule" aria-hidden="true" style="--d: .4s"><b></b></span>
+        <p class="gb-rv gb-dl" style="--d: .5s">{{ d.manzil_nomi }}</p>
+        <sc-if value="{{ d.manzil }}"><p class="gb-rv gb-dl gb-dl--a" style="--d: .62s">{{ d.manzil }}</p></sc-if>
+      </sc-if>
+      <span class="gb-rv gb-rule" aria-hidden="true" style="--d: .72s"><b></b></span>
+      <p class="gb-rv gb-dl gb-dl--s" style="--d: .82s">Quvonchli kunimizni siz azizlar bilan birga o’tkazishdan baxtiyor bo’lamiz</p>
+      <sc-if value="{{ b.rsvp }}">
+        <button type="button" class="gb-rv gb-link" style="--d: 1s" onClick="{{ toRsvp }}">Tashrifni tasdiqlash<svg class="gb-icon" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></button>
+      </sc-if>
+    </div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ has.photo }}">
+  <section class="{{ phCls }}" data-rv="ph">
+    <img class="gb-rv gb-ph-img" src="{{ photo0 }}" alt="{{ pair }}">
+    <div class="gb-ph-nm">
+      <sc-if value="{{ kuyov }}"><p class="gb-rv" style="--d: .35s; font-size: {{ fsName2 }}px">{{ kuyov }}</p></sc-if>
+      <sc-if value="{{ both }}"><p class="gb-rv" aria-hidden="true" style="--d: .5s; font-size: 26px; line-height: 32px">&amp;</p></sc-if>
+      <sc-if value="{{ kelin }}"><p class="gb-rv" style="--d: .65s; font-size: {{ fsName2 }}px">{{ kelin }}</p></sc-if>
+    </div>
+  </section>
+  </sc-if>
+  <i class="gb-tail" aria-hidden="true"></i>
+
+  <sc-if value="{{ anyKun }}">
+  <section class="gb-sec" style="padding-top: 34px">
+    <div class="gb-knot" aria-hidden="true"><i></i><b></b><i></i></div>
+    <p class="gb-lbl">{{ kunLbl }}</p>
+    <sc-if value="{{ w.date }}"><h2 class="gb-h2 gb-num">{{ w.date }}</h2></sc-if>
+    <sc-if value="{{ b.taymer }}">
+      <div class="gb-tiles" role="timer" aria-label="{{ cdText }}">
+        <sc-for list="{{ tiles }}" as="t"><div class="gb-tile"><span class="gb-card gb-tile-n gb-num">{{ t.n }}</span><span class="gb-tile-l">{{ t.l }}</span></div></sc-for>
+      </div>
+    </sc-if>
+    <sc-if value="{{ b.kun }}">
+      <sc-if value="{{ kunLine }}"><p class="gb-kun gb-num">{{ kunLine }}</p></sc-if>
+      <sc-if value="{{ cal }}">
+        <a class="gb-out" href="{{ cal }}" target="_blank" rel="noopener" style="margin-top: 18px">
+          <svg class="gb-icon" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="2"></rect><path d="M3.5 10h17M8 3v4M16 3v4"></path></svg>
+          Taqvimga qo’shish
+        </a>
+      </sc-if>
+    </sc-if>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.manzil }}">
+  <section class="gb-sec">
+    <p class="gb-lbl">Manzil</p>
+    <h2 class="gb-h2" style="font-size: 28px; line-height: 35px">{{ d.manzil_nomi }}</h2>
+    <sc-if value="{{ d.manzil }}"><p class="gb-addr"><svg class="gb-icon" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6.5-6-6.5-11a6.5 6.5 0 0 1 13 0c0 5-6.5 11-6.5 11Z"></path><circle cx="12" cy="10" r="2.3"></circle></svg><span>{{ d.manzil }}</span></p></sc-if>
+    <sc-if value="{{ d.xarita }}">
+      <a class="gb-card gb-map" href="{{ d.xarita }}" target="_blank" rel="noopener">
+        <i class="gb-map-seal" aria-hidden="true"></i>
+        <span><span class="gb-map-t">Xaritada ko’rish</span><span class="gb-map-s">Yo’lni ochish<svg class="gb-icon" width="13" height="13" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span>
+      </a>
+    </sc-if>
+    <sc-if value="{{ d.joy_rasmi }}">
+      <div style="position: relative; margin-top: 42px">
+        <div class="gb-arch gb-arch--v"><div class="gb-arch-i"><img src="{{ d.joy_rasmi }}" alt="{{ d.manzil_nomi }}"></div></div>
+        <i class="gb-bloom" aria-hidden="true" style="right: -52px; bottom: -34px; transform: rotate(14deg)"></i>
+      </div>
+    </sc-if>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.dastur }}">
+  <section class="gb-sec">
+    <div class="gb-knot" aria-hidden="true"><i></i><b></b><i></i></div>
+    <p class="gb-lbl">Dastur</p>
+    <h2 class="gb-h2">Kun tartibi</h2>
+    <div class="gb-card gb-prog">
+      <sc-for list="{{ prog }}" as="x">
+        <div class="gb-prow"><i class="gb-prow-b" aria-hidden="true"></i><span class="gb-prow-t gb-num">{{ x.vaqt }}</span><span class="gb-prow-n">{{ x.nomi }}</span></div>
+      </sc-for>
+    </div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.hikoya }}">
+  <section class="gb-sec">
+    <p class="gb-lbl">Sevgi tarixi</p>
+    <h2 class="gb-h2">Bizning hikoyamiz</h2>
+    <div class="gb-story">
+      <sc-for list="{{ story }}" as="h">
+        <div class="gb-st">
+          <sc-if value="{{ h.yil }}"><span class="gb-st-y gb-num">{{ h.yil }}</span></sc-if>
+          <sc-if value="{{ h.sarlavha }}"><p class="gb-st-h">{{ h.sarlavha }}</p></sc-if>
+          <sc-if value="{{ h.matn }}"><p class="gb-st-p">{{ h.matn }}</p></sc-if>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.galereya }}">
+  <section class="gb-sec" style="padding-top: 128px; margin-top: 56px">
+    <i class="gb-garland" aria-hidden="true"></i>
+    <p class="gb-lbl" style="position: relative">Suratlar</p>
+    <h2 class="gb-h2" style="position: relative">Yorqin lahzalar</h2>
+    <div style="position: relative; margin-top: 32px">
+      <div class="gb-arch gb-arch--g"><div class="gb-arch-i"><sc-for list="{{ gal }}" as="g"><img class="{{ g.cls }}" src="{{ g.src }}" alt="{{ g.alt }}"></sc-for></div></div>
+      <i class="gb-bloom" aria-hidden="true" style="left: -50px; bottom: -30px; transform: scaleX(-1) rotate(12deg)"></i>
+    </div>
+    <sc-if value="{{ galMany }}">
+      <div style="margin-top: 32px; display: flex; gap: 10px; justify-content: center; align-items: flex-end; height: 66px">
+        <sc-for list="{{ gal }}" as="g"><button type="button" class="{{ g.th }}" aria-label="{{ g.alt }}" aria-pressed="{{ g.on }}" onClick="{{ g.pick }}"><img src="{{ g.src }}" alt=""></button></sc-for>
+      </div>
+    </sc-if>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.dress }}">
+  <section class="gb-sec">
+    <p class="gb-lbl">Kiyinish uslubi</p>
+    <h2 class="gb-h2">Libos ranglari</h2>
+    <p class="gb-txt" style="margin-top: 16px; max-width: 320px; white-space: pre-line; overflow-wrap: anywhere">{{ d.dress_kod }}</p>
+    <sc-if value="{{ sw.length }}"><div style="margin-top: 28px; width: 100%; display: grid; grid-template-columns: {{ swCols }}; gap: 22px 8px; justify-items: center">
+      <sc-for list="{{ sw }}" as="c"><div style="display: flex; flex-direction: column; align-items: center; gap: 12px"><span class="gb-sw" style="background: {{ c.bg }}"></span><span style="font-size: 12px; line-height: 16px; letter-spacing: 0.04em; color: #6B5540">{{ c.name }}</span></div></sc-for>
+    </div></sc-if>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ b.rsvp }}">
+  <section id="gb-rsvp" class="gb-sec">
+    <div class="gb-knot" aria-hidden="true"><i></i><b></b><i></i></div>
+    <p class="gb-lbl">Javobingiz</p>
+    <h2 class="gb-h2">Tashrif buyurasizmi?</h2>
+    <p class="gb-txt" style="margin-top: 10px; font-size: 14px; line-height: 21px">{{ deadline }}</p>
+    <div style="position: relative; width: 100%">
+      <div class="gb-card gb-form">
+        <sc-if value="{{ askName }}"><label for="gb-name" class="gb-flbl">Ismingiz</label><input id="gb-name" class="gb-field gb-in" type="text" maxlength="100" autocomplete="name" placeholder="Masalan: Dilnoza opa" onInput="{{ onName }}"></sc-if>
+        <div style="display: flex; gap: 8px">
+          <button type="button" class="{{ optYesCls }}" aria-pressed="{{ isYes }}" onClick="{{ sayYes }}">Albatta boraman</button>
+          <button type="button" class="{{ optNoCls }}" aria-pressed="{{ isNo }}" onClick="{{ sayNo }}">Kela olmayman</button>
+        </div>
+        <div style="margin-top: 18px; display: flex; align-items: center; justify-content: space-between; gap: 12px; height: 46px">
+          <span class="gb-flbl">Necha kishi</span>
+          <div class="{{ stepperCls }}">
+            <button type="button" class="gb-step" aria-label="Kamaytirish" disabled="{{ minusOff }}" onClick="{{ dec }}"><svg class="gb-icon" width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12"></path></svg></button>
+            <span class="gb-fed gb-num" aria-live="polite" style="min-width: 26px; text-align: center; font-size: 27px; line-height: 32px; color: #3A2A1C">{{ guests }}</span>
+            <button type="button" class="gb-step" aria-label="Ko’paytirish" disabled="{{ plusOff }}" onClick="{{ inc }}"><svg class="gb-icon" width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12M12 6v12"></path></svg></button>
+          </div>
+        </div>
+        <label for="gb-wish" class="gb-flbl" style="margin-top: 18px">Tilaklaringiz</label>
+        <textarea id="gb-wish" class="gb-field gb-ta" rows="2" maxlength="300" placeholder="Yoshlarga ezgu tilaklaringiz…" onInput="{{ onWish }}"></textarea>
+        <button type="button" class="gb-btn" style="margin-top: 20px; width: 100%" disabled="{{ busy }}" onClick="{{ send }}">
+          <sc-if value="{{ sent }}"><svg class="gb-icon" width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"></path></svg></sc-if>
+          {{ sendLabel }}
+        </button>
+        <p aria-live="polite" style="margin: 12px 0 0; min-height: 21px; text-align: center; font-size: 13.5px; line-height: 21px; color: #5B4733">{{ rsvpNote }}</p>
+      </div>
+      <i class="gb-bloom" aria-hidden="true" style="right: -40px; top: -46px; width: 84px; height: 126.6px; transform: rotate(24deg)"></i>
+    </div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ anyRow }}">
+  <section class="gb-sec" style="padding-top: 56px">
+    <div style="width: 100%; display: flex; flex-direction: column; gap: 12px">
+      <sc-if value="{{ b.guruh }}">
+        <div class="gb-card gb-row">
+          <div style="flex: 1; min-width: 0">
+            <p class="gb-row-h">Mehmonlar guruhi</p>
+            <p class="gb-row-s">Telegram’dagi umumiy guruh</p>
+          </div>
+          <a class="gb-out" href="{{ d.telegram_guruh }}" target="_blank" rel="noopener" style="flex: none; height: 42px; padding: 0 14px; font-size: 11px"><svg class="gb-icon" width="15" height="15" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 4 3 11l6 2.2M21 4l-3 16-7.5-5.6M21 4 9 13.2v5.3l3-3.1"></path></svg>Qo’shilish</a>
+        </div>
+      </sc-if>
+      <sc-if value="{{ b.telefon }}">
+        <div class="gb-card gb-row">
+          <div style="flex: 1; min-width: 0">
+            <p class="gb-row-s" style="margin: 0">Savollar uchun</p>
+            <p class="gb-fed gb-num" style="margin: 2px 0 0; font-size: 21px; line-height: 27px; color: #3A2A1C; overflow-wrap: anywhere">{{ d.telefon }}</p>
+          </div>
+          <a class="gb-row-ic" href="{{ tel }}" aria-label="Qo’ng’iroq qilish"><svg class="gb-icon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M5.2 3.5h3.1l1.6 4.2-2.1 1.5a12.2 12.2 0 0 0 7 7l1.5-2.1 4.2 1.6v3.1a1.9 1.9 0 0 1-2.1 1.9A16.6 16.6 0 0 1 3.3 5.6a1.9 1.9 0 0 1 1.9-2.1Z"></path></svg></a>
+        </div>
+      </sc-if>
+    </div>
+  </section>
+  </sc-if>
+
+  <footer class="gb-foot">
+    <i class="gb-foot-bg" aria-hidden="true"></i>
+    <div class="gb-foot-in">
+      <p class="gb-foot-nm gb-w">{{ kuyov }}<sc-if value="{{ both }}"> &amp; </sc-if>{{ kelin }}</p>
+      <sc-if value="{{ w.date }}"><p class="gb-num gb-w" style="margin: 10px 0 0; padding-left: 0.3em; font-size: 11px; line-height: 16px; letter-spacing: 0.3em; text-transform: uppercase">{{ w.date }}</p></sc-if>
+      <p class="gb-w" style="margin: 20px 0 0; max-width: 300px; font-size: 13.5px; line-height: 21px; text-wrap: balance">Sizni intizorlik bilan kutamiz. Tashrifingiz biz uchun katta quvonch.</p>
+      <sc-if value="{{ fam }}"><p class="gb-w" style="margin: 16px 0 0; max-width: 320px; padding-left: 0.24em; font-size: 10px; line-height: 16px; letter-spacing: 0.24em; text-transform: uppercase; overflow-wrap: anywhere">{{ fam }}</p></sc-if>
+    </div>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":6600}}'>
+const D = SITE.d;
+function hhmm(t) { t = String(t || ''); return /^\d:\d\d$/.test(t) ? '0' + t : t; }
+function stamp(iso, time) { const t = Date.parse(String(iso || '').slice(0, 10) + 'T' + (hhmm(time) || '12:00') + ':00+05:00'); return isNaN(t) ? null : t; }
+function fitPx(text, max, width, em) { const n = String(text || '').length || 1; return Math.max(Math.round(max * 0.42), Math.min(max, Math.floor(width / (n * em)))); }
+function telHref(t) { return 'tel:' + String(t || '').replace(/[^\d+]/g, ''); }
+/* ism bir qatorga sig'adigan eng katta o'lcham: haqiqiy shrift bilan o'lchanadi (yuklanmagan bo'lsa — zaxira shrift bilan) */
+let pen = null;
+function nameSize(text, max, width) {
+  if (!text) return max;
+  try {
+    pen = pen || document.createElement('canvas').getContext('2d');
+    pen.font = '400 100px "Federo", "Forum", Georgia, serif';
+    const w = pen.measureText(text).width;
+    if (w > 0) return Math.max(22, Math.min(max, Math.floor(width * 100 / w)));
+  } catch (e) { /* o'lchab bo'lmasa — taxminiy hisob */ }
+  return fitPx(text, max, width, 0.56);
+}
+/* birinchi ekran balandligi (dizayn pikselida): kirish sahnasi shu o'lchamga kichrayadi, bosh qism ham aynan shunday chiziladi */
+function firstScreen() {
+  try {
+    const z = Math.min(window.innerWidth || 390, 520) / 390;
+    return Math.max(693, Math.min(844, Math.round((window.innerHeight || 844) / z)));
+  } catch (e) { return 844; }
+}
+const KUYOV = String(D.kuyov || '').trim();
+const KELIN = String(D.kelin || '').trim();
+const GUEST = String(D.mehmon || '').trim();
+const FAM = String(D.taklif_qiluvchilar || '').trim();
+function calUrl() {
+  const t = stamp(D.sana, D.vaqt); if (t == null) return '';
+  const f = (ms) => new Date(ms).toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
+  const title = [KUYOV, KELIN].filter(Boolean).join(' va ') + (KUYOV || KELIN ? ': ' : '') + 'nikoh to’yi';
+  const loc = [D.manzil_nomi, D.manzil].filter(Boolean).join(', ');
+  return 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + encodeURIComponent(title) + '&dates=' + f(t) + '/' + f(t + 5 * 3600e3) + (loc ? '&location=' + encodeURIComponent(loc) : '');
+}
+function deadlineText(tail) {
+  const t = stamp(D.sana, '12:00'); if (t == null) return 'Iltimos, ' + tail + '.';
+  const dl = t - 7 * 864e5;
+  if (dl < Date.now()) return 'Iltimos, imkon qadar tezroq ' + tail + '.';
+  return 'Iltimos, ' + SITE.when(new Date(dl + 5 * 3600e3).toISOString().slice(0, 10)).dm + 'gacha ' + tail + '.';
+}
+
+const SW = [
+  ['fil suyagi', '#F1E8D6'], ['to\'q ko\'k', '#1C3358'], ['to\'q yashil', '#17463A'], ['zumrad', '#1B5E50'],
+  ['shampan', '#EEDDB8'], ['oltin', 'linear-gradient(128deg, #F1DDA2, #C9A24A 55%, #8E6E2A)'],
+  ['kumush', 'linear-gradient(128deg, #F1F3F5, #B8BDC2 55%, #7D8287)'], ['marvarid', '#EEE5E3'],
+  ['bordo', '#74202F'], ['pudra', '#EBCBC3'], ['oq', '#F7F5F1'], ['krem', '#F1E4CC'], ['bej', '#DCC7A6'],
+  ['moviy', '#8DB7DF'], ['ko\'k', '#4A7FBC'], ['yashil', '#5A9A68'], ['pushti', '#E9AABA'], ['qizil', '#B83A33'],
+  ['jigarrang', '#80583C'], ['kulrang', '#A5A8AB'], ['lavanda', '#C2B0E0'], ['binafsha', '#745AA2'], ['sariq', '#E8C455'], ['qora', '#1C1816']
+];
+function swatches(text) {
+  let t = ' ' + String(text || '').toLowerCase().replace(/[’‘ʻʼ`]/g, '\'') + ' ';
+  const found = [];
+  SW.forEach(([k, bg]) => {
+    const re = new RegExp('(^|[^a-z\'])' + k + '(?![a-z])');
+    const m = re.exec(t);
+    if (m) {
+      found.push({ at: m.index, name: SITE.cap(k.replace(/'/g, '’')), bg });
+      t = t.slice(0, m.index + m[1].length) + ' '.repeat(k.length) + t.slice(m.index + m[1].length + k.length);
+    }
+  });
+  return found.sort((a, b) => a.at - b.at).slice(0, 8);
+}
+
+/* uchib yurgan gulbarglar: kirish sahnasi va bosh qismda bir xil chiqishi uchun urug'li tasodif */
+let seed = 41;
+function rnd() { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; }
+const PETALS = [];
+for (let i = 0; i < 13; i++) {
+  PETALS.push('left: ' + Math.round(40 + rnd() * 330) + 'px; top: ' + Math.round(60 + rnd() * 520) + 'px; --x: ' + Math.round(-150 + rnd() * 110) + 'px; --y: ' + Math.round(150 + rnd() * 170) + 'px; --s: ' + (0.7 + rnd() * 0.9).toFixed(2) + '; --t: ' + (7.5 + rnd() * 5).toFixed(2) + 's; --dl: ' + (-rnd() * 12).toFixed(2) + 's');
+}
+
+const REDUCED = typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
+/* skrinshot olayotgan avtomat brauzerda sahifa aylantirilmaydi — hammasi darhol ko'rinadi */
+const CAN_IO = typeof IntersectionObserver === 'function' && !REDUCED && !(typeof navigator !== 'undefined' && navigator.webdriver);
+const NPH = Math.max(1, Math.min(6, SITE.has.photos || 0));
+const GAL = SITE.p.slice(0, NPH);
+
+class Component extends DCLogic {
+  constructor(...args) {
+    super(...args);
+    this.state = { opened: false, hh: firstScreen(), seen: CAN_IO ? {} : { names: true, quote: true, det: true, ph: true }, g: 0, rsvp: '', guests: 1, sent: false, busy: false, warn: '' };
+    this.nm = ''; this.wish = ''; this.n = 0; this.picked = false;
+  }
+  componentDidMount() {
+    /* shrift yuklangach ism o'lchami qayta hisoblanadi */
+    try { document.fonts.load('400 52px "Federo"', KUYOV + KELIN).then(() => this.forceUpdate(), () => {}); } catch (e) { /* eski brauzer */ }
+    this.timer = setInterval(() => {
+      this.n++;
+      if (!this.picked && GAL.length > 1 && this.n % 5 === 0) this.setState({ g: (this.state.g + 1) % GAL.length });
+      else this.forceUpdate();
+    }, 1000);
+    /* ochilgunga qadar bosh qism ekran o'lchamiga ergashadi; keyin o'zgarmaydi (manzil satri yashirinsa sahifa sakramasin) */
+    this.onResize = () => { if (!this.state.opened) { const hh = firstScreen(); if (hh !== this.state.hh) this.setState({ hh }); } };
+    window.addEventListener('resize', this.onResize);
+  }
+  componentWillUnmount() { clearInterval(this.timer); clearTimeout(this.rvT); window.removeEventListener('resize', this.onResize); if (this.io) this.io.disconnect(); }
+  /* sahnalar ko'ringanda ochiladi; kuzatuv taklifnoma ochilgandan keyin boshlanadi */
+  watch() {
+    if (!CAN_IO || this.io) return;
+    this.io = new IntersectionObserver((es) => {
+      const add = {};
+      es.forEach((e) => { if (e.isIntersecting) { add[e.target.getAttribute('data-rv')] = true; this.io.unobserve(e.target); } });
+      if (Object.keys(add).length) this.setState((s) => ({ seen: Object.assign({}, s.seen, add) }));
+    }, { rootMargin: '0px 0px -16% 0px', threshold: 0.12 });
+    document.querySelectorAll('[data-rv]').forEach((el) => this.io.observe(el));
+  }
+  open() {
+    if (this.state.opened) return;
+    this.setState({ opened: true, hh: firstScreen() });
+    SITE.opened();
+    this.rvT = setTimeout(() => this.watch(), 2600);
+  }
+  send() {
+    const s = this.state;
+    if (!s.rsvp) { this.setState({ warn: 'Iltimos, avval javobingizni tanlang.' }); return; }
+    const name = this.nm.trim();
+    if (!SITE.has.guest && !name) { this.setState({ warn: 'Iltimos, ismingizni yozing.' }); return; }
+    if (s.busy) return;
+    this.setState({ busy: true, warn: '' });
+    SITE.rsvp(s.rsvp === 'yes', s.rsvp === 'yes' ? s.guests : 1, name, this.wish.trim())
+      .then(() => this.setState({ sent: true, busy: false }))
+      .catch(() => this.setState({ busy: false, warn: 'Javob yuborilmadi. Iltimos, qayta urinib ko’ring.' }));
+  }
+  rsvpVals() {
+    const s = this.state || {};
+    const isYes = s.rsvp === 'yes', isNo = s.rsvp === 'no', guests = s.guests || 1;
+    const who = (GUEST || this.nm.trim());
+    let note = '';
+    if (s.sent && isYes) note = (who ? 'Rahmat, ' + who + '! ' : 'Rahmat! ') + (guests > 1 ? 'Sizni ' + guests + ' kishi bilan kutamiz.' : 'Sizni intiqlik bilan kutamiz.');
+    else if (s.sent && isNo) note = (who ? 'Rahmat, ' + who + '! ' : 'Rahmat! ') + 'Duolaringiz biz bilan bo’lsin.';
+    else if (s.warn) note = s.warn;
+    return {
+      deadline: deadlineText('javob bering'),
+      askName: !SITE.has.guest,
+      onName: (e) => { this.nm = e.target.value; },
+      onWish: (e) => { this.wish = e.target.value; },
+      isYes, isNo, guests,
+      optYesCls: isYes ? 'gb-opt gb-opt--on' : 'gb-opt',
+      optNoCls: isNo ? 'gb-opt gb-opt--on' : 'gb-opt',
+      sayYes: () => this.setState({ rsvp: 'yes', sent: false, warn: '' }),
+      sayNo: () => this.setState({ rsvp: 'no', sent: false, warn: '' }),
+      stepperCls: isNo ? 'gb-stepper gb-stepper--off' : 'gb-stepper',
+      minusOff: isNo || guests <= 1, plusOff: isNo || guests >= 10,
+      dec: () => this.setState({ guests: Math.max(1, guests - 1), sent: false }),
+      inc: () => this.setState({ guests: Math.min(10, guests + 1), sent: false }),
+      send: () => this.send(),
+      busy: !!s.busy, sent: !!s.sent,
+      sendLabel: s.busy ? 'Yuborilmoqda…' : (s.sent ? 'Javob yuborildi' : 'Javobni yuborish'),
+      rsvpNote: note
+    };
+  }
+  renderVals() {
+    const s = this.state || {};
+    const seen = s.seen || {};
+    const w = SITE.when(D.sana, D.vaqt);
+    const cd = SITE.countdown(D.sana, D.vaqt);
+    const music = SITE.music.playing;
+    const guestLine = GUEST ? 'Hurmatli ' + GUEST + '!' : '';
+    const sw = swatches(D.dress_kod);
+    const story = Array.isArray(D.hikoya) ? D.hikoya.filter((x) => x && (x.yil || x.sarlavha || x.matn)) : [];
+    const cur = (s.g || 0) % GAL.length;
+    const tile = (v, l) => ({ n: SITE.pad(v), l });
+    const hh = s.hh || 844;
+    const fsName = Math.min(nameSize(KUYOV, 62, 340), nameSize(KELIN, 62, 340)); /* ikki ism bir xil o'lchamda */
+    const rv = (base, key) => base + (seen[key] ? ' gb-seen' : '');
+    return Object.assign({
+      introCls: s.opened ? 'gb-i gb-i--open' : 'gb-i',
+      introHidden: !!s.opened,
+      heroCls: s.opened ? 'gb-hero gb-hero--on' : 'gb-hero',
+      heroH: hh, heroK: (hh / 844).toFixed(4),
+      open: () => this.open(),
+      tapLabel: (guestLine ? guestLine + ' ' : '') + 'Taklifnomani ochish uchun muhrga bosing',
+      guestLine, fsGuest: fitPx(guestLine, 19, 300, 0.5),
+      petals: PETALS, w,
+      kuyov: KUYOV, kelin: KELIN, both: !!(KUYOV && KELIN),
+      fsName, fsName2: Math.max(22, Math.min(40, Math.round(fsName * 0.68))),
+      fam: FAM,
+      pair: [KUYOV, KELIN].filter(Boolean).join(' va '),
+      heroDate: [w.date, D.vaqt ? 'soat ' + D.vaqt : ''].filter(Boolean).join(' · '),
+      hello: 'Hurmatli ' + (GUEST || 'mehmon') + '!',
+      namesCls: rv('gb-scene gb-mT gb-names', 'names'),
+      quoteCls: rv('gb-scene gb-mT gb-quote', 'quote'),
+      detCls: rv('gb-scene gb-mT gb-det', 'det'),
+      phCls: rv('gb-scene gb-mT gb-ph', 'ph'),
+      anyDet: !!(SITE.b.kun || SITE.b.manzil),
+      detDate: [w.Weekday, w.date].filter(Boolean).join(', '),
+      photo0: SITE.p[0],
+      toRsvp: () => { const el = document.getElementById('gb-rsvp'); if (el) el.scrollIntoView({ behavior: REDUCED ? 'auto' : 'smooth', block: 'start' }); },
+      anyKun: !!(SITE.b.taymer || SITE.b.kun),
+      kunLbl: SITE.b.taymer ? (cd.done ? 'Quvonchli kun keldi' : 'Quvonchli kungacha qoldi') : 'Sana va vaqt',
+      kunLine: [w.Weekday, D.vaqt ? 'soat ' + D.vaqt : ''].filter(Boolean).join(' · '),
+      cal: calUrl(),
+      tiles: [tile(cd.d, 'KUN'), tile(cd.h, 'SOAT'), tile(cd.m, 'DAQIQA'), tile(cd.s, 'SONIYA')],
+      cdText: cd.d + ' kun, ' + cd.h + ' soat, ' + cd.m + ' daqiqa qoldi',
+      prog: (Array.isArray(D.dastur) ? D.dastur.filter((x) => x && (x.vaqt || x.nomi)) : []).map((x) => ({ vaqt: x.vaqt || '', nomi: x.nomi || '' })),
+      story: story.map((x) => ({ yil: x.yil || '', sarlavha: x.sarlavha || '', matn: x.matn || '' })),
+      gal: GAL.map((src, k) => ({ src, alt: 'Surat ' + (k + 1), on: k === cur, cls: k === cur ? 'gb-gimg gb-gimg--on' : 'gb-gimg', th: k === cur ? 'gb-th gb-th--on' : 'gb-th', pick: () => { this.picked = true; this.setState({ g: k }); } })),
+      galMany: GAL.length > 1,
+      sw, swCols: 'repeat(' + Math.max(1, Math.min(4, sw.length)) + ', minmax(0, 1fr))',
+      anyRow: !!(SITE.b.guruh || SITE.b.telefon),
+      tel: telHref(D.telefon),
+      musicOn: music, musicOff: !music,
+      musicCls: 'gb-music' + (music ? ' gb-music--on' : ''),
+      musicLabel: music ? 'Musiqani o’chirish' : 'Musiqani yoqish',
+      toggleMusic: () => { SITE.music.toggle(); }
+    }, this.rsvpVals());
+  }
+}
+</script>
+</body>
+</html>
