@@ -154,7 +154,7 @@
   }
   const kpi = (v, label, hint, prev, opts = {}) => `<div class="kpi${opts.open ? " click" : ""}${opts.cls ? " " + opts.cls : ""}"${opts.open ? ` role="button" tabindex="0" data-kpi="${opts.open}"` : ""}><div class="v">${opts.money ? `${fmt(v)}<small>so'm</small>` : fmt(v)}${opts.suffix || ""} ${delta(v, prev, opts.invert)}</div>
     <div class="l">${label}${opts.open ? ` <span class="more">Batafsil ›</span>` : ""}</div>${hint ? `<div class="h">${hint}</div>` : ""}</div>`;
-  const table = (head, rows, empty = "Ma'lumot yo'q") => `<div class="tbl-wrap"><table><thead><tr>${head.map((h) => `<th${h.startsWith(">") ? ' class="r"' : ""}>${h.replace(/^>/, "")}</th>`).join("")}</tr></thead>
+  const table = (head, rows, empty = "Ma'lumot yo'q", cls = "") => `<div class="tbl-wrap${cls ? " " + cls : ""}"><table><thead><tr>${head.map((h) => `<th${h.startsWith(">") ? ' class="r"' : ""}>${h.replace(/^>/, "")}</th>`).join("")}</tr></thead>
     <tbody>${rows.length ? rows.join("") : `<tr><td colspan="${head.length}" class="empty">${empty}</td></tr>`}</tbody></table></div>`;
   const tag = (txt, kind = "") => `<span class="tag ${kind}">${esc(txt)}</span>`;
   const userLink = (u) => `${esc(u.name || "—")}${u.username ? ` <span class="sub">@${esc(u.username)}</span>` : `<span class="sub">id ${u.user_id || u.owner || u.id}</span>`}`;
@@ -402,67 +402,153 @@
     }));
   }
 
-  // ---------------------------------------------------------------- 2. Trafik manbalari
+  // ---------------------------------------------------------------- 2. Trafik manbalari (statistika TZ, 4-band)
+  // nomlash qoidasi kampaniya_video_lending: formadagi uch maydondan kod (server ham xuddi shunday yig'adi va tekshiradi)
+  function composeCode(c, v, l) {
+    c = (c || "").trim().toLowerCase().replace(/[\s-]+/g, "_").replace(/^_+|_+$/g, "");
+    v = (v || "").trim().toLowerCase(); l = (l || "").trim().toLowerCase();
+    if (!c && !v && !l) return "";
+    const vm = v.match(/^v?(\d{1,4}[a-z]?)$/), lm = l.match(/^l?(\d{1,4}[a-z]?)$/);
+    return `${c || "kampaniya"}_v${vm ? vm[1] : v || "?"}${l ? `_l${lm ? lm[1] : l}` : ""}`;
+  }
+  const money = (n) => (n ? fmt(n) : "—");
+  const roiTag = (r) => (r == null ? "—" : tag(`${r > 0 ? "+" : ""}${r}%`, r >= 0 ? "good" : "bad"));
+  const srcQuery = () => { const [f, t] = range(); return S.period.preset === "all" ? "all_time=1" : `from=${f}&to=${t}`; };
+  const NO_CLICK = "Start bor, lekin bosish yozilmagan: reklama yoki lending t.me havolasiga to'g'ridan-to'g'ri olib boryapti. Tugmaga kuzatuv havolasini (/go/…) qo'ying.";
+  // jadval katakchalari: havola qatori va kampaniya jami qatori uchun bir xil
+  function srcCells(x, link) {
+    const how = link ? (x.spend_src === "daily" ? `${fmt(x.spend_days)} kun` : x.spend_src === "total" ? "umumiy narx" : "") : "";
+    return `<td class="r num">${fmt(x.clicks)}${link && !x.clicks && x.starts ? `<span class="sub c-warn" title="${esc(NO_CLICK)}">t.me havolasi</span>` : ""}</td>
+      <td class="r num">${fmt(x.starts)}</td><td class="r num"><b>${fmt(x.users)}</b></td><td class="r num">${fmt(x.app)}</td>
+      <td class="r num">${fmt(x.played)}</td><td class="r num">${fmt(x.buy_click)}</td><td class="r num">${fmt(x.pay_open)}</td>
+      <td class="r num"><b>${fmt(x.bought)}</b><span class="sub">${x.conv}%</span></td><td class="r num">${money(x.revenue)}</td>
+      <td class="r num">${money(x.spend)}${how ? `<span class="sub">${how}</span>` : ""}${link ? `<button type="button" class="link sm" data-spend="${x.id}">+ kiritish</button>` : ""}</td>
+      <td class="r num">${money(x.cps)}</td><td class="r num">${money(x.cpb)}</td>
+      <td class="r num">${roiTag(x.roi)}${x.ai_cost ? `<span class="sub" title="AI va musiqa xarajati (ROI dan ayirilgan)">AI ${fmt(x.ai_cost)}</span>` : ""}</td>
+      <td class="r num">${x.users ? `${x.block_pct}%` : "—"}${x.blocked ? `<span class="sub">${fmt(x.blocked)} kishi</span>` : ""}</td>`;
+  }
+  // «Sayt/video» va «Qo'shiq» (yasaganlar) — havola kartasida va CSV da: jadval ekranga sig'ishi uchun
+  const SRC_HEAD = ["Havola", ">Bosish", ">Start", ">Yangi", ">Ilovaga kirdi", ">Namuna eshitdi", ">Sotib olish bosdi",
+    ">To'lov oynasi", ">Sotib oldi", ">Tushum, so'm", ">Xarajat, so'm", ">Start narxi", ">Xaridor narxi", ">ROI", ">Blok"];
+  const pctCell = (n, p) => `<td class="r num"><b>${fmt(n)}</b><span class="sub">${p}%</span></td>`;
+  const cohortCells = (x) => `<td class="r num"><b>${fmt(x.users)}</b></td>${pctCell(x.d1, x.d1_pct)}${pctCell(x.d3, x.d3_pct)}${pctCell(x.d7, x.d7_pct)}
+    <td class="r num"><b>${fmt(x.bought)}</b><span class="sub">${x.bought_pct}%</span><div class="mini-bar"><i style="width:${Math.min(100, x.bought_pct)}%"></i></div></td>
+    <td class="r num">${x.young ? fmt(x.young) : "—"}</td>`;
+
   async function sources(alive) {
     loading("Trafik manbalari");
-    const allTime = S.period.preset === "all";
-    const [f, t] = range();
-    const d = await api(`/api/admin/sources?${allTime ? "all_time=1" : `from=${f}&to=${t}`}${S.showArchived ? "&archived=1" : ""}`);
+    const q = srcQuery();
+    const d = await api(`/api/admin/sources?${q}${S.showArchived ? "&archived=1" : ""}`);
     if (!alive()) return;
-    const rows = d.links.map((x) => `<tr class="click" data-link="${x.id}">
-      <td><b>${esc(x.name)}</b>${x.archived ? " " + tag("arxivda") : ""}${x.urls.report ? " " + tag(x.share_pct ? `hisobot ochiq, ${x.share_pct}%` : "hisobot ochiq", "pink") : ""}<span class="sub">${esc(x.code)}${x.note ? ` · ${esc(x.note)}` : ""}</span></td>
-      <td class="r num">${fmt(x.clicks)}</td><td class="r num">${fmt(x.starts)}</td><td class="r num"><b>${fmt(x.users)}</b></td>
-      <td class="r num">${fmt(x.app)}</td><td class="r num">${fmt(x.created)}</td><td class="r num">${fmt(x.songs)}${x.song_bought ? `<span class="sub">${fmt(x.song_bought)} sotib oldi</span>` : ""}</td><td class="r num"><b>${fmt(x.bought)}</b><span class="sub">${x.conv}%</span></td>
-      <td class="r num">${som(x.revenue)}</td>
-      <td class="r num hide-m">${x.cost ? som(x.cost) : "—"}${x.cpu ? `<span class="sub">1 kishi: ${som(x.cpu)}</span>` : ""}</td>
-      <td class="r num hide-m">${x.roi == null ? "—" : tag(`${x.roi > 0 ? "+" : ""}${x.roi}%`, x.roi >= 0 ? "good" : "bad")}</td></tr>`);
+    const byId = Object.fromEntries(d.links.map((x) => [x.id, x]));
+    const grouped = d.campaigns.some((c) => c.key);
+    const linkName = (x) => `<b>${esc(x.name)}</b>${x.archived ? " " + tag("arxivda") : ""}${x.urls.report ? " " + tag(x.share_pct ? `hisobot ochiq, ${x.share_pct}%` : "hisobot ochiq", "pink") : ""}<span class="sub">${esc(x.code)}${x.note ? ` · ${esc(x.note)}` : ""}</span>`;
+    // kampaniya qatori — jami; qoidaga mos kelmagan havolalar guruhida jami yo'q (ular bir-biriga aloqasiz)
+    const campHead = (c, cells, ncol) => (!grouped ? "" : c.key
+      ? `<tr class="camp"><td><b>${esc(c.label)}</b><span class="sub">kampaniya · ${c.links.length} ta havola · jami</span></td>${cells}</tr>`
+      : `<tr class="camp"><td><b>${esc(c.label)}</b><span class="sub">kod nomlash qoidasiga mos emas</span></td><td colspan="${ncol - 1}"></td></tr>`);
+    const linkRow = (id, cells) => `<tr class="click${grouped ? " in" : ""}" data-link="${id}"><td>${linkName(byId[id])}</td>${cells}</tr>`;
+    const rows = d.campaigns.flatMap((c) => [campHead(c, srcCells(c, false), SRC_HEAD.length),
+      ...c.links.map((id) => linkRow(id, srcCells(byId[id], true)))]).filter(Boolean);
+    const cohort = d.campaigns.flatMap((c) => [campHead(c, cohortCells(c), 7), ...c.links.map((id) => linkRow(id, cohortCells(byId[id])))])
+      .concat(d.groups.filter((g) => g.users).map((g) => `<tr><td>${esc(g.name)}<span class="sub">havolasiz</span></td>${cohortCells(g)}</tr>`)).filter(Boolean);
     const groups = d.groups.filter((g) => g.users).map((g) => `<tr><td>${esc(g.name)}</td><td class="r num"><b>${fmt(g.users)}</b></td><td class="r num">${fmt(g.app)}</td>
-      <td class="r num">${fmt(g.created)}</td><td class="r num">${fmt(g.songs)}${g.song_bought ? `<span class="sub">${fmt(g.song_bought)} sotib oldi</span>` : ""}</td><td class="r num"><b>${fmt(g.bought)}</b><span class="sub">${g.conv}%</span></td><td class="r num">${som(g.revenue)}</td></tr>`);
+      <td class="r num">${fmt(g.created)}</td><td class="r num">${fmt(g.songs)}${g.song_bought ? `<span class="sub">${fmt(g.song_bought)} sotib oldi</span>` : ""}</td>
+      <td class="r num">${fmt(g.played)}</td><td class="r num">${fmt(g.buy_click)}</td><td class="r num">${fmt(g.pay_open)}</td>
+      <td class="r num"><b>${fmt(g.bought)}</b><span class="sub">${g.conv}%</span></td><td class="r num">${money(g.revenue)}</td>
+      <td class="r num">${g.ai_cost ? fmt(g.ai_cost) : "—"}</td><td class="r num">${g.block_pct}%<span class="sub">${fmt(g.blocked)} kishi</span></td></tr>`);
+    const sn = d.since || {};
+    const sinceNote = sn.played ? `«Namuna eshitdi» va «Sotib olish bosdi» <b>${dt(sn.played)}</b> dan beri yoziladi — undan oldin kelganlarda bu ustunlar to'liq emas.`
+      : "«Namuna eshitdi» va «Sotib olish bosdi» hali yozila boshlamagan (server qayta ishga tushgach boshlanadi).";
     main().innerHTML = `
-      <div class="head"><div><h1>Trafik manbalari</h1><p>Reklama uchun alohida havola yarating: kim bosdi, kim start bosdi, ilovaga kirdi va sotib oldi — hammasi shu yerda.</p></div></div>
+      <div class="head"><div><h1>Trafik manbalari</h1><p>Har bir reklama videosi va lending o'z havolasi bilan: kim bosdi, Start bosdi, namunani eshitdi, sotib oldi — va reklama puli qaytyaptimi.</p></div>
+        <div class="row"><button type="button" class="btn" id="src-csv">Jadval CSV</button><button type="button" class="btn" id="coh-csv">Kogorta CSV</button>
+          <button type="button" class="btn" id="sp-csv">Xarajatlar CSV</button></div></div>
       ${periodBar([["all", "Butun davr"]])}
-      <section class="blk"><div class="bh"><h2>Yangi havola</h2></div>
+      <section class="blk"><div class="bh"><h2>Yangi havola</h2><p>Nomlash qoidasi: <b>kampaniya_video_lending</b> — masalan <code>qoshiq_v3_l1</code>, <code>qoshiq_v3_l2</code>, <code>tabrik_v1_l1</code></p></div>
         <form class="form" id="new-link">
-          <div class="fields">
-            <label class="f">Nomi<input class="in" name="name" required maxlength="100" placeholder="Masalan: Instagram, @kanal_nomi reklama"></label>
-            <label class="f">Kod <small>ixtiyoriy, lotincha</small><input class="in" name="code" maxlength="24" pattern="[a-z0-9_]{2,24}" placeholder="insta_noyabr"></label>
-            <label class="f">Reklama narxi <small>so'm, ixtiyoriy</small><input class="in" name="cost" type="number" min="0" step="1000" placeholder="0"></label>
+          <div class="fields f4">
+            <label class="f">Kampaniya <small>nomi, lotincha</small><input class="in" name="campaign" maxlength="18" placeholder="qoshiq" autocomplete="off"></label>
+            <label class="f">Video <small>raqami</small><input class="in" name="video" maxlength="6" placeholder="3" autocomplete="off"></label>
+            <label class="f">Lending <small>raqami, ixtiyoriy</small><input class="in" name="landing" maxlength="6" placeholder="1" autocomplete="off"></label>
+            <label class="f">Kod <small id="nl-code-h">o'zi yig'iladi</small><input class="in" name="code" maxlength="24" pattern="[a-z0-9_]{2,24}" placeholder="qoshiq_v3_l1" autocomplete="off"></label>
           </div>
-          <label class="f">Izoh <small>ixtiyoriy</small><input class="in" name="note" maxlength="255" placeholder="Qayerda, qachon joylandi"></label>
-          <div class="row"><button class="btn primary" type="submit">Havola yaratish</button><span class="muted" style="font-size:12.5px">Havola ikki xil bo'ladi: kuzatuv havolasi bosishlarni ham sanaydi, bot havolasi esa to'g'ridan-to'g'ri botni ochadi.</span></div>
+          <div class="fields">
+            <label class="f">Nomi <small>ixtiyoriy — bo'sh bo'lsa kod</small><input class="in" name="name" maxlength="100" placeholder="Masalan: Qo'shiq reklamasi, 3-video, 1-lending"></label>
+            <label class="f">Umumiy reklama narxi <small>so'm, ixtiyoriy</small><input class="in" name="cost" type="number" min="0" step="1000" placeholder="0"></label>
+            <label class="f">Izoh <small>ixtiyoriy</small><input class="in" name="note" maxlength="255" placeholder="Qayerda, qachon joylandi"></label>
+          </div>
+          <div class="row"><button class="btn primary" type="submit">Havola yaratish</button><span class="muted" style="font-size:12.5px">Har bir video va har bir lending uchun alohida havola yarating — shunda qaysi biri xaridor olib kelayotgani ko'rinadi.
+            Lending kodni botga Start parametri orqali uzatadi: lendingdagi tugmaga <b>kuzatuv havolasini</b> qo'ying — u bosishni ham sanaydi. Kunlik xarajat havola yaratilgach kiritiladi.</span></div>
         </form></section>
-      <section class="blk"><div class="bh"><h2>Havolalar</h2><p>Foydalanuvchilar — shu havola orqali botga birinchi marta kelganlar; ularning keyingi xaridlari ham shu manbaga yoziladi.
+      <section class="blk"><div class="bh"><h2>Havolalar</h2><p>Odamlar — shu havola orqali botga birinchi marta kelganlar; ularning keyingi harakatlari va xaridlari ham shu manbaga yoziladi.
         <label style="margin-left:10px"><input type="checkbox" id="arch" ${S.showArchived ? "checked" : ""}> arxivdagilar</label></p></div>
-        ${table(["Havola", ">Bosish", ">Start", ">Yangi", ">Ilovaga kirdi", ">Sayt/video", ">Qo'shiq", ">Sotib oldi", ">Tushum", ">Reklama narxi", ">ROI"], rows, "Hali havola yo'q. Yuqorida birinchisini yarating.")}</section>
+        ${table(SRC_HEAD, rows, "Hali havola yo'q. Yuqorida birinchisini yarating.", "dense")}
+        <p class="muted" style="font-size:12.5px;margin-top:8px"><b>Bosish</b> — kuzatuv havolasi (/go/…) orqali o'tganlar; t.me havolasi to'g'ridan-to'g'ri ochilgani uchun bosishni sanamaydi (Start va keyingi ustunlar baribir to'g'ri).
+          <b>Start</b> — shu davrda shu havola bilan Start bosgan odamlar. <b>Xarajat</b> — tanlangan davrdagi kunlik yozuvlar yig'indisi (kunlik yozuv bo'lmasa — umumiy «Reklama narxi»).
+          <b>Start narxi</b> = xarajat / Start bosganlar · <b>Xaridor narxi</b> = xarajat / sotib olganlar · <b>ROI</b> = (tushum − xarajat − AI va musiqa xarajati) / xarajat.
+          <b>Blok</b> — shu manbadan kelganlardan hozir botni bloklab turganlar. Hammasi odam bo'yicha, takrorlarsiz; admin va sinov akkauntlari (${fmt(d.excluded)} ta) sanalmaydi.
+          ${sinceNote} «To'lov oynasi» eski to'lovlardan tiklangan — butun tarix uchun bor. Sayt/video va qo'shiq yasaganlar — havolaga bosilganda ochiladigan kartada va «Jadval CSV» da.</p></section>
+      <section class="blk"><div class="bh"><h2>Kogorta: kelgandan keyin qancha vaqtda sotib oldi</h2><p>shu davrda kelgan odamlardan birinchi xaridini kelgandan 1, 3 va 7 kun (24, 72, 168 soat) ichida qilganlar</p></div>
+        ${table(["Manba", ">Kelgan", ">1 kun ichida", ">3 kun ichida", ">7 kun ichida", ">Hozirgacha", ">7 kuni to'lmagan"], cohort, "Bu davrda hech kim kelmagan", "dense")}
+        <p class="muted" style="font-size:12.5px;margin-top:8px">«Odamlar 1–2 kun o'rganib, keyin sotib oladi» degan taxminni tekshirish uchun: 1 kun va 3 kun ustunlari orasidagi farq — o'ylab yurib sotib olganlar.
+          Xarid — tasdiqlangan to'lov yoki balansdan xizmat sotib olish (qaysi biri oldin bo'lsa). «7 kuni to'lmagan» — 7 kundan kam oldin kelganlar: ular uchun 7 kunlik raqam hali o'sishi mumkin.</p></section>
       <section class="blk"><div class="bh"><h2>Boshqa manbalar</h2><p>Havolasiz kelganlar</p></div>
-        ${table(["Manba", ">Yangi", ">Ilovaga kirdi", ">Sayt/video", ">Qo'shiq", ">Sotib oldi", ">Tushum"], groups)}</section>`;
+        ${table(["Manba", ">Yangi", ">Ilovaga kirdi", ">Sayt/video", ">Qo'shiq", ">Namuna eshitdi", ">Sotib olish bosdi", ">To'lov oynasi", ">Sotib oldi", ">Tushum, so'm", ">AI xarajati", ">Blok"], groups, "Ma'lumot yo'q", "dense")}</section>`;
     bindPeriod(main(), render);
     $("#arch").onchange = (e) => { S.showArchived = e.target.checked; render(); };
-    $("#new-link").onsubmit = async (e) => {
+    $("#src-csv").onclick = () => download(`/api/admin/export/sources.csv?${q}`);
+    $("#coh-csv").onclick = () => download(`/api/admin/export/sourcecohort.csv?${q}`);
+    $("#sp-csv").onclick = () => download(`/api/admin/export/adspend.csv?${q}`);
+    const form = $("#new-link");
+    const fe = form.elements;
+    const syncCode = () => {
+      const c = composeCode(fe.campaign.value, fe.video.value, fe.landing.value);
+      if (fe.code.readOnly && !c) fe.code.value = "";
+      fe.code.readOnly = !!c; if (c) fe.code.value = c;
+      $("#nl-code-h").textContent = c ? "o'zi yig'iladi" : "ixtiyoriy, eski usul";
+    };
+    ["campaign", "video", "landing"].forEach((k) => (fe[k].oninput = syncCode));
+    form.onsubmit = async (e) => {
       e.preventDefault();
-      const fd = new FormData(e.target);
+      const fd = new FormData(form), rule = !!(fd.get("campaign") || fd.get("video") || fd.get("landing"));
+      if (rule && !(fd.get("campaign") && fd.get("video"))) { toast("Kampaniya va video raqamini kiriting (lending ixtiyoriy)", true); return; }
+      const code = String(fd.get("code") || "").trim();
+      const name = String(fd.get("name") || "").trim() || code;
+      if (!name) { toast("Nomini yoki kampaniya va videoni kiriting", true); return; }
+      const body = { name, cost: +fd.get("cost") || 0, note: fd.get("note") || "" };
+      if (rule) Object.assign(body, { campaign: fd.get("campaign"), video: fd.get("video"), landing: fd.get("landing") || "" });
+      else body.code = code;
       try {
-        const r = await api("/api/admin/links", { name: fd.get("name"), code: fd.get("code") || "", cost: +fd.get("cost") || 0, note: fd.get("note") || "" });
-        toast("Havola yaratildi"); await render();
+        const r = await api("/api/admin/links", body);
+        toast(r.campaign ? `Havola yaratildi: ${r.code}` : `Havola yaratildi: ${r.code} (nomlash qoidasiga mos emas)`); await render();
         const x = (await api(`/api/admin/sources?all_time=1&archived=1`)).links.find((l) => l.id === r.id);
         if (x) linkSheet(x);
       } catch (err) { toast(err.message, true); }
     };
-    $$("[data-link]").forEach((tr) => (tr.onclick = () => linkSheet(d.links.find((x) => x.id === +tr.dataset.link))));
+    $$("[data-link]").forEach((tr) => (tr.onclick = () => linkSheet(byId[+tr.dataset.link])));
+    $$("[data-spend]").forEach((b) => (b.onclick = (e) => { e.stopPropagation(); adSpendSheet(byId[+b.dataset.spend]); }));
   }
   function linkSheet(x) {
-    sheet(`<h2 class="big" id="sheet-title">${esc(x.name)}</h2><p class="muted">Kod: ${esc(x.code)} · yaratilgan ${day(x.created_at)}</p>
+    const how = x.spend_src === "daily" ? `kunlik yozuvlar, ${fmt(x.spend_days)} kun` : x.spend_src === "total" ? "umumiy «Reklama narxi»" : "";
+    sheet(`<h2 class="big" id="sheet-title">${esc(x.name)}</h2><p class="muted">Kod: ${esc(x.code)}${x.campaign ? ` · kampaniya <b>${esc(x.campaign)}</b> · video ${esc(x.video)} · ${x.landing ? `lending ${esc(x.landing)}` : "lendingsiz"}` : " · nomlash qoidasiga mos emas"} · yaratilgan ${day(x.created_at)}</p>
       <section><h3>Havolalar</h3>
-        <div class="copy"><span>Kuzatuv (tavsiya):</span><code>${esc(x.urls.go)}</code><button type="button" data-copy="${esc(x.urls.go)}">Nusxa</button></div>
+        <div class="copy"><span>Kuzatuv havolasi:</span><code>${esc(x.urls.go)}</code><button type="button" data-copy="${esc(x.urls.go)}">Nusxa</button></div>
         <div class="copy" style="margin-top:6px"><span>Bot havolasi:</span><code>${esc(x.urls.bot)}</code><button type="button" data-copy="${esc(x.urls.bot)}">Nusxa</button></div>
-        <p class="muted" style="font-size:12.5px;margin-top:8px">Kuzatuv havolasi bosilganini sanaydi va darhol botga o'tkazadi. Instagram, kanal postlari va bannerlar uchun shu havolani bering.</p></section>
+        <p class="muted" style="font-size:12.5px;margin-top:8px"><b>Kuzatuv havolasini</b> lendingdagi «Botga o'tish» tugmasiga, reklama, kanal posti va bannerlarga qo'ying: u bosishni yozadi va darhol botni
+          shu kod bilan ochadi (Start parametri <code>src_${esc(x.code)}</code>). <b>Bot havolasi</b> (t.me/…) botni to'g'ridan-to'g'ri ochadi — bosish sanalmaydi, lekin Start va keyingi harakatlar baribir shu havolaga yoziladi.</p>
+        ${x.starts && !x.clicks ? `<p class="note" style="margin-top:8px">Bu davrda ${fmt(x.starts)} kishi Start bosgan, lekin birorta bosish yozilmagan — reklama yoki lending t.me havolasiga to'g'ridan-to'g'ri olib boryapti. Tugmani kuzatuv havolasiga almashtiring.</p>` : ""}</section>
       <section><h3>Natija (tanlangan davr)</h3><div class="stat-line">
         <div><b>${fmt(x.clicks)}</b><span>bosish</span></div><div><b>${fmt(x.starts)}</b><span>start</span></div>
         <div><b>${fmt(x.users)}</b><span>yangi foydalanuvchi</span></div><div><b>${fmt(x.app)}</b><span>ilovaga kirdi</span></div>
         <div><b>${fmt(x.created)}</b><span>sayt/video yasadi</span></div><div><b>${fmt(x.songs)}</b><span>qo'shiq tayyorladi${x.song_bought ? ` · ${fmt(x.song_bought)} sotib oldi` : ""}</span></div>
-        <div><b>${fmt(x.bought)}</b><span>sotib oldi</span></div>
-        <div><b>${som(x.revenue)}</b><span>tushum</span></div></div>
-        ${x.cost ? `<p style="margin-top:10px">Bir foydalanuvchi narxi: <b>${som(x.cpu)}</b> · bir xaridor narxi: <b>${som(x.cpb)}</b> · ROI: <b>${x.roi}%</b></p>` : ""}</section>
+        <div><b>${fmt(x.played)}</b><span>namunani eshitdi</span></div><div><b>${fmt(x.buy_click)}</b><span>«sotib olish»ni bosdi</span></div>
+        <div><b>${fmt(x.pay_open)}</b><span>to'lov oynasini ochdi</span></div><div><b>${fmt(x.bought)}</b><span>sotib oldi</span></div>
+        <div><b>${som(x.revenue)}</b><span>tushum</span></div><div><b>${x.block_pct}%</b><span>botni bloklagan (${fmt(x.blocked)} kishi)</span></div></div>
+        ${x.spend ? `<p style="margin-top:10px">Xarajat: <b>${som(x.spend)}</b> <span class="muted">(${how})</span> · Start narxi: <b>${som(x.cps)}</b> · bir foydalanuvchi: <b>${som(x.cpu)}</b> · bir xaridor: <b>${som(x.cpb)}</b>
+          · AI va musiqa: <b>${som(x.ai_cost)}</b> · ROI: <b>${x.roi}%</b></p>` : `<p class="muted" style="margin-top:10px">Xarajat kiritilmagan — Start narxi, xaridor narxi va ROI hisoblanmaydi.</p>`}</section>
+      <section><h3>Reklama xarajati</h3><p class="muted" style="font-size:13px;margin-bottom:8px">Kunma-kun, so'mda yoki dollarda. Tanlangan davrdagi kunlar yig'indisi «Xarajat» ustuniga tushadi.</p>
+        <button type="button" class="btn primary" id="ls-spend">Kunlik xarajatni kiritish</button></section>
       <section><h3>Hamkor uchun hisobot</h3>
         <p class="muted" style="font-size:13px;margin-bottom:8px">Kanal egasi yoki bloger faqat shu havola natijalarini ko'radi: bosish, start, yangi foydalanuvchi, ilovaga kirgan, yasagan, sotib olgan va tushum. Hamkor ulushi (%) yozilsa, uning daromadi ham hisoblab ko'rsatiladi. Ismlar va shaxsiy ma'lumotlar ko'rinmaydi.</p>
         ${x.urls.report ? `<div class="copy"><code>${esc(x.urls.report)}</code><button type="button" data-copy="${esc(x.urls.report)}">Nusxa</button><button type="button" data-open="${esc(x.urls.report)}">Ochish</button></div>
@@ -470,7 +556,7 @@
           : `<button type="button" class="btn" id="sh-on">Hisobot havolasini yaratish</button>`}</section>
       <section><h3>Tahrirlash</h3><form class="form" id="edit-link">
         <label class="f">Nomi<input class="in" name="name" value="${esc(x.name)}" maxlength="100" required></label>
-        <label class="f">Reklama narxi (so'm)<input class="in" name="cost" type="number" min="0" step="1000" value="${x.cost || ""}"></label>
+        <label class="f">Umumiy reklama narxi (so'm) <small>kunlik xarajat umuman kiritilmagan bo'lsa, hisobda shu ishlatiladi</small><input class="in" name="cost" type="number" min="0" step="1000" value="${x.cost || ""}"></label>
         <label class="f">Izoh<input class="in" name="note" value="${esc(x.note || "")}" maxlength="255"></label>
         <label class="f">Hamkor ulushi, % <small>tushumdan hamkorga beriladigan foiz; hisobotda «Sizning ulushingiz» bo'lib chiqadi</small><input class="in" name="share_pct" type="number" min="0" max="100" step="1" value="${x.share_pct || ""}" placeholder="0"></label>
         <div class="row"><button class="btn primary" type="submit">Saqlash</button>
@@ -478,6 +564,7 @@
       </form></section>`);
     $$("[data-copy]", $("#sheet")).forEach((b) => (b.onclick = () => copy(b.dataset.copy)));
     $$("[data-open]", $("#sheet")).forEach((b) => (b.onclick = () => openExternal(b.dataset.open)));
+    $("#ls-spend").onclick = () => adSpendSheet(x);
     const share = async (body, msg, copyAfter) => {
       try {
         const r = await api(`/api/admin/links/${x.id}/share`, body);
@@ -496,6 +583,58 @@
     $("#arch-link").onclick = async () => {
       try { await api(`/api/admin/links/${x.id}`, { archived: !x.archived }, "PATCH"); closeSheet(); render(); } catch (err) { toast(err.message, true); }
     };
+  }
+  // kunlik reklama xarajati: sana + summa + valyuta (so'm yoki dollar, kurs — umumiy sozlama); bir kun — bitta yozuv
+  async function adSpendSheet(x) {
+    sheet(`<p class="boot">Yuklanmoqda…</p>`);
+    let d;
+    try { d = await api(`/api/admin/links/${x.id}/spend`); } catch (e) { $("#sheet-body").innerHTML = `<p class="note">${esc(e.message)}</p>`; return; }
+    const usd = (n) => `$${Number(n).toLocaleString("en-US", { maximumFractionDigits: 2 })}`;
+    const draw = (keep) => {
+      const today = localISO(new Date());
+      $("#sheet-body").innerHTML = `<button type="button" class="link" id="sp-back">‹ ${esc(x.name)}</button>
+        <h2 class="big" id="sheet-title" style="margin-top:6px">Reklama xarajati</h2>
+        <p class="muted">${esc(x.code)} · kunma-kun, qo'lda. Bir kun uchun bitta yozuv: shu kunni qayta kiritsangiz, summa yangilanadi.</p>
+        <form class="form" id="sp-form" style="margin-top:14px">
+          <div class="fields"><label class="f">Sana<input class="in" type="date" name="day" value="${keep ? keep.day : today}" max="${today}" required></label>
+            <label class="f">Summa<input class="in" name="amount" type="number" min="0" step="any" required placeholder="0" inputmode="decimal"></label>
+            <label class="f">Valyuta<select class="in" name="currency"><option value="som">so'm</option><option value="usd"${keep && keep.currency === "usd" ? " selected" : ""}>dollar ($)</option></select></label></div>
+          <div class="row"><button class="btn primary" type="submit">Saqlash</button>
+            <span class="muted" style="font-size:12.5px">Dollar kursi: 1 $ = <b>${fmt(d.usd_som)}</b> so'm · <button type="button" class="link" id="sp-rate">o'zgartirish</button></span></div>
+        </form>
+        <section><h3>Kiritilgan kunlar</h3>
+          ${table(["Sana", ">Summa", ">So'mda", ""], d.rows.map((r) => `<tr><td class="num">${dayISO(r.day)}</td>
+            <td class="r num">${r.currency === "usd" ? `${usd(r.amount)}<span class="sub">kurs ${fmt(r.rate)}</span>` : `${fmt(r.amount)} so'm`}</td>
+            <td class="r num"><b>${fmt(r.som)}</b></td><td class="r"><button type="button" class="link" data-del="${r.id}">O'chirish</button></td></tr>`), "Hali kiritilmagan")}
+          <p class="muted" style="font-size:12.5px;margin-top:8px">Jami: <b>${som(d.total)}</b>.
+            ${!d.rows.length && d.cost ? `Kunlik yozuv yo'q — hisobda eski umumiy «Reklama narxi» (${som(d.cost)}) ishlatilyapti; birinchi kunlik yozuvdan keyin faqat kunliklar sanaladi.` : ""}
+            Dollar kursi o'zgarsa, oldin kiritilgan kunlar o'z kursida qoladi (kerak bo'lsa o'sha kunni qayta kiriting).</p></section>`;
+      $("#sp-back").onclick = async () => {  // havola kartasi yangi xarajat bilan
+        try { x = (await api(`/api/admin/sources?${srcQuery()}&archived=1`)).links.find((l) => l.id === x.id) || x; } catch (e) { /* eskisi qoladi */ }
+        linkSheet(x);
+      };
+      $("#sp-rate").onclick = async () => {
+        const v = prompt("1 dollar necha so'm? (Bu kurs AI xarajatlari hisobida ham ishlatiladi)", d.usd_som);
+        if (v == null) return;
+        const n = Math.round(+String(v).replace(/[\s,]/g, ""));
+        if (!(n >= 1000 && n <= 100000)) { toast("Kurs 1 000 va 100 000 so'm oralig'ida bo'lsin", true); return; }
+        try { const r = await api("/api/admin/costs/rates", { usd_som: n }); d.usd_som = Math.round(r.rates.usd_som); toast("Kurs saqlandi"); draw(); } catch (err) { toast(err.message, true); }
+      };
+      $("#sp-form").onsubmit = async (e) => {
+        e.preventDefault(); const fd = new FormData(e.target);
+        const body = { day: fd.get("day"), amount: +String(fd.get("amount")).replace(",", "."), currency: fd.get("currency") };
+        if (!(body.amount > 0)) { toast("Summani kiriting", true); return; }
+        try {
+          const r = await api(`/api/admin/links/${x.id}/spend`, body);
+          d = r; toast(r.saved.updated ? `${dayISO(r.saved.day)} yangilandi` : "Saqlandi"); draw({ day: addDays(body.day, 1) > today ? body.day : addDays(body.day, 1), currency: body.currency }); render();
+        } catch (err) { toast(err.message, true); }
+      };
+      $$("[data-del]", $("#sheet")).forEach((b) => (b.onclick = async () => {
+        if (!confirm("Shu kunning xarajatini o'chirasizmi?")) return;
+        try { d = await api(`/api/admin/links/${x.id}/spend/${b.dataset.del}`, null, "DELETE"); toast("O'chirildi"); draw(); render(); } catch (err) { toast(err.message, true); }
+      }));
+    };
+    draw();
   }
 
   // ---------------------------------------------------------------- 3. Sotuvlar

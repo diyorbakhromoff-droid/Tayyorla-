@@ -1,7 +1,8 @@
 import secrets
 from datetime import datetime, timezone
 
-from sqlalchemy import JSON, BigInteger, Boolean, DateTime, ForeignKey, Index, Integer, String, Text, func, inspect, select, text
+from sqlalchemy import (JSON, BigInteger, Boolean, DateTime, Float, ForeignKey, Index, Integer, String, Text, UniqueConstraint, func, inspect,
+                        select, text)
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 
@@ -253,6 +254,23 @@ class TrafficLink(Base):
     share: Mapped[str] = mapped_column(String(32), default="", index=True)  # hamkor hisobotining maxfiy kaliti
     share_revenue: Mapped[bool] = mapped_column(Boolean, default=False)  # eski sozlama (endi tushum doim ko'rinadi)
     share_pct: Mapped[int] = mapped_column(Integer, default=0)  # hamkor ulushi, % (hisobotda «Sizning ulushingiz»)
+    created_by: Mapped[int | None] = mapped_column(BigInteger, nullable=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=utcnow)
+
+
+class AdSpend(Base):
+    """Reklama xarajati kunma-kun (statistika TZ, 4-band): bitta havola uchun bir kunda ketgan pul, admin qo'lda kiritadi.
+    Bir havola uchun bir kunda bitta yozuv — qayta kiritilsa yangilanadi (app/adstats.py). Jadval create_all bilan yaratiladi."""
+    __tablename__ = "ad_spend"
+    __table_args__ = (UniqueConstraint("link_id", "day", name="uq_ad_spend_link_day"),)
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    link_id: Mapped[int] = mapped_column(ForeignKey("traffic_links.id", ondelete="CASCADE"), index=True)
+    day: Mapped[str] = mapped_column(String(10), index=True)  # YYYY-MM-DD (Toshkent)
+    amount: Mapped[float] = mapped_column(Float)  # kiritilgan summa, o'z valyutasida
+    currency: Mapped[str] = mapped_column(String(3), default="som")  # som | usd
+    rate: Mapped[int] = mapped_column(Integer, default=0)  # usd bo'lsa: kiritilgan paytdagi dollar kursi (so'm)
+    som: Mapped[int] = mapped_column(BigInteger)  # so'mdagi qiymati — hamma hisob shu bilan
     created_by: Mapped[int | None] = mapped_column(BigInteger, nullable=True)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=utcnow)
 

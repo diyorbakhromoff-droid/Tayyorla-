@@ -14,7 +14,7 @@ import re
 import secrets
 import shutil
 import time as _time
-from collections import Counter, defaultdict
+from collections import defaultdict
 from datetime import date, datetime, time, timedelta, timezone
 
 from fastapi import APIRouter, Depends, File, Header, HTTPException, Query, Request, UploadFile
@@ -25,7 +25,7 @@ from sqlalchemy import func, select, update
 from . import track, video, videobot
 from .catalog import SECTIONS, TEMPLATES, site_price, site_title
 from .config import MEDIA_DIR, ROOT, settings
-from . import costs, funnel, nudges, payflow, paysurvey, songflow, songs, store
+from . import adstats, costs, funnel, nudges, payflow, paysurvey, songflow, songs, store
 from .db import BalanceTx, Event, MusicTrack, Payment, RenderJob, Session, Site, Snapshot, Song, TrafficLink, User, utcnow
 from .reminders import TZ, today
 from .webapp import check_init_data
@@ -452,6 +452,10 @@ class LinkIn(BaseModel):
     code: str = Field("", max_length=24)
     cost: int = Field(0, ge=0, le=10**10)
     note: str = Field("", max_length=255)
+    # nomlash qoidasi kampaniya_video_lending (qoshiq_v3_l1): berilsa, kod shulardan yig'iladi
+    campaign: str = Field("", max_length=24)
+    video: str = Field("", max_length=8)
+    landing: str = Field("", max_length=8)
 
 
 class LinkPatch(BaseModel):
@@ -494,81 +498,144 @@ def source_label(ref: str, names: dict | None = None) -> str:
     return SOURCE_GROUPS[k]
 
 
+async def sources_data(frm: str | None, to: str | None, all_time: int = 0, archived: int = 0) -> dict:
+    """«Trafik manbalari» (statistika TZ, 4-band): har bir havola va havolasiz manba bo'yicha shu davrda kelgan ODAMLAR
+    (birinchi manbasi — users.ref) va ularning keyingi harakatlari, reklama xarajati, narxlar, ROI, blok va kogorta.
+    Hammasi bir necha GROUP BY so'rovda (app/adstats.py); havolalar kampaniya bo'yicha guruhlanadi."""
+    if all_time:
+        d1, d2, a = None, today(), None
+    else:
+        d1, d2 = parse_range(frm, to, default_days=30)
+        a = utc_of(d1)
+    b = utc_of(d2 + timedelta(days=1))
+    excl = await track.excluded_ids()
+    async with Session() as s:
+        links = (await s.execute(select(TrafficLink).order_by(TrafficLink.id.desc()))).scalars().all()
+        data = await adstats.by_source(s, a, b, excl, SPEND_KINDS)
+        ai = await adstats.ai_by_source(s, a, b, excl)
+        starts, clicks = await adstats.starts_clicks(s, a, b, excl)
+        spend, spend_days, daily = await adstats.spend_totals(s, d1, d2)
+    rows = []
+    for x in links:
+        key = f"src_{x.code}"
+        m = {**adstats.empty(), **data.pop(key, {})}  # arxivdagi havola odamlari «Boshqa manbalar»ga ham tushmaydi
+        if x.archived and not archived:
+            continue
+        m.update(starts=starts.get(x.code, 0), clicks=clicks.get(x.code, 0), ai_cost=ai.get(key, 0.0))
+        # xarajat: kunlik yozuvlar bo'lsa — shu davrdagilari yig'indisi; umuman bo'lmasa — eski umumiy «Reklama narxi»
+        if x.id in daily:
+            cost, how = spend.get(x.id, 0), "daily"
+        else:
+            cost, how = x.cost or 0, ("total" if x.cost else None)
+        rows.append({"id": x.id, "code": x.code, "name": x.name, "note": x.note, "cost": x.cost or 0, "archived": x.archived,
+                     "spend_src": how, "spend_days": spend_days.get(x.id, 0),
+                     "share_pct": x.share_pct or 0, "created_at": x.created_at.isoformat() if x.created_at else None,
+                     "urls": link_urls(x.code, x.share), **adstats.parse_code(x.code), **adstats.derive(m, cost)})
+    camps: dict[str, dict] = {}
+    for r in rows:
+        c = camps.setdefault(r["campaign"], {"key": r["campaign"], "label": r["campaign"] or adstats.NO_CAMPAIGN, "rows": [],
+                                             "t": adstats.empty()})
+        c["rows"].append(r)
+        adstats.add_into(c["t"], r)
+    campaigns = []
+    for key in [k for k in camps if k] + ([""] if "" in camps else []):  # eng yangi kampaniya tepada, qoidasiz havolalar oxirida
+        c = camps[key]
+        t = c["t"]
+        campaigns.append({"key": key, "label": c["label"], "links": [r["id"] for r in sorted(c["rows"], key=lambda r: r["code"])],
+                          **adstats.derive(t, t["spend"])})
+    other = []
+    for key in ("", "ref_", "r_", "other"):
+        m = {**adstats.empty(), **data.pop(key, {}), "ai_cost": ai.get(key, 0.0)}
+        other.append({"key": key or "organic", "name": SOURCE_GROUPS[key], **adstats.derive(m, 0)})
+    for key, m in data.items():  # o'chirilgan yoki noma'lum havolalar
+        m = {**adstats.empty(), **m, "ai_cost": ai.get(key, 0.0)}
+        other.append({"key": key, "name": f"Havola: {key[4:]}", **adstats.derive(m, 0)})
+    return {"from": d1.isoformat() if d1 else None, "to": d2.isoformat(), "links": rows, "campaigns": campaigns, "groups": other,
+            "since": await adstats.since_notes(), "usd_som": await adstats.usd_rate(), "excluded": len(excl)}
+
+
 @router.get("/sources")
 async def sources(frm: str | None = Query(None, alias="from"), to: str | None = None, all_time: int = 0,
                   archived: int = 0, uid: int = Depends(admin_uid)):
-    """Har bir manba bo'yicha: bosishlar, start, yangi foydalanuvchilar, ilovaga kirgan, yasagan, to'lagan, tushum."""
-    if all_time:
-        d1, d2 = date(2000, 1, 1), today()
-    else:
-        d1, d2 = parse_range(frm, to, default_days=30)
-    a, b = utc_of(d1), utc_of(d2 + timedelta(days=1))
-    async with Session() as s:
-        links = (await s.execute(select(TrafficLink).order_by(TrafficLink.id.desc()))).scalars().all()
-        users = (await s.execute(select(User.tg_id, User.ref).where(User.created_at >= a, User.created_at < b))).all()
-        ev = (await s.execute(select(Event.kind, Event.src, Event.user_id).where(
-            Event.created_at >= a, Event.created_at < b, Event.kind.in_(("click", "start")),
-            Event.src.like("src_%") | (Event.kind == "click")))).all()
-        ever = await _sets(s)
-        paid_by = dict((await s.execute(select(Payment.user_id, func.sum(Payment.amount))
-                                        .where(Payment.status == "approved").group_by(Payment.user_id))).all())
-        spent_by = dict((await s.execute(select(BalanceTx.user_id, func.sum(-BalanceTx.amount))
-                                         .where(BalanceTx.kind.in_(SPEND_KINDS)).group_by(BalanceTx.user_id))).all())
-    names = {x.code: x.name for x in links}
-    clicks = Counter(src for k, src, _ in ev if k == "click")
-    starts = defaultdict(set)
-    for k, src, u in ev:
-        if k == "start" and u:
-            starts[src[4:].lower()].add(u)
-    groups = defaultdict(list)
-    for tg_id, ref in users:
-        groups[source_key(ref)].append(tg_id)
-
-    def metrics(ids: list[int]) -> dict:
-        ids = set(ids)
-        bought = ids & ever["buyers"]
-        return {"users": len(ids), "app": len(ids & ever["app"]), "created": len(ids & ever["creators"]),
-                "songs": len(ids & ever["songers"]), "song_bought": len(ids & ever["song_buyers"]),
-                "bought": len(bought), "revenue": int(sum(paid_by.get(i, 0) or 0 for i in ids)),
-                "spent": int(sum(spent_by.get(i, 0) or 0 for i in ids)), "conv": pct(len(bought), len(ids))}
-
-    rows = []
-    for x in links:
-        if x.archived and not archived:
-            continue
-        m = metrics(groups.pop(f"src_{x.code}", []))
-        m.update(clicks=clicks.get(x.code, 0), starts=len(starts.get(x.code, ())))
-        cost = x.cost or 0
-        m.update(cpu=round(cost / m["users"]) if cost and m["users"] else None,
-                 cpb=round(cost / m["bought"]) if cost and m["bought"] else None,
-                 roi=round(100 * (m["revenue"] - cost) / cost, 1) if cost else None)
-        rows.append({"id": x.id, "code": x.code, "name": x.name, "note": x.note, "cost": cost, "archived": x.archived,
-                     "share_pct": x.share_pct or 0, "created_at": x.created_at.isoformat() if x.created_at else None,
-                     "urls": link_urls(x.code, x.share), **m})
-    other = []
-    for key in ("", "ref_", "r_", "other"):
-        other.append({"key": key or "organic", "name": SOURCE_GROUPS[key], **metrics(groups.pop(key, []))})
-    for key, ids in groups.items():  # o'chirilgan yoki noma'lum havolalar
-        other.append({"key": key, "name": f"Havola: {key[4:]}", **metrics(ids)})
-    return {"from": d1.isoformat() if not all_time else None, "to": d2.isoformat(), "links": rows, "groups": other}
+    """Har bir manba bo'yicha: bosish, start, yangi odamlar, ilovaga kirgan, yasagan, namunani eshitgan, «sotib olish» va to'lov
+    oynasi, sotib olgan, tushum, reklama xarajati, start va xaridor narxi, ROI, blok foizi va kogorta (1/3/7 kun)."""
+    return await sources_data(frm, to, all_time, archived)
 
 
 @router.post("/links")
 async def link_create(body: LinkIn, uid: int = Depends(admin_uid)):
-    code = (body.code or "").strip().lower() or _slug(body.name) or secrets.token_hex(3)
+    explicit = bool(body.code or body.campaign or body.video or body.landing)
+    if body.campaign or body.video or body.landing:
+        try:
+            code = adstats.compose_code(body.campaign, body.video, body.landing)
+        except ValueError as e:
+            raise HTTPException(400, str(e))
+    else:
+        code = (body.code or "").strip().lower() or _slug(body.name) or secrets.token_hex(3)
     if not track.CODE_RE.match(code):
         raise HTTPException(400, "Kod faqat lotin harflari, raqam va _ dan iborat bo'lsin (2–24 belgi)")
     async with Session() as s:
         base, i = code, 2
         while await s.scalar(select(TrafficLink.id).where(TrafficLink.code == code)):
-            if body.code:
+            if explicit:
                 raise HTTPException(409, "Bu kod band, boshqasini tanlang")
             code = f"{base[:20]}_{i}"
             i += 1
         x = TrafficLink(code=code, name=body.name.strip(), cost=body.cost, note=body.note.strip(), created_by=uid)
         s.add(x)
         await s.commit()
-    return {"id": x.id, "code": x.code, "urls": link_urls(x.code)}
+    return {"id": x.id, "code": x.code, "urls": link_urls(x.code), **adstats.parse_code(x.code)}
+
+
+# ---------------------------------------------------------------- kunlik reklama xarajati (har bir havola uchun)
+
+class SpendIn(BaseModel):
+    day: str = Field(min_length=10, max_length=10)  # YYYY-MM-DD (Toshkent)
+    amount: float = Field(gt=0, le=10**11)
+    currency: str = Field("som", pattern="^(som|usd)$")
+
+
+async def _link_or_404(link_id: int) -> TrafficLink:
+    async with Session() as s:
+        x = await s.get(TrafficLink, link_id)
+    if not x:
+        raise HTTPException(404)
+    return x
+
+
+@router.get("/links/{link_id}/spend")
+async def link_spend(link_id: int, uid: int = Depends(admin_uid)):
+    """Havolaning kunlik xarajatlari (yangisi tepada), dollar kursi va eski umumiy «Reklama narxi»."""
+    x = await _link_or_404(link_id)
+    rows = await adstats.spend_list(link_id)
+    return {"id": x.id, "code": x.code, "name": x.name, "cost": x.cost or 0, "rows": rows, "total": sum(r["som"] for r in rows),
+            "usd_som": await adstats.usd_rate()}
+
+
+@router.post("/links/{link_id}/spend")
+async def link_spend_put(link_id: int, body: SpendIn, uid: int = Depends(admin_uid)):
+    """Bir kunlik xarajat (so'm yoki dollar). Shu kun uchun yozuv bo'lsa — yangilanadi."""
+    await _link_or_404(link_id)
+    try:
+        d = date.fromisoformat(body.day)
+    except ValueError:
+        raise HTTPException(400, "Sana YYYY-MM-DD ko'rinishida bo'lsin")
+    if d > today() or d < date(2020, 1, 1):
+        raise HTTPException(400, "Kelajakdagi yoki juda eski sana kiritib bo'lmaydi")
+    try:
+        saved = await adstats.spend_put(link_id, d, body.amount, body.currency, uid)
+    except ValueError as e:
+        raise HTTPException(400, str(e))
+    log.info("Reklama xarajati kiritildi (admin %s): havola %s, %s, %s so'm", uid, link_id, saved["day"], saved["som"])
+    return {"saved": saved, **(await link_spend(link_id, uid))}
+
+
+@router.delete("/links/{link_id}/spend/{spend_id}")
+async def link_spend_drop(link_id: int, spend_id: int, uid: int = Depends(admin_uid)):
+    if not await adstats.spend_drop(link_id, spend_id):
+        raise HTTPException(404)
+    log.info("Reklama xarajati o'chirildi (admin %s): havola %s, yozuv %s", uid, link_id, spend_id)
+    return await link_spend(link_id, uid)
 
 
 @router.patch("/links/{link_id}")
@@ -1574,13 +1641,17 @@ async def nudges_test(body: NudgeTestIn, uid: int = Depends(admin_uid)):
 
 # ---------------------------------------------------------------- CSV eksport
 
+_NEG_NUM = re.compile(r"^-\d+(?:,\d+)?$")
+
+
 def _csv(name: str, header: list[str], rows) -> Response:
     buf = io.StringIO()
     buf.write("﻿")  # Excel o'zbekcha harflarni to'g'ri ochishi uchun
     w = csv.writer(buf, delimiter=";")
     w.writerow(header)
-    # foydalanuvchi kiritgan matn Excel'da formula bo'lib ishlamasin (=, +, -, @ bilan boshlansa)
-    w.writerows([[f"'{v}" if isinstance(v, str) and v[:1] in ("=", "+", "-", "@", "\t", "\r") else v for v in row] for row in rows])
+    # foydalanuvchi kiritgan matn Excel'da formula bo'lib ishlamasin (=, +, -, @ bilan boshlansa); manfiy son (ROI −39,2) — son bo'lib qoladi
+    w.writerows([[f"'{v}" if isinstance(v, str) and v[:1] in ("=", "+", "-", "@", "\t", "\r") and not _NEG_NUM.match(v) else v
+                  for v in row] for row in rows])
     return Response(buf.getvalue(), media_type="text/csv; charset=utf-8",
                     headers={"Content-Disposition": f'attachment; filename="{name}"'})
 
@@ -1630,10 +1701,57 @@ def _funnel_rows(d: dict) -> list[list]:
     return [[str(v).replace(".", ",") if isinstance(v, float) else v for v in row] for row in rows]
 
 
+def _cell(v):
+    """CSV katakchasi: bo'sh qiymat — bo'sh, o'nlik son — vergul bilan (Excel)."""
+    return "" if v is None else (str(v).replace(".", ",") if isinstance(v, float) else v)
+
+
+SOURCE_COLS = [("clicks", "bosish"), ("starts", "start bosgan odamlar"), ("users", "yangi odamlar"), ("app", "ilovaga kirdi"),
+               ("created", "sayt/video yasadi"), ("songs", "qo'shiq tayyorladi"), ("played", "namunani eshitdi"),
+               ("buy_click", "«sotib olish»ni bosdi"), ("pay_open", "to'lov oynasini ochdi"), ("bought", "sotib oldi"),
+               ("conv", "konversiya, %"), ("revenue", "tushum, so'm"), ("spend", "xarajat, so'm"), ("cps", "start narxi, so'm"),
+               ("cpu", "bir kishi narxi, so'm"), ("cpb", "xaridor narxi, so'm"), ("ai_cost", "AI va musiqa xarajati, so'm"),
+               ("roi", "ROI, %"), ("blocked", "bloklagan"), ("block_pct", "blok foizi, %")]
+COHORT_COLS = [("users", "kelgan odamlar"), ("d1", "1 kun ichida sotib oldi"), ("d1_pct", "1 kun, %"), ("d3", "3 kun ichida"),
+               ("d3_pct", "3 kun, %"), ("d7", "7 kun ichida"), ("d7_pct", "7 kun, %"), ("bought", "hozirgacha sotib oldi"),
+               ("bought_pct", "hozirgacha, %"), ("young", "7 kuni hali to'lmagan (yaqinda kelgan)")]
+
+
+def _source_lines(d: dict) -> list[tuple]:
+    """Jadval tartibida: kampaniya jami, uning havolalari; oxirida havolasiz manbalar. (tur, kampaniya, kod, nomi, video, lending, qator)."""
+    by_id = {r["id"]: r for r in d["links"]}
+    out = []
+    for c in d["campaigns"]:
+        if c["key"]:
+            out.append(("Kampaniya (jami)", c["key"], "", "", "", "", c))
+        out += [("Havola", c["key"], by_id[i]["code"], by_id[i]["name"], by_id[i]["video"], by_id[i]["landing"], by_id[i]) for i in c["links"]]
+    out += [("Manba", "", g["key"], g["name"], "", "", g) for g in d["groups"] if g["users"]]
+    return out
+
+
+async def _sources_export(what: str, frm: str | None, to: str | None, all_time: int) -> Response:
+    if what == "adspend":
+        d1, d2 = (None, today()) if all_time else parse_range(frm, to, default_days=30)
+        return _csv("reklama_xarajati.csv", ["sana", "havola kodi", "havola nomi", "summa", "valyuta", "dollar kursi", "so'mda"],
+                    [[day, code, name, _cell(adstats.amount_of(amount)), adstats.CURRENCIES.get(cur, cur), rate or "", som]
+                     for day, code, name, amount, cur, rate, som in await adstats.spend_export(d1, d2)])
+    d = await sources_data(frm, to, all_time)
+    head = ["tur", "kampaniya", "kod", "nomi", "video", "lending"]
+    if what == "sourcecohort":
+        return _csv("manba_kogorta.csv", head + [h for _, h in COHORT_COLS],
+                    [[*line[:6], *(_cell(line[6].get(k)) for k, _ in COHORT_COLS)] for line in _source_lines(d)])
+    how = {"daily": "kunlik yozuvlar", "total": "umumiy «Reklama narxi»"}
+    return _csv("trafik_manbalari.csv", head + [h for _, h in SOURCE_COLS] + ["xarajat qayerdan"],
+                [[*line[:6], *(_cell(line[6].get(k)) for k, _ in SOURCE_COLS), how.get(line[6].get("spend_src"), "")]
+                 for line in _source_lines(d)])
+
+
 @router.get("/export/{what}.csv")
 async def export(what: str, frm: str | None = Query(None, alias="from"), to: str | None = None, all_time: int = 0,
                  product: str = "song", mode: str = "cohort", src: str = "", step: str = "", group: str = "",
                  uid: int = Depends(admin_uid)):
+    if what in ("sources", "sourcecohort", "adspend"):  # «Trafik manbalari»: davr shu bo'limdagidek (standart — 30 kun)
+        return await _sources_export(what, frm, to, all_time)
     a, b, _, _ = _pay_range(frm, to, all_time, default_all=True)  # davr berilmasa — butun tarix (eski tugmalar shunday ishlaydi)
     if what in ("funnel", "funnelpeople", "nosample"):
         product, mode, src = _funnel_args(product, mode, src)

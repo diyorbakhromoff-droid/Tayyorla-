@@ -284,3 +284,20 @@ main button.link:hover { text-decoration: underline; }
   .fstep.fx .d { grid-column: 1 / -1; grid-row: 3; }
   .fside { margin-left: 0; }
 }
+
+/* trafik manbalari: ko'p ustunli jadval (kampaniya jami + havolalar), nomlash qoidasi formasi */
+.tbl-wrap.dense table { font-size: 13px; }
+.tbl-wrap.dense th, .tbl-wrap.dense td { padding: 8px 7px; }
+.tbl-wrap.dense thead th { white-space: normal; line-height: 1.25; vertical-align: bottom; min-width: 52px; }
+.tbl-wrap.dense th:first-child, .tbl-wrap.dense td:first-child { position: sticky; left: 0; z-index: 1; background: var(--surface); min-width: 170px; max-width: 220px; }
+.tbl-wrap.dense thead th:first-child { background: var(--surface2); }
+.tbl-wrap.dense tr.camp td { background: color-mix(in srgb, var(--surface2) 60%, var(--surface)); border-top: 2px solid var(--line2); }
+.tbl-wrap.dense tr.in td:first-child { padding-left: 24px; }
+.tbl-wrap.dense td button.link.sm { display: block; margin-left: auto; font-size: 12px; }
+.tbl-wrap.dense td .sub.c-warn { color: #B7791F; cursor: help; }
+.form .fields.f4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.form .fields input[readonly] { background: var(--surface2); color: var(--ink2); }
+@media (max-width: 900px) {
+  .form .fields.f4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .tbl-wrap.dense th:first-child, .tbl-wrap.dense td:first-child { min-width: 150px; max-width: 170px; }
+}
