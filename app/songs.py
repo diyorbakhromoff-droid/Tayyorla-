@@ -731,22 +731,75 @@ def _lyria_detail(e, song: Song) -> str:
     return " · ".join(x for x in (getattr(e, "detail", ""), f"uslub: {song.style}", f"teglar: {tags}" if tags else "") if x)
 
 
+# Lyria matnni «mavjud qo'shiqqa o'xshash yoki taqiqlangan so'z bor» deb rad etganda she'r shu ko'rsatma bilan qayta yoziladi
+LYRIA_FIX = ("Musiqa xizmati bu matnni mavjud qo'shiqqa o'xshash yoki taqiqlangan so'z bor deb rad etdi. Matnni yangi so'zlar bilan "
+             "qayta yoz: mashhur qo'shiqlardagi tayyor iboralar va ko'p ishlatiladigan andoza qatorlarni ishlatma; ijrochi, qo'shiq, "
+             "film yoki brend nomlarini, diniy va siyosiy so'zlarni, qo'pol yoki ikki ma'noli so'zlarni olib tashla. Insonning ismi, "
+             "erkalash so'zi, ma'nosi, tuzilishi va qatorlar soni saqlansin.")
+_NAME_TAG = re.compile(r"\b(like|style of|inspired|cover|feat|uslub|kabi|ijrochi)\b", re.I)
+
+
+def lyria_tags(song: Song) -> list[str]:
+    """Lyria'ga boradigan teglar: AI yozgan teglarda ijrochi yoki qo'shiq nomi bo'lishi mumkin — shunday teglar tashlanadi."""
+    out = []
+    for t in song.tags or []:
+        t = t.strip()
+        if not t or _NAME_TAG.search(t) or re.search(r"[A-Z][a-z']+\s+[A-Z][a-z']+", t) or re.search(r"\d", t):
+            continue  # «in the style of …», «Sherali Jo'rayev» kabi ism-familiya, yil/raqam
+        out.append(t)
+    return out[:6]
+
+
+async def _lyria_try(s, song: Song, make_text, model: str | None = None) -> tuple[bytes, str]:
+    """Lyria'ga so'rov. Matn rad etilsa («mualliflik huquqi yoki taqiqlangan so'z»): 1) soddalashtirilgan ko'rsatma bilan
+    (AI teglari va munosabatsiz) qayta yuboriladi; 2) yana rad etilsa, she'r yangi so'zlar bilan qayta yoziladi va yana bir marta
+    yuboriladi. Rad etilgan so'rov uchun Google pul olmaydi; qayta yozish — bitta arzon AI so'rovi.
+    make_text(plain) — song.lyrics dan joriy ko'rsatma matnini yasaydi. Qaysi qadamda o'tgani song._lyria_fix da."""
+    last = None
+    for step in ("full", "plain", "rewrite"):
+        if step == "rewrite":
+            try:
+                _, text, _tags = await write_lyrics(song, LYRIA_FIX)
+            except Exception:
+                log.exception("Rad etilgan she'rni qayta yozib bo'lmadi: %s", song.id)
+                break
+            row = costs.ai_row(getattr(song, "_lyrics_usage", None), "lyrics_fix", song.owner_id, f"song:{song.id}")
+            if row is not None:
+                s.add(row)
+            song.lyrics = text  # mijoz ilovada yangilangan matnni ko'radi
+        try:
+            data, info = await lyria.compose(make_text(step != "full"), model)
+        except lyria.LyriaError as e:
+            if e.quota:
+                _ALERT["at"] = 0.0
+                raise QuotaError(str(e), detail=_lyria_detail(e, song))
+            if e.reason != "content":
+                raise SongError(str(e), getattr(e, "reason", "service"), _lyria_detail(e, song))
+            last = e
+            log.warning("Lyria matnni rad etdi (%s qadam), qo'shiq %s: %s", step, song.id, e.detail)
+            continue
+        if step != "full":
+            log.info("Lyria rad etgan matn %s qadamda o'tdi: qo'shiq %s", step, song.id)
+        song._lyria_fix = "" if step == "full" else step
+        return data, info
+    raise SongError(str(last), "content", _lyria_detail(last, song))
+
+
 async def _generate_lyria(s, song: Song, purpose: str) -> Path:
     """Lyria: bitta to'liq qo'shiq. Namuna shu qo'shiqning naqoratidan kesiladi, sotilsa aynan shu qo'shiq beriladi."""
-    sections = parse_lyrics(song.lyrics)
-    plan, chorus_at, _ = build_plan(sections, song.style, song.voice, song.tags or [])
-    total = sum(c["duration_ms"] for c in plan["chunks"])
     name, base, _ = STYLES.get(song.style, STYLES["pop"])
     lang = (await music_cfg()).get("lang", "uz")
-    text = lyria.prompt(sections, name, base, song.voice, OCCASIONS.get(song.occasion, song.occasion or ""),
-                        list(song.tags or []), total / 1000, lang)
-    try:
-        data, info = await lyria.compose(text)
-    except lyria.LyriaError as e:
-        if e.quota:
-            _ALERT["at"] = 0.0
-            raise QuotaError(str(e), detail=_lyria_detail(e, song))
-        raise SongError(str(e), getattr(e, "reason", "service"), _lyria_detail(e, song))
+    cur: dict = {}
+
+    def make_text(plain: bool) -> str:
+        sections = parse_lyrics(song.lyrics)
+        plan, chorus_at, _ = build_plan(sections, song.style, song.voice, song.tags or [])
+        cur.update(total=sum(c["duration_ms"] for c in plan["chunks"]), chorus_at=chorus_at)
+        return lyria.prompt(sections, name, base, song.voice, "" if plain else OCCASIONS.get(song.occasion, song.occasion or ""),
+                            [] if plain else lyria_tags(song), cur["total"] / 1000, lang)
+
+    data, info = await _lyria_try(s, song, make_text)
+    total, chorus_at = cur["total"], cur["chorus_at"]
     s.add(costs.lyria_row(purpose, song.owner_id, f"song:{song.id}", settings.lyria_model))
     PRIVATE_DIR.mkdir(parents=True, exist_ok=True)
     path = PRIVATE_DIR / f"{song.id}-l-{secrets.token_hex(4)}.mp3"
@@ -762,19 +815,16 @@ async def _generate_lyria(s, song: Song, purpose: str) -> Path:
 async def _generate_lyria_clip(s, song: Song) -> Path:
     """Namuna: Lyria Clip faqat naqoratni kuylaydi (30 s). To'liq qo'shiq sotilganda alohida tayyorlanadi —
     kuy biroz farq qilishi mumkin (egasi shunga rozi: namuna tez va arzon bo'lsin)."""
-    sections = parse_lyrics(song.lyrics)
-    chorus = [x for x in sections if x["kind"] == "chorus" and x["lines"]][:1] or [x for x in sections if x["lines"]][:1]
     name, base, _ = STYLES.get(song.style, STYLES["pop"])
     lang = (await music_cfg()).get("lang", "uz")
-    text = lyria.prompt(chorus, name, base, song.voice, OCCASIONS.get(song.occasion, song.occasion or ""),
-                        list(song.tags or []), 30, lang, clip=True)
-    try:
-        data, info = await lyria.compose(text, settings.lyria_clip_model)
-    except lyria.LyriaError as e:
-        if e.quota:
-            _ALERT["at"] = 0.0
-            raise QuotaError(str(e), detail=_lyria_detail(e, song))
-        raise SongError(str(e), getattr(e, "reason", "service"), _lyria_detail(e, song))
+
+    def make_text(plain: bool) -> str:
+        sections = parse_lyrics(song.lyrics)
+        chorus = [x for x in sections if x["kind"] == "chorus" and x["lines"]][:1] or [x for x in sections if x["lines"]][:1]
+        return lyria.prompt(chorus, name, base, song.voice, "" if plain else OCCASIONS.get(song.occasion, song.occasion or ""),
+                            [] if plain else lyria_tags(song), 30, lang, clip=True)
+
+    data, info = await _lyria_try(s, song, make_text, settings.lyria_clip_model)
     s.add(costs.lyria_row("song_preview", song.owner_id, f"song:{song.id}", settings.lyria_clip_model))
     PRIVATE_DIR.mkdir(parents=True, exist_ok=True)
     path = PRIVATE_DIR / f"{song.id}-clip-{secrets.token_hex(4)}.mp3"
@@ -848,7 +898,8 @@ async def process(song_id: int, bot=None) -> None:
                 await refund_preview(s, song)
             song.status = "failed" if song.paid else "lyrics"
         song.updated_at = utcnow()
-        flow.update(mode=mode, at=song.updated_at, wait=max(0, int((song.updated_at - asked).total_seconds())))
+        flow.update(mode=mode, at=song.updated_at, wait=max(0, int((song.updated_at - asked).total_seconds())),
+                    fix=getattr(song, "_lyria_fix", ""))  # rad etilgan matn qaysi qadamda o'tdi (plain | rewrite)
         await s.commit()
         await s.refresh(song)
     flow["away"] = not songflow.present(song.id)  # namuna tayyor bo'lganda egasi ilovada kutib turgan edimi

@@ -255,11 +255,12 @@ async def processed(song: Song, flow: dict, sent: bool) -> None:
         await track.event("sample_failed" if sample else "song_failed", uid, ref, wait, {"r": flow["reason"], "e": flow.get("error") or ""}, at=at)
     elif sample:
         away = bool(flow.get("away"))
-        await track.event("sample_ready", uid, ref, wait, {"away": 1} if away else None, at=at)
+        meta = {k: v for k, v in (("away", 1 if away else 0), ("fix", flow.get("fix") or "")) if v}
+        await track.event("sample_ready", uid, ref, wait, meta or None, at=at)
         if away:
             await track.event("sample_away", uid, ref, 1 if sent else 0, at=at)
     else:
-        await track.event("song_delivered", uid, ref, wait, at=at)
+        await track.event("song_delivered", uid, ref, wait, {"fix": flow["fix"]} if flow.get("fix") else None, at=at)
 
 
 @_quiet

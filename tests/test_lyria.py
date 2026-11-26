@@ -111,6 +111,66 @@ async def main() -> None:
     audio, _ = await run(h)
     assert len(audio) == 6000 and h.n_post == 1 and h.n_get == 2
 
+    # ---- songs._lyria_try: rad etilgan matn — soddalashtirilgan ko'rsatma, keyin she'r qayta yoziladi
+    from types import SimpleNamespace
+    from app import songs
+    calls = []
+
+    def scripted(results):
+        async def fake_compose(text, model=None):
+            calls.append(text)
+            r = results.pop(0)
+            if isinstance(r, Exception):
+                raise r
+            return r, "info"
+        return fake_compose
+
+    blocked = lyria.LyriaError("rad", reason="content", detail="400 · recitation")
+    rows = []
+    s = SimpleNamespace(add=rows.append)
+    song = SimpleNamespace(id=7, owner_id=1, lyrics="[Naqorat]\nEski qator", style="pop", tags=["in the style of Sherali Jo'rayev", "upbeat pop"])
+    built = []
+
+    def make_text(plain):
+        built.append((plain, song.lyrics))
+        return f"plain={plain} {song.lyrics}"
+
+    async def fake_write(sg, instruction=""):
+        assert "rad etdi" in instruction
+        sg._lyrics_usage = None
+        return "Nom", "[Naqorat]\nYangi qator", []
+
+    songs.write_lyrics = fake_write
+    lyria.compose = scripted([blocked, blocked, b"ok"])
+    data, _ = await songs._lyria_try(s, song, make_text)
+    assert data == b"ok" and song._lyria_fix == "rewrite" and song.lyrics.endswith("Yangi qator"), song.lyrics
+    assert [p for p, _ in built] == [False, True, True] and len(calls) == 3
+
+    # soddalashtirilgan ko'rsatma bilan o'tsa — she'r o'zgarmaydi
+    song.lyrics, built[:] = "[Naqorat]\nEski qator", []
+    lyria.compose = scripted([blocked, b"ok2"])
+    data, _ = await songs._lyria_try(s, song, make_text)
+    assert data == b"ok2" and song._lyria_fix == "plain" and song.lyrics.endswith("Eski qator")
+
+    # uch marta rad — mijozga avvalgi xato, Google sababi bilan
+    lyria.compose = scripted([blocked, blocked, blocked])
+    try:
+        await songs._lyria_try(s, song, make_text)
+        raise AssertionError
+    except songs.SongError as e:
+        assert e.reason == "content" and "recitation" in e.detail
+
+    # boshqa xatoda (navbat band) qayta yozilmaydi
+    lyria.compose = scripted([lyria.LyriaError("band", reason="busy")])
+    try:
+        await songs._lyria_try(s, song, make_text)
+        raise AssertionError
+    except songs.SongError as e:
+        assert e.reason == "busy"
+
+    # Lyria'ga ijrochi nomi yoki «uslubida» degan teg ketmaydi
+    assert songs.lyria_tags(song) == ["upbeat pop"], songs.lyria_tags(song)
+
     print("test_lyria: OK")
 
 
