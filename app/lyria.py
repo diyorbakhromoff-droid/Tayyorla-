@@ -186,9 +186,18 @@ async def compose(text: str, model: str | None = None) -> tuple[bytes, str]:
     headers = {"x-goog-api-key": k, "Api-Revision": API_REVISION, "Content-Type": "application/json"}
     timeout = aiohttp.ClientTimeout(total=900)
     async with aiohttp.ClientSession(timeout=timeout) as http:
-        async with http.post(URL, headers=headers, json={"model": model or settings.lyria_model, "input": text}) as r:
-            body = await r.text()
-            status = r.status
+        # 429 — Google so'rovni qabul qilmadi (bir daqiqadagi so'rovlar limiti): qo'shiq yaratilmagan va pul olinmagan,
+        # shuning uchun biroz kutib shu so'rovni qayta yuboramiz. Boshqa xatolarda qayta urinilmaydi (har urinish pullik).
+        for attempt in range(BUSY_TRIES):
+            async with http.post(URL, headers=headers, json={"model": model or settings.lyria_model, "input": text}) as r:
+                body = await r.text()
+                status = r.status
+                retry_after = r.headers.get("Retry-After", "")
+            if status != 429 or attempt == BUSY_TRIES - 1 or _daily_quota(body):
+                break
+            wait = _busy_wait(attempt, retry_after)
+            log.info("Lyria band (429), %s soniyadan keyin qayta yuboriladi (%s/%s)", wait, attempt + 1, BUSY_TRIES - 1)
+            await asyncio.sleep(wait)
         if status != 200:
             _raise(status, body)
         data = json.loads(body)
@@ -205,11 +214,31 @@ async def compose(text: str, model: str | None = None) -> tuple[bytes, str]:
             await asyncio.sleep(5)
             async with http.get(f"{URL}/{data['id']}", headers=headers) as r:
                 body = await r.text()
+                if r.status == 429:  # holatni so'rash limiti — qo'shiq tayyorlanyapti, keyingi so'rovda olamiz
+                    continue
                 if r.status != 200:
                     _raise(r.status, body)
                 data = json.loads(body)
     log.warning("Lyria javobida audio yo'q: %s", body[:1500])
     raise LyriaError("Qo'shiq tayyorlanmadi, qayta urinib ko'ring.", reason="empty", detail=detail_of(200, body))
+
+
+BUSY_TRIES = 5          # 429 da jami urinishlar (birinchisi + 4 ta qayta yuborish)
+BUSY_WAITS = (8, 16, 30, 45)  # kutish, soniya: jami ~1,5 daqiqa
+
+
+def _busy_wait(attempt: int, retry_after: str) -> float:
+    try:
+        ra = float(retry_after)
+    except (TypeError, ValueError):
+        ra = 0.0
+    return min(60.0, max(ra, BUSY_WAITS[min(attempt, len(BUSY_WAITS) - 1)]))
+
+
+def _daily_quota(body: str) -> bool:
+    """Kunlik kvota tugagan bo'lsa kutish foyda bermaydi — darhol xato."""
+    low = body.lower()
+    return "per day" in low or "perday" in low or "daily" in low
 
 
 def _raise(status: int, body: str) -> None:
