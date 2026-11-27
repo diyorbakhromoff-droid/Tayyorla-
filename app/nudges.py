@@ -37,7 +37,7 @@ from sqlalchemy import func, or_, select
 
 from . import control, store, track
 from .config import settings
-from .db import NudgeLog, RenderJob, Session, Site, Song, User, utcnow
+from .db import Event, NudgeLog, RenderJob, Session, Site, Song, User, utcnow
 from .reminders import TZ
 
 log = logging.getLogger(__name__)
@@ -391,7 +391,7 @@ async def collect(s, cfg: dict, now: datetime) -> list[Job]:
     out = queue[:MAX_PER_PASS]
     if out:
         from . import songs as song_mod
-        from .pricing import promo_of
+        from .pricing import EV_SALE, config as pcfg, promo_of, sale_of
         users = {u.tg_id: u for u in (await s.execute(select(User).where(User.tg_id.in_([j.user_id for j in out])))).scalars().all()}
         per_user, _ = await song_mod.limits()
         song_uids = [j.user_id for j in out if j.seq == "song"]
@@ -399,6 +399,11 @@ async def collect(s, cfg: dict, now: datetime) -> list[Job]:
         if song_uids and settings.song_site_price > 0:  # songs.price_for bilan bir xil, lekin hammasi bitta so'rovda
             site_buyers = set((await s.execute(select(Site.owner_id).where(
                 Site.owner_id.in_(song_uids), Site.status == "paid", Site.kind == "site").distinct())).scalars().all())
+        sale = sale_of(await pcfg(), now) if song_uids else None
+        sale_used = set()
+        if sale:  # aksiya: xabardagi narx ilovadagi bilan bir xil bo'lsin (aksiyada qo'shiq olganlarga — oddiy narx)
+            sale_used = set((await s.execute(select(Event.user_id).where(
+                Event.user_id.in_(song_uids), Event.kind == EV_SALE, Event.ref == f"sale:{sale['id']}"))).scalars().all())
         keep = []
         for j in out:
             u = users.get(j.user_id)
@@ -408,7 +413,10 @@ async def collect(s, cfg: dict, now: datetime) -> list[Job]:
                 song = songs_due[j.user_id]
                 price = settings.song_site_price if j.user_id in site_buyers else settings.song_price
                 promo = promo_of(song, now)
-                j.ctx["price"] = money(min(price, promo["price"]) if promo else price)
+                price = min(price, promo["price"]) if promo else price
+                if sale and j.user_id not in sale_used:
+                    price = min(price, sale["price"])
+                j.ctx["price"] = money(price)
             j.ctx.update(name=(u.first_name if u else "") or "", lang=(u.lang if u else "") or "uz",
                          free_videos=settings.free_videos_per_day, free_songs=per_user)
             keep.append(j)

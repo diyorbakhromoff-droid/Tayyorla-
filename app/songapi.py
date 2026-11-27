@@ -79,13 +79,15 @@ async def _own(s, song_id: int, uid: int) -> Song:
 async def songs_meta(x_init_data: str = Header("")):
     uid, _ = _uid(x_init_data)
     async with Session() as s:
-        price = await songs.price_for(s, uid)
+        price, sale = await songs.quote(s, uid)
         left = await songs.free_previews_left(s, uid)
         user = await s.get(User, uid)
     cfg = await pricing.config()
     sub = bool(settings.song_preview_sub and settings.channel_username)
     per_user, _ = await songs.limits()
-    return {**songs.meta(), "on": settings.songs_on, "price": price, "free_previews": left, "free_per_day": per_user,
+    # aksiya — faqat shu odamga amal qilsa (aksiyada hali qo'shiq olmagan): ilovada banner, narx kartasi va vaqt sanog'i
+    sale_out = {k: sale[k] for k in ("name", "price", "regular", "until")} if sale else None
+    return {**songs.meta(), "on": settings.songs_on, "price": price, "sale": sale_out, "free_previews": left, "free_per_day": per_user,
             "balance": user.balance if user else 0, "credits": user.song_credits if user else 0,
             "packs": pricing.packs_public(cfg),
             "preview_sub": sub, "channel": settings.channel_link if sub else ""}

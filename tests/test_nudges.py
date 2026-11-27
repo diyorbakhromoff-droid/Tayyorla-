@@ -276,6 +276,24 @@ async def main() -> None:
     handlers.settings.start_album = False
     assert not await handlers.send_start_album(Msg(903))
     handlers.settings.start_album = True
+
+    # ---------- 7) aksiya paytida qo'shiq progrevidagi narx — aksiya narxi (aksiyada qo'shiq olgan odamga — oddiy narx)
+    from app import pricing
+    t2 = NOON + timedelta(days=60)
+    cfg = await pricing.config()
+    await store.put(pricing.KEY, {**cfg, "sale": {**cfg["sale"], "on": True, "id": "t2", "until": (t2 + timedelta(hours=5)).isoformat()}})
+    async with Session() as s:
+        for uid in (750, 751):
+            s.add(User(tg_id=uid, first_name="Aziza", created_at=t2 - timedelta(days=60)))
+            s.add(Song(owner_id=uid, status="preview_ready", recipient="Ona", title="Onajon", lyrics="x", preview="/media/p.mp3",
+                       created_at=t2 - timedelta(hours=5), preview_at=t2 - timedelta(hours=3)))
+        s.add(Event(user_id=751, kind=pricing.EV_SALE, ref="sale:t2", num=19000))
+        await s.commit()
+    bot.sent.clear()
+    await nudges.run_once(bot, t2)
+    got = {u: t for u, t, *_ in bot.sent}
+    assert "19 000" in got[750] and "69 000" in got[751], got
+    await store.put(pricing.KEY, cfg)
     print("✅ Progrev, namuna limiti va to'ldirish tekshiruvlari o'tdi")
 
 

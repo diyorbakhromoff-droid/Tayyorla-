@@ -34,6 +34,7 @@ class Bot:
 
     async def send_message(self, chat_id, text, **kw):
         self.out.append(("text", chat_id, None, text))
+        self.kb = kw.get("reply_markup")
 
 
 def up(name, ct, size):
@@ -78,6 +79,34 @@ async def main() -> None:
     await admin._run_broadcast([20], "Faqat matn", False)
     assert bot.out == [("text", 20, None, "Faqat matn")]
     assert admin.BROADCAST["sent"] == 4 and admin.BROADCAST["failed"] == 0
+
+    # tugma: yo'q / «Ilovani ochish» / «Qo'shiq tayyorlash» (ilovada yangi qo'shiq oynasi), yozuvi o'zgartiriladi
+    from app.config import settings
+    assert admin.broadcast_markup("song") is None, "Telegram web_app faqat https bilan"
+    old, settings.base_url = settings.base_url, "https://tayyorla.test"
+    try:
+        btn = lambda *a: admin.broadcast_markup(*a).inline_keyboard[0][0]  # noqa: E731
+        assert (btn(True).text, btn(True).web_app.url) == ("✨ Ilovani ochish", "https://tayyorla.test/app")
+        assert (btn("app").text, btn("app").web_app.url) == ("✨ Ilovani ochish", "https://tayyorla.test/app")
+        assert (btn("song").text, btn("song").web_app.url) == ("🎵 Qo‘shiq tayyorlash", "https://tayyorla.test/app?song=new")
+        assert btn("song", "  🎵 Qo‘shiq   yaratish ").text == "🎵 Qo‘shiq yaratish" and btn("song", "x" * 99).text == "x" * 64
+        assert admin.broadcast_markup(False) is None and admin.broadcast_markup("none") is None and admin.broadcast_markup("") is None
+        bot.out.clear()
+        await admin._run_broadcast([20], "Aksiya!", "song", button_text="🎵 Qo‘shiq yaratish")
+        assert bot.out == [("text", 20, None, "Aksiya!")]
+        assert bot.kb.inline_keyboard[0][0].text == "🎵 Qo‘shiq yaratish" and bot.kb.inline_keyboard[0][0].web_app.url.endswith("/app?song=new")
+        await admin._run_broadcast([20], "Tugmasiz", "none")
+        assert bot.kb is None
+        try:
+            await admin.broadcast_start(admin.BroadcastIn(segment="me", text="x", button="sayt"), uid=1)
+            raise AssertionError("noma'lum tugma qabul qilinmasligi kerak")
+        except HTTPException as e:
+            assert e.status_code == 400
+        # JSON dan: eski so'rov (true/false) ham, yangi ("song") ham qabul qilinadi
+        assert admin.BroadcastIn.model_validate({"segment": "all", "button": True}).button is True
+        assert admin.BroadcastIn.model_validate({"segment": "all", "button": "song", "button_text": "🎵"}).button == "song"
+    finally:
+        settings.base_url = old
     print("test_broadcast: OK")
 
 

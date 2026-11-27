@@ -270,7 +270,8 @@ EVENT_LABELS = {
     "pay_prepare": "Click'da to'lovni boshladi", "pay_return": "Click sahifasidan qaytdi", "pay_cancel": "Click to'lovni bekor qildi",
     "pay_card": "Karta raqami ko'rsatildi", "pay_badrcpt": "Chek qabul qilinmadi", "pay_receipt": "Chek yubordi",
     "pay_success": "Pul tushdi", "pay_reject": "Chek rad etildi", "pay_ask": "«Nega to'lamadingiz» savoli yuborildi",
-    "pay_why": "«Nega to'lamadingiz»ga javob berdi", "promo_buy": "Chegirmada sotib oldi", track.CLICK: "Xabardagi tugmani bosdi",
+    "pay_why": "«Nega to'lamadingiz»ga javob berdi", "promo_buy": "Chegirmada sotib oldi", "sale_buy": "Aksiya narxida sotib oldi",
+    track.CLICK: "Xabardagi tugmani bosdi",
     track.BLOCK: "Botni blokladi", track.UNBLOCK: "Blokdan chiqardi",
 }
 STATUS_LABELS = {"sent": "yetdi", "failed": "yetmadi", "skipped": "o'tkazib yuborildi"}
@@ -297,7 +298,9 @@ def event_detail(kind: str, ref: str, num, meta: dict | None, ncfg: dict) -> str
         parts += [payflow.PURPOSES.get(meta.get("p"), ""), payflow.METHODS.get(meta.get("m"), "")]
     if kind == "buy_click":
         parts += [_money(num) if num else "", {"single": "1 ta", "pack": "paket", "credit": "paketdan"}.get(meta.get("kind"), ""),
-                  "chegirmada" if meta.get("disc") else ""]
+                  "chegirmada" if meta.get("disc") else "", "aksiya narxida" if meta.get("sale") else ""]
+    if kind == "sale_buy":
+        parts += [f"qo'shiq #{meta['song']}" if meta.get("song") else "", _money(num) if num else ""]
     if kind in ("sample_ready", "song_delivered") and num:
         parts.append(f"kutish {num} s")
     if kind == "sample_played" and num:

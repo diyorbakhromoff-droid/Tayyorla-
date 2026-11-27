@@ -54,6 +54,35 @@
     if (first) setTimeout(() => { openSent = true; App.track("song_open", openInfo); }, 0);
   };
   const promoOn = (s) => !!(s && !s.paid && s.promo && Date.parse(s.promo.until) > Date.now());
+  // aksiya («Barakali juma»): server faqat shu odamga amal qilsa yuboradi (aksiyada hali qo'shiq olmagan); paketdagi qo'shiq bo'lsa
+  // aksiya ishlatilmaydi (avval paketdan olinadi) — shuning uchun ko'rsatilmaydi
+  const saleOf = (m) => (m && m.sale && !(m.credits > 0) && Date.parse(m.sale.until) > Date.now() ? m.sale : null);
+  /** Aksiyasiz oddiy narx (paket va chegirma solishtirishlari uchun). */
+  const regularOf = (m) => (m && m.sale && m.sale.regular) || (m && m.price) || 0;
+  /** Qo'shiq uchun eng arzon taklif: namunadan keyingi chegirma yoki aksiya (narxi teng bo'lsa — chegirma; server ham shunday hisoblaydi). */
+  const dealOf = (s, m) => {
+    if (!s || s.paid) return null;
+    const promo = promoOn(s) ? { kind: "promo", price: s.promo.price, until: s.promo.until } : null;
+    const x = saleOf(m), sale = x ? { kind: "sale", name: x.name, price: x.price, until: x.until } : null;
+    return promo && sale ? (sale.price < promo.price ? sale : promo) : promo || sale;
+  };
+  /** «bugun 23:59», «ertaga 12:00» yoki «30-noyabr 23:59» — qurilma vaqtida. */
+  const untilText = (iso) => {
+    const d = new Date(iso), t = `${String(d.getHours()).padStart(2, "0")}:${String(d.getMinutes()).padStart(2, "0")}`;
+    const day = new Date(d); day.setHours(0, 0, 0, 0);
+    const n = Math.round((day - new Date().setHours(0, 0, 0, 0)) / 864e5);
+    const ymd = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+    return n === 0 ? T("sale.today", { t }) : n === 1 ? T("sale.tomorrow", { t }) : `${App.fmtDate(ymd)} ${t}`;
+  };
+  /** Bo'lim tepasidagi ingichka aksiya banneri (faqat aksiya shu odamga amal qilsa). */
+  const saleBar = (m, tag = "div") => {
+    const x = saleOf(m);
+    if (!x || !m.on) return "";
+    const off = x.regular > x.price ? Math.round(100 - (100 * x.price) / x.regular) : 0;
+    return `<${tag}${tag === "button" ? ' type="button"' : ""} class="sale-bar" id="saleBar"><span class="em" aria-hidden="true">🎉</span>
+      <span class="tx"><b>${esc(x.name)}</b><small>${esc(T("sale.bar", { sum: money(x.price), when: untilText(x.until) }))} <s>${esc(money(x.regular))}</s></small></span>
+      ${off ? `<span class="badge pink">−${off}%</span>` : ""}</${tag}>`;
+  };
   const limitSeen = new Set(); // «bepul namuna tugadi» ko'rsatilgan qo'shiqlar (har biri bir marta yoziladi)
 
   function statusBadge(s) {
@@ -98,7 +127,7 @@
       const x = rows.find((r) => r.n === pick);
       $$("[data-n]", s.el).forEach((b) => b.setAttribute("aria-checked", +b.dataset.n === pick));
       go.textContent = x.single ? T("song.buy_full", { sum: money(x.price) }) : T("sp.buy", { n: x.n, sum: money(x.price) });
-      hint.textContent = x.single ? "" : T("sp.example", { n: x.n, full: money(m.price * x.n), sum: money(x.price) });
+      hint.textContent = x.single ? "" : T("sp.example", { n: x.n, full: money(regularOf(m) * x.n), sum: money(x.price) });
     };
     $$("[data-n]", s.el).forEach((b) => (b.onclick = () => { haptic(); pick = +b.dataset.n; show(); }));
     go.onclick = async () => {
@@ -229,9 +258,9 @@
 
   // ---------------------------------------------------------------- bosh sahifa kartochkasi
   const cardState = () => {
-    const m = S.sm, on = !m || m.on;
+    const m = S.sm, on = !m || m.on, sale = on && saleOf(m);
     return {
-      on, badge: on ? T("new") : T("song.soon_badge"),
+      on, badge: on ? (sale ? T("sale.badge", { name: sale.name }) : T("new")) : T("song.soon_badge"),
       note: !on ? T("song.soon_t") : m && !m.free_previews ? T("song.from", { sum: money(m.price) }) : m ? T("song.home_free_n", { n: m.free_previews }) : T("song.home_free", { n: 20 }),
     };
   };
@@ -320,7 +349,8 @@
               <b>${esc(T("sp.n", { n: x.n }))}</b><span class="pr">${esc(money(x.price))}</span>
               <small>${esc(T("sp.each", { sum: money(x.each) }))}${x.off ? ` · <i>−${+x.off}%</i>` : ""}</small></button>`).join("")}</div></section>` : "");
       const mine = list.length ? `<section class="stack"><h2 class="mz-h" style="margin-bottom:0">${esc(T("song.mine"))}</h2>${list.map(row).join("")}</section>` : "";
-      box.innerHTML = hero + styles + packs + (list.length ? mine : how);
+      box.innerHTML = saleBar(m, "button") + hero + styles + packs + (list.length ? mine : how);
+      const sb = $("#saleBar", box); if (sb) sb.onclick = () => { haptic(); App.songWizard(); };
       $$("[data-pack]", box).forEach((b) => (b.onclick = () => { haptic(); App.songPacks({ pick: +b.dataset.pack, onDone: () => App.render() }); }));
       const nb = $("#slNew"); if (nb) nb.onclick = () => { haptic(); App.songWizard(); };
       $$("[data-demo]", box).forEach((b) => (b.onclick = () => { haptic(); playDemo(b); }));
@@ -398,7 +428,8 @@
         ${p.err ? App.errBox(p.err) : ""}
         <p class="hint" style="text-align:center">${esc(T("song.write_note"))}</p>`;
     }
-    el.innerHTML = head + dots + `<div class="wrap sg-wiz fade">${body}</div>
+    const sb = saleBar(m);
+    el.innerHTML = head + (sb ? `<div class="wrap" style="margin-bottom:12px">${sb}</div>` : "") + dots + `<div class="wrap sg-wiz fade">${body}</div>
       <div class="cta"><div class="two"><button type="button" class="btn ghost back" id="prev" aria-label="${esc(T("back"))}">${icon("back")}</button>
         <button type="button" class="btn" id="next">${step === 3 ? `${icon("sparkle", "s")}${esc(T("song.write"))}` : esc(T("continue"))}</button></div></div>`;
     const go = (n) => App.replace("song_new", { step: n });
@@ -556,10 +587,18 @@
       clearInterval(dealTimer);
       drawnWithMeta = !!S.sm;
       const s = song, m = S.sm || {};
-      const promo = !s.paid && s.promo && Date.parse(s.promo.until) > Date.now() ? s.promo : null;
       const credits = s.paid ? 0 : m.credits || 0;
+      const deal = dealOf(s, m);  // namunadan keyingi chegirma yoki aksiya — qaysi arzon bo'lsa
       const packs = m.packs || [];
-      const price = s.paid ? s.price : promo ? Math.min(promo.price, m.price || promo.price) : m.price || 0;
+      const price = s.paid ? s.price : deal ? Math.min(deal.price, m.price || deal.price) : m.price || 0;
+      const reg = regularOf(m) || s.regular;
+      const dealCard = (x) => {
+        const sale = x.kind === "sale", off = reg > x.price ? Math.round(100 - (100 * x.price) / reg) : 0;
+        return `<section class="card sp-deal${sale ? " sale" : ""}" role="status">
+            <div class="sp-deal-top"><span class="badge gold">${esc(sale ? T("sale.badge", { name: x.name }) : T("sp.deal_badge"))}</span><span class="sp-timer" aria-label="${esc(T(sale ? "sale.timer_aria" : "sp.timer_aria"))}">⏳ <b id="dealT">${esc(left(x.until))}</b></span></div>
+            <div class="sp-price"><s>${esc(money(reg))}</s><b>${esc(money(x.price))}</b>${off ? `<span class="badge pink">−${off}%</span>` : ""}</div>
+            <p>${esc(sale ? T("sale.text", { when: untilText(x.until), sum: money(reg) }) : T("sp.deal_text", { sum: money(reg) }))}</p></section>`;
+      };
       const st = s.status;
       const stepCls = (i) => {
         const at = st === "lyrics" ? 0 : st.startsWith("preview") ? (st === "preview_ready" ? 2 : 1) : st === "ready" ? 3 : 2;
@@ -585,6 +624,7 @@
       if (s.error && st !== "failed" && !s.busy) body += App.errBox(s.error);
       if (st === "lyrics") {
         body += lyrCard(true) + `<p class="hint" style="text-align:center">${esc(T("song.lyrics_hint"))}</p>`;
+        if (deal && deal.kind === "sale" && !credits) body += dealCard(deal);  // aksiya — she'r bosqichida ham (narx shu yerda ko'rinadi)
         const free = (m.free_previews || 0) > 0;
         // bepul namuna tugagan: tugma chiqmaydi — statistikada «limitga yetgan» bo'lib ko'rinsin (qaysi limitligini server aniqlaydi)
         if (!free && S.sm && !limitSeen.has(s.id)) { limitSeen.add(s.id); App.track("sample_limit", { ref: refOf(s.id) }); }
@@ -595,10 +635,7 @@
       } else if (st === "preview_queued" || st === "preview_gen") {
         body += gen(T("song.gen_preview"), T("song.gen_preview_s")) + lyrCard(false);
       } else if (st === "preview_ready") {
-        if (promo && !credits) body += `<section class="card sp-deal" role="status">
-            <div class="sp-deal-top"><span class="badge gold">${esc(T("sp.deal_badge"))}</span><span class="sp-timer" aria-label="${esc(T("sp.timer_aria"))}">⏳ <b id="dealT">${esc(left(promo.until))}</b></span></div>
-            <div class="sp-price"><s>${esc(money(m.price || s.regular))}</s><b>${esc(money(promo.price))}</b>${(m.price || s.regular) > promo.price ? `<span class="badge pink">−${Math.round(100 - (100 * promo.price) / (m.price || s.regular))}%</span>` : ""}</div>
-            <p>${esc(T("sp.deal_text", { sum: money(m.price || s.regular) }))}</p></section>`;
+        if (deal && !credits) body += dealCard(deal);
         body += `<section class="card sg-pv"><div class="card-h"><h2>${icon("headphones", "s")}${esc(T("song.preview_t", { n: m.preview_seconds || 20 }))}</h2></div>
             ${s.preview ? playerHtml(s.preview, T("song.preview_t", { n: m.preview_seconds || 20 })) : ""}
             <p class="sg-pv-note">${esc(T("song.preview_note", { sum: money(price) }))}</p>
@@ -647,11 +684,20 @@
       on("buyBtn", (e) => pay(e.currentTarget));
       on("packBtn", () => { haptic(); packsFor(); });
       on("packMore", () => { haptic(); App.songPacks({ onDone: () => { App.songMeta(true).then(() => draw()).catch(() => {}); } }); });
-      if (promo && $("#dealT", el)) {
+      if (deal && $("#dealT", el)) {
         dealTimer = setInterval(() => {
           const t = $("#dealT", el);
-          if (!t || Date.parse(promo.until) <= Date.now()) { clearInterval(dealTimer); if (t) { song.promo = null; draw(); } return; }
-          t.textContent = left(promo.until);
+          if (!t || Date.parse(deal.until) <= Date.now()) {
+            clearInterval(dealTimer);
+            if (!t) return;
+            if (deal.kind === "sale") {  // aksiya tugadi: narx darhol qaytadi, keyin serverdan yangilanadi
+              if (S.sm) { S.sm.price = regularOf(S.sm); S.sm.sale = null; }
+              App.songMeta(true).then(() => { if (!stopped) draw(); }).catch(() => {});
+            } else song.promo = null;
+            draw();
+            return;
+          }
+          t.textContent = left(deal.until);
         }, 1000);
       }
       if (p.packs && drawnWithMeta && !s.paid) { p.packs = 0; setTimeout(packsFor, 120); }
@@ -701,9 +747,10 @@
       const price = (S.sm && S.sm.price) || 0;
       if (!opt.auto && !song.paid) {
         // «Sotib olish» bosildi: mijoz ko'rgan narx, chegirma bormi, 1 ta yoki paketdagi qo'shiq hisobidan
-        const credits = (S.sm && S.sm.credits) || 0, disc = promoOn(song) && !credits;
-        const shown = credits ? 0 : disc ? Math.min(song.promo.price, price || song.promo.price) : price;
-        App.track("buy_click", { ref: refOf(song.id), num: shown, meta: { kind: credits ? "credit" : "single", disc,
+        const credits = (S.sm && S.sm.credits) || 0, deal = credits ? null : dealOf(song, S.sm);
+        const disc = !!deal && deal.kind === "promo", sale = !!deal && deal.kind === "sale";
+        const shown = credits ? 0 : deal ? Math.min(deal.price, price || deal.price) : price;
+        App.track("buy_click", { ref: refOf(song.id), num: shown, meta: { kind: credits ? "credit" : "single", disc, ...(sale ? { sale: true } : {}),
           at: opt.at || (song.status === "preview_ready" ? "sample" : "lyrics") } });
       }
       App.busy(btn, true);

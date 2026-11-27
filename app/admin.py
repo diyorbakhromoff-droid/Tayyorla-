@@ -1324,9 +1324,31 @@ class BroadcastIn(BaseModel):
     segment: str
     code: str = ""
     text: str = Field("", max_length=3500)
-    button: bool = True
+    button: bool | str = True                 # "none" | "app" | "song" (eski so'rov: true — «Ilovani ochish», false — tugmasiz)
+    button_text: str = Field("", max_length=64)  # tugma yozuvi; bo'sh — standart
     media: str = Field("", max_length=200)   # Telegram file_id (/broadcast/media dan)
     kind: str = Field("", max_length=8)      # photo | video
+
+
+# tarqatma tugmasi: yozuv (standart) va ilova manzili. song — ilovada yangi qo'shiq oynasi (core.js: route, ?song=new)
+BC_BUTTONS = {"app": ("✨ Ilovani ochish", "/app"), "song": ("🎵 Qo‘shiq tayyorlash", "/app?song=new")}
+
+
+def _btn_key(button) -> str:
+    if isinstance(button, bool):
+        return "app" if button else "none"
+    return str(button or "none").strip().lower()
+
+
+def broadcast_markup(button, text: str = ""):
+    """Tarqatma xabari ostidagi tugma (Mini App ochadi) yoki None. Telegram web_app uchun faqat https manzil qabul qiladi."""
+    from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup, WebAppInfo
+    key = _btn_key(button)
+    if key not in BC_BUTTONS or not settings.base_url.startswith("https://"):
+        return None
+    label, path = BC_BUTTONS[key]
+    return InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(
+        text=" ".join((text or "").split())[:64] or label, web_app=WebAppInfo(url=f"{settings.base_url}{path}"))]])
 
 
 CAPTION_MAX = 1024                            # Telegram: rasm/video izohi chegarasi
@@ -1381,6 +1403,8 @@ async def broadcast_start(body: BroadcastIn, uid: int = Depends(admin_uid)):
         raise HTTPException(400, "Fayl turi noma'lum")
     if body.media and len(body.text.strip()) > CAPTION_MAX:
         raise HTTPException(400, f"Rasm/video bilan matn {CAPTION_MAX} belgidan oshmasin (hozir {len(body.text.strip())})")
+    if _btn_key(body.button) not in ("none", *BC_BUTTONS):
+        raise HTTPException(400, "Tugma turi noma'lum")
     if BROADCAST.get("running"):
         raise HTTPException(409, "Avvalgi tarqatma hali tugamagan")
     if not videobot.BOT:
@@ -1389,17 +1413,14 @@ async def broadcast_start(body: BroadcastIn, uid: int = Depends(admin_uid)):
     BROADCAST.clear()
     BROADCAST.update(running=True, total=len(ids), sent=0, failed=0, blocked=0, segment=SEGMENTS[body.segment],
                      started=utcnow().isoformat(), by=uid)
-    asyncio.create_task(_run_broadcast(ids, body.text.strip(), body.button, body.media, body.kind))
+    asyncio.create_task(_run_broadcast(ids, body.text.strip(), body.button, body.media, body.kind, body.button_text))
     return {"ok": True, "total": len(ids)}
 
 
-async def _run_broadcast(ids: list[int], text: str, button: bool, media: str = "", kind: str = "") -> None:
+async def _run_broadcast(ids: list[int], text: str, button: bool | str, media: str = "", kind: str = "", button_text: str = "") -> None:
     from aiogram.exceptions import TelegramForbiddenError, TelegramRetryAfter
-    from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup, WebAppInfo
     bot = videobot.BOT
-    markup = None
-    if button and settings.base_url.startswith("https://"):
-        markup = InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(text="✨ Ilovani ochish", web_app=WebAppInfo(url=f"{settings.base_url}/app"))]])
+    markup = broadcast_markup(button, button_text)
     blocked = []
     try:
         for uid in ids:
@@ -1981,7 +2002,24 @@ async def pricing_get(uid: int = Depends(admin_uid)):
     from . import pricing
     cfg = await pricing.config()
     return {**cfg, "packs_public": pricing.packs_public(cfg), "stats": await pricing.stats(), "daily": await pricing.daily(14),
-            "backfill": {**await pricing.backfill_state(), **await pricing.backfill_breakdown()}}
+            "backfill": {**await pricing.backfill_state(), **await pricing.backfill_breakdown()}, **await _sale_info(cfg)}
+
+
+async def _sale_info(cfg: dict) -> dict:
+    """«Narxlar» → «Aksiya»: faolmi va shu aksiyada aksiya narxida nechta kishi sotib oldi."""
+    from . import pricing
+    return {"sale_active": pricing.sale_of(cfg) is not None, "sale_stats": await pricing.sale_stats(cfg["sale"])}
+
+
+@router.get("/pricing/sale/announce")
+async def sale_announce(uid: int = Depends(admin_uid)):
+    """«E'lon tayyorlash»: «Xabar yuborish» sahifasini to'ldirish uchun tayyor matn, tugma va segment. Yuborilmaydi —
+    admin tekshiradi, rasm qo'shadi, «Faqat o'zim (sinov)» bilan sinaydi va o'zi yuboradi."""
+    from . import pricing
+    cfg = await pricing.config()
+    if not pricing.sale_of(cfg):
+        raise HTTPException(400, "Avval aksiyani yoqing va saqlang — e'lon faol aksiya uchun tayyorlanadi")
+    return {"text": pricing.sale_announcement(cfg), "button": "song", "button_text": BC_BUTTONS["song"][0], "segment": "all"}
 
 
 @router.get("/discount")
@@ -2018,4 +2056,4 @@ async def pricing_save(body: dict, uid: int = Depends(admin_uid)):
     except pricing.PriceError as e:
         raise HTTPException(400, str(e))
     return {**cfg, "packs_public": pricing.packs_public(cfg), "stats": await pricing.stats(),
-            "backfill": {**await pricing.backfill_state(), **await pricing.backfill_breakdown()}}
+            "backfill": {**await pricing.backfill_state(), **await pricing.backfill_breakdown()}, **await _sale_info(cfg)}

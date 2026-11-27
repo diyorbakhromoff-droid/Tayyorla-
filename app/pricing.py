@@ -6,6 +6,8 @@
   keyingi qo'shiqlar shu kreditdan to'lanadi (pul yechilmaydi). Muddatsiz.
 - Chegirma: namuna olib, sotib olmagan qo'shiqqa `delay` soatdan keyin bir marta beriladi,
   `hours` soat amal qiladi (bot xabari + ilovada vaqt sanog'i). Faqat bitta qo'shiq xaridiga.
+- Aksiya (masalan «Barakali juma»): admin yoqadi, tugash vaqtigacha har bir odamga BITTA qo'shiq aksiya narxida.
+  Aksiya paytida avtomatik chegirma xabarlari (taklif, eslatma, eski namunalar) to'xtab turadi, keyin davom etadi.
 """
 
 import asyncio
@@ -14,11 +16,11 @@ import uuid
 from datetime import datetime, timedelta, timezone
 
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup, WebAppInfo
-from sqlalchemy import String, cast, literal, select, update
+from sqlalchemy import String, cast, func, insert, literal, select, update
 
 from . import billing, control, store, track
 from .config import settings
-from .db import BalanceTx, Event, NudgeLog, Session, Song, User, utcnow
+from .db import BalanceTx, Event, NudgeLog, Payment, Session, Song, User, utcnow
 
 log = logging.getLogger(__name__)
 
@@ -35,6 +37,10 @@ DEFAULT_PACKS = [
 DEFAULT_PROMO = {"on": True, "price": 39000, "hours": 12, "delay": 1, "reminders": [360, 120, 30]}  # eslatmalar: tugashiga necha daqiqa qolganda
 FRESH_HOURS = 48  # shundan eski namunalarga chegirma taklif qilinmaydi (ishga tushganda eski mijozlarga yoppasiga ketmasin)
 TZ = timezone(timedelta(hours=5))
+# aksiya: id va since ni server o'zi qo'yadi (har yoqilishda yangi id — «bir kishiga bitta» keyingi aksiyada qaytadan boshlanadi)
+DEFAULT_SALE = {"on": False, "id": "", "name": "Barakali juma", "price": 19000, "until": None, "since": None}
+EV_SALE = "sale_buy"             # aksiya narxida sotib oldi: ref = sale:<id>, num = narx, meta = {"song": id}
+SALE_GRACE = timedelta(hours=2)  # aksiya tugaguncha ochilgan to'lovning puli kechikib tushsa ham — shuncha vaqt aksiya narxi
 
 
 class PriceError(ValueError):
@@ -85,7 +91,39 @@ def clean(raw: dict | None) -> dict:
             raise PriceError("Ikkinchi chegirma narxi qo'shiqning oddiy narxidan kichik bo'lishi kerak")
         if ab["price"] == promo["price"]:
             raise PriceError("Ikkinchi chegirma narxi birinchisidan farq qilsin")
-    return {"prices": prices, "packs": packs, "promo": promo, "ab": ab}
+    return {"prices": prices, "packs": packs, "promo": promo, "ab": ab, "sale": _clean_sale(raw.get("sale"), prices["song"])}
+
+
+def _when(v) -> datetime | None:
+    """ISO vaqt → UTC, vaqt zonasisiz (bazadagi kabi). Zonasiz qiymat UTC deb olinadi; admin paneli «+05:00» bilan yuboradi."""
+    if not v:
+        return None
+    if isinstance(v, datetime):
+        d = v
+    else:
+        try:
+            d = datetime.fromisoformat(str(v).strip().replace("Z", "+00:00"))
+        except ValueError:
+            raise PriceError("Aksiya tugash vaqti noto'g'ri")
+    return d.astimezone(timezone.utc).replace(tzinfo=None) if d.tzinfo else d
+
+
+def _iso(d: datetime | None) -> str | None:
+    return d.isoformat(timespec="seconds") if d else None
+
+
+def _clean_sale(raw, song_price: int) -> dict:
+    sr = {**DEFAULT_SALE, **(raw if isinstance(raw, dict) else {})}
+    sale = {"on": bool(sr["on"]), "id": str(sr["id"] or "")[:16],
+            "name": " ".join(str(sr["name"] or "").split())[:40] or DEFAULT_SALE["name"],
+            "price": _int(sr["price"], 1000, 10_000_000, "Aksiya narxi"),
+            "until": _iso(_when(sr["until"])), "since": _iso(_when(sr["since"]))}
+    if sale["on"]:
+        if sale["price"] >= song_price:
+            raise PriceError("Aksiya narxi qo'shiqning oddiy narxidan kichik bo'lishi kerak")
+        if not sale["until"]:
+            raise PriceError("Aksiya tugash vaqtini kiriting")
+    return sale
 
 
 async def config() -> dict:
@@ -118,10 +156,35 @@ async def save(raw: dict) -> dict:
         raw["ab"] = {**raw["ab"], "since": utcnow().isoformat(timespec="seconds")}
     else:
         raw["ab"] = {**raw["ab"], "since": old["ab"]["since"]}
+    raw["sale"] = _sale_change(old["sale"], raw.get("sale"), utcnow())
     cfg = clean(raw)
     await store.put(KEY, cfg)
     _apply(cfg)
     return cfg
+
+
+def default_until(now: datetime) -> datetime:
+    """Aksiya tugashi (standart): bugun 23:59, Toshkent vaqti."""
+    loc = now.replace(tzinfo=timezone.utc).astimezone(TZ).replace(hour=23, minute=59, second=0, microsecond=0)
+    return loc.astimezone(timezone.utc).replace(tzinfo=None)
+
+
+def _sale_change(old: dict, new, now: datetime) -> dict:
+    """Admin yuborgan aksiya: id va since faqat serverda. Aksiya yoqilsa (o'chiq yoki muddati o'tgan aksiya qayta yoqilsa) —
+    yangi id: shu aksiyada har kim yana bitta qo'shiqni aksiya narxida oladi. Yangi yoki o'zgargan tugash vaqti kelajakda bo'lsin."""
+    if not isinstance(new, dict):  # aksiya yuborilmagan (eski so'rov) — avvalgisi qoladi
+        return old
+    out = {**old, **{k: new[k] for k in ("on", "name", "price", "until") if k in new}, "id": old["id"], "since": old["since"]}
+    if not out.get("on"):
+        return out
+    until = _when(out.get("until")) or default_until(now)
+    fresh = sale_of({"sale": old}, now) is None
+    if (fresh or until != _when(old["until"])) and until <= now:
+        raise PriceError("Aksiya tugash vaqti kelajakda bo'lsin")
+    out["until"] = _iso(until)
+    if fresh:
+        out["id"], out["since"] = uuid.uuid4().hex[:8], _iso(now.replace(microsecond=0))
+    return out
 
 
 def packs_public(cfg: dict) -> list[dict]:
@@ -141,6 +204,89 @@ def promo_of(song: Song, now: datetime | None = None) -> dict | None:
     if song.paid or not song.promo_until or not song.promo_price or song.promo_until <= now:
         return None
     return {"price": song.promo_price, "until": song.promo_until.replace(tzinfo=timezone.utc).isoformat()}
+
+
+# ---------------------------------------------------------------- aksiya (bir kunlik: «Barakali juma»)
+
+def sale_of(cfg: dict, now: datetime | None = None) -> dict | None:
+    """Faol aksiya (yoqilgan va tugash vaqti kelmagan) yoki None."""
+    sale = cfg.get("sale") or {}
+    until = _when(sale.get("until"))
+    if not sale.get("on") or not sale.get("id") or not until or until <= (now or utcnow()):
+        return None
+    return sale
+
+
+async def sale_used(s, uid: int, sale_id: str) -> bool:
+    """Shu aksiyada qo'shiqni aksiya narxida olganmi (bir kishiga bitta)."""
+    return await s.scalar(select(Event.id).where(Event.user_id == uid, Event.kind == EV_SALE, Event.ref == f"sale:{sale_id}")
+                          .limit(1)) is not None
+
+
+async def sale_quote(s, uid: int, song: Song | None = None, now: datetime | None = None) -> dict | None:
+    """Shu odamga amaldagi aksiya: {"id", "name", "price", "until"} yoki None. Aksiya faol bo'lsa — bu aksiyada hali
+    qo'shiq olmagan odamga. Aksiya tugagach SALE_GRACE ichida — faqat shu qo'shiq uchun aksiya davomida ochilgan to'lov
+    (Payment.song_id) bo'lsa: pul aksiya tugashidan keyin tushsa ham mijoz ko'rgan narxda sotib olinadi."""
+    sale = (await config())["sale"]
+    until = _when(sale["until"])
+    if not sale["on"] or not sale["id"] or not until:
+        return None
+    now = now or utcnow()
+    if until <= now:
+        if song is None or now >= until + SALE_GRACE:
+            return None
+        since = _when(sale["since"]) or until - timedelta(days=1)
+        paid_for = await s.scalar(select(Payment.id).where(Payment.user_id == uid, Payment.song_id == song.id,
+                                                           Payment.created_at >= since, Payment.created_at < until).limit(1))
+        if paid_for is None:
+            return None
+    if await sale_used(s, uid, sale["id"]):
+        return None
+    return {"id": sale["id"], "name": sale["name"], "price": sale["price"], "until": until.replace(tzinfo=timezone.utc).isoformat()}
+
+
+async def log_sale(s, uid: int, sale: dict, song: Song, price: int) -> None:
+    """Aksiya narxida xarid — to'lov bilan bitta tranzaksiyada (shu hodisa «bir kishiga bitta» ni ta'minlaydi).
+    src — odamning trafik manbasi (track.event dagi kabi)."""
+    await s.execute(insert(Event).values(
+        user_id=uid, kind=EV_SALE, ref=f"sale:{sale['id']}", num=price, meta={"song": song.id}, created_at=utcnow(),
+        src=func.coalesce(select(User.ref).where(User.tg_id == uid).scalar_subquery(), "")))
+
+
+async def sale_stats(sale: dict) -> dict:
+    """Admin uchun: shu aksiyada aksiya narxida nechta kishi sotib oldi va tushum."""
+    if not sale.get("id"):
+        return {"buyers": 0, "revenue": 0}
+    async with Session() as s:
+        n, rev = (await s.execute(select(func.count(func.distinct(Event.user_id)), func.coalesce(func.sum(Event.num), 0)).where(
+            Event.kind == EV_SALE, Event.ref == f"sale:{sale['id']}"))).one()
+    return {"buyers": int(n or 0), "revenue": int(rev or 0)}
+
+
+MONTHS_UZ = ["yanvar", "fevral", "mart", "aprel", "may", "iyun", "iyul", "avgust", "sentabr", "oktabr", "noyabr", "dekabr"]
+
+
+def _until_text(until: datetime, now: datetime) -> str:
+    """«bugun 23:59», «ertaga 12:00» yoki «30-noyabr 23:59» (Toshkent vaqti)."""
+    loc, today = until.replace(tzinfo=timezone.utc).astimezone(TZ), now.replace(tzinfo=timezone.utc).astimezone(TZ).date()
+    day = "bugun" if loc.date() == today else "ertaga" if loc.date() == today + timedelta(days=1) else f"{loc.day}-{MONTHS_UZ[loc.month - 1]}"
+    return f"{day} {loc:%H:%M}"
+
+
+def sale_announcement(cfg: dict, now: datetime | None = None) -> str:
+    """Tarqatma uchun tayyor e'lon matni (oddiy matn — tarqatma HTML siz yuboriladi). Admin tekshirib, o'zi yuboradi."""
+    from .videobot import money
+    now = now or utcnow()
+    sale = cfg["sale"]
+    name = sale["name"]
+    title = name if any(w in name.lower() for w in ("chegirma", "aksiya")) else f"{name} chegirmasi"
+    when = _until_text(_when(sale["until"]) or default_until(now), now)
+    day = "Bugun" if when.startswith("bugun") else "Hozir"
+    return (f"🎉 {title}!\n\n"
+            f"Yaqiningizga uning ismi va sizning tilaklaringiz bilan yozilgan shaxsiy qo‘shiq sovg‘a qiling.\n"
+            f"{day} narxi {money(cfg['prices']['song'])} emas — atigi {money(sale['price'])}.\n\n"
+            f"⏳ Faqat {when} gacha, har bir kishiga bitta qo‘shiq.\n\n"
+            f"👇 Pastdagi tugmani bosing va qo‘shiqni hoziroq tayyorlang.")
 
 
 # ---------------------------------------------------------------- paketlar
@@ -245,6 +391,8 @@ async def offer_due(bot, now: datetime | None = None) -> int:
     if not promo["on"]:
         return 0
     now = now or utcnow()
+    if sale_of(cfg, now):
+        return 0  # aksiya paytida 39 000 lik taklif aksiyaga zid — aksiya tugagach davom etadi
     from .nudges import config as ncfg, in_hours
     hours = await ncfg()
     if not in_hours(hours, now.replace(tzinfo=timezone.utc).astimezone(TZ)):
@@ -333,6 +481,8 @@ async def remind_due(bot, now: datetime | None = None) -> int:
     if not stages or not bot:
         return 0
     now = now or utcnow()
+    if sale_of(cfg, now):
+        return 0  # aksiya paytida to'xtab turadi
     from .nudges import config as ncfg, in_hours
     if not in_hours(await ncfg(), now.replace(tzinfo=timezone.utc).astimezone(TZ)):
         return 0
@@ -544,6 +694,8 @@ async def backfill_due(bot, now: datetime | None = None) -> int:
     cfg = await config()
     promo = cfg["promo"]
     now = now or utcnow()
+    if sale_of(cfg, now):
+        return 0  # aksiya paytida to'xtab turadi (holati saqlanadi — aksiya tugagach davom etadi)
     from .nudges import config as ncfg, in_hours
     hours = await ncfg()
     if not in_hours(hours, now.replace(tzinfo=timezone.utc).astimezone(TZ)):

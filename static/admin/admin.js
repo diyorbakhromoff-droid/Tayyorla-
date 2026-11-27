@@ -1028,37 +1028,74 @@
     const [d, src] = await Promise.all([api("/api/admin/broadcast"), api("/api/admin/sources?all_time=1")]);
     if (!alive()) return;
     const st = d.state || {};
+    // qoralama sahifa qayta chizilganda (yuborish holati har 3 soniyada yangilanadi) saqlanib qoladi: «Faqat o'zim (sinov)» ga
+    // yuborgach matn, rasm va tugma o'chib ketmaydi — o'shani «Barcha faol foydalanuvchilar» ga yuborish mumkin.
+    // «Narxlar» → «Aksiya» → «E’lon tayyorlash»: tayyor matn, tugma va segment (yuborishni admin o'zi bosadi)
+    if (S.prefill) { S.bcDraft = { ...S.prefill, pre: true }; S.prefill = null; }
+    const dr = S.bcDraft || {};
+    const BTN = { app: "✨ Ilovani ochish", song: "🎵 Qo‘shiq tayyorlash" };
+    let btnKind = dr.button || "app";
+    let media = dr.media || null; // {media, kind} — Telegramga yuklangan fayl
     main().innerHTML = `
       <div class="head"><div><h1>Xabar yuborish</h1><p>Tanlangan guruhga bot orqali xabar. Masalan, taklifnoma yasab sotib olmaganlarga eslatma.</p></div></div>
       ${st.total != null ? `<p class="note" id="bc-state">${st.running ? "Yuborilmoqda" : "Oxirgi tarqatma"}: ${esc(st.segment)} — ${fmt(st.sent)} yetdi, ${fmt(st.failed)} yetmadi${st.blocked ? ` (${fmt(st.blocked)} kishi bloklagan)` : ""}, jami ${fmt(st.total)}.</p>` : ""}
+      ${dr.pre ? `<p class="note" id="bc-pre">Aksiya e’loni tayyor. Matnni tekshiring, xohlasangiz rasm qo'shing. Avval «Kimga» da <b>«Faqat o'zim (sinov)»</b> ni tanlab yuborib ko'ring,
+        botda qanday chiqishini va tugmani tekshiring — keyin <b>«Barcha faol foydalanuvchilar»</b> ga yuboring.</p>` : ""}
       <section class="blk"><form class="form" id="bc">
         <label class="f">Kimga<select class="in" name="segment">${d.segments.map((s) => `<option value="${s.key}">${esc(s.name)}</option>`).join("")}</select></label>
         <label class="f" id="bc-src" hidden>Manba<select class="in" name="code">${src.links.map((l) => `<option value="${esc(l.code)}">${esc(l.name)}</option>`).join("")}</select></label>
         <p class="muted" id="bc-n">Hisoblanmoqda…</p>
         <div class="f">Rasm yoki video <small>ixtiyoriy · rasm 10 MB, video (MP4) 20 MB gacha</small>
           <div class="row" style="margin-top:6px"><label class="btn" style="cursor:pointer">Fayl tanlash<input type="file" id="bc-file" accept="image/jpeg,image/png,image/webp,video/mp4,video/quicktime" hidden></label>
-            <button type="button" class="btn" id="bc-rm" hidden>Olib tashlash</button><span class="muted" id="bc-fs" style="font-size:12.5px"></span></div>
-          <div id="bc-prev" style="margin-top:8px"></div></div>
-        <label class="f">Matn <small id="bc-lim">3500 belgigacha</small><textarea class="in" name="text" maxlength="3500" placeholder="Xabar matni"></textarea></label>
-        <label class="row" style="font-size:13px"><input type="checkbox" name="button" checked> Xabar ostida «Ilovani ochish» tugmasi bo'lsin</label>
+            <button type="button" class="btn" id="bc-rm" ${media ? "" : "hidden"}>Olib tashlash</button><span class="muted" id="bc-fs" style="font-size:12.5px">${esc(media ? dr.fs || "" : "")}</span></div>
+          <div id="bc-prev" style="margin-top:8px">${media ? dr.prev || "" : ""}</div></div>
+        <label class="f">Matn <small id="bc-lim">3500 belgigacha</small><textarea class="in" name="text" maxlength="3500" placeholder="Xabar matni" ${dr.pre ? 'rows="9"' : ""}></textarea></label>
+        <div class="f">Xabar ostidagi tugma
+          <div class="row" role="group" aria-label="Tugma" style="margin-top:6px">${[["none", "Tugmasiz"], ["app", "«Ilovani ochish»"], ["song", "«Qo'shiq tayyorlash»"]].map(([k, l]) =>
+            `<button type="button" class="chip" data-btn="${k}" aria-pressed="${btnKind === k}">${l}</button>`).join("")}</div>
+          <small id="bc-btn-hint"></small></div>
+        <label class="f" id="bc-bt">Tugma yozuvi<input class="in" name="button_text" maxlength="64" value="${esc(dr.button_text != null ? dr.button_text : BTN[btnKind] || "")}"></label>
         <div class="row"><button class="btn primary" type="submit" ${st.running ? "disabled" : ""}>Yuborish</button>
+          <button type="button" class="btn" id="bc-clear" ${S.bcDraft ? "" : "hidden"}>Tozalash</button>
           <span class="muted" style="font-size:12.5px">Avval «Faqat o'zim (sinov)» bilan tekshirib ko'ring.</span></div>
       </form></section>`;
     const form = $("#bc");
+    if (dr.segment) form.segment.value = dr.segment;
+    if (dr.code && form.code) form.code.value = dr.code;
+    form.text.value = dr.text || "";
+    const keep = () => {
+      const fd = new FormData(form);
+      S.bcDraft = { ...dr, segment: fd.get("segment"), code: fd.get("code") || "", text: fd.get("text"), button: btnKind,
+        button_text: form.button_text.value, media, prev: $("#bc-prev").innerHTML, fs: $("#bc-fs").textContent };
+    };
+    const HINT = { none: "Faqat matn (va rasm/video)", app: "Mini App bosh sahifasi ochiladi", song: "Mini App da yangi qo'shiq so'rovnomasi darhol ochiladi" };
+    const showBtn = () => {
+      $$("[data-btn]", form).forEach((b) => b.setAttribute("aria-pressed", b.dataset.btn === btnKind));
+      $("#bc-bt").hidden = btnKind === "none";
+      $("#bc-btn-hint").textContent = HINT[btnKind];
+    };
+    $$("[data-btn]", form).forEach((b) => (b.onclick = () => {
+      const inp = form.button_text, prev = BTN[btnKind];
+      btnKind = b.dataset.btn;
+      if (BTN[btnKind] && (!inp.value.trim() || inp.value === prev)) inp.value = BTN[btnKind];  // o'zgartirilmagan yozuv — yangi tugmanikiga
+      showBtn(); keep();
+    }));
+    showBtn();
+    form.text.oninput = keep; form.button_text.oninput = keep;
     const count = async () => {
       const fd = new FormData(form);
       $("#bc-src").hidden = fd.get("segment") !== "src";
       try { const r = await api("/api/admin/broadcast/count", { segment: fd.get("segment"), code: fd.get("code") || "" }); $("#bc-n").textContent = `${fmt(r.n)} kishiga yetkaziladi`; form.dataset.n = r.n; }
       catch (e) { $("#bc-n").textContent = e.message; }
     };
-    form.segment.onchange = count; if (form.code) form.code.onchange = count;
+    form.segment.onchange = () => { keep(); count(); }; if (form.code) form.code.onchange = () => { keep(); count(); };
     count();
-    let media = null; // {media, kind} — Telegramga yuklangan fayl
     const setLimit = () => {
       const lim = media ? 1024 : 3500;
       form.text.maxLength = lim;
       $("#bc-lim").textContent = media ? "rasm/video izohi — 1024 belgigacha" : "3500 belgigacha";
     };
+    setLimit();
     $("#bc-file").onchange = async (e) => {
       const f = e.target.files[0]; if (!f) return;
       const isV = f.type.startsWith("video/");
@@ -1073,15 +1110,22 @@
         $("#bc-fs").textContent = `${isV ? "Video" : "Rasm"} tayyor (${(f.size / 1048576).toFixed(1)} MB) — namunasi botda sizga yuborildi`;
         $("#bc-rm").hidden = false;
       } catch (err) { toast(err.message, true); $("#bc-fs").textContent = ""; $("#bc-prev").innerHTML = ""; e.target.value = ""; }
-      setLimit();
+      setLimit(); keep();
     };
-    $("#bc-rm").onclick = () => { media = null; $("#bc-file").value = ""; $("#bc-prev").innerHTML = ""; $("#bc-fs").textContent = ""; $("#bc-rm").hidden = true; setLimit(); };
+    $("#bc-rm").onclick = () => { media = null; $("#bc-file").value = ""; $("#bc-prev").innerHTML = ""; $("#bc-fs").textContent = ""; $("#bc-rm").hidden = true; setLimit(); keep(); };
+    $("#bc-clear").onclick = () => { S.bcDraft = null; render(); };
     form.onsubmit = async (e) => {
       e.preventDefault(); const fd = new FormData(form);
       if (!media && !String(fd.get("text") || "").trim()) { toast("Matn yozing yoki rasm/video yuklang", true); return; }
       if ($("#bc-fs").textContent.endsWith("…")) { toast("Fayl hali yuklanmoqda", true); return; }
       if (!confirm(`Xabar ${fmt(+form.dataset.n || 0)} kishiga yuborilsinmi? Buni ortga qaytarib bo'lmaydi.`)) return;
-      try { const r = await api("/api/admin/broadcast", { segment: fd.get("segment"), code: fd.get("code") || "", text: fd.get("text"), button: !!fd.get("button"), ...(media || {}) }); toast(`Boshlandi: ${fmt(r.total)} kishi`); poll(); }
+      try {
+        const r = await api("/api/admin/broadcast", { segment: fd.get("segment"), code: fd.get("code") || "", text: fd.get("text"), button: btnKind,
+          button_text: btnKind === "none" ? "" : String(fd.get("button_text") || "").trim(), ...(media || {}) });
+        toast(`Boshlandi: ${fmt(r.total)} kishi`);
+        if (fd.get("segment") === "me") keep(); else S.bcDraft = null;  // sinovdan keyin qoralama qoladi, haqiqiy tarqatmadan keyin — tozalanadi
+        poll();
+      }
       catch (err) { toast(err.message, true); }
     };
     if (st.running) poll();
@@ -1495,8 +1539,37 @@
     };
     const P = [["song", "Qo'shiq (1 ta)", "so'm"], ["video", "Video taklifnoma", "bepul limitdan keyin"],
       ["standart", "Sayt — Standart", ""], ["premium", "Sayt — Premium", ""], ["vip", "Sayt — VIP", ""]];
-    d.ab0 = d.ab;
+    // saqlangan holat (A/B va aksiya qachon yoqilayotganini bilish uchun). Muddati o'tgan aksiya formada o'chiq ko'rinadi —
+    // boshqa narxni saqlaganda u bilmasdan qayta yoqilib ketmasin
+    const formSale = () => { d.sale0 = d.sale; if (d.sale.on && !d.sale_active) d.sale = { ...d.sale, on: false }; };
+    d.ab0 = d.ab; formSale();
     const each = (x, one) => ({ each: Math.floor(x.price / x.n), off: Math.max(0, Math.round(100 - (100 * x.price) / (one * x.n))) });
+    // aksiya tugash vaqti: datetime-local maydoni Toshkent vaqtida (UTC+5, yozgi vaqt yo'q), serverga «+05:00» bilan ketadi
+    const tzInput = (s) => { const t = fromUTC(s); return t ? new Date(t.getTime() + 5 * 3600e3).toISOString().slice(0, 16) : ""; };
+    const saleUntilIn = () => d.saleIn || (d.sale.until && fromUTC(d.sale.until) > Date.now() ? tzInput(d.sale.until) : `${localISO(new Date())}T23:59`);
+    const saleBlock = (one) => {
+      const sl = d.sale, s0 = d.sale0, ss = d.sale_stats || {};
+      const off = one > sl.price ? Math.round(100 - (100 * sl.price) / one) : 0;
+      const state = d.sale_active ? tag(`Faol — ${dt(s0.until)} gacha`, "good") : s0.on && s0.id ? tag("Tugadi") : tag("O'chirilgan");
+      return `<section class="blk" id="sale-blk"><div class="bh"><h2>Aksiya</h2>${state}</div>
+        <div class="form">
+          <label class="row sw"><input type="checkbox" id="sl-on" ${sl.on ? "checked" : ""}> Aksiya yoqilgan — bitta qo'shiq aksiya narxida, har bir kishiga bir marta</label>
+          <div class="fields">
+            <label class="f">Nomi<input class="in" id="sl-name" maxlength="40" value="${esc(sl.name)}"><small>ilovada «🎉 ${esc(sl.name)}» bo'lib ko'rinadi</small></label>
+            <label class="f">Aksiya narxi<input class="in" type="number" min="1000" step="1000" id="sl-price" value="${sl.price}"><small>oddiy narx ${fmt(one)}${off ? ` → −${off}%` : ""}</small></label>
+            <label class="f">Tugash vaqti<input class="in" type="datetime-local" id="sl-until" value="${saleUntilIn()}"><small>Toshkent vaqti</small></label>
+          </div>
+          <p class="muted" style="font-size:12.5px">Yoqilganda ilovada qo'shiq narxi aksiya narxiga tushadi, banner va vaqt sanog'i chiqadi. Har bir kishi bitta qo'shiqni aksiya narxida oladi,
+            keyingilari oddiy narxda; paketdagi qo'shiqlar avvalgidek paketdan olinadi. Aksiya davomida avtomatik chegirma xabarlari (taklif, eslatma, eski namunalarga) to'xtab turadi
+            va tugagach o'zi davom etadi. Aksiya tugashidan oldin ochilgan to'lovning puli 2 soat ichida tushsa ham qo'shiq aksiya narxida olinadi.
+            Har safar qayta yoqilganda yangi aksiya boshlanadi (hamma yana bitta qo'shiqni aksiya narxida ola oladi).</p>
+          <div class="row"><button type="button" class="btn" id="sl-ann" ${d.sale_active ? "" : "disabled"}>E’lon tayyorlash</button>
+            <span class="muted" style="font-size:12.5px">${d.sale_active ? "«Xabar yuborish» tayyor matn bilan ochiladi — tekshirib, o'zingiz yuborasiz." : "Avval aksiyani yoqib, «Saqlash» ni bosing."}</span></div>
+        </div>
+        <div class="kpis pr-kpi"><div><b>${fmt(ss.buyers || 0)}</b><span>kishi aksiya narxida sotib oldi</span></div>
+          <div><b>${fmt(ss.revenue || 0)}</b><span>aksiyadan tushum, so'm</span></div>
+          <div><b>${s0.id && s0.until ? dt(s0.until) : "—"}</b><span>${d.sale_active ? "tugaydi" : "oxirgi aksiya tugash vaqti"}</span></div></div></section>`;
+    };
     const draw = () => {
       const one = d.prices.song, st = d.stats, bf = d.backfill || {};
       const sold = st.packs_sold || {};
@@ -1504,6 +1577,7 @@
       main().innerHTML = `
         <div class="head"><div><h1>Narxlar va chegirmalar</h1><p>Narxlar shu yerdan o'zgaradi — ilova, bot va oferta sahifasi darhol yangilanadi.</p></div>
           <button type="button" class="btn primary" id="pr-save">Saqlash</button></div>
+        ${saleBlock(one)}
         <section class="blk"><div class="bh"><h2>Asosiy narxlar</h2></div>
           <div class="form"><div class="fields">${P.map(([k, l, h]) => `<label class="f">${l}<input class="in" type="number" min="1000" step="100" data-price="${k}" value="${d.prices[k]}">${h ? `<small>${h}</small>` : ""}</label>`).join("")}</div></div></section>
         <section class="blk"><div class="bh"><h2>Qo'shiq paketlari</h2><span class="sub">«Har biri» va tejash foizi o'zi hisoblanadi</span></div>
@@ -1586,13 +1660,27 @@
       });
       $("#fu-csv").onclick = () => download(`/api/admin/export/discount.csv?${fq()}`);
       $("#pk-add").onclick = () => { read(); const n = Math.max(1, ...d.packs.map((x) => x.n)) + 1; d.packs.push({ n, price: one * n, label: "", on: true }); draw(); };
+      $("#sl-ann").onclick = async (e) => {
+        const btn = e.currentTarget, sl = d.sale0;
+        // e'lon saqlangan aksiya bo'yicha tayyorlanadi — o'zgartirilgan, lekin saqlanmagan qiymatlar bo'lsa avval saqlash kerak
+        if (!$("#sl-on").checked || $("#sl-name").value.trim() !== sl.name || +$("#sl-price").value !== sl.price || $("#sl-until").value !== tzInput(sl.until)) {
+          toast("Aksiyada saqlanmagan o'zgarish bor — avval «Saqlash» ni bosing", true); return;
+        }
+        btn.disabled = true;
+        try { S.prefill = await api("/api/admin/pricing/sale/announce"); go("broadcast"); }
+        catch (err) { toast(err.message, true); btn.disabled = false; }
+      };
       $("#pr-save").onclick = async (e) => {
         const btn = e.currentTarget; btn.disabled = true;
         try {
           read();
           if (d.ab.on && !(d.ab0 || {}).on && !confirm(`A/B yoqilsinmi? Chegirma oladiganlarning yarmi ${fmt(d.ab.price)} so'm, qolgani ${fmt(d.promo.price)} so'm taklif oladi.`)) { btn.disabled = false; return; }
-          const r = await api("/api/admin/pricing", { prices: d.prices, packs: d.packs, promo: d.promo, ab: d.ab });
-          d = { ...d, ...r, ab0: r.ab }; toast("Saqlandi — yangi narxlar ishlayapti"); draw();
+          const sl = d.sale;
+          if (sl.on && !d.sale_active && !confirm(`Aksiya yoqilsinmi?\n\n«${sl.name}»: bitta qo'shiq ${fmt(sl.price)} so'm (oddiy narx ${fmt(d.prices.song)} so'm), ${dt(sl.until)} gacha (Toshkent vaqti). `
+            + "Har bir kishiga bir marta. Ilovada darhol ko'rinadi, avtomatik chegirma xabarlari aksiya tugaguncha to'xtaydi.")) { btn.disabled = false; return; }
+          if (!sl.on && d.sale_active && !confirm("Aksiya to'xtatilsinmi? Ilovada narx darhol oddiy narxga qaytadi.")) { btn.disabled = false; return; }
+          const r = await api("/api/admin/pricing", { prices: d.prices, packs: d.packs, promo: d.promo, ab: d.ab, sale: d.sale });
+          d = { ...d, ...r, ab0: r.ab, saleIn: "" }; formSale(); toast("Saqlandi — yangi narxlar ishlayapti"); draw();
         }
         catch (err) { toast(err.message, true); btn.disabled = false; }
       };
@@ -1605,6 +1693,9 @@
         x.label = $("[data-k=label]", tr).value.trim(); x.on = $("[data-k=on]", tr).checked;
       });
       d.ab = { on: $("#ab-on").checked, price: +$("#ab-price").value || 0 };
+      d.saleIn = $("#sl-until").value;
+      d.sale = { ...d.sale, on: $("#sl-on").checked, name: $("#sl-name").value.trim(), price: +$("#sl-price").value || 0,
+        until: d.saleIn ? `${d.saleIn}:00+05:00` : null };
       d.promo = { on: $("#pm-on").checked, price: +$("#pm-price").value || 0, hours: +$("#pm-hours").value || 0, delay: +$("#pm-delay").value || 0,
         reminders: $("#pm-rem").value.split(/[,;\s]+/).map((x) => parseFloat(x.replace(",", "."))).filter((x) => x > 0).map((x) => Math.round(x * 60)) };
     };

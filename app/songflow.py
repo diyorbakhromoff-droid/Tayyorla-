@@ -305,6 +305,8 @@ async def client_event(uid: int, kind: str, ref: str, num: int | None, meta: dic
             if k not in _BUY_KIND or (k != "pack" and song is None):
                 return False
             out = {"kind": k, "disc": bool(meta.get("disc"))}
+            if meta.get("sale") is True:  # aksiya narxi ko'rsatilgan edi
+                out["sale"] = True
             if k == "pack" and isinstance(meta.get("n"), int) and not isinstance(meta.get("n"), bool) and 2 <= meta["n"] <= 50:
                 out["n"] = meta["n"]
             if meta.get("at") in _BUY_AT:

@@ -798,6 +798,18 @@ input[type="range"] { min-height: 0; padding: 0; border: 0; background: none; ac
 .sp-price s { color: var(--muted); font-size: 16px; }
 .sp-price b { font: 800 30px/1 var(--f-display); color: var(--atlas-d); }
 .sp-deal p { font-size: 13.5px; color: var(--ink2); margin: 0; }
+/* aksiya («Barakali juma»): narx kartasi va bo'lim tepasidagi ingichka banner */
+.sp-deal.sale { background: linear-gradient(135deg, var(--atlas-soft), var(--saffron-soft)); border-color: color-mix(in srgb, var(--atlas) 45%, transparent); }
+.sale-bar { display: flex; align-items: center; gap: 10px; width: 100%; padding: 9px 12px; border-radius: 14px; text-align: left; font: inherit; color: var(--ink);
+  background: linear-gradient(135deg, var(--atlas-soft), var(--saffron-soft)); border: 1px solid color-mix(in srgb, var(--atlas) 35%, transparent); }
+button.sale-bar { cursor: pointer; }
+button.sale-bar:active { transform: scale(.99); }
+.sale-bar .em { font-size: 20px; line-height: 1; flex: none; }
+.sale-bar .tx { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px; }
+.sale-bar .tx b { font-size: 14px; }
+.sale-bar .tx small { font-size: 12.5px; color: var(--ink2); }
+.sale-bar .tx s { color: var(--muted); }
+.sale-bar .badge { flex: none; }
 .sp-packs { display: grid; gap: 10px; margin-top: 14px; }
 .sp-packs .r1 b { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 .sp-each { display: block; font-size: 13px; color: var(--muted); margin-top: 4px; }
